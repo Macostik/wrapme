@@ -256,7 +256,7 @@
 
 + (void)showDownloadingMediaMessageForCandy:(Candy *)candy {
     if (candy.valid) {
-        [self showWithMessage:[NSString stringWithFormat:(candy.isVideo ? @"downloading_video" : @"downloading_photo").ls, WLAlbumName]];
+        [self showWithMessage:[NSString stringWithFormat:(candy.isVideo ? @"downloading_video" : @"downloading_photo").ls, [Constants albumName]]];
     } else {
         [self showWithMessage:@"downloading_media".ls];
     }

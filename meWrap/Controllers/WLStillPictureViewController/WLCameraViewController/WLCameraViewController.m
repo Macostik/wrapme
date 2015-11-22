@@ -599,7 +599,7 @@
 - (AVCaptureMovieFileOutput *)movieFileOutput {
     if (!_movieFileOutput) {
         _movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
-        CMTime maxDuration = CMTimeMakeWithSeconds(maxVideoRecordedDuration, NSEC_PER_SEC);
+        CMTime maxDuration = CMTimeMakeWithSeconds([Constants maxVideoRecordedDuration], NSEC_PER_SEC);
         _movieFileOutput.maxRecordedDuration = maxDuration;
         [_movieFileOutput setMovieFragmentInterval:kCMTimeInvalid];
     }
@@ -848,7 +848,7 @@ static NSTimeInterval videoRecordingTimerInterval = 0.03333333;
         videoRecordingTimeLeft = MAX(0, videoRecordingTimeLeft - videoRecordingTimerInterval);
         self.videoRecordingTimeLeft = videoRecordingTimeLeft;
         self.videoRecordingTimeLabel.text =  [[@(ceilf(videoRecordingTimeLeft)) stringValue] stringByAppendingString:@"\""];
-        self.videoRecordingProgressBar.progress = 1.0f - videoRecordingTimeLeft/maxVideoRecordedDuration;
+        self.videoRecordingProgressBar.progress = 1.0f - videoRecordingTimeLeft/[Constants maxVideoRecordedDuration];
     } else {
         [self.videoRecordingTimer invalidate];
     }
@@ -864,8 +864,8 @@ static NSTimeInterval videoRecordingTimerInterval = 0.03333333;
     animation.removedOnCompletion = NO;
     [self.videoRecordingIndicator.layer addAnimation:animation forKey:@"videoRecording"];
     self.cancelVideoRecordingLabel.hidden = NO;
-    self.videoRecordingTimeLeft = maxVideoRecordedDuration;
-    self.videoRecordingTimeLabel.text = [@(maxVideoRecordedDuration) stringValue];
+    self.videoRecordingTimeLeft = [Constants maxVideoRecordedDuration];
+    self.videoRecordingTimeLabel.text = [@([Constants maxVideoRecordedDuration]) stringValue];
     self.videoRecordingProgressBar.progress = 0;
     self.videoRecordingView.hidden = NO;
     if (self.videoRecordingTimer) {

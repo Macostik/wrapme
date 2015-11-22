@@ -162,8 +162,8 @@
 
 - (IBAction)textFieldDidChange:(UITextField *)textField {
     NSString *text = textField.text;
-    if (text.length > WLProfileNameLimit) {
-        text = textField.text = [text substringToIndex:WLProfileNameLimit];
+    if (text.length > [Constants profileNameLimit]) {
+        text = textField.text = [text substringToIndex:[Constants profileNameLimit]];
     }
 }
 

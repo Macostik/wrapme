@@ -16,7 +16,6 @@
 #import "NSError+WLAPIManager.h"
 #import "WLPaginatedRequest+Defined.h"
 #import "WLOperationQueue.h"
-#import "WLConstants.h"
 #import "UIColor+CustomColors.h"
 #import "WLBaseViewController.h"
 #import "WLImageView.h"

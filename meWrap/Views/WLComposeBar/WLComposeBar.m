@@ -167,7 +167,7 @@
 	if ([self.delegate respondsToSelector:@selector(composeBarCharactersLimit:)] && self.height > 44) {
 		charactersLimit = [self.delegate composeBarCharactersLimit:self];
 	} else {
-		charactersLimit = WLComposeBarDefaultCharactersLimit;
+		charactersLimit = [Constants composeBarDefaultCharactersLimit];
 	}
 	NSString* resultString = [textView.text stringByReplacingCharactersInRange:range withString:text];
 	return resultString.length <= charactersLimit;

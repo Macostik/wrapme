@@ -444,7 +444,7 @@
             if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
                 [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
                     return [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:[NSURL fileURLWithPath:url]];
-                } collectionTitle:WLAlbumName success:success failure:failure];
+                } collectionTitle:[Constants albumName] success:success failure:failure];
             } else {
                 NSURLSessionDownloadTask *task = [[NSURLSession sharedSession] downloadTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                     if (error) {
@@ -454,7 +454,7 @@
                         [[NSFileManager defaultManager] moveItemAtURL:location toURL:url error:nil];
                         [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
                             return [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:url];
-                        } collectionTitle:WLAlbumName success:success failure:failure];
+                        } collectionTitle:[Constants albumName] success:success failure:failure];
                     }
                 }];
                 [task resume];
@@ -463,7 +463,7 @@
             [[WLBlockImageFetching fetchingWithUrl:weakSelf.picture.original] enqueue:^(UIImage *image) {
                 [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
                     return [PHAssetChangeRequest creationRequestForAssetFromImage:image];
-                } collectionTitle:WLAlbumName success:success failure:failure];
+                } collectionTitle:[Constants albumName] success:success failure:failure];
             } failure:failure];
         }
     }

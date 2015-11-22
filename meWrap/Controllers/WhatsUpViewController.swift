@@ -90,7 +90,7 @@ class WhatsUpViewController: WLBaseViewController {
         commentMetrics.sizeAt = { [unowned self] (position: StreamPosition, metrics: StreamMetrics) -> CGFloat in
             let event = self.events?[position.index]
             let font = UIFont.fontNormal()
-            let textHeight = ((event?.contribution as! Comment).text! as NSString).heightWithFont(font!, width: WLConstants.screenWidth - WhatsUpCommentHorizontalSpacing)
+            let textHeight = ((event?.contribution as! Comment).text! as NSString).heightWithFont(font!, width: Constants.screenWidth - WhatsUpCommentHorizontalSpacing)
             return textHeight + candyMetrics.sizeAt(position, metrics)
         }
         

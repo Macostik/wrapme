@@ -51,7 +51,7 @@
     
     self.dataSource = [[MediaDataSource alloc] initWithStreamView:streamView];
     self.dataSource.numberOfGridColumns = 3;
-    self.dataSource.layoutSpacing = WLConstants.pixelSize;
+    self.dataSource.layoutSpacing = Constants.pixelSize;
     
     if (self.wrap.requiresFollowing && [WLNetwork sharedNetwork].reachable) {
         self.wrap.candies = nil;

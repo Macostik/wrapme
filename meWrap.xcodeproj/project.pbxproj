@@ -1032,7 +1032,6 @@
 		C5D051C01A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookPhoneNumberCell.m; sourceTree = "<group>"; };
 		C5D051C51A9F829B00855A01 /* WLArrangedAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLArrangedAddressBook.h; path = WLAddressBook/WLArrangedAddressBook.h; sourceTree = "<group>"; };
 		C5D051C61A9F829B00855A01 /* WLArrangedAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLArrangedAddressBook.m; path = WLAddressBook/WLArrangedAddressBook.m; sourceTree = "<group>"; };
-		C5D5D0541BA00939003C9204 /* WLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLConstants.h; sourceTree = "<group>"; };
 		C5D7FE7B1B501CD000746908 /* WLNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotification.h; sourceTree = "<group>"; };
 		C5D7FE7C1B501CD000746908 /* WLNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotification.m; sourceTree = "<group>"; };
 		C5D7FE8F1B501CDE00746908 /* WLSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSoundPlayer.h; sourceTree = "<group>"; };
@@ -1270,7 +1269,6 @@
 		12A7A70818DA0945008FF6F0 /* meWrap */ = {
 			isa = PBXGroup;
 			children = (
-				C5D5D0531BA00939003C9204 /* Support Headers */,
 				12A7A71118DA0946008FF6F0 /* WLAppDelegate.h */,
 				12A7A71218DA0946008FF6F0 /* WLAppDelegate.m */,
 				C5B91A341BB3F812000E08E7 /* Main.storyboard */,
@@ -2684,14 +2682,6 @@
 				C5A6150F1B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib */,
 			);
 			path = WLAddressBookPhoneNumberCell;
-			sourceTree = "<group>";
-		};
-		C5D5D0531BA00939003C9204 /* Support Headers */ = {
-			isa = PBXGroup;
-			children = (
-				C5D5D0541BA00939003C9204 /* WLConstants.h */,
-			);
-			path = "Support Headers";
 			sourceTree = "<group>";
 		};
 		C5D7FE781B501CD000746908 /* WLNotification */ = {

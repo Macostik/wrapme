@@ -39,7 +39,7 @@
         return MAX(0, (responderCenterY - centerYOfVisibleSpace) * constraint.multiplier);
         
     }
-    return WLConstants.iPhone ? keyboardHeight / 2 : 0;
+    return [Constants isPhone] ? keyboardHeight / 2 : 0;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

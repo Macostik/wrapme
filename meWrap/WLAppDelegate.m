@@ -131,7 +131,7 @@
 
 - (void)initializeVersionTool {
     iVersion *version = [iVersion sharedInstance];
-    version.appStoreID = WLConstants.appStoreID;
+    version.appStoreID = Constants.appStoreID;
     version.updateAvailableTitle = @"new_version_is_available".ls;
     version.downloadButtonLabel = @"update".ls;
     version.remindButtonLabel = @"not_now".ls;
@@ -294,7 +294,7 @@
     
     WLNotificationType type = notification.type;
     if (type == WLNotificationUpdateAvailable) {
-        [[UIApplication sharedApplication] openURL:[[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@",@(WLConstants.appStoreID)] URL]];
+        [[UIApplication sharedApplication] openURL:[[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@",@(Constants.appStoreID)] URL]];
     } else {
         Entry *entry = notification.entry;
         if (entry) {

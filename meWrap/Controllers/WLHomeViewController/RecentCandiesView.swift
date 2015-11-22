@@ -21,7 +21,7 @@ class RecentCandiesView: StreamReusableView {
         dataSource.sizeForGridColumns = 0.333
         streamView.layout = SquareGridLayout(horizontal: false)
         dataSource.addMetrics(StreamMetrics(identifier:"WLCandyCell")).disableMenu = true
-        dataSource.layoutSpacing = WLConstants.pixelSize
+        dataSource.layoutSpacing = Constants.pixelSize
     }
     
     override func setup(entry: AnyObject!) {
@@ -29,7 +29,7 @@ class RecentCandiesView: StreamReusableView {
             return
         }
         layoutIfNeeded()
-        dataSource.numberOfItems = NSNumber(integer: (recentCandies.count > WLHomeTopWrapCandiesLimit_2) ? WLHomeTopWrapCandiesLimit : WLHomeTopWrapCandiesLimit_2)
+        dataSource.numberOfItems = NSNumber(integer: (recentCandies.count > Constants.recentCandiesLimit_2) ? Constants.recentCandiesLimit : Constants.recentCandiesLimit_2)
         dataSource.items = recentCandies
     }
 

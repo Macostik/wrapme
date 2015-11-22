@@ -65,7 +65,7 @@ class UserView: EntryView {
     override func awakeFromNib() {
         super.awakeFromNib()
         if let avatarView = avatarView {
-            avatarView.borderWidth = WLConstants.pixelSize * 2.0
+            avatarView.borderWidth = Constants.pixelSize * 2.0
             avatarView.borderColor = UIColor.whiteColor()
             avatarView.circled = true
         }

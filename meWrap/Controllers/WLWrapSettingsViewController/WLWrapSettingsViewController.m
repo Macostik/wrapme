@@ -131,8 +131,8 @@
 // MARK: - UITextFieldHandler
 
 - (IBAction)textFieldEditChange:(UITextField *)sender {
-    if (sender.text.length > WLWrapNameLimit) {
-        sender.text = [sender.text substringToIndex:WLWrapNameLimit];
+    if (sender.text.length > [Constants wrapNameLimit]) {
+        sender.text = [sender.text substringToIndex:[Constants wrapNameLimit]];
     }
     [self.editSession changeValue:[sender.text trim] forProperty:@"name"];
     self.editButton.selected = self.editSession.hasChanges;

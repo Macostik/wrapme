@@ -104,7 +104,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 	NSString* resultString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-	return resultString.length <= WLProfileNameLimit;
+	return resultString.length <= [Constants profileNameLimit];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {

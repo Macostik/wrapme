@@ -145,8 +145,8 @@ CGFloat WLMinTextViewWidth;
     self.myMessageMetrics.finalizeAppearing = finalizeMessageAppearing;
     self.messageMetrics.finalizeAppearing = finalizeMessageAppearing;
     
-    WLMinTextViewWidth = WLConstants.screenWidth - WLLeadingBubbleIndentWithAvatar - 2*WLMessageHorizontalInset - WLBubbleIndent;
-    WLMaxTextViewWidth = WLConstants.screenWidth - 2*WLBubbleIndent - 2*WLMessageHorizontalInset;
+    WLMinTextViewWidth = Constants.screenWidth - WLLeadingBubbleIndentWithAvatar - 2*WLMessageHorizontalInset - WLBubbleIndent;
+    WLMaxTextViewWidth = Constants.screenWidth - 2*WLBubbleIndent - 2*WLMessageHorizontalInset;
     
     self.messageWithNameMetrics.sizeAt = self.messageMetrics.sizeAt = self.myMessageMetrics.sizeAt = ^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
         Message *message = [weakSelf.chat.entries tryAt:position.index];

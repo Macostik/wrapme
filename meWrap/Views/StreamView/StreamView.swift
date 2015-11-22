@@ -277,46 +277,47 @@ class StreamView: UIScrollView {
     }
     
     func updateVisibility() {
-        updateVisibility(withRect: CGRect(origin: contentOffset, size: frame.size))
+        updateVisibility(withRect: layer.bounds)
     }
     
     func updateVisibility(withRect rect: CGRect) {
-        if let startItem = latestVisibleItem ?? rootItem {
-            
-            var item: StreamItem? = startItem
-            while let next = item {
-                updateItemVisibility(next, rect: rect)
-                item = next.next
-            }
-            
-            item = startItem.previous
-            while let previous = item {
-                updateItemVisibility(previous, rect: rect)
-                item = previous.previous
-            }
+        guard let startItem = latestVisibleItem ?? rootItem else {
+            return
+        }
+        var item: StreamItem? = startItem
+        while let next = item {
+            updateItemVisibility(next, visible: next.frame.intersects(rect))
+            item = next.next
+        }
+        
+        item = startItem.previous
+        while let previous = item {
+            updateItemVisibility(previous, visible: previous.frame.intersects(rect))
+            item = previous.previous
         }
     }
     
-    func updateItemVisibility(item: StreamItem, rect: CGRect) {
-        let visible = CGRectIntersectsRect(item.frame, rect)
-        if item.visible != visible {
-            item.visible = visible
-            if let metrics = item.metrics {
-                if (visible) {
-                    if let view = metrics.dequeueViewWithItem(item) {
-                        if view.superview != self {
-                            insertSubview(view, atIndex: 0)
-                        }
-                        view.hidden = false
-                    }
-                    latestVisibleItem = item
-                } else {
-                    if let view = item.view {
-                        metrics.enqueueView(view)
-                        view.hidden = true
-                        item.view = nil
-                    }
+    func updateItemVisibility(item: StreamItem, visible: Bool) {
+        guard item.visible != visible else {
+            return
+        }
+        item.visible = visible
+        guard let metrics = item.metrics else {
+            return
+        }
+        if (visible) {
+            if let view = metrics.dequeueViewWithItem(item) {
+                if view.superview != self {
+                    insertSubview(view, atIndex: 0)
                 }
+                view.hidden = false
+            }
+            latestVisibleItem = item
+        } else {
+            if let view = item.view {
+                metrics.enqueueView(view)
+                view.hidden = true
+                item.view = nil
             }
         }
     }

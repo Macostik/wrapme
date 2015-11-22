@@ -117,7 +117,9 @@ class StreamMetrics: NSObject {
     func dequeueViewWithItem(item: StreamItem) -> StreamReusableView? {
         if let view = dequeueView() {
             view.item = item
-            view.frame = item.frame
+            UIView.performWithoutAnimation({ () -> Void in
+                view.frame = item.frame
+            })
             item.view = view
             let entry: AnyObject? = item.entry
             prepareAppearing?(item, entry)

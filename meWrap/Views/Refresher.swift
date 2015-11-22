@@ -108,11 +108,10 @@ class Refresher: UIControl {
                 }
             } else {
                 _refreshing = false
-                let delayTime = dispatch_time(DISPATCH_TIME_NOW, 0)
-                dispatch_after(delayTime, dispatch_get_main_queue()) {
-                    self.setInset(0, animated: animated)
-                    self.spinner.stopAnimating()
-                }
+                scrollView?.contentInset.top = 0 + inset
+                scrollView?.contentOffset = CGPointMake(0, -(Refresher.ContentSize + inset))
+                scrollView?.setContentOffset(CGPointMake(0, -inset), animated: animated)
+                spinner.stopAnimating()
             }
         }
     }

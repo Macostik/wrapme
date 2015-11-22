@@ -7,7 +7,6 @@
 //
 
 #import "WLMessageCell.h"
-#import "UIImage+Drawing.h"
 #import "WLImageView.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 

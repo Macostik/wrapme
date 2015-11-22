@@ -8,7 +8,6 @@
 
 #import "WLDrawingCanvas.h"
 #import "WLDrawingSession.h"
-#import "UIImage+Drawing.h"
 
 @interface WLDrawingCanvas ()
 

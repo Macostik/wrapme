@@ -48,11 +48,11 @@ class MutableAsset: Asset {
         let cache = WLImageCache.uploadingCache()
         let isPad = UI_USER_INTERFACE_IDIOM() == .Pad
         let isCandy = mode == .Default
-        let smallSize = isPad ? (isCandy ? 480 : 160) : (isCandy ? 240 : 160)
+        let smallSize: CGFloat = isPad ? (isCandy ? 480 : 160) : (isCandy ? 240 : 160)
         let largePath = cache.pathWithIdentifier(cache.setImage(image))
         original = largePath
         large = largePath
-        let thumbnail = image.thumbnailImage(smallSize)
+        let thumbnail = image.thumbnail(smallSize)
         small = cache.pathWithIdentifier(cache.setImage(thumbnail))
     }
     
@@ -77,7 +77,7 @@ class MutableAsset: Asset {
             let quartzImage = try imageGenerator.copyCGImageAtTime(time, actualTime: nil)
             let image = UIImage(CGImage: quartzImage)
             large = cache.pathWithIdentifier(cache.setImage(image))
-            let thumbnail = image.thumbnailImage(240)
+            let thumbnail = image.thumbnail(240)
             small = cache.pathWithIdentifier(cache.setImage(thumbnail))
         } catch {
         }

@@ -8,7 +8,6 @@
 #import <OpenUDID/OpenUDID.h>
 #import "WLImageCache.h"
 #import "WLBroadcaster.h"
-#import "UIImage+Resize.h"
 #import "WLEntryKeys.h"
 #import "WLLabel.h"
 #import "SegmentedControl.h"

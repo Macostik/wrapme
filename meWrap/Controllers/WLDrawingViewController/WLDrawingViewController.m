@@ -11,7 +11,6 @@
 #import "WLDrawingCanvas.h"
 #import "WLDrawingSession.h"
 #import "WLColorPicker.h"
-#import "UIImage+Drawing.h"
 
 @interface WLDrawingViewController () <WLDrawingSessionDelegate, WLColorPickerDelegate, WLDrawingViewControllerDelegate>
 

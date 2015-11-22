@@ -12,7 +12,6 @@
 #import "WLHomeViewController.h"
 #import "WLHintView.h"
 #import "WLCameraViewController.h"
-#import "UIImage+Resize.h"
 
 @import Photos;
 
@@ -142,9 +141,9 @@
     run_getting_object(^id{
         CGFloat resultWidth = [weakSelf imageWidthForCurrentMode];
         if (image.size.width > image.size.height) {
-            return [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(1, resultWidth)];
+            return [image resize:CGSizeMake(1, resultWidth) aspectFill:YES];
         } else {
-            return [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(resultWidth, 1)];
+            return [image resize:CGSizeMake(resultWidth, 1) aspectFill:YES];
         }
     }, completion);
 }

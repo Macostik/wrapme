@@ -35,8 +35,6 @@
 		C5053E5A1BC7DB3D0040613A /* WLCryptographer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5053E591BC7DB3D0040613A /* WLCryptographer.m */; };
 		C5053E601BC7DC150040613A /* WLOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5053E5D1BC7DC150040613A /* WLOperation.m */; };
 		C5053E611BC7DC150040613A /* WLOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C5053E5F1BC7DC150040613A /* WLOperationQueue.m */; };
-		C5053E701BC7DF890040613A /* UIImage+Drawing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5053E6C1BC7DF890040613A /* UIImage+Drawing.m */; };
-		C5053E711BC7DF890040613A /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = C5053E6E1BC7DF890040613A /* UIImage+Resize.m */; };
 		C5053E801BC7E3DC0040613A /* WLEntryDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = C5053E7F1BC7E3DC0040613A /* WLEntryDescriptor.m */; };
 		C5053E821BC7F7280040613A /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5053E811BC7F7280040613A /* ReportViewController.swift */; };
 		C50541581BD6545400AE6F2C /* WLImageEditorSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C50541571BD6545400AE6F2C /* WLImageEditorSession.m */; };
@@ -441,6 +439,8 @@
 		C5ECD55B1BF649B9005791B1 /* UIStoryboard+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ECD55A1BF649B9005791B1 /* UIStoryboard+Ext.swift */; };
 		C5ECD55C1BF64A41005791B1 /* WhatsUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557BA801BF5D47900AE9974 /* WhatsUpViewController.swift */; };
 		C5EE2CE21B5658F90016889E /* WLMessagesCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */; };
+		C5EE45A41C01C4A2008DE8D6 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EE45A31C01C4A2008DE8D6 /* UIImage+Ext.swift */; };
+		C5EE45A61C01D350008DE8D6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EE45A51C01D350008DE8D6 /* Constants.swift */; };
 		C5F076661BE26F0E00021FAE /* EntryContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F076651BE26F0E00021FAE /* EntryContext.swift */; };
 		C5F076671BE2835400021FAE /* EntryContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F076651BE26F0E00021FAE /* EntryContext.swift */; };
 		C5F076681BE2835500021FAE /* EntryContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F076651BE26F0E00021FAE /* EntryContext.swift */; };
@@ -619,10 +619,6 @@
 		C5053E5D1BC7DC150040613A /* WLOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLOperation.m; sourceTree = "<group>"; };
 		C5053E5E1BC7DC150040613A /* WLOperationQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLOperationQueue.h; sourceTree = "<group>"; };
 		C5053E5F1BC7DC150040613A /* WLOperationQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLOperationQueue.m; sourceTree = "<group>"; };
-		C5053E6B1BC7DF890040613A /* UIImage+Drawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Drawing.h"; sourceTree = "<group>"; };
-		C5053E6C1BC7DF890040613A /* UIImage+Drawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Drawing.m"; sourceTree = "<group>"; };
-		C5053E6D1BC7DF890040613A /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
-		C5053E6E1BC7DF890040613A /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		C5053E7E1BC7E3DC0040613A /* WLEntryDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryDescriptor.h; sourceTree = "<group>"; };
 		C5053E7F1BC7E3DC0040613A /* WLEntryDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEntryDescriptor.m; sourceTree = "<group>"; };
 		C5053E811BC7F7280040613A /* ReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Report\U0010ViewController.swift"; sourceTree = "<group>"; };
@@ -1110,6 +1106,8 @@
 		C5ECD55A1BF649B9005791B1 /* UIStoryboard+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Ext.swift"; sourceTree = "<group>"; };
 		C5EE2CDC1B5658F90016889E /* WLMessagesCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMessagesCounter.h; sourceTree = "<group>"; };
 		C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMessagesCounter.m; sourceTree = "<group>"; };
+		C5EE45A31C01C4A2008DE8D6 /* UIImage+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
+		C5EE45A51C01D350008DE8D6 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C5F076651BE26F0E00021FAE /* EntryContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryContext.swift; sourceTree = "<group>"; };
 		C5F0766B1BE2A97900021FAE /* EntryDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDescriptor.swift; sourceTree = "<group>"; };
 		C5F4A1651BF36DD300EFC8FA /* StreamDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamDataSource.swift; sourceTree = "<group>"; };
@@ -1280,6 +1278,7 @@
 				C5B91A3C1BB40D88000E08E7 /* Camera.storyboard */,
 				C5B91A401BB4101A000E08E7 /* Introduction.storyboard */,
 				C5BEC4171B8F1E9800499EEA /* LaunchScreen.xib */,
+				C5EE45A51C01D350008DE8D6 /* Constants.swift */,
 				5BA60BF71A8257ED000F795C /* Categories */,
 				12A7A73718DA09A9008FF6F0 /* Controllers */,
 				12A7A73818DA09A9008FF6F0 /* Models */,
@@ -1654,7 +1653,7 @@
 				C5861A681BFA307200C64663 /* Entry+EntryPresenter.h */,
 				C5861A691BFA307200C64663 /* Entry+EntryPresenter.m */,
 				C5B51FE11BFB504D005A1CF6 /* UIAlertController+Ext.swift */,
-				C5053E681BC7DF890040613A /* UIImage */,
+				C5EE45A31C01C4A2008DE8D6 /* UIImage+Ext.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1760,17 +1759,6 @@
 				C5053E5F1BC7DC150040613A /* WLOperationQueue.m */,
 			);
 			path = WLOperation;
-			sourceTree = "<group>";
-		};
-		C5053E681BC7DF890040613A /* UIImage */ = {
-			isa = PBXGroup;
-			children = (
-				C5053E6B1BC7DF890040613A /* UIImage+Drawing.h */,
-				C5053E6C1BC7DF890040613A /* UIImage+Drawing.m */,
-				C5053E6D1BC7DF890040613A /* UIImage+Resize.h */,
-				C5053E6E1BC7DF890040613A /* UIImage+Resize.m */,
-			);
-			path = UIImage;
 			sourceTree = "<group>";
 		};
 		C5053E7D1BC7E3DC0040613A /* WLEntryDescriptor */ = {
@@ -3467,6 +3455,7 @@
 				C52279621BECCA8600B1C49C /* NSDate+Ext.swift in Sources */,
 				C54C423E1BDE6260003E644D /* Archive.swift in Sources */,
 				C5C20B921A238AE7008B2E2E /* WLValidation.m in Sources */,
+				C5EE45A41C01C4A2008DE8D6 /* UIImage+Ext.swift in Sources */,
 				5BA7AC241A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD71A41951300A2C370 /* WLLabel.m in Sources */,
 				C5BEE0EF1B2AC8C300D3CF70 /* WLNotificationSubscription.m in Sources */,
@@ -3521,6 +3510,7 @@
 				C540C0F01B988BF700F880C9 /* GridLayout.swift in Sources */,
 				5B3B1F111BDA2A6B00FF7816 /* EntryStatusIndicator.swift in Sources */,
 				C559974C1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */,
+				C5EE45A61C01D350008DE8D6 /* Constants.swift in Sources */,
 				C53012931BF4E3EA00098F9C /* EmojiCell.swift in Sources */,
 				C5C769921BAC10BF00B205CB /* WLAPIResponse.m in Sources */,
 				C521E18C1BC7AE1B00505432 /* VideoPlayerView.swift in Sources */,
@@ -3562,13 +3552,11 @@
 				C523D8CA1BD76BC0006FE7AB /* LayoutPrioritizer.swift in Sources */,
 				C5E4FD0B1BF7AC4300575DA4 /* LoadingView.swift in Sources */,
 				C545312D1A24A1F20048A677 /* WLCountriesViewController.m in Sources */,
-				C5053E711BC7DF890040613A /* UIImage+Resize.m in Sources */,
 				C53012871BF4C0AD00098F9C /* HomeDataSource.swift in Sources */,
 				C5BCF04D1B551C3E00E4AD6D /* WLCandyCell.m in Sources */,
 				C52279661BECCE8A00B1C49C /* NSDate+Formatting.swift in Sources */,
 				C5E6E99C1BBAC3EC007FFA66 /* UIColor+CustomColors.m in Sources */,
 				C552A8321BFDD37B00A7FFAD /* FlowerMenu.swift in Sources */,
-				C5053E701BC7DF890040613A /* UIImage+Drawing.m in Sources */,
 				C552A8361BFDE9FE00A7FFAD /* HistoryDateSeparator.swift in Sources */,
 				C5AEE4361B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */,
 				C54AF6E719B8C491006F7EDB /* SegmentedControl.m in Sources */,

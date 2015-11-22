@@ -9,7 +9,6 @@
 #import "WLCameraViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
-#import "UIImage+Resize.h"
 #import "WLFlashModeControl.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLDeviceManager.h"

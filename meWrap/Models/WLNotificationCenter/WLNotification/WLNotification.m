@@ -460,7 +460,7 @@
 - (void)finalizeDeleteNotification:(WLNotification *)notification {
     Wrap *wrap = self.wrap;
     [super finalizeDeleteNotification:notification];
-    if (wrap.valid && !wrap.candies.nonempty) {
+    if (wrap.valid && wrap.candies.count < 6) {
         [wrap fetch:nil success:nil failure:nil];
     }
 }

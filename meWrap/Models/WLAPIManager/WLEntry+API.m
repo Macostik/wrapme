@@ -15,7 +15,6 @@
 #import "WLOperationQueue.h"
 #import "WLHistory.h"
 #import <AWSS3/AWSS3.h>
-#import "WLEntryDescriptor.h"
 
 @implementation Entry (WLAPIManager)
 
@@ -40,13 +39,11 @@
 }
 
 + (void)API_prefetchDescriptors:(NSMutableDictionary*)descriptors inDictionary:(NSDictionary*)dictionary {
-    NSString *identifier = [self uid:dictionary];
-    if (identifier && [descriptors objectForKey:identifier] == nil) {
-        WLEntryDescriptor *descriptor = [[WLEntryDescriptor alloc] init];
-        descriptor.entityName = [self entityName];
-        descriptor.identifier = identifier;
-        descriptor.uploadIdentifier = [self locuid:dictionary];
-        [descriptors setObject:descriptor forKey:identifier];
+    NSString *uid = [self uid:dictionary];
+    if (uid && [descriptors objectForKey:uid] == nil) {
+        EntryDescriptor *descriptor = [[EntryDescriptor alloc] initWithName:[self entityName] uid:uid];
+        descriptor.locuid = [self locuid:dictionary];
+        [descriptors setObject:descriptor forKey:uid];
     }
 }
 

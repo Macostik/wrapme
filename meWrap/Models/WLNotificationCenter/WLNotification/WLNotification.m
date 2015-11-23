@@ -21,7 +21,7 @@
 
 - (NSString *)identifier {
     if (!_identifier.nonempty) {
-        _identifier = [NSString stringWithFormat:@"%lu_%@_%f", (unsigned long)self.type, self.descriptor.identifier, self.date.timestamp];
+        _identifier = [NSString stringWithFormat:@"%lu_%@_%f", (unsigned long)self.type, self.descriptor.uid, self.date.timestamp];
     }
     return _identifier;
 }
@@ -96,44 +96,44 @@
             break;
     }
     
-    WLEntryDescriptor *descriptor = [[WLEntryDescriptor alloc] init];
+    EntryDescriptor *descriptor = [[EntryDescriptor alloc] init];
     NSDictionary *entryData = nil;
     switch (type) {
         case WLNotificationContributorAdd:
         case WLNotificationContributorDelete:
         case WLNotificationWrapDelete:
         case WLNotificationWrapUpdate: {
-            descriptor.entityName = [Wrap entityName];
+            descriptor.name = [Wrap entityName];
             entryData = [data dictionaryForKey:WLWrapKey];
-            descriptor.identifier = [Wrap uid:entryData ? : data];
-            descriptor.uploadIdentifier = [Wrap locuid:entryData ? : data];
+            descriptor.uid = [Wrap uid:entryData ? : data];
+            descriptor.locuid = [Wrap locuid:entryData ? : data];
         } break;
         case WLNotificationCandyAdd:
         case WLNotificationCandyDelete:
         case WLNotificationCandyUpdate:{
-            descriptor.entityName = [Candy entityName];
+            descriptor.name = [Candy entityName];
             entryData = [data dictionaryForKey:WLCandyKey];
-            descriptor.identifier = [Candy uid:entryData ? : data];
-            descriptor.uploadIdentifier = [Candy locuid:entryData ? : data];
+            descriptor.uid = [Candy uid:entryData ? : data];
+            descriptor.locuid = [Candy locuid:entryData ? : data];
         } break;
         case WLNotificationMessageAdd: {
-            descriptor.entityName = [Message entityName];
+            descriptor.name = [Message entityName];
             entryData = [data dictionaryForKey:WLMessageKey];
-            descriptor.identifier = [Message uid:entryData ? : data];
-            descriptor.uploadIdentifier = [Message locuid:entryData ? : data];
+            descriptor.uid = [Message uid:entryData ? : data];
+            descriptor.locuid = [Message locuid:entryData ? : data];
         } break;
         case WLNotificationCommentAdd:
         case WLNotificationCommentDelete: {
-            descriptor.entityName = [Comment entityName];
+            descriptor.name = [Comment entityName];
             entryData = [data dictionaryForKey:WLCommentKey];
-            descriptor.identifier = [Comment uid:entryData ? : data];
-            descriptor.uploadIdentifier = [Comment locuid:entryData ? : data];
+            descriptor.uid = [Comment uid:entryData ? : data];
+            descriptor.locuid = [Comment locuid:entryData ? : data];
         } break;
         case WLNotificationUserUpdate: {
-            descriptor.entityName = [User entityName];
+            descriptor.name = [User entityName];
             entryData = [data dictionaryForKey:WLUserKey];
-            descriptor.identifier = [User uid:entryData ? : data];
-            descriptor.uploadIdentifier = [User locuid:entryData ? : data];
+            descriptor.uid = [User uid:entryData ? : data];
+            descriptor.locuid = [User locuid:entryData ? : data];
         } break;
         default:
             break;
@@ -155,7 +155,7 @@
             break;
     }
     
-    if (descriptor.identifier.nonempty) {
+    if (descriptor.uid.nonempty) {
         self.descriptor = descriptor;
     }
 }
@@ -176,10 +176,10 @@
         return;
     }
     
-    WLEntryDescriptor *descriptor = self.descriptor;
+    EntryDescriptor *descriptor = self.descriptor;
     NSDictionary *dictionary = descriptor.data;
     WLNotificationType type = self.type;
-    Entry *entry = [[EntryContext sharedContext] entry:descriptor.entityName uid:descriptor.identifier locuid:descriptor.uploadIdentifier];
+    Entry *entry = [[EntryContext sharedContext] entry:descriptor.name uid:descriptor.uid locuid:descriptor.locuid];
     if (dictionary) {
         if (type == WLNotificationUserUpdate) {
             [[Authorization currentAuthorization] updateWithUserData:dictionary];
@@ -202,7 +202,7 @@
             case WLNotificationMessageAdd:
             case WLNotificationCommentAdd:
             case WLNotificationCommentDelete: {
-                entry.container = [[EntryContext sharedContext] entry:[[entry class] containerEntityName] uid:descriptor.entityName];
+                entry.container = [[EntryContext sharedContext] entry:[[entry class] containerEntityName] uid:descriptor.name];
             } break;
             default:
                 break;
@@ -301,7 +301,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%i : %@", (int)self.type, self.descriptor.identifier];
+    return [NSString stringWithFormat:@"%i : %@", (int)self.type, self.descriptor.uid];
 }
 
 - (BOOL)presentable {

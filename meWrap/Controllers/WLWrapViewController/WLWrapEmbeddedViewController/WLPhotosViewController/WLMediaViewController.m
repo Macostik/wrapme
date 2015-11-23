@@ -63,6 +63,10 @@
     }];
     
     [self.dataSource.liveBroadcastMetrics setSelection:^(StreamItem *item, id entry) {
+        if (![WLNetwork sharedNetwork].reachable) {
+            [WLToast showWithMessage:@"no_internet_connection".ls];
+            return;
+        }
         LiveBroadcastViewController *liveBroadcastController = weakSelf.storyboard[@"liveBroadcast"];
         liveBroadcastController.wrap = weakSelf.wrap;
         liveBroadcastController.broadcast = entry;

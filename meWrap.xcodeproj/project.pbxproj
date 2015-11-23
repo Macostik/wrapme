@@ -35,7 +35,6 @@
 		C5053E5A1BC7DB3D0040613A /* WLCryptographer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5053E591BC7DB3D0040613A /* WLCryptographer.m */; };
 		C5053E601BC7DC150040613A /* WLOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5053E5D1BC7DC150040613A /* WLOperation.m */; };
 		C5053E611BC7DC150040613A /* WLOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C5053E5F1BC7DC150040613A /* WLOperationQueue.m */; };
-		C5053E801BC7E3DC0040613A /* WLEntryDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = C5053E7F1BC7E3DC0040613A /* WLEntryDescriptor.m */; };
 		C5053E821BC7F7280040613A /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5053E811BC7F7280040613A /* ReportViewController.swift */; };
 		C50541581BD6545400AE6F2C /* WLImageEditorSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C50541571BD6545400AE6F2C /* WLImageEditorSession.m */; };
 		C5060D181BEBA6B3007FFD5B /* Entry+APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5060D171BEBA6B3007FFD5B /* Entry+APIResponse.swift */; };
@@ -436,6 +435,7 @@
 		C5F076661BE26F0E00021FAE /* EntryContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F076651BE26F0E00021FAE /* EntryContext.swift */; };
 		C5F076671BE2835400021FAE /* EntryContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F076651BE26F0E00021FAE /* EntryContext.swift */; };
 		C5F076681BE2835500021FAE /* EntryContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F076651BE26F0E00021FAE /* EntryContext.swift */; };
+		C5F3AC3A1C0335230053EE70 /* EntryDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F0766B1BE2A97900021FAE /* EntryDescriptor.swift */; };
 		C5F4A1691BF3917600EFC8FA /* Entry+Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4A1681BF3917600EFC8FA /* Entry+Base.swift */; };
 		C5F5EAE91BDEA79F00DF1DA5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50647681ABD889100CB4BE3 /* CoreData.framework */; };
 		C5F7BA231BFCE44600F64D5A /* SystemImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA6D9F1BFCDEDA0029970A /* SystemImageCache.swift */; };
@@ -611,8 +611,6 @@
 		C5053E5D1BC7DC150040613A /* WLOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLOperation.m; sourceTree = "<group>"; };
 		C5053E5E1BC7DC150040613A /* WLOperationQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLOperationQueue.h; sourceTree = "<group>"; };
 		C5053E5F1BC7DC150040613A /* WLOperationQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLOperationQueue.m; sourceTree = "<group>"; };
-		C5053E7E1BC7E3DC0040613A /* WLEntryDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryDescriptor.h; sourceTree = "<group>"; };
-		C5053E7F1BC7E3DC0040613A /* WLEntryDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEntryDescriptor.m; sourceTree = "<group>"; };
 		C5053E811BC7F7280040613A /* ReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Report\U0010ViewController.swift"; sourceTree = "<group>"; };
 		C50541561BD6545400AE6F2C /* WLImageEditorSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLImageEditorSession.h; sourceTree = "<group>"; };
 		C50541571BD6545400AE6F2C /* WLImageEditorSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLImageEditorSession.m; sourceTree = "<group>"; };
@@ -1331,7 +1329,6 @@
 				C5E6F02D1BFF710900FA3D4F /* FontPresetter.swift */,
 				C55BE8C81C031D54006B04FC /* EventualEntryPresenter.swift */,
 				C50541551BD6545400AE6F2C /* WLImageEditorSession */,
-				C5053E7D1BC7E3DC0040613A /* WLEntryDescriptor */,
 				C5053E5B1BC7DC150040613A /* WLOperation */,
 				C5053E571BC7DB3D0040613A /* WLCryptographer */,
 				C55A45281BAC1C4A0055AEC2 /* WLNetwork */,
@@ -1740,15 +1737,6 @@
 				C5053E5F1BC7DC150040613A /* WLOperationQueue.m */,
 			);
 			path = WLOperation;
-			sourceTree = "<group>";
-		};
-		C5053E7D1BC7E3DC0040613A /* WLEntryDescriptor */ = {
-			isa = PBXGroup;
-			children = (
-				C5053E7E1BC7E3DC0040613A /* WLEntryDescriptor.h */,
-				C5053E7F1BC7E3DC0040613A /* WLEntryDescriptor.m */,
-			);
-			path = WLEntryDescriptor;
 			sourceTree = "<group>";
 		};
 		C50541551BD6545400AE6F2C /* WLImageEditorSession */ = {
@@ -3318,13 +3306,13 @@
 				C54731B81B906A7400B583FD /* WLEditPictureViewController.m in Sources */,
 				C5568BE01A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */,
 				C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */,
-				C5053E801BC7E3DC0040613A /* WLEntryDescriptor.m in Sources */,
 				C530127F1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift in Sources */,
 				C55E10A01B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
 				C53012941BF4E4BF00098F9C /* Refresher.swift in Sources */,
 				C5AA71BE1BE3AF1500EA106A /* Entry+CoreDataProperties.swift in Sources */,
 				C55A452C1BAC1C4A0055AEC2 /* WLNetwork.m in Sources */,
 				C5E6EAA41BBAC3EC007FFA66 /* WLImageView.m in Sources */,
+				C5F3AC3A1C0335230053EE70 /* EntryDescriptor.swift in Sources */,
 				C5053E611BC7DC150040613A /* WLOperationQueue.m in Sources */,
 				C52E1FDF1A41951300A2C370 /* WLTextField.m in Sources */,
 				C5B8F71A1B82161500A5E541 /* WLDrawingViewController.m in Sources */,

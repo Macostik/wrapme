@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WLEntryDescriptor.h"
 
 typedef NS_ENUM(NSUInteger, WLNotificationType) {
 	WLNotificationContributorAdd        = 100,
@@ -54,7 +53,7 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 @property (strong, nonatomic) User *requester;
 
-@property (strong, nonatomic) WLEntryDescriptor* descriptor;
+@property (strong, nonatomic) EntryDescriptor* descriptor;
 
 @property (nonatomic) BOOL trimmed;
 

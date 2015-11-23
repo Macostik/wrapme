@@ -125,37 +125,32 @@
     [[WLDeviceManager defaultManager] addReceiver:self];
     [[WLDeviceManager defaultManager] beginUsingAccelerometer];
     
-	if (self.presentingViewController) {
-		self.view.frame = self.presentingViewController.view.bounds;
-        [self.view layoutIfNeeded];
-	}
-    
-    self.cropAreaView.layer.borderWidth = 1;
-    self.cropAreaView.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.25].CGColor;
+    self.cropAreaView.borderWidth = 1;
+    self.cropAreaView.borderColor = [UIColor colorWithWhite:1 alpha:0.25];
     
     __weak typeof(self)weakSelf = self;
     
+    if (self.mode == WLStillPictureModeDefault) {
+        UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(startVideoRecording:)];
+        recognizer.delegate = self;
+        [self.takePhotoButton addGestureRecognizer:recognizer];
+    }
+    
     [self authorize:^{
-        AVCaptureDevicePosition defaultPosition = AVCaptureDevicePositionBack;
+        AVCaptureDevicePosition position = AVCaptureDevicePositionBack;
         AVCaptureFlashMode flashMode = AVCaptureFlashModeOff;
         if (weakSelf.mode == WLStillPictureModeDefault) {
-            NSNumber *savedDefaultPosition = [NSUserDefaults standardUserDefaults].cameraDefaultPosition;
-            if (savedDefaultPosition) defaultPosition = [savedDefaultPosition integerValue];
+            NSNumber *savedPosition = [NSUserDefaults standardUserDefaults].cameraDefaultPosition;
+            if (savedPosition) position = [savedPosition integerValue];
             NSNumber *savedFlashMode = [NSUserDefaults standardUserDefaults].cameraDefaultFlashMode;
             if (savedFlashMode) flashMode = [savedFlashMode integerValue];
         } else {
-            defaultPosition = AVCaptureDevicePositionFront;
+            position = AVCaptureDevicePositionFront;
         }
-        weakSelf.position = defaultPosition;
+        weakSelf.position = position;
         weakSelf.flashMode = weakSelf.flashModeControl.mode = flashMode;
         weakSelf.cameraView.layer.session = weakSelf.session;
         [weakSelf start];
-        
-        if (weakSelf.mode == WLStillPictureModeDefault) {
-            UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:weakSelf action:@selector(startVideoRecording:)];
-            longPressGestureRecognizer.delegate = self;
-            [weakSelf.takePhotoButton addGestureRecognizer:longPressGestureRecognizer];
-        }
     } failure:^(NSError *error) {
         weakSelf.unauthorizedStatusView.hidden = NO;
         weakSelf.takePhotoButton.active = NO;

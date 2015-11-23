@@ -95,7 +95,7 @@
 }
 
 - (IBAction)changeSwichValue:(id)sender {
-    [self enqueueSelectorPerforming:@selector(performUploadPreferenceRequest) afterDelay:1.0];
+    [self enqueueSelector:@selector(performUploadPreferenceRequest) delay:1.0];
 }
 
 - (void)performUploadPreferenceRequest {

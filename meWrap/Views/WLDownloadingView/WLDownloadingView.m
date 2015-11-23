@@ -7,7 +7,6 @@
 //
 
 #import "WLDownloadingView.h"
-#import "NSObject+NibAdditions.h"
 #import "WLProgressBar+WLContribution.h"
 #import "WLNetwork.h"
 #import "WLImageFetcher.h"
@@ -27,7 +26,7 @@
 @implementation WLDownloadingView
 
 + (instancetype)downloadCandy:(Candy *)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {
-    return [[WLDownloadingView loadFromNib] downloadCandy:candy success:success failure:failure];
+    return [[WLDownloadingView loadFromNib:@"WLDownloadingView"] downloadCandy:candy success:success failure:failure];
 }
 
 - (instancetype)downloadCandy:(Candy *)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {

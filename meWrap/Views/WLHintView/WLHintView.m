@@ -7,7 +7,6 @@
 //
 
 #import "WLHintView.h"
-#import "NSObject+NibAdditions.h"
 #import "WLButton.h"
 
 @implementation WLHintView 
@@ -33,7 +32,7 @@
     
     [NSUserDefaults standardUserDefaults].shownHints = shownHints;
     
-    WLHintView * hintView = [self loadFromNibNamed:nibName];
+    WLHintView * hintView = [self loadFromNib:nibName];
     
     hintView.drawing = drawing;
     

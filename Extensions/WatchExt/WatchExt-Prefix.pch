@@ -17,7 +17,6 @@
 #import "GCDHelper.h"
 #import "SupportHeaders.h"
 #import "WLCollections.h"
-#import "NSObject+AssociatedObjects.h"
 #import "WLCollections.h"
 #import "UIColor+CustomColors.h"
 #import "WLEntryKeys.h"

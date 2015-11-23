@@ -15,17 +15,21 @@ class ExtensionMessage: Archive {
         return ["userInfo"]
     }
     
-    class func serializationKey() -> String {
-        return ""
+    class func deserialize(string: String) -> Self? {
+        return deserialize(self, string: string)
     }
     
-    class func deserialize(dictionary: Dictionary<String, NSData>) -> ExtensionMessage? {
-        return unarchive(dictionary[serializationKey()]) as? ExtensionMessage
+    class func deserialize<T>(type: T.Type, string: String) -> T? {
+        if let data = NSData(base64EncodedString: string, options: .IgnoreUnknownCharacters) {
+            return unarchive(data) as? T
+        } else {
+            return nil
+        }
     }
     
-    func serialize() -> Dictionary<String, NSData>? {
+    func serialize() -> String? {
         if let data = archive() {
-            return [self.dynamicType.serializationKey():data]
+            return data.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
         } else {
             return nil
         }

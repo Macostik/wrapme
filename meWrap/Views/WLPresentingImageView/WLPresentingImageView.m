@@ -17,7 +17,7 @@
 @implementation WLPresentingImageView
 
 + (instancetype)sharedPresenting {
-    return [WLPresentingImageView loadFromNib];
+    return [WLPresentingImageView loadFromNib:@"WLPresentingImageView"];
 }
 
 - (void)presentCandy:(Candy *)candy fromView:(UIView *)view success:(void (^)(WLPresentingImageView *))success failure:(WLFailureBlock)failure {

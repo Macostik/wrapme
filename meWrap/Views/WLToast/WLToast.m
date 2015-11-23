@@ -8,7 +8,6 @@
 
 #import "WLToast.h"
 #import "WLLabel.h"
-#import "NSObject+NibAdditions.h"
 #import "UIColor+CustomColors.h"
 
 @implementation WLToastAppearance
@@ -67,7 +66,7 @@
 + (instancetype)toast {
     static id instance = nil;
     if (instance == nil) {
-        instance = [self loadFromNib];
+        instance = [self loadFromNib:@"WLToast"];
     }
     return instance;
 }
@@ -159,7 +158,7 @@
             [operation finish];
         };
         
-        [weakSelf enqueueSelectorPerforming:@selector(dismiss) afterDelay:WLToastDismissalDelay];
+        [weakSelf enqueueSelector:@selector(dismiss) delay:WLToastDismissalDelay];
     });
 }
 

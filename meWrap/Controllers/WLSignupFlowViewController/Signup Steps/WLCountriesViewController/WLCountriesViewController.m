@@ -8,7 +8,6 @@
 
 #import "WLCountriesViewController.h"
 #import "WLCountryCell.h"
-#import "NSObject+NibAdditions.h"
 
 @interface WLCountriesViewController ()
 

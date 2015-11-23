@@ -12,10 +12,6 @@ class ExtensionResponse: ExtensionMessage {
     var success = false
     var message: String?
     
-    override class func serializationKey() -> String {
-        return "response"
-    }
-    
     override class func archivableProperties() -> Set<String> {
         return ["message", "success", "userInfo"]
     }

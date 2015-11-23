@@ -9,7 +9,6 @@
 #import "WLEmailViewController.h"
 #import "WLButton.h"
 #import "WLTestUserPicker.h"
-#import "NSObject+NibAdditions.h"
 #import "WLConfirmView.h"
 
 @interface WLEmailViewController ()

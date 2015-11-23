@@ -7,7 +7,6 @@
 //
 
 #import "WLBaseViewController.h"
-#import "NSObject+NibAdditions.h"
 
 @interface WLBaseViewController ()
 

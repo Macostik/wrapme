@@ -10,7 +10,6 @@
 #import <NotificationCenter/NotificationCenter.h>
 #import "WLTodayCandyCell.h"
 #import "WLTodayCommentCell.h"
-#import "NSURL+WLRemoteEntryHandler.h"
 #import "GeometryHelper.h"
 
 static NSString *const WLTodayCandyCellIdentifier = @"WLTodayCandyCell";
@@ -149,7 +148,11 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 }
 
 - (IBAction)singUpClick:(id)sender {
-    [self.extensionContext openURL:[NSURL WLURLWithPath:@"/"] completionHandler:NULL];
+    ExtensionRequest *request = [[ExtensionRequest alloc] initWithAction:@"authorize:completionHandler:" userInfo:nil];
+    NSURL *url = [[NSURL alloc] initWithRequest:request];
+    if (url) {
+        [self.extensionContext openURL:url completionHandler:NULL];
+    }
 }
 
 #pragma mark - UITableViewDelegate methods
@@ -173,13 +176,12 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Contribution *contribution = self.contributions[indexPath.row];
-    if (contribution.identifier != nil) {
-        NSURL *url = nil;
-        if ([contribution isKindOfClass:[Comment class]]) {
-            url = [NSURL WLURLForRemoteEntryWithKey:WLCommentKey identifier:contribution.identifier];
-        } else {
-            url = [NSURL WLURLForRemoteEntryWithKey:WLCandyKey identifier:contribution.identifier];
-        }
+    if (contribution.identifier == nil) {
+        return;
+    }
+    ExtensionRequest *request = [[ExtensionRequest alloc] initWithAction:@"presentEntry:completionHandler:" userInfo:contribution.serializeReference];
+    NSURL *url = [[NSURL alloc] initWithRequest:request];
+    if (url) {
         [self.extensionContext openURL:url completionHandler:NULL];
     }
 }

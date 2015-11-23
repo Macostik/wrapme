@@ -8,7 +8,6 @@
 
 #import "WLCache.h"
 #import "WLCollections.h"
-#import "NSObject+Extension.h"
 #import "GCDHelper.h"
 
 @interface WLCacheItem : NSObject
@@ -148,7 +147,7 @@
     if (!_permitted) {
         return;
     }
-	[self enqueueSelectorPerforming:@selector(checkSizeAndClearIfNeededInBackground)];
+	[self enqueueSelector:@selector(checkSizeAndClearIfNeededInBackground)];
 }
 
 - (void)checkSizeAndClearIfNeededInBackground {

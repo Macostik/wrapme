@@ -134,7 +134,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     [[WLAPIRequest resendInvite:self.wrap user:contributor] send:^(id object) {
         if (completionHandler) completionHandler(YES);
         [weakSelf.invitedContributors addObject:contributor];
-        [weakSelf enqueueSelectorPerforming:@selector(hideMenuForContributor:) afterDelay:3.0f];
+        [weakSelf enqueueSelector:@selector(hideMenuForContributor:) delay:3.0f];
     } failure:^(NSError *error) {
         [error show];
         if (completionHandler) completionHandler(NO);

@@ -7,8 +7,6 @@
 //
 
 #import "WLComposeBar.h"
-#import "NSObject+NibAdditions.h"
-#import <objc/runtime.h>
 
 @interface WLComposeBar () <UITextViewDelegate, UICollectionViewDelegate>
 

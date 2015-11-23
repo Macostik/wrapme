@@ -9,7 +9,6 @@
 #import "WLCandyViewController.h"
 #import "WLComposeBar.h"
 #import "WLCandyCell.h"
-#import "NSObject+NibAdditions.h"
 #import "WLPresentingImageView.h"
 #import "WLHistoryViewController.h"
 #import "WLMediaViewController.h"
@@ -19,6 +18,7 @@
 #import "WLBadgeLabel.h"
 #import "WLUploadingQueue.h"
 #import "WLNetwork.h"
+#import "WLToast.h"
 @import AVKit;
 
 @interface WLMediaViewController () <WLPresentingImageViewDelegate, EntryNotifying>
@@ -178,6 +178,10 @@
 }
 
 - (IBAction)liveBroadcast:(id)sender {
+    if (![WLNetwork sharedNetwork].reachable) {
+        [WLToast showWithMessage:@"no_internet_connection".ls];
+        return;
+    }
     __weak typeof(self)weakSelf = self;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
         if ([weakSelf.delegate respondsToSelector:@selector(mediaViewControllerDidOpenLiveBroadcast:)]) {

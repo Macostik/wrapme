@@ -199,7 +199,7 @@
 
 - (void)notificationSubscription:(WLNotificationSubscription *)subscription didReceiveMessage:(PNMessageData *)message {
     [self.enqueuedMessages addObject:message];
-    [self enqueueSelectorPerforming:@selector(handleEnqueuedMessages)];
+    [self enqueueSelector:@selector(handleEnqueuedMessages)];
 }
 
 - (void)handleEnqueuedMessages {

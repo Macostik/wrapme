@@ -13,7 +13,6 @@
 #import "WLButton.h"
 #import "WLArrangedAddressBook.h"
 #import "WLAddressBookGroupView.h"
-#import "NSObject+NibAdditions.h"
 
 @interface WLAddContributorsViewController () <StreamViewDelegate, WLAddressBookRecordCellDelegate, UITextFieldDelegate, FontPresetting, WLAddressBookReceiver>
 

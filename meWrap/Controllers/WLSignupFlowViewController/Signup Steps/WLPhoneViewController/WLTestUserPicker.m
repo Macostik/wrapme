@@ -8,7 +8,6 @@
 
 #import "WLTestUserPicker.h"
 #import "WLTestUserCell.h"
-#import "NSObject+NibAdditions.h"
 #import "WLAPIEnvironment.h"
 
 @interface WLTestUserPicker () <UITableViewDataSource, UITableViewDelegate>
@@ -49,7 +48,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	WLTestUserCell* cell = [tableView dequeueReusableCellWithIdentifier:@"WLTestUserCell"];
-	if (!cell) cell = [WLTestUserCell loadFromNib];
+	if (!cell) cell = [WLTestUserCell loadFromNib:@"WLTestUserCell"];
 	cell.authorization = [self.authorizations objectAtIndex:indexPath.row];
 	return cell;
 }

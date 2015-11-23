@@ -9,8 +9,6 @@
 #import "WLAppDelegate.h"
 #import "WLNotificationCenter.h"
 #import "WLKeyboard.h"
-#import "NSObject+NibAdditions.h"
-#import "WLRemoteEntryHandler.h"
 #import "WLHomeViewController.h"
 #import "iVersion.h"
 #import "WLSignupFlowViewController.h"
@@ -26,7 +24,6 @@
 #import "WLEntry+WLUploadingQueue.h"
 #import "WLNetwork.h"
 #import <AWSCore/AWSCore.h>
-#import "WLExtensionManager.h"
 @import WatchConnectivity;
 
 @interface WLAppDelegate () <iVersionDelegate, WCSessionDelegate>
@@ -260,9 +257,13 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    [[WLRemoteEntryHandler sharedHandler] presentEntryFromURL:url failure:^(NSError *error) {
-        [error show];
-    }];
+    if ([url.host isEqualToString:@"extension.request"]) {
+        NSDictionary *query = [url.query URLQuery];
+        ExtensionRequest *request = [ExtensionRequest deserialize:[query stringForKey:@"request"]];
+        if ([request.action isEqualToString:@"entry"]) {
+            [[EventualEntryPresenter sharedPresenter] presentEntry:request.userInfo];
+        }
+    }
     return YES;
 }
 
@@ -298,7 +299,8 @@
     } else {
         Entry *entry = notification.entry;
         if (entry) {
-            [[WLRemoteEntryHandler sharedHandler] presentEntry:entry];
+            NSDictionary *entryReference = [notification.entry serializeReference];
+            [[EventualEntryPresenter sharedPresenter] presentEntry:entryReference];
             if ([identifier isEqualToString:@"reply"]) {
                 id wrapViewController = [entry viewControllerWithNavigationController:[UINavigationController mainNavigationController]];
                 [wrapViewController setShowKeyboard:YES];
@@ -328,19 +330,17 @@
     onceToken = 0;
     UIBackgroundTaskIdentifier task = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         dispatch_once(&onceToken, ^{
-            if (replyHandler) replyHandler([[ExtensionResponse failure:@"Background task expired."] serialize]);
+            if (replyHandler) replyHandler(@{@"response":[[ExtensionResponse failure:@"Background task expired."] serialize]});
         });
     }];
     
-    void (^completion) (ExtensionResponse*) = ^ (ExtensionResponse *response) {
+    ExtensionRequest *request = [ExtensionRequest deserialize:[message stringForKey:@"request"]];
+    [request perform:^ (ExtensionResponse *response) {
         dispatch_once(&onceToken, ^{
-            if (replyHandler) replyHandler([response serialize]);
+            if (replyHandler) replyHandler(@{@"response":[response serialize]});
         });
         [[UIApplication sharedApplication] endBackgroundTask:task];
-    };
-    
-    ExtensionRequest *request = [ExtensionRequest deserialize:message];
-    [WLExtensionManager performRequest:request completionHandler:completion];
+    }];
 }
 
 @end

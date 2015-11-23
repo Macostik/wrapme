@@ -7,7 +7,6 @@
 //
 
 #import "WLConfirmView.h"
-#import "NSObject+NibAdditions.h"
 
 @interface WLConfirmView ()
 
@@ -22,7 +21,7 @@
 @implementation WLConfirmView
 
 + (void)showInView:(UIView *)view authorization:(Authorization *)authorization success:(WLObjectBlock)succes cancel:(WLBlock)cancel {
-    [[WLConfirmView loadFromNib] showInView:view authorization:authorization success:succes cancel:cancel];
+    [[WLConfirmView loadFromNib:@"WLConfirmView"] showInView:view authorization:authorization success:succes cancel:cancel];
 }
 
 - (void)showInView:(UIView *)view authorization:(Authorization *)authorization success:(WLObjectBlock)success cancel:(WLBlock)cancel {

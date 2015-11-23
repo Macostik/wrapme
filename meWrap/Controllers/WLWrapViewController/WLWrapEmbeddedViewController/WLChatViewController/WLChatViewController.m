@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "NSObject+NibAdditions.h"
 #import "WLChat.h"
 #import "WLChatViewController.h"
 #import "WLComposeBar.h"
@@ -477,7 +476,7 @@ CGFloat WLMinTextViewWidth;
 - (void)setTyping:(BOOL)typing {
     if (_typing != typing) {
         _typing = typing;
-        [self enqueueSelectorPerforming:@selector(sendTypingStateChange) afterDelay:1.0f];
+        [self enqueueSelector:@selector(sendTypingStateChange) delay:1.0f];
     }
 }
 

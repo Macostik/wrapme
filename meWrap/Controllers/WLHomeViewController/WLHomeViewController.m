@@ -12,7 +12,6 @@
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
 #import "WLWrapViewController.h"
-#import "WLRemoteEntryHandler.h"
 #import "WLUploadingView.h"
 #import "WLAddressBook.h"
 #import "WLIntroductionViewController.h"
@@ -269,7 +268,7 @@
     [[WLMessagesCounter instance] update:nil];
     
     [self updateEmailConfirmationView:NO];
-    [WLRemoteEntryHandler sharedHandler].isLoaded = [self isViewLoaded];
+    [EventualEntryPresenter sharedPresenter].isLoaded = YES;
     [self.uploadingView update];
     if ([NSUserDefaults standardUserDefaults].numberOfLaunches >= 3 && [User currentUser].wraps.count >= 3) {
         [WLHintView showHomeSwipeTransitionHintViewInView:[UIWindow mainWindow]];

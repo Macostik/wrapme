@@ -9,7 +9,6 @@
 #import "WLAddressBook.h"
 #import <AddressBook/AddressBook.h>
 #import <objc/runtime.h>
-#import "NSObject+AssociatedObjects.h"
 #import "WLAddressBookPhoneNumber.h"
 #import "WLAddressBookRecord.h"
 
@@ -97,7 +96,7 @@ static BOOL updateCachedRecordsFailed = NO;
 
 void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, void *context) {
     [WLAddressBook addressBook]->sharedAddressBook = addressBook;
-    [[WLAddressBook addressBook] enqueueSelectorPerforming:@selector(updateCachedRecords) afterDelay:.0f];
+    [[WLAddressBook addressBook] enqueueSelector:@selector(updateCachedRecords) delay:.0f];
 }
 
 - (void)beginCaching {

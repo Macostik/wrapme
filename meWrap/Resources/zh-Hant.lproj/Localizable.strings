@@ -242,3 +242,4 @@
 "send_message" = "Send message";
 "start_broadcast" = "Start Broadcast";
 "broadcast_text_placeholder" = "What're you seeing now?";
+"is_live_streaming" = "is live-streaming";

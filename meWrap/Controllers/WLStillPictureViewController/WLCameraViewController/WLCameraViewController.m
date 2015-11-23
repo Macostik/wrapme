@@ -760,7 +760,7 @@
 	[UIView beginAnimations:nil context:nil];
 	self.zoomLabel.alpha = 1.0f;
 	[UIView commitAnimations];
-	[self enqueueSelectorPerforming:@selector(hideZoomLabel) afterDelay:1.0f];
+	[self enqueueSelector:@selector(hideZoomLabel) delay:1.0f];
 }
 
 - (void)hideZoomLabel {

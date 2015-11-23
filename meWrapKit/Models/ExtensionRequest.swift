@@ -18,11 +18,17 @@ class ExtensionRequest: ExtensionMessage {
         self.userInfo = userInfo
     }
     
-    override class func serializationKey() -> String {
-        return "request"
-    }
-    
     override class func archivableProperties() -> Set<String> {
         return ["action", "userInfo"]
+    }
+}
+
+extension NSURL {
+    convenience init?(request: ExtensionRequest) {
+        if let string = request.serialize() {
+            self.init(scheme: "mewrap", host: "extension.request", path: "/?request=\(string)")
+        } else {
+            return nil
+        }
     }
 }

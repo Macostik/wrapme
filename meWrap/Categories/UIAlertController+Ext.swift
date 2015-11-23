@@ -44,14 +44,22 @@ extension UIAlertController {
         return self
     }
     
-    func show() {
+    func show () {
+        show(nil)
+    }
+    
+    func show(sender: UIView?) {
         if let window = UIWindow.mainWindow {
             if let presentingViewController = window.rootViewController?.presentedViewController ?? window.rootViewController {
                 
                 if actions.count == 0 {
                     action("ok".ls)
                 }
-                
+                if let popoverController = self.popoverPresentationController where self.preferredStyle == .ActionSheet {
+                    popoverController.sourceView = sender ?? window
+                    popoverController.sourceRect = sender?.bounds ?? CGRectMake(window.x, CGRectGetMidY(window.frame) - 1, window.width, 1)
+                    popoverController.permittedArrowDirections = .Any
+                }
                 presentingViewController.presentViewController(self, animated: true, completion: nil)
             }
         }

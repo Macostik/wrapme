@@ -201,7 +201,7 @@ class SmartLabel: WLLabel, UIGestureRecognizerDelegate,  MFMailComposeViewContro
                     } catch _ {}
                 })
             }
-            actionSheet.show()
+            actionSheet.show(self)
         }
     }
     

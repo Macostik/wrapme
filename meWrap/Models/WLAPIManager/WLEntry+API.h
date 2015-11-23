@@ -30,13 +30,13 @@
 
 - (void)recursivelyFetchIfNeeded:(WLBlock)success failure:(WLFailureBlock)failure;
 
-+ (NSArray*)API_prefetchArray:(NSArray*)array;
++ (NSArray*)prefetchArray:(NSArray*)array;
 
-+ (NSDictionary*)API_prefetchDictionary:(NSDictionary*)dictionary;
++ (NSDictionary*)prefetchDictionary:(NSDictionary*)dictionary;
 
-+ (void)API_prefetchDescriptors:(NSMutableDictionary*)descriptors inArray:(NSArray*)array;
++ (void)prefetchDescriptors:(NSMutableDictionary*)descriptors inArray:(NSArray*)array;
 
-+ (void)API_prefetchDescriptors:(NSMutableDictionary*)descriptors inDictionary:(NSDictionary*)dictionary;
++ (void)prefetchDescriptors:(NSMutableDictionary*)descriptors inDictionary:(NSDictionary*)dictionary;
 
 - (instancetype)update:(NSDictionary *)dictionary;
 

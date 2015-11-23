@@ -18,27 +18,27 @@
 
 @implementation Entry (WLAPIManager)
 
-+ (NSArray*)API_prefetchArray:(NSArray *)array {
++ (NSArray*)prefetchArray:(NSArray *)array {
     NSMutableDictionary *descriptors = [NSMutableDictionary dictionary];
-    [self API_prefetchDescriptors:descriptors inArray:array];
-    [EntryContext.sharedContext fetchEntries:descriptors];
+    [self prefetchDescriptors:descriptors inArray:array];
+    [EntryContext.sharedContext fetchEntries:[descriptors allValues]];
     return array;
 }
 
-+ (NSDictionary*)API_prefetchDictionary:(NSDictionary *)dictionary {
++ (NSDictionary*)prefetchDictionary:(NSDictionary *)dictionary {
     NSMutableDictionary *descriptors = [NSMutableDictionary dictionary];
-    [self API_prefetchDescriptors:descriptors inDictionary:dictionary];
-    [EntryContext.sharedContext fetchEntries:descriptors];
+    [self prefetchDescriptors:descriptors inDictionary:dictionary];
+    [EntryContext.sharedContext fetchEntries:[descriptors allValues]];
     return dictionary;
 }
 
-+ (void)API_prefetchDescriptors:(NSMutableDictionary*)descriptors inArray:(NSArray*)array {
++ (void)prefetchDescriptors:(NSMutableDictionary*)descriptors inArray:(NSArray*)array {
     for (NSDictionary *dictionary in array) {
-        [self API_prefetchDescriptors:descriptors inDictionary:dictionary];
+        [self prefetchDescriptors:descriptors inDictionary:dictionary];
     }
 }
 
-+ (void)API_prefetchDescriptors:(NSMutableDictionary*)descriptors inDictionary:(NSDictionary*)dictionary {
++ (void)prefetchDescriptors:(NSMutableDictionary*)descriptors inDictionary:(NSDictionary*)dictionary {
     NSString *uid = [self uid:dictionary];
     if (uid && [descriptors objectForKey:uid] == nil) {
         EntryDescriptor *descriptor = [[EntryDescriptor alloc] initWithName:[self entityName] uid:uid];
@@ -171,15 +171,15 @@
 
 @implementation Contribution (WLAPIManager)
 
-+ (void)API_prefetchDescriptors:(NSMutableDictionary *)descriptors inDictionary:(NSDictionary *)dictionary {
-    [super API_prefetchDescriptors:descriptors inDictionary:dictionary];
++ (void)prefetchDescriptors:(NSMutableDictionary *)descriptors inDictionary:(NSDictionary *)dictionary {
+    [super prefetchDescriptors:descriptors inDictionary:dictionary];
     
     if (dictionary[WLContributorKey]) {
-        [User API_prefetchDescriptors:descriptors inDictionary:dictionary[WLContributorKey]];
+        [User prefetchDescriptors:descriptors inDictionary:dictionary[WLContributorKey]];
     }
     
     if (dictionary[WLEditorKey]) {
-        [User API_prefetchDescriptors:descriptors inDictionary:dictionary[WLEditorKey]];
+        [User prefetchDescriptors:descriptors inDictionary:dictionary[WLEditorKey]];
     }
 }
 
@@ -195,19 +195,19 @@
     return @1;
 }
 
-+ (void)API_prefetchDescriptors:(NSMutableDictionary *)descriptors inDictionary:(NSDictionary *)dictionary {
-    [super API_prefetchDescriptors:descriptors inDictionary:dictionary];
++ (void)prefetchDescriptors:(NSMutableDictionary *)descriptors inDictionary:(NSDictionary *)dictionary {
+    [super prefetchDescriptors:descriptors inDictionary:dictionary];
     
     if (dictionary[WLContributorsKey]) {
-        [User API_prefetchDescriptors:descriptors inArray:dictionary[WLContributorsKey]];
+        [User prefetchDescriptors:descriptors inArray:dictionary[WLContributorsKey]];
     }
     
     if (dictionary[WLCreatorKey] != nil) {
-        [User API_prefetchDescriptors:descriptors inDictionary:dictionary[WLCreatorKey]];
+        [User prefetchDescriptors:descriptors inDictionary:dictionary[WLCreatorKey]];
     }
     
     if (dictionary[WLCandiesKey] != nil) {
-        [Candy API_prefetchDescriptors:descriptors inArray:dictionary[WLCandiesKey]];
+        [Candy prefetchDescriptors:descriptors inArray:dictionary[WLCandiesKey]];
     }
 }
 
@@ -299,10 +299,10 @@
     return @2;
 }
 
-+ (void)API_prefetchDescriptors:(NSMutableDictionary *)descriptors inDictionary:(NSDictionary *)dictionary {
-    [super API_prefetchDescriptors:descriptors inDictionary:dictionary];
++ (void)prefetchDescriptors:(NSMutableDictionary *)descriptors inDictionary:(NSDictionary *)dictionary {
+    [super prefetchDescriptors:descriptors inDictionary:dictionary];
     if (dictionary[WLCommentsKey]) {
-        [Comment API_prefetchDescriptors:descriptors inArray:dictionary[WLCommentsKey]];
+        [Comment prefetchDescriptors:descriptors inArray:dictionary[WLCommentsKey]];
     }
 }
 
@@ -374,6 +374,10 @@
 }
 
 - (void)uploadWithData:(NSDictionary *)metaData success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    if ([self.picture.original hasPrefix:@"http"]) {
+        if (success) success(self);
+        return;
+    }
     __weak __typeof(self)weakSelf = self;
     AWSS3TransferManagerUploadRequest *uploadRequest = [AWSS3TransferManagerUploadRequest new];
     uploadRequest.bucket = [[WLAPIEnvironment currentEnvironment] bucketUploadingIdentifier];

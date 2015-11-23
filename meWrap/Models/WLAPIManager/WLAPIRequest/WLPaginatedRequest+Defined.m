@@ -16,7 +16,7 @@
     return [[[self GET:@"wraps", nil] parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:scope forKey:@"scope"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        NSArray* wraps = [Wrap mappedEntries:[Wrap API_prefetchArray:[response.data arrayForKey:@"wraps"]]];
+        NSArray* wraps = [Wrap mappedEntries:[Wrap prefetchArray:[response.data arrayForKey:@"wraps"]]];
         [[WLWhatsUpSet sharedSet] update:nil failure:nil];
         success(wraps);
     }];
@@ -29,7 +29,7 @@
 + (instancetype)messages:(Wrap *)wrap {
     return [[[[self GET:@"wraps/%@/chats", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            NSArray* messages = [Message mappedEntries:[Message API_prefetchArray:response.data[@"chats"]] container:wrap];
+            NSArray* messages = [Message mappedEntries:[Message prefetchArray:response.data[@"chats"]] container:wrap];
             if (messages.nonempty) {
                 [wrap notifyOnUpdate:EntryUpdateEventContentAdded];
             }
@@ -54,7 +54,7 @@
         [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            success([Candy mappedEntries:[Candy API_prefetchArray:response.data[WLCandiesKey]] container:wrap]);
+            success([Candy mappedEntries:[Candy prefetchArray:response.data[WLCandiesKey]] container:wrap]);
         } else {
             success(nil);
         }
@@ -79,7 +79,7 @@
         }
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            success(@[[wrap update:[Wrap API_prefetchDictionary:response.data[WLWrapKey]]]]);
+            success(@[[wrap update:[Wrap prefetchDictionary:response.data[WLWrapKey]]]]);
         } else {
             success(nil);
         }

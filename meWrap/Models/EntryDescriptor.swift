@@ -25,26 +25,56 @@ class EntryDescriptor: NSObject {
     func entryExists() -> Bool {
         return EntryContext.sharedContext.hasEntry(name, uid: uid)
     }
+    
+    func belongsToEntry(entry: Entry) -> Bool {
+        return uid == entry.identifier || locuid == entry.uploadIdentifier
+    }
 }
 
 extension EntryContext {
-    func fetchEntries(descriptors: [String: EntryDescriptor]) {
+    
+    func deleteEntry(entry: Entry) {
+        cachedEntries.removeObjectForKey(entry.identifier)
+        deleteObject(entry)
+        do {
+            try save()
+        } catch {
+        }
+    }
+    
+    func clear() {
+        if let wraps = Wrap.entries() {
+            for wrap in wraps {
+                deleteObject(wrap)
+            }
+        }
+        if let users = User.entries() {
+            for user in users {
+                deleteObject(user)
+            }
+        }
+        do {
+            try save()
+        } catch {
+        }
+        cachedEntries.removeAllObjects()
+    }
+    
+    func fetchEntries(descriptors: [EntryDescriptor]) {
         var uids = [String]()
         var locuids = [String]()
         
-        var descriptors = descriptors
-        let _descriptors = descriptors
-        for (_, descriptor) in _descriptors {
-            let uid = descriptor.uid
-            if cachedEntry(uid) != nil {
-                descriptors.removeValueForKey(uid)
+        var descriptors = descriptors.filter { (descriptor) -> Bool in
+            if cachedEntry(descriptor.uid) != nil {
+                return false
             } else if let locuid = descriptor.locuid where cachedEntry(locuid) != nil {
-                descriptors.removeValueForKey(locuid)
+                return false
             } else {
                 uids.append(descriptor.uid)
                 if let locuid = descriptor.locuid {
                     locuids.append(locuid)
                 }
+                return true
             }
         }
         
@@ -55,25 +85,20 @@ extension EntryContext {
         let entries = Entry.fetch().query("identifier IN %@ OR uploadIdentifier IN %@", uids, locuids).execute() as? [Entry]
         if let entries = entries {
             for entry in entries {
-                
-                var descriptor: EntryDescriptor?
-                for (_, _descriptor) in descriptors {
-                    if _descriptor.uid == entry.identifier || _descriptor.locuid == entry.uploadIdentifier {
-                        descriptor = _descriptor
-                        break
+                descriptors = descriptors.filter({ (descriptor) -> Bool in
+                    if descriptor.belongsToEntry(entry) {
+                        entry.identifier = descriptor.uid
+                        cachedEntries.setObject(entry, forKey: descriptor.uid)
+                        return false
+                    } else {
+                        return true
                     }
-                }
-                if let uid = descriptor?.uid {
-                    descriptors.removeValueForKey(uid)
-                    cachedEntries.setObject(entry, forKey: uid)
-                } else if let uid = entry.identifier {
-                    cachedEntries.setObject(entry, forKey: uid)
-                }
+                })
             }
         }
         
-        for (_, descriptor) in descriptors {
-            if let entry = NSEntityDescription.insertNewObjectForEntityForName(descriptor.name, inManagedObjectContext: self) as? Entry {
+        for descriptor in descriptors {
+            if let entry = insertEntry(descriptor.name) {
                 entry.identifier = descriptor.uid
                 entry.uploadIdentifier = descriptor.locuid
                 cachedEntries.setObject(entry, forKey: descriptor.uid)
@@ -81,3 +106,4 @@ extension EntryContext {
         }
     }
 }
+

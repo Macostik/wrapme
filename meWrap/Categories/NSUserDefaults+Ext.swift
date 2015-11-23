@@ -142,6 +142,8 @@ extension NSUserDefaults {
             if _handledNotifications == nil {
                 if let array = self["handledNotifications"] as? [AnyObject] {
                     _handledNotifications = NSOrderedSet(array: array)
+                } else {
+                    _handledNotifications = NSOrderedSet()
                 }
             }
             return _handledNotifications

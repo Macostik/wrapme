@@ -20,7 +20,7 @@
         request = [self GET:@"entities/%@", candy.identifier];
     }
     return [[request parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        success(candy.valid ? [candy update:[Candy API_prefetchDictionary:response.data[WLCandyKey]]] : nil);
+        success(candy.valid ? [candy update:[Candy prefetchDictionary:response.data[WLCandyKey]]] : nil);
     }] beforeFailure:^(NSError *error) {
         if (candy.uploaded && error.isContentUnavaliable) {
             [candy remove];
@@ -180,7 +180,7 @@
 
 + (instancetype)contributors:(Wrap *)wrap {
     return [[[self GET:@"wraps/%@/contributors", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        NSSet *contributors = [[User mappedEntries:[User API_prefetchArray:[response.data arrayForKey:WLContributorsKey]]] set];
+        NSSet *contributors = [[User mappedEntries:[User prefetchArray:[response.data arrayForKey:WLContributorsKey]]] set];
         if (wrap.valid && ![wrap.contributors isEqualToSet:contributors]) {
             wrap.contributors = contributors;
         }
@@ -246,7 +246,7 @@
         }] forKey:@"invitees"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            NSSet *contributors = [[User mappedEntries:[User API_prefetchArray:[response.data arrayForKey:WLContributorsKey]]] set];
+            NSSet *contributors = [[User mappedEntries:[User prefetchArray:[response.data arrayForKey:WLContributorsKey]]] set];
             if (![wrap.contributors isEqualToSet:contributors]) {
                 wrap.contributors = contributors;
                 [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
@@ -267,7 +267,7 @@
         [parameters trySetObject:[[contributors where:@"user != nil"] valueForKeyPath:@"user.identifier"] forKey:@"user_uids"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            NSSet *contributors = [[User mappedEntries:[User API_prefetchArray:[response.data arrayForKey:WLContributorsKey]]] set];
+            NSSet *contributors = [[User mappedEntries:[User prefetchArray:[response.data arrayForKey:WLContributorsKey]]] set];
             if (![wrap.contributors isEqualToSet:contributors]) {
                 wrap.contributors = contributors;
                 [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];

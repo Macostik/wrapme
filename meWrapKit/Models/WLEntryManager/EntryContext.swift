@@ -103,6 +103,10 @@ class EntryContext: NSManagedObjectContext {
         cachedEntries.removeObjectForKey(entry.identifier)
     }
     
+    func insertEntry(name: String) -> Entry? {
+        return NSEntityDescription.insertNewObjectForEntityForName(name, inManagedObjectContext: self) as? Entry
+    }
+    
     func entry(name: String, uid: String?) -> Entry? {
         return entry(name, uid: uid, locuid: nil)
     }
@@ -127,7 +131,7 @@ class EntryContext: NSManagedObjectContext {
             if let entry = request.execute().last as? Entry {
                 return entry
             } else if allowInsert {
-                if let entry = NSEntityDescription.insertNewObjectForEntityForName(name, inManagedObjectContext: self) as? Entry {
+                if let entry = insertEntry(name) {
                     entry.identifier = uid
                     return entry
                 } else {
@@ -147,15 +151,6 @@ class EntryContext: NSManagedObjectContext {
             return true
         }
         return NSFetchRequest.fetch(name).query("identifier == %@", uid).count() > 0
-    }
-    
-    func deleteEntry(entry: Entry) {
-        cachedEntries.removeObjectForKey(entry.identifier)
-        deleteObject(entry)
-        do {
-            try save()
-        } catch {
-        }
     }
     
     func execute(request: NSFetchRequest) -> [AnyObject] {
@@ -192,24 +187,6 @@ class EntryContext: NSManagedObjectContext {
         }
     }
     
-    func clear() {
-        if let wraps = Wrap.entries() {
-            for wrap in wraps {
-                deleteObject(wrap)
-            }
-        }
-        if let users = User.entries() {
-            for user in users {
-                deleteObject(user)
-            }
-        }
-        do {
-            try save()
-        } catch {
-        }
-        cachedEntries.removeAllObjects()
-    }
-    
     func execute(request: NSFetchRequest, completion: [AnyObject]? -> Void) {
         let asyncRequest = NSAsynchronousFetchRequest(fetchRequest: request, completionBlock: { (result) -> Void in
             completion(result.finalResult)
@@ -221,7 +198,6 @@ class EntryContext: NSManagedObjectContext {
                 completion(nil)
             }
         })
-        
     }
 }
 

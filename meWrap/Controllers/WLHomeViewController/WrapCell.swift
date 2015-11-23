@@ -55,7 +55,7 @@ class WrapCell: StreamReusableView {
             }
             if wrap.isPublic {
                 if wrap.isContributing {
-                    return self?.swipeAction?.direction == .Right
+                    return self?.swipeAction?.direction == .Left
                 } else {
                     return false
                 }

@@ -171,8 +171,11 @@ extension Entry {
         guard let container = container else {
             return
         }
-        if container.updatedAt.compare(updatedAt) == .OrderedAscending {
+        if updatedAt.later(container.updatedAt) {
             container.updatedAt = updatedAt
+            container.notifyOnUpdate(.ContentChanged)
+        } else if createdAt.later(container.updatedAt) {
+            container.updatedAt = createdAt
             container.notifyOnUpdate(.ContentChanged)
         }
     }

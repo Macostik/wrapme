@@ -87,6 +87,7 @@ extension User {
     }
     
     override func map(dictionary: [String : AnyObject], container: Entry?) {
+        super.map(dictionary, container: container)
         
         if let signInCount = dictionary[WLSignInCountKey] as? Int {
             let firstTimeUse = signInCount == 1
@@ -104,13 +105,8 @@ extension User {
         }
 
         if let devices = dictionary[WLDevicesKey] as? [[String : AnyObject]] {
-            let devices = Device.mappedEntries(devices, container: self)
-            if self.devices != devices {
-                self.devices = NSSet(array: devices)
-            }
+            Device.mappedEntries(devices, container: self)
         }
-        
-        super.map(dictionary, container: container)
     }
 }
 
@@ -119,17 +115,10 @@ extension Device {
         return dictionary[WLDeviceIDKey] as? String
     }
     override func map(dictionary: [String : AnyObject], container: Entry?) {
+        super.map(dictionary, container: container)
         
         if let name = dictionary["device_name"] as? String where self.name != name {
             self.name = name
-        }
-        
-        if let phone = dictionary[WLFullPhoneNumberKey] as? String where self.phone != phone {
-            self.phone = phone
-        }
-        
-        if let phone = dictionary[WLFullPhoneNumberKey] as? String where self.phone != phone {
-            self.phone = phone
         }
         
         if let phone = dictionary[WLFullPhoneNumberKey] as? String where self.phone != phone {
@@ -151,8 +140,6 @@ extension Device {
         if let container = container as? User where container != self.owner {
             self.owner = container
         }
-        
-        super.map(dictionary, container: container)
     }
 }
 
@@ -161,6 +148,7 @@ extension Contribution {
         return dictionary[WLUploadUIDKey] as? String
     }
     override func map(dictionary: [String : AnyObject], container: Entry?) {
+        super.map(dictionary, container: container)
         
         if let dictionary = dictionary[WLContributorKey] as? [String:AnyObject] {
             if let contributor = User.mappedEntry(dictionary) where self.contributor != contributor {
@@ -177,8 +165,6 @@ extension Contribution {
         if let editedAt = dictionary.dateForKey(WLEditedAtKey) where self.editedAt != editedAt {
             self.editedAt = editedAt
         }
-        
-        super.map(dictionary, container: container)
     }
 }
 
@@ -187,6 +173,7 @@ extension Wrap {
         return dictionary[WLWrapUIDKey] as? String
     }
     override func map(dictionary: [String : AnyObject], container: Entry?) {
+        super.map(dictionary, container: container)
         
         if let name = dictionary[WLNameKey] as? String where self.name != name {
             self.name = name
@@ -231,8 +218,6 @@ extension Wrap {
         if let array = dictionary[WLCandiesKey] as? [[String : AnyObject]] {
             Candy.mappedEntries(array, container: self)
         }
-        
-        super.map(dictionary, container: container)
     }
 }
 
@@ -241,6 +226,7 @@ extension Candy {
         return dictionary[WLCandyUIDKey] as? String
     }
     override func map(dictionary: [String : AnyObject], container: Entry?) {
+        super.map(dictionary, container: container)
         
         if let type = dictionary[WLCandyTypeKey] as? Int {
             let type = Int16(type)
@@ -281,8 +267,6 @@ extension Candy {
                 self.commentCount = commentCount
             }
         }
-        
-        super.map(dictionary, container: container)
     }
 }
 
@@ -291,6 +275,7 @@ extension Message {
         return dictionary[WLMessageUIDKey] as? String
     }
     override func map(dictionary: [String : AnyObject], container: Entry?) {
+        super.map(dictionary, container: container)
         
         if let text = dictionary[WLContentKey] as? String where self.text != text {
             self.text = text
@@ -301,8 +286,6 @@ extension Message {
                 self.wrap = wrap
             }
         }
-        
-        super.map(dictionary, container: container)
     }
 }
 
@@ -311,6 +294,7 @@ extension Comment {
         return dictionary[WLCommentUIDKey] as? String
     }
     override func map(dictionary: [String : AnyObject], container: Entry?) {
+        super.map(dictionary, container: container)
         
         if let text = dictionary[WLContentKey] as? String where self.text != text {
             self.text = text
@@ -322,6 +306,6 @@ extension Comment {
             }
         }
         
-        super.map(dictionary, container: container)
+        
     }
 }

@@ -38,9 +38,7 @@ class Candy: Contribution {
                 guard let comments = comments as? Set<Comment> else {
                     return nil
                 }
-                _latestComment = comments.sort({ (comment1, comment2) -> Bool in
-                    return comment1.updatedAt.timeIntervalSince1970 > comment2.updatedAt.timeIntervalSince1970
-                }).first
+                _latestComment = comments.sort({ $0.createdAt.later($1.createdAt) }).first
             }
             return _latestComment
         }

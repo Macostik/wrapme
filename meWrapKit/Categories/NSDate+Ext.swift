@@ -39,26 +39,26 @@ extension NSDate {
     }
     
     func earlier(date: NSDate) -> Bool {
-        return timeIntervalSinceDate(date) < 0;
+        return timeIntervalSinceDate(date) < 0
     }
     
     func later(date: NSDate) -> Bool {
-        return timeIntervalSinceDate(date) > 0;
+        return timeIntervalSinceDate(date) > 0
     }
     
     func match(date: NSDate) -> Bool {
-        return timeIntervalSinceDate(date) == 0;
+        return timeIntervalSinceDate(date) == 0
     }
     
     func timestampCompare(date: NSDate) -> NSComparisonResult {
-        let t1 = timestamp;
-        let t2 = date.timestamp;
+        let t1 = timestamp
+        let t2 = date.timestamp
         if t1 < t2 {
-            return .OrderedAscending;
+            return .OrderedAscending
         } else if t1 > t2 {
-            return .OrderedDescending;
+            return .OrderedDescending
         } else {
-            return .OrderedSame;
+            return .OrderedSame
         }
     }
     

@@ -56,9 +56,7 @@ class Wrap: Contribution {
     var cover: Candy? {
         if _cover == nil {
             if let candies = candies as? Set<Candy> {
-                _cover = candies.sort({ (comment1, comment2) -> Bool in
-                    return comment1.createdAt.timeIntervalSince1970 > comment2.createdAt.timeIntervalSince1970
-                }).first
+                _cover = candies.sort({ $0.updatedAt.later($1.updatedAt) }).first
             }
         }
         return _cover

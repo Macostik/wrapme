@@ -459,6 +459,9 @@
                                     <constraint firstItem="JuH-62-Y2V" firstAttribute="leading" secondItem="VyQ-Yd-53E" secondAttribute="leading" constant="10" id="s94-rz-BZk"/>
                                     <constraint firstItem="VyQ-Yd-53E" firstAttribute="trailing" secondItem="9Yt-Qh-gRF" secondAttribute="trailing" constant="10" id="xVo-d0-Ugm"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="huS-6Q-gZg" appends="YES" id="sFB-tD-uSS"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="11F-0m-rSj">
                                 <rect key="frame" x="0.0" y="254" width="320" height="96"/>
@@ -846,9 +849,6 @@
                             <constraint firstItem="Ji3-dV-tYy" firstAttribute="top" secondItem="9Dh-4e-Zqm" secondAttribute="bottom" constant="130" id="sUd-FS-F3r"/>
                             <constraint firstAttribute="trailing" secondItem="11F-0m-rSj" secondAttribute="trailing" id="sy4-I5-VmH"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="huS-6Q-gZg" appends="YES" id="u9P-Ly-fh5"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="jF0-9u-DA6"/>
                     <nil key="simulatedStatusBarMetrics"/>

@@ -19,7 +19,6 @@
 #import "UIColor+CustomColors.h"
 #import "WLBaseViewController.h"
 #import "WLImageView.h"
-#import "WLWrapStatusImageView.h"
 #import "WLWhatsUpSet.h"
 #import "CameraInfo.h"
 #import "AudioConfig.h"
@@ -32,3 +31,4 @@
 #import "WLNotificationSubscription.h"
 #import "WLBadgeLabel.h"
 #import "WLMessagesCounter.h"
+#import "GeometryHelper.h"

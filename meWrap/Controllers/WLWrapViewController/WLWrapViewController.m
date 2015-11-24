@@ -17,7 +17,6 @@
 #import "WLWhatsUpSet.h"
 #import "WLMessagesCounter.h"
 #import "WLButton.h"
-#import "WLWrapStatusImageView.h"
 #import "WLEntry+WLUploadingQueue.h"
 #import "WLFollowingViewController.h"
 #import "WLSoundPlayer.h"
@@ -35,7 +34,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *unfollowButton;
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 @property (weak, nonatomic) IBOutlet UIView *publicWrapView;
-@property (weak, nonatomic) IBOutlet WLWrapStatusImageView *publicWrapImageView;
+@property (weak, nonatomic) IBOutlet WrapCoverView *publicWrapImageView;
 @property (weak, nonatomic) IBOutlet UILabel *creatorName;
 @property (weak, nonatomic) IBOutlet UILabel *publicWrapNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ownerDescriptionLabel;

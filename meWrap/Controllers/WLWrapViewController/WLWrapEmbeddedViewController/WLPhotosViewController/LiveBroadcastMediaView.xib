@@ -30,7 +30,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yqa-eb-n6X" customClass="WLCircleImageView">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yqa-eb-n6X" customClass="OverlayImageView" customModule="meWrap" customModuleProvider="target">
                     <rect key="frame" x="12" y="1" width="48" height="48"/>
                     <animations/>
                     <constraints>

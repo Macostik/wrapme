@@ -79,7 +79,7 @@
                         <constraint firstAttribute="height" constant="10" id="ZjX-ps-GRb"/>
                     </constraints>
                 </imageView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8Do-t9-L3S" customClass="WLCircleImageView">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8Do-t9-L3S" customClass="OverlayImageView" customModule="meWrap" customModuleProvider="target">
                     <rect key="frame" x="16" y="0.0" width="40" height="40"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -8,13 +8,12 @@
 
 #import "WLFollowingViewController.h"
 #import "WLButton.h"
-#import "WLWrapStatusImageView.h"
 
 @interface WLFollowingViewController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
 @property (weak, nonatomic) IBOutlet UIButton *laterButton;
-@property (weak, nonatomic) IBOutlet WLWrapStatusImageView *imageView;
+@property (weak, nonatomic) IBOutlet WrapCoverView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ownerLabel;
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;

@@ -36,6 +36,10 @@ extension UIImage {
         }
     }
     
+    class func draw(size: CGSize, drawing: CGSize -> Void) -> UIImage {
+        return draw(size, opaque: false, scale: UIScreen.mainScreen().scale, drawing: drawing)
+    }
+    
     class func draw(size: CGSize, opaque: Bool, scale: CGFloat, drawing: CGSize -> Void) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, opaque, scale)
         drawing(size)

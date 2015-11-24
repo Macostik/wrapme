@@ -75,7 +75,7 @@ class UserView: EntryView {
 
 class WrapView: EntryView {
     
-    @IBOutlet weak var coverView: WLWrapStatusImageView?
+    @IBOutlet weak var coverView: WrapCoverView?
     
     @IBOutlet weak var nameLabel: UILabel?
     

@@ -22,17 +22,13 @@ class WrapCell: StreamReusableView {
     
     @IBOutlet weak var delegate: WrapCellDelegate?
     
-    @IBOutlet weak var coverView: WLWrapStatusImageView!
+    @IBOutlet weak var coverView: WrapCoverView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel?
     
     @IBOutlet weak var wrapNotificationLabel: WLBadgeLabel?
     @IBOutlet weak var chatNotificationLabel: WLBadgeLabel?
     @IBOutlet weak var chatButton: UIButton?
-    
-    @IBOutlet weak var creatorName: UILabel?
-    
-    @IBOutlet var datePrioritizer: LayoutPrioritizer?
     
     @IBOutlet var chatPrioritizer: LayoutPrioritizer?
     
@@ -100,26 +96,23 @@ class WrapCell: StreamReusableView {
         }
         
         nameLabel.text = wrap.name
-        dateLabel?.text = wrap.updatedAt.timeAgoStringAtAMPM()
         coverView.url = wrap.picture?.small
         wrapNotificationLabel?.value = WLWhatsUpSet.sharedSet().unreadCandiesCountForWrap(wrap)
         if (wrap.isPublic) {
+            dateLabel?.text = "\(wrap.contributor?.name ?? "") \(wrap.updatedAt.timeAgoStringAtAMPM())"
             chatNotificationLabel?.value = 0
             chatButton?.hidden = true
             chatPrioritizer?.defaultState = false
             coverView.isFollowed = wrap.isContributing
             coverView.isOwner = wrap.contributor?.current ?? false
-            datePrioritizer?.defaultState = true
-            creatorName?.text = wrap.contributor?.name
         } else {
+            dateLabel?.text = wrap.updatedAt.timeAgoStringAtAMPM()
             let messageConter = WLMessagesCounter.instance().countForWrap(wrap)
             let hasUnreadMessages = messageConter > 0
             chatNotificationLabel?.value = messageConter
             chatButton?.hidden = !hasUnreadMessages
             chatPrioritizer?.defaultState = hasUnreadMessages
             coverView.isFollowed = false
-            datePrioritizer?.defaultState = false
-            creatorName?.text = nil
         }
         if let broadcasts = LiveBroadcast.broadcastsForWrap(wrap) {
             liveBroadcastIndicator?.hidden = broadcasts.isEmpty

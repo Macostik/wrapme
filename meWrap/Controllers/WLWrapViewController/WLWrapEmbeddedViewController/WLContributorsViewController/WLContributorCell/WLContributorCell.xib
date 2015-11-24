@@ -72,8 +72,8 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
-                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="100899696572342342343" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="f1g-Ue-RDF" customClass="WLLabel">
-                                    <rect key="frame" x="72" y="35" width="224" height="32"/>
+                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100899696572342342343" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="f1g-Ue-RDF" customClass="WLLabel">
+                                    <rect key="frame" x="72" y="35" width="224" height="16"/>
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
@@ -83,8 +83,8 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
-                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Invite sent [friendly timestamp]. Swipe to resend invite" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZuV-DA-CsE" customClass="WLLabel">
-                                    <rect key="frame" x="72" y="70" width="193" height="32"/>
+                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite sent [friendly timestamp]. Swipe to resend invite" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZuV-DA-CsE" customClass="WLLabel">
+                                    <rect key="frame" x="72" y="54" width="193" height="32"/>
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>

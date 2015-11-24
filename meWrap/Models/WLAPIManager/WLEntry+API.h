@@ -14,10 +14,6 @@
 
 @interface Entry (WLAPIManager)
 
-@property (readonly, nonatomic) BOOL fetched;
-
-@property (readonly, nonatomic) BOOL recursivelyFetched;
-
 - (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 - (id)update:(WLObjectBlock)success failure:(WLFailureBlock)failure;
@@ -40,10 +36,6 @@
 
 - (instancetype)update:(NSDictionary *)dictionary;
 
-- (void)touch;
-
-- (void)touch:(NSDate*)date;
-
 @end
 
 @interface User (WLAPIManager) @end
@@ -51,8 +43,6 @@
 @interface Device (WLAPIManager) @end
 
 @interface Contribution (WLAPIManager)
-
-+ (NSNumber*)uploadingOrder;
 
 @end
 
@@ -72,8 +62,6 @@
 
 @interface Candy (WLAPIManager)
 
-- (void)setEditedPictureIfNeeded:(Asset *)editedPicture;
-
 - (void)download:(WLBlock)success failure:(WLFailureBlock)failure;
 
 @end
@@ -83,8 +71,6 @@
 @end
 
 @interface Comment (WLAPIManager)
-
-+ (instancetype)comment:(NSString*)text;
 
 @end
 

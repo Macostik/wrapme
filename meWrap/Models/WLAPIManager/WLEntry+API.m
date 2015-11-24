@@ -55,21 +55,6 @@
     return self;
 }
 
-- (BOOL)fetched {
-    return YES;
-}
-
-- (BOOL)recursivelyFetched {
-    Entry *entry = self;
-    while (entry) {
-        if (!entry.fetched) {
-            return NO;
-        }
-        entry = entry.container;
-    }
-    return YES;
-}
-
 - (void)recursivelyFetchIfNeeded:(WLBlock)success failure:(WLFailureBlock)failure {
     
     if (self.recursivelyFetched) {
@@ -126,38 +111,6 @@
     return nil;
 }
 
-- (id)older:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    success(nil);
-    return nil;
-}
-
-- (id)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    return [self older:NO success:success failure:failure];
-}
-
-- (id)newer:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    success(nil);
-    return nil;
-}
-
-- (id)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    return [self newer:NO success:success failure:failure];
-}
-
-- (void)touch {
-    [self touch:[NSDate now]];
-}
-
-- (void)touch:(NSDate *)date {
-    if (self.container) {
-        [self.container touch:date];
-    }
-    self.updatedAt = date;
-    if (self.createdAt == nil) {
-        self.createdAt = date;
-    }
-}
-
 @end
 
 @implementation User (WLAPIManager)
@@ -183,17 +136,9 @@
     }
 }
 
-+ (NSNumber *)uploadingOrder {
-    return @5;
-}
-
 @end
 
 @implementation Wrap (WLAPIManager)
-
-+ (NSNumber *)uploadingOrder {
-    return @1;
-}
 
 + (void)prefetchDescriptors:(NSMutableDictionary *)descriptors inDictionary:(NSDictionary *)dictionary {
     [super prefetchDescriptors:descriptors inDictionary:dictionary];
@@ -209,10 +154,6 @@
     if (dictionary[WLCandiesKey] != nil) {
         [Candy prefetchDescriptors:descriptors inArray:dictionary[WLCandiesKey]];
     }
-}
-
-- (BOOL)fetched {
-    return self.name.nonempty && self.contributor;
 }
 
 - (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure {
@@ -295,42 +236,11 @@
 
 @implementation Candy (WLAPIManager)
 
-+ (NSNumber *)uploadingOrder {
-    return @2;
-}
-
 + (void)prefetchDescriptors:(NSMutableDictionary *)descriptors inDictionary:(NSDictionary *)dictionary {
     [super prefetchDescriptors:descriptors inDictionary:dictionary];
     if (dictionary[WLCommentsKey]) {
         [Comment prefetchDescriptors:descriptors inArray:dictionary[WLCommentsKey]];
     }
-}
-
-- (void)setEditedPictureIfNeeded:(Asset *)editedPicture {
-    switch (self.status) {
-        case WLContributionStatusReady:
-            self.picture = editedPicture;
-            break;
-        case WLContributionStatusInProgress:
-            break;
-        case WLContributionStatusFinished:
-            [self touch];
-            self.editedAt = [NSDate now];
-            self.editor = [User currentUser];
-            self.picture = editedPicture;
-            break;
-        default:
-            break;
-    }
-}
-
-- (void)prepareForDeletion {
-    self.wrap = nil;
-    [super prepareForDeletion];
-}
-
-- (BOOL)fetched {
-    return self.wrap && self.picture.original.nonempty;
 }
 
 - (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure {
@@ -474,41 +384,13 @@
 
 @implementation Message (WLAPIManager)
 
-- (BOOL)fetched {
-    return self.text.nonempty && self.wrap;
-}
-
 - (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     return [[WLAPIRequest uploadMessage:self] send:success failure:failure];
-}
-
-- (void)prepareForDeletion {
-    self.wrap = nil;
-    [super prepareForDeletion];
 }
 
 @end
 
 @implementation Comment (WLAPIManager)
-
-+ (NSNumber *)uploadingOrder {
-    return @3;
-}
-
-+ (instancetype)comment:(NSString *)text {
-    Comment *comment = [self contribution];
-    comment.text = text;
-    return comment;
-}
-
-- (void)prepareForDeletion {
-    self.candy = nil;
-    [super prepareForDeletion];
-}
-
-- (BOOL)fetched {
-    return self.text.nonempty && self.candy;
-}
 
 - (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     if (self.candy.uploaded) {

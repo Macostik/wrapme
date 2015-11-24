@@ -257,7 +257,7 @@
     if (candy.valid) {
         [self showWithMessage:[NSString stringWithFormat:(candy.isVideo ? @"downloading_video" : @"downloading_photo").ls, [Constants albumName]]];
     } else {
-        [self showWithMessage:@"downloading_media".ls];
+        [self showWithMessage:[NSString stringWithFormat:@"downloading_media".ls, [Constants albumName]]];
     }
 }
 

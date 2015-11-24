@@ -153,9 +153,9 @@
                     broadcast.broadcaster = [User entry:uuid[@"uuid"] allowInsert:NO];
                     broadcast.wrap = [Wrap entry:channel allowInsert:NO];
                     broadcast.title = state[@"title"];
-                    broadcast.channel = state[@"channel"];
+                    broadcast.channel = state[@"chatChannel"];
                     broadcast.url = state[@"viewerURL"];
-                    if (broadcast.wrap) {
+                    if (broadcast.wrap && broadcast.broadcaster) {
                         [wrapBroadcasts addObject:broadcast];
                     }
                 }

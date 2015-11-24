@@ -100,7 +100,7 @@
     if (self.valid) {
         MutableAsset *picture = [[MutableAsset alloc] init];
         [picture setImage:image];
-        [self setEditedPictureIfNeeded:[picture uploadablePicture:NO]];
+        [self setEditedPicture:[picture uploadablePicture:NO]];
         [self enqueueUpdate:^(NSError *error) {
             [error show];
         }];

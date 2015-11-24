@@ -10,6 +10,7 @@ import Foundation
 import CoreData
 
 extension Entry {
+    
     class func entry() -> Self? {
         return entry(self)
     }
@@ -48,6 +49,32 @@ extension Entry {
             }
         }
     }
+    
+    func touch() {
+        touch(NSDate.now())
+    }
+    
+    func touch(date: NSDate) {
+        if let container = container {
+            container.touch(date)
+        }
+        updatedAt = date
+    }
+    
+    func fetched() -> Bool {
+        return true
+    }
+    
+    func recursivelyFetched() -> Bool {
+        var entry: Entry? = self
+        while let _entry = entry {
+            if !_entry.fetched() {
+                return false
+            }
+            entry = _entry.container
+        }
+        return true
+    }
 }
 
 extension User {
@@ -59,6 +86,7 @@ extension Device {
 }
 
 extension Contribution {
+    
     class func contribution() -> Self? {
         return contribution(self)
     }
@@ -91,12 +119,18 @@ extension Wrap {
             return nil
         }
     }
+    
+    override func fetched() -> Bool {
+        return !(name?.isEmpty ?? true) && contributor != nil
+    }
 }
 
 extension Candy {
+    
     class func candy(mediaType: MediaType) -> Self? {
         return candy(self, mediaType: mediaType)
     }
+    
     class func candy<T>(type: T.Type, mediaType: MediaType) -> T? {
         if let candy = contribution() {
             candy.mediaType = mediaType
@@ -105,16 +139,41 @@ extension Candy {
             return nil
         }
     }
+    
+    override func fetched() -> Bool {
+        return wrap != nil && !(picture?.original?.isEmpty ?? true)
+    }
+    
+    func setEditedPicture(editedPicture: Asset) {
+        switch status {
+        case .Ready:
+            picture = editedPicture
+            break
+        case .InProgress:
+            break
+        case .Finished:
+            touch()
+            editedAt = NSDate.now()
+            editor = User.currentUser
+            picture = editedPicture
+            break
+        }
+    }
 }
 
 extension Message {
     
+    override func fetched() -> Bool {
+        return !(text?.isEmpty ?? true) && wrap != nil
+    }
 }
 
 extension Comment {
+    
     class func comment(text: String) -> Comment? {
         return comment(self, text: text)
     }
+    
     class func comment<T>(type: T.Type, text: String) -> T? {
         if let comment = contribution() {
             comment.text = text
@@ -122,5 +181,9 @@ extension Comment {
         } else {
             return nil
         }
+    }
+    
+    override func fetched() -> Bool {
+        return !(text?.isEmpty ?? true) && candy != nil
     }
 }

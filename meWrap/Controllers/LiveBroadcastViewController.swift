@@ -14,6 +14,8 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     weak var playerLayer: AVPlayerLayer?
     
+    var playerItem: AVPlayerItem?
+    
     @IBOutlet weak var wrapNameLabel: UILabel!
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -31,12 +33,11 @@ class LiveBroadcastViewController: WLBaseViewController {
     weak var broadcast: LiveBroadcast?
     
     deinit {
-        guard let player = playerLayer?.player else {
+        guard let item = playerItem else {
             return
         }
-        player.removeObserver(self, forKeyPath: "status")
-        player.currentItem?.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
-        player.currentItem?.removeObserver(self, forKeyPath: "playbackBufferEmpty")
+        item.removeObserver(self, forKeyPath: "status")
+        item.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
     }
     
     override func viewDidLoad() {
@@ -56,11 +57,12 @@ class LiveBroadcastViewController: WLBaseViewController {
                 view.layer.insertSublayer(layer, atIndex: 0)
                 playerLayer = layer
                 
-                let player = AVPlayer(URL: url)
+                let playerItem = AVPlayerItem(URL: url)
+                playerItem.addObserver(self, forKeyPath: "status", options: .New, context: nil)
+                playerItem.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .New, context: nil)
+                let player = AVPlayer(playerItem: playerItem)
                 layer.player = player
-                player.addObserver(self, forKeyPath: "status", options: .New, context: nil)
-                player.currentItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .New, context: nil)
-                player.currentItem?.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .New, context: nil)
+                self.playerItem = playerItem
             }
         } else {
             isBroadcasting = true
@@ -102,20 +104,16 @@ class LiveBroadcastViewController: WLBaseViewController {
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        guard let player = playerLayer?.player else {
+        guard let player = playerLayer?.player, let item = playerItem else {
             return
         }
         if keyPath == "status" {
-            if player.status == .ReadyToPlay {
+            if item.status == .ReadyToPlay {
                 player.play()
             }
         } else if keyPath == "playbackLikelyToKeepUp" {
-            if player.currentItem?.playbackLikelyToKeepUp == true {
+            if item.playbackLikelyToKeepUp == true {
                 player.play()
-            }
-        } else if keyPath == "playbackBufferEmpty" {
-            if player.currentItem?.playbackBufferEmpty == true {
-                
             }
         }
     }
@@ -139,6 +137,8 @@ class LiveBroadcastViewController: WLBaseViewController {
         broadcast.wrap = wrap
         LiveBroadcast.addBroadcast(broadcast)
         
+        print(broadcast.url)
+        
         self.broadcast = broadcast
         
         let state: [NSObject : AnyObject] = [
@@ -154,10 +154,12 @@ class LiveBroadcastViewController: WLBaseViewController {
         
         let uri = "rtsp://live.mewrap.me:1935/live/\(channel)"
         connectionID = streamer.createConnectionWithListener(self, uri: uri, mode: 0)
-        
+        UIApplication.sharedApplication().idleTimerDisabled = true
     }
     
     func stop() {
+        
+        UIApplication.sharedApplication().idleTimerDisabled = false
         
         if let broadcast = broadcast {
             LiveBroadcast.removeBroadcast(broadcast)

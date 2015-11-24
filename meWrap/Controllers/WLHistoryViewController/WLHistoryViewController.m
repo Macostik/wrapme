@@ -368,8 +368,12 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
             sender.loading = NO;
             [WLToast showDownloadingMediaMessageForCandy:weakSelf.candy];
         } failure:^(NSError *error) {
+            if (error.isNetworkError) {
+                [WLToast showWithMessage:@"downloading_internet_connection_error".ls];
+            } else {
+                [error show];
+            }
             sender.loading = NO;
-            [error show];
         }];
     }];
 }

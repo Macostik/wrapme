@@ -358,15 +358,17 @@
                 } collectionTitle:[Constants albumName] success:success failure:failure];
             } else {
                 NSURLSessionDownloadTask *task = [[NSURLSession sharedSession] downloadTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                    if (error) {
-                        if (failure) failure(error);
-                    } else {
-                        NSURL* url = [[location URLByDeletingPathExtension] URLByAppendingPathExtension:@"mp4"];
-                        [[NSFileManager defaultManager] moveItemAtURL:location toURL:url error:nil];
-                        [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
-                            return [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:url];
-                        } collectionTitle:[Constants albumName] success:success failure:failure];
-                    }
+                    run_in_main_queue(^{
+                        if (error) {
+                            if (failure) failure(error);
+                        } else {
+                            NSURL* url = [[location URLByDeletingPathExtension] URLByAppendingPathExtension:@"mp4"];
+                            [[NSFileManager defaultManager] moveItemAtURL:location toURL:url error:nil];
+                            [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
+                                return [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:url];
+                            } collectionTitle:[Constants albumName] success:success failure:failure];
+                        }
+                    });
                 }];
                 [task resume];
             }

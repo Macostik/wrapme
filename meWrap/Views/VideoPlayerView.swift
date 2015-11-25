@@ -102,13 +102,24 @@ class VideoPlayerView: UIView {
     
     @IBOutlet weak var delegate: VideoPlayerViewDelegate?
     
-    @IBOutlet weak var playButton: UIButton?
+    @IBOutlet weak var secondaryPlayButton: UIButton? {
+        didSet {
+            secondaryPlayButton?.hidden = true
+        }
+    }
+    
+    @IBOutlet weak var playButton: UIView? 
+    
+    @IBOutlet weak var placeholderPlayButton: UIView?
     
     @IBOutlet weak var timeView: VideoTimeView! {
         didSet {
             timeView.userInteractionEnabled = false
+            timeView.hidden = true
         }
     }
+    
+    @IBOutlet weak var timeViewPrioritizer: LayoutPrioritizer?
     
     var playing: Bool = false {
         didSet {
@@ -128,11 +139,26 @@ class VideoPlayerView: UIView {
                 } else {
                     player.pause()
                     delegate?.videoPlayerViewDidPause?(self)
+                    
                 }
+                hiddenCenterViews(true)
+                hiddenBottomViews(false)
                 
-                playButton?.selected = playing
+                secondaryPlayButton?.selected = playing
             }
         }
+    }
+    
+    func hiddenCenterViews (hidden: Bool) {
+        placeholderPlayButton?.hidden = hidden
+        playButton?.hidden = hidden
+    }
+    
+    func hiddenBottomViews (hidden: Bool) {
+        secondaryPlayButton?.hidden = hidden
+        timeView.hidden = hidden
+        secondaryPlayButton?.addAnimation(CATransition.transition(kCATransitionFade))
+        timeView?.addAnimation(CATransition.transition(kCATransitionFade))
     }
     
     @IBOutlet weak var spinner: UIActivityIndicatorView?
@@ -184,7 +210,7 @@ class VideoPlayerView: UIView {
             }
             player.replaceCurrentItemWithPlayerItem(_item)
             timeView.time = 0
-            playButton?.selected = false
+            secondaryPlayButton?.selected = false
             spinner?.stopAnimating()
         }
     }
@@ -220,6 +246,8 @@ class VideoPlayerView: UIView {
     func playerItemDidPlayToEndTime(notification: NSNotification) {
         if _item == notification.object as? AVPlayerItem {
             playing = false
+            hiddenCenterViews(false)
+            hiddenBottomViews(true)
             delegate?.videoPlayerViewDidPlayToEnd?(self)
         }
     }

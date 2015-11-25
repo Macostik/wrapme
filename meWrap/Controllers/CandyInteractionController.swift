@@ -12,18 +12,17 @@ class CandyInteractionController: NSObject, UIGestureRecognizerDelegate {
 
     weak var screenShotView: UIView?
     var isMoveUp: Bool = false
-    unowned var contentView: UIView
-    unowned var currentViewController: WLHistoryViewController
+    var vectorUp = true
+    weak var contentView: UIView!
+    unowned var currentViewController: WLCandyViewController
     var allowGesture = true
     lazy var panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
+    var interactionHandler: ((Bool) -> Void)
     
-    required init (viewController: WLHistoryViewController) {
+    required init (viewController: WLCandyViewController, interactionHandler:(Bool) -> Void) {
         currentViewController = viewController
-        if let contentView = viewController.contentView {
-            self.contentView = contentView
-        } else {
-            contentView = viewController.view
-        }
+        self.contentView = viewController.contentView
+        self.interactionHandler = interactionHandler
         super.init()
         setup()
     }
@@ -49,12 +48,14 @@ class CandyInteractionController: NSObject, UIGestureRecognizerDelegate {
                 self.contentView.transform = CGAffineTransformMakeTranslation(0, translationPoint.y)
             })
             self.screenShotView?.alpha = percentCompleted
+            if (velocity.y != 0) { vectorUp = velocity.y < 0 }
         case .Ended, .Cancelled:
             if  (percentCompleted > 0.5 || abs(velocity.y) > 1000) {
                 let endPoint = contentView.height
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
                     self.screenShotView?.alpha = 1
-                    self.contentView.transform = CGAffineTransformMakeTranslation(0, self.isMoveUp ? -endPoint : endPoint)
+                    print (">>self - \(self.isMoveUp) - \(self.vectorUp)<<")
+                    self.contentView.transform = CGAffineTransformMakeTranslation(0, self.isMoveUp && self.vectorUp ? -endPoint : endPoint)
                     }, completion: { (finished) -> Void in
                         self.currentViewController.navigationController?.popViewControllerAnimated(false)
                 })
@@ -72,7 +73,8 @@ class CandyInteractionController: NSObject, UIGestureRecognizerDelegate {
     
     func presentingViewController() -> UIViewController? {
         let viewControllers: NSArray = (currentViewController.navigationController?.viewControllers)!
-        let ownerIndex = viewControllers.indexOfObject(currentViewController)
+        let presentingViewController = currentViewController.parentViewController ?? currentViewController.presentedViewController ?? currentViewController
+        let ownerIndex = viewControllers.indexOfObject(presentingViewController)
         if  (0 < ownerIndex) {
             let presentingViewController = viewControllers.objectAtIndex(ownerIndex - 1) as! UIViewController
             return presentingViewController
@@ -81,9 +83,9 @@ class CandyInteractionController: NSObject, UIGestureRecognizerDelegate {
     }
     
     func setSecondaryVeiwHidden(hidden: Bool, animated: Bool) {
-        currentViewController.scrollView?.alwaysBounceHorizontal = !hidden
-        currentViewController.setBarsHidden(hidden, animated: animated)
-        currentViewController.commentButtonPrioritizer?.defaultState = !hidden
+        if let interactionHandler: (Bool) -> Void = interactionHandler {
+            interactionHandler(hidden)
+        }
     }
     
     func addSplashScreenToHierarchy () {

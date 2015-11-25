@@ -30,46 +30,33 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     WLHistoryBottomViewModeEditing
 };
 
-@interface WLHistoryViewController () <EntryNotifying, VideoPlayerViewDelegate>
+@interface WLHistoryViewController () <EntryNotifying>
 
-@property (weak, nonatomic) IBOutlet UIView *topView;
-@property (weak, nonatomic) IBOutlet UIView *bottomView;
-@property (weak, nonatomic) IBOutlet WLButton *commentButton;
+@property (weak, nonatomic) IBOutlet EntryStatusIndicator *candyIndicator;
+@property (weak, nonatomic) IBOutlet EntryStatusIndicator *commentIndicator;
+@property (weak, nonatomic) IBOutlet LayoutPrioritizer *bottomViewHeightPrioritizer;
+@property (weak, nonatomic) IBOutlet LayoutPrioritizer *primaryConstraint;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
-@property (weak, nonatomic) IBOutlet UIButton *reportButton;
-@property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (weak, nonatomic) IBOutlet UIButton *downloadButton;
 @property (weak, nonatomic) IBOutlet UIButton *drawButton;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
+@property (weak, nonatomic) IBOutlet UIButton *reportButton;
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
+@property (weak, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet WLButton *commentButton;
+@property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet WLLabel *postLabel;
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
-@property (weak, nonatomic) IBOutlet EntryStatusIndicator *commentIndicator;
-@property (weak, nonatomic) IBOutlet EntryStatusIndicator *candyIndicator;
-@property (weak, nonatomic) IBOutlet UILabel *playLabel;
-@property (weak, nonatomic) IBOutlet UIView *placeholderPlayLabel;
-
-@property (weak, nonatomic) Comment *lastComment;
-
-@property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet WLTextView *lastCommentTextView;
-@property (weak, nonatomic) IBOutlet VideoPlayerView *videoPlayerView;
-
-@property (weak, nonatomic) IBOutlet LayoutPrioritizer *primaryConstraint;
-@property (weak, nonatomic) IBOutlet LayoutPrioritizer *bottomViewHeightPrioritizer;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
-
-@property (strong, nonatomic) NSMapTable *cachedCandyViewControllers;
-
-@property (nonatomic) NSUInteger currentCandyIndex;
-
-@property (weak, nonatomic) Candy *removedCandy;
-
-@property (nonatomic) WLHistoryBottomViewMode bottomViewMode;
 
 @property (nonatomic) BOOL disableRotation;
-
+@property (nonatomic) NSUInteger currentCandyIndex;
+@property (nonatomic) WLHistoryBottomViewMode bottomViewMode;
+@property (strong, nonatomic) NSMapTable *cachedCandyViewControllers;
+@property (weak, nonatomic) Candy *removedCandy;
+@property (weak, nonatomic) Comment *lastComment;
 @property (weak, nonatomic) WLOperationQueue *paginationQueue;
-
-@property (strong, nonatomic) CandyInteractionController *candyInteractionController;
 
 @end
 
@@ -83,7 +70,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [super viewDidLoad];
     
     [self.contentView addGestureRecognizer:self.scrollView.panGestureRecognizer];
-    self.videoPlayerView.delegate = self;
     
     __weak typeof(self)weakSelf = self;
     self.paginationQueue = [WLOperationQueue queueNamed:[NSString GUID] capacity:1];
@@ -120,7 +106,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     if (self.showCommentViewController) {
         [self showCommentView];
     }
-    self.candyInteractionController = [[CandyInteractionController alloc] initWithViewController:self];
 }
 
 - (void)toggleBottomViewMode {
@@ -173,10 +158,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
             [self.navigationController popViewControllerAnimated:NO];
         }
     }
-    if (_candy.isVideo) {
-        self.videoPlayerView.playButton.hidden = YES;
-        self.videoPlayerView.timeView.hidden = YES;
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -202,8 +183,9 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (void)setCandy:(Candy *)candy direction:(WLSwipeViewControllerDirection)direction animated:(BOOL)animated {
     _candy = candy;
+    WLCandyViewController *candyViewController = [self candyViewController:candy];
     [self updateOwnerData];
-    [self setViewController:[self candyViewController:candy] direction:direction animated:animated];
+    [self setViewController:candyViewController direction:direction animated:animated];
 }
 
 - (void)fetchCandiesOlderThen:(Candy *)candy {
@@ -250,20 +232,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     self.lastComment = [candy latestComment];
     self.deleteButton.hidden = !candy.deletable;
     self.reportButton.hidden = !self.deleteButton.hidden;
-    VideoPlayerView *playerView = self.videoPlayerView;
-    NSInteger type = candy.type;
-    if (type == MediaTypeVideo) {
-        if (!playerView.playing) {
-            playerView.url = [candy.picture.original smartURL];
-        }
-        self.drawButton.hidden = self.editButton.hidden = YES;
-        playerView.hidden = NO;
-    } else {
-        playerView.url = nil;
-        playerView.hidden = YES;
-        self.drawButton.hidden = self.editButton.hidden = NO;
-        self.drawButton.userInteractionEnabled = YES;
-    }
     self.bottomViewHeightPrioritizer.defaultState = !self.avatarImageView.hidden;
 }
 
@@ -441,7 +409,9 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (IBAction)comments:(id)sender {
-    if  (self.videoPlayerView.playing) [self.videoPlayerView pause];
+    if (self.commentPressed) {
+        self.commentPressed();
+    }
     __weak typeof(self)weakSelf = self;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
         for (UIViewController *controller in [self childViewControllers]) {
@@ -496,13 +466,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         candyViewController.candy = candy;
         [self.cachedCandyViewControllers setObject:candyViewController forKey:candy];
     }
-    
-    if (candy.isVideo) {
-        self.videoPlayerView.playButton.hidden = YES;
-        self.videoPlayerView.timeView.hidden = YES;
-        self.placeholderPlayLabel.hidden = self.playLabel.hidden = NO;
-    }
-    
+    candyViewController.historyViewController = self;
     return candyViewController;
 }
 
@@ -553,65 +517,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     return self.disableRotation ? [super supportedInterfaceOrientations] : UIInterfaceOrientationMaskAll;
 }
 
-// MARK: - VideoPlayerViewDelegate
-
-- (void)hideAllViews {
-    [self hideVideoPlayingViews:YES];
-    [self hideSecondaryViews:YES];
-}
-
-- (void)hideVideoPlayingViews:(BOOL)hide {
-    self.videoPlayerView.playButton.hidden = hide;
-    self.videoPlayerView.timeView.hidden = hide;
-    [self.videoPlayerView.playButton addAnimation:[CATransition transition:kCATransitionFade]];
-    [self.videoPlayerView.timeView addAnimation:[CATransition transition:kCATransitionFade]];
-}
-
-- (void)hideSecondaryViews:(BOOL)hide {
-    self.bottomView.hidden = hide;
-    self.topView.hidden = hide;
-    self.commentButton.hidden = hide;
-    [self.bottomView addAnimation:[CATransition transition:kCATransitionFade]];
-    [self.topView addAnimation:[CATransition transition:kCATransitionFade]];
-    [self.commentButton addAnimation:[CATransition transition:kCATransitionFade]];
-}
-
-- (void)videoPlayerViewDidPlay:(VideoPlayerView *)view {
-    self.candyInteractionController.allowGesture = NO;
-    self.navigationController.delegate = nil;
-    [self setBarsHidden:NO animated:YES];
-    self.placeholderPlayLabel.hidden = self.playLabel.hidden = YES;
-    self.scrollView.panGestureRecognizer.enabled = NO;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideAllViews) object:nil];
-    [self hideVideoPlayingViews:NO];
-    [self hideSecondaryViews:NO];
-    [self performSelector:@selector(hideAllViews) withObject:nil afterDelay:4];
-}
-
-- (void)videoPlayerViewDidPause:(VideoPlayerView *)view {
-   self.candyInteractionController.allowGesture = YES;
-    [self hideVideoPlayingViews:NO];
-    [self hideSecondaryViews:NO];
-    self.scrollView.panGestureRecognizer.enabled = YES;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideAllViews) object:nil];
-}
-
-- (void)videoPlayerViewSeekedToTime:(VideoPlayerView *)view {
-    if (view.playing) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideAllViews) object:nil];
-        [self performSelector:@selector(hideAllViews) withObject:nil afterDelay:4];
-    }
-}
-
-- (void)videoPlayerViewDidPlayToEnd:(VideoPlayerView *)view {
- self.candyInteractionController.allowGesture = YES;
-    self.placeholderPlayLabel.hidden =
-    self.playLabel.hidden = NO;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideAllViews) object:nil];
-    [self hideSecondaryViews:NO];
-    [self hideVideoPlayingViews:YES];
-}
-
 // MARK: - CommentViewControllerDelegate
 
 - (void)applyScaleToCandyViewController:(BOOL)apply {
@@ -620,6 +525,17 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         candyViewController.view.transform = apply ? CGAffineTransformMakeScale(0.9, 0.9) : CGAffineTransformIdentity;
     }];
     [self setBarsHidden:apply animated:YES];
+}
+
+- (void)hideSecondaryViews:(BOOL)hide {
+    self.bottomView.hidden = hide;
+    self.topView.hidden = hide;
+    self.commentButton.hidden = hide;
+    if (hide) {
+        [self.bottomView addAnimation:[CATransition transition:kCATransitionFade]];
+        [self.topView addAnimation:[CATransition transition:kCATransitionFade]];
+        [self.commentButton addAnimation:[CATransition transition:kCATransitionFade]];
+    }
 }
 
 @end

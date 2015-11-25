@@ -10,7 +10,7 @@
 #import "WLPresentingImageView.h"
 #import "WLHistory.h"
 
-@class Wrap, Candy, LayoutPrioritizer;
+@class LayoutPrioritizer;
 
 @interface WLHistoryViewController : WLSwipeViewController
 
@@ -24,10 +24,14 @@
 
 @property (strong, nonatomic) WLPresentingImageView *presentingImageView;
 
+@property (copy, nonatomic) WLBlock commentPressed;
+
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet LayoutPrioritizer *commentButtonPrioritizer;
 
+
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated;
+- (void)hideSecondaryViews:(BOOL)hide;
 
 - (void)showCommentView;
 

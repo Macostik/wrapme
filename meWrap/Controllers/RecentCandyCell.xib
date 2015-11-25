@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="icons.ttf">
+            <string>icons</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="9BX-2S-46K" customClass="RecentCandyCell" customModule="meWrap" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="126"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kVR-bM-CQu" customClass="WLImageView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="126"/>
+                    <animations/>
+                </imageView>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qj6-m2-hZP">
+                    <rect key="frame" x="12" y="8" width="100" height="29"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wrap name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="61" translatesAutoresizingMaskIntoConstraints="NO" id="stJ-jO-ZNV" customClass="WLLabel">
+                            <rect key="frame" x="8" y="4" width="84" height="21"/>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="0.0" alpha="0.80247478240000003" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="stJ-jO-ZNV" firstAttribute="top" secondItem="qj6-m2-hZP" secondAttribute="top" constant="4" id="3D5-Jf-mvf"/>
+                        <constraint firstItem="stJ-jO-ZNV" firstAttribute="leading" secondItem="qj6-m2-hZP" secondAttribute="leading" constant="8" id="FTY-2K-hy2"/>
+                        <constraint firstAttribute="trailing" secondItem="stJ-jO-ZNV" secondAttribute="trailing" constant="8" id="dh0-rU-0x8"/>
+                        <constraint firstAttribute="bottom" secondItem="stJ-jO-ZNV" secondAttribute="bottom" constant="4" id="h8m-vY-stb"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view userInteractionEnabled="NO" contentMode="bottom" placeholderIntrinsicWidth="106" placeholderIntrinsicHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="EJb-Gz-G2s" customClass="GradientView" customModule="meWrap" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="62" width="320" height="64"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2wT-n8-UM6" customClass="WLImageView">
+                            <rect key="frame" x="12" y="8" width="48" height="48"/>
+                            <animations/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="0VM-68-LgH"/>
+                                <constraint firstAttribute="width" constant="48" id="5YU-0x-8Dx"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                                <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                    <color key="value" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                            </userDefinedRuntimeAttributes>
+                        </imageView>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Yestarday at 2:34pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="125" translatesAutoresizingMaskIntoConstraints="NO" id="WCz-3I-Kio" customClass="WLLabel">
+                            <rect key="frame" x="167" y="0.0" width="141" height="12"/>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="gxK-j2-Fvz"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="[very long user name] posted a new photo" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t7m-q8-vxF" customClass="WLLabel">
+                            <rect key="frame" x="72" y="12" width="236" height="41"/>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="WCz-3I-Kio" secondAttribute="trailing" constant="12" id="7cI-nS-npy"/>
+                        <constraint firstItem="2wT-n8-UM6" firstAttribute="top" secondItem="EJb-Gz-G2s" secondAttribute="top" constant="8" id="7fz-W4-5q8"/>
+                        <constraint firstItem="t7m-q8-vxF" firstAttribute="leading" secondItem="2wT-n8-UM6" secondAttribute="trailing" constant="12" id="Ee6-2c-aZU"/>
+                        <constraint firstItem="t7m-q8-vxF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="WCz-3I-Kio" secondAttribute="bottom" id="RJN-pZ-uik"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="2wT-n8-UM6" secondAttribute="bottom" constant="8" id="TT0-rq-vXF"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="t7m-q8-vxF" secondAttribute="trailing" constant="12" id="cRq-em-5JN"/>
+                        <constraint firstItem="WCz-3I-Kio" firstAttribute="top" secondItem="EJb-Gz-G2s" secondAttribute="top" id="dxb-d6-Wdn"/>
+                        <constraint firstItem="t7m-q8-vxF" firstAttribute="centerY" secondItem="2wT-n8-UM6" secondAttribute="centerY" id="jrE-Qm-bEL"/>
+                        <constraint firstItem="2wT-n8-UM6" firstAttribute="leading" secondItem="EJb-Gz-G2s" secondAttribute="leading" constant="12" id="u83-YC-kQP"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                            <color key="value" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3w9-Pd-Kzq">
+                    <rect key="frame" x="284" y="8" width="24" height="24"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="EJb-Gz-G2s" firstAttribute="leading" secondItem="9BX-2S-46K" secondAttribute="leading" id="8Iz-7Y-xQk"/>
+                <constraint firstAttribute="trailing" secondItem="EJb-Gz-G2s" secondAttribute="trailing" id="9BA-uB-8xk"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="qj6-m2-hZP" secondAttribute="trailing" constant="12" id="9fd-6P-S5h"/>
+                <constraint firstAttribute="bottom" secondItem="EJb-Gz-G2s" secondAttribute="bottom" id="Bxl-Wp-ILk"/>
+                <constraint firstItem="kVR-bM-CQu" firstAttribute="leading" secondItem="9BX-2S-46K" secondAttribute="leading" id="Jkw-an-WPm"/>
+                <constraint firstAttribute="trailing" secondItem="kVR-bM-CQu" secondAttribute="trailing" id="Pmp-3p-n6n"/>
+                <constraint firstAttribute="trailing" secondItem="3w9-Pd-Kzq" secondAttribute="trailing" constant="12" id="PtH-qX-zn8"/>
+                <constraint firstItem="qj6-m2-hZP" firstAttribute="top" secondItem="9BX-2S-46K" secondAttribute="top" constant="8" id="RF6-OF-ScB"/>
+                <constraint firstItem="qj6-m2-hZP" firstAttribute="leading" secondItem="9BX-2S-46K" secondAttribute="leading" constant="12" id="Zr2-nA-GcH"/>
+                <constraint firstItem="kVR-bM-CQu" firstAttribute="top" secondItem="9BX-2S-46K" secondAttribute="top" id="ciS-6P-UOz"/>
+                <constraint firstItem="3w9-Pd-Kzq" firstAttribute="top" secondItem="9BX-2S-46K" secondAttribute="top" constant="8" id="dfd-qd-3Tj"/>
+                <constraint firstAttribute="bottom" secondItem="kVR-bM-CQu" secondAttribute="bottom" id="jCZ-FD-Hju"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="inWrapLabel" destination="stJ-jO-ZNV" id="mQq-md-5E3"/>
+                <outlet property="pictureView" destination="2wT-n8-UM6" id="99f-R9-evp"/>
+                <outlet property="timeLabel" destination="WCz-3I-Kio" id="Z1k-As-u3w"/>
+                <outlet property="userNameLabel" destination="t7m-q8-vxF" id="Hi2-9c-FFi"/>
+                <outlet property="videoIndicator" destination="3w9-Pd-Kzq" id="jnU-CK-Y6M"/>
+                <outlet property="wrapImageView" destination="kVR-bM-CQu" id="iA8-sZ-eGW"/>
+            </connections>
+        </view>
+    </objects>
+</document>

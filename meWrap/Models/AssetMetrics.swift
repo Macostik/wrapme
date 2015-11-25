@@ -52,7 +52,7 @@ class AssetMetrics: NSObject {
         metrics.uri = NSUserDefaults.standardUserDefaults().imageURI
         metrics.originalKey = WLURLOriginalKey
         metrics.largeKey = WLURLXLargeKey
-        metrics.mediumKey = WLURLLargeSQKey
+        metrics.mediumKey = WLURLLargeKey
         metrics.smallKey = WLURLMediumSQKey
         return metrics
         }()
@@ -72,7 +72,7 @@ class AssetMetrics: NSObject {
         metrics.uri = NSUserDefaults.standardUserDefaults().videoURI
         metrics.originalKey = WLURLOriginalKey
         metrics.largeKey = WLURLXLargeKey
-        metrics.mediumKey = WLURLLargeSQKey
+        metrics.mediumKey = WLURLLargeKey
         metrics.smallKey = WLURLMediumSQKey
         return metrics
         }()

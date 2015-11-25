@@ -137,7 +137,7 @@
 "edit_your_profile" = "Edit your profile";
 "change_email" = "Change e-mail";
 "following" = "Following";
-"whats_up" = "WHAT'S UP";
+"recent_updates" = "RECENT UPDATES";
 "enter_your_friends_name" = "Enter your friend's name & phone number";
 "no_internet_connection" = "No internet connection. Please try again later.";
 "notifications" = "Notifications";
@@ -243,3 +243,5 @@
 "start_broadcast" = "Start Broadcast";
 "broadcast_text_placeholder" = "What're you seeing now?";
 "is_live_streaming" = "is live-streaming";
+"posted_new_photo" = "posted a new photo";
+"posted_new_video" = "posted a new video";

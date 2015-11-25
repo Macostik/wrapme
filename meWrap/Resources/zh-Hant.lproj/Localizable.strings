@@ -137,7 +137,7 @@
 "edit_your_profile" = "編輯個人資料";
 "change_email" = "更改電郵地址";
 "following" = "追隨中";
-"whats_up" = "最近更新";
+"recent_updates" = "RECENT UPDATES";
 "enter_your_friends_name" = "輸入好友名稱和手機號碼";
 "no_internet_connection" = "無法連線。請稍後重試。";
 "notifications" = "通知";
@@ -243,3 +243,5 @@
 "start_broadcast" = "Start Broadcast";
 "broadcast_text_placeholder" = "What're you seeing now?";
 "is_live_streaming" = "is live-streaming";
+"posted_new_photo" = "posted a new photo";
+"posted_new_video" = "posted a new video";

@@ -137,7 +137,7 @@
 "edit_your_profile" = "Редактировать профиль";
 "change_email" = "Изменить e-mail";
 "following" = "Вы подписаны";
-"whats_up" = "ЧТО НОВОГО";
+"recent_updates" = "RECENT UPDATES";
 "enter_your_friends_name" = "Введите имя и телефон Вашего друга";
 "no_internet_connection" = "Проблемы соединения с meWrap. Проверте интернет соединение и попытайтесь снова.";
 "notifications" = "Уведомления";
@@ -243,3 +243,5 @@
 "start_broadcast" = "Start Broadcast";
 "broadcast_text_placeholder" = "What're you seeing now?";
 "is_live_streaming" = "is live-streaming";
+"posted_new_photo" = "posted a new photo";
+"posted_new_video" = "posted a new video";

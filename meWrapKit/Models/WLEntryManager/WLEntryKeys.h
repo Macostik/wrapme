@@ -16,7 +16,6 @@ static NSString* WLURLOriginalKey = @"original";
 static NSString* WLURLLargeKey = @"large";
 static NSString* WLURLMediumKey = @"medium";
 static NSString* WLURLSmallKey = @"small";
-static NSString* WLURLLargeSQKey = @"large_sq";
 static NSString* WLURLMediumSQKey = @"medium_sq";
 static NSString* WLURLSmallSQKey = @"small_sq";
 static NSString* WLURLXLargeKey = @"xlarge";

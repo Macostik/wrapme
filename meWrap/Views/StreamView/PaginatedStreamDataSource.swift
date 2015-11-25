@@ -12,7 +12,21 @@ class PaginatedStreamDataSource: StreamDataSource {
     
     var appendableBlock: (PaginatedStreamDataSource -> Bool)?
     
-    var loadingMetrics: StreamMetrics?
+    private var _loadingMetrics: StreamMetrics?
+    var loadingMetrics: StreamMetrics? {
+        if _loadingMetrics == nil {
+            let metrics = addFooterMetrics(LoadingView.metrics())
+            metrics.sizeAt = { [weak self] (position, metrics) -> CGFloat in
+                guard let streamView = self?.streamView else {
+                    return 0
+                }
+                return streamView.horizontal ? streamView.fittingContentWidth : streamView.fittingContentHeight
+            }
+            metrics.hidden = true
+            _loadingMetrics = metrics
+        }
+        return _loadingMetrics
+    }
     
     var paginatedSet: WLPaginatedSet?
     
@@ -28,21 +42,6 @@ class PaginatedStreamDataSource: StreamDataSource {
                 didSetItems()
             }
         }
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        let metrics = addFooterMetrics(LoadingView.metrics())
-        metrics.sizeAt = loadingMetricsSizeAt
-        metrics.hidden = true
-        loadingMetrics = metrics
-    }
-    
-    func loadingMetricsSizeAt(position: StreamPosition, metrics: StreamMetrics) -> CGFloat {
-        guard let streamView = streamView else {
-            return 0
-        }
-        return streamView.horizontal ? streamView.fittingContentWidth : streamView.fittingContentHeight
     }
     
     func setLoading(var loading: Bool) {

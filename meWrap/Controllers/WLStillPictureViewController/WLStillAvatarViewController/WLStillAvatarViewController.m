@@ -56,9 +56,9 @@
     }];
 }
 
-#pragma mark - WLQuickAssetsViewControllerDelegate
+#pragma mark - AssetsViewControllerDelegate
 
-- (BOOL)quickAssetsViewController:(WLQuickAssetsViewController *)controller shouldSelectAsset:(PHAsset *)asset {
+- (BOOL)quickAssetsViewController:(AssetsViewController *)controller shouldSelectAsset:(PHAsset *)asset {
     [self handleAsset:asset];
     return NO;
 }

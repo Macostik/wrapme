@@ -8,12 +8,11 @@
 
 #import "WLStillPictureBaseViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "WLQuickAssetsViewController.h"
 #import "WLButton.h"
 
 @class WLCameraViewController, PHAsset;
 
-@protocol WLCameraViewControllerDelegate <WLStillPictureBaseViewControllerDelegate, WLQuickAssetsViewControllerDelegate>
+@protocol WLCameraViewControllerDelegate <WLStillPictureBaseViewControllerDelegate, AssetsViewControllerDelegate>
 
 - (void)cameraViewController:(WLCameraViewController*)controller didFinishWithImage:(UIImage*)image saveToAlbum:(BOOL)saveToAlbum;
 - (void)cameraViewControllerDidCancel:(WLCameraViewController*)controller;

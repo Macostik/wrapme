@@ -104,9 +104,9 @@
     }];
 }
 
-#pragma mark - WLQuickAssetsViewControllerDelegate
+#pragma mark - AssetsViewControllerDelegate
 
-- (BOOL)quickAssetsViewController:(WLQuickAssetsViewController *)controller shouldSelectAsset:(PHAsset *)asset {
+- (BOOL)assetsViewController:(AssetsViewController *)controller shouldSelectAsset:(PHAsset *)asset {
     if (asset.mediaType == PHAssetMediaTypeVideo && asset.duration >= [Constants maxVideoRecordedDuration] + 1) {
         [[[NSError alloc] initWithMessage:[NSString stringWithFormat:@"formatted_upload_video_duration_limit".ls, (int)[Constants maxVideoRecordedDuration]]] show];
         return NO;
@@ -118,11 +118,11 @@
     }
 }
 
-- (void)quickAssetsViewController:(WLQuickAssetsViewController *)controller didSelectAsset:(PHAsset *)asset {
+- (void)assetsViewController:(AssetsViewController *)controller didSelectAsset:(PHAsset *)asset {
     [self handleAsset:asset];
 }
 
-- (void)quickAssetsViewController:(WLQuickAssetsViewController *)controller didDeselectAsset:(PHAsset *)asset {
+- (void)assetsViewController:(AssetsViewController *)controller didDeselectAsset:(PHAsset *)asset {
     [self.pictures removeSelectively:^BOOL(MutableAsset *picture) {
         if ([picture.assetID isEqualToString:asset.localIdentifier]) {
             if (picture.videoExportSession) {
@@ -135,7 +135,7 @@
     [self updatePicturesCountLabel];
 }
 
-- (BOOL)quickAssetsViewControllerShouldPreselectFirstAsset:(WLQuickAssetsViewController *)controller {
+- (BOOL)assetsViewControllerShouldPreselectFirstAsset:(AssetsViewController *)controller {
     return self.startFromGallery;
 }
 

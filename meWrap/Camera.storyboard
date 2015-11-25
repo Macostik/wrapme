@@ -1055,10 +1055,10 @@
             </objects>
             <point key="canvasLocation" x="2349.375" y="-253.52112676056336"/>
         </scene>
-        <!--Quick Assets View Controller-->
+        <!--Assets View Controller-->
         <scene sceneID="Axa-aS-Z8I">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="1l0-OI-cKp" customClass="WLQuickAssetsViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="1l0-OI-cKp" customClass="AssetsViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zmz-og-Lo7"/>
                         <viewControllerLayoutGuide type="bottom" id="qHl-jz-TGP"/>

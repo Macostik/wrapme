@@ -13,7 +13,6 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLDeviceManager.h"
 #import "WLToast.h"
-#import "WLQuickAssetsViewController.h"
 #import "WLProgressBar.h"
 @import AVKit;
 
@@ -63,7 +62,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *zoomLabel;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 
-@property (weak, nonatomic) WLQuickAssetsViewController* assetsViewController;
+@property (weak, nonatomic) AssetsViewController* assetsViewController;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *assetsBottomConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *assetsArrow;
 @property (weak, nonatomic) IBOutlet UIView *assetsView;
@@ -156,8 +155,8 @@
         weakSelf.takePhotoButton.active = NO;
     }];
     
-    for (WLQuickAssetsViewController *assetsViewController in self.childViewControllers) {
-        if ([assetsViewController isKindOfClass:[WLQuickAssetsViewController class]]) {
+    for (AssetsViewController *assetsViewController in self.childViewControllers) {
+        if ([assetsViewController isKindOfClass:[AssetsViewController class]]) {
             self.assetsViewController = assetsViewController;
             self.assetsViewController.delegate = self.delegate;
             self.assetsViewController.mode = self.mode;

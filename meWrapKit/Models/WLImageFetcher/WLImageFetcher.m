@@ -93,7 +93,8 @@
             [[WLImageCache defaultCache] setImage:image withUrl:url];
             if (success) success(image, NO);
         } else {
-            if (failure) failure(nil);
+            NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorNotConnectedToInternet userInfo:nil];
+            if (failure) failure(error);
         }
     });
     return nil;

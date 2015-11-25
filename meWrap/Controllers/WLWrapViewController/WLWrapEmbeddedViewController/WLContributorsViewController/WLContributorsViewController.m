@@ -65,7 +65,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
         weakSelf.dataSource.items = [weakSelf sortedContributors];
     } failure:^(NSError *error) {
         [weakSelf.dataSource reload];
-        [error showIgnoringNetworkError];
+        [error showNonNetworkError];
     }];
 }
 

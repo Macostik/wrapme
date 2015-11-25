@@ -36,9 +36,9 @@
     [[WLAPIRequest resendConfirmation:[Authorization currentAuthorization].email] send:^(id object) {
         [[UIAlertController alert:@"sending_confirming_email".ls] show];
     } failure:^(NSError *error) {
-        if ([error isError:WLErrorEmailAlreadyConfirmed]) {
+        if ([error isResponseError:ResponseCodeEmailAlreadyConfirmed]) {
             [weakSelf setSuccessStatusAnimated:NO];
-            WLError(@"Your email is already confirmed.");
+            [[[NSError alloc] initWithMessage:@"Your email is already confirmed."] show];
         } else {
             [error show];
         }

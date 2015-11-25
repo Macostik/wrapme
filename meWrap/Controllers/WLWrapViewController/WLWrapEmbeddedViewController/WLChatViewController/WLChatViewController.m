@@ -164,7 +164,7 @@ CGFloat WLMinTextViewWidth;
     if (self.wrap.messages.nonempty) {
         [self refreshMessages:^{
         } failure:^(NSError *error) {
-            [error showIgnoringNetworkError];
+            [error showNonNetworkError];
         }];
     }
     
@@ -588,7 +588,7 @@ CGFloat WLMinTextViewWidth;
         if (weakSelf.chat.wrap) {
             [weakSelf appendMessages:^{
             } failure:^(NSError *error) {
-                [error showIgnoringNetworkError];
+                [error showNonNetworkError];
             }];
         }
     }

@@ -92,7 +92,7 @@ class PaginatedStreamDataSource: StreamDataSource {
         if reachedRequiredOffset && isAppendable() {
             if WLNetwork.sharedNetwork().reachable {
                 append(nil, failure: { (error) -> Void in
-                    error?.showIgnoringNetworkError()
+                    error?.showNonNetworkError()
                 })
             } else {
                 WLNetwork.sharedNetwork().addReceiver(self)

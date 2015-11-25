@@ -330,14 +330,11 @@
 		C5C694D51BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C694D41BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift */; };
 		C5C694D61BEB91830045DAB5 /* NSUserDefaults+SharedGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C694D41BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift */; };
 		C5C694D71BEB91830045DAB5 /* NSUserDefaults+SharedGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C694D41BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift */; };
-		C5C769841BAC10BF00B205CB /* NSError+WLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C7696F1BAC10BF00B205CB /* NSError+WLAPIManager.m */; };
-		C5C769861BAC10BF00B205CB /* WLAPIEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C769711BAC10BF00B205CB /* WLAPIEnvironment.m */; };
 		C5C769881BAC10BF00B205CB /* WLAPIRequest+Defined.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C769741BAC10BF00B205CB /* WLAPIRequest+Defined.m */; };
 		C5C7698A1BAC10BF00B205CB /* WLAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C769761BAC10BF00B205CB /* WLAPIRequest.m */; };
 		C5C7698C1BAC10BF00B205CB /* WLAuthorizationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C769781BAC10BF00B205CB /* WLAuthorizationRequest.m */; };
 		C5C7698E1BAC10BF00B205CB /* WLPaginatedRequest+Defined.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C7697A1BAC10BF00B205CB /* WLPaginatedRequest+Defined.m */; };
 		C5C769901BAC10BF00B205CB /* WLPaginatedRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C7697C1BAC10BF00B205CB /* WLPaginatedRequest.m */; };
-		C5C769921BAC10BF00B205CB /* WLAPIResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C7697E1BAC10BF00B205CB /* WLAPIResponse.m */; };
 		C5C769941BAC10BF00B205CB /* WLEntry+API.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C769801BAC10BF00B205CB /* WLEntry+API.m */; };
 		C5C7699E1BAC11F200B205CB /* WLHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C769971BAC11F200B205CB /* WLHistory.m */; };
 		C5C769A21BAC11F200B205CB /* WLUploadingQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C7699C1BAC11F200B205CB /* WLUploadingQueue.m */; };
@@ -353,6 +350,7 @@
 		C5D051BD1A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B91A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m */; };
 		C5D051C41A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C01A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m */; };
 		C5D051CA1A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C61A9F829B00855A01 /* WLArrangedAddressBook.m */; };
+		C5D552201C04BC2400069169 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D5521F1C04BC2300069169 /* Environment.swift */; };
 		C5D7FE881B501CD000746908 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D7FE7C1B501CD000746908 /* WLNotification.m */; };
 		C5D7FE951B501CDE00746908 /* WLSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D7FE901B501CDE00746908 /* WLSoundPlayer.m */; };
 		C5DD98A11BDA4CED00A5713A /* meWrapWatchExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C54DA0A01BBAC20500790F17 /* meWrapWatchExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -979,10 +977,6 @@
 		C5C3FEBC1B8F313100F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-Portrait@2x.png"; sourceTree = "<group>"; };
 		C5C3FEBE1B8F313600F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default.png"; sourceTree = "<group>"; };
 		C5C694D41BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+SharedGroup.swift"; sourceTree = "<group>"; };
-		C5C7696E1BAC10BF00B205CB /* NSError+WLAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+WLAPIManager.h"; sourceTree = "<group>"; };
-		C5C7696F1BAC10BF00B205CB /* NSError+WLAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+WLAPIManager.m"; sourceTree = "<group>"; };
-		C5C769701BAC10BF00B205CB /* WLAPIEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAPIEnvironment.h; sourceTree = "<group>"; };
-		C5C769711BAC10BF00B205CB /* WLAPIEnvironment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAPIEnvironment.m; sourceTree = "<group>"; };
 		C5C769731BAC10BF00B205CB /* WLAPIRequest+Defined.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLAPIRequest+Defined.h"; sourceTree = "<group>"; };
 		C5C769741BAC10BF00B205CB /* WLAPIRequest+Defined.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLAPIRequest+Defined.m"; sourceTree = "<group>"; };
 		C5C769751BAC10BF00B205CB /* WLAPIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAPIRequest.h; sourceTree = "<group>"; };
@@ -993,8 +987,6 @@
 		C5C7697A1BAC10BF00B205CB /* WLPaginatedRequest+Defined.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLPaginatedRequest+Defined.m"; sourceTree = "<group>"; };
 		C5C7697B1BAC10BF00B205CB /* WLPaginatedRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPaginatedRequest.h; sourceTree = "<group>"; };
 		C5C7697C1BAC10BF00B205CB /* WLPaginatedRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPaginatedRequest.m; sourceTree = "<group>"; };
-		C5C7697D1BAC10BF00B205CB /* WLAPIResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAPIResponse.h; sourceTree = "<group>"; };
-		C5C7697E1BAC10BF00B205CB /* WLAPIResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAPIResponse.m; sourceTree = "<group>"; };
 		C5C7697F1BAC10BF00B205CB /* WLEntry+API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLEntry+API.h"; sourceTree = "<group>"; };
 		C5C769801BAC10BF00B205CB /* WLEntry+API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLEntry+API.m"; sourceTree = "<group>"; };
 		C5C769821BAC10BF00B205CB /* WLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLLogger.h; sourceTree = "<group>"; };
@@ -1021,6 +1013,7 @@
 		C5D051C01A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookPhoneNumberCell.m; sourceTree = "<group>"; };
 		C5D051C51A9F829B00855A01 /* WLArrangedAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLArrangedAddressBook.h; path = WLAddressBook/WLArrangedAddressBook.h; sourceTree = "<group>"; };
 		C5D051C61A9F829B00855A01 /* WLArrangedAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLArrangedAddressBook.m; path = WLAddressBook/WLArrangedAddressBook.m; sourceTree = "<group>"; };
+		C5D5521F1C04BC2300069169 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		C5D7FE7B1B501CD000746908 /* WLNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotification.h; sourceTree = "<group>"; };
 		C5D7FE7C1B501CD000746908 /* WLNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotification.m; sourceTree = "<group>"; };
 		C5D7FE8F1B501CDE00746908 /* WLSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSoundPlayer.h; sourceTree = "<group>"; };
@@ -2550,12 +2543,7 @@
 			isa = PBXGroup;
 			children = (
 				C5C769721BAC10BF00B205CB /* WLAPIRequest */,
-				C5C7696E1BAC10BF00B205CB /* NSError+WLAPIManager.h */,
-				C5C7696F1BAC10BF00B205CB /* NSError+WLAPIManager.m */,
-				C5C769701BAC10BF00B205CB /* WLAPIEnvironment.h */,
-				C5C769711BAC10BF00B205CB /* WLAPIEnvironment.m */,
-				C5C7697D1BAC10BF00B205CB /* WLAPIResponse.h */,
-				C5C7697E1BAC10BF00B205CB /* WLAPIResponse.m */,
+				C5D5521F1C04BC2300069169 /* Environment.swift */,
 				C5C7697F1BAC10BF00B205CB /* WLEntry+API.h */,
 				C5C769801BAC10BF00B205CB /* WLEntry+API.m */,
 				C5060D171BEBA6B3007FFD5B /* Entry+APIResponse.swift */,
@@ -3297,6 +3285,7 @@
 				C52E1FDF1A41951300A2C370 /* WLTextField.m in Sources */,
 				C5B8F71A1B82161500A5E541 /* WLDrawingViewController.m in Sources */,
 				C510BF6D1BCF93C0008223A3 /* UIDevice+Ext.swift in Sources */,
+				C5D552201C04BC2400069169 /* Environment.swift in Sources */,
 				C5E6E9601BBAC3EC007FFA66 /* NSData+CommonCrypto.m in Sources */,
 				C5ECD55B1BF649B9005791B1 /* UIStoryboard+Ext.swift in Sources */,
 				C5BCF0011B551B7B00E4AD6D /* WLChatViewController.m in Sources */,
@@ -3357,7 +3346,6 @@
 				C52E1FD71A41951300A2C370 /* WLLabel.m in Sources */,
 				C5BEE0EF1B2AC8C300D3CF70 /* WLNotificationSubscription.m in Sources */,
 				C522795E1BECCA6B00B1C49C /* Dictionary+Ext.swift in Sources */,
-				C5C769861BAC10BF00B205CB /* WLAPIEnvironment.m in Sources */,
 				C5E7EF8F1BED0D9F00CDD4C3 /* Entry+APIRequest.swift in Sources */,
 				C573FB901AB84AF400F1098C /* WLTouchView.m in Sources */,
 				C52E1FD31A41951300A2C370 /* WLButton.m in Sources */,
@@ -3368,7 +3356,6 @@
 				C55A45301BAC1CBE0055AEC2 /* WLUploading+Extended.m in Sources */,
 				C54731B41B906A7400B583FD /* WLBatchEditPictureViewController.m in Sources */,
 				C53E5CFD1A84FBDB004F61B0 /* WLStillPictureBaseViewController.m in Sources */,
-				C5C769841BAC10BF00B205CB /* NSError+WLAPIManager.m in Sources */,
 				C5E4FD0D1BF7AF7100575DA4 /* ShapeView.swift in Sources */,
 				C5C7698C1BAC10BF00B205CB /* WLAuthorizationRequest.m in Sources */,
 				C5D051CA1A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */,
@@ -3409,7 +3396,6 @@
 				C5EE45A61C01D350008DE8D6 /* Constants.swift in Sources */,
 				C55BE8C31C03062C006B04FC /* NSObject+Ext.swift in Sources */,
 				C53012931BF4E3EA00098F9C /* EmojiCell.swift in Sources */,
-				C5C769921BAC10BF00B205CB /* WLAPIResponse.m in Sources */,
 				C521E18C1BC7AE1B00505432 /* VideoPlayerView.swift in Sources */,
 				C540C0F31B988BFD00F880C9 /* StreamItem.swift in Sources */,
 				C54AF6C919B8C491006F7EDB /* WLEditSession.m in Sources */,

@@ -6,10 +6,6 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "NSError+WLAPIManager.h"
-#import "WLAPIEnvironment.h"
-
-@class WLAPIResponse;
 @class WLAPIRequest;
 
 @interface Entry (WLAPIManager)

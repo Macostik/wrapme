@@ -9,7 +9,6 @@
 #import "WLUploading+Extended.h"
 #import "WLImageCache.h"
 #import "WLOperationQueue.h"
-#import "WLAPIResponse.h"
 #import "WLAuthorizationRequest.h"
 #import "WLNetwork.h"
 #import "WLNetwork.h"
@@ -41,16 +40,16 @@
             [contribution notifyOnUpdate:EntryUpdateEventDefault];
         } failure:^(NSError *error) {
             weakSelf.inProgress = NO;
-            if (error.isDuplicatedUploading) {
+            if ([error isResponseError:ResponseCodeDuplicatedUploading]) {
                 NSArray *keys = [NSArray arrayWithObjects:WLCandyKey, WLWrapKey, WLCommentKey, WLMessageKey, nil];
-                NSDictionary *data = [[error.userInfo dictionaryForKey:WLErrorResponseDataKey] objectForPossibleKeys:keys];
+                NSDictionary *data = [[error responseData] objectForPossibleKeys:keys];
                 if ([data isKindOfClass:[NSDictionary class]]) {
                     [contribution map:data];
                 }
                 [weakSelf remove];
                 if (success) success(contribution);
                 [contribution notifyOnUpdate:EntryUpdateEventDefault];
-            } else if ([error isError:WLErrorContentUnavaliable]) {
+            } else if ([error isResponseError:ResponseCodeContentUnavaliable]) {
                 [contribution remove];
                 if (failure) failure(error);
             } else {
@@ -72,7 +71,7 @@
     } else if (type == WLEventDelete) {
         return [self delete:success failure:failure];
     }
-    if (failure) failure(WLError(@"Invalid uploading type"));
+    if (failure) failure([[NSError alloc] initWithMessage:@"Invalid uploading type"]);
     return nil;
 }
 

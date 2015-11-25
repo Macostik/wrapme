@@ -68,7 +68,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
             weakSelf.dataSource.items = [weakSelf sortedComments];
         } failure:^(NSError *error) {
             [weakSelf.dataSource reload];
-            [error showIgnoringNetworkError];
+            [error showNonNetworkError];
         }];
     }
     

@@ -11,7 +11,6 @@
 #import "WLUploadingQueue.h"
 #import "WLOperationQueue.h"
 #import "WLNotificationCenter.h"
-#import "WLAPIEnvironment.h"
 
 @implementation WLAuthorizationRequest
 
@@ -46,7 +45,7 @@ static BOOL authorized = NO;
             [parameters trySetObject:deviceToken forKey:@"device_token"];
         }
         parameters[@"os"] = @"ios";
-    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
         success(authorization);
     }];
 }
@@ -59,7 +58,7 @@ static BOOL authorized = NO;
         [parameters trySetObject:authorization.phone forKey:@"phone_number"];
         [parameters trySetObject:authorization.activationCode forKey:@"activation_code"];
         [parameters trySetObject:authorization.email forKey:@"email"];
-    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
         authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
         [authorization setCurrent];
         success(authorization);
@@ -74,7 +73,7 @@ static BOOL authorized = NO;
         [parameters trySetObject:authorization.phone forKey:@"phone_number"];
         [parameters trySetObject:authorization.password forKey:@"password"];
         [parameters trySetObject:request.tryUncorfirmedEmail ? authorization.unconfirmed_email : authorization.email forKey:@"email"];
-    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
         if (!authorized) {
             authorized = YES;
             [WLUploadingQueue start];
@@ -94,19 +93,19 @@ static BOOL authorized = NO;
 		if (response.data[@"image_uri"]) {
 			[NSUserDefaults standardUserDefaults].imageURI = response.data[@"image_uri"];
         } else {
-            [NSUserDefaults standardUserDefaults].imageURI = [WLAPIEnvironment currentEnvironment].defaultImageURI;
+            [NSUserDefaults standardUserDefaults].imageURI = [Environment currentEnvironment].defaultImageURI;
         }
 		
 		if (response.data[@"avatar_uri"]) {
 			[NSUserDefaults standardUserDefaults].avatarURI = response.data[@"avatar_uri"];
         } else {
-            [NSUserDefaults standardUserDefaults].avatarURI = [WLAPIEnvironment currentEnvironment].defaultAvatarURI;
+            [NSUserDefaults standardUserDefaults].avatarURI = [Environment currentEnvironment].defaultAvatarURI;
         }
         
         if (response.data[@"video_uri"]) {
             [NSUserDefaults standardUserDefaults].videoURI = response.data[@"video_uri"];
         } else {
-            [NSUserDefaults standardUserDefaults].videoURI = [WLAPIEnvironment currentEnvironment].defaultVideoURI;
+            [NSUserDefaults standardUserDefaults].videoURI = [Environment currentEnvironment].defaultVideoURI;
         }
 		
         NSDictionary* userData = [response.data dictionaryForKey:@"user"];
@@ -127,7 +126,7 @@ static BOOL authorized = NO;
         
         success(user);
     }] validateFailure:^BOOL(WLAuthorizationRequest *request, NSError *error) {
-        if([error isError:WLErrorNotFoundEntry] && !request.tryUncorfirmedEmail && authorization.unconfirmed_email.nonempty)  {
+        if([error isResponseError:ResponseCodeNotFoundEntry] && !request.tryUncorfirmedEmail && authorization.unconfirmed_email.nonempty)  {
             request.tryUncorfirmedEmail = YES;
             [request send];
             return NO;
@@ -175,7 +174,7 @@ static BOOL authorized = NO;
     
     NSMutableDictionary *testUsers = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithContentsOfFile:currentTestUsersPath]];
     
-    NSMutableArray *environmentTestUsers = [NSMutableArray arrayWithArray:[testUsers objectForKey:[WLAPIEnvironment currentEnvironment].name]];
+    NSMutableArray *environmentTestUsers = [NSMutableArray arrayWithArray:[testUsers objectForKey:[Environment currentEnvironment].name]];
     
     NSMutableArray *removedUsers = [NSMutableArray array];
     
@@ -193,7 +192,7 @@ static BOOL authorized = NO;
     
     [environmentTestUsers addObject:authorizationData];
     
-    testUsers[[WLAPIEnvironment currentEnvironment].name] = environmentTestUsers;
+    testUsers[[Environment currentEnvironment].name] = environmentTestUsers;
     
     [testUsers writeToFile:currentTestUsersPath atomically:YES];
 #endif
@@ -222,7 +221,7 @@ static BOOL authorized = NO;
 + (instancetype)whois:(NSString *)email {
     return [[[self GET:@"users/whois"] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:email forKey:@"email"];
-    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
         WLWhoIs* whoIs = [WLWhoIs sharedInstance];
         NSDictionary *userInfo = [response.data dictionaryForKey:WLUserKey];
         whoIs.found = [[userInfo numberForKey:@"found"] boolValue];
@@ -262,7 +261,7 @@ static BOOL authorized = NO;
         [parameters trySetObject:[Authorization currentAuthorization].email forKey:WLEmailKey];
         [parameters trySetObject:[Authorization currentAuthorization].deviceUID forKey:@"device_uid"];
         [parameters trySetObject:passcode forKey:@"approval_code"];
-    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
         Authorization *authorization = [Authorization currentAuthorization];
         authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
         [authorization setCurrent];

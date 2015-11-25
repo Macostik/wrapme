@@ -27,9 +27,7 @@ class User: Entry {
             return _currentUser
         }
         set {
-            if let old = _currentUser {
-                old.current = false
-            }
+            _currentUser?.current = false
             _currentUser = newValue
             newValue?.current = true
         }

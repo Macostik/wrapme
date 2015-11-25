@@ -9,7 +9,6 @@
 #import "WLAPIRequest.h"
 #import "WLAuthorizationRequest.h"
 #import "WLWelcomeViewController.h"
-#import "WLAPIEnvironment.h"
 
 @implementation WLAPIManager
 
@@ -17,7 +16,7 @@
     static WLAPIManager* instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        WLAPIEnvironment* environment = [WLAPIEnvironment currentEnvironment];
+        Environment* environment = [Environment currentEnvironment];
         instance = [[self alloc] initWithBaseURL:[environment.endpoint URL]];
         instance.requestSerializer.timeoutInterval = 45;
         NSString* acceptHeader = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@", environment.version];
@@ -177,8 +176,8 @@ static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;
     
     __strong typeof(self)strongSelf = self;
     self.operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        WLAPIResponse* response = [WLAPIResponse response:responseObject];
-		if (response.code == WLAPIResponseCodeSuccess) {
+        Response* response = [[Response alloc] initWithDictionary:responseObject];
+		if (response.code == ResponseCodeSuccess) {
 #ifdef DEBUG
             WLLog(@"RESPONSE - %@: %@", url, response.data);
 #else
@@ -197,7 +196,7 @@ static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;
             }
 		} else {
             WLLog(@"API ERROR %ld - %@", (long)response.code, url);
-            [strongSelf handleFailure:[NSError errorWithResponse:response]];
+            [strongSelf handleFailure:[[NSError alloc] initWithResponse:response]];
 		}
         [strongSelf trackServerTime:operation.response];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

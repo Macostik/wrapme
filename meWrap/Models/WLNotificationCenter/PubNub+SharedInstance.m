@@ -7,7 +7,6 @@
 //
 
 #import "PubNub+SharedInstance.h"
-#import "WLAPIEnvironment.h"
 
 @implementation PubNub (SharedInstance)
 
@@ -21,7 +20,7 @@ static id instance = nil;
         }
         NSString *publishKey, *subscribeKey;
         
-        if ([WLAPIEnvironment currentEnvironment].isProduction) {
+        if ([Environment currentEnvironment].isProduction) {
             publishKey = @"pub-c-87bbbc30-fc43-4f6b-b1f4-cedd5f30d5e8";
             subscribeKey = @"sub-c-6562fe64-4270-11e4-aed8-02ee2ddab7fe";
         } else {

@@ -8,7 +8,6 @@
 
 #import "WLTestUserPicker.h"
 #import "WLTestUserCell.h"
-#import "WLAPIEnvironment.h"
 
 @interface WLTestUserPicker () <UITableViewDataSource, UITableViewDelegate>
 
@@ -31,11 +30,8 @@
 		self.selection = selection;
         self.dataSource = self;
 		self.delegate = self;
-        __weak typeof(self)weakSelf = self;
-        [[WLAPIEnvironment currentEnvironment] testUsers:^(NSArray *testUsers) {
-            weakSelf.authorizations = testUsers;
-            [weakSelf performSelector:@selector(reloadData) withObject:nil afterDelay:0.0f];
-        }];
+        self.authorizations = [[Environment currentEnvironment] testUsers];
+        [self performSelector:@selector(reloadData) withObject:nil afterDelay:0.0f];
     }
     return self;
 }

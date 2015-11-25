@@ -85,15 +85,14 @@ extension EntryContext {
         let entries = Entry.fetch().query("identifier IN %@ OR uploadIdentifier IN %@", uids, locuids).execute() as? [Entry]
         if let entries = entries {
             for entry in entries {
-                descriptors = descriptors.filter({ (descriptor) -> Bool in
+                for (index, descriptor) in descriptors.enumerate() {
                     if descriptor.belongsToEntry(entry) {
                         entry.identifier = descriptor.uid
                         cachedEntries.setObject(entry, forKey: descriptor.uid)
-                        return false
-                    } else {
-                        return true
+                        descriptors.removeAtIndex(index)
+                        break
                     }
-                })
+                }
             }
         }
         

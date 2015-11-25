@@ -79,7 +79,6 @@
     } failure:^(NSError *error) {
         
     }];
-    
 }
 
 - (IBAction)showGroupChannels:(id)sender {

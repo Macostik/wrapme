@@ -15,7 +15,7 @@
 + (instancetype)wraps:(NSString *)scope {
     return [[[self GET:@"wraps", nil] parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:scope forKey:@"scope"];
-    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
         NSArray* wraps = [Wrap mappedEntries:[Wrap prefetchArray:[response.data arrayForKey:@"wraps"]]];
         [[WLWhatsUpSet sharedSet] update:nil failure:nil];
         success(wraps);
@@ -27,7 +27,7 @@
 }
 
 + (instancetype)messages:(Wrap *)wrap {
-    return [[[[self GET:@"wraps/%@/chats", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    return [[[self GET:@"wraps/%@/chats", wrap.identifier] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
             NSArray* messages = [Message mappedEntries:[Message prefetchArray:response.data[@"chats"]] container:wrap];
             if (messages.nonempty) {
@@ -38,11 +38,7 @@
             success(nil);
         }
     }] afterFailure:^(NSError *error) {
-        if ([error isError:WLErrorContentUnavaliable] && wrap.valid && wrap.uploaded) {
-            [wrap remove];
-        }
-    }] afterFailure:^(NSError *error) {
-        if (wrap.uploaded && error.isContentUnavaliable) {
+        if ([error isResponseError:ResponseCodeContentUnavaliable] && wrap.valid && wrap.uploaded) {
             [wrap remove];
         }
     }];
@@ -52,14 +48,14 @@
     self.path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
     [[[self parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
-    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
             success([Candy mappedEntries:[Candy prefetchArray:response.data[WLCandiesKey]] container:wrap]);
         } else {
             success(nil);
         }
     }] afterFailure:^(NSError *error) {
-        if (wrap.uploaded && error.isContentUnavaliable) {
+        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavaliable]) {
             [wrap remove];
         }
     }];
@@ -77,14 +73,14 @@
             [parameters trySetObject:@"older_than" forKey:@"condition"];
             [parameters trySetObject:@([request.older startOfDay].timestamp) forKey:@"offset_in_epoch"];
         }
-    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
             success(@[[wrap update:[Wrap prefetchDictionary:response.data[WLWrapKey]]]]);
         } else {
             success(nil);
         }
     }] beforeFailure:^(NSError *error) {
-        if (wrap.uploaded && error.isContentUnavaliable) {
+        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavaliable]) {
             [wrap remove];
         }
     }];

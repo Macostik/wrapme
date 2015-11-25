@@ -29,6 +29,3 @@ typedef NS_ENUM(int16_t, MediaType) {
     MediaTypePhoto = 10,
     MediaTypeVideo = 20,
 };
-
-static CGFloat WLStillPictureCameraViewAspectRatio = 0.75f;
-static CGFloat WLStillPictureBottomViewHeight = 36.0f;

@@ -120,9 +120,9 @@
 - (void)validate:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     NSString* email = self.editSession.email;
     if (![email isValidEmail]) {
-        if (failure) failure([NSError errorWithDescription:@"incorrect_email".ls]);
+        if (failure) failure([[NSError alloc] initWithMessage:@"incorrect_email".ls]);
     } else if (!self.editSession.name.nonempty) {
-        if (failure) failure([NSError errorWithDescription:@"name_cannot_be_blank".ls]);
+        if (failure) failure([[NSError alloc] initWithMessage:@"name_cannot_be_blank".ls]);
     } else {
         if (success) success(nil);
     }

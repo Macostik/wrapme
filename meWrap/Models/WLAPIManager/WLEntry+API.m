@@ -173,7 +173,7 @@
             if (success) success(nil);
             break;
         case WLContributionStatusInProgress:
-            if (failure) failure([NSError errorWithDescription:@"wrap_is_uploading".ls]);
+            if (failure) failure([[NSError alloc] initWithMessage:@"wrap_is_uploading".ls]);
             break;
         case WLContributionStatusFinished: {
             operation = [[WLAPIRequest deleteWrap:self] send:success failure:failure];
@@ -246,7 +246,7 @@
 - (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     NSMutableDictionary *metaData = [NSMutableDictionary dictionary];
     NSString* accept = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@",
-                        [WLAPIEnvironment currentEnvironment].version];
+                        [Environment currentEnvironment].version];
     NSString *contributedAt = [NSString stringWithFormat:@"%f", [self.updatedAt timestamp]];
     [metaData trySetObject:accept forKey:@"Accept"];
     [metaData trySetObject:[Authorization currentAuthorization].deviceUID forKey:WLDeviceIDKey];
@@ -269,7 +269,7 @@
 - (id)update:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     NSMutableDictionary *metaData = [NSMutableDictionary dictionary];
     NSString* accept = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@",
-                        [WLAPIEnvironment currentEnvironment].version];
+                        [Environment currentEnvironment].version];
     NSString *editedAt = [NSString stringWithFormat:@"%f", [self.updatedAt timestamp]];
     [metaData trySetObject:accept forKey:@"Accept"];
     [metaData trySetObject:[Authorization currentAuthorization].deviceUID forKey:WLDeviceIDKey];
@@ -284,13 +284,19 @@
 }
 
 - (void)uploadWithData:(NSDictionary *)metaData success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    if ([self.picture.original hasPrefix:@"http"]) {
+    NSString *path = self.picture.original;
+    if (path == nil) {
+        [self remove];
+        if (failure) failure([[NSError alloc] initWithCode:ResponseCodeUploadFileNotFound]);
+        return;
+    }
+    if ([path hasPrefix:@"http"]) {
         if (success) success(self);
         return;
     }
     __weak __typeof(self)weakSelf = self;
     AWSS3TransferManagerUploadRequest *uploadRequest = [AWSS3TransferManagerUploadRequest new];
-    uploadRequest.bucket = [[WLAPIEnvironment currentEnvironment] bucketUploadingIdentifier];
+    uploadRequest.bucket = [[Environment currentEnvironment] s3Bucket];
     uploadRequest.key = [self.picture.original lastPathComponent];
     uploadRequest.metadata = metaData;
     if (self.type == MediaTypeVideo) {
@@ -298,7 +304,7 @@
     } else {
         uploadRequest.contentType = @"image/jpeg";
     }
-    uploadRequest.body = [NSURL fileURLWithPath:self.picture.original];
+    uploadRequest.body = [NSURL fileURLWithPath:path];
     WLLog(@"uploading content: %@ metadata: %@", uploadRequest.contentType, metaData);
     [[[AWSS3TransferManager defaultS3TransferManager] upload:uploadRequest] continueWithBlock:^id(AWSTask *task) {
         run_in_main_queue(^{
@@ -320,11 +326,11 @@
             if (success) success(nil);
             break;
         case WLContributionStatusInProgress: {
-            if (failure) failure([NSError errorWithDescription:(self.isVideo ? @"video_is_uploading" : @"photo_is_uploading").ls]);
+            if (failure) failure([[NSError alloc] initWithMessage:(self.isVideo ? @"video_is_uploading" : @"photo_is_uploading").ls]);
         } break;
         case WLContributionStatusFinished: {
             if ([self.identifier isEqualToString:self.uploadIdentifier]) {
-                if (failure) failure([NSError errorWithDescription:@"publishing_in_progress".ls]);
+                if (failure) failure([[NSError alloc] initWithMessage:@"publishing_in_progress".ls]);
             } else {
                 operation = [[WLAPIRequest deleteCandy:self] send:success failure:failure];
             }
@@ -339,7 +345,7 @@
     if (self.uploaded) {
         return [[WLAPIRequest candy:self] send:success failure:failure];
     } else {
-        if (failure) failure([NSError errorWithDescription:(self.isVideo ? @"video_is_uploading" : @"photo_is_uploading").ls]);
+        if (failure) failure([[NSError alloc] initWithMessage:(self.isVideo ? @"video_is_uploading" : @"photo_is_uploading").ls]);
         return nil;
     }
 }
@@ -347,7 +353,7 @@
 - (void)download:(WLBlock)success failure:(WLFailureBlock)failure {
     PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
     if (status == PHAuthorizationStatusDenied) {
-        if (failure) failure(WLError(@"downloading_privacy_settings".ls));
+        if (failure) failure([[NSError alloc] initWithMessage:@"downloading_privacy_settings".ls]);
     } else {
         __weak typeof(self)weakSelf = self;
         if (weakSelf.type == MediaTypeVideo) {
@@ -410,7 +416,7 @@
             if (success) success(nil);
             break;
         case WLContributionStatusInProgress:
-            if (failure) failure([NSError errorWithDescription:@"comment_is_uploading".ls]);
+            if (failure) failure([[NSError alloc] initWithMessage:@"comment_is_uploading".ls]);
             break;
         case WLContributionStatusFinished: {
             switch (self.candy.status) {
@@ -419,7 +425,7 @@
                     if (success) success(nil);
                     break;
                 case WLContributionStatusInProgress:
-                    if (failure) failure([NSError errorWithDescription:(self.candy.isVideo ? @"video_is_uploading" : @"photo_is_uploading").ls]);
+                    if (failure) failure([[NSError alloc] initWithMessage:(self.candy.isVideo ? @"video_is_uploading" : @"photo_is_uploading").ls]);
                     break;
                 case WLContributionStatusFinished:
                     return [[WLAPIRequest deleteComment:self] send:success failure:failure];

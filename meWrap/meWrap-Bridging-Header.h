@@ -13,7 +13,6 @@
 #import "SegmentedControl.h"
 #import "WLPaginatedSet.h"
 #import "WLNetwork.h"
-#import "NSError+WLAPIManager.h"
 #import "WLPaginatedRequest+Defined.h"
 #import "WLOperationQueue.h"
 #import "UIColor+CustomColors.h"

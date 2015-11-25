@@ -15,7 +15,7 @@
 #ifdef DEBUG
     self.hidden = NO;
 #else
-    self.hidden = [ENV isEqualToString:WLAPIEnvironmentProduction];
+    self.hidden = [ENV isEqualToString:EnvironmentProduction];
 #endif
 }
 

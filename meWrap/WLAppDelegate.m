@@ -36,6 +36,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    WLLog(@"meWrap - API environment initialized: %@", [Environment currentEnvironment]);
+    
     [NSKeyedUnarchiver setClass:[Authorization class] forClassName:@"WLAuthorization"];
     
     [self registerUserNotificationSettings];
@@ -109,15 +111,14 @@
         }
     }];
     [NSError setShowingBlock:^ (NSError *error) {
-        [WLToast showWithMessage:[error errorMessage]?:error.localizedDescription];
+        [WLToast showWithMessage:[error errorMessage]];
     }];
 }
 
 - (void)initializeCrashlyticsAndLogging {
     run_release(^{
         [NewRelicAgent enableCrashReporting:YES];
-        WLAPIEnvironment *environment = [WLAPIEnvironment currentEnvironment];
-        if ([environment.name isEqualToString:WLAPIEnvironmentProduction]) {
+        if ([[Environment currentEnvironment] isProduction]) {
             [NewRelicAgent startWithApplicationToken:@"AAd46869ec0b3558fb5890343d895b3acdd40ebaa8"];
             [[GAI sharedInstance] trackerWithTrackingId:@"UA-60538241-1"];
         } else {

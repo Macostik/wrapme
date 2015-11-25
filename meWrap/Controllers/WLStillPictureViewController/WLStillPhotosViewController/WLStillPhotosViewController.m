@@ -108,7 +108,7 @@
 
 - (BOOL)quickAssetsViewController:(WLQuickAssetsViewController *)controller shouldSelectAsset:(PHAsset *)asset {
     if (asset.mediaType == PHAssetMediaTypeVideo && asset.duration >= [Constants maxVideoRecordedDuration] + 1) {
-        [WLError([NSString stringWithFormat:@"formatted_upload_video_duration_limit".ls, (int)[Constants maxVideoRecordedDuration]]) show];
+        [[[NSError alloc] initWithMessage:[NSString stringWithFormat:@"formatted_upload_video_duration_limit".ls, (int)[Constants maxVideoRecordedDuration]]] show];
         return NO;
     } else {
         return [self shouldAddPicture:^{
@@ -185,7 +185,7 @@
         if (success) success();
         return YES;
     } else {
-        if (failure) failure(WLError(@"upload_photos_limit_error".ls));
+        if (failure) failure([[NSError alloc] initWithMessage:@"upload_photos_limit_error".ls]);
         return NO;
     }
 }

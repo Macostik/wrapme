@@ -167,7 +167,7 @@ static NSMapTable *queues = nil;
         if (!self.parentQueue.isUploading) {
             [self.parentQueue prepareAndStart];
         }
-        if (failure) failure(WLError(@"Parent items are uploading..."));
+        if (failure) failure([[NSError alloc] initWithMessage:@"Parent items are uploading..."]);
         return;
     }
     __weak typeof(self)weakSelf = self;

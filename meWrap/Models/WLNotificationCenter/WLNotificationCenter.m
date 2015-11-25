@@ -150,7 +150,7 @@
             });
         }
     } else {
-        if (failure) failure([NSError errorWithDescription:@"Data in remote notification is not valid."]);
+        if (failure) failure([[NSError alloc] initWithMessage:@"Data in remote notification is not valid."]);
     }
 }
 

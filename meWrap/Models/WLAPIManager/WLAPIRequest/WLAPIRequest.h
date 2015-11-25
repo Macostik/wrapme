@@ -8,10 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "WLCollections.h"
-#import "WLAPIResponse.h"
 #import <AFNetworking/AFNetworking.h>
 
-@class WLAPIRequest;
+@class WLAPIRequest, Response;
 
 @interface WLAPIManager : AFHTTPRequestOperationManager
 
@@ -21,7 +20,7 @@
 
 @end
 
-typedef void (^WLAPIRequestParser) (WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure);
+typedef void (^WLAPIRequestParser) (Response *response, WLObjectBlock success, WLFailureBlock failure);
 
 typedef void (^WLAPIRequestParametrizer) (id request, NSMutableDictionary* parameters);
 

@@ -62,7 +62,7 @@
     
     if (!record.phoneNumbers.nonempty) {
         
-        if (failure) failure(WLError(@"cannot_add_yourself".ls));
+        if (failure) failure([[NSError alloc] initWithMessage:@"cannot_add_yourself".ls]);
         
     } else if ([record.phoneNumbers count] == 1) {
         

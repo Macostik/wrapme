@@ -15,7 +15,7 @@
 #ifdef DEBUG
     self.hidden = NO;
 #else
-    self.hidden = [ENV isEqualToString:EnvironmentProduction];
+    self.hidden = [ENV isEqualToString:Environment.Production];
 #endif
 }
 

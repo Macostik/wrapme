@@ -85,10 +85,11 @@
 
 - (void)initializeAPIManager {
     [WLAPIRequest setUnauthorizedErrorBlock:^ (WLAPIRequest *request, NSError *error) {
+        WLLog(@"UNAUTHORIZED_ERROR: %@", error);
         UIStoryboard *storyboard = [UIStoryboard signUp];
-        if ([UIWindow mainWindow].rootViewController.storyboard != storyboard) {
-            UIViewController *rootViewController = [UIWindow mainWindow].rootViewController.presentedViewController ? : [UIWindow mainWindow].rootViewController;
-            UIView *topView = rootViewController.view;
+        UIWindow *window = [UIWindow mainWindow];
+        if (window.rootViewController.storyboard != storyboard) {
+            UIView *topView = (window.rootViewController.presentedViewController ? : window.rootViewController).view;
             topView.userInteractionEnabled = YES;
             [UIAlertController confirmRedirectingToSignUp:^(UIAlertAction *action) {
                 WLLog(@"ERROR - redirection to welcome screen, sign in failed: %@", error);

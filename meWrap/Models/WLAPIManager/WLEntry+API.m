@@ -364,15 +364,27 @@
                 } collectionTitle:[Constants albumName] success:success failure:failure];
             } else {
                 NSURLSessionDownloadTask *task = [[NSURLSession sharedSession] downloadTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                    NSURL* url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"Documents/%@.mp4", [NSString GUID]]];
+                    [[NSFileManager defaultManager] moveItemAtURL:location toURL:url error:nil];
                     run_in_main_queue(^{
                         if (error) {
                             if (failure) failure(error);
                         } else {
-                            NSURL* url = [[location URLByDeletingPathExtension] URLByAppendingPathExtension:@"mp4"];
-                            [[NSFileManager defaultManager] moveItemAtURL:location toURL:url error:nil];
-                            [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
-                                return [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:url];
-                            } collectionTitle:[Constants albumName] success:success failure:failure];
+                            NSError *reachabilityError = nil;
+                            [url checkResourceIsReachableAndReturnError:&reachabilityError];
+                            if (reachabilityError) {
+                                if (failure) failure(reachabilityError);
+                            } else {
+                                [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
+                                    return [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:url];
+                                } collectionTitle:[Constants albumName] success:^{
+                                    [[NSFileManager defaultManager] removeItemAtURL:url error:NULL];
+                                    if (success) success();
+                                } failure:^(NSError * _Nullable error) {
+                                    [[NSFileManager defaultManager] removeItemAtURL:url error:NULL];
+                                    if (failure) failure(error);
+                                }];
+                            }
                         }
                     });
                 }];

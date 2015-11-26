@@ -60,7 +60,9 @@
     
     NSDictionary *originator = [data dictionaryForKey:@"originator"];
     if (originator) {
-        self.originatedByCurrentUser = [originator[WLUserUIDKey] isEqualToString:[User currentUser].identifier] && [originator[WLDeviceIDKey] isEqualToString:[Authorization currentAuthorization].deviceUID];
+        NSString *userID = [originator stringForKey:WLUserUIDKey];
+        NSString *deviceID = [originator stringForKey:WLDeviceIDKey];
+        self.originatedByCurrentUser = userID.nonempty && deviceID.nonempty && [userID isEqualToString:[User currentUser].identifier] && [deviceID isEqualToString:[Authorization currentAuthorization].deviceUID];
     }
     
     WLNotificationType type = self.type;

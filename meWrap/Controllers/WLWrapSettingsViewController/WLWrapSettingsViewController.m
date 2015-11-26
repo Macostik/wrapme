@@ -8,7 +8,6 @@
 
 #import "WLWrapSettingsViewController.h"
 #import "WLToast.h"
-#import "WLEditSession.h"
 #import "WLButton.h"
 
 @interface WLWrapSettingsViewController () <EntryNotifying>
@@ -22,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet LayoutPrioritizer *friendsInvitePrioritizer;
 @property (weak, nonatomic) IBOutlet LayoutPrioritizer *chatPrioritizer;
 
-@property (strong, nonatomic) WLEditSession *editSession;
+@property (strong, nonatomic) EditSession *editSession;
 
 @property (nonatomic) BOOL userInitiatedDestructiveAction;
 
@@ -39,7 +38,9 @@
     [self.actionButton setTitle:title forState:UIControlStateNormal];
     
     self.wrapNameTextField.text = wrap.name;
-    self.editSession = [[WLEditSession alloc] initWithEntry:wrap stringProperties:@"name", nil];
+    self.editSession = [[EditSession alloc] initWithOriginalValue:wrap.name setter:^(EditSession * session, NSObject * value) {
+        wrap.name = (NSString*)value;
+    }];
     
     if (wrap.isPublic && !wrap.contributor.current) {
         BOOL isFollowing = wrap.isContributing;
@@ -122,7 +123,7 @@
     if  (sender.selected) {
         [self.editSession reset];
         [self.wrapNameTextField resignFirstResponder];
-        self.wrapNameTextField.text = [self.editSession originalValueForProperty:@"name"];
+        self.wrapNameTextField.text = (NSString*)self.editSession.originalValue;
     } else {
         [self.wrapNameTextField becomeFirstResponder];
     }
@@ -134,7 +135,7 @@
     if (sender.text.length > [Constants wrapNameLimit]) {
         sender.text = [sender.text substringToIndex:[Constants wrapNameLimit]];
     }
-    [self.editSession changeValue:[sender.text trim] forProperty:@"name"];
+    self.editSession.changedValue = [sender.text trim];
     self.editButton.selected = self.editSession.hasChanges;
 }
 
@@ -152,7 +153,7 @@
         }
     } else {
         [WLToast showWithMessage:@"wrap_name_cannot_be_blank".ls];
-        self.wrapNameTextField.text = [self.editSession originalValueForProperty:@"name"];
+        self.wrapNameTextField.text = (NSString*)self.editSession.originalValue;
     }
     self.editButton.selected = NO;
     [textField resignFirstResponder];

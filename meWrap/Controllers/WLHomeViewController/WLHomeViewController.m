@@ -105,7 +105,7 @@
         return streamView.height - weakSelf.publicWrapsHeaderView.height - 48;
     }];
     
-    [self.dataSource setRefreshable];
+    [self.dataSource setRefreshableWithStyle:Refresher.Orange];
     
     [super viewDidLoad];
     

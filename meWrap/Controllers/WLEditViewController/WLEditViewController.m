@@ -25,7 +25,7 @@
     [self setupEditableUserInterface];
 }
 
-- (void)setEditSession:(WLEditSession *)editSession {
+- (void)setEditSession:(EditSession *)editSession {
     _editSession = editSession;
     editSession.delegate = self;
 }
@@ -92,7 +92,7 @@
 
 #pragma mark - WLEditSessionDelegate
 
-- (void)editSession:(WLEditSession *)session hasChanges:(BOOL)hasChanges {
+- (void)editSession:(EditSession *)session hasChanges:(BOOL)hasChanges {
     self.doneButton.hidden = self.cancelButton.hidden = !hasChanges;
     [self.cancelButton setAlpha:hasChanges ? 1 : 0 animated:YES];
     [self.doneButton setAlpha:hasChanges ? 1 : 0 animated:YES];

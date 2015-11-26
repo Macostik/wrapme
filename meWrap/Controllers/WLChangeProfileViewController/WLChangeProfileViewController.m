@@ -12,7 +12,6 @@
 #import "WLKeyboard.h"
 #import "WLToast.h"
 #import "WLWelcomeViewController.h"
-#import "WLProfileEditSession.h"
 #import "WLTextView.h"
 #import "WLImageView.h"
 
@@ -26,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet WLTextView *verificationEmailTextView;
 @property (weak, nonatomic) IBOutlet UIButton *resendButton;
 
-@property (strong, nonatomic) WLProfileEditSession *editSession;
+@property (strong, nonatomic) ProfileEditSession *editSession;
 
 @end
 
@@ -52,7 +51,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.editSession = [[WLProfileEditSession alloc] initWithUser:[User currentUser]];
+    self.editSession = [[ProfileEditSession alloc] initWithUser:[User currentUser]];
     self.imagePlaceholderView.layer.cornerRadius = self.imagePlaceholderView.width/2;
     self.verificationEmailTextView.textContainerInset = UIEdgeInsetsZero;
     self.verificationEmailTextView.textContainer.lineFragmentPadding = 0;
@@ -98,11 +97,11 @@
 }
 
 - (IBAction)nameTextFieldChanged:(UITextField *)sender {
-    self.editSession.name = self.nameTextField.text;
+    self.editSession.nameSession.changedValue = self.nameTextField.text;
 }
 
 - (IBAction)emailTextFieldChanged:(UITextField *)sender {
-    self.editSession.email = self.emailTextField.text;
+    self.editSession.emailSession.changedValue = self.emailTextField.text;
 }
 
 - (IBAction)resendEmailConfirmation:(UIButton*)sender {
@@ -118,10 +117,9 @@
 #pragma mark - override base method
 
 - (void)validate:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    NSString* email = self.editSession.email;
-    if (![email isValidEmail]) {
+    if (!self.editSession.emailSession.hasValidChanges) {
         if (failure) failure([[NSError alloc] initWithMessage:@"incorrect_email".ls]);
-    } else if (!self.editSession.name.nonempty) {
+    } else if (!self.editSession.nameSession.hasValidChanges) {
         if (failure) failure([[NSError alloc] initWithMessage:@"name_cannot_be_blank".ls]);
     } else {
         if (success) success(nil);
@@ -129,16 +127,15 @@
 }
 
 - (void)apply:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    NSString* email = self.editSession.email;
-    if (self.editSession.hasChangedEmail &&
-        ![[Authorization currentAuthorization].email isEqualToString:email]) {
+    NSString* email = (NSString*)self.editSession.emailSession.changedValue;
+    if (self.editSession.emailSession.hasChanges && ![[Authorization currentAuthorization].email isEqualToString:email]) {
         [[NSUserDefaults standardUserDefaults] setConfirmationDate:nil];
     }
     [[WLAPIRequest updateUser:[User currentUser] email:email] send:success failure:failure];
 }
 
 - (void)didCompleteDoneAction {
-    self.editSession = [[WLProfileEditSession alloc] initWithUser:[User currentUser]];
+    self.editSession = [[ProfileEditSession alloc] initWithUser:[User currentUser]];
     [self editSession:self.editSession hasChanges:NO];
 }
 
@@ -152,7 +149,7 @@
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
     Asset *picture = [[pictures lastObject] uploadablePicture:NO];
     self.imageView.url = picture.large;
-    self.editSession.url = picture.large;
+    self.editSession.avatarSession.changedValue = picture.large;
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 

@@ -29,7 +29,7 @@ class EntryView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         if let name = self.dynamicType.entityName() {
-            EntryNotifier.notifierForName(name)
+            EntryNotifier.notifierForName(name).addReceiver(self)
         }
     }
 }

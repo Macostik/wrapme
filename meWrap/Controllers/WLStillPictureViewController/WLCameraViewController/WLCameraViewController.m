@@ -9,7 +9,6 @@
 #import "WLCameraViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
-#import "WLFlashModeControl.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLDeviceManager.h"
 #import "WLToast.h"
@@ -57,7 +56,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *unauthorizedStatusView;
 @property (weak, nonatomic) IBOutlet WLCameraView *cameraView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
-@property (weak, nonatomic) IBOutlet WLFlashModeControl *flashModeControl;
+@property (weak, nonatomic) IBOutlet FlashModeControl *flashModeControl;
 @property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 @property (weak, nonatomic) IBOutlet UILabel *zoomLabel;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
@@ -277,7 +276,7 @@
     [self.delegate cameraViewController:self didFinishWithImage:image saveToAlbum:YES];
 }
 
-- (IBAction)flashModeChanged:(WLFlashModeControl *)sender {
+- (IBAction)flashModeChanged:(FlashModeControl *)sender {
     __weak typeof(self)weakSelf = self;
     AVCaptureFlashMode flashMode = sender.mode;
     [self configureDevice:^(AVCaptureDevice *device) {
@@ -659,14 +658,19 @@
         }
 	};
     
-    AVCaptureStillImageOutput *output = self.stillImageOutput;
-    AVCaptureConnection *connection = [output connectionWithMediaType:AVMediaTypeVideo];
-    if (connection && [self.session.outputs containsObject:output]) {
-        connection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
-        [output captureStillImageAsynchronouslyFromConnection:connection completionHandler:handler];
-    } else {
-        if (failure) failure(nil);
-    }
+    
+    dispatch_async(self.sessionQueue, ^{
+        run_in_main_queue(^{
+            AVCaptureStillImageOutput *output = self.stillImageOutput;
+            AVCaptureConnection *connection = [output connectionWithMediaType:AVMediaTypeVideo];
+            if (connection && [self.session.outputs containsObject:output]) {
+                connection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
+                [output captureStillImageAsynchronouslyFromConnection:connection completionHandler:handler];
+            } else {
+                if (failure) failure(nil);
+            }
+        });
+    });
 }
 
 - (AVCaptureDevicePosition)position {

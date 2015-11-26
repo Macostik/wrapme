@@ -22,7 +22,7 @@
 
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
-    self.backgroundColor = selected ? [UIColor gray:230] : [UIColor whiteColor];
+    self.backgroundColor = selected ? [UIColor colorWithWhite:0.9 alpha:1] : [UIColor whiteColor];
 }
 
 @end

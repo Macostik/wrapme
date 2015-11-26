@@ -50,9 +50,9 @@
 	self.nameLabel.text = phoneNumber.name;
     NSString *url = phoneNumber.picture.small;
     if (self.signUpView && !self.signUpView.hidden && !url.nonempty) {
-        self.avatarView.defaultBackgroundColor = WLColors.orange;
+        self.avatarView.defaultBackgroundColor = Color.orange;
     } else {
-        self.avatarView.defaultBackgroundColor = WLColors.grayLighter;
+        self.avatarView.defaultBackgroundColor = Color.grayLighter;
     }
     self.avatarView.url = url;
 	

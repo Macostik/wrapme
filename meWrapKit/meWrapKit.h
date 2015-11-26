@@ -12,8 +12,6 @@
 #import "GCDHelper.h"
 #import "SupportHeaders.h"
 #import "WLCollections.h"
-#import "WLCollections.h"
-#import "UIColor+CustomColors.h"
 #import "WLOperationQueue.h"
 #import "WLEntryKeys.h"
 #import "WLImageFetcher.h"

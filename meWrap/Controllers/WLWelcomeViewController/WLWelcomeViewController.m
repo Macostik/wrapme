@@ -70,7 +70,7 @@ typedef enum : NSUInteger {
 	NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:@"terms_and_conditions".ls];
 	NSDictionary * attributes = @{NSUnderlineStyleAttributeName : [NSNumber numberWithInteger:NSUnderlineStyleSingle],
 								  NSFontAttributeName : [UIFont fontSmall],
-								  NSForegroundColorAttributeName : WLColors.orange};
+								  NSForegroundColorAttributeName : Color.orange};
 	[titleString addAttributes:attributes range:NSMakeRange(0, [titleString length])];
 	[self.licenseButton setAttributedTitle: titleString forState:UIControlStateNormal];
 }

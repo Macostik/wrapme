@@ -26,7 +26,7 @@ class Refresher: UIControl {
         self.init(frame: scrollView.bounds.offsetBy(dx: 0, dy: -scrollView.height))
         autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleBottomMargin, .FlexibleWidth]
         translatesAutoresizingMaskIntoConstraints = true
-        backgroundColor = WLColors.orange
+        backgroundColor = Color.orange
         scrollView.addSubview(self)
         inset = scrollView.contentInset.top
         contentMode = .Center
@@ -169,11 +169,11 @@ class Refresher: UIControl {
         didSet {
             let color: UIColor?
             if style == Refresher.Orange {
-                color = WLColors.orange;
+                color = Color.orange;
                 backgroundColor = UIColor.whiteColor()
             } else {
                 color = UIColor.whiteColor()
-                backgroundColor = WLColors.orange;
+                backgroundColor = Color.orange;
             }
             if let color = color {
                 candyView.textColor = color

@@ -42,7 +42,7 @@
     layer.rasterizationScale = [UIScreen mainScreen].scale;
     layer.shouldRasterize = YES;
     layer.fillColor = [UIColor clearColor].CGColor;
-    layer.strokeColor = WLColors.orange.CGColor;
+    layer.strokeColor = Color.orange.CGColor;
     layer.strokeStart = layer.strokeEnd = 0.0f;
     [self updatePath];
     layer.actions = @{@"strokeEnd":[NSNull null]};

@@ -14,7 +14,6 @@
 #import "WLNetwork.h"
 #import "WLPaginatedRequest+Defined.h"
 #import "WLOperationQueue.h"
-#import "UIColor+CustomColors.h"
 #import "WLBaseViewController.h"
 #import "WLImageView.h"
 #import "WLWhatsUpSet.h"

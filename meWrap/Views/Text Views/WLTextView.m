@@ -7,7 +7,6 @@
 //
 
 #import "WLTextView.h"
-#import "UIColor+CustomColors.h"
 
 @interface WLTextView ()
 
@@ -52,7 +51,7 @@
         placeholderLabel.backgroundColor = [UIColor clearColor];
         placeholderLabel.frame = CGRectMake(5, 0, 250, 30);
         placeholderLabel.font = self.font;
-        placeholderLabel.textColor = WLColors.grayLight;
+        placeholderLabel.textColor = Color.grayLight;
         placeholderLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
         [self addSubview:placeholderLabel];
         _placeholderLabel = placeholderLabel;

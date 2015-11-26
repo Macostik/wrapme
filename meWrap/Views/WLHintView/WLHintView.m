@@ -38,7 +38,7 @@
     
     hintView.frame = view.frame;
     
-    hintView.gotItButton.layer.borderColor = WLColors.grayDark.CGColor;
+    hintView.gotItButton.layer.borderColor = Color.grayDark.CGColor;
     
     [view addSubview:hintView];
     

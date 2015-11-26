@@ -327,7 +327,7 @@
 	focusView.center = point;
 	focusView.userInteractionEnabled = NO;
     focusView.backgroundColor = [UIColor clearColor];
-    focusView.borderColor = [WLColors.orange colorWithAlphaComponent:0.5f];
+    focusView.borderColor = [Color.orange colorWithAlphaComponent:0.5f];
     focusView.borderWidth = 1;
 	[self.cameraView addSubview:focusView];
     self.focusView = focusView;

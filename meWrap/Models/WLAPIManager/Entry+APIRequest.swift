@@ -322,7 +322,6 @@ extension Candy {
             uploadRequest.contentType = "image/jpeg"
         }
         uploadRequest.body = path.fileURL
-        print("\u{001B}[0;33m\(metadata)")
         AWSS3TransferManager.defaultS3TransferManager().upload(uploadRequest).continueWithBlock { [weak self] (task) -> AnyObject! in
             run_in_main_queue({ () -> Void in
                 if let wrap = self?.wrap where wrap.valid && task.completed && (task.result != nil) {

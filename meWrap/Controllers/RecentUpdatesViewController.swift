@@ -57,7 +57,7 @@ class RecentCandyCell: RecentUpdateCell {
                 userNameLabel.text = String(format: "formatted_edited_by".ls, candy.editor?.name ?? "")
             } else {
                 pictureView.url = candy.contributor?.picture?.small
-                userNameLabel.text = "\(candy.contributor?.name ?? "")) \((candy.isVideo ? "posted_new_video" : "posted_new_photo").ls)"
+                userNameLabel.text = "\(candy.contributor?.name ?? "") \((candy.isVideo ? "posted_new_video" : "posted_new_photo").ls)"
             }
             inWrapLabel.text = candy.wrap?.name
             videoIndicator.hidden = candy.mediaType != .Video

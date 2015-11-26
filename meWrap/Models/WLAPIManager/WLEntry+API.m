@@ -210,12 +210,14 @@
                 } collectionTitle:[Constants albumName] success:success failure:failure];
             } else {
                 NSURLSessionDownloadTask *task = [[NSURLSession sharedSession] downloadTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                    NSURL* url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"Documents/%@.mp4", [NSString GUID]]];
-                    [[NSFileManager defaultManager] moveItemAtURL:location toURL:url error:nil];
-                    run_in_main_queue(^{
-                        if (error) {
+                    if (error) {
+                        run_in_main_queue(^{
                             if (failure) failure(error);
-                        } else {
+                        });
+                    } else {
+                        NSURL* url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"Documents/%@.mp4", [NSString GUID]]];
+                        [[NSFileManager defaultManager] moveItemAtURL:location toURL:url error:nil];
+                        run_in_main_queue(^{
                             NSError *reachabilityError = nil;
                             [url checkResourceIsReachableAndReturnError:&reachabilityError];
                             if (reachabilityError) {
@@ -231,8 +233,8 @@
                                     if (failure) failure(error);
                                 }];
                             }
-                        }
-                    });
+                        });
+                    }
                 }];
                 [task resume];
             }

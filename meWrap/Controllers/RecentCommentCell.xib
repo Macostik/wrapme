@@ -88,7 +88,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Awesome commentAwesome commentAwesome commentAwesome commentAwesome commentAwesome comment" lineBreakMode="tailTruncation" numberOfLines="2" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n3e-9l-uBb">
+                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Awesome commentAwesome commentAwesome commentAwesome commentAwesome commentAwesome comment" lineBreakMode="tailTruncation" numberOfLines="2" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n3e-9l-uBb" customClass="WLLabel">
                             <rect key="frame" x="72" y="26" width="236" height="41"/>
                             <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

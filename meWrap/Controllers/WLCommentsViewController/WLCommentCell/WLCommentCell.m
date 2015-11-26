@@ -30,7 +30,7 @@
         if (comment.deletable) {
             [menu addDeleteAction:^(Comment *comment) {
                 weakSelf.userInteractionEnabled = NO;
-                [weakSelf.entry remove:^(id object) {
+                [weakSelf.entry delete:^(id object) {
                     weakSelf.userInteractionEnabled = YES;
                 } failure:^(NSError *error) {
                     [error show];

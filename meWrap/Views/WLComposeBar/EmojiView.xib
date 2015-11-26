@@ -16,7 +16,7 @@
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </scrollView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yi0-iY-o3U" customClass="SegmentedControl">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yi0-iY-o3U" customClass="SegmentedControl" customModule="meWrap" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="162" width="320" height="54"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNS-ti-Qad" customClass="WLSegmentButton">

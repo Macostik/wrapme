@@ -19,7 +19,6 @@
 #import "WLCommentsViewController.h"
 #import "WLDrawingViewController.h"
 #import "WLFollowingViewController.h"
-#import "WLEntry+WLUploadingQueue.h"
 #import "WLImageEditorSession.h"
 #import "WLImageView.h"
 
@@ -353,7 +352,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         [UIAlertController confirmCandyDeleting:candy success:^(UIAlertAction *action) {
             weakSelf.removedCandy = candy;
             sender.loading = YES;
-            [candy remove:^(id object) {
+            [candy delete:^(id object) {
                 sender.loading = NO;
             } failure:^(NSError *error) {
                 weakSelf.removedCandy = nil;
@@ -429,9 +428,12 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (void)downloadCandyOriginal:(Candy *)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {
     if (candy) {
-        [candy prepareForUpdate:^(Contribution *contribution, WLContributionStatus status) {
+        NSError *error = [candy updateError];
+        if (error) {
+            if (failure) failure(error);
+        } else {
             [WLDownloadingView downloadCandy:candy success:success failure:failure];
-        } failure:failure];
+        }
     } else {
         if (failure) failure(nil);
     }

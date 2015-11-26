@@ -22,7 +22,7 @@
     return [[request parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
         success(candy.valid ? [candy update:[Candy prefetchDictionary:response.data[WLCandyKey]]] : nil);
     }] beforeFailure:^(NSError *error) {
-        if (candy.uploaded && [error isResponseError:ResponseCodeContentUnavaliable]) {
+        if (candy.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
             [candy remove];
         }
     }];
@@ -33,7 +33,7 @@
         [candy remove];
         success(nil);
     }] beforeFailure:^(NSError *error) {
-        if (candy.uploaded && [error isResponseError:ResponseCodeContentUnavaliable]) {
+        if (candy.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
             [candy remove];
         }
     }];
@@ -56,7 +56,7 @@
         [wrap remove];
         success(nil);
     }] beforeFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavaliable]) {
+        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
             [wrap remove];
         }
     }];
@@ -72,7 +72,7 @@
         }
         success(nil);
     }] beforeFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavaliable]) {
+        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
             [wrap remove];
         }
     }];
@@ -85,7 +85,7 @@
         [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
         success(nil);
     }] beforeFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavaliable]) {
+        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
             [wrap remove];
         }
     }];
@@ -97,7 +97,7 @@
         [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
         success(nil);
     }] beforeFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavaliable]) {
+        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
             [wrap remove];
         }
     }];
@@ -155,7 +155,7 @@
             success(nil);
         }
     }] afterFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavaliable]) {
+        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
             [wrap remove];
         }
     }];
@@ -172,7 +172,7 @@
             success(nil);
         }
     }] afterFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavaliable]) {
+        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
             [wrap remove];
         }
     }];
@@ -186,7 +186,7 @@
         }
         success(contributors);
     }] afterFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavaliable]) {
+        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
             [wrap remove];
         }
     }];
@@ -213,7 +213,7 @@
         }
     }] beforeFailure:^(NSError *error) {
         Wrap *wrap = message.wrap;
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavaliable]) {
+        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
             [wrap remove];
         }
     }];
@@ -256,7 +256,7 @@
             success(nil);
         }
     }] afterFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavaliable]) {
+        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
             [wrap remove];
         }
     }];
@@ -277,7 +277,7 @@
             success(nil);
         }
     }] afterFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavaliable]) {
+        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
             [wrap remove];
         }
     }];
@@ -316,61 +316,6 @@
     }];
 }
 
-+ (instancetype)uploadCandy:(Candy *)candy {
-    return [[[[[self POST:@"wraps/%@/candies", candy.wrap.identifier] file:^NSString *(id request) {
-        return candy.picture.original;
-    }] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
-        [parameters trySetObject:candy.uploadIdentifier forKey:WLUploadUIDKey];
-        [parameters trySetObject:@([candy.updatedAt timestamp]) forKey:WLContributedAtKey];
-        Comment *firstComment = [[candy.comments where:@"uploading == nil"] anyObject];
-        if (firstComment) {
-            [parameters trySetObject:firstComment.text forKey:@"message"];
-            [parameters trySetObject:firstComment.uploadIdentifier forKey:@"message_upload_uid"];
-        }
-    }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
-        if (candy.wrap.valid) {
-            Asset* oldPicture = [candy.picture copy];
-            [candy map:[response.data dictionaryForKey:WLCandyKey]];
-            [oldPicture cacheForAsset:candy.picture];
-            success(candy);
-        } else {
-            success(nil);
-        }
-    }] afterFailure:^(NSError *error) {
-        if ([error isResponseError:ResponseCodeUploadFileNotFound]) {
-            [candy remove];
-        } else {
-            Wrap *wrap = candy.wrap;
-            if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavaliable]) {
-                [wrap remove];
-            }
-        }
-    }];
-}
-
-+ (instancetype)editCandy:(Candy *)candy {
-    return [[[[[self PUT:@"wraps/%@/candies/%@/", candy.wrap.identifier, candy.identifier] file:^NSString *(id request) {
-        return candy.picture.original;
-    }] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
-        [parameters trySetObject:@([candy.updatedAt timestamp]) forKey:WLContributedAtKey];
-        candy.uploadIdentifier = [NSString GUID];
-        [parameters trySetObject:candy.uploadIdentifier forKey:WLUploadUIDKey];
-    }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
-        if (candy.wrap.valid) {
-            Asset* oldPicture = [candy.picture copy];
-            [candy map:[response.data dictionaryForKey:WLCandyKey]];
-            [oldPicture cacheForAsset:candy.picture];
-            success(candy);
-        } else {
-            success(nil);
-        }
-    }] afterFailure:^(NSError *error) {
-        if ([error isResponseError:ResponseCodeContentUnavaliable]) {
-            [candy remove];
-        }
-    }];
-}
-
 + (instancetype)updateWrap:(Wrap *)wrap {
     return [[[[self PUT:@"wraps/%@", wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
         [parameters trySetObject:wrap.name forKey:@"name"];
@@ -384,7 +329,7 @@
             success(nil);
         }
     }] afterFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavaliable]) {
+        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
             [wrap remove];
         }
     }];

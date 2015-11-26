@@ -21,7 +21,6 @@
 #import "CocoaLumberjack.h"
 #import "WLAuthorizationRequest.h"
 #import "WLUploadingQueue.h"
-#import "WLEntry+WLUploadingQueue.h"
 #import "WLNetwork.h"
 #import <AWSCore/AWSCore.h>
 @import WatchConnectivity;
@@ -205,10 +204,6 @@
         WLLog(@"INITIAL SIGN IN - no data for signing in");
         [[UIStoryboard signUp] present:YES];
     }
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    [WLUploadingQueue start];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {

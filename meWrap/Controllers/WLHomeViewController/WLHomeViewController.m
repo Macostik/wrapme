@@ -20,11 +20,9 @@
 #import "WLPresentingImageView.h"
 #import "WLHistoryViewController.h"
 #import "WLWhatsUpSet.h"
-#import "SegmentedControl.h"
 #import "WLHintView.h"
 #import "WLMessagesCounter.h"
 #import "WLUploadingQueue.h"
-#import "WLEntry+WLUploadingQueue.h"
 #import "WLFollowingViewController.h"
 #import "WLSoundPlayer.h"
 #import "WLNetwork.h"
@@ -458,7 +456,7 @@
         
         [WLFollowingViewController followWrapIfNeeded:wrap performAction:^{
             [WLSoundPlayer playSound:WLSound_s04];
-            [wrap uploadPictures:pictures];
+            [wrap uploadAssets:pictures];
         }];
     }
 }

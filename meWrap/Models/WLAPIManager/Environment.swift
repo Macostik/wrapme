@@ -106,7 +106,7 @@ class Environment: NSObject {
     case Failure = -1
     case DuplicatedUploading = 10
     case InvalidAttributes = 20
-    case ContentUnavaliable = 30
+    case ContentUnavailable = 30
     case NotFoundEntry = 40
     case CredentialNotValid = 50
     case UploadFileNotFound = 100

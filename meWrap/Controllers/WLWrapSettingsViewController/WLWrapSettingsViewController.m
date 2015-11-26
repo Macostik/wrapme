@@ -77,7 +77,7 @@
         weakSelf.userInitiatedDestructiveAction = YES;
         sender.loading = YES;
         weakSelf.view.userInteractionEnabled = NO;
-        [wrap remove:^(id object) {
+        [wrap delete:^(id object) {
             if (wrap.isPublic) {
                 [weakSelf.navigationController popViewControllerAnimated:NO];
             } else {

@@ -27,7 +27,11 @@ class EntryDescriptor: NSObject {
     }
     
     func belongsToEntry(entry: Entry) -> Bool {
-        return uid == entry.identifier || locuid == entry.uploadIdentifier
+        if let locuid = locuid {
+            return uid == entry.identifier || locuid == entry.uploadIdentifier
+        } else {
+            return uid == entry.identifier
+        }
     }
 }
 
@@ -62,7 +66,6 @@ extension EntryContext {
     
     func fetchEntries(descriptors: [EntryDescriptor]) {
         var uids = [String]()
-        var locuids = [String]()
         
         var descriptors = descriptors.filter { (descriptor) -> Bool in
             if cachedEntry(descriptor.uid) != nil {
@@ -72,7 +75,7 @@ extension EntryContext {
             } else {
                 uids.append(descriptor.uid)
                 if let locuid = descriptor.locuid {
-                    locuids.append(locuid)
+                    uids.append(locuid)
                 }
                 return true
             }
@@ -82,8 +85,7 @@ extension EntryContext {
             return
         }
         
-        let entries = Entry.fetch().query("identifier IN %@ OR uploadIdentifier IN %@", uids, locuids).execute() as? [Entry]
-        if let entries = entries {
+        if let entries = Entry.fetch().query("identifier IN %@ OR uploadIdentifier IN %@", uids, uids).execute() as? [Entry] {
             for entry in entries {
                 for (index, descriptor) in descriptors.enumerate() {
                     if descriptor.belongsToEntry(entry) {

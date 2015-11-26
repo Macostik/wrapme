@@ -12,7 +12,6 @@
 #import "WLSoundPlayer.h"
 #import "WLDeviceManager.h"
 #import "WLCommentCell.h"
-#import "WLEntry+WLUploadingQueue.h"
 #import "WLHistoryViewController.h"
 
 static CGFloat WLNotificationCommentHorizontalSpacing = 84.0f;
@@ -88,9 +87,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
 - (void)sendMessageWithText:(NSString*)text {
     if (self.candy.valid) {
         [WLSoundPlayer playSound:WLSound_s04];
-        [self.candy uploadComment:[text trim] success:^(Comment *comment) {
-        } failure:^(NSError *error) {
-        }];
+        [self.candy uploadComment:[text trim]];
     }
     run_after(.0, ^{
         [self onClose:nil];

@@ -8,7 +8,6 @@
 
 #import "WLUploadingQueue.h"
 #import "WLNetwork.h"
-#import "WLUploading+Extended.h"
 #import "WLAuthorizationRequest.h"
 #import "WLOperationQueue.h"
 

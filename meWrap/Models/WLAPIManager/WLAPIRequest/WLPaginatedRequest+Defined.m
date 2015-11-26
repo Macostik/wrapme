@@ -38,7 +38,7 @@
             success(nil);
         }
     }] afterFailure:^(NSError *error) {
-        if ([error isResponseError:ResponseCodeContentUnavaliable] && wrap.valid && wrap.uploaded) {
+        if ([error isResponseError:ResponseCodeContentUnavailable] && wrap.valid && wrap.uploaded) {
             [wrap remove];
         }
     }];
@@ -55,7 +55,7 @@
             success(nil);
         }
     }] afterFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavaliable]) {
+        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
             [wrap remove];
         }
     }];
@@ -80,7 +80,7 @@
             success(nil);
         }
     }] beforeFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavaliable]) {
+        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
             [wrap remove];
         }
     }];

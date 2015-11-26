@@ -1167,7 +1167,7 @@
                                     <outlet property="delegate" destination="L91-fZ-J9O" id="5Ve-av-mgl"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xxr-1f-Jzb" customClass="SegmentedControl">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xxr-1f-Jzb" customClass="SegmentedControl" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="552" width="600" height="48"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhi-C4-lKW" customClass="WLButton">
@@ -1788,7 +1788,7 @@
                                 <rect key="frame" x="0.0" y="168" width="600" height="432"/>
                                 <animations/>
                             </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aqT-yE-MER" customClass="SegmentedControl">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aqT-yE-MER" customClass="SegmentedControl" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Bd-BB-Q7S">

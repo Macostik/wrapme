@@ -8,13 +8,13 @@
 
 #import <WatchKit/WatchKit.h>
 
-@interface WKInterfaceImage (WLImageFetcher) <WLImageFetching>
+@interface WKInterfaceImage (WLImageFetcher) <ImageFetching>
 
 @property (strong, nonatomic) NSString* url;
 
 @end
 
-@interface WKInterfaceGroup (WLImageFetcher) <WLImageFetching>
+@interface WKInterfaceGroup (WLImageFetcher) <ImageFetching>
 
 @property (strong, nonatomic) NSString* url;
 

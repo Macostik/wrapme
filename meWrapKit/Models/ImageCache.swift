@@ -14,7 +14,7 @@ class SystemImageCache: NSCache {
     
     override init() {
         super.init()
-        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidReceiveMemoryWarningNotification, object: nil, queue: nil) {[weak self] _ -> Void in
+        NSNotificationCenter.defaultCenter().addObserverForName("UIApplicationDidReceiveMemoryWarningNotification", object: nil, queue: nil) {[weak self] _ -> Void in
             self?.removeAllObjects()
         }
     }
@@ -142,15 +142,18 @@ class ImageCache: NSObject {
             let result = self.checkSize()
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
                 if result && self.permitted {
-                    do {
-                        self.uids = Set(try NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.path))
-                    } catch {
-                    }
+                    self.fetchUIDs()
                 }
                 self.checkingState = false
             }
         }
-        
+    }
+    
+    func fetchUIDs() {
+        do {
+            self.uids = Set(try NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.path))
+        } catch {
+        }
     }
     
     private func checkSize() -> Bool {

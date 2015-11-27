@@ -17,11 +17,11 @@ extension WCSession {
             failure?(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey:"cannot serialize message"]))
             return
         }
-        sendMessage(dictionary, replyHandler: { (replyMessage) -> Void in
-            guard let dictionary = replyMessage as? Dictionary<String, NSData> else {
+        sendMessage(["request":dictionary], replyHandler: { (replyMessage) -> Void in
+            guard let dictionary = replyMessage["response"] as? String else {
                 return
             }
-            guard let response = ExtensionResponse.deserialize(dictionary) as? ExtensionResponse else {
+            guard let response = ExtensionResponse.deserialize(dictionary) else {
                 return
             }
             if response.success {

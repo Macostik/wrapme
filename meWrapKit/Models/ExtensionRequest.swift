@@ -21,12 +21,14 @@ class ExtensionRequest: ExtensionMessage {
     override class func archivableProperties() -> Set<String> {
         return ["action", "userInfo"]
     }
-}
-
-extension NSURL {
-    convenience init?(request: ExtensionRequest) {
-        if let string = request.serialize() {
-            self.init(scheme: "mewrap", host: "extension.request", path: "/?request=\(string)")
+    
+    func serializedURL() -> NSURL? {
+        if let string = serialize() {
+            let components = NSURLComponents()
+            components.scheme = "mewrap"
+            components.host = "extension.request"
+            components.path = "/?request=\(string)"
+            return components.URL
         } else {
             return nil
         }

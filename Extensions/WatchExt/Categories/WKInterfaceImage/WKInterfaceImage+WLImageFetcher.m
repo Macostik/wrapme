@@ -13,7 +13,7 @@
 - (void)setUrl:(NSString *)url {
     [self setAssociatedObject:url forKey:"WKInterfaceImage_WLImageFetcherURL"];
     if (url.nonempty) {
-        [[WLImageFetcher defaultFetcher] enqueueImageWithUrl:url receiver:self];
+        [[ImageFetcher defaultFetcher] enqueue:url receiver:self];
     }
 }
 
@@ -23,15 +23,15 @@
 
 // MARK: - WLImageFetching
 
-- (void)fetcher:(WLImageFetcher *)fetcher didFinishWithImage:(UIImage *)image cached:(BOOL)cached {
+- (void)fetcher:(ImageFetcher *)fetcher didFinishWithImage:(UIImage *)image cached:(BOOL)cached {
     [self setImage:image];
 }
 
-- (void)fetcher:(WLImageFetcher *)fetcher didFailWithError:(NSError *)error {
+- (void)fetcher:(ImageFetcher *)fetcher didFailWithError:(NSError *)error {
     [self setImage:nil];
 }
 
-- (NSString *)fetcherTargetUrl:(WLImageFetcher *)fetcher {
+- (NSString *)fetcherTargetUrl:(ImageFetcher *)fetcher {
     return self.url;
 }
 
@@ -42,7 +42,7 @@
 - (void)setUrl:(NSString *)url {
     [self setAssociatedObject:url forKey:"WKInterfaceImage_WLImageFetcherURL"];
     if (url.nonempty) {
-        [[WLImageFetcher defaultFetcher] enqueueImageWithUrl:url receiver:self];
+        [[ImageFetcher defaultFetcher] enqueue:url receiver:self];
     }
 }
 
@@ -52,15 +52,15 @@
 
 // MARK: - WLImageFetching
 
-- (void)fetcher:(WLImageFetcher *)fetcher didFinishWithImage:(UIImage *)image cached:(BOOL)cached {
+- (void)fetcher:(ImageFetcher *)fetcher didFinishWithImage:(UIImage *)image cached:(BOOL)cached {
     [self setBackgroundImage:image];
 }
 
-- (void)fetcher:(WLImageFetcher *)fetcher didFailWithError:(NSError *)error {
+- (void)fetcher:(ImageFetcher *)fetcher didFailWithError:(NSError *)error {
     [self setBackgroundImage:nil];
 }
 
-- (NSString *)fetcherTargetUrl:(WLImageFetcher *)fetcher {
+- (NSString *)fetcherTargetUrl:(ImageFetcher *)fetcher {
     return self.url;
 }
 

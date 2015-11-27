@@ -36,7 +36,7 @@
 
 @end
 
-@interface WLWKCandyEventRow () <WLImageFetching>
+@interface WLWKCandyEventRow ()
 
 @property (weak, nonatomic) IBOutlet WKInterfaceGroup *dataGroup;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *photoByLabel;

@@ -149,7 +149,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 
 - (IBAction)singUpClick:(id)sender {
     ExtensionRequest *request = [[ExtensionRequest alloc] initWithAction:@"authorize:completionHandler:" userInfo:nil];
-    NSURL *url = [[NSURL alloc] initWithRequest:request];
+    NSURL *url = [request serializedURL];
     if (url) {
         [self.extensionContext openURL:url completionHandler:NULL];
     }
@@ -180,7 +180,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
         return;
     }
     ExtensionRequest *request = [[ExtensionRequest alloc] initWithAction:@"presentEntry:completionHandler:" userInfo:contribution.serializeReference];
-    NSURL *url = [[NSURL alloc] initWithRequest:request];
+    NSURL *url = [request serializedURL];
     if (url) {
         [self.extensionContext openURL:url completionHandler:NULL];
     }

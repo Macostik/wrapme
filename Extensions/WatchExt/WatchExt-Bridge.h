@@ -7,4 +7,3 @@
 //
 
 #import "Common-Bridge.h"
-#import "WLImageCache.h"

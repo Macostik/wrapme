@@ -13,6 +13,8 @@
 #import "WLButton.h"
 #import "WLArrangedAddressBook.h"
 #import "WLAddressBookGroupView.h"
+#import "WLToast.h"
+#import "WLConfirmView.h"
 
 @interface WLAddContributorsViewController () <StreamViewDelegate, WLAddressBookRecordCellDelegate, UITextFieldDelegate, FontPresetting, WLAddressBookReceiver>
 
@@ -48,7 +50,11 @@
         [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
             WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:position.section];
             WLAddressBookRecord* record = [group.records tryAt:position.index];
-            return [record.phoneStrings heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - 142.0f] + 54;
+            WLAddressBookPhoneNumber* phoneNumber = [record.phoneNumbers lastObject];
+            BOOL isUseApp = phoneNumber.user;
+            NSString *infoString = isUseApp && phoneNumber.activated ? @"invite_status".ls : @"signup_status".ls;
+            CGFloat inviteHeight = isUseApp ? [infoString heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - 147.0f] : 0;
+            return inviteHeight + [record.phoneStrings heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - 134.0f] + 54.0;
         }];
     }];
     
@@ -122,15 +128,31 @@
         return;
     }
     sender.loading = YES;
-    self.view.userInteractionEnabled = NO;
+//    self.view.userInteractionEnabled = NO;
     __weak typeof(self)weakSelf = self;
-    [[WLAPIRequest addContributors:self.addressBook.selectedPhoneNumbers wrap:self.wrap] send:^(id object) {
-        [weakSelf.navigationController popViewControllerAnimated:NO];
-    } failure:^(NSError *error) {
-        sender.loading = NO;
-        [error show];
-        weakSelf.view.userInteractionEnabled = YES;
-    }];
+//    [[WLAPIRequest addContributors:self.addressBook.selectedPhoneNumbers wrap:self.wrap] send:^(id object) {
+//
+//       
+//    } failure:^(NSError *error) {
+//        sender.loading = NO;
+//        [error show];
+//        weakSelf.view.userInteractionEnabled = YES;
+//    }];
+    for (WLAddressBookPhoneNumber *phoneNumber in weakSelf.addressBook.selectedPhoneNumbers) {
+        WLArrangedAddressBookGroup *group = weakSelf.filteredAddressBook.groups.lastObject;
+        if ([group.records containsObject:phoneNumber.record]) {
+            NSString *content = [NSString stringWithFormat:@"send_message_to_friends_content".ls, [User currentUser].name, self.wrap.name];
+            [WLEditingConfirmView showInView:self.view withContent:content success:^(id  _Nullable object) {
+                [WLToast showWithMessage:@"is_using_invite".ls];
+                [weakSelf.navigationController popViewControllerAnimated:NO];
+            } cancel: ^{
+                sender.loading = NO;
+            }];
+        } else {
+            [weakSelf.navigationController popViewControllerAnimated:NO];
+            [WLToast showWithMessage:@"isn't_using_invite".ls];
+        }
+    }
 }
 
 #pragma mark - StreamViewDelegate

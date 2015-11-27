@@ -1656,7 +1656,7 @@
                                     <constraint firstAttribute="height" constant="44" id="JNd-8X-7Ny"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="continue">
+                                <state key="normal" title="done">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>

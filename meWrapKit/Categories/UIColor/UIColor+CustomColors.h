@@ -36,6 +36,8 @@
 
 @property (strong, nonatomic) UIColor *dangerRed;
 
+@property (strong, nonatomic) UIColor *green;
+
 @end
 
 extern WLColorCollection *WLColors;

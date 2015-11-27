@@ -16,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet WLImageView *avatarView;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 @property (weak, nonatomic) IBOutlet WLButton *slideMenuButton;
-@property (weak, nonatomic) IBOutlet UILabel *signUpView;
 @property (weak, nonatomic) IBOutlet UILabel *inviteLabel;
 
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
@@ -32,10 +31,10 @@
 
 + (NSString *)invitationHintText:(User*)user {
     NSDate *invitedAt = user.invitedAt;
-    if (invitedAt) {
-        return [NSString stringWithFormat:@"Invite sent %@. Swipe to resend invite", [invitedAt stringWithDateStyle:NSDateFormatterLongStyle]];
+    if (user.isInvited && user.isInvited) {
+        return [NSString stringWithFormat:@"invite_status_swipe_to".ls, [invitedAt stringWithDateStyle:NSDateFormatterShortStyle]];
     } else {
-        return @"Invite sent. Swipe to resend invite";
+        return @"signup_status".ls;
     }
 }
 
@@ -91,20 +90,17 @@
     self.nameLabel.text = isCreator ? [NSString stringWithFormat:@"formatted_owner".ls, userNameText] : userNameText;
     self.phoneLabel.text = user.securePhones;
     
-    self.inviteLabel.hidden = !canBeInvited;
-    self.signUpView.hidden = canBeInvited;
-    
     NSString *url = user.picture.small;
-    if (!self.signUpView.hidden && !url.nonempty) {
+    if (!canBeInvited && !url.nonempty) {
         self.avatarView.defaultBackgroundColor = WLColors.orange;
     } else {
         self.avatarView.defaultBackgroundColor = WLColors.grayLighter;
     }
     self.avatarView.url = url;
     
-    if (canBeInvited) {
-        self.inviteLabel.text = [WLContributorCell invitationHintText:user];
-    }
+
+    self.inviteLabel.text = [WLContributorCell invitationHintText:user];
+    
     
     self.slideMenuButton.hidden = !deletable && !canBeInvited;
     

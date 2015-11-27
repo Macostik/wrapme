@@ -78,3 +78,37 @@
 }
 
 @end
+
+@interface WLEditingConfirmView ()
+
+@end
+
+@implementation WLEditingConfirmView : WLConfirmView
+
++ (void)showInView:(UIView *)view withContent:(NSString *)content success:(WLObjectBlock)succes cancel:(WLBlock)cancel {
+     [[WLEditingConfirmView loadFromNib:@"WLEditingConfirmView"] showInView:view withContent:(NSString *)content success:succes cancel:cancel];
+}
+
+- (void)showInView:(UIView *)view withContent:(NSString *)content success:(WLObjectBlock)success cancel:(WLBlock)cancel {
+    [[WLKeyboard keyboard] addReceiver:self];
+    [self.contentTextView determineHyperLink:content];
+//    [self.contentTextView becomeFirstResponder];
+    [super showInView:view authorization:nil success:success cancel:cancel];
+}
+
+- (void)keyboardWillShow:(WLKeyboard*)keyboard {
+    [UIView animateWithDuration:0.25 animations:^{
+        self.keyboardPrioritizer.constant -= keyboard.height/2;
+        [self layoutIfNeeded];
+    }];
+}
+
+- (void)keyboardWillHide:(WLKeyboard*)keyboard {
+    [UIView animateWithDuration:0.25 animations:^{
+        self.keyboardPrioritizer.constant += keyboard.height/2;
+        [self layoutIfNeeded];
+    }];
+}
+
+
+@end

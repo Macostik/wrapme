@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="icons.ttf">
@@ -31,7 +31,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="+380951383026" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQq-75-DxW" customClass="WLLabel">
-                    <rect key="frame" x="110" y="0.0" width="166" height="50"/>
+                    <rect key="frame" x="110" y="0.0" width="170" height="50"/>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
@@ -42,7 +42,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <button userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iuc-rk-xPy" customClass="WLButton">
-                    <rect key="frame" x="278" y="6" width="30" height="38"/>
+                    <rect key="frame" x="282" y="6" width="30" height="38"/>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="icons" family="icons" pointSize="26"/>
@@ -64,7 +64,7 @@
                 <constraint firstItem="mwA-xs-Dd8" firstAttribute="top" secondItem="55c-ci-v4v" secondAttribute="top" id="Gfu-96-vGc"/>
                 <constraint firstAttribute="bottom" secondItem="mwA-xs-Dd8" secondAttribute="bottom" constant="-1" id="I9f-3m-WAH"/>
                 <constraint firstItem="Iuc-rk-xPy" firstAttribute="leading" secondItem="VQq-75-DxW" secondAttribute="trailing" constant="2" id="RZk-qC-VQc"/>
-                <constraint firstAttribute="trailing" secondItem="Iuc-rk-xPy" secondAttribute="trailing" constant="12" id="Tdz-lW-E19"/>
+                <constraint firstAttribute="trailing" secondItem="Iuc-rk-xPy" secondAttribute="trailing" constant="8" id="Tdz-lW-E19"/>
                 <constraint firstItem="VQq-75-DxW" firstAttribute="leading" secondItem="55c-ci-v4v" secondAttribute="leading" constant="110" id="WsZ-C9-LMT"/>
                 <constraint firstAttribute="centerY" secondItem="Iuc-rk-xPy" secondAttribute="centerY" id="Yrq-Wf-K27"/>
                 <constraint firstItem="VQq-75-DxW" firstAttribute="top" secondItem="55c-ci-v4v" secondAttribute="top" id="joc-5Q-AZa"/>

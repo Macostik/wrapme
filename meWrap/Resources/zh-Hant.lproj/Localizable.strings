@@ -138,6 +138,7 @@
 "change_email" = "更改電郵地址";
 "following" = "追隨中";
 "recent_updates" = "RECENT UPDATES";
+"whats_up" = "最近更新";
 "enter_your_friends_name" = "輸入好友名稱和手機號碼";
 "no_internet_connection" = "無法連線。請稍後重試。";
 "notifications" = "通知";
@@ -245,3 +246,10 @@
 "is_live_streaming" = "is live-streaming";
 "posted_new_photo" = "posted a new photo";
 "posted_new_video" = "posted a new video";
+"signup_status" = "Hi there! I'm using meWrap.";
+"invite_status" = "Invite sent on %@";
+"invite_status_swipe_to" = "Invite sent on %@. Swipe to resend";
+"is_using_invite" = "Your friends are now getting your wrap invite.";
+"isn't_using_invite" = "Your friends will receive your wrap invite in a moment.";
+"send_message_to_friends_body" = "We'll send the following text message to your friends.";
+"send_message_to_friends_content" = "%@ just share \"%@\" with you. An album with photos , videos and more.  Get the app now at http://mewrap.me/dl to enjoy!";

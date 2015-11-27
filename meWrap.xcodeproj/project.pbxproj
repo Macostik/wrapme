@@ -10,6 +10,7 @@
 		18D7F6737186E5350A00FFEE /* Pods_meWrap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8302B2CF78A9F0C0ED319A0E /* Pods_meWrap.framework */; };
 		5B1D045B1BFCE16C00263102 /* CandyInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1D045A1BFCE16C00263102 /* CandyInteractionController.swift */; };
 		5B1DD0371BD7B67000D30E1A /* InternalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */; };
+		5B211FB21C087137000EC3DB /* WLEditingConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B211FB11C087137000EC3DB /* WLEditingConfirmView.xib */; };
 		5B3B1F111BDA2A6B00FF7816 /* EntryStatusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3B1F101BDA2A6B00FF7816 /* EntryStatusIndicator.swift */; };
 		5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
 		5B7591DF1BAAEF7800967AAA /* WLReportList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B7591DD1BAAEF7800967AAA /* WLReportList.plist */; };
@@ -560,6 +561,7 @@
 		14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileEditSession.m; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.m; sourceTree = "<group>"; };
 		5B1D045A1BFCE16C00263102 /* CandyInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyInteractionController.swift; sourceTree = "<group>"; };
 		5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalScrollView.swift; sourceTree = "<group>"; };
+		5B211FB11C087137000EC3DB /* WLEditingConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLEditingConfirmView.xib; path = WLConfirmView/WLEditingConfirmView.xib; sourceTree = "<group>"; };
 		5B3B1F101BDA2A6B00FF7816 /* EntryStatusIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryStatusIndicator.swift; sourceTree = "<group>"; };
 		5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Wraplive_TermsAndConditions.rtf; path = WLTermsAndConditions/Wraplive_TermsAndConditions.rtf; sourceTree = "<group>"; };
 		5B7591DD1BAAEF7800967AAA /* WLReportList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = WLReportList.plist; path = WLReportList/WLReportList.plist; sourceTree = "<group>"; };
@@ -1595,6 +1597,7 @@
 				5BA432A81A3F3F3D00B53BC7 /* WLConfirmView.h */,
 				5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */,
 				C5B91A5E1BB4177B000E08E7 /* WLConfirmView.xib */,
+				5B211FB11C087137000EC3DB /* WLEditingConfirmView.xib */,
 			);
 			name = WLConfirmView;
 			sourceTree = "<group>";
@@ -3031,6 +3034,7 @@
 				C5A6150E1B9DC5EA009B92EF /* WLMultipleAddressBookRecordCell.xib in Resources */,
 				C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B7591DF1BAAEF7800967AAA /* WLReportList.plist in Resources */,
+				5B211FB21C087137000EC3DB /* WLEditingConfirmView.xib in Resources */,
 				C5BEC38D1B8F129100499EEA /* logo_and_caption_orange@3x.png in Resources */,
 				C5A9CC8F1B9482C30084D0F5 /* WLMessageCell.xib in Resources */,
 				C5BEC3B81B8F17B300499EEA /* WLLaunchScreenViewController.xib in Resources */,

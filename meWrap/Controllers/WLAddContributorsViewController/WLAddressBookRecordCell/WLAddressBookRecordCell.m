@@ -19,9 +19,12 @@
 @property (nonatomic, weak) IBOutlet UILabel* nameLabel;
 @property (nonatomic, weak) IBOutlet WLImageView* avatarView;
 @property (weak, nonatomic) IBOutlet UIButton *openView;
-@property (weak, nonatomic) IBOutlet UILabel *signUpView;
-@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UIButton *statusButton;
+@property (strong, nonatomic) IBOutlet LayoutPrioritizer *statusPrioritizer;
 @property (strong, nonatomic) StreamDataSource *dataSource;
+@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
+
 
 @end
 
@@ -46,10 +49,10 @@
 
 - (void)setup:(WLAddressBookRecord *)record {
 	WLAddressBookPhoneNumber* phoneNumber = [record.phoneNumbers lastObject];
-    self.signUpView.hidden = (phoneNumber.user && phoneNumber.activated) ? NO : YES;
+    
 	self.nameLabel.text = phoneNumber.name;
     NSString *url = phoneNumber.picture.small;
-    if (self.signUpView && !self.signUpView.hidden && !url.nonempty) {
+    if (phoneNumber.user && phoneNumber.activated && !url.nonempty) {
         self.avatarView.defaultBackgroundColor = WLColors.orange;
     } else {
         self.avatarView.defaultBackgroundColor = WLColors.grayLighter;
@@ -61,7 +64,18 @@
         self.dataSource.items = record.phoneNumbers;
 	} else {
         self.phoneLabel.text = record.phoneStrings;
+        if (phoneNumber.activated) {
+            self.statusLabel.text = @"signup_status".ls;
+        } else if (phoneNumber.user)  {
+            self.statusLabel.text = [NSString stringWithFormat:@"invite_status".ls,
+                                       [phoneNumber.user.invitedAt stringWithDateStyle:NSDateFormatterShortStyle]];
+        } else {
+            self.statusLabel.text = @"";
+        }
 		self.state = [self.delegate recordCell:self phoneNumberState:phoneNumber];
+        self.statusButton.hidden = !phoneNumber.user;
+        self.statusButton.enabled = phoneNumber.activated;
+        self.statusPrioritizer.defaultState = self.state == WLAddressBookPhoneNumberStateDefault;
 	}
 }
 

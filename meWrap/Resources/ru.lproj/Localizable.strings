@@ -245,3 +245,11 @@
 "is_live_streaming" = "is live-streaming";
 "posted_new_photo" = "posted a new photo";
 "posted_new_video" = "posted a new video";
+"is_live_streaming" = "is live-streaming";
+"signup_status" = "Привет! Я пользуюсь meWrap.";
+"invite_status" = "Приглашение отправлено %@";
+"invite_status_swipe_to" = "Приглашение отправлено %@. Swipe to resend";
+"is_using_invite" = "Your friends are now getting your wrap invite.";
+"isn't_using_invite" = "Your friends will receive your wrap invite in a moment.";
+"send_message_to_friends_body" = "We'll send the following text message to your friends.";
+"send_message_to_friends_content" = "%@ just share \"%@\" with you. An album with photos , videos and more.  Get the app now at http://mewrap.me/dl to enjoy!";

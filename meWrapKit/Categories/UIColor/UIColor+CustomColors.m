@@ -27,6 +27,7 @@ static void WLCreateColors() {
     collection.orangeLighter = [UIColor colorWithHex:0xffac79];
     collection.orangeLightest = [UIColor colorWithHex:0xfbd5bd];
     collection.dangerRed = [UIColor colorWithHex:0xd9534f];
+    collection.green = [UIColor colorWithHex:0x5cd85c];
     WLColors = collection;
 }
 

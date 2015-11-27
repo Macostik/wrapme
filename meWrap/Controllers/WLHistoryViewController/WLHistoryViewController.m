@@ -14,7 +14,6 @@
 #import "WLToast.h"
 #import "WLCandyViewController.h"
 #import "WLDownloadingView.h"
-#import "WLImageCache.h"
 #import "WLPresentingImageView.h"
 #import "WLCommentsViewController.h"
 #import "WLDrawingViewController.h"

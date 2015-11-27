@@ -25,10 +25,10 @@
 
 @property (nonatomic) NSString* url;
 
-@property (strong, nonatomic) WLImageFetcherBlock success;
+@property (strong, nonatomic) void (^success) (UIImage *image, BOOL cached);
 
 @property (strong, nonatomic) WLFailureBlock failure;
 
-- (void)setUrl:(NSString *)url success:(WLImageFetcherBlock)success failure:(WLFailureBlock)failure;
+- (void)setUrl:(NSString *)url success:(void (^) (UIImage *image, BOOL cached))success failure:(WLFailureBlock)failure;
 
 @end

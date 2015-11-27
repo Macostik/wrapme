@@ -14,10 +14,6 @@
 #import "WLCollections.h"
 #import "WLOperationQueue.h"
 #import "WLEntryKeys.h"
-#import "WLImageFetcher.h"
-#import "WLBlockImageFetching.h"
-#import "WLImageCache.h"
-#import "WLCache.h"
 #import "WLBroadcaster.h"
 #import "WLCommonEnums.h"
 

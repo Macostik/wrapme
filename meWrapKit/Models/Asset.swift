@@ -33,18 +33,37 @@ class Asset: Archive {
     }
     
     func cacheForAsset(asset: Asset) {
-        let cache = WLImageCache.defaultCache()
-        if let original = original where original.hasSuffix("mp4") {
-            do {
-                try NSFileManager.defaultManager().removeItemAtPath(original)
-            } catch {
+        do {
+            let cache = ImageCache.defaultCache
+            let manager = NSFileManager.defaultManager()
+            if let original = original where original.hasSuffix("mp4") {
+                try manager.removeItemAtPath(original)
+            } else if let from = original, let to = asset.original {
+                cache.setImageAtPath(from, withURL: to)
             }
-        } else {
-            cache.setImageAtPath(original, withUrl: asset.original)
+            if let from = large, let to = asset.large {
+                cache.setImageAtPath(from, withURL: to)
+            }
+            if let from = medium, let to = asset.medium {
+                cache.setImageAtPath(from, withURL: to)
+            }
+            if let from = small, let to = asset.small {
+                cache.setImageAtPath(from, withURL: to)
+            }
+            if let original = original {
+                try manager.removeItemAtPath(original)
+            }
+            if let large = large {
+                try manager.removeItemAtPath(large)
+            }
+            if let medium = medium {
+                try manager.removeItemAtPath(medium)
+            }
+            if let small = small {
+                try manager.removeItemAtPath(small)
+            }
+        } catch {
         }
-        cache.setImageAtPath(large, withUrl: asset.large)
-        cache.setImageAtPath(medium, withUrl: asset.medium)
-        cache.setImageAtPath(small, withUrl: asset.small)
     }
     
     func JSONValue() -> NSData? {
@@ -63,9 +82,9 @@ class Asset: Archive {
     
     func fetch(completionHandler: (Void -> Void)?) {
         guard let completionHandler = completionHandler else {
-            WLImageFetcher.defaultFetcher().enqueueImageWithUrl(small)
-            WLImageFetcher.defaultFetcher().enqueueImageWithUrl(medium)
-            WLImageFetcher.defaultFetcher().enqueueImageWithUrl(large)
+            ImageFetcher.defaultFetcher.enqueue(small, receiver: nil)
+            ImageFetcher.defaultFetcher.enqueue(medium, receiver: nil)
+            ImageFetcher.defaultFetcher.enqueue(large, receiver: nil)
             return
         }
         
@@ -86,7 +105,7 @@ class Asset: Archive {
         if urls.count > 0 {
             var fetched = 0
             for url in urls {
-                WLBlockImageFetching(url: url).enqueue({ (image) -> Void in
+                BlockImageFetching.enqueue(url, success: { (image) -> Void in
                     fetched++;
                     if urls.count == fetched {
                         completionHandler()

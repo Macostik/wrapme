@@ -63,8 +63,8 @@
     }];
     [context save:NULL];
     currentUser.wraps = [NSSet set];
-    [[WLImageCache defaultCache] clear];
-    [[WLImageCache uploadingCache] clear];
+    [[ImageCache defaultCache] clear];
+    [[ImageCache uploadingCache] clear];
     [[SystemImageCache instance] removeAllObjects];
     [[UIStoryboard main] present:YES];
 }

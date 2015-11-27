@@ -7,9 +7,8 @@
 //
 
 #import "WLImageView.h"
-#import "WLImageFetcher.h"
 
-@interface WLImageView () <WLImageFetching>
+@interface WLImageView () <ImageFetching>
 
 @property (strong, nonatomic) UIColor *originalBackgroundColor;
 
@@ -52,14 +51,14 @@
 	[self setUrl:url success:nil failure:nil];
 }
 
-- (void)setUrl:(NSString *)url success:(WLImageFetcherBlock)success failure:(WLFailureBlock)failure {
+- (void)setUrl:(NSString *)url success:(void (^)(UIImage *, BOOL))success failure:(WLFailureBlock)failure {
     self.image = nil;
     _url = url;
     self.success = success;
     self.failure = failure;
     if (url.nonempty) {
         [self setDefaultIconViewHidden:YES];
-        [[WLImageFetcher defaultFetcher] enqueueImageWithUrl:url receiver:self];
+        [[ImageFetcher defaultFetcher] enqueue:url receiver:self];
     } else {
         [self setDefaultIconViewHidden:NO];
     }
@@ -85,14 +84,14 @@
 
 #pragma mark - WLImageFetching
 
-- (NSString *)fetcherTargetUrl:(WLImageFetcher *)fetcher {
+- (NSString *)fetcherTargetUrl:(ImageFetcher *)fetcher {
 	return _url;
 }
 
-- (void)fetcher:(WLImageFetcher *)fetcher didFinishWithImage:(UIImage *)image cached:(BOOL)cached {
+- (void)fetcher:(ImageFetcher *)fetcher didFinishWithImage:(UIImage *)image cached:(BOOL)cached {
     [self setDefaultIconViewHidden:YES];
 	[self setImage:image animated:!cached];
-	WLImageFetcherBlock success = self.success;
+	void (^success)(UIImage *, BOOL) = self.success;
 	if (success) {
 		success(image, cached);
 		self.success = nil;
@@ -100,7 +99,7 @@
     self.failure = nil;
 }
 
-- (void)fetcher:(WLImageFetcher *)fetcher didFailWithError:(NSError *)error {
+- (void)fetcher:(ImageFetcher *)fetcher didFailWithError:(NSError *)error {
     [self setDefaultIconViewHidden:NO];
 	WLFailureBlock failure = self.failure;
 	if (failure) {

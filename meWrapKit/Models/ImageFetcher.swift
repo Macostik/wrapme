@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc protocol ImageFetching: Notifying {
+@objc protocol ImageFetching {
     
     optional func fetcherTargetUrl(fetcher: ImageFetcher) -> String?
     
@@ -21,62 +21,132 @@ class ImageFetcher: Notifier {
     
     private var urls = Set<String>()
     
-    private static var _defaultFetcher = ImageFetcher()
-    class func defaultFetcher() -> ImageFetcher {
-        return _defaultFetcher
+    static var defaultFetcher = ImageFetcher()
+    
+    private func broadcast(url: String, block: AnyObject -> Void) {
+        urls.remove(url)
+        let receivers = self.receivers
+        for wrapper in receivers {
+            if let receiver = wrapper.receiver as? ImageFetching {
+                if let targetURL = receiver.fetcherTargetUrl?(self) where targetURL == url {
+                    block(receiver)
+                    self.receivers.remove(wrapper)
+                }
+            }
+        }
     }
     
-    func enqueue(url: String?) -> Void {
-        guard let url = url where !url.isEmpty else {
+    func enqueue(url: String?, receiver: AnyObject?) -> Void {
+        
+        guard let url = url, let receiver = receiver where !url.isEmpty else {
             return
         }
+        
+        addReceiver(receiver)
+        
         guard !urls.contains(url) else {
             return
         }
+        
         urls.insert(url)
-                
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
-            var image: UIImage?
-            if WLImageCache.defaultCache().containsImageWithUrl(url) {
-                WLImageCache.defaultCache().imageWithUrl(url, completion: self.imageLoaded)
-            } else if url.isExistingFilePath {
-                image = self.imageAtPath(url)
-            } else {
-                image = self.imageAtURL(url)
-            }
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                self.notify({ (receiver) -> Void in
-                    
-                })
+        
+        let uid = ImageCache.uidFromURL(url)
+        if let image = SystemImageCache.instance[uid] {
+            self.broadcast(url, block: { (receiver) in
+                receiver.fetcher?(self, didFinishWithImage: image, cached: true)
+            })
+        } else {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
+                var image: UIImage?
+                var cached = false
+                if ImageCache.defaultCache.contains(uid) {
+                    image = ImageCache.defaultCache[uid]
+                } else if url.isExistingFilePath {
+                    let result = self.imageAtPath(url)
+                    image = result.image
+                    cached = result.cached
+                } else {
+                    image = self.imageAtURL(url)
+                    SystemImageCache.instance[uid] = image
+                }
+                dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                    if let image = image {
+                        self.broadcast(url, block: { (receiver) in
+                            receiver.fetcher?(self, didFinishWithImage: image, cached: cached)
+                        })
+                    } else {
+                        let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
+                        self.broadcast(url, block: { (receiver) in
+                            receiver.fetcher?(self, didFailWithError: error)
+                        })
+                    }
+                }
             }
         }
-        
-        
     }
     
-    func enqueue(url: String, receiver: AnyObject?) {
-        addReceiver(receiver)
-        enqueue(url)
-    }
-    
-    private func imageAtPath(path: String) -> UIImage? {
-        if let image = SystemImageCache.instance().imageWithIdentifier(path) {
-            return image
+    private func imageAtPath(path: String) -> (image: UIImage?, cached: Bool) {
+        if let image = SystemImageCache.instance[path] {
+            return (image, true)
         } else if let data = NSData(contentsOfFile: path), let image = UIImage(data: data) {
-            SystemImageCache.instance().setImage(image, withIdentifier: path)
-            return image
+            SystemImageCache.instance[path] = image
+            return (image, false)
         } else {
-            return nil
+            return (nil, false)
         }
     }
     
     private func imageAtURL(url: String) -> UIImage? {
         if let _url = url.URL, let data = NSData(contentsOfURL: _url), let image = UIImage(data: data) {
-            WLImageCache.defaultCache().setImage(image, withUrl: url)
+            ImageCache.defaultCache.setImage(image)
             return image
         } else {
             return nil
         }
     }
+}
+
+class BlockImageFetching: NSObject {
     
+    private static var fetchings = Set<BlockImageFetching>()
+    private var url: String?
+    private var success: (UIImage? -> Void)?
+    private var failure: (NSError? -> Void)?
+    
+    class func enqueue(url: String, success: (UIImage? -> Void)?, failure: (NSError? -> Void)?) {
+        let fetching = BlockImageFetching(url: url)
+        fetching.enqueue(success, failure: failure)
+    }
+    
+    init(url: String?) {
+        super.init()
+        self.url = url
+    }
+    
+    func enqueue(success: (UIImage? -> Void)?, failure: (NSError? -> Void)?) {
+        BlockImageFetching.fetchings.insert(self)
+        self.success = success
+        self.failure = failure
+        ImageFetcher.defaultFetcher.enqueue(url, receiver: self)
+    }
+}
+
+extension BlockImageFetching: ImageFetching {
+    func fetcherTargetUrl(fetcher: ImageFetcher) -> String? {
+        return url
+    }
+    
+    func fetcher(fetcher: ImageFetcher, didFinishWithImage image: UIImage, cached: Bool) {
+        success?(image)
+        success = nil
+        failure = nil
+        BlockImageFetching.fetchings.remove(self)
+    }
+    
+    func fetcher(fetcher: ImageFetcher, didFailWithError error: NSError) {
+        failure?(error)
+        success = nil
+        failure = nil
+        BlockImageFetching.fetchings.remove(self)
+    }
 }

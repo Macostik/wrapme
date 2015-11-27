@@ -6,7 +6,6 @@
 #import "Common-Bridge.h"
 #import "WLCryptographer.h"
 #import <OpenUDID/OpenUDID.h>
-#import "WLImageCache.h"
 #import "WLBroadcaster.h"
 #import "WLEntryKeys.h"
 #import "WLLabel.h"

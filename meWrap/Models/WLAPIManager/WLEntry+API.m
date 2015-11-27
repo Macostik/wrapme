@@ -9,7 +9,6 @@
 #import "WLCollections.h"
 #import "WLAddressBook.h"
 #import "WLWelcomeViewController.h"
-#import "WLImageCache.h"
 #import "WLAddressBookPhoneNumber.h"
 #import "WLAuthorizationRequest.h"
 #import "WLOperationQueue.h"
@@ -239,7 +238,7 @@
                 [task resume];
             }
         } else {
-            [[WLBlockImageFetching fetchingWithUrl:weakSelf.picture.original] enqueue:^(UIImage *image) {
+            [BlockImageFetching enqueue:self.picture.original success:^(UIImage * image) {
                 [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
                     return [PHAssetChangeRequest creationRequestForAssetFromImage:image];
                 } collectionTitle:[Constants albumName] success:success failure:failure];

@@ -24,7 +24,7 @@
     [self presentingAsMainWindowSubview];
     UIImage *image = [SystemImageCache instance][candy.picture.large];
     if (!image) {
-        image = [[WLImageCache defaultCache] imageWithUrl:candy.picture.large];
+        image = [[ImageCache defaultCache] imageWithURL:candy.picture.large];
     }
     if (!image) {
         if (failure) failure(nil);
@@ -62,7 +62,7 @@
     [self presentingAsMainWindowSubview];
     UIImage *image = [SystemImageCache instance][candy.picture.large];
     if (!image) {
-        image = [[WLImageCache defaultCache] imageWithUrl:candy.picture.large];
+        image = [[ImageCache defaultCache] imageWithURL:candy.picture.large];
     }
     if (!image) {
         [self removeFromSuperview];

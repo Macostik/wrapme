@@ -34,7 +34,7 @@
 @implementation WLAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
     WLLog(@"meWrap - API environment initialized: %@", [Environment currentEnvironment]);
     
     [NSKeyedUnarchiver setClass:[Authorization class] forClassName:@"WLAuthorization"];

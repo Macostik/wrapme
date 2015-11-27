@@ -83,12 +83,12 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
     if (!_picture) {
         if (self.recordID && self.hasImage && [WLAddressBook addressBook]->sharedAddressBook != NULL) {
             ABRecordRef record = ABAddressBookGetPersonWithRecordID([WLAddressBook addressBook]->sharedAddressBook, self.recordID);
-            NSString* identifier = [NSString stringWithFormat:@"addressbook_%d", self.recordID];
-            NSString *path = [[WLImageCache defaultCache] pathWithIdentifier:identifier];
-            if (![[WLImageCache defaultCache] containsObjectWithIdentifier:identifier]) {
+            NSString* uid = [NSString stringWithFormat:@"addressbook_%d", self.recordID];
+            NSString *path = [[ImageCache defaultCache] getPath:uid];
+            if (![[ImageCache defaultCache] contains:uid]) {
                 NSData* imageData = WLAddressBookGetImage(record);
                 if (imageData) {
-                    [[WLImageCache defaultCache] setImageData:imageData withIdentifier:identifier];
+                    [[ImageCache defaultCache] setImageData:imageData uid:uid];
                 }
             }
             Asset* picture = [Asset new];

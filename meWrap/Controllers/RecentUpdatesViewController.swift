@@ -13,11 +13,11 @@ let PaddingCell: CGFloat = 24.0
 
 class RecentUpdateCell: StreamReusableView {
     
-    @IBOutlet var pictureView: WLImageView!
+    @IBOutlet var pictureView: ImageView!
     @IBOutlet var userNameLabel: UILabel!
     @IBOutlet var inWrapLabel: UILabel!
     @IBOutlet var textView: UILabel!
-    @IBOutlet var wrapImageView: WLImageView!
+    @IBOutlet var wrapImageView: ImageView!
     @IBOutlet var timeLabel: UILabel!
 
     override func setup(entry: AnyObject!) {

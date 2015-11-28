@@ -32,7 +32,6 @@
 		C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */; };
 		C504178919B9EE15000E55F3 /* WLAddressBookRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177E19B9EE15000E55F3 /* WLAddressBookRecordCell.m */; };
 		C5053E201BC7CF0F0040613A /* AssetMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5053E1F1BC7CF0F0040613A /* AssetMetrics.swift */; };
-		C5053E5A1BC7DB3D0040613A /* WLCryptographer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5053E591BC7DB3D0040613A /* WLCryptographer.m */; };
 		C5053E601BC7DC150040613A /* WLOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5053E5D1BC7DC150040613A /* WLOperation.m */; };
 		C5053E611BC7DC150040613A /* WLOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C5053E5F1BC7DC150040613A /* WLOperationQueue.m */; };
 		C5053E821BC7F7280040613A /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5053E811BC7F7280040613A /* ReportViewController.swift */; };
@@ -99,8 +98,6 @@
 		C545312D1A24A1F20048A677 /* WLCountriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54531261A24A1F20048A677 /* WLCountriesViewController.m */; };
 		C54531311A24A1F20048A677 /* WLCountryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C54531291A24A1F20048A677 /* WLCountryCell.m */; };
 		C54531381A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54531341A24D6750048A677 /* WLLinkDeviceViewController.m */; };
-		C54604C21C087F6600FB2303 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA6D9D1BFCD8880029970A /* ImageFetcher.swift */; };
-		C54604C31C087F6600FB2303 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA6D9D1BFCD8880029970A /* ImageFetcher.swift */; };
 		C54604C51C08852C00FB2303 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532691A1BF200DD00E2D30A /* Notifier.swift */; };
 		C54604C61C08852D00FB2303 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532691A1BF200DD00E2D30A /* Notifier.swift */; };
 		C54604D21C08C5D800FB2303 /* NSObject+NibLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54604D11C08C5D800FB2303 /* NSObject+NibLoading.swift */; };
@@ -110,8 +107,7 @@
 		C54604FE1C08C71700FB2303 /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */; };
 		C54604FF1C08C73200FB2303 /* WatchExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562D1071BDF65F60033EDC8 /* WatchExtensionDelegate.swift */; };
 		C54605001C08C73200FB2303 /* WCSession+DefinedMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C42371BDE2A96003E644D /* WCSession+DefinedMessages.swift */; };
-		C54605011C08C73200FB2303 /* WKInterfaceController+SimplifiedTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562D1111BDF79700033EDC8 /* WKInterfaceController+SimplifiedTextInput.swift */; };
-		C54605021C08C74100FB2303 /* WKInterfaceImage+WLImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C552329D1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.m */; };
+		C54605011C08C73200FB2303 /* WKInterfaceExtended.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562D1111BDF79700033EDC8 /* WKInterfaceExtended.swift */; };
 		C54605031C08C74100FB2303 /* WLWKNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C52CC64F1BC6813100288FDC /* WLWKNotificationController.m */; };
 		C54605041C08C74100FB2303 /* WLWKAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCAC3F1B2EDF2300080650 /* WLWKAlertController.m */; };
 		C54605051C08C74100FB2303 /* WLWKCandyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D51ABD815200CB4BE3 /* WLWKCandyController.m */; };
@@ -127,8 +123,6 @@
 		C546050F1C08C80100FB2303 /* ExtensionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C424F1BDE77BB003E644D /* ExtensionResponse.swift */; };
 		C54605101C08C80100FB2303 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C42591BDE77D3003E644D /* Asset.swift */; };
 		C54605111C08C80100FB2303 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532691A1BF200DD00E2D30A /* Notifier.swift */; };
-		C54605121C08C80100FB2303 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA6D9D1BFCD8880029970A /* ImageFetcher.swift */; };
-		C54605131C08C80100FB2303 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4E7121C0770AF00D2FC16 /* ImageCache.swift */; };
 		C54605141C08C80100FB2303 /* WLBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8821BBAC3EC007FFA66 /* WLBroadcaster.m */; };
 		C54605151C08C80100FB2303 /* EntryContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F076651BE26F0E00021FAE /* EntryContext.swift */; };
 		C54605161C08C80100FB2303 /* Entry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AA71B41BE3AF1500EA106A /* Entry+CoreDataProperties.swift */; };
@@ -158,9 +152,10 @@
 		C54731BC1B906A7400B583FD /* WLStillPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731A31B906A7400B583FD /* WLStillPhotosViewController.m */; };
 		C54731BE1B906A7400B583FD /* WLWrapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731A61B906A7400B583FD /* WLWrapPickerViewController.m */; };
 		C54731C61B9086DB00B583FD /* WLCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54731C41B9086DB00B583FD /* WLCommentCell.xib */; };
-		C5475B501AC596C500F9E8B3 /* WLTodayContributionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5475B4E1AC596C500F9E8B3 /* WLTodayContributionCell.m */; };
-		C5475B541AC59ABC00F9E8B3 /* WLTodayCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5475B521AC59ABC00F9E8B3 /* WLTodayCommentCell.m */; };
-		C5475B581AC59ACD00F9E8B3 /* WLTodayCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5475B561AC59ACD00F9E8B3 /* WLTodayCandyCell.m */; };
+		C54743421C09CD8A00BECB25 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C547433F1C09CD8A00BECB25 /* ImageCache.swift */; };
+		C54743431C09CD8A00BECB25 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54743401C09CD8A00BECB25 /* ImageView.swift */; };
+		C54743441C09CD8A00BECB25 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54743411C09CD8A00BECB25 /* ImageFetcher.swift */; };
+		C54743461C09CE3700BECB25 /* CATransition+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54743451C09CE3700BECB25 /* CATransition+Ext.swift */; };
 		C547A4541A026B3E005061AB /* WLKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C547A4501A026B3E005061AB /* WLKeyboard.m */; };
 		C549745B1ABC1C34000E3F54 /* WLQAButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLQAButton.m */; };
 		C54AF65519B8C491006F7EDB /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
@@ -246,8 +241,6 @@
 		C57E1CCB1B98930900E2303B /* StreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57E1CC91B98930900E2303B /* StreamView.swift */; };
 		C581680519F169D90081F350 /* WLBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C581680119F169D90081F350 /* WLBaseViewController.m */; };
 		C583A40F1AE79DCE0024003F /* WLTestUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = C583A4051AE79DCE0024003F /* WLTestUsers.plist */; };
-		C58483E01BF22E8E00DAE7E9 /* CATransition+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58483DF1BF22E8E00DAE7E9 /* CATransition+Ext.swift */; };
-		C58483E11BF22E8E00DAE7E9 /* CATransition+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58483DF1BF22E8E00DAE7E9 /* CATransition+Ext.swift */; };
 		C5861A671BFA07E300C64663 /* libmbl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5861A661BFA07E300C64663 /* libmbl.a */; };
 		C5861A6A1BFA307200C64663 /* Entry+EntryPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5861A691BFA307200C64663 /* Entry+EntryPresenter.m */; };
 		C5861A6C1BFA3C9400C64663 /* LiveBroadcastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5861A6B1BFA3C9400C64663 /* LiveBroadcastViewController.swift */; };
@@ -385,13 +378,10 @@
 		C5E6E9501BBAC3EC007FFA66 /* NSSet+WLCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8421BBAC3EC007FFA66 /* NSSet+WLCollection.m */; };
 		C5E6E9541BBAC3EC007FFA66 /* WLDefinedComparators.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8461BBAC3EC007FFA66 /* WLDefinedComparators.m */; };
 		C5E6E9561BBAC3EC007FFA66 /* WLDefinedComparators.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8461BBAC3EC007FFA66 /* WLDefinedComparators.m */; };
-		C5E6E9601BBAC3EC007FFA66 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E84C1BBAC3EC007FFA66 /* NSData+CommonCrypto.m */; };
 		C5E6E9DE1BBAC3EC007FFA66 /* WLBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8821BBAC3EC007FFA66 /* WLBroadcaster.m */; };
 		C5E6E9E01BBAC3EC007FFA66 /* WLBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8821BBAC3EC007FFA66 /* WLBroadcaster.m */; };
 		C5E6E9FC1BBAC3EC007FFA66 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E88F1BBAC3EC007FFA66 /* CoreData.xcdatamodeld */; };
 		C5E6E9FE1BBAC3EC007FFA66 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E88F1BBAC3EC007FFA66 /* CoreData.xcdatamodeld */; };
-		C5E6EAA41BBAC3EC007FFA66 /* WLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8DB1BBAC3EC007FFA66 /* WLImageView.m */; };
-		C5E6EAA61BBAC3EC007FFA66 /* WLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8DB1BBAC3EC007FFA66 /* WLImageView.m */; };
 		C5E6F0211BFF38C200FA3D4F /* LeftSwipeActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E6F01D1BFF38C200FA3D4F /* LeftSwipeActionView.xib */; };
 		C5E6F0221BFF38C200FA3D4F /* RightSwipeActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E6F01E1BFF38C200FA3D4F /* RightSwipeActionView.xib */; };
 		C5E6F0231BFF38C200FA3D4F /* SwipeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6F01F1BFF38C200FA3D4F /* SwipeAction.swift */; };
@@ -418,8 +408,6 @@
 		C5F4E70D1C07489E00D2FC16 /* EditSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4E70C1C07489E00D2FC16 /* EditSession.swift */; };
 		C5F4E70F1C07687A00D2FC16 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4E70E1C07687A00D2FC16 /* UIColor+Ext.swift */; };
 		C5F4E7101C07687D00D2FC16 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4E70E1C07687A00D2FC16 /* UIColor+Ext.swift */; };
-		C5F4E7131C0770AF00D2FC16 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4E7121C0770AF00D2FC16 /* ImageCache.swift */; };
-		C5F4E7141C0770B700D2FC16 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4E7121C0770AF00D2FC16 /* ImageCache.swift */; };
 		C5F5EAE91BDEA79F00DF1DA5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50647681ABD889100CB4BE3 /* CoreData.framework */; };
 		C5FAC9021BE2B35F0060FEDB /* NSUserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FAC9011BE2B35F0060FEDB /* NSUserDefaults+Ext.swift */; };
 /* End PBXBuildFile section */
@@ -454,6 +442,8 @@
 			buildActionMask = 2147483647;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
+			files = (
+			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +483,8 @@
 			buildActionMask = 2147483647;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
+			files = (
+			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,6 +533,10 @@
 		12E8FF1D18E9885100BF1B96 /* WLComposeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComposeBar.h; path = WLComposeBar/WLComposeBar.h; sourceTree = "<group>"; };
 		12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLComposeBar.m; path = WLComposeBar/WLComposeBar.m; sourceTree = "<group>"; };
 		12E8FF2518E9B33E00BF1B96 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		14D649163EDC27687D22E718 /* Pods-meWrapToday.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meWrapToday.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-meWrapToday/Pods-meWrapToday.adhoc.xcconfig"; sourceTree = "<group>"; };
+		1D0A7E01C837DFC1DAB9A689 /* Pods-meWrapWatchExt.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meWrapWatchExt.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-meWrapWatchExt/Pods-meWrapWatchExt.adhoc.xcconfig"; sourceTree = "<group>"; };
+		242C8A548FADC94DC813C953 /* Pods-meWrapToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meWrapToday.debug.xcconfig"; path = "Pods/Target Support Files/Pods-meWrapToday/Pods-meWrapToday.debug.xcconfig"; sourceTree = "<group>"; };
+		36CB0B8CCD4477BE892DFC1A /* Pods_meWrapWatchExt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meWrapWatchExt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B1D045A1BFCE16C00263102 /* CandyInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyInteractionController.swift; sourceTree = "<group>"; };
 		5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalScrollView.swift; sourceTree = "<group>"; };
 		5B3B1F101BDA2A6B00FF7816 /* EntryStatusIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryStatusIndicator.swift; sourceTree = "<group>"; };
@@ -569,6 +565,9 @@
 		5BDCA87D1B394C2F00C4AB3E /* NoMessagePlaceholderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoMessagePlaceholderView.xib; sourceTree = "<group>"; };
 		5BF1B2481A49A683000BB2C1 /* meWrapToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = meWrapToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF85BAE1B8C774C000215C9 /* icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icons.ttf; sourceTree = "<group>"; };
+		6BD8E6E5079F143D706966A3 /* Pods_meWrapToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meWrapToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C71BE38469075775C07B06B /* Pods-meWrapWatchExt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meWrapWatchExt.release.xcconfig"; path = "Pods/Target Support Files/Pods-meWrapWatchExt/Pods-meWrapWatchExt.release.xcconfig"; sourceTree = "<group>"; };
+		73F0FC5531F1CC1416F5D457 /* Pods-meWrapToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meWrapToday.release.xcconfig"; path = "Pods/Target Support Files/Pods-meWrapToday/Pods-meWrapToday.release.xcconfig"; sourceTree = "<group>"; };
 		8302B2CF78A9F0C0ED319A0E /* Pods_meWrap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meWrap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChangeProfileViewController.h; path = WLChangeProfileViewController/WLChangeProfileViewController.h; sourceTree = "<group>"; };
 		AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChangeProfileViewController.m; path = WLChangeProfileViewController/WLChangeProfileViewController.m; sourceTree = "<group>"; };
@@ -578,6 +577,7 @@
 		ACF8D9131934B4460001E570 /* flowers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = flowers.plist; sourceTree = "<group>"; };
 		ACF8D9151934B44D0001E570 /* rings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = rings.plist; sourceTree = "<group>"; };
 		ACF8D9171934B45C0001E570 /* cars.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cars.plist; sourceTree = "<group>"; };
+		BF8153F7DE7CE04DD5475546 /* Pods-meWrapWatchExt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meWrapWatchExt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-meWrapWatchExt/Pods-meWrapWatchExt.debug.xcconfig"; sourceTree = "<group>"; };
 		C500983C1AFCCC6400729DA4 /* WLCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCommentCell.h; sourceTree = "<group>"; };
 		C500983D1AFCCC6400729DA4 /* WLCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCommentCell.m; sourceTree = "<group>"; };
 		C504177A19B9EE15000E55F3 /* WLAddContributorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddContributorsViewController.h; sourceTree = "<group>"; };
@@ -585,8 +585,6 @@
 		C504177D19B9EE15000E55F3 /* WLAddressBookRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookRecordCell.h; sourceTree = "<group>"; };
 		C504177E19B9EE15000E55F3 /* WLAddressBookRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookRecordCell.m; sourceTree = "<group>"; };
 		C5053E1F1BC7CF0F0040613A /* AssetMetrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetMetrics.swift; sourceTree = "<group>"; };
-		C5053E581BC7DB3D0040613A /* WLCryptographer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCryptographer.h; sourceTree = "<group>"; };
-		C5053E591BC7DB3D0040613A /* WLCryptographer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCryptographer.m; sourceTree = "<group>"; };
 		C5053E5C1BC7DC150040613A /* WLOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLOperation.h; sourceTree = "<group>"; };
 		C5053E5D1BC7DC150040613A /* WLOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLOperation.m; sourceTree = "<group>"; };
 		C5053E5E1BC7DC150040613A /* WLOperationQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLOperationQueue.h; sourceTree = "<group>"; };
@@ -703,12 +701,10 @@
 		C54731A51B906A7400B583FD /* WLWrapPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapPickerViewController.h; sourceTree = "<group>"; };
 		C54731A61B906A7400B583FD /* WLWrapPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapPickerViewController.m; sourceTree = "<group>"; };
 		C54731C41B9086DB00B583FD /* WLCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCommentCell.xib; sourceTree = "<group>"; };
-		C5475B4D1AC596C500F9E8B3 /* WLTodayContributionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTodayContributionCell.h; sourceTree = "<group>"; };
-		C5475B4E1AC596C500F9E8B3 /* WLTodayContributionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTodayContributionCell.m; sourceTree = "<group>"; };
-		C5475B511AC59ABC00F9E8B3 /* WLTodayCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTodayCommentCell.h; sourceTree = "<group>"; };
-		C5475B521AC59ABC00F9E8B3 /* WLTodayCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTodayCommentCell.m; sourceTree = "<group>"; };
-		C5475B551AC59ACD00F9E8B3 /* WLTodayCandyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTodayCandyCell.h; sourceTree = "<group>"; };
-		C5475B561AC59ACD00F9E8B3 /* WLTodayCandyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTodayCandyCell.m; sourceTree = "<group>"; };
+		C547433F1C09CD8A00BECB25 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		C54743401C09CD8A00BECB25 /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		C54743411C09CD8A00BECB25 /* ImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
+		C54743451C09CE3700BECB25 /* CATransition+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CATransition+Ext.swift"; sourceTree = "<group>"; };
 		C547A44F1A026B3E005061AB /* WLKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLKeyboard.h; sourceTree = "<group>"; };
 		C547A4501A026B3E005061AB /* WLKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLKeyboard.m; sourceTree = "<group>"; };
 		C54974561ABC1C34000E3F54 /* WLQAButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLQAButton.h; path = WLButton/WLQAButton.h; sourceTree = "<group>"; };
@@ -733,8 +729,6 @@
 		C55189081B8F46C000D1327E /* WLContributorResendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLContributorResendCell.xib; sourceTree = "<group>"; };
 		C55189091B8F46C000D1327E /* WLContributorResendDoneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLContributorResendDoneCell.xib; sourceTree = "<group>"; };
 		C551890A1B8F46C000D1327E /* WLContributorSpinnerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLContributorSpinnerCell.xib; sourceTree = "<group>"; };
-		C552329C1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKInterfaceImage+WLImageFetcher.h"; sourceTree = "<group>"; };
-		C552329D1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKInterfaceImage+WLImageFetcher.m"; sourceTree = "<group>"; };
 		C552A8351BFDE9FE00A7FFAD /* HistoryDateSeparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryDateSeparator.swift; sourceTree = "<group>"; };
 		C552A8371BFDEA5E00A7FFAD /* HistoryDateSeparator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryDateSeparator.xib; sourceTree = "<group>"; };
 		C552A8391BFDEA8900A7FFAD /* CandyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyCell.swift; sourceTree = "<group>"; };
@@ -776,7 +770,7 @@
 		C560D2321AFBB55E006B906E /* WLHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHistoryViewController.h; sourceTree = "<group>"; };
 		C560D2331AFBB55E006B906E /* WLHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLHistoryViewController.m; sourceTree = "<group>"; };
 		C562D1071BDF65F60033EDC8 /* WatchExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchExtensionDelegate.swift; sourceTree = "<group>"; };
-		C562D1111BDF79700033EDC8 /* WKInterfaceController+SimplifiedTextInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WKInterfaceController+SimplifiedTextInput.swift"; sourceTree = "<group>"; };
+		C562D1111BDF79700033EDC8 /* WKInterfaceExtended.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WKInterfaceExtended.swift; sourceTree = "<group>"; };
 		C568D8D41A6D491800C2333B /* WLHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHintView.h; sourceTree = "<group>"; };
 		C568D8D51A6D491800C2333B /* WLHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLHintView.m; sourceTree = "<group>"; };
 		C56A760C1A640F1900D1FBED /* WLStoryboardTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLStoryboardTransition.h; sourceTree = "<group>"; };
@@ -794,7 +788,6 @@
 		C581680019F169D90081F350 /* WLBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLBaseViewController.h; path = WLBaseViewController/WLBaseViewController.h; sourceTree = "<group>"; };
 		C581680119F169D90081F350 /* WLBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLBaseViewController.m; path = WLBaseViewController/WLBaseViewController.m; sourceTree = "<group>"; };
 		C583A4051AE79DCE0024003F /* WLTestUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLTestUsers.plist; sourceTree = "<group>"; };
-		C58483DF1BF22E8E00DAE7E9 /* CATransition+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CATransition+Ext.swift"; path = "meWrapKit/Categories/CATransition+Ext.swift"; sourceTree = SOURCE_ROOT; };
 		C5861A621BFA07E300C64663 /* AudioConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioConfig.h; sourceTree = "<group>"; };
 		C5861A631BFA07E300C64663 /* Streamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Streamer.h; sourceTree = "<group>"; };
 		C5861A641BFA07E300C64663 /* CameraInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraInfo.h; sourceTree = "<group>"; };
@@ -1014,8 +1007,6 @@
 		C5E6E8441BBAC3EC007FFA66 /* WLCollections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCollections.h; sourceTree = "<group>"; };
 		C5E6E8451BBAC3EC007FFA66 /* WLDefinedComparators.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDefinedComparators.h; sourceTree = "<group>"; };
 		C5E6E8461BBAC3EC007FFA66 /* WLDefinedComparators.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDefinedComparators.m; sourceTree = "<group>"; };
-		C5E6E84B1BBAC3EC007FFA66 /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
-		C5E6E84C1BBAC3EC007FFA66 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
 		C5E6E8811BBAC3EC007FFA66 /* WLBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLBroadcaster.h; sourceTree = "<group>"; };
 		C5E6E8821BBAC3EC007FFA66 /* WLBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLBroadcaster.m; sourceTree = "<group>"; };
 		C5E6E8901BBAC3EC007FFA66 /* CoreData 1. 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1. 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -1023,8 +1014,6 @@
 		C5E6E8921BBAC3EC007FFA66 /* CoreData 1. 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1. 4.xcdatamodel"; sourceTree = "<group>"; };
 		C5E6E8931BBAC3EC007FFA66 /* CoreData 1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1.1.xcdatamodel"; sourceTree = "<group>"; };
 		C5E6E8941BBAC3EC007FFA66 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
-		C5E6E8DA1BBAC3EC007FFA66 /* WLImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLImageView.h; sourceTree = "<group>"; };
-		C5E6E8DB1BBAC3EC007FFA66 /* WLImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLImageView.m; sourceTree = "<group>"; };
 		C5E6F01D1BFF38C200FA3D4F /* LeftSwipeActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LeftSwipeActionView.xib; path = WLHomeViewController/LeftSwipeActionView.xib; sourceTree = "<group>"; };
 		C5E6F01E1BFF38C200FA3D4F /* RightSwipeActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RightSwipeActionView.xib; path = WLHomeViewController/RightSwipeActionView.xib; sourceTree = "<group>"; };
 		C5E6F01F1BFF38C200FA3D4F /* SwipeAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwipeAction.swift; path = WLHomeViewController/SwipeAction.swift; sourceTree = "<group>"; };
@@ -1039,7 +1028,6 @@
 		C5E7AB7B1BCD4E28007E314B /* UIGestureRecognizer+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Ext.swift"; sourceTree = "<group>"; };
 		C5E7EF8E1BED0D9F00CDD4C3 /* Entry+APIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entry+APIRequest.swift"; sourceTree = "<group>"; };
 		C5EA6D9A1BFCC8270029970A /* FlowerMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowerMenu.swift; sourceTree = "<group>"; };
-		C5EA6D9D1BFCD8880029970A /* ImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 		C5ECD55A1BF649B9005791B1 /* UIStoryboard+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Ext.swift"; sourceTree = "<group>"; };
 		C5EE2CDC1B5658F90016889E /* WLMessagesCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMessagesCounter.h; sourceTree = "<group>"; };
 		C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMessagesCounter.m; sourceTree = "<group>"; };
@@ -1052,7 +1040,6 @@
 		C5F4E70A1C072C0200D2FC16 /* FlashModeControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashModeControl.swift; sourceTree = "<group>"; };
 		C5F4E70C1C07489E00D2FC16 /* EditSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSession.swift; sourceTree = "<group>"; };
 		C5F4E70E1C07687A00D2FC16 /* UIColor+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
-		C5F4E7121C0770AF00D2FC16 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		C5F5EAE81BDE9ED400DF1DA5 /* Common-Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Common-Bridge.h"; sourceTree = "<group>"; };
 		C5FAC9011BE2B35F0060FEDB /* NSUserDefaults+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+Ext.swift"; sourceTree = "<group>"; };
 		D2F89869A3934855EF0732E8 /* Pods-meWrap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meWrap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-meWrap/Pods-meWrap.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1196,6 +1183,8 @@
 				12A7A70618DA0945008FF6F0 /* UIKit.framework */,
 				5B787D9C1A27876F004AE459 /* NotificationCenter.framework */,
 				8302B2CF78A9F0C0ED319A0E /* Pods_meWrap.framework */,
+				6BD8E6E5079F143D706966A3 /* Pods_meWrapToday.framework */,
+				36CB0B8CCD4477BE892DFC1A /* Pods_meWrapWatchExt.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1281,9 +1270,11 @@
 				C5E6F02D1BFF710900FA3D4F /* FontPresetter.swift */,
 				C55BE8C81C031D54006B04FC /* EventualEntryPresenter.swift */,
 				C5F4E70C1C07489E00D2FC16 /* EditSession.swift */,
+				C547433F1C09CD8A00BECB25 /* ImageCache.swift */,
+				C54743411C09CD8A00BECB25 /* ImageFetcher.swift */,
+				C54743401C09CD8A00BECB25 /* ImageView.swift */,
 				C50541551BD6545400AE6F2C /* WLImageEditorSession */,
 				C5053E5B1BC7DC150040613A /* WLOperation */,
-				C5053E571BC7DB3D0040613A /* WLCryptographer */,
 				C55A45281BAC1C4A0055AEC2 /* WLNetwork */,
 				C5C769A71BAC143D00B205CB /* WLPaginatedSet */,
 				C5C769951BAC11F200B205CB /* WLHistory */,
@@ -1556,6 +1547,7 @@
 				C5B51FE11BFB504D005A1CF6 /* UIAlertController+Ext.swift */,
 				C5EE45A31C01C4A2008DE8D6 /* UIImage+Ext.swift */,
 				C55BE8C61C031BA6006B04FC /* ExtensionRequest+Ext.swift */,
+				C54743451C09CE3700BECB25 /* CATransition+Ext.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1643,15 +1635,6 @@
 			path = WLAddressBookRecordCell;
 			sourceTree = "<group>";
 		};
-		C5053E571BC7DB3D0040613A /* WLCryptographer */ = {
-			isa = PBXGroup;
-			children = (
-				C5053E581BC7DB3D0040613A /* WLCryptographer.h */,
-				C5053E591BC7DB3D0040613A /* WLCryptographer.m */,
-			);
-			path = WLCryptographer;
-			sourceTree = "<group>";
-		};
 		C5053E5B1BC7DC150040613A /* WLOperation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1697,7 +1680,6 @@
 		C50645BC1ABD815100CB4BE3 /* WLTodayViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C5475B4C1AC596A800F9E8B3 /* WLTodayContributionCell */,
 				C50645C01ABD815100CB4BE3 /* WLTodayViewController.h */,
 				C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */,
 			);
@@ -1930,19 +1912,6 @@
 			path = WLWrapPickerViewController;
 			sourceTree = "<group>";
 		};
-		C5475B4C1AC596A800F9E8B3 /* WLTodayContributionCell */ = {
-			isa = PBXGroup;
-			children = (
-				C5475B4D1AC596C500F9E8B3 /* WLTodayContributionCell.h */,
-				C5475B4E1AC596C500F9E8B3 /* WLTodayContributionCell.m */,
-				C5475B511AC59ABC00F9E8B3 /* WLTodayCommentCell.h */,
-				C5475B521AC59ABC00F9E8B3 /* WLTodayCommentCell.m */,
-				C5475B551AC59ACD00F9E8B3 /* WLTodayCandyCell.h */,
-				C5475B561AC59ACD00F9E8B3 /* WLTodayCandyCell.m */,
-			);
-			path = WLTodayContributionCell;
-			sourceTree = "<group>";
-		};
 		C547A44E1A026B3E005061AB /* WLKeyboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -1979,19 +1948,9 @@
 			isa = PBXGroup;
 			children = (
 				C54C42371BDE2A96003E644D /* WCSession+DefinedMessages.swift */,
-				C562D1111BDF79700033EDC8 /* WKInterfaceController+SimplifiedTextInput.swift */,
-				C552329B1ACD475A00886437 /* WKInterfaceImage */,
+				C562D1111BDF79700033EDC8 /* WKInterfaceExtended.swift */,
 			);
 			path = Categories;
-			sourceTree = "<group>";
-		};
-		C552329B1ACD475A00886437 /* WKInterfaceImage */ = {
-			isa = PBXGroup;
-			children = (
-				C552329C1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.h */,
-				C552329D1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.m */,
-			);
-			path = WKInterfaceImage;
 			sourceTree = "<group>";
 		};
 		C55997461A25EA9A003D4B29 /* WLEmailConfirmationViewController */ = {
@@ -2573,13 +2532,11 @@
 				C522795D1BECCA6B00B1C49C /* Dictionary+Ext.swift */,
 				C52279611BECCA8600B1C49C /* NSDate+Ext.swift */,
 				C52279651BECCE8A00B1C49C /* NSDate+Formatting.swift */,
-				C58483DF1BF22E8E00DAE7E9 /* CATransition+Ext.swift */,
 				C5CCDEC01BF2323200D9B3BB /* UIView+Shorthand.swift */,
 				C55BE8C21C03062C006B04FC /* NSObject+Ext.swift */,
 				C54604D11C08C5D800FB2303 /* NSObject+NibLoading.swift */,
 				C5F4E70E1C07687A00D2FC16 /* UIColor+Ext.swift */,
 				C5E6E8391BBAC3EC007FFA66 /* Collections */,
-				C5E6E84A1BBAC3EC007FFA66 /* NSData */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2601,15 +2558,6 @@
 			path = Collections;
 			sourceTree = "<group>";
 		};
-		C5E6E84A1BBAC3EC007FFA66 /* NSData */ = {
-			isa = PBXGroup;
-			children = (
-				C5E6E84B1BBAC3EC007FFA66 /* NSData+CommonCrypto.h */,
-				C5E6E84C1BBAC3EC007FFA66 /* NSData+CommonCrypto.m */,
-			);
-			path = NSData;
-			sourceTree = "<group>";
-		};
 		C5E6E8791BBAC3EC007FFA66 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -2619,11 +2567,8 @@
 				C54C424F1BDE77BB003E644D /* ExtensionResponse.swift */,
 				C54C42591BDE77D3003E644D /* Asset.swift */,
 				C532691A1BF200DD00E2D30A /* Notifier.swift */,
-				C5EA6D9D1BFCD8880029970A /* ImageFetcher.swift */,
-				C5F4E7121C0770AF00D2FC16 /* ImageCache.swift */,
 				C5E6E8801BBAC3EC007FFA66 /* WLBroadcaster */,
 				C5E6E88E1BBAC3EC007FFA66 /* WLEntryManager */,
-				C5E6E8D51BBAC3EC007FFA66 /* WLImageFetcher */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2655,15 +2600,6 @@
 			path = WLEntryManager;
 			sourceTree = "<group>";
 		};
-		C5E6E8D51BBAC3EC007FFA66 /* WLImageFetcher */ = {
-			isa = PBXGroup;
-			children = (
-				C5E6E8DA1BBAC3EC007FFA66 /* WLImageView.h */,
-				C5E6E8DB1BBAC3EC007FFA66 /* WLImageView.m */,
-			);
-			path = WLImageFetcher;
-			sourceTree = "<group>";
-		};
 		C5EE2CDB1B5658E90016889E /* WLMessagesCounter */ = {
 			isa = PBXGroup;
 			children = (
@@ -2679,6 +2615,12 @@
 				D2F89869A3934855EF0732E8 /* Pods-meWrap.debug.xcconfig */,
 				D3DABF4C8ED59AC478737410 /* Pods-meWrap.release.xcconfig */,
 				FB55C16CD2E21F54394A9DD0 /* Pods-meWrap.adhoc.xcconfig */,
+				242C8A548FADC94DC813C953 /* Pods-meWrapToday.debug.xcconfig */,
+				73F0FC5531F1CC1416F5D457 /* Pods-meWrapToday.release.xcconfig */,
+				14D649163EDC27687D22E718 /* Pods-meWrapToday.adhoc.xcconfig */,
+				BF8153F7DE7CE04DD5475546 /* Pods-meWrapWatchExt.debug.xcconfig */,
+				6C71BE38469075775C07B06B /* Pods-meWrapWatchExt.release.xcconfig */,
+				1D0A7E01C837DFC1DAB9A689 /* Pods-meWrapWatchExt.adhoc.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -3026,8 +2968,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C54C42511BDE77BB003E644D /* ExtensionMessage.swift in Sources */,
-				C5F4E7141C0770B700D2FC16 /* ImageCache.swift in Sources */,
-				C5475B501AC596C500F9E8B3 /* WLTodayContributionCell.m in Sources */,
 				C54604D31C08C5DB00FB2303 /* NSObject+NibLoading.swift in Sources */,
 				C50646271ABD815200CB4BE3 /* WLTodayViewController.m in Sources */,
 				C54C425B1BDE77D3003E644D /* Asset.swift in Sources */,
@@ -3037,18 +2977,15 @@
 				C52279631BECCA8600B1C49C /* NSDate+Ext.swift in Sources */,
 				C5E6E9561BBAC3EC007FFA66 /* WLDefinedComparators.m in Sources */,
 				C5E6E94A1BBAC3EC007FFA66 /* NSOrderedSet+WLCollection.m in Sources */,
-				C5E6EAA61BBAC3EC007FFA66 /* WLImageView.m in Sources */,
 				C5AA71CA1BE3AF1B00EA106A /* User.swift in Sources */,
 				C5C694D61BEB91830045DAB5 /* NSUserDefaults+SharedGroup.swift in Sources */,
 				C5E6E93E1BBAC3EC007FFA66 /* NSArray+WLCollection.m in Sources */,
 				C5CCDEC21BF2323200D9B3BB /* UIView+Shorthand.swift in Sources */,
-				C5475B541AC59ABC00F9E8B3 /* WLTodayCommentCell.m in Sources */,
 				C54C42541BDE77BB003E644D /* ExtensionRequest.swift in Sources */,
 				C5AA71C51BE3AF1B00EA106A /* Contribution.swift in Sources */,
 				C55BE8C41C030B26006B04FC /* NSObject+Ext.swift in Sources */,
 				C5AA71CB1BE3AF1B00EA106A /* Wrap.swift in Sources */,
 				C54C42571BDE77BB003E644D /* ExtensionResponse.swift in Sources */,
-				C5475B581AC59ACD00F9E8B3 /* WLTodayCandyCell.m in Sources */,
 				C5F076671BE2835400021FAE /* EntryContext.swift in Sources */,
 				C54604C61C08852D00FB2303 /* Notifier.swift in Sources */,
 				C5060D1B1BEBA7E2007FFD5B /* String+Ext.swift in Sources */,
@@ -3058,9 +2995,7 @@
 				C522795F1BECCA6B00B1C49C /* Dictionary+Ext.swift in Sources */,
 				C5AA71C71BE3AF1B00EA106A /* Entry+CoreDataProperties.swift in Sources */,
 				C5F4E7101C07687D00D2FC16 /* UIColor+Ext.swift in Sources */,
-				C54604C31C087F6600FB2303 /* ImageFetcher.swift in Sources */,
 				C5AA71C61BE3AF1B00EA106A /* Entry.swift in Sources */,
-				C58483E11BF22E8E00DAE7E9 /* CATransition+Ext.swift in Sources */,
 				C5E6E9501BBAC3EC007FFA66 /* NSSet+WLCollection.m in Sources */,
 				C54C423F1BDE6260003E644D /* Archive.swift in Sources */,
 			);
@@ -3072,16 +3007,14 @@
 			files = (
 				C546050E1C08C80100FB2303 /* ExtensionRequest.swift in Sources */,
 				C546051B1C08C80100FB2303 /* Candy.swift in Sources */,
-				C54605021C08C74100FB2303 /* WKInterfaceImage+WLImageFetcher.m in Sources */,
 				C546050F1C08C80100FB2303 /* ExtensionResponse.swift in Sources */,
-				C54605121C08C80100FB2303 /* ImageFetcher.swift in Sources */,
 				C54605071C08C74100FB2303 /* WLWKEntryRow.m in Sources */,
 				C54605191C08C80100FB2303 /* Contribution.swift in Sources */,
 				C54605261C08C8CB00FB2303 /* NSDate+Ext.swift in Sources */,
 				C54605081C08C74100FB2303 /* WLWKContributionsController.m in Sources */,
 				C54605241C08C8CB00FB2303 /* String+Ext.swift in Sources */,
 				C54605171C08C80100FB2303 /* Entry.swift in Sources */,
-				C54605011C08C73200FB2303 /* WKInterfaceController+SimplifiedTextInput.swift in Sources */,
+				C54605011C08C73200FB2303 /* WKInterfaceExtended.swift in Sources */,
 				C54605001C08C73200FB2303 /* WCSession+DefinedMessages.swift in Sources */,
 				C546052A1C08C8CB00FB2303 /* NSObject+Ext.swift in Sources */,
 				C54605061C08C74100FB2303 /* WLWKCommentRow.m in Sources */,
@@ -3095,7 +3028,6 @@
 				C54605201C08C8C700FB2303 /* NSOrderedSet+WLCollection.m in Sources */,
 				C546051F1C08C8C700FB2303 /* NSArray+WLCollection.m in Sources */,
 				C54605271C08C8CB00FB2303 /* NSDate+Formatting.swift in Sources */,
-				C54605131C08C80100FB2303 /* ImageCache.swift in Sources */,
 				C54605031C08C74100FB2303 /* WLWKNotificationController.m in Sources */,
 				C54605041C08C74100FB2303 /* WLWKAlertController.m in Sources */,
 				C54605211C08C8C700FB2303 /* NSSet+WLCollection.m in Sources */,
@@ -3160,14 +3092,13 @@
 				C53012941BF4E4BF00098F9C /* Refresher.swift in Sources */,
 				C5AA71BE1BE3AF1500EA106A /* Entry+CoreDataProperties.swift in Sources */,
 				C55A452C1BAC1C4A0055AEC2 /* WLNetwork.m in Sources */,
-				C5E6EAA41BBAC3EC007FFA66 /* WLImageView.m in Sources */,
 				C5F3AC3A1C0335230053EE70 /* EntryDescriptor.swift in Sources */,
 				C5053E611BC7DC150040613A /* WLOperationQueue.m in Sources */,
 				C52E1FDF1A41951300A2C370 /* WLTextField.m in Sources */,
 				C5B8F71A1B82161500A5E541 /* WLDrawingViewController.m in Sources */,
 				C510BF6D1BCF93C0008223A3 /* UIDevice+Ext.swift in Sources */,
 				C5D552201C04BC2400069169 /* Environment.swift in Sources */,
-				C5E6E9601BBAC3EC007FFA66 /* NSData+CommonCrypto.m in Sources */,
+				C54743461C09CE3700BECB25 /* CATransition+Ext.swift in Sources */,
 				C5ECD55B1BF649B9005791B1 /* UIStoryboard+Ext.swift in Sources */,
 				C5BCF0011B551B7B00E4AD6D /* WLChatViewController.m in Sources */,
 				C530128A1BF4C87F00098F9C /* WrapPickerDataSource.swift in Sources */,
@@ -3184,7 +3115,6 @@
 				C5AEE43D1B3AC9E3000C8CCF /* WLDrawingBrush.m in Sources */,
 				C54C425A1BDE77D3003E644D /* Asset.swift in Sources */,
 				C5E7AB7A1BCD47D4007E314B /* UIView+Ext.swift in Sources */,
-				C58483E01BF22E8E00DAE7E9 /* CATransition+Ext.swift in Sources */,
 				C557BA831BF5D50900AE9974 /* WhatsUpEvent.swift in Sources */,
 				C5C20BA41A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
 				C5AA71C21BE3AF1500EA106A /* Wrap.swift in Sources */,
@@ -3197,6 +3127,7 @@
 				C54CEF9D1BCFB09100128CBE /* UIViewController+Ext.swift in Sources */,
 				C53012911BF4E3EA00098F9C /* EmojiView.swift in Sources */,
 				C5861A6A1BFA307200C64663 /* Entry+EntryPresenter.m in Sources */,
+				C54743441C09CD8A00BECB25 /* ImageFetcher.swift in Sources */,
 				C54AF67C19B8C491006F7EDB /* main.m in Sources */,
 				C57E1CCB1B98930900E2303B /* StreamView.swift in Sources */,
 				C5C20BE81A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */,
@@ -3299,25 +3230,24 @@
 				C54AF6DD19B8C491006F7EDB /* WLStillPictureViewController.m in Sources */,
 				C54C42631BDE8AEC003E644D /* Authorization.swift in Sources */,
 				C5C20B9E1A238E22008B2E2E /* WLEmailValidation.m in Sources */,
+				C54743431C09CD8A00BECB25 /* ImageView.swift in Sources */,
 				C552A83E1BFE293300A7FFAD /* RecentCandiesView.swift in Sources */,
 				C5AEE42F1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */,
 				C5AA71BA1BE3AF1500EA106A /* Candy.swift in Sources */,
 				C54AF6E019B8C491006F7EDB /* WLAppDelegate.m in Sources */,
 				C568D8D91A6D491800C2333B /* WLHintView.m in Sources */,
 				C5AA71BD1BE3AF1500EA106A /* Entry.swift in Sources */,
-				C5053E5A1BC7DB3D0040613A /* WLCryptographer.m in Sources */,
 				C544E4FF1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */,
 				C523D8CA1BD76BC0006FE7AB /* LayoutPrioritizer.swift in Sources */,
 				C5E4FD0B1BF7AC4300575DA4 /* LoadingView.swift in Sources */,
-				C54604C21C087F6600FB2303 /* ImageFetcher.swift in Sources */,
 				C545312D1A24A1F20048A677 /* WLCountriesViewController.m in Sources */,
 				C53012871BF4C0AD00098F9C /* HomeDataSource.swift in Sources */,
 				C53BC4861C05B32C0009B0B9 /* AssetsViewController.swift in Sources */,
 				C5BCF04D1B551C3E00E4AD6D /* WLCandyCell.m in Sources */,
 				C52279661BECCE8A00B1C49C /* NSDate+Formatting.swift in Sources */,
 				C552A8321BFDD37B00A7FFAD /* FlowerMenu.swift in Sources */,
-				C5F4E7131C0770AF00D2FC16 /* ImageCache.swift in Sources */,
 				C552A8361BFDE9FE00A7FFAD /* HistoryDateSeparator.swift in Sources */,
+				C54743421C09CD8A00BECB25 /* ImageCache.swift in Sources */,
 				C5AEE4361B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */,
 				C5E6F02E1BFF710900FA3D4F /* FontPresetter.swift in Sources */,
 				C56A76111A640F1900D1FBED /* WLStoryboardTransition.m in Sources */,
@@ -3557,7 +3487,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				USE_NEWRELIC = 0;
@@ -4105,6 +4035,7 @@
 				C54604F71C08C6E000FB2303 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C54604F91C08C6E000FB2303 /* Build configuration list for PBXNativeTarget "meWrapWatchApp" */ = {
 			isa = XCConfigurationList;
@@ -4114,6 +4045,7 @@
 				C54604FC1C08C6E000FB2303 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C54AF74719B8C491006F7EDB /* Build configuration list for PBXNativeTarget "meWrap" */ = {
 			isa = XCConfigurationList;

@@ -13,11 +13,10 @@
 #import "WLToast.h"
 #import "WLWelcomeViewController.h"
 #import "WLTextView.h"
-#import "WLImageView.h"
 
 @interface WLChangeProfileViewController () <WLKeyboardBroadcastReceiver, UITextFieldDelegate, WLStillPictureViewControllerDelegate, EntryNotifying, FontPresetting, WLBroadcastReceiver>
 
-@property (weak, nonatomic) IBOutlet WLImageView *imageView;
+@property (weak, nonatomic) IBOutlet ImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *imagePlaceholderView;
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *emailTextField;

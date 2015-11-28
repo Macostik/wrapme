@@ -32,40 +32,6 @@ class Asset: Archive {
         }
     }
     
-    func cacheForAsset(asset: Asset) {
-        do {
-            let cache = ImageCache.defaultCache
-            let manager = NSFileManager.defaultManager()
-            if let original = original where original.hasSuffix("mp4") {
-                try manager.removeItemAtPath(original)
-            } else if let from = original, let to = asset.original {
-                cache.setImageAtPath(from, withURL: to)
-            }
-            if let from = large, let to = asset.large {
-                cache.setImageAtPath(from, withURL: to)
-            }
-            if let from = medium, let to = asset.medium {
-                cache.setImageAtPath(from, withURL: to)
-            }
-            if let from = small, let to = asset.small {
-                cache.setImageAtPath(from, withURL: to)
-            }
-            if let original = original {
-                try manager.removeItemAtPath(original)
-            }
-            if let large = large {
-                try manager.removeItemAtPath(large)
-            }
-            if let medium = medium {
-                try manager.removeItemAtPath(medium)
-            }
-            if let small = small {
-                try manager.removeItemAtPath(small)
-            }
-        } catch {
-        }
-    }
-    
     func JSONValue() -> NSData? {
         var dictionary = Dictionary<String, AnyObject>()
         for property in self.dynamicType.archivableProperties() {
@@ -77,48 +43,6 @@ class Asset: Archive {
             return try NSJSONSerialization.dataWithJSONObject(dictionary, options: NSJSONWritingOptions())
         } catch {
             return nil
-        }
-    }
-    
-    func fetch(completionHandler: (Void -> Void)?) {
-        guard let completionHandler = completionHandler else {
-            ImageFetcher.defaultFetcher.enqueue(small, receiver: nil)
-            ImageFetcher.defaultFetcher.enqueue(medium, receiver: nil)
-            ImageFetcher.defaultFetcher.enqueue(large, receiver: nil)
-            return
-        }
-        
-        var urls = Set<String>()
-        
-        if let small = small {
-            urls.insert(small)
-        }
-        
-        if let medium = medium {
-            urls.insert(medium)
-        }
-        
-        if let large = large {
-            urls.insert(large)
-        }
-        
-        if urls.count > 0 {
-            var fetched = 0
-            for url in urls {
-                BlockImageFetching.enqueue(url, success: { (image) -> Void in
-                    fetched++;
-                    if urls.count == fetched {
-                        completionHandler()
-                    }
-                    }, failure: { (error) -> Void in
-                        fetched++;
-                        if urls.count == fetched {
-                            completionHandler()
-                        }
-                })
-            }
-        } else {
-            completionHandler()
         }
     }
 }

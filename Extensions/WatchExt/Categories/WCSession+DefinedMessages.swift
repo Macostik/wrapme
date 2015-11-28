@@ -35,18 +35,18 @@ extension WCSession {
     }
     
     func postMessage(text: String, wrap:String, success:((Dictionary<String,AnyObject>?) -> Void)?, failure:((NSError?) -> Void)?) {
-        performAction("postMessage:completionHandler:", parameters: [WLWrapUIDKey:wrap,"text":text], success: success, failure: failure)
+        performAction("postMessage", parameters: [WLWrapUIDKey:wrap,"text":text], success: success, failure: failure)
     }
     
     func postComment(text: String, candy:String, success:((Dictionary<String,AnyObject>?) -> Void)?, failure:((NSError?) -> Void)?) {
-        performAction("postComment:completionHandler:", parameters: [WLCandyUIDKey:candy,"text":text], success: success, failure: failure)
+        performAction("postComment", parameters: [WLCandyUIDKey:candy,"text":text], success: success, failure: failure)
     }
     
     func handleNotification(notification: Dictionary<String,AnyObject>, success:((Dictionary<String,AnyObject>?) -> Void)?, failure:((NSError?) -> Void)?) {
-        performAction("handleNotification:completionHandler:", parameters: notification, success: success, failure: failure)
+        performAction("handleNotification", parameters: notification, success: success, failure: failure)
     }
     
     func dataSync(success:([String : AnyObject]? -> Void)?, failure:(NSError? -> Void)?) {
-        performAction("dataSync:completionHandler:", parameters: nil, success: success, failure: failure)
+        performAction("dataSync", parameters: nil, success: success, failure: failure)
     }
 }

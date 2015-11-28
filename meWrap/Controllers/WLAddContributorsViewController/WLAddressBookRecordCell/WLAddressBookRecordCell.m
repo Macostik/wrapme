@@ -10,14 +10,13 @@
 #import "WLAddressBook.h"
 #import "WLAddressBookPhoneNumberCell.h"
 #import "WLAddressBookPhoneNumber.h"
-#import "WLImageView.h"
 
 @interface WLAddressBookRecordCell ()
 
 @property (weak, nonatomic) IBOutlet UIButton *selectButton;
 @property (nonatomic, weak) IBOutlet StreamView* streamView;
 @property (nonatomic, weak) IBOutlet UILabel* nameLabel;
-@property (nonatomic, weak) IBOutlet WLImageView* avatarView;
+@property (nonatomic, weak) IBOutlet ImageView* avatarView;
 @property (weak, nonatomic) IBOutlet UIButton *openView;
 @property (weak, nonatomic) IBOutlet UILabel *signUpView;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;

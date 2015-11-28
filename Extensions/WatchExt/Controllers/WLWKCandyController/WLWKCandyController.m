@@ -8,7 +8,6 @@
 
 #import "WLWKCandyController.h"
 #import "WLWKCommentRow.h"
-#import "WKInterfaceImage+WLImageFetcher.h"
 
 @interface WLWKCandyController ()
 
@@ -38,7 +37,7 @@
     [self.photoByLabel setText:[NSString stringWithFormat:(candy.isVideo ? @"formatted_video_by" : @"formatted_photo_by").ls,candy.contributor.name]];
     [self.wrapNameLabel setText:candy.wrap.name];
     [self.dateLabel setText:candy.createdAt.timeAgoStringAtAMPM];
-    self.image.url = candy.picture.small;
+    self.image.URL = candy.picture.small;
     NSArray *comments = [candy sortedComments];
     [self.table setNumberOfRows:[comments count] withRowType:@"comment"];
     for (Comment *comment in comments) {

@@ -19,7 +19,6 @@
 #import "WLMessagesCounter.h"
 #import "PlaceholderView.h"
 #import "WLNetwork.h"
-#import "WLImageView.h"
 
 CGFloat WLMaxTextViewWidth;
 CGFloat WLMinTextViewWidth;
@@ -34,7 +33,7 @@ CGFloat WLMinTextViewWidth;
 
 @property (weak, nonatomic) IBOutlet UILabel *typingUserNamesTextField;
 
-@property (weak, nonatomic) IBOutlet WLImageView *typingUserAvatarView;
+@property (weak, nonatomic) IBOutlet ImageView *typingUserAvatarView;
 
 @property (weak, nonatomic) id operation;
 

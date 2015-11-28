@@ -10,11 +10,10 @@
 #import "WLKeyboard.h"
 #import "WLStillPictureViewController.h"
 #import "WLButton.h"
-#import "WLImageView.h"
 
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
-@property (strong, nonatomic) IBOutlet WLImageView *profileImageView;
+@property (strong, nonatomic) IBOutlet ImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet UIButton *createImageButton;
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *addPhotoLabel;

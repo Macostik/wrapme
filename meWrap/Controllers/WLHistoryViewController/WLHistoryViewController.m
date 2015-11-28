@@ -19,7 +19,6 @@
 #import "WLDrawingViewController.h"
 #import "WLFollowingViewController.h"
 #import "WLImageEditorSession.h"
-#import "WLImageView.h"
 
 static NSTimeInterval WLHistoryBottomViewModeTogglingInterval = 4;
 
@@ -43,7 +42,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet WLButton *commentButton;
-@property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
+@property (weak, nonatomic) IBOutlet ImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet WLLabel *postLabel;
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
 @property (weak, nonatomic) IBOutlet WLTextView *lastCommentTextView;

@@ -7,7 +7,6 @@
 //
 
 #import "WLWKEntryRow.h"
-#import "WKInterfaceImage+WLImageFetcher.h"
 
 @implementation WLWKEntryRow
 
@@ -26,8 +25,8 @@
 @implementation WLWKCommentEventRow
 
 - (void)setEntry:(Comment *)entry {
-    self.avatar.url = entry.contributor.picture.small;
-    self.mainGroup.url = entry.candy.picture.small;
+    self.avatar.URL = entry.contributor.picture.small;
+    self.mainGroup.URL = entry.candy.picture.small;
     [self.photoByLabel setText:[NSString stringWithFormat:(entry.candy.isVideo ? @"formatted_video_by" : @"formatted_photo_by").ls, entry.candy.contributor.name]];
     [self.wrapNameLabel setText:entry.candy.wrap.name];
     [self.text setText:[NSString stringWithFormat:@"\"%@\"", entry.text]];
@@ -51,7 +50,7 @@
     [self.photoByLabel setText:[NSString stringWithFormat:(entry.isVideo ? @"formatted_video_by" : @"formatted_photo_by").ls, entry.contributor.name]];
     [self.wrapNameLabel setText:entry.wrap.name];
     [self.dateLabel setText:[entry.createdAt timeAgoStringAtAMPM]];
-    self.group.url = entry.picture.small;
+    self.group.URL = entry.picture.small;
 }
 
 @end

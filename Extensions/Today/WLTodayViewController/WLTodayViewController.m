@@ -8,9 +8,65 @@
 
 #import "WLTodayViewController.h"
 #import <NotificationCenter/NotificationCenter.h>
-#import "WLTodayCandyCell.h"
-#import "WLTodayCommentCell.h"
 #import "GeometryHelper.h"
+
+@interface WLTodayContributionCell : UITableViewCell
+
+@property (weak, nonatomic) Contribution *contribution;
+
+@property (weak, nonatomic) IBOutlet UIImageView *pictureView;
+
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *wrapNameLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+
+@end
+
+@interface WLTodayCommentCell : WLTodayContributionCell
+
+@end
+
+@interface WLTodayCandyCell : WLTodayContributionCell
+
+@end
+
+@implementation WLTodayContributionCell
+
+- (void)setContribution:(Contribution *)contribution {
+    _contribution = contribution;
+    self.timeLabel.text = [contribution.createdAt timeAgoStringAtAMPM];
+    __weak typeof(self)weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:contribution.picture.small]]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.pictureView.image = image;
+        });
+    });
+}
+
+@end
+
+@implementation WLTodayCommentCell
+
+- (void)setContribution:(Comment *)comment {
+    [super setContribution:comment];
+    self.wrapNameLabel.text = comment.candy.wrap.name;
+    self.descriptionLabel.text = [NSString stringWithFormat:@"%@ commented \"%@\"", comment.contributor.name, comment.text];
+}
+
+@end
+
+@implementation WLTodayCandyCell
+
+- (void)setContribution:(Candy *)candy {
+    [super setContribution:candy];
+    self.wrapNameLabel.text = candy.wrap.name;
+    self.descriptionLabel.text = [NSString stringWithFormat:@"%@ posted a new photo", candy.contributor.name];
+}
+
+@end
 
 static NSString *const WLTodayCandyCellIdentifier = @"WLTodayCandyCell";
 static NSString *const WLTodayCommentCellIdentifier = @"WLTodayCommentCell";
@@ -19,7 +75,6 @@ static CGFloat WLMinRow = 3;
 
 typedef NS_ENUM(NSUInteger, WLTodayViewState) {
     WLTodayViewStateUnauthorized,
-    WLTodayViewStateLoading,
     WLTodayViewStateShowMore,
     WLTodayViewStateShowLess,
     WLTodayViewStateNoFooter
@@ -31,7 +86,6 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
 @property (weak, nonatomic) IBOutlet UIButton *signUpButton;
 @property (strong, nonatomic) NSArray *contributions;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (nonatomic) WLTodayViewState state;
 
@@ -69,27 +123,18 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
             if (!self.tableView.tableFooterView) self.tableView.tableFooterView = self.tableFooterView;
             self.signUpButton.hidden = NO;
             self.moreButton.hidden = YES;
-            [self.spinner stopAnimating];
-            break;
-        case WLTodayViewStateLoading:
-            if (!self.tableView.tableFooterView) self.tableView.tableFooterView = self.tableFooterView;
-            self.signUpButton.hidden = YES;
-            self.moreButton.hidden = YES;
-            [self.spinner startAnimating];
             break;
         case WLTodayViewStateShowMore:
             if (!self.tableView.tableFooterView) self.tableView.tableFooterView = self.tableFooterView;
             [self.moreButton setTitle:@"more_today_stories".ls forState:UIControlStateNormal];
             self.signUpButton.hidden = YES;
             self.moreButton.hidden = NO;
-            [self.spinner stopAnimating];
             break;
         case WLTodayViewStateShowLess:
             if (!self.tableView.tableFooterView) self.tableView.tableFooterView = self.tableFooterView;
             [self.moreButton setTitle:@"less_today_stories".ls forState:UIControlStateNormal];
             self.signUpButton.hidden = YES;
             self.moreButton.hidden = NO;
-            [self.spinner stopAnimating];
             break;
         case WLTodayViewStateNoFooter:
             self.tableView.tableFooterView = nil;
@@ -148,7 +193,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 }
 
 - (IBAction)singUpClick:(id)sender {
-    ExtensionRequest *request = [[ExtensionRequest alloc] initWithAction:@"authorize:completionHandler:" userInfo:nil];
+    ExtensionRequest *request = [[ExtensionRequest alloc] initWithAction:@"authorize" userInfo:nil];
     NSURL *url = [request serializedURL];
     if (url) {
         [self.extensionContext openURL:url completionHandler:NULL];
@@ -179,7 +224,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
     if (contribution.identifier == nil) {
         return;
     }
-    ExtensionRequest *request = [[ExtensionRequest alloc] initWithAction:@"presentEntry:completionHandler:" userInfo:contribution.serializeReference];
+    ExtensionRequest *request = [[ExtensionRequest alloc] initWithAction:@"presentEntry" userInfo:contribution.serializeReference];
     NSURL *url = [request serializedURL];
     if (url) {
         [self.extensionContext openURL:url completionHandler:NULL];

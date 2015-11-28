@@ -53,9 +53,13 @@ extension NSObject {
         return NSKeyedArchiver.archivedDataWithRootObject(self)
     }
     
-    class func unarchive(data: NSData?) -> AnyObject? {
+    class func unarchive(data: NSData?) -> Self? {
+        return unarchive(self, data: data)
+    }
+    
+    private class func unarchive<T>(type: T.Type, data: NSData?) -> T? {
         if let data = data {
-            return NSKeyedUnarchiver.unarchiveObjectWithData(data)
+            return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? T
         } else {
             return nil
         }

@@ -7,11 +7,10 @@
 //
 
 #import "WLEditPictureCell.h"
-#import "WLImageView.h"
 
 @interface WLEditPictureCell ()
 
-@property (weak, nonatomic) IBOutlet WLImageView *imageView;
+@property (weak, nonatomic) IBOutlet ImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIView *selectionView;
 @property (weak, nonatomic) IBOutlet UIView *deletionView;

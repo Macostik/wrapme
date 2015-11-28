@@ -7,7 +7,6 @@
 //
 
 #import "WLWKNotificationController.h"
-#import "WKInterfaceImage+WLImageFetcher.h"
 
 @interface WLWKNotificationController()
 
@@ -26,8 +25,7 @@
     [[WCSession defaultSession] handleNotification:remoteNotification success:^(NSDictionary *dictionary) {
         Entry *entry = [Entry deserializeReference:[dictionary dictionaryForKey:@"entry"]];
         if (entry) {
-            [[ImageCache defaultCache] fetchUIDs];
-            self.image.url = entry.picture.small;
+            self.image.URL = entry.picture.small;
         } else {
             [self.image setHidden:YES];
         }

@@ -10,7 +10,7 @@
 
 @interface WLPresentingImageView ()
 
-@property (weak, nonatomic) IBOutlet WLImageView *imageView;
+@property (weak, nonatomic) IBOutlet ImageView *imageView;
 
 @end
 

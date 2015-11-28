@@ -26,8 +26,8 @@ class ExtensionRequest: ExtensionMessage {
         if let string = serialize() {
             let components = NSURLComponents()
             components.scheme = "mewrap"
-            components.host = "extension.request"
-            components.path = "/?request=\(string)"
+            components.host = "extension.com"
+            components.path = "/request?request=\(string)"
             return components.URL
         } else {
             return nil

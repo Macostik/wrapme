@@ -9,7 +9,6 @@
 #import "WLCandyViewController.h"
 #import "WLDeviceManager.h"
 #import "WLToast.h"
-#import "WLImageView.h"
 @import AVKit;
 @import AVFoundation;
 
@@ -62,7 +61,7 @@
     __weak typeof(self)weakSelf = self;
     self.spinner.hidden = NO;
     self.errorLabel.hidden = YES;
-    [self.imageView setUrl:candy.picture.large success:^(UIImage *image, BOOL cached) {
+    [self.imageView setURL:candy.picture.large success:^(UIImage *image, BOOL cached) {
         [weakSelf calculateScaleValues];
         weakSelf.scrollView.userInteractionEnabled = YES;
         weakSelf.spinner.hidden = weakSelf.errorLabel.hidden = YES;

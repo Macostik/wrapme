@@ -14,7 +14,7 @@
 
 @interface WLCandyCell ()
 
-@property (weak, nonatomic) IBOutlet WLImageView *coverView;
+@property (weak, nonatomic) IBOutlet ImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UIView *videoIndicatorView;
 

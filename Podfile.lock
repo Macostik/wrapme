@@ -31,6 +31,7 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.2.0):
     - CocoaLumberjack/Default
+  - CryptoSwift (0.1.1)
   - Google/Analytics (1.0.7):
     - Google/Core
     - GoogleAnalytics (~> 3.12)
@@ -58,6 +59,7 @@ DEPENDENCIES:
   - AFNetworking
   - AWSCore
   - AWSS3
+  - CryptoSwift
   - Google/Analytics (~> 1.0.0)
   - libPhoneNumber-iOS (~> 0.8)
   - LogEntries
@@ -70,6 +72,7 @@ SPEC CHECKSUMS:
   AWSCore: dc200c885c9799f9f5d3ab9ec38a9c4b44d680f9
   AWSS3: 0185482a8136da9c7542a767567ee18106b38bca
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
+  CryptoSwift: c11640d3d66107efc8333e4131a5173f072b1d61
   Google: 875f5a8ade86dd02e36586e4a54814843938c7f6
   GoogleAnalytics: 9be1afdb8deeac4bb5f13ca7f7d3b9db2a1f43dc
   GoogleNetworkingUtilities: 292992ab31b7b4ba32809a0e8b40e324cdfb2c0c

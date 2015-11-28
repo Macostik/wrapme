@@ -7,10 +7,9 @@
 //
 
 #import "StreamReusableView.h"
-#import "WLImageView.h"
 
 @interface WLCandyCell : StreamReusableView
 
-@property (weak, nonatomic, readonly) WLImageView *coverView;
+@property (weak, nonatomic, readonly) ImageView *coverView;
 
 @end

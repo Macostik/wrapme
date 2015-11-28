@@ -14,7 +14,6 @@
 #import "WLToast.h"
 #import "WLHintView.h"
 #import "WLDrawingViewController.h"
-#import "WLImageView.h"
 
 static const int WLInstanceCommentLimit = 1500;
 

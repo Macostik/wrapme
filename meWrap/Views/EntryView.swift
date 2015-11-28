@@ -47,7 +47,7 @@ extension EntryView: EntryNotifying {
 
 class UserView: EntryView {
     
-    @IBOutlet weak var avatarView: WLImageView?
+    @IBOutlet weak var avatarView: ImageView?
     
     @IBOutlet weak var nameLabel: UILabel?
     

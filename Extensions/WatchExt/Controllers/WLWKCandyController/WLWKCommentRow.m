@@ -7,7 +7,6 @@
 //
 
 #import "WLWKCommentRow.h"
-#import "WKInterfaceImage+WLImageFetcher.h"
 
 @interface WLWKCommentRow ()
 
@@ -21,7 +20,7 @@
 
 - (void)setEntry:(Comment *)comment {
     [super setEntry:comment];
-    self.avatar.url = comment.contributor.picture.small;
+    [self.avatar setURL:comment.contributor.picture.small];
     [self.contributorNameLabel setText:comment.contributor.name];
     [self.text setText:comment.text];
     [self.dateLabel setText:[comment.createdAt timeAgoStringAtAMPM]];

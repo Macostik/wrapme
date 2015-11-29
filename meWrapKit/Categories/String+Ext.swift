@@ -52,14 +52,12 @@ extension NSString {
     var URLQuery: [String:String] {
         
         var parameters = [String:String]()
-        if let query = stringByRemovingPercentEncoding {
-            for pair in query.componentsSeparatedByString("&") {
-                let components = pair.componentsSeparatedByString("&")
-                if components.count == 2 {
-                    parameters[components[0]] = components[1]
-                } else {
-                    continue
-                }
+        for pair in componentsSeparatedByString("&") {
+            let components = pair.componentsSeparatedByString("=")
+            if components.count == 2 {
+                parameters[components[0]] = components[1].stringByRemovingPercentEncoding
+            } else {
+                continue
             }
         }
         

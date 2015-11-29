@@ -232,6 +232,9 @@
 		C565ED6D1B9F2567002352C8 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B787D9C1A27876F004AE459 /* NotificationCenter.framework */; };
 		C568D8D91A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
 		C56A76111A640F1900D1FBED /* WLStoryboardTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = C56A760D1A640F1900D1FBED /* WLStoryboardTransition.m */; };
+		C56D4E4B1C0B545800B20566 /* meWrapWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C54604D71C08C6DF00FB2303 /* meWrapWatchApp.app */; };
+		C56D4E4C1C0B546600B20566 /* meWrapWatchExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C54604E31C08C6DF00FB2303 /* meWrapWatchExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C56D4E4F1C0B54D300B20566 /* meWrapWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C54604D71C08C6DF00FB2303 /* meWrapWatchApp.app */; };
 		C57005A51A1F9642007257A6 /* WLSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C57005A11A1F9642007257A6 /* WLSettingsViewController.m */; };
 		C573FB901AB84AF400F1098C /* WLTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = C573FB8C1AB84AF400F1098C /* WLTouchView.m */; };
 		C577C2661A4C427100ECC7E5 /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C577C2621A4C427100ECC7E5 /* iVersion.m */; };
@@ -420,12 +423,12 @@
 			remoteGlobalIDString = C54604E21C08C6DF00FB2303;
 			remoteInfo = "Watch Extension";
 		};
-		C54604F11C08C6DF00FB2303 /* PBXContainerItemProxy */ = {
+		C56D4E4D1C0B546600B20566 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = C54604D61C08C6DF00FB2303;
-			remoteInfo = Watch;
+			remoteGlobalIDString = C54604E21C08C6DF00FB2303;
+			remoteInfo = meWrapWatchExt;
 		};
 		C5994D8B1B78894A0066A597 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -443,6 +446,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
+				C56D4E4B1C0B545800B20566 /* meWrapWatchApp.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -484,6 +488,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
+				C56D4E4F1C0B54D300B20566 /* meWrapWatchApp.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -494,6 +499,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				C56D4E4C1C0B546600B20566 /* meWrapWatchExt.appex in Embed App Extensions */,
 				C5994D8A1B78894A0066A597 /* meWrapToday.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -2709,7 +2715,7 @@
 			);
 			dependencies = (
 				C5994D8C1B78894A0066A597 /* PBXTargetDependency */,
-				C54604F21C08C6DF00FB2303 /* PBXTargetDependency */,
+				C56D4E4E1C0B546600B20566 /* PBXTargetDependency */,
 			);
 			name = meWrap;
 			productName = WrapLive;
@@ -3284,10 +3290,10 @@
 			target = C54604E21C08C6DF00FB2303 /* meWrapWatchExt */;
 			targetProxy = C54604E51C08C6DF00FB2303 /* PBXContainerItemProxy */;
 		};
-		C54604F21C08C6DF00FB2303 /* PBXTargetDependency */ = {
+		C56D4E4E1C0B546600B20566 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C54604D61C08C6DF00FB2303 /* meWrapWatchApp */;
-			targetProxy = C54604F11C08C6DF00FB2303 /* PBXContainerItemProxy */;
+			target = C54604E21C08C6DF00FB2303 /* meWrapWatchExt */;
+			targetProxy = C56D4E4D1C0B546600B20566 /* PBXContainerItemProxy */;
 		};
 		C5994D8C1B78894A0066A597 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

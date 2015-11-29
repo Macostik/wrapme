@@ -18,8 +18,17 @@ class ExtensionRequest: ExtensionMessage {
         self.userInfo = userInfo
     }
     
-    override class func archivableProperties() -> Set<String> {
-        return ["action", "userInfo"]
+    override func fromDictionary(dictionary: [String : AnyObject]) {
+        super.fromDictionary(dictionary);
+        action = dictionary["action"] as? String
+    }
+    
+    override func toDictionary() -> [String : AnyObject] {
+        var dictionary = super.toDictionary()
+        if let action = action {
+            dictionary["action"] = action
+        }
+        return dictionary
     }
     
     func serializedURL() -> NSURL? {
@@ -27,7 +36,7 @@ class ExtensionRequest: ExtensionMessage {
             let components = NSURLComponents()
             components.scheme = "mewrap"
             components.host = "extension.com"
-            components.path = "/request?request=\(string)"
+            components.path = "/request/\(string)"
             return components.URL
         } else {
             return nil

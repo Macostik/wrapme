@@ -254,10 +254,13 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    if ([url.host isEqualToString:@"extension.request"]) {
-        NSDictionary *query = [url.query URLQuery];
-        ExtensionRequest *request = [ExtensionRequest deserialize:[query stringForKey:@"request"]];
-        if ([request.action isEqualToString:@"entry"]) {
+    if ([url.host isEqualToString:@"extension.com"]) {
+        NSArray *components = [url.path pathComponents];
+        if (components.count < 2 || ![components[components.count - 2] isEqualToString:@"request"]) {
+            return NO;
+        }
+        ExtensionRequest *request = [ExtensionRequest deserialize:components[components.count - 1]];
+        if ([request.action isEqualToString:@"presentEntry"]) {
             [[EventualEntryPresenter sharedPresenter] presentEntry:request.userInfo];
         }
     }

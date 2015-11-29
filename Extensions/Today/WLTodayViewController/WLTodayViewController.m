@@ -38,8 +38,9 @@
     _contribution = contribution;
     self.timeLabel.text = [contribution.createdAt timeAgoStringAtAMPM];
     __weak typeof(self)weakSelf = self;
+    NSString *url = contribution.picture.small;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:contribution.picture.small]]];
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
         dispatch_async(dispatch_get_main_queue(), ^{
             weakSelf.pictureView.image = image;
         });

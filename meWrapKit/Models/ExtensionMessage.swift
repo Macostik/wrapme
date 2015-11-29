@@ -14,6 +14,12 @@ class ExtensionMessage: NSObject {
     required override init() {
     }
     
+    class func fromDictionary(dictionary: [String : AnyObject]) -> Self {
+        let message = self.init()
+        message.fromDictionary(dictionary)
+        return message
+    }
+    
     func fromDictionary(dictionary: [String : AnyObject]) {
         userInfo = dictionary["userInfo"] as? [String : AnyObject]
     }
@@ -38,9 +44,7 @@ class ExtensionMessage: NSObject {
             guard let dictionary = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as? [String : AnyObject] else {
                 return nil
             }
-            let message = self.init()
-            message.fromDictionary(dictionary)
-            return message as? T
+            return fromDictionary(dictionary) as? T
         } catch {
             return nil
         }

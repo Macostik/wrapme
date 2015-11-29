@@ -62,7 +62,15 @@
 		C523D8CC1BD7733D006FE7AB /* Telephony.swift in Sources */ = {isa = PBXBuildFile; fileRef = C523D8CB1BD7733D006FE7AB /* Telephony.swift */; };
 		C523D8CE1BD775AC006FE7AB /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C523D8CD1BD775AC006FE7AB /* Country.swift */; };
 		C5284C981B95A8B0006455FB /* PlaceholderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5284C961B95A8B0006455FB /* PlaceholderView.m */; };
-		C5294E761C0B5B44001CE272 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E88F1BBAC3EC007FFA66 /* CoreData.xcdatamodeld */; };
+		C5294E781C0B6242001CE272 /* ExtensionEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E771C0B6241001CE272 /* ExtensionEntry.swift */; };
+		C5294E791C0B660C001CE272 /* ExtensionEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E771C0B6241001CE272 /* ExtensionEntry.swift */; };
+		C5294E7A1C0B660D001CE272 /* ExtensionEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E771C0B6241001CE272 /* ExtensionEntry.swift */; };
+		C5294E851C0B87FF001CE272 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E841C0B87FF001CE272 /* AlertController.swift */; };
+		C5294E881C0B88D9001CE272 /* CandyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E861C0B88D9001CE272 /* CandyController.swift */; };
+		C5294E891C0B88D9001CE272 /* RecentUpdatesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E871C0B88D9001CE272 /* RecentUpdatesController.swift */; };
+		C5294E8B1C0B88F8001CE272 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E8A1C0B88F8001CE272 /* NotificationController.swift */; };
+		C5294E8E1C0B8C33001CE272 /* WCSession+DefinedMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E8C1C0B8C33001CE272 /* WCSession+DefinedMessages.swift */; };
+		C5294E8F1C0B8C33001CE272 /* WKInterfaceExtended.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E8D1C0B8C33001CE272 /* WKInterfaceExtended.swift */; };
 		C52BA62C1BFF314600D58D75 /* WrapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52BA62B1BFF314600D58D75 /* WrapCell.swift */; };
 		C52E1FD31A41951300A2C370 /* WLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FC91A41951300A2C370 /* WLButton.m */; };
 		C52E1FD71A41951300A2C370 /* WLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FCB1A41951300A2C370 /* WLLabel.m */; };
@@ -107,14 +115,6 @@
 		C54604FD1C08C71700FB2303 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC7C1B9432920084D0F5 /* Interface.storyboard */; };
 		C54604FE1C08C71700FB2303 /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */; };
 		C54604FF1C08C73200FB2303 /* WatchExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562D1071BDF65F60033EDC8 /* WatchExtensionDelegate.swift */; };
-		C54605001C08C73200FB2303 /* WCSession+DefinedMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C42371BDE2A96003E644D /* WCSession+DefinedMessages.swift */; };
-		C54605011C08C73200FB2303 /* WKInterfaceExtended.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562D1111BDF79700033EDC8 /* WKInterfaceExtended.swift */; };
-		C54605031C08C74100FB2303 /* WLWKNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C52CC64F1BC6813100288FDC /* WLWKNotificationController.m */; };
-		C54605041C08C74100FB2303 /* WLWKAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCAC3F1B2EDF2300080650 /* WLWKAlertController.m */; };
-		C54605051C08C74100FB2303 /* WLWKCandyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D51ABD815200CB4BE3 /* WLWKCandyController.m */; };
-		C54605061C08C74100FB2303 /* WLWKCommentRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D71ABD815200CB4BE3 /* WLWKCommentRow.m */; };
-		C54605071C08C74100FB2303 /* WLWKEntryRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */; };
-		C54605081C08C74100FB2303 /* WLWKContributionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645E01ABD815200CB4BE3 /* WLWKContributionsController.m */; };
 		C54605091C08C74400FB2303 /* chat_presets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5B993C31B302E73002BCC8C /* chat_presets.plist */; };
 		C546050A1C08C74400FB2303 /* comment_presets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5B993C41B302E73002BCC8C /* comment_presets.plist */; };
 		C546050B1C08C74800FB2303 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C55A45251BAC189C0055AEC2 /* Localizable.strings */; };
@@ -125,19 +125,6 @@
 		C54605101C08C80100FB2303 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C42591BDE77D3003E644D /* Asset.swift */; };
 		C54605111C08C80100FB2303 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532691A1BF200DD00E2D30A /* Notifier.swift */; };
 		C54605141C08C80100FB2303 /* WLBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8821BBAC3EC007FFA66 /* WLBroadcaster.m */; };
-		C54605151C08C80100FB2303 /* EntryContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F076651BE26F0E00021FAE /* EntryContext.swift */; };
-		C54605161C08C80100FB2303 /* Entry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AA71B41BE3AF1500EA106A /* Entry+CoreDataProperties.swift */; };
-		C54605171C08C80100FB2303 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AA71B31BE3AF1500EA106A /* Entry.swift */; };
-		C54605181C08C80100FB2303 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AA71B71BE3AF1500EA106A /* User.swift */; };
-		C54605191C08C80100FB2303 /* Contribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AA71B21BE3AF1500EA106A /* Contribution.swift */; };
-		C546051A1C08C80100FB2303 /* Wrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AA71B91BE3AF1500EA106A /* Wrap.swift */; };
-		C546051B1C08C80100FB2303 /* Candy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AA71B01BE3AF1500EA106A /* Candy.swift */; };
-		C546051C1C08C80100FB2303 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AA71B11BE3AF1500EA106A /* Comment.swift */; };
-		C546051D1C08C80100FB2303 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AA71B51BE3AF1500EA106A /* Message.swift */; };
-		C546051F1C08C8C700FB2303 /* NSArray+WLCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E83B1BBAC3EC007FFA66 /* NSArray+WLCollection.m */; };
-		C54605201C08C8C700FB2303 /* NSOrderedSet+WLCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8401BBAC3EC007FFA66 /* NSOrderedSet+WLCollection.m */; };
-		C54605211C08C8C700FB2303 /* NSSet+WLCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8421BBAC3EC007FFA66 /* NSSet+WLCollection.m */; };
-		C54605221C08C8C700FB2303 /* WLDefinedComparators.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8461BBAC3EC007FFA66 /* WLDefinedComparators.m */; };
 		C54605231C08C8CB00FB2303 /* NSUserDefaults+SharedGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C694D41BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift */; };
 		C54605241C08C8CB00FB2303 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5060D191BEBA7E2007FFD5B /* String+Ext.swift */; };
 		C54605251C08C8CB00FB2303 /* Dictionary+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C522795D1BECCA6B00B1C49C /* Dictionary+Ext.swift */; };
@@ -572,14 +559,6 @@
 		C50645C01ABD815100CB4BE3 /* WLTodayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTodayViewController.h; sourceTree = "<group>"; };
 		C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTodayViewController.m; sourceTree = "<group>"; };
 		C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WatchImages.xcassets; sourceTree = "<group>"; };
-		C50645D41ABD815200CB4BE3 /* WLWKCandyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKCandyController.h; sourceTree = "<group>"; };
-		C50645D51ABD815200CB4BE3 /* WLWKCandyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKCandyController.m; sourceTree = "<group>"; };
-		C50645D61ABD815200CB4BE3 /* WLWKCommentRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKCommentRow.h; sourceTree = "<group>"; };
-		C50645D71ABD815200CB4BE3 /* WLWKCommentRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKCommentRow.m; sourceTree = "<group>"; };
-		C50645DD1ABD815200CB4BE3 /* WLWKEntryRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKEntryRow.h; sourceTree = "<group>"; };
-		C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKEntryRow.m; sourceTree = "<group>"; };
-		C50645DF1ABD815200CB4BE3 /* WLWKContributionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKContributionsController.h; sourceTree = "<group>"; };
-		C50645E01ABD815200CB4BE3 /* WLWKContributionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKContributionsController.m; sourceTree = "<group>"; };
 		C50647681ABD889100CB4BE3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C509E2B81B96F46A003F6C21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
 		C509E2BC1B96F4B8003F6C21 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
@@ -603,9 +582,14 @@
 		C5259D661ACC2333003D3317 /* meWrap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = meWrap.entitlements; sourceTree = "<group>"; };
 		C5284C951B95A8B0006455FB /* PlaceholderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderView.h; sourceTree = "<group>"; };
 		C5284C961B95A8B0006455FB /* PlaceholderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderView.m; sourceTree = "<group>"; };
+		C5294E771C0B6241001CE272 /* ExtensionEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionEntry.swift; sourceTree = "<group>"; };
+		C5294E841C0B87FF001CE272 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		C5294E861C0B88D9001CE272 /* CandyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyController.swift; sourceTree = "<group>"; };
+		C5294E871C0B88D9001CE272 /* RecentUpdatesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentUpdatesController.swift; sourceTree = "<group>"; };
+		C5294E8A1C0B88F8001CE272 /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		C5294E8C1C0B8C33001CE272 /* WCSession+DefinedMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WCSession+DefinedMessages.swift"; sourceTree = "<group>"; };
+		C5294E8D1C0B8C33001CE272 /* WKInterfaceExtended.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WKInterfaceExtended.swift; sourceTree = "<group>"; };
 		C52BA62B1BFF314600D58D75 /* WrapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WrapCell.swift; path = WLHomeViewController/WrapCell.swift; sourceTree = "<group>"; };
-		C52CC64E1BC6813100288FDC /* WLWKNotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKNotificationController.h; sourceTree = "<group>"; };
-		C52CC64F1BC6813100288FDC /* WLWKNotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKNotificationController.m; sourceTree = "<group>"; };
 		C52E1FC81A41951300A2C370 /* WLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLButton.h; path = WLButton/WLButton.h; sourceTree = "<group>"; };
 		C52E1FC91A41951300A2C370 /* WLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLButton.m; path = WLButton/WLButton.m; sourceTree = "<group>"; };
 		C52E1FCA1A41951300A2C370 /* WLLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLLabel.h; sourceTree = "<group>"; };
@@ -684,10 +668,8 @@
 		C54974561ABC1C34000E3F54 /* WLQAButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLQAButton.h; path = WLButton/WLQAButton.h; sourceTree = "<group>"; };
 		C54974571ABC1C34000E3F54 /* WLQAButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLQAButton.m; path = WLButton/WLQAButton.m; sourceTree = "<group>"; };
 		C54AF74A19B8C491006F7EDB /* meWrap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = meWrap.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C54C42371BDE2A96003E644D /* WCSession+DefinedMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WCSession+DefinedMessages.swift"; sourceTree = "<group>"; };
 		C54C423A1BDE2C61003E644D /* WatchExt-Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WatchExt-Bridge.h"; sourceTree = "<group>"; };
 		C54C423B1BDE2CBA003E644D /* Today-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Today-Prefix.pch"; sourceTree = "<group>"; };
-		C54C423C1BDE2CC1003E644D /* WatchExt-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WatchExt-Prefix.pch"; sourceTree = "<group>"; };
 		C54C423D1BDE6260003E644D /* Archive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
 		C54C424D1BDE77BB003E644D /* ExtensionMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionMessage.swift; sourceTree = "<group>"; };
 		C54C424E1BDE77BB003E644D /* ExtensionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionRequest.swift; sourceTree = "<group>"; };
@@ -744,7 +726,6 @@
 		C560D2321AFBB55E006B906E /* WLHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHistoryViewController.h; sourceTree = "<group>"; };
 		C560D2331AFBB55E006B906E /* WLHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLHistoryViewController.m; sourceTree = "<group>"; };
 		C562D1071BDF65F60033EDC8 /* WatchExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchExtensionDelegate.swift; sourceTree = "<group>"; };
-		C562D1111BDF79700033EDC8 /* WKInterfaceExtended.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WKInterfaceExtended.swift; sourceTree = "<group>"; };
 		C568D8D41A6D491800C2333B /* WLHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHintView.h; sourceTree = "<group>"; };
 		C568D8D51A6D491800C2333B /* WLHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLHintView.m; sourceTree = "<group>"; };
 		C56A760C1A640F1900D1FBED /* WLStoryboardTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLStoryboardTransition.h; sourceTree = "<group>"; };
@@ -842,8 +823,6 @@
 		C5B993C31B302E73002BCC8C /* chat_presets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = chat_presets.plist; sourceTree = "<group>"; };
 		C5B993C41B302E73002BCC8C /* comment_presets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = comment_presets.plist; sourceTree = "<group>"; };
 		C5B9F9CB1BAD61B200B7D8F3 /* WLMessageWithNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLMessageWithNameCell.xib; sourceTree = "<group>"; };
-		C5BCAC3E1B2EDF2300080650 /* WLWKAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKAlertController.h; sourceTree = "<group>"; };
-		C5BCAC3F1B2EDF2300080650 /* WLWKAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKAlertController.m; sourceTree = "<group>"; };
 		C5BCEFD81B551B7B00E4AD6D /* WLChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLChatViewController.h; sourceTree = "<group>"; };
 		C5BCEFD91B551B7B00E4AD6D /* WLChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLChatViewController.m; sourceTree = "<group>"; };
 		C5BCEFDF1B551B7B00E4AD6D /* WLMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMessageCell.h; sourceTree = "<group>"; };
@@ -1672,49 +1651,19 @@
 		C50645C71ABD815100CB4BE3 /* WatchExt */ = {
 			isa = PBXGroup;
 			children = (
-				C54C423C1BDE2CC1003E644D /* WatchExt-Prefix.pch */,
+				C5294E8D1C0B8C33001CE272 /* WKInterfaceExtended.swift */,
+				C5294E8C1C0B8C33001CE272 /* WCSession+DefinedMessages.swift */,
 				C562D1071BDF65F60033EDC8 /* WatchExtensionDelegate.swift */,
-				C552329A1ACD475A00886437 /* Categories */,
-				C50645C81ABD815100CB4BE3 /* Controllers */,
+				C5294E841C0B87FF001CE272 /* AlertController.swift */,
+				C5294E861C0B88D9001CE272 /* CandyController.swift */,
+				C5294E871C0B88D9001CE272 /* RecentUpdatesController.swift */,
+				C5294E8A1C0B88F8001CE272 /* NotificationController.swift */,
 				C5B993C31B302E73002BCC8C /* chat_presets.plist */,
 				C5B993C41B302E73002BCC8C /* comment_presets.plist */,
 				C55A45251BAC189C0055AEC2 /* Localizable.strings */,
 				C54C423A1BDE2C61003E644D /* WatchExt-Bridge.h */,
 			);
 			path = WatchExt;
-			sourceTree = "<group>";
-		};
-		C50645C81ABD815100CB4BE3 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				C52CC64D1BC6813100288FDC /* WLWKNotificationController */,
-				C5BCAC3D1B2EDEFF00080650 /* WLWKErrorController */,
-				C50645D31ABD815200CB4BE3 /* WLWKCandyController */,
-				C50645D81ABD815200CB4BE3 /* WLWKEventsController */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		C50645D31ABD815200CB4BE3 /* WLWKCandyController */ = {
-			isa = PBXGroup;
-			children = (
-				C50645D41ABD815200CB4BE3 /* WLWKCandyController.h */,
-				C50645D51ABD815200CB4BE3 /* WLWKCandyController.m */,
-				C50645D61ABD815200CB4BE3 /* WLWKCommentRow.h */,
-				C50645D71ABD815200CB4BE3 /* WLWKCommentRow.m */,
-			);
-			path = WLWKCandyController;
-			sourceTree = "<group>";
-		};
-		C50645D81ABD815200CB4BE3 /* WLWKEventsController */ = {
-			isa = PBXGroup;
-			children = (
-				C50645DD1ABD815200CB4BE3 /* WLWKEntryRow.h */,
-				C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */,
-				C50645DF1ABD815200CB4BE3 /* WLWKContributionsController.h */,
-				C50645E01ABD815200CB4BE3 /* WLWKContributionsController.m */,
-			);
-			path = WLWKEventsController;
 			sourceTree = "<group>";
 		};
 		C5111D361AB345C10094275C /* WLIntroductionViewController */ = {
@@ -1734,15 +1683,6 @@
 				C5259D661ACC2333003D3317 /* meWrap.entitlements */,
 			);
 			path = Entitlements;
-			sourceTree = "<group>";
-		};
-		C52CC64D1BC6813100288FDC /* WLWKNotificationController */ = {
-			isa = PBXGroup;
-			children = (
-				C52CC64E1BC6813100288FDC /* WLWKNotificationController.h */,
-				C52CC64F1BC6813100288FDC /* WLWKNotificationController.m */,
-			);
-			path = WLWKNotificationController;
 			sourceTree = "<group>";
 		};
 		C52E1FC71A41947D00A2C370 /* Text Views */ = {
@@ -1916,15 +1856,6 @@
 				C5284C961B95A8B0006455FB /* PlaceholderView.m */,
 			);
 			path = "Placeholder Views";
-			sourceTree = "<group>";
-		};
-		C552329A1ACD475A00886437 /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				C54C42371BDE2A96003E644D /* WCSession+DefinedMessages.swift */,
-				C562D1111BDF79700033EDC8 /* WKInterfaceExtended.swift */,
-			);
-			path = Categories;
 			sourceTree = "<group>";
 		};
 		C55997461A25EA9A003D4B29 /* WLEmailConfirmationViewController */ = {
@@ -2168,15 +2099,6 @@
 				C5B8F71E1B82172D00A5E541 /* WLDrawingViewController.xib */,
 			);
 			path = WLDrawingViewController;
-			sourceTree = "<group>";
-		};
-		C5BCAC3D1B2EDEFF00080650 /* WLWKErrorController */ = {
-			isa = PBXGroup;
-			children = (
-				C5BCAC3E1B2EDF2300080650 /* WLWKAlertController.h */,
-				C5BCAC3F1B2EDF2300080650 /* WLWKAlertController.m */,
-			);
-			path = WLWKErrorController;
 			sourceTree = "<group>";
 		};
 		C5BCEFD51B551B7B00E4AD6D /* WLChatViewController */ = {
@@ -2539,6 +2461,7 @@
 				C54C424D1BDE77BB003E644D /* ExtensionMessage.swift */,
 				C54C424E1BDE77BB003E644D /* ExtensionRequest.swift */,
 				C54C424F1BDE77BB003E644D /* ExtensionResponse.swift */,
+				C5294E771C0B6241001CE272 /* ExtensionEntry.swift */,
 				C54C42591BDE77D3003E644D /* Asset.swift */,
 				C532691A1BF200DD00E2D30A /* Notifier.swift */,
 				C5E6E8801BBAC3EC007FFA66 /* WLBroadcaster */,
@@ -2968,6 +2891,7 @@
 				C5F4E7101C07687D00D2FC16 /* UIColor+Ext.swift in Sources */,
 				C5AA71C61BE3AF1B00EA106A /* Entry.swift in Sources */,
 				C5E6E9501BBAC3EC007FFA66 /* NSSet+WLCollection.m in Sources */,
+				C5294E791C0B660C001CE272 /* ExtensionEntry.swift in Sources */,
 				C54C423F1BDE6260003E644D /* Archive.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2977,42 +2901,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				C546050E1C08C80100FB2303 /* ExtensionRequest.swift in Sources */,
-				C546051B1C08C80100FB2303 /* Candy.swift in Sources */,
 				C546050F1C08C80100FB2303 /* ExtensionResponse.swift in Sources */,
-				C54605071C08C74100FB2303 /* WLWKEntryRow.m in Sources */,
-				C54605191C08C80100FB2303 /* Contribution.swift in Sources */,
+				C5294E8E1C0B8C33001CE272 /* WCSession+DefinedMessages.swift in Sources */,
 				C54605261C08C8CB00FB2303 /* NSDate+Ext.swift in Sources */,
-				C54605081C08C74100FB2303 /* WLWKContributionsController.m in Sources */,
 				C54605241C08C8CB00FB2303 /* String+Ext.swift in Sources */,
-				C54605171C08C80100FB2303 /* Entry.swift in Sources */,
-				C54605011C08C73200FB2303 /* WKInterfaceExtended.swift in Sources */,
-				C54605001C08C73200FB2303 /* WCSession+DefinedMessages.swift in Sources */,
 				C546052A1C08C8CB00FB2303 /* NSObject+Ext.swift in Sources */,
-				C54605061C08C74100FB2303 /* WLWKCommentRow.m in Sources */,
 				C54605251C08C8CB00FB2303 /* Dictionary+Ext.swift in Sources */,
-				C54605051C08C74100FB2303 /* WLWKCandyController.m in Sources */,
-				C546051D1C08C80100FB2303 /* Message.swift in Sources */,
 				C54605111C08C80100FB2303 /* Notifier.swift in Sources */,
 				C54604FF1C08C73200FB2303 /* WatchExtensionDelegate.swift in Sources */,
-				C54605221C08C8C700FB2303 /* WLDefinedComparators.m in Sources */,
+				C5294E891C0B88D9001CE272 /* RecentUpdatesController.swift in Sources */,
 				C546052C1C08C8CB00FB2303 /* UIColor+Ext.swift in Sources */,
-				C54605201C08C8C700FB2303 /* NSOrderedSet+WLCollection.m in Sources */,
-				C546051F1C08C8C700FB2303 /* NSArray+WLCollection.m in Sources */,
+				C5294E8F1C0B8C33001CE272 /* WKInterfaceExtended.swift in Sources */,
+				C5294E881C0B88D9001CE272 /* CandyController.swift in Sources */,
+				C5294E8B1C0B88F8001CE272 /* NotificationController.swift in Sources */,
 				C54605271C08C8CB00FB2303 /* NSDate+Formatting.swift in Sources */,
-				C54605031C08C74100FB2303 /* WLWKNotificationController.m in Sources */,
-				C54605041C08C74100FB2303 /* WLWKAlertController.m in Sources */,
-				C54605211C08C8C700FB2303 /* NSSet+WLCollection.m in Sources */,
-				C5294E761C0B5B44001CE272 /* CoreData.xcdatamodeld in Sources */,
-				C54605161C08C80100FB2303 /* Entry+CoreDataProperties.swift in Sources */,
+				C5294E7A1C0B660D001CE272 /* ExtensionEntry.swift in Sources */,
+				C5294E851C0B87FF001CE272 /* AlertController.swift in Sources */,
 				C54605141C08C80100FB2303 /* WLBroadcaster.m in Sources */,
-				C54605151C08C80100FB2303 /* EntryContext.swift in Sources */,
 				C54605101C08C80100FB2303 /* Asset.swift in Sources */,
 				C546050C1C08C80100FB2303 /* Archive.swift in Sources */,
 				C546050D1C08C80100FB2303 /* ExtensionMessage.swift in Sources */,
-				C54605181C08C80100FB2303 /* User.swift in Sources */,
-				C546051C1C08C80100FB2303 /* Comment.swift in Sources */,
 				C54605231C08C8CB00FB2303 /* NSUserDefaults+SharedGroup.swift in Sources */,
-				C546051A1C08C80100FB2303 /* Wrap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3105,6 +3014,7 @@
 				C5C20BE81A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */,
 				5B1D045B1BFCE16C00263102 /* CandyInteractionController.swift in Sources */,
 				C5B4E5681BF60E0300A4B223 /* PHPhotoLibrary+Ext.swift in Sources */,
+				C5294E781C0B6242001CE272 /* ExtensionEntry.swift in Sources */,
 				C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */,
 				C5C20BD81A239D6F008B2E2E /* WLPhoneViewController.m in Sources */,
 				C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */,
@@ -3578,7 +3488,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Extensions/WatchExt/WatchExt-Prefix.pch";
+				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -3607,7 +3517,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Extensions/WatchExt/WatchExt-Prefix.pch";
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "Info/meWrapWatchExt-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -3632,7 +3542,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Extensions/WatchExt/WatchExt-Prefix.pch";
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "Info/meWrapWatchExt-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;

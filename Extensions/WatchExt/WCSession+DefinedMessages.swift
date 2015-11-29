@@ -46,7 +46,7 @@ extension WCSession {
         performAction("handleNotification", parameters: notification, success: success, failure: failure)
     }
     
-    func dataSync(success:([String : AnyObject]? -> Void)?, failure:(NSError? -> Void)?) {
-        performAction("dataSync", parameters: nil, success: success, failure: failure)
+    func recentUpdates(success:([String : AnyObject]? -> Void)?, failure:(NSError? -> Void)?) {
+        performAction("recentUpdates", parameters: nil, success: success, failure: failure)
     }
 }

@@ -29,28 +29,29 @@ class WatchExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
             return
         }
         WCSession.defaultSession().handleNotification(notification, success: { (reply) -> Void in
-            guard let reply = reply, let reference = reply["entry"] as? [String : String] else {
-                return
-            }
-            guard let entry = Entry.deserializeReference(reference) else {
-                return
-            }
-            if entry is Comment {
-                rootInterfaceController.pushControllerWithName("candy", context: entry.container)
-            } else if entry is Candy {
-                rootInterfaceController.pushControllerWithName("candy", context: entry)
-            } else if identifier == "reply" && entry is Message {
-                rootInterfaceController.presentTextSuggestionsFromPlistNamed("chat_presets", completionHandler: { (text) -> Void in
-                    guard let wrap = (entry as! Message).wrap, let wrap_uid = wrap.identifier else {
-                        return
-                    }
-                    WCSession.defaultSession().postMessage(text, wrap: wrap_uid, success: { (reply) -> Void in
-                        rootInterfaceController.pushControllerWithName("alert", context: "Message \"\(text)\" sent!")
-                        }, failure: { (error) -> Void in
-                            rootInterfaceController.pushControllerWithName("alert", context: error)
-                    })
-                })
-            }
+//            guard let reply = reply, let reference = reply["entry"] as? [String : String] else {
+//                return
+//            }
+//            guard let entry = reference["name"] else {
+//                return
+//            }
+//            if entry == "Comment" {
+//                let candy =
+//                rootInterfaceController.pushControllerWithName("candy", context: entry.container)
+//            } else if entry == "Candy" {
+//                rootInterfaceController.pushControllerWithName("candy", context: entry)
+//            } else if identifier == "reply" && entry == "Message" {
+//                rootInterfaceController.presentTextSuggestionsFromPlistNamed("chat_presets", completionHandler: { (text) -> Void in
+//                    guard let wrap = (entry as! Message).wrap, let wrap_uid = wrap.identifier else {
+//                        return
+//                    }
+//                    WCSession.defaultSession().postMessage(text, wrap: wrap_uid, success: { (reply) -> Void in
+//                        rootInterfaceController.pushControllerWithName("alert", context: "Message \"\(text)\" sent!")
+//                        }, failure: { (error) -> Void in
+//                            rootInterfaceController.pushControllerWithName("alert", context: error)
+//                    })
+//                })
+//            }
             }) { (error) -> Void in
             rootInterfaceController.pushControllerWithName("alert", context: error)
         }
@@ -65,7 +66,7 @@ class WatchExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
             do {
                 try manager.removeItemAtURL(toURL)
                 try manager.moveItemAtURL(fromURL, toURL: toURL)
-                NSNotificationCenter.defaultCenter().postNotificationName("dataSync", object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName("recentUpdatesChanged", object: nil)
             } catch let error as NSError {
                 print(error)
             }

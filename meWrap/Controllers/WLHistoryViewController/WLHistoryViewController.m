@@ -396,8 +396,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         [weakSelf downloadCandyOriginal:candy success:^(UIImage *image) {
             [WLDrawingViewController draw:image finish:^(UIImage *image) {
                 [candy editWithImage:image];
-                sender.userInteractionEnabled = YES;
             }];
+            sender.userInteractionEnabled = YES;
         } failure:^(NSError *error) {
             [error show];
             sender.userInteractionEnabled = YES;

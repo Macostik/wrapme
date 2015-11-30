@@ -90,13 +90,12 @@
      [[WLEditingConfirmView loadFromNib:@"WLEditingConfirmView"] showInView:view withContent:(NSString *)content success:succes cancel:cancel];
 }
 
-static CGFloat WLMessageLimit = 200;
+static CGFloat WLMessageLimit = 280;
 
 - (void)showInView:(UIView *)view withContent:(NSString *)content success:(WLObjectBlock)success cancel:(WLBlock)cancel {
     [[WLKeyboard keyboard] addReceiver:self];
     [self.contentTextView determineHyperLink:content];
     self.contentTextView.delegate = self;
-//    [self.contentTextView becomeFirstResponder];
     [super showInView:view authorization:nil success:success cancel:cancel];
 }
 

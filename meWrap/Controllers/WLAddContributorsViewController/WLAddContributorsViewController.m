@@ -195,6 +195,7 @@
             NSString *content = [NSString stringWithFormat:@"send_message_to_friends_content".ls, [User currentUser].name, self.wrap.name];
             [WLEditingConfirmView showInView:self.view withContent:content success:^(id  _Nullable object) {
                 weakSelf.sendMessage = object;
+                [weakSelf done:nil];
             } cancel: ^{
                 [weakSelf recordCell:cell didSelectPhoneNumber:phoneNumber];
             }];

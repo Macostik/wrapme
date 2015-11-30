@@ -189,6 +189,7 @@ class LiveBroadcastViewController: WLBaseViewController {
             sender.hidden = true
             composeBar.hidden = true
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "focusing:"))
+            view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: "zooming:"))
         }
     }
     
@@ -218,17 +219,11 @@ class LiveBroadcastViewController: WLBaseViewController {
         
         let point = sender.locationInView(view)
         let pointOfInterest = layer.captureDevicePointOfInterestForPoint(point)
-        var _device: AVCaptureDevice?
-        for input in session.inputs {
-            if let input = input as? AVCaptureDeviceInput where input.device.hasMediaType(AVMediaTypeVideo) {
-                _device = input.device
-                break
-            }
-        }
         
-        guard let device = _device else {
+        guard let device = videoCamera() else {
             return
         }
+        
         do {
             try device.lockForConfiguration()
             if device.focusPointOfInterestSupported && device.isFocusModeSupported(.AutoFocus) {
@@ -255,6 +250,39 @@ class LiveBroadcastViewController: WLBaseViewController {
             }
         } catch {
         }
+    }
+    
+    private func videoCamera() -> AVCaptureDevice? {
+        guard let session = previewLayer?.session where session.running else {
+            return nil
+        }
+        for input in session.inputs {
+            if let input = input as? AVCaptureDeviceInput where input.device.hasMediaType(AVMediaTypeVideo) {
+                return input.device
+            }
+        }
+        return nil
+    }
+    
+    func zooming(sender: UIPinchGestureRecognizer) {
+        
+        guard let device = videoCamera() else {
+            return
+        }
+        
+        let maxZoomScale = min(8, device.activeFormat.videoMaxZoomFactor)
+        let zoomScale = max(1, min(maxZoomScale, sender.scale * device.videoZoomFactor))
+        
+        if (device.videoZoomFactor != zoomScale) {
+            do {
+                try device.lockForConfiguration()
+                device.videoZoomFactor = zoomScale
+                device.unlockForConfiguration()
+            } catch {
+            }
+        }
+        
+        sender.scale = 1
     }
 }
 

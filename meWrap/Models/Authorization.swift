@@ -45,7 +45,7 @@ class Authorization: Archive {
         return canSignUp && !(email?.isEmpty ?? true)
     }
     
-    func updateWithUserData(userData: Dictionary<String, AnyObject>) {
+    func updateWithUserData(userData: [String : AnyObject]) {
         if let email = userData[WLEmailKey] as? String {
             self.email = email
         }

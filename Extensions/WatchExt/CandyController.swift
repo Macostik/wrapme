@@ -49,7 +49,15 @@ class CandyController: WKInterfaceController {
     
     private func update() {
         guard let candy = candy else { return }
-        
+        WCSession.defaultSession().getCandy(candy, success: { [weak self] (candy) -> Void in
+            self?.candy = candy
+            self?.setup()
+            }) { (error) -> Void in
+        }
+    }
+    
+    private func setup() {
+        guard let candy = candy else { return }
         photoByLabel.setText(String(format: (candy.isVideo ? "formatted_video_by" : "formatted_photo_by").ls, candy.contributor?.name ?? ""))
         wrapNameLabel.setText(candy.wrap?.name)
         dateLabel.setText(candy.createdAt?.timeAgoStringAtAMPM())
@@ -60,6 +68,7 @@ class CandyController: WKInterfaceController {
             let row = table.rowControllerAtIndex(index) as? CommentRow
             row?.comment = comment
         }
+        
     }
     
     override func contextForSegueWithIdentifier(segueIdentifier: String) -> AnyObject? {
@@ -68,6 +77,7 @@ class CandyController: WKInterfaceController {
     
     override func willActivate() {
         super.willActivate()
+        setup()
         update()
     }
     
@@ -76,10 +86,10 @@ class CandyController: WKInterfaceController {
             return
         }
         presentTextSuggestionsFromPlistNamed("comment_presets") { (text) -> Void in
-            WCSession.defaultSession().postComment(text, candy: candy.uid, success: { (reply) -> Void in
-                WCSession.defaultSession().recentUpdates(nil, failure: nil)
-                }, failure: { (error) -> Void in
-                    self.pushControllerWithName("alert", context: error)
+            WCSession.defaultSession().postComment(text, candy: candy.uid, success: { [weak self] (reply) -> Void in
+                self?.update()
+                }, failure: { [weak self] (error) -> Void in
+                    self?.pushControllerWithName("alert", context: error)
             })
         }
     }

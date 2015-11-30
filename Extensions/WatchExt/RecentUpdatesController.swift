@@ -49,11 +49,10 @@ class CandyUpdateRow: RecentUpdateRow {
     override var update: ExtensionUpdate? {
         didSet {
             guard let update = update else { return }
-            guard let comment = update.comment else { return }
             guard let candy = update.candy else { return }
             photoByLabel.setText(String(format: (candy.isVideo ? "formatted_video_by" : "formatted_photo_by").ls, candy.contributor?.name ?? ""))
             wrapNameLabel.setText(candy.wrap?.name)
-            dateLabel.setText(comment.createdAt?.timeAgoStringAtAMPM())
+            dateLabel.setText(candy.createdAt?.timeAgoStringAtAMPM())
             group.setURL(candy.asset)
         }
     }
@@ -86,18 +85,9 @@ class RecentUpdatesController: WKInterfaceController {
         }
     }
     
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-    
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
         noUpdatesLabel.setText("no_recent_updates".ls)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "recentUpdatesChanged", name: "recentUpdatesChanged", object: nil)
-    }
-    
-    func recentUpdatesChanged() {
-        update()
     }
     
     override func table(table: WKInterfaceTable, didSelectRowAtIndex rowIndex: Int) {
@@ -107,10 +97,12 @@ class RecentUpdatesController: WKInterfaceController {
     override func willActivate() {
         super.willActivate()
         update()
-        WCSession.defaultSession().recentUpdates(nil, failure: nil)
     }
     
     func update() {
-        updates = []
+        WCSession.defaultSession().recentUpdates({ [weak self] (updates) -> Void in
+            self?.updates = updates ?? []
+            }) { (error) -> Void in
+        }
     }
 }

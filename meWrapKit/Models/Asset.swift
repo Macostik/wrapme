@@ -33,7 +33,7 @@ class Asset: Archive {
     }
     
     func JSONValue() -> NSData? {
-        var dictionary = Dictionary<String, AnyObject>()
+        var dictionary = [String : AnyObject]()
         for property in self.dynamicType.archivableProperties() {
             if let value = valueForKey(property) {
                 dictionary[property] = value

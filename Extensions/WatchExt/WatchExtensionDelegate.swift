@@ -56,28 +56,4 @@ class WatchExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
             rootInterfaceController.pushControllerWithName("alert", context: error)
         }
     }
-    
-    // MARK: - WCSessionDelegate
-    
-    func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
-        if let response = message["response"] as? [String : AnyObject] {
-            let response = ExtensionResponse.fromDictionary(response)
-            
-        }
-    }
-    
-    func session(session: WCSession, didReceiveFile file: WCSessionFile) {
-        let manager = NSFileManager.defaultManager()
-        let fromURL = file.fileURL
-        if let toURL = manager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).last?.URLByAppendingPathComponent(fromURL.lastPathComponent ?? "CoreData.sqlite") {
-            do {
-                try manager.removeItemAtURL(toURL)
-                try manager.moveItemAtURL(fromURL, toURL: toURL)
-                NSNotificationCenter.defaultCenter().postNotificationName("recentUpdatesChanged", object: nil)
-            } catch let error as NSError {
-                print(error)
-            }
-        }
-    }
-    
 }

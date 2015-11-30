@@ -58,7 +58,7 @@ class ExtensionContribution: ExtensionEntry {
     }
 }
 
-class ExtensionWrap: ExtensionContribution {
+class ExtensionWrap: ExtensionEntry {
     var name: String?
     override func fromDictionary(dictionary: [String : AnyObject]) {
         super.fromDictionary(dictionary)
@@ -128,6 +128,9 @@ class ExtensionUpdate: ExtensionEntry {
         type = dictionary["type"] as? String
         if let candy = dictionary["candy"] as? [String : AnyObject] {
             self.candy = ExtensionCandy.fromDictionary(candy)
+        }
+        if let comment = dictionary["comment"] as? [String : AnyObject] {
+            self.comment = ExtensionComment.fromDictionary(comment)
         }
     }
     override func toDictionary() -> [String : AnyObject] {

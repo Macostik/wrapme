@@ -11,110 +11,116 @@ import WatchConnectivity
 
 extension ExtensionRequest {
     
-    func perform(completionHandler: (ExtensionResponse -> Void)?) {
+    func perform(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
         guard let action = action else {
-            completionHandler?(ExtensionResponse.failure("No action."))
+            failure(ExtensionError(message: "No action."))
             return
         }
         switch action {
         case "authorize":
-            authorize(completionHandler)
+            authorize(success, failure: failure)
             break
         case "presentEntry":
-            presentEntry(completionHandler)
+            presentEntry(success, failure: failure)
             break
         case "postComment":
-            postComment(completionHandler)
+            postComment(success, failure: failure)
             break
         case "postMessage":
-            postMessage(completionHandler)
+            postMessage(success, failure: failure)
             break
         case "handleNotification":
-            handleNotification(completionHandler)
+            handleNotification(success, failure: failure)
             break
         case "recentUpdates":
-            recentUpdates(completionHandler)
+            recentUpdates(success, failure: failure)
+            break
+        case "getCandy":
+            getCandy(success, failure: failure)
             break
         default:
-            completionHandler?(ExtensionResponse.failure("Unknown action."))
+            failure(ExtensionError(message: "Unknown action."))
             break
         }
     }
     
-    func authorize(completionHandler: (ExtensionResponse -> Void)?) {
-        completionHandler?(ExtensionResponse.success(nil))
+    func authorize(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
+        success(ExtensionReply())
     }
     
-    func presentEntry(completionHandler: (ExtensionResponse -> Void)?) {
-        if let entry = self.userInfo as? [String : String] {
+    func presentEntry(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
+        if let entry = parameters as? [String : String] {
             EventualEntryPresenter.sharedPresenter.presentEntry(entry)
-            completionHandler?(ExtensionResponse.success(nil))
+            success(ExtensionReply())
         } else {
-            completionHandler?(ExtensionResponse.failure("No entry."))
+            failure(ExtensionError(message: "No entry."))
         }
     }
     
-    func postComment(completionHandler: (ExtensionResponse -> Void)?) {
+    func postComment(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
         
-        if let userInfo = userInfo,
+        if let userInfo = parameters,
             let candyReference = userInfo["candy"] as? [String : String],
             let candy = Candy.deserializeReference(candyReference),
             let text = userInfo["text"] as? String {
                 candy.uploadComment(text)
-            completionHandler?(ExtensionResponse.success(nil))
+            success(ExtensionReply())
         } else {
-            completionHandler?(ExtensionResponse.failure("Photo isn't available."))
+            failure(ExtensionError(message: "Photo isn't available."))
         }
     }
     
-    func postMessage(completionHandler: (ExtensionResponse -> Void)?) {
-        if let userInfo = userInfo,
+    func postMessage(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
+        if let userInfo = parameters,
             let wrapReference = userInfo["wrap"] as? [String : String],
             let wrap = Wrap.deserializeReference(wrapReference),
             let text = userInfo["text"] as? String {
                 wrap.uploadMessage(text)
-                completionHandler?(ExtensionResponse.success(nil))
+                success(ExtensionReply())
         } else {
-            completionHandler?(ExtensionResponse.failure("Wrap isn't available."))
+            failure(ExtensionError(message: "Wrap isn't available."))
         }
     }
     
-    func handleNotification(completionHandler: (ExtensionResponse -> Void)?) {
-        completionHandler?(ExtensionResponse.success(nil))
+    func handleNotification(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
+        success(ExtensionReply())
 //        guard let notification = userInfo else {
 //            return
 //        }
 //        
 //        WLNotificationCenter.defaultCenter().handleRemoteNotification(notification, success: { (notification) -> Void in
 //            if let entry = (notification as? WLNotification)?.entry {
-//                completionHandler?(ExtensionResponse.success(nil, userInfo: ["entry":entry.serializeReference()]))
+//                completionHandler?(ExtensionReply(reply:  ["entry":entry.serializeReference()]))
 //            } else {
-//                completionHandler?(ExtensionResponse.failure("No data"))
+//                completionHandler?(ExtensionError(message: "No data"))
 //            }
 //            }) { (error) -> Void in
 //                completionHandler?(ExtensionResponse.failure(error?.localizedDescription))
 //        }
     }
     
-    func recentUpdates(completionHandler: (ExtensionResponse -> Void)?) {
-        let updates = Contribution.recentContributions().map { (c) -> [String:AnyObject] in
+    func recentUpdates(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
+        let updates = Contribution.recentContributions(10).map { (c) -> [String:AnyObject] in
             let update = ExtensionUpdate()
-            var candy: Candy?
             if let comment = c as? Comment {
+                update.comment = comment.extensionComment()
                 update.type = "comment"
-                candy = comment.candy
-            } else if let _candy = c as? Candy {
+                update.candy = comment.candy?.extensionCandy(includeComments: false)
+            } else if let candy = c as? Candy {
                 update.type = "candy"
-                candy = _candy
+                update.candy = candy.extensionCandy(includeComments: false)
             }
-            update.candy = candy?.extensionCandy(includeComments: false)
             return update.toDictionary()
         }
-        completionHandler?(ExtensionResponse.success(nil, userInfo: ["updates":updates]))
+        success(ExtensionReply(reply:  ["updates":updates]))
     }
     
-    func getCandy(completionHandler: (ExtensionResponse -> Void)?) {
-        completionHandler?(ExtensionResponse.success(nil))
+    func getCandy(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
+        if let uid = parameters?["uid"] as? String, let candy = Candy.entry(uid, allowInsert: false) {
+            success(ExtensionReply(reply: candy.extensionCandy(includeComments: true).toDictionary()))
+        } else {
+            failure(ExtensionError(message: "no candy"))
+        }
     }
 }
 

@@ -10,8 +10,7 @@
 		18D7F6737186E5350A00FFEE /* Pods_meWrap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8302B2CF78A9F0C0ED319A0E /* Pods_meWrap.framework */; };
 		5B1D045B1BFCE16C00263102 /* CandyInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1D045A1BFCE16C00263102 /* CandyInteractionController.swift */; };
 		5B1DD0371BD7B67000D30E1A /* InternalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */; };
-		5B211FB21C087137000EC3DB /* WLEditingConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B211FB11C087137000EC3DB /* WLEditingConfirmView.xib */; };
-		5B3B1F111BDA2A6B00FF7816 /* EntryStatusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3B1F101BDA2A6B00FF7816 /* EntryStatusIndicator.swift */; };
+		5B211FB21C087137000EC3DB /* (null) in Resources */ = {isa = PBXBuildFile; };
 		5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
 		5B7591DF1BAAEF7800967AAA /* WLReportList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B7591DD1BAAEF7800967AAA /* WLReportList.plist */; };
 		5BA1307E1B15A92600385C2C /* WLPresentingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA130791B15A92600385C2C /* WLPresentingImageView.m */; };
@@ -122,7 +121,6 @@
 		C546050C1C08C80100FB2303 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C423D1BDE6260003E644D /* Archive.swift */; };
 		C546050D1C08C80100FB2303 /* ExtensionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C424D1BDE77BB003E644D /* ExtensionMessage.swift */; };
 		C546050E1C08C80100FB2303 /* ExtensionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C424E1BDE77BB003E644D /* ExtensionRequest.swift */; };
-		C546050F1C08C80100FB2303 /* ExtensionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C424F1BDE77BB003E644D /* ExtensionResponse.swift */; };
 		C54605101C08C80100FB2303 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C42591BDE77D3003E644D /* Asset.swift */; };
 		C54605111C08C80100FB2303 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532691A1BF200DD00E2D30A /* Notifier.swift */; };
 		C54605141C08C80100FB2303 /* WLBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8821BBAC3EC007FFA66 /* WLBroadcaster.m */; };
@@ -178,8 +176,6 @@
 		C54C42511BDE77BB003E644D /* ExtensionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C424D1BDE77BB003E644D /* ExtensionMessage.swift */; };
 		C54C42531BDE77BB003E644D /* ExtensionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C424E1BDE77BB003E644D /* ExtensionRequest.swift */; };
 		C54C42541BDE77BB003E644D /* ExtensionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C424E1BDE77BB003E644D /* ExtensionRequest.swift */; };
-		C54C42561BDE77BB003E644D /* ExtensionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C424F1BDE77BB003E644D /* ExtensionResponse.swift */; };
-		C54C42571BDE77BB003E644D /* ExtensionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C424F1BDE77BB003E644D /* ExtensionResponse.swift */; };
 		C54C425A1BDE77D3003E644D /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C42591BDE77D3003E644D /* Asset.swift */; };
 		C54C425B1BDE77D3003E644D /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C42591BDE77D3003E644D /* Asset.swift */; };
 		C54C42631BDE8AEC003E644D /* Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C42621BDE8AEC003E644D /* Authorization.swift */; };
@@ -673,7 +669,6 @@
 		C54C423D1BDE6260003E644D /* Archive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
 		C54C424D1BDE77BB003E644D /* ExtensionMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionMessage.swift; sourceTree = "<group>"; };
 		C54C424E1BDE77BB003E644D /* ExtensionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionRequest.swift; sourceTree = "<group>"; };
-		C54C424F1BDE77BB003E644D /* ExtensionResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionResponse.swift; sourceTree = "<group>"; };
 		C54C42591BDE77D3003E644D /* Asset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
 		C54C425D1BDE8182003E644D /* Today-Bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Today-Bridge.h"; sourceTree = "<group>"; };
 		C54C42621BDE8AEC003E644D /* Authorization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authorization.swift; sourceTree = "<group>"; };
@@ -1477,7 +1472,6 @@
 				5BA432A81A3F3F3D00B53BC7 /* WLConfirmView.h */,
 				5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */,
 				C5B91A5E1BB4177B000E08E7 /* WLConfirmView.xib */,
-				5B211FB11C087137000EC3DB /* WLEditingConfirmView.xib */,
 			);
 			name = WLConfirmView;
 			sourceTree = "<group>";
@@ -2463,7 +2457,6 @@
 				C54C423D1BDE6260003E644D /* Archive.swift */,
 				C54C424D1BDE77BB003E644D /* ExtensionMessage.swift */,
 				C54C424E1BDE77BB003E644D /* ExtensionRequest.swift */,
-				C54C424F1BDE77BB003E644D /* ExtensionResponse.swift */,
 				C5294E771C0B6241001CE272 /* ExtensionEntry.swift */,
 				C54C42591BDE77D3003E644D /* Asset.swift */,
 				C532691A1BF200DD00E2D30A /* Notifier.swift */,
@@ -2749,7 +2742,7 @@
 				C5A6150E1B9DC5EA009B92EF /* WLMultipleAddressBookRecordCell.xib in Resources */,
 				C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B7591DF1BAAEF7800967AAA /* WLReportList.plist in Resources */,
-				5B211FB21C087137000EC3DB /* WLEditingConfirmView.xib in Resources */,
+				5B211FB21C087137000EC3DB /* (null) in Resources */,
 				C5BEC38D1B8F129100499EEA /* logo_and_caption_orange@3x.png in Resources */,
 				C5A9CC8F1B9482C30084D0F5 /* WLMessageCell.xib in Resources */,
 				C5BEC3B81B8F17B300499EEA /* WLLaunchScreenViewController.xib in Resources */,
@@ -2883,7 +2876,6 @@
 				C5AA71C51BE3AF1B00EA106A /* Contribution.swift in Sources */,
 				C55BE8C41C030B26006B04FC /* NSObject+Ext.swift in Sources */,
 				C5AA71CB1BE3AF1B00EA106A /* Wrap.swift in Sources */,
-				C54C42571BDE77BB003E644D /* ExtensionResponse.swift in Sources */,
 				C5F076671BE2835400021FAE /* EntryContext.swift in Sources */,
 				C54604C61C08852D00FB2303 /* Notifier.swift in Sources */,
 				C5060D1B1BEBA7E2007FFD5B /* String+Ext.swift in Sources */,
@@ -2905,7 +2897,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C546050E1C08C80100FB2303 /* ExtensionRequest.swift in Sources */,
-				C546050F1C08C80100FB2303 /* ExtensionResponse.swift in Sources */,
 				C5294E8E1C0B8C33001CE272 /* WCSession+DefinedMessages.swift in Sources */,
 				C54605261C08C8CB00FB2303 /* NSDate+Ext.swift in Sources */,
 				C54605241C08C8CB00FB2303 /* String+Ext.swift in Sources */,
@@ -3146,7 +3137,6 @@
 				C5C20BDC1A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
 				C5D7FE951B501CDE00746908 /* WLSoundPlayer.m in Sources */,
 				C53DC22C1AA7637C00D2E4C0 /* WLUploadingView.m in Sources */,
-				C54C42561BDE77BB003E644D /* ExtensionResponse.swift in Sources */,
 				C5BEE0EA1B2AC8C300D3CF70 /* WLNotificationCenter.m in Sources */,
 				C51E34EA1BD8EB4100C6F678 /* SeparatorView.swift in Sources */,
 				C54AF70719B8C491006F7EDB /* WLToast.m in Sources */,

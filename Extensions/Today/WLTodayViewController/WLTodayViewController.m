@@ -194,7 +194,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 }
 
 - (IBAction)singUpClick:(id)sender {
-    ExtensionRequest *request = [[ExtensionRequest alloc] initWithAction:@"authorize" userInfo:nil];
+    ExtensionRequest *request = [[ExtensionRequest alloc] initWithAction:@"authorize" parameters:nil];
     NSURL *url = [request serializedURL];
     if (url) {
         [self.extensionContext openURL:url completionHandler:NULL];
@@ -225,7 +225,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
     if (contribution.identifier == nil) {
         return;
     }
-    ExtensionRequest *request = [[ExtensionRequest alloc] initWithAction:@"presentEntry" userInfo:contribution.serializeReference];
+    ExtensionRequest *request = [[ExtensionRequest alloc] initWithAction:@"presentEntry" parameters:contribution.serializeReference];
     NSURL *url = [request serializedURL];
     if (url) {
         [self.extensionContext openURL:url completionHandler:NULL];

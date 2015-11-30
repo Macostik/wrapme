@@ -34,7 +34,6 @@
 @implementation WLAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [DDLog addLogger:[DDTTYLogger sharedInstance]];
     WLLog(@"meWrap - API environment initialized: %@", [Environment currentEnvironment]);
     
     [NSKeyedUnarchiver setClass:[Authorization class] forClassName:@"WLAuthorization"];
@@ -267,7 +266,7 @@
         }
         ExtensionRequest *request = [ExtensionRequest deserialize:components[components.count - 1]];
         if ([request.action isEqualToString:@"presentEntry"]) {
-            [[EventualEntryPresenter sharedPresenter] presentEntry:request.userInfo];
+            [[EventualEntryPresenter sharedPresenter] presentEntry:request.parameters];
         }
     }
     return YES;
@@ -336,14 +335,19 @@
     onceToken = 0;
     UIBackgroundTaskIdentifier task = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         dispatch_once(&onceToken, ^{
-            if (replyHandler) replyHandler(@{@"response":[[ExtensionResponse failure:@"Background task expired."] toDictionary]});
+            if (replyHandler) replyHandler(@{@"error":[[[ExtensionError alloc] initWithMessage:@"Background task expired."] toDictionary]});
         });
     }];
     
     ExtensionRequest *request = [ExtensionRequest fromDictionary:[message dictionaryForKey:@"request"]];
-    [request perform:^ (ExtensionResponse *response) {
+    [request perform:^(ExtensionReply *reply) {
         dispatch_once(&onceToken, ^{
-            if (replyHandler) replyHandler(@{@"response":[response toDictionary]});
+            if (replyHandler) replyHandler(@{@"success":[reply toDictionary]});
+        });
+        [[UIApplication sharedApplication] endBackgroundTask:task];
+    } failure:^(ExtensionError *error) {
+        dispatch_once(&onceToken, ^{
+            if (replyHandler) replyHandler(@{@"error":[error toDictionary]});
         });
         [[UIApplication sharedApplication] endBackgroundTask:task];
     }];

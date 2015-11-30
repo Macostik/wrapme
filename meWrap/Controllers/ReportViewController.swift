@@ -85,7 +85,7 @@ struct ReportItem {
     let v_code: String?
     let indent: CGFloat?
     
-    init?(attribute:Dictionary<String, AnyObject>) throws {
+    init?(attribute:[String : AnyObject]) throws {
         
         title = attribute["title"] as? String
         fontSize = attribute["fontSize"] as? CGFloat
@@ -108,7 +108,7 @@ struct ReportItem {
             }
             for dict in content {
                 do {
-                    let entry = try ReportItem(attribute: dict as! Dictionary<String, AnyObject>)
+                    let entry = try ReportItem(attribute: dict as! [String : AnyObject])
                     container.append(entry!)
                 } catch InformationError.MissingError(let description) {
                     print("\(description)")

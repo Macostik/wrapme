@@ -9,7 +9,6 @@
 import UIKit
 
 class ExtensionMessage: NSObject {
-    var userInfo: [String : AnyObject]?
     
     required override init() {
     }
@@ -21,15 +20,11 @@ class ExtensionMessage: NSObject {
     }
     
     func fromDictionary(dictionary: [String : AnyObject]) {
-        userInfo = dictionary["userInfo"] as? [String : AnyObject]
+        
     }
     
     func toDictionary() -> [String : AnyObject] {
-        var dictionary = [String : AnyObject]()
-        if let userInfo = userInfo {
-            dictionary["userInfo"] = userInfo
-        }
-        return dictionary
+        return [String : AnyObject]()
     }
     
     class func deserialize(string: String) -> Self? {

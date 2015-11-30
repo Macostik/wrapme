@@ -47,6 +47,7 @@ class ImageView: UIImageView {
     
     var url: String? {
         didSet {
+            image = nil
             if let url = url where !url.isEmpty {
                 setDefaultIconViewHidden(true)
                 ImageFetcher.defaultFetcher.enqueue(url, receiver: self)

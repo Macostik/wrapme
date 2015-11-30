@@ -23,21 +23,16 @@ class ExtensionEntry: ExtensionMessage {
 
 class ExtensionUser: ExtensionEntry {
     var name: String?
-    var avatar: Asset?
+    var avatar: String?
     override func fromDictionary(dictionary: [String : AnyObject]) {
         super.fromDictionary(dictionary)
         name = dictionary["name"] as? String
-        if let avatar = dictionary["asset"] as? NSData {
-            do {
-                self.avatar = try Asset(json: avatar)
-            } catch {
-            }
-        }
+        avatar = dictionary["avatar"] as? String
     }
     override func toDictionary() -> [String : AnyObject] {
         var dictionary = super.toDictionary()
         dictionary["name"] = name ?? ""
-        dictionary["avatar"] = avatar?.JSONValue()
+        dictionary["avatar"] = avatar ?? ""
         return dictionary
     }
 }
@@ -78,7 +73,7 @@ class ExtensionWrap: ExtensionContribution {
 
 class ExtensionCandy: ExtensionContribution {
     var comments = [ExtensionComment]()
-    var asset: Asset?
+    var asset: String?
     var wrap: ExtensionWrap?
     var type: MediaType = .Photo
     override func fromDictionary(dictionary: [String : AnyObject]) {
@@ -88,12 +83,7 @@ class ExtensionCandy: ExtensionContribution {
                 return ExtensionComment.fromDictionary(dictionary)
             })
         }
-        if let asset = dictionary["asset"] as? NSData {
-            do {
-                self.asset = try Asset(json: asset)
-            } catch {
-            }
-        }
+        asset = dictionary["asset"] as? String
         if let wrap = dictionary["wrap"] as? [String : AnyObject] {
             self.wrap = ExtensionWrap.fromDictionary(wrap)
         }
@@ -106,7 +96,7 @@ class ExtensionCandy: ExtensionContribution {
         dictionary["comments"] = comments.map({ (comment) -> [String : AnyObject] in
             return comment.toDictionary()
         })
-        dictionary["asset"] = asset?.JSONValue()
+        dictionary["asset"] = asset ?? ""
         dictionary["wrap"] = wrap?.toDictionary() ?? []
         dictionary["type"] = Int(type.rawValue)
         return dictionary

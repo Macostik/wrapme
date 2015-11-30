@@ -10,20 +10,14 @@ import Foundation
 import WatchConnectivity
 
 extension WCSession {
-    func performAction(action: Selector, parameters: Dictionary<String,AnyObject>?, success:((Dictionary<String,AnyObject>?) -> Void)?, failure:((NSError?) -> Void)?) {
+    func performAction(action: String, parameters: Dictionary<String,AnyObject>?, success:((Dictionary<String,AnyObject>?) -> Void)?, failure:((NSError?) -> Void)?) {
         
-        let request = ExtensionRequest(action: NSStringFromSelector(action), userInfo: parameters)
-        guard let dictionary = request.serialize() else {
-            failure?(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey:"cannot serialize message"]))
-            return
-        }
-        sendMessage(["request":dictionary], replyHandler: { (replyMessage) -> Void in
-            guard let dictionary = replyMessage["response"] as? String else {
+        let request = ExtensionRequest(action: action, userInfo: parameters)
+        sendMessage(["request":request.toDictionary()], replyHandler: { (replyMessage) -> Void in
+            guard let dictionary = replyMessage["response"] as? [String : AnyObject] else {
                 return
             }
-            guard let response = ExtensionResponse.deserialize(dictionary) else {
-                return
-            }
+            let response = ExtensionResponse.fromDictionary(dictionary)
             if response.success {
                 success?(response.userInfo)
             } else {

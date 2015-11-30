@@ -59,6 +59,13 @@ class WatchExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     
     // MARK: - WCSessionDelegate
     
+    func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
+        if let response = message["response"] as? [String : AnyObject] {
+            let response = ExtensionResponse.fromDictionary(response)
+            
+        }
+    }
+    
     func session(session: WCSession, didReceiveFile file: WCSessionFile) {
         let manager = NSFileManager.defaultManager()
         let fromURL = file.fileURL

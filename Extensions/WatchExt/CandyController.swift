@@ -20,7 +20,7 @@ class CommentRow: NSObject {
     var comment: ExtensionComment? {
         didSet {
             guard let comment = comment else { return }
-            avatar.setURL(comment.contributor?.avatar?.small)
+            avatar.setURL(comment.contributor?.avatar)
             contributorNameLabel.setText(comment.contributor?.name)
             text.setText(comment.text)
             dateLabel.setText(comment.createdAt?.timeAgoStringAtAMPM())
@@ -53,7 +53,7 @@ class CandyController: WKInterfaceController {
         photoByLabel.setText(String(format: (candy.isVideo ? "formatted_video_by" : "formatted_photo_by").ls, candy.contributor?.name ?? ""))
         wrapNameLabel.setText(candy.wrap?.name)
         dateLabel.setText(candy.createdAt?.timeAgoStringAtAMPM())
-        image.setURL(candy.asset?.small)
+        image.setURL(candy.asset)
         let comments = candy.comments
         table.setNumberOfRows(comments.count, withRowType: "comment")
         for (index, comment) in comments.enumerate() {

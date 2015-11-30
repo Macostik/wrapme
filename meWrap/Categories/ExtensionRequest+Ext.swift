@@ -107,30 +107,34 @@ extension ExtensionRequest {
                 update.type = "candy"
                 candy = _candy
             }
-            update.candy = candy?.extensionCandy()
+            update.candy = candy?.extensionCandy(includeComments: false)
             return update.toDictionary()
         }
         completionHandler?(ExtensionResponse.success(nil, userInfo: ["updates":updates]))
     }
+    
+    func getCandy(completionHandler: (ExtensionResponse -> Void)?) {
+        completionHandler?(ExtensionResponse.success(nil))
+    }
 }
 
 extension Candy {
-    func extensionCandy() -> ExtensionCandy {
+    func extensionCandy(includeComments includeComments: Bool) -> ExtensionCandy {
         let candy = ExtensionCandy()
         candy.uid = identifier ?? ""
         let contributor = ExtensionUser()
         contributor.uid = self.contributor?.identifier ?? ""
         contributor.name = self.contributor?.name
-        contributor.avatar = self.contributor?.picture
+        contributor.avatar = self.contributor?.picture?.small
         candy.contributor = contributor
         candy.updatedAt = updatedAt
         candy.createdAt = createdAt
-        candy.asset = picture
+        candy.asset = picture?.small
         let wrap = ExtensionWrap()
         wrap.uid = self.wrap?.identifier ?? ""
         wrap.name = self.wrap?.name
         candy.wrap = wrap
-        if let comments = comments as? Set<Comment> {
+        if let comments = comments as? Set<Comment> where includeComments {
             candy.comments = Array(comments).map({ (comment) -> ExtensionComment in
                 return comment.extensionComment()
             })
@@ -147,7 +151,7 @@ extension Comment {
         let contributor = ExtensionUser()
         contributor.uid = self.contributor?.identifier ?? ""
         contributor.name = self.contributor?.name
-        contributor.avatar = self.contributor?.picture
+        contributor.avatar = self.contributor?.picture?.small
         comment.contributor = contributor
         comment.updatedAt = updatedAt
         comment.createdAt = createdAt

@@ -336,14 +336,14 @@
     onceToken = 0;
     UIBackgroundTaskIdentifier task = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         dispatch_once(&onceToken, ^{
-            if (replyHandler) replyHandler(@{@"response":[[ExtensionResponse failure:@"Background task expired."] serialize]});
+            if (replyHandler) replyHandler(@{@"response":[[ExtensionResponse failure:@"Background task expired."] toDictionary]});
         });
     }];
     
-    ExtensionRequest *request = [ExtensionRequest deserialize:[message stringForKey:@"request"]];
+    ExtensionRequest *request = [ExtensionRequest fromDictionary:[message dictionaryForKey:@"request"]];
     [request perform:^ (ExtensionResponse *response) {
         dispatch_once(&onceToken, ^{
-            if (replyHandler) replyHandler(@{@"response":[response serialize]});
+            if (replyHandler) replyHandler(@{@"response":[response toDictionary]});
         });
         [[UIApplication sharedApplication] endBackgroundTask:task];
     }];

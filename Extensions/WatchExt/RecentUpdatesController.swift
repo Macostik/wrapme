@@ -28,8 +28,8 @@ class CommentUpdateRow: RecentUpdateRow {
             guard let update = update else { return }
             guard let comment = update.comment else { return }
             guard let candy = update.candy else { return }
-            avatar.setURL(comment.contributor?.avatar?.small)
-            mainGroup.setURL(candy.asset?.small)
+            avatar.setURL(comment.contributor?.avatar)
+            mainGroup.setURL(candy.asset)
             photoByLabel.setText(String(format: (candy.isVideo ? "formatted_video_by" : "formatted_photo_by").ls, candy.contributor?.name ?? ""))
             wrapNameLabel.setText(candy.wrap?.name)
             text.setText("\"\(comment.text ?? "")\"")
@@ -54,7 +54,7 @@ class CandyUpdateRow: RecentUpdateRow {
             photoByLabel.setText(String(format: (candy.isVideo ? "formatted_video_by" : "formatted_photo_by").ls, candy.contributor?.name ?? ""))
             wrapNameLabel.setText(candy.wrap?.name)
             dateLabel.setText(comment.createdAt?.timeAgoStringAtAMPM())
-            group.setURL(candy.asset?.small)
+            group.setURL(candy.asset)
         }
     }
 }

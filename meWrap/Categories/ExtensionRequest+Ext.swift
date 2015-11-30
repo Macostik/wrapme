@@ -32,8 +32,8 @@ extension ExtensionRequest {
         case "handleNotification":
             handleNotification(completionHandler)
             break
-        case "dataSync":
-            dataSync(completionHandler)
+        case "recentUpdates":
+            recentUpdates(completionHandler)
             break
         default:
             completionHandler?(ExtensionResponse.failure("Unknown action."))
@@ -55,58 +55,107 @@ extension ExtensionRequest {
     }
     
     func postComment(completionHandler: (ExtensionResponse -> Void)?) {
-//        if let userInfo = userInfo,
-//            let candyReference = userInfo["candy"] as? [String : String],
-//            let candy = Candy.deserializeReference(candyReference),
-//            let text = userInfo["text"] {
-//            [candy uploadComment:text success:^(Comment *comment) {
-//                completionHandler?(ExtensionResponse.success(nil))
-//                } failure:^(NSError *error) {
-//                completionHandler?(ExtensionResponse.failure(error.localizedDescription])
-//                }]
-//        } else {
-//            completionHandler?(ExtensionResponse.failure("Photo isn't available."))
-//        }
+        
+        if let userInfo = userInfo,
+            let candyReference = userInfo["candy"] as? [String : String],
+            let candy = Candy.deserializeReference(candyReference),
+            let text = userInfo["text"] as? String {
+                candy.uploadComment(text)
+            completionHandler?(ExtensionResponse.success(nil))
+        } else {
+            completionHandler?(ExtensionResponse.failure("Photo isn't available."))
+        }
     }
     
     func postMessage(completionHandler: (ExtensionResponse -> Void)?) {
-//        if let userInfo = userInfo,
-//            let wrapReference = userInfo["wrap"] as? [String : String],
-//            let wrap = Wrap.deserializeReference(wrapReference),
-//            let text = userInfo["text"] {
-//                [wrap uploadMessage:text success:^(Message *message) {
-//                    completionHandler?(ExtensionResponse.success(nil))
-//                    } failure:^(NSError *error) {
-//                    completionHandler?(ExtensionResponse.failure(error.localizedDescription])
-//                    }]
-//        } else {
-//            completionHandler?(ExtensionResponse.failure("Wrap isn't available."))
-//        }
+        if let userInfo = userInfo,
+            let wrapReference = userInfo["wrap"] as? [String : String],
+            let wrap = Wrap.deserializeReference(wrapReference),
+            let text = userInfo["text"] as? String {
+                wrap.uploadMessage(text)
+                completionHandler?(ExtensionResponse.success(nil))
+        } else {
+            completionHandler?(ExtensionResponse.failure("Wrap isn't available."))
+        }
     }
     
     func handleNotification(completionHandler: (ExtensionResponse -> Void)?) {
-        guard let notification = userInfo else {
-            return
-        }
-        WLNotificationCenter.defaultCenter().handleRemoteNotification(notification, success: { (notification) -> Void in
+        completionHandler?(ExtensionResponse.success(nil))
+//        guard let notification = userInfo else {
+//            return
+//        }
+//        
+//        WLNotificationCenter.defaultCenter().handleRemoteNotification(notification, success: { (notification) -> Void in
 //            if let entry = (notification as? WLNotification)?.entry {
 //                completionHandler?(ExtensionResponse.success(nil, userInfo: ["entry":entry.serializeReference()]))
 //            } else {
 //                completionHandler?(ExtensionResponse.failure("No data"))
 //            }
-            }) { (error) -> Void in
-                completionHandler?(ExtensionResponse.failure(error?.localizedDescription))
-        }
+//            }) { (error) -> Void in
+//                completionHandler?(ExtensionResponse.failure(error?.localizedDescription))
+//        }
     }
     
-    func dataSync(completionHandler: (ExtensionResponse -> Void)?) {
-        if #available(iOS 9.0, *) {
-            if WCSession.defaultSession().paired && WCSession.defaultSession().watchAppInstalled {
-                // TODO:
+    func recentUpdates(completionHandler: (ExtensionResponse -> Void)?) {
+        let updates = Contribution.recentContributions().map { (c) -> [String:AnyObject] in
+            let update = ExtensionUpdate()
+            var candy: Candy?
+            if let comment = c as? Comment {
+                update.type = "comment"
+                candy = comment.candy
+            } else if let _candy = c as? Candy {
+                update.type = "candy"
+                candy = _candy
             }
-        } else {
-            // Fallback on earlier versions
+            update.candy = candy?.extensionCandy(includeComments: false)
+            return update.toDictionary()
         }
+        completionHandler?(ExtensionResponse.success(nil, userInfo: ["updates":updates]))
+    }
+    
+    func getCandy(completionHandler: (ExtensionResponse -> Void)?) {
         completionHandler?(ExtensionResponse.success(nil))
+    }
+}
+
+extension Candy {
+    func extensionCandy(includeComments includeComments: Bool) -> ExtensionCandy {
+        let candy = ExtensionCandy()
+        candy.uid = identifier ?? ""
+        let contributor = ExtensionUser()
+        contributor.uid = self.contributor?.identifier ?? ""
+        contributor.name = self.contributor?.name
+        contributor.avatar = self.contributor?.picture?.small
+        candy.contributor = contributor
+        candy.updatedAt = updatedAt
+        candy.createdAt = createdAt
+        candy.asset = picture?.small
+        let wrap = ExtensionWrap()
+        wrap.uid = self.wrap?.identifier ?? ""
+        wrap.name = self.wrap?.name
+        candy.wrap = wrap
+        if let comments = comments as? Set<Comment> where includeComments {
+            candy.comments = Array(comments).map({ (comment) -> ExtensionComment in
+                return comment.extensionComment()
+            })
+        }
+        candy.type = mediaType
+        return candy
+    }
+}
+
+extension Comment {
+    func extensionComment() -> ExtensionComment {
+        let comment = ExtensionComment()
+        comment.uid = identifier ?? ""
+        let contributor = ExtensionUser()
+        contributor.uid = self.contributor?.identifier ?? ""
+        contributor.name = self.contributor?.name
+        contributor.avatar = self.contributor?.picture?.small
+        comment.contributor = contributor
+        comment.updatedAt = updatedAt
+        comment.createdAt = createdAt
+        comment.text = text
+        return comment
     }
 }

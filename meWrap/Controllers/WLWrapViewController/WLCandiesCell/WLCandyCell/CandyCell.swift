@@ -10,7 +10,7 @@ import Foundation
 
 class CandyCell: StreamReusableView {
     
-    @IBOutlet weak var imageView: WLImageView!
+    @IBOutlet weak var imageView: ImageView!
     
     @IBOutlet weak var commentLabel: UILabel!
     

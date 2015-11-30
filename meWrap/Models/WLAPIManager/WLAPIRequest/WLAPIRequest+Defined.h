@@ -8,6 +8,8 @@
 
 #import "WLAPIRequest.h"
 
+@class Wrap, Candy, User, Comment, Message;
+
 @interface WLAPIRequest (Defined)
 
 + (instancetype)candy:(Candy *)candy;
@@ -49,10 +51,6 @@
 + (instancetype)uploadWrap:(Wrap *)wrap;
 
 + (instancetype)updateUser:(User *)user email:(NSString*)email;
-
-+ (instancetype)uploadCandy:(Candy *)candy;
-
-+ (instancetype)editCandy:(Candy *)candy;
 
 + (instancetype)updateWrap:(Wrap *)wrap;
 

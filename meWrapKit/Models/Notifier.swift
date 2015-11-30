@@ -8,14 +8,18 @@
 
 import Foundation
 
-@objc protocol Notifying {
-    optional func notifierPriority(notifier: Notifier) -> Int
+func ==(lhs: NotifyReceiverWrapper, rhs: NotifyReceiverWrapper) -> Bool {
+    return lhs.receiver === rhs.receiver
 }
 
-class NotifyReceiverWrapper: NSObject {
+class NotifyReceiverWrapper: Hashable {
     weak var receiver: AnyObject?
     init(receiver: AnyObject?) {
         self.receiver = receiver
+    }
+    
+    var hashValue: Int {
+        return receiver?.hashValue ?? 0
     }
 }
 
@@ -25,52 +29,24 @@ class Notifier: NSObject {
     static var PriorityMedium = 0
     static var PriorityLow = 1
     
-    private var receivers = [NotifyReceiverWrapper]()
-    
-    var prioritize: Bool = false
-    
-    func containsReceiver(receiver: AnyObject?) -> Bool {
-        return receivers.contains { (wrapper) -> Bool in
-            return wrapper.receiver === receiver
-        }
-    }
-    
+    var receivers = Set<NotifyReceiverWrapper>()
+        
     func addReceiver(receiver: AnyObject?) {
-        if let receiver = receiver where !containsReceiver(receiver) {
-            if let _ = receiver.notifierPriority?(self) {
-                prioritize = true
-            }
-            receivers.append(NotifyReceiverWrapper(receiver: receiver))
+        if let receiver = receiver {
+            receivers.insert(NotifyReceiverWrapper(receiver: receiver))
         }
     }
     
     func removeReceiver(receiver: AnyObject?) {
-        let index = receivers.indexOf({ (wrapper) -> Bool in
-            return wrapper.receiver === receiver
-        })
-        if let index = index {
+        if let index = receivers.indexOf({ $0.receiver === receiver }) {
             receivers.removeAtIndex(index)
         }
     }
     
-    func notify(enumerator: AnyObject -> Void) {
-        
-        var receivers: [NotifyReceiverWrapper]?
-        if prioritize {
-            receivers = self.receivers.sort({[unowned self] (r1, r2) -> Bool in
-                let first = r1.receiver?.notifierPriority?(self) ?? Notifier.PriorityMedium
-                let second = r2.receiver?.notifierPriority?(self) ?? Notifier.PriorityMedium
-                return first < second
-            })
-        } else {
-            receivers = self.receivers
-        }
-        
-        if let receivers = receivers {
-            for wrapper in receivers {
-                if let receiver = wrapper.receiver {
-                    enumerator(receiver)
-                }
+    func notify(enumerator: (receiver: AnyObject) -> Void) {
+        for wrapper in self.receivers {
+            if let receiver = wrapper.receiver {
+                enumerator(receiver: receiver)
             }
         }
     }

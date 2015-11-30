@@ -176,6 +176,18 @@
 // MARK: - User Actions
 
 - (IBAction)addPhoto:(id)sender {
+//    NSString *uuid = [User currentUser].identifier;
+//    NSString *channel = self.wrap.identifier;
+//    NSString *group = [NSString stringWithFormat:@"cg-%@", uuid];
+//    NSLog(@"uuid: %@, channel: %@, group: %@", uuid, channel, group);
+//    [[PubNub sharedInstance] setState:@{@"test_key":@"test_value"} forUUID:uuid onChannel:channel withCompletion:^(PNClientStateUpdateStatus *status) {
+//        if (!status.isError) {
+//            NSLog(@"state changed: %@", status.data);
+//            [[PubNub sharedInstance] hereNowForChannelGroup:group withCompletion:^(PNPresenceChannelGroupHereNowResult *result, PNErrorStatus *status) {
+//                NSLog(@"hereNow: %@", result.data.channels);
+//            }];
+//        }
+//    }];
     __weak typeof(self)weakSelf = self;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
         if ([weakSelf.delegate respondsToSelector:@selector(mediaViewControllerDidAddPhoto:)]) {

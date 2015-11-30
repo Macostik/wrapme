@@ -6,5 +6,5 @@
 //  Copyright © 2015 Ravenpod. All rights reserved.
 //
 
-#import "Common-Bridge.h"
-#import "WLImageCache.h"
+#import "WLEntryKeys.h"
+#import "WLCommonEnums.h"

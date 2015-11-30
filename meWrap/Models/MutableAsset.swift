@@ -45,15 +45,15 @@ class MutableAsset: Asset {
     }
     
     func setImage(image: UIImage) {
-        let cache = WLImageCache.uploadingCache()
+        let cache = ImageCache.uploadingCache
         let isPad = UI_USER_INTERFACE_IDIOM() == .Pad
         let isCandy = mode == .Default
         let smallSize: CGFloat = isPad ? (isCandy ? 480 : 160) : (isCandy ? 240 : 160)
-        let largePath = cache.pathWithIdentifier(cache.setImage(image))
+        let largePath = cache.getPath(cache.setImage(image))
         original = largePath
         large = largePath
         let thumbnail = image.thumbnail(smallSize)
-        small = cache.pathWithIdentifier(cache.setImage(thumbnail))
+        small = cache.getPath(cache.setImage(thumbnail))
     }
     
     func setImage(image: UIImage, completion: MutableAsset? -> Void) {
@@ -72,13 +72,13 @@ class MutableAsset: Asset {
         imageGenerator.appliesPreferredTrackTransform = true
         let duration = CMTimeGetSeconds(asset.duration)
         let time = CMTimeMakeWithSeconds(duration/2.0, 600)
-        let cache = WLImageCache.defaultCache()
+        let cache = ImageCache.defaultCache
         do {
             let quartzImage = try imageGenerator.copyCGImageAtTime(time, actualTime: nil)
             let image = UIImage(CGImage: quartzImage)
-            large = cache.pathWithIdentifier(cache.setImage(image))
+            large = cache.getPath(cache.setImage(image))
             let thumbnail = image.thumbnail(240)
-            small = cache.pathWithIdentifier(cache.setImage(thumbnail))
+            small = cache.getPath(cache.setImage(thumbnail))
         } catch {
         }
     }

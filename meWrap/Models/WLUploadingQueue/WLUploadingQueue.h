@@ -9,8 +9,7 @@
 #import "WLBroadcaster.h"
 #import "DefinedBlocks.h"
 
-@class WLUploadingQueue;
-@class WLUploading;
+@class WLUploadingQueue, Uploading;
 
 @protocol WLUploadingQueueReceiver <WLBroadcastReceiver>
 

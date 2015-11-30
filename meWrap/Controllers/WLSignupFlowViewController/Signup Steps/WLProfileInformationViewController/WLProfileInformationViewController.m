@@ -9,19 +9,17 @@
 #import "WLProfileInformationViewController.h"
 #import "WLKeyboard.h"
 #import "WLStillPictureViewController.h"
-#import "WLProfileEditSession.h"
 #import "WLButton.h"
-#import "WLImageView.h"
 
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
-@property (strong, nonatomic) IBOutlet WLImageView *profileImageView;
+@property (strong, nonatomic) IBOutlet ImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet UIButton *createImageButton;
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *addPhotoLabel;
 @property (weak, nonatomic) User * user;
 @property (strong, nonatomic) IBOutlet WLButton *continueButton;
-@property (strong, nonatomic) WLProfileEditSession *editSession;
+@property (strong, nonatomic) ProfileEditSession *editSession;
 
 @end
 
@@ -36,7 +34,7 @@
     
 	self.profileImageView.url = self.user.picture.large;
     
-    self.editSession = [[WLProfileEditSession alloc] initWithUser:self.user];
+    self.editSession = [[ProfileEditSession alloc] initWithUser:self.user];
 	
 	[self verifyContinueButton];
 }
@@ -77,7 +75,7 @@
 }
 
 - (void)verifyContinueButton {
-	self.continueButton.active = self.editSession.url.nonempty && self.editSession.name.nonempty;
+	self.continueButton.active = self.editSession.avatarSession.hasValidChanges && self.editSession.nameSession.hasValidChanges;
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate
@@ -89,7 +87,7 @@
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
 	Asset *picture = [[pictures lastObject] uploadablePicture:NO];
 	self.profileImageView.url = picture.large;
-    self.editSession.url = picture.large;
+    self.editSession.avatarSession.changedValue = picture.large;
     [self verifyContinueButton];
     self.addPhotoLabel.hidden = picture.medium.nonempty;
 	[controller.presentingViewController dismissViewControllerAnimated:NO completion:nil];
@@ -108,12 +106,12 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-	self.editSession.name = self.nameTextField.text;
+	self.editSession.nameSession.changedValue = self.nameTextField.text;
 	[self verifyContinueButton];
 }
 
 - (IBAction)nameChanged:(id)sender {
-    self.editSession.name = self.nameTextField.text;
+    self.editSession.nameSession.changedValue = self.nameTextField.text;
     [self verifyContinueButton];
 }
 

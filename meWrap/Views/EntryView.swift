@@ -29,7 +29,7 @@ class EntryView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         if let name = self.dynamicType.entityName() {
-            EntryNotifier.notifierForName(name)
+            EntryNotifier.notifierForName(name).addReceiver(self)
         }
     }
 }
@@ -47,7 +47,7 @@ extension EntryView: EntryNotifying {
 
 class UserView: EntryView {
     
-    @IBOutlet weak var avatarView: WLImageView?
+    @IBOutlet weak var avatarView: ImageView?
     
     @IBOutlet weak var nameLabel: UILabel?
     

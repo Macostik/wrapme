@@ -8,7 +8,6 @@
 
 #import "WLToast.h"
 #import "WLLabel.h"
-#import "UIColor+CustomColors.h"
 
 @implementation WLToastAppearance
 
@@ -24,7 +23,7 @@
     self = [super init];
     if (self) {
 		self.shouldShowIcon = YES;
-        self.backgroundColor = [UIColor colorWithHexString:@"#CB5309"];
+        self.backgroundColor = [[UIColor alloc] initWithHex:0xcb5309 alpha:1];
         self.textColor = [UIColor whiteColor];
     }
     return self;

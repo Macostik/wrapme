@@ -7,12 +7,11 @@
 //
 
 #import "WLMessageCell.h"
-#import "WLImageView.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
 @interface WLMessageCell () <EntryNotifying>
 
-@property (weak, nonatomic) IBOutlet WLImageView *avatarView;
+@property (weak, nonatomic) IBOutlet ImageView *avatarView;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *textView;

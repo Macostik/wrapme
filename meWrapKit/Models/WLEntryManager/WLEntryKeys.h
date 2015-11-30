@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 static NSString* WLCandyTypeKey = @"candy_type";
 static NSString* WLCommentsKey = @"comments";
 

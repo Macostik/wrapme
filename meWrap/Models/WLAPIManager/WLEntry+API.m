@@ -9,7 +9,6 @@
 #import "WLCollections.h"
 #import "WLAddressBook.h"
 #import "WLWelcomeViewController.h"
-#import "WLImageCache.h"
 #import "WLAddressBookPhoneNumber.h"
 #import "WLAuthorizationRequest.h"
 #import "WLOperationQueue.h"
@@ -91,34 +90,10 @@
     }
 }
 
-- (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    success(self);
-    return nil;
-}
-
-- (id)update:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    success(self);
-    return nil;
-}
-
-- (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    if (success) success(self);
-    return nil;
-}
-
 - (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     if (success) success(self);
     return nil;
 }
-
-@end
-
-@implementation User (WLAPIManager)
-
-
-@end
-
-@implementation Device (WLAPIManager)
 
 @end
 
@@ -156,34 +131,6 @@
     }
 }
 
-- (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    return [[WLAPIRequest uploadWrap:self] send:success failure:failure];
-}
-
-- (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    if (!self.deletable) {
-        return [[WLAPIRequest leaveWrap:self] send:^(id object) {
-            success(object);
-        } failure:failure];
-    }
-    id operation = nil;
-    switch (self.status) {
-        case WLContributionStatusReady:
-            [self remove];
-            if (success) success(nil);
-            break;
-        case WLContributionStatusInProgress:
-            if (failure) failure([[NSError alloc] initWithMessage:@"wrap_is_uploading".ls]);
-            break;
-        case WLContributionStatusFinished: {
-            operation = [[WLAPIRequest deleteWrap:self] send:success failure:failure];
-        }   break;
-        default:
-            break;
-    }
-    return operation;
-}
-
 - (id)fetch:(WLArrayBlock)success failure:(WLFailureBlock)failure {
     return [self fetch:WLWrapContentTypeRecent success:success failure:failure];
 }
@@ -195,10 +142,6 @@
         success(nil);
     }
     return nil;
-}
-
-- (id)update:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    return [[WLAPIRequest updateWrap:self] send:success failure:failure];
 }
 
 - (id)messagesNewer:(NSDate *)newer success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
@@ -243,104 +186,6 @@
     }
 }
 
-- (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    NSMutableDictionary *metaData = [NSMutableDictionary dictionary];
-    NSString* accept = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@",
-                        [Environment currentEnvironment].version];
-    NSString *contributedAt = [NSString stringWithFormat:@"%f", [self.updatedAt timestamp]];
-    [metaData trySetObject:accept forKey:@"Accept"];
-    [metaData trySetObject:[Authorization currentAuthorization].deviceUID forKey:WLDeviceIDKey];
-    [metaData trySetObject:self.contributor.identifier forKey:WLUserUIDKey];
-    [metaData trySetObject:self.wrap.identifier forKey:WLWrapUIDKey];
-    [metaData trySetObject:self.uploadIdentifier forKey:WLUploadUIDKey];
-    [metaData trySetObject:contributedAt forKey:WLContributedAtKey];
-    Comment *firstComment = [[self.comments where:@"uploading == nil"] anyObject];
-    if (firstComment) {
-        NSString *escapeString = [firstComment.text escapedUnicode];
-        [metaData trySetObject:escapeString forKey:@"message"];
-        [metaData trySetObject:firstComment.uploadIdentifier forKey:@"message_upload_uid"];
-    }
-    
-    [self uploadWithData:metaData success:success failure:failure];
-    
-    return nil;
-}
-
-- (id)update:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    NSMutableDictionary *metaData = [NSMutableDictionary dictionary];
-    NSString* accept = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@",
-                        [Environment currentEnvironment].version];
-    NSString *editedAt = [NSString stringWithFormat:@"%f", [self.updatedAt timestamp]];
-    [metaData trySetObject:accept forKey:@"Accept"];
-    [metaData trySetObject:[Authorization currentAuthorization].deviceUID forKey:WLDeviceIDKey];
-    [metaData trySetObject:[User currentUser].identifier forKey:WLUserUIDKey];
-    [metaData trySetObject:self.wrap.identifier forKey:WLWrapUIDKey];
-    [metaData trySetObject:self.identifier forKey:WLCandyUIDKey];
-    [metaData trySetObject:editedAt forKey:WLEditedAtKey];
-   
-    [self uploadWithData:metaData success:success failure:failure];
-    
-    return nil;
-}
-
-- (void)uploadWithData:(NSDictionary *)metaData success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    NSString *path = self.picture.original;
-    if (path == nil) {
-        [self remove];
-        if (failure) failure([[NSError alloc] initWithCode:ResponseCodeUploadFileNotFound]);
-        return;
-    }
-    if ([path hasPrefix:@"http"]) {
-        if (success) success(self);
-        return;
-    }
-    __weak __typeof(self)weakSelf = self;
-    AWSS3TransferManagerUploadRequest *uploadRequest = [AWSS3TransferManagerUploadRequest new];
-    uploadRequest.bucket = [[Environment currentEnvironment] s3Bucket];
-    uploadRequest.key = [self.picture.original lastPathComponent];
-    uploadRequest.metadata = metaData;
-    if (self.type == MediaTypeVideo) {
-        uploadRequest.contentType = @"video/mp4";
-    } else {
-        uploadRequest.contentType = @"image/jpeg";
-    }
-    uploadRequest.body = [NSURL fileURLWithPath:path];
-    WLLog(@"uploading content: %@ metadata: %@", uploadRequest.contentType, metaData);
-    [[[AWSS3TransferManager defaultS3TransferManager] upload:uploadRequest] continueWithBlock:^id(AWSTask *task) {
-        run_in_main_queue(^{
-            if(weakSelf.wrap.valid && task.completed && task.result)  {
-                success(weakSelf);
-            } else {
-                failure(task.error);
-            }
-        });
-        return task;
-    }];
-}
-
-- (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    id operation = nil;
-    switch (self.status) {
-        case WLContributionStatusReady:
-            [self remove];
-            if (success) success(nil);
-            break;
-        case WLContributionStatusInProgress: {
-            if (failure) failure([[NSError alloc] initWithMessage:(self.isVideo ? @"video_is_uploading" : @"photo_is_uploading").ls]);
-        } break;
-        case WLContributionStatusFinished: {
-            if ([self.identifier isEqualToString:self.uploadIdentifier]) {
-                if (failure) failure([[NSError alloc] initWithMessage:@"publishing_in_progress".ls]);
-            } else {
-                operation = [[WLAPIRequest deleteCandy:self] send:success failure:failure];
-            }
-        } break;
-        default:
-            break;
-    }
-    return operation;
-}
-
 - (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     if (self.uploaded) {
         return [[WLAPIRequest candy:self] send:success failure:failure];
@@ -364,12 +209,14 @@
                 } collectionTitle:[Constants albumName] success:success failure:failure];
             } else {
                 NSURLSessionDownloadTask *task = [[NSURLSession sharedSession] downloadTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                    NSURL* url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"Documents/%@.mp4", [NSString GUID]]];
-                    [[NSFileManager defaultManager] moveItemAtURL:location toURL:url error:nil];
-                    run_in_main_queue(^{
-                        if (error) {
+                    if (error) {
+                        run_in_main_queue(^{
                             if (failure) failure(error);
-                        } else {
+                        });
+                    } else {
+                        NSURL* url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"Documents/%@.mp4", [NSString GUID]]];
+                        [[NSFileManager defaultManager] moveItemAtURL:location toURL:url error:nil];
+                        run_in_main_queue(^{
                             NSError *reachabilityError = nil;
                             [url checkResourceIsReachableAndReturnError:&reachabilityError];
                             if (reachabilityError) {
@@ -385,102 +232,19 @@
                                     if (failure) failure(error);
                                 }];
                             }
-                        }
-                    });
+                        });
+                    }
                 }];
                 [task resume];
             }
         } else {
-            [[WLBlockImageFetching fetchingWithUrl:weakSelf.picture.original] enqueue:^(UIImage *image) {
+            [BlockImageFetching enqueue:self.picture.original success:^(UIImage * image) {
                 [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
                     return [PHAssetChangeRequest creationRequestForAssetFromImage:image];
                 } collectionTitle:[Constants albumName] success:success failure:failure];
             } failure:failure];
         }
     }
-}
-
-@end
-
-@implementation Message (WLAPIManager)
-
-- (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    return [[WLAPIRequest uploadMessage:self] send:success failure:failure];
-}
-
-@end
-
-@implementation Comment (WLAPIManager)
-
-- (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    if (self.candy.uploaded) {
-        return [[WLAPIRequest postComment:self] send:success failure:failure];
-    } else if (failure) {
-        failure(nil);
-    }
-    return nil;
-}
-
-- (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    switch (self.status) {
-        case WLContributionStatusReady:
-            [self remove];
-            if (success) success(nil);
-            break;
-        case WLContributionStatusInProgress:
-            if (failure) failure([[NSError alloc] initWithMessage:@"comment_is_uploading".ls]);
-            break;
-        case WLContributionStatusFinished: {
-            switch (self.candy.status) {
-                case WLContributionStatusReady:
-                    [self remove];
-                    if (success) success(nil);
-                    break;
-                case WLContributionStatusInProgress:
-                    if (failure) failure([[NSError alloc] initWithMessage:(self.candy.isVideo ? @"video_is_uploading" : @"photo_is_uploading").ls]);
-                    break;
-                case WLContributionStatusFinished:
-                    return [[WLAPIRequest deleteComment:self] send:success failure:failure];
-                    break;
-                default:
-                    break;
-            }
-            return nil;
-        }   break;
-        default:
-            break;
-    }
-    return nil;
-}
-
-@end
-
-@implementation NSString (Unicode)
-
-- (NSString *)escapedUnicode {
-    NSData* data = [self dataUsingEncoding:NSUTF32LittleEndianStringEncoding allowLossyConversion:YES];
-    size_t bytesRead = 0;
-    const char* bytes = data.bytes;
-    NSMutableString* encodedString = [NSMutableString string];
-    while (bytesRead < data.length){
-        uint32_t codepoint = *((uint32_t*) &bytes[bytesRead]);
-        if (codepoint > 0x007E) {
-            [self getBytes:&codepoint
-                 maxLength:4
-                usedLength:nil
-                  encoding:NSUTF32StringEncoding
-                   options:0
-                     range:NSMakeRange(0, 0)
-            remainingRange:nil];
-            [encodedString appendFormat:@"\\u{%04x}", codepoint];
-        }
-        else {
-            [encodedString appendFormat:@"%C", (unichar)codepoint];
-        }
-        bytesRead += sizeof(uint32_t);
-    }
-    
-    return encodedString;
 }
 
 @end

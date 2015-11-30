@@ -12,8 +12,19 @@ class ExtensionResponse: ExtensionMessage {
     var success = false
     var message: String?
     
-    override class func archivableProperties() -> Set<String> {
-        return ["message", "success", "userInfo"]
+    override func fromDictionary(dictionary: [String : AnyObject]) {
+        super.fromDictionary(dictionary);
+        message = dictionary["message"] as? String
+        success = (dictionary["success"] as? Bool) ?? false
+    }
+    
+    override func toDictionary() -> [String : AnyObject] {
+        var dictionary = super.toDictionary()
+        if let message = message {
+            dictionary["message"] = message
+        }
+        dictionary["success"] = success
+        return dictionary
     }
     
     convenience init(success: Bool, message: String?, userInfo: Dictionary<String, AnyObject>?) {

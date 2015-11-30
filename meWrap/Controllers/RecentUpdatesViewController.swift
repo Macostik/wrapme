@@ -13,11 +13,11 @@ let PaddingCell: CGFloat = 24.0
 
 class RecentUpdateCell: StreamReusableView {
     
-    @IBOutlet var pictureView: WLImageView!
+    @IBOutlet var pictureView: ImageView!
     @IBOutlet var userNameLabel: UILabel!
     @IBOutlet var inWrapLabel: UILabel!
     @IBOutlet var textView: UILabel!
-    @IBOutlet var wrapImageView: WLImageView!
+    @IBOutlet var wrapImageView: ImageView!
     @IBOutlet var timeLabel: UILabel!
 
     override func setup(entry: AnyObject!) {
@@ -57,7 +57,7 @@ class RecentCandyCell: RecentUpdateCell {
                 userNameLabel.text = String(format: "formatted_edited_by".ls, candy.editor?.name ?? "")
             } else {
                 pictureView.url = candy.contributor?.picture?.small
-                userNameLabel.text = "\(candy.contributor?.name ?? "")) \((candy.isVideo ? "posted_new_video" : "posted_new_photo").ls)"
+                userNameLabel.text = "\(candy.contributor?.name ?? "") \((candy.isVideo ? "posted_new_video" : "posted_new_photo").ls)"
             }
             inWrapLabel.text = candy.wrap?.name
             videoIndicator.hidden = candy.mediaType != .Video

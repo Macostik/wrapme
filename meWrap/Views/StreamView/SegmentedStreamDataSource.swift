@@ -52,7 +52,7 @@ class SegmentedStreamDataSource: StreamDataSource, SegmentedControlDelegate {
 extension SegmentedStreamDataSource {
     // MARK: - SegmentedControlDelegate
     
-    func segmentedControl(control: SegmentedControl!, didSelectSegment segment: Int) {
+    func segmentedControl(control: SegmentedControl, didSelectSegment segment: Int) {
         setCurrentDataSourceAt(segment)
     }
     

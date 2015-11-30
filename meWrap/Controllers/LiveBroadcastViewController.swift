@@ -12,6 +12,8 @@ import AVFoundation
 
 class LiveBroadcastViewController: WLBaseViewController {
     
+    weak var previewLayer: AVCaptureVideoPreviewLayer?
+    
     weak var playerLayer: AVPlayerLayer?
     
     var playerItem: AVPlayerItem?
@@ -99,6 +101,7 @@ class LiveBroadcastViewController: WLBaseViewController {
             layer.videoGravity = AVLayerVideoGravityResizeAspectFill
             view.layer.insertSublayer(layer, atIndex: 0)
             streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
+            previewLayer = layer
         }
         Wrap.notifier().addReceiver(self)
     }
@@ -185,6 +188,7 @@ class LiveBroadcastViewController: WLBaseViewController {
             start()
             sender.hidden = true
             composeBar.hidden = true
+            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "focusing:"))
         }
     }
     
@@ -201,6 +205,56 @@ class LiveBroadcastViewController: WLBaseViewController {
     @IBAction func finishTitleInput(sender: UIButton) {
         composeBar.resignFirstResponder()
         composeBar.setDoneButtonHidden(true)
+    }
+    
+    weak var focusView: UIView?
+    
+    func focusing(sender: UITapGestureRecognizer) {
+        guard let layer = previewLayer, let session = layer.session where session.running else {
+            return
+        }
+        
+        self.focusView?.removeFromSuperview()
+        
+        let point = sender.locationInView(view)
+        let pointOfInterest = layer.captureDevicePointOfInterestForPoint(point)
+        var _device: AVCaptureDevice?
+        for input in session.inputs {
+            if let input = input as? AVCaptureDeviceInput where input.device.hasMediaType(AVMediaTypeVideo) {
+                _device = input.device
+                break
+            }
+        }
+        
+        guard let device = _device else {
+            return
+        }
+        do {
+            try device.lockForConfiguration()
+            if device.focusPointOfInterestSupported && device.isFocusModeSupported(.AutoFocus) {
+                device.focusPointOfInterest = pointOfInterest
+                device.focusMode = .AutoFocus
+            }
+            if device.exposurePointOfInterestSupported && device.isExposureModeSupported(.AutoExpose) {
+                device.exposurePointOfInterest = pointOfInterest
+                device.exposureMode = .AutoExpose
+            }
+            device.unlockForConfiguration()
+            let focusView = UIView(frame: CGRect(x: 0, y: 0, width: 67, height: 67))
+            focusView.center = point
+            focusView.userInteractionEnabled = false
+            focusView.backgroundColor = UIColor.clearColor()
+            focusView.borderColor = Color.orange.colorWithAlphaComponent(0.5)
+            focusView.borderWidth = 1
+            view.addSubview(focusView)
+            self.focusView = focusView
+            UIView.animateWithDuration(0.33, delay: 1.0, options: .CurveEaseInOut, animations: { () -> Void in
+                focusView.alpha = 0.0
+                }) { (_) -> Void in
+                    focusView.removeFromSuperview()
+            }
+        } catch {
+        }
     }
 }
 

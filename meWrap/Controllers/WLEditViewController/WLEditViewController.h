@@ -7,11 +7,10 @@
 //
 
 #import "WLBaseViewController.h"
-#import "WLEditSession.h"
 
-@interface WLEditViewController : WLBaseViewController <WLEditSessionDelegate>
+@interface WLEditViewController : WLBaseViewController <EditSessionDelegate>
 
-@property (strong, nonatomic) WLEditSession *editSession;
+@property (strong, nonatomic) EditSession *editSession;
 
 - (void)setupEditableUserInterface;
 

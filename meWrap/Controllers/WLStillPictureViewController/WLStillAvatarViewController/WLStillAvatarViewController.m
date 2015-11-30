@@ -58,7 +58,7 @@
 
 #pragma mark - AssetsViewControllerDelegate
 
-- (BOOL)quickAssetsViewController:(AssetsViewController *)controller shouldSelectAsset:(PHAsset *)asset {
+- (BOOL)assetsViewController:(AssetsViewController *)controller shouldSelectAsset:(PHAsset *)asset {
     [self handleAsset:asset];
     return NO;
 }

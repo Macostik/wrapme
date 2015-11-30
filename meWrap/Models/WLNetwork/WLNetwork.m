@@ -9,6 +9,7 @@
 #import "WLNetwork.h"
 #import "AFNetworkReachabilityManager.h"
 #import "GCDHelper.h"
+#import "WLUploadingQueue.h"
 
 @implementation WLNetwork
 
@@ -32,6 +33,9 @@
     [manager startMonitoring];
     run_after(0.2, ^{
         [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            if (weakSelf.reachable) {
+                [WLUploadingQueue start];
+            }
             for (id receiver in [weakSelf broadcastReceivers]) {
                 if ([receiver respondsToSelector:@selector(networkDidChangeReachability:)]) {
                     [receiver networkDidChangeReachability:weakSelf];

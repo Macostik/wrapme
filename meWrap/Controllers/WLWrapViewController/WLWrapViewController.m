@@ -11,13 +11,11 @@
 #import "WLMediaViewController.h"
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
-#import "SegmentedControl.h"
 #import "WLChatViewController.h"
 #import "WLContributorsViewController.h"
 #import "WLWhatsUpSet.h"
 #import "WLMessagesCounter.h"
 #import "WLButton.h"
-#import "WLEntry+WLUploadingQueue.h"
 #import "WLFollowingViewController.h"
 #import "WLSoundPlayer.h"
 
@@ -215,7 +213,7 @@
     
     [WLFollowingViewController followWrapIfNeeded:wrap performAction:^{
         [WLSoundPlayer playSound:WLSound_s04];
-        [wrap uploadPictures:pictures];
+        [wrap uploadAssets:pictures];
     }];
 }
 

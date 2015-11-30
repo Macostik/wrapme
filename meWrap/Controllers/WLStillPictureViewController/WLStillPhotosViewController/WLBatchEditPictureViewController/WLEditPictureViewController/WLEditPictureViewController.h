@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class WLImageView, WLEditPicture;
+@class ImageView, WLEditPicture;
 
 @interface WLEditPictureViewController : UIViewController
 
-@property (weak, nonatomic, readonly) WLImageView *imageView;
+@property (weak, nonatomic, readonly) ImageView *imageView;
 
 @property (strong, nonatomic) MutableAsset *picture;
 

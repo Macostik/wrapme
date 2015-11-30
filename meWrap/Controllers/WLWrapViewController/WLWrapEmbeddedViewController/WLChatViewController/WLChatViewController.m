@@ -18,9 +18,7 @@
 #import "WLBadgeLabel.h"
 #import "WLMessagesCounter.h"
 #import "PlaceholderView.h"
-#import "WLEntry+WLUploadingQueue.h"
 #import "WLNetwork.h"
-#import "WLImageView.h"
 
 CGFloat WLMaxTextViewWidth;
 CGFloat WLMinTextViewWidth;
@@ -35,7 +33,7 @@ CGFloat WLMinTextViewWidth;
 
 @property (weak, nonatomic) IBOutlet UILabel *typingUserNamesTextField;
 
-@property (weak, nonatomic) IBOutlet WLImageView *typingUserAvatarView;
+@property (weak, nonatomic) IBOutlet ImageView *typingUserAvatarView;
 
 @property (weak, nonatomic) id operation;
 
@@ -454,9 +452,7 @@ CGFloat WLMinTextViewWidth;
 - (void)sendMessageWithText:(NSString*)text {
     if (self.wrap.valid) {
         self.streamView.contentOffset = self.streamView.maximumContentOffset;
-        [self.wrap uploadMessage:text success:^(Message *message) {
-        } failure:^(NSError *error) {
-        }];
+        [self.wrap uploadMessage:text];
         [WLSoundPlayer playSound:WLSound_s04];
         [self.chat markAsRead];
     } else {

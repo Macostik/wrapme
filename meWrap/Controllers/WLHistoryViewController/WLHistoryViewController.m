@@ -14,14 +14,11 @@
 #import "WLToast.h"
 #import "WLCandyViewController.h"
 #import "WLDownloadingView.h"
-#import "WLImageCache.h"
 #import "WLPresentingImageView.h"
 #import "WLCommentsViewController.h"
 #import "WLDrawingViewController.h"
 #import "WLFollowingViewController.h"
-#import "WLEntry+WLUploadingQueue.h"
 #import "WLImageEditorSession.h"
-#import "WLImageView.h"
 
 static NSTimeInterval WLHistoryBottomViewModeTogglingInterval = 4;
 
@@ -45,7 +42,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet WLButton *commentButton;
-@property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
+@property (weak, nonatomic) IBOutlet ImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet WLLabel *postLabel;
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
 @property (weak, nonatomic) IBOutlet WLTextView *lastCommentTextView;
@@ -353,7 +350,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         [UIAlertController confirmCandyDeleting:candy success:^(UIAlertAction *action) {
             weakSelf.removedCandy = candy;
             sender.loading = YES;
-            [candy remove:^(id object) {
+            [candy delete:^(id object) {
                 sender.loading = NO;
             } failure:^(NSError *error) {
                 weakSelf.removedCandy = nil;
@@ -399,8 +396,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         [weakSelf downloadCandyOriginal:candy success:^(UIImage *image) {
             [WLDrawingViewController draw:image finish:^(UIImage *image) {
                 [candy editWithImage:image];
-                sender.userInteractionEnabled = YES;
             }];
+            sender.userInteractionEnabled = YES;
         } failure:^(NSError *error) {
             [error show];
             sender.userInteractionEnabled = YES;
@@ -429,9 +426,12 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (void)downloadCandyOriginal:(Candy *)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {
     if (candy) {
-        [candy prepareForUpdate:^(Contribution *contribution, WLContributionStatus status) {
+        NSError *error = [candy updateError];
+        if (error) {
+            if (failure) failure(error);
+        } else {
             [WLDownloadingView downloadCandy:candy success:success failure:failure];
-        } failure:failure];
+        }
     } else {
         if (failure) failure(nil);
     }

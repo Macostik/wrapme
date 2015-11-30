@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OverlayImageView: WLImageView {
+class OverlayImageView: ImageView {
     
     weak var overlay: UIImageView?
     

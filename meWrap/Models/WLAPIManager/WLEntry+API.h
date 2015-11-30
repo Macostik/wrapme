@@ -10,12 +10,6 @@
 
 @interface Entry (WLAPIManager)
 
-- (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure;
-
-- (id)update:(WLObjectBlock)success failure:(WLFailureBlock)failure;
-
-- (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure;
-
 - (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 - (id)fetchIfNeeded:(WLObjectBlock)success failure:(WLFailureBlock)failure;
@@ -33,10 +27,6 @@
 - (instancetype)update:(NSDictionary *)dictionary;
 
 @end
-
-@interface User (WLAPIManager) @end
-
-@interface Device (WLAPIManager) @end
 
 @interface Contribution (WLAPIManager)
 
@@ -59,19 +49,5 @@
 @interface Candy (WLAPIManager)
 
 - (void)download:(WLBlock)success failure:(WLFailureBlock)failure;
-
-@end
-
-@interface Message (WLAPIManager)
-
-@end
-
-@interface Comment (WLAPIManager)
-
-@end
-
-@interface NSString (Unicode)
-
-- (NSString *)escapedUnicode;
 
 @end

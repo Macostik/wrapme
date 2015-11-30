@@ -8,11 +8,28 @@
 
 import UIKit
 
-class ExtensionMessage: Archive {
-    var userInfo: Dictionary<String, AnyObject>?
+class ExtensionMessage: NSObject {
+    var userInfo: [String : AnyObject]?
     
-    override class func archivableProperties() -> Set<String> {
-        return ["userInfo"]
+    required override init() {
+    }
+    
+    class func fromDictionary(dictionary: [String : AnyObject]) -> Self {
+        let message = self.init()
+        message.fromDictionary(dictionary)
+        return message
+    }
+    
+    func fromDictionary(dictionary: [String : AnyObject]) {
+        userInfo = dictionary["userInfo"] as? [String : AnyObject]
+    }
+    
+    func toDictionary() -> [String : AnyObject] {
+        var dictionary = [String : AnyObject]()
+        if let userInfo = userInfo {
+            dictionary["userInfo"] = userInfo
+        }
+        return dictionary
     }
     
     class func deserialize(string: String) -> Self? {
@@ -20,17 +37,25 @@ class ExtensionMessage: Archive {
     }
     
     class func deserialize<T>(type: T.Type, string: String) -> T? {
-        if let data = NSData(base64EncodedString: string, options: .IgnoreUnknownCharacters) {
-            return unarchive(data) as? T
-        } else {
+        guard let data = NSData(base64EncodedString: string, options: .IgnoreUnknownCharacters) else {
+            return nil
+        }
+        do {
+            guard let dictionary = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as? [String : AnyObject] else {
+                return nil
+            }
+            return fromDictionary(dictionary) as? T
+        } catch {
             return nil
         }
     }
     
     func serialize() -> String? {
-        if let data = archive() {
+        do {
+            let dictionary = toDictionary()
+            let data = try NSJSONSerialization.dataWithJSONObject(dictionary, options: NSJSONWritingOptions())
             return data.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
-        } else {
+        } catch {
             return nil
         }
     }

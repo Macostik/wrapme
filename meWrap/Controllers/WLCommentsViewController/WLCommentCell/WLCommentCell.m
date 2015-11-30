@@ -8,11 +8,10 @@
 
 #import "WLCommentCell.h"
 #import "WLToast.h"
-#import "WLImageView.h"
 
 @interface WLCommentCell ()
 
-@property (weak, nonatomic) IBOutlet WLImageView *authorImageView;
+@property (weak, nonatomic) IBOutlet ImageView *authorImageView;
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *commenttextView;
@@ -30,7 +29,7 @@
         if (comment.deletable) {
             [menu addDeleteAction:^(Comment *comment) {
                 weakSelf.userInteractionEnabled = NO;
-                [weakSelf.entry remove:^(id object) {
+                [weakSelf.entry delete:^(id object) {
                     weakSelf.userInteractionEnabled = YES;
                 } failure:^(NSError *error) {
                     [error show];

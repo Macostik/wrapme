@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CryptoSwift
 
 private var _authorization: Authorization?
 private var _confirmationDate: NSDate?
@@ -17,6 +18,8 @@ private var _videoURI: String?
 private var _avatarURI: String?
 private var _pageSize: Int = -1
 
+private var cipher = try! AES(key: [0xae, 0x51, 0x89, 0x51, 0x27, 0xab, 0x9f, 0xb9, 0xf6, 0x75, 0xe2, 0x09, 0x74, 0x4b, 0xc0, 0x8f, 0x48, 0x44, 0x1f, 0xe5, 0x24, 0x3d, 0x28, 0x25, 0xca, 0x35, 0x90, 0x05, 0x0b, 0x62, 0xc0, 0xbb])
+
 extension NSUserDefaults {
     
     // MARK: - defined fields
@@ -25,9 +28,13 @@ extension NSUserDefaults {
         get {
             if _authorization == nil {
                 if let data = NSUserDefaults.sharedUserDefaults?["encrypted_authorization"] as? NSData {
-                    _authorization = Authorization.unarchive(WLCryptographer.decryptData(data)) as? Authorization
+                    do {
+                        let data = try data.decrypt(cipher)
+                        _authorization = Authorization.unarchive(data)
+                    } catch {
+                    }
                 } else if let data = self["WrapLiveAuthorization"] as? NSData {
-                    _authorization = Authorization.unarchive(data) as? Authorization
+                    _authorization = Authorization.unarchive(data)
                 }
             }
             return _authorization
@@ -37,9 +44,12 @@ extension NSUserDefaults {
             guard let sharedUserDefaults = NSUserDefaults.sharedUserDefaults else {
                 return
             }
-            if let authorization = newValue, let data = authorization.archive(), let encryptedData = WLCryptographer.encryptData(data) {
+            if let authorization = newValue, let data = authorization.archive() {
+                do {
+                    sharedUserDefaults["encrypted_authorization"] = try data.encrypt(cipher)
+                } catch {
+                }
                 self["WrapLiveAuthorization"] = data
-                sharedUserDefaults["encrypted_authorization"] = encryptedData
             } else {
                 self["WrapLiveAuthorization"] = nil
                 sharedUserDefaults["encrypted_authorization"] = nil

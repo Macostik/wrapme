@@ -9,9 +9,8 @@
 #import "WLDownloadingView.h"
 #import "WLProgressBar+WLContribution.h"
 #import "WLNetwork.h"
-#import "WLImageFetcher.h"
 
-@interface WLDownloadingView () <WLImageFetching, EntryNotifying>
+@interface WLDownloadingView () <ImageFetching, EntryNotifying>
 
 @property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
 
@@ -51,7 +50,6 @@
 }
 
 - (IBAction)cancel:(id)sender {
-    [[WLImageFetcher defaultFetcher] removeReceiver:self];
     [self dissmis];
 }
 
@@ -87,18 +85,21 @@
 
 - (void)downloadEntry:(WLImageBlock)success failure:(WLFailureBlock)failure {
     NSString *url = self.candy.picture.original;
-    if ([[WLImageCache defaultCache] containsImageWithUrl:url]) {
-        [[WLImageCache defaultCache] imageWithUrl:url completion:^(UIImage *image, BOOL cached) {
-            if (success) {
-                success(image);
-            }
-        }];
+    if ([[ImageCache defaultCache] containsImageWithURL:url]) {
+        if (success) {
+            success([[ImageCache defaultCache] imageWithURL:url]);
+        }
     } else if ([url isExistingFilePath]) {
-        [[WLImageFetcher defaultFetcher] setFileSystemUrl:url completion:^(UIImage *image, BOOL cached) {
-            if (success) {
-                success(image);
-            }
-        }];
+        
+        UIImage *image = [SystemImageCache instance][url];
+        if (image == nil) {
+            image = [UIImage imageWithContentsOfFile:url];
+            [SystemImageCache instance][url] = image;
+            
+        }
+        if (success) {
+            success(image);
+        }
     } else {
         __weak __typeof(self)weakSelf = self;
         [self showDownloadingView];
@@ -109,7 +110,7 @@
         operation.securityPolicy.allowInvalidCertificates = YES;
         operation.securityPolicy.validatesDomainName = NO;
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [[WLImageCache defaultCache] setImage:responseObject withUrl:url];
+            [[ImageCache defaultCache] setImage:responseObject withURL:url];
             if (success) success(responseObject);
             [weakSelf dissmis];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

@@ -21,7 +21,6 @@
 #import "CocoaLumberjack.h"
 #import "WLAuthorizationRequest.h"
 #import "WLUploadingQueue.h"
-#import "WLEntry+WLUploadingQueue.h"
 #import "WLNetwork.h"
 #import <AWSCore/AWSCore.h>
 @import WatchConnectivity;
@@ -35,7 +34,7 @@
 @implementation WLAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
     WLLog(@"meWrap - API environment initialized: %@", [Environment currentEnvironment]);
     
     [NSKeyedUnarchiver setClass:[Authorization class] forClassName:@"WLAuthorization"];
@@ -79,6 +78,12 @@
     }];
     
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    
+    if ([WCSession isSupported]) {
+        WCSession *session = [WCSession defaultSession];
+        session.delegate = self;
+        [session activateSession];
+    }
     
 	return YES;
 }
@@ -207,10 +212,6 @@
     }
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    [WLUploadingQueue start];
-}
-
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [[WLNotificationCenter defaultCenter] handleDeviceToken:deviceToken];
 }
@@ -259,10 +260,13 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    if ([url.host isEqualToString:@"extension.request"]) {
-        NSDictionary *query = [url.query URLQuery];
-        ExtensionRequest *request = [ExtensionRequest deserialize:[query stringForKey:@"request"]];
-        if ([request.action isEqualToString:@"entry"]) {
+    if ([url.host isEqualToString:@"extension.com"]) {
+        NSArray *components = [url.path pathComponents];
+        if (components.count < 2 || ![components[components.count - 2] isEqualToString:@"request"]) {
+            return NO;
+        }
+        ExtensionRequest *request = [ExtensionRequest deserialize:components[components.count - 1]];
+        if ([request.action isEqualToString:@"presentEntry"]) {
             [[EventualEntryPresenter sharedPresenter] presentEntry:request.userInfo];
         }
     }
@@ -332,14 +336,14 @@
     onceToken = 0;
     UIBackgroundTaskIdentifier task = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         dispatch_once(&onceToken, ^{
-            if (replyHandler) replyHandler(@{@"response":[[ExtensionResponse failure:@"Background task expired."] serialize]});
+            if (replyHandler) replyHandler(@{@"response":[[ExtensionResponse failure:@"Background task expired."] toDictionary]});
         });
     }];
     
-    ExtensionRequest *request = [ExtensionRequest deserialize:[message stringForKey:@"request"]];
+    ExtensionRequest *request = [ExtensionRequest fromDictionary:[message dictionaryForKey:@"request"]];
     [request perform:^ (ExtensionResponse *response) {
         dispatch_once(&onceToken, ^{
-            if (replyHandler) replyHandler(@{@"response":[response serialize]});
+            if (replyHandler) replyHandler(@{@"response":[response toDictionary]});
         });
         [[UIApplication sharedApplication] endBackgroundTask:task];
     }];

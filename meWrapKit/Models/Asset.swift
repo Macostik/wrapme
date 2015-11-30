@@ -32,21 +32,6 @@ class Asset: Archive {
         }
     }
     
-    func cacheForAsset(asset: Asset) {
-        let cache = WLImageCache.defaultCache()
-        if let original = original where original.hasSuffix("mp4") {
-            do {
-                try NSFileManager.defaultManager().removeItemAtPath(original)
-            } catch {
-            }
-        } else {
-            cache.setImageAtPath(original, withUrl: asset.original)
-        }
-        cache.setImageAtPath(large, withUrl: asset.large)
-        cache.setImageAtPath(medium, withUrl: asset.medium)
-        cache.setImageAtPath(small, withUrl: asset.small)
-    }
-    
     func JSONValue() -> NSData? {
         var dictionary = Dictionary<String, AnyObject>()
         for property in self.dynamicType.archivableProperties() {
@@ -58,48 +43,6 @@ class Asset: Archive {
             return try NSJSONSerialization.dataWithJSONObject(dictionary, options: NSJSONWritingOptions())
         } catch {
             return nil
-        }
-    }
-    
-    func fetch(completionHandler: (Void -> Void)?) {
-        guard let completionHandler = completionHandler else {
-            WLImageFetcher.defaultFetcher().enqueueImageWithUrl(small)
-            WLImageFetcher.defaultFetcher().enqueueImageWithUrl(medium)
-            WLImageFetcher.defaultFetcher().enqueueImageWithUrl(large)
-            return
-        }
-        
-        var urls = Set<String>()
-        
-        if let small = small {
-            urls.insert(small)
-        }
-        
-        if let medium = medium {
-            urls.insert(medium)
-        }
-        
-        if let large = large {
-            urls.insert(large)
-        }
-        
-        if urls.count > 0 {
-            var fetched = 0
-            for url in urls {
-                WLBlockImageFetching(url: url).enqueue({ (image) -> Void in
-                    fetched++;
-                    if urls.count == fetched {
-                        completionHandler()
-                    }
-                    }, failure: { (error) -> Void in
-                        fetched++;
-                        if urls.count == fetched {
-                            completionHandler()
-                        }
-                })
-            }
-        } else {
-            completionHandler()
         }
     }
 }

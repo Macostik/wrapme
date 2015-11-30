@@ -10,12 +10,11 @@
 #import "WLToast.h"
 #import "WLDownloadingView.h"
 #import "WLDrawingViewController.h"
-#import "WLEntry+WLUploadingQueue.h"
 #import "WLImageEditorSession.h"
 
 @interface WLCandyCell ()
 
-@property (weak, nonatomic) IBOutlet WLImageView *coverView;
+@property (weak, nonatomic) IBOutlet ImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UIView *videoIndicatorView;
 
@@ -38,29 +37,27 @@
                 return;
             }
             
-            [candy prepareForUpdate:^(Contribution *contribution, WLContributionStatus status) {
-                if (!candy.isVideo) {
-                    [menu addEditPhotoAction:^(Candy *candy) {
-                        [WLDownloadingView downloadCandy:candy success:^(UIImage *image) {
-                            [WLImageEditorSession editImage:image completion:^(UIImage *image) {
-                                [candy editWithImage:image];
-                            } cancel:nil];
-                        } failure:^(NSError *error) {
-                            [error show];
-                        }];
+            if ([candy updateError] == nil && !candy.isVideo) {
+                [menu addEditPhotoAction:^(Candy *candy) {
+                    [WLDownloadingView downloadCandy:candy success:^(UIImage *image) {
+                        [WLImageEditorSession editImage:image completion:^(UIImage *image) {
+                            [candy editWithImage:image];
+                        } cancel:nil];
+                    } failure:^(NSError *error) {
+                        [error show];
                     }];
-                    
-                    [menu addDrawPhotoAction:^(Candy *candy) {
-                        [WLDownloadingView downloadCandy:candy success:^(UIImage *image) {
-                            [WLDrawingViewController draw:image finish:^(UIImage *image) {
-                                [candy editWithImage:image];
-                            }];
-                        } failure:^(NSError *error) {
-                            [error show];
+                }];
+                
+                [menu addDrawPhotoAction:^(Candy *candy) {
+                    [WLDownloadingView downloadCandy:candy success:^(UIImage *image) {
+                        [WLDrawingViewController draw:image finish:^(UIImage *image) {
+                            [candy editWithImage:image];
                         }];
+                    } failure:^(NSError *error) {
+                        [error show];
                     }];
-                }
-            } failure:nil];
+                }];
+            }
             
             [menu addDownloadAction:^(Candy *candy) {
                 [candy download:^{
@@ -74,7 +71,7 @@
                 [menu addDeleteAction:^(Candy *candy) {
                     [UIAlertController confirmCandyDeleting:candy success:^(UIAlertAction *action) {
                         weakSelf.userInteractionEnabled = NO;
-                        [candy remove:^(id object) {
+                        [candy delete:^(id object) {
                             weakSelf.userInteractionEnabled = YES;
                         } failure:^(NSError *error) {
                             [error show];

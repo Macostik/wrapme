@@ -8,12 +8,11 @@
 
 #import "WLContributorCell.h"
 #import "WLButton.h"
-#import "WLImageView.h"
 
 @interface WLContributorCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet WLImageView *avatarView;
+@property (weak, nonatomic) IBOutlet ImageView *avatarView;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 @property (weak, nonatomic) IBOutlet WLButton *slideMenuButton;
 @property (weak, nonatomic) IBOutlet UILabel *inviteLabel;
@@ -94,7 +93,7 @@
     if (!canBeInvited && !url.nonempty) {
         self.avatarView.defaultBackgroundColor = WLColors.orange;
     } else {
-        self.avatarView.defaultBackgroundColor = WLColors.grayLighter;
+        self.avatarView.defaultBackgroundColor = Color.grayLighter;
     }
     self.avatarView.url = url;
     

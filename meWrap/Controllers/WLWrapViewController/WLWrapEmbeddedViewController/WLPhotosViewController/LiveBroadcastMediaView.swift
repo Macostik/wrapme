@@ -10,7 +10,7 @@ import UIKit
 
 class LiveBroadcastMediaView: StreamReusableView {
 
-    @IBOutlet weak var imageView: WLImageView!
+    @IBOutlet weak var imageView: ImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     

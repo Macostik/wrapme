@@ -20,7 +20,7 @@ class FlowerMenuAction: UIButton {
         setBackgroundImage(UIImage(named: "bg_menu_btn"), forState: .Normal)
         titleLabel?.font = UIFont(name: "icons", size: 21)
         setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        setTitleColor(WLColors.grayLight, forState: .Highlighted)
+        setTitleColor(Color.grayLight, forState: .Highlighted)
         layer.cornerRadius = bounds.width/2
         setTitle(action, forState: .Normal)
     }

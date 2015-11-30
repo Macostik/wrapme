@@ -7,14 +7,13 @@
 //
 
 #import "WLEditPictureViewController.h"
-#import "WLImageView.h"
 
 @import AVKit;
 @import AVFoundation;
 
 @interface WLEditPictureViewController ()
 
-@property (weak, nonatomic) IBOutlet WLImageView *imageView;
+@property (weak, nonatomic) IBOutlet ImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *deletionView;
 
 @end

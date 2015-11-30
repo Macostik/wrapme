@@ -78,7 +78,6 @@
 
 - (void)configure {
     [[User notifier] addReceiver:self];
-    [self registerForRemoteNotifications];
 }
 
 - (void)setup {

@@ -134,7 +134,7 @@ class ImageCache: NSObject {
     
     private var checkingState = false
     
-    private func checkSizeInBackground() {
+    func checkSizeInBackground() {
         guard !checkingState else {
             return
         }

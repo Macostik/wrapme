@@ -219,13 +219,14 @@
     }];
 }
 
-+ (instancetype)addContributors:(NSSet*)contributors wrap:(Wrap *)wrap {
++ (instancetype)addContributors:(NSSet*)contributors wrap:(Wrap *)wrap message:(NSString *)message {
     return [[[[self POST:@"wraps/%@/add_contributor", wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
         NSMutableSet *_contributors = [NSMutableSet setWithSet:contributors];
         
         NSSet* registeredContributors = [contributors where:@"user != nil"];
         [_contributors minusSet:registeredContributors];
         [parameters trySetObject:[[registeredContributors allObjects] valueForKeyPath:@"user.identifier"] forKey:@"user_uids"];
+        [parameters trySetObject:message forKey:@"message"];
         
         NSMutableArray *invitees = [NSMutableArray array];
         

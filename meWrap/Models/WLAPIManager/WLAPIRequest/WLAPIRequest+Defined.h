@@ -42,7 +42,7 @@
 
 + (instancetype)uploadMessage:(Message*)message;
 
-+ (instancetype)addContributors:(NSSet*)contributors wrap:(Wrap *)wrap;
++ (instancetype)addContributors:(NSSet*)contributors wrap:(Wrap *)wrap message:(NSString *)message;
 
 + (instancetype)removeContributors:(NSArray*)contributors wrap:(Wrap *)wrap;
 

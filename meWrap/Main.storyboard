@@ -1648,6 +1648,11 @@
                                     <action selector="back:" destination="2bk-UF-zkR" eventType="touchUpInside" id="HrD-3j-ekN"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="eU0-nK-XkS">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                                <animations/>
+                                <color key="color" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Bf-ro-UFC" customClass="WLPressButton">
                                 <rect key="frame" x="301" y="556" width="299" height="44"/>
                                 <animations/>
@@ -1668,11 +1673,6 @@
                                     <action selector="done:" destination="2bk-UF-zkR" eventType="touchUpInside" id="R8t-if-sA3"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="eU0-nK-XkS">
-                                <rect key="frame" x="290" y="290" width="20" height="20"/>
-                                <animations/>
-                                <color key="color" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

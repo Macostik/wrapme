@@ -34,6 +34,8 @@
 
 @property (strong, nonatomic) StreamMetrics *sectionHeaderMetrics;
 
+@property (strong, nonatomic) NSString *sendMessage;
+
 @end
 
 @implementation WLAddContributorsViewController
@@ -128,31 +130,20 @@
         return;
     }
     sender.loading = YES;
-//    self.view.userInteractionEnabled = NO;
+    self.view.userInteractionEnabled = NO;
     __weak typeof(self)weakSelf = self;
-//    [[WLAPIRequest addContributors:self.addressBook.selectedPhoneNumbers wrap:self.wrap] send:^(id object) {
-//
-//       
-//    } failure:^(NSError *error) {
-//        sender.loading = NO;
-//        [error show];
-//        weakSelf.view.userInteractionEnabled = YES;
-//    }];
-    for (WLAddressBookPhoneNumber *phoneNumber in weakSelf.addressBook.selectedPhoneNumbers) {
-        WLArrangedAddressBookGroup *group = weakSelf.filteredAddressBook.groups.lastObject;
-        if ([group.records containsObject:phoneNumber.record]) {
-            NSString *content = [NSString stringWithFormat:@"send_message_to_friends_content".ls, [User currentUser].name, self.wrap.name];
-            [WLEditingConfirmView showInView:self.view withContent:content success:^(id  _Nullable object) {
-                [WLToast showWithMessage:@"is_using_invite".ls];
-                [weakSelf.navigationController popViewControllerAnimated:NO];
-            } cancel: ^{
-                sender.loading = NO;
-            }];
-        } else {
-            [weakSelf.navigationController popViewControllerAnimated:NO];
-            [WLToast showWithMessage:@"isn't_using_invite".ls];
+    [[WLAPIRequest addContributors:self.addressBook.selectedPhoneNumbers wrap:self.wrap message:self.sendMessage] send:^(id object) {
+         [weakSelf.navigationController popViewControllerAnimated:NO];
+        if ([weakSelf containUnregisterAddresBookGroupRecord]) {
+             [WLToast showWithMessage:@"isn't_using_invite".ls];
+        } else  {
+             [WLToast showWithMessage:@"is_using_invite".ls];
         }
-    }
+    } failure:^(NSError *error) {
+        sender.loading = NO;
+        [error show];
+        weakSelf.view.userInteractionEnabled = YES;
+    }];
 }
 
 #pragma mark - StreamViewDelegate
@@ -197,8 +188,31 @@
 - (WLAddressBookPhoneNumberState)recordCell:(WLAddressBookRecordCell *)cell phoneNumberState:(WLAddressBookPhoneNumber *)phoneNumber {
     if ([self.wrap.contributors containsObject:phoneNumber.user]) {
         return WLAddressBookPhoneNumberStateAdded;
+    } else if ([self.addressBook selectedPhoneNumber:phoneNumber] != nil) {
+        self.sendMessage = @"";
+        __weak __typeof(self)weakSelf = self;
+        if ([self containUnregisterAddresBookGroupRecord]) {
+            NSString *content = [NSString stringWithFormat:@"send_message_to_friends_content".ls, [User currentUser].name, self.wrap.name];
+            [WLEditingConfirmView showInView:self.view withContent:content success:^(id  _Nullable object) {
+                weakSelf.sendMessage = object;
+            } cancel: ^{
+                [weakSelf recordCell:cell didSelectPhoneNumber:phoneNumber];
+            }];
+        }
+         return  WLAddressBookPhoneNumberStateSelected;
+    } else {
+        return WLAddressBookPhoneNumberStateDefault;
     }
-    return [self.addressBook selectedPhoneNumber:phoneNumber] != nil ? WLAddressBookPhoneNumberStateSelected : WLAddressBookPhoneNumberStateDefault;
+}
+
+- (BOOL)containUnregisterAddresBookGroupRecord {
+    for (WLAddressBookPhoneNumber *phoneNumber in self.addressBook.selectedPhoneNumbers) {
+        WLArrangedAddressBookGroup *group = self.filteredAddressBook.groups.lastObject;
+        if ([group.records containsObject:phoneNumber.record]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (void)recordCell:(WLAddressBookRecordCell *)cell didSelectPhoneNumber:(WLAddressBookPhoneNumber *)person {

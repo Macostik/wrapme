@@ -7,6 +7,7 @@
 //
 
 #import "WLConfirmView.h"
+#import "WLToast.h"
 
 @interface WLConfirmView ()
 
@@ -79,7 +80,7 @@
 
 @end
 
-@interface WLEditingConfirmView ()
+@interface WLEditingConfirmView () <UITextViewDelegate>
 
 @end
 
@@ -89,11 +90,19 @@
      [[WLEditingConfirmView loadFromNib:@"WLEditingConfirmView"] showInView:view withContent:(NSString *)content success:succes cancel:cancel];
 }
 
+static CGFloat WLMessageLimit = 200;
+
 - (void)showInView:(UIView *)view withContent:(NSString *)content success:(WLObjectBlock)success cancel:(WLBlock)cancel {
     [[WLKeyboard keyboard] addReceiver:self];
     [self.contentTextView determineHyperLink:content];
+    self.contentTextView.delegate = self;
 //    [self.contentTextView becomeFirstResponder];
     [super showInView:view authorization:nil success:success cancel:cancel];
+}
+
+- (IBAction)confirm:(id)sender {
+    if (self.success) self.success(self.contentTextView.text);
+    [self hide];
 }
 
 - (void)keyboardWillShow:(WLKeyboard*)keyboard {
@@ -110,5 +119,12 @@
     }];
 }
 
+// MARK: - UITextViewDelegate
+
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    NSString* resultString = [textView.text stringByReplacingCharactersInRange:range withString:text];
+    return resultString.length <= WLMessageLimit;
+}
 
 @end

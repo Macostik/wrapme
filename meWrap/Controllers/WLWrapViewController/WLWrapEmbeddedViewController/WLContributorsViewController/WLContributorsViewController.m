@@ -47,7 +47,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
         UIFont *font = [UIFont fontSmall];
         CGFloat textWidth = streamView.width - WLContributorsHorizontalIndent;
         User *contributor = [weakSelf.dataSource.items tryAt:position.index];
-        CGFloat height = [contributor.securePhones heightWithFont:font width:textWidth];
+        CGFloat height = contributor.securePhones.nonempty ? [contributor.securePhones heightWithFont:font width:textWidth] : 0;
         NSString *invitationText = [WLContributorCell invitationHintText:contributor];
         height += [invitationText heightWithFont:font width:textWidth];
         

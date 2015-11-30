@@ -84,7 +84,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </button>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="John Williams Brown" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cam-yd-Fom" customClass="WLLabel">
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="John Williams Brown" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cam-yd-Fom" customClass="WLLabel">
                     <rect key="frame" x="72" y="12" width="210" height="18"/>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -121,30 +121,24 @@
             <animations/>
             <constraints>
                 <constraint firstItem="bV4-an-v8O" firstAttribute="leading" secondItem="Cam-yd-Fom" secondAttribute="trailing" priority="250" id="0ka-hF-5Xt"/>
+                <constraint firstItem="vUV-8d-GXp" firstAttribute="trailing" secondItem="0SH-Wi-uR7" secondAttribute="trailing" id="2TU-Qn-AQo"/>
                 <constraint firstAttribute="trailing" secondItem="bV4-an-v8O" secondAttribute="trailing" constant="11" id="7xy-lB-mWJ"/>
                 <constraint firstAttribute="centerY" secondItem="u72-YA-MnU" secondAttribute="centerY" constant="0.5" id="8Yc-7i-0Xu"/>
-                <constraint firstAttribute="trailing" secondItem="vUV-8d-GXp" secondAttribute="trailing" constant="28" id="A10-L8-wC4"/>
                 <constraint firstItem="SxH-V1-frC" firstAttribute="top" secondItem="Cam-yd-Fom" secondAttribute="top" id="DPa-gN-5BA"/>
                 <constraint firstItem="vUV-8d-GXp" firstAttribute="top" secondItem="0SH-Wi-uR7" secondAttribute="bottom" id="GeF-US-kr7"/>
                 <constraint firstItem="bV4-an-v8O" firstAttribute="centerY" secondItem="u72-YA-MnU" secondAttribute="centerY" id="I3I-X3-MBI"/>
                 <constraint firstItem="vUV-8d-GXp" firstAttribute="leading" secondItem="Jar-VG-l4q" secondAttribute="leading" constant="72" id="OQl-1c-pJI"/>
                 <constraint firstItem="0SH-Wi-uR7" firstAttribute="leading" secondItem="Jar-VG-l4q" secondAttribute="leading" constant="72" id="WLi-lD-Ugr"/>
                 <constraint firstAttribute="trailing" secondItem="u72-YA-MnU" secondAttribute="trailing" constant="8" id="apl-NW-8Fc"/>
+                <constraint firstItem="0SH-Wi-uR7" firstAttribute="trailing" secondItem="Cam-yd-Fom" secondAttribute="trailing" id="cGC-as-j2o"/>
                 <constraint firstItem="Cam-yd-Fom" firstAttribute="leading" secondItem="Jar-VG-l4q" secondAttribute="leading" constant="72" id="cg2-lE-kn6"/>
                 <constraint firstItem="0SH-Wi-uR7" firstAttribute="top" secondItem="Cam-yd-Fom" secondAttribute="bottom" id="gIv-Dm-P2H"/>
                 <constraint firstItem="u72-YA-MnU" firstAttribute="leading" secondItem="Cam-yd-Fom" secondAttribute="trailing" priority="750" id="kdG-0l-bpV"/>
-                <constraint firstItem="0SH-Wi-uR7" firstAttribute="trailing" secondItem="Cam-yd-Fom" secondAttribute="trailing" id="m4f-RR-Agt"/>
                 <constraint firstItem="SxH-V1-frC" firstAttribute="leading" secondItem="Jar-VG-l4q" secondAttribute="leading" constant="12" id="pmv-gN-YyM"/>
                 <constraint firstItem="SxH-V1-frC" firstAttribute="top" secondItem="Jar-VG-l4q" secondAttribute="top" constant="12" id="pza-q5-fuH"/>
-                <constraint firstItem="vUV-8d-GXp" firstAttribute="trailing" secondItem="0SH-Wi-uR7" secondAttribute="trailing" id="x7f-H7-5bM"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="A10-L8-wC4"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="avatarView" destination="SxH-V1-frC" id="UgZ-zk-Fwj"/>
                 <outlet property="delegate" destination="-1" id="gVx-mR-jk6"/>

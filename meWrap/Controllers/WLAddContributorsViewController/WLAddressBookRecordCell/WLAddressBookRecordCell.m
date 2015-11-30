@@ -75,7 +75,7 @@
 		self.state = [self.delegate recordCell:self phoneNumberState:phoneNumber];
         self.statusButton.hidden = !phoneNumber.user;
         self.statusButton.enabled = phoneNumber.activated;
-        self.statusPrioritizer.defaultState = self.state == WLAddressBookPhoneNumberStateDefault;
+        self.statusPrioritizer.defaultState = !phoneNumber.user;
 	}
 }
 

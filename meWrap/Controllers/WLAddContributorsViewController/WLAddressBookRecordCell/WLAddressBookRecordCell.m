@@ -52,7 +52,7 @@
 	self.nameLabel.text = phoneNumber.name;
     NSString *url = phoneNumber.picture.small;
     if (phoneNumber.user && phoneNumber.activated && !url.nonempty) {
-        self.avatarView.defaultBackgroundColor = WLColors.orange;
+        self.avatarView.defaultBackgroundColor = Color.orange;
     } else {
         self.avatarView.defaultBackgroundColor = Color.grayLighter;
     }

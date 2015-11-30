@@ -91,7 +91,7 @@
     
     NSString *url = user.picture.small;
     if (!canBeInvited && !url.nonempty) {
-        self.avatarView.defaultBackgroundColor = WLColors.orange;
+        self.avatarView.defaultBackgroundColor = Color.orange;
     } else {
         self.avatarView.defaultBackgroundColor = Color.grayLighter;
     }

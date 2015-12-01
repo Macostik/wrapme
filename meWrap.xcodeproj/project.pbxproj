@@ -961,7 +961,6 @@
 		C5E6DD881C0DC84A004992E4 /* WLBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLBroadcaster.m; sourceTree = "<group>"; };
 		C5E6DD961C0DC8F5004992E4 /* CommonEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonEnums.swift; sourceTree = "<group>"; };
 		C5E6DD9E1C0DD11A004992E4 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
-		C5E6E82D1BBAC3EC007FFA66 /* meWrapKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = meWrapKit.h; sourceTree = "<group>"; };
 		C5E6E8321BBAC3EC007FFA66 /* DefinedBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefinedBlocks.h; sourceTree = "<group>"; };
 		C5E6E8331BBAC3EC007FFA66 /* GCDHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDHelper.h; sourceTree = "<group>"; };
 		C5E6E8341BBAC3EC007FFA66 /* GeometryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometryHelper.h; sourceTree = "<group>"; };
@@ -1917,7 +1916,6 @@
 		C565EBA91B9F1219002352C8 /* meWrapKit */ = {
 			isa = PBXGroup;
 			children = (
-				C5E6E82D1BBAC3EC007FFA66 /* meWrapKit.h */,
 				C5E6E8311BBAC3EC007FFA66 /* Support Headers */,
 				C5E6E8381BBAC3EC007FFA66 /* Categories */,
 				C5E6E8791BBAC3EC007FFA66 /* Models */,

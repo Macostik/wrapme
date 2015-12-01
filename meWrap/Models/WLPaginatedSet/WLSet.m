@@ -7,7 +7,6 @@
 //
 
 #import "WLSet.h"
-#import "WLCollections.h"
 
 @implementation WLSet
 

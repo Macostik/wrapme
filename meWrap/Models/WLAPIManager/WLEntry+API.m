@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLCollections.h"
 #import "WLAddressBook.h"
 #import "WLWelcomeViewController.h"
 #import "WLAddressBookPhoneNumber.h"

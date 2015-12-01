@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WLCollections.h"
 #import <AFNetworking/AFNetworking.h>
 
 @class WLAPIRequest, Response;

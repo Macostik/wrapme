@@ -11,7 +11,6 @@
 #import "WLHintView.h"
 #import "WLToast.h"
 #import "WLBatchEditPictureViewController.h"
-#import "WLCollections.h"
 
 @import Photos;
 

@@ -7,7 +7,6 @@
 //
 
 #import "WLHistory.h"
-#import "WLCollections.h"
 #import "WLPaginatedRequest+Defined.h"
 
 @interface WLHistory () <EntryNotifying, WLBroadcastReceiver>

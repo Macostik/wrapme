@@ -7,7 +7,6 @@
 //
 
 #import "WLOperationQueue.h"
-#import "WLCollections.h"
 
 @interface WLOperationQueue ()
 

@@ -58,28 +58,21 @@ extension ExtensionRequest {
     }
     
     func postComment(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
-        
-        if let userInfo = parameters,
-            let candyReference = userInfo["candy"] as? [String : String],
-            let candy = Candy.deserializeReference(candyReference),
-            let text = userInfo["text"] as? String {
-                candy.uploadComment(text)
-            success(ExtensionReply())
-        } else {
-            failure(ExtensionError(message: "Photo isn't available."))
-        }
+        guard let parameters = parameters else { failure(ExtensionError(message: "Invalid data")); return }
+        guard let uid = parameters[WLCandyUIDKey] as? String else { failure(ExtensionError(message: "No candy uid")); return }
+        guard let candy = Candy.entry(uid, allowInsert: false) else { failure(ExtensionError(message: "Photo isn't available.")); return }
+        guard let text = parameters["text"] as? String else { failure(ExtensionError(message: "No text provided.")); return }
+        candy.uploadComment(text)
+        success(ExtensionReply())
     }
     
     func postMessage(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
-        if let userInfo = parameters,
-            let wrapReference = userInfo["wrap"] as? [String : String],
-            let wrap = Wrap.deserializeReference(wrapReference),
-            let text = userInfo["text"] as? String {
-                wrap.uploadMessage(text)
-                success(ExtensionReply())
-        } else {
-            failure(ExtensionError(message: "Wrap isn't available."))
-        }
+        guard let parameters = parameters else { failure(ExtensionError(message: "Invalid data")); return }
+        guard let uid = parameters[WLCandyUIDKey] as? String else { failure(ExtensionError(message: "No wrap uid")); return }
+        guard let wrap = Wrap.entry(uid, allowInsert: false) else { failure(ExtensionError(message: "Wrap isn't available.")); return }
+        guard let text = parameters["text"] as? String else { failure(ExtensionError(message: "No text provided.")); return }
+        wrap.uploadMessage(text)
+        success(ExtensionReply())
     }
     
     func handleNotification(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {

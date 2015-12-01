@@ -11,7 +11,7 @@ import WatchKit
 import WatchConnectivity
 
 class RecentUpdateRow: NSObject {
-    var update: ExtensionUpdate?
+    var update: ExtensionUpdate!
 }
 
 class CommentUpdateRow: RecentUpdateRow {
@@ -23,9 +23,8 @@ class CommentUpdateRow: RecentUpdateRow {
     @IBOutlet weak var wrapNameLabel: WKInterfaceLabel!
     @IBOutlet weak var dateLabel: WKInterfaceLabel!
     
-    override var update: ExtensionUpdate? {
+    override var update: ExtensionUpdate! {
         didSet {
-            guard let update = update else { return }
             guard let comment = update.comment else { return }
             guard let candy = update.candy else { return }
             avatar.setURL(comment.contributor?.avatar)
@@ -46,9 +45,8 @@ class CandyUpdateRow: RecentUpdateRow {
     @IBOutlet weak var wrapNameLabel: WKInterfaceLabel!
     @IBOutlet weak var dateLabel: WKInterfaceLabel!
     
-    override var update: ExtensionUpdate? {
+    override var update: ExtensionUpdate! {
         didSet {
-            guard let update = update else { return }
             guard let candy = update.candy else { return }
             photoByLabel.setText(String(format: (candy.isVideo ? "formatted_video_by" : "formatted_photo_by").ls, candy.contributor?.name ?? ""))
             wrapNameLabel.setText(candy.wrap?.name)
@@ -73,9 +71,7 @@ class RecentUpdatesController: WKInterfaceController {
     
     var updates = [ExtensionUpdate]() {
         didSet {
-            let rowTypes = updates.map { (update) -> String in
-                return update.type ?? ""
-            }
+            let rowTypes = updates.map({ $0.type ?? "" })
             isEmpty = rowTypes.isEmpty
             table.setRowTypes(rowTypes)
             for (index, update) in updates.enumerate() {

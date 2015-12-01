@@ -51,7 +51,7 @@ class ImageFetcher: Notifier {
         urls.insert(url)
         
         let uid = ImageCache.uidFromURL(url)
-        if let image = SystemImageCache.instance[uid] {
+        if let image = InMemoryImageCache.instance[uid] {
             self.broadcast(url, block: { (receiver) in
                 receiver.fetcher?(self, didFinishWithImage: image, cached: true)
             })
@@ -67,7 +67,7 @@ class ImageFetcher: Notifier {
                     cached = result.cached
                 } else {
                     image = self.imageAtURL(url)
-                    SystemImageCache.instance[uid] = image
+                    InMemoryImageCache.instance[uid] = image
                 }
                 dispatch_async(dispatch_get_main_queue()) { () -> Void in
                     if let image = image {
@@ -86,10 +86,10 @@ class ImageFetcher: Notifier {
     }
     
     private func imageAtPath(path: String) -> (image: UIImage?, cached: Bool) {
-        if let image = SystemImageCache.instance[path] {
+        if let image = InMemoryImageCache.instance[path] {
             return (image, true)
         } else if let data = NSData(contentsOfFile: path), let image = UIImage(data: data) {
-            SystemImageCache.instance[path] = image
+            InMemoryImageCache.instance[path] = image
             return (image, false)
         } else {
             return (nil, false)

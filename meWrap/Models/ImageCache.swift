@@ -9,31 +9,6 @@
 import Foundation
 import CryptoSwift
 
-class SystemImageCache: NSCache {
-    
-    static var instance = SystemImageCache()
-    
-    override init() {
-        super.init()
-        NSNotificationCenter.defaultCenter().addObserverForName("UIApplicationDidReceiveMemoryWarningNotification", object: nil, queue: nil) {[weak self] _ -> Void in
-            self?.removeAllObjects()
-        }
-    }
-    
-    subscript(key: String) -> UIImage? {
-        get {
-            return objectForKey(key) as? UIImage
-        }
-        set(newValue) {
-            if let image = newValue {
-                setObject(image, forKey: key)
-            } else {
-                removeObjectForKey(key)
-            }
-        }
-    }
-}
-
 class ImageCache: NSObject {
     
     private static var DefaultCacheSize = 524288000
@@ -103,7 +78,7 @@ class ImageCache: NSObject {
     func read(uid: String) -> UIImage? {
         if permitted {
             let image = UIImage(contentsOfFile: getPath(uid))
-            SystemImageCache.instance[uid] = image
+            InMemoryImageCache.instance[uid] = image
             return image
         }
         return nil
@@ -113,13 +88,13 @@ class ImageCache: NSObject {
         if permitted, let data = UIImageJPEGRepresentation(image, compressionQuality) where data.length > 0 {
             data.writeToFile(getPath(uid), atomically: false)
         }
-        SystemImageCache.instance[uid] = image
+        InMemoryImageCache.instance[uid] = image
         uids.insert(uid)
         enqueueCheckSize()
     }
     
     func contains(uid: String) -> Bool {
-        if SystemImageCache.instance[uid] != nil {
+        if InMemoryImageCache.instance[uid] != nil {
             return true
         } else {
             return permitted ? uids.contains(uid) : false
@@ -222,11 +197,11 @@ class ImageCache: NSObject {
             let manager = NSFileManager.defaultManager()
             let toPath = getPath(uid)
             try manager.copyItemAtPath(path, toPath: toPath)
-            if SystemImageCache.instance[path] != nil {
-                SystemImageCache.instance[path] = nil
+            if InMemoryImageCache.instance[path] != nil {
+                InMemoryImageCache.instance[path] = nil
             }
             if let data = manager.contentsAtPath(toPath) {
-                SystemImageCache.instance[uid] = UIImage(data: data)
+                InMemoryImageCache.instance[uid] = UIImage(data: data)
             }
             uids.insert(uid)
         } catch {

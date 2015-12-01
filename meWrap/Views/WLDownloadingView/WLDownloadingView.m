@@ -91,10 +91,10 @@
         }
     } else if ([url isExistingFilePath]) {
         
-        UIImage *image = [SystemImageCache instance][url];
+        UIImage *image = [InMemoryImageCache instance][url];
         if (image == nil) {
             image = [UIImage imageWithContentsOfFile:url];
-            [SystemImageCache instance][url] = image;
+            [InMemoryImageCache instance][url] = image;
             
         }
         if (success) {

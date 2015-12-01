@@ -22,7 +22,7 @@
 
 - (void)presentCandy:(Candy *)candy fromView:(UIView *)view success:(void (^)(WLPresentingImageView *))success failure:(WLFailureBlock)failure {
     [self presentingAsMainWindowSubview];
-    UIImage *image = [SystemImageCache instance][candy.picture.large];
+    UIImage *image = [InMemoryImageCache instance][candy.picture.large];
     if (!image) {
         image = [[ImageCache defaultCache] imageWithURL:candy.picture.large];
     }
@@ -60,7 +60,7 @@
     }
     
     [self presentingAsMainWindowSubview];
-    UIImage *image = [SystemImageCache instance][candy.picture.large];
+    UIImage *image = [InMemoryImageCache instance][candy.picture.large];
     if (!image) {
         image = [[ImageCache defaultCache] imageWithURL:candy.picture.large];
     }

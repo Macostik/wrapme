@@ -65,7 +65,7 @@
     currentUser.wraps = [NSSet set];
     [[ImageCache defaultCache] clear];
     [[ImageCache uploadingCache] clear];
-    [[SystemImageCache instance] removeAllObjects];
+    [[InMemoryImageCache instance] removeAllObjects];
     [[UIStoryboard main] present:YES];
 }
 

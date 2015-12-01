@@ -23,6 +23,9 @@ extension ExtensionRequest {
         case "presentCandy":
             presentCandy(success, failure: failure)
             break
+        case "presentComment":
+            presentComment(success, failure: failure)
+            break
         case "postComment":
             postComment(success, failure: failure)
             break
@@ -51,6 +54,15 @@ extension ExtensionRequest {
     func presentCandy(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
         if let uid = parameters?["uid"] as? String, let candy = Candy.entry(uid, allowInsert: false) {
             EventualEntryPresenter.sharedPresenter.presentEntry(candy.serializeReference())
+            success(ExtensionReply())
+        } else {
+            failure(ExtensionError(message: "No entry."))
+        }
+    }
+    
+    func presentComment(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
+        if let uid = parameters?["uid"] as? String, let comment = Comment.entry(uid, allowInsert: false) {
+            EventualEntryPresenter.sharedPresenter.presentEntry(comment.serializeReference())
             success(ExtensionReply())
         } else {
             failure(ExtensionError(message: "No entry."))
@@ -93,7 +105,21 @@ extension ExtensionRequest {
     }
     
     func recentUpdates(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
-        let updates = Contribution.recentContributions(10).map { (c) -> [String:AnyObject] in
+        success(ExtensionReply(reply:  ["updates":Contribution.recentUpdates(10)]))
+    }
+    
+    func getCandy(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
+        if let uid = parameters?["uid"] as? String, let candy = Candy.entry(uid, allowInsert: false) {
+            success(ExtensionReply(reply: candy.extensionCandy(includeComments: true).toDictionary()))
+        } else {
+            failure(ExtensionError(message: "no candy"))
+        }
+    }
+}
+
+extension Contribution {
+    class func recentUpdates(limit: Int) -> [[String:AnyObject]] {
+        return Contribution.recentContributions(10).map { (c) -> [String:AnyObject] in
             let update = ExtensionUpdate()
             if let comment = c as? Comment {
                 update.comment = comment.extensionComment()
@@ -104,15 +130,6 @@ extension ExtensionRequest {
                 update.candy = candy.extensionCandy(includeComments: false)
             }
             return update.toDictionary()
-        }
-        success(ExtensionReply(reply:  ["updates":updates]))
-    }
-    
-    func getCandy(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
-        if let uid = parameters?["uid"] as? String, let candy = Candy.entry(uid, allowInsert: false) {
-            success(ExtensionReply(reply: candy.extensionCandy(includeComments: true).toDictionary()))
-        } else {
-            failure(ExtensionError(message: "no candy"))
         }
     }
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 import NotificationCenter
+import MMWormhole
 
 class TodayRecentUpdateCell : UITableViewCell {
     
@@ -60,6 +61,8 @@ let MinRow: Int = 3
 
 class TodayViewController: UIViewController {
     
+    let wormhole = MMWormhole(applicationGroupIdentifier: "group.com.ravenpod.wraplive", optionalDirectory: "wormhole")
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
@@ -102,8 +105,21 @@ class TodayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchRecentUpdates()
         tableView.addObserver(self, forKeyPath: "contentSize", options: .New, context: nil)
+        wormhole.listenForMessageWithIdentifier("recentUpdatesResponse") { [weak self] (response) -> Void in
+            self?.handleRecentUpdatesResponse(response)
+        }
+        fetchRecentUpdates()
+    }
+    
+    private func handleRecentUpdatesResponse(response: AnyObject?) {
+        if let updates = response as? [[String:AnyObject]] {
+            self.updates = updates.map({ (dictionary) -> ExtensionUpdate in
+                return ExtensionUpdate.fromDictionary(dictionary)
+            })
+        } else {
+            updates = []
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -118,11 +134,9 @@ class TodayViewController: UIViewController {
     }
     
     func fetchRecentUpdates() -> NCUpdateResult {
-        NSUserDefaults.sharedUserDefaults?["today_content_request"] = true
-        let updates = [ExtensionUpdate]()
-        let updateResult: NCUpdateResult = self.updates == updates ? .NoData : .NewData
-        self.updates = updates
-        return updateResult
+        handleRecentUpdatesResponse(wormhole.messageWithIdentifier("recentUpdatesResponse"))
+        wormhole.passMessageObject(nil, identifier: "recentUpdatesRequest")
+        return .NewData
     }
     
     @IBAction func moreStories(sender: UIButton) {
@@ -162,12 +176,23 @@ extension TodayViewController: UITableViewDataSource {
 extension TodayViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let update = updates[indexPath.row]
-        guard let candy = update.candy else {
-            return
+        if update.type == "comment" {
+            guard let comment = update.comment else {
+                return
+            }
+            let request = ExtensionRequest(action: "presentComment", parameters: ["uid":comment.uid])
+            if let url = request.serializedURL() {
+                extensionContext?.openURL(url, completionHandler: nil)
+            }
+        } else {
+            guard let candy = update.candy else {
+                return
+            }
+            let request = ExtensionRequest(action: "presentCandy", parameters: ["uid":candy.uid])
+            if let url = request.serializedURL() {
+                extensionContext?.openURL(url, completionHandler: nil)
+            }
         }
-        let request = ExtensionRequest(action: "presentCandy", parameters: ["uid":candy.uid,"showComments":update.type == "comment"])
-        if let url = request.serializedURL() {
-            extensionContext?.openURL(url, completionHandler: nil)
-        }
+        
     }
 }

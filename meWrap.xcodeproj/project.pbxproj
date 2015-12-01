@@ -29,6 +29,7 @@
 		5BE7CD651C0D8781009A7617 /* WLEditingConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE7CD641C0D8781009A7617 /* WLEditingConfirmView.xib */; };
 		5BF1B2431A49A683000BB2C1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
 		5BF85BB01B8C774C000215C9 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BF85BAE1B8C774C000215C9 /* icons.ttf */; };
+		BE6D4CCE1E34B9675889446F /* Pods_meWrapToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BD8E6E5079F143D706966A3 /* Pods_meWrapToday.framework */; };
 		C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C500983D1AFCCC6400729DA4 /* WLCommentCell.m */; };
 		C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */; };
 		C504178919B9EE15000E55F3 /* WLAddressBookRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177E19B9EE15000E55F3 /* WLAddressBookRecordCell.m */; };
@@ -1004,6 +1005,7 @@
 			files = (
 				C5F5EAE91BDEA79F00DF1DA5 /* CoreData.framework in Frameworks */,
 				C565ED6D1B9F2567002352C8 /* NotificationCenter.framework in Frameworks */,
+				BE6D4CCE1E34B9675889446F /* Pods_meWrapToday.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2522,10 +2524,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5BF1B2451A49A683000BB2C1 /* Build configuration list for PBXNativeTarget "meWrapToday" */;
 			buildPhases = (
+				47DEBF65F6B24C0717090906 /* Check Pods Manifest.lock */,
 				5BF1B2311A49A683000BB2C1 /* Sources */,
 				5BF1B23A1A49A683000BB2C1 /* Frameworks */,
 				5BF1B23D1A49A683000BB2C1 /* Resources */,
 				C559128F1AC03D2000320483 /* Copy Files (1 item) */,
+				F3BF0498C9252D6DA713939F /* Embed Pods Frameworks */,
+				BC60201FEFDD43E044A4308D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2813,6 +2818,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-meWrap/Pods-meWrap-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		47DEBF65F6B24C0717090906 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		8DD33E4DC49051F72F3D5A7B /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2828,6 +2848,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-meWrap/Pods-meWrap-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		BC60201FEFDD43E044A4308D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-meWrapToday/Pods-meWrapToday-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C5D41CF91AB1FD6400990944 /* NewRelic upload dSym */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2841,6 +2876,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"$USE_NEWRELIC\" == \"1\" ]; then\nSCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\nif [ \"$ENV\" == \"qa\" ]; then\n/bin/sh \"${SCRIPT}\" \"AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c\"\nelse\n/bin/sh \"${SCRIPT}\" \"AAd46869ec0b3558fb5890343d895b3acdd40ebaa8\"\nfi\n\nfi\n\n";
+		};
+		F3BF0498C9252D6DA713939F /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-meWrapToday/Pods-meWrapToday-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3386,6 +3436,7 @@
 		};
 		5BF1B2461A49A683000BB2C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 242C8A548FADC94DC813C953 /* Pods-meWrapToday.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -3421,6 +3472,7 @@
 		};
 		5BF1B2471A49A683000BB2C1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73F0FC5531F1CC1416F5D457 /* Pods-meWrapToday.release.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -3835,6 +3887,7 @@
 		};
 		C5C991081B9836F10006F534 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 14D649163EDC27687D22E718 /* Pods-meWrapToday.adhoc.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;

@@ -23,11 +23,14 @@
 #import "WLUploadingQueue.h"
 #import "WLNetwork.h"
 #import <AWSCore/AWSCore.h>
+#import <MMWormhole/MMWormhole.h>
 @import WatchConnectivity;
 
 @interface WLAppDelegate () <iVersionDelegate, WCSessionDelegate>
 
 @property (nonatomic) BOOL versionChanged;
+
+@property (strong, nonatomic) MMWormhole *wormhole;
 
 @end
 
@@ -84,7 +87,10 @@
         [session activateSession];
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sharedUserDefaultsChanged:) name:NSUserDefaultsDidChangeNotification object:[NSUserDefaults sharedUserDefaults]];
+    self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:@"group.com.ravenpod.wraplive" optionalDirectory:@"wormhole"];
+    [self.wormhole listenForMessageWithIdentifier:@"recentUpdatesRequest" listener:^(id  _Nullable messageObject) {
+        [self.wormhole passMessageObject:[Contribution recentUpdates:6] identifier:@"recentUpdatesResponse"];
+    }];
     
 	return YES;
 }
@@ -267,11 +273,14 @@
             return NO;
         }
         ExtensionRequest *request = [ExtensionRequest deserialize:components[components.count - 1]];
-        if ([request.action isEqualToString:@"presentEntry"]) {
-            [[EventualEntryPresenter sharedPresenter] presentEntry:request.parameters];
-        }
+        [request perform:^(ExtensionReply *reply) {
+        } failure:^(ExtensionError *error) {
+            [[error generateError] show];
+        }];
+        return YES;
+    } else {
+        return NO;
     }
-    return YES;
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
@@ -353,12 +362,6 @@
         });
         [[UIApplication sharedApplication] endBackgroundTask:task];
     }];
-}
-
-// MARK: - NSUserDefaultsDidChangeNotification
-
-- (void)sharedUserDefaultsChanged:(NSNotification*)notification {
-    
 }
 
 @end

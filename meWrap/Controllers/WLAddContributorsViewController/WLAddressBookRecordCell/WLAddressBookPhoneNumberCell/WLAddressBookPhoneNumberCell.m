@@ -27,6 +27,7 @@
 - (void)setup:(WLAddressBookPhoneNumber *)phoneNumber {
 	self.typeLabel.text = [NSString stringWithFormat:@"%@:", phoneNumber.label?:@""];
 	self.phoneLabel.text = phoneNumber.phone;
+  
 }
 
 - (void)setChecked:(BOOL)checked {

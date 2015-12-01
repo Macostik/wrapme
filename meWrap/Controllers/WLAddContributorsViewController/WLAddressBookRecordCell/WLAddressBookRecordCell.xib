@@ -58,19 +58,19 @@
                         <action selector="select:" destination="Jar-VG-l4q" eventType="touchUpInside" id="UIu-nN-cwU"/>
                     </connections>
                 </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bV4-an-v8O" userLabel="Status Button">
-                    <rect key="frame" x="245" y="24" width="64" height="23"/>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bV4-an-v8O" userLabel="Status Button" customClass="WLButton">
+                    <rect key="frame" x="233" y="24" width="76" height="23"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="23" id="0zd-D5-VeQ"/>
-                        <constraint firstAttribute="width" constant="64" id="g28-OQ-6S8"/>
+                        <constraint firstAttribute="width" constant="76" id="g28-OQ-6S8"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <state key="normal" title="Already in">
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="already_in">
                         <color key="titleColor" red="0.36078431372549019" green="0.84705882352941175" blue="0.36078431372549019" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
-                    <state key="disabled" title="Invited"/>
+                    <state key="disabled" title="INVITED"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -82,20 +82,10 @@
                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                             <color key="value" red="0.36078431370000003" green="0.84705882349999995" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </button>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="John Williams Brown" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cam-yd-Fom" customClass="WLLabel">
-                    <rect key="frame" x="72" y="12" width="210" height="18"/>
-                    <animations/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                    </userDefinedRuntimeAttributes>
-                </label>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SH-Wi-uR7" userLabel="Status Label" customClass="WLLabel">
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SH-Wi-uR7" userLabel="Status Label" customClass="WLLabel">
                     <rect key="frame" x="72" y="30" width="210" height="0.0"/>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -104,9 +94,10 @@
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="+380955522220" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUV-8d-GXp" userLabel="Phone Label" customClass="WLLabel">
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="+380955522220" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUV-8d-GXp" userLabel="Phone Label" customClass="WLLabel">
                     <rect key="frame" x="72" y="30" width="210" height="16"/>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -117,6 +108,17 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                     </userDefinedRuntimeAttributes>
                 </label>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="John Williams Brown" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cam-yd-Fom" customClass="WLLabel">
+                    <rect key="frame" x="72" y="12" width="210" height="18"/>
+                    <animations/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
             </subviews>
             <animations/>
             <constraints>
@@ -124,9 +126,11 @@
                 <constraint firstItem="vUV-8d-GXp" firstAttribute="trailing" secondItem="0SH-Wi-uR7" secondAttribute="trailing" id="2TU-Qn-AQo"/>
                 <constraint firstAttribute="trailing" secondItem="bV4-an-v8O" secondAttribute="trailing" constant="11" id="7xy-lB-mWJ"/>
                 <constraint firstAttribute="centerY" secondItem="u72-YA-MnU" secondAttribute="centerY" constant="0.5" id="8Yc-7i-0Xu"/>
+                <constraint firstAttribute="trailing" secondItem="0SH-Wi-uR7" secondAttribute="trailing" constant="38" id="ADg-oP-1zo"/>
                 <constraint firstItem="SxH-V1-frC" firstAttribute="top" secondItem="Cam-yd-Fom" secondAttribute="top" id="DPa-gN-5BA"/>
                 <constraint firstItem="vUV-8d-GXp" firstAttribute="top" secondItem="0SH-Wi-uR7" secondAttribute="bottom" id="GeF-US-kr7"/>
                 <constraint firstItem="bV4-an-v8O" firstAttribute="centerY" secondItem="u72-YA-MnU" secondAttribute="centerY" id="I3I-X3-MBI"/>
+                <constraint firstItem="0SH-Wi-uR7" firstAttribute="trailing" secondItem="Cam-yd-Fom" secondAttribute="trailing" id="K9V-yU-GpE"/>
                 <constraint firstItem="vUV-8d-GXp" firstAttribute="leading" secondItem="Jar-VG-l4q" secondAttribute="leading" constant="72" id="OQl-1c-pJI"/>
                 <constraint firstItem="0SH-Wi-uR7" firstAttribute="leading" secondItem="Jar-VG-l4q" secondAttribute="leading" constant="72" id="WLi-lD-Ugr"/>
                 <constraint firstAttribute="trailing" secondItem="u72-YA-MnU" secondAttribute="trailing" constant="8" id="apl-NW-8Fc"/>
@@ -139,6 +143,12 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="ADg-oP-1zo"/>
+                    <exclude reference="cGC-as-j2o"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="avatarView" destination="SxH-V1-frC" id="UgZ-zk-Fwj"/>
                 <outlet property="delegate" destination="-1" id="gVx-mR-jk6"/>

@@ -53,10 +53,12 @@
             WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:position.section];
             WLAddressBookRecord* record = [group.records tryAt:position.index];
             WLAddressBookPhoneNumber* phoneNumber = [record.phoneNumbers lastObject];
-            BOOL isUseApp = phoneNumber.user;
-            NSString *infoString = isUseApp && phoneNumber.activated ? @"invite_status".ls : @"signup_status".ls;
-            CGFloat inviteHeight = isUseApp ? [infoString heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - 147.0f] : 0;
-            return inviteHeight + [record.phoneStrings heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - 134.0f] + 54.0;
+            NSString *infoString =  phoneNumber.activated ? @"invite_status".ls : phoneNumber.user ? @"signup_status".ls : @"invite_me_to_meWrap".ls;
+            CGFloat leftIdent  = phoneNumber.user ? 160.0 : 114.0;
+            CGFloat nameHeight =  [[record name] heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - leftIdent];
+            CGFloat inviteHeight =  [infoString heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - leftIdent];
+            CGFloat phoneHeight = [record.phoneStrings heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - leftIdent];
+            return nameHeight + inviteHeight + phoneHeight + 24.0;
         }];
     }];
     
@@ -65,7 +67,9 @@
         [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
             WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:position.section];
             WLAddressBookRecord* record = [group.records tryAt:position.index];
-            return [weakSelf openedPosition:position] ? (72.0f + [record.phoneNumbers count] * 50.0f) : 72.0f;
+            CGFloat nameHeight = [[record name] heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - 142.0f];
+            CGFloat inviteHeight = [@"invite_me_to_meWrap" heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - 142.0f];
+            return [weakSelf openedPosition:position] ? (72.0 + [record.phoneNumbers count] * 50.0f) : MAX(nameHeight + inviteHeight + 24.0, 72);
         }];
         [metrics setFinalizeAppearing:^(StreamItem *item, WLAddressBookRecord *record) {
             WLAddressBookRecordCell *cell = (id)item.view;

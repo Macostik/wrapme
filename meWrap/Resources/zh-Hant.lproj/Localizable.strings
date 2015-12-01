@@ -253,3 +253,8 @@
 "isn't_using_invite" = "Your friends will receive your wrap invite in a moment.";
 "send_message_to_friends_body" = "We'll send the following text message to your friends.";
 "send_message_to_friends_content" = "%@ just share \"%@\" with you. An album with photos , videos and more.  Get the app now at http://mewrap.me/dl to enjoy!";
+"already_in" = "ALREADY IN";
+"invited" = "INVITED";
+"home" = "HOME";
+"hottest" = "HOTTEST";
+"invite_me_to_meWrap" = "Invite me to meWrap";

@@ -22,6 +22,7 @@ class Color: NSObject {
     static var orangeLighter = UIColor(hex: 0xffac79, alpha: 1)
     static var orangeLightest = UIColor(hex: 0xfbd5bd, alpha: 1)
     static var dangerRed = UIColor(hex: 0xd9534f, alpha: 1)
+    static var green = UIColor(hex: 0x5cb85c, alpha: 1)
 }
 
 extension UIColor {

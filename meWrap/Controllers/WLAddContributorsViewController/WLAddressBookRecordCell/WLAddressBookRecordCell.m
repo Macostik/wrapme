@@ -61,6 +61,7 @@
 	if (self.streamView) {
         [self layoutIfNeeded];
         self.dataSource.items = record.phoneNumbers;
+        self.statusLabel.text = @"invite_me_to_meWrap".ls;
 	} else {
         self.phoneLabel.text = record.phoneStrings;
         if (phoneNumber.activated) {
@@ -69,11 +70,11 @@
             self.statusLabel.text = [NSString stringWithFormat:@"invite_status".ls,
                                        [phoneNumber.user.invitedAt stringWithDateStyle:NSDateFormatterShortStyle]];
         } else {
-            self.statusLabel.text = @"";
+            self.statusLabel.text = @"invite_me_to_meWrap".ls;
         }
 		self.state = [self.delegate recordCell:self phoneNumberState:phoneNumber];
         self.statusButton.hidden = !phoneNumber.user;
-        self.statusButton.enabled = phoneNumber.activated;
+        [self.statusButton setTitle:phoneNumber.activated ? @"already_in".ls : @"invited".ls forState:UIControlStateNormal];
         self.statusPrioritizer.defaultState = !phoneNumber.user;
 	}
 }

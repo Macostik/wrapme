@@ -55,7 +55,7 @@
                     </userDefinedRuntimeAttributes>
                 </imageView>
                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="194" translatesAutoresizingMaskIntoConstraints="NO" id="1nX-4L-BpM" customClass="WLLabel">
-                    <rect key="frame" x="72" y="12" width="178" height="50"/>
+                    <rect key="frame" x="72" y="12" width="178" height="18"/>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -67,10 +67,28 @@
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                     </userDefinedRuntimeAttributes>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="J1g-BD-rp3"/>
+                        </mask>
+                    </variation>
+                </label>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMO-JW-GAP" userLabel="Status Label" customClass="WLLabel">
+                    <rect key="frame" x="72" y="30" width="178" height="0.0"/>
+                    <animations/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                    <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                 </label>
             </subviews>
             <animations/>
             <constraints>
+                <constraint firstItem="rMO-JW-GAP" firstAttribute="leading" secondItem="1nX-4L-BpM" secondAttribute="leading" id="40r-pa-M1C"/>
                 <constraint firstItem="1nX-4L-BpM" firstAttribute="leading" secondItem="66a-3B-7b6" secondAttribute="leading" constant="72" id="D5c-ZD-Fns"/>
                 <constraint firstItem="R1S-VP-mtA" firstAttribute="top" secondItem="66a-3B-7b6" secondAttribute="top" id="ICc-aO-xwL"/>
                 <constraint firstItem="vf3-KZ-LGm" firstAttribute="top" secondItem="1nX-4L-BpM" secondAttribute="top" id="K9C-Bu-mqW"/>
@@ -81,8 +99,10 @@
                 <constraint firstItem="R1S-VP-mtA" firstAttribute="height" secondItem="vf3-KZ-LGm" secondAttribute="height" constant="24" id="ehi-8m-Ubg"/>
                 <constraint firstItem="6qD-8b-ogn" firstAttribute="leading" secondItem="66a-3B-7b6" secondAttribute="leading" id="ejX-gV-nh1"/>
                 <constraint firstAttribute="trailing" secondItem="6qD-8b-ogn" secondAttribute="trailing" id="k27-d4-mrJ"/>
+                <constraint firstItem="rMO-JW-GAP" firstAttribute="top" secondItem="1nX-4L-BpM" secondAttribute="bottom" id="kgb-lo-9T5"/>
                 <constraint firstItem="vf3-KZ-LGm" firstAttribute="top" secondItem="66a-3B-7b6" secondAttribute="top" constant="12" id="lga-Ee-Uns"/>
                 <constraint firstAttribute="trailing" secondItem="1nX-4L-BpM" secondAttribute="trailing" constant="70" id="q6W-tj-eA9"/>
+                <constraint firstItem="rMO-JW-GAP" firstAttribute="trailing" secondItem="1nX-4L-BpM" secondAttribute="trailing" id="sdY-7E-yKK"/>
                 <constraint firstAttribute="trailing" secondItem="R1S-VP-mtA" secondAttribute="trailing" id="ukK-GW-RZs"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -92,6 +112,7 @@
                 <outlet property="delegate" destination="-1" id="42m-eL-X8o"/>
                 <outlet property="nameLabel" destination="1nX-4L-BpM" id="kmM-sm-NM5"/>
                 <outlet property="openView" destination="R1S-VP-mtA" id="k1Q-iN-QF4"/>
+                <outlet property="statusLabel" destination="rMO-JW-GAP" id="1FN-Vi-OBj"/>
                 <outlet property="streamView" destination="6qD-8b-ogn" id="0NS-hA-RPv"/>
             </connections>
         </view>

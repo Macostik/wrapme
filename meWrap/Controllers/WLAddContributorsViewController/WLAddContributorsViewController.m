@@ -55,7 +55,7 @@
             WLAddressBookPhoneNumber* phoneNumber = [record.phoneNumbers lastObject];
             NSString *infoString =  phoneNumber.activated ? @"invite_status".ls : phoneNumber.user ? @"signup_status".ls : @"invite_me_to_meWrap".ls;
             CGFloat leftIdent  = phoneNumber.user ? 160.0 : 114.0;
-            CGFloat nameHeight =  [[record name] heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - leftIdent];
+            CGFloat nameHeight =  [[record name] heightWithFont:[UIFont fontNormal] width:weakSelf.streamView.width - leftIdent];
             CGFloat inviteHeight =  [infoString heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - leftIdent];
             CGFloat phoneHeight = [record.phoneStrings heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - leftIdent];
             return nameHeight + inviteHeight + phoneHeight + 24.0;
@@ -67,9 +67,10 @@
         [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
             WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:position.section];
             WLAddressBookRecord* record = [group.records tryAt:position.index];
-            CGFloat nameHeight = [[record name] heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - 142.0f];
+            CGFloat nameHeight = [[record name] heightWithFont:[UIFont fontNormal] width:weakSelf.streamView.width - 142.0f];
             CGFloat inviteHeight = [@"invite_me_to_meWrap" heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - 142.0f];
-            return [weakSelf openedPosition:position] ? (72.0 + [record.phoneNumbers count] * 50.0f) : MAX(nameHeight + inviteHeight + 24.0, 72);
+            CGFloat heighCell = MAX(nameHeight + inviteHeight + 16.0, 72);
+            return [weakSelf openedPosition:position] ? (heighCell + [record.phoneNumbers count] * 50.0f) : heighCell;
         }];
         [metrics setFinalizeAppearing:^(StreamItem *item, WLAddressBookRecord *record) {
             WLAddressBookRecordCell *cell = (id)item.view;

@@ -26,6 +26,7 @@
 		5BD303451B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */; };
 		5BD529491BDA796000527077 /* SmartLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD529481BDA796000527077 /* SmartLabel.swift */; };
 		5BDCA8821B394C2F00C4AB3E /* NoMessagePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BDCA87D1B394C2F00C4AB3E /* NoMessagePlaceholderView.xib */; };
+		5BE7CD651C0D8781009A7617 /* WLEditingConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE7CD641C0D8781009A7617 /* WLEditingConfirmView.xib */; };
 		5BF1B2431A49A683000BB2C1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
 		5BF85BB01B8C774C000215C9 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BF85BAE1B8C774C000215C9 /* icons.ttf */; };
 		C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C500983D1AFCCC6400729DA4 /* WLCommentCell.m */; };
@@ -521,6 +522,7 @@
 		5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapSettingsViewController.m; path = WLWrapSettingsViewController/WLWrapSettingsViewController.m; sourceTree = "<group>"; };
 		5BD529481BDA796000527077 /* SmartLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartLabel.swift; sourceTree = "<group>"; };
 		5BDCA87D1B394C2F00C4AB3E /* NoMessagePlaceholderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoMessagePlaceholderView.xib; sourceTree = "<group>"; };
+		5BE7CD641C0D8781009A7617 /* WLEditingConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLEditingConfirmView.xib; path = WLConfirmView/WLEditingConfirmView.xib; sourceTree = "<group>"; };
 		5BF1B2481A49A683000BB2C1 /* meWrapToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = meWrapToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF85BAE1B8C774C000215C9 /* icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icons.ttf; sourceTree = "<group>"; };
 		6BD8E6E5079F143D706966A3 /* Pods_meWrapToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meWrapToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1472,6 +1474,7 @@
 				5BA432A81A3F3F3D00B53BC7 /* WLConfirmView.h */,
 				5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */,
 				C5B91A5E1BB4177B000E08E7 /* WLConfirmView.xib */,
+				5BE7CD641C0D8781009A7617 /* WLEditingConfirmView.xib */,
 			);
 			name = WLConfirmView;
 			sourceTree = "<group>";
@@ -2732,6 +2735,7 @@
 				C5BEC3941B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */,
 				C552A8381BFDEA5E00A7FFAD /* HistoryDateSeparator.xib in Resources */,
 				C5A615111B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib in Resources */,
+				5BE7CD651C0D8781009A7617 /* WLEditingConfirmView.xib in Resources */,
 				C5C3FEA81B8F311500F177EC /* Default-736h@3x.png in Resources */,
 				C55189101B8F46C000D1327E /* WLContributorResendDoneCell.xib in Resources */,
 				C558E7C91A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */,

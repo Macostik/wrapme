@@ -59,7 +59,7 @@ extension ExtensionRequest {
     
     func postComment(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
         guard let parameters = parameters else { failure(ExtensionError(message: "Invalid data")); return }
-        guard let uid = parameters[WLCandyUIDKey] as? String else { failure(ExtensionError(message: "No candy uid")); return }
+        guard let uid = parameters[Keys.UID.Candy] as? String else { failure(ExtensionError(message: "No candy uid")); return }
         guard let candy = Candy.entry(uid, allowInsert: false) else { failure(ExtensionError(message: "Photo isn't available.")); return }
         guard let text = parameters["text"] as? String else { failure(ExtensionError(message: "No text provided.")); return }
         candy.uploadComment(text)
@@ -68,7 +68,7 @@ extension ExtensionRequest {
     
     func postMessage(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
         guard let parameters = parameters else { failure(ExtensionError(message: "Invalid data")); return }
-        guard let uid = parameters[WLCandyUIDKey] as? String else { failure(ExtensionError(message: "No wrap uid")); return }
+        guard let uid = parameters[Keys.UID.Wrap] as? String else { failure(ExtensionError(message: "No wrap uid")); return }
         guard let wrap = Wrap.entry(uid, allowInsert: false) else { failure(ExtensionError(message: "Wrap isn't available.")); return }
         guard let text = parameters["text"] as? String else { failure(ExtensionError(message: "No text provided.")); return }
         wrap.uploadMessage(text)

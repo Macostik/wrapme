@@ -40,50 +40,50 @@ class AssetMetrics: NSObject {
     static var imageMetricsForPhone: AssetMetrics = {
         var metrics = AssetMetrics()
         metrics.uri = NSUserDefaults.standardUserDefaults().imageURI
-        metrics.originalKey = WLURLOriginalKey
-        metrics.largeKey = WLURLLargeKey
-        metrics.mediumKey = WLURLMediumSQKey
-        metrics.smallKey = WLURLSmallSQKey
+        metrics.originalKey = Keys.URL.Original
+        metrics.largeKey = Keys.URL.Large
+        metrics.mediumKey = Keys.URL.MediumSQ
+        metrics.smallKey = Keys.URL.SmallSQ
         return metrics
         }()
     
     static var imageMetricsForPad: AssetMetrics = {
         var metrics = AssetMetrics()
         metrics.uri = NSUserDefaults.standardUserDefaults().imageURI
-        metrics.originalKey = WLURLOriginalKey
-        metrics.largeKey = WLURLXLargeKey
-        metrics.mediumKey = WLURLLargeKey
-        metrics.smallKey = WLURLMediumSQKey
+        metrics.originalKey = Keys.URL.Original
+        metrics.largeKey = Keys.URL.XLarge
+        metrics.mediumKey = Keys.URL.Large
+        metrics.smallKey = Keys.URL.MediumSQ
         return metrics
         }()
     
     static var videoMetricsForPhone: AssetMetrics = {
         var metrics = AssetMetrics()
         metrics.uri = NSUserDefaults.standardUserDefaults().videoURI
-        metrics.originalKey = WLURLOriginalKey
-        metrics.largeKey = WLURLLargeKey
-        metrics.mediumKey = WLURLMediumSQKey
-        metrics.smallKey = WLURLSmallSQKey
+        metrics.originalKey = Keys.URL.Original
+        metrics.largeKey = Keys.URL.Large
+        metrics.mediumKey = Keys.URL.MediumSQ
+        metrics.smallKey = Keys.URL.SmallSQ
         return metrics
         }()
     
     static var videoMetricsForPad: AssetMetrics = {
         var metrics = AssetMetrics()
         metrics.uri = NSUserDefaults.standardUserDefaults().videoURI
-        metrics.originalKey = WLURLOriginalKey
-        metrics.largeKey = WLURLXLargeKey
-        metrics.mediumKey = WLURLLargeKey
-        metrics.smallKey = WLURLMediumSQKey
+        metrics.originalKey = Keys.URL.Original
+        metrics.largeKey = Keys.URL.XLarge
+        metrics.mediumKey = Keys.URL.Large
+        metrics.smallKey = Keys.URL.MediumSQ
         return metrics
         }()
     
     static var avatarMetrics: AssetMetrics = {
         var metrics = AssetMetrics()
         metrics.uri = NSUserDefaults.standardUserDefaults().avatarURI
-        metrics.originalKey = WLURLLargeKey
-        metrics.largeKey = WLURLLargeKey
-        metrics.mediumKey = WLURLMediumKey
-        metrics.smallKey = WLURLSmallKey
+        metrics.originalKey = Keys.URL.Large
+        metrics.largeKey = Keys.URL.Large
+        metrics.mediumKey = Keys.URL.Medium
+        metrics.smallKey = Keys.URL.Small
         return metrics
         }()
 }
@@ -92,71 +92,42 @@ extension Asset {
     
     func edit(dictionary: [String : String], metrics: AssetMetrics) -> Asset {
         
-        var original: String? = self.original
-        var large: String? = self.large
-        var medium: String? = self.medium
-        var small: String? = self.small
-        
         guard let uri = metrics.uri else {
             return self
         }
         
-        var changed = false
+        let original = parse(metrics.originalKey, dictionary: dictionary, uri: uri, current: self.original)
+        let large = parse(metrics.largeKey, dictionary: dictionary, uri: uri, current: self.large)
+        let medium = parse(metrics.mediumKey, dictionary: dictionary, uri: uri, current: self.medium)
+        let small = parse(metrics.smallKey, dictionary: dictionary, uri: uri, current: self.small)
         
-        if let originalKey = metrics.originalKey {
-            original = parse(originalKey, dictionary: dictionary, uri: uri, current: original)
-            if original != self.original {
-                changed = true
-            }
-        }
-        
-        if let largeKey = metrics.largeKey {
-            large = parse(largeKey, dictionary: dictionary, uri: uri, current: large)
-            if large != self.large {
-                changed = true
-            }
-        }
-        
-        if let mediumKey = metrics.mediumKey {
-            medium = parse(mediumKey, dictionary: dictionary, uri: uri, current: medium)
-            if medium != self.medium {
-                changed = true
-            }
-        }
-        
-        if let smallKey = metrics.smallKey {
-            small = parse(smallKey, dictionary: dictionary, uri: uri, current: small)
-            if small != self.small {
-                changed = true
-            }
-        }
-        
-        if changed {
+        if original.changed || large.changed || medium.changed || small.changed {
             let asset = Asset()
             asset.type = self.type
-            asset.original = original
-            asset.large = large
-            asset.medium = medium
-            asset.small = small
+            asset.original = original.url
+            asset.large = large.url
+            asset.medium = medium.url
+            asset.small = small.url
             return asset
         }
         
         return self
     }
     
-    private func parse(key: String?, dictionary: [String : String], uri: String, current: String?) -> String? {
+    private func parse(key: String?, dictionary: [String : String], uri: String, current: String?) -> (url: String?, changed: Bool) {
         if let key = key, let url = dictionary[key] where !url.isEmpty {
-            return prepend(url: url, uri: uri)
+            if let url = prepend(url: url, uri: uri) where url != current {
+                return (url, true)
+            } else {
+                return (current, false)
+            }
         } else {
-            return current
+            return (current, false)
         }
     }
     
     func prepend(url url: String, uri: String) -> String? {
-        if url.hasPrefix("http") {
-            return url
-        }
-        return uri.stringByAppendingString(url)
+        return url.hasPrefix("http") ? url : uri.stringByAppendingString(url)
     }
     
     func cacheForAsset(asset: Asset) {

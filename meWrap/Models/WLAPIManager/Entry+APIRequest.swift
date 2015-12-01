@@ -131,7 +131,7 @@ extension Uploading {
                     }, failure: { [weak self] (error) -> Void in
                         self?.inProgress = false
                         if error?.isResponseError(.DuplicatedUploading) ?? false {
-                            let keys = [WLCandyKey, WLWrapKey, WLCommentKey, WLMessageKey]
+                            let keys = [Keys.Candy, Keys.Wrap, Keys.Comment, Keys.Message]
                             if let data = error?.responseData?.objectForPossibleKeys(keys) as? [String : AnyObject] {
                                 contribution.map(data)
                             }
@@ -263,11 +263,11 @@ extension Candy {
 
         var metadata = [
             "Accept" : "application/vnd.ravenpod+json;version=\(Environment.currentEnvironment.version)",
-            WLDeviceIDKey : Authorization.currentAuthorization.deviceUID ?? "",
-            WLUserUIDKey : contributor?.identifier ?? "",
-            WLWrapUIDKey : wrap?.identifier ?? "",
-            WLUploadUIDKey : uploadIdentifier ?? "",
-            WLContributedAtKey : "\(createdAt.timestamp)"
+            Keys.UID.Device : Authorization.currentAuthorization.deviceUID ?? "",
+            Keys.UID.User : contributor?.identifier ?? "",
+            Keys.UID.Wrap : wrap?.identifier ?? "",
+            Keys.UID.Upload : uploadIdentifier ?? "",
+            Keys.ContributedAt : "\(createdAt.timestamp)"
         ]
         
         if let comment = (comments as? Set<Comment>)?.filter({ $0.uploading == nil }).first  {
@@ -288,11 +288,11 @@ extension Candy {
         
         let metadata = [
             "Accept" : "application/vnd.ravenpod+json;version=\(Environment.currentEnvironment.version)",
-            WLDeviceIDKey : Authorization.currentAuthorization.deviceUID ?? "",
-            WLUserUIDKey : User.currentUser?.identifier ?? "",
-            WLWrapUIDKey : wrap?.identifier ?? "",
-            WLCandyUIDKey : identifier ?? "",
-            WLEditedAtKey : "\(updatedAt.timestamp)"
+            Keys.UID.Device : Authorization.currentAuthorization.deviceUID ?? "",
+            Keys.UID.User : User.currentUser?.identifier ?? "",
+            Keys.UID.Wrap : wrap?.identifier ?? "",
+            Keys.UID.Candy : identifier ?? "",
+            Keys.EditedAt : "\(updatedAt.timestamp)"
         ]
         
         uploadToS3Bucket(metadata, success: success, failure: failure)

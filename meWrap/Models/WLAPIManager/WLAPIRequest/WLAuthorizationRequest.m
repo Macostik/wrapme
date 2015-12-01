@@ -223,7 +223,7 @@ static BOOL authorized = NO;
         [parameters trySetObject:email forKey:@"email"];
     }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
         WLWhoIs* whoIs = [WLWhoIs sharedInstance];
-        NSDictionary *userInfo = [response.data dictionaryForKey:WLUserKey];
+        NSDictionary *userInfo = [response.data dictionaryForKey:@"user"];
         whoIs.found = [[userInfo numberForKey:@"found"] boolValue];
         whoIs.confirmed = [[userInfo numberForKey:@"confirmed_email"] boolValue];
         NSString* userUID = [User uid:userInfo];
@@ -258,7 +258,7 @@ static BOOL authorized = NO;
 
 + (instancetype)linkDevice:(NSString*)passcode {
     return [[[self POST:@"users/link_device"] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
-        [parameters trySetObject:[Authorization currentAuthorization].email forKey:WLEmailKey];
+        [parameters trySetObject:[Authorization currentAuthorization].email forKey:@"email"];
         [parameters trySetObject:[Authorization currentAuthorization].deviceUID forKey:@"device_uid"];
         [parameters trySetObject:passcode forKey:@"approval_code"];
     }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {

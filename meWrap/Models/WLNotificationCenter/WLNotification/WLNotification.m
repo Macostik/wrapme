@@ -59,8 +59,8 @@
     
     NSDictionary *originator = [data dictionaryForKey:@"originator"];
     if (originator) {
-        NSString *userID = [originator stringForKey:WLUserUIDKey];
-        NSString *deviceID = [originator stringForKey:WLDeviceIDKey];
+        NSString *userID = [originator stringForKey:@"user_uid"];
+        NSString *deviceID = [originator stringForKey:@"device_uid"];
         self.originatedByCurrentUser = userID.nonempty && deviceID.nonempty && [userID isEqualToString:[User currentUser].identifier] && [deviceID isEqualToString:[Authorization currentAuthorization].deviceUID];
     }
     
@@ -105,7 +105,7 @@
         case WLNotificationWrapDelete:
         case WLNotificationWrapUpdate: {
             descriptor.name = [Wrap entityName];
-            entryData = [data dictionaryForKey:WLWrapKey];
+            entryData = [data dictionaryForKey:@"wrap"];
             descriptor.uid = [Wrap uid:entryData ? : data];
             descriptor.locuid = [Wrap locuid:entryData ? : data];
         } break;
@@ -113,26 +113,26 @@
         case WLNotificationCandyDelete:
         case WLNotificationCandyUpdate:{
             descriptor.name = [Candy entityName];
-            entryData = [data dictionaryForKey:WLCandyKey];
+            entryData = [data dictionaryForKey:@"candy"];
             descriptor.uid = [Candy uid:entryData ? : data];
             descriptor.locuid = [Candy locuid:entryData ? : data];
         } break;
         case WLNotificationMessageAdd: {
             descriptor.name = [Message entityName];
-            entryData = [data dictionaryForKey:WLMessageKey];
+            entryData = [data dictionaryForKey:@"chat"];
             descriptor.uid = [Message uid:entryData ? : data];
             descriptor.locuid = [Message locuid:entryData ? : data];
         } break;
         case WLNotificationCommentAdd:
         case WLNotificationCommentDelete: {
             descriptor.name = [Comment entityName];
-            entryData = [data dictionaryForKey:WLCommentKey];
+            entryData = [data dictionaryForKey:@"comment"];
             descriptor.uid = [Comment uid:entryData ? : data];
             descriptor.locuid = [Comment locuid:entryData ? : data];
         } break;
         case WLNotificationUserUpdate: {
             descriptor.name = [User entityName];
-            entryData = [data dictionaryForKey:WLUserKey];
+            entryData = [data dictionaryForKey:@"user"];
             descriptor.uid = [User uid:entryData ? : data];
             descriptor.locuid = [User locuid:entryData ? : data];
         } break;
@@ -146,11 +146,11 @@
         case WLNotificationCandyAdd:
         case WLNotificationCandyDelete:
         case WLNotificationMessageAdd: {
-            descriptor.container = [data stringForKey:WLWrapUIDKey];
+            descriptor.container = [data stringForKey:@"wrap_uid"];
         } break;
         case WLNotificationCommentAdd:
         case WLNotificationCommentDelete: {
-            descriptor.container = [data stringForKey:WLCandyUIDKey];
+            descriptor.container = [data stringForKey:@"candy_uid"];
         } break;
         default:
             break;
@@ -387,7 +387,7 @@
 
 - (BOOL)notifiableForNotification:(WLNotification *)notification {
     if (notification.event == EventAdd) {
-        NSString *userIdentifier = notification.data[WLUserUIDKey] ? : notification.data[WLUserKey][WLUserUIDKey];
+        NSString *userIdentifier = notification.data[@"user_uid"] ? : notification.data[@"user"][@"user_uid"];
         return !self.contributor.current && [userIdentifier isEqualToString:[User currentUser].identifier] && notification.requester != [User currentUser];
     } else {
         return [super notifiableForNotification:notification];
@@ -395,8 +395,8 @@
 }
 
 - (void)fetchAddNotification:(WLNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure {
-    NSString *userIdentifier = notification.data[WLUserUIDKey];
-    NSDictionary *userData = notification.data[WLUserKey];
+    NSString *userIdentifier = notification.data[@"user_uid"];
+    NSDictionary *userData = notification.data[@"user"];
     User *user = userData ? [User mappedEntry:userData] : [User entry:userIdentifier];
     if (user && ![self.contributors containsObject:user]) {
         [[self mutableContributors] addObject:user];
@@ -417,8 +417,8 @@
 }
 
 - (void)finalizeDeleteNotification:(WLNotification *)notification {
-    NSString *userIdentifier = notification.data[WLUserUIDKey];
-    NSDictionary *userData = notification.data[WLUserKey];
+    NSString *userIdentifier = notification.data[@"user_uid"];
+    NSDictionary *userData = notification.data[@"user"];
     User *user = userData ? [User mappedEntry:userData] : [User entry:userIdentifier];
     if (user) {
         if (notification.type == WLNotificationWrapDelete || (user.current && !self.isPublic)) {

@@ -50,7 +50,7 @@
         [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
     }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            success([Candy mappedEntries:[Candy prefetchArray:response.data[WLCandiesKey]] container:wrap]);
+            success([Candy mappedEntries:[Candy prefetchArray:response.data[@"candies"]] container:wrap]);
         } else {
             success(nil);
         }
@@ -75,7 +75,7 @@
         }
     }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            success(@[[wrap update:[Wrap prefetchDictionary:response.data[WLWrapKey]]]]);
+            success(@[[wrap update:[Wrap prefetchDictionary:response.data[@"wrap"]]]]);
         } else {
             success(nil);
         }

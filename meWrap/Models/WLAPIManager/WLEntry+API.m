@@ -102,12 +102,12 @@
 + (void)prefetchDescriptors:(NSMutableDictionary *)descriptors inDictionary:(NSDictionary *)dictionary {
     [super prefetchDescriptors:descriptors inDictionary:dictionary];
     
-    if (dictionary[WLContributorKey]) {
-        [User prefetchDescriptors:descriptors inDictionary:dictionary[WLContributorKey]];
+    if (dictionary[@"contributor"]) {
+        [User prefetchDescriptors:descriptors inDictionary:dictionary[@"contributor"]];
     }
     
-    if (dictionary[WLEditorKey]) {
-        [User prefetchDescriptors:descriptors inDictionary:dictionary[WLEditorKey]];
+    if (dictionary[@"editor"]) {
+        [User prefetchDescriptors:descriptors inDictionary:dictionary[@"editor"]];
     }
 }
 
@@ -118,16 +118,16 @@
 + (void)prefetchDescriptors:(NSMutableDictionary *)descriptors inDictionary:(NSDictionary *)dictionary {
     [super prefetchDescriptors:descriptors inDictionary:dictionary];
     
-    if (dictionary[WLContributorsKey]) {
-        [User prefetchDescriptors:descriptors inArray:dictionary[WLContributorsKey]];
+    if (dictionary[@"contributors"]) {
+        [User prefetchDescriptors:descriptors inArray:dictionary[@"contributors"]];
     }
     
-    if (dictionary[WLCreatorKey] != nil) {
-        [User prefetchDescriptors:descriptors inDictionary:dictionary[WLCreatorKey]];
+    if (dictionary[@"creator"] != nil) {
+        [User prefetchDescriptors:descriptors inDictionary:dictionary[@"creator"]];
     }
     
-    if (dictionary[WLCandiesKey] != nil) {
-        [Candy prefetchDescriptors:descriptors inArray:dictionary[WLCandiesKey]];
+    if (dictionary[@"candies"] != nil) {
+        [Candy prefetchDescriptors:descriptors inArray:dictionary[@"candies"]];
     }
 }
 
@@ -181,8 +181,8 @@
 
 + (void)prefetchDescriptors:(NSMutableDictionary *)descriptors inDictionary:(NSDictionary *)dictionary {
     [super prefetchDescriptors:descriptors inDictionary:dictionary];
-    if (dictionary[WLCommentsKey]) {
-        [Comment prefetchDescriptors:descriptors inArray:dictionary[WLCommentsKey]];
+    if (dictionary[@"comments"]) {
+        [Comment prefetchDescriptors:descriptors inArray:dictionary[@"comments"]];
     }
 }
 

@@ -46,10 +46,10 @@ class Authorization: Archive {
     }
     
     func updateWithUserData(userData: [String : AnyObject]) {
-        if let email = userData[WLEmailKey] as? String {
+        if let email = userData[Keys.Email] as? String {
             self.email = email
         }
-        if let unconfirmed_email = userData[WLUnconfirmedEmail] as? String {
+        if let unconfirmed_email = userData[Keys.UnconfirmedEmail] as? String {
             self.unconfirmed_email = unconfirmed_email
         }
         setCurrent()

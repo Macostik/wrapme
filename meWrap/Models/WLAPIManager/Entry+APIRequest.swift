@@ -106,11 +106,11 @@ extension Uploading {
         return uploading(contribution, event: .Add)
     }
     
-    class func uploading(contribution: Contribution, event: WLEvent) -> Self? {
+    class func uploading(contribution: Contribution, event: Event) -> Self? {
         return uploading(self, contribution: contribution, event: event)
     }
     
-    class func uploading<T>(type: T.Type, contribution: Contribution, event: WLEvent) -> T? {
+    class func uploading<T>(type: T.Type, contribution: Contribution, event: Event) -> T? {
         if let uploading = EntryContext.sharedContext.insertEntry(entityName()) as? Uploading {
             uploading.type = event.rawValue
             uploading.contribution = contribution
@@ -158,7 +158,7 @@ extension Uploading {
     }
 
     func sendTypedRequest(success: WLObjectBlock?, failure: WLFailureBlock?) {
-        if let type = WLEvent(rawValue: self.type) {
+        if let type = Event(rawValue: self.type) {
             switch type {
             case .Add:
                 add(success, failure: failure)
@@ -225,7 +225,7 @@ extension Candy {
         return updateError(statusOfAnyUploadingType())
     }
     
-    func updateError(status: WLContributionStatus) -> NSError? {
+    func updateError(status: ContributionStatus) -> NSError? {
         switch status {
         case .InProgress:
             return NSError(message: (isVideo ? "video_is_uploading" : "photo_is_uploading").ls)

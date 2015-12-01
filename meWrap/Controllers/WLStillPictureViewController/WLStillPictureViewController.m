@@ -51,11 +51,11 @@
     cameraViewController.wrap = self.wrap;
     self.cameraViewController = cameraViewController;
     
-    if (self.mode == WLStillPictureModeDefault) {
+    if (self.mode == StillPictureModeDefault) {
         [[Wrap notifier] addReceiver:self];
     }
     
-    if (self.wrap == nil && self.mode == WLStillPictureModeDefault) {
+    if (self.wrap == nil && self.mode == StillPictureModeDefault) {
         [self showWrapPickerWithController:NO];
     }
 }
@@ -129,7 +129,7 @@
 }
 
 - (CGFloat)imageWidthForCurrentMode {
-    if (self.mode == WLStillPictureModeDefault) {
+    if (self.mode == StillPictureModeDefault) {
         return 1200;
     } else {
         return 600;

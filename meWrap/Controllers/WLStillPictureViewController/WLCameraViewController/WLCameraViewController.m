@@ -128,7 +128,7 @@
     
     __weak typeof(self)weakSelf = self;
     
-    if (self.mode == WLStillPictureModeDefault) {
+    if (self.mode == StillPictureModeDefault) {
         UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(startVideoRecording:)];
         recognizer.delegate = self;
         [self.takePhotoButton addGestureRecognizer:recognizer];
@@ -137,7 +137,7 @@
     [self authorize:^{
         AVCaptureDevicePosition position = AVCaptureDevicePositionBack;
         AVCaptureFlashMode flashMode = AVCaptureFlashModeOff;
-        if (weakSelf.mode == WLStillPictureModeDefault) {
+        if (weakSelf.mode == StillPictureModeDefault) {
             NSNumber *savedPosition = [NSUserDefaults standardUserDefaults].cameraDefaultPosition;
             if (savedPosition) position = [savedPosition integerValue];
             NSNumber *savedFlashMode = [NSUserDefaults standardUserDefaults].cameraDefaultFlashMode;
@@ -282,7 +282,7 @@
     [self configureDevice:^(AVCaptureDevice *device) {
         if ([device isFlashModeSupported:flashMode]) {
             device.flashMode = flashMode;
-            if (weakSelf.mode == WLStillPictureModeDefault) {
+            if (weakSelf.mode == StillPictureModeDefault) {
                 [NSUserDefaults standardUserDefaults].cameraDefaultFlashMode = @(flashMode);
             }
         } else {
@@ -299,7 +299,7 @@
 	}
 	self.flashMode = self.flashModeControl.mode;
     self.zoomScale = 1;
-    if (self.mode == WLStillPictureModeDefault) {
+    if (self.mode == StillPictureModeDefault) {
         if (self.position != AVCaptureDevicePositionUnspecified)
             [NSUserDefaults standardUserDefaults].cameraDefaultPosition = @(self.position);
     }

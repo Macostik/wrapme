@@ -278,7 +278,7 @@
 - (void)mediaViewControllerDidAddPhoto:(WLMediaViewController *)controller {
     WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPhotosViewController];
     stillPictureViewController.wrap = self.wrap;
-    stillPictureViewController.mode = WLStillPictureModeDefault;
+    stillPictureViewController.mode = StillPictureModeDefault;
     stillPictureViewController.delegate = self;
     stillPictureViewController.startFromGallery = NO;
     [self presentViewController:stillPictureViewController animated:NO completion:nil];

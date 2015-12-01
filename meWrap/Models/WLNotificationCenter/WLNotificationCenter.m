@@ -368,14 +368,14 @@
         return [notifications copy];
     }
     
-    NSArray *deleteNotifications = [notifications where:@"event == %d", WLEventDelete];
+    NSArray *deleteNotifications = [notifications where:@"event == %d", EventDelete];
     
     for (WLNotification *notification in deleteNotifications) {
         if (![notifications containsObject:notification]) {
             continue;
         }
         NSArray *deleted = [deleteNotifications where:@"descriptor.uid == %@", notification.descriptor.uid];
-        NSArray *added = [notifications where:@"event == %d AND descriptor.uid == %@", WLEventAdd, notification.descriptor.uid];
+        NSArray *added = [notifications where:@"event == %d AND descriptor.uid == %@", EventAdd, notification.descriptor.uid];
         if (added.count > deleted.count) {
             added = [added remove:[added lastObject]];
         } else if (added.count < deleted.count) {
@@ -385,7 +385,7 @@
         [notifications removeObjectsInArray:added];
     }
     
-    deleteNotifications = [notifications where:@"event == %d", WLEventDelete];
+    deleteNotifications = [notifications where:@"event == %d", EventDelete];
     
     for (WLNotification *deleteNotification in deleteNotifications) {
         if (![notifications containsObject:deleteNotification]) {

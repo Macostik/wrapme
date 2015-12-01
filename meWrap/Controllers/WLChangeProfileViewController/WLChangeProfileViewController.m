@@ -152,8 +152,8 @@
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
-- (WLStillPictureMode)stillPictureViewControllerMode:(WLStillPictureViewController *)controller {
-    return WLStillPictureModeSquare;
+- (StillPictureMode)stillPictureViewControllerMode:(WLStillPictureViewController *)controller {
+    return StillPictureModeSquare;
 }
 
 #pragma mark - EntryNotifying

@@ -47,7 +47,7 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 @property (strong, nonatomic) NSDictionary *data;
 
-@property (nonatomic) WLEvent event;
+@property (nonatomic) Event event;
 
 @property (strong, nonatomic) Entry *entry;
 

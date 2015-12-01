@@ -10,7 +10,7 @@ import UIKit
 
 class WhatsUpEvent: NSObject {
     
-    var event: WLEvent
+    var event: Event
     
     var contribution: Contribution
     
@@ -18,7 +18,7 @@ class WhatsUpEvent: NSObject {
         return event == .Update ? contribution.updatedAt : contribution.createdAt
     }
     
-    init(event: WLEvent, contribution: Contribution) {
+    init(event: Event, contribution: Contribution) {
         self.event = event
         self.contribution = contribution
         super.init()

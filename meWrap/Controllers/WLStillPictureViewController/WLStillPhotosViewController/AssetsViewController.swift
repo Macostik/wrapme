@@ -78,7 +78,7 @@ extension PHFetchResult: WLBaseOrderedCollection {
 
 class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
     
-    var mode: WLStillPictureMode = .Default {
+    var mode: StillPictureMode = .Default {
         didSet {
             let options = PHFetchOptions()
             options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]

@@ -84,6 +84,8 @@
         [session activateSession];
     }
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sharedUserDefaultsChanged:) name:NSUserDefaultsDidChangeNotification object:[NSUserDefaults sharedUserDefaults]];
+    
 	return YES;
 }
 
@@ -351,6 +353,12 @@
         });
         [[UIApplication sharedApplication] endBackgroundTask:task];
     }];
+}
+
+// MARK: - NSUserDefaultsDidChangeNotification
+
+- (void)sharedUserDefaultsChanged:(NSNotification*)notification {
+    
 }
 
 @end

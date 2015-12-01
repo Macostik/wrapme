@@ -11,7 +11,7 @@ import AVFoundation
 import Photos
 
 class MutableAsset: Asset {
-    var mode: WLStillPictureMode = .Default
+    var mode: StillPictureMode = .Default
     var comment: String?
     var canBeSavedToAssets: Bool = false
     var assetID: String?

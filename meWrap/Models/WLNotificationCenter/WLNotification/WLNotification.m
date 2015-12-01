@@ -9,7 +9,6 @@
 #import "WLNotification.h"
 #import "PubNub+SharedInstance.h"
 #import "NSDate+PNTimetoken.h"
-#import "WLCommonEnums.h"
 
 @interface WLNotification ()
 
@@ -81,18 +80,18 @@
         case WLNotificationCandyDelete:
         case WLNotificationWrapDelete:
         case WLNotificationCommentDelete:
-            self.event = WLEventDelete;
+            self.event = EventDelete;
             break;
         case WLNotificationContributorAdd:
         case WLNotificationCandyAdd:
         case WLNotificationMessageAdd:
         case WLNotificationCommentAdd:
-            self.event = WLEventAdd;
+            self.event = EventAdd;
             break;
         case WLNotificationUserUpdate:
         case WLNotificationWrapUpdate:
         case WLNotificationCandyUpdate:
-            self.event = WLEventUpdate;
+            self.event = EventUpdate;
             break;
         default:
             break;
@@ -174,7 +173,7 @@
         return;
     }
     
-    if (self.event == WLEventDelete && ![self.descriptor entryExists]) {
+    if (self.event == EventDelete && ![self.descriptor entryExists]) {
         return;
     }
     
@@ -215,7 +214,7 @@
 }
 
 - (void)prepare {
-    WLEvent event = self.event;
+    Event event = self.event;
     
     Entry *entry = [self entry];
     
@@ -223,11 +222,11 @@
         return;
     }
     
-    if (event == WLEventAdd) {
+    if (event == EventAdd) {
         [entry prepareForAddNotification:self];
-    } else if (event == WLEventUpdate) {
+    } else if (event == EventUpdate) {
         [entry prepareForUpdateNotification:self];
-    } else if (event == WLEventDelete) {
+    } else if (event == EventDelete) {
         [entry prepareForDeleteNotification:self];
     }
 }
@@ -235,7 +234,7 @@
 - (void)fetch:(WLBlock)success failure:(WLFailureBlock)failure {
     __weak __typeof(self)weakSelf = self;
     
-    WLEvent event = self.event;
+    Event event = self.event;
     
     if (!self.containsEntry) {
         if (success) success();
@@ -249,17 +248,17 @@
         return;
     }
     
-    if (event == WLEventAdd) {
+    if (event == EventAdd) {
         [entry fetchAddNotification:self success:success failure:failure];
-    } else if (event == WLEventUpdate) {
+    } else if (event == EventUpdate) {
         [entry fetchUpdateNotification:self success:success failure:failure];
-    } else if (event == WLEventDelete) {
+    } else if (event == EventDelete) {
         [entry fetchDeleteNotification:self success:success failure:failure];
     }
 }
 
 - (void)finalize {
-    WLEvent event = self.event;
+    Event event = self.event;
     
     Entry *entry = [self entry];
     
@@ -267,11 +266,11 @@
         return;
     }
     
-    if (event == WLEventAdd) {
+    if (event == EventAdd) {
         [entry finalizeAddNotification:self];
-    } else if (event == WLEventUpdate) {
+    } else if (event == EventUpdate) {
         [entry finalizeUpdateNotification:self];
-    } else if (event == WLEventDelete) {
+    } else if (event == EventDelete) {
         [entry finalizeDeleteNotification:self];
     }
 }
@@ -307,7 +306,7 @@
 }
 
 - (BOOL)presentable {
-    return self.event != WLEventDelete;
+    return self.event != EventDelete;
 }
 
 @end
@@ -369,10 +368,10 @@
 @implementation Contribution (WLNotification)
 
 - (BOOL)notifiableForNotification:(WLNotification*)notification {
-    WLEvent event = notification.event;
-    if (event == WLEventAdd) {
+    Event event = notification.event;
+    if (event == EventAdd) {
         return !self.contributor.current;
-    } else if (event == WLEventUpdate) {
+    } else if (event == EventUpdate) {
         return ![self.editor current];
     }
     return NO;
@@ -387,7 +386,7 @@
 @implementation Wrap (WLNotification)
 
 - (BOOL)notifiableForNotification:(WLNotification *)notification {
-    if (notification.event == WLEventAdd) {
+    if (notification.event == EventAdd) {
         NSString *userIdentifier = notification.data[WLUserUIDKey] ? : notification.data[WLUserKey][WLUserUIDKey];
         return !self.contributor.current && [userIdentifier isEqualToString:[User currentUser].identifier] && notification.requester != [User currentUser];
     } else {
@@ -488,7 +487,7 @@
 }
 
 - (BOOL)notifiableForNotification:(WLNotification*)notification {
-    if (notification.event != WLEventAdd) {
+    if (notification.event != EventAdd) {
         return [super notifiableForNotification:notification];
     }
     

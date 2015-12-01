@@ -21,7 +21,7 @@
 
 @protocol WLStillPictureBaseViewController <WLStillPictureBaseViewControllerDelegate>
 
-@property (nonatomic) WLStillPictureMode mode;
+@property (nonatomic) StillPictureMode mode;
 
 @property (weak, nonatomic) Wrap *wrap;
 

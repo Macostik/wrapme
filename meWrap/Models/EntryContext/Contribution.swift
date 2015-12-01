@@ -46,7 +46,7 @@ class Contribution: Entry {
         }
     }
     
-    func statusOfAnyUploadingType() -> WLContributionStatus {
+    func statusOfAnyUploadingType() -> ContributionStatus {
         if let uploading = uploading {
             if uploading.inProgress {
                 return .InProgress
@@ -58,7 +58,7 @@ class Contribution: Entry {
         }
     }
     
-    func statusOfUploadingEvent(event: WLEvent) -> WLContributionStatus {
+    func statusOfUploadingEvent(event: Event) -> ContributionStatus {
         if let uploading = uploading where uploading.type == event.rawValue {
             if uploading.inProgress {
                 return .InProgress
@@ -70,7 +70,7 @@ class Contribution: Entry {
         }
     }
     
-    var status: WLContributionStatus {
+    var status: ContributionStatus {
         return statusOfUploadingEvent(.Add)
     }
     

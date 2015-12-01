@@ -20,8 +20,8 @@ extension ExtensionRequest {
         case "authorize":
             authorize(success, failure: failure)
             break
-        case "presentEntry":
-            presentEntry(success, failure: failure)
+        case "presentCandy":
+            presentCandy(success, failure: failure)
             break
         case "postComment":
             postComment(success, failure: failure)
@@ -48,9 +48,9 @@ extension ExtensionRequest {
         success(ExtensionReply())
     }
     
-    func presentEntry(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
-        if let entry = parameters as? [String : String] {
-            EventualEntryPresenter.sharedPresenter.presentEntry(entry)
+    func presentCandy(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
+        if let uid = parameters?["uid"] as? String, let candy = Candy.entry(uid, allowInsert: false) {
+            EventualEntryPresenter.sharedPresenter.presentEntry(candy.serializeReference())
             success(ExtensionReply())
         } else {
             failure(ExtensionError(message: "No entry."))

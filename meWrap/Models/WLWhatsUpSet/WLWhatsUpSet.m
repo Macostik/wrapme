@@ -92,7 +92,7 @@
     NSMutableSet *events = [NSMutableSet set];
     for (Contribution *contribution in contributions) {
         if (contribution.valid) {
-            [events addObject:[[WhatsUpEvent alloc] initWithEvent:WLEventAdd contribution:contribution]];
+            [events addObject:[[WhatsUpEvent alloc] initWithEvent:EventAdd contribution:contribution]];
             if (contribution.unread) {
                 unreadEntriesCount++;
                 if ([contribution isKindOfClass:[Candy class]]) {
@@ -107,7 +107,7 @@
     
     for (Contribution *contribution in updates) {
         if (contribution.valid) {
-            [events addObject:[[WhatsUpEvent alloc] initWithEvent:WLEventUpdate contribution:contribution]];
+            [events addObject:[[WhatsUpEvent alloc] initWithEvent:EventUpdate contribution:contribution]];
             if (contribution.unread) {
                 unreadEntriesCount++;
             }

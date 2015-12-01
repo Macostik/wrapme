@@ -322,7 +322,7 @@
     if (wrap) {
         WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPhotosViewController];
         stillPictureViewController.wrap = wrap;
-        stillPictureViewController.mode = WLStillPictureModeDefault;
+        stillPictureViewController.mode = StillPictureModeDefault;
         stillPictureViewController.delegate = self;
         stillPictureViewController.startFromGallery = startFromGallery;
         [self presentViewController:stillPictureViewController animated:animated completion:nil];
@@ -420,7 +420,7 @@
 
 - (IBAction)createWrap:(id)sender {
     WLStillPictureViewController *controller = [WLStillPictureViewController stillPhotosViewController];
-    controller.mode = WLStillPictureModeDefault;
+    controller.mode = StillPictureModeDefault;
     controller.delegate = self;
     [self presentViewController:controller animated:NO completion:nil];
 }

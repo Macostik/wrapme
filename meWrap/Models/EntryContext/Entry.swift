@@ -75,9 +75,9 @@ class Entry: NSManagedObject {
         return EntryContext.sharedContext.entry(name, uid: uid, locuid: nil, allowInsert: false) as? T
     }
     
-    func serializeReference() -> [String : String]? {
+    func serializeReference() -> [String : String] {
         guard let identifier = identifier else {
-            return nil
+            return [String : String]()
         }
         return ["name":self.dynamicType.entityName(), "identifier":identifier];
     }

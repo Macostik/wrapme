@@ -70,7 +70,7 @@
 - (IBAction)createImage:(id)sender {
 	WLStillPictureViewController* cameraNavigation = [WLStillPictureViewController stillAvatarViewController];
     cameraNavigation.delegate = self;
-    cameraNavigation.mode = WLStillPictureModeSquare;
+    cameraNavigation.mode = StillPictureModeSquare;
     [self presentViewController:cameraNavigation animated:NO completion:nil];
 }
 

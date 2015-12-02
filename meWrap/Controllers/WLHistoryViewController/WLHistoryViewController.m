@@ -229,6 +229,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     self.lastComment = [candy latestComment];
     self.deleteButton.hidden = !candy.deletable;
     self.reportButton.hidden = !self.deleteButton.hidden;
+    self.drawButton.hidden = self.editButton.hidden = candy.isVideo;
     self.bottomViewHeightPrioritizer.defaultState = !self.avatarImageView.hidden;
 }
 
@@ -467,6 +468,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         [self.cachedCandyViewControllers setObject:candyViewController forKey:candy];
     }
     candyViewController.historyViewController = self;
+
     return candyViewController;
 }
 

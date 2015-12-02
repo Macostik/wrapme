@@ -47,11 +47,12 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
         UIFont *font = [UIFont fontSmall];
         CGFloat textWidth = streamView.width - WLContributorsHorizontalIndent;
         User *contributor = [weakSelf.dataSource.items tryAt:position.index];
-        CGFloat height = contributor.securePhones.nonempty ? [contributor.securePhones heightWithFont:font width:textWidth] : 0;
+        CGFloat pandingHeight = contributor.isInvited ? [@"sign_up_pending".ls heightWithFont:font width:textWidth] : 0;
+        CGFloat phoneHeight = contributor.securePhones.nonempty ? [contributor.securePhones heightWithFont:font width:textWidth] : 0;
         NSString *invitationText = [WLContributorCell invitationHintText:contributor];
-        height += [invitationText heightWithFont:font width:textWidth];
+        phoneHeight += [invitationText heightWithFont:font width:textWidth];
         
-        return MAX(height + WLContributorsVerticalIndent, WLContributorsMinHeight) + 1;
+        return MAX(phoneHeight + pandingHeight + WLContributorsVerticalIndent, WLContributorsMinHeight) + 1;
     }];
     
     streamView.contentInset = streamView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 44, 0);

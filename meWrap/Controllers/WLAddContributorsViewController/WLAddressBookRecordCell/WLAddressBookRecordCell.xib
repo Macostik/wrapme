@@ -96,6 +96,18 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                     </userDefinedRuntimeAttributes>
                 </label>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cd1-3S-5bf" userLabel="Panding Label" customClass="WLLabel">
+                    <rect key="frame" x="72" y="30" width="210" height="0.0"/>
+                    <animations/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                    <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SH-Wi-uR7" userLabel="Status Label" customClass="WLLabel">
                     <rect key="frame" x="72" y="30" width="210" height="0.0"/>
                     <animations/>
@@ -123,36 +135,32 @@
             <animations/>
             <constraints>
                 <constraint firstItem="bV4-an-v8O" firstAttribute="leading" secondItem="Cam-yd-Fom" secondAttribute="trailing" priority="250" id="0ka-hF-5Xt"/>
-                <constraint firstItem="vUV-8d-GXp" firstAttribute="trailing" secondItem="0SH-Wi-uR7" secondAttribute="trailing" id="2TU-Qn-AQo"/>
                 <constraint firstAttribute="trailing" secondItem="bV4-an-v8O" secondAttribute="trailing" constant="11" id="7xy-lB-mWJ"/>
                 <constraint firstAttribute="centerY" secondItem="u72-YA-MnU" secondAttribute="centerY" constant="0.5" id="8Yc-7i-0Xu"/>
-                <constraint firstAttribute="trailing" secondItem="0SH-Wi-uR7" secondAttribute="trailing" constant="38" id="ADg-oP-1zo"/>
+                <constraint firstItem="vUV-8d-GXp" firstAttribute="trailing" secondItem="0SH-Wi-uR7" secondAttribute="trailing" id="9UW-L9-a4H"/>
+                <constraint firstItem="Cd1-3S-5bf" firstAttribute="trailing" secondItem="Cam-yd-Fom" secondAttribute="trailing" id="D4T-vc-fn8"/>
                 <constraint firstItem="SxH-V1-frC" firstAttribute="top" secondItem="Cam-yd-Fom" secondAttribute="top" id="DPa-gN-5BA"/>
                 <constraint firstItem="vUV-8d-GXp" firstAttribute="top" secondItem="0SH-Wi-uR7" secondAttribute="bottom" id="GeF-US-kr7"/>
                 <constraint firstItem="bV4-an-v8O" firstAttribute="centerY" secondItem="u72-YA-MnU" secondAttribute="centerY" id="I3I-X3-MBI"/>
-                <constraint firstItem="0SH-Wi-uR7" firstAttribute="trailing" secondItem="Cam-yd-Fom" secondAttribute="trailing" id="K9V-yU-GpE"/>
+                <constraint firstItem="Cd1-3S-5bf" firstAttribute="leading" secondItem="Jar-VG-l4q" secondAttribute="leading" constant="72" id="KV6-Fe-RQR"/>
                 <constraint firstItem="vUV-8d-GXp" firstAttribute="leading" secondItem="Jar-VG-l4q" secondAttribute="leading" constant="72" id="OQl-1c-pJI"/>
+                <constraint firstItem="0SH-Wi-uR7" firstAttribute="trailing" secondItem="Cd1-3S-5bf" secondAttribute="trailing" id="POV-XC-w1y"/>
                 <constraint firstItem="0SH-Wi-uR7" firstAttribute="leading" secondItem="Jar-VG-l4q" secondAttribute="leading" constant="72" id="WLi-lD-Ugr"/>
                 <constraint firstAttribute="trailing" secondItem="u72-YA-MnU" secondAttribute="trailing" constant="8" id="apl-NW-8Fc"/>
-                <constraint firstItem="0SH-Wi-uR7" firstAttribute="trailing" secondItem="Cam-yd-Fom" secondAttribute="trailing" id="cGC-as-j2o"/>
                 <constraint firstItem="Cam-yd-Fom" firstAttribute="leading" secondItem="Jar-VG-l4q" secondAttribute="leading" constant="72" id="cg2-lE-kn6"/>
-                <constraint firstItem="0SH-Wi-uR7" firstAttribute="top" secondItem="Cam-yd-Fom" secondAttribute="bottom" id="gIv-Dm-P2H"/>
                 <constraint firstItem="u72-YA-MnU" firstAttribute="leading" secondItem="Cam-yd-Fom" secondAttribute="trailing" priority="750" id="kdG-0l-bpV"/>
                 <constraint firstItem="SxH-V1-frC" firstAttribute="leading" secondItem="Jar-VG-l4q" secondAttribute="leading" constant="12" id="pmv-gN-YyM"/>
                 <constraint firstItem="SxH-V1-frC" firstAttribute="top" secondItem="Jar-VG-l4q" secondAttribute="top" constant="12" id="pza-q5-fuH"/>
+                <constraint firstItem="Cd1-3S-5bf" firstAttribute="bottom" secondItem="0SH-Wi-uR7" secondAttribute="top" id="rrQ-zk-98O"/>
+                <constraint firstItem="Cam-yd-Fom" firstAttribute="bottom" secondItem="Cd1-3S-5bf" secondAttribute="top" id="zk8-2X-Z9V"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="ADg-oP-1zo"/>
-                    <exclude reference="cGC-as-j2o"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="avatarView" destination="SxH-V1-frC" id="UgZ-zk-Fwj"/>
                 <outlet property="delegate" destination="-1" id="gVx-mR-jk6"/>
                 <outlet property="nameLabel" destination="Cam-yd-Fom" id="gCw-nd-WSZ"/>
+                <outlet property="pandingLabel" destination="Cd1-3S-5bf" id="Q5T-aG-9pI"/>
                 <outlet property="phoneLabel" destination="vUV-8d-GXp" id="2d1-LR-Trr"/>
                 <outlet property="selectButton" destination="u72-YA-MnU" id="S1O-oF-1jT"/>
                 <outlet property="statusButton" destination="bV4-an-v8O" id="GIZ-F7-KyG"/>

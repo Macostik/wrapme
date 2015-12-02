@@ -47,12 +47,14 @@
             WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:position.section];
             WLAddressBookRecord* record = [group.records tryAt:position.index];
             WLAddressBookPhoneNumber* phoneNumber = [record.phoneNumbers lastObject];
-            NSString *infoString =  phoneNumber.activated ? @"invite_status".ls : phoneNumber.user ? @"signup_status".ls : @"invite_me_to_meWrap".ls;
-            CGFloat leftIdent  = phoneNumber.user ? 160.0 : 114.0;
+            User *user = phoneNumber.user;
+            NSString *infoString =  phoneNumber.activated ? @"signup_status".ls : user ? @"invite_status".ls : @"invite_me_to_meWrap".ls;
+            CGFloat leftIdent  = user ? 160.0 : 114.0;
             CGFloat nameHeight =  [[record name] heightWithFont:[UIFont fontNormal] width:weakSelf.streamView.width - leftIdent];
+            CGFloat pandingHeight =  user.isInvited ? [@"sign_up_pending".ls heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - leftIdent] : 0;
             CGFloat inviteHeight =  [infoString heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - leftIdent];
             CGFloat phoneHeight = [record.phoneStrings heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - leftIdent];
-            return nameHeight + inviteHeight + phoneHeight + 24.0;
+            return nameHeight + pandingHeight +inviteHeight + phoneHeight + 24.0;
         }];
     }];
     

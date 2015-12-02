@@ -48,10 +48,22 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
+                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="h02-Iy-v5M" customClass="WLLabel">
+                                    <rect key="frame" x="72" y="35" width="236" height="0.0"/>
+                                    <animations/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                                    <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
                                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite sent [friendly timestamp]. Swipe to resend invite" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZuV-DA-CsE" customClass="WLLabel">
                                     <rect key="frame" x="72" y="35" width="193" height="32"/>
                                     <animations/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                     <color key="textColor" red="0.39101129769999998" green="0.39099958540000002" blue="0.39100623130000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -62,7 +74,7 @@
                                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100899696572342342343" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="f1g-Ue-RDF" customClass="WLLabel">
                                     <rect key="frame" x="72" y="67" width="224" height="16"/>
                                     <animations/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                     <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -91,16 +103,19 @@
                                 <constraint firstAttribute="trailing" secondItem="Ntb-38-h4F" secondAttribute="trailing" id="21U-sg-DxS"/>
                                 <constraint firstAttribute="trailing" secondItem="j5r-kg-fkz" secondAttribute="trailing" constant="24" id="3Rg-3r-ZPK"/>
                                 <constraint firstItem="Ntb-38-h4F" firstAttribute="leading" secondItem="fZm-d8-zP0" secondAttribute="leading" id="6af-gL-kFM"/>
+                                <constraint firstAttribute="trailing" secondItem="h02-Iy-v5M" secondAttribute="trailing" constant="12" id="89M-Hr-7gX"/>
                                 <constraint firstItem="IZ7-8e-1ob" firstAttribute="leading" secondItem="fZm-d8-zP0" secondAttribute="leading" constant="12" id="GyR-zj-R2R"/>
                                 <constraint firstItem="j5r-kg-fkz" firstAttribute="top" secondItem="IZ7-8e-1ob" secondAttribute="top" id="KxJ-bO-xVg"/>
                                 <constraint firstItem="f1g-Ue-RDF" firstAttribute="leading" secondItem="IZ7-8e-1ob" secondAttribute="trailing" constant="12" id="MPt-q3-lfD"/>
                                 <constraint firstItem="ZuV-DA-CsE" firstAttribute="leading" secondItem="IZ7-8e-1ob" secondAttribute="trailing" constant="12" id="MRF-10-Kxw"/>
-                                <constraint firstItem="ZuV-DA-CsE" firstAttribute="top" secondItem="j5r-kg-fkz" secondAttribute="bottom" id="OP3-Sb-B7S"/>
+                                <constraint firstItem="h02-Iy-v5M" firstAttribute="leading" secondItem="IZ7-8e-1ob" secondAttribute="trailing" constant="12" id="Pzx-Pg-01l"/>
                                 <constraint firstAttribute="trailing" secondItem="f1g-Ue-RDF" secondAttribute="trailing" constant="24" id="RSP-wZ-cNP"/>
                                 <constraint firstItem="ZuV-DA-CsE" firstAttribute="bottom" secondItem="f1g-Ue-RDF" secondAttribute="top" id="SJo-et-cvD"/>
                                 <constraint firstAttribute="bottom" secondItem="Ntb-38-h4F" secondAttribute="bottom" id="VJ9-sV-c1A"/>
                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZuV-DA-CsE" secondAttribute="trailing" constant="24" id="Vpc-JI-MDy"/>
+                                <constraint firstItem="h02-Iy-v5M" firstAttribute="bottom" secondItem="ZuV-DA-CsE" secondAttribute="top" id="ZSy-Z4-mPy"/>
                                 <constraint firstItem="Ntb-38-h4F" firstAttribute="top" secondItem="fZm-d8-zP0" secondAttribute="top" id="hle-js-Kzg"/>
+                                <constraint firstItem="j5r-kg-fkz" firstAttribute="bottom" secondItem="h02-Iy-v5M" secondAttribute="top" id="pjf-SA-VTY"/>
                                 <constraint firstItem="IZ7-8e-1ob" firstAttribute="top" secondItem="fZm-d8-zP0" secondAttribute="top" constant="12" id="qWL-lB-1aT"/>
                             </constraints>
                         </view>
@@ -148,6 +163,7 @@
                 <outlet property="delegate" destination="-1" id="cwk-mV-Ed9"/>
                 <outlet property="inviteLabel" destination="ZuV-DA-CsE" id="hyh-B0-pxC"/>
                 <outlet property="nameLabel" destination="j5r-kg-fkz" id="weT-Ch-7Dw"/>
+                <outlet property="pandingLabel" destination="h02-Iy-v5M" id="3KW-fu-ubI"/>
                 <outlet property="phoneLabel" destination="f1g-Ue-RDF" id="2Ii-7a-CpF"/>
                 <outlet property="slideMenuButton" destination="Ntb-38-h4F" id="IuS-GH-FA3"/>
                 <outlet property="streamView" destination="Jjm-eG-ydL" id="Lx5-w7-M5D"/>

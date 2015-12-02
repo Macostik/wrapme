@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 @property (weak, nonatomic) IBOutlet WLButton *slideMenuButton;
 @property (weak, nonatomic) IBOutlet UILabel *inviteLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pandingLabel;
 
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (strong, nonatomic) StreamDataSource *dataSource;
@@ -30,7 +31,7 @@
 
 + (NSString *)invitationHintText:(User*)user {
     NSDate *invitedAt = user.invitedAt;
-    if (user.isInvited && user.isInvited) {
+    if (user.isInvited) {
         return [NSString stringWithFormat:@"invite_status_swipe_to".ls, [invitedAt stringWithDateStyle:NSDateFormatterShortStyle]];
     } else {
         return @"signup_status".ls;
@@ -87,6 +88,7 @@
     BOOL isCreator = [self.delegate contributorCell:self isCreator:user];
     NSString * userNameText = [user current] ? @"you".ls : user.name;
     self.nameLabel.text = isCreator ? [NSString stringWithFormat:@"formatted_owner".ls, userNameText] : userNameText;
+    self.pandingLabel.text = canBeInvited ? @"sign_up_pending".ls : @"";
     self.phoneLabel.text = user.securePhones;
     
     NSString *url = user.picture.small;

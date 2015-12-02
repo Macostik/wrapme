@@ -19,6 +19,7 @@
 @property (nonatomic, weak) IBOutlet ImageView* avatarView;
 @property (weak, nonatomic) IBOutlet UIButton *openView;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pandingLabel;
 @property (weak, nonatomic) IBOutlet UIButton *statusButton;
 @property (strong, nonatomic) IBOutlet LayoutPrioritizer *statusPrioritizer;
 @property (strong, nonatomic) StreamDataSource *dataSource;
@@ -49,9 +50,10 @@
 - (void)setup:(WLAddressBookRecord *)record {
 	WLAddressBookPhoneNumber* phoneNumber = [record.phoneNumbers lastObject];
     
+    User *user = phoneNumber.user;
 	self.nameLabel.text = phoneNumber.name;
     NSString *url = phoneNumber.picture.small;
-    if (phoneNumber.user && phoneNumber.activated && !url.nonempty) {
+    if (user && phoneNumber.activated && !url.nonempty) {
         self.avatarView.defaultBackgroundColor = Color.orange;
     } else {
         self.avatarView.defaultBackgroundColor = Color.grayLighter;
@@ -64,18 +66,20 @@
         self.statusLabel.text = @"invite_me_to_meWrap".ls;
 	} else {
         self.phoneLabel.text = record.phoneStrings;
+        self.pandingLabel.text = user.isInvited ? @"sign_up_pending".ls : @"";
         if (phoneNumber.activated) {
             self.statusLabel.text = @"signup_status".ls;
-        } else if (phoneNumber.user)  {
+            
+        } else if (user)  {
             self.statusLabel.text = [NSString stringWithFormat:@"invite_status".ls,
-                                       [phoneNumber.user.invitedAt stringWithDateStyle:NSDateFormatterShortStyle]];
+                                       [user.invitedAt stringWithDateStyle:NSDateFormatterShortStyle]];
         } else {
             self.statusLabel.text = @"invite_me_to_meWrap".ls;
         }
 		self.state = [self.delegate recordCell:self phoneNumberState:phoneNumber];
-        self.statusButton.hidden = !phoneNumber.user;
-        [self.statusButton setTitle:phoneNumber.activated ? @"already_in".ls : @"invited".ls forState:UIControlStateNormal];
-        self.statusPrioritizer.defaultState = !phoneNumber.user;
+        self.statusButton.hidden = !user;
+        [self.statusButton setTitle:phoneNumber.activated || user.isInvited ? @"already_in".ls : @"invited".ls forState:UIControlStateNormal];
+        self.statusPrioritizer.defaultState = !user;
 	}
 }
 

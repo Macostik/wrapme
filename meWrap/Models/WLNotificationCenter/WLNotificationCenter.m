@@ -157,24 +157,47 @@
 
 - (void)notificationSubscription:(WLNotificationSubscription *)subscription didReceivePresenceEvent:(PNPresenceEventData *)event {
     if ([event.presenceEvent isEqualToString:@"state-change"]) {
+        Wrap *wrap = [Wrap entry:event.actualChannel allowInsert:NO];
+        User *user = [User entry:event.presence.uuid allowInsert:NO];
         NSDictionary *state = event.presence.state;
-        if (state[@"isBroadcasting"]) {
-            NSString *uuid = event.presence.uuid;
-            NSString *wrapuid = event.actualChannel;
-            BOOL isBroadcasting = [[state numberForKey:@"isBroadcasting"] boolValue];
-            Wrap *wrap = [Wrap entry:wrapuid allowInsert:NO];
-            if (wrap) {
-                if (isBroadcasting) {
+        if (wrap && user && state) {
+            NSNumber *isViewing = state[@"isViewing"];
+            if (isViewing) {
+                NSString *chatChannel = state[@"chatChannel"];
+                for (LiveBroadcast *broadcast in wrap.liveBroadcasts) {
+                    if ([broadcast.channel isEqualToString:chatChannel]) {
+                        if ([isViewing boolValue]) {
+                            broadcast.numberOfViewers++;
+                        } else {
+                            broadcast.numberOfViewers--;
+                        }
+                        if (broadcast.broadcaster.current) {
+                            NSDictionary *state = @{@"viewerURL":broadcast.url,@"title":broadcast.title, @"chatChannel":broadcast.channel,@"numberOfViewers":@(broadcast.numberOfViewers)};
+                            [subscription changeState:state channel:wrap.identifier];
+                        }
+                        [wrap notifyOnUpdate:EntryUpdateEventLiveBroadcastsChanged];
+                        break;
+                    }
+                }
+            } else {
+                NSString *chatChannel = state[@"chatChannel"];
+                NSString *currentChatChannel = [NSString stringWithFormat:@"%@-%@", [User currentUser].identifier, [Authorization currentAuthorization].deviceUID];
+                if ([chatChannel isEqualToString:currentChatChannel]) {
+                    return;
+                }
+                NSString *viewerURL = state[@"viewerURL"];
+                if (viewerURL != nil) {
                     LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
-                    broadcast.broadcaster = [User entry:uuid allowInsert:NO];
-                    broadcast.wrap = [Wrap entry:wrapuid allowInsert:NO];
+                    broadcast.broadcaster = user;
+                    broadcast.wrap = wrap;
                     broadcast.title = state[@"title"];
-                    broadcast.channel = state[@"channel"];
-                    broadcast.url = state[@"viewerURL"];
+                    broadcast.channel = chatChannel;
+                    broadcast.url = viewerURL;
+                    broadcast.numberOfViewers = [state[@"numberOfViewers"] integerValue];
                     [wrap addBroadcast:broadcast];
                 } else {
                     for (LiveBroadcast *broadcast in wrap.liveBroadcasts) {
-                        if ([broadcast.broadcaster.identifier isEqualToString:uuid]) {
+                        if (broadcast.broadcaster == user) {
                             [wrap removeBroadcast:broadcast];
                             break;
                         }

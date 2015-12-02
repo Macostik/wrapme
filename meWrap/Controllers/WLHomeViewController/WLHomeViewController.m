@@ -154,13 +154,14 @@
                     continue;
                 }
                 NSDictionary *state = uuid[@"state"];
-                if (state && [[state numberForKey:@"isBroadcasting"] boolValue]) {
+                NSString *viewerURL = state[@"viewerURL"];
+                if (viewerURL != nil) {
                     LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
                     broadcast.broadcaster = user;
                     broadcast.wrap = wrap;
                     broadcast.title = state[@"title"];
                     broadcast.channel = state[@"chatChannel"];
-                    broadcast.url = state[@"viewerURL"];
+                    broadcast.url = viewerURL;
                     [wrapBroadcasts addObject:broadcast];
                 }
             }

@@ -65,6 +65,15 @@ class LiveBroadcastViewController: WLBaseViewController {
                 let player = AVPlayer(playerItem: playerItem)
                 layer.player = player
                 self.playerItem = playerItem
+                
+                let state: [NSObject : AnyObject] = [
+                    "isViewing":true,
+                    "chatChannel":broadcast.channel
+                ]
+                
+                if let channel = wrap?.identifier {
+                    WLNotificationCenter.defaultCenter().userSubscription.changeState(state, channel: channel)
+                }
             }
         } else {
             isBroadcasting = true
@@ -146,7 +155,6 @@ class LiveBroadcastViewController: WLBaseViewController {
         self.broadcast = broadcast
         
         let state: [NSObject : AnyObject] = [
-            "isBroadcasting":true,
             "title":broadcast.title,
             "viewerURL":broadcast.url,
             "chatChannel":channel
@@ -166,12 +174,17 @@ class LiveBroadcastViewController: WLBaseViewController {
         UIApplication.sharedApplication().idleTimerDisabled = false
         
         if let broadcast = broadcast {
+            
+            if let channel = wrap?.identifier {
+                let state: [NSObject : AnyObject] = [
+                    "chatChannel":broadcast.channel
+                ]
+                WLNotificationCenter.defaultCenter().userSubscription.changeState(state, channel: channel)
+            }
+            
             wrap?.removeBroadcast(broadcast)
         }
-        if let channel = wrap?.identifier {
-            let state: [NSObject : AnyObject] = [ "isBroadcasting":false ]
-            WLNotificationCenter.defaultCenter().userSubscription.changeState(state, channel: channel)
-        }
+        
         if let connectionID = connectionID {
             self.connectionID = nil
             let streamer = Streamer.instance() as! Streamer
@@ -203,6 +216,16 @@ class LiveBroadcastViewController: WLBaseViewController {
             let streamer = Streamer.instance() as! Streamer
             streamer.stopVideoCapture()
             streamer.stopAudioCapture()
+        } else {
+            if let broadcast = broadcast {
+                if let channel = wrap?.identifier {
+                    let state: [NSObject : AnyObject] = [
+                        "isViewing":false,
+                        "chatChannel":broadcast.channel
+                    ]
+                    WLNotificationCenter.defaultCenter().userSubscription.changeState(state, channel: channel)
+                }
+            }
         }
         presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
     }

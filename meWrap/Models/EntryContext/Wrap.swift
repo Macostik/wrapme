@@ -10,11 +10,12 @@ import Foundation
 import CoreData
 
 class LiveBroadcast: NSObject {
-    weak var broadcaster: User?
+    var broadcaster: User?
     weak var wrap: Wrap?
     var title = ""
     var url = ""
     var channel = ""
+    var numberOfViewers = 0
 }
 
 @objc(Wrap)
@@ -63,9 +64,7 @@ class Wrap: Contribution {
     private var _cover: Candy?
     var cover: Candy? {
         if _cover == nil {
-            if let candies = candies as? Set<Candy> {
-                _cover = candies.sort({ $0.updatedAt.later($1.updatedAt) }).first
-            }
+            _cover = (candies as? Set<Candy>)?.sort({ $0.updatedAt > $1.updatedAt }).first
         }
         return _cover
     }
@@ -138,8 +137,13 @@ class Wrap: Contribution {
     var liveBroadcasts = [LiveBroadcast]()
     
     func addBroadcast(broadcast: LiveBroadcast) {
-        removeBroadcast(broadcast)
-        liveBroadcasts.append(broadcast)
+        if let index = liveBroadcasts.indexOf({ $0.channel == broadcast.channel }) {
+            let _broadcast = liveBroadcasts[index]
+            _broadcast.title = broadcast.title
+            _broadcast.numberOfViewers = broadcast.numberOfViewers
+        } else {
+            liveBroadcasts.append(broadcast)
+        }
         notifyOnUpdate(.LiveBroadcastsChanged)
     }
     

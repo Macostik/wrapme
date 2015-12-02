@@ -13,6 +13,14 @@ private var _hourInterval: NSTimeInterval = 3600
 private var _dayInterval: NSTimeInterval = 86400
 private var _weekInterval: NSTimeInterval = 604800
 
+func >(lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs.timeIntervalSinceDate(rhs) > 0
+}
+
+func <(lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs.timeIntervalSinceDate(rhs) < 0
+}
+
 extension NSDate {
     
     class func dayAgo() -> NSDate {
@@ -39,15 +47,11 @@ extension NSDate {
     }
     
     func earlier(date: NSDate) -> Bool {
-        return timeIntervalSinceDate(date) < 0
+        return self < date
     }
     
     func later(date: NSDate) -> Bool {
-        return timeIntervalSinceDate(date) > 0
-    }
-    
-    func match(date: NSDate) -> Bool {
-        return timeIntervalSinceDate(date) == 0
+        return self > date
     }
     
     func timestampCompare(date: NSDate) -> NSComparisonResult {

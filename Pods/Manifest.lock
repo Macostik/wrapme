@@ -47,9 +47,6 @@ PODS:
     - GoogleSymbolUtilities (~> 1.0.0)
   - libPhoneNumber-iOS (0.8.10)
   - LogEntries (0.0.1)
-  - MMWormhole (2.0.0):
-    - MMWormhole/Core (= 2.0.0)
-  - MMWormhole/Core (2.0.0)
   - NewRelicAgent (5.3.4)
   - OpenUDID (1.0.0)
   - PubNub (4.1.4):
@@ -66,7 +63,6 @@ DEPENDENCIES:
   - Google/Analytics (~> 1.0.0)
   - libPhoneNumber-iOS (~> 0.8)
   - LogEntries
-  - MMWormhole (~> 2.0.0)
   - NewRelicAgent
   - OpenUDID
   - PubNub (~> 4.0)
@@ -84,7 +80,6 @@ SPEC CHECKSUMS:
   GoogleUtilities: 8ed9134debe11719097881711464752900668f10
   libPhoneNumber-iOS: 7bfd00f843fdcd82b5182b463e8eb3b27579f41d
   LogEntries: a1f16e3c9edc0d6a52209fe6cd7281ab07fb7657
-  MMWormhole: 0cd3fd35a9118b2e2d762b499f54eeaace0be791
   NewRelicAgent: cf111fc652ec0dd7b3fdef05016dc9e0867eaddb
   OpenUDID: e7cb6984c7304906ad20f3a36bf087b025896b6b
   PubNub: 4cd09ad35180c44cf431140f774ad91cb0a65c4f

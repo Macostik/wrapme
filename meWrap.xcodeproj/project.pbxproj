@@ -29,7 +29,6 @@
 		5BE7CD651C0D8781009A7617 /* WLEditingConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE7CD641C0D8781009A7617 /* WLEditingConfirmView.xib */; };
 		5BF1B2431A49A683000BB2C1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
 		5BF85BB01B8C774C000215C9 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BF85BAE1B8C774C000215C9 /* icons.ttf */; };
-		BE6D4CCE1E34B9675889446F /* Pods_meWrapToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BD8E6E5079F143D706966A3 /* Pods_meWrapToday.framework */; };
 		C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C500983D1AFCCC6400729DA4 /* WLCommentCell.m */; };
 		C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */; };
 		C504178919B9EE15000E55F3 /* WLAddressBookRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177E19B9EE15000E55F3 /* WLAddressBookRecordCell.m */; };
@@ -220,6 +219,7 @@
 		C5861A671BFA07E300C64663 /* libmbl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5861A661BFA07E300C64663 /* libmbl.a */; };
 		C5861A6A1BFA307200C64663 /* Entry+EntryPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5861A691BFA307200C64663 /* Entry+EntryPresenter.m */; };
 		C5861A6C1BFA3C9400C64663 /* LiveBroadcastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5861A6B1BFA3C9400C64663 /* LiveBroadcastViewController.swift */; };
+		C586F5601C0F63CA0074AB9B /* MMWormhole.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E7C2BC1C0F61D60034ACE0 /* MMWormhole.framework */; };
 		C58AB9991B1384F300932272 /* WLWhatsUpSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AB9951B1384F300932272 /* WLWhatsUpSet.m */; };
 		C59CEBD31BFB20B500C3E686 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59CEBD21BFB20B500C3E686 /* EntryView.swift */; };
 		C59EF3C31B7A215700E777BC /* WLFollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EF3C11B7A215700E777BC /* WLFollowingViewController.m */; };
@@ -369,6 +369,7 @@
 		C5E7AB781BCD3A79007E314B /* UIScrollView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7AB771BCD3A79007E314B /* UIScrollView+Ext.swift */; };
 		C5E7AB7A1BCD47D4007E314B /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7AB791BCD47D4007E314B /* UIView+Ext.swift */; };
 		C5E7AB7C1BCD4E28007E314B /* UIGestureRecognizer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7AB7B1BCD4E28007E314B /* UIGestureRecognizer+Ext.swift */; };
+		C5E7C2BD1C0F61D60034ACE0 /* MMWormhole.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E7C2BC1C0F61D60034ACE0 /* MMWormhole.framework */; };
 		C5E7EF8F1BED0D9F00CDD4C3 /* Entry+APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7EF8E1BED0D9F00CDD4C3 /* Entry+APIRequest.swift */; };
 		C5ECD55B1BF649B9005791B1 /* UIStoryboard+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ECD55A1BF649B9005791B1 /* UIStoryboard+Ext.swift */; };
 		C5ECD55C1BF64A41005791B1 /* RecentUpdatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557BA801BF5D47900AE9974 /* RecentUpdatesViewController.swift */; };
@@ -496,10 +497,6 @@
 		12E8FF1D18E9885100BF1B96 /* WLComposeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComposeBar.h; path = WLComposeBar/WLComposeBar.h; sourceTree = "<group>"; };
 		12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLComposeBar.m; path = WLComposeBar/WLComposeBar.m; sourceTree = "<group>"; };
 		12E8FF2518E9B33E00BF1B96 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		14D649163EDC27687D22E718 /* Pods-meWrapToday.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meWrapToday.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-meWrapToday/Pods-meWrapToday.adhoc.xcconfig"; sourceTree = "<group>"; };
-		1D0A7E01C837DFC1DAB9A689 /* Pods-meWrapWatchExt.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meWrapWatchExt.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-meWrapWatchExt/Pods-meWrapWatchExt.adhoc.xcconfig"; sourceTree = "<group>"; };
-		242C8A548FADC94DC813C953 /* Pods-meWrapToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meWrapToday.debug.xcconfig"; path = "Pods/Target Support Files/Pods-meWrapToday/Pods-meWrapToday.debug.xcconfig"; sourceTree = "<group>"; };
-		36CB0B8CCD4477BE892DFC1A /* Pods_meWrapWatchExt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meWrapWatchExt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B1D045A1BFCE16C00263102 /* CandyInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyInteractionController.swift; sourceTree = "<group>"; };
 		5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalScrollView.swift; sourceTree = "<group>"; };
 		5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Wraplive_TermsAndConditions.rtf; path = WLTermsAndConditions/Wraplive_TermsAndConditions.rtf; sourceTree = "<group>"; };
@@ -528,9 +525,6 @@
 		5BE7CD641C0D8781009A7617 /* WLEditingConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLEditingConfirmView.xib; path = WLConfirmView/WLEditingConfirmView.xib; sourceTree = "<group>"; };
 		5BF1B2481A49A683000BB2C1 /* meWrapToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = meWrapToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF85BAE1B8C774C000215C9 /* icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icons.ttf; sourceTree = "<group>"; };
-		6BD8E6E5079F143D706966A3 /* Pods_meWrapToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meWrapToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C71BE38469075775C07B06B /* Pods-meWrapWatchExt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meWrapWatchExt.release.xcconfig"; path = "Pods/Target Support Files/Pods-meWrapWatchExt/Pods-meWrapWatchExt.release.xcconfig"; sourceTree = "<group>"; };
-		73F0FC5531F1CC1416F5D457 /* Pods-meWrapToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meWrapToday.release.xcconfig"; path = "Pods/Target Support Files/Pods-meWrapToday/Pods-meWrapToday.release.xcconfig"; sourceTree = "<group>"; };
 		8302B2CF78A9F0C0ED319A0E /* Pods_meWrap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meWrap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChangeProfileViewController.h; path = WLChangeProfileViewController/WLChangeProfileViewController.h; sourceTree = "<group>"; };
 		AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChangeProfileViewController.m; path = WLChangeProfileViewController/WLChangeProfileViewController.m; sourceTree = "<group>"; };
@@ -540,7 +534,6 @@
 		ACF8D9131934B4460001E570 /* flowers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = flowers.plist; sourceTree = "<group>"; };
 		ACF8D9151934B44D0001E570 /* rings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = rings.plist; sourceTree = "<group>"; };
 		ACF8D9171934B45C0001E570 /* cars.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cars.plist; sourceTree = "<group>"; };
-		BF8153F7DE7CE04DD5475546 /* Pods-meWrapWatchExt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meWrapWatchExt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-meWrapWatchExt/Pods-meWrapWatchExt.debug.xcconfig"; sourceTree = "<group>"; };
 		C500983C1AFCCC6400729DA4 /* WLCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCommentCell.h; sourceTree = "<group>"; };
 		C500983D1AFCCC6400729DA4 /* WLCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCommentCell.m; sourceTree = "<group>"; };
 		C504177A19B9EE15000E55F3 /* WLAddContributorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddContributorsViewController.h; sourceTree = "<group>"; };
@@ -977,6 +970,7 @@
 		C5E7AB771BCD3A79007E314B /* UIScrollView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Ext.swift"; sourceTree = "<group>"; };
 		C5E7AB791BCD47D4007E314B /* UIView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		C5E7AB7B1BCD4E28007E314B /* UIGestureRecognizer+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Ext.swift"; sourceTree = "<group>"; };
+		C5E7C2BC1C0F61D60034ACE0 /* MMWormhole.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMWormhole.framework; path = Frameworks/MMWormhole.framework; sourceTree = "<group>"; };
 		C5E7EF8E1BED0D9F00CDD4C3 /* Entry+APIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entry+APIRequest.swift"; sourceTree = "<group>"; };
 		C5EA6D9A1BFCC8270029970A /* FlowerMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowerMenu.swift; sourceTree = "<group>"; };
 		C5ECD55A1BF649B9005791B1 /* UIStoryboard+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Ext.swift"; sourceTree = "<group>"; };
@@ -1003,7 +997,7 @@
 			files = (
 				C5F5EAE91BDEA79F00DF1DA5 /* CoreData.framework in Frameworks */,
 				C565ED6D1B9F2567002352C8 /* NotificationCenter.framework in Frameworks */,
-				BE6D4CCE1E34B9675889446F /* Pods_meWrapToday.framework in Frameworks */,
+				C586F5601C0F63CA0074AB9B /* MMWormhole.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1021,6 +1015,7 @@
 				C57CB2AB1BAAE51E0050FBF7 /* libsqlite3.0.tbd in Frameworks */,
 				C57CB2AA1BAAE5140050FBF7 /* libz.tbd in Frameworks */,
 				C57CB2A91BAAE50D0050FBF7 /* libc++.tbd in Frameworks */,
+				C5E7C2BD1C0F61D60034ACE0 /* MMWormhole.framework in Frameworks */,
 				C5218E7E1AE55965007E55D0 /* Accelerate.framework in Frameworks */,
 				C5218E7D1AE5594E007E55D0 /* OpenGLES.framework in Frameworks */,
 				C5218E7A1AE55936007E55D0 /* CoreData.framework in Frameworks */,
@@ -1114,6 +1109,7 @@
 		12A7A70118DA0945008FF6F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5E7C2BC1C0F61D60034ACE0 /* MMWormhole.framework */,
 				C5861A581BFA079F00C64663 /* MBL */,
 				C57CB2A71BAAE5040050FBF7 /* libsqlite3.0.tbd */,
 				C57CB2A51BAAE4F60050FBF7 /* libz.tbd */,
@@ -1132,8 +1128,6 @@
 				12A7A70618DA0945008FF6F0 /* UIKit.framework */,
 				5B787D9C1A27876F004AE459 /* NotificationCenter.framework */,
 				8302B2CF78A9F0C0ED319A0E /* Pods_meWrap.framework */,
-				6BD8E6E5079F143D706966A3 /* Pods_meWrapToday.framework */,
-				36CB0B8CCD4477BE892DFC1A /* Pods_meWrapWatchExt.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2495,12 +2489,6 @@
 				D2F89869A3934855EF0732E8 /* Pods-meWrap.debug.xcconfig */,
 				D3DABF4C8ED59AC478737410 /* Pods-meWrap.release.xcconfig */,
 				FB55C16CD2E21F54394A9DD0 /* Pods-meWrap.adhoc.xcconfig */,
-				242C8A548FADC94DC813C953 /* Pods-meWrapToday.debug.xcconfig */,
-				73F0FC5531F1CC1416F5D457 /* Pods-meWrapToday.release.xcconfig */,
-				14D649163EDC27687D22E718 /* Pods-meWrapToday.adhoc.xcconfig */,
-				BF8153F7DE7CE04DD5475546 /* Pods-meWrapWatchExt.debug.xcconfig */,
-				6C71BE38469075775C07B06B /* Pods-meWrapWatchExt.release.xcconfig */,
-				1D0A7E01C837DFC1DAB9A689 /* Pods-meWrapWatchExt.adhoc.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2521,13 +2509,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5BF1B2451A49A683000BB2C1 /* Build configuration list for PBXNativeTarget "meWrapToday" */;
 			buildPhases = (
-				47DEBF65F6B24C0717090906 /* Check Pods Manifest.lock */,
 				5BF1B2311A49A683000BB2C1 /* Sources */,
 				5BF1B23A1A49A683000BB2C1 /* Frameworks */,
 				5BF1B23D1A49A683000BB2C1 /* Resources */,
 				C559128F1AC03D2000320483 /* Copy Files (1 item) */,
-				F3BF0498C9252D6DA713939F /* Embed Pods Frameworks */,
-				BC60201FEFDD43E044A4308D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2815,21 +2800,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-meWrap/Pods-meWrap-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		47DEBF65F6B24C0717090906 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		8DD33E4DC49051F72F3D5A7B /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2845,21 +2815,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-meWrap/Pods-meWrap-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BC60201FEFDD43E044A4308D /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-meWrapToday/Pods-meWrapToday-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		C5D41CF91AB1FD6400990944 /* NewRelic upload dSym */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2873,21 +2828,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"$USE_NEWRELIC\" == \"1\" ]; then\nSCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\nif [ \"$ENV\" == \"qa\" ]; then\n/bin/sh \"${SCRIPT}\" \"AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c\"\nelse\n/bin/sh \"${SCRIPT}\" \"AAd46869ec0b3558fb5890343d895b3acdd40ebaa8\"\nfi\n\nfi\n\n";
-		};
-		F3BF0498C9252D6DA713939F /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-meWrapToday/Pods-meWrapToday-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3432,7 +3372,6 @@
 		};
 		5BF1B2461A49A683000BB2C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 242C8A548FADC94DC813C953 /* Pods-meWrapToday.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -3443,8 +3382,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENV = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
@@ -3468,7 +3412,6 @@
 		};
 		5BF1B2471A49A683000BB2C1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73F0FC5531F1CC1416F5D457 /* Pods-meWrapToday.release.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -3480,8 +3423,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENV = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
@@ -3883,7 +3831,6 @@
 		};
 		C5C991081B9836F10006F534 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 14D649163EDC27687D22E718 /* Pods-meWrapToday.adhoc.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -3895,8 +3842,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENV = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";

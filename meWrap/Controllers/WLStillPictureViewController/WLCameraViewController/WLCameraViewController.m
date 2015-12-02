@@ -216,9 +216,7 @@
     [self captureImage:^(UIImage *image) {
         [weakSelf finishWithImage:image];
         weakSelf.view.userInteractionEnabled = YES;
-        run_after(0.5f, ^{
-            sender.active = YES;
-        });
+        sender.active = YES;
     } failure:^(NSError *error) {
         sender.active = YES;
         weakSelf.view.userInteractionEnabled = YES;

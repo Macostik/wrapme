@@ -114,13 +114,8 @@ class WrapCell: StreamReusableView {
             chatPrioritizer?.defaultState = hasUnreadMessages
             coverView.isFollowed = false
         }
-        if let broadcasts = LiveBroadcast.broadcastsForWrap(wrap) {
-            liveBroadcastIndicator?.hidden = broadcasts.isEmpty
-            nameLeadingPrioritizer?.defaultState = !broadcasts.isEmpty
-        } else {
-            liveBroadcastIndicator?.hidden = true
-            nameLeadingPrioritizer?.defaultState = false
-        }
+        liveBroadcastIndicator?.hidden = wrap.liveBroadcasts.isEmpty
+        nameLeadingPrioritizer?.defaultState = !wrap.liveBroadcasts.isEmpty
     }
     
     func updateCandyNotifyCounter() {

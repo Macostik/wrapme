@@ -9,6 +9,14 @@
 import Foundation
 import CoreData
 
+class LiveBroadcast: NSObject {
+    weak var broadcaster: User?
+    weak var wrap: Wrap?
+    var title = ""
+    var url = ""
+    var channel = ""
+}
+
 @objc(Wrap)
 class Wrap: Contribution {
     
@@ -125,5 +133,20 @@ class Wrap: Contribution {
     
     var mutableContributors: NSMutableSet {
         return mutableSetValueForKey("contributors")
+    }
+    
+    var liveBroadcasts = [LiveBroadcast]()
+    
+    func addBroadcast(broadcast: LiveBroadcast) {
+        removeBroadcast(broadcast)
+        liveBroadcasts.append(broadcast)
+        notifyOnUpdate(.LiveBroadcastsChanged)
+    }
+    
+    func removeBroadcast(broadcast: LiveBroadcast) {
+        if let index = liveBroadcasts.indexOf({ $0.channel == broadcast.channel }) {
+            liveBroadcasts.removeAtIndex(index)
+        }
+        notifyOnUpdate(.LiveBroadcastsChanged)
     }
 }

@@ -29,7 +29,6 @@
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
-            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -544,10 +543,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agr-RC-KiU" customClass="WLButton">
-                                                <rect key="frame" x="274" y="41" width="36" height="48"/>
+                                                <rect key="frame" x="274" y="49" width="36" height="33"/>
                                                 <animations/>
-                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
-                                                <state key="normal" title="6">
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <state key="normal" title="Next">
                                                     <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -556,6 +555,7 @@
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="finish:" destination="gkl-Du-487" eventType="touchUpInside" id="4fe-hd-DTg"/>

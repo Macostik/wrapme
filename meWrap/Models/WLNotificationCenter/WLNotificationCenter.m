@@ -162,34 +162,23 @@
             NSString *uuid = event.presence.uuid;
             NSString *wrapuid = event.actualChannel;
             BOOL isBroadcasting = [[state numberForKey:@"isBroadcasting"] boolValue];
-            if (isBroadcasting) {
-                LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
-                broadcast.broadcaster = [User entry:uuid allowInsert:NO];
-                broadcast.wrap = [Wrap entry:wrapuid allowInsert:NO];
-                broadcast.title = state[@"title"];
-                broadcast.channel = state[@"channel"];
-                broadcast.url = state[@"viewerURL"];
-                if (broadcast.wrap) {
-                    [LiveBroadcast addBroadcast:broadcast];
-                }
-            } else {
-                LiveBroadcast *broadcast = nil;
-                for (NSString *uid in [LiveBroadcast broadcasts]) {
-                    if ([uid isEqualToString:wrapuid]) {
-                        NSArray *broadcasts = [LiveBroadcast broadcasts][uid];
-                        for (LiveBroadcast *_broadcast in broadcasts) {
-                            if ([_broadcast.broadcaster.identifier isEqualToString:uuid]) {
-                                broadcast = _broadcast;
-                                break;
-                            }
+            Wrap *wrap = [Wrap entry:wrapuid allowInsert:NO];
+            if (wrap) {
+                if (isBroadcasting) {
+                    LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
+                    broadcast.broadcaster = [User entry:uuid allowInsert:NO];
+                    broadcast.wrap = [Wrap entry:wrapuid allowInsert:NO];
+                    broadcast.title = state[@"title"];
+                    broadcast.channel = state[@"channel"];
+                    broadcast.url = state[@"viewerURL"];
+                    [wrap addBroadcast:broadcast];
+                } else {
+                    for (LiveBroadcast *broadcast in wrap.liveBroadcasts) {
+                        if ([broadcast.broadcaster.identifier isEqualToString:uuid]) {
+                            [wrap removeBroadcast:broadcast];
+                            break;
                         }
                     }
-                    if (broadcast) {
-                        break;
-                    }
-                }
-                if (broadcast) {
-                    [LiveBroadcast removeBroadcast:broadcast];
                 }
             }
         }

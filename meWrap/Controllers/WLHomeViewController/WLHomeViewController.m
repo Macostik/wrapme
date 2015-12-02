@@ -138,31 +138,35 @@
 }
 
 - (void)fetchLiveBroadcasts {
+    __weak typeof(self)weakSelf = self;
     [[PubNub sharedInstance] hereNowForChannelGroup:[WLNotificationCenter defaultCenter].userSubscription.name withCompletion:^(PNPresenceChannelGroupHereNowResult *result, PNErrorStatus *status) {
         NSDictionary *channels = result.data.channels;
-        NSMutableDictionary *broadcasts = [NSMutableDictionary dictionary];
         for (NSString *channel in channels) {
+            Wrap *wrap = [Wrap entry:channel allowInsert:NO];
+            if (wrap == nil) {
+                continue;
+            }
             NSArray *uuids = channels[channel][@"uuids"];
             NSMutableArray *wrapBroadcasts = [NSMutableArray array];
             for (NSDictionary *uuid in uuids) {
+                User *user = [User entry:uuid[@"uuid"] allowInsert:NO];
+                if (user == nil) {
+                    continue;
+                }
                 NSDictionary *state = uuid[@"state"];
                 if (state && [[state numberForKey:@"isBroadcasting"] boolValue]) {
                     LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
-                    broadcast.broadcaster = [User entry:uuid[@"uuid"] allowInsert:NO];
-                    broadcast.wrap = [Wrap entry:channel allowInsert:NO];
+                    broadcast.broadcaster = user;
+                    broadcast.wrap = wrap;
                     broadcast.title = state[@"title"];
                     broadcast.channel = state[@"chatChannel"];
                     broadcast.url = state[@"viewerURL"];
-                    if (broadcast.wrap && broadcast.broadcaster) {
-                        [wrapBroadcasts addObject:broadcast];
-                    }
+                    [wrapBroadcasts addObject:broadcast];
                 }
             }
-            if (wrapBroadcasts.nonempty) {
-                broadcasts[channel] = wrapBroadcasts;
-            }
+            wrap.liveBroadcasts = [wrapBroadcasts copy];
         }
-        [LiveBroadcast refreshBroadcasts:broadcasts];
+        [weakSelf.dataSource reload];
     }];
 }
 

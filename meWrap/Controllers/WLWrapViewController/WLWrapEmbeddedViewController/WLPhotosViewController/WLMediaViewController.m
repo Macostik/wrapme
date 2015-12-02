@@ -61,8 +61,7 @@
     }
     
     [self.dataSource setLiveBroadcasts:^NSArray<LiveBroadcast *> * _Nonnull{
-        NSArray *broadcasts = [LiveBroadcast broadcastsForWrap:weakSelf.wrap];
-        return broadcasts;
+        return weakSelf.wrap.liveBroadcasts;
     }];
     
     [self.dataSource.liveBroadcastMetrics setSelection:^(StreamItem *item, id entry) {

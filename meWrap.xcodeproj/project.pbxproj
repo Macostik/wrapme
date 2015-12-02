@@ -182,7 +182,6 @@
 		C552A8321BFDD37B00A7FFAD /* FlowerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA6D9A1BFCC8270029970A /* FlowerMenu.swift */; };
 		C552A8361BFDE9FE00A7FFAD /* HistoryDateSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C552A8351BFDE9FE00A7FFAD /* HistoryDateSeparator.swift */; };
 		C552A8381BFDEA5E00A7FFAD /* HistoryDateSeparator.xib in Resources */ = {isa = PBXBuildFile; fileRef = C552A8371BFDEA5E00A7FFAD /* HistoryDateSeparator.xib */; };
-		C552A83C1BFE1A7C00A7FFAD /* LiveBroadcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C552A83B1BFE1A7C00A7FFAD /* LiveBroadcast.swift */; };
 		C552A83E1BFE293300A7FFAD /* RecentCandiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C552A83D1BFE293300A7FFAD /* RecentCandiesView.swift */; };
 		C552A8401BFE2BF600A7FFAD /* RecentCandiesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C552A83F1BFE2BF600A7FFAD /* RecentCandiesView.xib */; };
 		C553B1901BF9F75600E50219 /* EntryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C553B18F1BF9F75600E50219 /* EntryPresenter.swift */; };
@@ -683,7 +682,6 @@
 		C552A8351BFDE9FE00A7FFAD /* HistoryDateSeparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryDateSeparator.swift; sourceTree = "<group>"; };
 		C552A8371BFDEA5E00A7FFAD /* HistoryDateSeparator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryDateSeparator.xib; sourceTree = "<group>"; };
 		C552A8391BFDEA8900A7FFAD /* CandyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyCell.swift; sourceTree = "<group>"; };
-		C552A83B1BFE1A7C00A7FFAD /* LiveBroadcast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveBroadcast.swift; sourceTree = "<group>"; };
 		C552A83D1BFE293300A7FFAD /* RecentCandiesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentCandiesView.swift; path = WLHomeViewController/RecentCandiesView.swift; sourceTree = "<group>"; };
 		C552A83F1BFE2BF600A7FFAD /* RecentCandiesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RecentCandiesView.xib; path = WLHomeViewController/RecentCandiesView.xib; sourceTree = "<group>"; };
 		C553B18F1BF9F75600E50219 /* EntryPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryPresenter.swift; sourceTree = "<group>"; };
@@ -1220,7 +1218,6 @@
 				C5AA71AE1BE3946700EA106A /* EntryNotifier.swift */,
 				C5AA71D51BE3D39D00EA106A /* MutableAsset.swift */,
 				C557BA821BF5D50900AE9974 /* WhatsUpEvent.swift */,
-				C552A83B1BFE1A7C00A7FFAD /* LiveBroadcast.swift */,
 				C5E6F02D1BFF710900FA3D4F /* FontPresetter.swift */,
 				C55BE8C81C031D54006B04FC /* EventualEntryPresenter.swift */,
 				C5F4E70C1C07489E00D2FC16 /* EditSession.swift */,
@@ -3073,7 +3070,6 @@
 				C54731B21B906A7400B583FD /* WLStillAvatarViewController.m in Sources */,
 				C5C0AFA31B99CF1F00B8B242 /* StreamReusableView.m in Sources */,
 				C5053E821BC7F7280040613A /* ReportViewController.swift in Sources */,
-				C552A83C1BFE1A7C00A7FFAD /* LiveBroadcast.swift in Sources */,
 				C5060D181BEBA6B3007FFD5B /* Entry+APIResponse.swift in Sources */,
 				C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */,
 				C5C991131B9845CF0006F534 /* StreamMetrics.swift in Sources */,

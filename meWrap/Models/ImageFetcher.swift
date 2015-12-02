@@ -98,7 +98,7 @@ class ImageFetcher: Notifier {
     
     private func imageAtURL(url: String) -> UIImage? {
         if let _url = url.URL, let data = NSData(contentsOfURL: _url), let image = UIImage(data: data) {
-            ImageCache.defaultCache.setImage(image)
+            ImageCache.defaultCache.setImage(image, withURL: url)
             return image
         } else {
             return nil

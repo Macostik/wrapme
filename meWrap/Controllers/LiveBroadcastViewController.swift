@@ -121,15 +121,16 @@ class LiveBroadcastViewController: WLBaseViewController {
         }
     }
     
-    func start() {
+    func start() throws {
+        
+        guard let wrap = wrap else { throw NSError(message: "no wrap") }
+        guard let userUID = User.currentUser?.identifier else { throw NSError(message: "no user_uid") }
+        guard let deviceUID = Authorization.currentAuthorization.deviceUID else { throw NSError(message: "no device_uid") }
+        
         titleLabel?.text = composeBar.text
         titleLabel?.superview?.hidden = false
         
         let streamer = Streamer.instance() as! Streamer
-        guard let userUID = User.currentUser?.identifier,
-            let deviceUID = Authorization.currentAuthorization.deviceUID else {
-            return
-        }
         let channel = "\(userUID)-\(deviceUID)"
         
         let broadcast = LiveBroadcast()
@@ -138,7 +139,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         broadcast.url = "http://live.mewrap.me:1935/live/\(channel)/playlist.m3u8"
         broadcast.channel = channel
         broadcast.wrap = wrap
-        LiveBroadcast.addBroadcast(broadcast)
+        wrap.addBroadcast(broadcast)
         
         print(broadcast.url)
         
@@ -151,7 +152,7 @@ class LiveBroadcastViewController: WLBaseViewController {
             "chatChannel":channel
         ]
         
-        if let channel = wrap?.identifier {
+        if let channel = wrap.identifier {
             WLNotificationCenter.defaultCenter().userSubscription.changeState(state, channel: channel)
         }
         
@@ -165,7 +166,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         UIApplication.sharedApplication().idleTimerDisabled = false
         
         if let broadcast = broadcast {
-            LiveBroadcast.removeBroadcast(broadcast)
+            wrap?.removeBroadcast(broadcast)
         }
         if let channel = wrap?.identifier {
             let state: [NSObject : AnyObject] = [ "isBroadcasting":false ]
@@ -185,7 +186,10 @@ class LiveBroadcastViewController: WLBaseViewController {
             if composeBar.isFirstResponder() {
                 composeBar.resignFirstResponder()
             }
-            start()
+            do {
+                try start()
+            } catch {
+            }
             sender.hidden = true
             composeBar.hidden = true
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "focusing:"))
@@ -302,7 +306,10 @@ extension LiveBroadcastViewController: StreamerListener {
             let delay: Int64 = status == .UnknownFail ? 1 : 3
             weak var weakSelf = self
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue()) {
-                weakSelf?.start()
+                do {
+                    try weakSelf?.start()
+                } catch {
+                }
             }
         }
     }
@@ -325,7 +332,7 @@ extension LiveBroadcastViewController: EntryNotifying {
         guard !isBroadcasting && event == .LiveBroadcastsChanged else {
             return
         }
-        guard let broadcasts = LiveBroadcast.broadcastsForWrap(wrap) where !broadcasts.contains(broadcast) else {
+        guard !wrap.liveBroadcasts.contains(broadcast) else {
             return
         }
         presentingViewController?.dismissViewControllerAnimated(false, completion: nil);

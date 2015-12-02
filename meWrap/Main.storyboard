@@ -1630,8 +1630,8 @@
                                     <constraint firstItem="khD-F3-MeT" firstAttribute="leading" secondItem="Bvm-fO-3Iz" secondAttribute="leading" constant="12" id="zWR-F8-v5m"/>
                                 </constraints>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ez1-OW-DA8" customClass="StreamView" customModule="meWrap">
-                                <rect key="frame" x="0.0" y="108" width="600" height="448"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ez1-OW-DA8" customClass="StreamView" customModule="meWrap">
+                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
                                 <animations/>
                                 <connections>
                                     <outlet property="delegate" destination="2bk-UF-zkR" id="EXB-Dx-YbE"/>
@@ -1705,51 +1705,69 @@
                                     <constraint firstItem="Xap-NR-w7P" firstAttribute="leading" secondItem="AVQ-ZU-PpQ" secondAttribute="leading" id="wj2-er-uXA"/>
                                 </constraints>
                             </view>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MJV-nQ-gRy" customClass="WLPressButton">
-                                <rect key="frame" x="0.0" y="556" width="300" height="44"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="zOP-J8-u0L"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="cancel">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="back:" destination="2bk-UF-zkR" eventType="touchUpInside" id="HrD-3j-ekN"/>
-                                </connections>
-                            </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="eU0-nK-XkS">
                                 <rect key="frame" x="290" y="290" width="20" height="20"/>
                                 <animations/>
                                 <color key="color" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Bf-ro-UFC" customClass="WLPressButton">
-                                <rect key="frame" x="301" y="556" width="299" height="44"/>
+                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="qaM-NS-goe">
+                                <rect key="frame" x="0.0" y="600" width="600" height="44"/>
+                                <subviews>
+                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MJV-nQ-gRy" customClass="WLPressButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
+                                        <animations/>
+                                        <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <state key="normal" title="cancel">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="cancel:" destination="2bk-UF-zkR" eventType="touchUpInside" id="8FW-uS-N6v"/>
+                                        </connections>
+                                    </button>
+                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Bf-ro-UFC" customClass="WLPressButton">
+                                        <rect key="frame" x="301" y="0.0" width="299" height="44"/>
+                                        <animations/>
+                                        <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <state key="normal" title="done">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="done:" destination="2bk-UF-zkR" eventType="touchUpInside" id="R8t-if-sA3"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <animations/>
-                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="JNd-8X-7Ny"/>
+                                    <constraint firstAttribute="height" constant="44" id="Lab-9j-myd"/>
+                                    <constraint firstAttribute="bottom" secondItem="7Bf-ro-UFC" secondAttribute="bottom" id="PfR-m8-U7I"/>
+                                    <constraint firstAttribute="bottom" secondItem="MJV-nQ-gRy" secondAttribute="bottom" id="WlD-g0-nRY"/>
+                                    <constraint firstItem="MJV-nQ-gRy" firstAttribute="width" secondItem="7Bf-ro-UFC" secondAttribute="width" id="ZAx-UZ-iGY"/>
+                                    <constraint firstAttribute="trailing" secondItem="7Bf-ro-UFC" secondAttribute="trailing" id="aDj-UH-oMi"/>
+                                    <constraint firstItem="7Bf-ro-UFC" firstAttribute="leading" secondItem="MJV-nQ-gRy" secondAttribute="trailing" id="eBo-7k-Gxu"/>
+                                    <constraint firstItem="7Bf-ro-UFC" firstAttribute="leading" secondItem="MJV-nQ-gRy" secondAttribute="trailing" constant="1" id="iKB-0i-To8"/>
+                                    <constraint firstItem="MJV-nQ-gRy" firstAttribute="top" secondItem="qaM-NS-goe" secondAttribute="top" id="oo6-UP-ZIM"/>
+                                    <constraint firstItem="MJV-nQ-gRy" firstAttribute="leading" secondItem="qaM-NS-goe" secondAttribute="leading" id="vHt-zo-8o7"/>
+                                    <constraint firstItem="7Bf-ro-UFC" firstAttribute="top" secondItem="qaM-NS-goe" secondAttribute="top" id="z5P-Pz-IwA"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="done">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="done:" destination="2bk-UF-zkR" eventType="touchUpInside" id="R8t-if-sA3"/>
-                                </connections>
-                            </button>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="eBo-7k-Gxu"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -1758,25 +1776,23 @@
                             <constraint firstItem="Ez1-OW-DA8" firstAttribute="top" secondItem="AVQ-ZU-PpQ" secondAttribute="bottom" id="4Ba-TL-K3c"/>
                             <constraint firstAttribute="trailing" secondItem="Ez1-OW-DA8" secondAttribute="trailing" id="7kv-Vo-lk6"/>
                             <constraint firstAttribute="trailing" secondItem="AVQ-ZU-PpQ" secondAttribute="trailing" id="CCP-Vd-gz6"/>
-                            <constraint firstItem="7Bf-ro-UFC" firstAttribute="width" secondItem="MJV-nQ-gRy" secondAttribute="width" id="GoI-ax-g5k"/>
+                            <constraint firstItem="vmi-EB-j8P" firstAttribute="top" secondItem="qaM-NS-goe" secondAttribute="bottom" priority="250" id="CNm-3x-muf"/>
                             <constraint firstItem="AVQ-ZU-PpQ" firstAttribute="leading" secondItem="BJb-s8-wGU" secondAttribute="leading" id="H7r-tB-Jdn"/>
                             <constraint firstItem="AVQ-ZU-PpQ" firstAttribute="top" secondItem="Bvm-fO-3Iz" secondAttribute="bottom" id="O2y-KK-iE1"/>
                             <constraint firstAttribute="centerX" secondItem="eU0-nK-XkS" secondAttribute="centerX" id="UGq-4k-Gm0"/>
-                            <constraint firstItem="MJV-nQ-gRy" firstAttribute="top" secondItem="Ez1-OW-DA8" secondAttribute="bottom" id="Uio-3Z-AlM"/>
                             <constraint firstItem="Bvm-fO-3Iz" firstAttribute="top" secondItem="XL6-C7-uSs" secondAttribute="bottom" constant="-20" id="Zs6-FK-bN6"/>
-                            <constraint firstItem="MJV-nQ-gRy" firstAttribute="leading" secondItem="BJb-s8-wGU" secondAttribute="leading" id="bY3-qE-xTu"/>
-                            <constraint firstAttribute="trailing" secondItem="7Bf-ro-UFC" secondAttribute="trailing" id="h40-kg-INJ"/>
                             <constraint firstItem="Bvm-fO-3Iz" firstAttribute="leading" secondItem="BJb-s8-wGU" secondAttribute="leading" id="hDa-MT-72s"/>
-                            <constraint firstItem="vmi-EB-j8P" firstAttribute="top" secondItem="7Bf-ro-UFC" secondAttribute="bottom" id="kLd-w0-wVR"/>
-                            <constraint firstItem="vmi-EB-j8P" firstAttribute="top" secondItem="MJV-nQ-gRy" secondAttribute="bottom" id="lzK-IS-cA2"/>
+                            <constraint firstItem="qaM-NS-goe" firstAttribute="top" secondItem="Ez1-OW-DA8" secondAttribute="bottom" id="m2A-Eq-DVY"/>
                             <constraint firstAttribute="trailing" secondItem="Bvm-fO-3Iz" secondAttribute="trailing" id="obv-nh-7yy"/>
-                            <constraint firstItem="vmi-EB-j8P" firstAttribute="top" secondItem="MJV-nQ-gRy" secondAttribute="bottom" id="qqq-yO-Fr1"/>
-                            <constraint firstItem="7Bf-ro-UFC" firstAttribute="leading" secondItem="MJV-nQ-gRy" secondAttribute="trailing" constant="1" id="voW-hE-Hsq"/>
+                            <constraint firstAttribute="trailing" secondItem="qaM-NS-goe" secondAttribute="trailing" id="reA-td-a14"/>
+                            <constraint firstItem="qaM-NS-goe" firstAttribute="leading" secondItem="BJb-s8-wGU" secondAttribute="leading" id="wnp-a2-4Re"/>
+                            <constraint firstItem="vmi-EB-j8P" firstAttribute="top" secondItem="qaM-NS-goe" secondAttribute="top" priority="750" id="xO0-vI-NyL"/>
                             <constraint firstAttribute="centerY" secondItem="eU0-nK-XkS" secondAttribute="centerY" id="ygl-vO-W4t"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="pYh-Kq-wM8"/>
                     <connections>
+                        <outlet property="bottomPrioritizer" destination="r5W-2b-A9y" id="bmn-YA-MP1"/>
                         <outlet property="navigationBar" destination="Bvm-fO-3Iz" id="AU6-vM-XHp"/>
                         <outlet property="searchField" destination="KDf-WU-v2H" id="eMH-vk-lNZ"/>
                         <outlet property="spinner" destination="eU0-nK-XkS" id="3qg-cQ-HkS"/>
@@ -1784,6 +1800,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Adp-VB-Iup" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="r5W-2b-A9y" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outletCollection property="parentViews" destination="BJb-s8-wGU" collectionClass="NSMutableArray" id="hRH-UZ-qIs"/>
+                        <outletCollection property="defaultConstraints" destination="xO0-vI-NyL" collectionClass="NSMutableArray" id="dTo-wu-7OS"/>
+                        <outletCollection property="alternativeConstraints" destination="CNm-3x-muf" collectionClass="NSMutableArray" id="xzK-rO-Xjp"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="3718.125" y="789.08450704225345"/>
         </scene>

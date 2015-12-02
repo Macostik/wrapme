@@ -66,7 +66,7 @@
                         <constraint firstAttribute="height" constant="23" id="0zd-D5-VeQ"/>
                         <constraint firstAttribute="width" constant="76" id="g28-OQ-6S8"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <state key="normal" title="already_in">
                         <color key="titleColor" red="0.36078431372549019" green="0.84705882352941175" blue="0.36078431372549019" alpha="1" colorSpace="calibratedRGB"/>
                     </state>

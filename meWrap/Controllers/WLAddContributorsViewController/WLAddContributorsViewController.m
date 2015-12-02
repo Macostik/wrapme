@@ -20,19 +20,15 @@
 
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
-
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (weak, nonatomic) IBOutlet LayoutPrioritizer *bottomPrioritizer;
 @property (nonatomic, strong) NSMutableArray* openedRows;
-
 @property (strong, nonatomic) WLArrangedAddressBook* addressBook;
-
 @property (strong, nonatomic) WLArrangedAddressBook* filteredAddressBook;
-
 @property (strong, nonatomic) StreamMetrics *singleMetrics;
-
 @property (strong, nonatomic) StreamMetrics *multipleMetrics;
-
 @property (strong, nonatomic) StreamMetrics *sectionHeaderMetrics;
+
 
 @end
 
@@ -163,6 +159,11 @@
     }
 }
 
+- (IBAction)cancel:(id)sender {
+    [self.addressBook.selectedPhoneNumbers removeAllObjects];
+    [self.streamView reload];
+}
+
 #pragma mark - StreamViewDelegate
 
 - (NSInteger)streamViewNumberOfSections:(StreamView * __nonnull)streamView {
@@ -206,7 +207,7 @@
     if ([self.wrap.contributors containsObject:phoneNumber.user]) {
         return WLAddressBookPhoneNumberStateAdded;
     }
-    
+    self.bottomPrioritizer.defaultState = self.addressBook.selectedPhoneNumbers.count == 0;
     return [self.addressBook selectedPhoneNumber:phoneNumber] != nil ? WLAddressBookPhoneNumberStateSelected : WLAddressBookPhoneNumberStateDefault;
 }
 

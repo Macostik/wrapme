@@ -374,8 +374,10 @@ static CGFloat WLCancellingValue = 80;
         } break;
         case UIGestureRecognizerStateChanged: {
             CGPoint location = [sender locationInView:self.videoRecordingView];
-            if (location.x < WLCancellingValue) {
-                [self stopVideoRecording];
+            if (self.movieFileOutput.recording && !self.videoRecordingCancelled) {
+                if (location.x < WLCancellingValue) {
+                    [self cancelVideoRecording];
+                }
             }
         } break;
         case UIGestureRecognizerStateEnded: {

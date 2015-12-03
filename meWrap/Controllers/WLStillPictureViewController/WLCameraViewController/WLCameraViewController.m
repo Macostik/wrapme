@@ -352,6 +352,8 @@
     });
 }
 
+static CGFloat WLCancellingValue = 80;
+
 - (void)startVideoRecording:(UILongPressGestureRecognizer*)sender {
     if ([self.delegate respondsToSelector:@selector(cameraViewControllerCaptureMedia:)]) {
         if ([self.delegate cameraViewControllerCaptureMedia:self] == NO) {
@@ -369,6 +371,12 @@
                                                                                userInfo:nil
                                                                                 repeats:NO];
             }];
+        } break;
+        case UIGestureRecognizerStateChanged: {
+            CGPoint location = [sender locationInView:self.videoRecordingView];
+            if (location.x < WLCancellingValue) {
+                [self stopVideoRecording];
+            }
         } break;
         case UIGestureRecognizerStateEnded: {
             CGPoint location = [sender locationInView:self.videoRecordingView];

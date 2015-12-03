@@ -1805,9 +1805,9 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outletCollection property="parentViews" destination="BJb-s8-wGU" collectionClass="NSMutableArray" id="hRH-UZ-qIs"/>
                         <outletCollection property="defaultConstraints" destination="xO0-vI-NyL" collectionClass="NSMutableArray" id="dTo-wu-7OS"/>
                         <outletCollection property="alternativeConstraints" destination="CNm-3x-muf" collectionClass="NSMutableArray" id="xzK-rO-Xjp"/>
+                        <outletCollection property="parentViews" destination="qaM-NS-goe" collectionClass="NSMutableArray" id="ILM-FD-MyI"/>
                     </connections>
                 </customObject>
             </objects>

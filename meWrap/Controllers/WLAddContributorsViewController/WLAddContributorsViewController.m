@@ -49,7 +49,7 @@
             WLAddressBookPhoneNumber* phoneNumber = [record.phoneNumbers lastObject];
             User *user = phoneNumber.user;
             NSString *infoString =  phoneNumber.activated ? @"signup_status".ls : user ? @"invite_status".ls : @"invite_me_to_meWrap".ls;
-            CGFloat leftIdent  = user ? 160.0 : 114.0;
+            CGFloat leftIdent  = user && [self.wrap.contributors containsObject:phoneNumber.user] ? 160.0 : 114.0;
             CGFloat nameHeight =  [[record name] heightWithFont:[UIFont fontNormal] width:weakSelf.streamView.width - leftIdent];
             CGFloat pandingHeight =  user.isInvited ? [@"sign_up_pending".ls heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - leftIdent] : 0;
             CGFloat inviteHeight =  [infoString heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - leftIdent];
@@ -125,6 +125,7 @@
 
 #pragma mark - Actions
 
+
 - (IBAction)done:(WLButton*)sender {
     __weak typeof(self)weakSelf = self;
     if (![WLNetwork sharedNetwork].reachable) {
@@ -132,16 +133,16 @@
         return;
     }
     WLObjectBlock performRequestBlock = ^ (id __nullable message) {
-        [weakSelf.navigationController popViewControllerAnimated:NO];
-        if (message) {
-            [WLToast showWithMessage:@"isn't_using_invite".ls];
-        } else {
-            [WLToast showWithMessage:@"is_using_invite".ls];
-        }
-        [[WLAPIRequest addContributors:self.addressBook.selectedPhoneNumbers wrap:self.wrap message:message] send:^(id object) {}
+        [[WLAPIRequest addContributors:self.addressBook.selectedPhoneNumbers wrap:self.wrap message:message] send:^(id object) {
+            [weakSelf.navigationController popViewControllerAnimated:NO];
+            if (message) {
+                [WLToast showWithMessage:@"isn't_using_invite".ls];
+            } else {
+                [WLToast showWithMessage:@"is_using_invite".ls];
+            }}
                                                                                                           failure:^(NSError *error) {
-            [error show];
-        }];
+                                                                                                              [error show];
+                                                                                                          }];
     };
     
     if (self.addressBook.selectedPhoneNumbers.count == 0) {
@@ -150,14 +151,10 @@
     } else if ([self containUnregisterAddresBookGroupRecord]) {
         NSString *content = [NSString stringWithFormat:@"send_message_to_friends_content".ls, [User currentUser].name, self.wrap.name];
         [WLEditingConfirmView showInView:self.view withContent:content success:^(id  _Nullable object) {
-            if (performRequestBlock) {
-                performRequestBlock(object);
-            }
+            performRequestBlock(object);
         } cancel: ^{}];
     } else  {
-        if (performRequestBlock) {
-            performRequestBlock(nil);
-        }
+        performRequestBlock(nil);
     }
 }
 

@@ -77,9 +77,8 @@
             self.statusLabel.text = @"invite_me_to_meWrap".ls;
         }
 		self.state = [self.delegate recordCell:self phoneNumberState:phoneNumber];
-        self.statusButton.hidden = !user;
-        [self.statusButton setTitle:phoneNumber.activated || user.isInvited ? @"already_in".ls : @"invited".ls forState:UIControlStateNormal];
-        self.statusPrioritizer.defaultState = !user;
+        self.statusButton.hidden = !(user && (self.state == WLAddressBookPhoneNumberStateAdded));
+        self.statusPrioritizer.defaultState = !(user && (self.state == WLAddressBookPhoneNumberStateAdded));
 	}
 }
 

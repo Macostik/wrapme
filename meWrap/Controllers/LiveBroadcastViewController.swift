@@ -12,6 +12,12 @@ import AVFoundation
 
 class LiveBroadcastViewController: WLBaseViewController {
     
+    @IBOutlet var layoutPrioritizer: LayoutPrioritizer!
+    
+    @IBOutlet weak var joinsCountView: UIView!
+    
+    @IBOutlet weak var joinsCountLabel: UILabel!
+    
     weak var previewLayer: AVCaptureVideoPreviewLayer?
     
     weak var playerLayer: AVPlayerLayer?
@@ -42,14 +48,21 @@ class LiveBroadcastViewController: WLBaseViewController {
         item.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
     }
     
+    private func updateBroadcastInfo() {
+        if let broadcast = broadcast {
+            joinsCountLabel.text = "\(broadcast.numberOfViewers)"
+            titleLabel?.text = broadcast.title
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         wrapNameLabel?.text = wrap?.name
         
         if let broadcast = broadcast {
             isBroadcasting = false
-            titleLabel?.text = broadcast.title
-            composeBar.hidden = true
+            
+            layoutPrioritizer.defaultState = false
             startButton.hidden = true
             
             if let url = broadcast.url.URL {
@@ -74,8 +87,11 @@ class LiveBroadcastViewController: WLBaseViewController {
                 if let channel = wrap?.identifier {
                     WLNotificationCenter.defaultCenter().userSubscription.changeState(state, channel: channel)
                 }
+                
+                updateBroadcastInfo()
             }
         } else {
+            joinsCountView.hidden = true
             isBroadcasting = true
             titleLabel?.superview?.hidden = true
             guard let cameraInfo = CameraInfo.getCameraList().first as? CameraInfo else {
@@ -203,6 +219,7 @@ class LiveBroadcastViewController: WLBaseViewController {
                 try start()
             } catch {
             }
+            joinsCountView.hidden = false
             sender.hidden = true
             composeBar.hidden = true
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "focusing:"))
@@ -355,10 +372,13 @@ extension LiveBroadcastViewController: EntryNotifying {
         guard !isBroadcasting && event == .LiveBroadcastsChanged else {
             return
         }
-        guard !wrap.liveBroadcasts.contains(broadcast) else {
-            return
+        
+        
+        if !wrap.liveBroadcasts.contains(broadcast) {
+            presentingViewController?.dismissViewControllerAnimated(false, completion: nil);
+        } else {
+            updateBroadcastInfo()
         }
-        presentingViewController?.dismissViewControllerAnimated(false, completion: nil);
     }
     
     func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {

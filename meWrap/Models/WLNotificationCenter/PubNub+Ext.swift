@@ -121,7 +121,7 @@ class NotificationSubscription: NSObject {
     
     func hereNow(completion: [[NSObject : AnyObject]]? -> Void) {
         PubNub.sharedInstance.hereNowForChannel(name, withVerbosity: .State) { (result, status) -> Void in
-            if !status.error {
+            if !(status?.error ?? false) {
                 completion(result.data.uuids as? [[NSObject : AnyObject]])
             }
         }

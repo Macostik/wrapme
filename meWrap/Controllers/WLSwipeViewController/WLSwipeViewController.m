@@ -65,7 +65,7 @@ typedef NS_ENUM(NSUInteger, WLSwipeViewControllerPosition) {
     [self setViewController:viewController direction:direction animated:animated completion:nil];
 }
 
-- (void)setViewController:(UIViewController*)viewController direction:(WLSwipeViewControllerDirection)direction animated:(BOOL)animated completion:(WLBlock)completion {
+- (void)setViewController:(UIViewController*)viewController direction:(WLSwipeViewControllerDirection)direction animated:(BOOL)animated completion:(Block)completion {
     if (animated && self.viewController) {
         __weak typeof(self)weakSelf = self;
         if (direction == WLSwipeViewControllerDirectionForward) {

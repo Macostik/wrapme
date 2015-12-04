@@ -26,9 +26,9 @@
 
 + (instancetype)addressBook;
 
-- (BOOL)cachedRecords:(WLSetBlock)success failure:(WLFailureBlock)failure;
+- (BOOL)cachedRecords:(SetBlock)success failure:(FailureBlock)failure;
 
-- (void)records:(WLSetBlock)success failure:(WLFailureBlock)failure;
+- (void)records:(SetBlock)success failure:(FailureBlock)failure;
 
 - (void)beginCaching;
 
@@ -38,6 +38,6 @@
 
 - (void)updateCachedRecordsAfterFailure;
 
-- (void)contacts:(WLSetBlock)success failure:(WLFailureBlock)failure;
+- (void)contacts:(SetBlock)success failure:(FailureBlock)failure;
 
 @end

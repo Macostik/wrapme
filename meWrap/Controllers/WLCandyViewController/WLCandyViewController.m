@@ -61,7 +61,7 @@
     __weak typeof(self)weakSelf = self;
     self.spinner.hidden = NO;
     self.errorLabel.hidden = YES;
-    [self.imageView setURL:candy.picture.large success:^(UIImage *image, BOOL cached) {
+    [self.imageView setURL:candy.asset.large success:^(UIImage *image, BOOL cached) {
         [weakSelf calculateScaleValues];
         weakSelf.scrollView.userInteractionEnabled = YES;
         weakSelf.spinner.hidden = weakSelf.errorLabel.hidden = YES;
@@ -73,7 +73,7 @@
     NSInteger type = candy.type;
     if (type == MediaTypeVideo) {
         if (!playerView.playing) {
-            playerView.url = [candy.picture.original smartURL];
+            playerView.url = [candy.asset.original smartURL];
         }
         playerView.hidden = NO;
     } else {

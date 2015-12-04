@@ -15,7 +15,7 @@
 + (instancetype)wraps:(NSString *)scope {
     return [[[self GET:@"wraps", nil] parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:scope forKey:@"scope"];
-    }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
         NSArray* wraps = [Wrap mappedEntries:[Wrap prefetchArray:[response.data arrayForKey:@"wraps"]]];
         [[WLWhatsUpSet sharedSet] update:nil failure:nil];
         success(wraps);
@@ -27,7 +27,7 @@
 }
 
 + (instancetype)messages:(Wrap *)wrap {
-    return [[[self GET:@"wraps/%@/chats", wrap.identifier] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
+    return [[[self GET:@"wraps/%@/chats", wrap.uid] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
         if (wrap.valid) {
             NSArray* messages = [Message mappedEntries:[Message prefetchArray:response.data[@"chats"]] container:wrap];
             if (messages.nonempty) {
@@ -45,10 +45,10 @@
 }
 
 - (instancetype)candies:(Wrap *)wrap {
-    self.path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
+    self.path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.uid];
     [[[self parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
-    }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
         if (wrap.valid) {
             success([Candy mappedEntries:[Candy prefetchArray:response.data[@"candies"]] container:wrap]);
         } else {
@@ -63,7 +63,7 @@
 }
 
 + (instancetype)wrap:(Wrap *)wrap contentType:(NSString *)contentType {
-    return [[[[self GET:@"wraps/%@", wrap.identifier] parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
+    return [[[[self GET:@"wraps/%@", wrap.uid] parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
         [parameters trySetObject:contentType forKey:@"pick"];
         if (request.type == WLPaginatedRequestTypeNewer && request.newer) {
@@ -73,7 +73,7 @@
             [parameters trySetObject:@"older_than" forKey:@"condition"];
             [parameters trySetObject:@([request.older startOfDay].timestamp) forKey:@"offset_in_epoch"];
         }
-    }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
         if (wrap.valid) {
             success(@[[wrap update:[Wrap prefetchDictionary:response.data[@"wrap"]]]]);
         } else {

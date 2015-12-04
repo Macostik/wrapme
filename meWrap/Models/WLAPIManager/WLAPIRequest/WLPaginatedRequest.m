@@ -29,22 +29,22 @@
     return self;
 }
 
-- (id)fresh:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (id)fresh:(ArrayBlock)success failure:(FailureBlock)failure {
     self.type = WLPaginatedRequestTypeFresh;
     return [self send:success failure:failure];
 }
 
-- (id)newer:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (id)newer:(ArrayBlock)success failure:(FailureBlock)failure {
     self.type = WLPaginatedRequestTypeNewer;
     return [self send:success failure:failure];
 }
 
-- (id)older:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (id)older:(ArrayBlock)success failure:(FailureBlock)failure {
     self.type = WLPaginatedRequestTypeOlder;
     return [self send:success failure:failure];
 }
 
-- (id)send:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (id)send:(ArrayBlock)success failure:(FailureBlock)failure {
     return [super send:success failure:failure];
 }
 

@@ -137,17 +137,17 @@ extension Contribution {
 extension Candy {
     func extensionCandy(includeComments includeComments: Bool) -> ExtensionCandy {
         let candy = ExtensionCandy()
-        candy.uid = identifier ?? ""
+        candy.uid = uid ?? ""
         let contributor = ExtensionUser()
-        contributor.uid = self.contributor?.identifier ?? ""
+        contributor.uid = self.contributor?.uid ?? ""
         contributor.name = self.contributor?.name
-        contributor.avatar = self.contributor?.picture?.small
+        contributor.avatar = self.contributor?.avatar?.small
         candy.contributor = contributor
         candy.updatedAt = updatedAt
         candy.createdAt = createdAt
-        candy.asset = picture?.small
+        candy.asset = asset?.small
         let wrap = ExtensionWrap()
-        wrap.uid = self.wrap?.identifier ?? ""
+        wrap.uid = self.wrap?.uid ?? ""
         wrap.name = self.wrap?.name
         candy.wrap = wrap
         if let comments = comments as? Set<Comment> where includeComments {
@@ -163,11 +163,11 @@ extension Candy {
 extension Comment {
     func extensionComment() -> ExtensionComment {
         let comment = ExtensionComment()
-        comment.uid = identifier ?? ""
+        comment.uid = uid ?? ""
         let contributor = ExtensionUser()
-        contributor.uid = self.contributor?.identifier ?? ""
+        contributor.uid = self.contributor?.uid ?? ""
         contributor.name = self.contributor?.name
-        contributor.avatar = self.contributor?.picture?.small
+        contributor.avatar = self.contributor?.avatar?.small
         comment.contributor = contributor
         comment.updatedAt = updatedAt
         comment.createdAt = createdAt

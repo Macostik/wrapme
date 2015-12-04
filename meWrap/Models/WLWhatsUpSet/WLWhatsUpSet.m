@@ -39,8 +39,8 @@
         [[Comment notifier] addReceiver:self];
         [[Candy notifier] addReceiver:self];
         [[Wrap notifier] addReceiver:self];
-        self.commentPredicate = @"candy.wrap.identifier IN %@ OR createdAt >= %@ AND contributor != nil AND contributor != %@";
-        self.candyPredicate = @"wrap.identifier IN %@ OR createdAt >= %@ AND contributor != nil AND contributor != %@";
+        self.commentPredicate = @"candy.wrap.uid IN %@ OR createdAt >= %@ AND contributor != nil AND contributor != %@";
+        self.candyPredicate = @"wrap.uid IN %@ OR createdAt >= %@ AND contributor != nil AND contributor != %@";
         self.updatesPredicate = @"editedAt >= %@ AND editor != nil AND editor != %@";
         [self update:nil failure:nil];
     }
@@ -56,7 +56,7 @@
     return nil;
 }
 
-- (void)update:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)update:(Block)success failure:(FailureBlock)failure {
     
     __weak typeof(self)weakSelf = self;
     NSDate *dayAgo = [NSDate dayAgo];
@@ -96,7 +96,7 @@
             if (contribution.unread) {
                 unreadEntriesCount++;
                 if ([contribution isKindOfClass:[Candy class]]) {
-                    NSString *wrapId = [[(Candy *)contribution wrap] identifier];
+                    NSString *wrapId = [[(Candy *)contribution wrap] uid];
                     if (wrapId) {
                         wrapCounters[wrapId] = @([wrapCounters[wrapId] unsignedIntegerValue] + 1);
                     }
@@ -118,7 +118,7 @@
     [self resetEntries:events];
 }
 
-- (void)refreshCount:(void (^)(NSUInteger))success failure:(WLFailureBlock)failure {
+- (void)refreshCount:(void (^)(NSUInteger))success failure:(FailureBlock)failure {
     __weak typeof(self)weakSelf = self;
     [self update:^{
         if (success) success(weakSelf.unreadEntriesCount);
@@ -126,7 +126,7 @@
 }
 
 - (NSUInteger)unreadCandiesCountForWrap:(Wrap *)wrap {
-    return [self.wrapCounters[wrap.identifier] unsignedIntegerValue];
+    return [self.wrapCounters[wrap.uid] unsignedIntegerValue];
 }
 
 - (void)notifier:(EntryNotifier*)notifier didAddEntry:(Entry *)entry {

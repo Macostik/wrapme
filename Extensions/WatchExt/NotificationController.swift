@@ -23,7 +23,7 @@ class NotificationController: WKUserNotificationInterfaceController {
             WCSession.defaultSession().handleNotification(notification, success: { (reply) -> Void in
                 //        Entry *entry = [Entry deserializeReference:[dictionary dictionaryForKey:@"entry"]];
                 //        if (entry) {
-                //            self.image.URL = entry.picture.small;
+                //            self.image.URL = entry.asset.small;
                 //        } else {
                 //            [self.image setHidden:YES];
                 //        }

@@ -53,7 +53,7 @@
     return self;
 }
 
-- (void)recursivelyFetchIfNeeded:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)recursivelyFetchIfNeeded:(Block)success failure:(FailureBlock)failure {
     
     if (self.recursivelyFetched) {
         if (success) success();
@@ -70,7 +70,7 @@
     }
 }
 
-- (id)fetchIfNeeded:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (id)fetchIfNeeded:(ObjectBlock)success failure:(FailureBlock)failure {
     if (self.fetched) {
         if (success) success(self);
         return nil;
@@ -89,7 +89,7 @@
     }
 }
 
-- (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (id)fetch:(ObjectBlock)success failure:(FailureBlock)failure {
     if (success) success(self);
     return nil;
 }
@@ -130,11 +130,11 @@
     }
 }
 
-- (id)fetch:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (id)fetch:(ArrayBlock)success failure:(FailureBlock)failure {
     return [self fetch:WLWrapContentTypeRecent success:success failure:failure];
 }
 
-- (id)fetch:(NSString*)contentType success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (id)fetch:(NSString*)contentType success:(ArrayBlock)success failure:(FailureBlock)failure {
     if (self.uploaded) {
         return [[WLPaginatedRequest wrap:self contentType:contentType] send:success failure:failure];
     } else if (success) {
@@ -143,14 +143,14 @@
     return nil;
 }
 
-- (id)messagesNewer:(NSDate *)newer success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (id)messagesNewer:(NSDate *)newer success:(ArrayBlock)success failure:(FailureBlock)failure {
     WLPaginatedRequest* request = [WLPaginatedRequest messages:self];
     request.type = WLPaginatedRequestTypeNewer;
     request.newer = newer;
     return [request send:success failure:failure];
 }
 
-- (id)messagesOlder:(NSDate *)older newer:(NSDate *)newer success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (id)messagesOlder:(NSDate *)older newer:(NSDate *)newer success:(ArrayBlock)success failure:(FailureBlock)failure {
     WLPaginatedRequest* request = [WLPaginatedRequest messages:self];
     request.type = WLPaginatedRequestTypeOlder;
     request.newer = newer;
@@ -158,7 +158,7 @@
     return [request send:success failure:failure];
 }
 
-- (id)messages:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (id)messages:(ArrayBlock)success failure:(FailureBlock)failure {
     WLPaginatedRequest* request = [WLPaginatedRequest messages:self];
     request.type = WLPaginatedRequestTypeFresh;
     return [request send:success failure:failure];
@@ -168,7 +168,7 @@
     WLHistory *history = [WLHistory historyWithWrap:self];
     [history fresh:^(NSArray *array) {
         [history.entries enumerateObjectsUsingBlock:^(Candy *candy, NSUInteger idx, BOOL *stop) {
-            [candy.picture fetch:nil];
+            [candy.asset fetch:nil];
             if (idx == 20) *stop = YES;
         }];
     } failure:nil];
@@ -185,7 +185,7 @@
     }
 }
 
-- (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (id)fetch:(ObjectBlock)success failure:(FailureBlock)failure {
     if (self.uploaded) {
         return [[WLAPIRequest candy:self] send:success failure:failure];
     } else {
@@ -194,14 +194,14 @@
     }
 }
 
-- (void)download:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)download:(Block)success failure:(FailureBlock)failure {
     PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
     if (status == PHAuthorizationStatusDenied) {
         if (failure) failure([[NSError alloc] initWithMessage:@"downloading_privacy_settings".ls]);
     } else {
         __weak typeof(self)weakSelf = self;
         if (weakSelf.type == MediaTypeVideo) {
-            NSString *url = weakSelf.picture.original;
+            NSString *url = weakSelf.asset.original;
             if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
                 [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
                     return [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:[NSURL fileURLWithPath:url]];
@@ -237,7 +237,7 @@
                 [task resume];
             }
         } else {
-            [BlockImageFetching enqueue:self.picture.original success:^(UIImage * image) {
+            [BlockImageFetching enqueue:self.asset.original success:^(UIImage * image) {
                 [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
                     return [PHAssetChangeRequest creationRequestForAssetFromImage:image];
                 } collectionTitle:[Constants albumName] success:success failure:failure];

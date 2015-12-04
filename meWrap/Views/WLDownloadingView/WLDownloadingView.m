@@ -24,11 +24,11 @@
 
 @implementation WLDownloadingView
 
-+ (instancetype)downloadCandy:(Candy *)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {
++ (instancetype)downloadCandy:(Candy *)candy success:(ImageBlock)success failure:(FailureBlock)failure {
     return [[WLDownloadingView loadFromNib:@"WLDownloadingView"] downloadCandy:candy success:success failure:failure];
 }
 
-- (instancetype)downloadCandy:(Candy *)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {
+- (instancetype)downloadCandy:(Candy *)candy success:(ImageBlock)success failure:(FailureBlock)failure {
     UIView *view = [UIWindow mainWindow];
     self.frame = view.frame;
     self.candy = candy;
@@ -83,8 +83,8 @@
     }
 }
 
-- (void)downloadEntry:(WLImageBlock)success failure:(WLFailureBlock)failure {
-    NSString *url = self.candy.picture.original;
+- (void)downloadEntry:(ImageBlock)success failure:(FailureBlock)failure {
+    NSString *url = self.candy.asset.original;
     if ([[ImageCache defaultCache] containsImageWithURL:url]) {
         if (success) {
             success([[ImageCache defaultCache] imageWithURL:url]);

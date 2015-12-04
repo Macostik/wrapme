@@ -124,7 +124,7 @@
     return UIStatusBarAnimationSlide;
 }
 
-- (void)requestAuthorizationForPresentingEntry:(Entry *)entry completion:(WLBooleanBlock)completion {
+- (void)requestAuthorizationForPresentingEntry:(Entry *)entry completion:(BooleanBlock)completion {
     [self.topViewController requestAuthorizationForPresentingEntry:entry completion:completion];
 }
 

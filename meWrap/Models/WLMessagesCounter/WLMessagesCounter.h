@@ -22,6 +22,6 @@
 
 - (NSUInteger)countForWrap:(Wrap *)wrap;
 
-- (void)update:(WLBlock)completionHandler;
+- (void)update:(Block)completionHandler;
 
 @end

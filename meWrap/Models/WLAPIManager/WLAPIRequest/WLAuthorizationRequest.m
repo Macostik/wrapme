@@ -30,7 +30,7 @@ static BOOL authorized = NO;
 
 + (BOOL)requiresSignIn {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return !authorized || !defaults.imageURI || !defaults.avatarURI || !defaults.videoURI || ![User currentUser].identifier.nonempty;
+    return !authorized || !defaults.imageURI || !defaults.avatarURI || !defaults.videoURI || ![User currentUser].uid.nonempty;
 }
 
 + (instancetype)signUp:(Authorization*)authorization {
@@ -45,7 +45,7 @@ static BOOL authorized = NO;
             [parameters trySetObject:deviceToken forKey:@"device_token"];
         }
         parameters[@"os"] = @"ios";
-    }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
         success(authorization);
     }];
 }
@@ -58,7 +58,7 @@ static BOOL authorized = NO;
         [parameters trySetObject:authorization.phone forKey:@"phone_number"];
         [parameters trySetObject:authorization.activationCode forKey:@"activation_code"];
         [parameters trySetObject:authorization.email forKey:@"email"];
-    }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
         authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
         [authorization setCurrent];
         success(authorization);
@@ -73,7 +73,7 @@ static BOOL authorized = NO;
         [parameters trySetObject:authorization.phone forKey:@"phone_number"];
         [parameters trySetObject:authorization.password forKey:@"password"];
         [parameters trySetObject:request.tryUncorfirmedEmail ? authorization.unconfirmed_email : authorization.email forKey:@"email"];
-    }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
         if (!authorized) {
             authorized = YES;
             [WLUploadingQueue start];
@@ -221,7 +221,7 @@ static BOOL authorized = NO;
 + (instancetype)whois:(NSString *)email {
     return [[[self GET:@"users/whois"] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:email forKey:@"email"];
-    }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
         WLWhoIs* whoIs = [WLWhoIs sharedInstance];
         NSDictionary *userInfo = [response.data dictionaryForKey:@"user"];
         whoIs.found = [[userInfo numberForKey:@"found"] boolValue];
@@ -261,7 +261,7 @@ static BOOL authorized = NO;
         [parameters trySetObject:[Authorization currentAuthorization].email forKey:@"email"];
         [parameters trySetObject:[Authorization currentAuthorization].deviceUID forKey:@"device_uid"];
         [parameters trySetObject:passcode forKey:@"approval_code"];
-    }] parse:^(Response *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
         Authorization *authorization = [Authorization currentAuthorization];
         authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
         [authorization setCurrent];
@@ -277,15 +277,15 @@ static BOOL authorized = NO;
 
 @implementation Authorization (WLAuthorizationRequest)
 
-- (id)signUp:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (id)signUp:(ObjectBlock)success failure:(FailureBlock)failure {
     return [[WLAuthorizationRequest signUp:self] send:success failure:failure];
 }
 
-- (id)activate:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (id)activate:(ObjectBlock)success failure:(FailureBlock)failure {
     return [[WLAuthorizationRequest activation:self] send:success failure:failure];
 }
 
-- (id)signIn:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (id)signIn:(ObjectBlock)success failure:(FailureBlock)failure {
 	return [[WLAuthorizationRequest signIn:self] send:success failure:failure];
 }
 

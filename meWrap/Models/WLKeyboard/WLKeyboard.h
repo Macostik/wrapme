@@ -29,6 +29,6 @@
 
 + (instancetype)keyboard;
 
-- (void)performAnimation:(WLBlock)animation;
+- (void)performAnimation:(Block)animation;
 
 @end

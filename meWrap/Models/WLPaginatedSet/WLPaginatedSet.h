@@ -42,11 +42,11 @@
 
 - (NSDate* __nullable)olderPaginationDate;
 
-- (void)fresh:(WLArrayBlock __nullable)success failure:(WLFailureBlock __nullable)failure;
+- (void)fresh:(ArrayBlock __nullable)success failure:(FailureBlock __nullable)failure;
 
-- (void)newer:(WLArrayBlock __nullable)success failure:(WLFailureBlock __nullable)failure;
+- (void)newer:(ArrayBlock __nullable)success failure:(FailureBlock __nullable)failure;
 
-- (void)older:(WLArrayBlock __nullable)success failure:(WLFailureBlock __nullable)failure;
+- (void)older:(ArrayBlock __nullable)success failure:(FailureBlock __nullable)failure;
 
 - (void)handleResponse:(NSArray*  __nonnull)entries;
 

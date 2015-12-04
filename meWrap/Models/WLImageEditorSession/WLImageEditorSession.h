@@ -13,7 +13,7 @@ typedef void(^WLImageEditingCancelBlock) (void);
 
 @interface WLImageEditorSession : NSObject
 
-+ (void)editImage:(UIImage *)image completion:(WLImageBlock)completion cancel:(WLBlock)cancel;
++ (void)editImage:(UIImage *)image completion:(ImageBlock)completion cancel:(Block)cancel;
 
 + (UIViewController*)editControllerWithImage:(UIImage*)image completion:(WLImageEditingCompletionBlock)completion cancel:(WLImageEditingCancelBlock)cancel;
 

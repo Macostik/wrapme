@@ -16,7 +16,7 @@
 
 @implementation WLImageEditorSession
 
-+ (void)editImage:(UIImage *)image completion:(WLImageBlock)completion cancel:(WLBlock)cancel {
++ (void)editImage:(UIImage *)image completion:(ImageBlock)completion cancel:(Block)cancel {
     UIViewController *presentingViewController = [UIWindow mainWindow].rootViewController;
     AdobeUXImageEditorViewController* controller = (id)[self editControllerWithImage:image completion:^(UIImage *image) {
         if (completion) completion(image);

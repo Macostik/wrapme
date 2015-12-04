@@ -57,7 +57,7 @@
     }
 }
 
-- (void)update:(WLBlock)completionHandler {
+- (void)update:(Block)completionHandler {
     if (updating) {
         return;
     }

@@ -20,11 +20,11 @@
     return [WLPresentingImageView loadFromNib:@"WLPresentingImageView"];
 }
 
-- (void)presentCandy:(Candy *)candy fromView:(UIView *)view success:(void (^)(WLPresentingImageView *))success failure:(WLFailureBlock)failure {
+- (void)presentCandy:(Candy *)candy fromView:(UIView *)view success:(void (^)(WLPresentingImageView *))success failure:(FailureBlock)failure {
     [self presentingAsMainWindowSubview];
-    UIImage *image = [InMemoryImageCache instance][candy.picture.large];
+    UIImage *image = [InMemoryImageCache instance][candy.asset.large];
     if (!image) {
-        image = [[ImageCache defaultCache] imageWithURL:candy.picture.large];
+        image = [[ImageCache defaultCache] imageWithURL:candy.asset.large];
     }
     if (!image) {
         if (failure) failure(nil);
@@ -60,9 +60,9 @@
     }
     
     [self presentingAsMainWindowSubview];
-    UIImage *image = [InMemoryImageCache instance][candy.picture.large];
+    UIImage *image = [InMemoryImageCache instance][candy.asset.large];
     if (!image) {
-        image = [[ImageCache defaultCache] imageWithURL:candy.picture.large];
+        image = [[ImageCache defaultCache] imageWithURL:candy.asset.large];
     }
     if (!image) {
         [self removeFromSuperview];

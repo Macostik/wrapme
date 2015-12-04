@@ -48,7 +48,7 @@
     [self addRecord:record success:nil failure:nil];
 }
 
-- (void)addRecord:(WLAddressBookRecord *)record success:(WLArrangedAddressBookRecordHandler)success failure:(WLFailureBlock)failure {
+- (void)addRecord:(WLAddressBookRecord *)record success:(WLArrangedAddressBookRecordHandler)success failure:(FailureBlock)failure {
     __weak typeof(self)weakSelf = self;
     [self baseAddRecord:record success:^( NSArray *records, NSArray *groups) {
         [weakSelf sort];
@@ -56,7 +56,7 @@
     } failure:failure];
 }
 
-- (void)baseAddRecord:(WLAddressBookRecord*)record success:(WLArrangedAddressBookRecordHandler)success failure:(WLFailureBlock)failure {
+- (void)baseAddRecord:(WLAddressBookRecord*)record success:(WLArrangedAddressBookRecordHandler)success failure:(FailureBlock)failure {
     
     record = [WLAddressBookRecord recordWithRecord:record];
     

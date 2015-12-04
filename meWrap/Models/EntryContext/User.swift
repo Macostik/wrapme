@@ -34,7 +34,7 @@ class User: Entry {
     }
     
     var isSignupCompleted: Bool {
-        return name != nil && picture?.medium != nil
+        return name != nil && avatar?.medium != nil
     }
     
     var isInvited: Bool {
@@ -127,6 +127,13 @@ class User: Entry {
             return sortedWraps
         } else {
             return nil
+        }
+    }
+    
+    override func awakeFromInsert() {
+        super.awakeFromInsert()
+        if avatar == nil {
+            avatar = Asset()
         }
     }
 }

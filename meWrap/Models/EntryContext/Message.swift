@@ -31,9 +31,9 @@ class Message: Contribution {
         }
     }
     
-    override var picture: Asset? {
+    override var asset: Asset? {
         get {
-            return contributor?.picture
+            return contributor?.avatar
         }
         set {
         }

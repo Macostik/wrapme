@@ -13,19 +13,19 @@
 
 @property (strong, nonatomic) Authorization* authorization;
 
-@property (strong, nonatomic) WLObjectBlock success;
-@property (strong, nonatomic) WLBlock cancel;
+@property (strong, nonatomic) ObjectBlock success;
+@property (strong, nonatomic) Block cancel;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @end
 
 @implementation WLConfirmView
 
-+ (void)showInView:(UIView *)view authorization:(Authorization *)authorization success:(WLObjectBlock)succes cancel:(WLBlock)cancel {
++ (void)showInView:(UIView *)view authorization:(Authorization *)authorization success:(ObjectBlock)succes cancel:(Block)cancel {
     [[WLConfirmView loadFromNib:@"WLConfirmView"] showInView:view authorization:authorization success:succes cancel:cancel];
 }
 
-- (void)showInView:(UIView *)view authorization:(Authorization *)authorization success:(WLObjectBlock)success cancel:(WLBlock)cancel {
+- (void)showInView:(UIView *)view authorization:(Authorization *)authorization success:(ObjectBlock)success cancel:(Block)cancel {
     self.frame = view.frame;
     self.authorization = authorization;
     [view addSubview:self];
@@ -52,7 +52,7 @@
     self.phoneLabel.text = [authorization fullPhoneNumber];
 }
 
-- (void)confirmationSuccess:(WLObjectBlock)success cancel:(WLBlock)cancel {
+- (void)confirmationSuccess:(ObjectBlock)success cancel:(Block)cancel {
     self.success = success;
     self.cancel = cancel;
 }
@@ -86,13 +86,13 @@
 
 @implementation WLEditingConfirmView : WLConfirmView
 
-+ (void)showInView:(UIView *)view withContent:(NSString *)content success:(WLObjectBlock)succes cancel:(WLBlock)cancel {
++ (void)showInView:(UIView *)view withContent:(NSString *)content success:(ObjectBlock)succes cancel:(Block)cancel {
      [[WLEditingConfirmView loadFromNib:@"WLEditingConfirmView"] showInView:view withContent:(NSString *)content success:succes cancel:cancel];
 }
 
 static CGFloat WLMessageLimit = 280;
 
-- (void)showInView:(UIView *)view withContent:(NSString *)content success:(WLObjectBlock)success cancel:(WLBlock)cancel {
+- (void)showInView:(UIView *)view withContent:(NSString *)content success:(ObjectBlock)success cancel:(Block)cancel {
     [[WLKeyboard keyboard] addReceiver:self];
     [self.contentTextView determineHyperLink:content];
     self.contentTextView.delegate = self;

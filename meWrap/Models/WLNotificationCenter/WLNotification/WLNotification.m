@@ -10,13 +10,11 @@
 
 @implementation WLNotification
 
-@synthesize identifier = _identifier;
-
-- (NSString *)identifier {
-    if (!_identifier.nonempty) {
-        _identifier = [NSString stringWithFormat:@"%lu_%@_%f", (unsigned long)self.type, self.descriptor.uid, self.date.timestamp];
+- (NSString *)uid {
+    if (!_uid.nonempty) {
+        _uid = [NSString stringWithFormat:@"%lu_%@_%f", (unsigned long)self.type, self.descriptor.uid, self.date.timestamp];
     }
-    return _identifier;
+    return _uid;
 }
 
 + (instancetype)notificationWithMessage:(id)message {
@@ -48,14 +46,14 @@
 
 - (void)setup:(NSDictionary*)data {
     self.data = data;
-    self.identifier = [data stringForKey:@"msg_uid"];
+    self.uid = [data stringForKey:@"msg_uid"];
     self.publishedAt = [data dateForKey:@"msg_published_at"];
     
     NSDictionary *originator = [data dictionaryForKey:@"originator"];
     if (originator) {
         NSString *userID = [originator stringForKey:@"user_uid"];
         NSString *deviceID = [originator stringForKey:@"device_uid"];
-        self.originatedByCurrentUser = userID.nonempty && deviceID.nonempty && [userID isEqualToString:[User currentUser].identifier] && [deviceID isEqualToString:[Authorization currentAuthorization].deviceUID];
+        self.originatedByCurrentUser = userID.nonempty && deviceID.nonempty && [userID isEqualToString:[User currentUser].uid] && [deviceID isEqualToString:[Authorization currentAuthorization].deviceUID];
     }
     
     WLNotificationType type = self.type;
@@ -180,9 +178,9 @@
             [[Authorization currentAuthorization] updateWithUserData:dictionary];
         }
         if (type == WLNotificationCandyAdd && self.originatedByCurrentUser) {
-            Asset* oldPicture = [entry.picture copy];
+            Asset* oldPicture = [((Candy*)entry).asset copy];
             [entry map:dictionary];
-            [oldPicture cacheForAsset:entry.picture];
+            [oldPicture cacheForAsset:((Candy*)entry).asset];
         } else {
             [entry map:dictionary];
         }
@@ -225,7 +223,7 @@
     }
 }
 
-- (void)fetch:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)fetch:(Block)success failure:(FailureBlock)failure {
     __weak __typeof(self)weakSelf = self;
     
     Event event = self.event;
@@ -269,7 +267,7 @@
     }
 }
 
-- (void)handle:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)handle:(Block)success failure:(FailureBlock)failure {
     __weak __typeof(self)weakSelf = self;
     [self prepare];
     [self fetch:^{
@@ -327,11 +325,11 @@
     
 }
 
-- (void)fetchAddNotification:(WLNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)fetchAddNotification:(WLNotification *)notification success:(Block)success failure:(FailureBlock)failure {
     [self recursivelyFetchIfNeeded:success failure:failure];
 }
 
-- (void)fetchUpdateNotification:(WLNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)fetchUpdateNotification:(WLNotification *)notification success:(Block)success failure:(FailureBlock)failure {
     if (notification.trimmed) {
         [self fetch:^(id object) {
             if (success) success();
@@ -341,7 +339,7 @@
     }
 }
 
-- (void)fetchDeleteNotification:(WLNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)fetchDeleteNotification:(WLNotification *)notification success:(Block)success failure:(FailureBlock)failure {
     if (success) success();
 }
 
@@ -382,13 +380,13 @@
 - (BOOL)notifiableForNotification:(WLNotification *)notification {
     if (notification.event == EventAdd) {
         NSString *userIdentifier = notification.data[@"user_uid"] ? : notification.data[@"user"][@"user_uid"];
-        return !self.contributor.current && [userIdentifier isEqualToString:[User currentUser].identifier] && notification.requester != [User currentUser];
+        return !self.contributor.current && [userIdentifier isEqualToString:[User currentUser].uid] && notification.requester != [User currentUser];
     } else {
         return [super notifiableForNotification:notification];
     }
 }
 
-- (void)fetchAddNotification:(WLNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)fetchAddNotification:(WLNotification *)notification success:(Block)success failure:(FailureBlock)failure {
     NSString *userIdentifier = notification.data[@"user_uid"];
     NSDictionary *userData = notification.data[@"user"];
     User *user = userData ? [User mappedEntry:userData] : [User entry:userIdentifier];
@@ -428,17 +426,17 @@
 
 @implementation Candy (WLNotification)
 
-- (void)fetchAddNotification:(WLNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)fetchAddNotification:(WLNotification *)notification success:(Block)success failure:(FailureBlock)failure {
     __weak typeof(self)weakSelf = self;
     [super fetchAddNotification:notification success:^{
-        [weakSelf.picture fetch:success];
+        [weakSelf.asset fetch:success];
     } failure:failure];
 }
 
-- (void)fetchUpdateNotification:(WLNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)fetchUpdateNotification:(WLNotification *)notification success:(Block)success failure:(FailureBlock)failure {
     __weak typeof(self)weakSelf = self;
     [super fetchUpdateNotification:notification success:^{
-        [weakSelf.picture fetch:success];
+        [weakSelf.asset fetch:success];
     } failure:failure];
 }
 

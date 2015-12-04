@@ -14,9 +14,9 @@
 
 - (void)setupEditableUserInterface;
 
-- (void)validate:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+- (void)validate:(ObjectBlock)success failure:(FailureBlock)failure;
 
-- (void)apply:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+- (void)apply:(ObjectBlock)success failure:(FailureBlock)failure;
 
 - (void)didCompleteDoneAction;
 

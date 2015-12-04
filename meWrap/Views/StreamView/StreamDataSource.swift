@@ -97,7 +97,7 @@ class StreamDataSource: NSObject, GridLayoutDelegate, StreamLayoutDelegate {
         refresh(nil, failure: nil)
     }
     
-    func refresh(success: WLArrayBlock?, failure: WLFailureBlock?) {
+    func refresh(success: ArrayBlock?, failure: FailureBlock?) {
         success?(nil)
     }
     

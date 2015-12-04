@@ -38,11 +38,11 @@
 
 @interface Authorization (WLAuthorizationRequest)
 
-- (id)signUp:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+- (id)signUp:(ObjectBlock)success failure:(FailureBlock)failure;
 
-- (id)activate:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+- (id)activate:(ObjectBlock)success failure:(FailureBlock)failure;
 
-- (id)signIn:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+- (id)signIn:(ObjectBlock)success failure:(FailureBlock)failure;
 
 @end
 

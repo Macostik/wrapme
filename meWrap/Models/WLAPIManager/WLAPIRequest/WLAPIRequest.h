@@ -19,7 +19,7 @@
 
 @end
 
-typedef void (^WLAPIRequestParser) (Response *response, WLObjectBlock success, WLFailureBlock failure);
+typedef void (^WLAPIRequestParser) (Response *response, ObjectBlock success, FailureBlock failure);
 
 typedef void (^WLAPIRequestParametrizer) (id request, NSMutableDictionary* parameters);
 
@@ -39,13 +39,13 @@ typedef NSString *(^WLAPIRequestFile) (id request);
 
 @property (strong, nonatomic) NSMutableArray *parametrizers;
 
-@property (strong, nonatomic) WLObjectBlock successBlock;
+@property (strong, nonatomic) ObjectBlock successBlock;
 
-@property (strong, nonatomic) WLFailureBlock beforeFailure;
+@property (strong, nonatomic) FailureBlock beforeFailure;
 
-@property (strong, nonatomic) WLFailureBlock failureBlock;
+@property (strong, nonatomic) FailureBlock failureBlock;
 
-@property (strong, nonatomic) WLFailureBlock afterFailure;
+@property (strong, nonatomic) FailureBlock afterFailure;
 
 @property (strong, nonatomic) WLAPIRequestFailureValidator failureValidator;
 
@@ -79,9 +79,9 @@ typedef NSString *(^WLAPIRequestFile) (id request);
 
 - (instancetype)file:(WLAPIRequestFile)file;
 
-- (instancetype)beforeFailure:(WLFailureBlock)beforeFailure;
+- (instancetype)beforeFailure:(FailureBlock)beforeFailure;
 
-- (instancetype)afterFailure:(WLFailureBlock)afterFailure;
+- (instancetype)afterFailure:(FailureBlock)afterFailure;
 
 - (instancetype)validateFailure:(WLAPIRequestFailureValidator)validateFailure;
 
@@ -89,7 +89,7 @@ typedef NSString *(^WLAPIRequestFile) (id request);
 
 - (NSMutableURLRequest*)request:(NSMutableDictionary*)parameters url:(NSString*)url;
 
-- (id)send:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+- (id)send:(ObjectBlock)success failure:(FailureBlock)failure;
 
 - (id)send;
 

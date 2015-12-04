@@ -164,7 +164,7 @@
     }
 }
 
-- (void)authorize:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)authorize:(Block)success failure:(FailureBlock)failure {
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     if (status == AVAuthorizationStatusAuthorized) {
         if (success) success();
@@ -400,10 +400,10 @@
     self.flashModeControl.alpha = recording ? 0.0f : 1.0f;
 }
 
-- (void)prepareSessionForVideoRecording:(WLBlock)preparingCompletion {
+- (void)prepareSessionForVideoRecording:(Block)preparingCompletion {
     __weak typeof(self)weakSelf = self;
     if (![self.session.outputs containsObject:self.movieFileOutput]) {
-        [self blurCamera:^(WLBlock completion) {
+        [self blurCamera:^(Block completion) {
             
             AVCaptureSession* session = weakSelf.session;
             AVCaptureDevice *device = weakSelf.videoInput.device;
@@ -462,7 +462,7 @@
     }
 }
 
-- (void)blurCamera:(void (^)(WLBlock completion))handler {
+- (void)blurCamera:(void (^)(Block completion))handler {
     UIView *snapshot = [self.cameraView.superview snapshotViewAfterScreenUpdates:YES];
     snapshot.frame = self.cameraView.superview.bounds;
     snapshot.alpha = 0;
@@ -487,7 +487,7 @@
     __weak typeof(self)weakSelf = self;
     if (![self.session.outputs containsObject:self.stillImageOutput]) {
         self.takePhotoButton.userInteractionEnabled = NO;
-        [self blurCamera:^(WLBlock completion) {
+        [self blurCamera:^(Block completion) {
             [weakSelf configureSession:^(AVCaptureSession *session) {
                 session.sessionPreset = AVCaptureSessionPresetPhoto;
                 [session removeInput:weakSelf.audioInput];
@@ -637,7 +637,7 @@
     return [self.movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
 }
 
-- (void)captureImage:(void (^)(UIImage*image))result failure:(WLFailureBlock)failure {
+- (void)captureImage:(void (^)(UIImage*image))result failure:(FailureBlock)failure {
 #if TARGET_OS_SIMULATOR
 	run_getting_object(^id{
         CGFloat width = [UIScreen mainScreen].bounds.size.width;

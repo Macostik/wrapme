@@ -30,7 +30,7 @@
     self.activationTextField.text = @"";
 }
 
-- (void)activate:(WLBlock)completion failure:(WLFailureBlock)failure {
+- (void)activate:(Block)completion failure:(FailureBlock)failure {
     [[NSUserDefaults standardUserDefaults] setConfirmationDate:[NSDate now]];
 	NSString* activationCode = self.activationTextField.text;
 	if (activationCode.nonempty) {
@@ -44,7 +44,7 @@
     }
 }
 
-- (void)signIn:(WLBlock)completion failure:(WLFailureBlock)failure {
+- (void)signIn:(Block)completion failure:(FailureBlock)failure {
     if (self.shouldSignIn) {
         self.progressBar.operation = [[Authorization currentAuthorization] signIn:^(id object) {
             completion();

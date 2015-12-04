@@ -37,7 +37,7 @@
     }
 }
 
-- (BOOL)cachedRecords:(WLSetBlock)success failure:(WLFailureBlock)failure {
+- (BOOL)cachedRecords:(SetBlock)success failure:(FailureBlock)failure {
     for (WLAddressBookRecord *record in self.cachedRecords) {
         for (WLAddressBookPhoneNumber *phoneNumber in record.phoneNumbers) {
             if (phoneNumber.user && !phoneNumber.user.valid) {
@@ -55,13 +55,13 @@
     }
 }
 
-- (void)records:(WLSetBlock)success failure:(WLFailureBlock)failure {
+- (void)records:(SetBlock)success failure:(FailureBlock)failure {
     [self addressBook:^(ABAddressBookRef addressBook) {
         [self records:addressBook success:success failure:failure];
     } failure:failure];
 }
 
-- (void)records:(ABAddressBookRef)addressBook success:(WLSetBlock)success failure:(WLFailureBlock)failure {
+- (void)records:(ABAddressBookRef)addressBook success:(SetBlock)success failure:(FailureBlock)failure {
     [self contacts:addressBook success:^(NSSet *array) {
         runUnaryQueuedOperation(@"wl_address_book_queue", ^(WLOperation *operation) {
             [[WLAPIRequest contributorsFromContacts:array] send:^(id object) {
@@ -114,7 +114,7 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
     }];
 }
 
-- (void)contacts:(ABAddressBookRef)addressBook success:(WLSetBlock)success failure:(WLFailureBlock)failure {
+- (void)contacts:(ABAddressBookRef)addressBook success:(SetBlock)success failure:(FailureBlock)failure {
     runUnaryQueuedOperation(@"wl_address_book_queue", ^(WLOperation *operation) {
         CFIndex count = ABAddressBookGetPersonCount(addressBook);
         if (count > 0) {
@@ -145,13 +145,13 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
     });
 }
 
-- (void)contacts:(WLSetBlock)success failure:(WLFailureBlock)failure {
+- (void)contacts:(SetBlock)success failure:(FailureBlock)failure {
 	[self addressBook:^(ABAddressBookRef addressBook) {
         [self contacts:addressBook success:success failure:failure];
 	} failure:failure];
 }
 
-- (void)addressBook:(void (^)(ABAddressBookRef addressBook))success failure:(WLFailureBlock)failure {
+- (void)addressBook:(void (^)(ABAddressBookRef addressBook))success failure:(FailureBlock)failure {
     if (sharedAddressBook != NULL) {
         if (success) success(sharedAddressBook);
     } else {

@@ -25,7 +25,7 @@ class Entry: NSManagedObject {
     }
     
     override var description: String {
-        return "\(self.dynamicType.entityName()): \(identifier ?? "no_uid")"
+        return "\(self.dynamicType.entityName()): \(uid)"
     }
     
     func compare(entry: Entry) -> NSComparisonResult {
@@ -69,17 +69,14 @@ class Entry: NSManagedObject {
     }
     
     class func deserializeReference<T>(type: T.Type, reference: [String : String]) -> T? {
-        guard let name = reference["name"], let uid = reference["identifier"] else {
+        guard let name = reference["name"], let uid = reference["uid"] else {
             return nil
         }
         return EntryContext.sharedContext.entry(name, uid: uid, locuid: nil, allowInsert: false) as? T
     }
     
     func serializeReference() -> [String : String] {
-        guard let identifier = identifier else {
-            return [String : String]()
-        }
-        return ["name":self.dynamicType.entityName(), "identifier":identifier];
+        return ["name":self.dynamicType.entityName(), "uid":uid];
     }
     
     var valid: Bool {
@@ -91,9 +88,6 @@ class Entry: NSManagedObject {
     override func awakeFromInsert() {
         super.awakeFromInsert()
         EntryContext.sharedContext.cacheEntry(self)
-        if picture == nil {
-            picture = Asset()
-        }
         createdAt = NSDate.now()
     }
     

@@ -122,9 +122,9 @@ class Wrap: Contribution {
         }
     }
     
-    override var picture: Asset? {
+    override var asset: Asset? {
         get {
-            return cover?.picture
+            return cover?.asset
         }
         set {
         }

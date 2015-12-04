@@ -210,7 +210,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         UITextView *textView = self.lastCommentTextView;
         self.avatarImageView.hidden = textView.hidden = self.self.commentIndicator.hidden = lastComment.text.length == 0;
         if (textView && !textView.hidden) {
-            self.avatarImageView.url = lastComment.contributor.picture.small;
+            self.avatarImageView.url = lastComment.contributor.avatar.small;
             [textView determineHyperLink:lastComment.text];
             [self.commentIndicator updateStatusIndicator:lastComment];
             UIBezierPath *exlusionPath = [UIBezierPath bezierPathWithRect:[self.bottomView convertRect:self.commentIndicator.frame
@@ -425,7 +425,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     }];
 }
 
-- (void)downloadCandyOriginal:(Candy *)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {
+- (void)downloadCandyOriginal:(Candy *)candy success:(ImageBlock)success failure:(FailureBlock)failure {
     if (candy) {
         NSError *error = [candy updateError];
         if (error) {

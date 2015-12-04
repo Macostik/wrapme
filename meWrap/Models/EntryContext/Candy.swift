@@ -65,6 +65,9 @@ class Candy: Contribution {
     
     override func awakeFromInsert() {
         super.awakeFromInsert()
+        if asset == nil {
+            asset = Asset()
+        }
         addObserver(self, forKeyPath: "comments", options: .New, context: nil)
         addObserver(self, forKeyPath: "updatedAt", options: .New, context: nil)
         obsering = true
@@ -90,7 +93,7 @@ class Candy: Contribution {
     }
     
     override var uploaded: Bool {
-        return super.uploaded && identifier != uploadIdentifier
+        return super.uploaded && uid != locuid
     }
     
     override var canBeUploaded: Bool {

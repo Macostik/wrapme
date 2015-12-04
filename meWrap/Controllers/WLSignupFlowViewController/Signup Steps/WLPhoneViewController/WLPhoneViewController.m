@@ -81,7 +81,7 @@
     }];
 }
 
-- (void)signUpAuthorization:(Authorization *)authorization success:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)signUpAuthorization:(Authorization *)authorization success:(Block)success failure:(FailureBlock)failure {
 	__weak typeof(self)weakSelf = self;
 	[authorization signUp:^(Authorization *authorization) {
         [weakSelf setStatus:WLSignupStepStatusSuccess animated:NO];

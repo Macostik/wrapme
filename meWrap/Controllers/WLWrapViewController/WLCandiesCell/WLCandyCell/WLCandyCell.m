@@ -115,7 +115,7 @@
     self.commentLabel.text = candy.latestComment.text;
     self.commentLabel.superview.hidden = !self.commentLabel.text.nonempty;
     
-    Asset *picture = candy.picture;
+    Asset *picture = candy.asset;
     
     if (picture.justUploaded) {
         [StreamView lock];

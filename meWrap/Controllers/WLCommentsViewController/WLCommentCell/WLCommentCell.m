@@ -50,7 +50,7 @@
 	self.userInteractionEnabled = YES;
     [entry markAsRead];
 	self.authorNameLabel.text = entry.contributor.name;
-	self.authorImageView.url = entry.contributor.picture.small;
+	self.authorImageView.url = entry.contributor.avatar.small;
     self.dateLabel.text = entry.createdAt.timeAgoString;
     [self.indicator updateStatusIndicator:entry];
     self.commenttextView.text = entry.text;

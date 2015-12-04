@@ -66,17 +66,11 @@ extension Entry {
         if let updatedAt = dictionary.dateForKey(Keys.LastTouchedAt) where updatedAt.later(self.updatedAt) {
             self.updatedAt = updatedAt
         }
-        if let uid = self.dynamicType.uid(dictionary) where uid != self.identifier {
-            self.identifier = uid
+        if let uid = self.dynamicType.uid(dictionary) where uid != self.uid {
+            self.uid = uid
         }
-        if let locuid = self.dynamicType.locuid(dictionary) where locuid != self.uploadIdentifier {
-            self.uploadIdentifier = locuid
-        }
-    }
-    
-    func editPicture(editedPicture: Asset?) {
-        if let picture = editedPicture where self.picture != picture {
-            self.picture = picture
+        if let locuid = self.dynamicType.locuid(dictionary) where locuid != self.locuid {
+            self.locuid = locuid
         }
     }
 }
@@ -101,7 +95,10 @@ extension User {
         }
         
         if let urls = dictionary[Keys.AvatarURLs] as? [String:String] {
-            editPicture(self.picture?.edit(urls, metrics: AssetMetrics.avatarMetrics))
+            let avatar = self.avatar?.edit(urls, metrics: AssetMetrics.avatarMetrics)
+            if avatar != self.avatar {
+                self.avatar = avatar
+            }
         }
 
         if let devices = dictionary[Keys.Devices] as? [[String : AnyObject]] {
@@ -238,21 +235,26 @@ extension Candy {
         if let array = dictionary[Keys.Comments] as? [[String : AnyObject]] {
             Comment.mappedEntries(array, container: self)
         }
+        var asset = self.asset
         switch mediaType {
         case .Photo:
             if let urls = dictionary[Keys.MediaURLs] as? [String : String] {
-                editPicture(picture?.edit(urls, metrics: AssetMetrics.imageMetrics))
+                asset = asset?.edit(urls, metrics: AssetMetrics.imageMetrics)
             } else if let urls = dictionary[Keys.ImageURLs] as? [String : String] {
-                editPicture(picture?.edit(urls, metrics: AssetMetrics.imageMetrics))
+                asset = asset?.edit(urls, metrics: AssetMetrics.imageMetrics)
             }
             break
         case .Video:
             if let urls = dictionary[Keys.MediaURLs] as? [String : String] {
-                editPicture(picture?.edit(urls, metrics: AssetMetrics.videoMetrics))
+                asset = asset?.edit(urls, metrics: AssetMetrics.videoMetrics)
             } else if let urls = dictionary[Keys.VideoURLs] as? [String : String] {
-                editPicture(picture?.edit(urls, metrics: AssetMetrics.videoMetrics))
+                asset = asset?.edit(urls, metrics: AssetMetrics.videoMetrics)
             }
             break
+        }
+        
+        if asset != self.asset {
+            self.asset = asset
         }
         
         if self.wrap == nil {

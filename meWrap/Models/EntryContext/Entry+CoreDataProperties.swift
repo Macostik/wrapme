@@ -15,11 +15,10 @@ import CoreData
 extension Entry {
 
     @NSManaged var createdAt: NSDate
-    @NSManaged var identifier: String?
-    @NSManaged var picture: Asset?
+    @NSManaged var uid: String
     @NSManaged var unread: Bool
     @NSManaged var updatedAt: NSDate
-    @NSManaged var uploadIdentifier: String?
+    @NSManaged var locuid: String?
 
 }
 
@@ -32,6 +31,7 @@ extension User {
     @NSManaged var devices: NSSet?
     @NSManaged var editings: NSSet?
     @NSManaged var wraps: NSSet?
+    @NSManaged var avatar: Asset?
     
 }
 
@@ -59,6 +59,7 @@ extension Contribution {
     @NSManaged var contributor: User?
     @NSManaged var editor: User?
     @NSManaged var uploading: Uploading?
+    @NSManaged var asset: Asset?
     
 }
 

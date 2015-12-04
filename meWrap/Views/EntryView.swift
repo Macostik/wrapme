@@ -57,7 +57,7 @@ class UserView: EntryView {
     
     override func update(entry: Entry) {
         if let user = entry as? User {
-            avatarView?.url = user.picture?.small
+            avatarView?.url = user.avatar?.small
             nameLabel?.text = user.name
         }
     }
@@ -86,7 +86,7 @@ class WrapView: EntryView {
     override func update(entry: Entry) {
         if let wrap = entry as? Wrap {
             if let coverView = coverView {
-                coverView.url = wrap.picture?.small
+                coverView.url = wrap.asset?.small
                 coverView.isFollowed = wrap.isPublic ? wrap.isContributing : false
                 coverView.isOwner = wrap.isPublic ? (wrap.contributor?.current ?? false) : false
             }

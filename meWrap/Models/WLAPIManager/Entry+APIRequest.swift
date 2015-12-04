@@ -12,15 +12,15 @@ import AWSS3
 
 extension Entry {
     
-    func add(success: WLObjectBlock?, failure: WLFailureBlock?) {
+    func add(success: ObjectBlock?, failure: FailureBlock?) {
         success?(self)
     }
     
-    func update(success: WLObjectBlock?, failure: WLFailureBlock?) {
+    func update(success: ObjectBlock?, failure: FailureBlock?) {
         success?(self)
     }
     
-    func delete(success: WLObjectBlock?, failure: WLFailureBlock?) {
+    func delete(success: ObjectBlock?, failure: FailureBlock?) {
         success?(self)
     }
 }
@@ -53,7 +53,7 @@ extension Wrap {
     func uploadAsset(asset: MutableAsset) {
         if let candy = Candy.candy(asset.type), let uploading = Uploading.uploading(candy) {
             candy.wrap = self
-            candy.picture = asset.uploadablePicture(true)
+            candy.asset = asset.uploadablePicture(true)
             if let comment = asset.comment where !comment.isEmpty {
                 Comment.comment(comment)?.candy = candy
             }
@@ -73,15 +73,15 @@ extension Wrap {
         }
     }
     
-    override func add(success: WLObjectBlock?, failure: WLFailureBlock?) {
+    override func add(success: ObjectBlock?, failure: FailureBlock?) {
         WLAPIRequest.uploadWrap(self).send(success, failure: failure)
     }
     
-    override func update(success: WLObjectBlock?, failure: WLFailureBlock?) {
+    override func update(success: ObjectBlock?, failure: FailureBlock?) {
         WLAPIRequest.updateWrap(self).send(success, failure: failure)
     }
     
-    override func delete(success: WLObjectBlock?, failure: WLFailureBlock?) {
+    override func delete(success: ObjectBlock?, failure: FailureBlock?) {
         if deletable {
             
         } else {
@@ -104,25 +104,21 @@ extension Wrap {
 
 extension Uploading {
     
-    class func uploading(contribution: Contribution) -> Self? {
+    class func uploading(contribution: Contribution) -> Uploading? {
         return uploading(contribution, event: .Add)
     }
     
-    class func uploading(contribution: Contribution, event: Event) -> Self? {
-        return uploading(self, contribution: contribution, event: event)
-    }
-    
-    class func uploading<T>(type: T.Type, contribution: Contribution, event: Event) -> T? {
+    class func uploading(contribution: Contribution, event: Event) -> Uploading? {
         if let uploading = EntryContext.sharedContext.insertEntry(entityName()) as? Uploading {
             uploading.type = event.rawValue
             uploading.contribution = contribution
-            return uploading as? T
+            return uploading
         } else {
             return nil
         }
     }
     
-    func upload(success: WLObjectBlock?, failure: WLFailureBlock?) {
+    func upload(success: ObjectBlock?, failure: FailureBlock?) {
         if WLNetwork.sharedNetwork().reachable {
             if let contribution = contribution {
                 sendTypedRequest({ [weak self] (object) -> Void in
@@ -159,7 +155,7 @@ extension Uploading {
         }
     }
 
-    func sendTypedRequest(success: WLObjectBlock?, failure: WLFailureBlock?) {
+    func sendTypedRequest(success: ObjectBlock?, failure: FailureBlock?) {
         if let type = Event(rawValue: self.type) {
             switch type {
             case .Add:
@@ -169,13 +165,12 @@ extension Uploading {
                 update(success, failure: failure)
                 break
             case .Delete:
-                delete(success, failure: failure)
                 break
             }
         }
     }
     
-    override func add(success: WLObjectBlock?, failure: WLFailureBlock?) {
+    override func add(success: ObjectBlock?, failure: FailureBlock?) {
         if let contribution = contribution {
             if contribution.canBeUploaded || contribution.status == .Ready {
                 contribution.add(success, failure: failure)
@@ -185,7 +180,7 @@ extension Uploading {
         }
     }
     
-    override func update(success: WLObjectBlock?, failure: WLFailureBlock?) {
+    override func update(success: ObjectBlock?, failure: FailureBlock?) {
         if let contribution = contribution {
             if contribution.uploaded && contribution.statusOfUploadingEvent(.Update) == .Ready {
                 contribution.update(success, failure: failure)
@@ -197,7 +192,6 @@ extension Uploading {
     
     override func remove() {
         contribution?.uploading = nil
-        super.remove()
     }
 }
 
@@ -232,7 +226,7 @@ extension Candy {
         case .InProgress:
             return NSError(message: (isVideo ? "video_is_uploading" : "photo_is_uploading").ls)
         case .Finished:
-            if identifier == uploadIdentifier {
+            if uid == locuid {
                 return NSError(message: "publishing_in_progress".ls)
             } else {
                 return nil
@@ -261,19 +255,19 @@ extension Candy {
         }
     }
 
-    override func add(success: WLObjectBlock?, failure: WLFailureBlock?) {
+    override func add(success: ObjectBlock?, failure: FailureBlock?) {
 
         var metadata = [
             "Accept" : "application/vnd.ravenpod+json;version=\(Environment.currentEnvironment.version)",
             Keys.UID.Device : Authorization.currentAuthorization.deviceUID ?? "",
-            Keys.UID.User : contributor?.identifier ?? "",
-            Keys.UID.Wrap : wrap?.identifier ?? "",
-            Keys.UID.Upload : uploadIdentifier ?? "",
+            Keys.UID.User : contributor?.uid ?? "",
+            Keys.UID.Wrap : wrap?.uid ?? "",
+            Keys.UID.Upload : locuid ?? "",
             Keys.ContributedAt : "\(createdAt.timestamp)"
         ]
         
         if let comment = (comments as? Set<Comment>)?.filter({ $0.uploading == nil }).first  {
-            if let text = comment.text, let locuid = comment.uploadIdentifier {
+            if let text = comment.text, let locuid = comment.locuid {
                 var escapedText = ""
                 for unicodeScalar in text.unicodeScalars {
                     escapedText += unicodeScalar.escape(asASCII: true)
@@ -286,22 +280,22 @@ extension Candy {
         uploadToS3Bucket(metadata, success: success, failure: failure)
     }
     
-    override func update(success: WLObjectBlock?, failure: WLFailureBlock?) {
+    override func update(success: ObjectBlock?, failure: FailureBlock?) {
         
         let metadata = [
             "Accept" : "application/vnd.ravenpod+json;version=\(Environment.currentEnvironment.version)",
             Keys.UID.Device : Authorization.currentAuthorization.deviceUID ?? "",
-            Keys.UID.User : User.currentUser?.identifier ?? "",
-            Keys.UID.Wrap : wrap?.identifier ?? "",
-            Keys.UID.Candy : identifier ?? "",
+            Keys.UID.User : User.currentUser?.uid ?? "",
+            Keys.UID.Wrap : wrap?.uid ?? "",
+            Keys.UID.Candy : uid,
             Keys.EditedAt : "\(updatedAt.timestamp)"
         ]
         
         uploadToS3Bucket(metadata, success: success, failure: failure)
     }
     
-    func uploadToS3Bucket(metadata: [String:String], success: WLObjectBlock?, failure: WLFailureBlock?) {
-        guard let original = picture?.original else {
+    func uploadToS3Bucket(metadata: [String:String], success: ObjectBlock?, failure: FailureBlock?) {
+        guard let original = asset?.original else {
             remove()
             failure?(NSError(code: ResponseCode.UploadFileNotFound.rawValue))
             return
@@ -336,7 +330,7 @@ extension Candy {
         }
     }
     
-    override func delete(success: WLObjectBlock?, failure: WLFailureBlock?) {
+    override func delete(success: ObjectBlock?, failure: FailureBlock?) {
         switch status {
         case .Ready:
             remove()
@@ -346,7 +340,7 @@ extension Candy {
             failure?(NSError(message: (isVideo ? "video_is_uploading" : "photo_is_uploading").ls))
           break
         case .Finished:
-            if identifier == uploadIdentifier {
+            if uid == locuid {
                 failure?(NSError(message: "publishing_in_progress".ls))
             } else {
                 WLAPIRequest.deleteCandy(self).send(success, failure: failure)
@@ -357,14 +351,14 @@ extension Candy {
 }
 
 extension Message {
-    override func add(success: WLObjectBlock?, failure: WLFailureBlock?) {
+    override func add(success: ObjectBlock?, failure: FailureBlock?) {
         WLAPIRequest.uploadMessage(self).send(success, failure: failure)
     }
 }
 
 extension Comment {
     
-    override func add(success: WLObjectBlock?, failure: WLFailureBlock?) {
+    override func add(success: ObjectBlock?, failure: FailureBlock?) {
         if candy?.uploaded ?? false {
             WLAPIRequest.postComment(self).send(success, failure: failure)
         } else {
@@ -372,7 +366,7 @@ extension Comment {
         }
     }
     
-    override func delete(success: WLObjectBlock?, failure: WLFailureBlock?) {
+    override func delete(success: ObjectBlock?, failure: FailureBlock?) {
         switch status {
         case .Ready:
             remove()

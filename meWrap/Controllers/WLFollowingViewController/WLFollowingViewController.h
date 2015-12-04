@@ -12,8 +12,8 @@
 
 @property (weak, nonatomic) Wrap *wrap;
 
-@property (strong, nonatomic) WLBlock actionBlock;
+@property (strong, nonatomic) Block actionBlock;
 
-+ (void)followWrapIfNeeded:(Wrap *)wrap performAction:(WLBlock)action;
++ (void)followWrapIfNeeded:(Wrap *)wrap performAction:(Block)action;
 
 @end

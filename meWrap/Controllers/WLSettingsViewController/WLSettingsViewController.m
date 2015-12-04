@@ -82,11 +82,11 @@
         NSMutableString *message = [NSMutableString string];
         NSMutableArray *channels = [result.data.channels mutableCopy];
         for (Wrap *wrap in [User currentUser].wraps) {
-            if ([channels containsObject:wrap.identifier]) {
-                [message appendFormat:@"subscribed %@ : %@\n", wrap.name, wrap.identifier];
-                [channels removeObject:wrap.identifier];
+            if ([channels containsObject:wrap.uid]) {
+                [message appendFormat:@"subscribed %@ : %@\n", wrap.name, wrap.uid];
+                [channels removeObject:wrap.uid];
             } else {
-                [message appendFormat:@"not subscribed %@ : %@\n", wrap.name, wrap.identifier];
+                [message appendFormat:@"not subscribed %@ : %@\n", wrap.name, wrap.uid];
             }
         }
         [message appendFormat:@"\nother channels %@", channels];
@@ -103,11 +103,11 @@
         NSMutableString *message = [NSMutableString string];
         NSMutableArray *channels = [result.data.channels mutableCopy];
         for (Wrap *wrap in [User currentUser].wraps) {
-            if ([channels containsObject:wrap.identifier]) {
-                [message appendFormat:@"enabled %@ : %@\n", wrap.name, wrap.identifier];
-                [channels removeObject:wrap.identifier];
+            if ([channels containsObject:wrap.uid]) {
+                [message appendFormat:@"enabled %@ : %@\n", wrap.name, wrap.uid];
+                [channels removeObject:wrap.uid];
             } else {
-                [message appendFormat:@"disabled %@ : %@\n", wrap.name, wrap.identifier];
+                [message appendFormat:@"disabled %@ : %@\n", wrap.name, wrap.uid];
             }
         }
         [message appendFormat:@"\nother channels %@", channels];

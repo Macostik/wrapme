@@ -77,7 +77,7 @@
 
 - (void)setup:(Message*)message {
     if (self.nameLabel) {
-        self.avatarView.url = message.contributor.picture.small;
+        self.avatarView.url = message.contributor.avatar.small;
         self.nameLabel.text = message.contributor.name;
     }
     self.timeLabel.text = [message.createdAt stringWithTimeStyle:NSDateFormatterShortStyle];

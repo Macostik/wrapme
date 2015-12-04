@@ -25,7 +25,7 @@ class EntryContext: NSManagedObjectContext {
     static var sharedContext: EntryContext = {
         let context = EntryContext(concurrencyType: .MainQueueConcurrencyType)
         
-        NSValueTransformer.setValueTransformer(AssetTransformer(), forName: "pictureTransformer")
+        NSValueTransformer.setValueTransformer(AssetTransformer(), forName: "assetTransformer")
         guard let modelURL = NSBundle.mainBundle().URLForResource("CoreData", withExtension: "momd") else {
             return context
         }
@@ -94,13 +94,11 @@ class EntryContext: NSManagedObjectContext {
     }
     
     func cacheEntry(entry: Entry) {
-        if let uid = entry.identifier {
-            cachedEntries.setObject(entry, forKey: uid)
-        }
+        cachedEntries.setObject(entry, forKey: entry.uid)
     }
     
     func uncacheEntry(entry: Entry) {
-        cachedEntries.removeObjectForKey(entry.identifier)
+        cachedEntries.removeObjectForKey(entry.uid)
     }
     
     func insertEntry(name: String) -> Entry? {
@@ -124,15 +122,15 @@ class EntryContext: NSManagedObjectContext {
         } else {
             var request: NSFetchRequest!
             if let locuid = locuid {
-                request = NSFetchRequest.fetch(name).query("identifier == %@ OR uploadIdentifier == %@", uid, locuid)
+                request = NSFetchRequest.fetch(name).query("uid == %@ OR locuid == %@", uid, locuid)
             } else {
-                request = NSFetchRequest.fetch(name).query("identifier == %@", uid)
+                request = NSFetchRequest.fetch(name).query("uid == %@", uid)
             }
             if let entry = request.execute().last as? Entry {
                 return entry
             } else if allowInsert {
                 if let entry = insertEntry(name) {
-                    entry.identifier = uid
+                    entry.uid = uid
                     return entry
                 } else {
                     return nil
@@ -150,7 +148,7 @@ class EntryContext: NSManagedObjectContext {
         if cachedEntries.objectForKey(uid) != nil {
             return true
         }
-        return NSFetchRequest.fetch(name).query("identifier == %@", uid).count() > 0
+        return NSFetchRequest.fetch(name).query("uid == %@", uid).count() > 0
     }
     
     func execute(request: NSFetchRequest) -> [AnyObject] {

@@ -132,7 +132,7 @@
         [WLToast showWithMessage:@"no_internet_connection".ls];
         return;
     }
-    WLObjectBlock performRequestBlock = ^ (id __nullable message) {
+    ObjectBlock performRequestBlock = ^ (id __nullable message) {
         [[WLAPIRequest addContributors:self.addressBook.selectedPhoneNumbers wrap:self.wrap message:message] send:^(id object) {
             [weakSelf.navigationController popViewControllerAnimated:NO];
             if (message) {

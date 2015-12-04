@@ -54,7 +54,7 @@
 @property (weak, nonatomic) NSLayoutConstraint *topViewConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topMessageInset;
 
-@property (strong, nonatomic) WLBlock dismissBlock;
+@property (strong, nonatomic) Block dismissBlock;
 
 @property (strong, nonatomic) NSMutableSet* queuedMessages;
 

@@ -30,7 +30,7 @@
     }];
 }
 
-- (void)requestAuthorizationForPresentingEntry:(Entry *)entry completion:(WLBooleanBlock)completion {
+- (void)requestAuthorizationForPresentingEntry:(Entry *)entry completion:(BooleanBlock)completion {
     if (!completion) return;
     [[[UIAlertController alert:@"unsaved_photo".ls message:@"leave_screen_on_editing".ls] action:@"cancel".ls handler:^(UIAlertAction *action) {
         completion(NO);

@@ -17,7 +17,6 @@ class Uploading: Entry {
     }
     
     var inProgress = false
-    
 }
 
 @objc(Contribution)

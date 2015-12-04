@@ -10,11 +10,11 @@
 
 @interface Entry (WLAPIManager)
 
-- (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+- (id)fetch:(ObjectBlock)success failure:(FailureBlock)failure;
 
-- (id)fetchIfNeeded:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+- (id)fetchIfNeeded:(ObjectBlock)success failure:(FailureBlock)failure;
 
-- (void)recursivelyFetchIfNeeded:(WLBlock)success failure:(WLFailureBlock)failure;
+- (void)recursivelyFetchIfNeeded:(Block)success failure:(FailureBlock)failure;
 
 + (NSArray*)prefetchArray:(NSArray*)array;
 
@@ -34,13 +34,13 @@
 
 @interface Wrap (WLAPIManager)
 
-- (id)fetch:(NSString*)contentType success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+- (id)fetch:(NSString*)contentType success:(ArrayBlock)success failure:(FailureBlock)failure;
 
-- (id)messagesNewer:(NSDate*)newer success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+- (id)messagesNewer:(NSDate*)newer success:(ArrayBlock)success failure:(FailureBlock)failure;
 
-- (id)messagesOlder:(NSDate*)older newer:(NSDate*)newer success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+- (id)messagesOlder:(NSDate*)older newer:(NSDate*)newer success:(ArrayBlock)success failure:(FailureBlock)failure;
 
-- (id)messages:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+- (id)messages:(ArrayBlock)success failure:(FailureBlock)failure;
 
 - (void)preload;
 
@@ -48,6 +48,6 @@
 
 @interface Candy (WLAPIManager)
 
-- (void)download:(WLBlock)success failure:(WLFailureBlock)failure;
+- (void)download:(Block)success failure:(FailureBlock)failure;
 
 @end

@@ -39,8 +39,8 @@
 
 - (Asset *)picture {
     if (!_picture) {
-        if (_user.picture.small.nonempty) {
-            _picture = _user.picture;
+        if (_user.avatar.small.nonempty) {
+            _picture = _user.avatar;
         } else {
             _picture = self.record.picture;
         }

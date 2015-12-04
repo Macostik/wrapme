@@ -17,7 +17,7 @@
 
 @implementation WLSoundPlayer
 
-static WLBlock _completionBlock;
+static Block _completionBlock;
 
 static WLSound currentSound;
 
@@ -58,7 +58,7 @@ void WLSoundPlayerCompletion (SystemSoundID ssID, void *clientData) {
     });
 }
 
-+ (void)playSound:(WLSound)sound completion:(WLBlock)completion {
++ (void)playSound:(WLSound)sound completion:(Block)completion {
     NSString *soundFileName = WLSoundFileName(sound);
     if (soundFileName.nonempty) {
         NSMapTable *sounds = [self sounds];
@@ -87,7 +87,7 @@ void WLSoundPlayerCompletion (SystemSoundID ssID, void *clientData) {
     if (notification.playSound) {
         switch (notification.type) {
             case WLNotificationContributorAdd:
-                if ([[User currentUser].identifier isEqualToString:notification.data[@"user_uid"]]) {
+                if ([[User currentUser].uid isEqualToString:notification.data[@"user_uid"]]) {
                      [self playSound:WLSound_s01];
                 }
                 break;

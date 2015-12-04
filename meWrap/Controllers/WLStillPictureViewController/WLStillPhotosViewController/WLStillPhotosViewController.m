@@ -52,7 +52,7 @@
     WLOperationQueue *queue = [WLOperationQueue queueNamed:@"wl_still_picture_queue" capacity:1];
     
     __weak typeof(self)weakSelf = self;
-    WLBlock completionBlock = ^ {
+    Block completionBlock = ^ {
         queue.finishQueueBlock = nil;
         
         [weakSelf.pictures sortUsingComparator:^NSComparisonResult(MutableAsset *obj1, MutableAsset *obj2) {
@@ -170,7 +170,7 @@
     }
 }
 
-- (void)addPicture:(MutableAsset *)picture success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (void)addPicture:(MutableAsset *)picture success:(ObjectBlock)success failure:(FailureBlock)failure {
     __weak typeof(self)weakSelf = self;
     [self shouldAddPicture:^{
         [weakSelf.pictures addObject:picture];
@@ -179,7 +179,7 @@
     } failure:failure];
 }
 
-- (BOOL)shouldAddPicture:(WLBlock)success failure:(WLFailureBlock)failure {
+- (BOOL)shouldAddPicture:(Block)success failure:(FailureBlock)failure {
     if (self.pictures.count < 10) {
         if (success) success();
         return YES;

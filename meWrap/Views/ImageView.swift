@@ -59,7 +59,7 @@ class ImageView: UIImageView {
     
     var success: ((image: UIImage?, cached: Bool) -> Void)?
     
-    var failure: WLFailureBlock?
+    var failure: FailureBlock?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -68,7 +68,7 @@ class ImageView: UIImageView {
         }
     }
     
-    func setURL(url: String?, success: ((image: UIImage?, cached: Bool) -> Void)?, failure: WLFailureBlock?) {
+    func setURL(url: String?, success: ((image: UIImage?, cached: Bool) -> Void)?, failure: FailureBlock?) {
         self.success = success
         self.failure = failure
         self.url = url

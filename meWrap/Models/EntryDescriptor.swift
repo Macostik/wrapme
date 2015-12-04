@@ -28,9 +28,9 @@ class EntryDescriptor: NSObject {
     
     func belongsToEntry(entry: Entry) -> Bool {
         if let locuid = locuid {
-            return uid == entry.identifier || locuid == entry.uploadIdentifier
+            return uid == entry.uid || locuid == entry.locuid
         } else {
-            return uid == entry.identifier
+            return uid == entry.uid
         }
     }
 }
@@ -38,7 +38,7 @@ class EntryDescriptor: NSObject {
 extension EntryContext {
     
     func deleteEntry(entry: Entry) {
-        cachedEntries.removeObjectForKey(entry.identifier)
+        cachedEntries.removeObjectForKey(entry.uid)
         deleteObject(entry)
         do {
             try save()
@@ -85,11 +85,11 @@ extension EntryContext {
             return
         }
         
-        if let entries = Entry.fetch().query("identifier IN %@ OR uploadIdentifier IN %@", uids, uids).execute() as? [Entry] {
+        if let entries = Entry.fetch().query("uid IN %@ OR locuid IN %@", uids, uids).execute() as? [Entry] {
             for entry in entries {
                 for (index, descriptor) in descriptors.enumerate() {
                     if descriptor.belongsToEntry(entry) {
-                        entry.identifier = descriptor.uid
+                        entry.uid = descriptor.uid
                         cachedEntries.setObject(entry, forKey: descriptor.uid)
                         descriptors.removeAtIndex(index)
                         break
@@ -100,8 +100,8 @@ extension EntryContext {
         
         for descriptor in descriptors {
             if let entry = insertEntry(descriptor.name) {
-                entry.identifier = descriptor.uid
-                entry.uploadIdentifier = descriptor.locuid
+                entry.uid = descriptor.uid
+                entry.locuid = descriptor.locuid
                 cachedEntries.setObject(entry, forKey: descriptor.uid)
             }
         }

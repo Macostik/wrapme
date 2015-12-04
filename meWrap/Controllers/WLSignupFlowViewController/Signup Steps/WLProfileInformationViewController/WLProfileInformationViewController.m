@@ -32,7 +32,7 @@
 	
 	self.nameTextField.text = self.user.name;
     
-	self.profileImageView.url = self.user.picture.large;
+	self.profileImageView.url = self.user.avatar.large;
     
     self.editSession = [[ProfileEditSession alloc] initWithUser:self.user];
 	

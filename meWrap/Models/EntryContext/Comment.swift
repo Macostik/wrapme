@@ -39,9 +39,9 @@ class Comment: Contribution {
         return super.deletable || (candy?.deletable ?? false)
     }
     
-    override var picture: Asset? {
+    override var asset: Asset? {
         get {
-            return candy?.picture
+            return candy?.asset
         }
         set {
         }

@@ -34,7 +34,7 @@
 
 + (instancetype)queueForEntityName:(NSString*)entityName;
 
-+ (void)upload:(Uploading *)uploading success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
++ (void)upload:(Uploading *)uploading success:(ObjectBlock)success failure:(FailureBlock)failure;
 
 + (void)start;
 
@@ -44,7 +44,7 @@
 
 - (void)start;
 
-- (void)upload:(Uploading *)uploading success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+- (void)upload:(Uploading *)uploading success:(ObjectBlock)success failure:(FailureBlock)failure;
 
 - (void)addDependentQueue:(WLUploadingQueue*)queue;
 

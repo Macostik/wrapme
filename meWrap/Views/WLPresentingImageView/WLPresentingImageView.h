@@ -22,7 +22,7 @@
 
 + (instancetype)sharedPresenting;
 
-- (void)presentCandy:(Candy *)candy fromView:(UIView*)view success:(void (^) (WLPresentingImageView *presetingImageView))success failure:(WLFailureBlock)failure;
+- (void)presentCandy:(Candy *)candy fromView:(UIView*)view success:(void (^) (WLPresentingImageView *presetingImageView))success failure:(FailureBlock)failure;
 
 - (void)dismissCandy:(Candy *)candy;
 

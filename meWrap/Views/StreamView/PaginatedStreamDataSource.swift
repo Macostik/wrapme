@@ -60,11 +60,11 @@ class PaginatedStreamDataSource: StreamDataSource {
         }
     }
     
-    override func refresh(success: WLArrayBlock?, failure: WLFailureBlock?) {
+    override func refresh(success: ArrayBlock?, failure: FailureBlock?) {
         paginatedSet?.newer(success, failure: failure)
     }
     
-    func append(success: WLArrayBlock?, failure: WLFailureBlock?) {
+    func append(success: ArrayBlock?, failure: FailureBlock?) {
         paginatedSet?.older(success, failure: failure)
     }
     

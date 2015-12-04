@@ -14,11 +14,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *emailLabel;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 
-+ (void)showInView:(UIView*)view authorization:(Authorization*)authorization success:(WLObjectBlock)succes cancel:(WLBlock)cancel;
++ (void)showInView:(UIView*)view authorization:(Authorization*)authorization success:(ObjectBlock)succes cancel:(Block)cancel;
 
-- (void)showInView:(UIView*)view authorization:(Authorization*)authorization success:(WLObjectBlock)succes cancel:(WLBlock)cancel;
+- (void)showInView:(UIView*)view authorization:(Authorization*)authorization success:(ObjectBlock)succes cancel:(Block)cancel;
 
-- (void)confirmationSuccess:(WLObjectBlock)success cancel:(WLBlock)cancel;
+- (void)confirmationSuccess:(ObjectBlock)success cancel:(Block)cancel;
 
 @end
 
@@ -28,6 +28,6 @@
 @property (weak, nonatomic) IBOutlet WLTextView *contentTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *keyboardPrioritizer;
 
-+ (void)showInView:(UIView *)view withContent:(NSString *)content success:(WLObjectBlock)succes cancel:(WLBlock)cancel;
++ (void)showInView:(UIView *)view withContent:(NSString *)content success:(ObjectBlock)succes cancel:(Block)cancel;
 
 @end

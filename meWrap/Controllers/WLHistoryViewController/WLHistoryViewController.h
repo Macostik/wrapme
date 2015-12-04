@@ -24,7 +24,7 @@
 
 @property (strong, nonatomic) WLPresentingImageView *presentingImageView;
 
-@property (copy, nonatomic) WLBlock commentPressed;
+@property (copy, nonatomic) Block commentPressed;
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet LayoutPrioritizer *commentButtonPrioritizer;

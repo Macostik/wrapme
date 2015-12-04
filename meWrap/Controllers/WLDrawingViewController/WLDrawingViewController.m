@@ -23,15 +23,15 @@
 
 @property (strong, nonatomic) NSArray* colors;
 
-@property (strong, nonatomic) WLImageBlock doneBlock;
+@property (strong, nonatomic) ImageBlock doneBlock;
 
-@property (strong, nonatomic) WLBlock cancelBlock;
+@property (strong, nonatomic) Block cancelBlock;
 
 @end
 
 @implementation WLDrawingViewController
 
-+ (instancetype)draw:(UIImage *)image finish:(WLImageBlock)finish {
++ (instancetype)draw:(UIImage *)image finish:(ImageBlock)finish {
     UIViewController *presentingViewController = [UIWindow mainWindow].rootViewController;
     WLDrawingViewController *drawingViewController = [[WLDrawingViewController alloc] init];
     NSLog(@"%@ %@", presentingViewController.view, presentingViewController.view.superview);
@@ -70,7 +70,7 @@
     [self updateBrushView];
 }
 
-- (void)setImage:(UIImage *)image done:(WLImageBlock)done cancel:(WLBlock)cancel {
+- (void)setImage:(UIImage *)image done:(ImageBlock)done cancel:(Block)cancel {
     [self setImage:image];
     self.delegate = self;
     self.doneBlock = done;

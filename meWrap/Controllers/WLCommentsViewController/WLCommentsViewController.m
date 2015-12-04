@@ -80,7 +80,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
     return [[self.candy sortedComments] mutableCopy];
 }
 
-- (void)requestAuthorizationForPresentingEntry:(Entry *)entry completion:(WLBooleanBlock)completion {
+- (void)requestAuthorizationForPresentingEntry:(Entry *)entry completion:(BooleanBlock)completion {
     if (completion) completion(![self.candy.comments containsObject:entry]);
 }
 

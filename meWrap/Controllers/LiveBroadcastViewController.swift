@@ -22,7 +22,7 @@ class LiveBroadcastEventView: StreamReusableView {
         if let event = entry as? LiveBroadcast.Event {
             if event.type == .Message {
                 textLabel.text = event.text
-                avatarView?.url = event.user?.picture?.small
+                avatarView?.url = event.user?.avatar?.small
                 nameLabel?.text = event.user?.name
             } else {
                 textLabel.text = "\(event.user?.name ?? "") \("joined".ls)"
@@ -74,7 +74,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     var userState = [NSObject:AnyObject]() {
         didSet {
-            if let channel = wrap?.identifier {
+            if let channel = wrap?.uid {
                 WLNotificationCenter.defaultCenter().userSubscription.changeState(userState, channel: channel)
             }
         }
@@ -168,7 +168,7 @@ class LiveBroadcastViewController: WLBaseViewController {
             
             updateBroadcastInfo()
             
-            if let uuid = broadcast.broadcaster?.identifier, let channel = wrap?.identifier {
+            if let uuid = broadcast.broadcaster?.uid, let channel = wrap?.uid {
                 PubNub.sharedInstance.stateForUUID(uuid, onChannel: channel, withCompletion: { [weak self] (result, status) -> Void in
                     if let state = result.data.state, let numberOfViewers = state["numberOfViewers"] as? Int {
                         if let broadcast = self?.broadcast {
@@ -245,7 +245,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     func start() throws {
         
         guard let wrap = wrap else { throw NSError(message: "no wrap") }
-        guard let userUID = User.currentUser?.identifier else { throw NSError(message: "no user_uid") }
+        guard let userUID = User.currentUser?.uid else { throw NSError(message: "no user_uid") }
         guard let deviceUID = Authorization.currentAuthorization.deviceUID else { throw NSError(message: "no device_uid") }
         
         titleLabel?.text = composeBar.text
@@ -280,7 +280,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     func stop() {
         if let broadcast = broadcast {
             
-            if let channel = wrap?.identifier {
+            if let channel = wrap?.uid {
                 let state: [NSObject : AnyObject] = [
                     "chatChannel":broadcast.channel
                 ]
@@ -332,7 +332,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         if isBroadcasting {
             composeBar.setDoneButtonHidden(true)
         } else {
-            if let text = composeBar.text, let uuid = User.currentUser?.identifier where !text.isEmpty {
+            if let text = composeBar.text, let uuid = User.currentUser?.uid where !text.isEmpty {
                 chatSubscription?.send([
                     "chat_message" : text,
                     "uuid" : uuid

@@ -34,11 +34,11 @@
     
 }
 
-- (void)validate:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (void)validate:(ObjectBlock)success failure:(FailureBlock)failure {
     if (success) success(nil);
 }
 
-- (void)apply:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (void)apply:(ObjectBlock)success failure:(FailureBlock)failure {
     if (success) success(nil);
 }
 

@@ -85,7 +85,7 @@
     self.nameLabel.text = wrap.name;
     if (wrap.isPublic) {
         BOOL contributorIsCurrent = wrap.contributor.current;
-        self.publicWrapImageView.url = wrap.contributor.picture.small;
+        self.publicWrapImageView.url = wrap.contributor.avatar.small;
         self.publicWrapImageView.isFollowed = wrap.isContributing;
         self.publicWrapImageView.isOwner = contributorIsCurrent;
         self.creatorName.text = wrap.contributor.name;

@@ -1,5 +1,5 @@
 //
-//  WLBlocks.h
+//  Blocks.h
 //  meWrap
 //
 //  Created by Ravenpod on 08.05.14.
@@ -9,13 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-typedef void (^WLBlock) (void);
-typedef void (^WLObjectBlock) (id __nullable object);
-typedef void (^WLFailureBlock) (NSError * __nullable error);
-typedef void (^WLArrayBlock) (NSArray * __nullable array);
-typedef void (^WLSetBlock) (NSSet * __nullable set);
-typedef void (^WLOrderedSetBlock) (NSOrderedSet * __nullable orderedSet);
-typedef void (^WLDictionaryBlock) (NSDictionary * __nullable dictionary);
-typedef void (^WLImageBlock) (UIImage * __nullable image);
-typedef void (^WLBooleanBlock) (BOOL flag);
+typedef void (^Block) (void);
+typedef void (^ObjectBlock) (id __nullable object);
+typedef void (^FailureBlock) (NSError * __nullable error);
+typedef void (^ArrayBlock) (NSArray * __nullable array);
+typedef void (^SetBlock) (NSSet * __nullable set);
+typedef void (^ImageBlock) (UIImage * __nullable image);
+typedef void (^BooleanBlock) (BOOL flag);
 

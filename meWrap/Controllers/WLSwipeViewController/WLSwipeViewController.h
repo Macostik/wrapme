@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, WLSwipeViewControllerDirection) {
 
 - (void)setViewController:(UIViewController*)viewController direction:(WLSwipeViewControllerDirection)direction animated:(BOOL)animated;
 
-- (void)setViewController:(UIViewController*)viewController direction:(WLSwipeViewControllerDirection)direction animated:(BOOL)animated completion:(WLBlock)completion;
+- (void)setViewController:(UIViewController*)viewController direction:(WLSwipeViewControllerDirection)direction animated:(BOOL)animated completion:(Block)completion;
 
 - (void)didChangeViewController:(UIViewController*)viewController;
 

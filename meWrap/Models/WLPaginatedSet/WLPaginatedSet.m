@@ -61,19 +61,19 @@
     }
 }
 
-- (void)fresh:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (void)fresh:(ArrayBlock)success failure:(FailureBlock)failure {
     [self send:WLPaginatedRequestTypeFresh success:success failure:failure];
 }
 
-- (void)newer:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (void)newer:(ArrayBlock)success failure:(FailureBlock)failure {
     [self send:WLPaginatedRequestTypeNewer success:success failure:failure];
 }
 
-- (void)older:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (void)older:(ArrayBlock)success failure:(FailureBlock)failure {
     [self send:WLPaginatedRequestTypeOlder success:success failure:failure];
 }
 
-- (id)send:(WLPaginatedRequestType)type success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+- (id)send:(WLPaginatedRequestType)type success:(ArrayBlock)success failure:(FailureBlock)failure {
     WLPaginatedRequest* request = self.request;
     if (request) {
         if ([self.loadingTypes containsIndex:type]) {

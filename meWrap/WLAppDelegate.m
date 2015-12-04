@@ -111,8 +111,8 @@
                 topView.userInteractionEnabled = YES;
             } tryAgain:^(UIAlertAction *action) {
                 topView.userInteractionEnabled = NO;
-                WLObjectBlock successBlock = request.successBlock;
-                WLFailureBlock failureBlock = request.failureBlock;
+                ObjectBlock successBlock = request.successBlock;
+                FailureBlock failureBlock = request.failureBlock;
                 [request send:^(id object) {
                     if (successBlock) successBlock(object);
                     topView.userInteractionEnabled = YES;

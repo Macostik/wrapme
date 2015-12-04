@@ -25,7 +25,7 @@ class RecentUpdateCell: StreamReusableView {
             let contribution = event.contribution
             contribution.markAsRead()
             timeLabel.text = event.date?.timeAgoStringAtAMPM()
-            wrapImageView.url = contribution.picture?.medium
+            wrapImageView.url = contribution.asset?.medium
         }
     }
 
@@ -36,7 +36,7 @@ class RecentCommentCell: RecentUpdateCell {
     override func setup(entry: AnyObject!) {
         if let event = entry as? WhatsUpEvent, let comment = event.contribution as? Comment {
             super.setup(entry)
-            pictureView.url = comment.contributor?.picture?.small
+            pictureView.url = comment.contributor?.avatar?.small
             userNameLabel.text = "\(comment.contributor?.name ?? ""):"
             inWrapLabel.text = comment.candy?.wrap?.name
             textView.text = comment.text
@@ -53,10 +53,10 @@ class RecentCandyCell: RecentUpdateCell {
         if let event = entry as? WhatsUpEvent, let candy = event.contribution as? Candy {
             super.setup(entry)
             if event.event == .Update {
-                pictureView.url = candy.editor?.picture?.small
+                pictureView.url = candy.editor?.avatar?.small
                 userNameLabel.text = String(format: "formatted_edited_by".ls, candy.editor?.name ?? "")
             } else {
-                pictureView.url = candy.contributor?.picture?.small
+                pictureView.url = candy.contributor?.avatar?.small
                 userNameLabel.text = "\(candy.contributor?.name ?? "") \((candy.isVideo ? "posted_new_video" : "posted_new_photo").ls)"
             }
             inWrapLabel.text = candy.wrap?.name

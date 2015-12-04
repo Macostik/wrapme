@@ -280,7 +280,7 @@ CGFloat WLMinTextViewWidth;
     });
 }
 
-- (void)refreshMessages:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)refreshMessages:(Block)success failure:(FailureBlock)failure {
     __weak typeof(self)weakSelf = self;
     Message* message = [self.chat.entries lastObject];
     if (!message) {
@@ -294,7 +294,7 @@ CGFloat WLMinTextViewWidth;
     } failure:failure];
 }
 
-- (void)loadMessages:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)loadMessages:(Block)success failure:(FailureBlock)failure {
     __weak typeof(self)weakSelf = self;
     [self.wrap messages:^(NSArray *messages) {
         weakSelf.chat.completed = messages.count < [NSUserDefaults standardUserDefaults].pageSize;
@@ -303,7 +303,7 @@ CGFloat WLMinTextViewWidth;
     } failure:failure];
 }
 
-- (void)appendMessages:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)appendMessages:(Block)success failure:(FailureBlock)failure {
 	if (self.operation) return;
 	__weak typeof(self)weakSelf = self;
     Message* olderMessage = [self.chat.entries firstObject];

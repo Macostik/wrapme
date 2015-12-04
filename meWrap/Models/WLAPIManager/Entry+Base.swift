@@ -17,7 +17,7 @@ extension Entry {
     
     class func entry<T>(type: T.Type) -> T? {
         if let entry = NSEntityDescription.insertNewObjectForEntityForName(entityName(), inManagedObjectContext: EntryContext.sharedContext) as? Entry {
-            entry.identifier = NSString.GUID()
+            entry.uid = NSString.GUID()
             entry.createdAt = NSDate.now()
             entry.updatedAt = entry.createdAt
             return entry as? T
@@ -100,7 +100,7 @@ extension Contribution {
     
     class func contribution<T>(type: T.Type) -> T? {
         if let contributrion = entry() {
-            contributrion.uploadIdentifier = contributrion.identifier
+            contributrion.locuid = contributrion.uid
             contributrion.contributor = User.currentUser
             return contributrion as? T
         } else {
@@ -111,17 +111,13 @@ extension Contribution {
 
 extension Wrap {
     
-    class func wrap() -> Self? {
-        return wrap(self)
-    }
-    
-    class func wrap<T>(type: T.Type) -> T? {
+    class func wrap() -> Wrap? {
         if let wrap = contribution() {
             if let contributor = wrap.contributor {
                 contributor.mutableWraps.addObject(wrap)
                 wrap.contributors = NSSet(object: contributor)
             }
-            return wrap as? T
+            return wrap
         } else {
             return nil
         }
@@ -134,27 +130,23 @@ extension Wrap {
 
 extension Candy {
     
-    class func candy(mediaType: MediaType) -> Self? {
-        return candy(self, mediaType: mediaType)
-    }
-    
-    class func candy<T>(type: T.Type, mediaType: MediaType) -> T? {
+    class func candy(mediaType: MediaType) -> Candy? {
         if let candy = contribution() {
             candy.mediaType = mediaType
-            return candy as? T
+            return candy
         } else {
             return nil
         }
     }
     
     override func fetched() -> Bool {
-        return wrap != nil && !(picture?.original?.isEmpty ?? true)
+        return wrap != nil && !(asset?.original?.isEmpty ?? true)
     }
     
     func setEditedPicture(editedPicture: Asset) {
         switch status {
         case .Ready:
-            picture = editedPicture
+            asset = editedPicture
             break
         case .InProgress:
             break
@@ -162,7 +154,7 @@ extension Candy {
             touch()
             editedAt = NSDate.now()
             editor = User.currentUser
-            picture = editedPicture
+            asset = editedPicture
             break
         }
     }
@@ -178,13 +170,9 @@ extension Message {
 extension Comment {
     
     class func comment(text: String) -> Comment? {
-        return comment(self, text: text)
-    }
-    
-    class func comment<T>(type: T.Type, text: String) -> T? {
         if let comment = contribution() {
             comment.text = text
-            return comment as? T
+            return comment
         } else {
             return nil
         }

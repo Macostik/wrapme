@@ -49,7 +49,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
     if (wrap) {
         __weak typeof(self)weakSelf = self;
         run_after_asap(^{
-            weakSelf.subscription = [[NotificationSubscription alloc] initWithName:wrap.identifier isGroup:NO observePresence:YES];
+            weakSelf.subscription = [[NotificationSubscription alloc] initWithName:wrap.uid isGroup:NO observePresence:YES];
             weakSelf.subscription.delegate = weakSelf;
             [weakSelf.subscription hereNow:^(NSArray *uuids) {
                 for (NSDictionary* uuid in uuids) {

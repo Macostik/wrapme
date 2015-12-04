@@ -24,7 +24,7 @@
 
 - (void)configure;
 
-- (void)handleRemoteNotification:(NSDictionary*)data success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+- (void)handleRemoteNotification:(NSDictionary*)data success:(ObjectBlock)success failure:(FailureBlock)failure;
 
 - (void)subscribe;
 

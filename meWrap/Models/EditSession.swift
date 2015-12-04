@@ -123,8 +123,8 @@ class ProfileEditSession: CompoundEditSession {
                 return false
             }
         })
-        avatarSession = EditSession(originalValue: user.picture?.large, setter: { [weak user] (session, value) -> Void in
-            user?.picture?.large = (value as? String)
+        avatarSession = EditSession(originalValue: user.avatar?.large, setter: { [weak user] (session, value) -> Void in
+            user?.avatar?.large = (value as? String)
             }, validator: { (session, value) -> Bool in
                 return (value as? NSString)?.nonempty ?? false
         })

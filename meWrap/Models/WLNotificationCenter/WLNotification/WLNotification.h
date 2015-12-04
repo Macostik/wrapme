@@ -24,12 +24,9 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
     WLNotificationEngagement            = 99
 };
 
-@interface WLNotification : NSObject {
-    @protected
-    NSString *_identifier;
-}
+@interface WLNotification : NSObject
 
-@property (strong, nonatomic) NSString* identifier;
+@property (strong, nonatomic) NSString* uid;
 
 @property (nonatomic) WLNotificationType type;
 
@@ -69,11 +66,11 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 - (void)prepare;
 
-- (void)fetch:(WLBlock)success failure:(WLFailureBlock)failure;
+- (void)fetch:(Block)success failure:(FailureBlock)failure;
 
 - (void)finalize;
 
-- (void)handle:(WLBlock)success failure:(WLFailureBlock)failure;
+- (void)handle:(Block)success failure:(FailureBlock)failure;
 
 - (void)setup:(NSDictionary*)data;
 
@@ -91,11 +88,11 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 - (void)prepareForDeleteNotification:(WLNotification *)notification;
 
-- (void)fetchAddNotification:(WLNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure;
+- (void)fetchAddNotification:(WLNotification *)notification success:(Block)success failure:(FailureBlock)failure;
 
-- (void)fetchUpdateNotification:(WLNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure;
+- (void)fetchUpdateNotification:(WLNotification *)notification success:(Block)success failure:(FailureBlock)failure;
 
-- (void)fetchDeleteNotification:(WLNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure;
+- (void)fetchDeleteNotification:(WLNotification *)notification success:(Block)success failure:(FailureBlock)failure;
 
 - (void)finalizeAddNotification:(WLNotification *)notification;
 

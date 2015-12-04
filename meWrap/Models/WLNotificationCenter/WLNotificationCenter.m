@@ -87,7 +87,7 @@
 }
 
 - (void)subscribeWithUser:(User *)user {
-    NSString* uuid = user.identifier;
+    NSString* uuid = user.uid;
     if (!uuid.nonempty) {
         return;
     }
@@ -120,7 +120,7 @@
     }
 }
 
-- (void)handleRemoteNotification:(NSDictionary *)data success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (void)handleRemoteNotification:(NSDictionary *)data success:(ObjectBlock)success failure:(FailureBlock)failure {
     if (!data)  {
         if (failure) failure(nil);
         return;
@@ -237,10 +237,10 @@
 }
 
 - (BOOL)isAlreadyHandledNotification:(WLNotification*)notification {
-    return [[NSUserDefaults standardUserDefaults].handledNotifications containsObject:notification.identifier];
+    return [[NSUserDefaults standardUserDefaults].handledNotifications containsObject:notification.uid];
 }
 
-- (void)handleNotification:(WLNotification*)notification completion:(WLBlock)completion {
+- (void)handleNotification:(WLNotification*)notification completion:(Block)completion {
     [notification handle:^{
         [WLSoundPlayer playSoundForNotification:notification];
         if (completion) completion();
@@ -250,16 +250,16 @@
 }
 
 - (void)addHandledNotifications:(NSArray*)notifications {
-    NSArray *identifiers = [notifications map:^id(WLNotification* notification) {
-        return notification.identifier;
+    NSArray *uids = [notifications map:^id(WLNotification* notification) {
+        return notification.uid;
     }];
     
-    if (identifiers.nonempty) {
+    if (uids.nonempty) {
         NSMutableOrderedSet *handledNotifications = [[NSUserDefaults standardUserDefaults].handledNotifications mutableCopy];
         if (handledNotifications.count > 100) {
-            [handledNotifications removeObjectsInRange:NSMakeRange(0, MIN(100, identifiers.count))];
+            [handledNotifications removeObjectsInRange:NSMakeRange(0, MIN(100, uids.count))];
         }
-        [handledNotifications unionOrderedSet:[NSOrderedSet orderedSetWithArray:identifiers]];
+        [handledNotifications unionOrderedSet:[NSOrderedSet orderedSetWithArray:uids]];
         [NSUserDefaults standardUserDefaults].handledNotifications = handledNotifications;
     }
 }

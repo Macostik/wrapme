@@ -28,25 +28,25 @@ extension PHPhotoLibrary {
         }
     }
     
-    class func addImage(image: UIImage, collectionTitle: String, success: WLBlock?, failure: WLFailureBlock?) {
+    class func addImage(image: UIImage, collectionTitle: String, success: Block?, failure: FailureBlock?) {
         addAsset({ () -> PHAssetChangeRequest? in
             return PHAssetChangeRequest.creationRequestForAssetFromImage(image)
             }, collectionTitle: collectionTitle, success: success, failure: failure)
     }
     
-    class func addImageAtFileUrl(url: NSURL, collectionTitle: String, success: WLBlock?, failure: WLFailureBlock?) {
+    class func addImageAtFileUrl(url: NSURL, collectionTitle: String, success: Block?, failure: FailureBlock?) {
         addAsset({ () -> PHAssetChangeRequest? in
             return PHAssetChangeRequest.creationRequestForAssetFromImageAtFileURL(url)
             }, collectionTitle: collectionTitle, success: success, failure: failure)
     }
     
-    class func addVideoAtFileUrl(url: NSURL, collectionTitle: String, success: WLBlock?, failure: WLFailureBlock?) {
+    class func addVideoAtFileUrl(url: NSURL, collectionTitle: String, success: Block?, failure: FailureBlock?) {
         addAsset({ () -> PHAssetChangeRequest? in
             return PHAssetChangeRequest.creationRequestForAssetFromVideoAtFileURL(url)
             }, collectionTitle: collectionTitle, success: success, failure: failure)
     }
     
-    class func addAsset(assetBlock: Void -> PHAssetChangeRequest?, collectionTitle: String, success: WLBlock?, failure: WLFailureBlock?) {
+    class func addAsset(assetBlock: Void -> PHAssetChangeRequest?, collectionTitle: String, success: Block?, failure: FailureBlock?) {
         sharedPhotoLibrary().performChanges({ () -> Void in
             if let changeRequest = assetBlock() {
                 let collectonRequest = collectionWithTitle(collectionTitle)

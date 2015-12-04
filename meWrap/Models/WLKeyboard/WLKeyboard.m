@@ -91,7 +91,7 @@
     [self.tapGestureRecognizer.view removeGestureRecognizer:self.tapGestureRecognizer];
 }
 
-- (void)performAnimation:(WLBlock)animation {
+- (void)performAnimation:(Block)animation {
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:self.duration];

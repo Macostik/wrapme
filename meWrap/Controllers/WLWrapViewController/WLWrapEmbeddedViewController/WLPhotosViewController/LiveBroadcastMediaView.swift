@@ -18,7 +18,7 @@ class LiveBroadcastMediaView: StreamReusableView {
         if let broadcast = entry as? LiveBroadcast {
             nameLabel.text = "\(broadcast.broadcaster?.name ?? "") \("is_live_streaming".ls)"
             titleLabel.text = broadcast.title
-            imageView.url = broadcast.broadcaster?.picture?.small
+            imageView.url = broadcast.broadcaster?.avatar?.small
         }
     }
 }

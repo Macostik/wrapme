@@ -28,7 +28,7 @@ extension PubNub {
         
                 PNLog.enabled(false)
         
-                configuration.uuid = user.identifier
+                configuration.uuid = user.uid
                 _sharedInstance = clientWithConfiguration(configuration)
             }
             return _sharedInstance!
@@ -111,7 +111,7 @@ class NotificationSubscription: NSObject {
     
     func changeState(state: [NSObject : AnyObject]?, channel: String) {
         if let user = User.currentUser {
-            PubNub.sharedInstance.setState(state, forUUID: user.identifier, onChannel: channel, withCompletion: nil)
+            PubNub.sharedInstance.setState(state, forUUID: user.uid, onChannel: channel, withCompletion: nil)
         }
     }
     

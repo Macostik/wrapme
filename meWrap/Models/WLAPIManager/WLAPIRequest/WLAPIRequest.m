@@ -102,12 +102,12 @@ static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;
     return self;
 }
 
-- (instancetype)beforeFailure:(WLFailureBlock)beforeFailure {
+- (instancetype)beforeFailure:(FailureBlock)beforeFailure {
     self.beforeFailure = beforeFailure;
     return self;
 }
 
-- (instancetype)afterFailure:(WLFailureBlock)afterFailure {
+- (instancetype)afterFailure:(FailureBlock)afterFailure {
     self.afterFailure = afterFailure;
     return self;
 }
@@ -156,7 +156,7 @@ static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;
     }
 }
 
-- (id)send:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (id)send:(ObjectBlock)success failure:(FailureBlock)failure {
     self.successBlock = success;
     self.failureBlock = failure;
     return [self send];

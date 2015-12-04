@@ -79,7 +79,7 @@
 - (void)setupEditableUserInterface {
     User *user = [User currentUser];
     self.nameTextField.text = user.name;
-    self.imageView.url = user.picture.large;
+    self.imageView.url = user.avatar.large;
     self.emailTextField.text = [[Authorization currentAuthorization] priorityEmail];
 }
 
@@ -115,7 +115,7 @@
 
 #pragma mark - override base method
 
-- (void)validate:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (void)validate:(ObjectBlock)success failure:(FailureBlock)failure {
     if (!self.editSession.emailSession.hasValidChanges) {
         if (failure) failure([[NSError alloc] initWithMessage:@"incorrect_email".ls]);
     } else if (!self.editSession.nameSession.hasValidChanges) {
@@ -125,7 +125,7 @@
     }
 }
 
-- (void)apply:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (void)apply:(ObjectBlock)success failure:(FailureBlock)failure {
     NSString* email = (NSString*)self.editSession.emailSession.changedValue;
     if (self.editSession.emailSession.hasChanges && ![[Authorization currentAuthorization].email isEqualToString:email]) {
         [[NSUserDefaults standardUserDefaults] setConfirmationDate:nil];

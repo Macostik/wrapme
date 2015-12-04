@@ -54,7 +54,7 @@ static NSMapTable *queues = nil;
     return queue;
 }
 
-+ (void)upload:(Uploading *)uploading success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
++ (void)upload:(Uploading *)uploading success:(ObjectBlock)success failure:(FailureBlock)failure {
     [[self queueForEntityName:uploading.contribution.entity.name] upload:uploading success:success failure:failure];
 }
 
@@ -134,7 +134,7 @@ static NSMapTable *queues = nil;
     }
 }
 
-- (void)internalUpload:(Uploading *)uploading success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (void)internalUpload:(Uploading *)uploading success:(ObjectBlock)success failure:(FailureBlock)failure {
     self.isUploading = YES;
     [self addUploading:uploading];
     __weak typeof(self)weakSelf = self;
@@ -161,7 +161,7 @@ static NSMapTable *queues = nil;
     }];
 }
 
-- (void)enqueueInternalUpload:(Uploading *)uploading queue:(WLOperationQueue*)queue success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (void)enqueueInternalUpload:(Uploading *)uploading queue:(WLOperationQueue*)queue success:(ObjectBlock)success failure:(FailureBlock)failure {
     if (self.parentQueue && !self.parentQueue.isEmpty) {
         if (!self.parentQueue.isUploading) {
             [self.parentQueue prepareAndStart];
@@ -197,7 +197,7 @@ static NSMapTable *queues = nil;
     }
 }
 
-- (void)upload:(Uploading *)uploading success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (void)upload:(Uploading *)uploading success:(ObjectBlock)success failure:(FailureBlock)failure {
     [self addUploading:uploading];
     [self enqueueInternalUpload:uploading queue:[WLOperationQueue queueNamed:self.queueName capacity:self.simultaneousUploadingsLimit] success:success failure:failure];
 }

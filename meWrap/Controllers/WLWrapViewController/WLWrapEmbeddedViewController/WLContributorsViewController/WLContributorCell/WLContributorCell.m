@@ -91,7 +91,7 @@
     self.pandingLabel.text = canBeInvited ? @"sign_up_pending".ls : @"";
     self.phoneLabel.text = user.securePhones;
     
-    NSString *url = user.picture.small;
+    NSString *url = user.avatar.small;
     if (!canBeInvited && !url.nonempty) {
         self.avatarView.defaultBackgroundColor = Color.orange;
     } else {

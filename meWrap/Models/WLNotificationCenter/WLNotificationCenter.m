@@ -171,7 +171,6 @@
                 broadcast.title = state[@"title"];
                 broadcast.channel = chatChannel;
                 broadcast.url = viewerURL;
-                broadcast.numberOfViewers = [state[@"numberOfViewers"] integerValue];
                 [wrap addBroadcast:broadcast];
             } else {
                 for (LiveBroadcast *broadcast in wrap.liveBroadcasts) {

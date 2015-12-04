@@ -81,6 +81,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     }
     
     deinit {
+        UIApplication.sharedApplication().idleTimerDisabled = false
         guard let item = playerItem else {
             return
         }
@@ -98,6 +99,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UIApplication.sharedApplication().idleTimerDisabled = true
         chatStreamView.layer.geometryFlipped = true
         
         chatDataSource = StreamDataSource(streamView: chatStreamView)
@@ -107,8 +109,8 @@ class LiveBroadcastViewController: WLBaseViewController {
                 if let streamView = self?.chatStreamView, let view = (metrics as StreamMetrics).loadView() {
                     view.width = streamView.width
                     view.entry = event
-                    let size = view.contentView?.systemLayoutSizeFittingSize(UILayoutFittingExpandedSize)
-                    return max(size?.height ?? 72, 72)
+                    let size = view.contentView!.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
+                    return max(size.height, 72)
                 } else {
                     return 72
                 }
@@ -135,71 +137,94 @@ class LiveBroadcastViewController: WLBaseViewController {
         wrapNameLabel?.text = wrap?.name
         
         if let broadcast = broadcast {
-            isBroadcasting = false
-            
-            layoutPrioritizer.defaultState = false
-            startButton.hidden = true
-            
-            if let url = broadcast.url.URL {
-                let layer = AVPlayerLayer()
-                layer.videoGravity = AVLayerVideoGravityResizeAspectFill
-                layer.frame = view.bounds
-                view.layer.insertSublayer(layer, atIndex: 0)
-                playerLayer = layer
-                
-                let playerItem = AVPlayerItem(URL: url)
-                playerItem.addObserver(self, forKeyPath: "status", options: .New, context: nil)
-                playerItem.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .New, context: nil)
-                let player = AVPlayer(playerItem: playerItem)
-                layer.player = player
-                self.playerItem = playerItem
-                
-                let chatSubscription = NotificationSubscription(name: broadcast.channel, isGroup: false, observePresence: true)
-                chatSubscription.delegate = self
-                self.chatSubscription = chatSubscription
-                
-                updateBroadcastInfo()
-            }
+            initializeViewing(broadcast)
         } else {
-            chatStreamView.hidden = true
-            joinsCountView.hidden = true
-            isBroadcasting = true
-            titleLabel?.superview?.hidden = true
-            guard let cameraInfo = CameraInfo.getCameraList().first as? CameraInfo else {
-                return
-            }
-            
-            let videoConfig = VideoConfig()
-            videoConfig.videoSize = (cameraInfo.videoSizes?[1] as! NSValue).CGSizeValue()
-            videoConfig.bitrate = 2000000
-            videoConfig.fps = 30
-            videoConfig.keyFrameInterval = 2
-            videoConfig.profileLevel = VideoConfig.getSupportedProfiles().first as! String
-            
-            let audioConfig = AudioConfig()
-            audioConfig.sampleRate = (AudioConfig.getSupportedSampleRates().first as! NSNumber).floatValue
-            let streamer = Streamer.instance() as! Streamer
-            var orientation = AVCaptureVideoOrientation.Portrait
-            switch WLDeviceManager.defaultManager().orientation {
-            case .PortraitUpsideDown:
-                orientation = .PortraitUpsideDown
-                break
-            case .LandscapeLeft:
-                orientation = .LandscapeLeft
-                break
-            case .LandscapeRight:
-                orientation = .LandscapeRight
-                break
-            default: break
-            }
-            let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self)
-            layer.frame = view.bounds
-            layer.videoGravity = AVLayerVideoGravityResizeAspectFill
-            view.layer.insertSublayer(layer, atIndex: 0)
-            streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
-            previewLayer = layer
+            initializeBroadcasting()
         }
         Wrap.notifier().addReceiver(self)
+    }
+    
+    private func initializeViewing(broadcast: LiveBroadcast) {
+        isBroadcasting = false
+        
+        layoutPrioritizer.defaultState = false
+        startButton.hidden = true
+        
+        if let url = broadcast.url.URL {
+            let layer = AVPlayerLayer()
+            layer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            layer.frame = view.bounds
+            view.layer.insertSublayer(layer, atIndex: 0)
+            playerLayer = layer
+            
+            let playerItem = AVPlayerItem(URL: url)
+            playerItem.addObserver(self, forKeyPath: "status", options: .New, context: nil)
+            playerItem.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .New, context: nil)
+            let player = AVPlayer(playerItem: playerItem)
+            layer.player = player
+            self.playerItem = playerItem
+            
+            subscribe(broadcast)
+            
+            updateBroadcastInfo()
+            
+            if let uuid = broadcast.broadcaster?.identifier, let channel = wrap?.identifier {
+                PubNub.sharedInstance.stateForUUID(uuid, onChannel: channel, withCompletion: { [weak self] (result, status) -> Void in
+                    if let state = result.data.state, let numberOfViewers = state["numberOfViewers"] as? Int {
+                        if let broadcast = self?.broadcast {
+                            broadcast.numberOfViewers = numberOfViewers
+                            self?.updateBroadcastInfo()
+                        }
+                    }
+                })
+            }
+        }
+    }
+    
+    private func subscribe(broadcast: LiveBroadcast) {
+        let chatSubscription = NotificationSubscription(name: broadcast.channel, isGroup: false, observePresence: true)
+        chatSubscription.delegate = self
+        self.chatSubscription = chatSubscription
+    }
+    
+    private func initializeBroadcasting() {
+        chatStreamView.hidden = true
+        joinsCountView.hidden = true
+        isBroadcasting = true
+        titleLabel?.superview?.hidden = true
+        guard let cameraInfo = CameraInfo.getCameraList().first as? CameraInfo else {
+            return
+        }
+        
+        let videoConfig = VideoConfig()
+        videoConfig.videoSize = (cameraInfo.videoSizes?[1] as! NSValue).CGSizeValue()
+        videoConfig.bitrate = 2000000
+        videoConfig.fps = 30
+        videoConfig.keyFrameInterval = 2
+        videoConfig.profileLevel = VideoConfig.getSupportedProfiles().first as! String
+        
+        let audioConfig = AudioConfig()
+        audioConfig.sampleRate = (AudioConfig.getSupportedSampleRates().first as! NSNumber).floatValue
+        let streamer = Streamer.instance() as! Streamer
+        var orientation = AVCaptureVideoOrientation.Portrait
+        switch WLDeviceManager.defaultManager().orientation {
+        case .PortraitUpsideDown:
+            orientation = .PortraitUpsideDown
+            break
+        case .LandscapeLeft:
+            orientation = .LandscapeLeft
+            break
+        case .LandscapeRight:
+            orientation = .LandscapeRight
+            break
+        default: break
+        }
+        let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self)
+        layer.frame = view.bounds
+        layer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        view.layer.insertSublayer(layer, atIndex: 0)
+        streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
+        previewLayer = layer
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -245,17 +270,11 @@ class LiveBroadcastViewController: WLBaseViewController {
         
         let uri = "rtsp://live.mewrap.me:1935/live/\(channel)"
         connectionID = streamer.createConnectionWithListener(self, uri: uri, mode: 0)
-        UIApplication.sharedApplication().idleTimerDisabled = true
         
-        let chatSubscription = NotificationSubscription(name: broadcast.channel, isGroup: false, observePresence: true)
-        chatSubscription.delegate = self
-        self.chatSubscription = chatSubscription
+        subscribe(broadcast)
     }
     
     func stop() {
-        
-        UIApplication.sharedApplication().idleTimerDisabled = false
-        
         if let broadcast = broadcast {
             
             if let channel = wrap?.identifier {
@@ -466,7 +485,6 @@ extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
     }
     
     private func setNumberOfViewers(numberOfViewers: Int) {
-        guard let wrap = wrap else { return }
         guard let broadcast = broadcast else { return }
         broadcast.numberOfViewers = numberOfViewers
         if isBroadcasting {
@@ -474,7 +492,7 @@ extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
             state["numberOfViewers"] = numberOfViewers
             userState = state
         }
-        wrap.notifyOnUpdate(.LiveBroadcastsChanged)
+        updateBroadcastInfo()
     }
     
     func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {

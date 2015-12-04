@@ -165,7 +165,6 @@ class Wrap: Contribution {
         if let index = liveBroadcasts.indexOf({ $0.channel == broadcast.channel }) {
             let _broadcast = liveBroadcasts[index]
             _broadcast.title = broadcast.title
-            _broadcast.numberOfViewers = broadcast.numberOfViewers
             notifyOnUpdate(.LiveBroadcastsChanged)
             return _broadcast
         } else {

@@ -149,7 +149,10 @@ class MutableAsset: Asset {
             if self.type == .Video {
                 return PHAssetChangeRequest.creationRequestForAssetFromVideoAtFileURL(NSURL(fileURLWithPath: self.original!))
             } else {
-                return PHAssetChangeRequest.creationRequestForAssetFromImageAtFileURL(NSURL(fileURLWithPath: self.original!))
+                guard let image = UIImage(data: NSData(contentsOfFile: self.original!)!) else {
+                    return nil;
+                }
+                return PHAssetChangeRequest.creationRequestForAssetFromImage(image)
             }
             }, collectionTitle: "meWrap", success: { () -> Void in
                 

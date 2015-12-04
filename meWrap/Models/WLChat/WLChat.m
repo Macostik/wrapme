@@ -7,15 +7,14 @@
 //
 
 #import "WLChat.h"
-#import "WLNotificationSubscription.h"
 #import "WLToast.h"
 #import "WLAPIRequest+Defined.h"
 
 static NSString *WLChatTypingChannelTypingKey = @"typing";
 
-@interface WLChat () <WLNotificationSubscriptionDelegate>
+@interface WLChat () <NotificationSubscriptionDelegate>
 
-@property (strong, nonatomic) WLNotificationSubscription* subscription;
+@property (strong, nonatomic) NotificationSubscription* subscription;
 
 @end
 
@@ -50,7 +49,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
     if (wrap) {
         __weak typeof(self)weakSelf = self;
         run_after_asap(^{
-            weakSelf.subscription = [WLNotificationSubscription subscription:wrap.identifier presence:YES];
+            weakSelf.subscription = [[NotificationSubscription alloc] initWithName:wrap.identifier isGroup:NO observePresence:YES];
             weakSelf.subscription.delegate = weakSelf;
             [weakSelf.subscription hereNow:^(NSArray *uuids) {
                 for (NSDictionary* uuid in uuids) {
@@ -182,16 +181,16 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
     [super didChange];
 }
 
-// MARK: - WLNotificationSubscriptionDelegate
+// MARK: - NotificationSubscriptionDelegate
 
-- (void)notificationSubscription:(WLNotificationSubscription *)subscription didReceivePresenceEvent:(PNPresenceEventData *)event {
-    User *user = [User entry:event.presence.uuid];
+- (void)notificationSubscription:(NotificationSubscription *)subscription didReceivePresenceEvent:(PNPresenceEventResult * _Nonnull)event {
+    User *user = [User entry:event.data.presence.uuid];
     if ([user current]) {
         return;
     }
-    if ([event.presenceEvent isEqualToString:@"state-change"]) {
-        [self handleClientState:event.presence.state user:user];
-    } else if ([event.presenceEvent isEqualToString:@"leave"] || [event.presenceEvent isEqualToString:@"timeout"]) {
+    if ([event.data.presenceEvent isEqualToString:@"state-change"]) {
+        [self handleClientState:event.data.presence.state user:user];
+    } else if ([event.data.presenceEvent isEqualToString:@"leave"] || [event.data.presenceEvent isEqualToString:@"timeout"]) {
         if ([self.typingUsers containsObject:user]) {
             [self didEndTyping:user];
         }

@@ -8,11 +8,7 @@
 
 #import "WLSettingsViewController.h"
 #import "WLToast.h"
-#import "WLButton.h"
 #import "WLNotificationCenter.h"
-#import "WLAPIRequest.h"
-#import "PubNub+SharedInstance.h"
-#import "WLNotificationSubscription.h"
 
 @interface WLSettingsViewController ()
 
@@ -46,7 +42,7 @@
     [WLToast showWithMessage:@"5 demo images will be added to Photos"];
 }
 
-- (IBAction)cleanCache:(WLButton*)sender {
+- (IBAction)cleanCache:(id)sender {
     [[WLOperationQueue queueNamed:WLOperationFetchingDataQueue] cancelAllOperations];
     [[WLAPIManager manager].operationQueue cancelAllOperations];
     __weak User *currentUser = [User currentUser];

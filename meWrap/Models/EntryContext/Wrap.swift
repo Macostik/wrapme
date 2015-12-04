@@ -10,12 +10,37 @@ import Foundation
 import CoreData
 
 class LiveBroadcast: NSObject {
+    
+    class Event {
+        enum Type: String {
+            case Message = "message"
+            case Join = "join"
+        }
+        
+        var type: Type
+        var text: String?
+        var user: User?
+        
+        init(type: Type) {
+            self.type = type
+        }
+    }
+    
     var broadcaster: User?
     weak var wrap: Wrap?
     var title = ""
     var url = ""
     var channel = ""
     var numberOfViewers = 0
+    
+    var events = [Event]()
+    
+    func insert(event: Event) {
+        events.insert(event, atIndex: 0)
+        if (events.count > 5) {
+            events.removeLast()
+        }
+    }
 }
 
 @objc(Wrap)
@@ -136,15 +161,18 @@ class Wrap: Contribution {
     
     var liveBroadcasts = [LiveBroadcast]()
     
-    func addBroadcast(broadcast: LiveBroadcast) {
+    func addBroadcast(broadcast: LiveBroadcast) -> LiveBroadcast {
         if let index = liveBroadcasts.indexOf({ $0.channel == broadcast.channel }) {
             let _broadcast = liveBroadcasts[index]
             _broadcast.title = broadcast.title
             _broadcast.numberOfViewers = broadcast.numberOfViewers
+            notifyOnUpdate(.LiveBroadcastsChanged)
+            return _broadcast
         } else {
             liveBroadcasts.append(broadcast)
+            notifyOnUpdate(.LiveBroadcastsChanged)
+            return broadcast
         }
-        notifyOnUpdate(.LiveBroadcastsChanged)
     }
     
     func removeBroadcast(broadcast: LiveBroadcast) {

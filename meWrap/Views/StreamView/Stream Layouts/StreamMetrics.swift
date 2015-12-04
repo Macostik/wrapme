@@ -9,7 +9,59 @@
 import Foundation
 import UIKit
 
+class StreamLoader: NSObject {
+    
+    var identifier: String?
+    
+    private var _nib: UINib?
+    var nib: UINib? {
+        if _nib == nil {
+            if let identifier = identifier {
+                _nib = UINib(nibName: identifier, bundle: nil)
+            }
+        }
+        return _nib
+    }
+    
+    weak var nibOwner:AnyObject?
+    
+    func loadView() -> StreamReusableView? {
+        if let nib = nib {
+            for object in nib.instantiateWithOwner(nibOwner, options: nil) {
+                if let reusing = object as? StreamReusableView {
+                    return reusing
+                }
+            }
+        }
+        return nil
+    }
+    
+    convenience init(identifier: String?) {
+        self.init()
+        self.identifier = identifier
+    }
+}
+
+class IndexedStreamLoader: StreamLoader {
+    
+    var index: Int = 0
+    
+    convenience init(identifier: String?, index: Int) {
+        self.init(identifier: identifier)
+        self.index = index
+    }
+    
+    override func loadView() -> StreamReusableView? {
+        return nib?.instantiateWithOwner(nibOwner, options: nil)[index] as? StreamReusableView
+    }
+}
+
 class StreamMetrics: NSObject {
+    
+    convenience init(loader: StreamLoader) {
+        self.init()
+        self.loader = loader
+    }
     
     convenience init(initializer: (StreamMetrics) -> Void) {
         self.init()
@@ -17,8 +69,7 @@ class StreamMetrics: NSObject {
     }
     
     convenience init(identifier: String) {
-        self.init()
-        self.identifier = identifier
+        self.init(loader: StreamLoader(identifier: identifier))
     }
     
     convenience init(identifier: String, initializer: (StreamMetrics) -> Void) {
@@ -41,11 +92,25 @@ class StreamMetrics: NSObject {
         return self
     }
     
-    @IBInspectable var identifier: String?
+    var loader = StreamLoader()
     
-    var nib: UINib?
+    @IBInspectable var identifier: String? {
+        get {
+            return loader.identifier
+        }
+        set {
+            loader.identifier = newValue
+        }
+    }
     
-    @IBOutlet weak var nibOwner:AnyObject?
+    @IBOutlet weak var nibOwner:AnyObject? {
+        get {
+            return loader.nibOwner
+        }
+        set {
+            loader.nibOwner = newValue
+        }
+    }
     
     @IBInspectable var hidden: Bool = false
     
@@ -86,23 +151,13 @@ class StreamMetrics: NSObject {
     var disableMenu = false
     
     func loadView () -> StreamReusableView? {
-        
-        if nib == nil {
-            if let identifier = self.identifier {
-                nib = UINib(nibName: identifier, bundle: nil)
-            }
+        if let reusing = loader.loadView() {
+            reusing.metrics = self
+            reusing.loadedWithMetrics(self)
+            return reusing
+        } else {
+            return nil
         }
-        
-        if let nib = self.nib {
-            for object in nib.instantiateWithOwner(self.nibOwner, options: nil) {
-                if let reusing = object as? StreamReusableView {
-                    reusing.metrics = self
-                    reusing.loadedWithMetrics(self)
-                    return reusing
-                }
-            }
-        }
-        return nil
     }
     
     func dequeueView() -> StreamReusableView? {

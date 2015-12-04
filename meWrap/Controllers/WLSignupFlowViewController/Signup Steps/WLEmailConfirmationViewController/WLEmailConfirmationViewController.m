@@ -7,11 +7,10 @@
 //
 
 #import "WLEmailConfirmationViewController.h"
-#import "WLNotificationSubscription.h"
 #import "WLNotification.h"
 #import "WLSoundPlayer.h"
 
-@interface WLEmailConfirmationViewController () <EntryNotifying, WLNotificationSubscriptionDelegate>
+@interface WLEmailConfirmationViewController () <EntryNotifying, NotificationSubscriptionDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *resendEmailButton;
 @property (weak, nonatomic) IBOutlet UIButton *useAnotherEmailButton;
@@ -45,7 +44,7 @@
     }];
 }
 
-// MARK: - WLNotificationSubscriptionDelegate
+// MARK: - NotificationSubscriptionDelegate
 
 - (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Entry *)entry event:(enum EntryUpdateEvent)event {
     if (![Authorization currentAuthorization].unconfirmed_email.nonempty && self.isTopViewController) {

@@ -24,6 +24,14 @@
     self.selectTapGestureRecognizer = gestureRecognizer;
 }
 
+- (UIView *)contentView {
+    if (_contentView == nil) {
+        return self;
+    } else {
+        return _contentView;
+    }
+}
+
 - (void)loadedWithMetrics:(StreamMetrics *)metrics {
     
 }

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-@class WLNotificationSubscription;
+@class NotificationSubscription;
 
 @interface WLNotificationCenter : NSObject
 
@@ -14,7 +14,7 @@
 
 @property (strong, nonatomic) NSString *pushTokenString;
 
-@property (strong, nonatomic, readonly) WLNotificationSubscription* userSubscription;
+@property (strong, nonatomic, readonly) NotificationSubscription* userSubscription;
 
 + (instancetype)defaultCenter;
 

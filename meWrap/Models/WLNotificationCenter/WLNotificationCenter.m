@@ -9,10 +9,7 @@
 #import "WLNotificationCenter.h"
 #import "WLSoundPlayer.h"
 #import "WLOperationQueue.h"
-#import "PubNub+SharedInstance.h"
-#import "WLNotificationSubscription.h"
 #import "WLNotification.h"
-#import "NSDate+PNTimetoken.h"
 #import "WLNetwork.h"
 #import "WLAuthorizationRequest.h"
 
@@ -42,9 +39,9 @@
 
 @end
 
-@interface WLNotificationCenter () <PNObjectEventListener, EntryNotifying, WLNotificationSubscriptionDelegate>
+@interface WLNotificationCenter () <PNObjectEventListener, EntryNotifying, NotificationSubscriptionDelegate>
 
-@property (strong, nonatomic) WLNotificationSubscription* userSubscription;
+@property (strong, nonatomic) NotificationSubscription* userSubscription;
 
 @property (strong, nonatomic) NSMutableArray* enqueuedMessages;
 
@@ -98,7 +95,7 @@
     if ([self.userSubscription.name isEqualToString:channelName]) {
         [self.userSubscription subscribe];
     } else {
-        self.userSubscription = [WLNotificationSubscription subscription:channelName presence:YES group:YES];
+        self.userSubscription = [[NotificationSubscription alloc] initWithName:channelName isGroup:YES observePresence:YES];
         self.userSubscription.delegate = self;
         
         if (self.pushToken) {
@@ -153,54 +150,34 @@
     }
 }
 
-// MARK: - WLNotificationSubscriptionDelegate
+// MARK: - NotificationSubscriptionDelegate
 
-- (void)notificationSubscription:(WLNotificationSubscription *)subscription didReceivePresenceEvent:(PNPresenceEventData *)event {
-    if ([event.presenceEvent isEqualToString:@"state-change"]) {
-        Wrap *wrap = [Wrap entry:event.actualChannel allowInsert:NO];
-        User *user = [User entry:event.presence.uuid allowInsert:NO];
-        NSDictionary *state = event.presence.state;
+- (void)notificationSubscription:(NotificationSubscription *)subscription didReceivePresenceEvent:(PNPresenceEventResult * _Nonnull)event {
+    if ([event.data.presenceEvent isEqualToString:@"state-change"]) {
+        Wrap *wrap = [Wrap entry:event.data.actualChannel allowInsert:NO];
+        User *user = [User entry:event.data.presence.uuid allowInsert:NO];
+        NSDictionary *state = event.data.presence.state;
         if (wrap && user && state) {
-            NSNumber *isViewing = state[@"isViewing"];
-            if (isViewing) {
-                NSString *chatChannel = state[@"chatChannel"];
-                for (LiveBroadcast *broadcast in wrap.liveBroadcasts) {
-                    if ([broadcast.channel isEqualToString:chatChannel]) {
-                        if ([isViewing boolValue]) {
-                            broadcast.numberOfViewers++;
-                        } else {
-                            broadcast.numberOfViewers--;
-                        }
-                        if (broadcast.broadcaster.current) {
-                            NSDictionary *state = @{@"viewerURL":broadcast.url,@"title":broadcast.title, @"chatChannel":broadcast.channel,@"numberOfViewers":@(broadcast.numberOfViewers)};
-                            [subscription changeState:state channel:wrap.identifier];
-                        }
-                        [wrap notifyOnUpdate:EntryUpdateEventLiveBroadcastsChanged];
-                        break;
-                    }
-                }
+            NSString *chatChannel = state[@"chatChannel"];
+            NSString *currentChatChannel = [NSString stringWithFormat:@"%@-%@", [User currentUser].identifier, [Authorization currentAuthorization].deviceUID];
+            if ([chatChannel isEqualToString:currentChatChannel]) {
+                return;
+            }
+            NSString *viewerURL = state[@"viewerURL"];
+            if (viewerURL != nil) {
+                LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
+                broadcast.broadcaster = user;
+                broadcast.wrap = wrap;
+                broadcast.title = state[@"title"];
+                broadcast.channel = chatChannel;
+                broadcast.url = viewerURL;
+                broadcast.numberOfViewers = [state[@"numberOfViewers"] integerValue];
+                [wrap addBroadcast:broadcast];
             } else {
-                NSString *chatChannel = state[@"chatChannel"];
-                NSString *currentChatChannel = [NSString stringWithFormat:@"%@-%@", [User currentUser].identifier, [Authorization currentAuthorization].deviceUID];
-                if ([chatChannel isEqualToString:currentChatChannel]) {
-                    return;
-                }
-                NSString *viewerURL = state[@"viewerURL"];
-                if (viewerURL != nil) {
-                    LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
-                    broadcast.broadcaster = user;
-                    broadcast.wrap = wrap;
-                    broadcast.title = state[@"title"];
-                    broadcast.channel = chatChannel;
-                    broadcast.url = viewerURL;
-                    broadcast.numberOfViewers = [state[@"numberOfViewers"] integerValue];
-                    [wrap addBroadcast:broadcast];
-                } else {
-                    for (LiveBroadcast *broadcast in wrap.liveBroadcasts) {
-                        if (broadcast.broadcaster == user) {
-                            [wrap removeBroadcast:broadcast];
-                            break;
-                        }
+                for (LiveBroadcast *broadcast in wrap.liveBroadcasts) {
+                    if (broadcast.broadcaster == user) {
+                        [wrap removeBroadcast:broadcast];
+                        break;
                     }
                 }
             }
@@ -208,8 +185,8 @@
     }
 }
 
-- (void)notificationSubscription:(WLNotificationSubscription *)subscription didReceiveMessage:(PNMessageData *)message {
-    [self.enqueuedMessages addObject:message];
+- (void)notificationSubscription:(NotificationSubscription *)subscription didReceiveMessage:(PNMessageResult * _Nonnull)message {
+    [self.enqueuedMessages addObject:message.data];
     [self enqueueSelector:@selector(handleEnqueuedMessages)];
 }
 

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Ftp-Hk-igs" customClass="LiveBroadcastEventView" customModule="meWrap" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="76"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A6T-N5-eA4">
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="76"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dcl-Zr-Qcj" customClass="ImageView" customModule="meWrap" customModuleProvider="target">
+                            <rect key="frame" x="12" y="12" width="48" height="48"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="48" id="ouO-18-Cfp"/>
+                                <constraint firstAttribute="height" constant="48" id="yoN-Hm-IJr"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                            </userDefinedRuntimeAttributes>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3QS-La-xGA" customClass="WLLabel">
+                            <rect key="frame" x="72" y="12" width="33" height="16"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label Label Label Label Label Label Label Label Label Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4Z-wK-I58" customClass="WLLabel">
+                            <rect key="frame" x="72" y="28" width="206" height="36"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="Dcl-Zr-Qcj" firstAttribute="top" secondItem="A6T-N5-eA4" secondAttribute="top" constant="12" id="56W-Qn-33k"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="P4Z-wK-I58" secondAttribute="trailing" constant="12" id="6sp-jX-BIi"/>
+                        <constraint firstItem="3QS-La-xGA" firstAttribute="top" secondItem="Dcl-Zr-Qcj" secondAttribute="top" id="GXp-RX-PBy"/>
+                        <constraint firstItem="P4Z-wK-I58" firstAttribute="top" secondItem="3QS-La-xGA" secondAttribute="bottom" id="JZF-Qm-p53"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Dcl-Zr-Qcj" secondAttribute="bottom" constant="12" id="Ugb-uz-jUV"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3QS-La-xGA" secondAttribute="trailing" constant="12" id="WnF-7S-TCA"/>
+                        <constraint firstItem="Dcl-Zr-Qcj" firstAttribute="leading" secondItem="A6T-N5-eA4" secondAttribute="leading" constant="12" id="nFJ-mC-w7f"/>
+                        <constraint firstItem="P4Z-wK-I58" firstAttribute="leading" secondItem="Dcl-Zr-Qcj" secondAttribute="trailing" constant="12" id="ojs-5k-nV7"/>
+                        <constraint firstItem="3QS-La-xGA" firstAttribute="leading" secondItem="Dcl-Zr-Qcj" secondAttribute="trailing" constant="12" id="xIq-g8-X5S"/>
+                        <constraint firstAttribute="bottom" secondItem="P4Z-wK-I58" secondAttribute="bottom" constant="12" id="zWh-hc-1ga"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="A6T-N5-eA4" secondAttribute="bottom" id="EMn-JQ-BzL"/>
+                <constraint firstItem="A6T-N5-eA4" firstAttribute="top" secondItem="Ftp-Hk-igs" secondAttribute="top" id="FxJ-O3-1yf"/>
+                <constraint firstItem="A6T-N5-eA4" firstAttribute="leading" secondItem="Ftp-Hk-igs" secondAttribute="leading" id="KfW-wS-kI9"/>
+                <constraint firstAttribute="trailing" secondItem="A6T-N5-eA4" secondAttribute="trailing" id="YId-6I-bUi"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="2"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="avatarView" destination="Dcl-Zr-Qcj" id="WGb-mC-jGR"/>
+                <outlet property="contentView" destination="A6T-N5-eA4" id="IMp-Yh-Umz"/>
+                <outlet property="nameLabel" destination="3QS-La-xGA" id="4ra-DN-7Oc"/>
+                <outlet property="textLabel" destination="P4Z-wK-I58" id="rP3-2P-NnG"/>
+            </connections>
+            <point key="canvasLocation" x="473" y="-136"/>
+        </view>
+        <view contentMode="scaleToFill" id="CPq-zu-u0e" customClass="LiveBroadcastEventView" customModule="meWrap" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="32"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ozn-eD-rc8" customClass="WLLabel">
+                    <rect key="frame" x="12" y="7" width="38" height="18"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="Ozn-eD-rc8" firstAttribute="leading" secondItem="CPq-zu-u0e" secondAttribute="leading" constant="12" id="18V-Lf-ynj"/>
+                <constraint firstItem="Ozn-eD-rc8" firstAttribute="centerY" secondItem="CPq-zu-u0e" secondAttribute="centerY" id="cX7-31-9HC"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ozn-eD-rc8" secondAttribute="trailing" constant="12" id="z3d-mE-J8r"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="2"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="textLabel" destination="Ozn-eD-rc8" id="Ev6-sZ-LcQ"/>
+            </connections>
+            <point key="canvasLocation" x="359" y="19"/>
+        </view>
+    </objects>
+</document>

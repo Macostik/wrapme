@@ -7,12 +7,6 @@
 //
 
 #import "WLNotification.h"
-#import "PubNub+SharedInstance.h"
-#import "NSDate+PNTimetoken.h"
-
-@interface WLNotification ()
-
-@end
 
 @implementation WLNotification
 

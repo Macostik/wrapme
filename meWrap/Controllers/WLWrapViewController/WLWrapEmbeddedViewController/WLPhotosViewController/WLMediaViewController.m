@@ -32,6 +32,7 @@
 @property (strong, nonatomic) WLHistory *history;
 
 @property (weak, nonatomic) StreamMetrics *candyMetrics;
+@property (strong, nonatomic) IBOutlet LayoutPrioritizer *scrollDirectionPrioritizer;
 
 @end
 
@@ -50,6 +51,7 @@
     streamView.layout = [[SquareGridLayout alloc] initWithHorizontal:NO];
     
     self.dataSource = [[MediaDataSource alloc] initWithStreamView:streamView];
+    self.dataSource.scrollDirectionLayoutPrioritizer = self.scrollDirectionPrioritizer;
     self.dataSource.numberOfGridColumns = 3;
     self.dataSource.layoutSpacing = Constants.pixelSize;
     self.dataSource.loadingMetrics.isSeparator = YES;

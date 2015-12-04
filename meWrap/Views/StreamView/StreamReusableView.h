@@ -23,6 +23,8 @@
 
 @property (weak, nonatomic, readonly) UITapGestureRecognizer *selectTapGestureRecognizer;
 
+@property (weak, nonatomic) IBOutlet UIView *contentView;
+
 - (void)loadedWithMetrics:(StreamMetrics*)metrics;
 
 - (void)didDequeue;

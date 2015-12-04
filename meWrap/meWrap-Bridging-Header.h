@@ -21,7 +21,6 @@
 #import "WLCandyViewController.h"
 #import "WLDeviceManager.h"
 #import "WLNotificationCenter.h"
-#import "WLNotificationSubscription.h"
 #import "WLBadgeLabel.h"
 #import "WLMessagesCounter.h"
 #import "GeometryHelper.h"

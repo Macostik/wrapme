@@ -191,7 +191,7 @@
 
 - (void)updatePicturesCountLabel {
     [self.cameraViewController.takePhotoButton setTitle:[NSString stringWithFormat:@"%lu", (unsigned long)self.pictures.count] forState:UIControlStateNormal];
-    self.cameraViewController.finishButton.active = self.pictures.count > 0;
+    self.cameraViewController.finishButton.hidden = self.pictures.count == 0;
 }
 
 #pragma mark - WLBatchEditPictureViewControllerDelegate

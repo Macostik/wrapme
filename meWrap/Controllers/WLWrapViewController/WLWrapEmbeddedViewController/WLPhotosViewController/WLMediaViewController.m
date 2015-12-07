@@ -148,15 +148,13 @@
     [super viewWillAppear:animated];
     __weak typeof(self)weakSelf = self;
     if (self.wrap.valid) {
-        __block int unreadCandyCounter = 0;
         [self.wrap.candies all:^(Candy *candy) {
             if (candy.valid && candy.unread) {
-                unreadCandyCounter++;
                 candy.unread = NO;
             }
         }];
         [[WLWhatsUpSet sharedSet] refreshCount:^(NSUInteger count) {
-            weakSelf.badge.value = unreadCandyCounter;
+            weakSelf.badge.value = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:weakSelf.wrap];
         } failure:^(NSError *error) {
         }];
         self.dataSource.items = self.history;

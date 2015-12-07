@@ -87,7 +87,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     }
     
     if (!_history && _wrap) {
-        _history = [WLHistory historyWithWrap:self.wrap];
+        _history = [[History alloc] initWithWrap:self.wrap];
     }
 
     [[Candy notifier] addReceiver:self];
@@ -186,7 +186,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (void)fetchCandiesOlderThen:(Candy *)candy {
-    WLHistory *history = self.history;
+    History *history = self.history;
     if (history.completed || !candy) return;
     [self.paginationQueue addOperationWithBlock:^(WLOperation *operation) {
         [history older:^(NSArray *candies) {

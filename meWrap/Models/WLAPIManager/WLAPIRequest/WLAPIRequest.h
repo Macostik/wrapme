@@ -63,13 +63,15 @@ typedef NSString *(^WLAPIRequestFile) (id request);
 
 + (NSTimeInterval)timeout;
 
-+ (instancetype)GET:(NSString*)path, ...;
++ (instancetype)GET;
 
-+ (instancetype)POST:(NSString*)path, ...;
++ (instancetype)POST;
 
-+ (instancetype)PUT:(NSString*)path, ...;
++ (instancetype)PUT;
 
-+ (instancetype)DELETE:(NSString*)path, ...;
++ (instancetype)DELETE;
+
+- (instancetype)path:(NSString*)path, ...;
 
 + (void)setUnauthorizedErrorBlock:(WLAPIRequestUnauthorizedErrorBlock)unauthorizedErrorBlock;
 

@@ -8,8 +8,7 @@
 
 #import "WLSet.h"
 
-@class WLWhatsUpSet;
-@class WLBroadcaster;
+@class WLWhatsUpSet, WLBroadcaster, Wrap;
 
 @protocol WLWhatsUpSetBroadcastReceiver <NSObject>
 

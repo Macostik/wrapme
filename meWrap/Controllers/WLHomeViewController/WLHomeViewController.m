@@ -116,7 +116,7 @@
     [self addNotifyReceivers];
     
     NSSet* wraps = [User currentUser].wraps;
-    homeDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLPaginatedRequest wraps:nil]];
+    homeDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[PaginatedRequest wraps:nil]];
     
     if (wraps.nonempty) {
         [homeDataSource refresh];
@@ -442,7 +442,7 @@
     if (![WLNetwork sharedNetwork].reachable) {
         wraps = [[[[Wrap fetch] queryString:@"isPublic == YES"] execute] set];
     }
-    self.publicDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLPaginatedRequest wraps:@"public"]];
+    self.publicDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[PaginatedRequest wraps:@"public"]];
 }
 
 - (IBAction)privateWrapsOpened:(id)sender {

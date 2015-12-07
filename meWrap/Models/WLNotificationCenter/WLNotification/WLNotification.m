@@ -454,7 +454,7 @@
     Wrap *wrap = self.wrap;
     [super finalizeDeleteNotification:notification];
     if (wrap.valid && wrap.candies.count < [Constants recentCandiesLimit]) {
-        [wrap fetch:WLWrapContentTypeRecent success:nil failure:nil];
+        [wrap fetch:Wrap.ContentTypeRecent success:nil failure:nil];
     }
 }
 

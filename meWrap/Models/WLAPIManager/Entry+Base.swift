@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import Photos
 
 extension Entry {
     
@@ -143,10 +144,10 @@ extension Candy {
         return wrap != nil && !(asset?.original?.isEmpty ?? true)
     }
     
-    func setEditedPicture(editedPicture: Asset) {
+    func editAsset(newAsset: Asset) {
         switch status {
         case .Ready:
-            asset = editedPicture
+            asset = newAsset
             break
         case .InProgress:
             break
@@ -154,8 +155,73 @@ extension Candy {
             touch()
             editedAt = NSDate.now()
             editor = User.currentUser
-            asset = editedPicture
+            asset = newAsset
             break
+        }
+    }
+    
+    func download(success: Block?, failure: FailureBlock?) {
+        if (PHPhotoLibrary.authorizationStatus() == .Denied) {
+            failure?(NSError(message:"downloading_privacy_settings".ls))
+        } else {
+            guard let url = asset?.original else {
+                failure?(nil)
+                return
+            }
+            if mediaType == .Video {
+                
+                if url.isExistingFilePath {
+                    PHPhotoLibrary.addAsset({ () -> PHAssetChangeRequest? in
+                        return PHAssetChangeRequest.creationRequestForAssetFromVideoAtFileURL(url.fileURL!)
+                        }, collectionTitle: Constants.albumName, success: success, failure: failure)
+                } else {
+                    
+                    let task = NSURLSession.sharedSession().downloadTaskWithURL(url.URL!, completionHandler: { (location, response, error) -> Void in
+                        if let error = error {
+                            run_in_main_queue({ () -> Void in
+                                failure?(error)
+                            })
+                        } else {
+                            if let location = location {
+                                do {
+                                    let url = NSURL(fileURLWithPath: "Documents/\(NSString.GUID()).mp4")
+                                    let manager = NSFileManager.defaultManager()
+                                    try manager.moveItemAtURL(location, toURL: url)
+                                    if url.checkResourceIsReachableAndReturnError(nil) {
+                                        PHPhotoLibrary.addAsset({ () -> PHAssetChangeRequest? in
+                                            return PHAssetChangeRequest.creationRequestForAssetFromVideoAtFileURL(url)
+                                            }, collectionTitle: Constants.albumName, success: { () -> Void in
+                                                try! manager.removeItemAtURL(url)
+                                            }, failure: { (error) -> Void in
+                                                try! manager.removeItemAtURL(url)
+                                        })
+                                    } else {
+                                        failure?(NSError(message: "Local video file is not reachable"))
+                                    }
+                                } catch {
+                                    
+                                }
+                            } else {
+                                run_in_main_queue({ () -> Void in
+                                    failure?(nil)
+                                })
+                            }
+                        }
+                    })
+                    
+                    task.resume()
+                }
+            } else {
+                BlockImageFetching.enqueue(url, success: { (image) -> Void in
+                    if let image = image {
+                        PHPhotoLibrary.addAsset({ () -> PHAssetChangeRequest? in
+                            return PHAssetChangeRequest.creationRequestForAssetFromImage(image)
+                            }, collectionTitle: Constants.albumName, success: success, failure: failure)
+                    } else {
+                        failure?(nil)
+                    }
+                    }, failure: failure)
+            }
         }
     }
 }

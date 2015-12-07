@@ -29,7 +29,7 @@ class HomeDataSource: PaginatedStreamDataSource {
         if (wrap.candies?.count ?? 0) < Constants.recentCandiesLimit {
             runUnaryQueuedOperation(WLOperationFetchingDataQueue, {[weak wrap] (operation) -> Void in
                 if let wrap = wrap where wrap.valid {
-                    WLPaginatedRequest.wrap(wrap, contentType: WLWrapContentTypeRecent).send({ (candies) -> Void in
+                    PaginatedRequest.wrap(wrap, contentType: Wrap.ContentTypeRecent).send({ (candies) -> Void in
                         operation.finish()
                         }, failure: { (error) -> Void in
                             operation.finish()

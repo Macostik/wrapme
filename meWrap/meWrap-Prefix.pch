@@ -15,7 +15,5 @@
 	#import <Foundation/Foundation.h>
 	#import "meWrap-Swift.h"
     #import "WLAPIRequest+Defined.h"
-    #import "WLPaginatedRequest+Defined.h"
     #import "WLLogger.h"
-    #import "WLEntry+API.h"
 #endif

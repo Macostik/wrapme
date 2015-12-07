@@ -12,6 +12,45 @@ import AWSS3
 
 extension Entry {
     
+    func recursivelyFetchIfNeeded(success: Block?, failure: FailureBlock?) {
+        if recursivelyFetched() {
+            success?()
+        } else {
+            fetchIfNeeded({ [weak self] (object) -> Void in
+                if let container = self?.container {
+                    container.recursivelyFetchIfNeeded(success, failure: failure)
+                } else {
+                    success?()
+                }
+                }, failure: failure)
+        }
+    }
+    
+    func fetchIfNeeded(success: ObjectBlock?, failure: FailureBlock?) {
+        if fetched() {
+            success?(self)
+        } else {
+            runQueuedOperation("entry_fetching", 3, { [weak self] (operation) -> Void in
+                if let entry = self {
+                    entry.fetch({ (object) -> Void in
+                        operation.finish()
+                        success?(object)
+                        }, failure: { (error) -> Void in
+                            operation.finish()
+                            failure?(error)
+                    })
+                } else {
+                    operation.finish()
+                    failure?(nil)
+                }
+            })
+        }
+    }
+    
+    func fetch(success: ObjectBlock?, failure: FailureBlock?) {
+        success?(self)
+    }
+    
     func add(success: ObjectBlock?, failure: FailureBlock?) {
         success?(self)
     }
@@ -99,6 +138,30 @@ extension Wrap {
             WLAPIRequest.deleteWrap(self).send(success, failure: failure)
             break
         }
+    }
+    
+    override func fetch(success: ObjectBlock?, failure: FailureBlock?) {
+        fetch(Wrap.ContentTypeRecent, success: success, failure: failure)
+    }
+    
+    func fetch(contentType: String?, success: ObjectBlock?, failure: FailureBlock?) {
+        if uploaded {
+            PaginatedRequest.wrap(self, contentType: contentType).send(success, failure: failure)
+        } else {
+            success?(self)
+        }
+    }
+    
+    func preload() {
+        let history = History(wrap: self)
+        history.fresh({ (object) -> Void in
+            history.entries.enumerateObjectsUsingBlock({ (candy, idx, stop) -> Void in
+                (candy as! Candy).asset?.fetch(nil)
+                if idx == 20 {
+                    stop.memory = true
+                }
+            })
+            }, failure: nil)
     }
 }
 
@@ -239,7 +302,7 @@ extension Candy {
         if valid {
             let asset = MutableAsset()
             asset.setImage(image)
-            setEditedPicture(asset.uploadablePicture(false))
+            editAsset(asset.uploadablePicture(false))
             enqueueUpdate()?.show()
         }
     }
@@ -346,6 +409,14 @@ extension Candy {
                 WLAPIRequest.deleteCandy(self).send(success, failure: failure)
             }
          break
+        }
+    }
+    
+    override func fetch(success: ObjectBlock?, failure: FailureBlock?) {
+        if uploaded {
+            WLAPIRequest.candy(self).send(success, failure: failure)
+        } else {
+            failure?(NSError(message:(isVideo ? "video_is_uploading" : "photo_is_uploading").ls))
         }
     }
 }

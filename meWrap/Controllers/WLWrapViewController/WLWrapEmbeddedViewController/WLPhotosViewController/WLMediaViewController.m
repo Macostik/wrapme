@@ -29,7 +29,7 @@
 @property (weak, nonatomic) IBOutlet WLUploadingView *uploadingView;
 @property (weak, nonatomic) IBOutlet UIButton *addPhotoButton;
 
-@property (strong, nonatomic) WLHistory *history;
+@property (strong, nonatomic) History *history;
 
 @property (weak, nonatomic) StreamMetrics *candyMetrics;
 @property (strong, nonatomic) IBOutlet LayoutPrioritizer *scrollDirectionPrioritizer;
@@ -117,7 +117,7 @@
         return weakSelf.wrap.uploaded;
     }];
     
-    self.history = [WLHistory historyWithWrap:self.wrap];
+    self.history = [[History alloc] initWithWrap:self.wrap];
     
     [self.dataSource setRefreshableWithStyle:Refresher.Orange];
     

@@ -17,14 +17,14 @@
 
 @dynamic delegate;
 
-+ (instancetype)setWithEntries:(NSSet *)entries request:(WLPaginatedRequest *)request {
++ (instancetype)setWithEntries:(NSSet *)entries request:(PaginatedRequest *)request {
     WLPaginatedSet* set = [[WLPaginatedSet alloc] init];
     set.request = request;
     [set resetEntries:entries];
     return set;
 }
 
-+ (instancetype)setWithRequest:(WLPaginatedRequest *)request {
++ (instancetype)setWithRequest:(PaginatedRequest *)request {
     return [self setWithEntries:nil request:request];
 }
 
@@ -62,19 +62,19 @@
 }
 
 - (void)fresh:(ArrayBlock)success failure:(FailureBlock)failure {
-    [self send:WLPaginatedRequestTypeFresh success:success failure:failure];
+    [self send:PaginatedRequestTypeFresh success:success failure:failure];
 }
 
 - (void)newer:(ArrayBlock)success failure:(FailureBlock)failure {
-    [self send:WLPaginatedRequestTypeNewer success:success failure:failure];
+    [self send:PaginatedRequestTypeNewer success:success failure:failure];
 }
 
 - (void)older:(ArrayBlock)success failure:(FailureBlock)failure {
-    [self send:WLPaginatedRequestTypeOlder success:success failure:failure];
+    [self send:PaginatedRequestTypeOlder success:success failure:failure];
 }
 
-- (id)send:(WLPaginatedRequestType)type success:(ArrayBlock)success failure:(FailureBlock)failure {
-    WLPaginatedRequest* request = self.request;
+- (id)send:(PaginatedRequestType)type success:(ArrayBlock)success failure:(FailureBlock)failure {
+    PaginatedRequest* request = self.request;
     if (request) {
         if ([self.loadingTypes containsIndex:type]) {
             if (failure) failure(nil);
@@ -108,9 +108,9 @@
     return nil;
 }
 
-- (void)configureRequest:(WLPaginatedRequest *)request {
+- (void)configureRequest:(PaginatedRequest *)request {
     if (!self.entries.nonempty) {
-        request.type = WLPaginatedRequestTypeFresh;
+        request.type = PaginatedRequestTypeFresh;
     } else {
         request.newer = [self newerPaginationDate];
         request.older = [self olderPaginationDate];
@@ -128,7 +128,7 @@
 }
 
 - (void)handleResponse:(NSArray*)entries {
-    if ((!entries.nonempty || ![self addEntries:[entries set]]) && self.request.type == WLPaginatedRequestTypeOlder) {
+    if ((!entries.nonempty || ![self addEntries:[entries set]]) && self.request.type == PaginatedRequestTypeOlder) {
         self.completed = YES;
     } else if (!self.entries.nonempty) {
         self.completed = YES;

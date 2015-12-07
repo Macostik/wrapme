@@ -29,8 +29,6 @@ CGFloat WLMinTextViewWidth;
 
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 
-@property (weak, nonatomic) id operation;
-
 @property (nonatomic) BOOL typing;
 
 @property (nonatomic) BOOL reloading;
@@ -154,8 +152,7 @@ CGFloat WLMinTextViewWidth;
     self.chat.delegate = self;
 
     if (self.wrap.messages.nonempty) {
-        [self refreshMessages:^{
-        } failure:^(NSError *error) {
+        [self.chat newer:nil failure:^(NSError * _Nullable error) {
             [error showNonNetworkError];
         }];
     }
@@ -278,45 +275,6 @@ CGFloat WLMinTextViewWidth;
             }
         }
     });
-}
-
-- (void)refreshMessages:(Block)success failure:(FailureBlock)failure {
-    __weak typeof(self)weakSelf = self;
-    Message* message = [self.chat.entries lastObject];
-    if (!message) {
-        [self loadMessages:success failure:failure];
-        return;
-    }
-    [self.wrap messagesNewer:message.createdAt success:^(NSArray *messages) {
-        if (!weakSelf.wrap.messages.nonempty) weakSelf.chat.completed = YES;
-        [weakSelf.chat addEntries:[messages set]];
-        if (success) success();
-    } failure:failure];
-}
-
-- (void)loadMessages:(Block)success failure:(FailureBlock)failure {
-    __weak typeof(self)weakSelf = self;
-    [self.wrap messages:^(NSArray *messages) {
-        weakSelf.chat.completed = messages.count < [NSUserDefaults standardUserDefaults].pageSize;
-		[weakSelf.chat resetEntries:[messages set]];
-        if (success) success();
-    } failure:failure];
-}
-
-- (void)appendMessages:(Block)success failure:(FailureBlock)failure {
-	if (self.operation) return;
-	__weak typeof(self)weakSelf = self;
-    Message* olderMessage = [self.chat.entries firstObject];
-    Message* newerMessage = [self.chat.entries lastObject];
-    if (!olderMessage) {
-        [self loadMessages:success failure:failure];
-        return;
-    }
-	self.operation = [self.wrap messagesOlder:olderMessage.createdAt newer:newerMessage.createdAt success:^(NSArray *messages) {
-		weakSelf.chat.completed = messages.count < [NSUserDefaults standardUserDefaults].pageSize;
-        [weakSelf.chat addEntries:[messages set]];
-        if (success) success();
-	} failure:failure];
 }
 
 #pragma mark - WLChatDelegate
@@ -528,8 +486,7 @@ CGFloat WLMinTextViewWidth;
     if (reachedRequiredOffset && [WLNetwork sharedNetwork].reachable && !self.chat.completed) {
         __weak typeof(self)weakSelf = self;
         if (weakSelf.chat.wrap) {
-            [weakSelf appendMessages:^{
-            } failure:^(NSError *error) {
+            [self.chat older:nil failure:^(NSError * _Nullable error) {
                 [error showNonNetworkError];
             }];
         }

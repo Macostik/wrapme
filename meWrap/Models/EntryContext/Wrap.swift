@@ -46,8 +46,9 @@ class LiveBroadcast: NSObject {
 @objc(Wrap)
 class Wrap: Contribution {
     
-    var broadcasters = [User]()
-
+   static var ContentTypeRecent = "recent_candies"
+   static var ContentTypePaginated = "paginated_by_date"
+    
     override class func entityName() -> String {
         return "Wrap"
     }
@@ -56,13 +57,11 @@ class Wrap: Contribution {
         return [Candy.entityName()]
     }
     
-    private var _historyCandies: NSArray?
-    var historyCandies: NSArray? {
+    private var _historyCandies: [Candy]?
+    var historyCandies: [Candy]? {
         get {
             if _historyCandies == nil {
-                if let candies = candies {
-                    _historyCandies = (candies.array() as NSArray).sortByCreatedAt()
-                }
+                _historyCandies = (candies as? Set<Candy>)?.sort({ $0.createdAt > $1.createdAt })
             }
             return _historyCandies
         }
@@ -71,12 +70,12 @@ class Wrap: Contribution {
         }
     }
     
-    private var _recentCandies: NSArray?
-    var recentCandies: NSArray? {
+    private var _recentCandies: [Candy]?
+    var recentCandies: [Candy]? {
         get {
             if _recentCandies == nil {
                 if let candies = candies {
-                    _recentCandies = (candies.array() as NSArray).sortByUpdatedAt()
+                    _recentCandies = (candies as? Set<Candy>)?.sort({ $0.updatedAt > $1.updatedAt })
                 }
             }
             return _recentCandies
@@ -89,7 +88,7 @@ class Wrap: Contribution {
     private var _cover: Candy?
     var cover: Candy? {
         if _cover == nil {
-            _cover = (candies as? Set<Candy>)?.sort({ $0.updatedAt > $1.updatedAt }).first
+            _cover = recentCandies?.first
         }
         return _cover
     }

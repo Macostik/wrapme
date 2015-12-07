@@ -54,6 +54,7 @@
         <userInfo/>
     </entity>
     <entity name="Wrap" representedClassName="Wrap" parentEntity="Contribution">
+        <attribute name="candiesPaginationDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="isCandyNotifiable" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="isChatNotifiable" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="isPublic" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
@@ -73,6 +74,6 @@
         <element name="Message" positionX="18" positionY="72" width="128" height="75"/>
         <element name="Uploading" positionX="0" positionY="0" width="128" height="75"/>
         <element name="User" positionX="0" positionY="0" width="128" height="165"/>
-        <element name="Wrap" positionX="0" positionY="0" width="128" height="165"/>
+        <element name="Wrap" positionX="0" positionY="0" width="128" height="180"/>
     </elements>
 </model>

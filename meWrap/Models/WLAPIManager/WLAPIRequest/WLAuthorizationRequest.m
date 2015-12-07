@@ -34,7 +34,7 @@ static BOOL authorized = NO;
 }
 
 + (instancetype)signUp:(Authorization*)authorization {
-    return [[[self POST:@"users"] parametrize:^(WLAuthorizationRequest *request, NSMutableDictionary *parameters) {
+    return [[[[self POST] path:@"users"] parametrize:^(WLAuthorizationRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:authorization.deviceUID forKey:@"device_uid"];
         [parameters trySetObject:authorization.deviceName forKey:@"device_name"];
         [parameters trySetObject:authorization.countryCode forKey:@"country_calling_code"];
@@ -51,7 +51,7 @@ static BOOL authorized = NO;
 }
 
 + (instancetype)activation:(Authorization*)authorization {
-    return [[[self POST:@"users/activate"] parametrize:^(WLAuthorizationRequest *request, NSMutableDictionary *parameters) {
+    return [[[[self POST] path:@"users/activate"] parametrize:^(WLAuthorizationRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:authorization.deviceUID forKey:@"device_uid"];
         [parameters trySetObject:authorization.deviceName forKey:@"device_name"];
         [parameters trySetObject:authorization.countryCode forKey:@"country_calling_code"];
@@ -66,7 +66,7 @@ static BOOL authorized = NO;
 }
 
 + (instancetype)signIn:(Authorization*)authorization {
-    return [[[[self POST:@"users/sign_in"] parametrize:^(WLAuthorizationRequest *request, NSMutableDictionary *parameters) {
+    return [[[[[self POST] path:@"users/sign_in"] parametrize:^(WLAuthorizationRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:[NSBundle mainBundle].buildVersion forKey:@"app_version"];
         [parameters trySetObject:authorization.deviceUID forKey:@"device_uid"];
         [parameters trySetObject:authorization.countryCode forKey:@"country_calling_code"];
@@ -137,7 +137,7 @@ static BOOL authorized = NO;
 }
 
 + (instancetype)updateDevice {
-    return [[self PUT:@"users/device"] parametrize:^(id request, NSMutableDictionary *parameters) {
+    return [[[self PUT] path:@"users/device"] parametrize:^(id request, NSMutableDictionary *parameters) {
         NSString *deviceToken = [WLNotificationCenter defaultCenter].pushTokenString;
         if (deviceToken) {
             WLLog(@"PUBNUB - apns_device_token: %@", deviceToken);
@@ -202,7 +202,7 @@ static BOOL authorized = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         runUnaryQueuedOperation(WLOperationFetchingDataQueue,^(WLOperation *operation) {
-            [[WLPaginatedRequest wraps:nil] fresh:^(NSArray *array) {
+            [[PaginatedRequest wraps:nil] fresh:^(NSArray *array) {
                 NSOrderedSet *wraps = [user sortedWraps];
                 if (wraps.count > 0) {
                     [wraps enumerateObjectsUsingBlock:^(Wrap *wrap, NSUInteger idx, BOOL *stop) {
@@ -219,7 +219,7 @@ static BOOL authorized = NO;
 }
 
 + (instancetype)whois:(NSString *)email {
-    return [[[self GET:@"users/whois"] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
+    return [[[[self GET] path:@"users/whois"] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:email forKey:@"email"];
     }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
         WLWhoIs* whoIs = [WLWhoIs sharedInstance];
@@ -257,7 +257,7 @@ static BOOL authorized = NO;
 }
 
 + (instancetype)linkDevice:(NSString*)passcode {
-    return [[[self POST:@"users/link_device"] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
+    return [[[[self POST] path:@"users/link_device"] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:[Authorization currentAuthorization].email forKey:@"email"];
         [parameters trySetObject:[Authorization currentAuthorization].deviceUID forKey:@"device_uid"];
         [parameters trySetObject:passcode forKey:@"approval_code"];

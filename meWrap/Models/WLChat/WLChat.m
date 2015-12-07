@@ -27,6 +27,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
     chat.sortComparator = comparatorByCreatedAt;
     chat.sortDescending = NO;
     chat.wrap = wrap;
+    chat.request = [PaginatedRequest messages:wrap];
     return chat;
 }
 
@@ -104,6 +105,16 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
         [self sort];
     }
     return YES;
+}
+
+- (NSDate *)newerPaginationDate {
+    Message *message = [self.entries lastObject];
+    return message.createdAt;
+}
+
+- (NSDate *)olderPaginationDate {
+    Message *message = [self.entries firstObject];
+    return message.createdAt;
 }
 
 #pragma mark - WLChatTypingChannelDelegate

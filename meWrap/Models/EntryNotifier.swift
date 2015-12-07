@@ -12,7 +12,7 @@ import UIKit
     case Default, ContentAdded, ContentChanged, ContentDeleted, ContributorsChanged, PreferencesChanged, LiveBroadcastsChanged
 }
 
-@objc protocol EntryNotifying {
+@objc protocol EntryNotifying: WLBroadcastReceiver {
     optional func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool
     
     optional func notifier(notifier: EntryNotifier, shouldNotifyOnContainer container: Entry) -> Bool

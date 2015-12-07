@@ -9,7 +9,6 @@
 #import "WLLabel.h"
 #import "WLPaginatedSet.h"
 #import "WLNetwork.h"
-#import "WLPaginatedRequest+Defined.h"
 #import "WLOperationQueue.h"
 #import "WLBaseViewController.h"
 #import "WLWhatsUpSet.h"
@@ -27,5 +26,4 @@
 #import "WLUploadingQueue.h"
 #import "GCDHelper.h"
 #import "WLAPIRequest+Defined.h"
-#import "WLPaginatedRequest+Defined.h"
 #import "WLButton.h"

@@ -73,6 +73,7 @@ extension Wrap {
     @NSManaged var candies: NSSet?
     @NSManaged var contributors: NSSet?
     @NSManaged var messages: NSSet?
+    @NSManaged var candiesPaginationDate: NSDate?
     
 }
 

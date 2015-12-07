@@ -10,6 +10,34 @@ import Foundation
 
 extension Entry {
     
+    class func prefetchArray(array: [[String : AnyObject]]) -> [[String : AnyObject]] {
+        let descriptors = NSMutableDictionary()
+        prefetchDescriptors(descriptors, inArray:array)
+        EntryContext.sharedContext.fetchEntries(descriptors.allValues as! [EntryDescriptor])
+        return array
+    }
+    
+    class func prefetchDictionary(dictionary: [String : AnyObject]) -> [String : AnyObject] {
+        let descriptors = NSMutableDictionary()
+        prefetchDescriptors(descriptors, inDictionary: dictionary)
+        EntryContext.sharedContext.fetchEntries(descriptors.allValues as! [EntryDescriptor])
+        return dictionary
+    }
+    
+    class func prefetchDescriptors(descriptors: NSMutableDictionary, inArray array: [[String : AnyObject]]) {
+        for dictionary in array {
+            prefetchDescriptors(descriptors, inDictionary: dictionary)
+        }
+    }
+    
+    class func prefetchDescriptors(descriptors: NSMutableDictionary, inDictionary dictionary: [String : AnyObject]) {
+        if let uid = self.uid(dictionary) where descriptors[uid] == nil {
+            let descriptor = EntryDescriptor(name: entityName(), uid: uid)
+            descriptor.locuid = self.locuid(dictionary)
+            descriptors[uid] = descriptor
+        }
+    }
+    
     class func mappedEntries(array: [[String:AnyObject]]) -> [Entry] {
         return mappedEntries(array, container: nil)
     }
@@ -72,6 +100,14 @@ extension Entry {
         if let locuid = self.dynamicType.locuid(dictionary) where locuid != self.locuid {
             self.locuid = locuid
         }
+    }
+    
+    func update(dictionary: [String : AnyObject]) -> Self {
+        map(dictionary)
+        if updated {
+            notifyOnUpdate(.Default)
+        }
+        return self
     }
 }
 
@@ -141,6 +177,14 @@ extension Device {
 }
 
 extension Contribution {
+    
+    override class func prefetchDescriptors(descriptors: NSMutableDictionary, inDictionary dictionary: [String : AnyObject]) {
+        super.prefetchDescriptors(descriptors, inDictionary: dictionary)
+        if let contributor = dictionary["contributor"] as? [String:AnyObject] {
+            User.prefetchDescriptors(descriptors, inDictionary: contributor)
+        }
+    }
+    
     override class func locuid(dictionary: [String:AnyObject]) -> String? {
         return dictionary[Keys.UID.Upload] as? String
     }
@@ -166,6 +210,23 @@ extension Contribution {
 }
 
 extension Wrap {
+    
+    override class func prefetchDescriptors(descriptors: NSMutableDictionary, inDictionary dictionary: [String : AnyObject]) {
+        super.prefetchDescriptors(descriptors, inDictionary: dictionary)
+        
+        if let contributors = dictionary["contributors"] as? [[String:AnyObject]] {
+            User.prefetchDescriptors(descriptors, inArray: contributors)
+        }
+        
+        if let creator = dictionary["creator"] as? [String:AnyObject] {
+            User.prefetchDescriptors(descriptors, inDictionary: creator)
+        }
+        
+        if let candies = dictionary["candies"] as? [[String:AnyObject]] {
+            Candy.prefetchDescriptors(descriptors, inArray: candies)
+        }
+    }
+    
     override class func uid(dictionary: [String:AnyObject]) -> String? {
         return dictionary[Keys.UID.Wrap] as? String
     }
@@ -219,9 +280,21 @@ extension Wrap {
 }
 
 extension Candy {
+    
+    override class func prefetchDescriptors(descriptors: NSMutableDictionary, inDictionary dictionary: [String : AnyObject]) {
+        super.prefetchDescriptors(descriptors, inDictionary: dictionary)
+        if let editor = dictionary["editor"] as? [String:AnyObject] {
+            User.prefetchDescriptors(descriptors, inDictionary: editor)
+        }
+        if let comments = dictionary["comments"] as? [[String:AnyObject]] {
+            Comment.prefetchDescriptors(descriptors, inArray: comments)
+        }
+    }
+    
     override class func uid(dictionary: [String:AnyObject]) -> String? {
         return dictionary[Keys.UID.Candy] as? String
     }
+    
     override func map(dictionary: [String : AnyObject], container: Entry?) {
         super.map(dictionary, container: container)
         

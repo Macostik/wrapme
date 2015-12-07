@@ -8,13 +8,12 @@
 
 #import "WLSwipeViewController.h"
 #import "WLPresentingImageView.h"
-#import "WLHistory.h"
 
-@class LayoutPrioritizer;
+@class LayoutPrioritizer, History, Wrap;
 
 @interface WLHistoryViewController : WLSwipeViewController
 
-@property (strong, nonatomic) WLHistory *history;
+@property (strong, nonatomic) History *history;
 
 @property (weak, nonatomic) Wrap *wrap;
 

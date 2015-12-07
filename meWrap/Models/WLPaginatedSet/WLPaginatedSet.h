@@ -7,9 +7,8 @@
 //
 
 #import "WLSet.h"
-#import "WLPaginatedRequest.h"
 
-@class WLPaginatedSet;
+@class WLPaginatedSet, PaginatedRequest;
 
 @protocol WLPaginatedSetDelegate <WLSetDelegate>
 
@@ -24,7 +23,7 @@
 
 @property (nonatomic) BOOL completed;
 
-@property (strong, nonatomic) WLPaginatedRequest* __nullable request;
+@property (strong, nonatomic) PaginatedRequest* __nullable request;
 
 @property (nonatomic) NSMutableIndexSet* __nonnull loadingTypes;
 
@@ -32,11 +31,11 @@
 
 @property (strong, nonatomic) NSString * __nonnull paginationDateKeyPath;
 
-+ (instancetype __nonnull)setWithEntries:(NSSet* __nullable)entries request:(WLPaginatedRequest* __nullable)request;
++ (instancetype __nonnull)setWithEntries:(NSSet* __nullable)entries request:(PaginatedRequest* __nullable)request;
 
-+ (instancetype __nonnull)setWithRequest:(WLPaginatedRequest* __nullable)request;
++ (instancetype __nonnull)setWithRequest:(PaginatedRequest* __nullable)request;
 
-- (void)configureRequest:(WLPaginatedRequest* __nullable)request;
+- (void)configureRequest:(PaginatedRequest* __nullable)request;
 
 - (NSDate* __nullable)newerPaginationDate;
 

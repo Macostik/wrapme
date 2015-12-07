@@ -117,6 +117,7 @@ class Response: NSObject {
     var data: NSDictionary?
     var code: ResponseCode = .Success
     var message: String?
+    
     convenience init(dictionary: NSDictionary) {
         self.init()
         data = dictionary.dictionaryForKey("data")
@@ -124,6 +125,18 @@ class Response: NSObject {
             self.code = code
         }
         message = dictionary.stringForKey("message")
+    }
+    
+    subscript(key: String) -> AnyObject? {
+        return data?[key]
+    }
+    
+    func array(key: String) -> [[String:AnyObject]]? {
+        return self[key] as? [[String:AnyObject]]
+    }
+    
+    func dictionary(key: String) -> [String:AnyObject]? {
+        return self[key] as? [String:AnyObject]
     }
 }
 

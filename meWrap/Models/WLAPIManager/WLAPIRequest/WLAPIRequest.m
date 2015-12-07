@@ -45,40 +45,33 @@
     return 45;
 }
 
-+ (instancetype)GET:(NSString*)path, ... {
-    BEGIN_ARGUMENTS(path)
++ (instancetype)requestWithMethod:(NSString*)method {
     WLAPIRequest *request = [[self alloc] init];
-    request.path = [[NSString alloc] initWithFormat:path arguments:args];
-    request.method = @"GET";
-    END_ARGUMENTS
+    request.method = method;
     return request;
 }
 
-+ (instancetype)POST:(NSString*)path, ... {
-    BEGIN_ARGUMENTS(path)
-    WLAPIRequest *request = [[self alloc] init];
-    request.path = [[NSString alloc] initWithFormat:path arguments:args];
-    request.method = @"POST";
-    END_ARGUMENTS
-    return request;
++ (instancetype)GET {
+    return [self requestWithMethod:@"GET"];
 }
 
-+ (instancetype)PUT:(NSString*)path, ... {
-    BEGIN_ARGUMENTS(path)
-    WLAPIRequest *request = [[self alloc] init];
-    request.path = [[NSString alloc] initWithFormat:path arguments:args];
-    request.method = @"PUT";
-    END_ARGUMENTS
-    return request;
++ (instancetype)POST {
+    return [self requestWithMethod:@"POST"];
 }
 
-+ (instancetype)DELETE:(NSString*)path, ... {
++ (instancetype)PUT {
+    return [self requestWithMethod:@"PUT"];
+}
+
++ (instancetype)DELETE {
+    return [self requestWithMethod:@"DELETE"];
+}
+
+- (instancetype)path:(NSString*)path, ... {
     BEGIN_ARGUMENTS(path)
-    WLAPIRequest *request = [[self alloc] init];
-    request.path = [[NSString alloc] initWithFormat:path arguments:args];
-    request.method = @"DELETE";
+    self.path = [[NSString alloc] initWithFormat:path arguments:args];
     END_ARGUMENTS
-    return request;
+    return self;
 }
 
 static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;

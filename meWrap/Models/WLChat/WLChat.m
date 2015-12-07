@@ -109,34 +109,28 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
 #pragma mark - WLChatTypingChannelDelegate
 
 - (void)didBeginTyping:(User *)user {
-    if (![user current]) {
-        if (!user.name.nonempty || !user.picture.large.nonempty) {
-            __weak __typeof(self)weakSelf = self;
-            [[self.wrap mutableContributors] addObject:user];
-            [[WLAPIRequest user:user] send:^(User *_user) {
-                [weakSelf addTypingUser:_user];
-                if ([weakSelf.delegate respondsToSelector:@selector(chat:didBeginTyping:)]) {
-                    [weakSelf.delegate chat:weakSelf didBeginTyping:_user];
-                }
-            } failure:^(NSError *error) {
-                [WLToast showWithMessage:@"data_invalid".ls];
-            }];
-        } else {
-            [self addTypingUser:user];
+    __weak __typeof(self)weakSelf = self;
+    [user fetchIfNeeded:^(User *_user) {
+        if (![weakSelf.wrap.contributors containsObject:user]) {
+            [[weakSelf.wrap mutableContributors] addObject:user];
         }
-        
-        if ([self.delegate respondsToSelector:@selector(chat:didBeginTyping:)]) {
-            [self.delegate chat:self didBeginTyping:user];
+        [weakSelf addTypingUser:_user];
+        if ([weakSelf.delegate respondsToSelector:@selector(chat:didBeginTyping:)]) {
+            [weakSelf.delegate chat:weakSelf didBeginTyping:_user];
         }
+    } failure:^(NSError *error) {
+        [error showNonNetworkError];
+    }];
+    
+    if ([self.delegate respondsToSelector:@selector(chat:didBeginTyping:)]) {
+        [self.delegate chat:self didBeginTyping:user];
     }
 }
 
 - (void)didEndTyping:(User *)user {
-    if (![user current]) {
-        [self removeTypingUser:user];
-        if ([self.delegate respondsToSelector:@selector(chat:didEndTyping:)]) {
-            [self.delegate chat:self didEndTyping:user];
-        }
+    [self removeTypingUser:user];
+    if ([self.delegate respondsToSelector:@selector(chat:didEndTyping:)]) {
+        [self.delegate chat:self didEndTyping:user];
     }
 }
 

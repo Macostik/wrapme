@@ -260,18 +260,21 @@ class LiveBroadcastViewController: WLBaseViewController {
         broadcast.url = "http://live.mewrap.me:1935/live/\(channel)/playlist.m3u8"
         broadcast.channel = channel
         broadcast.wrap = wrap
+        broadcast.numberOfViewers = 1
         self.broadcast = wrap.addBroadcast(broadcast)
         
         userState = [
-            "title":broadcast.title,
-            "viewerURL":broadcast.url,
-            "chatChannel":channel
+            "title" : broadcast.title,
+            "viewerURL" : broadcast.url,
+            "chatChannel" : channel,
+            "numberOfViewers" : 1
         ]
         
         let uri = "rtsp://live.mewrap.me:1935/live/\(channel)"
         connectionID = streamer.createConnectionWithListener(self, uri: uri, mode: 0)
         
         subscribe(broadcast)
+        updateBroadcastInfo()
     }
     
     func stop() {
@@ -475,13 +478,15 @@ extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
     func notificationSubscription(subscription: NotificationSubscription, didReceiveMessage message: PNMessageResult) {
         guard let broadcast = broadcast else { return }
         guard let uuid = (message.data.message as? [String : AnyObject])?["uuid"] as? String else { return }
-        guard let user = User.entry(uuid, allowInsert: false) else { return }
+        guard let user = User.entry(uuid) else { return }
         guard let text = (message.data.message as? [String : AnyObject])?["chat_message"] as? String else { return }
-        let event = LiveBroadcast.Event(type: .Message)
-        event.user = user
-        event.text = text
-        broadcast.insert(event)
-        chatDataSource.items = broadcast.events
+        user.fetchIfNeeded({ [weak self] (_) -> Void in
+            let event = LiveBroadcast.Event(type: .Message)
+            event.user = user
+            event.text = text
+            broadcast.insert(event)
+            self?.chatDataSource.items = broadcast.events
+            }, failure: nil)
     }
     
     private func setNumberOfViewers(numberOfViewers: Int) {
@@ -497,19 +502,22 @@ extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
     
     func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {
         guard let broadcast = broadcast else { return }
-        guard let user = User.entry(event.data.presence.uuid, allowInsert: false) else { return }
-        switch event.data.presenceEvent {
+        guard let user = User.entry(event.data.presence.uuid) where !user.current else { return }
+        user.fetchIfNeeded({ [weak self] (_) -> Void in
+            switch event.data.presenceEvent {
             case "join":
                 let event = LiveBroadcast.Event(type: .Join)
                 event.user = user
                 broadcast.insert(event)
-                chatDataSource.items = broadcast.events
-                setNumberOfViewers(max(0, broadcast.numberOfViewers + 1))
-            break
+                self?.chatDataSource.items = broadcast.events
+                self?.setNumberOfViewers(max(0, broadcast.numberOfViewers + 1))
+                break
             case "leave", "timeout":
-                setNumberOfViewers(max(0, broadcast.numberOfViewers - 1))
-            break
-        default: break
-        }
+                self?.setNumberOfViewers(max(0, broadcast.numberOfViewers - 1))
+                break
+            default: break
+            }
+            }, failure: nil)
+        
     }
 }

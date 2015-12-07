@@ -26,7 +26,9 @@ extension Entry {
 }
 
 extension User {
-    
+    override func fetch(success: ObjectBlock?, failure: FailureBlock?) {
+        WLAPIRequest.user(self).send(success, failure: failure)
+    }
 }
 
 extension Device {

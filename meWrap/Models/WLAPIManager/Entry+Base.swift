@@ -79,6 +79,13 @@ extension Entry {
 
 extension User {
     
+    class func channelName() -> String {
+        return "\(User.currentUser?.uid ?? "")-\(Authorization.currentAuthorization.deviceUID ?? "")"
+    }
+    
+    override func fetched() -> Bool {
+        return !(avatar?.small?.isEmpty ?? true) && !(name?.isEmpty ?? true)
+    }
 }
 
 extension Device {

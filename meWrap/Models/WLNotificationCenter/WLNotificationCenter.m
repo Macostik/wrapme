@@ -154,32 +154,35 @@
 
 - (void)notificationSubscription:(NotificationSubscription *)subscription didReceivePresenceEvent:(PNPresenceEventResult * _Nonnull)event {
     if ([event.data.presenceEvent isEqualToString:@"state-change"]) {
-        Wrap *wrap = [Wrap entry:event.data.actualChannel allowInsert:NO];
-        User *user = [User entry:event.data.presence.uuid allowInsert:NO];
+        Wrap *wrap = [Wrap entry:event.data.actualChannel];
+        User *user = [User entry:event.data.presence.uuid];
         NSDictionary *state = event.data.presence.state;
         if (wrap && user && state) {
-            NSString *chatChannel = state[@"chatChannel"];
-            NSString *currentChatChannel = [NSString stringWithFormat:@"%@-%@", [User currentUser].identifier, [Authorization currentAuthorization].deviceUID];
-            if ([chatChannel isEqualToString:currentChatChannel]) {
-                return;
-            }
-            NSString *viewerURL = state[@"viewerURL"];
-            if (viewerURL != nil) {
-                LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
-                broadcast.broadcaster = user;
-                broadcast.wrap = wrap;
-                broadcast.title = state[@"title"];
-                broadcast.channel = chatChannel;
-                broadcast.url = viewerURL;
-                [wrap addBroadcast:broadcast];
-            } else {
-                for (LiveBroadcast *broadcast in wrap.liveBroadcasts) {
-                    if (broadcast.broadcaster == user) {
-                        [wrap removeBroadcast:broadcast];
-                        break;
+            [user fetchIfNeeded:^(id  _Nullable object) {
+                [wrap fetchIfNeeded:^(id  _Nullable object) {
+                    NSString *chatChannel = state[@"chatChannel"];
+                    if ([chatChannel isEqualToString:[User channelName]]) {
+                        return;
                     }
-                }
-            }
+                    NSString *viewerURL = state[@"viewerURL"];
+                    if (viewerURL != nil) {
+                        LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
+                        broadcast.broadcaster = user;
+                        broadcast.wrap = wrap;
+                        broadcast.title = state[@"title"];
+                        broadcast.channel = chatChannel;
+                        broadcast.url = viewerURL;
+                        [wrap addBroadcast:broadcast];
+                    } else {
+                        for (LiveBroadcast *broadcast in wrap.liveBroadcasts) {
+                            if (broadcast.broadcaster == user) {
+                                [wrap removeBroadcast:broadcast];
+                                break;
+                            }
+                        }
+                    }
+                } failure:nil];
+            } failure:nil];
         }
     }
 }

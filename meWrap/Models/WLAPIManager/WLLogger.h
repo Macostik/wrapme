@@ -22,7 +22,7 @@ NSLog(format, ##__VA_ARGS__);\
 #else
 
 #define WLLog(format, ...)\
-[[LELog sharedInstance] log:[NSString stringWithFormat:@"%@-%@ >> %@", [User currentUser].identifier, [Authorization currentAuthorization].deviceUID, [NSString stringWithFormat:format, ##__VA_ARGS__]]];
+[[LELog sharedInstance] log:[NSString stringWithFormat:@"%@ >> %@", [User channelName], [NSString stringWithFormat:format, ##__VA_ARGS__]]];
 
 #endif
 

@@ -37,7 +37,7 @@ class LiveBroadcast: NSObject {
     
     func insert(event: Event) {
         events.insert(event, atIndex: 0)
-        if (events.count > 5) {
+        if (events.count > 3) {
             events.removeLast()
         }
     }

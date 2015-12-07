@@ -37,6 +37,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *publicWrapNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ownerDescriptionLabel;
 @property (strong, nonatomic) IBOutlet LayoutPrioritizer *publicWrapPrioritizer;
+@property (strong, nonatomic) IBOutlet LayoutPrioritizer *titleViewPrioritizer;
+@property (weak, nonatomic) IBOutlet WLLabel *typingLabel;
 
 @end
 
@@ -72,10 +74,10 @@
 }
 
 - (void)updateSegmentIfNeeded {
-    if (self.segment != self.segmentedControl.selectedSegment) {
-        self.segmentedControl.selectedSegment = self.segment;
-        [self segmentChanged:self.segmentedControl];
-    }
+    self.segmentedControl.selectedSegment = WLWrapSegmentChat;
+    [self segmentChanged:self.segmentedControl];
+    self.segmentedControl.selectedSegment = WLWrapSegmentMedia;
+    [self segmentChanged:self.segmentedControl];
 }
 
 - (void)updateWrapData {
@@ -155,6 +157,12 @@
         self.viewController = [self controllerForClass:[WLMediaViewController class] badge:self.candyCountLabel];
     } else if (selectedSegment == WLWrapSegmentChat) {
         self.viewController = [self controllerForClass:[WLChatViewController class] badge:self.messageCountLabel];
+        __weak __typeof(self)weakSelf = self;
+        WLWrapEmbeddedViewController *chatViewController = (WLWrapEmbeddedViewController *)self.viewController;
+        chatViewController.typingHalper = ^(NSString *text) {
+            weakSelf.titleViewPrioritizer.defaultState = !text.nonempty;
+            weakSelf.typingLabel.text = text;
+        };
     } else {
         self.viewController = [self controllerForClass:[WLContributorsViewController class] badge:nil];
     }

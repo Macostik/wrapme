@@ -161,6 +161,7 @@
 - (IBAction)cancel:(id)sender {
     [self.addressBook.selectedPhoneNumbers removeAllObjects];
     [self.streamView reload];
+    [self.streamView setNeedsUpdateConstraints];
 }
 
 #pragma mark - StreamViewDelegate

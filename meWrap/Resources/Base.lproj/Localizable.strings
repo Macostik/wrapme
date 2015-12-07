@@ -45,7 +45,7 @@
 "photo_unavailable" = "Photo not found.";
 "incorrect_email" = "Incorrect e-mail.";
 "name_cannot_be_blank" = "Please enter your name.";
-"formatted_is_typing" = "%@ is typing...";
+"formatted_is_typing" = "%@ is typing";
 "formatted_and_are_typing" = "%@ and %@ are typing...";
 "sending_confirming_email" = "Sending confirmation e-mail now.";
 "remote_notification_when_app_is_active_error" = "Can't handle remote notification when app is active.";

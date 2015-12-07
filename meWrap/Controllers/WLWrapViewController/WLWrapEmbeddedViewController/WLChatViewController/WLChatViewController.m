@@ -29,12 +29,6 @@ CGFloat WLMinTextViewWidth;
 
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 
-@property (weak, nonatomic) IBOutlet UIView *typingView;
-
-@property (weak, nonatomic) IBOutlet UILabel *typingUserNamesTextField;
-
-@property (weak, nonatomic) IBOutlet ImageView *typingUserAvatarView;
-
 @property (weak, nonatomic) id operation;
 
 @property (nonatomic) BOOL typing;
@@ -169,8 +163,6 @@ CGFloat WLMinTextViewWidth;
     [[Message notifier] addReceiver:self];
     [[FontPresetter defaultPresetter] addReceiver:self];
     
-    [self.streamView.panGestureRecognizer addTarget:self action:@selector(dragging:)];
-    
     self.modalPresentationStyle = UIModalPresentationCurrentContext;
 }
 
@@ -212,7 +204,7 @@ CGFloat WLMinTextViewWidth;
 }
 
 - (void)updateInsets:(BOOL)typingViewHidden {
-    CGFloat bottom = self.composeBar.height + [WLKeyboard keyboard].height + (typingViewHidden ? 0 : self.typingView.height) + WLBubbleIndent;
+    CGFloat bottom = self.composeBar.height + [WLKeyboard keyboard].height + WLBubbleIndent;
     self.streamView.contentInset = self.streamView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, bottom, 0);
 }
 
@@ -228,7 +220,7 @@ CGFloat WLMinTextViewWidth;
     [super keyboardDidShow:keyboard];
     [UIView performWithoutAnimation:^{
         self.streamView.transform = CGAffineTransformIdentity;
-        [self updateInsets:self.typingView.hidden];
+        [self updateInsets:YES];
         self.streamView.contentOffset = CGPointMake(0, MIN(self.streamView.maximumContentOffset.y, self.streamView.contentOffset.y + keyboard.height));
     }];
 }
@@ -249,12 +241,11 @@ CGFloat WLMinTextViewWidth;
 - (void)keyboardDidHide:(WLKeyboard *)keyboard {
     [super keyboardDidHide:keyboard];
     [UIView performWithoutAnimation:^{
-        [self updateInsets:self.typingView.hidden];
+        [self updateInsets:YES];
     }];
 }
 
 - (void)insertMessage:(Message*)message {
-    
     if (self.streamView.locks > 0) {
         [self.chat addEntry:message];
         return;
@@ -338,35 +329,18 @@ CGFloat WLMinTextViewWidth;
     [self reloadData];
 }
 
-- (void)updateTypingView:(WLChat*)chat {
-    BOOL someoneIsTyping = chat.typingUsers.nonempty;
-    if (someoneIsTyping) {
-        NSString *typingNames = chat.typingNames;
-        self.typingUserNamesTextField.text = typingNames;
-        self.typingUserAvatarView.hidden = self.typingUserNamesTextField.hidden = NO;
-        User *user = chat.typingUsers.firstObject;
-        if (chat.typingUsers.count == 1 && user.valid) {
-            self.typingUserAvatarView.url = user.picture.small;
-        } else {
-            self.typingUserAvatarView.url = nil;
-            [self.typingUserAvatarView setImage:[UIImage imageNamed:@"friends"]];
-        }
-    } else {
-        self.typingUserNamesTextField.text = nil;
-        self.typingUserAvatarView.url = nil;
-        self.typingUserAvatarView.image = nil;
-        self.typingUserAvatarView.hidden = self.typingUserNamesTextField.hidden = YES;
-    }
-}
-
 - (void)chat:(WLChat*)chat didBeginTyping:(User *)user {
-    [self updateTypingView:chat];
-    [self setTypingViewHidden:NO];
+    NSString *userName = [chat.typingUsers.firstObject name];
+    if (self.typingHalper && userName.nonempty) {
+        self.typingHalper([NSString stringWithFormat:@"formatted_is_typing".ls, userName]);
+    }
 }
     
 - (void)chat:(WLChat*)chat didEndTyping:(User *)user {
-    [self updateTypingView:chat];
-    [self setTypingViewHidden:chat.typingUsers.count == 0];
+    NSString *userName = [chat.typingUsers.firstObject name];
+    if (self.typingHalper) {
+        self.typingHalper(userName.nonempty ? [NSString stringWithFormat:@"formatted_is_typing".ls, userName] : nil);
+    }
 }
 
 - (void)reloadData {
@@ -416,34 +390,6 @@ CGFloat WLMinTextViewWidth;
         [self.navigationController popViewControllerAnimated:NO];
     } else {
         [self.navigationController popToRootViewControllerAnimated:NO];
-    }
-}
-
-- (void)dragging:(UIPanGestureRecognizer*)sender {
-    if (sender.state == UIGestureRecognizerStateEnded) {
-        if ([sender translationInView:self.streamView].y <= 0) {
-            [self setTypingViewHidden:!self.chat.typingUsers.nonempty];
-        } else if (self.streamView.scrollable) {
-            [self setTypingViewHidden:YES];
-        }
-    }
-}
-
-- (void)setTypingViewHidden:(BOOL)hidden {
-    if (self.typingView.hidden != hidden) {
-        BOOL scroll = NO;
-        if (hidden) {
-            [self.typingView addAnimation:[CATransition transition:kCATransitionPush subtype:kCATransitionFromBottom duration:0.2]];
-        } else {
-            scroll = ABS(self.streamView.contentOffset.y - self.streamView.maximumContentOffset.y) < 5;
-            [self.typingView addAnimation:[CATransition transition:kCATransitionPush subtype:kCATransitionFromTop duration:0.2]];
-        }
-        [self updateInsets:hidden];
-        self.typingView.hidden = hidden;
-        
-        if (scroll) {
-            [self.streamView setMaximumContentOffsetAnimated:YES];
-        }
     }
 }
 

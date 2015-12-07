@@ -30,7 +30,7 @@
 "formatted_comments" = "%i комментариев";
 "formatted_delete_wrap_confirmation" = "Вы уверены, что хотитие удалить Wrap";
 "formatted_edited_by" = "Отредактировал %@";
-"formatted_is_typing" = "%@ печатает ...";
+"formatted_is_typing" = "%@ печатает";
 "formatted_owner" = "%@ (Владелец)";
 "formatted_photo_by" = "Разместил %@";
 "formatted_verification_email_text" = "Подтвердите Ваш e-mail %@ чтобы помочь обезопасить Ваш аккаунт.";

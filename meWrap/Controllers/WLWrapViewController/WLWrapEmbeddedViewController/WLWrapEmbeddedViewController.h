@@ -22,4 +22,6 @@
 
 @property (weak, nonatomic) WLBadgeLabel* badge;
 
+@property (copy, nonatomic) WLObjectBlock typingHalper;
+
 @end

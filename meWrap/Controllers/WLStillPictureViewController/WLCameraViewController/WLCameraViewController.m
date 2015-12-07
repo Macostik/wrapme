@@ -352,8 +352,6 @@
     });
 }
 
-static CGFloat WLCancellingValue = 80;
-
 - (void)startVideoRecording:(UILongPressGestureRecognizer*)sender {
     if ([self.delegate respondsToSelector:@selector(cameraViewControllerCaptureMedia:)]) {
         if ([self.delegate cameraViewControllerCaptureMedia:self] == NO) {
@@ -375,7 +373,7 @@ static CGFloat WLCancellingValue = 80;
         case UIGestureRecognizerStateChanged: {
             CGPoint location = [sender locationInView:self.videoRecordingView];
             if (self.movieFileOutput.recording && !self.videoRecordingCancelled) {
-                if (location.x < WLCancellingValue) {
+                if (location.x < Constants.screenWidth/4) {
                     [self cancelVideoRecording];
                 }
             }

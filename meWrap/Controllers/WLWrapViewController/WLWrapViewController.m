@@ -58,8 +58,10 @@
     if (!self.wrap.valid) {
         return;
     }
-    
+    self.segmentedControl.selectedSegment = WLWrapSegmentChat;
+    [self segmentChanged:self.segmentedControl];
     [self.segmentedControl deselect];
+    self.segment = 0;
     
     self.settingsButton.exclusiveTouch = self.followButton.exclusiveTouch = self.unfollowButton.exclusiveTouch = YES;
 }
@@ -74,10 +76,10 @@
 }
 
 - (void)updateSegmentIfNeeded {
-    self.segmentedControl.selectedSegment = WLWrapSegmentChat;
-    [self segmentChanged:self.segmentedControl];
-    self.segmentedControl.selectedSegment = WLWrapSegmentMedia;
-    [self segmentChanged:self.segmentedControl];
+    if (self.segment != self.segmentedControl.selectedSegment) {
+        self.segmentedControl.selectedSegment = self.segment;
+        [self segmentChanged:self.segmentedControl];
+    }
 }
 
 - (void)updateWrapData {

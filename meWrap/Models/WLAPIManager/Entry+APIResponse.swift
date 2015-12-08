@@ -136,6 +136,10 @@ extension User {
                 self.avatar = avatar
             }
         }
+        
+        if let invitedAt = dictionary.dateForKey("invited_at_in_epoch") where self.invitedAt != invitedAt {
+            self.invitedAt = invitedAt
+        }
 
         if let devices = dictionary[Keys.Devices] as? [[String : AnyObject]] {
             Device.mappedEntries(devices, container: self)
@@ -160,14 +164,6 @@ extension Device {
         
         if let activated = dictionary["activated"] as? Bool where self.activated != activated {
             self.activated = activated
-        }
-        
-        if let invitedAt = dictionary.dateForKey("invited_at_in_epoch") where self.invitedAt != invitedAt {
-            self.invitedAt = invitedAt
-        }
-        
-        if let invitedBy = dictionary["invited_by_user_uid"] as? String where self.invitedBy != invitedBy {
-            self.invitedBy = invitedBy
         }
         
         if let container = container as? User where container != self.owner {

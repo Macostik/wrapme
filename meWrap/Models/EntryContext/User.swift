@@ -49,10 +49,6 @@ class User: Entry {
         return false
     }
     
-    var invitedAt: NSDate? {
-        return devices?.anyObject()?.invitedAt
-    }
-    
     private func formatPhones(secure: Bool) -> String? {
         guard let devices = devices as? Set<Device> else {
             return nil

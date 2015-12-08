@@ -32,14 +32,12 @@ extension User {
     @NSManaged var editings: NSSet?
     @NSManaged var wraps: NSSet?
     @NSManaged var avatar: Asset?
-    
+    @NSManaged var invitedAt: NSDate
 }
 
 extension Device {
     
     @NSManaged var activated: Bool
-    @NSManaged var invitedAt: NSDate
-    @NSManaged var invitedBy: String?
     @NSManaged var name: String?
     @NSManaged var phone: String?
     @NSManaged var owner: User?

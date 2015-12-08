@@ -102,11 +102,7 @@ class VideoPlayerView: UIView {
     
     @IBOutlet weak var delegate: VideoPlayerViewDelegate?
     
-    @IBOutlet weak var secondaryPlayButton: UIButton? {
-        didSet {
-            secondaryPlayButton?.hidden = true
-        }
-    }
+    @IBOutlet weak var secondaryPlayButton: UIButton? 
     
     @IBOutlet weak var playButton: UIView? 
     
@@ -115,7 +111,6 @@ class VideoPlayerView: UIView {
     @IBOutlet weak var timeView: VideoTimeView! {
         didSet {
             timeView.userInteractionEnabled = false
-            timeView.hidden = true
         }
     }
     

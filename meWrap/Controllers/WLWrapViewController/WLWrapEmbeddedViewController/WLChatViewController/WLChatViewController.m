@@ -105,7 +105,7 @@ CGFloat WLMinTextViewWidth;
     
     [super viewDidLoad];
     
-    [self updateInsets:YES];
+    [self updateInsets];
     
     if (!self.wrap) {
         __weak typeof(self)weakSelf = self;
@@ -200,7 +200,7 @@ CGFloat WLMinTextViewWidth;
     }
 }
 
-- (void)updateInsets:(BOOL)typingViewHidden {
+- (void)updateInsets {
     CGFloat bottom = self.composeBar.height + [WLKeyboard keyboard].height + WLBubbleIndent;
     self.streamView.contentInset = self.streamView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, bottom, 0);
 }
@@ -217,7 +217,7 @@ CGFloat WLMinTextViewWidth;
     [super keyboardDidShow:keyboard];
     [UIView performWithoutAnimation:^{
         self.streamView.transform = CGAffineTransformIdentity;
-        [self updateInsets:YES];
+        [self updateInsets];
         self.streamView.contentOffset = CGPointMake(0, MIN(self.streamView.maximumContentOffset.y, self.streamView.contentOffset.y + keyboard.height));
     }];
 }
@@ -238,7 +238,7 @@ CGFloat WLMinTextViewWidth;
 - (void)keyboardDidHide:(WLKeyboard *)keyboard {
     [super keyboardDidHide:keyboard];
     [UIView performWithoutAnimation:^{
-        [self updateInsets:YES];
+        [self updateInsets];
     }];
 }
 

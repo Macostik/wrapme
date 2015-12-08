@@ -53,15 +53,20 @@
 }
 
 - (void)viewDidLoad {
+    __weak __typeof(self)weakSelf = self;
     [super viewDidLoad];
     
     if (!self.wrap.valid) {
         return;
     }
-    self.segmentedControl.selectedSegment = WLWrapSegmentChat;
-    [self segmentChanged:self.segmentedControl];
+    
+    self.viewController = [self controllerForClass:[WLChatViewController class] badge:nil];
+    WLWrapEmbeddedViewController *chatViewController = (WLWrapEmbeddedViewController *)self.viewController;
+    chatViewController.typingHalper = ^(NSString *text) {
+        weakSelf.titleViewPrioritizer.defaultState = !text.nonempty;
+        weakSelf.typingLabel.text = text;
+    };
     [self.segmentedControl deselect];
-    self.segment = 0;
     
     self.settingsButton.exclusiveTouch = self.followButton.exclusiveTouch = self.unfollowButton.exclusiveTouch = YES;
 }
@@ -159,12 +164,6 @@
         self.viewController = [self controllerForClass:[WLMediaViewController class] badge:self.candyCountLabel];
     } else if (selectedSegment == WLWrapSegmentChat) {
         self.viewController = [self controllerForClass:[WLChatViewController class] badge:self.messageCountLabel];
-        __weak __typeof(self)weakSelf = self;
-        WLWrapEmbeddedViewController *chatViewController = (WLWrapEmbeddedViewController *)self.viewController;
-        chatViewController.typingHalper = ^(NSString *text) {
-            weakSelf.titleViewPrioritizer.defaultState = !text.nonempty;
-            weakSelf.typingLabel.text = text;
-        };
     } else {
         self.viewController = [self controllerForClass:[WLContributorsViewController class] badge:nil];
     }
@@ -304,6 +303,7 @@
 
 - (void)whatsUpBroadcaster:(WLBroadcaster *)broadcaster updated:(WLWhatsUpSet *)set {
     [self updateCandyCounter];
+    [self updateMessageCouter];
 }
 
 // MARK: - WLMessagesCounterReceiver

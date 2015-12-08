@@ -139,6 +139,9 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="inWrapLabel" destination="fY1-Pb-1cJ" id="GTI-ui-xnn"/>
                 <outlet property="pictureView" destination="VAv-XO-Ppi" id="t7m-AL-qSx"/>

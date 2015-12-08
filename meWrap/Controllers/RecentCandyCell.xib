@@ -139,6 +139,9 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="inWrapLabel" destination="stJ-jO-ZNV" id="mQq-md-5E3"/>
                 <outlet property="pictureView" destination="2wT-n8-UM6" id="99f-R9-evp"/>

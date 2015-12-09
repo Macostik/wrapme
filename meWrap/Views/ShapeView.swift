@@ -57,6 +57,10 @@ class TriangleView: ShapeView {
             path.addLineToPoint(CGPointMake(rect.minX, rect.minY))
             break
         default:
+            path.moveToPoint(CGPointMake(rect.minX, rect.maxY))
+            path.addLineToPoint(CGPointMake(rect.maxX, rect.maxY))
+            path.addLineToPoint(CGPointMake(rect.midX, rect.minY))
+            path.addLineToPoint(CGPointMake(rect.minX, rect.maxY))
             break
         }
     }

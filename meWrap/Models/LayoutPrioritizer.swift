@@ -65,11 +65,11 @@ class LayoutPrioritizer: NSObject {
     }
     
     @IBAction func enableDefaultState(sender: UIControl) {
-        defaultState = true
+        defaultState = false
     }
     
     @IBAction func enableAlternativeState(sender: UIControl) {
-        defaultState = false
+        defaultState = true
     }
     
     @IBAction func toggleState(sender: UIControl) {

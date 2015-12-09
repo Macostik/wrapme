@@ -802,6 +802,8 @@
         self.backButton.transform = transform;
         self.rotateButton.transform = transform;
         self.videoRecordingTimeLabel.transform = transform;
+        self.takePhotoButton.transform = transform;
+        self.finishButton.transform = transform;
         for (UIView *subView in self.flashModeControl.subviews) {
             subView.transform = transform;
         }

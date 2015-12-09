@@ -48,7 +48,7 @@
 
 - (void)setup:(Comment *)entry {
 	self.userInteractionEnabled = YES;
-    [entry markAsRead];
+    [entry markAsUnread:NO];
 	self.authorNameLabel.text = entry.contributor.name;
 	self.authorImageView.url = entry.contributor.avatar.small;
     self.dateLabel.text = entry.createdAt.timeAgoString;

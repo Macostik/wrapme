@@ -218,7 +218,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (void)updateOwnerData {
     Candy *candy = _candy;
-    [candy markAsRead];
+    [candy markAsUnread:NO];
     [self.candyIndicator updateStatusIndicator:candy];
     [self setCommentButtonTitle:candy];
     [self setupBottomViewModeRelatedData:self.bottomViewMode candy:candy];

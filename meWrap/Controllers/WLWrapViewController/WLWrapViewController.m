@@ -12,12 +12,11 @@
 #import "WLToast.h"
 #import "WLChatViewController.h"
 #import "WLContributorsViewController.h"
-#import "WLMessagesCounter.h"
 #import "WLButton.h"
 #import "WLFollowingViewController.h"
 #import "WLSoundPlayer.h"
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, MediaViewControllerDelegate, RecentUpdateListNotifying, WLMessagesCounterReceiver>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, MediaViewControllerDelegate, RecentUpdateListNotifying>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
@@ -113,8 +112,7 @@
 }
 
 - (void)updateMessageCouter {
-    self.messageCountLabel.value = [[WLMessagesCounter instance] countForWrap:self.wrap];
-    [[WLMessagesCounter instance] update:nil];
+    self.messageCountLabel.value = self.wrap.numberOfUnreadMessages;
 }
 
 - (void)updateCandyCounter {
@@ -131,7 +129,13 @@
             return weakSelf.wrap;
         }];
         receiver.didUpdate = ^(Entry *entry, EntryUpdateEvent event) {
-            [weakSelf updateWrapData];
+            if (event == EntryUpdateEventNumberOfUnreadMessagesChanged) {
+                if (weakSelf.segment != WLWrapSegmentChat) {
+                    weakSelf.messageCountLabel.value = weakSelf.wrap.numberOfUnreadMessages;
+                }
+            } else {
+                [weakSelf updateWrapData];
+            }
         };
         receiver.willDelete = ^(Entry *entry) {
             if (weakSelf.viewAppeared) {
@@ -147,14 +151,12 @@
         }];
         [receiver setDidAdd:^(Entry *entry) {
             if ([weakSelf isViewLoaded] && weakSelf.segment == WLWrapSegmentMedia) {
-                [entry markAsRead];
+                [entry markAsUnread:NO];
             }
         }];
     }];
     
     [[RecentUpdateList sharedList] addReceiver:self];
-    
-    [[WLMessagesCounter instance] addReceiver:self];
 }
 
 - (IBAction)segmentChanged:(SegmentedControl*)sender {
@@ -303,14 +305,6 @@
 - (void)recentUpdateListUpdated:(RecentUpdateList *)list {
     [self updateCandyCounter];
     [self updateMessageCouter];
-}
-
-// MARK: - WLMessagesCounterReceiver
-
-- (void)counterDidChange:(WLMessagesCounter *)counter {
-    if (self.segment != WLWrapSegmentChat) {
-        self.messageCountLabel.value = [counter countForWrap:self.wrap];
-    }
 }
 
 @end

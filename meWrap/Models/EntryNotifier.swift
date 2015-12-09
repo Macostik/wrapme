@@ -9,7 +9,7 @@
 import UIKit
 
 @objc enum EntryUpdateEvent: Int {
-    case Default, ContentAdded, ContentChanged, ContentDeleted, ContributorsChanged, PreferencesChanged, LiveBroadcastsChanged
+    case Default, ContentAdded, ContentChanged, ContentDeleted, ContributorsChanged, PreferencesChanged, LiveBroadcastsChanged, NumberOfUnreadMessagesChanged
 }
 
 @objc protocol EntryNotifying: WLBroadcastReceiver {

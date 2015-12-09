@@ -23,7 +23,7 @@ class RecentUpdateCell: StreamReusableView {
     override func setup(entry: AnyObject!) {
         if let update = entry as? RecentUpdate {
             let contribution = update.contribution
-            contribution.markAsRead()
+            contribution.markAsUnread(false)
             timeLabel.text = update.date.timeAgoStringAtAMPM()
             wrapImageView.url = contribution.asset?.medium
         }

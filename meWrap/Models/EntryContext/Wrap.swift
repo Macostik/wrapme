@@ -179,4 +179,21 @@ class Wrap: Contribution {
         }
         notifyOnUpdate(.LiveBroadcastsChanged)
     }
+    
+    private var _numberOfUnreadMessages: Int?
+    var numberOfUnreadMessages: Int {
+        get {
+            if let number = _numberOfUnreadMessages {
+                return number
+            } else {
+                let dayAgo = NSDate.dayAgo()
+                let number = (messages as? Set<Message>)?.filter({ $0.unread && $0.createdAt > dayAgo }).count ?? 0
+                _numberOfUnreadMessages = number
+                return number
+            }
+        }
+        set {
+            _numberOfUnreadMessages = newValue
+        }
+    }
 }

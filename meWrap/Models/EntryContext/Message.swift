@@ -38,4 +38,15 @@ class Message: Contribution {
         set {
         }
     }
+    
+    override func willBecomeUnread(unread: Bool) {
+        if let wrap = wrap {
+            if unread && createdAt > NSDate.dayAgo() {
+                wrap.numberOfUnreadMessages++
+            } else {
+                wrap.numberOfUnreadMessages--
+            }
+            wrap.notifyOnUpdate(.NumberOfUnreadMessagesChanged)
+        }
+    }
 }

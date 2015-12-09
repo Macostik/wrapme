@@ -57,8 +57,12 @@ class Chat: PaginatedList {
     
     func resetMessages() {
         if let messages = wrap.messages as? Set<Message> {
-            entries = messages.sort({ $0.createdAt > $1.createdAt })
+            entries = messages.sort({ $0.createdAt < $1.createdAt })
         }
+    }
+    
+    override func sort() {
+        self.entries = self.entries.sort({ $0.listSortDate() < $1.listSortDate() })
     }
     
     override func add(entry: ListEntry) {
@@ -78,7 +82,7 @@ class Chat: PaginatedList {
     
     func markAsRead() {
         for message in readMessages {
-            message.markAsRead()
+            message.markAsUnread(false)
             if let index = unreadMessages.indexOf(message) {
                 unreadMessages.removeAtIndex(index)
             }

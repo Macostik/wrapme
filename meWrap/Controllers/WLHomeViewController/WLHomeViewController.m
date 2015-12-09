@@ -18,14 +18,13 @@
 #import "WLPresentingImageView.h"
 #import "WLHistoryViewController.h"
 #import "WLHintView.h"
-#import "WLMessagesCounter.h"
 #import "WLUploadingQueue.h"
 #import "WLFollowingViewController.h"
 #import "WLSoundPlayer.h"
 #import "WLNetwork.h"
 #import "WLChangeProfileViewController.h"
 
-@interface WLHomeViewController () <WrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, RecentUpdateListNotifying, WLMessagesCounterReceiver>
+@interface WLHomeViewController () <WrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, RecentUpdateListNotifying>
 
 @property (strong, nonatomic) IBOutlet SegmentedStreamDataSource *dataSource;
 
@@ -129,8 +128,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCreateWrapTipIfNeeded) name:UIApplicationWillEnterForegroundNotification object:nil];
     
     [[RecentUpdateList sharedList] addReceiver:self];
-    
-    [[WLMessagesCounter instance] addReceiver:self];
     
     [self fetchLiveBroadcasts];
 }
@@ -268,7 +265,6 @@
         weakSelf.notificationsLabel.value = count;
         [weakSelf.dataSource reload];
     } failure:nil];
-    [[WLMessagesCounter instance] update:nil];
     
     [self updateEmailConfirmationView:NO];
     [EventualEntryPresenter sharedPresenter].isLoaded = YES;
@@ -384,14 +380,22 @@
             weakSelf.streamView.contentOffset = CGPointZero;
         }];
         [receiver setDidUpdate:^(Entry *entry, EntryUpdateEvent event) {
-            Wrap *wrap = (Wrap*)entry;
-            if (wrap.isPublic) {
-                [weakSelf.publicDataSource.paginatedSet sort:wrap];
-            }
-            if (wrap.isContributing) {
-                [weakSelf.homeDataSource.paginatedSet sort:wrap];
+            if (event == EntryUpdateEventNumberOfUnreadMessagesChanged) {
+                for (StreamItem *item in weakSelf.streamView.visibleItems) {
+                    if ([item.view isKindOfClass:[WrapCell class]]) {
+                        [(WrapCell*)item.view updateChatNotifyCounter];
+                    }
+                }
             } else {
-                [weakSelf.homeDataSource.paginatedSet remove:wrap];
+                Wrap *wrap = (Wrap*)entry;
+                if (wrap.isPublic) {
+                    [weakSelf.publicDataSource.paginatedSet sort:wrap];
+                }
+                if (wrap.isContributing) {
+                    [weakSelf.homeDataSource.paginatedSet sort:wrap];
+                } else {
+                    [weakSelf.homeDataSource.paginatedSet remove:wrap];
+                }
             }
         }];
         [receiver setWillDelete:^(Entry *entry) {
@@ -508,16 +512,6 @@
         }
     }
     self.notificationsLabel.value = list.unreadCount;
-}
-
-// MARK: - WLMessagesCounterReceiver
-
-- (void)counterDidChange:(WLMessagesCounter *)counter {
-    for (StreamItem *item in self.streamView.visibleItems) {
-        if ([item.view isKindOfClass:[WrapCell class]]) {
-            [(WrapCell*)item.view updateChatNotifyCounter];
-        }
-    }
 }
 
 @end

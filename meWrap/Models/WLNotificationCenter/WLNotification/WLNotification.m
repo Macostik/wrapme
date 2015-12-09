@@ -310,7 +310,7 @@
 }
 
 - (void)markAsUnreadIfNeededForNotification:(WLNotification*)notification {
-    if ([self notifiableForNotification:notification]) [self markAsUnread];
+    if ([self notifiableForNotification:notification]) [self markAsUnread:YES];
 }
 
 - (void)prepareForAddNotification:(WLNotification *)notification {

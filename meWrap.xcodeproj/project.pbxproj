@@ -361,7 +361,6 @@
 		C5EBD75B1C172DF600ED2FCF /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EBD75A1C172DF600ED2FCF /* List.swift */; };
 		C5ECD55B1BF649B9005791B1 /* UIStoryboard+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ECD55A1BF649B9005791B1 /* UIStoryboard+Ext.swift */; };
 		C5ECD55C1BF64A41005791B1 /* RecentUpdatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557BA801BF5D47900AE9974 /* RecentUpdatesViewController.swift */; };
-		C5EE2CE21B5658F90016889E /* WLMessagesCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */; };
 		C5EE45A41C01C4A2008DE8D6 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EE45A31C01C4A2008DE8D6 /* UIImage+Ext.swift */; };
 		C5EE45A61C01D350008DE8D6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EE45A51C01D350008DE8D6 /* Constants.swift */; };
 		C5F3AC3A1C0335230053EE70 /* EntryDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F0766B1BE2A97900021FAE /* EntryDescriptor.swift */; };
@@ -930,8 +929,6 @@
 		C5EAE4CA1C18335900DA19C9 /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		C5EBD75A1C172DF600ED2FCF /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		C5ECD55A1BF649B9005791B1 /* UIStoryboard+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Ext.swift"; sourceTree = "<group>"; };
-		C5EE2CDC1B5658F90016889E /* WLMessagesCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMessagesCounter.h; sourceTree = "<group>"; };
-		C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMessagesCounter.m; sourceTree = "<group>"; };
 		C5EE45A31C01C4A2008DE8D6 /* UIImage+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		C5EE45A51C01D350008DE8D6 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C5F0766B1BE2A97900021FAE /* EntryDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDescriptor.swift; sourceTree = "<group>"; };
@@ -1181,7 +1178,6 @@
 				C55A45281BAC1C4A0055AEC2 /* WLNetwork */,
 				C5C7699A1BAC11F200B205CB /* WLUploadingQueue */,
 				C5C7696D1BAC10BF00B205CB /* WLAPIManager */,
-				C5EE2CDB1B5658E90016889E /* WLMessagesCounter */,
 				C5D7FE8E1B501CDE00746908 /* WLSoundPlayer */,
 				C5BEE0E11B2AC8C300D3CF70 /* WLNotificationCenter */,
 				C5A82CCC1ACD979B00336027 /* WLDeviceManager */,
@@ -2270,10 +2266,10 @@
 				C5E6DD801C0DC84A004992E4 /* EntryContext.swift */,
 				C5E6DD781C0DC84A004992E4 /* CoreData.xcdatamodeld */,
 				C5E6DD7E1C0DC84A004992E4 /* Entry+CoreDataProperties.swift */,
+				C5E6DD7F1C0DC84A004992E4 /* Entry.swift */,
 				C5E6DD751C0DC84A004992E4 /* Candy.swift */,
 				C5E6DD761C0DC84A004992E4 /* Comment.swift */,
 				C5E6DD771C0DC84A004992E4 /* Contribution.swift */,
-				C5E6DD7F1C0DC84A004992E4 /* Entry.swift */,
 				C5E6DD811C0DC84A004992E4 /* Message.swift */,
 				C5E6DD821C0DC84A004992E4 /* User.swift */,
 				C5E6DD841C0DC84A004992E4 /* Wrap.swift */,
@@ -2330,15 +2326,6 @@
 				C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		C5EE2CDB1B5658E90016889E /* WLMessagesCounter */ = {
-			isa = PBXGroup;
-			children = (
-				C5EE2CDC1B5658F90016889E /* WLMessagesCounter.h */,
-				C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */,
-			);
-			path = WLMessagesCounter;
 			sourceTree = "<group>";
 		};
 		C6D377F53D04E1E569F5EDAA /* Pods */ = {
@@ -2869,7 +2856,6 @@
 				C549745B1ABC1C34000E3F54 /* WLQAButton.m in Sources */,
 				C5F4E70B1C072C0200D2FC16 /* FlashModeControl.swift in Sources */,
 				C53BC48E1C05FE620009B0B9 /* SegmentedControl.swift in Sources */,
-				C5EE2CE21B5658F90016889E /* WLMessagesCounter.m in Sources */,
 				C53012791BF4968200098F9C /* StreamDataSource.swift in Sources */,
 				C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
 				C51B82C71C1852110054726A /* NSArray+WLCollection.m in Sources */,

@@ -107,11 +107,7 @@ class WrapCell: StreamReusableView {
             coverView.isOwner = wrap.contributor?.current ?? false
         } else {
             dateLabel?.text = wrap.updatedAt.timeAgoStringAtAMPM()
-            let messageConter = WLMessagesCounter.instance().countForWrap(wrap)
-            let hasUnreadMessages = messageConter > 0
-            chatNotificationLabel?.value = messageConter
-            chatButton?.hidden = !hasUnreadMessages
-            chatPrioritizer?.defaultState = hasUnreadMessages
+            updateChatNotifyCounter(wrap)
             coverView.isFollowed = false
         }
         liveBroadcastIndicator?.hidden = wrap.liveBroadcasts.isEmpty
@@ -126,12 +122,16 @@ class WrapCell: StreamReusableView {
     
     func updateChatNotifyCounter() {
         if let wrap = entry as? Wrap where !wrap.isPublic {
-            let messageConter = WLMessagesCounter.instance().countForWrap(wrap)
-            let hasUnreadMessages = messageConter > 0
-            chatNotificationLabel?.value = messageConter
-            chatButton?.hidden = !hasUnreadMessages
-            chatPrioritizer?.defaultState = hasUnreadMessages
+            updateChatNotifyCounter(wrap)
         }
+    }
+    
+    private func updateChatNotifyCounter(wrap: Wrap) {
+        let messageConter = wrap.numberOfUnreadMessages
+        let hasUnreadMessages = messageConter > 0
+        chatNotificationLabel?.value = messageConter
+        chatButton?.hidden = !hasUnreadMessages
+        chatPrioritizer?.defaultState = hasUnreadMessages
     }
     
     @IBAction func notifyChatClick(sender: AnyObject) {

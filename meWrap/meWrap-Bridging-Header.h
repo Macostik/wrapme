@@ -18,7 +18,6 @@
 #import "WLDeviceManager.h"
 #import "WLNotificationCenter.h"
 #import "WLBadgeLabel.h"
-#import "WLMessagesCounter.h"
 #import "GeometryHelper.h"
 #import "WLUploadingQueue.h"
 #import "GCDHelper.h"

@@ -15,7 +15,6 @@
 #import "WLWrapViewController.h"
 #import "WLToast.h"
 #import "WLBadgeLabel.h"
-#import "WLMessagesCounter.h"
 #import "PlaceholderView.h"
 #import "WLNetwork.h"
 
@@ -168,7 +167,6 @@ CGFloat WLMinTextViewWidth;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.streamView unlock];
-    [[WLMessagesCounter instance] update:nil];
     [self.chat sort];
     [self scrollToLastUnreadMessage];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
@@ -181,7 +179,6 @@ CGFloat WLMinTextViewWidth;
     [super viewWillDisappear:animated];
     [self.streamView lock];
     [self.chat markAsRead];
-    [[WLMessagesCounter instance] update:nil];
     [self updateBadge];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 }
@@ -464,8 +461,6 @@ CGFloat WLMinTextViewWidth;
     }
     
     [self.chat markAsRead];
-    
-    [[WLMessagesCounter instance] update:nil];
     [self.chat sort];
 }
 

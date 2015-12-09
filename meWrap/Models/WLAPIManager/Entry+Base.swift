@@ -27,16 +27,15 @@ extension Entry {
         }
     }
     
-    func markAsRead() {
-        if valid && unread {
-            unread = false
+    func markAsUnread(unread: Bool) {
+        if valid && self.unread != unread {
+            willBecomeUnread(unread)
+            self.unread = unread
         }
     }
     
-    func markAsUnread() {
-        if valid && !unread {
-            unread = true
-        }
+    func willBecomeUnread(unread: Bool) {
+        
     }
     
     func remove() {

@@ -57,11 +57,7 @@ class RunQueue: NSObject {
     }
     
     private func _run(block: (finish: Void -> Void) -> Void) {
-        var finished = false
-        let uid = NSString.GUID()
         block(finish: {
-            finished = true
-            print("RunQueue finished \(uid)");
             if let block = self.blocks.first {
                 self.blocks.removeFirst()
                 self._run(block.block)
@@ -69,12 +65,6 @@ class RunQueue: NSObject {
                 self.executions = self.executions - 1
             }
         })
-        print("RunQueue run \(uid)");
-        run_after(5) { () -> Void in
-            if !finished {
-                print("RunQueue stuck \(uid)");
-            }
-        }
     }
     
     func run(block: (finish: Void -> Void) -> Void) {

@@ -48,7 +48,6 @@ class History: PaginatedList {
                 if item.date.isSameDay(candy.createdAt) {
                     if !item.candies.contains(candy) {
                         item.candies.append(candy)
-                        item.sort()
                         return (item, true)
                     } else {
                         return (item, false)
@@ -71,12 +70,18 @@ class History: PaginatedList {
 
     override func addEntries(entries: [ListEntry]) {
         var added = false
+        var items = Set<HistoryItem>()
         if let candies = entries as? [Candy] {
             for candy in candies {
-                if addCandy(candy).added {
+                let result = addCandy(candy)
+                if result.added {
+                    items.insert(result.item)
                     added = true
                 }
             }
+        }
+        for item in items {
+            item.sort()
         }
         if added {
             didChange()
@@ -94,9 +99,12 @@ class History: PaginatedList {
     
     override func remove(entry: ListEntry) {
         if let candy = entry as? Candy, let items = entries as? [HistoryItem] {
-            for item in items {
+            for (itemIndex, item) in items.enumerate() {
                 if let index = item.candies.indexOf(candy) {
                     item.candies.removeAtIndex(index)
+                    if item.candies.count == 0 {
+                        entries.removeAtIndex(itemIndex)
+                    }
                     didChange()
                     break
                 }
@@ -107,6 +115,7 @@ class History: PaginatedList {
     override func add(entry: ListEntry) {
         if let candy = entry as? Candy {
             let result = addCandy(candy)
+            result.item.sort()
             if result.added {
                 didChange()
             }

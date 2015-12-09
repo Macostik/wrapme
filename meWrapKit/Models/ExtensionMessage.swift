@@ -28,10 +28,6 @@ class ExtensionMessage: NSObject {
     }
     
     class func deserialize(string: String) -> Self? {
-        return deserialize(self, string: string)
-    }
-    
-    class func deserialize<T>(type: T.Type, string: String) -> T? {
         guard let data = NSData(base64EncodedString: string, options: .IgnoreUnknownCharacters) else {
             return nil
         }
@@ -39,7 +35,7 @@ class ExtensionMessage: NSObject {
             guard let dictionary = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as? [String : AnyObject] else {
                 return nil
             }
-            return fromDictionary(dictionary) as? T
+            return fromDictionary(dictionary)
         } catch {
             return nil
         }

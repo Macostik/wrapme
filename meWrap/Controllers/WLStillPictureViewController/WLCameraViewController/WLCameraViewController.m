@@ -420,25 +420,28 @@
                 if ([session canAddOutput:weakSelf.movieFileOutput]) {
                     [session addOutput:weakSelf.movieFileOutput];
                 }
-                if ([device lockForConfiguration:nil]) {
-                    AVCaptureDeviceFormat *activeFormat = nil;
-                    
-                    CGFloat targetRatio = (CGFloat)16.0f/(CGFloat)9.0f;
-                    
-                    for (AVCaptureDeviceFormat *format in device.formats) {
-                        CMVideoDimensions dimensions = CMVideoFormatDescriptionGetDimensions(format.formatDescription);
-                        CGFloat ratio = (CGFloat)dimensions.width / (CGFloat)dimensions.height;
-                        if (ratio == targetRatio) {
-                            activeFormat = format;
-                            break;
-                        }
+                
+                AVCaptureDeviceFormat *activeFormat = nil;
+                
+                CGFloat targetRatio = (CGFloat)16.0f/(CGFloat)9.0f;
+                
+                for (AVCaptureDeviceFormat *format in device.formats) {
+                    CMVideoDimensions dimensions = CMVideoFormatDescriptionGetDimensions(format.formatDescription);
+                    CGFloat ratio = (CGFloat)dimensions.width / (CGFloat)dimensions.height;
+                    if (ratio == targetRatio) {
+                        activeFormat = format;
+                        break;
                     }
+                }
+                
+                session.sessionPreset = activeFormat ? AVCaptureSessionPresetInputPriority : AVCaptureSessionPresetMedium;
+                
+                [session commitConfiguration];
+                
+                if ([device lockForConfiguration:nil]) {
                     
                     if (activeFormat) {
-                        session.sessionPreset = AVCaptureSessionPresetInputPriority;
                         device.activeFormat = activeFormat;
-                    } else {
-                        session.sessionPreset = AVCaptureSessionPresetMedium;
                     }
                     
                     device.videoZoomFactor = Smoothstep(1, MIN(8, device.activeFormat.videoMaxZoomFactor), _zoomScale);
@@ -450,7 +453,6 @@
                     }
                     [device unlockForConfiguration];
                 }
-                [session commitConfiguration];
                 run_in_main_queue(^{
                     weakSelf.cameraView.layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
                     [weakSelf applyDeviceOrientation:[WLDeviceManager defaultManager].orientation forConnection:weakSelf.movieFileOutputConnection];

@@ -8,6 +8,8 @@
 
 #import "WLBaseViewController.h"
 
+@class Wrap;
+
 @interface WLFollowingViewController : WLBaseViewController
 
 @property (weak, nonatomic) Wrap *wrap;

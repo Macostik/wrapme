@@ -90,6 +90,12 @@ static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;
     return self;
 }
 
+- (instancetype)forceParametrize:(WLAPIRequestParametrizer)parametrizer {
+    [self.parametrizers removeAllObjects];
+    [self.parametrizers addObject:parametrizer];
+    return self;
+}
+
 - (instancetype)file:(WLAPIRequestFile)file {
     self.file = file;
     return self;
@@ -203,11 +209,10 @@ static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;
 }
 
 - (void)handleSuccess:(id)object {
-    if (self.successBlock) {
-        self.successBlock(object);
-        self.successBlock = nil;
-        self.failureBlock = nil;
-    }
+    ObjectBlock success = self.successBlock;
+    self.failureBlock = nil;
+    self.successBlock = nil;
+    if (success) success(object);
 }
 
 - (void)handleFailure:(NSError *)error {
@@ -237,11 +242,10 @@ static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;
             }
         }];
     } else {
-        if (self.failureBlock) {
-            self.failureBlock(error);
-            self.failureBlock = nil;
-            self.successBlock = nil;
-        }
+        FailureBlock failure = self.failureBlock;
+        self.failureBlock = nil;
+        self.successBlock = nil;
+        if (failure) failure(error);
     }
     
     if (self.afterFailure) {

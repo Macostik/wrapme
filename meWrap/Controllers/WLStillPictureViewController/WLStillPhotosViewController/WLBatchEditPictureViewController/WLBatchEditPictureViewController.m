@@ -218,9 +218,12 @@ static const int WLInstanceCommentLimit = 1500;
 
 - (IBAction)upload:(id)sender {
     self.picture.comment = self.composeBar.text;
-    NSArray *pictures = [self.pictures selects:^BOOL(MutableAsset *picture) {
-        return ![picture deleted];
-    }];
+    NSMutableArray *pictures = [NSMutableArray arrayWithCapacity:self.pictures.count];
+    for (MutableAsset *picture in self.pictures) {
+        if (!picture.deleted) {
+            [pictures addObject:picture];
+        }
+    }
     if (pictures.nonempty) {
         [self.delegate batchEditPictureViewController:self didFinishWithPictures:pictures];
     } else {

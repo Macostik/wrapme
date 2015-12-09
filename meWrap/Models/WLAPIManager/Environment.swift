@@ -114,42 +114,43 @@ class Environment: NSObject {
 }
 
 class Response: NSObject {
-    var data: NSDictionary?
+    var data = [String:AnyObject]()
     var code: ResponseCode = .Success
-    var message: String?
+    var message = ""
     
-    convenience init(dictionary: NSDictionary) {
-        self.init()
-        data = dictionary.dictionaryForKey("data")
-        if let returnCode = dictionary.numberForKey("return_code")?.integerValue, let code = ResponseCode(rawValue: returnCode) {
+    required init(dictionary: [String:AnyObject]) {
+        super.init()
+        if let message = dictionary["message"] as? String {
+            self.message = message
+        }
+        if let data = dictionary["data"] as? [String:AnyObject] {
+            self.data = data
+        }
+        if let returnCode = dictionary["return_code"] as? Int, let code = ResponseCode(rawValue: returnCode) {
             self.code = code
         }
-        message = dictionary.stringForKey("message")
     }
     
     subscript(key: String) -> AnyObject? {
-        return data?[key]
+        return data[key]
     }
     
     func array(key: String) -> [[String:AnyObject]]? {
-        return self[key] as? [[String:AnyObject]]
+        return data[key] as? [[String:AnyObject]]
     }
     
     func dictionary(key: String) -> [String:AnyObject]? {
-        return self[key] as? [String:AnyObject]
+        return data[key] as? [String:AnyObject]
     }
 }
 
 extension NSError {
     
     convenience init(response: Response) {
-        var userInfo = [String:AnyObject]()
-        if let message = response.message {
-            userInfo[NSLocalizedDescriptionKey] = message
-        }
-        if let data = response.data {
-            userInfo[Environment.ErrorResponseDataKey] = data
-        }
+        let userInfo: [String:AnyObject] = [
+            NSLocalizedDescriptionKey : response.message,
+            Environment.ErrorResponseDataKey : response.data
+        ]
         self.init(code: response.code.rawValue, userInfo: userInfo)
     }
     

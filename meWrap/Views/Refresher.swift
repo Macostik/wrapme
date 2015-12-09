@@ -8,11 +8,15 @@
 
 import UIKit
 
+@objc enum RefresherStyle: Int {
+    case White, Orange
+}
+
 class Refresher: UIControl {
     
-    var inset: CGFloat = 0
+    private var inset: CGFloat = 0
     
-    var scrollView: UIScrollView? {
+    private var scrollView: UIScrollView? {
         return superview as? UIScrollView
     }
     
@@ -48,13 +52,13 @@ class Refresher: UIControl {
         strokeLayer.frame = candyView.frame
     }
     
-    lazy var spinner: UIActivityIndicatorView = {
+    private lazy var spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
         spinner.hidesWhenStopped = true
         return spinner
     } ()
     
-    lazy var contentView: UIView = {
+    private lazy var contentView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: Refresher.ContentSize, height: Refresher.ContentSize))
         view.backgroundColor = UIColor.clearColor()
         view.autoresizingMask = .FlexibleTopMargin
@@ -62,7 +66,7 @@ class Refresher: UIControl {
         return view
     }()
     
-    lazy var candyView: UILabel = {
+    private lazy var candyView: UILabel = {
         let candyView = UILabel(frame: CGRectMake(0, 0, 36, 36))
         candyView.font = UIFont(name: "icons", size: 24)
         candyView.text = "e"
@@ -75,7 +79,7 @@ class Refresher: UIControl {
         return candyView
     }()
     
-    lazy var strokeLayer: CAShapeLayer = {
+    private lazy var strokeLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
         layer.strokeEnd = 0.0
         layer.fillColor = UIColor.clearColor().CGColor
@@ -116,7 +120,7 @@ class Refresher: UIControl {
         }
     }
     
-    func setInset(inset: CGFloat, animated: Bool) {
+    private func setInset(inset: CGFloat, animated: Bool) {
         if let scrollView = scrollView {
             UIView.performAnimated(animated, animation: { () -> (Void) in
                 scrollView.contentInset.top = inset + self.inset
@@ -160,20 +164,17 @@ class Refresher: UIControl {
         }
     }
 
-    static var ContentSize: CGFloat = 44
+    private static var ContentSize: CGFloat = 44
     
-    static var White = 0
-    static var Orange = 1
-    
-    var style: Int = Refresher.White {
+    var style: RefresherStyle = .White {
         didSet {
             let color: UIColor?
-            if style == Refresher.Orange {
-                color = Color.orange;
+            if style == .Orange {
+                color = Color.orange
                 backgroundColor = UIColor.whiteColor()
             } else {
                 color = UIColor.whiteColor()
-                backgroundColor = Color.orange;
+                backgroundColor = Color.orange
             }
             if let color = color {
                 candyView.textColor = color

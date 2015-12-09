@@ -20,10 +20,6 @@
 
 @implementation WLAddressBookPhoneNumberCell
 
-- (void)select:(id)entry {
-    [super select:entry];
-}
-
 - (void)setup:(WLAddressBookPhoneNumber *)phoneNumber {
 	self.typeLabel.text = [NSString stringWithFormat:@"%@:", phoneNumber.label?:@""];
 	self.phoneLabel.text = phoneNumber.phone;

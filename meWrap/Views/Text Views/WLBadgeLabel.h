@@ -12,6 +12,6 @@
 
 @property (nonatomic) IBInspectable CGSize intrinsicContentSizeInsets;
 
-@property (nonatomic) NSUInteger value;
+@property (nonatomic) NSInteger value;
 
 @end

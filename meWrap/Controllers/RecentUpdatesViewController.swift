@@ -21,10 +21,10 @@ class RecentUpdateCell: StreamReusableView {
     @IBOutlet var timeLabel: UILabel!
 
     override func setup(entry: AnyObject!) {
-        if let event = entry as? WhatsUpEvent {
-            let contribution = event.contribution
+        if let update = entry as? RecentUpdate {
+            let contribution = update.contribution
             contribution.markAsRead()
-            timeLabel.text = event.date?.timeAgoStringAtAMPM()
+            timeLabel.text = update.date.timeAgoStringAtAMPM()
             wrapImageView.url = contribution.asset?.medium
         }
     }
@@ -34,7 +34,7 @@ class RecentUpdateCell: StreamReusableView {
 class RecentCommentCell: RecentUpdateCell {
 
     override func setup(entry: AnyObject!) {
-        if let event = entry as? WhatsUpEvent, let comment = event.contribution as? Comment {
+        if let comment = (entry as? RecentUpdate)?.contribution as? Comment {
             super.setup(entry)
             pictureView.url = comment.contributor?.avatar?.small
             userNameLabel.text = "\(comment.contributor?.name ?? ""):"
@@ -50,9 +50,9 @@ class RecentCandyCell: RecentUpdateCell {
     @IBOutlet weak var videoIndicator: UILabel!
     
     override func setup(entry: AnyObject!) {
-        if let event = entry as? WhatsUpEvent, let candy = event.contribution as? Candy {
+        if let update = entry as? RecentUpdate, let candy = update.contribution as? Candy {
             super.setup(entry)
-            if event.event == .Update {
+            if update.event == .Update {
                 pictureView.url = candy.editor?.avatar?.small
                 userNameLabel.text = String(format: "formatted_edited_by".ls, candy.editor?.name ?? "")
             } else {
@@ -70,7 +70,7 @@ class RecentUpdatesViewController: WLBaseViewController {
     var dataSource: StreamDataSource!
     @IBOutlet weak var streamView: StreamView!
     
-    var events: NSMutableOrderedSet? {
+    var events: [RecentUpdate]? {
         didSet {
             dataSource.items = events
         }
@@ -105,7 +105,7 @@ class RecentUpdatesViewController: WLBaseViewController {
         }
         
         let itemSelected = { (item: StreamItem?, entry: AnyObject?) -> Void in
-            if let event = entry as? WhatsUpEvent {
+            if let event = entry as? RecentUpdate {
                 ChronologicalEntryPresenter.presentEntry(event.contribution, animated: true)
             }
         }
@@ -113,15 +113,15 @@ class RecentUpdatesViewController: WLBaseViewController {
         candyMetrics.selection = itemSelected
         commentMetrics.selection =  itemSelected
         
-        events = NSMutableOrderedSet(orderedSet: WLWhatsUpSet.sharedSet().entries)
+        events = RecentUpdateList.sharedList.updates
         Wrap.notifier().addReceiver(self)
-        WLWhatsUpSet.sharedSet().broadcaster.addReceiver(self)
+        RecentUpdateList.sharedList.addReceiver(self)
     }
     
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        WLWhatsUpSet.sharedSet().update({ () -> Void in
+        RecentUpdateList.sharedList.update({ () -> Void in
             }) {(error) -> Void in
         }
     }
@@ -129,12 +129,14 @@ class RecentUpdatesViewController: WLBaseViewController {
 
 extension RecentUpdatesViewController: EntryNotifying {
     func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
-//        [WLToast showMessageForUnavailableWrap:(Wrap *)entry];
+        if let wrap = entry as? Wrap {
+            WLToast.showMessageForUnavailableWrap(wrap)
+        }
     }
 }
 
-extension RecentUpdatesViewController: WLWhatsUpSetBroadcastReceiver {
-    func whatsUpBroadcaster(broadcaster: WLBroadcaster!, updated set: WLWhatsUpSet!) {
-        events = NSMutableOrderedSet(orderedSet: set.entries)
+extension RecentUpdatesViewController: RecentUpdateListNotifying {
+    func recentUpdateListUpdated(list: RecentUpdateList) {
+        events = list.updates
     }
 }

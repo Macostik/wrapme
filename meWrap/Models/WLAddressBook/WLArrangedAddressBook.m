@@ -14,16 +14,13 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.groups = [[NSArray array] mutate:^(NSMutableArray *array) {
-            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:@"friends_on_meWrap".ls addingRule:^BOOL(WLAddressBookRecord *record) {
-                WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
-                return phoneNumber.user != nil;
-            }]];
-            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:@"invite_to_meWrap".ls addingRule:^BOOL(WLAddressBookRecord *record) {
-                WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
-                return phoneNumber.user == nil;
-            }]];
-        }];
+        self.groups = [NSArray arrayWithObjects:[[WLArrangedAddressBookGroup alloc] initWithTitle:@"friends_on_meWrap".ls addingRule:^BOOL(WLAddressBookRecord *record) {
+            WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
+            return phoneNumber.user != nil;
+        }],[[WLArrangedAddressBookGroup alloc] initWithTitle:@"invite_to_meWrap".ls addingRule:^BOOL(WLAddressBookRecord *record) {
+            WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
+            return phoneNumber.user == nil;
+        }], nil];
         self.selectedPhoneNumbers = [NSMutableSet set];
     }
     return self;
@@ -76,7 +73,9 @@
         NSMutableArray *records = [NSMutableArray array];
         NSMutableArray *phoneNumbers = [record.phoneNumbers mutableCopy];
         
-        [phoneNumbers removeSelectively:^BOOL(WLAddressBookPhoneNumber *phoneNumber) {
+        NSMutableArray *removedPhoneNumbers = [NSMutableArray array];
+        
+        for (WLAddressBookPhoneNumber *phoneNumber in phoneNumbers) {
             if (phoneNumber.user) {
                 WLAddressBookRecord *newRecord = [WLAddressBookRecord recordWithNumbers:@[phoneNumber]];
                 if (!phoneNumber.user.name.nonempty) {
@@ -87,10 +86,11 @@
                     [groups addObject:group];
                     [records addObject:newRecord];
                 }
-                return YES;
+                [removedPhoneNumbers addObject:phoneNumber];
             }
-            return NO;
-        }];
+        }
+        
+        [phoneNumbers removeObjectsInArray:removedPhoneNumbers];
         
         if (phoneNumbers.nonempty) {
             record.phoneNumbers = [phoneNumbers copy];
@@ -151,10 +151,14 @@
         addressBook.groups = [self.groups map:^id (WLArrangedAddressBookGroup *group) {
             WLArrangedAddressBookGroup *_group = [[WLArrangedAddressBookGroup alloc] initWithTitle:group.title
                                                                                         addingRule:group.addingRule];
-            _group.records = [group.records selects:^BOOL(WLAddressBookRecord  *record) {
+            NSMutableArray *records = [NSMutableArray array];
+            for (WLAddressBookRecord  *record in group.records) {
                 WLAddressBookPhoneNumber *phoneNumbler = record.phoneNumbers.lastObject;
-                return ([phoneNumbler.name rangeOfString:text options:NSCaseInsensitiveSearch].location != NSNotFound);
-            }];
+                if ([phoneNumbler.name rangeOfString:text options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                    [records addObject:record];
+                }
+            }
+            _group.records = [records copy];
             return _group;
         }];
         return addressBook;

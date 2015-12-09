@@ -37,7 +37,7 @@
     
     run_getting_object(^id {
         return [Country allCountries];
-    }, ^(NSMutableOrderedSet* countries) {
+    }, ^(NSArray* countries) {
         weakSelf.dataSource.items = countries;
 		[weakSelf.dataSource.streamView scrollToItem:weakSelf.dataSource.streamView.selectedItem animated:NO];
     });

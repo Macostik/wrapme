@@ -54,9 +54,18 @@ class IndexedStreamLoader: StreamLoader {
     override func loadView() -> StreamReusableView? {
         return nib?.instantiateWithOwner(nibOwner, options: nil)[index] as? StreamReusableView
     }
+    
+    func loader(index: Int) -> IndexedStreamLoader {
+        return IndexedStreamLoader(identifier: identifier, index: index)
+    }
 }
 
 class StreamMetrics: NSObject {
+    
+    convenience init(loader: StreamLoader, size: CGFloat) {
+        self.init(loader: loader)
+        self.size = size
+    }
     
     convenience init(loader: StreamLoader) {
         self.init()

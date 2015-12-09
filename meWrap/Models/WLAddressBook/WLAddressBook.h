@@ -15,7 +15,7 @@
 @protocol WLAddressBookReceiver <NSObject>
 
 @optional
-- (void)addressBook:(WLAddressBook*)addressBook didUpdateCachedRecords:(NSSet*)cachedRecords;
+- (void)addressBook:(WLAddressBook*)addressBook didUpdateCachedRecords:(NSArray*)cachedRecords;
 
 @end
 
@@ -26,9 +26,9 @@
 
 + (instancetype)addressBook;
 
-- (BOOL)cachedRecords:(SetBlock)success failure:(FailureBlock)failure;
+- (BOOL)cachedRecords:(ArrayBlock)success failure:(FailureBlock)failure;
 
-- (void)records:(SetBlock)success failure:(FailureBlock)failure;
+- (void)records:(ArrayBlock)success failure:(FailureBlock)failure;
 
 - (void)beginCaching;
 
@@ -38,6 +38,6 @@
 
 - (void)updateCachedRecordsAfterFailure;
 
-- (void)contacts:(SetBlock)success failure:(FailureBlock)failure;
+- (void)contacts:(ArrayBlock)success failure:(FailureBlock)failure;
 
 @end

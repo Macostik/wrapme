@@ -9,6 +9,7 @@
 #import "WLAPIRequest+Defined.h"
 #import "WLAddressBookPhoneNumber.h"
 #import "WLAddressBookRecord.h"
+#import "NSArray+WLCollection.h"
 
 @implementation WLAPIRequest (Defined)
 
@@ -180,7 +181,7 @@
 
 + (instancetype)contributors:(Wrap *)wrap {
     return [[[[self GET] path:@"wraps/%@/contributors", wrap.uid] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
-        NSSet *contributors = [[User mappedEntries:[User prefetchArray:[response.data arrayForKey:@"contributors"]]] set];
+        NSSet *contributors = [NSSet setWithArray:[User mappedEntries:[User prefetchArray:[response.data arrayForKey:@"contributors"]]]];
         if (wrap.valid && ![wrap.contributors isEqualToSet:contributors]) {
             wrap.contributors = contributors;
         }
@@ -247,7 +248,7 @@
         }] forKey:@"invitees"];
     }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
         if (wrap.valid) {
-            NSSet *contributors = [[User mappedEntries:[User prefetchArray:[response.data arrayForKey:@"contributors"]]] set];
+            NSSet *contributors = [NSSet setWithArray:[User mappedEntries:[User prefetchArray:[response.data arrayForKey:@"contributors"]]]];
             if (![wrap.contributors isEqualToSet:contributors]) {
                 wrap.contributors = contributors;
                 [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
@@ -268,7 +269,7 @@
         [parameters trySetObject:[[contributors where:@"user != nil"] valueForKeyPath:@"user.uid"] forKey:@"user_uids"];
     }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
         if (wrap.valid) {
-            NSSet *contributors = [[User mappedEntries:[User prefetchArray:[response.data arrayForKey:@"contributors"]]] set];
+            NSSet *contributors = [NSSet setWithArray:[User mappedEntries:[User prefetchArray:[response.data arrayForKey:@"contributors"]]]];
             if (![wrap.contributors isEqualToSet:contributors]) {
                 wrap.contributors = contributors;
                 [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
@@ -336,19 +337,19 @@
     }];
 }
 
-+ (instancetype)contributorsFromContacts:(NSSet*)contacts {
++ (instancetype)contributorsFromContacts:(NSArray*)contacts {
     return [[[[self POST] path:@"users/sign_up_status"] parametrize:^(id request, NSMutableDictionary *parameters) {
         NSMutableArray* phones = [NSMutableArray array];
-        [contacts all:^(WLAddressBookRecord* contact) {
-            [contact.phoneNumbers all:^(WLAddressBookPhoneNumber* person) {
-                [phones addObject:person.phone];
-            }];
-        }];
+        for (WLAddressBookRecord* contact in contacts) {
+            for (WLAddressBookPhoneNumber* phoneNumber in contact.phoneNumbers) {
+                [phones addObject:phoneNumber.phone];
+            }
+        }
         [parameters trySetObject:phones forKey:@"phone_numbers"];
     }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
         NSArray* users = response.data[@"users"];
         NSMutableSet *registeredUsers = [NSMutableSet set];
-        NSSet *contributors = [contacts map:^id(WLAddressBookRecord* contact) {
+        NSArray *contributors = [contacts map:^id(WLAddressBookRecord* contact) {
             contact.phoneNumbers = [contact.phoneNumbers map:^id(WLAddressBookPhoneNumber *phoneNumber) {
                 NSDictionary *userData = [[users where:@"address_book_number == %@", phoneNumber.phone] lastObject];
                 if (userData) {

@@ -12,14 +12,14 @@ import UIKit
     func presetterDidChangeContentSizeCategory(presetter: FontPresetter)
 }
 
-class FontPresetter: WLBroadcaster {
+class FontPresetter: Notifier {
     
     static let defaultPresetter = FontPresetter()
     
-    override func setup() {
-        super.setup()
+    override init() {
+        super.init()
         NSNotificationCenter.defaultCenter().addObserverForName(UIContentSizeCategoryDidChangeNotification, object: nil, queue: NSOperationQueue.mainQueue()) { [unowned self] (_) -> Void in
-            self.broadcast({ (receiver) -> Void in
+            self.notify({ (receiver) -> Void in
                 receiver.presetterDidChangeContentSizeCategory?(self)
             })
         }

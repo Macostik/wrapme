@@ -50,7 +50,7 @@
     self.hidden = [self isHiddenValueForText:attributedText.string];
 }
 
-- (void)setValue:(NSUInteger)value {
+- (void)setValue:(NSInteger)value {
     [self setText:[NSString stringWithFormat:@"%lu", (unsigned long)value]];
 }
 

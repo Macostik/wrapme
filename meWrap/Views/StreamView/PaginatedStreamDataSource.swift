@@ -28,16 +28,16 @@ class PaginatedStreamDataSource: StreamDataSource {
         return _loadingMetrics
     }
     
-    var paginatedSet: WLPaginatedSet?
+    var paginatedSet: PaginatedList?
     
-    override var items: WLBaseOrderedCollection? {
+    override var items: BaseOrderedContainer? {
         get {
             return paginatedSet
         }
         set {
-            if let set = newValue as? WLPaginatedSet {
+            if let set = newValue as? PaginatedList {
                 paginatedSet = set
-                set.delegate = self
+                set.addReceiver(self)
                 setLoading(set.count == 0 && !set.completed)
                 didSetItems()
             }
@@ -60,11 +60,11 @@ class PaginatedStreamDataSource: StreamDataSource {
         }
     }
     
-    override func refresh(success: ArrayBlock?, failure: FailureBlock?) {
+    override func refresh(success: ObjectBlock?, failure: FailureBlock?) {
         paginatedSet?.newer(success, failure: failure)
     }
     
-    func append(success: ArrayBlock?, failure: FailureBlock?) {
+    func append(success: ObjectBlock?, failure: FailureBlock?) {
         paginatedSet?.older(success, failure: failure)
     }
     
@@ -100,19 +100,15 @@ class PaginatedStreamDataSource: StreamDataSource {
     }
 }
 
-extension PaginatedStreamDataSource: WLPaginatedSetDelegate {
-    func setDidChange(set: WLSet!) {
+extension PaginatedStreamDataSource: PaginatedListNotifying {
+    func listChanged(list: List) {
         reload()
     }
-    func paginatedSetDidStartLoading(set: WLPaginatedSet) {
+    func paginatedListDidStartLoading(set: PaginatedList) {
         setLoading(set.count == 0 && !set.completed)
     }
-    func paginatedSetDidFinishLoading(set: WLPaginatedSet) {
-        if set.loadingTypes.count == 0 {
-            setLoading(false)
-        } else {
-            setLoading(set.count == 0 && !set.completed)
-        }
+    func paginatedListDidFinishLoading(set: PaginatedList) {
+        setLoading(false)
     }
     override func streamViewDidLayout(streamView: StreamView) {
         super.streamViewDidLayout(streamView)

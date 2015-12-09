@@ -58,6 +58,8 @@
 
 @property (strong, nonatomic) NSMutableSet* queuedMessages;
 
+@property (strong, nonatomic) RunQueue *runQueue;
+
 @end
 
 @implementation WLToast
@@ -105,11 +107,14 @@
     if (!appearance) {
         appearance = [WLToastAppearance defaultAppearance];
     }
+    if (!self.runQueue) {
+        self.runQueue = [[RunQueue alloc] initWithLimit:1];
+    }
     __weak typeof(self)weakSelf = self;
-    runUnaryQueuedOperation(@"wl_toast_queue", ^(WLOperation *operation) {
+    [self.runQueue run:^(Block finish) {
         if (!weakViewController) {
             [weakSelf.queuedMessages removeObject:message];
-            [operation finish];
+            finish();
             return;
         }
         UIView *view = weakViewController.view;
@@ -117,7 +122,7 @@
         
         if (!referenceView) {
             [weakSelf.queuedMessages removeObject:message];
-            [operation finish];
+            finish();
             return;
         }
         
@@ -154,11 +159,11 @@
         
         weakSelf.dismissBlock = ^{
             [weakSelf.queuedMessages removeObject:message];
-            [operation finish];
+            finish();
         };
         
         [weakSelf enqueueSelector:@selector(dismiss) delay:WLToastDismissalDelay];
-    });
+    }];
 }
 
 - (void)applyAppearance:(id<WLToastAppearance>)appearance {

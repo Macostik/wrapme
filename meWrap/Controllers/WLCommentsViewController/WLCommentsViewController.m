@@ -56,7 +56,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
         [weakSelf.dataSource.streamView setMaximumContentOffsetAnimated:NO];
     }];
     
-    self.dataSource.items = [self sortedComments];
+    self.dataSource.items = [self.candy sortedComments];
     
     run_after_asap(^{
         weakSelf.dataSource.didLayoutBlock = nil;
@@ -64,7 +64,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
     
     if (self.candy.uploaded) {
         [self.candy fetch:^(id object) {
-            weakSelf.dataSource.items = [weakSelf sortedComments];
+            weakSelf.dataSource.items = [weakSelf.candy sortedComments];
         } failure:^(NSError *error) {
             [weakSelf.dataSource reload];
             [error showNonNetworkError];
@@ -74,10 +74,6 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
     [self addNotifyReceivers];
     [[WLDeviceManager defaultManager] addReceiver:self];
     self.historyViewController = (WLHistoryViewController *)self.parentViewController;
-}
-
-- (NSMutableOrderedSet *)sortedComments {
-    return [[self.candy sortedComments] mutableCopy];
 }
 
 - (void)requestAuthorizationForPresentingEntry:(Entry *)entry completion:(BooleanBlock)completion {
@@ -124,13 +120,15 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
             return comment.candy == weakSelf.candy || [comments containsObject:comment];
         }];
         receiver.willDelete = ^(Entry *entry) {
-            weakSelf.dataSource.items = [(NSMutableOrderedSet*)weakSelf.dataSource.items remove:entry];
+            NSMutableArray *comments = [NSMutableArray arrayWithArray:(NSArray*)weakSelf.dataSource.items];
+            [comments removeObject:entry];
+            weakSelf.dataSource.items = [comments copy];
         };
         receiver.didAdd = ^(Entry *entry) {
-            weakSelf.dataSource.items = [weakSelf sortedComments];
+            weakSelf.dataSource.items = [weakSelf.candy sortedComments];
         };
         receiver.didUpdate = ^(Entry *entry, EntryUpdateEvent event) {
-            weakSelf.dataSource.items = [weakSelf sortedComments];
+            weakSelf.dataSource.items = [weakSelf.candy sortedComments];
         };
     }];
     

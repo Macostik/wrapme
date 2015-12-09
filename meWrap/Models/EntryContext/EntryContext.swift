@@ -141,6 +141,14 @@ class EntryContext: NSManagedObjectContext {
         }
     }
     
+    func entry<T: Entry>(type: T.Type, uid: String?, locuid: String?, allowInsert: Bool) -> T? {
+        return entry(type.entityName(), uid: uid, locuid: locuid, allowInsert: allowInsert) as? T
+    }
+    
+    func entry<T: Entry>(type: T.Type, name: String, uid: String?, locuid: String?, allowInsert: Bool) -> T? {
+        return entry(name, uid: uid, locuid: locuid, allowInsert: allowInsert) as? T
+    }
+    
     func hasEntry(name: String, uid: String?) -> Bool {
         guard let uid = uid else {
             return false
@@ -185,15 +193,15 @@ class EntryContext: NSManagedObjectContext {
         }
     }
     
-    func execute(request: NSFetchRequest, completion: [AnyObject]? -> Void) {
+    func execute(request: NSFetchRequest, completion: [AnyObject] -> Void) {
         let asyncRequest = NSAsynchronousFetchRequest(fetchRequest: request, completionBlock: { (result) -> Void in
-            completion(result.finalResult)
+            completion(result.finalResult ?? [])
         })
         performBlock({[weak self] () -> Void in
             do {
                 try self?.executeRequest(asyncRequest)
             } catch {
-                completion(nil)
+                completion([])
             }
         })
     }
@@ -225,7 +233,7 @@ extension NSFetchRequest {
         return EntryContext.sharedContext.execute(self)
     }
     
-    func execute(completion: [AnyObject]? -> Void) {
+    func execute(completion: [AnyObject] -> Void) {
         EntryContext.sharedContext.execute(self, completion: completion)
     }
     

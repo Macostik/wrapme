@@ -54,7 +54,7 @@
 
 + (instancetype)updateWrap:(Wrap *)wrap;
 
-+ (instancetype)contributorsFromContacts:(NSSet*)contacts;
++ (instancetype)contributorsFromContacts:(NSArray*)contacts;
 
 + (instancetype)postCandy:(id)candy violationCode:(NSString *)violationCode;
 

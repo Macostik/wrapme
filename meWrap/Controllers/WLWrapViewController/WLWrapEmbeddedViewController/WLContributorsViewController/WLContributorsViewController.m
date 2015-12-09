@@ -79,8 +79,8 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     }
 }
 
-- (NSMutableOrderedSet*)sortedContributors {
-    NSMutableOrderedSet *contributors = [NSMutableOrderedSet orderedSetWithSet:self.wrap.contributors];
+- (NSArray*)sortedContributors {
+    NSMutableArray *contributors = [NSMutableArray arrayWithArray:self.wrap.contributors.allObjects];
     [contributors sortUsingComparator:^NSComparisonResult(User *obj1, User *obj2) {
         if ([obj1 current]) {
             return NSOrderedDescending;
@@ -91,7 +91,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
         return [obj1.name?:@"" compare:obj2.name?:@""];
     }];
     [contributors removeObjectsInArray:self.removedContributors.allObjects];
-    return contributors;
+    return [contributors copy];
 }
 
 #pragma mark - WLContributorCellDelegate
@@ -179,8 +179,8 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 
 - (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Wrap *)wrap event:(enum EntryUpdateEvent)event {
     if (event == EntryUpdateEventContributorsChanged) {
-        NSMutableOrderedSet *contributors = [self sortedContributors];
-        if (![contributors isEqualToOrderedSet:(NSMutableOrderedSet*)self.dataSource.items]) {
+        NSArray *contributors = [self sortedContributors];
+        if (![contributors isEqualToArray:(NSArray*)self.dataSource.items]) {
             self.dataSource.items = contributors;
         }
         if (!self.wrap.contributor.current) {

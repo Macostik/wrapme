@@ -8,10 +8,10 @@
 
 #import "WLNotificationCenter.h"
 #import "WLSoundPlayer.h"
-#import "WLOperationQueue.h"
 #import "WLNotification.h"
 #import "WLNetwork.h"
 #import "WLAuthorizationRequest.h"
+#import "NSArray+WLCollection.h"
 
 @interface NSData (DeviceTokenSerialization)
 
@@ -132,18 +132,22 @@
         if ([self isAlreadyHandledNotification:notification]) {
             if (success) success(notification);
         } else {
-            runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+            [[RunQueue fetchQueue] run:^(Block finish) {
                 [EntryContext.sharedContext assureSave:^{
+                    if (!notification) {
+                        finish();
+                        return;
+                    }
                     [notification handle:^ {
                         [weakSelf addHandledNotifications:@[notification]];
                         if (success) success(notification);
-                        [operation finish];
+                        finish();
                     } failure:^(NSError *error) {
                         if (failure) failure(error);
-                        [operation finish];
+                        finish();
                     }];
                 }];
-            });
+            }];
         }
     } else {
         if (failure) failure([[NSError alloc] initWithMessage:@"Data in remote notification is not valid."]);
@@ -204,28 +208,28 @@
         }
         
         for (WLNotification *notification in notifications) {
-            runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+            [[RunQueue fetchQueue] run:^(Block finish) {
                 if (!notification) {
-                    [operation finish];
+                    finish();
                     return;
                 }
                 [notification fetch:^{
                     if (![playedSoundTypes containsIndex:notification.type]) [WLSoundPlayer playSoundForNotification:notification];
                     [playedSoundTypes addIndex:notification.type];
-                    [operation finish];
+                    finish();
                 } failure:^(NSError *error) {
-                    [operation finish];
+                    finish();
                 }];
-            });
+            }];
             WLLog(@"PUBNUB - direct message received %@", notification);
         }
         
-        runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+        [[RunQueue fetchQueue] run:^(Block finish) {
             for (WLNotification *notification in notifications) {
                 [notification finalize];
             }
-            [operation finish];
-        });
+            finish();
+        }];
     }
 }
 
@@ -266,7 +270,7 @@
 
 - (void)requestHistory {
     __weak typeof(self)weakSelf = self;
-    runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+    [[RunQueue fetchQueue] run:^(Block finish) {
         NSDate *historyDate = [NSUserDefaults standardUserDefaults].historyDate;
         if (historyDate) {
             NSDate *fromDate = historyDate;
@@ -286,19 +290,19 @@
                         WLLog(@"PUBNUB - no missed messages in history");
                         [NSUserDefaults standardUserDefaults].historyDate = toDate;
                     }
-                    [operation finish];
+                    finish();
                 } failure:^(NSError *error) {
-                    [operation finish];
+                    finish();
                 }];
             } else {
-                [operation finish];
+                finish();
             }
         } else {
             WLLog(@"PUBNUB - history date is empty");
             [NSUserDefaults standardUserDefaults].historyDate = [NSDate now];
-            [operation finish];
+            finish();
         }
-    });
+    }];
 }
 
 - (void)handleHistoryMessages:(NSArray*)messages {
@@ -312,28 +316,28 @@
         }
         
         for (WLNotification *notification in notifications) {
-            runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+            [[RunQueue fetchQueue] run:^(Block finish) {
                 if (!notification) {
-                    [operation finish];
+                    finish();
                     return;
                 }
                 [notification fetch:^{
                     if (![playedSoundTypes containsIndex:notification.type]) [WLSoundPlayer playSoundForNotification:notification];
                     [playedSoundTypes addIndex:notification.type];
-                    [operation finish];
+                    finish();
                 } failure:^(NSError *error) {
-                    [operation finish];
+                    finish();
                 }];
-            });
+            }];
             WLLog(@"PUBNUB - history message received %@", notification);
         }
         
-        runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+        [[RunQueue fetchQueue] run:^(Block finish) {
             for (WLNotification *notification in notifications) {
                 [notification finalize];
             }
-            [operation finish];
-        });
+            finish();
+        }];
     }
 }
 
@@ -368,9 +372,13 @@
         NSArray *deleted = [deleteNotifications where:@"descriptor.uid == %@", notification.descriptor.uid];
         NSArray *added = [notifications where:@"event == %d AND descriptor.uid == %@", EventAdd, notification.descriptor.uid];
         if (added.count > deleted.count) {
-            added = [added remove:[added lastObject]];
+            NSMutableArray *_added = [NSMutableArray arrayWithArray:added];
+            [_added removeLastObject];
+            added = [NSArray arrayWithArray:_added];
         } else if (added.count < deleted.count) {
-            deleted = [deleted remove:[deleted lastObject]];
+            NSMutableArray *_deleted = [NSMutableArray arrayWithArray:deleted];
+            [_deleted removeLastObject];
+            deleted = [NSArray arrayWithArray:_deleted];
         }
         [notifications removeObjectsInArray:deleted];
         [notifications removeObjectsInArray:added];

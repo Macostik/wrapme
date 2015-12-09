@@ -25,12 +25,16 @@
 
 @property (nonatomic) BOOL userInitiatedDestructiveAction;
 
+@property (strong, nonatomic) RunQueue *runQueue;
+
 @end
 
 @implementation WLWrapSettingsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.runQueue = [[RunQueue alloc] initWithLimit:1];
     
     Wrap *wrap = self.wrap;
     
@@ -104,19 +108,19 @@
     BOOL chatNotify = self.chatNotifyTrigger.on;
     __weak typeof(self)weakSelf = self;
     Wrap *wrap = self.wrap;
-    runUnaryQueuedOperation(@"wl_changing_notification_preferences_queue", ^(WLOperation *operation) {
+    [self.runQueue run:^(Block finish) {
         BOOL _candyNotify = wrap.isCandyNotifiable;
         BOOL _chatNotify = wrap.isChatNotifiable;
         wrap.isCandyNotifiable = candyNotify;
         wrap.isChatNotifiable = chatNotify;
         [[WLAPIRequest changePreferences:wrap] send:^(id object) {
-            [operation finish];
+            finish();
         } failure:^(NSError *error) {
-            [operation finish];
+            finish();
             weakSelf.candyNotifyTrigger.on = wrap.isCandyNotifiable = _candyNotify;
             weakSelf.chatNotifyTrigger.on = wrap.isChatNotifiable = _chatNotify;
         }];
-    });
+    }];
 }
 
 - (IBAction)editButtonClick:(UIButton *)sender {

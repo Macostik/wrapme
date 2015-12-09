@@ -32,7 +32,7 @@
 
 @property (strong, nonatomic) NSString* entityName;
 
-+ (instancetype)queueForEntityName:(NSString*)entityName;
++ (instancetype)defaultQueueForEntityName:(NSString*)entityName;
 
 + (void)upload:(Uploading *)uploading success:(ObjectBlock)success failure:(FailureBlock)failure;
 

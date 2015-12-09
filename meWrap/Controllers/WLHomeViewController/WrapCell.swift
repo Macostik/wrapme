@@ -97,7 +97,7 @@ class WrapCell: StreamReusableView {
         
         nameLabel.text = wrap.name
         coverView.url = wrap.asset?.small
-        wrapNotificationLabel?.value = WLWhatsUpSet.sharedSet().unreadCandiesCountForWrap(wrap)
+        wrapNotificationLabel?.value = RecentUpdateList.sharedList.unreadCandiesCountForWrap(wrap)
         if (wrap.isPublic) {
             dateLabel?.text = "\(wrap.contributor?.name ?? "") \(wrap.updatedAt.timeAgoStringAtAMPM())"
             chatNotificationLabel?.value = 0
@@ -120,7 +120,7 @@ class WrapCell: StreamReusableView {
     
     func updateCandyNotifyCounter() {
         if let wrap = entry as? Wrap {
-            wrapNotificationLabel?.value = WLWhatsUpSet.sharedSet().unreadCandiesCountForWrap(wrap)
+            wrapNotificationLabel?.value = RecentUpdateList.sharedList.unreadCandiesCountForWrap(wrap)
         }
     }
     

@@ -18,12 +18,15 @@
 
 @property (strong, nonatomic) NSMutableArray* pictures;
 
+@property (strong, nonatomic) RunQueue *runQueue;
+
 @end
 
 @implementation WLStillPhotosViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.runQueue = [[RunQueue alloc] initWithLimit:3];
     self.pictures = [NSMutableArray array];
     [self performSelector:@selector(updatePicturesCountLabel) withObject:nil afterDelay:0.0f];
 }
@@ -35,12 +38,12 @@
     picture.mode = self.mode;
     picture.canBeSavedToAssets = saveToAlbum;
     [self addPicture:picture success:^(MutableAsset *picture){
-        runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
+        [weakSelf.runQueue run:^(Block finish) {
             [picture setImage:image completion:^(id object) {
                 weakSelf.view.userInteractionEnabled = YES;
-                [operation finish];
+                finish();
             }];
-        });
+        }];
     } failure:^(NSError *error) {
         [error show];
     }];
@@ -49,11 +52,11 @@
 #pragma mark - WLCameraViewControllerDelegate
 
 - (void)cameraViewControllerDidFinish:(WLCameraViewController *)controller {
-    WLOperationQueue *queue = [WLOperationQueue queueNamed:@"wl_still_picture_queue" capacity:1];
+    RunQueue *queue = self.runQueue;
     
     __weak typeof(self)weakSelf = self;
     Block completionBlock = ^ {
-        queue.finishQueueBlock = nil;
+        queue.didFinish = nil;
         
         [weakSelf.pictures sortUsingComparator:^NSComparisonResult(MutableAsset *obj1, MutableAsset *obj2) {
             return [obj1.date compare:obj2.date];
@@ -66,14 +69,14 @@
         [weakSelf pushViewController:editController animated:NO];
     };
     
-    if (queue.operations.count == 0) {
-        completionBlock();
-    } else {
+    if (queue.isExecuting) {
         controller.finishButton.loading = YES;
-        [queue setFinishQueueBlock:^{
+        [queue setDidFinish:^{
             controller.finishButton.loading = NO;
             completionBlock();
         }];
+    } else {
+        completionBlock();
     }
 }
 
@@ -90,14 +93,15 @@
     picture.type = MediaTypeVideo;
     picture.date = [NSDate now];
     picture.canBeSavedToAssets = saveToAlbum;
+    __weak typeof(self)weakSelf = self;
     [self addPicture:picture success:^(MutableAsset *picture) {
         controller.takePhotoButton.userInteractionEnabled = NO;
-        runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
+        [weakSelf.runQueue run:^(Block finish) {
             [picture setVideoFromRecordAtPath:path completion:^(id object) {
-                [operation finish];
+                finish();
                 controller.takePhotoButton.userInteractionEnabled = YES;
             }];
-        });
+        }];
     } failure:^(NSError *error) {
         [error show];
     }];
@@ -122,15 +126,15 @@
 }
 
 - (void)assetsViewController:(AssetsViewController *)controller didDeselectAsset:(PHAsset *)asset {
-    [self.pictures removeSelectively:^BOOL(MutableAsset *picture) {
-        if ([picture.assetID isEqualToString:asset.localIdentifier]) {
-            if (picture.videoExportSession) {
-                [picture.videoExportSession cancelExport];
+    for (MutableAsset *_asset in self.pictures) {
+        if ([_asset.assetID isEqualToString:asset.localIdentifier]) {
+            if (_asset.videoExportSession) {
+                [_asset.videoExportSession cancelExport];
             }
-            return YES;
+            [self.pictures removeObject:_asset];
+            break;
         }
-        return NO;
-    }];
+    }
     [self updatePicturesCountLabel];
 }
 
@@ -145,20 +149,21 @@
     picture.assetID = asset.localIdentifier;
     picture.date = asset.creationDate;
     picture.type = asset.mediaType == PHAssetMediaTypeVideo ? MediaTypeVideo : MediaTypePhoto;
+    
     [self addPicture:picture success:^(MutableAsset *picture) {
-        runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
+        [weakSelf.runQueue run:^(Block finish) {
             if (asset.mediaType == PHAssetMediaTypeVideo) {
                 [picture setVideoFromAsset:asset completion:^(id object) {
-                    [operation finish];
+                    finish();
                 }];
             } else {
                 [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {
                     [picture setImage:croppedImage completion:^(id object) {
-                        [operation finish];
+                        finish();
                     }];
                 }];
             }
-        });
+        }];
     } failure:^(NSError *error) {
         [error show];
     }];

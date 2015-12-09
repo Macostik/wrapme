@@ -26,7 +26,7 @@ class StreamDataSource: NSObject, GridLayoutDelegate, StreamLayoutDelegate {
     
     lazy var footerMetrics = [StreamMetrics]()
     
-    var items: WLBaseOrderedCollection? {
+    var items: BaseOrderedContainer? {
         didSet {
             didSetItems()
         }
@@ -97,15 +97,15 @@ class StreamDataSource: NSObject, GridLayoutDelegate, StreamLayoutDelegate {
         refresh(nil, failure: nil)
     }
     
-    func refresh(success: ArrayBlock?, failure: FailureBlock?) {
+    func refresh(success: ObjectBlock?, failure: FailureBlock?) {
         success?(nil)
     }
     
     func setRefreshable() {
-        setRefreshableWithStyle(Refresher.White)
+        setRefreshableWithStyle(.White)
     }
     
-    func setRefreshableWithStyle(style: Int) {
+    func setRefreshableWithStyle(style: RefresherStyle) {
         if let streamView = streamView {
             let refresher = Refresher(scrollView: streamView)
             refresher.style = style

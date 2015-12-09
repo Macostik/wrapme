@@ -53,15 +53,11 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (strong, nonatomic) NSMapTable *cachedCandyViewControllers;
 @property (weak, nonatomic) Candy *removedCandy;
 @property (weak, nonatomic) Comment *lastComment;
-@property (weak, nonatomic) WLOperationQueue *paginationQueue;
+@property (strong, nonatomic) RunQueue *paginationQueue;
 
 @end
 
 @implementation WLHistoryViewController
-
-- (void)dealloc {
-    [WLOperationQueue removeQueue:self.paginationQueue];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -69,11 +65,11 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [self.contentView addGestureRecognizer:self.scrollView.panGestureRecognizer];
     
     __weak typeof(self)weakSelf = self;
-    self.paginationQueue = [WLOperationQueue queueNamed:[NSString GUID] capacity:1];
-    [self.paginationQueue setStartQueueBlock:^{
+    self.paginationQueue = [[RunQueue alloc] initWithLimit:1];
+    [self.paginationQueue setDidStart:^{
         [weakSelf.spinner startAnimating];
     }];
-    [self.paginationQueue setFinishQueueBlock:^{
+    [self.paginationQueue setDidFinish:^{
         [weakSelf.spinner stopAnimating];
     }];
     
@@ -188,11 +184,11 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (void)fetchCandiesOlderThen:(Candy *)candy {
     History *history = self.history;
     if (history.completed || !candy) return;
-    [self.paginationQueue addOperationWithBlock:^(WLOperation *operation) {
+    [self.paginationQueue run:^(Block finish) {
         [history older:^(NSArray *candies) {
-            [operation finish];
+            finish();
         } failure:^(NSError *error) {
-            [operation finish];
+            finish();
         }];
     }];
 }
@@ -363,15 +359,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (IBAction)report:(id)sender {
-    Candy *candy = self.candy;
     ReportViewController *controller = self.storyboard[@"report"];
-    [controller setReportClosure:^(NSString * code, ReportViewController *controller) {
-        [[WLAPIRequest postCandy:candy violationCode:code] send:^(id object) {
-            [controller reportingFinished];
-        } failure:^(NSError *error) {
-            [error show];
-        }];
-    }];
+    controller.candy = self.candy;
     [self.navigationController pushViewController:controller animated:NO];
 }
 

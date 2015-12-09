@@ -14,7 +14,9 @@
 
 @interface WLAddressBook ()
 
-@property (strong, nonatomic) NSSet *cachedRecords;
+@property (strong, nonatomic) NSArray *cachedRecords;
+
+@property (strong, nonatomic) RunQueue *runQueue;
 
 @end
 
@@ -28,7 +30,14 @@
     return instance;
 }
 
-- (void)setCachedRecords:(NSSet *)cachedRecords {
+- (RunQueue *)runQueue {
+    if (_runQueue == nil) {
+        _runQueue = [[RunQueue alloc] initWithLimit:1];
+    }
+    return _runQueue;
+}
+
+- (void)setCachedRecords:(NSArray *)cachedRecords {
     _cachedRecords = cachedRecords;
     for (id receiver in [self broadcastReceivers]) {
         if ([receiver respondsToSelector:@selector(addressBook:didUpdateCachedRecords:)]) {
@@ -37,7 +46,7 @@
     }
 }
 
-- (BOOL)cachedRecords:(SetBlock)success failure:(FailureBlock)failure {
+- (BOOL)cachedRecords:(ArrayBlock)success failure:(FailureBlock)failure {
     for (WLAddressBookRecord *record in self.cachedRecords) {
         for (WLAddressBookPhoneNumber *phoneNumber in record.phoneNumbers) {
             if (phoneNumber.user && !phoneNumber.user.valid) {
@@ -55,24 +64,24 @@
     }
 }
 
-- (void)records:(SetBlock)success failure:(FailureBlock)failure {
+- (void)records:(ArrayBlock)success failure:(FailureBlock)failure {
     [self addressBook:^(ABAddressBookRef addressBook) {
         [self records:addressBook success:success failure:failure];
     } failure:failure];
 }
 
-- (void)records:(ABAddressBookRef)addressBook success:(SetBlock)success failure:(FailureBlock)failure {
-    [self contacts:addressBook success:^(NSSet *array) {
-        runUnaryQueuedOperation(@"wl_address_book_queue", ^(WLOperation *operation) {
+- (void)records:(ABAddressBookRef)addressBook success:(ArrayBlock)success failure:(FailureBlock)failure {
+    [self contacts:addressBook success:^(NSArray *array) {
+        [self.runQueue run:^(Block finish) {
             [[WLAPIRequest contributorsFromContacts:array] send:^(id object) {
                 self.cachedRecords = object;
                 if (success) success(object);
-                [operation finish];
+                finish();
             } failure:^(NSError *error) {
                 if (failure) failure(error);
-                [operation finish];
+                finish();
             }];
-        });
+        }];
     } failure:failure];
 }
 
@@ -86,7 +95,7 @@ static BOOL updateCachedRecordsFailed = NO;
 
 - (void)updateCachedRecords {
     [self addressBook:^(ABAddressBookRef addressBook) {
-        [self records:addressBook success:^(NSSet *array) {
+        [self records:addressBook success:^(NSArray *array) {
             updateCachedRecordsFailed = NO;
         } failure:^(NSError *error) {
             updateCachedRecordsFailed = YES;
@@ -114,13 +123,13 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
     }];
 }
 
-- (void)contacts:(ABAddressBookRef)addressBook success:(SetBlock)success failure:(FailureBlock)failure {
-    runUnaryQueuedOperation(@"wl_address_book_queue", ^(WLOperation *operation) {
+- (void)contacts:(ABAddressBookRef)addressBook success:(ArrayBlock)success failure:(FailureBlock)failure {
+    [self.runQueue run:^(Block finish) {
         CFIndex count = ABAddressBookGetPersonCount(addressBook);
         if (count > 0) {
             run_in_default_queue(^{
                 CFArrayRef records = ABAddressBookCopyArrayOfAllPeople(addressBook);
-                NSMutableSet* contacts = [NSMutableSet set];
+                NSMutableArray* contacts = [NSMutableArray array];
                 for (CFIndex i = 0; i < count; i++) {
                     WLAddressBookRecord * contact = [WLAddressBookRecord recordWithABRecord:CFArrayGetValueAtIndex(records, i)];
                     if (contact) {
@@ -128,24 +137,24 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
                     }
                 }
                 CFRelease(records);
-                NSSet *result = [contacts copy];
+                NSArray *result = [contacts copy];
                 run_in_main_queue(^{
                     if (result.nonempty) {
                         if (success) success(result);
                     } else {
                         if (failure) failure([[NSError alloc] initWithMessage:@"no_contacts_with_phone_number".ls]);
                     }
-                    [operation finish];
+                    finish();
                 });
             });
         } else {
             if (failure) failure([[NSError alloc] initWithMessage:@"no_contacts".ls]);
-            [operation finish];
+            finish();
         }
-    });
+    }];
 }
 
-- (void)contacts:(SetBlock)success failure:(FailureBlock)failure {
+- (void)contacts:(ArrayBlock)success failure:(FailureBlock)failure {
 	[self addressBook:^(ABAddressBookRef addressBook) {
         [self contacts:addressBook success:success failure:failure];
 	} failure:failure];
@@ -155,7 +164,7 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
     if (sharedAddressBook != NULL) {
         if (success) success(sharedAddressBook);
     } else {
-        runUnaryQueuedOperation(@"wl_address_book_queue", ^(WLOperation *operation) {
+        [self.runQueue run:^(Block finish) {
             ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
             ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
                 run_in_main_queue(^{
@@ -167,10 +176,10 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
                     } else {
                         if (failure) failure([[NSError alloc] initWithMessage:@"no_access_to_contacts".ls]);
                     }
-                    [operation finish];
+                    finish();
                 });
             });
-        });
+        }];
     }
 }
 

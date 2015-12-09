@@ -83,26 +83,26 @@ class StreamView: UIScrollView {
     
     deinit {
         delegate = nil
-        removeObserver(self, forKeyPath:"contentOffset")
+        unsubscribeFromOffsetChange()
         NSNotificationCenter.defaultCenter().removeObserver(self, name:StreamViewCommonLocksChanged, object:nil)
     }
     
     func setup() {
-        addObserver(self, forKeyPath: "contentOffset", options: .New, context: nil)
+        subscribeOnOffsetChange()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "locksChanged", name: StreamViewCommonLocksChanged, object: nil)
+    }
+    
+    private func unsubscribeFromOffsetChange() {
+        layer.removeObserver(self, forKeyPath:"bounds")
+    }
+    
+    private func subscribeOnOffsetChange() {
+        layer.addObserver(self, forKeyPath: "bounds", options: .New, context: nil)
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if let layout = layout where layout.finalized {
             updateVisibility()
-        }
-    }
-    
-    override var contentOffset: CGPoint {
-        didSet {
-            if let layout = layout where layout.finalized {
-                updateVisibility()
-            }
         }
     }
     

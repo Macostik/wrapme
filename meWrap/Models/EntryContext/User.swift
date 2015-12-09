@@ -116,14 +116,8 @@ class User: Entry {
         return mutableSetValueForKey("wraps")
     }
     
-    var sortedWraps: NSMutableOrderedSet? {
-        if let wraps = wraps as? Set<NSObject> {
-            let sortedWraps = NSMutableOrderedSet(set: wraps)
-            sortedWraps.sortByUpdatedAt()
-            return sortedWraps
-        } else {
-            return nil
-        }
+    var sortedWraps: [Wrap]? {
+        return (wraps as? Set<Wrap>)?.sort({ $0.updatedAt > $1.updatedAt })
     }
     
     override func awakeFromInsert() {

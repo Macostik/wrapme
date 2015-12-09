@@ -79,11 +79,11 @@ void CGPathApplierFunc (void *info, const CGPathElement *element) {
     NSMutableArray *points = [NSMutableArray array];
     CGPathApply(self.path.CGPath, (__bridge void *)(points), CGPathApplierFunc);
     __block CGPoint p;
-    points = [points map:^id(NSValue *point) {
+    points = [[points map:^id(NSValue *point) {
         BOOL remove = CGPointEqualToPoint(p, [point CGPointValue]);
         p = [point CGPointValue];
         return remove ? nil : point;
-    }];
+    }] mutableCopy];
     
     if (points.count > 2) {
         UIBezierPath *path = [UIBezierPath interpolateCGPointsWithHermite:points closed:NO];

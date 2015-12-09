@@ -7,6 +7,21 @@
 //
 
 import Foundation
+import CoreTelephony
+import MessageUI
+
+class Telephony: NSObject {
+    
+    static var countryCode: String? {
+        let networkInfo = CTTelephonyNetworkInfo()
+        return networkInfo.subscriberCellularProvider?.isoCountryCode?.lowercaseString
+    }
+    
+    static var hasPhoneNumber: Bool {
+        let networkInfo = CTTelephonyNetworkInfo()
+        return MFMessageComposeViewController.canSendText() && networkInfo.subscriberCellularProvider?.mobileCountryCode != nil
+    }
+}
 
 class Country: NSObject {
     var name: String?

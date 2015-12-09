@@ -79,6 +79,8 @@ typedef NSString *(^WLAPIRequestFile) (id request);
 
 - (instancetype)parametrize:(WLAPIRequestParametrizer)parametrizer;
 
+- (instancetype)forceParametrize:(WLAPIRequestParametrizer)parametrizer;
+
 - (instancetype)file:(WLAPIRequestFile)file;
 
 - (instancetype)beforeFailure:(FailureBlock)beforeFailure;

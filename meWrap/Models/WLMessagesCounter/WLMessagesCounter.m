@@ -79,8 +79,8 @@
     }];
 }
 
-- (NSUInteger)countForWrap:(Wrap *)wrap {
-    return [[self.counts objectForKey:[wrap objectID]] unsignedIntegerValue];
+- (NSInteger)countForWrap:(Wrap *)wrap {
+    return [[self.counts objectForKey:[wrap objectID]] integerValue];
 }
 
 // MARK: - EntryNotifying

@@ -28,12 +28,12 @@
 
 - (IBAction)signOut:(id)sender {
     [[[[UIAlertController alert:@"sign_out".ls message:@"sign_out_confirmation".ls] action:@"cancel".ls] action:@"sign_out".ls handler:^(UIAlertAction *action){
-        [[WLOperationQueue queueNamed:WLOperationFetchingDataQueue] cancelAllOperations];
+        [[RunQueue fetchQueue] cancelAll];
         [[WLAPIManager manager].operationQueue cancelAllOperations];
         [[WLNotificationCenter defaultCenter] clear];
         [[NSUserDefaults standardUserDefaults] clear];
         [[UIStoryboard signUp] present:YES];
-        [[WLWhatsUpSet sharedSet] resetEntries:nil];
+        [RecentUpdateList sharedList].updates = nil;
     }] show];
 }
 
@@ -43,20 +43,20 @@
 }
 
 - (IBAction)cleanCache:(id)sender {
-    [[WLOperationQueue queueNamed:WLOperationFetchingDataQueue] cancelAllOperations];
+    [[RunQueue fetchQueue] cancelAll];
     [[WLAPIManager manager].operationQueue cancelAllOperations];
     __weak User *currentUser = [User currentUser];
     __weak EntryContext *context = EntryContext.sharedContext;
-    [[Wrap entries] all:^(Entry *entry) {
-        [context uncacheEntry:entry];
-        [context deleteObject:entry];
-    }];
-    [[User entries] all:^(Entry *entry) {
-        if (entry != currentUser) {
-            [context uncacheEntry:entry];
-            [context deleteObject:entry];
+    for (Wrap *wrap in [Wrap entries]) {
+        [context uncacheEntry:wrap];
+        [context deleteObject:wrap];
+    }
+    for (User *user in [User entries]) {
+        if (user != currentUser) {
+            [context uncacheEntry:user];
+            [context deleteObject:user];
         }
-    }];
+    }
     [context save:NULL];
     currentUser.wraps = [NSSet set];
     [[ImageCache defaultCache] clear];
@@ -74,48 +74,6 @@
         [weakSelf addDemoImageWithCount:count - 1];
     } failure:^(NSError *error) {
         
-    }];
-}
-
-- (IBAction)showGroupChannels:(id)sender {
-    [[PubNub sharedInstance] channelsForGroup:[WLNotificationCenter defaultCenter].userSubscription.name withCompletion:^(PNChannelGroupChannelsResult *result, PNErrorStatus *status) {
-        NSMutableString *message = [NSMutableString string];
-        NSMutableArray *channels = [result.data.channels mutableCopy];
-        for (Wrap *wrap in [User currentUser].wraps) {
-            if ([channels containsObject:wrap.uid]) {
-                [message appendFormat:@"subscribed %@ : %@\n", wrap.name, wrap.uid];
-                [channels removeObject:wrap.uid];
-            } else {
-                [message appendFormat:@"not subscribed %@ : %@\n", wrap.name, wrap.uid];
-            }
-        }
-        [message appendFormat:@"\nother channels %@", channels];
-        
-        [[UIPasteboard generalPasteboard] setValue:message forPasteboardType:(id)kUTTypeText];
-        
-        NSString *token = [WLNotificationCenter defaultCenter].pushToken.description;
-        [[[UIAlertController alert:token message:message] action:@"ok".ls] show];
-    }];
-}
-
-- (IBAction)showAPNSChannels:(id)sender {
-    [[PubNub sharedInstance] pushNotificationEnabledChannelsForDeviceWithPushToken:[WLNotificationCenter defaultCenter].pushToken andCompletion:^(PNAPNSEnabledChannelsResult *result, PNErrorStatus *status) {
-        NSMutableString *message = [NSMutableString string];
-        NSMutableArray *channels = [result.data.channels mutableCopy];
-        for (Wrap *wrap in [User currentUser].wraps) {
-            if ([channels containsObject:wrap.uid]) {
-                [message appendFormat:@"enabled %@ : %@\n", wrap.name, wrap.uid];
-                [channels removeObject:wrap.uid];
-            } else {
-                [message appendFormat:@"disabled %@ : %@\n", wrap.name, wrap.uid];
-            }
-        }
-        [message appendFormat:@"\nother channels %@", channels];
-        
-        [[UIPasteboard generalPasteboard] setValue:message forPasteboardType:(id)kUTTypeText];
-        
-        NSString *token = [WLNotificationCenter defaultCenter].pushToken.description;
-        [[[UIAlertController alert:token message:message] action:@"ok".ls] show];
     }];
 }
 

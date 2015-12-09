@@ -51,19 +51,19 @@ class PaginatedRequest: WLAPIRequest {
         }
     }
     
-    func fresh(success: ObjectBlock?, failure: FailureBlock) -> AnyObject? {
+    func fresh(success: ObjectBlock?, failure: FailureBlock?) {
         type = .Fresh
-        return super.send(success, failure: failure)
+        super.send(success, failure: failure)
     }
 
-    func newer(success: ObjectBlock?, failure: FailureBlock) -> AnyObject? {
+    func newer(success: ObjectBlock?, failure: FailureBlock?) {
         type = .Newer
-        return super.send(success, failure: failure)
+        super.send(success, failure: failure)
     }
     
-    func older(success: ObjectBlock?, failure: FailureBlock) -> AnyObject? {
+    func older(success: ObjectBlock?, failure: FailureBlock?) {
         type = .Older
-        return super.send(success, failure: failure)
+        super.send(success, failure: failure)
     }
 }
 
@@ -83,10 +83,24 @@ extension PaginatedRequest {
     }
     
     class func candies(wrap: Wrap) -> PaginatedRequest {
-        return GET().path("wraps/%@/candies", wrap.uid).parametrize({ (request, parameters) -> Void in
-            parameters["tz"] = NSTimeZone.localTimeZone().name
-            if let date = wrap.candiesPaginationDate where (request as! PaginatedRequest).type == .Older {
-                parameters["offset_y_in_epoch"] = date.timestamp
+        return GET().path("wraps/%@/candies", wrap.uid).forceParametrize({ (request, parameters) -> Void in
+            if let request = request as? PaginatedRequest {
+                switch request.type {
+                case .Newer:
+                    if let newer = request.newer {
+                        parameters["offset_x_in_epoch"] = newer.timestamp
+                    }
+                    break
+                case .Older:
+                    if let older = wrap.candiesPaginationDate {
+                        if let newer = request.newer {
+                            parameters["offset_x_in_epoch"] = newer.timestamp
+                        }
+                        parameters["offset_y_in_epoch"] = older.timestamp
+                    }
+                    break
+                default: break
+                }
             }
         }).parse({ (response, success, failure) -> Void in
             if let candies = response.array("candies") where wrap.valid {

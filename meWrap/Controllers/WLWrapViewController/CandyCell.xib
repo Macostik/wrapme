@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="gY8-XM-Izy" customClass="WLCandyCell">
+        <view contentMode="scaleToFill" id="gY8-XM-Izy" customClass="CandyCell" customModule="meWrap" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -85,7 +85,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="commentLabel" destination="91I-bQ-8zo" id="AFB-XM-GvU"/>
-                <outlet property="coverView" destination="cEC-tD-bY9" id="nHT-qn-JCO"/>
+                <outlet property="imageView" destination="cEC-tD-bY9" id="RAd-fc-pRH"/>
                 <outlet property="videoIndicatorView" destination="NHo-j9-z5Q" id="s73-57-sht"/>
             </connections>
             <point key="canvasLocation" x="467" y="338"/>

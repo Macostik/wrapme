@@ -9,7 +9,6 @@
 #import "WLSoundPlayer.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "WLNotification.h"
-#import "WLOperationQueue.h"
 
 @interface WLSoundPlayer()
 
@@ -49,13 +48,13 @@ void WLSoundPlayerCompletion (SystemSoundID ssID, void *clientData) {
     if (currentSound == WLSound_Off) {
         currentSound = sound;
     }
-    runUnaryQueuedOperation(@"wl_sound_player_queue", ^(WLOperation *operation) {
+    [[RunQueue soundPlayerQueue] run:^(Block finish) {
         currentSound = sound;
         [self playSound:sound completion:^{
             currentSound = WLSound_Off;
-            [operation finish];
+            finish();
         }];
-    });
+    }];
 }
 
 + (void)playSound:(WLSound)sound completion:(Block)completion {

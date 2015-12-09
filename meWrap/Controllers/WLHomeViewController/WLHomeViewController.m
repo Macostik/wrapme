@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLOperationQueue.h"
 #import "WLCandyViewController.h"
 #import "WLHomeViewController.h"
 #import "WLBadgeLabel.h"
@@ -16,10 +15,8 @@
 #import "WLAddressBook.h"
 #import "WLIntroductionViewController.h"
 #import "WLTouchView.h"
-#import "WLCandyCell.h"
 #import "WLPresentingImageView.h"
 #import "WLHistoryViewController.h"
-#import "WLWhatsUpSet.h"
 #import "WLHintView.h"
 #import "WLMessagesCounter.h"
 #import "WLUploadingQueue.h"
@@ -28,7 +25,7 @@
 #import "WLNetwork.h"
 #import "WLChangeProfileViewController.h"
 
-@interface WLHomeViewController () <WrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
+@interface WLHomeViewController () <WrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, RecentUpdateListNotifying, WLMessagesCounterReceiver>
 
 @property (strong, nonatomic) IBOutlet SegmentedStreamDataSource *dataSource;
 
@@ -105,7 +102,7 @@
         return streamView.height - weakSelf.publicWrapsHeaderView.height - 48;
     }];
     
-    [self.dataSource setRefreshableWithStyle:Refresher.Orange];
+    [self.dataSource setRefreshableWithStyle:RefresherStyleOrange];
     
     [super viewDidLoad];
     
@@ -116,13 +113,14 @@
     [self addNotifyReceivers];
     
     NSSet* wraps = [User currentUser].wraps;
-    homeDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[PaginatedRequest wraps:nil]];
+    
+    homeDataSource.items = [[PaginatedList alloc] initWithEntries:wraps.allObjects request:[PaginatedRequest wraps:nil]];
     
     if (wraps.nonempty) {
         [homeDataSource refresh];
     }
     
-    self.uploadingView.queue = [WLUploadingQueue queueForEntityName:[Candy entityName]];
+    self.uploadingView.queue = [WLUploadingQueue defaultQueueForEntityName:[Candy entityName]];
     
     [NSUserDefaults standardUserDefaults].numberOfLaunches++;
     
@@ -130,7 +128,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCreateWrapTipIfNeeded) name:UIApplicationWillEnterForegroundNotification object:nil];
     
-    [[WLWhatsUpSet sharedSet].broadcaster addReceiver:self];
+    [[RecentUpdateList sharedList] addReceiver:self];
     
     [[WLMessagesCounter instance] addReceiver:self];
     
@@ -178,14 +176,14 @@
     
     StreamMetrics *metrics = [candiesView.dataSource.metrics firstObject];
     [metrics setSelection:^(StreamItem *candyItem, Candy *candy) {
-        WLCandyCell *cell = (id)candyItem.view;
+        CandyCell *cell = (id)candyItem.view;
         
         if (!candy) {
             [weakSelf addPhoto:nil];
             return;
         }
         
-        if (candy.valid && cell.coverView.image != nil) {
+        if (candy.valid && cell.imageView.image != nil) {
             WLHistoryViewController *historyViewController = (id)[candy viewController];
             if (historyViewController) {
                 WLPresentingImageView *presentingImageView = [WLPresentingImageView sharedPresenting];
@@ -217,7 +215,7 @@
 
 - (void)showCreateWrapTipIfNeeded {
     __weak typeof(self)weakSelf = self;
-    runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+    [[RunQueue fetchQueue] run:^(Block finish) {
         User *user = [User currentUser];
         NSSet *wraps = user.wraps;
         NSUInteger numberOfLaunches = [[NSUserDefaults standardUserDefaults] numberOfLaunches];
@@ -242,8 +240,8 @@
         } else if (wraps.count == 0) {
             showBlock();
         }
-        [operation finish];
-    });
+        finish();
+    }];
 }
 
 - (void)showIntroductionIfNeeded {
@@ -265,8 +263,8 @@
 	[super viewWillAppear:animated];
     [self.dataSource reload];
     __weak typeof(self)weakSelf = self;
-    self.notificationsLabel.value = [WLWhatsUpSet sharedSet].unreadEntriesCount;
-    [[WLWhatsUpSet sharedSet] refreshCount:^(NSUInteger count) {
+    self.notificationsLabel.value = [RecentUpdateList sharedList].unreadCount;
+    [[RecentUpdateList sharedList] refreshCount:^(NSInteger count) {
         weakSelf.notificationsLabel.value = count;
         [weakSelf.dataSource reload];
     } failure:nil];
@@ -312,7 +310,7 @@
 - (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker {
     Wrap *wrap = nil;
     if (self.dataSource.currentDataSource == self.publicDataSource) {
-        for (Wrap *_wrap in [(WLPaginatedSet *)[self.publicDataSource items] entries]) {
+        for (Wrap *_wrap in [(PaginatedList *)[self.publicDataSource items] entries]) {
             if (_wrap.isContributing) {
                 wrap = _wrap;
                 break;
@@ -393,16 +391,16 @@
             if (wrap.isContributing) {
                 [weakSelf.homeDataSource.paginatedSet sort:wrap];
             } else {
-                [weakSelf.homeDataSource.paginatedSet removeEntry:wrap];
+                [weakSelf.homeDataSource.paginatedSet remove:wrap];
             }
         }];
         [receiver setWillDelete:^(Entry *entry) {
             Wrap *wrap = (Wrap*)entry;
             if (wrap.isPublic) {
-                [weakSelf.publicDataSource.paginatedSet removeEntry:wrap];
+                [weakSelf.publicDataSource.paginatedSet remove:wrap];
             }
             if (wrap.isContributing) {
-                [weakSelf.homeDataSource.paginatedSet removeEntry:wrap];
+                [weakSelf.homeDataSource.paginatedSet remove:wrap];
             }
         }];
     }];
@@ -438,11 +436,11 @@
 
 - (IBAction)hottestWrapsOpened:(id)sender {
     self.publicWrapsHeaderView.hidden = NO;
-    NSSet *wraps = nil;
+    NSArray *wraps = nil;
     if (![WLNetwork sharedNetwork].reachable) {
-        wraps = [[[[Wrap fetch] queryString:@"isPublic == YES"] execute] set];
+        wraps = [[[Wrap fetch] queryString:@"isPublic == YES"] execute];
     }
-    self.publicDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[PaginatedRequest wraps:@"public"]];
+    self.publicDataSource.items = [[PaginatedList alloc] initWithEntries:wraps request:[PaginatedRequest wraps:@"public"]];
 }
 
 - (IBAction)privateWrapsOpened:(id)sender {
@@ -501,15 +499,15 @@
     }] view];
 }
 
-// MARK: - WLWhatsUpSetBroadcastReceiver
+// MARK: - RecentUpdateListNotifying
 
-- (void)whatsUpBroadcaster:(WLBroadcaster *)broadcaster updated:(WLWhatsUpSet *)set {
+- (void)recentUpdateListUpdated:(RecentUpdateList *)list {
     for (StreamItem *item in self.streamView.visibleItems) {
         if ([item.view isKindOfClass:[WrapCell class]]) {
             [(WrapCell*)item.view updateCandyNotifyCounter];
         }
     }
-    self.notificationsLabel.value = set.unreadEntriesCount;
+    self.notificationsLabel.value = list.unreadCount;
 }
 
 // MARK: - WLMessagesCounterReceiver

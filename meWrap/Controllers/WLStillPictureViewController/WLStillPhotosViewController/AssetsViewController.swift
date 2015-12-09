@@ -54,7 +54,7 @@ class AssetCell: StreamReusableView {
     }
 }
 
-extension PHFetchResult: WLBaseOrderedCollection {
+extension PHFetchResult: BaseOrderedContainer {
     public func tryAt(index: Int) -> AnyObject? {
         if (index < count) {
             return objectAtIndex(index)

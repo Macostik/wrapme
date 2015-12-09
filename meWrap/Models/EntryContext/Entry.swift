@@ -37,19 +37,15 @@ class Entry: NSManagedObject {
     }
     
     class func entry(uid: String?, locuid: String?) -> Self? {
-        return entry(self, uid: uid, locuid: locuid, allowInsert: true)
+        return entry(uid, locuid: locuid, allowInsert: true)
     }
     
     class func entry(uid: String?, allowInsert: Bool) -> Self? {
-        return entry(self, uid: uid, locuid: nil, allowInsert: allowInsert)
+        return entry(uid, locuid: nil, allowInsert: allowInsert)
     }
     
     class func entry(uid: String?, locuid: String?, allowInsert: Bool) -> Self? {
-        return entry(self, uid: uid, locuid: locuid, allowInsert: allowInsert)
-    }
-    
-    class func entry<T>(type: T.Type, uid: String?, locuid: String?, allowInsert: Bool) -> T? {
-        return EntryContext.sharedContext.entry(entityName(), uid: uid, locuid: locuid, allowInsert: allowInsert) as? T
+        return EntryContext.sharedContext.entry(self, uid: uid, locuid: locuid, allowInsert: allowInsert)
     }
     
     class func entryExists(uid: String?) -> Bool {
@@ -65,14 +61,10 @@ class Entry: NSManagedObject {
     }
     
     class func deserializeReference(reference: [String : String]) -> Self? {
-        return deserializeReference(self, reference: reference)
-    }
-    
-    class func deserializeReference<T>(type: T.Type, reference: [String : String]) -> T? {
         guard let name = reference["name"], let uid = reference["uid"] else {
             return nil
         }
-        return EntryContext.sharedContext.entry(name, uid: uid, locuid: nil, allowInsert: false) as? T
+        return EntryContext.sharedContext.entry(self, name: name, uid: uid, locuid: nil, allowInsert: false)
     }
     
     func serializeReference() -> [String : String] {

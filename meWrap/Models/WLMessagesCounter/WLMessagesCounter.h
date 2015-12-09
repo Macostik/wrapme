@@ -20,7 +20,7 @@
 
 + (instancetype)instance;
 
-- (NSUInteger)countForWrap:(Wrap *)wrap;
+- (NSInteger)countForWrap:(Wrap *)wrap;
 
 - (void)update:(Block)completionHandler;
 

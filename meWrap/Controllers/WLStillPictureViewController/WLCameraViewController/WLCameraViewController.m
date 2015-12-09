@@ -550,7 +550,7 @@
 #pragma mark - AVCaptureSession
 
 - (AVCaptureDevice*)deviceWithPosition:(AVCaptureDevicePosition)position {
-    return [[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] select:^BOOL(AVCaptureDevice *device) {
+    return [[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] selectObject:^BOOL(AVCaptureDevice *device) {
         return [device position] == position;
     }];
 }

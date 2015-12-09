@@ -88,7 +88,7 @@
     }];
     
 	
-    BOOL cached = [[WLAddressBook addressBook] cachedRecords:^(NSSet *array) {
+    BOOL cached = [[WLAddressBook addressBook] cachedRecords:^(NSArray *array) {
         [weakSelf addressBook:[WLAddressBook addressBook] didUpdateCachedRecords:array];
         [weakSelf.spinner stopAnimating];
     } failure:^(NSError *error) {
@@ -115,9 +115,9 @@
     self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];
     [self.addressBook addRecords:cachedRecords];
     if (oldAddressBook != nil) {
-        self.addressBook.selectedPhoneNumbers = [oldAddressBook.selectedPhoneNumbers map:^id (WLAddressBookPhoneNumber *phoneNumber) {
+        self.addressBook.selectedPhoneNumbers = [[oldAddressBook.selectedPhoneNumbers map:^id (WLAddressBookPhoneNumber *phoneNumber) {
             return [self.addressBook phoneNumberIdenticalTo:phoneNumber];
-        }];
+        }] mutableCopy];
     }
     
     [self filterContacts];
@@ -227,7 +227,7 @@
 }
 
 - (StreamPosition*)openedPosition:(StreamPosition*)position {
-    return [self.openedRows select:^BOOL(StreamPosition* _position) {
+    return [self.openedRows selectObject:^BOOL(StreamPosition* _position) {
         return [_position isEqualToPosition:position];
     }];
 }

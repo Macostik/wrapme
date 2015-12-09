@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLChat.h"
 #import "WLChatViewController.h"
 #import "WLComposeBar.h"
 #import "WLKeyboard.h"
@@ -23,7 +22,7 @@
 CGFloat WLMaxTextViewWidth;
 CGFloat WLMinTextViewWidth;
 
-@interface WLChatViewController () <StreamViewDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, EntryNotifying, WLChatDelegate>
+@interface WLChatViewController () <StreamViewDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, EntryNotifying, ChatNotifying>
 
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
 
@@ -33,7 +32,7 @@ CGFloat WLMinTextViewWidth;
 
 @property (nonatomic) BOOL reloading;
 
-@property (strong, nonatomic) WLChat *chat;
+@property (strong, nonatomic) Chat *chat;
 
 @property (strong, nonatomic) UIFont* nameFont;
 
@@ -50,6 +49,8 @@ CGFloat WLMinTextViewWidth;
 
 @property (nonatomic) BOOL dragged;
 
+@property (strong, nonatomic) RunQueue *runQueue;
+
 @end
 
 @implementation WLChatViewController
@@ -64,7 +65,7 @@ CGFloat WLMinTextViewWidth;
 
 - (void)applicationDidBecomeActive {
     [self.streamView unlock];
-    [self.chat resetEntries:self.wrap.messages];
+    [self.chat resetMessages];
     [self scrollToLastUnreadMessage];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
@@ -79,6 +80,7 @@ CGFloat WLMinTextViewWidth;
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
+        self.runQueue = [[RunQueue alloc] initWithLimit:1];
         self.messageMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageCell"];
         self.messageMetrics.selectable = NO;
         self.messageWithNameMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageWithNameCell"];
@@ -124,7 +126,7 @@ CGFloat WLMinTextViewWidth;
     
     void (^finalizeMessageAppearing)(StreamItem *, id) = ^(StreamItem *item, Message *message) {
         if (message.unread && weakSelf.view.superview && ![weakSelf.chat.readMessages containsObject:message]) {
-            [weakSelf.chat.readMessages addObject:message];
+            [weakSelf.chat addReadMessage:message];
         }
         WLMessageCell *messageCell = (id)item.view;
         messageCell.tailView.hidden = ![weakSelf.chat.groupMessages containsObject:message];
@@ -138,18 +140,18 @@ CGFloat WLMinTextViewWidth;
     WLMaxTextViewWidth = Constants.screenWidth - 2*WLBubbleIndent - 2*WLMessageHorizontalInset;
     
     self.messageWithNameMetrics.sizeAt = self.messageMetrics.sizeAt = self.myMessageMetrics.sizeAt = ^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
-        Message *message = [weakSelf.chat.entries tryAt:position.index];
+        Message *message = weakSelf.chat[position.index];
         return [weakSelf heightOfMessageCell:message];
     };
     
     self.messageWithNameMetrics.insetsAt = self.messageMetrics.insetsAt = self.myMessageMetrics.insetsAt = ^CGRect(StreamPosition *position, StreamMetrics *metrics) {
-        Message *message = [weakSelf.chat.entries tryAt:position.index];
+        Message *message = weakSelf.chat[position.index];
         return  [weakSelf.chat.messagesWithDay containsObject:message] ?
                 CGRectZero : [weakSelf.chat.groupMessages containsObject:message] ? CGRectMake(0, WLMessageGroupSpacing, 0, 0) : CGRectMake(0, 2, 0, 0);
     };
 	
-    self.chat = [WLChat chatWithWrap:self.wrap];
-    self.chat.delegate = self;
+    self.chat = [[Chat alloc] initWithWrap:self.wrap];
+    [self.chat addReceiver:self];
 
     if (self.wrap.messages.nonempty) {
         [self.chat newer:nil failure:^(NSError * _Nullable error) {
@@ -180,7 +182,6 @@ CGFloat WLMinTextViewWidth;
     [self.streamView lock];
     [self.chat markAsRead];
     [[WLMessagesCounter instance] update:nil];
-    [self.chat.unreadMessages minusSet:[self.chat.readMessages set]];
     [self updateBadge];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 }
@@ -244,23 +245,22 @@ CGFloat WLMinTextViewWidth;
 
 - (void)insertMessage:(Message*)message {
     if (self.streamView.locks > 0) {
-        [self.chat addEntry:message];
+        [self.chat add:message];
         return;
     }
     
     __weak typeof(self)weakSelf = self;
-    runUnaryQueuedOperation(@"wl_chat_insertion_queue", ^(WLOperation *operation) {
-        
+    [self.runQueue run:^(Block finish) {
         StreamView *streamView = weakSelf.streamView;
         
         if ([weakSelf.chat.entries containsObject:message]) {
-            [operation finish];
+            finish();
         } else  {
-            [weakSelf.chat addEntry:message];
+            [weakSelf.chat add:message];
             CGPoint offset = streamView.contentOffset;
             CGPoint maximumOffset = streamView.maximumContentOffset;
             if (!streamView.scrollable || offset.y < maximumOffset.y) {
-                [operation finish];
+                finish();
             } else {
                 if (streamView.height/2 < [weakSelf heightOfMessageCell:message] && [self.chat.unreadMessages count] == 1) {
                     [weakSelf scrollToLastUnreadMessage];
@@ -270,31 +270,31 @@ CGFloat WLMinTextViewWidth;
                     [streamView setMaximumContentOffsetAnimated:YES];
                 }
                 run_after(0.5, ^{
-                    [operation finish];
+                    finish();
                 });
             }
         }
-    });
+    }];
 }
 
-#pragma mark - WLChatDelegate
+#pragma mark - ChatNotifying
 
-- (void)chatDidChangeMessagesWithName:(WLChat *)chat {
+- (void)chatDidChangeMessagesWithName:(Chat *)chat {
     [self.cachedMessageHeights removeAllObjects];
 }
 
-- (void)setDidChange:(WLPaginatedSet *)group {
+- (void)listChanged:(List *)list {
     [self reloadData];
 }
 
-- (void)chat:(WLChat*)chat didBeginTyping:(User *)user {
+- (void)chat:(Chat*)chat didBeginTyping:(User *)user {
     NSString *userName = [chat.typingUsers.firstObject name];
     if (self.typingHalper && userName.nonempty) {
         self.typingHalper([NSString stringWithFormat:@"formatted_is_typing".ls, userName]);
     }
 }
     
-- (void)chat:(WLChat*)chat didEndTyping:(User *)user {
+- (void)chat:(Chat*)chat didEndTyping:(User *)user {
     NSString *userName = [chat.typingUsers.firstObject name];
     if (self.typingHalper) {
         self.typingHalper(userName.nonempty ? [NSString stringWithFormat:@"formatted_is_typing".ls, userName] : nil);
@@ -307,11 +307,11 @@ CGFloat WLMinTextViewWidth;
         return;
     }
     self.reloading = YES;
-    runUnaryQueuedOperation(@"wl_chat_insertion_queue", ^(WLOperation *operation) {
+    [self.runQueue run:^(Block finish) {
         [weakSelf.streamView reload];
-        [operation finish];
+        finish();
         weakSelf.reloading = NO;
-    });
+    }];
 }
 
 - (void)updateBadge {
@@ -329,7 +329,7 @@ CGFloat WLMinTextViewWidth;
 }
 
 - (void)notifier:(EntryNotifier *)notifier willDeleteEntry:(Entry *)entry {
-    [self.chat removeEntry:entry];
+    [self.chat remove:entry];
     if (entry.unread) {
         [self updateBadge];
     }

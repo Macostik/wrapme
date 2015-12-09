@@ -35,6 +35,9 @@ extension NSDate {
     }
     
     func isSameDay(date: NSDate) -> Bool {
+        if abs(timeIntervalSinceDate(date)) > _dayInterval {
+            return false
+        }
         return NSCalendar.currentCalendar().isDate(self, inSameDayAsDate: date)
     }
     

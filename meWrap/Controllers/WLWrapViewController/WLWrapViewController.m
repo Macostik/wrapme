@@ -8,18 +8,16 @@
 
 #import "WLWrapViewController.h"
 #import "WLStillPictureViewController.h"
-#import "WLMediaViewController.h"
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
 #import "WLChatViewController.h"
 #import "WLContributorsViewController.h"
-#import "WLWhatsUpSet.h"
 #import "WLMessagesCounter.h"
 #import "WLButton.h"
 #import "WLFollowingViewController.h"
 #import "WLSoundPlayer.h"
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLMediaViewControllerDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, MediaViewControllerDelegate, RecentUpdateListNotifying, WLMessagesCounterReceiver>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
@@ -60,12 +58,13 @@
         return;
     }
     
-    self.viewController = [self controllerForClass:[WLChatViewController class] badge:nil];
-    WLWrapEmbeddedViewController *chatViewController = (WLWrapEmbeddedViewController *)self.viewController;
-    chatViewController.typingHalper = ^(NSString *text) {
-        weakSelf.titleViewPrioritizer.defaultState = !text.nonempty;
-        weakSelf.typingLabel.text = text;
-    };
+    WLWrapEmbeddedViewController *chatViewController = [self controllerNamed:@"chat" badge:self.messageCountLabel];
+    if (chatViewController.view) {
+        chatViewController.typingHalper = ^(NSString *text) {
+            weakSelf.titleViewPrioritizer.defaultState = !text.nonempty;
+            weakSelf.typingLabel.text = text;
+        };
+    }
     [self.segmentedControl deselect];
     
     self.settingsButton.exclusiveTouch = self.followButton.exclusiveTouch = self.unfollowButton.exclusiveTouch = YES;
@@ -119,7 +118,7 @@
 }
 
 - (void)updateCandyCounter {
-    self.candyCountLabel.value = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:self.wrap];
+    self.candyCountLabel.value = [[RecentUpdateList sharedList] unreadCandiesCountForWrap:self.wrap];
 }
 
 // MARK: - WLEntryNotifyReceiver
@@ -153,7 +152,7 @@
         }];
     }];
     
-    [[WLWhatsUpSet sharedSet].broadcaster addReceiver:self];
+    [[RecentUpdateList sharedList] addReceiver:self];
     
     [[WLMessagesCounter instance] addReceiver:self];
 }
@@ -161,45 +160,45 @@
 - (IBAction)segmentChanged:(SegmentedControl*)sender {
     NSUInteger selectedSegment = self.segment = sender.selectedSegment;
     if (selectedSegment == WLWrapSegmentMedia) {
-        self.viewController = [self controllerForClass:[WLMediaViewController class] badge:self.candyCountLabel];
+        self.viewController = [self controllerNamed:@"media" badge:self.candyCountLabel];
     } else if (selectedSegment == WLWrapSegmentChat) {
-        self.viewController = [self controllerForClass:[WLChatViewController class] badge:self.messageCountLabel];
+        self.viewController = [self controllerNamed:@"chat" badge:self.messageCountLabel];
     } else {
-        self.viewController = [self controllerForClass:[WLContributorsViewController class] badge:nil];
+        self.viewController = [self controllerNamed:@"friends" badge:nil];
     }
     [self updateCandyCounter];
 }
 
 - (IBAction)follow:(WLButton*)sender {
     sender.loading = YES;
-    runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+    [[RunQueue fetchQueue] run:^(Block finish) {
         [[WLAPIRequest followWrap:self.wrap] send:^(id object) {
             sender.loading = NO;
-            [operation finish];
+            finish();
         } failure:^(NSError *error) {
             [error show];
             sender.loading = NO;
-            [operation finish];
+            finish();
         }];
-    });
+    }];
 }
 
 - (IBAction)unfollow:(WLButton*)sender {
     self.settingsButton.userInteractionEnabled = NO;
     sender.loading = YES;
     __weak typeof(self)weakSelf = self;
-    runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+    [[RunQueue fetchQueue] run:^(Block finish) {
         [[WLAPIRequest unfollowWrap:self.wrap] send:^(id object) {
             sender.loading = NO;
             weakSelf.settingsButton.userInteractionEnabled = YES;
-            [operation finish];
+            finish();
         } failure:^(NSError *error) {
             [error show];
             sender.loading = NO;
             weakSelf.settingsButton.userInteractionEnabled = YES;
-            [operation finish];
+            finish();
         }];
-    });
+    }];
 }
 
 // MARK: - WLStillPictureViewControllerDelegate
@@ -264,12 +263,12 @@
     }
 }
 
-- (WLWrapEmbeddedViewController *)controllerForClass:(Class)class badge:(WLBadgeLabel*)badge {
-    WLWrapEmbeddedViewController *viewController = [self.childViewControllers select:^BOOL(WLWrapEmbeddedViewController *controller) {
-        return controller.class == class;
+- (WLWrapEmbeddedViewController *)controllerNamed:(NSString*)name badge:(WLBadgeLabel*)badge {
+    WLWrapEmbeddedViewController *viewController = [self.childViewControllers selectObject:^BOOL(WLWrapEmbeddedViewController *controller) {
+        return [controller.restorationIdentifier isEqualToString:name];
     }];
     if (viewController == nil) {
-        viewController = self.storyboard[NSStringFromClass(class)];
+        viewController = self.storyboard[name];
         viewController.preferredViewFrame = self.containerView.bounds;
         viewController.wrap = self.wrap;
         viewController.delegate = self;
@@ -284,7 +283,7 @@
 
 // MARK: - WLMediaViewControllerDelegate
 
-- (void)mediaViewControllerDidAddPhoto:(WLMediaViewController *)controller {
+- (void)mediaViewControllerDidAddPhoto:(MediaViewController *)controller {
     WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPhotosViewController];
     stillPictureViewController.wrap = self.wrap;
     stillPictureViewController.mode = StillPictureModeDefault;
@@ -293,15 +292,15 @@
     [self presentViewController:stillPictureViewController animated:NO completion:nil];
 }
 
-- (void)mediaViewControllerDidOpenLiveBroadcast:(WLMediaViewController *)controller {
+- (void)mediaViewControllerDidOpenLiveBroadcast:(MediaViewController *)controller {
     LiveBroadcastViewController *liveBroadcastController = self.storyboard[@"liveBroadcast"];
     liveBroadcastController.wrap = self.wrap;
     [self.navigationController presentViewController:liveBroadcastController animated:NO completion:nil];
 }
 
-// MARK: - WLWhatsUpSetBroadcastReceiver
+// MARK: - RecentUpdateListNotifying
 
-- (void)whatsUpBroadcaster:(WLBroadcaster *)broadcaster updated:(WLWhatsUpSet *)set {
+- (void)recentUpdateListUpdated:(RecentUpdateList *)list {
     [self updateCandyCounter];
     [self updateMessageCouter];
 }

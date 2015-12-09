@@ -36,7 +36,7 @@ class SegmentedStreamDataSource: StreamDataSource, SegmentedControlDelegate {
         currentDataSource?.reload()
     }
     
-    override func refresh(success: ArrayBlock?, failure: FailureBlock?) {
+    override func refresh(success: ObjectBlock?, failure: FailureBlock?) {
         currentDataSource?.refresh(success, failure: failure)
     }
     

@@ -27,15 +27,15 @@ class HomeDataSource: PaginatedStreamDataSource {
     
     func fetchTopWrapIfNeeded(wrap: Wrap) {
         if (wrap.candies?.count ?? 0) < Constants.recentCandiesLimit {
-            runUnaryQueuedOperation(WLOperationFetchingDataQueue, {[weak wrap] (operation) -> Void in
+            RunQueue.fetchQueue.run({ [weak wrap] (finish) -> Void in
                 if let wrap = wrap where wrap.valid {
                     PaginatedRequest.wrap(wrap, contentType: Wrap.ContentTypeRecent).send({ (candies) -> Void in
-                        operation.finish()
+                        finish()
                         }, failure: { (error) -> Void in
-                            operation.finish()
+                            finish()
                     })
                 } else {
-                    operation.finish()
+                    finish()
                 }
             })
         }
@@ -44,6 +44,5 @@ class HomeDataSource: PaginatedStreamDataSource {
     override func streamView(streamView: StreamView, numberOfItemsInSection section: Int) -> Int {
         wrap = items?.tryAt(0) as? Wrap
         return super.streamView(streamView, numberOfItemsInSection: section)
-    
     }
 }

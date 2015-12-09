@@ -125,41 +125,39 @@ struct ReportItem {
 }
 
 class ReportViewController : WLBaseViewController {
-    weak var candy:AnyObject?
+    
+    weak var candy:Candy?
+    
     private var reportList:NSArray?
+    
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var dataSource : CVDataSource!
-    
-    var reportClosure: ((String, ReportViewController) -> (Void))?
-    
-    var doneClosure: ((Void) -> (Void))?
-    
-    func reportingFinished() {
-        collectionView.hidden = true
-        doneButton.hidden = false
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         doneButton.hidden = true
         let reportList = ReportItem.items("WLReportList")
-        dataSource.select = {[unowned self] _ , violationCode in
-            if let reportClosure = self.reportClosure {
-                reportClosure(violationCode, self)
+        dataSource.select = { [weak self] _ , violationCode in
+            guard let candy = self?.candy else {
+                return
             }
+            WLAPIRequest.postCandy(candy, violationCode: violationCode).send({ (_) -> Void in
+                self?.collectionView.hidden = true
+                self?.doneButton.hidden = false
+                }, failure: { (error) -> Void in
+                    error?.show()
+            })
         }
         dataSource.data = reportList
         collectionView.reloadData()
     }
     
     @IBAction func done() {
-        if let doneClosure = self.doneClosure {
-            doneClosure()
-        } else if let navigationController = navigationController {
+        if let navigationController = navigationController {
             navigationController.popViewControllerAnimated(false)
-        } else if let presentingViewController = presentingViewController {
-            presentingViewController.dismissViewControllerAnimated(false, completion: nil)
+        } else {
+            presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
         }
     }
 }

@@ -30,17 +30,17 @@ extension Entry {
         if fetched() {
             success?(self)
         } else {
-            runQueuedOperation("entry_fetching", 3, { [weak self] (operation) -> Void in
+            RunQueue.entryFetchQueue.run({ [weak self] (finish) -> Void in
                 if let entry = self {
                     entry.fetch({ (object) -> Void in
-                        operation.finish()
+                        finish()
                         success?(object)
                         }, failure: { (error) -> Void in
-                            operation.finish()
+                            finish()
                             failure?(error)
                     })
                 } else {
-                    operation.finish()
+                    finish()
                     failure?(nil)
                 }
             })
@@ -103,11 +103,9 @@ extension Wrap {
     
     func uploadAssets(assets: [MutableAsset]) {
         for asset in assets {
-            runUnaryQueuedOperation("wl_upload_candies_queue", { [weak self] (operation) -> Void in
+            RunQueue.uploadCandiesQueue.run({ [weak self] (finish) -> Void in
                 self?.uploadAsset(asset)
-                run_after(0.6, { () -> Void in
-                    operation.finish()
-                })
+                run_after(0.6, finish)
             })
         }
     }
@@ -155,12 +153,19 @@ extension Wrap {
     func preload() {
         let history = History(wrap: self)
         history.fresh({ (object) -> Void in
-            history.entries.enumerateObjectsUsingBlock({ (candy, idx, stop) -> Void in
-                (candy as! Candy).asset?.fetch(nil)
-                if idx == 20 {
-                    stop.memory = true
+            for (index, entry) in history.entries.enumerate() {
+                if let item = entry as? HistoryItem {
+                    for (index, candy) in item.candies.enumerate() {
+                        candy.asset?.fetch(nil)
+                        if index == 20 {
+                            break
+                        }
+                    }
                 }
-            })
+                if index == 5 {
+                    break
+                }
+            }
             }, failure: nil)
     }
 }

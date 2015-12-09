@@ -9,7 +9,6 @@
 #import "WLAuthorizationRequest.h"
 #import "WLWelcomeViewController.h"
 #import "WLUploadingQueue.h"
-#import "WLOperationQueue.h"
 #import "WLNotificationCenter.h"
 
 @implementation WLAuthorizationRequest
@@ -201,20 +200,20 @@ static BOOL authorized = NO;
 + (void)preloadFirstWrapsWithUser:(User *)user {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        runUnaryQueuedOperation(WLOperationFetchingDataQueue,^(WLOperation *operation) {
+        [[RunQueue fetchQueue] run:^(Block finish) {
             [[PaginatedRequest wraps:nil] fresh:^(NSArray *array) {
-                NSOrderedSet *wraps = [user sortedWraps];
+                NSArray *wraps = [user sortedWraps];
                 if (wraps.count > 0) {
                     [wraps enumerateObjectsUsingBlock:^(Wrap *wrap, NSUInteger idx, BOOL *stop) {
                         [wrap preload];
                         if (idx == 2) *stop = YES;
                     }];
                 }
-                [operation finish];
+                finish();
             } failure:^(NSError *error) {
-                [operation finish];
+                finish();
             }];
-        });
+        }];
     });
 }
 

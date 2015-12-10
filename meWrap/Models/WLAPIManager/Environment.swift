@@ -43,21 +43,21 @@ class Environment: NSObject {
     private static var environments = [
         Environment.Local : [
             "endpoint":"http://0.0.0.0:3000/api",
-            "version":"7",
+            "version":"8",
             "default_image_uri":"https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments",
             "default_avatar_uri":"https://d2rojtzyvje8rl.cloudfront.net/users/avatars",
             "default_video_uri":"https://d2rojtzyvje8rl.cloudfront.net/candies/video_attachments",
             "s3_bucket":"wraplive-qa-upload-placeholder"
         ], Environment.QA:[
             "endpoint":"https://qa-api.mewrap.me/api",
-            "version":"7",
+            "version":"8",
             "default_image_uri":"https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments",
             "default_avatar_uri":"https://d2rojtzyvje8rl.cloudfront.net/users/avatars",
             "default_video_uri":"https://d2rojtzyvje8rl.cloudfront.net/candies/video_attachments",
             "s3_bucket":"wraplive-qa-upload-placeholder"
         ], Environment.Production:[
             "endpoint":"https://prd-api.mewrap.me/api",
-            "version":"7",
+            "version":"8",
             "default_image_uri":"https://dhtwvi2qvu3d7.cloudfront.net/candies/image_attachments",
             "default_avatar_uri":"https://dhtwvi2qvu3d7.cloudfront.net/users/avatars",
             "default_video_uri":"https://dhtwvi2qvu3d7.cloudfront.net/candies/video_attachments",

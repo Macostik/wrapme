@@ -74,8 +74,10 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     var userState = [NSObject:AnyObject]() {
         didSet {
-            if let channel = wrap?.uid {
-                WLNotificationCenter.defaultCenter().userSubscription.changeState(userState, channel: channel)
+            if let channel = wrap?.uid, let uuid = User.currentUser?.uid {
+                userState["userUid"] = uuid
+                PubNub.sharedInstance.currentConfiguration().uuid = User.channelName()
+                PubNub.sharedInstance.setState(userState, forUUID: User.channelName(), onChannel: channel, withCompletion: nil)
             }
         }
     }
@@ -280,12 +282,9 @@ class LiveBroadcastViewController: WLBaseViewController {
     func stop() {
         if let broadcast = broadcast {
             
-            if let channel = wrap?.uid {
-                let state: [NSObject : AnyObject] = [
-                    "chatChannel":broadcast.channel
-                ]
-                WLNotificationCenter.defaultCenter().userSubscription.changeState(state, channel: channel)
-            }
+            userState = [
+                "chatChannel":broadcast.channel
+            ]
             
             wrap?.removeBroadcast(broadcast)
         }

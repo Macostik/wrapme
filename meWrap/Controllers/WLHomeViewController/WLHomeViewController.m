@@ -144,11 +144,11 @@
             NSArray *uuids = channels[channel][@"uuids"];
             NSMutableArray *wrapBroadcasts = [NSMutableArray array];
             for (NSDictionary *uuid in uuids) {
-                User *user = [User entry:uuid[@"uuid"]];
+                NSDictionary *state = uuid[@"state"];
+                User *user = [User entry:state[@"userUid"]];
                 if (user == nil) {
                     continue;
                 }
-                NSDictionary *state = uuid[@"state"];
                 NSString *viewerURL = state[@"viewerURL"];
                 if (viewerURL != nil) {
                     LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];

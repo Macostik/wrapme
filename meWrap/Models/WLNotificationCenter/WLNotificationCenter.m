@@ -159,8 +159,8 @@
 - (void)notificationSubscription:(NotificationSubscription *)subscription didReceivePresenceEvent:(PNPresenceEventResult * _Nonnull)event {
     if ([event.data.presenceEvent isEqualToString:@"state-change"]) {
         Wrap *wrap = [Wrap entry:event.data.actualChannel];
-        User *user = [User entry:event.data.presence.uuid];
         NSDictionary *state = event.data.presence.state;
+        User *user = [User entry:state[@"userUid"]];
         if (wrap && user && state) {
             [user fetchIfNeeded:^(id  _Nullable object) {
                 [wrap fetchIfNeeded:^(id  _Nullable object) {

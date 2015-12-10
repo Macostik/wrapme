@@ -111,6 +111,7 @@ class NotificationSubscription: NSObject {
     
     func changeState(state: [NSObject : AnyObject]?, channel: String) {
         if let user = User.currentUser {
+            PubNub.sharedInstance.currentConfiguration().uuid = user.uid
             PubNub.sharedInstance.setState(state, forUUID: user.uid, onChannel: channel, withCompletion: nil)
         }
     }

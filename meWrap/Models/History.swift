@@ -58,6 +58,7 @@ class History: PaginatedList {
         }
         let item = HistoryItem(candy: candy)
         entries.append(item)
+        entries.sortInPlace({ $0.listSortDate() > $1.listSortDate() })
         return (item, true)
     }
     

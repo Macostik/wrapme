@@ -49,4 +49,12 @@ class Message: Contribution {
             wrap.notifyOnUpdate(.NumberOfUnreadMessagesChanged)
         }
     }
+    
+    lazy var chatMetadata = ChatMetadata()
+}
+
+class ChatMetadata: NSObject {
+    var containsName = false
+    var containsDate = false
+    var isGroup = false
 }

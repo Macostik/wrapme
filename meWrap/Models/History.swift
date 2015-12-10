@@ -22,24 +22,25 @@ class History: PaginatedList {
     
     private func fetchCandies() {
         entries.removeAll()
-        if let candies = wrap?.historyCandies {
-            var _candy: Candy?
-            var item: HistoryItem!
-            for candy in candies {
-                if let _candy = _candy {
-                    if _candy.createdAt.isSameDay(candy.createdAt) {
-                        item.candies.append(candy)
-                    } else {
-                        entries.append(item)
-                        item = HistoryItem(candy: candy)
-                    }
+        guard let candies = wrap?.historyCandies where !candies.isEmpty else {
+            return
+        }
+        var _candy: Candy?
+        var item: HistoryItem!
+        for candy in candies {
+            if let _candy = _candy {
+                if _candy.createdAt.isSameDay(candy.createdAt) {
+                    item.candies.append(candy)
                 } else {
+                    entries.append(item)
                     item = HistoryItem(candy: candy)
                 }
-                _candy = candy
+            } else {
+                item = HistoryItem(candy: candy)
             }
-            entries.append(item)
+            _candy = candy
         }
+        entries.append(item)
     }
     
     private func addCandy(candy: Candy) -> (item: HistoryItem, added: Bool) {

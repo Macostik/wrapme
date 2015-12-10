@@ -148,7 +148,6 @@ class MediaViewController: WLWrapEmbeddedViewController {
             }
             if candy.valid && cell.imageView.image != nil {
                 if let historyViewController = candy.viewController() as? WLHistoryViewController {
-                    historyViewController.history = self?.history
                     let presentingImageView = WLPresentingImageView.sharedPresenting()
                     presentingImageView.delegate = self
                     historyViewController.presentingImageView = presentingImageView

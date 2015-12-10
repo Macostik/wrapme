@@ -56,7 +56,7 @@ class AssetCell: StreamReusableView {
 
 extension PHFetchResult: BaseOrderedContainer {
     public func tryAt(index: Int) -> AnyObject? {
-        if (index < count) {
+        if (index >= 0 && index < count) {
             return objectAtIndex(index)
         } else {
             return nil

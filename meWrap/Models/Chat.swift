@@ -12,21 +12,35 @@ import PubNub
 @objc protocol ChatNotifying: PaginatedListNotifying {
     optional func chat(chat: Chat, didBeginTyping user: User)
     optional func chat(chat: Chat, didEndTyping user: User)
-    optional func chatDidChangeMessagesWithName(chat: Chat)
 }
 
 class Chat: PaginatedList {
     
-    var wrap: Wrap
+    let wrap: Wrap
     
     var typingNames: String?
     
-    var unreadMessages = [Message]()
-    var readMessages = [Message]()
-    var messagesWithDay = Set<Message>()
-    var messagesWithName = Set<Message>()
-    var typingUsers = [User]()
-    var groupMessages = [Message]()
+    lazy var unreadMessages = [Message]()
+    lazy var readMessages = [Message]()
+    lazy var typingUsers = [User]()
+    
+    lazy var cachedMessageHeights = [Message : CGFloat]()
+    
+    var messageFont = UIFont.fontNormal()
+    
+    var nameFont = UIFont.lightFontSmaller()
+    
+    static var MaxWidth: CGFloat = Constants.screenWidth - LeadingBubbleIndentWithAvatar - 2*MessageHorizontalInset - BubbleIndent
+    static var MinWidth: CGFloat = Constants.screenWidth - 2*BubbleIndent - 2*MessageHorizontalInset
+    
+    static var MessageVerticalInset: CGFloat = 6.0
+    static var MessageHorizontalInset: CGFloat = 6.0
+    static var MessageWithNameMinimumCellHeight: CGFloat = 40.0
+    static var MessageWithoutNameMinimumCellHeight: CGFloat = 24.0
+    static var LeadingBubbleIndentWithAvatar: CGFloat = 64.0
+    static var BubbleIndent: CGFloat = 16.0
+    static var MessageGroupSpacing: CGFloat = 6.0
+    static var NameVerticalInset: CGFloat = 4.0
     
     private var subscription: NotificationSubscription?
     
@@ -94,11 +108,9 @@ class Chat: PaginatedList {
     }
     
     override func didChange() {
-        var messagesWithName = Set<Message>()
         unreadMessages.removeAll()
-        messagesWithDay.removeAll()
-        groupMessages.removeAll()
         if let messages = entries as? [Message] {
+            var nameStateChanged = false
             for (index, message) in messages.enumerate() {
                 
                 if message.unread {
@@ -107,34 +119,37 @@ class Chat: PaginatedList {
                 
                 let previousMessage: Message? = index == 0 ? nil : messages[index - 1]
                 
-                var withDay = false
+                var containsDate = false
                 if let previousMessage = previousMessage {
-                    withDay = !previousMessage.createdAt.isSameDay(message.createdAt)
+                    containsDate = !previousMessage.createdAt.isSameDay(message.createdAt)
                 } else {
-                    withDay = true
-                }
-                if withDay {
-                    messagesWithDay.insert(message)
-                    if !(message.contributor?.current ?? true) {
-                        messagesWithName.insert(message)
-                    }
-                    groupMessages.append(message)
-                    continue
+                    containsDate = true
                 }
                 
-                if previousMessage?.contributor != message.contributor {
-                    if !(message.contributor?.current ?? true) {
-                        messagesWithName.insert(message)
+                var containsName = false
+                var isGroup = false
+                
+                message.chatMetadata.containsDate = containsDate
+                
+                if containsDate {
+                    containsName = !(message.contributor?.current ?? true)
+                    message.chatMetadata.isGroup = true
+                } else {
+                    if previousMessage?.contributor != message.contributor {
+                        containsName = !(message.contributor?.current ?? true)
+                        isGroup = true
                     }
-                    groupMessages.append(message)
+                }
+                
+                message.chatMetadata.isGroup = isGroup
+                if message.chatMetadata.containsName != containsName {
+                    nameStateChanged = true
+                    message.chatMetadata.containsName = containsName
                 }
             }
             
-            if self.messagesWithName != messagesWithName {
-                self.messagesWithName = messagesWithName;
-                notify({ (receiver) -> Void in
-                    receiver.chatDidChangeMessagesWithName?(self)
-                })
+            if nameStateChanged {
+                cachedMessageHeights.removeAll()
             }
         }
         
@@ -234,5 +249,34 @@ extension Chat: NotificationSubscriptionDelegate {
                 didEndTyping(user)
             }
         }
+    }
+}
+
+extension Chat: FontPresetting {
+    
+    func heightOfMessageCell(message: Message) -> CGFloat {
+        if let cachedHeight = cachedMessageHeights[message] {
+            return cachedHeight
+        } else {
+            guard let messageFont = messageFont, let nameFont = nameFont, let text = message.text else {
+                return 0
+            }
+            let containsName = message.chatMetadata.containsName
+            let calculateWight = (message.contributor?.current ?? false) ? Chat.MaxWidth : Chat.MinWidth
+            var commentHeight = text.heightWithFont(messageFont, width: calculateWight) ?? 0
+            let topInset = containsName ? nameFont.lineHeight + Chat.NameVerticalInset : 0
+            let bottomInset = nameFont.lineHeight + Chat.MessageVerticalInset
+            commentHeight += topInset + bottomInset
+            commentHeight = max(containsName ? Chat.MessageWithNameMinimumCellHeight : Chat.MessageWithoutNameMinimumCellHeight, commentHeight)
+            cachedMessageHeights[message] = commentHeight
+            return commentHeight
+        }
+    }
+    
+    func presetterDidChangeContentSizeCategory(presetter: FontPresetter) {
+        cachedMessageHeights.removeAll()
+        messageFont = UIFont.fontNormal()
+        nameFont = UIFont.lightFontSmaller()
+        super.didChange()
     }
 }

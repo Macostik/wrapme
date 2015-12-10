@@ -13,10 +13,6 @@
 
 @interface WLHistoryViewController : WLSwipeViewController
 
-@property (strong, nonatomic) History *history;
-
-@property (weak, nonatomic) Wrap *wrap;
-
 @property (weak, nonatomic) Candy *candy;
 
 @property (nonatomic) BOOL showCommentViewController;

@@ -55,6 +55,10 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) Comment *lastComment;
 @property (strong, nonatomic) RunQueue *paginationQueue;
 
+@property (strong, nonatomic) PaginatedList *candies;
+
+@property (weak, nonatomic) Wrap *wrap;
+
 @end
 
 @implementation WLHistoryViewController
@@ -78,13 +82,9 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     self.lastCommentTextView.textContainerInset = UIEdgeInsetsZero;
     self.lastCommentTextView.textContainer.lineFragmentPadding = .0;
     
-    if (!_wrap) {
-        _wrap = _candy.wrap;
-    }
+    self.wrap = _candy.wrap;
     
-    if (!_history && _wrap) {
-        _history = [[History alloc] initWithWrap:self.wrap];
-    }
+    self.candies = [[PaginatedList alloc] initWithEntries:self.wrap.historyCandies request:[PaginatedRequest candies:self.wrap]];
 
     [[Candy notifier] addReceiver:self];
     
@@ -182,10 +182,10 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (void)fetchCandiesOlderThen:(Candy *)candy {
-    History *history = self.history;
-    if (history.completed || !candy) return;
+    PaginatedList *candies = self.candies;
+    if (candies.completed || !candy) return;
     [self.paginationQueue run:^(Block finish) {
-        [history older:^(NSArray *candies) {
+        [candies older:^(NSArray *candies) {
             finish();
         } failure:^(NSError *error) {
             finish();
@@ -247,20 +247,20 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         return nil;
     }
     
-    candy = [self.history.entries tryAt:self.currentCandyIndex];
+    candy = [self.candies tryAt:self.currentCandyIndex];
     if (candy) {
         return candy;
     } else {
-        candy = [self.history.entries tryAt:self.currentCandyIndex - 1];
+        candy = [self.candies tryAt:self.currentCandyIndex - 1];
         if (candy) {
             return candy;
         }
     }
-    return [self.history.entries firstObject];
+    return [self.candies.entries firstObject];
 }
 
 - (void)notifier:(EntryNotifier *)notifier didAddEntry:(Candy *)candy {
-    self.currentCandyIndex = [self.history.entries indexOfObject:self.candy];
+    self.currentCandyIndex = [self.candies.entries indexOfObject:self.candy];
 }
 
 - (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Candy *)candy event:(enum EntryUpdateEvent)event {
@@ -470,12 +470,12 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (UIViewController *)viewControllerAfterViewController:(WLCandyViewController *)viewController {
     Candy *candy = viewController.candy;
-    candy = [self.history.entries tryAt:[self.history.entries indexOfObject:candy] + 1];
+    candy = [self.candies tryAt:[self.candies.entries indexOfObject:candy] + 1];
     if (candy) {
         return [self candyViewController:candy];
     }
     
-    if (!self.history.completed) {
+    if (!self.candies.completed) {
         [self fetchCandiesOlderThen:candy];
     }
     
@@ -484,7 +484,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (UIViewController *)viewControllerBeforeViewController:(WLCandyViewController *)viewController {
     Candy *candy = viewController.candy;
-    candy = [self.history.entries tryAt:[self.history.entries indexOfObject:candy] - 1];
+    candy = [self.candies tryAt:[self.candies.entries indexOfObject:candy] - 1];
     if (candy) {
         return [self candyViewController:candy];
     } else {
@@ -494,7 +494,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (void)didChangeViewController:(WLCandyViewController *)viewController {
     self.candy = [viewController candy];
-    self.currentCandyIndex = [self.history.entries indexOfObject:self.candy];
+    self.currentCandyIndex = [self.candies.entries indexOfObject:self.candy];
     [self fetchCandiesOlderThen:self.candy];
 }
 

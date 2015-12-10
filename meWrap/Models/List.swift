@@ -69,7 +69,7 @@ class List: Notifier {
     }
     
     subscript(index: Int) -> ListEntry? {
-        return index < count ? entries[index] : nil
+        return (index >= 0 && index < count) ? entries[index] : nil
     }
 }
 
@@ -81,7 +81,7 @@ class List: Notifier {
 
 extension NSArray: BaseOrderedContainer {
     func tryAt(index: Int) -> AnyObject? {
-        return index < count ? self[index] : nil
+        return (index >= 0 && index < count) ? self[index] : nil
     }
 }
 
@@ -90,10 +90,10 @@ extension List: BaseOrderedContainer {
         return entries.count
     }
     func tryAt(index: Int) -> AnyObject? {
-        return index < count ? self.entries[index] : nil
+        return (index >= 0 && index < count) ? entries[index] : nil
     }
     func objectAtIndex(index: Int) -> AnyObject {
-        return self.entries[index]
+        return entries[index]
     }
 }
 

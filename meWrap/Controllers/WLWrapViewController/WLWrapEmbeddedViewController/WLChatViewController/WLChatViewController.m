@@ -18,9 +18,6 @@
 #import "PlaceholderView.h"
 #import "WLNetwork.h"
 
-CGFloat WLMaxTextViewWidth;
-CGFloat WLMinTextViewWidth;
-
 @interface WLChatViewController () <StreamViewDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, EntryNotifying, ChatNotifying>
 
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
@@ -32,12 +29,6 @@ CGFloat WLMinTextViewWidth;
 @property (nonatomic) BOOL reloading;
 
 @property (strong, nonatomic) Chat *chat;
-
-@property (strong, nonatomic) UIFont* nameFont;
-
-@property (strong, nonatomic) UIFont* messageFont;
-
-@property (strong, nonatomic) NSMapTable* cachedMessageHeights;
 
 @property (strong, nonatomic) StreamMetrics *messageMetrics;
 @property (strong, nonatomic) StreamMetrics *messageWithNameMetrics;
@@ -116,11 +107,6 @@ CGFloat WLMinTextViewWidth;
         return;
     }
     
-    self.cachedMessageHeights = [NSMapTable strongToStrongObjectsMapTable];
-
-    self.messageFont = [UIFont fontNormal];
-    self.nameFont = [UIFont lightFontSmaller];
-    
     __weak typeof(self)weakSelf = self;
     
     void (^finalizeMessageAppearing)(StreamItem *, id) = ^(StreamItem *item, Message *message) {
@@ -128,25 +114,21 @@ CGFloat WLMinTextViewWidth;
             [weakSelf.chat addReadMessage:message];
         }
         WLMessageCell *messageCell = (id)item.view;
-        messageCell.tailView.hidden = ![weakSelf.chat.groupMessages containsObject:message];
+        messageCell.tailView.hidden = !message.chatMetadata.isGroup;
     };
     
     self.messageWithNameMetrics.finalizeAppearing = finalizeMessageAppearing;
     self.myMessageMetrics.finalizeAppearing = finalizeMessageAppearing;
     self.messageMetrics.finalizeAppearing = finalizeMessageAppearing;
     
-    WLMinTextViewWidth = Constants.screenWidth - WLLeadingBubbleIndentWithAvatar - 2*WLMessageHorizontalInset - WLBubbleIndent;
-    WLMaxTextViewWidth = Constants.screenWidth - 2*WLBubbleIndent - 2*WLMessageHorizontalInset;
-    
     self.messageWithNameMetrics.sizeAt = self.messageMetrics.sizeAt = self.myMessageMetrics.sizeAt = ^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
         Message *message = weakSelf.chat[position.index];
-        return [weakSelf heightOfMessageCell:message];
+        return [weakSelf.chat heightOfMessageCell:message];
     };
     
     self.messageWithNameMetrics.insetsAt = self.messageMetrics.insetsAt = self.myMessageMetrics.insetsAt = ^CGRect(StreamPosition *position, StreamMetrics *metrics) {
         Message *message = weakSelf.chat[position.index];
-        return  [weakSelf.chat.messagesWithDay containsObject:message] ?
-                CGRectZero : [weakSelf.chat.groupMessages containsObject:message] ? CGRectMake(0, WLMessageGroupSpacing, 0, 0) : CGRectMake(0, 2, 0, 0);
+        return  message.chatMetadata ? CGRectZero : message.chatMetadata.isGroup ? CGRectMake(0, Chat.MessageGroupSpacing, 0, 0) : CGRectMake(0, 2, 0, 0);
     };
 	
     self.chat = [[Chat alloc] initWithWrap:self.wrap];
@@ -199,7 +181,7 @@ CGFloat WLMinTextViewWidth;
 }
 
 - (void)updateInsets {
-    CGFloat bottom = self.composeBar.height + [WLKeyboard keyboard].height + WLBubbleIndent;
+    CGFloat bottom = self.composeBar.height + [WLKeyboard keyboard].height + Chat.BubbleIndent;
     self.streamView.contentInset = self.streamView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, bottom, 0);
 }
 
@@ -259,11 +241,11 @@ CGFloat WLMinTextViewWidth;
             if (!streamView.scrollable || offset.y < maximumOffset.y) {
                 finish();
             } else {
-                if (streamView.height/2 < [weakSelf heightOfMessageCell:message] && [self.chat.unreadMessages count] == 1) {
+                if (streamView.height/2 < [weakSelf.chat heightOfMessageCell:message] && [self.chat.unreadMessages count] == 1) {
                     [weakSelf scrollToLastUnreadMessage];
                 } else {
                     [streamView reload];
-                    streamView.contentOffset = CGPointOffset(streamView.maximumContentOffset, 0, -[weakSelf heightOfMessageCell:message]);
+                    streamView.contentOffset = CGPointOffset(streamView.maximumContentOffset, 0, -[weakSelf.chat heightOfMessageCell:message]);
                     [streamView setMaximumContentOffsetAnimated:YES];
                 }
                 run_after(0.5, ^{
@@ -275,10 +257,6 @@ CGFloat WLMinTextViewWidth;
 }
 
 #pragma mark - ChatNotifying
-
-- (void)chatDidChangeMessagesWithName:(Chat *)chat {
-    [self.cachedMessageHeights removeAllObjects];
-}
 
 - (void)listChanged:(List *)list {
     [self reloadData];
@@ -405,12 +383,12 @@ CGFloat WLMinTextViewWidth;
     if ([self.chat.unreadMessages firstObject] == message) {
         [metrics addObject:self.unreadMessagesMetrics];
     }
-    if ([self.chat.messagesWithDay containsObject:message]) {
+    if (message.chatMetadata.containsDate) {
         [metrics addObject:self.dateMetrics];
     }
     if (message.contributor.current) {
         [metrics addObject:self.myMessageMetrics];
-    } else if ([self.chat.messagesWithName containsObject:message]) {
+    } else if (message.chatMetadata.containsName) {
         [metrics addObject:self.messageWithNameMetrics];
     } else {
         [metrics addObject:self.messageMetrics];
@@ -433,25 +411,6 @@ CGFloat WLMinTextViewWidth;
 
 - (StreamMetrics *)streamViewPlaceholderMetrics:(StreamView *)streamView {
     return self.placeholderMetrics;
-}
-
-- (CGFloat)heightOfMessageCell:(Message *)message {
-    NSNumber *cachedHeight = [self.cachedMessageHeights objectForKey:message];
-    if (cachedHeight) {
-        return [cachedHeight floatValue];
-    }
-    if (!self.messageFont) {
-        return 0;
-    }
-    BOOL containsName = [self.chat.messagesWithName containsObject:message];
-    CGFloat calculateWight = message.contributor.current ? WLMaxTextViewWidth : WLMinTextViewWidth;
-    CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:calculateWight];
-    CGFloat topInset = containsName ? self.nameFont.lineHeight + WLNameVerticalInset : 0;
-    CGFloat bottomInset = self.nameFont.lineHeight + WLMessageVerticalInset;
-    commentHeight += topInset + bottomInset;
-    commentHeight = MAX (containsName ? WLMessageWithNameMinimumCellHeight : WLMessageWithoutNameMinimumCellHeight, commentHeight);
-    [self.cachedMessageHeights setObject:@(commentHeight) forKey:message];
-    return commentHeight;
 }
 
 - (void)refreshUnreadMessagesAfterDragging {
@@ -490,15 +449,6 @@ CGFloat WLMinTextViewWidth;
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     [self appendItemsIfNeededWithTargetContentOffset:*targetContentOffset];
-}
-
-#pragma mark - WLFontPresetterReceiver
-
-- (void)presetterDidChangeContentSizeCategory:(FontPresetter *)presetter {
-    [self.cachedMessageHeights removeAllObjects];
-    self.messageFont = [UIFont fontNormal];
-    self.nameFont = [UIFont lightFontSmaller];
-    [self reloadData];
 }
 
 @end

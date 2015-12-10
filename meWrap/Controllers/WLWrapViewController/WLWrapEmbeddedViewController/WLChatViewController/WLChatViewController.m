@@ -128,7 +128,7 @@
     
     self.messageWithNameMetrics.insetsAt = self.messageMetrics.insetsAt = self.myMessageMetrics.insetsAt = ^CGRect(StreamPosition *position, StreamMetrics *metrics) {
         Message *message = weakSelf.chat[position.index];
-        return  message.chatMetadata ? CGRectZero : message.chatMetadata.isGroup ? CGRectMake(0, Chat.MessageGroupSpacing, 0, 0) : CGRectMake(0, 2, 0, 0);
+        return CGRectMake(0, message.chatMetadata.containsDate ? 0 : message.chatMetadata.isGroup ? Chat.MessageGroupSpacing : 2, 0, 0);
     };
 	
     self.chat = [[Chat alloc] initWithWrap:self.wrap];

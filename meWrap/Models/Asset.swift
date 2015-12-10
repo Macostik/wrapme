@@ -26,21 +26,31 @@ class Asset: Archive {
     
     convenience init(json: NSData) throws {
         self.init()
-        let data = try NSJSONSerialization.JSONObjectWithData(json, options: NSJSONReadingOptions())
-        for property in self.dynamicType.archivableProperties() {
-            setValue(data[property], forKey: property)
-        }
+        let data = try NSJSONSerialization.JSONObjectWithData(json, options: [])
+        type = MediaType(rawValue: Int16((data["type"] as? Int) ?? 0)) ?? .Photo
+        original = data["original"] as? String
+        large = data["large"] as? String
+        medium = data["medium"] as? String
+        small = data["small"] as? String
     }
     
     func JSONValue() -> NSData? {
         var dictionary = [String : AnyObject]()
-        for property in self.dynamicType.archivableProperties() {
-            if let value = valueForKey(property) {
-                dictionary[property] = value
-            }
+        dictionary["type"] = Int(type.rawValue)
+        if let original = original {
+            dictionary["original"] = original
+        }
+        if let large = large {
+            dictionary["large"] = large
+        }
+        if let medium = medium {
+            dictionary["medium"] = medium
+        }
+        if let small = small {
+            dictionary["small"] = small
         }
         do {
-            return try NSJSONSerialization.dataWithJSONObject(dictionary, options: NSJSONWritingOptions())
+            return try NSJSONSerialization.dataWithJSONObject(dictionary, options: [])
         } catch {
             return nil
         }
@@ -67,6 +77,5 @@ class AssetTransformer: NSValueTransformer {
         } else {
             return nil
         }
-        
     }
 }

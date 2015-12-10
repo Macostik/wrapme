@@ -194,16 +194,15 @@ class EntryContext: NSManagedObjectContext {
     }
     
     func execute(request: NSFetchRequest, completion: [AnyObject] -> Void) {
-        let asyncRequest = NSAsynchronousFetchRequest(fetchRequest: request, completionBlock: { (result) -> Void in
-            completion(result.finalResult ?? [])
-        })
-        performBlock({[weak self] () -> Void in
+        performBlock { () -> Void in
             do {
-                try self?.executeRequest(asyncRequest)
+                try self.executeRequest(NSAsynchronousFetchRequest(fetchRequest: request) { (result) -> Void in
+                    completion(result.finalResult ?? [])
+                    })
             } catch {
                 completion([])
             }
-        })
+        }
     }
 }
 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class RecentUpdate: NSObject, ListEntry {
     
@@ -15,7 +16,7 @@ class RecentUpdate: NSObject, ListEntry {
     var contribution: Contribution
     
     var date: NSDate {
-        return event == .Update ? contribution.updatedAt : contribution.createdAt
+        return event == .Update ? contribution.editedAt : contribution.createdAt
     }
     
     init(event: Event, contribution: Contribution) {
@@ -41,9 +42,9 @@ class RecentUpdateList: Notifier {
     
     var updates: [RecentUpdate]?
     
-    private var candyPredicate = "wrap.uid IN %@ OR createdAt >= %@ AND contributor != nil AND contributor != %@"
-    private var updatesPredicate = "wrap.uid IN %@ OR editedAt >= %@ AND editor != nil AND editor != %@"
-    private var commentPredicate = "candy.wrap.uid IN %@ OR createdAt >= %@ AND contributor != nil AND contributor != %@"
+    private var candyPredicate = "wrap IN %@ AND createdAt >= %@ AND contributor != nil AND contributor != %@"
+    private var updatesPredicate = "wrap IN %@ AND editedAt >= %@ AND editor != nil AND editor != %@"
+    private var commentPredicate = "candy.wrap IN %@ AND createdAt >= %@ AND contributor != nil AND contributor != %@"
     
     private var wrapCounters = [String:Int]()
     
@@ -61,11 +62,11 @@ class RecentUpdateList: Notifier {
         }
         let date = NSDate.dayAgo()
         var contributions = [AnyObject]()
-        var uids = [String]()
+        var uids = [NSManagedObjectID]()
         if let wraps = user.wraps as? Set<Wrap> {
-            uids = wraps.map({ $0.uid })
+            uids = wraps.map({ $0.objectID })
         }
-        Comment.fetch().query(commentPredicate, uids, user, date, user).execute { (result) -> Void in
+        Comment.fetch().query(commentPredicate, uids, date, user).execute { (result) -> Void in
             contributions.appendContentsOf(result)
             Candy.fetch().query(self.candyPredicate, uids, date, user).execute({ (result) -> Void in
                 contributions.appendContentsOf(result)
@@ -102,7 +103,7 @@ class RecentUpdateList: Notifier {
         }
         self.unreadCount = unreadCount
         self.wrapCounters = wrapCounters
-        self.updates = events
+        self.updates = events.sort({ $0.date > $1.date })
     }
     
     func refreshCount(success: (Int -> Void)?, failure: FailureBlock?) {

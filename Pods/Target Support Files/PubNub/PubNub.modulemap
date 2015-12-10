@@ -26,6 +26,7 @@ framework module PubNub {
   private header "PNGZIP.h"
   private header "PNHelpers.h"
   private header "PNJSON.h"
+  private header "PNNumber.h"
   private header "PNString.h"
   private header "PNURLRequest.h"
   private header "PNLogFileManager.h"

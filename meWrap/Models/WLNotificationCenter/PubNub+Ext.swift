@@ -147,7 +147,7 @@ class NotificationSubscription: NSObject {
                                 }
                                 if fetchedChannels.count == channels.count {
                                     messages.sortInPlace({ (msg1, msg2) -> Bool in
-                                        return (msg1["timetoken"] as? NSNumber)?.doubleValue > (msg2["timetoken"] as? NSNumber)?.doubleValue
+                                        return (msg1["timetoken"] as? NSNumber)?.doubleValue < (msg2["timetoken"] as? NSNumber)?.doubleValue
                                     })
                                     success(messages)
                                 }

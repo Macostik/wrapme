@@ -188,6 +188,7 @@
 - (void)keyboardWillShow:(WLKeyboard *)keyboard {
     [super keyboardWillShow:keyboard];
     __weak typeof(self)weakSelf = self;
+    if (self.streamView.contentInset.bottom > self.composeBar.height + Chat.BubbleIndent) return;
     [keyboard performAnimation:^{
         weakSelf.streamView.transform = CGAffineTransformMakeTranslation(0, -keyboard.height);
     }];

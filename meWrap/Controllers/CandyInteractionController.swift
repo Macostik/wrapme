@@ -54,7 +54,6 @@ class CandyInteractionController: NSObject, UIGestureRecognizerDelegate {
                 let endPoint = contentView.height
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
                     self.screenShotView?.alpha = 1
-                    print (">>self - \(self.isMoveUp) - \(self.vectorUp)<<")
                     self.contentView.transform = CGAffineTransformMakeTranslation(0, self.isMoveUp && self.vectorUp ? -endPoint : endPoint)
                     }, completion: { (finished) -> Void in
                         self.currentViewController.navigationController?.popViewControllerAnimated(false)

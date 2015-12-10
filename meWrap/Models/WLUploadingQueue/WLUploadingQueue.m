@@ -72,6 +72,7 @@ static NSMapTable *queues = nil;
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.uploadings = [NSMutableArray array];
         self.dependentQueues = [NSMutableSet set];
         self.runQueue = [[RunQueue alloc] init];
         self.simultaneousUploadingsLimit = 3;

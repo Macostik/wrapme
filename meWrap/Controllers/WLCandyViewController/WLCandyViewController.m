@@ -48,13 +48,14 @@
     [self setup:self.candy];
     [self refresh];
     __weak __typeof(self)weakSelf = self;
-     self.candyInteractionController = [[CandyInteractionController alloc] initWithViewController:self
-                                                                               interactionHandler:^(BOOL hidden) {
-        weakSelf.videoPlayerView.timeView.hidden = weakSelf.videoPlayerView.secondaryPlayButton.hidden = hidden;
-        [weakSelf.videoPlayerView.timeView addAnimation:[CATransition transition:kCATransitionFade]];
-        [weakSelf.videoPlayerView.secondaryPlayButton addAnimation:[CATransition transition:kCATransitionFade]];
-        [weakSelf.historyViewController hideSecondaryViews:hidden];
-     }];
+    self.candyInteractionController = [[CandyInteractionController alloc] initWithViewController:self
+                                                                              interactionHandler:^(BOOL hidden) {
+    VideoPlayerView *videoPlayerView = weakSelf.videoPlayerView;
+    videoPlayerView.timeView.hidden = videoPlayerView.secondaryPlayButton.hidden = hidden || !videoPlayerView.playButton.hidden;
+    [videoPlayerView.timeView addAnimation:[CATransition transition:kCATransitionFade]];
+    [videoPlayerView.secondaryPlayButton addAnimation:[CATransition transition:kCATransitionFade]];
+    [weakSelf.historyViewController hideSecondaryViews:hidden];
+    }];
 }
 
 - (void)setup:(Candy *)candy {

@@ -146,7 +146,7 @@ class NotificationSubscription: NSObject {
                 if status?.error ?? false {
                     failure(nil)
                 } else {
-                    if let channels = result.data.channels as? [String] where !channels.isEmpty {
+                    if let channels = result?.data?.channels as? [String] where !channels.isEmpty {
                         var fetchedChannels = Set<String>()
                         var messages = [[NSObject : AnyObject]]()
                         for channel in channels {

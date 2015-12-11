@@ -177,7 +177,7 @@
         if (type == WLNotificationUserUpdate) {
             [[Authorization currentAuthorization] updateWithUserData:dictionary];
         }
-        if (type == WLNotificationCandyAdd && self.originatedByCurrentUser) {
+        if ((type == WLNotificationCandyAdd || type == WLNotificationCandyUpdate) && self.originatedByCurrentUser) {
             Asset* oldPicture = [((Candy*)entry).asset copy];
             [entry map:dictionary];
             [oldPicture cacheForAsset:((Candy*)entry).asset];

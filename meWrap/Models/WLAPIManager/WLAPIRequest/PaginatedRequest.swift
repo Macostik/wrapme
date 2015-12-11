@@ -93,9 +93,6 @@ extension PaginatedRequest {
                     break
                 case .Older:
                     if let older = wrap.candiesPaginationDate {
-                        if let newer = request.newer {
-                            parameters["offset_x_in_epoch"] = newer.timestamp
-                        }
                         parameters["offset_y_in_epoch"] = older.timestamp
                     }
                     break

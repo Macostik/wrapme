@@ -364,7 +364,7 @@
         if (notification.type != WLNotificationUserUpdate && ![WLAuthorizationRequest authorized]) {
             return nil;
         }
-        if (notification.type != WLNotificationCandyAdd && notification.originatedByCurrentUser) {
+        if ((notification.type != WLNotificationCandyAdd && notification.type != WLNotificationCandyUpdate) && notification.originatedByCurrentUser) {
             return nil;
         }
         return [weakSelf isAlreadyHandledNotification:notification] ? nil : notification;

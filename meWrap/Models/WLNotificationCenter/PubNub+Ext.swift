@@ -146,20 +146,16 @@ class NotificationSubscription: NSObject {
                 } else {
                     if let channels = result?.data?.channels as? [String] where !channels.isEmpty {
                         var fetchedChannels = 0
-                        var messages = [AnyObject]()
+                        let messages = NSMutableArray()
                         for channel in channels {
                             pubnub.historyForChannel(channel, start: startDate, end: endDate, includeTimeToken: true, withCompletion: { (result, status) -> Void in
                                 fetchedChannels++
                                 if let _messages = result?.data?.messages {
-                                    messages.appendContentsOf(_messages)
+                                    messages.addObjectsFromArray(_messages)
                                 }
                                 if fetchedChannels == channels.count {
-                                    messages.sortInPlace({ (msg1, msg2) -> Bool in
-                                        let t1 = ((msg1 as? [NSObject:AnyObject])?["timetoken"] as? NSNumber)?.doubleValue ?? 0
-                                        let t2 = ((msg2 as? [NSObject:AnyObject])?["timetoken"] as? NSNumber)?.doubleValue ?? 0
-                                        return t1 < t2
-                                    })
-                                    success(messages as? [[NSObject:AnyObject]])
+                                    messages.sortUsingDescriptors([NSSortDescriptor(key: "timetoken", ascending: true)])
+                                    success(NSArray(array: messages) as? [[NSObject:AnyObject]])
                                 }
                             })
                         }

@@ -71,13 +71,14 @@ class RecentUpdateList: Notifier {
             Candy.fetch().query(self.candyPredicate, uids, date, user).execute({ (result) -> Void in
                 contributions.appendContentsOf(result)
                 Candy.fetch().query(self.updatesPredicate, uids, date, user).execute({ (result) -> Void in
-                    self.handleControbutions(contributions, updates: result)
+                    self.handleContributions(contributions, updates: result)
+                    success?()
                 })
             })
         }
     }
     
-    func handleControbutions(contributions: [AnyObject], updates: [AnyObject]) {
+    func handleContributions(contributions: [AnyObject], updates: [AnyObject]) {
         var wrapCounters = [String:Int]()
         var unreadCount = 0
         var events = [RecentUpdate]()

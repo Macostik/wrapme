@@ -171,7 +171,7 @@ class LiveBroadcastViewController: WLBaseViewController {
             
             if let channel = wrap?.uid {
                 PubNub.sharedInstance.stateForUUID(broadcast.channel, onChannel: channel, withCompletion: { [weak self] (result, status) -> Void in
-                    if let state = result.data.state, let numberOfViewers = state["numberOfViewers"] as? Int {
+                    if let state = result?.data?.state, let numberOfViewers = state["numberOfViewers"] as? Int {
                         if let broadcast = self?.broadcast {
                             broadcast.numberOfViewers = numberOfViewers
                             self?.updateBroadcastInfo()
@@ -261,14 +261,13 @@ class LiveBroadcastViewController: WLBaseViewController {
         broadcast.url = "http://live.mewrap.me:1935/live/\(channel)/playlist.m3u8"
         broadcast.channel = channel
         broadcast.wrap = wrap
-        broadcast.numberOfViewers = 1
         self.broadcast = wrap.addBroadcast(broadcast)
         
         userState = [
             "title" : broadcast.title,
-            "viewerURL" : broadcast.url,
+            "viewURL" : broadcast.url,
             "chatChannel" : channel,
-            "numberOfViewers" : 1
+            "numberOfViewers" : broadcast.numberOfViewers
         ]
         
         let uri = "rtsp://live.mewrap.me:1935/live/\(channel)"

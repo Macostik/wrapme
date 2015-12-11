@@ -168,14 +168,15 @@
                     if ([chatChannel isEqualToString:[User channelName]]) {
                         return;
                     }
-                    NSString *viewerURL = state[@"viewerURL"];
-                    if (viewerURL != nil) {
+                    NSString *viewURL = state[@"viewURL"];
+                    if (viewURL != nil) {
                         LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
                         broadcast.broadcaster = user;
                         broadcast.wrap = wrap;
                         broadcast.title = state[@"title"];
                         broadcast.channel = chatChannel;
-                        broadcast.url = viewerURL;
+                        broadcast.url = viewURL;
+                        broadcast.numberOfViewers = [state[@"numberOfViewers"] integerValue];
                         [wrap addBroadcast:broadcast];
                     } else {
                         for (LiveBroadcast *broadcast in wrap.liveBroadcasts) {
@@ -188,8 +189,12 @@
                 } failure:nil];
             } failure:nil];
         } else if ([event.data.presenceEvent isEqualToString:@"timeout"]) {
-            NSString *viewerURL = state[@"viewerURL"];
-            if (viewerURL == nil) {
+            NSString *chatChannel = state[@"chatChannel"];
+            if ([chatChannel isEqualToString:[User channelName]]) {
+                return;
+            }
+            NSString *viewURL = state[@"viewURL"];
+            if (viewURL == nil) {
                 for (LiveBroadcast *broadcast in wrap.liveBroadcasts) {
                     if (broadcast.broadcaster == user) {
                         [wrap removeBroadcast:broadcast];

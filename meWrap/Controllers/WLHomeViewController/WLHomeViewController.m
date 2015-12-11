@@ -150,14 +150,14 @@
                 if (user == nil) {
                     continue;
                 }
-                NSString *viewerURL = state[@"viewerURL"];
-                if (viewerURL != nil) {
+                NSString *viewURL = state[@"viewURL"];
+                if (viewURL != nil) {
                     LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
                     broadcast.broadcaster = user;
                     broadcast.wrap = wrap;
                     broadcast.title = state[@"title"];
                     broadcast.channel = state[@"chatChannel"];
-                    broadcast.url = viewerURL;
+                    broadcast.url = viewURL;
                     [wrapBroadcasts addObject:broadcast];
                 }
                 [user fetchIfNeeded:nil failure:nil];

@@ -131,9 +131,7 @@ class NotificationSubscription: NSObject {
     
     func hereNow(completion: [[NSObject : AnyObject]]? -> Void) {
         PubNub.sharedInstance.hereNowForChannel(name, withVerbosity: .State) { (result, status) -> Void in
-            if !(status?.error ?? false) {
-                completion(result.data.uuids as? [[NSObject : AnyObject]])
-            }
+            completion(result?.data?.uuids as? [[NSObject : AnyObject]])
         }
     }
     
@@ -173,7 +171,7 @@ class NotificationSubscription: NSObject {
                 if status?.error ?? false {
                     failure(nil)
                 } else {
-                    success(result.data.messages as? [[NSObject:AnyObject]])
+                    success(result?.data?.messages as? [[NSObject:AnyObject]])
                 }
             })
         }
@@ -191,12 +189,12 @@ extension NotificationSubscription: PNObjectEventListener {
     }
     
     func client(client: PubNub!, didReceiveMessage message: PNMessageResult!) {
-        if message.data.actualChannel == name || message.data.subscribedChannel == name {
+        if message?.data?.actualChannel == name || message?.data?.subscribedChannel == name {
             didReceiveMessage(message)
         }
     }
     func client(client: PubNub!, didReceivePresenceEvent event: PNPresenceEventResult!) {
-        if event.data.actualChannel == name || event.data.subscribedChannel == name {
+        if event?.data?.actualChannel == name || event?.data?.subscribedChannel == name {
             didReceivePresenceEvent(event)
         }
     }

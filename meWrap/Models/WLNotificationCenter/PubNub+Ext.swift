@@ -145,19 +145,19 @@ class NotificationSubscription: NSObject {
                     failure(nil)
                 } else {
                     if let channels = result?.data?.channels as? [String] where !channels.isEmpty {
-                        var fetchedChannels = Set<String>()
-                        var messages = [[NSObject : AnyObject]]()
+                        var fetchedChannels = 0
+                        var messages = [AnyObject]()
                         for channel in channels {
                             pubnub.historyForChannel(channel, start: startDate, end: endDate, includeTimeToken: true, withCompletion: { (result, status) -> Void in
-                                fetchedChannels.insert(channel)
-                                if let _messages = result?.data?.messages as? [[NSObject : AnyObject]] {
+                                fetchedChannels++
+                                if let _messages = result?.data?.messages {
                                     messages.appendContentsOf(_messages)
                                 }
-                                if fetchedChannels.count == channels.count {
+                                if fetchedChannels == channels.count {
                                     messages.sortInPlace({ (msg1, msg2) -> Bool in
                                         return (msg1["timetoken"] as? NSNumber)?.doubleValue < (msg2["timetoken"] as? NSNumber)?.doubleValue
                                     })
-                                    success(messages)
+                                    success(messages as? [[NSObject:AnyObject]])
                                 }
                             })
                         }

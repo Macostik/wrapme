@@ -474,9 +474,9 @@ extension LiveBroadcastViewController: EntryNotifying {
 extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
     func notificationSubscription(subscription: NotificationSubscription, didReceiveMessage message: PNMessageResult) {
         guard let broadcast = broadcast else { return }
-        guard let uuid = (message.data.message as? [String : AnyObject])?["userUid"] as? String else { return }
+        guard let uuid = (message.data?.message as? [String : AnyObject])?["userUid"] as? String else { return }
         guard let user = User.entry(uuid) else { return }
-        guard let text = (message.data.message as? [String : AnyObject])?["chatMessage"] as? String else { return }
+        guard let text = (message.data?.message as? [String : AnyObject])?["chatMessage"] as? String else { return }
         user.fetchIfNeeded({ [weak self] (_) -> Void in
             let event = LiveBroadcast.Event(type: .Message)
             event.user = user
@@ -499,7 +499,7 @@ extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
     
     func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {
         guard let broadcast = broadcast else { return }
-        guard let uuid = event.data.presence.uuid where uuid != User.channelName() else { return }
+        guard let uuid = event.data?.presence?.uuid where uuid != User.channelName() else { return }
         guard let user = PubNub.userFromUUID(uuid) where !user.current else { return }
         user.fetchIfNeeded({ [weak self] (_) -> Void in
             guard let controller = self else {

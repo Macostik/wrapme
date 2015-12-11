@@ -23,7 +23,8 @@
 #import "WLUploadingQueue.h"
 #import "WLNetwork.h"
 #import <AWSCore/AWSCore.h>
-#import <MMWormhole/MMWormhole.h>
+#import "MMWormhole.h"
+
 @import WatchConnectivity;
 
 @interface WLAppDelegate () <iVersionDelegate, WCSessionDelegate>

@@ -8,7 +8,6 @@
 
 import Foundation
 import NotificationCenter
-import MMWormhole
 
 class TodayRecentUpdateCell : UITableViewCell {
     
@@ -61,7 +60,7 @@ let MinRow: Int = 3
 
 class TodayViewController: UIViewController {
     
-    let wormhole = MMWormhole(applicationGroupIdentifier: "group.com.ravenpod.wraplive", optionalDirectory: "wormhole")
+    var wormhole = MMWormhole(applicationGroupIdentifier: "group.com.ravenpod.wraplive", optionalDirectory: "wormhole")
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var moreButton: UIButton!
@@ -106,9 +105,12 @@ class TodayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.addObserver(self, forKeyPath: "contentSize", options: .New, context: nil)
-        wormhole.listenForMessageWithIdentifier("recentUpdatesResponse") { [weak self] (response) -> Void in
-            self?.handleRecentUpdatesResponse(response)
-        }
+//        wormhole.listenForMessageWithIdentifier("recentUpdatesResponse") { [weak self] (response) -> Void in
+//            self?.handleRecentUpdatesResponse(response)
+//        }
+        wormhole.listenForMessageWithIdentifier("recentUpdatesResponse", listener: { [weak self] (messageObject) -> Void in
+            self?.handleRecentUpdatesResponse(messageObject)
+        })
         fetchRecentUpdates()
     }
     

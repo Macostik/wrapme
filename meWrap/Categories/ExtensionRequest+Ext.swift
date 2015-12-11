@@ -119,7 +119,7 @@ extension ExtensionRequest {
 
 extension Contribution {
     class func recentUpdates(limit: Int) -> [[String:AnyObject]] {
-        return Contribution.recentContributions(10).map { (c) -> [String:AnyObject] in
+        return Contribution.recentContributions(limit).map { (c) -> [String:AnyObject] in
             let update = ExtensionUpdate()
             if let comment = c as? Comment {
                 update.comment = comment.extensionComment()

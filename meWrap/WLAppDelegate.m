@@ -39,8 +39,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     WLLog(@"meWrap - API environment initialized: %@", [Environment currentEnvironment]);
     
-    [NSKeyedUnarchiver setClass:[Authorization class] forClassName:@"WLAuthorization"];
-    
     [self registerUserNotificationSettings];
     
     [self initializeCrashlyticsAndLogging];

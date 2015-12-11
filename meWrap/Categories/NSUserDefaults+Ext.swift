@@ -27,6 +27,7 @@ extension NSUserDefaults {
     var authorization: Authorization? {
         get {
             if _authorization == nil {
+                NSKeyedUnarchiver.setClass(Authorization.classForKeyedUnarchiver(), forClassName: "WLAuthorization")
                 if let data = NSUserDefaults.sharedUserDefaults?["encrypted_authorization"] as? NSData {
                     do {
                         let data = try data.decrypt(cipher)

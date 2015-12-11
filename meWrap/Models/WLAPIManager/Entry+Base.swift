@@ -151,8 +151,8 @@ extension Candy {
         case .InProgress:
             break
         case .Finished:
-            touch()
-            editedAt = NSDate.now()
+            updatedAt = NSDate.now()
+            editedAt = updatedAt
             editor = User.currentUser
             asset = newAsset
             break

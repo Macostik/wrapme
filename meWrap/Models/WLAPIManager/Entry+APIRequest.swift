@@ -273,10 +273,10 @@ extension Candy {
             switch (status) {
             case .Ready: break
             case .Finished:
-                notifyOnUpdate(.Default)
                 if let uploading = Uploading.uploading(self, event: .Update) {
                     WLUploadingQueue.upload(uploading, success: nil, failure: nil)
                 }
+                notifyOnUpdate(.Default)
                 break
             default:
                 break

@@ -239,7 +239,7 @@ extension Chat: NotificationSubscriptionDelegate {
     }
     
     func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {
-        guard let user = PubNub.userFromUUID(event.data.presence.uuid) where !user.current else {
+        guard let user = PubNub.userFromUUID(event.data?.presence?.uuid) where !user.current else {
             return
         }
         

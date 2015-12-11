@@ -103,7 +103,7 @@ static NSUInteger const kPNRequiredTimeTokenPrecision = 17;
 
 + (NSUInteger)correctionForPrecision:(NSUInteger)precision {
     
-    NSUInteger precisionDiff = (precision > 0 ? (kPNRequiredTimeTokenPrecision - precision) : 0);
+    NSUInteger precisionDiff = ((precision > 0 && precision < kPNRequiredTimeTokenPrecision) ? (kPNRequiredTimeTokenPrecision - precision) : 0);
     NSUInteger correctionMultiplier = 1;
     while (precisionDiff != 0) {
         

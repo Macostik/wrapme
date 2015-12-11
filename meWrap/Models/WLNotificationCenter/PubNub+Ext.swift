@@ -36,11 +36,15 @@ extension PubNub {
         }
     }
     
-    class func userFromUUID(uuid: String) -> User? {
-        if uuid.containsString("-") {
-            return User.entry(uuid.componentsSeparatedByString("-").first)
+    class func userFromUUID(uuid: String?) -> User? {
+        if let uuid = uuid {
+            if uuid.containsString("-") {
+                return User.entry(uuid.componentsSeparatedByString("-").first)
+            } else {
+                return User.entry(uuid)
+            }
         } else {
-            return User.entry(uuid)
+            return nil
         }
     }
 }

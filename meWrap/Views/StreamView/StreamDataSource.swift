@@ -26,6 +26,12 @@ class StreamDataSource: NSObject, GridLayoutDelegate, StreamLayoutDelegate {
     
     lazy var footerMetrics = [StreamMetrics]()
     
+    deinit {
+        if let delegate = streamView?.delegate where delegate === self {
+            streamView?.delegate = nil
+        }
+    }
+    
     var items: BaseOrderedContainer? {
         didSet {
             didSetItems()

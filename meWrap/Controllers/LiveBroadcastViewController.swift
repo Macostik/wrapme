@@ -76,8 +76,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         didSet {
             if let channel = wrap?.uid, let uuid = User.currentUser?.uid {
                 userState["userUid"] = uuid
-                PubNub.sharedInstance.currentConfiguration().uuid = User.channelName()
-                PubNub.sharedInstance.setState(userState, forUUID: User.channelName(), onChannel: channel, withCompletion: nil)
+                WLNotificationCenter.defaultCenter().userSubscription.changeState(userState, channel: channel)
             }
         }
     }
@@ -170,8 +169,8 @@ class LiveBroadcastViewController: WLBaseViewController {
             
             updateBroadcastInfo()
             
-            if let uuid = broadcast.broadcaster?.uid, let channel = wrap?.uid {
-                PubNub.sharedInstance.stateForUUID(uuid, onChannel: channel, withCompletion: { [weak self] (result, status) -> Void in
+            if let channel = wrap?.uid {
+                PubNub.sharedInstance.stateForUUID(broadcast.channel, onChannel: channel, withCompletion: { [weak self] (result, status) -> Void in
                     if let state = result.data.state, let numberOfViewers = state["numberOfViewers"] as? Int {
                         if let broadcast = self?.broadcast {
                             broadcast.numberOfViewers = numberOfViewers
@@ -333,8 +332,8 @@ class LiveBroadcastViewController: WLBaseViewController {
         } else {
             if let text = composeBar.text, let uuid = User.currentUser?.uid where !text.isEmpty {
                 chatSubscription?.send([
-                    "chat_message" : text,
-                    "uuid" : uuid
+                    "chatMessage" : text,
+                    "userUid" : uuid
                     ])
             }
             composeBar.text = nil
@@ -476,9 +475,9 @@ extension LiveBroadcastViewController: EntryNotifying {
 extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
     func notificationSubscription(subscription: NotificationSubscription, didReceiveMessage message: PNMessageResult) {
         guard let broadcast = broadcast else { return }
-        guard let uuid = (message.data.message as? [String : AnyObject])?["uuid"] as? String else { return }
+        guard let uuid = (message.data.message as? [String : AnyObject])?["userUid"] as? String else { return }
         guard let user = User.entry(uuid) else { return }
-        guard let text = (message.data.message as? [String : AnyObject])?["chat_message"] as? String else { return }
+        guard let text = (message.data.message as? [String : AnyObject])?["chatMessage"] as? String else { return }
         user.fetchIfNeeded({ [weak self] (_) -> Void in
             let event = LiveBroadcast.Event(type: .Message)
             event.user = user
@@ -501,18 +500,22 @@ extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
     
     func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {
         guard let broadcast = broadcast else { return }
-        guard let user = User.entry(event.data.presence.uuid) where !user.current else { return }
+        guard let uuid = event.data.presence.uuid where uuid != User.channelName() else { return }
+        guard let user = PubNub.userFromUUID(uuid) where !user.current else { return }
         user.fetchIfNeeded({ [weak self] (_) -> Void in
+            guard let controller = self else {
+                return
+            }
             switch event.data.presenceEvent {
             case "join":
                 let event = LiveBroadcast.Event(type: .Join)
                 event.user = user
                 broadcast.insert(event)
-                self?.chatDataSource.items = broadcast.events
-                self?.setNumberOfViewers(max(0, broadcast.numberOfViewers + 1))
+                controller.chatDataSource.items = broadcast.events
+                controller.setNumberOfViewers(max(1, broadcast.numberOfViewers + 1))
                 break
             case "leave", "timeout":
-                self?.setNumberOfViewers(max(0, broadcast.numberOfViewers - 1))
+                self?.setNumberOfViewers(max(1, broadcast.numberOfViewers - 1))
                 break
             default: break
             }

@@ -66,8 +66,6 @@ extension PHFetchResult: BaseOrderedContainer {
 
 @objc protocol AssetsViewControllerDelegate {
     
-    optional func assetsViewControllerShouldPreselectFirstAsset(controller: AssetsViewController) -> Bool
-    
     optional func assetsViewController(controller: AssetsViewController, shouldSelectAsset asset: PHAsset) -> Bool
     
     optional func assetsViewController(controller: AssetsViewController, didSelectAsset asset: PHAsset)
@@ -86,11 +84,6 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
                 assets = PHAsset.fetchAssetsWithOptions(options)
             } else {
                 assets = PHAsset.fetchAssetsWithMediaType(.Image, options:options)
-            }
-            if delegate?.assetsViewControllerShouldPreselectFirstAsset?(self) ?? false {
-                if let asset = assets?.firstObject as? PHAsset {
-                    selectAsset(asset)
-                }
             }
             dataSource?.items = assets
         }

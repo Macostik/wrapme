@@ -7,10 +7,7 @@
 //
 
 #import "WLBaseViewController.h"
-#import "WLStillPictureViewController.h"
 
-@interface WLHomeViewController : WLBaseViewController <WLStillPictureViewControllerDelegate>
-
-- (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker;
+@interface WLHomeViewController : WLBaseViewController
 
 @end

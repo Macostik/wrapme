@@ -290,7 +290,6 @@
     stillPictureViewController.wrap = self.wrap;
     stillPictureViewController.mode = StillPictureModeDefault;
     stillPictureViewController.delegate = self;
-    stillPictureViewController.startFromGallery = NO;
     [self presentViewController:stillPictureViewController animated:NO completion:nil];
 }
 

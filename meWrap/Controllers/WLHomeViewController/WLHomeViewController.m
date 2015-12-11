@@ -23,8 +23,9 @@
 #import "WLSoundPlayer.h"
 #import "WLNetwork.h"
 #import "WLChangeProfileViewController.h"
+#import "WLStillPictureViewController.h"
 
-@interface WLHomeViewController () <WrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, RecentUpdateListNotifying>
+@interface WLHomeViewController () <WrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, RecentUpdateListNotifying, WLStillPictureViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet SegmentedStreamDataSource *dataSource;
 
@@ -303,38 +304,6 @@
     [self setEmailConfirmationViewHidden:YES animated:YES];
 }
 
-- (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker {
-    Wrap *wrap = nil;
-    if (self.dataSource.currentDataSource == self.publicDataSource) {
-        for (Wrap *_wrap in [(PaginatedList *)[self.publicDataSource items] entries]) {
-            if (_wrap.isContributing) {
-                wrap = _wrap;
-                break;
-            }
-        }
-    }
-    if (!wrap) {
-        wrap = self.homeDataSource.wrap;
-    }
-    [self openCameraForWrap:wrap animated:animated startFromGallery:startFromGallery showWrapPicker:showPicker];
-}
-
-- (void)openCameraForWrap:(Wrap *)wrap animated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker {
-    if (wrap) {
-        WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPhotosViewController];
-        stillPictureViewController.wrap = wrap;
-        stillPictureViewController.mode = StillPictureModeDefault;
-        stillPictureViewController.delegate = self;
-        stillPictureViewController.startFromGallery = startFromGallery;
-        [self presentViewController:stillPictureViewController animated:animated completion:nil];
-        if (showPicker) {
-            [stillPictureViewController showWrapPickerWithController:NO];
-        }
-    } else {
-        [self createWrap:nil];
-    }
-}
-
 // MARK: - WLWrapCellDelegate
 
 - (void)wrapCellDidBeginPanning:(WrapCell *)cell {
@@ -358,7 +327,7 @@
 - (void)wrapCell:(WrapCell *)cell presentCameraViewControllerForWrap:(Wrap *)wrap {
     self.streamView.userInteractionEnabled = YES;
     if (wrap.valid) {
-        [self openCameraForWrap:wrap animated:YES startFromGallery:NO showWrapPicker:NO];
+        [self openCameraForWrap:wrap animated:YES];
     }
 }
 
@@ -427,15 +396,31 @@
     }];
 }
 
+- (void)openCameraForWrap:(Wrap *)wrap animated:(BOOL)animated {
+    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPhotosViewController];
+    stillPictureViewController.wrap = wrap;
+    stillPictureViewController.mode = StillPictureModeDefault;
+    stillPictureViewController.delegate = self;
+    [self presentViewController:stillPictureViewController animated:animated completion:nil];
+}
+
 - (IBAction)createWrap:(id)sender {
-    WLStillPictureViewController *controller = [WLStillPictureViewController stillPhotosViewController];
-    controller.mode = StillPictureModeDefault;
-    controller.delegate = self;
-    [self presentViewController:controller animated:NO completion:nil];
+    [self openCameraForWrap:nil animated:NO];
+}
+
+- (Wrap*)topWrap {
+    if (self.dataSource.currentDataSource == self.publicDataSource) {
+        for (Wrap *wrap in [(PaginatedList *)[self.publicDataSource items] entries]) {
+            if (wrap.isContributing) {
+                return wrap;
+            }
+        }
+    }
+    return self.homeDataSource.wrap;
 }
 
 - (IBAction)addPhoto:(id)sender {
-    [self openCameraAnimated:NO startFromGallery:NO showWrapPicker:NO];
+    [self openCameraForWrap:[self topWrap] animated:NO];
 }
 
 - (IBAction)hottestWrapsOpened:(id)sender {

@@ -138,10 +138,6 @@
     [self updatePicturesCountLabel];
 }
 
-- (BOOL)assetsViewControllerShouldPreselectFirstAsset:(AssetsViewController *)controller {
-    return self.startFromGallery;
-}
-
 - (void)handleAsset:(PHAsset*)asset {
     __weak typeof(self)weakSelf = self;
     MutableAsset *picture = [[MutableAsset alloc] init];

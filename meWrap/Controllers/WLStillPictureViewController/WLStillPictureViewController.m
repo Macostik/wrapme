@@ -110,7 +110,7 @@
         UINavigationController *navigationController = [UINavigationController mainNavigationController];
         WLHomeViewController *homeViewController = [navigationController.viewControllers firstObject];
         if ([homeViewController isKindOfClass:[WLHomeViewController class]]) {
-            delegate = self.delegate = homeViewController;
+            delegate = homeViewController;
         }
     }
     return delegate;

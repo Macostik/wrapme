@@ -16,7 +16,7 @@ extension PubNub {
     static var sharedInstance: PubNub! {
         get {
             if _sharedInstance == nil {
-                guard let user = User.currentUser else {
+                guard User.currentUser != nil else {
                     return nil
                 }
                 let configuration: PNConfiguration!
@@ -25,16 +25,22 @@ extension PubNub {
                 } else {
                     configuration = PNConfiguration(publishKey: "pub-c-16ba2a90-9331-4472-b00a-83f01ff32089", subscribeKey: "sub-c-bc5bfa70-d166-11e3-8d06-02ee2ddab7fe")
                 }
-        
+                configuration.uuid = User.channelName()
                 PNLog.enabled(false)
-        
-                configuration.uuid = user.uid
                 _sharedInstance = clientWithConfiguration(configuration)
             }
             return _sharedInstance!
         }
         set {
             _sharedInstance = newValue
+        }
+    }
+    
+    class func userFromUUID(uuid: String) -> User? {
+        if uuid.containsString("-") {
+            return User.entry(uuid.componentsSeparatedByString("-").first)
+        } else {
+            return User.entry(uuid)
         }
     }
 }
@@ -110,9 +116,8 @@ class NotificationSubscription: NSObject {
     }
     
     func changeState(state: [NSObject : AnyObject]?, channel: String) {
-        if let user = User.currentUser {
-            PubNub.sharedInstance.currentConfiguration().uuid = user.uid
-            PubNub.sharedInstance.setState(state, forUUID: user.uid, onChannel: channel, withCompletion: nil)
+        if let uuid = PubNub.sharedInstance.currentConfiguration().uuid {
+            PubNub.sharedInstance.setState(state, forUUID: uuid, onChannel: channel, withCompletion: nil)
         }
     }
     

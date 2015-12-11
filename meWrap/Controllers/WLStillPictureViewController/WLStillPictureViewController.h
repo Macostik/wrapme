@@ -28,8 +28,6 @@
 
 @property (nonatomic, weak) id <WLStillPictureViewControllerDelegate> delegate;
 
-@property (nonatomic) BOOL startFromGallery;
-
 @property (weak, nonatomic) WLCameraViewController *cameraViewController;
 
 + (instancetype)stillPhotosViewController;

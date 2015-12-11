@@ -239,15 +239,18 @@ extension Chat: NotificationSubscriptionDelegate {
     }
     
     func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {
-        guard let user = User.entry(event.data.presence.uuid) where !user.current else {
+        guard let user = PubNub.userFromUUID(event.data.presence.uuid) where !user.current else {
             return
         }
-        if event.data.presenceEvent == "state-change" {
+        
+        switch event.data.presenceEvent {
+        case "state-change":
             handleClientState(event.data.presence.state, user: user)
-        } else if event.data.presenceEvent == "leave" || event.data.presenceEvent == "timeout" {
-            if typingUsers.contains(user) {
-                didEndTyping(user)
-            }
+            break
+        case "leave", "timeout" where typingUsers.contains(user):
+            didEndTyping(user)
+            break
+        default: break
         }
     }
 }

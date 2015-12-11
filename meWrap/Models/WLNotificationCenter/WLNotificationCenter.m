@@ -157,11 +157,11 @@
 // MARK: - NotificationSubscriptionDelegate
 
 - (void)notificationSubscription:(NotificationSubscription *)subscription didReceivePresenceEvent:(PNPresenceEventResult * _Nonnull)event {
-    if ([event.data.presenceEvent isEqualToString:@"state-change"]) {
-        Wrap *wrap = [Wrap entry:event.data.actualChannel];
-        NSDictionary *state = event.data.presence.state;
-        User *user = [User entry:state[@"userUid"]];
-        if (wrap && user && state) {
+    Wrap *wrap = [Wrap entry:event.data.actualChannel];
+    NSDictionary *state = event.data.presence.state;
+    User *user = [User entry:state[@"userUid"]];
+    if (wrap && user) {
+        if ([event.data.presenceEvent isEqualToString:@"state-change"]) {
             [user fetchIfNeeded:^(id  _Nullable object) {
                 [wrap fetchIfNeeded:^(id  _Nullable object) {
                     NSString *chatChannel = state[@"chatChannel"];
@@ -187,6 +187,16 @@
                     }
                 } failure:nil];
             } failure:nil];
+        } else if ([event.data.presenceEvent isEqualToString:@"timeout"]) {
+            NSString *viewerURL = state[@"viewerURL"];
+            if (viewerURL == nil) {
+                for (LiveBroadcast *broadcast in wrap.liveBroadcasts) {
+                    if (broadcast.broadcaster == user) {
+                        [wrap removeBroadcast:broadcast];
+                        break;
+                    }
+                }
+            }
         }
     }
 }

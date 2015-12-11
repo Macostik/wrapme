@@ -25,7 +25,9 @@ class EntryContext: NSManagedObjectContext {
     static var sharedContext: EntryContext = {
         let context = EntryContext(concurrencyType: .MainQueueConcurrencyType)
         
-        NSValueTransformer.setValueTransformer(AssetTransformer(), forName: "assetTransformer")
+        let transformer = AssetTransformer()
+        NSValueTransformer.setValueTransformer(transformer, forName: "pictureTransformer")
+        NSValueTransformer.setValueTransformer(transformer, forName: "assetTransformer")
         guard let modelURL = NSBundle.mainBundle().URLForResource("CoreData", withExtension: "momd") else {
             return context
         }

@@ -88,7 +88,11 @@ class RecentUpdateList: Notifier {
                 if contribution.unread {
                     unreadCount++
                     if let candy = contribution as? Candy, let wrap = candy.wrap {
-                        wrapCounters[wrap.uid] = wrapCounters[wrap.uid] ?? 0 + 1
+                        if let count = wrapCounters[wrap.uid] {
+                            wrapCounters[wrap.uid] = count + 1
+                        } else {
+                            wrapCounters[wrap.uid] = 1
+                        }
                     }
                 }
             }

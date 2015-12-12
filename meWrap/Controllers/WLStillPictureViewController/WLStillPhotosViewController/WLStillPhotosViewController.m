@@ -63,7 +63,7 @@
         }];
         
         WLBatchEditPictureViewController *editController = self.storyboard[@"WLBatchEditPictureViewController"];
-        editController.pictures = weakSelf.pictures;
+        editController.assets = weakSelf.pictures;
         editController.delegate = weakSelf;
         editController.wrap = weakSelf.wrap;
         [weakSelf pushViewController:editController animated:NO];
@@ -197,13 +197,13 @@
 
 #pragma mark - WLBatchEditPictureViewControllerDelegate
 
-- (void)batchEditPictureViewController:(WLBatchEditPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
+- (void)batchEditPictureViewController:(WLBatchEditPictureViewController *)controller didFinishWithAssets:(NSArray *)assets {
     
-    for (MutableAsset *picture in pictures) {
-        [picture saveToAssetsIfNeeded];
+    for (MutableAsset *asset in assets) {
+        [asset saveToAssetsIfNeeded];
     }
     
-    [self finishWithPictures:pictures];
+    [self finishWithPictures:assets];
 }
 
 @end

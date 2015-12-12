@@ -85,9 +85,10 @@
 
 - (void)downloadEntry:(ImageBlock)success failure:(FailureBlock)failure {
     NSString *url = self.candy.asset.original;
-    if ([[ImageCache defaultCache] containsImageWithURL:url]) {
+    NSString *uid = [ImageCache uidFromURL:url];
+    if ([[ImageCache defaultCache] contains:uid]) {
         if (success) {
-            success([[ImageCache defaultCache] imageWithURL:url]);
+            success([[ImageCache defaultCache] read:uid]);
         }
     } else if ([url isExistingFilePath]) {
         
@@ -95,7 +96,6 @@
         if (image == nil) {
             image = [UIImage imageWithContentsOfFile:url];
             [InMemoryImageCache instance][url] = image;
-            
         }
         if (success) {
             success(image);
@@ -110,7 +110,7 @@
         operation.securityPolicy.allowInvalidCertificates = YES;
         operation.securityPolicy.validatesDomainName = NO;
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [[ImageCache defaultCache] setImage:responseObject withURL:url];
+            [[ImageCache defaultCache] write:responseObject uid:uid];
             if (success) success(responseObject);
             [weakSelf dissmis];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

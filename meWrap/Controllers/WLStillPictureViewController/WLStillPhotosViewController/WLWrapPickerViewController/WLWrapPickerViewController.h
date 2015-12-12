@@ -31,7 +31,3 @@
 - (void)hide;
 
 @end
-
-@interface WLWrapPickerCollectionViewLayout : UICollectionViewFlowLayout
-
-@end

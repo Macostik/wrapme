@@ -13,7 +13,7 @@
 
 @protocol WLBatchEditPictureViewControllerDelegate <WLStillPictureBaseViewControllerDelegate>
 
-- (void)batchEditPictureViewController:(WLBatchEditPictureViewController*)controller didFinishWithPictures:(NSArray*)pictures;
+- (void)batchEditPictureViewController:(WLBatchEditPictureViewController*)controller didFinishWithAssets:(NSArray*)assets;
 
 @end
 
@@ -23,6 +23,6 @@
 
 @property (weak, nonatomic) IBOutlet WrapView *wrapView;
 
-@property (strong, nonatomic) NSArray* pictures;
+@property (strong, nonatomic) NSArray* assets;
 
 @end

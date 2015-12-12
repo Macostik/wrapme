@@ -201,36 +201,3 @@
 }
 
 @end
-
-@implementation WLWrapPickerCollectionViewLayout : UICollectionViewFlowLayout
-
-- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
-    return [[super layoutAttributesForElementsInRect:rect] map:^id(UICollectionViewLayoutAttributes *attributes) {
-        return [self adjustAttributes:attributes];
-    }];
-}
-
-- (UICollectionViewLayoutAttributes*)adjustAttributes:(UICollectionViewLayoutAttributes*)attributes {
-#warning implement stream view items transform
-    CGFloat centerY = attributes.frame.origin.y - self.collectionView.contentOffset.y + attributes.frame.size.height/2;
-    CGFloat size = self.collectionView.height/2;
-    CGFloat offset = (centerY - size)/size;
-    attributes.transform3D = CATransform3DMakeRotation((M_PI / 2.7) * offset, 1, 0, 0);
-    attributes.transform3D = CATransform3DTranslate(attributes.transform3D, 0, 0, 10 * ABS(offset));
-    attributes.alpha = 1 - ABS(offset);
-    return attributes;
-}
-
-- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [self adjustAttributes:[super layoutAttributesForItemAtIndexPath:indexPath]];
-}
-
-- (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
-    return [self adjustAttributes:[super layoutAttributesForSupplementaryViewOfKind:elementKind atIndexPath:indexPath]];
-}
-
-- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
-    return YES;
-}
-
-@end

@@ -1543,7 +1543,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ATF-e2-Nit" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="y7X-Pb-ZcE" customClass="StreamDataSource" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLEditPictureCell"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="EditAssetCell"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="numberOfGridColumns">
                             <integer key="value" value="1"/>
                         </userDefinedRuntimeAttribute>
@@ -1574,10 +1574,10 @@
             </objects>
             <point key="canvasLocation" x="3889" y="-223"/>
         </scene>
-        <!--Edit Picture View Controller-->
+        <!--Edit Asset View Controller-->
         <scene sceneID="wRZ-zZ-Ysw">
             <objects>
-                <viewController storyboardIdentifier="WLEditPictureViewController" id="mRo-Ag-1wo" customClass="WLEditPictureViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="editAsset" id="mRo-Ag-1wo" customClass="EditAssetViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vh6-7i-2VL"/>
                         <viewControllerLayoutGuide type="bottom" id="JWW-Ya-7fG"/>

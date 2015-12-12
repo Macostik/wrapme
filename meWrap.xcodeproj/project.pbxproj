@@ -86,6 +86,7 @@
 		C53012921BF4E3EA00098F9C /* EmojiView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C530128E1BF4E3EA00098F9C /* EmojiView.xib */; };
 		C53012931BF4E3EA00098F9C /* EmojiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530128F1BF4E3EA00098F9C /* EmojiCell.swift */; };
 		C53012941BF4E4BF00098F9C /* Refresher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530127A1BF49AD600098F9C /* Refresher.swift */; };
+		C531AE411C1B248A00C01535 /* EditAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C531AE401C1B248A00C01535 /* EditAssetViewController.swift */; };
 		C5326F0C1C159279007A8BEF /* RunQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5326F0B1C159279007A8BEF /* RunQueue.swift */; };
 		C535D6991C045476002BCE34 /* OverlayImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C535D6981C045476002BCE34 /* OverlayImageView.swift */; };
 		C535D69B1C045B56002BCE34 /* WrapCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C535D69A1C045B56002BCE34 /* WrapCoverView.swift */; };
@@ -132,8 +133,6 @@
 		C54731B01B906A7400B583FD /* WLEditAvatarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731931B906A7400B583FD /* WLEditAvatarViewController.m */; };
 		C54731B21B906A7400B583FD /* WLStillAvatarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731951B906A7400B583FD /* WLStillAvatarViewController.m */; };
 		C54731B41B906A7400B583FD /* WLBatchEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731991B906A7400B583FD /* WLBatchEditPictureViewController.m */; };
-		C54731B61B906A7400B583FD /* WLEditPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C547319B1B906A7400B583FD /* WLEditPictureCell.m */; };
-		C54731B81B906A7400B583FD /* WLEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C547319E1B906A7400B583FD /* WLEditPictureViewController.m */; };
 		C54731BC1B906A7400B583FD /* WLStillPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731A31B906A7400B583FD /* WLStillPhotosViewController.m */; };
 		C54731BE1B906A7400B583FD /* WLWrapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731A61B906A7400B583FD /* WLWrapPickerViewController.m */; };
 		C54731C61B9086DB00B583FD /* WLCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54731C41B9086DB00B583FD /* WLCommentCell.xib */; };
@@ -231,7 +230,7 @@
 		C5A615111B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A6150F1B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib */; };
 		C5A82CD91ACD979B00336027 /* WLDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceManager.m */; };
 		C5A877CB1B985E8B006C5226 /* StreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A877C91B985E8B006C5226 /* StreamLayout.swift */; };
-		C5A9CC841B9450660084D0F5 /* WLEditPictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC821B9450660084D0F5 /* WLEditPictureCell.xib */; };
+		C5A9CC841B9450660084D0F5 /* EditAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC821B9450660084D0F5 /* EditAssetCell.xib */; };
 		C5A9CC871B945DE00084D0F5 /* WLWrapPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC851B945DE00084D0F5 /* WLWrapPickerCell.xib */; };
 		C5A9CC8F1B9482C30084D0F5 /* WLMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC8D1B9482C30084D0F5 /* WLMessageCell.xib */; };
 		C5A9CC921B9482D20084D0F5 /* WLMyMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC901B9482D20084D0F5 /* WLMyMessageCell.xib */; };
@@ -593,6 +592,7 @@
 		C530128D1BF4E3EA00098F9C /* EmojiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmojiView.swift; path = WLComposeBar/EmojiView.swift; sourceTree = "<group>"; };
 		C530128E1BF4E3EA00098F9C /* EmojiView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EmojiView.xib; path = WLComposeBar/EmojiView.xib; sourceTree = "<group>"; };
 		C530128F1BF4E3EA00098F9C /* EmojiCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmojiCell.swift; path = WLComposeBar/EmojiCell.swift; sourceTree = "<group>"; };
+		C531AE401C1B248A00C01535 /* EditAssetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAssetViewController.swift; sourceTree = "<group>"; };
 		C5326F0B1C159279007A8BEF /* RunQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunQueue.swift; sourceTree = "<group>"; };
 		C535D6981C045476002BCE34 /* OverlayImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayImageView.swift; sourceTree = "<group>"; };
 		C535D69A1C045B56002BCE34 /* WrapCoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapCoverView.swift; sourceTree = "<group>"; };
@@ -636,10 +636,6 @@
 		C54731951B906A7400B583FD /* WLStillAvatarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLStillAvatarViewController.m; sourceTree = "<group>"; };
 		C54731981B906A7400B583FD /* WLBatchEditPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLBatchEditPictureViewController.h; sourceTree = "<group>"; };
 		C54731991B906A7400B583FD /* WLBatchEditPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLBatchEditPictureViewController.m; sourceTree = "<group>"; };
-		C547319A1B906A7400B583FD /* WLEditPictureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEditPictureCell.h; sourceTree = "<group>"; };
-		C547319B1B906A7400B583FD /* WLEditPictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEditPictureCell.m; sourceTree = "<group>"; };
-		C547319D1B906A7400B583FD /* WLEditPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEditPictureViewController.h; sourceTree = "<group>"; };
-		C547319E1B906A7400B583FD /* WLEditPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEditPictureViewController.m; sourceTree = "<group>"; };
 		C54731A21B906A7400B583FD /* WLStillPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLStillPhotosViewController.h; sourceTree = "<group>"; };
 		C54731A31B906A7400B583FD /* WLStillPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLStillPhotosViewController.m; sourceTree = "<group>"; };
 		C54731A51B906A7400B583FD /* WLWrapPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapPickerViewController.h; sourceTree = "<group>"; };
@@ -744,7 +740,7 @@
 		C5A82CCE1ACD979B00336027 /* WLDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDeviceManager.m; sourceTree = "<group>"; };
 		C5A877C91B985E8B006C5226 /* StreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamLayout.swift; sourceTree = "<group>"; };
 		C5A9CC7C1B9432920084D0F5 /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
-		C5A9CC821B9450660084D0F5 /* WLEditPictureCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLEditPictureCell.xib; sourceTree = "<group>"; };
+		C5A9CC821B9450660084D0F5 /* EditAssetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAssetCell.xib; sourceTree = "<group>"; };
 		C5A9CC851B945DE00084D0F5 /* WLWrapPickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLWrapPickerCell.xib; sourceTree = "<group>"; };
 		C5A9CC8D1B9482C30084D0F5 /* WLMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLMessageCell.xib; sourceTree = "<group>"; };
 		C5A9CC901B9482D20084D0F5 /* WLMyMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLMyMessageCell.xib; sourceTree = "<group>"; };
@@ -1726,23 +1722,12 @@
 		C54731971B906A7400B583FD /* WLBatchEditPictureViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C531AE401C1B248A00C01535 /* EditAssetViewController.swift */,
 				C54731981B906A7400B583FD /* WLBatchEditPictureViewController.h */,
 				C54731991B906A7400B583FD /* WLBatchEditPictureViewController.m */,
-				C547319A1B906A7400B583FD /* WLEditPictureCell.h */,
-				C547319B1B906A7400B583FD /* WLEditPictureCell.m */,
-				C5A9CC821B9450660084D0F5 /* WLEditPictureCell.xib */,
-				C547319C1B906A7400B583FD /* WLEditPictureViewController */,
+				C5A9CC821B9450660084D0F5 /* EditAssetCell.xib */,
 			);
 			path = WLBatchEditPictureViewController;
-			sourceTree = "<group>";
-		};
-		C547319C1B906A7400B583FD /* WLEditPictureViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C547319D1B906A7400B583FD /* WLEditPictureViewController.h */,
-				C547319E1B906A7400B583FD /* WLEditPictureViewController.m */,
-			);
-			path = WLEditPictureViewController;
 			sourceTree = "<group>";
 		};
 		C54731A41B906A7400B583FD /* WLWrapPickerViewController */ = {
@@ -2582,7 +2567,7 @@
 				C5B91A601BB4177B000E08E7 /* WLConfirmView.xib in Resources */,
 				C54AF73819B8C491006F7EDB /* smiles.plist in Resources */,
 				C5C3FEA41B8F311500F177EC /* Default-568h@2x.png in Resources */,
-				C5A9CC841B9450660084D0F5 /* WLEditPictureCell.xib in Resources */,
+				C5A9CC841B9450660084D0F5 /* EditAssetCell.xib in Resources */,
 				C5BEC3A71B8F16E800499EEA /* logo_and_caption_white.png in Resources */,
 				C54AF73A19B8C491006F7EDB /* numbers.plist in Resources */,
 				C5B91A3E1BB40D88000E08E7 /* Camera.storyboard in Resources */,
@@ -2739,6 +2724,7 @@
 				C5EBD75B1C172DF600ED2FCF /* List.swift in Sources */,
 				C5284C981B95A8B0006455FB /* PlaceholderView.m in Sources */,
 				C5E6F0281BFF558000FA3D4F /* MediaDataSource.swift in Sources */,
+				C531AE411C1B248A00C01535 /* EditAssetViewController.swift in Sources */,
 				5B1DD0371BD7B67000D30E1A /* InternalScrollView.swift in Sources */,
 				C55BE8C91C031D54006B04FC /* EventualEntryPresenter.swift in Sources */,
 				C5BCF0101B551B7B00E4AD6D /* WLMessageCell.m in Sources */,
@@ -2747,7 +2733,6 @@
 				C5AEE4441B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */,
 				C53E5D771A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C54731BC1B906A7400B583FD /* WLStillPhotosViewController.m in Sources */,
-				C54731B61B906A7400B583FD /* WLEditPictureCell.m in Sources */,
 				C54CEF9B1BCFAFA800128CBE /* UIButton+Ext.swift in Sources */,
 				5BD529491BDA796000527077 /* SmartLabel.swift in Sources */,
 				C5BFE4D31B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */,
@@ -2763,7 +2748,6 @@
 				C5C20BCC1A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
 				5BB04F2B19D9822300B5C6EE /* WLEditViewController.m in Sources */,
 				C5C20BE41A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
-				C54731B81B906A7400B583FD /* WLEditPictureViewController.m in Sources */,
 				C5568BE01A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */,
 				C535D6991C045476002BCE34 /* OverlayImageView.swift in Sources */,
 				C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */,

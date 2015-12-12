@@ -148,17 +148,21 @@ extension Asset {
             if let from = small, let to = asset.small {
                 cache.setImageAtPath(from, withURL: to)
             }
-            if let original = original {
-                try manager.removeItemAtPath(original)
+            if let url = original {
+                try manager.removeItemAtPath(url)
+                cache.uids.remove(ImageCache.uidFromURL(url))
             }
-            if let large = large {
-                try manager.removeItemAtPath(large)
+            if let url = large {
+                try manager.removeItemAtPath(url)
+                cache.uids.remove(ImageCache.uidFromURL(url))
             }
-            if let medium = medium {
-                try manager.removeItemAtPath(medium)
+            if let url = medium {
+                try manager.removeItemAtPath(url)
+                cache.uids.remove(ImageCache.uidFromURL(url))
             }
-            if let small = small {
-                try manager.removeItemAtPath(small)
+            if let url = small {
+                try manager.removeItemAtPath(url)
+                cache.uids.remove(ImageCache.uidFromURL(url))
             }
         } catch {
         }

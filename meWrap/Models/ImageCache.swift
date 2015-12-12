@@ -236,26 +236,16 @@ class ImageCache: NSObject {
     }
     
     class func uidFromURL(url: String) -> String {
-        if url.hasPrefix("http") {
-            return hashFromString(url)
+        if let hash = hashes[url] {
+            return hash
         } else {
-            return (url as NSString).lastPathComponent
+            let hash = url.md5()
+            hashes[url] = hash
+            return hash
         }
     }
     
     private static var hashes = [String:String]()
-    
-    private static var hashCharacterSet = NSCharacterSet.letterCharacterSet().invertedSet
-    
-    private class func hashFromString(string: String) -> String {
-        if let hash = hashes[string] {
-            return hash
-        } else {
-            let hash = string.md5()
-            ImageCache.hashes[string] = hash
-            return hash
-        }
-    }
 }
 
 extension NSURL {

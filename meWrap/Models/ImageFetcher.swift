@@ -67,7 +67,6 @@ class ImageFetcher: Notifier {
                     cached = result.cached
                 } else {
                     image = self.imageAtURL(url)
-                    InMemoryImageCache.instance[uid] = image
                 }
                 dispatch_async(dispatch_get_main_queue()) { () -> Void in
                     if let image = image {

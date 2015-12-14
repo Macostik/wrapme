@@ -1323,17 +1323,9 @@
 				14AE4FEE19700B23002EEF3F /* Sounds */,
 				12D578C619178C3400586995 /* iTunesArtwork */,
 				121B1B2F18E0749F001F585C /* Property Lists */,
-				12E3DA4418E049C300DBDB79 /* Fonts */,
 				12E3DA5018E049C300DBDB79 /* Images.xcassets */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		12E3DA4418E049C300DBDB79 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Fonts;
 			sourceTree = "<group>";
 		};
 		12E8FF0718E960E000BF1B96 /* StreamView */ = {
@@ -3270,7 +3262,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "053d3042-e32c-465a-9886-c43b7d9f0d02";
+				PROVISIONING_PROFILE = "9f93a342-62d7-4bdd-bcfd-df2958a23bab";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = Extensions/Today/Today_Bridge.h;
@@ -3329,7 +3321,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "58f4a85f-dc31-4978-9f40-1df40e4a0f6a";
+				PROVISIONING_PROFILE = "bbb74f66-90bf-485c-9146-11727f0b35f6";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
@@ -3358,7 +3350,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "6f7ac807-050f-470e-892d-b7f44c5632e7";
+				PROVISIONING_PROFILE = "cd72c327-008c-403f-a4a8-4148d6ad4322";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
@@ -3414,7 +3406,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b873d0b4-8223-44d7-8cb5-24f58409673f";
+				PROVISIONING_PROFILE = "35eb0653-a9c1-427e-8e27-42b4c6c0ab4a";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -3440,7 +3432,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4a6bc08e-b238-498e-9154-221ded050c1b";
+				PROVISIONING_PROFILE = "87d40ca9-abf6-49bd-9728-b30eb8974c63";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -3559,7 +3551,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive;
 				PRODUCT_MODULE_NAME = meWrap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5976c429-d5a4-44e4-bed6-4ae3ce3a391e";
+				PROVISIONING_PROFILE = "962da5dd-698a-46b8-80cf-fb08e5bde505";
 				SWIFT_OBJC_BRIDGING_HEADER = "meWrap/meWrap-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "meWrap-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -3656,7 +3648,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive;
 				PRODUCT_MODULE_NAME = meWrap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d9b5f089-3655-4e47-8cf1-9e49c73101d7";
+				PROVISIONING_PROFILE = "02b13d5d-cb93-49ea-b0e6-ce7ef6d533f9";
 				SWIFT_OBJC_BRIDGING_HEADER = "meWrap/meWrap-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "meWrap-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -3702,7 +3694,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9d49d0f3-455c-41f7-b8e6-a1fea1f2e1e6";
+				PROVISIONING_PROFILE = "545c0e33-695c-4556-b016-8531617301a8";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = Extensions/Today/Today_Bridge.h;

@@ -1,10 +1,7 @@
-/* Localizable.strings
-  meWrap
-
-  Created by Sergey Maximenko on 9/18/15.
-  Copyright © 2015 Ravenpod. All rights reserved. */
 "less_today_stories" = "關閉";
 "more_today_stories" = "更多…";
+"formatted_photo_by" = "拍攝者 %@";
+"formatted_video_by" = "拍攝者 %@";
 "minute" = "分鐘";
 "hour" = "小時";
 "day" = "天";

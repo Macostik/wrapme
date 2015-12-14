@@ -139,7 +139,7 @@
 "following" = "Following";
 "recent_updates" = "RECENT UPDATES";
 "enter_your_friends_name" = "Enter your friend's name & phone number";
-"no_internet_connection" = "No internet connection. Please try again later.";
+"no_internet_connection" = "No internet connection. Please check your connection and try again.";
 "notifications" = "Notifications";
 "name" = "Name";
 "resend" = "Resend";

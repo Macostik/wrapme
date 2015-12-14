@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AFNetworking
 
 class Environment: NSObject {
     
@@ -212,14 +213,24 @@ extension NSError {
     }
     
     var errorMessage: String {
-        switch domain {
-        case NSURLErrorDomain where code == NSURLErrorTimedOut:
-            return "connection_was_lost".ls
-        case NSURLErrorDomain where code == NSURLErrorInternationalRoamingOff:
-            return "roaming_is_off".ls
-        default:
-            return localizedDescription
+        if domain == NSURLErrorDomain {
+            switch code {
+            case NSURLErrorTimedOut:
+                return "connection_was_lost".ls
+            case NSURLErrorCannotDecodeContentData:
+                return "no_internet_connection".ls
+            case NSURLErrorInternationalRoamingOff:
+                return "roaming_is_off".ls
+            default: break
+            }
+        } else if domain == AFURLResponseSerializationErrorDomain {
+            switch code {
+            case NSURLErrorCannotDecodeContentData:
+                return "no_internet_connection".ls
+            default: break
+            }
         }
+        return localizedDescription
     }
     
     func isResponseError(code: ResponseCode) -> Bool {

@@ -45,7 +45,7 @@
 "photo_unavailable" = "找不到相片。";
 "incorrect_email" = "電郵地址不正確。";
 "name_cannot_be_blank" = "請輸入姓名。";
-"formatted_is_typing" = "%@輸入中";
+"formatted_is_typing" = "%@輸入中...";
 "formatted_and_are_typing" = "%@與%@輸入中...";
 "sending_confirming_email" = "現正傳送確認電郵。";
 "remote_notification_when_app_is_active_error" = "無法處理遠程通知。";

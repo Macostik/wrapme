@@ -16,7 +16,6 @@
 #import <NewRelicAgent/NewRelic.h>
 #import "WLToast.h"
 #import "WLAddressBook.h"
-#import "WLNotification.h"
 #import "WLWrapViewController.h"
 #import "CocoaLumberjack.h"
 #import "WLAuthorizationRequest.h"
@@ -231,7 +230,7 @@
         return;
     }
     BOOL presentable = state == UIApplicationStateInactive;
-    [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
+    [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(Notification *notification) {
         if (presentable) {
             [self presentNotification:notification];
         }
@@ -251,7 +250,7 @@
     
     __block void (^completion)(UIBackgroundFetchResult) = completionHandler;
     
-    [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
+    [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(Notification *notification) {
         [self presentNotification:notification handleActionWithIdentifier:identifier];
         if (completion) {
             completion(UIBackgroundFetchResultNewData);
@@ -302,14 +301,14 @@
     });
 }
 
-- (void)presentNotification:(WLNotification *)notification {
+- (void)presentNotification:(Notification *)notification {
     [self presentNotification:notification handleActionWithIdentifier:nil];
 }
 
-- (void)presentNotification:(WLNotification *)notification handleActionWithIdentifier:(NSString *)identifier {
+- (void)presentNotification:(Notification *)notification handleActionWithIdentifier:(NSString *)identifier {
     
-    WLNotificationType type = notification.type;
-    if (type == WLNotificationUpdateAvailable) {
+    NotificationType type = notification.type;
+    if (type == NotificationTypeUpdateAvailable) {
         [[UIApplication sharedApplication] openURL:[[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@",@(Constants.appStoreID)] URL]];
     } else {
         Entry *entry = notification.entry;

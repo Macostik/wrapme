@@ -14,7 +14,7 @@ class EntryDescriptor: NSObject {
     var uid: String = ""
     var locuid: String?
     var container: String?
-    var data: NSDictionary?
+    var data: [String:AnyObject]?
     
     convenience init(name: String, uid: String) {
         self.init()

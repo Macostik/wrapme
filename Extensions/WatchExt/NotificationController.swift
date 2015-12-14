@@ -20,13 +20,12 @@ class NotificationController: WKUserNotificationInterfaceController {
         alertLabel.setText(alertMessageFromNotification(remoteNotification))
         titleLabel.setText(titleMessageFromNotification(remoteNotification))
         if let notification = remoteNotification as? [String : AnyObject] {
-            WCSession.defaultSession().handleNotification(notification, success: { (reply) -> Void in
-                //        Entry *entry = [Entry deserializeReference:[dictionary dictionaryForKey:@"entry"]];
-                //        if (entry) {
-                //            self.image.URL = entry.asset.small;
-                //        } else {
-                //            [self.image setHidden:YES];
-                //        }
+            WCSession.defaultSession().handleNotification(notification, success: { [weak self] (reply) -> Void in
+                        if let url = reply?["url"] as? String {
+                            self?.image.setURL(url)
+                        } else {
+                            self?.image.setHidden(true)
+                        }
                 }, failure: nil)
         }
         completionHandler(.Custom)

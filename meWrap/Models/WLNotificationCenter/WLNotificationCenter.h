@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-@class NotificationSubscription;
+@class NotificationSubscription, Notification;
 
 @interface WLNotificationCenter : NSObject
 
@@ -24,7 +24,7 @@
 
 - (void)configure;
 
-- (void)handleRemoteNotification:(NSDictionary*)data success:(ObjectBlock)success failure:(FailureBlock)failure;
+- (void)handleRemoteNotification:(NSDictionary*)data success:(void(^)(Notification *notification))success failure:(FailureBlock)failure;
 
 - (void)subscribe;
 

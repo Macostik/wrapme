@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class WLNotification;
+@class Notification;
 
 typedef NS_ENUM(NSUInteger, WLSound) {
     WLSound_Off,
@@ -46,6 +46,6 @@ static inline NSString *WLSoundFileName(WLSound sound) {
 
 @interface WLSoundPlayer (WLNotification)
 
-+ (void)playSoundForNotification:(WLNotification*)notification;
++ (void)playSoundForNotification:(Notification*)notification;
 
 @end

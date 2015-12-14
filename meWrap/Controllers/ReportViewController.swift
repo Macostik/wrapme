@@ -11,33 +11,29 @@
 import Foundation
 import UIKit
 
-class ReportCell : UICollectionViewCell {
+class ViolationCell : UICollectionViewCell {
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var showArrowLabel: UILabel!
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var leadingContstraint: NSLayoutConstraint!
     
-    var select : ((ReportCell, String) -> Void)?
-    var entry : ReportItem? {
+    var select : ((ViolationCell, String) -> Void)?
+    var entry : Violation? {
         didSet {
             guard let entry = entry else {
                 return
             }
             textLabel.text = entry.title
             textLabel.textColor = entry.fontColor
-            textLabel.font = textLabel.font.fontWithSize(entry.fontSize ?? 0)
-            showArrowLabel.hidden = entry.v_code == nil
+            textLabel.font = textLabel.font.fontWithSize(entry.fontSize)
+            showArrowLabel.hidden = entry.code == nil
             button.hidden = showArrowLabel.hidden
-            leadingContstraint.constant += entry.indent ?? 0
+            leadingContstraint.constant += entry.indent
         }
     }
     
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)!
-    }
-    
     @IBAction func postViolationRequest(sender: AnyObject) {
-        if let entry = entry, let v_code = entry.v_code {
+        if let entry = entry, let v_code = entry.code {
             select?(self, v_code)
         }
     }
@@ -45,8 +41,8 @@ class ReportCell : UICollectionViewCell {
 
 class CVDataSource : NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    var data : [ReportItem] = []
-    var select : ((ReportCell, String) -> Void)?
+    var data : [Violation] = []
+    var select : ((ViolationCell, String) -> Void)?
     
     @IBInspectable var identifier: String = ""
     @IBInspectable var cellWidth: CGFloat = 0
@@ -58,7 +54,7 @@ class CVDataSource : NSObject, UICollectionViewDataSource, UICollectionViewDeleg
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let entry = data[indexPath.item]
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! ReportCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! ViolationCell
         cell.entry = entry
         cell.select = select
         return cell
@@ -73,60 +69,39 @@ class CVDataSource : NSObject, UICollectionViewDataSource, UICollectionViewDeleg
     }
 }
 
-enum InformationError: ErrorType {
-    case MissingError(String)
-    case InvalidError(String)
-}
-
-struct ReportItem {
+struct Violation {
     let title: String?
-    let fontSize: CGFloat?
-    var fontColor: UIColor?
-    let v_code: String?
-    let indent: CGFloat?
+    let fontSize: CGFloat
+    let fontColor: UIColor?
+    let code: String?
+    let indent: CGFloat
     
-    init?(attribute:[String : AnyObject]) throws {
-        
+    init(attribute:[String : AnyObject]) {
         title = attribute["title"] as? String
-        fontSize = attribute["fontSize"] as? CGFloat
-
-        if let color = attribute["fontColor"] as? Array<CGFloat> {
-            fontColor = UIColor(red: CGFloat (color[0])/255, green: CGFloat(color[1])/255, blue: CGFloat (color[2])/255, alpha: CGFloat(color[3]))
+        fontSize = (attribute["fontSize"] as? CGFloat) ?? 0
+        code = attribute["v_code"] as? String
+        indent = (attribute["indent"] as? CGFloat) ?? 0
+        if let color = attribute["fontColor"] as? [CGFloat] {
+            fontColor = UIColor(red: color[0]/255, green: color[1]/255, blue: color[2]/255, alpha: color[3])
+        } else {
+            fontColor = nil
         }
-        
-        v_code = attribute["v_code"] as? String
-        indent = attribute["indent"] as? CGFloat
     }
     
-    static func items(fileName : String) -> [ReportItem] {
-        var container:[ReportItem] = []
-        let path = NSBundle.mainBundle().pathForResource(fileName, ofType: "plist")
-        if  let path = path {
-            let content = NSArray(contentsOfFile:path)! as Array
-            guard !content.isEmpty else  {
-                return []
-            }
-            for dict in content {
-                do {
-                    let entry = try ReportItem(attribute: dict as! [String : AnyObject])
-                    container.append(entry!)
-                } catch InformationError.MissingError(let description) {
-                    print("\(description)")
-                } catch InformationError.InvalidError(let description) {
-                    print("\(description)")
-                } catch {
-                    print("Initialization is wrong")
-                }
-            }
+    static func allViolations() -> [Violation] {
+        if let content = NSArray.plist("violations") as? [[String : AnyObject]] {
+            return content.map({ (dict) -> Violation in
+                return Violation(attribute: dict)
+            })
+        } else {
+            return []
         }
-        
-        return container
     }
 }
 
 class ReportViewController : WLBaseViewController {
     
-    weak var candy:Candy?
+    weak var candy: Candy?
     
     private var reportList:NSArray?
     
@@ -137,7 +112,7 @@ class ReportViewController : WLBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         doneButton.hidden = true
-        let reportList = ReportItem.items("WLReportList")
+        let violations = Violation.allViolations()
         dataSource.select = { [weak self] _ , violationCode in
             guard let candy = self?.candy else {
                 return
@@ -149,7 +124,7 @@ class ReportViewController : WLBaseViewController {
                     error?.show()
             })
         }
-        dataSource.data = reportList
+        dataSource.data = violations
         collectionView.reloadData()
     }
     

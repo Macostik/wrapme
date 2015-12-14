@@ -82,11 +82,11 @@ class Candy: Contribution {
         }
     }
     
-    func sortedComments() -> [Comment]? {
+    func sortedComments() -> [Comment] {
         if let comments = comments as? Set<Comment> {
             return comments.sort({ $0.createdAt < $1.createdAt })
         } else {
-            return nil
+            return []
         }
     }
     

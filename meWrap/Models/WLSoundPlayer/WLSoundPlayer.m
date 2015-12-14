@@ -8,7 +8,6 @@
 
 #import "WLSoundPlayer.h"
 #import <AudioToolbox/AudioToolbox.h>
-#import "WLNotification.h"
 
 @interface WLSoundPlayer()
 
@@ -82,18 +81,18 @@ void WLSoundPlayerCompletion (SystemSoundID ssID, void *clientData) {
 
 @implementation WLSoundPlayer (WLNotification)
 
-+ (void)playSoundForNotification:(WLNotification*)notification {
++ (void)playSoundForNotification:(Notification*)notification {
     if (notification.playSound) {
         switch (notification.type) {
-            case WLNotificationContributorAdd:
+            case NotificationTypeContributorAdd:
                 if ([[User currentUser].uid isEqualToString:notification.data[@"user_uid"]]) {
                      [self playSound:WLSound_s01];
                 }
                 break;
-            case WLNotificationCommentAdd:
+            case NotificationTypeCommentAdd:
                 [self playSound:WLSound_s02];
                 break;
-            case WLNotificationMessageAdd:
+            case NotificationTypeMessageAdd:
                 [self playSound:WLSound_s03];
                 break;
             default:

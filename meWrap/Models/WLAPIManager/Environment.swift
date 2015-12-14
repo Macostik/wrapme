@@ -84,7 +84,7 @@ class Environment: NSObject {
     
     func testUsers() -> [Authorization] {
         var authorizations = [Authorization]()
-        if let users = NSDictionary.plist("WLTestUsers")?.arrayForKey(name) as? [NSDictionary] {
+        if let users = NSDictionary.plist("test-users")?[name] as? [NSDictionary] {
             for user in users {
                 let authorization = Authorization()
                 authorization.deviceUID = user.stringForKey("deviceUID")

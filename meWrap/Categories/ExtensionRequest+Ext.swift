@@ -89,19 +89,19 @@ extension ExtensionRequest {
     
     func handleNotification(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
         success(ExtensionReply())
-//        guard let notification = userInfo else {
-//            return
-//        }
-//        
-//        WLNotificationCenter.defaultCenter().handleRemoteNotification(notification, success: { (notification) -> Void in
-//            if let entry = (notification as? WLNotification)?.entry {
-//                completionHandler?(ExtensionReply(reply:  ["entry":entry.serializeReference()]))
-//            } else {
-//                completionHandler?(ExtensionError(message: "No data"))
-//            }
-//            }) { (error) -> Void in
-//                completionHandler?(ExtensionResponse.failure(error?.localizedDescription))
-//        }
+        guard let notification = parameters else {
+            return
+        }
+        
+        WLNotificationCenter.defaultCenter().handleRemoteNotification(notification, success: { (notification) -> Void in
+            if let url = (notification?.entry as? Contribution)?.asset?.small {
+                success(ExtensionReply(reply:  ["url":url]))
+            } else {
+                failure(ExtensionError(message: "No data"))
+            }
+            }) { (error) -> Void in
+                failure(ExtensionError(message: error?.localizedDescription ?? ""))
+        }
     }
     
     func recentUpdates(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {

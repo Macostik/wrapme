@@ -28,14 +28,14 @@ class Country: NSObject {
     var callingCode: String?
     var code: String?
     
-    static var allCountries: Array<Country> {
-        guard let path = NSBundle.mainBundle().pathForResource("CountryCodes", ofType: "json"),
+    static var allCountries: [Country] {
+        guard let path = NSBundle.mainBundle().pathForResource("country-codes", ofType: "json"),
             let data = NSData(contentsOfFile: path) else {
             return []
         }
-        var countries = Array<Country>()
+        var countries = [Country]()
         do {
-            guard let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as? Array<Dictionary<String, String>> else {
+            guard let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as? [[String : String]] else {
                 return []
             }
             for dictionary in json {

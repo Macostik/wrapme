@@ -8,7 +8,6 @@
 
 #import "WLNotificationCenter.h"
 #import "WLSoundPlayer.h"
-#import "WLNotification.h"
 #import "WLNetwork.h"
 #import "WLAuthorizationRequest.h"
 #import "NSArray+WLCollection.h"
@@ -120,13 +119,13 @@
     }
 }
 
-- (void)handleRemoteNotification:(NSDictionary *)data success:(ObjectBlock)success failure:(FailureBlock)failure {
+- (void)handleRemoteNotification:(NSDictionary *)data success:(void(^)(Notification *notification))success failure:(FailureBlock)failure {
     if (!data)  {
         if (failure) failure(nil);
         return;
     }
     __weak typeof(self)weakSelf = self;
-    WLNotification* notification = [WLNotification notificationWithData:data];
+    Notification* notification = [[Notification alloc] initWithData:data date:nil];
     WLLog(@"PUBNUB - received APNS: %@", data);
     if (notification) {
         if ([self isAlreadyHandledNotification:notification]) {
@@ -218,11 +217,11 @@
     if (notifications.nonempty) {
         NSMutableIndexSet *playedSoundTypes = [NSMutableIndexSet indexSet];
         
-        for (WLNotification *notification in notifications) {
+        for (Notification *notification in notifications) {
             [notification prepare];
         }
         
-        for (WLNotification *notification in notifications) {
+        for (Notification *notification in notifications) {
             [[RunQueue fetchQueue] run:^(Block finish) {
                 if (!notification) {
                     finish();
@@ -240,8 +239,8 @@
         }
         
         [[RunQueue fetchQueue] run:^(Block finish) {
-            for (WLNotification *notification in notifications) {
-                [notification finalize];
+            for (Notification *notification in notifications) {
+                [notification finalizeNotification];
             }
             finish();
         }];
@@ -255,11 +254,11 @@
     [PubNub setSharedInstance:nil];
 }
 
-- (BOOL)isAlreadyHandledNotification:(WLNotification*)notification {
+- (BOOL)isAlreadyHandledNotification:(Notification*)notification {
     return [[NSUserDefaults standardUserDefaults].handledNotifications containsObject:notification.uid];
 }
 
-- (void)handleNotification:(WLNotification*)notification completion:(Block)completion {
+- (void)handleNotification:(Notification*)notification completion:(Block)completion {
     [notification handle:^{
         [WLSoundPlayer playSoundForNotification:notification];
         if (completion) completion();
@@ -269,7 +268,7 @@
 }
 
 - (void)addHandledNotifications:(NSArray*)notifications {
-    NSArray *uids = [notifications map:^id(WLNotification* notification) {
+    NSArray *uids = [notifications map:^id(Notification* notification) {
         return notification.uid;
     }];
     
@@ -326,11 +325,11 @@
         
         NSMutableIndexSet *playedSoundTypes = [NSMutableIndexSet indexSet];
         
-        for (WLNotification *notification in notifications) {
+        for (Notification *notification in notifications) {
             [notification prepare];
         }
         
-        for (WLNotification *notification in notifications) {
+        for (Notification *notification in notifications) {
             [[RunQueue fetchQueue] run:^(Block finish) {
                 if (!notification) {
                     finish();
@@ -348,8 +347,8 @@
         }
         
         [[RunQueue fetchQueue] run:^(Block finish) {
-            for (WLNotification *notification in notifications) {
-                [notification finalize];
+            for (Notification *notification in notifications) {
+                [notification finalizeNotification];
             }
             finish();
         }];
@@ -360,11 +359,11 @@
     if (!messages.nonempty) return nil;
     __weak typeof(self)weakSelf = self;
     NSMutableArray *notifications = [[messages map:^id(PNMessageData *message) {
-        WLNotification *notification = [WLNotification notificationWithMessage:message];
-        if (notification.type != WLNotificationUserUpdate && ![WLAuthorizationRequest authorized]) {
+        Notification *notification = [[Notification alloc] initWithMessage:message];
+        if (notification.type != NotificationTypeUserUpdate && ![WLAuthorizationRequest authorized]) {
             return nil;
         }
-        if ((notification.type != WLNotificationCandyAdd && notification.type != WLNotificationCandyUpdate) && notification.originatedByCurrentUser) {
+        if ((notification.type != NotificationTypeCandyAdd && notification.type != NotificationTypeCandyUpdate) && notification.originatedByCurrentUser) {
             return nil;
         }
         return [weakSelf isAlreadyHandledNotification:notification] ? nil : notification;
@@ -380,7 +379,7 @@
     
     NSArray *deleteNotifications = [notifications where:@"event == %d", EventDelete];
     
-    for (WLNotification *notification in deleteNotifications) {
+    for (Notification *notification in deleteNotifications) {
         if (![notifications containsObject:notification]) {
             continue;
         }
@@ -401,7 +400,7 @@
     
     deleteNotifications = [notifications where:@"event == %d", EventDelete];
     
-    for (WLNotification *deleteNotification in deleteNotifications) {
+    for (Notification *deleteNotification in deleteNotifications) {
         if (![notifications containsObject:deleteNotification]) {
             continue;
         }

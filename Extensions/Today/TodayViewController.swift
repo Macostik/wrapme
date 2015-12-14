@@ -21,12 +21,13 @@ class TodayRecentUpdateCell : UITableViewCell {
     
     var update: ExtensionUpdate! {
         didSet {
-            guard let comment = update.comment else { return }
             guard let candy = update.candy else { return }
             wrapNameLabel.text = candy.wrap?.name
             if update.type == "comment" {
-                timeLabel.text = comment.createdAt?.timeAgoStringAtAMPM()
-                descriptionLabel.text = String(format: "%@ commented \"%@\"", comment.contributor?.name ?? "", comment.text ?? "")
+                if let comment = update.comment {
+                    timeLabel.text = comment.createdAt?.timeAgoStringAtAMPM()
+                    descriptionLabel.text = String(format: "%@ commented \"%@\"", comment.contributor?.name ?? "", comment.text ?? "")
+                }
             } else {
                 timeLabel.text = candy.createdAt?.timeAgoStringAtAMPM()
                 descriptionLabel.text = String(format: "%@ posted a new photo", candy.contributor?.name ?? "")
@@ -105,9 +106,6 @@ class TodayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.addObserver(self, forKeyPath: "contentSize", options: .New, context: nil)
-//        wormhole.listenForMessageWithIdentifier("recentUpdatesResponse") { [weak self] (response) -> Void in
-//            self?.handleRecentUpdatesResponse(response)
-//        }
         wormhole.listenForMessageWithIdentifier("recentUpdatesResponse", listener: { [weak self] (messageObject) -> Void in
             self?.handleRecentUpdatesResponse(messageObject)
         })

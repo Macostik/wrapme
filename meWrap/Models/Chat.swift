@@ -58,7 +58,7 @@ class Chat: PaginatedList {
                     return
                 }
                 for uuid in uuids {
-                    guard let user = User.entry(uuid["uuid"] as? String) where !user.current else {
+                    guard let user = PubNub.userFromUUID(uuid["uuid"] as? String) where !user.current else {
                         continue
                     }
                     if let typing = uuid["state"]?["typing"] as? Bool where typing == true {

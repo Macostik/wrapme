@@ -102,7 +102,9 @@ extension PaginatedRequest {
         }).parse({ (response, success, failure) -> Void in
             if let candies = response.array("candies") where wrap.valid {
                 let candies = Candy.mappedEntries(Candy.prefetchArray(candies), container: wrap)
-                wrap.candiesPaginationDate = candies.last?.createdAt
+                if let candiesPaginationDate = candies.last?.createdAt {
+                    wrap.candiesPaginationDate = candiesPaginationDate
+                }
                 success(candies)
             } else {
                 success([])
@@ -131,7 +133,6 @@ extension PaginatedRequest {
     
     class func wrap(wrap: Wrap, contentType: String?) -> PaginatedRequest {
         return GET().path("wraps/%@", wrap.uid).parametrize({ (request, parameters) -> Void in
-            parameters["tz"] = NSTimeZone.localTimeZone().name
             if let contentType = contentType {
                 parameters["pick"] = contentType
             }

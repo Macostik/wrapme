@@ -47,7 +47,6 @@ class LiveBroadcast: NSObject {
 class Wrap: Contribution {
     
    static var ContentTypeRecent = "recent_candies"
-   static var ContentTypePaginated = "paginated_by_date"
     
     override class func entityName() -> String {
         return "Wrap"

@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="228"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7PJ-D1-hGL">
+                <view contentMode="bottomRight" translatesAutoresizingMaskIntoConstraints="NO" id="7PJ-D1-hGL">
                     <rect key="frame" x="8" y="0.0" width="304" height="220"/>
                     <subviews>
                         <view userInteractionEnabled="NO" contentMode="bottom" placeholderIntrinsicWidth="106" placeholderIntrinsicHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="EJb-Gz-G2s">
@@ -124,6 +124,15 @@
                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                             <color key="value" red="0.93333333730697632" green="0.93333333730697632" blue="0.93333333730697632" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                            <size key="value" width="3" height="3"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                            <color key="value" red="0.93333333730697632" green="0.93333333730697632" blue="0.93333333730697632" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <variation key="default">
                         <mask key="constraints">
@@ -150,7 +159,6 @@
                 <outlet property="timeLabel" destination="WCz-3I-Kio" id="Z1k-As-u3w"/>
                 <outlet property="userNameLabel" destination="t7m-q8-vxF" id="Hi2-9c-FFi"/>
                 <outlet property="videoIndicator" destination="3w9-Pd-Kzq" id="jnU-CK-Y6M"/>
-                <outlet property="view" destination="7PJ-D1-hGL" id="KOc-DJ-CiI"/>
                 <outlet property="wrapImageView" destination="kVR-bM-CQu" id="iA8-sZ-eGW"/>
             </connections>
             <point key="canvasLocation" x="502" y="423.5"/>

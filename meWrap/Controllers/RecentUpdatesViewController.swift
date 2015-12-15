@@ -14,7 +14,6 @@ let HeightCell: CGFloat = Constants.screenWidth / 3 + 96.0
 
 class RecentUpdateCell: StreamReusableView {
     
-    @IBOutlet var view: UIView!
     @IBOutlet var pictureView: ImageView!
     @IBOutlet var userNameLabel: UILabel!
     @IBOutlet var inWrapLabel: UILabel!
@@ -28,9 +27,6 @@ class RecentUpdateCell: StreamReusableView {
             contribution.markAsUnread(false)
             timeLabel.text =  update.date.isToday() ? update.date.stringWithTimeStyle(.ShortStyle) : "yesterday".ls
             wrapImageView.url = contribution.asset?.medium
-            view.layer.shadowColor = Color.grayLightest.CGColor
-            view.layer.shadowOffset = CGSizeMake(3, 3)
-            view.layer.shadowOpacity = 0.8
         }
     }
 }

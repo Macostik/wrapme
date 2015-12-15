@@ -98,7 +98,12 @@ class MutableAsset: Asset {
         options.deliveryMode = .MediumQualityFormat
         options.networkAccessAllowed = true
         if let session = PHImageManager.defaultManager().requestExportSessionForVideo(asset, options: options, exportPreset: AVAssetExportPresetMediumQuality) {
-            let outputPath = "\(NSHomeDirectory())/Documents/Videos/\(NSProcessInfo.processInfo().globallyUniqueString).mp4"
+            var outputPath = "\(NSHomeDirectory())/Documents/Videos/"
+            let manager = NSFileManager.defaultManager()
+            do {
+                try manager.createDirectoryAtPath(outputPath, withIntermediateDirectories: true, attributes: nil)
+            } catch {}
+            outputPath = outputPath + ("\(NSProcessInfo.processInfo().globallyUniqueString).mp4")
             session.outputURL = NSURL(fileURLWithPath: outputPath)
             session.outputFileType = AVFileTypeMPEG4
             session.shouldOptimizeForNetworkUse = true

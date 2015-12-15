@@ -117,7 +117,7 @@ class ReportViewController : WLBaseViewController {
             guard let candy = self?.candy else {
                 return
             }
-            WLAPIRequest.postCandy(candy, violationCode: violationCode).send({ (_) -> Void in
+            WLAPIRequest.postCandy(candy, violationCode: violationCode).send({[weak self] (_) -> Void in
                 self?.collectionView.hidden = true
                 self?.doneButton.hidden = false
                 }, failure: { (error) -> Void in

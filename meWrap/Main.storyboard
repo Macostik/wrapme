@@ -2957,6 +2957,19 @@
                                             <outlet property="timeViewPrioritizer" destination="4yv-cb-JZX" id="GsT-R3-yO6"/>
                                         </connections>
                                     </view>
+                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="no_internet_connection" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="260" translatesAutoresizingMaskIntoConstraints="NO" id="TvM-gd-tcr" customClass="WLLabel">
+                                        <rect key="frame" x="172" y="191" width="256" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="256" id="0ZQ-Sa-W7T"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -2978,29 +2991,16 @@
                                 <rect key="frame" x="290" y="290" width="20" height="20"/>
                                 <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="no_internet_connection" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="260" translatesAutoresizingMaskIntoConstraints="NO" id="TvM-gd-tcr" customClass="WLLabel">
-                                <rect key="frame" x="172" y="191" width="256" height="18"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="256" id="0ZQ-Sa-W7T"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="bf0-24-ZKl" firstAttribute="centerX" secondItem="mJR-KD-aWN" secondAttribute="centerX" id="1ZP-S9-ETd"/>
                             <constraint firstAttribute="trailing" secondItem="mJR-KD-aWN" secondAttribute="trailing" id="2Rt-A2-4gh"/>
                             <constraint firstItem="mJR-KD-aWN" firstAttribute="leading" secondItem="jS6-zb-1Jg" secondAttribute="leading" id="JrQ-O2-PDU"/>
-                            <constraint firstItem="TvM-gd-tcr" firstAttribute="centerY" secondItem="bf0-24-ZKl" secondAttribute="centerY" constant="-100" id="PWe-gT-0Rx"/>
+                            <constraint firstItem="TvM-gd-tcr" firstAttribute="centerX" secondItem="bf0-24-ZKl" secondAttribute="centerX" id="OS4-2a-BcQ"/>
                             <constraint firstItem="mJR-KD-aWN" firstAttribute="top" secondItem="jS6-zb-1Jg" secondAttribute="top" id="f5w-bt-O46"/>
                             <constraint firstItem="bf0-24-ZKl" firstAttribute="centerY" secondItem="mJR-KD-aWN" secondAttribute="centerY" id="gsq-O5-3gO"/>
-                            <constraint firstItem="TvM-gd-tcr" firstAttribute="centerX" secondItem="bf0-24-ZKl" secondAttribute="centerX" id="oHv-Sf-egE"/>
+                            <constraint firstItem="TvM-gd-tcr" firstAttribute="centerY" secondItem="bf0-24-ZKl" secondAttribute="centerY" constant="-100" id="kJj-Sp-sh6"/>
                             <constraint firstAttribute="bottom" secondItem="mJR-KD-aWN" secondAttribute="bottom" id="ut6-R5-Obo"/>
                         </constraints>
                     </view>

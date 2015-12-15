@@ -10,9 +10,11 @@ import UIKit
 
 let WhatsUpCommentHorizontalSpacing: CGFloat = 144.0
 let PaddingCell: CGFloat = 24.0
+let HeightCell: CGFloat = Constants.screenWidth / 3 + 96.0
 
 class RecentUpdateCell: StreamReusableView {
     
+    @IBOutlet var view: UIView!
     @IBOutlet var pictureView: ImageView!
     @IBOutlet var userNameLabel: UILabel!
     @IBOutlet var inWrapLabel: UILabel!
@@ -24,11 +26,13 @@ class RecentUpdateCell: StreamReusableView {
         if let update = entry as? RecentUpdate {
             let contribution = update.contribution
             contribution.markAsUnread(false)
-            timeLabel.text = update.date.timeAgoStringAtAMPM()
+            timeLabel.text =  update.date.isToday() ? update.date.stringWithTimeStyle(.ShortStyle) : "yesterday".ls
             wrapImageView.url = contribution.asset?.medium
+            view.layer.shadowColor = Color.grayLightest.CGColor
+            view.layer.shadowOffset = CGSizeMake(3, 3)
+            view.layer.shadowOpacity = 0.8
         }
     }
-
 }
 
 class RecentCommentCell: RecentUpdateCell {
@@ -84,12 +88,12 @@ class RecentUpdatesViewController: WLBaseViewController {
         let candyMetrics = dataSource.addMetrics(StreamMetrics(identifier: "RecentCandyCell"))
         let commentMetrics = dataSource.addMetrics(StreamMetrics(identifier: "RecentCommentCell"))
         
-        candyMetrics.size = Constants.screenWidth / 3
+        candyMetrics.size = HeightCell
         candyMetrics.insetsAt = { (position, metrics) -> CGRect in
             return CGRect.zero.offsetBy(dx: 0, dy: position.index == 0 ? 0 : Constants.pixelSize)
         }
         
-        commentMetrics.size = candyMetrics.size
+        commentMetrics.size = HeightCell
         commentMetrics.insetsAt = { (position, metrics) -> CGRect in
             return CGRect.zero.offsetBy(dx: 0, dy: position.index == 0 ? 0 : Constants.pixelSize)
         }

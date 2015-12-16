@@ -128,12 +128,12 @@
 
 + (instancetype)preferences:(Wrap *)wrap {
     return [[[[self GET] path:@"wraps/%@/preferences", wrap.uid] parse:^id (Response *response) {
-        Wrap *wrap = wrap.validEntry;
+        Wrap *_wrap = wrap.validEntry;
         NSDictionary *preference = [response.data dictionaryForKey:@"wrap_preference"];
-        wrap.isCandyNotifiable = [[preference numberForKey:@"notify_when_image_candy_addition"] boolValue];
-        wrap.isChatNotifiable = [[preference numberForKey:@"notify_when_chat_addition"] boolValue];
-        [wrap notifyOnUpdate:EntryUpdateEventPreferencesChanged];
-        return wrap;
+        _wrap.isCandyNotifiable = [[preference numberForKey:@"notify_when_image_candy_addition"] boolValue];
+        _wrap.isChatNotifiable = [[preference numberForKey:@"notify_when_chat_addition"] boolValue];
+        [_wrap notifyOnUpdate:EntryUpdateEventPreferencesChanged];
+        return _wrap;
     }] contributionUnavailable:wrap];
 }
 
@@ -149,9 +149,9 @@
 + (instancetype)contributors:(Wrap *)wrap {
     return [[[[self GET] path:@"wraps/%@/contributors", wrap.uid] parse:^id (Response *response) {
         NSSet *contributors = [NSSet setWithArray:[User mappedEntries:[User prefetchArray:[response.data arrayForKey:@"contributors"]]]];
-        Wrap *wrap = wrap.validEntry;
-        if (![wrap.contributors isEqualToSet:contributors]) {
-            wrap.contributors = contributors;
+        Wrap *_wrap = wrap.validEntry;
+        if (![_wrap.contributors isEqualToSet:contributors]) {
+            _wrap.contributors = contributors;
         }
         return contributors;
     }] contributionUnavailable:wrap];
@@ -206,13 +206,13 @@
             return [[NSString alloc] initWithData:invitee encoding:NSUTF8StringEncoding];
         }] forKey:@"invitees"];
     }] parse:^id (Response *response) {
-        Wrap *wrap = wrap.validEntry;
+        Wrap *_wrap = wrap.validEntry;
         NSSet *contributors = [NSSet setWithArray:[User mappedEntries:[User prefetchArray:[response.data arrayForKey:@"contributors"]]]];
-        if (![wrap.contributors isEqualToSet:contributors]) {
-            wrap.contributors = contributors;
-            [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
+        if (![_wrap.contributors isEqualToSet:contributors]) {
+            _wrap.contributors = contributors;
+            [_wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
         }
-        return wrap;
+        return _wrap;
     }] contributionUnavailable:wrap];
 }
 
@@ -220,13 +220,13 @@
     return [[[[[self DELETE] path:@"wraps/%@/remove_contributor", wrap.uid] parametrize:^(id request, NSMutableDictionary *parameters) {
         [parameters trySetObject:[[contributors where:@"user != nil"] valueForKeyPath:@"user.uid"] forKey:@"user_uids"];
     }] parse:^id (Response *response) {
-        Wrap *wrap = wrap.validEntry;
+        Wrap *_wrap = wrap.validEntry;
         NSSet *contributors = [NSSet setWithArray:[User mappedEntries:[User prefetchArray:[response.data arrayForKey:@"contributors"]]]];
-        if (![wrap.contributors isEqualToSet:contributors]) {
-            wrap.contributors = contributors;
-            [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
+        if (![_wrap.contributors isEqualToSet:contributors]) {
+            _wrap.contributors = contributors;
+            [_wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
         }
-        return wrap;
+        return _wrap;
     }] contributionUnavailable:wrap];
 }
 
@@ -236,10 +236,10 @@
         [parameters trySetObject:wrap.locuid forKey:@"upload_uid"];
         [parameters trySetObject:@(wrap.updatedAt.timestamp) forKey:@"contributed_at_in_epoch"];
     }] parse:^id (Response *response) {
-        Wrap *wrap = wrap.validEntry;
-        [wrap map:response.data[@"wrap"]];
-        [wrap notifyOnAddition];
-        return wrap;
+        Wrap *_wrap = wrap.validEntry;
+        [_wrap map:response.data[@"wrap"]];
+        [_wrap notifyOnAddition];
+        return _wrap;
     }];
 }
 
@@ -265,10 +265,10 @@
         [parameters trySetObject:wrap.name forKey:@"name"];
         [parameters trySetObject:@(wrap.isRestrictedInvite) forKey:@"is_restricted_invite"];
     }] parse:^id (Response *response) {
-        Wrap *wrap = wrap.validEntry;
-        [wrap map:response.data[@"wrap"]];
-        [wrap notifyOnUpdate:EntryUpdateEventDefault];
-        return wrap;
+        Wrap *_wrap = wrap.validEntry;
+        [_wrap map:response.data[@"wrap"]];
+        [_wrap notifyOnUpdate:EntryUpdateEventDefault];
+        return _wrap;
     }] contributionUnavailable:wrap];
 }
 

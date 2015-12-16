@@ -4,6 +4,11 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="icons.ttf">
+            <string>icons</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -80,6 +85,12 @@
                                 <constraint firstAttribute="width" constant="106" id="ooV-ww-lay"/>
                             </constraints>
                         </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2IC-z8-6Is">
+                            <rect key="frame" x="268" y="66" width="24" height="24"/>
+                            <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" text="wrap name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="61" translatesAutoresizingMaskIntoConstraints="NO" id="ZbH-fY-bfJ" customClass="WLLabel">
                             <rect key="frame" x="216" y="190" width="76" height="18"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -99,8 +110,10 @@
                         <constraint firstItem="g1C-Ug-avG" firstAttribute="leading" secondItem="DMu-1m-6Zs" secondAttribute="trailing" id="Hxn-4a-ODN"/>
                         <constraint firstItem="DMu-1m-6Zs" firstAttribute="leading" secondItem="JKA-9p-rHS" secondAttribute="leading" constant="12" id="IMy-3a-878"/>
                         <constraint firstAttribute="trailing" secondItem="g1C-Ug-avG" secondAttribute="trailing" id="Ihk-RX-Yja"/>
+                        <constraint firstItem="2IC-z8-6Is" firstAttribute="trailing" secondItem="g1C-Ug-avG" secondAttribute="trailing" constant="-12" id="Lif-m9-6lf"/>
                         <constraint firstItem="tcD-wH-Osi" firstAttribute="leading" secondItem="JKA-9p-rHS" secondAttribute="leading" id="NGn-IB-LB1"/>
                         <constraint firstAttribute="trailing" secondItem="ZbH-fY-bfJ" secondAttribute="trailing" constant="12" id="QC8-PO-fH4"/>
+                        <constraint firstItem="2IC-z8-6Is" firstAttribute="top" secondItem="g1C-Ug-avG" secondAttribute="top" constant="12" id="ZRd-HL-2x8"/>
                         <constraint firstAttribute="bottom" secondItem="ZbH-fY-bfJ" secondAttribute="bottom" constant="12" id="crf-K3-2Ou"/>
                         <constraint firstAttribute="trailing" secondItem="tcD-wH-Osi" secondAttribute="trailing" id="pmc-VV-13T"/>
                         <constraint firstItem="tcD-wH-Osi" firstAttribute="top" secondItem="JKA-9p-rHS" secondAttribute="top" id="sHj-4m-Hra"/>
@@ -147,6 +160,7 @@
                 <outlet property="textView" destination="DMu-1m-6Zs" id="A4K-i2-EEA"/>
                 <outlet property="timeLabel" destination="v4C-ZL-UAY" id="aCk-lT-vj8"/>
                 <outlet property="userNameLabel" destination="bYW-ik-CdF" id="ZGp-R9-Xuu"/>
+                <outlet property="videoIndicator" destination="2IC-z8-6Is" id="rhm-xx-ahw"/>
                 <outlet property="wrapImageView" destination="g1C-Ug-avG" id="8N0-EH-fFZ"/>
             </connections>
             <point key="canvasLocation" x="502" y="423.5"/>

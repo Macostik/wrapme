@@ -20,6 +20,7 @@ class RecentUpdateCell: StreamReusableView {
     @IBOutlet var textView: UILabel!
     @IBOutlet var wrapImageView: ImageView!
     @IBOutlet var timeLabel: UILabel!
+    @IBOutlet weak var videoIndicator: UILabel!
 
     override func setup(entry: AnyObject!) {
         if let update = entry as? RecentUpdate {
@@ -40,14 +41,12 @@ class RecentCommentCell: RecentUpdateCell {
             userNameLabel.text = "\(comment.contributor?.name ?? ""):"
             inWrapLabel.text = comment.candy?.wrap?.name
             textView.text = comment.text
+            videoIndicator.hidden = comment.candy?.mediaType != .Video
         }
     }
-
 }
 
 class RecentCandyCell: RecentUpdateCell {
-
-    @IBOutlet weak var videoIndicator: UILabel!
     
     override func setup(entry: AnyObject!) {
         if let update = entry as? RecentUpdate, let candy = update.contribution as? Candy {

@@ -29,22 +29,33 @@ extension WKInterfaceController {
     }
 }
 
+extension UIImage {
+    class func loadWithURL(url: String, completion: UIImage -> Void) {
+        if let image = InMemoryImageCache.instance[url] {
+            completion(image)
+        } else {
+            guard let _url = NSURL(string: url) else { return }
+            let request = NSURLRequest(URL: _url)
+            let task = NSURLSession.sharedSession().downloadTaskWithRequest(request, completionHandler: { (outputURL, response, error) -> Void in
+                guard let _url = outputURL else { return }
+                guard let data = NSData(contentsOfURL: _url) else { return }
+                guard let image = UIImage(data: data) else { return }
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    InMemoryImageCache.instance[url] = image
+                    completion(image)
+                    })
+            })
+            task.resume()
+        }
+    }
+}
+
 extension WKInterfaceImage {
     
     func setURL(url: String?) {
         if let url = url where !url.isEmpty {
-            if let image = InMemoryImageCache.instance[url] {
-                self.setImage(image)
-            } else {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-                    guard let _url = NSURL(string: url) else { return }
-                    guard let data = NSData(contentsOfURL: _url) else { return }
-                    guard let image = UIImage(data: data) else { return }
-                    dispatch_async(dispatch_get_main_queue(), { [weak self] () -> Void in
-                        InMemoryImageCache.instance[url] = image
-                        self?.setImage(image)
-                    })
-                })
+            UIImage.loadWithURL(url) { [weak self] (image) -> Void in
+                self?.setImage(image)
             }
         }
     }
@@ -54,19 +65,9 @@ extension WKInterfaceGroup {
     
     func setURL(url: String?) {
         if let url = url where !url.isEmpty {
-            if let image = InMemoryImageCache.instance[url] {
-                self.setBackgroundImage(image)
-            } else {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-                    guard let _url = NSURL(string: url) else { return }
-                    guard let data = NSData(contentsOfURL: _url) else { return }
-                    guard let image = UIImage(data: data) else { return }
-                    dispatch_async(dispatch_get_main_queue(), { [weak self] () -> Void in
-                        InMemoryImageCache.instance[url] = image
-                        self?.setBackgroundImage(image)
-                    })
-                })
-            }
+            UIImage.loadWithURL(url) { [weak self] (image) -> Void in
+                self?.setBackgroundImage(image)
+                }
         }
     }
 }

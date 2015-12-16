@@ -8,7 +8,7 @@
 
 import UIKit
 
-private var TogglingInterval: NSTimeInterval = 4
+private var TogglingInterval: Float = 4
 
 class HistoryFooterView: GradientView {
     
@@ -46,9 +46,9 @@ class HistoryFooterView: GradientView {
     
     private func enqueueToggle(showsEditor: Bool) {
         self.showsEditor = showsEditor
-        run_after(TogglingInterval) { [weak self] () -> Void in
+        DispatchQueue.mainQueue.runAfter(TogglingInterval, block: { [weak self] () -> Void in
             self?.enqueueToggle(!showsEditor)
-        }
+            })
     }
     
     var candy: Candy? {

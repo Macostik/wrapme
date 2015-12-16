@@ -190,9 +190,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         guard let wrap = wrap where wrap.valid else {
-            run_after(0.5, { () -> Void in
-                self.navigationController?.popViewControllerAnimated(false)
-            })
+            DispatchQueue.mainQueue.runAfter(0.5, block: { self.navigationController?.popViewControllerAnimated(false) })
             return
         }
         

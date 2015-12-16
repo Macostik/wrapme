@@ -127,7 +127,7 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
     [self.runQueue run:^(Block finish) {
         CFIndex count = ABAddressBookGetPersonCount(addressBook);
         if (count > 0) {
-            run_in_default_queue(^{
+            [[DispatchQueue defaultQueue] run:^{
                 CFArrayRef records = ABAddressBookCopyArrayOfAllPeople(addressBook);
                 NSMutableArray* contacts = [NSMutableArray array];
                 for (CFIndex i = 0; i < count; i++) {
@@ -138,15 +138,15 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
                 }
                 CFRelease(records);
                 NSArray *result = [contacts copy];
-                run_in_main_queue(^{
+                [[DispatchQueue mainQueue] run:^{
                     if (result.nonempty) {
                         if (success) success(result);
                     } else {
                         if (failure) failure([[NSError alloc] initWithMessage:@"no_contacts_with_phone_number".ls]);
                     }
                     finish();
-                });
-            });
+                }];
+            }];
         } else {
             if (failure) failure([[NSError alloc] initWithMessage:@"no_contacts".ls]);
             finish();
@@ -167,7 +167,7 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
         [self.runQueue run:^(Block finish) {
             ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
             ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
-                run_in_main_queue(^{
+                [[DispatchQueue mainQueue] run:^{
                     if (error) {
                         if (failure) failure((__bridge NSError *)(error));
                     } else if (granted) {
@@ -177,7 +177,7 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
                         if (failure) failure([[NSError alloc] initWithMessage:@"no_access_to_contacts".ls]);
                     }
                     finish();
-                });
+                }];
             });
         }];
     }

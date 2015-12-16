@@ -8,7 +8,6 @@
 
 #import "WLNetwork.h"
 #import "AFNetworkReachabilityManager.h"
-#import "GCDHelper.h"
 #import "WLUploadingQueue.h"
 
 @implementation WLNetwork
@@ -31,7 +30,7 @@
 	__weak typeof(self)weakSelf = self;
     AFNetworkReachabilityManager* manager = [AFNetworkReachabilityManager sharedManager];
     [manager startMonitoring];
-    run_after(0.2, ^{
+    [[DispatchQueue mainQueue] runAfter:0.2 block:^{
         [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
             if (weakSelf.reachable) {
                 [WLUploadingQueue start];
@@ -45,7 +44,7 @@
                 weakSelf.changeReachabilityBlock(weakSelf);
             }
         }];
-    });
+    }];
 }
 
 @end

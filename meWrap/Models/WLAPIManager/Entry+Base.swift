@@ -177,9 +177,7 @@ extension Candy {
                     
                     let task = NSURLSession.sharedSession().downloadTaskWithURL(url.URL!, completionHandler: { (location, response, error) -> Void in
                         if let error = error {
-                            run_in_main_queue({ () -> Void in
-                                failure?(error)
-                            })
+                            DispatchQueue.mainQueue.run({ failure?(error) })
                         } else {
                             if let location = location {
                                 do {
@@ -191,19 +189,19 @@ extension Candy {
                                             return PHAssetChangeRequest.creationRequestForAssetFromVideoAtFileURL(url)
                                             }, collectionTitle: Constants.albumName, success: { () -> Void in
                                                 try! manager.removeItemAtURL(url)
+                                                DispatchQueue.mainQueue.run({ success?() })
                                             }, failure: { (error) -> Void in
                                                 try! manager.removeItemAtURL(url)
+                                                DispatchQueue.mainQueue.run({ failure?(error) })
                                         })
                                     } else {
-                                        failure?(NSError(message: "Local video file is not reachable"))
+                                        DispatchQueue.mainQueue.run({ failure?(NSError(message: "Local video file is not reachable")) })
                                     }
                                 } catch {
                                     
                                 }
                             } else {
-                                run_in_main_queue({ () -> Void in
-                                    failure?(nil)
-                                })
+                                DispatchQueue.mainQueue.run({ failure?(error) })
                             }
                         }
                     })

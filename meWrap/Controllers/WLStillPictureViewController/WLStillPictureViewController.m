@@ -138,14 +138,14 @@
 
 - (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion {
     __weak typeof(self)weakSelf = self;
-    run_getting_object(^id{
+    [[DispatchQueue defaultQueue] runGettingObject:^id _Nullable{
         CGFloat resultWidth = [weakSelf imageWidthForCurrentMode];
         if (image.size.width > image.size.height) {
             return [image resize:CGSizeMake(1, resultWidth) aspectFill:YES];
         } else {
             return [image resize:CGSizeMake(resultWidth, 1) aspectFill:YES];
         }
-    }, completion);
+    } completion:completion];
 }
 
 - (void)cropAsset:(PHAsset*)asset completion:(void (^)(UIImage *croppedImage))completion {

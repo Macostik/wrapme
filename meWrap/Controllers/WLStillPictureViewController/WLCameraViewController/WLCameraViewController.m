@@ -172,13 +172,13 @@
         if (failure) failure(nil);
     } else {
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-            run_in_main_queue(^{
+            [[DispatchQueue mainQueue] run:^{
                 if (granted) {
                     if (success) success();
                 } else {
                     if (failure) failure(nil);
                 }
-            });
+            }];
         }];
     }
 }
@@ -339,17 +339,17 @@
 - (IBAction)getSamplePhoto:(id)sender {
     self.takePhotoButton.active = NO;
     __weak typeof(self)weakSelf = self;
-    run_getting_object(^id{
+    [[DispatchQueue defaultQueue] runGettingObject:^id _Nullable{
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
         CGSize size = CGSizeMake(width, width / 0.75);
         NSString* url = [NSString stringWithFormat:@"http://placeimg.com/%d/%d/any", (int)size.width, (int)size.height];
         return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[url URL]]];
-    }, ^ (UIImage* image) {
+    } completion:^(UIImage *image) {
         if (image) {
             [weakSelf.delegate cameraViewController:weakSelf didFinishWithImage:image saveToAlbum:NO];
         }
         weakSelf.takePhotoButton.active = YES;
-    });
+    }];
 }
 
 - (void)startVideoRecording:(UILongPressGestureRecognizer*)sender {
@@ -453,12 +453,12 @@
                     }
                     [device unlockForConfiguration];
                 }
-                run_in_main_queue(^{
+                [[DispatchQueue mainQueue] run:^{
                     weakSelf.cameraView.layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
                     [weakSelf applyDeviceOrientation:[WLDeviceManager defaultManager].orientation forConnection:weakSelf.movieFileOutputConnection];
                     completion();
                     preparingCompletion();
-                });
+                }];
             });
         }];
     }
@@ -668,7 +668,7 @@
     
     
     dispatch_async(self.sessionQueue, ^{
-        run_in_main_queue(^{
+        [[DispatchQueue mainQueue] run:^{
             AVCaptureStillImageOutput *output = self.stillImageOutput;
             AVCaptureConnection *connection = [output connectionWithMediaType:AVMediaTypeVideo];
             if (connection && [self.session.outputs containsObject:output]) {
@@ -677,7 +677,7 @@
             } else {
                 if (failure) failure(nil);
             }
-        });
+        }];
     });
 }
 
@@ -704,7 +704,7 @@
         configuration(session);
         [session commitConfiguration];
         if (completion) {
-            run_in_main_queue(completion);
+            [[DispatchQueue mainQueue] run:completion];
         }
     });
 }

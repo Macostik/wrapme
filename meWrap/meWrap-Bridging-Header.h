@@ -20,7 +20,6 @@
 #import "WLBadgeLabel.h"
 #import "GeometryHelper.h"
 #import "WLUploadingQueue.h"
-#import "GCDHelper.h"
 #import "WLAPIRequest+Defined.h"
 #import "WLButton.h"
 #import "WLWrapEmbeddedViewController.h"

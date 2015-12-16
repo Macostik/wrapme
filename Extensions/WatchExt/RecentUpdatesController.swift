@@ -71,12 +71,14 @@ class RecentUpdatesController: WKInterfaceController {
     
     var updates = [ExtensionUpdate]() {
         didSet {
-            let rowTypes = updates.map({ $0.type ?? "" })
-            isEmpty = rowTypes.isEmpty
-            table.setRowTypes(rowTypes)
-            for (index, update) in updates.enumerate() {
-                let row = table.rowControllerAtIndex(index) as? RecentUpdateRow
-                row?.update = update
+            if updates != oldValue {
+                let rowTypes = updates.map({ $0.type ?? "" })
+                isEmpty = rowTypes.isEmpty
+                table.setRowTypes(rowTypes)
+                for (index, update) in updates.enumerate() {
+                    let row = table.rowControllerAtIndex(index) as? RecentUpdateRow
+                    row?.update = update
+                }
             }
         }
     }

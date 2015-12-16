@@ -33,7 +33,7 @@ class Contribution: Entry {
         contributions.appendContentsOf(comments as! [Contribution])
         let candies = Candy.fetch().query("createdAt > %@ AND contributor != nil", date).execute()
         contributions.appendContentsOf(candies as! [Contribution])
-        return contributions
+        return contributions.sort({ $0.createdAt > $1.createdAt })
     }
     
     class func recentContributions(limit: Int) -> [Contribution] {

@@ -35,12 +35,12 @@
         }
     }];
     
-    run_getting_object(^id {
+    [[DispatchQueue defaultQueue] runGettingObject:^id _Nullable{
         return [Country allCountries];
-    }, ^(NSArray* countries) {
+    } completion:^(NSArray* countries) {
         weakSelf.dataSource.items = countries;
-		[weakSelf.dataSource.streamView scrollToItem:weakSelf.dataSource.streamView.selectedItem animated:NO];
-    });
+        [weakSelf.dataSource.streamView scrollToItem:weakSelf.dataSource.streamView.selectedItem animated:NO];
+    }];
 }
 
 - (Country *)selectedCountry {

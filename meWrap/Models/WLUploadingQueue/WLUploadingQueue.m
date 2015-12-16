@@ -52,6 +52,10 @@ static NSMapTable *queues = nil;
     return queue;
 }
 
++ (void)upload:(Uploading *)uploading {
+    [self upload:uploading success:nil failure:nil];
+}
+
 + (void)upload:(Uploading *)uploading success:(ObjectBlock)success failure:(FailureBlock)failure {
     [[self defaultQueueForEntityName:uploading.contribution.entity.name] upload:uploading success:success failure:failure];
 }

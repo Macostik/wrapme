@@ -82,13 +82,13 @@
     if(lastOrientation != orientation) {
         self.orientationFromAccelerometer = @(orientation);
         __weak typeof(self)weakSelf = self;
-        run_in_main_queue(^{
+        [[DispatchQueue mainQueue] run:^{
             for (id receiver in [weakSelf broadcastReceivers]) {
                 if ([receiver respondsToSelector:@selector(manager:didChangeOrientation:)]) {
                     [receiver manager:weakSelf didChangeOrientation:weakSelf.orientationFromAccelerometer];
                 }
             }
-        });
+        }];
     }
 }
 

@@ -85,7 +85,7 @@ extension Wrap {
             message.wrap = self
             message.text = text
             message.notifyOnAddition()
-            WLUploadingQueue.upload(uploading, success: nil, failure: nil)
+            WLUploadingQueue.upload(uploading)
         }
     }
     
@@ -97,7 +97,7 @@ extension Wrap {
                 Comment.comment(comment)?.candy = candy
             }
             candy.notifyOnAddition()
-            WLUploadingQueue.upload(uploading, success: nil, failure: nil)
+            WLUploadingQueue.upload(uploading)
         }
     }
     
@@ -105,7 +105,7 @@ extension Wrap {
         for asset in assets {
             RunQueue.uploadCandiesQueue.run({ [weak self] (finish) -> Void in
                 self?.uploadAsset(asset)
-                run_after(0.6, finish)
+                DispatchQueue.mainQueue.runAfter(0.6, block: finish)
             })
         }
     }
@@ -274,7 +274,7 @@ extension Candy {
             case .Ready: break
             case .Finished:
                 if let uploading = Uploading.uploading(self, event: .Update) {
-                    WLUploadingQueue.upload(uploading, success: nil, failure: nil)
+                    WLUploadingQueue.upload(uploading)
                 }
                 notifyOnUpdate(.Default)
                 break
@@ -317,9 +317,7 @@ extension Candy {
             commentCount++
             comment.candy = self
             comment.notifyOnAddition()
-            run_after(0.3, { () -> Void in
-                WLUploadingQueue.upload(uploading, success: nil, failure: nil)
-            })
+            DispatchQueue.mainQueue.runAfter(0.3, block: { WLUploadingQueue.upload(uploading) })
         }
     }
 
@@ -387,13 +385,13 @@ extension Candy {
         }
         uploadRequest.body = path.fileURL
         AWSS3TransferManager.defaultS3TransferManager().upload(uploadRequest).continueWithBlock { [weak self] (task) -> AnyObject! in
-            run_in_main_queue({ () -> Void in
+            DispatchQueue.mainQueue.run { () -> Void in
                 if let wrap = self?.wrap where wrap.valid && task.completed && (task.result != nil) {
                     success?(self)
                 } else {
                     failure?(task.error)
                 }
-            })
+            }
             return task
         }
     }

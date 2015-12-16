@@ -62,12 +62,11 @@
     if (self) {
         [self setup];
         __weak typeof(self)weakSelf = self;
-        run_after(0.2, ^{
+        [[DispatchQueue mainQueue] runAfter:0.2 block:^{
             [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
                 [weakSelf performSelector:@selector(requestHistory) withObject:nil afterDelay:0.5f];
             }];
-        });
-        
+        }];
     }
     return self;
 }

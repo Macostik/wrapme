@@ -77,10 +77,10 @@ typedef NS_ENUM(NSUInteger, WLSwipeViewControllerPosition) {
             self.scrollView.contentSize = CGSizeMake(self.scrollView.width * 2, self.scrollView.height);
             self.scrollView.contentOffset = CGPointZero;
             [self.scrollView setContentOffset:CGPointMake(self.scrollView.width, 0) animated:YES];
-            run_after(0.5, ^{
+            [[DispatchQueue mainQueue] runAfter:0.5 block:^{
                 [weakSelf scrollViewDidEndDecelerating:weakSelf.scrollView];
                 if (completion) completion();
-            });
+            }];
         } else {
             self.secondViewController = self.viewController;
             self.secondViewController.view.frame = CGRectMake(self.scrollView.size.width, 0, self.scrollView.size.width, self.scrollView.size.height);
@@ -90,10 +90,10 @@ typedef NS_ENUM(NSUInteger, WLSwipeViewControllerPosition) {
             self.scrollView.contentSize = CGSizeMake(self.scrollView.width * 2, self.scrollView.height);
             self.scrollView.contentOffset = CGPointMake(self.scrollView.width, 0);
             [self.scrollView setContentOffset:CGPointZero animated:YES];
-            run_after(0.5, ^{
+            [[DispatchQueue mainQueue] runAfter:0.5 block:^{
                 [weakSelf scrollViewDidEndDecelerating:weakSelf.scrollView];
                 if (completion) completion();
-            });
+            }];
         }
     } else {
         viewController.view.frame = CGRectMake(0, 0, self.scrollView.size.width, self.scrollView.size.height);

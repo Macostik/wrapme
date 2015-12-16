@@ -49,7 +49,7 @@ class Chat: PaginatedList {
         super.init()
         request = PaginatedRequest.messages(wrap)
         resetMessages()
-        run_after_asap { [weak self] () -> Void in
+        DispatchQueue.mainQueue.runAfterAsap { [weak self] () -> Void in
             let subscription = NotificationSubscription(name: wrap.uid, isGroup: false, observePresence: true)
             self?.subscription = subscription
             subscription.delegate = self

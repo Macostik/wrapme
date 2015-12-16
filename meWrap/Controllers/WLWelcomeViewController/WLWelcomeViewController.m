@@ -94,12 +94,12 @@ typedef enum : NSUInteger {
 
 - (void)wrapIntoAttributedString {
     __weak typeof(self)weakSelf = self;
-    run_getting_object(^id{
+    [[DispatchQueue defaultQueue] runGettingObject:^id _Nullable{
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"Wraplive_TermsAndConditions" withExtension:@"rtf"];
         return [[NSAttributedString alloc] initWithURL:url options:@{} documentAttributes:nil error:nil];
-    }, ^(id object) {
+    } completion:^(id object) {
         weakSelf.termsAndConditionsTextView.attributedText = object;
-    });
+    }];
 }
 
 - (IBAction)agreeAndContinue:(id)sender {

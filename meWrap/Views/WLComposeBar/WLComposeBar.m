@@ -90,9 +90,9 @@
             [self.delegate composeBar:self didFinishWithText:text];
         }
     }
-    run_after_asap(^{
+    [[DispatchQueue mainQueue] runAfterAsap:^{
         self.text = nil;
-    });
+    }];
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {

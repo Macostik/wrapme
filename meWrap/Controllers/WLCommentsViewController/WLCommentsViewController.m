@@ -57,10 +57,9 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
     }];
     
     self.dataSource.items = [self.candy sortedComments];
-    
-    run_after_asap(^{
+    [[DispatchQueue mainQueue] runAfterAsap:^{
         weakSelf.dataSource.didLayoutBlock = nil;
-    });
+    }];
     
     if (self.candy.uploaded) {
         [self.candy fetch:^(id object) {
@@ -85,9 +84,9 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
         [WLSoundPlayer playSound:WLSound_s04];
         [self.candy uploadComment:[text trim]];
     }
-    run_after(.0, ^{
+    [[DispatchQueue mainQueue] runAfter:0 block:^{
         [self onClose:nil];
-    });
+    }];
 }
 
 - (IBAction)onClose:(id)sender {

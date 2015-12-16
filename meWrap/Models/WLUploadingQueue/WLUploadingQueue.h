@@ -34,6 +34,8 @@
 
 + (instancetype)defaultQueueForEntityName:(NSString*)entityName;
 
++ (void)upload:(Uploading *)uploading;
+
 + (void)upload:(Uploading *)uploading success:(ObjectBlock)success failure:(FailureBlock)failure;
 
 + (void)start;

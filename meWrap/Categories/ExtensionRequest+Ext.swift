@@ -105,7 +105,7 @@ extension ExtensionRequest {
     }
     
     func recentUpdates(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
-        success(ExtensionReply(reply:  ["updates":Contribution.recentUpdates(10)]))
+        success(ExtensionReply(reply: ["updates":Contribution.recentUpdates(10)]))
     }
     
     func getCandy(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {

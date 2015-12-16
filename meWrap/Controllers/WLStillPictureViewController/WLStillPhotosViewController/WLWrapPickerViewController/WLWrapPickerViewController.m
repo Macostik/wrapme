@@ -44,9 +44,9 @@
         if (index != NSNotFound && streamView.contentOffset.y != index * itemHeight) {
             [streamView setContentOffset:CGPointMake(0, index * itemHeight) animated:YES];
         } else {
-            run_after_asap(^{
+            [[DispatchQueue mainQueue] runAfterAsap:^{
                 [weakSelf.delegate wrapPickerViewControllerDidFinish:weakSelf];
-            });
+            }];
         }
     }];
     

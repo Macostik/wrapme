@@ -101,9 +101,9 @@
     
     if (!self.wrap) {
         __weak typeof(self)weakSelf = self;
-        run_after(0.5, ^{
+        [[DispatchQueue mainQueue] runAfter:0.5 block:^{
             [weakSelf.navigationController popViewControllerAnimated:YES];
-        });
+        }];
         return;
     }
     
@@ -249,9 +249,7 @@
                     streamView.contentOffset = CGPointOffset(streamView.maximumContentOffset, 0, -[weakSelf.chat heightOfMessageCell:message]);
                     [streamView setMaximumContentOffsetAnimated:YES];
                 }
-                run_after(0.5, ^{
-                    finish();
-                });
+                [[DispatchQueue mainQueue] runAfter:0.5 block:finish];
             }
         }
     }];

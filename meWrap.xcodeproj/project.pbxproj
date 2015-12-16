@@ -37,6 +37,7 @@
 		C5060D181BEBA6B3007FFD5B /* Entry+APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5060D171BEBA6B3007FFD5B /* Entry+APIResponse.swift */; };
 		C5060D1A1BEBA7E2007FFD5B /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5060D191BEBA7E2007FFD5B /* String+Ext.swift */; };
 		C50646101ABD815200CB4BE3 /* Today.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645BA1ABD815100CB4BE3 /* Today.storyboard */; };
+		C507F80E1C218BB1006DA3E5 /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C507F80D1C218BB1006DA3E5 /* DispatchQueue.swift */; };
 		C5092CCE1C1206BE006C9414 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5092CCD1C1206BE006C9414 /* History.swift */; };
 		C5092CD01C120BA4006C9414 /* PaginatedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5092CCF1C120BA4006C9414 /* PaginatedRequest.swift */; };
 		C509E2BA1B96F46A003F6C21 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C509E2B71B96F46A003F6C21 /* Default-667h@2x.png */; };
@@ -533,6 +534,7 @@
 		C50645BA1ABD815100CB4BE3 /* Today.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Today.storyboard; sourceTree = "<group>"; };
 		C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WatchImages.xcassets; sourceTree = "<group>"; };
 		C50647681ABD889100CB4BE3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		C507F80D1C218BB1006DA3E5 /* DispatchQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
 		C5092CC91C11F299006C9414 /* CoreData 1. 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1. 5.xcdatamodel"; sourceTree = "<group>"; };
 		C5092CCD1C1206BE006C9414 /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		C5092CCF1C120BA4006C9414 /* PaginatedRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginatedRequest.swift; sourceTree = "<group>"; };
@@ -903,9 +905,7 @@
 		C5E6DD961C0DC8F5004992E4 /* CommonEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonEnums.swift; sourceTree = "<group>"; };
 		C5E6DD9E1C0DD11A004992E4 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		C5E6E8321BBAC3EC007FFA66 /* DefinedBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefinedBlocks.h; sourceTree = "<group>"; };
-		C5E6E8331BBAC3EC007FFA66 /* GCDHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDHelper.h; sourceTree = "<group>"; };
 		C5E6E8341BBAC3EC007FFA66 /* GeometryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometryHelper.h; sourceTree = "<group>"; };
-		C5E6E8351BBAC3EC007FFA66 /* SupportHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupportHeaders.h; sourceTree = "<group>"; };
 		C5E6E8361BBAC3EC007FFA66 /* Timecost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timecost.h; sourceTree = "<group>"; };
 		C5E6F01D1BFF38C200FA3D4F /* LeftSwipeActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LeftSwipeActionView.xib; path = WLHomeViewController/LeftSwipeActionView.xib; sourceTree = "<group>"; };
 		C5E6F01E1BFF38C200FA3D4F /* RightSwipeActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RightSwipeActionView.xib; path = WLHomeViewController/RightSwipeActionView.xib; sourceTree = "<group>"; };
@@ -1165,6 +1165,7 @@
 				C537F8B51C1828D400105390 /* RecentUpdateList.swift */,
 				C5EAE4CA1C18335900DA19C9 /* Chat.swift */,
 				C5A406FF1C202198007D1D0E /* StoryboardTransition.swift */,
+				C507F80D1C218BB1006DA3E5 /* DispatchQueue.swift */,
 				C50541551BD6545400AE6F2C /* WLImageEditorSession */,
 				C55A45281BAC1C4A0055AEC2 /* WLNetwork */,
 				C5C7699A1BAC11F200B205CB /* WLUploadingQueue */,
@@ -2206,9 +2207,7 @@
 			isa = PBXGroup;
 			children = (
 				C5E6E8321BBAC3EC007FFA66 /* DefinedBlocks.h */,
-				C5E6E8331BBAC3EC007FFA66 /* GCDHelper.h */,
 				C5E6E8341BBAC3EC007FFA66 /* GeometryHelper.h */,
-				C5E6E8351BBAC3EC007FFA66 /* SupportHeaders.h */,
 				C5E6E8361BBAC3EC007FFA66 /* Timecost.h */,
 				C5E6DD961C0DC8F5004992E4 /* CommonEnums.swift */,
 			);
@@ -2820,6 +2819,7 @@
 				C53BC4861C05B32C0009B0B9 /* AssetsViewController.swift in Sources */,
 				C5E6DD901C0DC84A004992E4 /* EntryContext.swift in Sources */,
 				C5E6DD8B1C0DC84A004992E4 /* Comment.swift in Sources */,
+				C507F80E1C218BB1006DA3E5 /* DispatchQueue.swift in Sources */,
 				C52279661BECCE8A00B1C49C /* NSDate+Formatting.swift in Sources */,
 				C552A8321BFDD37B00A7FFAD /* FlowerMenu.swift in Sources */,
 				C54743421C09CD8A00BECB25 /* ImageCache.swift in Sources */,

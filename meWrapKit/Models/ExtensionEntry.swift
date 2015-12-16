@@ -119,6 +119,14 @@ class ExtensionComment: ExtensionContribution {
     }
 }
 
+func ==(lhs: ExtensionEntry, rhs: ExtensionEntry) -> Bool {
+    return lhs.uid == rhs.uid
+}
+
+func ==(lhs: ExtensionUpdate, rhs: ExtensionUpdate) -> Bool {
+    return lhs.candy == rhs.candy && lhs.comment == rhs.comment
+}
+
 class ExtensionUpdate: ExtensionEntry {
     var type: String?
     var candy: ExtensionCandy?

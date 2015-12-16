@@ -127,15 +127,15 @@
 }
 
 - (void)initializeCrashlyticsAndLogging {
-    run_release(^{
-        [NewRelicAgent enableCrashReporting:YES];
-        if ([[Environment currentEnvironment] isProduction]) {
-            [NewRelicAgent startWithApplicationToken:@"AAd46869ec0b3558fb5890343d895b3acdd40ebaa8"];
-            [[GAI sharedInstance] trackerWithTrackingId:@"UA-60538241-1"];
-        } else {
-            [NewRelicAgent startWithApplicationToken:@"AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c"];
-        }
-    });
+#ifndef DEBUG
+    [NewRelicAgent enableCrashReporting:YES];
+    if ([[Environment currentEnvironment] isProduction]) {
+        [NewRelicAgent startWithApplicationToken:@"AAd46869ec0b3558fb5890343d895b3acdd40ebaa8"];
+        [[GAI sharedInstance] trackerWithTrackingId:@"UA-60538241-1"];
+    } else {
+        [NewRelicAgent startWithApplicationToken:@"AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c"];
+    }
+#endif
 }
 
 - (void)initializeVersionTool {
@@ -293,12 +293,12 @@
         return;
     }
     [WLUploadingQueue start];
-    run_after(20, ^{
+    [[DispatchQueue mainQueue] runAfter:20 block:^{
         if (completion) {
             completion(UIBackgroundFetchResultNewData);
             completion = nil;
         }
-    });
+    }];
 }
 
 - (void)presentNotification:(Notification *)notification {

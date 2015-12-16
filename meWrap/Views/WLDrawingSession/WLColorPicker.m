@@ -19,14 +19,14 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     __weak typeof(self)weakSelf = self;
-    run_getting_object(^id{
+    [[DispatchQueue defaultQueue] runGettingObject:^id _Nullable{
         NSMutableArray *colors = [NSMutableArray array];
         for (float hue = 0.0; hue < 1.0; hue += 0.001) {
             UIColor *color = [UIColor colorWithHue:hue saturation:1.0 brightness:1.0 alpha:1.0];
             [colors addObject:color];
         }
         return colors;
-    }, ^(NSArray *colors) {
+    } completion:^(NSArray *colors) {
         CGFloat x = 0;
         CGFloat height = weakSelf.height;
         CGFloat width = weakSelf.width / (CGFloat)colors.count;
@@ -36,7 +36,7 @@
             [weakSelf addSubview:view];
             x += width;
         }
-    });
+    }];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

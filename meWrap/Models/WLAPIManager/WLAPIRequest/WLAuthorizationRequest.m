@@ -123,12 +123,13 @@ static BOOL authorized = NO;
 
 + (instancetype)updateDevice {
     return [[[self PUT] path:@"users/device"] parametrize:^(id request, NSMutableDictionary *parameters) {
-        NSString *deviceToken = [WLNotificationCenter defaultCenter].pushTokenString;
-        if (deviceToken) {
-            WLLog(@"PUBNUB - apns_device_token: %@", deviceToken);
-            [parameters trySetObject:deviceToken forKey:@"device_token"];
-        }
+        [parameters trySetObject:[WLNotificationCenter defaultCenter].pushTokenString forKey:@"device_token"];
         parameters[@"os"] = @"ios";
+        parameters[@"os_version"] = [UIDevice currentDevice].systemVersion;
+        parameters[@"app_version"] = [NSBundle mainBundle].buildVersion;
+        NSString *sourceFile = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"iTunesArtwork"];
+        NSDate *lastModif = [[[NSFileManager defaultManager] attributesOfItemAtPath:sourceFile error:nil] objectForKey:NSFileModificationDate];
+        [parameters trySetObject:@(lastModif.timestamp) forKey:@"installed_at"];
     }];
 }
 

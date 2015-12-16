@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -16,7 +16,6 @@
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dcl-Zr-Qcj" customClass="ImageView" customModule="meWrap" customModuleProvider="target">
                             <rect key="frame" x="12" y="12" width="48" height="48"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="48" id="ouO-18-Cfp"/>
                                 <constraint firstAttribute="height" constant="48" id="yoN-Hm-IJr"/>
@@ -28,7 +27,6 @@
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3QS-La-xGA" customClass="WLLabel">
                             <rect key="frame" x="72" y="12" width="33" height="16"/>
-                            <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -38,7 +36,6 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label Label Label Label Label Label Label Label Label Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4Z-wK-I58" customClass="WLLabel">
                             <rect key="frame" x="72" y="28" width="206" height="36"/>
-                            <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
@@ -46,7 +43,6 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="Dcl-Zr-Qcj" firstAttribute="top" secondItem="A6T-N5-eA4" secondAttribute="top" constant="12" id="56W-Qn-33k"/>
@@ -67,7 +63,6 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="A6T-N5-eA4" secondAttribute="bottom" id="EMn-JQ-BzL"/>
@@ -96,7 +91,6 @@
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ozn-eD-rc8" customClass="WLLabel">
                     <rect key="frame" x="12" y="7" width="38" height="18"/>
-                    <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <userDefinedRuntimeAttributes>
@@ -104,7 +98,6 @@
                     </userDefinedRuntimeAttributes>
                 </label>
             </subviews>
-            <animations/>
             <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="Ozn-eD-rc8" firstAttribute="leading" secondItem="CPq-zu-u0e" secondAttribute="leading" constant="12" id="18V-Lf-ynj"/>

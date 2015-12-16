@@ -196,7 +196,7 @@
                 return;
             }
         }
-        self.window.rootViewController = [[UIViewController alloc] initWithNibName:@"WLLaunchScreenViewController" bundle:nil];
+        self.window.rootViewController = [UIStoryboard introduction][@"launchScreen"];
         __weak typeof(self)weakSelf = self;
         [authorization signIn:successBlock failure:^(NSError *error) {
             User *currentUser = [User currentUser];

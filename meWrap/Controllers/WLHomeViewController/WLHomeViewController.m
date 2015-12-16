@@ -15,17 +15,15 @@
 #import "WLAddressBook.h"
 #import "WLIntroductionViewController.h"
 #import "WLTouchView.h"
-#import "WLPresentingImageView.h"
 #import "WLHistoryViewController.h"
 #import "WLHintView.h"
 #import "WLUploadingQueue.h"
-#import "WLFollowingViewController.h"
 #import "WLSoundPlayer.h"
 #import "WLNetwork.h"
 #import "WLChangeProfileViewController.h"
 #import "WLStillPictureViewController.h"
 
-@interface WLHomeViewController () <WrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, RecentUpdateListNotifying, WLStillPictureViewControllerDelegate>
+@interface WLHomeViewController () <WrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, RecentUpdateListNotifying, WLStillPictureViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet SegmentedStreamDataSource *dataSource;
 
@@ -171,30 +169,17 @@
 
 - (void)finalizeAppearingOfCandiesView:(RecentCandiesView*)candiesView {
     __weak typeof(self)weakSelf = self;
-    
     StreamMetrics *metrics = [candiesView.dataSource.metrics firstObject];
     [metrics setSelection:^(StreamItem *candyItem, Candy *candy) {
-        CandyCell *cell = (id)candyItem.view;
-        
-        if (!candy) {
-            [weakSelf addPhoto:nil];
-            return;
-        }
-        
-        if (candy.valid && cell.imageView.image != nil) {
-            WLHistoryViewController *historyViewController = (id)[candy viewController];
-            if (historyViewController) {
-                WLPresentingImageView *presentingImageView = [WLPresentingImageView sharedPresenting];
-                presentingImageView.delegate = weakSelf;
-                historyViewController.presentingImageView = presentingImageView;
-                [presentingImageView presentCandy:candy fromView:candyItem.view success:^(WLPresentingImageView *presetingImageView) {
-                    [weakSelf.navigationController pushViewController:historyViewController animated:NO];
-                } failure:^(NSError *error) {
-                    [ChronologicalEntryPresenter presentEntry:candy animated:YES];
-                }];
-            }
+        if (candy) {
+            [CandyEnlargingPresenter handleCandySelection:candyItem entry:candy dismissingView:^UIView * _Nullable(CandyEnlargingPresenter *presenter, Candy *candy) {
+                [weakSelf.streamView scrollRectToVisible:candiesView.frame animated:NO];
+                return [[candiesView.streamView itemPassingTest:^BOOL(StreamItem *item) {
+                    return item.entry == candy;
+                }] view];
+            }];
         } else {
-            [ChronologicalEntryPresenter presentEntry:candy animated:YES];
+            [weakSelf addPhoto:nil];
         }
     }];
 }
@@ -448,7 +433,7 @@
             self.navigationController.viewControllers = @[self, controller];
         }
         
-        [WLFollowingViewController followWrapIfNeeded:wrap performAction:^{
+        [FollowingViewController followWrapIfNeeded:wrap performAction:^{
             [WLSoundPlayer playSound:WLSound_s04];
             [wrap uploadAssets:pictures];
         }];
@@ -477,15 +462,6 @@
 
 - (NSSet *)touchViewExclusionRects:(WLTouchView *)touchView {
     return [NSSet setWithObject:[NSValue valueWithCGRect:[touchView convertRect:self.createWrapButton.bounds fromView:self.createWrapButton]]];
-}
-
-// MARK: - WLPresentingImageViewDelegate
-
-- (UIView *)presentingImageView:(WLPresentingImageView *)presentingImageView dismissingViewForCandy:(Candy *)candy {
-    [self.streamView scrollRectToVisible:self.candiesView.frame animated:NO];
-    return [[self.candiesView.streamView itemPassingTest:^BOOL(StreamItem *item) {
-        return item.entry == candy;
-    }] view];
 }
 
 // MARK: - RecentUpdateListNotifying

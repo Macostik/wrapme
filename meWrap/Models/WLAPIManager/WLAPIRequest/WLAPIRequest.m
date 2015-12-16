@@ -12,7 +12,7 @@
 
 @implementation WLAPIManager
 
-+ (instancetype)manager {
++ (instancetype)defaultManager {
     static WLAPIManager* instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -74,9 +74,9 @@
     return self;
 }
 
-static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;
+static WLAPIRequestErrorBlock _unauthorizedErrorBlock;
 
-+ (void)setUnauthorizedErrorBlock:(WLAPIRequestUnauthorizedErrorBlock)unauthorizedErrorBlock {
++ (void)setUnauthorizedErrorBlock:(WLAPIRequestErrorBlock)unauthorizedErrorBlock {
     _unauthorizedErrorBlock = unauthorizedErrorBlock;
 }
 
@@ -134,7 +134,7 @@ static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;
 }
 
 - (NSMutableURLRequest *)request:(NSMutableDictionary *)parameters url:(NSString *)url {
-    AFHTTPRequestSerializer <AFURLRequestSerialization> *serializer = [WLAPIManager manager].requestSerializer;
+    AFHTTPRequestSerializer <AFURLRequestSerialization> *serializer = [WLAPIManager defaultManager].requestSerializer;
     NSString* file = self.file ? self.file(self) : nil;
     if (file) {
         void (^constructing) (id<AFMultipartFormData> formData) = ^(id<AFMultipartFormData> formData) {
@@ -166,7 +166,7 @@ static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;
     if (!self.method) {
         self.method = @"GET";
     }
-    WLAPIManager *manager = [WLAPIManager manager];
+    WLAPIManager *manager = [WLAPIManager defaultManager];
     NSMutableDictionary* parameters = [self parametrize];
     NSString* url = [manager urlWithPath:self.path];
     NSMutableURLRequest *request = [self request:parameters url:url];
@@ -183,13 +183,9 @@ static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;
             WLLog(@"RESPONSE - %@", url);
 #endif
             if (strongSelf.parser) {
-                strongSelf.parser(response, ^(id object) {
-                    WLLog(@"PARSED RESPONSE - %@: %@", url, object);
-                    [strongSelf handleSuccess:object];
-                }, ^(NSError *error) {
-                    WLLog(@"ERROR - %@: %@", url, error);
-                    [strongSelf handleFailure:error];
-                });
+                id parsedObject = strongSelf.parser(response);
+                WLLog(@"PARSED RESPONSE - %@: %@", url, parsedObject);
+                [strongSelf handleSuccess:parsedObject];
             } else {
                 [strongSelf handleSuccess:response];
             }

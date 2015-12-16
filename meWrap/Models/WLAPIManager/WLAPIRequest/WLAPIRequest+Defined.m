@@ -13,6 +13,14 @@
 
 @implementation WLAPIRequest (Defined)
 
+- (instancetype)contributionUnavailable:(Contribution *)contribution {
+    return [self beforeFailure:^(NSError *error) {
+        if (contribution.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
+            [contribution remove];
+        }
+    }];
+}
+
 + (instancetype)candy:(Candy *)candy {
     WLAPIRequest *request = nil;
     if (candy.wrap) {
@@ -20,88 +28,62 @@
     } else {
         request = [[self GET] path:@"entities/%@", candy.uid];
     }
-    return [[request parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
-        success(candy.valid ? [candy update:[Candy prefetchDictionary:response.data[@"candy"]]] : nil);
-    }] beforeFailure:^(NSError *error) {
-        if (candy.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
-            [candy remove];
-        }
-    }];
+    return [[request parse:^id (Response *response) {
+        return [candy.validEntry update:[Candy prefetchDictionary:response.data[@"candy"]]];
+    }] contributionUnavailable:candy];
 }
 
 + (instancetype)deleteCandy:(Candy *)candy {
-    return [[[[self DELETE] path:@"wraps/%@/candies/%@", candy.wrap.uid, candy.uid] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
+    return [[[[self DELETE] path:@"wraps/%@/candies/%@", candy.wrap.uid, candy.uid] parse:^id (Response *response) {
         [candy remove];
-        success(nil);
-    }] beforeFailure:^(NSError *error) {
-        if (candy.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
-            [candy remove];
-        }
-    }];
+        return nil;
+    }] contributionUnavailable:candy];
 }
 
 + (instancetype)deleteComment:(Comment *)comment {
     WLAPIRequest *request = [[self DELETE] path:@"wraps/%@/candies/%@/comments/%@", comment.candy.wrap.uid, comment.candy.uid, comment.uid];
-    return [request parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
+    return [request parse:^id (Response *response) {
         Candy *candy = comment.candy;
         [comment remove];
-        if (candy.valid) {
-            candy.commentCount = [response.data[@"comment_count"] intValue];
-        }
-        success(nil);
+        candy.validEntry.commentCount = [response.data[@"comment_count"] intValue];
+        return nil;
     }];
 }
 
 + (instancetype)deleteWrap:(Wrap *)wrap {
-    return [[[[self DELETE] path:@"wraps/%@", wrap.uid] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
+    return [[[[self DELETE] path:@"wraps/%@", wrap.uid] parse:^id (Response *response) {
         [wrap remove];
-        success(nil);
-    }] beforeFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
-            [wrap remove];
-        }
-    }];
+        return nil;
+    }] contributionUnavailable:wrap];
 }
 
 + (instancetype)leaveWrap:(Wrap *)wrap {
-    return [[[[self DELETE] path:@"wraps/%@/leave", wrap.uid] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
+    return [[[[self DELETE] path:@"wraps/%@/leave", wrap.uid] parse:^id (Response *response) {
         if (wrap.isPublic) {
             [[wrap mutableContributors] removeObject:[User currentUser]];
             [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
         } else {
             [wrap remove];
         }
-        success(nil);
-    }] beforeFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
-            [wrap remove];
-        }
-    }];
+        return nil;
+    }] contributionUnavailable:wrap];
 }
 
 + (instancetype)followWrap:(Wrap *)wrap {
-    return [[[[self POST] path:@"wraps/%@/follow", wrap.uid] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
+    return [[[[self POST] path:@"wraps/%@/follow", wrap.uid] parse:^id (Response *response) {
         [wrap touch];
         [[wrap mutableContributors] addObject:[User currentUser]];
         [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
-        success(nil);
-    }] beforeFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
-            [wrap remove];
-        }
-    }];
+        return nil;
+    }] contributionUnavailable:wrap];
 }
 
 + (instancetype)unfollowWrap:(Wrap *)wrap {
-    return [[[[self DELETE] path:@"wraps/%@/unfollow", wrap.uid] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
+    return [[[[self DELETE] path:@"wraps/%@/unfollow", wrap.uid] parse:^id (Response *response) {
         [[[User currentUser] mutableWraps] removeObject:wrap];
         [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
-        success(nil);
-    }] beforeFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
-            [wrap remove];
-        }
-    }];
+        return nil;
+    }] contributionUnavailable:wrap];
 }
 
 + (instancetype)postComment:(Comment *)comment {
@@ -109,7 +91,7 @@
         [parameters trySetObject:comment.text forKey:@"message"];
         [parameters trySetObject:comment.locuid forKey:@"upload_uid"];
         [parameters trySetObject:@(comment.updatedAt.timestamp) forKey:@"contributed_at_in_epoch"];
-    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
+    }] parse:^id (Response *response) {
         Candy *candy = comment.candy;
         if (candy.valid) {
             [comment map:[response.data dictionaryForKey:@"comment"]];
@@ -117,9 +99,9 @@
             int commentCount = [response.data[@"comment_count"] intValue];
             if (candy.commentCount < commentCount)
                 candy.commentCount = commentCount;
-            success(comment);
+            return comment;
         } else {
-            success(nil);
+            return nil;
         }
     }];
 }
@@ -137,60 +119,42 @@
 }
 
 + (instancetype)user:(User *)user {
-    return [[[self GET] path:@"users/%@", user.uid] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
+    return [[[self GET] path:@"users/%@", user.uid] parse:^id (Response *response) {
         [user map:response.data[@"user"]];
         [user notifyOnUpdate:EntryUpdateEventDefault];
-        success(user);
+        return user;
     }];
 }
 
 + (instancetype)preferences:(Wrap *)wrap {
-    return [[[[self GET] path:@"wraps/%@/preferences", wrap.uid] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
-        if (wrap.valid) {
-            NSDictionary *preference = [response.data dictionaryForKey:@"wrap_preference"];
-            wrap.isCandyNotifiable = [[preference numberForKey:@"notify_when_image_candy_addition"] boolValue];
-            wrap.isChatNotifiable = [[preference numberForKey:@"notify_when_chat_addition"] boolValue];
-            [wrap notifyOnUpdate:EntryUpdateEventPreferencesChanged];
-            success(wrap);
-        } else {
-            success(nil);
-        }
-    }] afterFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
-            [wrap remove];
-        }
-    }];
+    return [[[[self GET] path:@"wraps/%@/preferences", wrap.uid] parse:^id (Response *response) {
+        Wrap *wrap = wrap.validEntry;
+        NSDictionary *preference = [response.data dictionaryForKey:@"wrap_preference"];
+        wrap.isCandyNotifiable = [[preference numberForKey:@"notify_when_image_candy_addition"] boolValue];
+        wrap.isChatNotifiable = [[preference numberForKey:@"notify_when_chat_addition"] boolValue];
+        [wrap notifyOnUpdate:EntryUpdateEventPreferencesChanged];
+        return wrap;
+    }] contributionUnavailable:wrap];
 }
 
 + (instancetype)changePreferences:(Wrap *)wrap {
     return [[[[[self PUT] path:@"wraps/%@/preferences", wrap.uid] parametrize:^(id request, NSMutableDictionary *parameters) {
         [parameters trySetObject:@(wrap.isCandyNotifiable) forKey:@"notify_when_image_candy_addition"];
         [parameters trySetObject:@(wrap.isChatNotifiable) forKey:@"notify_when_chat_addition"];
-    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
-        if (wrap.valid) {
-            success(wrap);
-        } else {
-            success(nil);
-        }
-    }] afterFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
-            [wrap remove];
-        }
-    }];
+    }] parse:^id (Response *response) {
+        return wrap.validEntry;
+    }] contributionUnavailable:wrap];
 }
 
 + (instancetype)contributors:(Wrap *)wrap {
-    return [[[[self GET] path:@"wraps/%@/contributors", wrap.uid] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
+    return [[[[self GET] path:@"wraps/%@/contributors", wrap.uid] parse:^id (Response *response) {
         NSSet *contributors = [NSSet setWithArray:[User mappedEntries:[User prefetchArray:[response.data arrayForKey:@"contributors"]]]];
-        if (wrap.valid && ![wrap.contributors isEqualToSet:contributors]) {
+        Wrap *wrap = wrap.validEntry;
+        if (![wrap.contributors isEqualToSet:contributors]) {
             wrap.contributors = contributors;
         }
-        success(contributors);
-    }] afterFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
-            [wrap remove];
-        }
-    }];
+        return contributors;
+    }] contributionUnavailable:wrap];
 }
 
 + (instancetype)verificationCall {
@@ -204,20 +168,15 @@
     return [[[[[self POST] path:@"wraps/%@/chats", message.wrap.uid] parametrize:^(id request, NSMutableDictionary *parameters) {
         [parameters trySetObject:message.text forKey:@"message"];
         [parameters trySetObject:message.locuid forKey:@"upload_uid"];
-    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
+    }] parse:^id (Response *response) {
         if (message.wrap.valid) {
             [message map:[response.data dictionaryForKey:@"chat"]];
             [message notifyOnUpdate:EntryUpdateEventContentAdded];
-            success(message);
+            return message;
         } else {
-            success(nil);
+            return nil;
         }
-    }] beforeFailure:^(NSError *error) {
-        Wrap *wrap = message.wrap;
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
-            [wrap remove];
-        }
-    }];
+    }] contributionUnavailable:message.wrap];
 }
 
 + (instancetype)addContributors:(NSSet*)contributors wrap:(Wrap *)wrap message:(NSString *)message {
@@ -246,43 +205,29 @@
             NSData* invitee = [NSJSONSerialization dataWithJSONObject:data options:0 error:NULL];
             return [[NSString alloc] initWithData:invitee encoding:NSUTF8StringEncoding];
         }] forKey:@"invitees"];
-    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
-        if (wrap.valid) {
-            NSSet *contributors = [NSSet setWithArray:[User mappedEntries:[User prefetchArray:[response.data arrayForKey:@"contributors"]]]];
-            if (![wrap.contributors isEqualToSet:contributors]) {
-                wrap.contributors = contributors;
-                [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
-            }
-            success(wrap);
-        } else {
-            success(nil);
+    }] parse:^id (Response *response) {
+        Wrap *wrap = wrap.validEntry;
+        NSSet *contributors = [NSSet setWithArray:[User mappedEntries:[User prefetchArray:[response.data arrayForKey:@"contributors"]]]];
+        if (![wrap.contributors isEqualToSet:contributors]) {
+            wrap.contributors = contributors;
+            [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
         }
-    }] afterFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
-            [wrap remove];
-        }
-    }];
+        return wrap;
+    }] contributionUnavailable:wrap];
 }
 
 + (instancetype)removeContributors:(NSArray*)contributors wrap:(Wrap *)wrap {
     return [[[[[self DELETE] path:@"wraps/%@/remove_contributor", wrap.uid] parametrize:^(id request, NSMutableDictionary *parameters) {
         [parameters trySetObject:[[contributors where:@"user != nil"] valueForKeyPath:@"user.uid"] forKey:@"user_uids"];
-    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
-        if (wrap.valid) {
-            NSSet *contributors = [NSSet setWithArray:[User mappedEntries:[User prefetchArray:[response.data arrayForKey:@"contributors"]]]];
-            if (![wrap.contributors isEqualToSet:contributors]) {
-                wrap.contributors = contributors;
-                [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
-            }
-            success(wrap);
-        } else {
-            success(nil);
+    }] parse:^id (Response *response) {
+        Wrap *wrap = wrap.validEntry;
+        NSSet *contributors = [NSSet setWithArray:[User mappedEntries:[User prefetchArray:[response.data arrayForKey:@"contributors"]]]];
+        if (![wrap.contributors isEqualToSet:contributors]) {
+            wrap.contributors = contributors;
+            [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
         }
-    }] afterFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
-            [wrap remove];
-        }
-    }];
+        return wrap;
+    }] contributionUnavailable:wrap];
 }
 
 + (instancetype)uploadWrap:(Wrap *)wrap {
@@ -290,14 +235,11 @@
         [parameters trySetObject:wrap.name forKey:@"name"];
         [parameters trySetObject:wrap.locuid forKey:@"upload_uid"];
         [parameters trySetObject:@(wrap.updatedAt.timestamp) forKey:@"contributed_at_in_epoch"];
-    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
-        if (wrap.valid) {
-            [wrap map:response.data[@"wrap"]];
-            [wrap notifyOnAddition];
-            success(wrap);
-        } else {
-            success(nil);
-        }
+    }] parse:^id (Response *response) {
+        Wrap *wrap = wrap.validEntry;
+        [wrap map:response.data[@"wrap"]];
+        [wrap notifyOnAddition];
+        return wrap;
     }];
 }
 
@@ -307,14 +249,14 @@
     }] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:user.name forKey:@"name"];
         [parameters trySetObject:email forKey:@"email"];
-    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
+    }] parse:^id (Response *response) {
         NSDictionary* userData = response.data[@"user"];
         Authorization* authorization = [Authorization currentAuthorization];
         [authorization updateWithUserData:userData];
         [user map:userData];
         User.currentUser = user;
         [user notifyOnUpdate:EntryUpdateEventDefault];
-        success(user);
+        return user;
     }];
 }
 
@@ -322,19 +264,12 @@
     return [[[[[self PUT] path:@"wraps/%@", wrap.uid] parametrize:^(id request, NSMutableDictionary *parameters) {
         [parameters trySetObject:wrap.name forKey:@"name"];
         [parameters trySetObject:@(wrap.isRestrictedInvite) forKey:@"is_restricted_invite"];
-    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
-        if (wrap.valid) {
-            [wrap map:response.data[@"wrap"]];
-            [wrap notifyOnUpdate:EntryUpdateEventDefault];
-            success(wrap);
-        } else {
-            success(nil);
-        }
-    }] afterFailure:^(NSError *error) {
-        if (wrap.uploaded && [error isResponseError:ResponseCodeContentUnavailable]) {
-            [wrap remove];
-        }
-    }];
+    }] parse:^id (Response *response) {
+        Wrap *wrap = wrap.validEntry;
+        [wrap map:response.data[@"wrap"]];
+        [wrap notifyOnUpdate:EntryUpdateEventDefault];
+        return wrap;
+    }] contributionUnavailable:wrap];
 }
 
 + (instancetype)contributorsFromContacts:(NSArray*)contacts {
@@ -346,7 +281,7 @@
             }
         }
         [parameters trySetObject:phones forKey:@"phone_numbers"];
-    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
+    }] parse:^id (Response *response) {
         NSArray* users = response.data[@"users"];
         NSMutableSet *registeredUsers = [NSMutableSet set];
         NSArray *contributors = [contacts map:^id(WLAddressBookRecord* contact) {
@@ -367,18 +302,18 @@
             }];
             return contact.phoneNumbers.nonempty ? contact : nil;
         }];
-        success(contributors);
+        return contributors;
     }];
 }
 
 + (instancetype)postCandy:(Candy *)candy violationCode:(NSString *)violationCode {
     return [[[[self POST] path:@"wraps/%@/candies/%@/violations/", candy.wrap.uid, candy.uid] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:violationCode forKey:@"violation_code"];
-    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
+    }] parse:^id (Response *response) {
         if  (candy.wrap.valid) {
-            success(candy);
+            return candy;
         }else {
-            success(nil);
+            return nil;
         }
     }];
 }

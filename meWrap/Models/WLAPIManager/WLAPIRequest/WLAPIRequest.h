@@ -13,19 +13,19 @@
 
 @interface WLAPIManager : AFHTTPRequestOperationManager
 
-+ (instancetype)manager;
++ (instancetype)defaultManager;
 
 - (NSString*)urlWithPath:(NSString*)path;
 
 @end
 
-typedef void (^WLAPIRequestParser) (Response *response, ObjectBlock success, FailureBlock failure);
+typedef id (^WLAPIRequestParser) (Response *response);
 
 typedef void (^WLAPIRequestParametrizer) (id request, NSMutableDictionary* parameters);
 
 typedef BOOL (^WLAPIRequestFailureValidator) (id request, NSError *error);
 
-typedef void (^WLAPIRequestUnauthorizedErrorBlock) (WLAPIRequest *request, NSError *error);
+typedef void (^WLAPIRequestErrorBlock) (WLAPIRequest *request, NSError *error);
 
 typedef NSString *(^WLAPIRequestFile) (id request);
 
@@ -73,7 +73,7 @@ typedef NSString *(^WLAPIRequestFile) (id request);
 
 - (instancetype)path:(NSString*)path, ...;
 
-+ (void)setUnauthorizedErrorBlock:(WLAPIRequestUnauthorizedErrorBlock)unauthorizedErrorBlock;
++ (void)setUnauthorizedErrorBlock:(WLAPIRequestErrorBlock)unauthorizedErrorBlock;
 
 - (instancetype)parse:(WLAPIRequestParser)parser;
 

@@ -33,10 +33,10 @@ class History: PaginatedList {
                     item.candies.append(candy)
                 } else {
                     entries.append(item)
-                    item = HistoryItem(candy: candy)
+                    item = HistoryItem(candy: candy, history: self)
                 }
             } else {
-                item = HistoryItem(candy: candy)
+                item = HistoryItem(candy: candy, history: self)
             }
             _candy = candy
         }
@@ -56,7 +56,7 @@ class History: PaginatedList {
                 }
             }
         }
-        let item = HistoryItem(candy: candy)
+        let item = HistoryItem(candy: candy, history: self)
         entries.append(item)
         entries.sortInPlace({ $0.listSortDate() > $1.listSortDate() })
         return (item, true)
@@ -123,6 +123,16 @@ class History: PaginatedList {
             }
         }
     }
+    
+    func itemWithCandy(candy: Candy?) -> HistoryItem? {
+        guard let candy = candy else { return nil }
+        if let items = entries as? [HistoryItem] {
+            for item in items where item.candies.contains(candy) {
+                return item
+            }
+        }
+        return nil
+    }
 }
 
 extension History: EntryNotifying {
@@ -152,16 +162,17 @@ extension History: EntryNotifying {
 }
 
 class HistoryItem: NSObject, ListEntry {
+    
+    unowned var history: History
+    
     var offset = CGPoint.zero
     var candies = [Candy]()
     var date: NSDate
-    convenience init(candy: Candy) {
-        self.init(date: candy.createdAt)
-        candies.append(candy)
-    }
     
-    init(date: NSDate) {
-        self.date = date
+    init(candy: Candy, history: History) {
+        self.history = history
+        date = candy.createdAt
+        candies.append(candy)
     }
     
     func sort() {
@@ -170,5 +181,8 @@ class HistoryItem: NSObject, ListEntry {
     
     func listSortDate() -> NSDate {
         return date
+    }
+    func listEntryEqual(entry: ListEntry) -> Bool {
+        return self == (entry as? HistoryItem)
     }
 }

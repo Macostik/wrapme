@@ -27,7 +27,7 @@ class StreamDataSource: NSObject, GridLayoutDelegate, StreamLayoutDelegate {
     lazy var footerMetrics = [StreamMetrics]()
     
     deinit {
-        if let delegate = streamView?.delegate where delegate === self {
+        if (streamView?.delegate as? StreamDataSource) == self {
             streamView?.delegate = nil
         }
     }

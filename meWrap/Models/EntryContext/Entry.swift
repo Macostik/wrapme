@@ -52,8 +52,8 @@ class Entry: NSManagedObject {
         return EntryContext.sharedContext.hasEntry(entityName(), uid: uid)
     }
     
-    class func entries() -> [Entry]? {
-        return fetch().execute() as? [Entry]
+    class func entries() -> [Entry] {
+        return (fetch().execute() as? [Entry]) ?? []
     }
     
     class func fetch() -> NSFetchRequest {
@@ -73,6 +73,10 @@ class Entry: NSManagedObject {
     
     var valid: Bool {
         return managedObjectContext != nil && !self.deleted && (container?.valid ?? true)
+    }
+    
+    func validEntry() -> Self? {
+        return valid ? self : nil
     }
     
     var container: Entry?

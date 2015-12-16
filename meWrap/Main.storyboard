@@ -58,6 +58,7 @@
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
+            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -141,7 +142,7 @@
         <!--Source View Controller-->
         <scene sceneID="nh2-ON-WTv">
             <objects>
-                <viewController storyboardIdentifier="WLSettingsViewController" id="zBt-TT-rM7" customClass="WLSettingsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="settings" id="zBt-TT-rM7" customClass="SettingsViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wsP-zc-2NJ"/>
                         <viewControllerLayoutGuide type="bottom" id="cRK-Tr-qQy"/>
@@ -453,10 +454,9 @@
                     <navigationItem key="navigationItem" id="6wo-X8-9p5"/>
                     <connections>
                         <outlet property="navigationBar" destination="qU7-Ez-lna" id="6fp-ZP-V0i"/>
-                        <outlet property="signOutButton" destination="7C1-yc-O8X" id="EVt-mE-E2m"/>
                     </connections>
                 </viewController>
-                <customObject id="5n6-Z7-rk2" userLabel="Profile Transition" customClass="WLStoryboardTransition">
+                <customObject id="5n6-Z7-rk2" userLabel="Profile Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLChangeProfileViewController"/>
                     </userDefinedRuntimeAttributes>
@@ -781,7 +781,7 @@
                         <outletCollection property="keyboardAdjustmentTopConstraints" destination="MT6-Jj-Nhe" id="96B-W3-Zjl"/>
                     </connections>
                 </viewController>
-                <customObject id="NSY-AX-h8F" userLabel="Camera Transition" customClass="WLStoryboardTransition">
+                <customObject id="NSY-AX-h8F" userLabel="Camera Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="storyboard" value="Camera"/>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="sourceIsDelegate" value="YES"/>
@@ -1406,7 +1406,7 @@
                         <outlet property="scrollDirectionLayoutPrioritizer" destination="GFV-Ya-rff" id="stk-tG-m3y"/>
                     </connections>
                 </customObject>
-                <customObject id="Qns-CC-AwC" userLabel="Notifications Transition" customClass="WLStoryboardTransition">
+                <customObject id="Qns-CC-AwC" userLabel="Notifications Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="recentUpdates"/>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>
@@ -1415,15 +1415,15 @@
                         <outlet property="sourceViewController" destination="L91-fZ-J9O" id="fTC-aN-kwc"/>
                     </connections>
                 </customObject>
-                <customObject id="7ui-hh-L3e" userLabel="Settings Transition" customClass="WLStoryboardTransition">
+                <customObject id="7ui-hh-L3e" userLabel="Settings Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLSettingsViewController"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="settings"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="sourceViewController" destination="L91-fZ-J9O" id="b22-eC-dlg"/>
                     </connections>
                 </customObject>
-                <customObject id="DBa-Dn-FbP" userLabel="Profile Transition" customClass="WLStoryboardTransition">
+                <customObject id="DBa-Dn-FbP" userLabel="Profile Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLChangeProfileViewController"/>
                     </userDefinedRuntimeAttributes>
@@ -2186,22 +2186,20 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUq-C2-qrY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="tj6-Hw-Hld" userLabel="Camera Transition" customClass="WLStoryboardTransition">
+                <customObject id="tj6-Hw-Hld" userLabel="Camera Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="storyboard" value="Camera"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="wrap"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationValue" value="wrap"/>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="sourceIsDelegate" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="sourceViewController" destination="hUj-RK-zkg" id="hhi-Dj-Vlh"/>
                     </connections>
                 </customObject>
-                <customObject id="xXv-P7-bPX" userLabel="Wrap Settings Transition" customClass="WLStoryboardTransition">
+                <customObject id="xXv-P7-bPX" userLabel="Wrap Settings Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLWrapSettingsViewContoller"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="wrap"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationValue" value="wrap"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="sourceViewController" destination="hUj-RK-zkg" id="kT4-Wh-UMP"/>
@@ -2391,7 +2389,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DOa-Ws-aK4" customClass="GradientView" customModule="meWrap" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DOa-Ws-aK4" customClass="HistoryFooterView" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="480" width="600" height="120"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dFH-JX-QNB">
@@ -2439,7 +2437,7 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="toggleBottomViewMode:" destination="eto-O4-OHy" eventType="touchUpInside" id="N7x-L1-ObI"/>
+                                                    <action selector="toggle:" destination="DOa-Ws-aK4" eventType="touchDown" id="YhU-hZ-5eE"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -2479,18 +2477,15 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <textView hidden="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8T-0M-jNN" customClass="WLTextView">
-                                        <rect key="frame" x="72" y="12" width="516" height="36"/>
+                                    <label hidden="YES" contentMode="scaleToFill" lineBreakMode="tailTruncation" numberOfLines="2" translatesAutoresizingMaskIntoConstraints="NO" id="G8T-0M-jNN" customClass="SmartLabel" customModule="meWrap" customModuleProvider="target">
+                                        <rect key="frame" x="72" y="12" width="516" height="0.0"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                         </userDefinedRuntimeAttributes>
-                                    </textView>
+                                    </label>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0A-o6-Hed" customClass="EntryStatusIndicator" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="72" y="17" width="16" height="13"/>
                                         <constraints>
@@ -2529,6 +2524,15 @@
                                         <real key="value" value="0.5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="avatarImageView" destination="DKe-of-CwY" id="ZLX-gk-Ln2"/>
+                                    <outlet property="candyIndicator" destination="7yS-IZ-1M1" id="n45-uX-yVN"/>
+                                    <outlet property="commentIndicator" destination="U0A-o6-Hed" id="9Rb-sO-3Oe"/>
+                                    <outlet property="commentLabel" destination="G8T-0M-jNN" id="wLE-4N-bpO"/>
+                                    <outlet property="heightPrioritizer" destination="xsD-Sv-qce" id="0g3-8A-z1n"/>
+                                    <outlet property="postLabel" destination="xGF-6q-Jgs" id="jnK-81-ST1"/>
+                                    <outlet property="timeLabel" destination="OBg-6r-k4s" id="O7E-fF-2Fg"/>
+                                </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ai-CO-qH0" customClass="WLButton">
                                 <rect key="frame" x="498" y="558" width="90" height="30"/>
@@ -2578,25 +2582,18 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="avatarImageView" destination="DKe-of-CwY" id="pwy-xB-Q7n"/>
                         <outlet property="bottomView" destination="DOa-Ws-aK4" id="oO2-CG-2mp"/>
-                        <outlet property="bottomViewHeightPrioritizer" destination="xsD-Sv-qce" id="lVy-Ia-AQX"/>
-                        <outlet property="candyIndicator" destination="7yS-IZ-1M1" id="4SO-xL-ie4"/>
-                        <outlet property="commentButton" destination="2ai-CO-qH0" id="gaJ-nC-R6A"/>
+                        <outlet property="commentButton" destination="2ai-CO-qH0" id="tMo-Tw-ldD"/>
                         <outlet property="commentButtonPrioritizer" destination="gXs-Hi-baz" id="XGg-CY-Euu"/>
-                        <outlet property="commentIndicator" destination="U0A-o6-Hed" id="fn6-LQ-ijP"/>
                         <outlet property="contentView" destination="K40-sd-thh" id="kY6-NV-Wgl"/>
                         <outlet property="deleteButton" destination="J3S-jS-mvs" id="Ivz-Xj-Akh"/>
                         <outlet property="downloadButton" destination="sPd-Ai-V8F" id="xcQ-Js-zwj"/>
                         <outlet property="drawButton" destination="U2n-dd-fSG" id="MpT-rX-G0x"/>
                         <outlet property="editButton" destination="P4L-uu-XEd" id="ZyM-nD-E5G"/>
-                        <outlet property="lastCommentTextView" destination="G8T-0M-jNN" id="747-dx-mt6"/>
-                        <outlet property="postLabel" destination="xGF-6q-Jgs" id="QRd-Pg-cNO"/>
                         <outlet property="primaryConstraint" destination="7tb-Tf-pQx" id="7Hi-fX-7fY"/>
                         <outlet property="reportButton" destination="wvQ-dZ-OGQ" id="GNw-J8-SVE"/>
                         <outlet property="scrollView" destination="wdj-eZ-S3g" id="lT5-G5-juv"/>
                         <outlet property="spinner" destination="TL4-HZ-bti" id="PiR-V6-Unb"/>
-                        <outlet property="timeLabel" destination="OBg-6r-k4s" id="gLL-0G-dWw"/>
                         <outlet property="topView" destination="Wbg-W9-8Ie" id="w6j-VG-uhe"/>
                     </connections>
                 </viewController>
@@ -3342,7 +3339,7 @@
         <!--Following View Controller-->
         <scene sceneID="5w8-zg-WCA">
             <objects>
-                <viewController storyboardIdentifier="WLFollowingViewController" id="a5u-0V-k1F" customClass="WLFollowingViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FollowingViewController" id="a5u-0V-k1F" customClass="FollowingViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6Ey-uh-WP2"/>
                         <viewControllerLayoutGuide type="bottom" id="cVz-KY-CI7"/>
@@ -3797,11 +3794,10 @@ QWRkEEZyaWVuZFZpZXc
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RN9-r6-64a" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="J7o-pO-jkz" userLabel="Add Contributors Transition" customClass="WLStoryboardTransition">
+                <customObject id="J7o-pO-jkz" userLabel="Add Contributors Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLAddContributorsViewController"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="wrap"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationValue" value="wrap"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="sourceViewController" destination="qRW-aK-Lk5" id="DD7-V9-sE0"/>
@@ -4337,6 +4333,98 @@ QWRkEEZyaWVuZFZpZXc
                 </customObject>
             </objects>
             <point key="canvasLocation" x="1730" y="1518"/>
+        </scene>
+        <!--History Item View Controller-->
+        <scene sceneID="VV3-KU-Pmv">
+            <objects>
+                <viewController storyboardIdentifier="historyItem" id="jav-qj-dCh" customClass="HistoryItemViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6bt-pZ-AoF"/>
+                        <viewControllerLayoutGuide type="bottom" id="v8w-Fg-Toy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FNG-yL-eVT">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E6f-if-6iX">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
+                                <subviews>
+                                    <button tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OHf-zN-126" customClass="WLButton">
+                                        <rect key="frame" x="12" y="20" width="32" height="44"/>
+                                        <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="32"/>
+                                        <state key="normal" title="L">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.91664922240000002" green="0.91662174460000001" blue="0.91663730139999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="back:" destination="jav-qj-dCh" eventType="touchUpInside" id="0Uy-1C-cvb"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="wrap name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fAr-sp-GCB" customClass="WLLabel">
+                                        <rect key="frame" x="258" y="21" width="85" height="21"/>
+                                        <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="17 Nov 2015" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oce-sY-pyn" customClass="WLLabel">
+                                        <rect key="frame" x="32" y="42" width="536" height="16"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="4Hn-E9-EA6"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oce-sY-pyn" secondAttribute="trailing" constant="12" id="5x8-Uh-HIC"/>
+                                    <constraint firstItem="oce-sY-pyn" firstAttribute="centerX" secondItem="E6f-if-6iX" secondAttribute="centerX" id="9H1-Q1-Raj"/>
+                                    <constraint firstAttribute="centerY" secondItem="fAr-sp-GCB" secondAttribute="bottom" constant="-10" id="Tde-YA-MKC"/>
+                                    <constraint firstItem="OHf-zN-126" firstAttribute="leading" secondItem="E6f-if-6iX" secondAttribute="leading" constant="12" id="YHK-IE-TOi"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fAr-sp-GCB" secondAttribute="trailing" constant="12" id="dNl-v0-BQe"/>
+                                    <constraint firstItem="fAr-sp-GCB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OHf-zN-126" secondAttribute="trailing" constant="12" id="dUe-ka-IGP"/>
+                                    <constraint firstItem="oce-sY-pyn" firstAttribute="top" secondItem="E6f-if-6iX" secondAttribute="centerY" constant="10" id="gZt-Qn-MO0"/>
+                                    <constraint firstItem="OHf-zN-126" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oce-sY-pyn" secondAttribute="leading" constant="12" id="n7t-c1-BgA"/>
+                                    <constraint firstAttribute="centerY" secondItem="OHf-zN-126" secondAttribute="centerY" constant="-10" id="vx2-8m-wWL"/>
+                                    <constraint firstItem="fAr-sp-GCB" firstAttribute="centerX" secondItem="E6f-if-6iX" secondAttribute="centerX" id="zVQ-gX-MUZ"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2kP-h9-ZMO" customClass="StreamView" customModule="meWrap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="E6f-if-6iX" firstAttribute="leading" secondItem="FNG-yL-eVT" secondAttribute="leading" id="0fk-nb-qs2"/>
+                            <constraint firstItem="E6f-if-6iX" firstAttribute="top" secondItem="FNG-yL-eVT" secondAttribute="topMargin" id="Cbb-oD-I8L"/>
+                            <constraint firstItem="2kP-h9-ZMO" firstAttribute="top" secondItem="E6f-if-6iX" secondAttribute="bottom" id="FFw-cj-ANc"/>
+                            <constraint firstAttribute="trailing" secondItem="2kP-h9-ZMO" secondAttribute="trailing" id="H8U-Fm-dEx"/>
+                            <constraint firstAttribute="bottom" secondItem="2kP-h9-ZMO" secondAttribute="bottom" id="Qsc-gu-2G8"/>
+                            <constraint firstItem="2kP-h9-ZMO" firstAttribute="leading" secondItem="FNG-yL-eVT" secondAttribute="leading" id="Rks-0e-hjG"/>
+                            <constraint firstAttribute="trailing" secondItem="E6f-if-6iX" secondAttribute="trailing" id="X4N-gj-Arb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="dateLabel" destination="oce-sY-pyn" id="6tp-Jw-eo3"/>
+                        <outlet property="nameLabel" destination="fAr-sp-GCB" id="67B-PG-ufm"/>
+                        <outlet property="navigationBar" destination="E6f-if-6iX" id="kJ4-ov-5fF"/>
+                        <outlet property="streamView" destination="2kP-h9-ZMO" id="meX-X5-y7o"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tjv-l4-BeD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2383" y="1515"/>
         </scene>
         <!--Wrap Settings View Controller-->
         <scene sceneID="6Yj-w4-GCu">

@@ -8,9 +8,11 @@
 
 #import "WLAPIRequest.h"
 
-@class Wrap, Candy, User, Comment, Message;
+@class Wrap, Candy, User, Comment, Message, Contribution;
 
 @interface WLAPIRequest (Defined)
+
+- (instancetype)contributionUnavailable:(Contribution *)contribution;
 
 + (instancetype)candy:(Candy *)candy;
 

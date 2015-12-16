@@ -12,7 +12,7 @@
 @import AVKit;
 @import AVFoundation;
 
-@interface WLCandyViewController () <EntryNotifying, UIScrollViewDelegate, VideoPlayerViewDelegate>
+@interface WLCandyViewController () <EntryNotifying, UIScrollViewDelegate, VideoPlayerViewDelegate, CandyInteractionControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
@@ -31,7 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
+    
     self.scrollView.userInteractionEnabled = NO;
     [[WLDeviceManager defaultManager] addReceiver:self];
     self.scrollView.minimumZoomScale = 1;
@@ -45,17 +45,9 @@
     
     self.videoPlayerView.delegate = self;
     
-    [self setup:self.candy];
-    [self refresh];
-    __weak __typeof(self)weakSelf = self;
-    self.candyInteractionController = [[CandyInteractionController alloc] initWithViewController:self
-                                                                              interactionHandler:^(BOOL hidden) {
-    VideoPlayerView *videoPlayerView = weakSelf.videoPlayerView;
-    videoPlayerView.timeView.hidden = videoPlayerView.secondaryPlayButton.hidden = hidden || !videoPlayerView.playButton.hidden;
-    [videoPlayerView.timeView addAnimation:[CATransition transition:kCATransitionFade]];
-    [videoPlayerView.secondaryPlayButton addAnimation:[CATransition transition:kCATransitionFade]];
-    [weakSelf.historyViewController hideSecondaryViews:hidden];
-    }];
+    [self.candy fetch:nil failure:nil];
+    self.candyInteractionController = [[CandyInteractionController alloc] initWithContentView:self.contentView];
+    self.candyInteractionController.delegate = self;
 }
 
 - (void)setup:(Candy *)candy {
@@ -97,17 +89,10 @@
     }
 }
 
-- (void)refresh {
-    [self refresh:self.candy];
-}
-
-- (void)refresh:(Candy *)candy {
-    [candy fetch:^(id object) { } failure:^(NSError *error) { }];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
+    [self setup:self.candy];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -117,16 +102,6 @@
     self.videoPlayerView.placeholderPlayButton.hidden = self.videoPlayerView.playButton.hidden = !shouldBeShow;
     self.videoPlayerView.secondaryPlayButton.hidden = self.videoPlayerView.timeView.hidden = YES;
     self.videoPlayerView.timeViewPrioritizer.defaultState = _candy.latestComment.text.nonempty;
-}
-
-- (void)setCandy:(Candy *)candy {
-    if (candy != _candy && candy.valid) {
-        _candy = candy;
-        if (self.isViewLoaded) {
-            [self setup:self.candy];
-            [self refresh];
-        }
-    }
 }
 
 #pragma mark - EntryNotifying
@@ -166,7 +141,7 @@
 }
 
 - (void)videoPlayerViewDidPlay:(VideoPlayerView *)view {
-    self.candyInteractionController.allowGesture = NO;
+    self.candyInteractionController.panGestureRecognizer.enabled = NO;
     self.historyViewController.scrollView.panGestureRecognizer.enabled = NO;
     [self.historyViewController setBarsHidden:NO animated:YES];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideAllViews) object:nil];
@@ -178,7 +153,7 @@
         [view pause];
     };
     [self.historyViewController  hideSecondaryViews:NO];
-    self.candyInteractionController.allowGesture = YES;
+    self.candyInteractionController.panGestureRecognizer.enabled = YES;
     self.historyViewController.scrollView.panGestureRecognizer.enabled = YES;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideAllViews) object:nil];
 }
@@ -192,8 +167,27 @@
 
 - (void)videoPlayerViewDidPlayToEnd:(VideoPlayerView *)view {
     [self.historyViewController hideSecondaryViews:NO];
-    self.candyInteractionController.allowGesture = YES;
+    self.candyInteractionController.panGestureRecognizer.enabled = YES;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideAllViews) object:nil];
+}
+
+// MARK: - CandyInteractionControllerDelegate
+
+- (void)candyInteractionController:(CandyInteractionController *)controller hideViews:(BOOL)hideViews {
+    VideoPlayerView *videoPlayerView = self.videoPlayerView;
+    videoPlayerView.timeView.hidden = videoPlayerView.secondaryPlayButton.hidden = hideViews || !videoPlayerView.playButton.hidden;
+    [videoPlayerView.timeView addAnimation:[CATransition transition:kCATransitionFade]];
+    [videoPlayerView.secondaryPlayButton addAnimation:[CATransition transition:kCATransitionFade]];
+    [self.historyViewController hideSecondaryViews:hideViews];
+}
+
+- (UIView *)candyInteractionControllerSnapshotView:(CandyInteractionController *)controller {
+    NSArray *viewControllers = self.historyViewController.navigationController.viewControllers;
+    return [[viewControllers tryAt:[viewControllers indexOfObject:self.historyViewController] - 1] view];
+}
+
+- (void)candyInteractionControllerDidFinish:(CandyInteractionController *)controller {
+    [self.historyViewController.navigationController popViewControllerAnimated:NO];
 }
 
 @end

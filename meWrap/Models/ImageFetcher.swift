@@ -36,7 +36,7 @@ class ImageFetcher: Notifier {
         }
     }
     
-    func enqueue(url: String?, receiver: AnyObject?) -> Void {
+    func enqueue(url: String?, receiver: NSObject?) -> Void {
         
         guard let url = url, let receiver = receiver where !url.isEmpty else {
             return

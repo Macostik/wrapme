@@ -39,13 +39,10 @@ static BOOL authorized = NO;
         [parameters trySetObject:authorization.countryCode forKey:@"country_calling_code"];
         [parameters trySetObject:authorization.phone forKey:@"phone_number"];
         [parameters trySetObject:authorization.email forKey:@"email"];
-        NSString *deviceToken = [WLNotificationCenter defaultCenter].pushTokenString;
-        if (deviceToken) {
-            [parameters trySetObject:deviceToken forKey:@"device_token"];
-        }
+        [parameters trySetObject:[WLNotificationCenter defaultCenter].pushTokenString forKey:@"device_token"];
         parameters[@"os"] = @"ios";
-    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
-        success(authorization);
+    }] parse:^id (Response *response) {
+        return authorization;
     }];
 }
 
@@ -57,10 +54,10 @@ static BOOL authorized = NO;
         [parameters trySetObject:authorization.phone forKey:@"phone_number"];
         [parameters trySetObject:authorization.activationCode forKey:@"activation_code"];
         [parameters trySetObject:authorization.email forKey:@"email"];
-    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
+    }] parse:^id (Response *response) {
         authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
         [authorization setCurrent];
-        success(authorization);
+        return authorization;
     }];
 }
 
@@ -72,40 +69,29 @@ static BOOL authorized = NO;
         [parameters trySetObject:authorization.phone forKey:@"phone_number"];
         [parameters trySetObject:authorization.password forKey:@"password"];
         [parameters trySetObject:request.tryUncorfirmedEmail ? authorization.unconfirmed_email : authorization.email forKey:@"email"];
-    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
+    }] parse:^id (Response *response) {
         if (!authorized) {
             authorized = YES;
             [WLUploadingQueue start];
         }
         
+        Environment *environment = [Environment currentEnvironment];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        
         for (NSHTTPCookie *cookie in [NSHTTPCookieStorage sharedHTTPCookieStorage].cookies) {
             if ([cookie.name isEqualToString:@"_session_id"]) {
-                [[NSUserDefaults standardUserDefaults] setAuthorizationCookie:cookie];
+                [userDefaults setAuthorizationCookie:cookie];
             }
         }
 		
         id pageSize = response.data[@"pagination_fetch_size"];
         if (pageSize) {
-            [NSUserDefaults standardUserDefaults].pageSize = [pageSize integerValue];
+            userDefaults.pageSize = [pageSize integerValue];
         }
 		
-		if (response.data[@"image_uri"]) {
-			[NSUserDefaults standardUserDefaults].imageURI = response.data[@"image_uri"];
-        } else {
-            [NSUserDefaults standardUserDefaults].imageURI = [Environment currentEnvironment].defaultImageURI;
-        }
-		
-		if (response.data[@"avatar_uri"]) {
-			[NSUserDefaults standardUserDefaults].avatarURI = response.data[@"avatar_uri"];
-        } else {
-            [NSUserDefaults standardUserDefaults].avatarURI = [Environment currentEnvironment].defaultAvatarURI;
-        }
-        
-        if (response.data[@"video_uri"]) {
-            [NSUserDefaults standardUserDefaults].videoURI = response.data[@"video_uri"];
-        } else {
-            [NSUserDefaults standardUserDefaults].videoURI = [Environment currentEnvironment].defaultVideoURI;
-        }
+		userDefaults.imageURI = response.data[@"image_uri"] ? : environment.defaultImageURI;
+		userDefaults.avatarURI = response.data[@"avatar_uri"] ? : environment.defaultAvatarURI;
+        userDefaults.videoURI = response.data[@"video_uri"] ? : environment.defaultVideoURI;
 		
         NSDictionary* userData = [response.data dictionaryForKey:@"user"];
         
@@ -123,7 +109,7 @@ static BOOL authorized = NO;
         [WLAuthorizationRequest saveTestUserData:authorization];
 #endif
         
-        success(user);
+        return user;
     }] validateFailure:^BOOL(WLAuthorizationRequest *request, NSError *error) {
         if([error isResponseError:ResponseCodeNotFoundEntry] && !request.tryUncorfirmedEmail && authorization.unconfirmed_email.nonempty)  {
             request.tryUncorfirmedEmail = YES;
@@ -220,7 +206,7 @@ static BOOL authorized = NO;
 + (instancetype)whois:(NSString *)email {
     return [[[[self GET] path:@"users/whois"] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:email forKey:@"email"];
-    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
+    }] parse:^id (Response *response) {
         WLWhoIs* whoIs = [WLWhoIs sharedInstance];
         NSDictionary *userInfo = [response.data dictionaryForKey:@"user"];
         whoIs.found = [[userInfo numberForKey:@"found"] boolValue];
@@ -251,7 +237,7 @@ static BOOL authorized = NO;
                 }
             }
         }
-        success(whoIs);
+        return whoIs;
     }];
 }
 
@@ -260,11 +246,11 @@ static BOOL authorized = NO;
         [parameters trySetObject:[Authorization currentAuthorization].email forKey:@"email"];
         [parameters trySetObject:[Authorization currentAuthorization].deviceUID forKey:@"device_uid"];
         [parameters trySetObject:passcode forKey:@"approval_code"];
-    }] parse:^(Response *response, ObjectBlock success, FailureBlock failure) {
+    }] parse:^id (Response *response) {
         Authorization *authorization = [Authorization currentAuthorization];
         authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
         [authorization setCurrent];
-        success(authorization);
+        return authorization;
     }];
 }
 

@@ -26,7 +26,6 @@
 #import "WLWrapEmbeddedViewController.h"
 #import "WLUploadingView.h"
 #import "WLToast.h"
-#import "WLFollowingViewController.h"
 #import "WLDownloadingView.h"
 #import "WLDrawingViewController.h"
 #import "WLImageEditorSession.h"

@@ -73,11 +73,11 @@ extension PaginatedRequest {
             if let scope = scope {
                 parameters["scope"] = scope
             }
-        }).parse({ (response, success, failure) -> Void in
+        }).parse({ (response) -> AnyObject! in
             if let wraps = response.array("wraps") {
-                success(Wrap.mappedEntries(Wrap.prefetchArray(wraps)))
+                return Wrap.mappedEntries(Wrap.prefetchArray(wraps))
             } else {
-                success([])
+                return []
             }
         })
     }
@@ -99,36 +99,29 @@ extension PaginatedRequest {
                 default: break
                 }
             }
-        }).parse({ (response, success, failure) -> Void in
+        }).parse({ (response) -> AnyObject! in
             if let candies = response.array("candies") where wrap.valid {
                 let candies = Candy.mappedEntries(Candy.prefetchArray(candies), container: wrap)
                 if let candiesPaginationDate = candies.last?.createdAt {
                     wrap.candiesPaginationDate = candiesPaginationDate
                 }
-                success(candies)
+                return candies
             } else {
-                success([])
+                return []
             }
-        }).afterFailure({ (error) -> Void in
-            if let error = error where wrap.valid && wrap.uploaded && error.isResponseError(.ContentUnavailable) {
-                wrap.remove()
-            }
-        })
+        }).contributionUnavailable(wrap)
     }
     
     class func messages(wrap: Wrap) -> PaginatedRequest {
-        return GET().path("wraps/%@/chats", wrap.uid).parse({ (response, success, failure) -> Void in
+        return GET().path("wraps/%@/chats", wrap.uid).parse({ (response) -> AnyObject! in
             if let chats = response.array("chats") where wrap.valid && !chats.isEmpty {
-                success(Message.mappedEntries(Message.prefetchArray(chats), container: wrap))
+                let messages = Message.mappedEntries(Message.prefetchArray(chats), container: wrap)
                 wrap.notifyOnUpdate(.ContentAdded)
+                return messages
             } else {
-                success([])
+                return []
             }
-        }).afterFailure({ (error) -> Void in
-            if let error = error where wrap.valid && wrap.uploaded && error.isResponseError(.ContentUnavailable) {
-                wrap.remove()
-            }
-        })
+        }).contributionUnavailable(wrap)
     }
     
     class func wrap(wrap: Wrap, contentType: String?) -> PaginatedRequest {
@@ -144,16 +137,12 @@ extension PaginatedRequest {
                 parameters["condition"] = "older_than"
                 parameters["offset_in_epoch"] = older.startOfDay().timestamp
             }
-        }).parse({ (response, success, failure) -> Void in
+        }).parse({ (response) -> AnyObject! in
             if let dictionary = response.dictionary("wrap") where wrap.valid {
-                success(wrap.update(Wrap.prefetchDictionary(dictionary)))
+                return wrap.update(Wrap.prefetchDictionary(dictionary))
             } else {
-                success(nil)
+                return nil
             }
-        }).beforeFailure({ (error) -> Void in
-            if let error = error where wrap.uploaded && error.isResponseError(.ContentUnavailable) {
-                wrap.remove()
-            }
-        })
+        }).contributionUnavailable(wrap)
     }
 }

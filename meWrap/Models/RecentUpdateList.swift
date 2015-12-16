@@ -28,6 +28,9 @@ class RecentUpdate: NSObject, ListEntry {
     func listSortDate() -> NSDate {
         return date
     }
+    func listEntryEqual(entry: ListEntry) -> Bool {
+        return self == (entry as? RecentUpdate)
+    }
 }
 
 @objc protocol RecentUpdateListNotifying {

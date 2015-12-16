@@ -7,17 +7,18 @@
 //
 
 #import "WLSwipeViewController.h"
-#import "WLPresentingImageView.h"
 
-@class LayoutPrioritizer, History, Wrap;
+@class LayoutPrioritizer, History, HistoryItem, Wrap, Candy, CandyEnlargingPresenter;
 
 @interface WLHistoryViewController : WLSwipeViewController
 
 @property (weak, nonatomic) Candy *candy;
 
+@property (strong, nonatomic) HistoryItem *historyItem;
+
 @property (nonatomic) BOOL showCommentViewController;
 
-@property (strong, nonatomic) WLPresentingImageView *presentingImageView;
+@property (strong, nonatomic) CandyEnlargingPresenter *presenter;
 
 @property (copy, nonatomic) Block commentPressed;
 

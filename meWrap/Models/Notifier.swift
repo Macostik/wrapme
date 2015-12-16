@@ -9,12 +9,12 @@
 import Foundation
 
 func ==(lhs: NotifyReceiverWrapper, rhs: NotifyReceiverWrapper) -> Bool {
-    return lhs.receiver === rhs.receiver
+    return lhs.receiver == rhs.receiver
 }
 
 class NotifyReceiverWrapper: Hashable {
-    weak var receiver: AnyObject?
-    init(receiver: AnyObject?) {
+    weak var receiver: NSObject?
+    init(receiver: NSObject?) {
         self.receiver = receiver
     }
     
@@ -31,14 +31,14 @@ class Notifier: NSObject {
     
     var receivers = Set<NotifyReceiverWrapper>()
         
-    func addReceiver(receiver: AnyObject?) {
+    func addReceiver(receiver: NSObject?) {
         if let receiver = receiver {
             receivers.insert(NotifyReceiverWrapper(receiver: receiver))
         }
     }
     
-    func removeReceiver(receiver: AnyObject?) {
-        if let index = receivers.indexOf({ $0.receiver === receiver }) {
+    func removeReceiver(receiver: NSObject?) {
+        if let index = receivers.indexOf({ $0.receiver == receiver }) {
             receivers.removeAtIndex(index)
         }
     }

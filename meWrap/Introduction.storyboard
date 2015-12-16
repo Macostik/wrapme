@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1ip-WU-dPb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1ip-WU-dPb">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
         <!--Introduction Base View Controller-->
@@ -19,11 +19,9 @@
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="logo_and_caption_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="h9Z-yc-1zB">
                                 <rect key="frame" x="33" y="56" width="215" height="165"/>
-                                <animations/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tBR-r4-GbY" customClass="WLButton">
                                 <rect key="frame" x="0.0" y="276" width="280" height="44"/>
-                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="hka-2D-faX"/>
@@ -42,7 +40,6 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="h9Z-yc-1zB" secondAttribute="centerX" id="3xB-t6-Yd0"/>
@@ -76,7 +73,6 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AP3-YR-9Ed">
                                         <rect key="frame" x="0.0" y="316" width="280" height="44"/>
-                                        <animations/>
                                         <color key="backgroundColor" red="0.74208140369999998" green="0.2443449795" blue="0.04564923421" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="qWa-kY-FRU"/>
@@ -84,18 +80,15 @@
                                     </view>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="74e-DV-KEm">
                                         <rect key="frame" x="0.0" y="0.0" width="280" height="360"/>
-                                        <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </scrollView>
                                     <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="UC9-MR-8fR">
                                         <rect key="frame" x="129" y="279" width="23" height="37"/>
-                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="37" id="L41-uk-4yb"/>
                                         </constraints>
                                     </pageControl>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="74e-DV-KEm" firstAttribute="centerX" secondItem="UC9-MR-8fR" secondAttribute="centerX" id="3qx-aW-knh"/>
@@ -117,7 +110,6 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="NNU-rB-lIO" secondAttribute="centerX" id="ABs-oE-UmM"/>
@@ -133,6 +125,43 @@
             </objects>
             <point key="canvasLocation" x="-333.75" y="569.36619718309851"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="g88-fQ-wOM">
+            <objects>
+                <viewController storyboardIdentifier="launchScreen" id="eec-Wr-192" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a3D-ES-tRS"/>
+                        <viewControllerLayoutGuide type="bottom" id="V97-C3-1da"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="io0-AH-Ud7">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_and_caption_orange.png" translatesAutoresizingMaskIntoConstraints="NO" id="nXy-5W-PUt">
+                                <rect key="frame" x="193" y="186" width="215" height="165"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="165" id="SHQ-Sd-rG6"/>
+                                    <constraint firstAttribute="width" constant="215" id="zBs-n3-CsZ"/>
+                                </constraints>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="lpY-I9-nYn">
+                                <rect key="frame" x="290" y="390" width="20" height="20"/>
+                                <color key="color" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="lpY-I9-nYn" secondAttribute="centerX" id="8C1-aJ-YG5"/>
+                            <constraint firstAttribute="centerY" secondItem="nXy-5W-PUt" secondAttribute="centerY" constant="32" id="bHN-p1-vPq"/>
+                            <constraint firstAttribute="centerX" secondItem="nXy-5W-PUt" secondAttribute="centerX" id="mwo-mj-K5E"/>
+                            <constraint firstAttribute="centerY" secondItem="lpY-I9-nYn" secondAttribute="centerY" constant="-100" id="ncH-d0-m82"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tni-TB-7JB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="903" y="-196"/>
+        </scene>
         <!--Introduction Base View Controller-->
         <scene sceneID="5TA-8k-7o4">
             <objects>
@@ -147,7 +176,6 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vow-Fx-tbk" customClass="WLButton">
                                 <rect key="frame" x="0.0" y="276" width="280" height="44"/>
-                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Snf-bN-frX"/>
@@ -170,11 +198,9 @@
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="introduction_candy" translatesAutoresizingMaskIntoConstraints="NO" id="vO8-T0-gU8">
                                         <rect key="frame" x="0.0" y="0.0" width="197" height="85"/>
-                                        <animations/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="whats_a_wrap" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNA-4e-bin" customClass="WLLabel">
                                         <rect key="frame" x="46" y="97" width="105" height="21"/>
-                                        <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -185,7 +211,6 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wrap_definition" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFX-em-iVo" customClass="WLLabel">
                                         <rect key="frame" x="0.0" y="124" width="198" height="18"/>
-                                        <animations/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -195,7 +220,6 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="vO8-T0-gU8" firstAttribute="top" secondItem="jdr-is-aI6" secondAttribute="top" id="2b4-a9-oUd"/>
@@ -214,7 +238,6 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="vow-Fx-tbk" secondAttribute="trailing" id="5J8-h2-AZJ"/>
@@ -238,6 +261,7 @@
     </scenes>
     <resources>
         <image name="introduction_candy" width="197" height="85"/>
+        <image name="logo_and_caption_orange.png" width="215" height="165"/>
         <image name="logo_and_caption_white.png" width="215" height="165"/>
     </resources>
 </document>

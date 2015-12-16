@@ -137,30 +137,24 @@ class MediaViewController: WLWrapEmbeddedViewController {
                 self?.navigationController?.presentViewController(controller, animated: false, completion: nil)
             }
         }
-        dataSource.addMetrics(StreamMetrics(loader: loader.loader(1))).size = 42
-        
-        candyMetrics = dataSource.addMetrics(StreamMetrics(loader: loader.loader(2)))
-        candyMetrics.size = view.width / 2.5
-        candyMetrics.selectable = false
-        candyMetrics.selection = { [weak self] (item, candy) -> Void in
-            guard let cell = item?.view as? CandyCell, let candy = candy as? Candy else {
-                return
-            }
-            if candy.valid && cell.imageView.image != nil {
-                if let historyViewController = candy.viewController() as? WLHistoryViewController {
-                    let presentingImageView = WLPresentingImageView.sharedPresenting()
-                    presentingImageView.delegate = self
-                    historyViewController.presentingImageView = presentingImageView
-                    presentingImageView.presentCandy(candy, fromView: cell, success: { (_) -> Void in
-                        self?.navigationController?.pushViewController(historyViewController, animated: false)
-                        }, failure: { (_) -> Void in
-                            ChronologicalEntryPresenter.presentEntry(candy, animated: true)
-                    })
-                }
-            } else {
-                ChronologicalEntryPresenter.presentEntry(candy, animated: true)
+        let dateMetrics = dataSource.addMetrics(StreamMetrics(loader: loader.loader(1)))
+        dateMetrics.size = 42
+        dateMetrics.selection = { [weak self] (item, entry) -> Void in
+            if let controller = self?.storyboard?["historyItem"] as? HistoryItemViewController {
+                controller.item = entry as? HistoryItem
+                self?.navigationController?.pushViewController(controller, animated: false)
             }
         }
+        
+        let candyMetrics = dataSource.addMetrics(StreamMetrics(loader: loader.loader(2)))
+        candyMetrics.size = view.width / 2.5
+        candyMetrics.selectable = false
+        candyMetrics.selection = { [weak self] (item, entry) -> Void in
+            CandyEnlargingPresenter.handleCandySelection(item, entry: entry, historyItem: self?.history.itemWithCandy(entry as? Candy), dismissingView: { (presenter, candy) -> UIView? in
+                return self?.enlargingPresenterDismissingView(candy)
+            })
+        }
+        self.candyMetrics = candyMetrics
         
         dataSource.appendableBlock = { [weak self] (dataSource) -> Bool in
             return self?.wrap?.uploaded ?? false
@@ -180,6 +174,17 @@ class MediaViewController: WLWrapEmbeddedViewController {
             dropDownCollectionView()
         }
         Wrap.notifier().addReceiver(self)
+    }
+    
+    func enlargingPresenterDismissingView(candy: Candy) -> UIView? {
+        guard let historyItems = history.entries as? [HistoryItem] else { return nil }
+        guard let historyItem = historyItems.filter({ $0.candies.contains(candy) ?? false }).last else { return nil }
+        guard let streamHistoryItem = streamView.itemPassingTest({ $0.entry === historyItem && $0.metrics == self.candyMetrics}) else { return nil }
+        streamView.scrollRectToVisible(streamHistoryItem.frame, animated: true)
+        guard let cell = streamHistoryItem.view as? HistoryItemCell else { return nil }
+        guard let streamCandyItem = cell.streamView.itemPassingTest({ ($0.entry as? Candy) == candy}) else { return nil }
+        cell.streamView.scrollRectToVisible(streamCandyItem.frame, animated: true)
+        return streamCandyItem.view
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -227,7 +232,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
         guard let wrap = wrap else {
             return
         }
-        WLFollowingViewController.followWrapIfNeeded(wrap) { [weak self] () -> Void in
+        FollowingViewController.followWrapIfNeeded(wrap) { [weak self] () -> Void in
             if let controller = self {
                 (controller.delegate as? MediaViewControllerDelegate)?.mediaViewControllerDidAddPhoto?(controller)
             }
@@ -242,31 +247,10 @@ class MediaViewController: WLWrapEmbeddedViewController {
         guard let wrap = wrap else {
             return
         }
-        WLFollowingViewController.followWrapIfNeeded(wrap) { [weak self] () -> Void in
+        FollowingViewController.followWrapIfNeeded(wrap) { [weak self] () -> Void in
             if let controller = self {
                 (controller.delegate as? MediaViewControllerDelegate)?.mediaViewControllerDidOpenLiveBroadcast?(controller)
             }
-        }
-    }
-}
-
-extension MediaViewController: WLPresentingImageViewDelegate {
-    
-    func presentingImageView(presentingImageView: WLPresentingImageView!, dismissingViewForCandy candy: Candy!) -> UIView! {
-        if let item = streamView.itemPassingTest({ (($0.entry as? HistoryItem)?.candies.contains(candy) ?? false) && $0.metrics == self.candyMetrics}) {
-            streamView.scrollRectToVisible(item.frame, animated: true)
-            if let cell = item.view as? HistoryItemCell {
-                if let item = cell.streamView.itemPassingTest({ ($0.entry as? Candy) == candy}) {
-                    cell.streamView.scrollRectToVisible(item.frame, animated: true)
-                    return item.view
-                } else {
-                    return nil
-                }
-            } else {
-                return nil
-            }
-        } else {
-            return nil
         }
     }
 }

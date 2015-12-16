@@ -47,15 +47,11 @@ extension EntryContext {
     }
     
     func clear() {
-        if let wraps = Wrap.entries() {
-            for wrap in wraps {
-                deleteObject(wrap)
-            }
+        for wrap in Wrap.entries() {
+            deleteObject(wrap)
         }
-        if let users = User.entries() {
-            for user in users {
-                deleteObject(user)
-            }
+        for user in User.entries() {
+            deleteObject(user)
         }
         do {
             try save()

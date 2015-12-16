@@ -139,10 +139,10 @@
             </objects>
             <point key="canvasLocation" x="997.5" y="-531.33802816901402"/>
         </scene>
-        <!--Settings View Controller-->
+        <!--Settings View Controller Scene-->
         <scene sceneID="nh2-ON-WTv">
             <objects>
-                <viewController storyboardIdentifier="WLSettingsViewController" id="zBt-TT-rM7" userLabel="Settings View Controller" customClass="WLSettingsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="settings" id="zBt-TT-rM7" userLabel="Settings View Controller Scene" customClass="SettingsViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wsP-zc-2NJ"/>
                         <viewControllerLayoutGuide type="bottom" id="cRK-Tr-qQy"/>

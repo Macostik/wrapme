@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="icons.ttf">
@@ -71,7 +72,7 @@
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DMu-1m-6Zs" customClass="WLLabel">
-                            <rect key="frame" x="12" y="54" width="186" height="21"/>
+                            <rect key="frame" x="12" y="54" width="191" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.10051589459180832" green="0.10051288455724716" blue="0.10051459074020386" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -80,10 +81,15 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="g1C-Ug-avG" customClass="ImageView" customModule="meWrap" customModuleProvider="target">
-                            <rect key="frame" x="198" y="54" width="106" height="124"/>
+                            <rect key="frame" x="203" y="54" width="101" height="124"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="106" id="ooV-ww-lay"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="ooV-ww-lay"/>
+                                </mask>
+                            </variation>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2IC-z8-6Is">
                             <rect key="frame" x="268" y="66" width="24" height="24"/>
@@ -104,6 +110,7 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="g1C-Ug-avG" firstAttribute="width" secondItem="JKA-9p-rHS" secondAttribute="width" multiplier="0.3333" id="16n-XK-hhI"/>
                         <constraint firstItem="DMu-1m-6Zs" firstAttribute="height" relation="lessThanOrEqual" secondItem="g1C-Ug-avG" secondAttribute="height" id="25O-jR-qiS"/>
                         <constraint firstItem="ZbH-fY-bfJ" firstAttribute="top" secondItem="g1C-Ug-avG" secondAttribute="bottom" constant="12" id="3Ah-Lq-w3I"/>
                         <constraint firstItem="g1C-Ug-avG" firstAttribute="top" secondItem="tcD-wH-Osi" secondAttribute="bottom" id="8wg-NO-WIN"/>

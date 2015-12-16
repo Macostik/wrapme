@@ -88,7 +88,7 @@
     Wrap *wrap = self.wrap;
     self.nameLabel.text = wrap.name;
     if (wrap.isPublic) {
-        [self followingState];
+        [self followingStateForWrap:self.wrap];
         BOOL contributorIsCurrent = wrap.contributor.current;
         self.publicWrapImageView.url = wrap.contributor.avatar.small;
         self.publicWrapImageView.isFollowed = wrap.isContributing;
@@ -175,7 +175,7 @@
     [[RunQueue fetchQueue] run:^(Block finish) {
         [[WLAPIRequest followWrap:self.wrap] send:^(id object) {
             sender.loading = NO;
-            [weakSelf followingState];
+            [weakSelf followingStateForWrap:weakSelf.wrap];
             finish();
         } failure:^(NSError *error) {
             [error show];
@@ -193,7 +193,7 @@
         [[WLAPIRequest unfollowWrap:self.wrap] send:^(id object) {
             sender.loading = NO;
             weakSelf.settingsButton.userInteractionEnabled = YES;
-            [weakSelf followingState];
+            [weakSelf followingStateForWrap:weakSelf.wrap];
             finish();
         } failure:^(NSError *error) {
             [error show];
@@ -204,8 +204,7 @@
     }];
 }
 
-- (void)followingState {
-    Wrap *wrap = self.wrap;
+- (void)followingStateForWrap:(Wrap *)wrap {
     self.followButton.hidden = !wrap.requiresFollowing || wrap.contributor.current;
     self.unfollowButton.hidden = !self.followButton.hidden;
 }

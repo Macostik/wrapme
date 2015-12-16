@@ -12,7 +12,7 @@
 @import AVKit;
 @import AVFoundation;
 
-@interface WLCandyViewController () <EntryNotifying, UIScrollViewDelegate, VideoPlayerViewDelegate, CandyInteractionControllerDelegate>
+@interface WLCandyViewController () <EntryNotifying, UIScrollViewDelegate, VideoPlayerViewDelegate, CandyInteractionControllerDelegate, WLNetworkReceiver>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
@@ -59,7 +59,12 @@
         weakSelf.scrollView.userInteractionEnabled = YES;
         weakSelf.spinner.hidden = weakSelf.errorLabel.hidden = YES;
     } failure:^(NSError *error) {
-        weakSelf.errorLabel.hidden = ![error isNetworkError];
+        if ([error isNetworkError]) {
+            [[WLNetwork sharedNetwork] addReceiver:self];
+            weakSelf.errorLabel.hidden = NO;
+        } else {
+            weakSelf.errorLabel.hidden = YES;
+        }
         weakSelf.spinner.hidden = YES;
     }];
     VideoPlayerView *playerView = self.videoPlayerView;
@@ -188,6 +193,15 @@
 
 - (void)candyInteractionControllerDidFinish:(CandyInteractionController *)controller {
     [self.historyViewController.navigationController popViewControllerAnimated:NO];
+}
+
+// MARK: - WLNetworkReceiver
+
+- (void)networkDidChangeReachability:(WLNetwork *)network {
+    if ([network reachable]) {
+        [self setup:self.candy];
+        [network removeReceiver:self];
+    }
 }
 
 @end

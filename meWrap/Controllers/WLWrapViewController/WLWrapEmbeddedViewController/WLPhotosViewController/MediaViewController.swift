@@ -147,7 +147,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
         }
         
         let candyMetrics = dataSource.addMetrics(StreamMetrics(loader: loader.loader(2)))
-        candyMetrics.size = view.width / 2.5
+        candyMetrics.size = round(view.width / 2.5)
         candyMetrics.selectable = false
         candyMetrics.selection = { [weak self] (item, entry) -> Void in
             CandyEnlargingPresenter.handleCandySelection(item, entry: entry, historyItem: self?.history.itemWithCandy(entry as? Candy), dismissingView: { (presenter, candy) -> UIView? in

@@ -185,7 +185,7 @@ class StreamMetrics: NSObject {
                 view.frame = item.frame
             })
             item.view = view
-            let entry: AnyObject? = item.entry
+            let entry = item.entry
             prepareAppearing?(item, entry)
             view.entry = entry
             finalizeAppearing?(item, entry)
@@ -200,9 +200,6 @@ class StreamMetrics: NSObject {
     }
     
     func select(item: StreamItem?, entry: AnyObject?) {
-        if (selection != nil) {
-            selection!(item, entry)
-        }
+        selection?(item, entry)
     }
-    
 }

@@ -139,10 +139,10 @@
             </objects>
             <point key="canvasLocation" x="997.5" y="-531.33802816901402"/>
         </scene>
-        <!--Source View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="nh2-ON-WTv">
             <objects>
-                <viewController storyboardIdentifier="settings" id="zBt-TT-rM7" customClass="SettingsViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLSettingsViewController" id="zBt-TT-rM7" userLabel="Settings View Controller" customClass="WLSettingsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wsP-zc-2NJ"/>
                         <viewControllerLayoutGuide type="bottom" id="cRK-Tr-qQy"/>
@@ -468,10 +468,10 @@
             </objects>
             <point key="canvasLocation" x="1730" y="-532"/>
         </scene>
-        <!--Source View Controller-->
+        <!--ChangeProfile View Controller-->
         <scene sceneID="zxY-Lu-ZtN">
             <objects>
-                <viewController storyboardIdentifier="WLChangeProfileViewController" automaticallyAdjustsScrollViewInsets="NO" id="7FG-gC-kPg" customClass="WLChangeProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLChangeProfileViewController" automaticallyAdjustsScrollViewInsets="NO" id="7FG-gC-kPg" userLabel="ChangeProfile View Controller" customClass="WLChangeProfileViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AL9-yK-5IY"/>
                         <viewControllerLayoutGuide type="bottom" id="JSr-ZC-7FZ"/>
@@ -795,10 +795,10 @@
             </objects>
             <point key="canvasLocation" x="3054.375" y="-531.33802816901402"/>
         </scene>
-        <!--Delegate-->
+        <!--Home View Controller-->
         <scene sceneID="MbJ-3V-1SB">
             <objects>
-                <viewController storyboardIdentifier="WLHomeViewController" automaticallyAdjustsScrollViewInsets="NO" id="L91-fZ-J9O" customClass="WLHomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLHomeViewController" automaticallyAdjustsScrollViewInsets="NO" id="L91-fZ-J9O" userLabel="Home View Controller" customClass="WLHomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XNa-AC-NhU"/>
                         <viewControllerLayoutGuide type="bottom" id="FgI-7k-v3i"/>
@@ -1678,10 +1678,10 @@
             </objects>
             <point key="canvasLocation" x="3718.125" y="789.08450704225345"/>
         </scene>
-        <!--Source View Controller-->
+        <!--Wrap View Controller-->
         <scene sceneID="swT-1e-jus">
             <objects>
-                <viewController storyboardIdentifier="WLWrapViewController" automaticallyAdjustsScrollViewInsets="NO" id="hUj-RK-zkg" customClass="WLWrapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLWrapViewController" automaticallyAdjustsScrollViewInsets="NO" id="hUj-RK-zkg" userLabel="Wrap View Controller" customClass="WLWrapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Fgm-DM-Lps"/>
                         <viewControllerLayoutGuide type="bottom" id="Lgc-8H-MWM"/>
@@ -3025,10 +3025,10 @@
             </objects>
             <point key="canvasLocation" x="3718.125" y="124.64788732394365"/>
         </scene>
-        <!--Delegate-->
+        <!--Comments View Controller-->
         <scene sceneID="iUx-SN-sz9">
             <objects>
-                <viewController storyboardIdentifier="WLCommentsViewController" modalPresentationStyle="currentContext" id="M8n-42-KAe" customClass="WLCommentsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLCommentsViewController" modalPresentationStyle="currentContext" id="M8n-42-KAe" userLabel="Comments View Controller" customClass="WLCommentsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hf9-7F-Ofz"/>
                         <viewControllerLayoutGuide type="bottom" id="BUs-K2-ZTN"/>
@@ -3497,10 +3497,10 @@
             </objects>
             <point key="canvasLocation" x="5064.375" y="124.64788732394365"/>
         </scene>
-        <!--Delegate-->
+        <!--Chat View Controller-->
         <scene sceneID="JRm-Kq-Yqc">
             <objects>
-                <viewController storyboardIdentifier="chat" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ef1-h7-yay" customClass="WLChatViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="chat" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ef1-h7-yay" userLabel="Chat View Controller" customClass="WLChatViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gG3-lt-ayC"/>
                         <viewControllerLayoutGuide type="bottom" id="nir-Cb-3ne"/>
@@ -3693,10 +3693,10 @@
             </objects>
             <point key="canvasLocation" x="997.5" y="124.64788732394365"/>
         </scene>
-        <!--Source View Controller-->
+        <!--Contributors View Controller-->
         <scene sceneID="8UV-zT-Qeh">
             <objects>
-                <viewController storyboardIdentifier="friends" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qRW-aK-Lk5" customClass="WLContributorsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="friends" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qRW-aK-Lk5" userLabel="Contributors View Controller" customClass="WLContributorsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hQR-1L-vX5"/>
                         <viewControllerLayoutGuide type="bottom" id="Xt0-mU-aTu"/>
@@ -3992,7 +3992,7 @@ QWRkEEZyaWVuZFZpZXc
             </objects>
             <point key="canvasLocation" x="1730.625" y="789.08450704225345"/>
         </scene>
-        <!--Delegate-->
+        <!--Live Brodcast View Controller Scene-->
         <scene sceneID="9S4-kb-k72">
             <objects>
                 <viewController storyboardIdentifier="liveBroadcast" id="Ubc-jI-W0F" customClass="LiveBroadcastViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
@@ -4294,6 +4294,9 @@ QWRkEEZyaWVuZFZpZXc
                             <constraint firstItem="TDj-ND-asZ" firstAttribute="leading" secondItem="IgI-7Y-zB6" secondAttribute="leading" id="zto-f0-guc"/>
                         </constraints>
                     </view>
+                    <string key="userLabel" base64-UTF8="YES">
+TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
+</string>
                     <connections>
                         <outlet property="chatStreamView" destination="oVK-cS-Ps7" id="zS1-RU-5sI"/>
                         <outlet property="composeBar" destination="TDj-ND-asZ" id="z95-zG-RuZ"/>

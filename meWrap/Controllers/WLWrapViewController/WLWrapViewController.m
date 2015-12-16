@@ -88,6 +88,7 @@
     Wrap *wrap = self.wrap;
     self.nameLabel.text = wrap.name;
     if (wrap.isPublic) {
+        [self followingState];
         BOOL contributorIsCurrent = wrap.contributor.current;
         self.publicWrapImageView.url = wrap.contributor.avatar.small;
         self.publicWrapImageView.isFollowed = wrap.isContributing;
@@ -97,8 +98,6 @@
         self.segmentedControl.hidden = YES;
         self.settingsButton.hidden = requiresFollowing;
         self.publicWrapView.hidden = NO;
-        self.followButton.hidden = !requiresFollowing || contributorIsCurrent;
-        self.unfollowButton.hidden = requiresFollowing || contributorIsCurrent;
         self.publicWrapPrioritizer.defaultState = YES;
         self.publicWrapNameLabel.text = wrap.name;
         self.ownerDescriptionLabel.hidden = !contributorIsCurrent;
@@ -172,9 +171,11 @@
 
 - (IBAction)follow:(WLButton*)sender {
     sender.loading = YES;
+    __weak __typeof(self)weakSelf = self;
     [[RunQueue fetchQueue] run:^(Block finish) {
         [[WLAPIRequest followWrap:self.wrap] send:^(id object) {
             sender.loading = NO;
+            [weakSelf followingState];
             finish();
         } failure:^(NSError *error) {
             [error show];
@@ -192,6 +193,7 @@
         [[WLAPIRequest unfollowWrap:self.wrap] send:^(id object) {
             sender.loading = NO;
             weakSelf.settingsButton.userInteractionEnabled = YES;
+            [weakSelf followingState];
             finish();
         } failure:^(NSError *error) {
             [error show];
@@ -200,6 +202,12 @@
             finish();
         }];
     }];
+}
+
+- (void)followingState {
+    Wrap *wrap = self.wrap;
+    self.followButton.hidden = !wrap.requiresFollowing || wrap.contributor.current;
+    self.unfollowButton.hidden = !self.followButton.hidden;
 }
 
 // MARK: - WLStillPictureViewControllerDelegate

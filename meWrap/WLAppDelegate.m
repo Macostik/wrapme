@@ -282,7 +282,7 @@
         return;
     }
     [WLUploadingQueue start];
-    [[DispatchQueue mainQueue] runAfter:20 block:^{
+    [[Dispatch mainQueue] after:20 block:^{
         if (completion) {
             completion(UIBackgroundFetchResultNewData);
             completion = nil;

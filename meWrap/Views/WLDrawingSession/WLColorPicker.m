@@ -19,7 +19,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     __weak typeof(self)weakSelf = self;
-    [[DispatchQueue defaultQueue] runGettingObject:^id _Nullable{
+    [[Dispatch defaultQueue] fetch:^id _Nullable{
         NSMutableArray *colors = [NSMutableArray array];
         for (float hue = 0.0; hue < 1.0; hue += 0.001) {
             UIColor *color = [UIColor colorWithHue:hue saturation:1.0 brightness:1.0 alpha:1.0];

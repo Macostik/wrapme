@@ -46,7 +46,7 @@ class HistoryFooterView: GradientView {
     
     private func enqueueToggle(showsEditor: Bool) {
         self.showsEditor = showsEditor
-        DispatchQueue.mainQueue.runAfter(TogglingInterval, block: { [weak self] () -> Void in
+        Dispatch.mainQueue.after(TogglingInterval, block: { [weak self] () -> Void in
             self?.enqueueToggle(!showsEditor)
             })
     }

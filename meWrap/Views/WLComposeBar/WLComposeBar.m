@@ -90,7 +90,7 @@
             [self.delegate composeBar:self didFinishWithText:text];
         }
     }
-    [[DispatchQueue mainQueue] runAfterAsap:^{
+    [[Dispatch mainQueue] async:^{
         self.text = nil;
     }];
 }

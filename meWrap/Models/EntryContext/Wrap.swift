@@ -12,6 +12,9 @@ import CoreData
 class LiveBroadcast: NSObject {
     
     class Event {
+        
+        unowned var broadcast: LiveBroadcast
+        
         enum Type: String {
             case Message = "message"
             case Join = "join"
@@ -21,8 +24,9 @@ class LiveBroadcast: NSObject {
         var text: String?
         var user: User?
         
-        init(type: Type) {
+        init(type: Type, broadcast: LiveBroadcast) {
             self.type = type
+            self.broadcast = broadcast
         }
     }
     
@@ -39,6 +43,12 @@ class LiveBroadcast: NSObject {
         events.insert(event, atIndex: 0)
         if (events.count > 3) {
             events.removeLast()
+        }
+    }
+    
+    func remove(event: Event) {
+        if let index = events.indexOf({ $0 === event }) {
+            events.removeAtIndex(index)
         }
     }
 }

@@ -35,7 +35,7 @@
         }
     }];
     
-    [[DispatchQueue defaultQueue] runGettingObject:^id _Nullable{
+    [[Dispatch defaultQueue] fetch:^id _Nullable{
         return [Country allCountries];
     } completion:^(NSArray* countries) {
         weakSelf.dataSource.items = countries;

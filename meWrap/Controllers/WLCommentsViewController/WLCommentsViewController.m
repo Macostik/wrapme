@@ -56,7 +56,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
     }];
     
     self.dataSource.items = [self.candy sortedComments];
-    [[DispatchQueue mainQueue] runAfterAsap:^{
+    [[Dispatch mainQueue] async:^{
         weakSelf.dataSource.didLayoutBlock = nil;
     }];
     
@@ -83,7 +83,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
         [[SoundPlayer player] play:Sounds04];
         [self.candy uploadComment:[text trim]];
     }
-    [[DispatchQueue mainQueue] runAfter:0 block:^{
+    [[Dispatch mainQueue] after:0 block:^{
         [self onClose:nil];
     }];
 }

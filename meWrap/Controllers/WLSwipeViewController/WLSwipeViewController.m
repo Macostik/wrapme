@@ -77,7 +77,7 @@ typedef NS_ENUM(NSUInteger, WLSwipeViewControllerPosition) {
             self.scrollView.contentSize = CGSizeMake(self.scrollView.width * 2, self.scrollView.height);
             self.scrollView.contentOffset = CGPointZero;
             [self.scrollView setContentOffset:CGPointMake(self.scrollView.width, 0) animated:YES];
-            [[DispatchQueue mainQueue] runAfter:0.5 block:^{
+            [[Dispatch mainQueue] after:0.5 block:^{
                 [weakSelf scrollViewDidEndDecelerating:weakSelf.scrollView];
                 if (completion) completion();
             }];
@@ -90,7 +90,7 @@ typedef NS_ENUM(NSUInteger, WLSwipeViewControllerPosition) {
             self.scrollView.contentSize = CGSizeMake(self.scrollView.width * 2, self.scrollView.height);
             self.scrollView.contentOffset = CGPointMake(self.scrollView.width, 0);
             [self.scrollView setContentOffset:CGPointZero animated:YES];
-            [[DispatchQueue mainQueue] runAfter:0.5 block:^{
+            [[Dispatch mainQueue] after:0.5 block:^{
                 [weakSelf scrollViewDidEndDecelerating:weakSelf.scrollView];
                 if (completion) completion();
             }];

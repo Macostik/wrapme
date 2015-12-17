@@ -25,7 +25,7 @@ class Network: Notifier {
         super.init()
         let manager = AFNetworkReachabilityManager.sharedManager()
         manager.startMonitoring()
-        DispatchQueue.mainQueue.runAfter(0.2) { () -> Void in
+        Dispatch.mainQueue.after(0.2) { () -> Void in
             manager.setReachabilityStatusChangeBlock { [unowned self] (status) -> Void in
                 if self.reachable {
                     WLUploadingQueue.start()

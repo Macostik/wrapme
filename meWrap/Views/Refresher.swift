@@ -151,8 +151,7 @@ class Refresher: UIControl {
             }
             refreshable = (ratio == 1);
         } else if sender.state == .Ended && refreshable {
-            let delayTime = dispatch_time(DISPATCH_TIME_NOW, 0)
-            dispatch_after(delayTime, dispatch_get_main_queue()) {
+            Dispatch.mainQueue.async { () -> Void in
                 self.setRefreshing(true, animated: true)
                 self.refreshable = false
             }

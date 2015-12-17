@@ -112,8 +112,7 @@ extension PaginatedStreamDataSource: PaginatedListNotifying {
     }
     override func streamViewDidLayout(streamView: StreamView) {
         super.streamViewDidLayout(streamView)
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, 0)
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
+        Dispatch.mainQueue.async { () -> Void in
             self.appendItemsIfNeededWithTargetContentOffset(streamView.contentOffset)
         }
     }

@@ -172,7 +172,7 @@
         if (failure) failure(nil);
     } else {
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-            [[DispatchQueue mainQueue] run:^{
+            [[Dispatch mainQueue] async:^{
                 if (granted) {
                     if (success) success();
                 } else {
@@ -339,7 +339,7 @@
 - (IBAction)getSamplePhoto:(id)sender {
     self.takePhotoButton.active = NO;
     __weak typeof(self)weakSelf = self;
-    [[DispatchQueue defaultQueue] runGettingObject:^id _Nullable{
+    [[Dispatch defaultQueue] fetch:^id _Nullable{
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
         CGSize size = CGSizeMake(width, width / 0.75);
         NSString* url = [NSString stringWithFormat:@"http://placeimg.com/%d/%d/any", (int)size.width, (int)size.height];
@@ -453,7 +453,7 @@
                     }
                     [device unlockForConfiguration];
                 }
-                [[DispatchQueue mainQueue] run:^{
+                [[Dispatch mainQueue] async:^{
                     weakSelf.cameraView.layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
                     [weakSelf applyDeviceOrientation:[WLDeviceManager defaultManager].orientation forConnection:weakSelf.movieFileOutputConnection];
                     completion();
@@ -641,7 +641,7 @@
 
 - (void)captureImage:(void (^)(UIImage*image))result failure:(FailureBlock)failure {
 #if TARGET_OS_SIMULATOR
-	[[DispatchQueue defaultQueue] runGettingObject:^id _Nullable{
+	[[Dispatch defaultQueue] fetch:^id _Nullable{
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
         CGSize size = CGSizeMake(width, width / 0.75);
 		NSString* url = url = [NSString stringWithFormat:@"http://placeimg.com/%d/%d/any", (int)size.width, (int)size.height];
@@ -668,7 +668,7 @@
     
     
     dispatch_async(self.sessionQueue, ^{
-        [[DispatchQueue mainQueue] run:^{
+        [[Dispatch mainQueue] async:^{
             AVCaptureStillImageOutput *output = self.stillImageOutput;
             AVCaptureConnection *connection = [output connectionWithMediaType:AVMediaTypeVideo];
             if (connection && [self.session.outputs containsObject:output]) {
@@ -704,7 +704,7 @@
         configuration(session);
         [session commitConfiguration];
         if (completion) {
-            [[DispatchQueue mainQueue] run:completion];
+            [[Dispatch mainQueue] async:completion];
         }
     });
 }

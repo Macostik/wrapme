@@ -177,7 +177,7 @@ extension Candy {
                     
                     let task = NSURLSession.sharedSession().downloadTaskWithURL(url.URL!, completionHandler: { (location, response, error) -> Void in
                         if let error = error {
-                            DispatchQueue.mainQueue.run({ failure?(error) })
+                            Dispatch.mainQueue.async({ failure?(error) })
                         } else {
                             if let location = location {
                                 do {
@@ -189,19 +189,19 @@ extension Candy {
                                             return PHAssetChangeRequest.creationRequestForAssetFromVideoAtFileURL(url)
                                             }, collectionTitle: Constants.albumName, success: { () -> Void in
                                                 try! manager.removeItemAtURL(url)
-                                                DispatchQueue.mainQueue.run({ success?() })
+                                                Dispatch.mainQueue.async({ success?() })
                                             }, failure: { (error) -> Void in
                                                 try! manager.removeItemAtURL(url)
-                                                DispatchQueue.mainQueue.run({ failure?(error) })
+                                                Dispatch.mainQueue.async({ failure?(error) })
                                         })
                                     } else {
-                                        DispatchQueue.mainQueue.run({ failure?(NSError(message: "Local video file is not reachable")) })
+                                        Dispatch.mainQueue.async({ failure?(NSError(message: "Local video file is not reachable")) })
                                     }
                                 } catch {
                                     
                                 }
                             } else {
-                                DispatchQueue.mainQueue.run({ failure?(error) })
+                                Dispatch.mainQueue.async({ failure?(error) })
                             }
                         }
                     })

@@ -105,7 +105,7 @@ extension Wrap {
         for asset in assets {
             RunQueue.uploadCandiesQueue.run({ [weak self] (finish) -> Void in
                 self?.uploadAsset(asset)
-                DispatchQueue.mainQueue.runAfter(0.6, block: finish)
+                Dispatch.mainQueue.after(0.6, block: finish)
             })
         }
     }
@@ -317,7 +317,7 @@ extension Candy {
             commentCount++
             comment.candy = self
             comment.notifyOnAddition()
-            DispatchQueue.mainQueue.runAfter(0.3, block: { WLUploadingQueue.upload(uploading) })
+            Dispatch.mainQueue.after(0.3, block: { WLUploadingQueue.upload(uploading) })
         }
     }
 
@@ -385,7 +385,7 @@ extension Candy {
         }
         uploadRequest.body = path.fileURL
         AWSS3TransferManager.defaultS3TransferManager().upload(uploadRequest).continueWithBlock { [weak self] (task) -> AnyObject! in
-            DispatchQueue.mainQueue.run { () -> Void in
+            Dispatch.mainQueue.async { () -> Void in
                 if let wrap = self?.wrap where wrap.valid && task.completed && (task.result != nil) {
                     success?(self)
                 } else {

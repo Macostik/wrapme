@@ -127,7 +127,7 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
     [self.runQueue run:^(Block finish) {
         CFIndex count = ABAddressBookGetPersonCount(addressBook);
         if (count > 0) {
-            [[DispatchQueue defaultQueue] run:^{
+            [[Dispatch defaultQueue] async:^{
                 CFArrayRef records = ABAddressBookCopyArrayOfAllPeople(addressBook);
                 NSMutableArray* contacts = [NSMutableArray array];
                 for (CFIndex i = 0; i < count; i++) {
@@ -138,7 +138,7 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
                 }
                 CFRelease(records);
                 NSArray *result = [contacts copy];
-                [[DispatchQueue mainQueue] run:^{
+                [[Dispatch mainQueue] async:^{
                     if (result.nonempty) {
                         if (success) success(result);
                     } else {
@@ -167,7 +167,7 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
         [self.runQueue run:^(Block finish) {
             ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
             ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
-                [[DispatchQueue mainQueue] run:^{
+                [[Dispatch mainQueue] async:^{
                     if (error) {
                         if (failure) failure((__bridge NSError *)(error));
                     } else if (granted) {

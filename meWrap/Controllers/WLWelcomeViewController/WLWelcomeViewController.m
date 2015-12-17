@@ -94,7 +94,7 @@ typedef enum : NSUInteger {
 
 - (void)wrapIntoAttributedString {
     __weak typeof(self)weakSelf = self;
-    [[DispatchQueue defaultQueue] runGettingObject:^id _Nullable{
+    [[Dispatch defaultQueue] fetch:^id _Nullable{
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"Wraplive_TermsAndConditions" withExtension:@"rtf"];
         return [[NSAttributedString alloc] initWithURL:url options:@{} documentAttributes:nil error:nil];
     } completion:^(id object) {

@@ -138,7 +138,7 @@
 
 - (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion {
     __weak typeof(self)weakSelf = self;
-    [[DispatchQueue defaultQueue] runGettingObject:^id _Nullable{
+    [[Dispatch defaultQueue] fetch:^id _Nullable{
         CGFloat resultWidth = [weakSelf imageWidthForCurrentMode];
         if (image.size.width > image.size.height) {
             return [image resize:CGSizeMake(1, resultWidth) aspectFill:YES];

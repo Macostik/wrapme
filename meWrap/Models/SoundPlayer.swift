@@ -60,7 +60,7 @@ class SoundPlayer: NSObject {
         runQueue.run { (finish) -> Void in
             self.currentSound = sound
             AudioServicesPlaySystemSound(soundID)
-            DispatchQueue.mainQueue.runAfter(3, block: { () -> Void in
+            Dispatch.mainQueue.after(3, block: { () -> Void in
                 self.currentSound = .Off
                 finish()
             })

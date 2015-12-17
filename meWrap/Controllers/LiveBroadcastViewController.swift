@@ -27,6 +27,12 @@ class LiveBroadcastEventView: StreamReusableView {
             } else {
                 textLabel.text = "\(event.user?.name ?? "") \("joined".ls)"
             }
+            hidden = false
+            Dispatch.mainQueue.after(4, block: { [weak self] () -> Void in
+                event.broadcast.remove(event)
+                self?.hidden = true
+                self?.addAnimation(CATransition.transition(kCATransitionFade, duration: 1))
+            })
         }
     }
     
@@ -430,14 +436,12 @@ extension LiveBroadcastViewController: StreamerListener {
     func connectionStateDidChangeId(connectionID: Int32, state: ConnectionState, status: ConnectionStatus) {
         if self.connectionID == connectionID && state == .Disconnected {
             stop()
-            let delay: Int64 = status == .UnknownFail ? 1 : 3
-            weak var weakSelf = self
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue()) {
+            Dispatch.mainQueue.after(status == .UnknownFail ? 1 : 3, block: { [weak self] () -> Void in
                 do {
-                    try weakSelf?.start()
+                    try self?.start()
                 } catch {
                 }
-            }
+            })
         }
     }
 
@@ -478,7 +482,7 @@ extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
         guard let user = User.entry(uuid) else { return }
         guard let text = (message.data?.message as? [String : AnyObject])?["chatMessage"] as? String else { return }
         user.fetchIfNeeded({ [weak self] (_) -> Void in
-            let event = LiveBroadcast.Event(type: .Message)
+            let event = LiveBroadcast.Event(type: .Message, broadcast: broadcast)
             event.user = user
             event.text = text
             broadcast.insert(event)
@@ -507,7 +511,7 @@ extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
             }
             switch event.data.presenceEvent {
             case "join":
-                let event = LiveBroadcast.Event(type: .Join)
+                let event = LiveBroadcast.Event(type: .Join, broadcast: broadcast)
                 event.user = user
                 broadcast.insert(event)
                 controller.chatDataSource.items = broadcast.events

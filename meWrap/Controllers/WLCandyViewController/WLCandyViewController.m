@@ -12,7 +12,7 @@
 @import AVKit;
 @import AVFoundation;
 
-@interface WLCandyViewController () <EntryNotifying, UIScrollViewDelegate, VideoPlayerViewDelegate, CandyInteractionControllerDelegate, WLNetworkReceiver>
+@interface WLCandyViewController () <EntryNotifying, UIScrollViewDelegate, VideoPlayerViewDelegate, CandyInteractionControllerDelegate, NetworkNotifying>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
@@ -60,7 +60,7 @@
         weakSelf.spinner.hidden = weakSelf.errorLabel.hidden = YES;
     } failure:^(NSError *error) {
         if ([error isNetworkError]) {
-            [[WLNetwork sharedNetwork] addReceiver:self];
+            [[Network sharedNetwork] addReceiver:self];
             weakSelf.errorLabel.hidden = NO;
         } else {
             weakSelf.errorLabel.hidden = YES;
@@ -195,9 +195,9 @@
     [self.historyViewController.navigationController popViewControllerAnimated:NO];
 }
 
-// MARK: - WLNetworkReceiver
+// MARK: - NetworkNotifying
 
-- (void)networkDidChangeReachability:(WLNetwork *)network {
+- (void)networkDidChangeReachability:(Network *)network {
     if ([network reachable]) {
         [self setup:self.candy];
         [network removeReceiver:self];

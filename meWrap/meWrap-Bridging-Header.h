@@ -7,7 +7,6 @@
 #import "WLBroadcaster.h"
 #import "DefinedBlocks.h"
 #import "WLLabel.h"
-#import "WLNetwork.h"
 #import "WLBaseViewController.h"
 #import "CameraInfo.h"
 #import "AudioConfig.h"

@@ -9,7 +9,6 @@
 #import "WLCommentsViewController.h"
 #import "WLCandyViewController.h"
 #import "WLComposeBar.h"
-#import "WLSoundPlayer.h"
 #import "WLDeviceManager.h"
 #import "WLCommentCell.h"
 #import "WLHistoryViewController.h"
@@ -81,7 +80,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
 
 - (void)sendMessageWithText:(NSString*)text {
     if (self.candy.valid) {
-        [WLSoundPlayer playSound:WLSound_s04];
+        [[SoundPlayer player] play:Sounds04];
         [self.candy uploadComment:[text trim]];
     }
     [[DispatchQueue mainQueue] runAfter:0 block:^{

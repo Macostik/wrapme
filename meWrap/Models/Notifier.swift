@@ -25,10 +25,6 @@ class NotifyReceiverWrapper: Hashable {
 
 class Notifier: NSObject {
     
-    static var PriorityHigh = -1
-    static var PriorityMedium = 0
-    static var PriorityLow = 1
-    
     var receivers = Set<NotifyReceiverWrapper>()
         
     func addReceiver(receiver: NSObject?) {

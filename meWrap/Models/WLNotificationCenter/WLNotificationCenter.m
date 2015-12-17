@@ -7,8 +7,6 @@
 //
 
 #import "WLNotificationCenter.h"
-#import "WLSoundPlayer.h"
-#import "WLNetwork.h"
 #import "WLAuthorizationRequest.h"
 #import "NSArray+WLCollection.h"
 
@@ -227,7 +225,7 @@
                     return;
                 }
                 [notification fetch:^{
-                    if (![playedSoundTypes containsIndex:notification.type]) [WLSoundPlayer playSoundForNotification:notification];
+                    if (![playedSoundTypes containsIndex:notification.type]) [[SoundPlayer player] playForNotification:notification];
                     [playedSoundTypes addIndex:notification.type];
                     finish();
                 } failure:^(NSError *error) {
@@ -259,7 +257,7 @@
 
 - (void)handleNotification:(Notification*)notification completion:(Block)completion {
     [notification handle:^{
-        [WLSoundPlayer playSoundForNotification:notification];
+        [[SoundPlayer player] playForNotification:notification];
         if (completion) completion();
     } failure:^(NSError *error) {
         if (completion) completion();
@@ -291,7 +289,7 @@
 
             WLLog(@"PUBNUB - requesting history starting from: %@ to: %@", fromDate, toDate);
             
-            if  ([WLNetwork sharedNetwork].reachable && weakSelf.userSubscription) {
+            if  ([Network sharedNetwork].reachable && weakSelf.userSubscription) {
                 
                 [weakSelf.userSubscription history:fromDate to:toDate success:^(NSArray *messages) {
                     if (messages.count > 0) {
@@ -335,7 +333,7 @@
                     return;
                 }
                 [notification fetch:^{
-                    if (![playedSoundTypes containsIndex:notification.type]) [WLSoundPlayer playSoundForNotification:notification];
+                    if (![playedSoundTypes containsIndex:notification.type]) [[SoundPlayer player] playForNotification:notification];
                     [playedSoundTypes addIndex:notification.type];
                     finish();
                 } failure:^(NSError *error) {

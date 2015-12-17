@@ -187,7 +187,7 @@ extension Uploading {
     }
     
     func upload(success: ObjectBlock?, failure: FailureBlock?) {
-        if WLNetwork.sharedNetwork().reachable {
+        if Network.sharedNetwork.reachable {
             if let contribution = contribution {
                 sendTypedRequest({ [weak self] (object) -> Void in
                     self?.inProgress = false

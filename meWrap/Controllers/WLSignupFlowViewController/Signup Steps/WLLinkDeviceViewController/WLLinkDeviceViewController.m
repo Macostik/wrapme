@@ -9,7 +9,6 @@
 #import "WLLinkDeviceViewController.h"
 #import "WLButton.h"
 #import "WLProfileInformationViewController.h"
-#import "WLSoundPlayer.h"
 
 @interface WLLinkDeviceViewController ()
 
@@ -29,7 +28,7 @@
     sender.loading = YES;
     __weak typeof(self)weakSelf = self;
     [[WLAuthorizationRequest linkDevice:self.passcodeField.text] send:^(id object) {
-        [WLSoundPlayer playSound:WLSound_s01];
+        [[SoundPlayer player] play:Sounds01];
         [[Authorization currentAuthorization] signIn:^(User *user) {
             [weakSelf setSuccessStatusAnimated:NO];
         } failure:^(NSError *error) {

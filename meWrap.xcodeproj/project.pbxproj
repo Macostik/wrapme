@@ -191,10 +191,11 @@
 		C5568BE01A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */; };
 		C55766A51C0C913D00E94E09 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55766A31C0C913D00E94E09 /* ImageView.swift */; };
 		C55766A61C0C913D00E94E09 /* EntryStatusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55766A41C0C913D00E94E09 /* EntryStatusIndicator.swift */; };
+		C557B6D91C22BC610067631E /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557B6D81C22BC610067631E /* Network.swift */; };
+		C557B6DB1C22C0B00067631E /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557B6DA1C22C0B00067631E /* SoundPlayer.swift */; };
 		C558E7C91A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */; };
 		C559974C1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
 		C55A451A1BAC18580055AEC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C55A451C1BAC18580055AEC2 /* Localizable.strings */; };
-		C55A452C1BAC1C4A0055AEC2 /* WLNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = C55A452A1BAC1C4A0055AEC2 /* WLNetwork.m */; };
 		C55BE8C31C03062C006B04FC /* NSObject+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BE8C21C03062C006B04FC /* NSObject+Ext.swift */; };
 		C55BE8C71C031BA6006B04FC /* ExtensionRequest+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BE8C61C031BA6006B04FC /* ExtensionRequest+Ext.swift */; };
 		C55BE8C91C031D54006B04FC /* EventualEntryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BE8C81C031D54006B04FC /* EventualEntryPresenter.swift */; };
@@ -313,7 +314,6 @@
 		C5D051C41A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C01A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m */; };
 		C5D051CA1A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C61A9F829B00855A01 /* WLArrangedAddressBook.m */; };
 		C5D552201C04BC2400069169 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D5521F1C04BC2300069169 /* Environment.swift */; };
-		C5D7FE951B501CDE00746908 /* WLSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D7FE901B501CDE00746908 /* WLSoundPlayer.m */; };
 		C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
 		C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
 		C5E4FD071BF7629E00575DA4 /* RecentCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E4FD051BF7629E00575DA4 /* RecentCommentCell.xib */; };
@@ -669,6 +669,8 @@
 		C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLProgressBar+WLContribution.m"; sourceTree = "<group>"; };
 		C55766A31C0C913D00E94E09 /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		C55766A41C0C913D00E94E09 /* EntryStatusIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryStatusIndicator.swift; sourceTree = "<group>"; };
+		C557B6D81C22BC610067631E /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		C557B6DA1C22C0B00067631E /* SoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
 		C557BA801BF5D47900AE9974 /* RecentUpdatesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentUpdatesViewController.swift; sourceTree = "<group>"; };
 		C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLHomePlaceholderView.xib; sourceTree = "<group>"; };
 		C55997471A25EABE003D4B29 /* WLEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEmailConfirmationViewController.h; sourceTree = "<group>"; };
@@ -680,8 +682,6 @@
 		C55A45241BAC189C0055AEC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C55A45261BAC189D0055AEC2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C55A45271BAC189E0055AEC2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		C55A45291BAC1C4A0055AEC2 /* WLNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNetwork.h; sourceTree = "<group>"; };
-		C55A452A1BAC1C4A0055AEC2 /* WLNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNetwork.m; sourceTree = "<group>"; };
 		C55BE8C21C03062C006B04FC /* NSObject+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Ext.swift"; sourceTree = "<group>"; };
 		C55BE8C61C031BA6006B04FC /* ExtensionRequest+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ExtensionRequest+Ext.swift"; path = "meWrap/Categories/ExtensionRequest+Ext.swift"; sourceTree = SOURCE_ROOT; };
 		C55BE8C81C031D54006B04FC /* EventualEntryPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventualEntryPresenter.swift; sourceTree = "<group>"; };
@@ -877,8 +877,6 @@
 		C5D051C51A9F829B00855A01 /* WLArrangedAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLArrangedAddressBook.h; path = WLAddressBook/WLArrangedAddressBook.h; sourceTree = "<group>"; };
 		C5D051C61A9F829B00855A01 /* WLArrangedAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLArrangedAddressBook.m; path = WLAddressBook/WLArrangedAddressBook.m; sourceTree = "<group>"; };
 		C5D5521F1C04BC2300069169 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
-		C5D7FE8F1B501CDE00746908 /* WLSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSoundPlayer.h; sourceTree = "<group>"; };
-		C5D7FE901B501CDE00746908 /* WLSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSoundPlayer.m; sourceTree = "<group>"; };
 		C5E4FD051BF7629E00575DA4 /* RecentCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecentCommentCell.xib; sourceTree = "<group>"; };
 		C5E4FD061BF7629E00575DA4 /* RecentCandyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecentCandyCell.xib; sourceTree = "<group>"; };
 		C5E4FD0A1BF7AC4300575DA4 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -1166,11 +1164,11 @@
 				C5EAE4CA1C18335900DA19C9 /* Chat.swift */,
 				C5A406FF1C202198007D1D0E /* StoryboardTransition.swift */,
 				C507F80D1C218BB1006DA3E5 /* DispatchQueue.swift */,
+				C557B6D81C22BC610067631E /* Network.swift */,
+				C557B6DA1C22C0B00067631E /* SoundPlayer.swift */,
 				C50541551BD6545400AE6F2C /* WLImageEditorSession */,
-				C55A45281BAC1C4A0055AEC2 /* WLNetwork */,
 				C5C7699A1BAC11F200B205CB /* WLUploadingQueue */,
 				C5C7696D1BAC10BF00B205CB /* WLAPIManager */,
-				C5D7FE8E1B501CDE00746908 /* WLSoundPlayer */,
 				C5BEE0E11B2AC8C300D3CF70 /* WLNotificationCenter */,
 				C5A82CCC1ACD979B00336027 /* WLDeviceManager */,
 				C577C2601A4C426300ECC7E5 /* iVersion */,
@@ -1740,15 +1738,6 @@
 			path = WLEmailConfirmationViewController;
 			sourceTree = "<group>";
 		};
-		C55A45281BAC1C4A0055AEC2 /* WLNetwork */ = {
-			isa = PBXGroup;
-			children = (
-				C55A45291BAC1C4A0055AEC2 /* WLNetwork.h */,
-				C55A452A1BAC1C4A0055AEC2 /* WLNetwork.m */,
-			);
-			path = WLNetwork;
-			sourceTree = "<group>";
-		};
 		C55C36671ACEB7A900C614BD /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -2155,15 +2144,6 @@
 				C5A6150F1B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib */,
 			);
 			path = WLAddressBookPhoneNumberCell;
-			sourceTree = "<group>";
-		};
-		C5D7FE8E1B501CDE00746908 /* WLSoundPlayer */ = {
-			isa = PBXGroup;
-			children = (
-				C5D7FE8F1B501CDE00746908 /* WLSoundPlayer.h */,
-				C5D7FE901B501CDE00746908 /* WLSoundPlayer.m */,
-			);
-			path = WLSoundPlayer;
 			sourceTree = "<group>";
 		};
 		C5E4FD091BF762A500575DA4 /* RecentUpdatesViewController */ = {
@@ -2676,7 +2656,6 @@
 				C530127F1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift in Sources */,
 				C55E10A01B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
 				C53012941BF4E4BF00098F9C /* Refresher.swift in Sources */,
-				C55A452C1BAC1C4A0055AEC2 /* WLNetwork.m in Sources */,
 				C5F3AC3A1C0335230053EE70 /* EntryDescriptor.swift in Sources */,
 				C52E1FDF1A41951300A2C370 /* WLTextField.m in Sources */,
 				C5E6DD971C0DC8F5004992E4 /* CommonEnums.swift in Sources */,
@@ -2796,6 +2775,7 @@
 				C5326F0C1C159279007A8BEF /* RunQueue.swift in Sources */,
 				C5F4E70F1C07687A00D2FC16 /* UIColor+Ext.swift in Sources */,
 				5BA432AD1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */,
+				C557B6DB1C22C0B00067631E /* SoundPlayer.swift in Sources */,
 				C5A406FE1C200A71007D1D0E /* CandyEnlargingPresenter.swift in Sources */,
 				C55766A61C0C913D00E94E09 /* EntryStatusIndicator.swift in Sources */,
 				C54731BE1B906A7400B583FD /* WLWrapPickerViewController.m in Sources */,
@@ -2834,8 +2814,8 @@
 				C5E6DD941C0DC84A004992E4 /* Notifier.swift in Sources */,
 				C54731B01B906A7400B583FD /* WLEditAvatarViewController.m in Sources */,
 				C5D051C41A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
+				C557B6D91C22BC610067631E /* Network.swift in Sources */,
 				C5C20BDC1A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
-				C5D7FE951B501CDE00746908 /* WLSoundPlayer.m in Sources */,
 				C5E6DD8D1C0DC84A004992E4 /* CoreData.xcdatamodeld in Sources */,
 				C53DC22C1AA7637C00D2E4C0 /* WLUploadingView.m in Sources */,
 				C5BEE0EA1B2AC8C300D3CF70 /* WLNotificationCenter.m in Sources */,

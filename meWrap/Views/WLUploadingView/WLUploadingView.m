@@ -8,9 +8,8 @@
 
 #import "WLUploadingView.h"
 #import "WLUploadingQueue.h"
-#import "WLNetwork.h"
 
-@interface WLUploadingView () <WLUploadingQueueReceiver, WLNetworkReceiver>
+@interface WLUploadingView () <WLUploadingQueueReceiver, NetworkNotifying>
 
 @property (weak, nonatomic) IBOutlet UILabel* countLabel;
 @property (weak, nonatomic) IBOutlet UIButton* arrowIcon;
@@ -23,7 +22,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [[WLNetwork sharedNetwork] addReceiver:self];
+    [[Network sharedNetwork] addReceiver:self];
 }
 
 - (void)setQueue:(WLUploadingQueue *)queue {
@@ -42,7 +41,7 @@
     self.hidden = queue.isEmpty;
     if (!self.hidden) {
         self.countLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)queue.count];
-        BOOL networkReachable = [WLNetwork sharedNetwork].reachable;
+        BOOL networkReachable = [Network sharedNetwork].reachable;
         self.backgroundColor = [(networkReachable ? Color.orange : Color.grayLight) colorWithAlphaComponent:0.8f];
         [self.arrowIcon setTitleColor:self.backgroundColor forState:UIControlStateNormal];
         [self startAnimating];
@@ -54,7 +53,7 @@
 
 
 - (void)startAnimating {
-    if (self.hidden || ![WLNetwork sharedNetwork].reachable) {
+    if (self.hidden || ![Network sharedNetwork].reachable) {
         [self stopAnimating];
         return;
     }
@@ -90,9 +89,9 @@
     [self updateWithQueue:queue];
 }
 
-#pragma mark - WLNetworkReceiver
+#pragma mark - NetworkNotifying
 
-- (void)networkDidChangeReachability:(WLNetwork *)network {
+- (void)networkDidChangeReachability:(Network *)network {
     [self update];
 }
 

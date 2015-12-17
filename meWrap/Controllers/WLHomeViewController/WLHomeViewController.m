@@ -18,8 +18,6 @@
 #import "WLHistoryViewController.h"
 #import "WLHintView.h"
 #import "WLUploadingQueue.h"
-#import "WLSoundPlayer.h"
-#import "WLNetwork.h"
 #import "WLChangeProfileViewController.h"
 #import "WLStillPictureViewController.h"
 
@@ -411,7 +409,7 @@
 - (IBAction)hottestWrapsOpened:(id)sender {
     self.publicWrapsHeaderView.hidden = NO;
     NSArray *wraps = nil;
-    if (![WLNetwork sharedNetwork].reachable) {
+    if (![Network sharedNetwork].reachable) {
         wraps = [[[Wrap fetch] queryString:@"isPublic == YES"] execute];
     }
     self.publicDataSource.items = [[PaginatedList alloc] initWithEntries:wraps request:[PaginatedRequest wraps:@"public"]];
@@ -434,7 +432,7 @@
         }
         
         [FollowingViewController followWrapIfNeeded:wrap performAction:^{
-            [WLSoundPlayer playSound:WLSound_s04];
+            [[SoundPlayer player] play:Sounds04];
             [wrap uploadAssets:pictures];
         }];
     }

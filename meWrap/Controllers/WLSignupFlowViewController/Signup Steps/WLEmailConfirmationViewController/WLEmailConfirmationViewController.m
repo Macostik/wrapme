@@ -7,7 +7,6 @@
 //
 
 #import "WLEmailConfirmationViewController.h"
-#import "WLSoundPlayer.h"
 
 @interface WLEmailConfirmationViewController () <EntryNotifying, NotificationSubscriptionDelegate>
 
@@ -47,7 +46,7 @@
 
 - (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Entry *)entry event:(enum EntryUpdateEvent)event {
     if (![Authorization currentAuthorization].unconfirmed_email.nonempty && self.isTopViewController) {
-        [WLSoundPlayer playSound:WLSound_s01];
+        [[SoundPlayer player] play:Sounds01];
         [self setSuccessStatusAnimated:NO];
     }
 }

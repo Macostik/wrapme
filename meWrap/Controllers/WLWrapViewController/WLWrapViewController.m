@@ -13,7 +13,6 @@
 #import "WLChatViewController.h"
 #import "WLContributorsViewController.h"
 #import "WLButton.h"
-#import "WLSoundPlayer.h"
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, MediaViewControllerDelegate, RecentUpdateListNotifying>
 
@@ -228,7 +227,7 @@
     [self dismissViewControllerAnimated:NO completion:nil];
     
     [FollowingViewController followWrapIfNeeded:wrap performAction:^{
-        [WLSoundPlayer playSound:WLSound_s04];
+        [[SoundPlayer player] play:Sounds04];
         [wrap uploadAssets:pictures];
     }];
 }

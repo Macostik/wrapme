@@ -11,7 +11,6 @@
 #import "WLProgressBar+WLContribution.h"
 #import "WLHomeViewController.h"
 #import "WLButton.h"
-#import "WLSoundPlayer.h"
 
 @interface WLActivationViewController () <UITextFieldDelegate>
 
@@ -59,7 +58,7 @@
     __weak typeof(self)weakSelf = self;
     [self activate:^{
         sender.loading = NO;
-        [WLSoundPlayer playSound:WLSound_s01];
+        [[SoundPlayer player] play:Sounds01];
         [weakSelf setSuccessStatusAnimated:NO];
     } failure:^(NSError *error) {
         sender.loading = NO;

@@ -20,13 +20,12 @@
 #import "CocoaLumberjack.h"
 #import "WLAuthorizationRequest.h"
 #import "WLUploadingQueue.h"
-#import "WLNetwork.h"
 #import <AWSCore/AWSCore.h>
 #import "MMWormhole.h"
 
 @import WatchConnectivity;
 
-@interface WLAppDelegate () <iVersionDelegate, WCSessionDelegate>
+@interface WLAppDelegate () <iVersionDelegate, WCSessionDelegate, NetworkNotifying>
 
 @property (nonatomic) BOOL versionChanged;
 
@@ -55,17 +54,7 @@
     
     [self initializeVersionTool];
     
-	[[WLNetwork sharedNetwork] configure];
-    [[WLNetwork sharedNetwork] setChangeReachabilityBlock:^(WLNetwork *network) {
-        if (network.reachable) {
-            if ([WLAuthorizationRequest authorized]) {
-                [WLUploadingQueue start];
-                [[WLAddressBook addressBook] updateCachedRecordsAfterFailure];
-            } else {
-                [[WLAuthorizationRequest signIn] send];
-            }
-        }
-    }];
+	[[Network sharedNetwork] addReceiver:self];
 	[[WLKeyboard keyboard] configure];
 	
     NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -360,6 +349,19 @@
         });
         [[UIApplication sharedApplication] endBackgroundTask:task];
     }];
+}
+
+// MARK: - NetworkNotifying
+
+- (void)networkDidChangeReachability:(Network *)network {
+    if (network.reachable) {
+        if ([WLAuthorizationRequest authorized]) {
+            [WLUploadingQueue start];
+            [[WLAddressBook addressBook] updateCachedRecordsAfterFailure];
+        } else {
+            [[WLAuthorizationRequest signIn] send];
+        }
+    }
 }
 
 @end

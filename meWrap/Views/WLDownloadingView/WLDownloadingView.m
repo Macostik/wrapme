@@ -8,7 +8,6 @@
 
 #import "WLDownloadingView.h"
 #import "WLProgressBar+WLContribution.h"
-#import "WLNetwork.h"
 
 @interface WLDownloadingView () <ImageFetching, EntryNotifying>
 

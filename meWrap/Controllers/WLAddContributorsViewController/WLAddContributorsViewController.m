@@ -128,7 +128,7 @@
 
 - (IBAction)done:(WLButton*)sender {
     __weak typeof(self)weakSelf = self;
-    if (![WLNetwork sharedNetwork].reachable) {
+    if (![Network sharedNetwork].reachable) {
         [WLToast showWithMessage:@"no_internet_connection".ls];
         return;
     }

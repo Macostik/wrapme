@@ -87,13 +87,6 @@ extension Entry {
     }
     
     func map(dictionary: [String:AnyObject], container: Entry?) {
-        
-        if let createdAt = dictionary.dateForKey(Keys.ContributedAt) where self.createdAt != createdAt {
-            self.createdAt = createdAt
-        }
-        if let updatedAt = dictionary.dateForKey(Keys.LastTouchedAt) where updatedAt.later(self.updatedAt) {
-            self.updatedAt = updatedAt
-        }
         if let uid = self.dynamicType.uid(dictionary) where uid != self.uid {
             self.uid = uid
         }
@@ -187,20 +180,17 @@ extension Contribution {
     override func map(dictionary: [String : AnyObject], container: Entry?) {
         super.map(dictionary, container: container)
         
+        if let createdAt = dictionary.dateForKey(Keys.ContributedAt) where self.createdAt != createdAt {
+            self.createdAt = createdAt
+        }
+        if let updatedAt = dictionary.dateForKey(Keys.LastTouchedAt) where updatedAt.later(self.updatedAt) {
+            self.updatedAt = updatedAt
+        }
+        
         if let dictionary = dictionary[Keys.Contributor] as? [String:AnyObject] {
             if let contributor = User.mappedEntry(dictionary) where self.contributor != contributor {
                 self.contributor = contributor
             }
-        }
-        
-        if let dictionary = dictionary[Keys.Editor] as? [String:AnyObject] {
-            if let editor = User.mappedEntry(dictionary) where self.editor != editor {
-                self.editor = editor
-            }
-        }
-        
-        if let editedAt = dictionary.dateForKey(Keys.EditedAt) where self.editedAt != editedAt {
-            self.editedAt = editedAt
         }
     }
 }
@@ -292,7 +282,21 @@ extension Candy {
     }
     
     override func map(dictionary: [String : AnyObject], container: Entry?) {
+        
+        guard let updatedAt = dictionary.dateForKey(Keys.LastTouchedAt) where updatedAt > self.updatedAt else {
+            return
+        }
+        
         super.map(dictionary, container: container)
+        
+        if let dictionary = dictionary[Keys.Editor] as? [String:AnyObject] {
+            if let editor = User.mappedEntry(dictionary) where self.editor != editor {
+                self.editor = editor
+            }
+            if let editedAt = dictionary.dateForKey(Keys.EditedAt) where self.editedAt != editedAt {
+                self.editedAt = editedAt
+            }
+        }
         
         if let type = dictionary[Keys.CandyType] as? Int {
             let type = Int16(type)

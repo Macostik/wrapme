@@ -10,13 +10,11 @@
 #import "WLComposeBar.h"
 #import "WLKeyboard.h"
 #import "WLMessageCell.h"
-#import "WLSoundPlayer.h"
 #import "WLMessageDateView.h"
 #import "WLWrapViewController.h"
 #import "WLToast.h"
 #import "WLBadgeLabel.h"
 #import "PlaceholderView.h"
-#import "WLNetwork.h"
 
 @interface WLChatViewController () <StreamViewDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, EntryNotifying, ChatNotifying>
 
@@ -331,7 +329,7 @@
     if (self.wrap.valid) {
         self.streamView.contentOffset = self.streamView.maximumContentOffset;
         [self.wrap uploadMessage:text];
-        [WLSoundPlayer playSound:WLSound_s04];
+        [[SoundPlayer player] play:Sounds04];
         [self.chat markAsRead];
     } else {
         [self.navigationController popToRootViewControllerAnimated:NO];
@@ -436,7 +434,7 @@
 - (void)appendItemsIfNeededWithTargetContentOffset:(CGPoint)targetContentOffset {
     StreamView *streamView = self.streamView;
     BOOL reachedRequiredOffset = reachedRequiredOffset = (targetContentOffset.y - streamView.minimumContentOffset.y) < streamView.fittingContentHeight;
-    if (reachedRequiredOffset && [WLNetwork sharedNetwork].reachable && !self.chat.completed) {
+    if (reachedRequiredOffset && [Network sharedNetwork].reachable && !self.chat.completed) {
         __weak typeof(self)weakSelf = self;
         if (weakSelf.chat.wrap) {
             [self.chat older:nil failure:^(NSError * _Nullable error) {

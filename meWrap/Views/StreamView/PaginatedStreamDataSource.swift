@@ -45,7 +45,7 @@ class PaginatedStreamDataSource: StreamDataSource {
     }
     
     func setLoading(var loading: Bool) {
-        if !WLNetwork.sharedNetwork().reachable {
+        if !Network.sharedNetwork.reachable {
             loading = false
         }
         
@@ -89,12 +89,12 @@ class PaginatedStreamDataSource: StreamDataSource {
         }
         
         if reachedRequiredOffset && isAppendable() {
-            if WLNetwork.sharedNetwork().reachable {
+            if Network.sharedNetwork.reachable {
                 append(nil, failure: { (error) -> Void in
                     error?.showNonNetworkError()
                 })
             } else {
-                WLNetwork.sharedNetwork().addReceiver(self)
+                Network.sharedNetwork.addReceiver(self)
             }
         }
     }
@@ -123,8 +123,8 @@ extension PaginatedStreamDataSource: PaginatedListNotifying {
     }
 }
 
-extension PaginatedStreamDataSource: WLNetworkReceiver {
-    func networkDidChangeReachability(network: WLNetwork!) {
+extension PaginatedStreamDataSource: NetworkNotifying {
+    func networkDidChangeReachability(network: Network) {
         if network.reachable {
             network.removeReceiver(self)
             if let streamView = streamView {

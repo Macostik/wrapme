@@ -267,6 +267,7 @@ class Notification: NSObject {
         prepare()
         fetch({ () -> Void in
             self.finalizeNotification()
+            success()
             }, failure: failure)
     }
     

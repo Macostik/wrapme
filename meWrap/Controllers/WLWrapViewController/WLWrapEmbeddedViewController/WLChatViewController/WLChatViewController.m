@@ -397,7 +397,8 @@
     if (streamView.scrollable) {
         if (self.dragged) {
             CGPoint offset = streamView.contentOffset;
-            offset.y += streamView.contentSize.height - oldContentSize.height;
+            CGFloat unreadContentOffset = self.chat.unreadMessages.count == 0? self.unreadMessagesMetrics.size : 0;
+            offset.y += streamView.contentSize.height - oldContentSize.height + unreadContentOffset;
             streamView.contentOffset = offset;
         } else {
             streamView.contentOffset = streamView.maximumContentOffset;

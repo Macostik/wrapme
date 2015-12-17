@@ -38,7 +38,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" text="[very long user name] posted a new photo" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t7m-q8-vxF" customClass="WLLabel">
-                                    <rect key="frame" x="54" y="10" width="96" height="36"/>
+                                    <rect key="frame" x="54" y="9" width="96" height="36"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
@@ -48,7 +48,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Yestarday at 2:34pm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="125" translatesAutoresizingMaskIntoConstraints="NO" id="WCz-3I-Kio" customClass="WLLabel">
-                                    <rect key="frame" x="150" y="10" width="142" height="18"/>
+                                    <rect key="frame" x="150" y="18" width="142" height="18"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
@@ -60,15 +60,23 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstItem="t7m-q8-vxF" firstAttribute="centerY" secondItem="2wT-n8-UM6" secondAttribute="centerY" id="DX0-ya-EB8"/>
                                 <constraint firstAttribute="trailing" secondItem="WCz-3I-Kio" secondAttribute="trailing" constant="12" id="VkY-4t-vtO"/>
                                 <constraint firstItem="t7m-q8-vxF" firstAttribute="top" secondItem="2wT-n8-UM6" secondAttribute="top" constant="-2" id="X0J-fE-H7N"/>
                                 <constraint firstItem="2wT-n8-UM6" firstAttribute="top" secondItem="EJb-Gz-G2s" secondAttribute="top" constant="12" id="Xbg-5G-ah3"/>
+                                <constraint firstItem="WCz-3I-Kio" firstAttribute="centerY" secondItem="t7m-q8-vxF" secondAttribute="centerY" id="ddD-RM-8Jm"/>
                                 <constraint firstAttribute="bottom" secondItem="2wT-n8-UM6" secondAttribute="bottom" constant="12" id="g1d-aS-AfL"/>
                                 <constraint firstItem="WCz-3I-Kio" firstAttribute="top" secondItem="t7m-q8-vxF" secondAttribute="top" id="hRx-hp-Oyr"/>
                                 <constraint firstItem="t7m-q8-vxF" firstAttribute="leading" secondItem="2wT-n8-UM6" secondAttribute="trailing" constant="12" id="hWc-xM-bYr"/>
                                 <constraint firstItem="2wT-n8-UM6" firstAttribute="leading" secondItem="EJb-Gz-G2s" secondAttribute="leading" constant="12" id="jcX-XR-h5u"/>
                                 <constraint firstItem="WCz-3I-Kio" firstAttribute="leading" secondItem="t7m-q8-vxF" secondAttribute="trailing" id="zFF-fP-NiO"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="X0J-fE-H7N"/>
+                                    <exclude reference="hRx-hp-Oyr"/>
+                                </mask>
+                            </variation>
                         </view>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kVR-bM-CQu" customClass="ImageView" customModule="meWrap" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="54" width="304" height="124"/>

@@ -641,18 +641,18 @@
 
 - (void)captureImage:(void (^)(UIImage*image))result failure:(FailureBlock)failure {
 #if TARGET_OS_SIMULATOR
-	run_getting_object(^id{
+	[[DispatchQueue defaultQueue] runGettingObject:^id _Nullable{
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
         CGSize size = CGSizeMake(width, width / 0.75);
 		NSString* url = url = [NSString stringWithFormat:@"http://placeimg.com/%d/%d/any", (int)size.width, (int)size.height];
 		return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[url URL]]];
-	}, ^ (UIImage* image) {
+	} completion:^(UIImage* image) {
         if (image) {
             if (result) result(image);
         } else {
             if (failure) failure(nil);
         }
-	});
+	}];
 	return;
 #endif
     

@@ -60,7 +60,11 @@ class HistoryItemCell: StreamReusableView {
         streamView.frame = bounds
         if let item = entry as? HistoryItem {
             dataSource.items = item.candies
-            streamView.contentOffset = item.offset
+            if item.scrollToMaximumOffset {
+                streamView.contentOffset = streamView.maximumContentOffset
+            } else {
+                streamView.contentOffset = item.offset
+            }
         }
     }
 }
@@ -203,9 +207,15 @@ class MediaViewController: WLWrapEmbeddedViewController {
             self?.badge?.value = RecentUpdateList.sharedList.unreadCandiesCountForWrap(wrap)
             }) { (_) -> Void in
         }
+        (history.entries.first as? HistoryItem)?.scrollToMaximumOffset = true
         dataSource.items = history
         uploadingView.update()
         streamView.unlock()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        (history.entries.first as? HistoryItem)?.scrollToMaximumOffset = false
     }
     
     override func viewWillDisappear(animated: Bool) {

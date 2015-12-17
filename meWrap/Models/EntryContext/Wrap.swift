@@ -60,7 +60,7 @@ class Wrap: Contribution {
     var historyCandies: [Candy]? {
         get {
             if _historyCandies == nil {
-                _historyCandies = (candies as? Set<Candy>)?.sort({ $0.createdAt > $1.createdAt })
+                _historyCandies = (candies as? Set<Candy>)?.sort({ $0.createdAt < $1.createdAt })
             }
             return _historyCandies
         }

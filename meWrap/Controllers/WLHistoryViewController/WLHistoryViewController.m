@@ -176,13 +176,13 @@
     
     HistoryItem *nextItem = nil;
     if ([self.history.entries containsObject:self.historyItem]) {
-        nextItem = [self.history.entries tryAt:[self.history.entries indexOfObject:self.historyItem] + 1];
+        nextItem = [self.history.entries tryAt:[self.history.entries indexOfObject:self.historyItem] - 1];
     } else {
         nextItem = [self.history.entries tryAt:self.candyIndex.section];
     }
     if (nextItem) {
         self.historyItem = nextItem;
-        return [nextItem.candies firstObject];
+        return [nextItem.candies lastObject];
     }
     
     candy = [self.historyItem.candies tryAt:self.candyIndex.item - 1];
@@ -192,13 +192,13 @@
     
     HistoryItem *previousItem = nil;
     if ([self.history.entries containsObject:self.historyItem]) {
-        previousItem = [self.history.entries tryAt:[self.history.entries indexOfObject:self.historyItem] - 1];
+        previousItem = [self.history.entries tryAt:[self.history.entries indexOfObject:self.historyItem] + 1];
     } else {
-        previousItem = [self.history.entries tryAt:self.candyIndex.section - 1];
+        previousItem = [self.history.entries tryAt:self.candyIndex.section + 1];
     }
     if (previousItem) {
         self.historyItem = previousItem;
-        return [previousItem.candies lastObject];
+        return [previousItem.candies firstObject];
     }
     
     return [self.historyItem.candies firstObject];
@@ -414,7 +414,7 @@
         return [self candyViewController:candy];
     }
     
-    item = [self.history.entries tryAt:[self.history.entries indexOfObject:item] + 1];
+    item = [self.history.entries tryAt:[self.history.entries indexOfObject:item] - 1];
     if (item) {
         self.historyItem = item;
         return [self candyViewController:[item.candies firstObject]];
@@ -432,7 +432,7 @@
     if (candy) {
         return [self candyViewController:candy];
     } else {
-        item = [self.history.entries tryAt:[self.history.entries indexOfObject:item] - 1];
+        item = [self.history.entries tryAt:[self.history.entries indexOfObject:item] + 1];
         if (item) {
             self.historyItem = item;
             return [self candyViewController:[item.candies lastObject]];

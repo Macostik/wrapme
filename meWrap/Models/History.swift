@@ -32,7 +32,7 @@ class History: PaginatedList {
                 if _candy.createdAt.isSameDay(candy.createdAt) {
                     item.candies.append(candy)
                 } else {
-                    entries.append(item)
+                    entries.insert(item, atIndex: 0)
                     item = HistoryItem(candy: candy, history: self)
                 }
             } else {
@@ -40,19 +40,16 @@ class History: PaginatedList {
             }
             _candy = candy
         }
-        entries.append(item)
+        entries.insert(item, atIndex: 0)
     }
     
     private func addCandy(candy: Candy) -> (item: HistoryItem, added: Bool) {
         if let items = entries as? [HistoryItem] {
-            for item in items {
-                if item.date.isSameDay(candy.createdAt) {
-                    if !item.candies.contains(candy) {
-                        item.candies.append(candy)
-                        return (item, true)
-                    } else {
-                        return (item, false)
-                    }
+            if let item = items.last where item.date.isSameDay(candy.createdAt) {
+                return (item, item.addCandy(candy))
+            } else {
+                for item in items where item.date.isSameDay(candy.createdAt) {
+                    return (item, item.addCandy(candy))
                 }
             }
         }
@@ -69,8 +66,9 @@ class History: PaginatedList {
     override func olderPaginationDate() -> NSDate? {
         return nil
     }
-
+    
     override func addEntries(entries: [ListEntry]) {
+        
         var added = false
         var items = Set<HistoryItem>()
         if let candies = entries as? [Candy] {
@@ -166,6 +164,8 @@ class HistoryItem: NSObject, ListEntry {
     unowned var history: History
     
     var offset = CGPoint.zero
+    var scrollToMaximumOffset = false
+    
     var candies = [Candy]()
     var date: NSDate
     
@@ -176,7 +176,7 @@ class HistoryItem: NSObject, ListEntry {
     }
     
     func sort() {
-        candies.sortInPlace({ $0.createdAt > $1.createdAt })
+        candies.sortInPlace({ $0.createdAt < $1.createdAt })
     }
     
     func listSortDate() -> NSDate {
@@ -184,5 +184,14 @@ class HistoryItem: NSObject, ListEntry {
     }
     func listEntryEqual(entry: ListEntry) -> Bool {
         return self == (entry as? HistoryItem)
+    }
+    
+    func addCandy(candy: Candy) -> Bool {
+        if !candies.contains(candy) {
+            candies.append(candy)
+            return true
+        } else {
+            return false
+        }
     }
 }

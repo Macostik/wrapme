@@ -22,6 +22,8 @@ class HistoryItemViewController: WLBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        nameLabel.text = item?.history.wrap?.name
+        dateLabel.text = item?.date.stringWithDateStyle(.MediumStyle)
         streamView.layout = SquareGridLayout(horizontal: false)
         dataSource = StreamDataSource(streamView: streamView)
         dataSource.numberOfGridColumns = 3

@@ -44,8 +44,6 @@
     
     [self initializeAPIManager];
     
-    [self initializerAWS];
-    
     [[WLNotificationCenter defaultCenter] configure];
     
     [self createWindow];
@@ -134,13 +132,6 @@
     version.downloadButtonLabel = @"update".ls;
     version.remindButtonLabel = @"not_now".ls;
     version.updatePriority = iVersionUpdatePriorityMedium;
-}
-
-- (void)initializerAWS {
-    AWSStaticCredentialsProvider *credentialsProvider = [[AWSStaticCredentialsProvider alloc] initWithAccessKey:@"AKIAIPEMEBV7F4GN2FVA"
-                                                                                                      secretKey:@"hIuguWj0bm9Pxgg2CREG7zWcE14EKaeTE7adXB7f"];
-    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSWest2 credentialsProvider:credentialsProvider];
-    AWSServiceManager.defaultServiceManager.defaultServiceConfiguration = configuration;
 }
 
 - (void)createWindow {
@@ -288,6 +279,10 @@
             completion = nil;
         }
     }];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    [WLUploadingQueue start];
 }
 
 - (void)presentNotification:(Notification *)notification {

@@ -10,6 +10,8 @@ import Foundation
 import CoreData
 import AWSS3
 
+private var S3ConfigurationToken: dispatch_once_t = 0
+
 extension Entry {
     
     func recursivelyFetchIfNeeded(success: Block?, failure: FailureBlock?) {
@@ -361,6 +363,15 @@ extension Candy {
     }
     
     func uploadToS3Bucket(metadata: [String:String], success: ObjectBlock?, failure: FailureBlock?) {
+        
+        dispatch_once(&S3ConfigurationToken) {
+            let accessKey = "AKIAIPEMEBV7F4GN2FVA"
+            let secretKey = "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"
+            let credentialsProvider = AWSStaticCredentialsProvider(accessKey:accessKey, secretKey:secretKey)
+            let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
+            AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
+        }
+        
         guard let original = asset?.original else {
             remove()
             failure?(NSError(code: ResponseCode.UploadFileNotFound.rawValue))

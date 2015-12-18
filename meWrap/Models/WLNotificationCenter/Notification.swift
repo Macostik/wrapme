@@ -203,6 +203,9 @@ class Notification: NSObject {
                     if let newAsset = candy.asset {
                         oldPicture?.cacheForAsset(newAsset)
                     }
+                    if candy.sortedComments().contains({ $0.uploading != nil }) {
+                        WLUploadingQueue.start()
+                    }
                 }
                 
             } else {
@@ -272,7 +275,7 @@ class Notification: NSObject {
     }
     
     override var description: String {
-        return "\(type): \(descriptor?.uid ?? "")"
+        return "\(type.rawValue): \(descriptor?.uid ?? "")"
     }
 }
 

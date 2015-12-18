@@ -13,7 +13,6 @@
 #import "WLWrapViewController.h"
 #import "WLUploadingView.h"
 #import "WLAddressBook.h"
-#import "WLIntroductionViewController.h"
 #import "WLTouchView.h"
 #import "WLHistoryViewController.h"
 #import "WLHintView.h"
@@ -21,7 +20,7 @@
 #import "WLChangeProfileViewController.h"
 #import "WLStillPictureViewController.h"
 
-@interface WLHomeViewController () <WrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, RecentUpdateListNotifying, WLStillPictureViewControllerDelegate>
+@interface WLHomeViewController () <WrapCellDelegate, WLTouchViewDelegate, RecentUpdateListNotifying, WLStillPictureViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet SegmentedStreamDataSource *dataSource;
 
@@ -120,7 +119,7 @@
     
     [NSUserDefaults standardUserDefaults].numberOfLaunches++;
     
-    [self performSelector:@selector(showIntroductionIfNeeded) withObject:nil afterDelay:0.0];
+    [self performSelector:@selector(showCreateWrapTipIfNeeded) withObject:nil afterDelay:0.0];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCreateWrapTipIfNeeded) name:UIApplicationWillEnterForegroundNotification object:nil];
     
@@ -223,21 +222,6 @@
         }
         finish();
     }];
-}
-
-- (void)showIntroductionIfNeeded {
-    if ([NSUserDefaults standardUserDefaults].numberOfLaunches == 1) {
-        static BOOL introductionShown = NO;
-        if (!introductionShown) {
-            introductionShown = YES;
-            WLIntroductionViewController *introduction = [[UIStoryboard introduction] instantiateInitialViewController];
-            introduction.delegate = self;
-            [self presentViewController:introduction animated:NO completion:nil];
-            return;
-        }
-    }
-    
-    [self showCreateWrapTipIfNeeded];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -440,15 +424,6 @@
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
     [self dismissViewControllerAnimated:NO completion:nil];
-}
-
-// MARK: - WLIntroductionViewControllerDelegate
-
-- (void)introductionViewControllerDidFinish:(WLIntroductionViewController *)controller {
-    __weak typeof(self)weakSelf = self;
-    [self dismissViewControllerAnimated:NO completion:^{
-        [weakSelf showCreateWrapTipIfNeeded];
-    }];
 }
 
 // MARK: - WLTouchViewDelegate

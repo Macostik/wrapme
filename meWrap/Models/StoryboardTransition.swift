@@ -48,9 +48,9 @@ class StoryboardTransition: NSObject {
     
     @IBInspectable var destinationValue: String?
     
-    @IBInspectable var sourceIsDelegate = false
+    @IBInspectable var sourceIsDelegate: Bool = false
     
-    @IBInspectable var animated = false
+    @IBInspectable var animated: Bool = false
     
     @IBAction func push(sender: AnyObject) {
         if let source = sourceViewController, let destination = destinationViewController {

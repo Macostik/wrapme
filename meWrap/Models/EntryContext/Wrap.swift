@@ -23,6 +23,7 @@ class LiveBroadcast: NSObject {
         var type: Type
         var text: String?
         var user: User?
+        var disappearingBlock: (Void -> Void)?
         
         init(type: Type, broadcast: LiveBroadcast) {
             self.type = type
@@ -43,6 +44,10 @@ class LiveBroadcast: NSObject {
         events.insert(event, atIndex: 0)
         if (events.count > 3) {
             events.removeLast()
+        }
+        Dispatch.mainQueue.after(4) { [weak self] () -> Void in
+            event.disappearingBlock?()
+            self?.remove(event)
         }
     }
     

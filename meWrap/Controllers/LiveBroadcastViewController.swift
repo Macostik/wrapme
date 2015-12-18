@@ -28,11 +28,10 @@ class LiveBroadcastEventView: StreamReusableView {
                 textLabel.text = "\(event.user?.name ?? "") \("joined".ls)"
             }
             hidden = false
-            Dispatch.mainQueue.after(4, block: { [weak self] () -> Void in
-                event.broadcast.remove(event)
+            event.disappearingBlock = { [weak self] () -> Void in
                 self?.hidden = true
                 self?.addAnimation(CATransition.transition(kCATransitionFade, duration: 1))
-            })
+            }
         }
     }
     

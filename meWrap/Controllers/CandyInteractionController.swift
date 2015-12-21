@@ -88,7 +88,11 @@ class CandyInteractionController: NSObject, UIGestureRecognizerDelegate {
     //MARK: UIGestureRecognizerDelegate
     
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        let velocity = panGestureRecognizer.velocityInView(contentView)
-        return panGestureRecognizer == gestureRecognizer && abs(velocity.x) < abs(velocity.y)
+        if panGestureRecognizer == gestureRecognizer {
+            let velocity = panGestureRecognizer.velocityInView(contentView)
+            return abs(velocity.x) < abs(velocity.y)
+        } else {
+            return true
+        }
     }
 }

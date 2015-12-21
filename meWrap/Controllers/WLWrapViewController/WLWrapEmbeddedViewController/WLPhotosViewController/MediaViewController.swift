@@ -44,6 +44,8 @@ class HistoryItemCell: StreamReusableView {
     
     private var dataSource: HistoryItemDataSource!
     
+    private var candyMetrics: StreamMetrics!
+    
     internal override func willEnqueue() {
         super.willEnqueue()
         (entry as? HistoryItem)?.offset = streamView.contentOffset
@@ -52,19 +54,25 @@ class HistoryItemCell: StreamReusableView {
     override func loadedWithMetrics(metrics: StreamMetrics!) {
         streamView.layout = SquareLayout(horizontal: true)
         dataSource = HistoryItemDataSource(streamView: streamView)
-        dataSource.addMetrics(StreamMetrics(identifier: "CandyCell")).selection = metrics.selection
+        candyMetrics = dataSource.addMetrics(StreamMetrics(identifier: "CandyCell"))
+        candyMetrics.selection = metrics.selection
         dataSource.layoutSpacing = Constants.pixelSize
+        candyMetrics.prepareAppearing = { [weak self] item, _ in
+            item?.view?.transform = self?.streamView.transform ?? CGAffineTransformIdentity
+        }
     }
     
     override func setup(entry: AnyObject!) {
         streamView.frame = bounds
         if let item = entry as? HistoryItem {
-            dataSource.items = item.candies
-            if item.scrollToMaximumOffset {
-                streamView.contentOffset = streamView.maximumContentOffset
+            if item.date.isToday() {
+                streamView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
+                dataSource.items = item.candies.reverse()
             } else {
-                streamView.contentOffset = item.offset
+                streamView.transform = CGAffineTransformIdentity
+                dataSource.items = item.candies
             }
+            streamView.contentOffset = item.offset
         }
     }
 }
@@ -207,15 +215,9 @@ class MediaViewController: WLWrapEmbeddedViewController {
             self?.badge?.value = RecentUpdateList.sharedList.unreadCandiesCountForWrap(wrap)
             }) { (_) -> Void in
         }
-        (history.entries.first as? HistoryItem)?.scrollToMaximumOffset = true
         dataSource.items = history
         uploadingView.update()
         streamView.unlock()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        (history.entries.first as? HistoryItem)?.scrollToMaximumOffset = false
     }
     
     override func viewWillDisappear(animated: Bool) {

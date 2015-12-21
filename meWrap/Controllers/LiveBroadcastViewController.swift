@@ -59,8 +59,6 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     weak var playerLayer: AVPlayerLayer?
     
-    @IBOutlet weak var backgroundView: UIView!
-    
     var playerItem: AVPlayerItem?
     
     @IBOutlet weak var wrapNameLabel: UILabel!
@@ -91,6 +89,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     }
     
     deinit {
+        UIApplication.sharedApplication().idleTimerDisabled = true
         UIApplication.sharedApplication().idleTimerDisabled = false
         guard let item = playerItem else {
             return
@@ -165,7 +164,7 @@ class LiveBroadcastViewController: WLBaseViewController {
             let layer = AVPlayerLayer()
             layer.videoGravity = AVLayerVideoGravityResizeAspectFill
             layer.frame = view.bounds
-            backgroundView.layer.addSublayer(layer)
+            view.layer.insertSublayer(layer, atIndex: 0)
             playerLayer = layer
             
             let playerItem = AVPlayerItem(URL: url)
@@ -234,7 +233,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self)
         layer.frame = view.bounds
         layer.videoGravity = AVLayerVideoGravityResizeAspectFill
-        backgroundView.layer.addSublayer(layer)
+        view.layer.insertSublayer(layer, atIndex: 0)
         streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
         previewLayer = layer
     }

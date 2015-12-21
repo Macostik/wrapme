@@ -4005,10 +4005,6 @@ QWRkEEZyaWVuZFZpZXc
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="88C-bT-T0D">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oVK-cS-Ps7" customClass="StreamView" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="12" y="32" width="520" height="556"/>
                             </scrollView>
@@ -4306,10 +4302,8 @@ QWRkEEZyaWVuZFZpZXc
                             <constraint firstItem="TDj-ND-asZ" firstAttribute="top" secondItem="oVK-cS-Ps7" secondAttribute="bottom" priority="250" constant="12" id="7JU-6e-fLr"/>
                             <constraint firstItem="TDj-ND-asZ" firstAttribute="top" secondItem="cxE-yC-9tL" secondAttribute="bottom" priority="250" constant="12" id="Aas-yE-qbg"/>
                             <constraint firstItem="sLm-tZ-lwk" firstAttribute="top" secondItem="TDj-ND-asZ" secondAttribute="bottom" priority="750" constant="120" id="DHQ-C8-dip"/>
-                            <constraint firstItem="88C-bT-T0D" firstAttribute="width" secondItem="IgI-7Y-zB6" secondAttribute="width" id="Iqb-4g-fbe"/>
                             <constraint firstItem="6gi-jB-36P" firstAttribute="leading" secondItem="IgI-7Y-zB6" secondAttribute="leading" constant="12" id="KA1-JH-SKc"/>
                             <constraint firstItem="oVK-cS-Ps7" firstAttribute="leading" secondItem="IgI-7Y-zB6" secondAttribute="leading" constant="12" id="QUd-HR-Fr3"/>
-                            <constraint firstItem="88C-bT-T0D" firstAttribute="centerX" secondItem="IgI-7Y-zB6" secondAttribute="centerX" id="Syp-dE-KRG"/>
                             <constraint firstItem="sLm-tZ-lwk" firstAttribute="top" secondItem="cxE-yC-9tL" secondAttribute="bottom" priority="750" constant="12" id="T1R-kP-7e6"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6gi-jB-36P" secondAttribute="trailing" constant="12" id="Ui9-fq-oFL"/>
                             <constraint firstItem="sLm-tZ-lwk" firstAttribute="top" secondItem="TDj-ND-asZ" secondAttribute="bottom" priority="250" id="Uoe-GS-nuw"/>
@@ -4319,8 +4313,6 @@ QWRkEEZyaWVuZFZpZXc
                             <constraint firstItem="sLm-tZ-lwk" firstAttribute="top" secondItem="oVK-cS-Ps7" secondAttribute="bottom" priority="750" constant="12" id="hbb-F0-8mj"/>
                             <constraint firstItem="x6q-A3-oyw" firstAttribute="top" secondItem="fet-Rv-pld" secondAttribute="bottom" constant="12" id="j0t-Y5-QoD"/>
                             <constraint firstItem="u8X-Zw-0D3" firstAttribute="leading" secondItem="IgI-7Y-zB6" secondAttribute="leading" constant="12" id="jbP-gu-KOb"/>
-                            <constraint firstItem="88C-bT-T0D" firstAttribute="centerY" secondItem="IgI-7Y-zB6" secondAttribute="centerY" id="kbx-DS-Ofb"/>
-                            <constraint firstItem="88C-bT-T0D" firstAttribute="height" secondItem="IgI-7Y-zB6" secondAttribute="height" id="khO-TM-u31"/>
                             <constraint firstAttribute="trailing" secondItem="TDj-ND-asZ" secondAttribute="trailing" id="m88-yb-b4b"/>
                             <constraint firstItem="cxE-yC-9tL" firstAttribute="top" secondItem="l6r-AU-Age" secondAttribute="bottom" constant="12" id="mwS-sG-Dq4"/>
                             <constraint firstAttribute="trailing" secondItem="lcy-Qn-Z2u" secondAttribute="trailing" constant="12" id="o0x-b9-7RJ"/>
@@ -4336,7 +4328,6 @@ QWRkEEZyaWVuZFZpZXc
 TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
 </string>
                     <connections>
-                        <outlet property="backgroundView" destination="88C-bT-T0D" id="NVT-Qx-7Yd"/>
                         <outlet property="chatStreamView" destination="oVK-cS-Ps7" id="zS1-RU-5sI"/>
                         <outlet property="composeBar" destination="TDj-ND-asZ" id="z95-zG-RuZ"/>
                         <outlet property="joinsCountLabel" destination="0dx-bB-3YN" id="CBO-L4-d7s"/>

@@ -164,7 +164,6 @@ class HistoryItem: NSObject, ListEntry {
     unowned var history: History
     
     var offset = CGPoint.zero
-    var scrollToMaximumOffset = false
     
     var candies = [Candy]()
     var date: NSDate

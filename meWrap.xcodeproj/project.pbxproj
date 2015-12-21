@@ -212,7 +212,6 @@
 		C565ED6D1B9F2567002352C8 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B787D9C1A27876F004AE459 /* NotificationCenter.framework */; };
 		C568D8D91A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
 		C56D4E4F1C0B54D300B20566 /* meWrapWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C54604D71C08C6DF00FB2303 /* meWrapWatchApp.app */; };
-		C573FB901AB84AF400F1098C /* WLTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = C573FB8C1AB84AF400F1098C /* WLTouchView.m */; };
 		C577C2661A4C427100ECC7E5 /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C577C2621A4C427100ECC7E5 /* iVersion.m */; };
 		C57CB2A91BAAE50D0050FBF7 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB2A31BAAE4ED0050FBF7 /* libc++.tbd */; };
 		C57CB2AA1BAAE5140050FBF7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB2A51BAAE4F60050FBF7 /* libz.tbd */; };
@@ -700,8 +699,6 @@
 		C56337581C16CE8300F4E182 /* MediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
 		C568D8D41A6D491800C2333B /* WLHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHintView.h; sourceTree = "<group>"; };
 		C568D8D51A6D491800C2333B /* WLHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLHintView.m; sourceTree = "<group>"; };
-		C573FB8B1AB84AF400F1098C /* WLTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTouchView.h; sourceTree = "<group>"; };
-		C573FB8C1AB84AF400F1098C /* WLTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTouchView.m; sourceTree = "<group>"; };
 		C577C2611A4C427100ECC7E5 /* iVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iVersion.h; sourceTree = "<group>"; };
 		C577C2621A4C427100ECC7E5 /* iVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iVersion.m; sourceTree = "<group>"; };
 		C57CB2A31BAAE4ED0050FBF7 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -1187,7 +1184,6 @@
 				C5A406FD1C200A71007D1D0E /* CandyEnlargingPresenter.swift */,
 				C5978BE31B396FA500D5043E /* WLDrawingSession */,
 				5BD121571B0250E000FF5FBF /* WLDownloadingView */,
-				C573FB8A1AB84ADD00F1098C /* WLTouchView */,
 				C53DC2261AA7632600D2E4C0 /* WLUploadingView */,
 				5B2B0C201A77DDC400DADC9D /* WLButton */,
 				C568D8D31A6D490500C2333B /* WLHintView */,
@@ -1782,15 +1778,6 @@
 				C5B91A4D1BB414E1000E08E7 /* WLInviteHintView.xib */,
 			);
 			path = WLHintView;
-			sourceTree = "<group>";
-		};
-		C573FB8A1AB84ADD00F1098C /* WLTouchView */ = {
-			isa = PBXGroup;
-			children = (
-				C573FB8B1AB84AF400F1098C /* WLTouchView.h */,
-				C573FB8C1AB84AF400F1098C /* WLTouchView.m */,
-			);
-			path = WLTouchView;
 			sourceTree = "<group>";
 		};
 		C577C2601A4C426300ECC7E5 /* iVersion */ = {
@@ -2669,7 +2656,6 @@
 				C52E1FD71A41951300A2C370 /* WLLabel.m in Sources */,
 				C522795E1BECCA6B00B1C49C /* Dictionary+Ext.swift in Sources */,
 				C5E7EF8F1BED0D9F00CDD4C3 /* Entry+APIRequest.swift in Sources */,
-				C573FB901AB84AF400F1098C /* WLTouchView.m in Sources */,
 				C52E1FD31A41951300A2C370 /* WLButton.m in Sources */,
 				C581680519F169D90081F350 /* WLBaseViewController.m in Sources */,
 				C54C42531BDE77BB003E644D /* ExtensionRequest.swift in Sources */,

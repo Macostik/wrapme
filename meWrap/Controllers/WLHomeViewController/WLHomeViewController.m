@@ -13,14 +13,13 @@
 #import "WLWrapViewController.h"
 #import "WLUploadingView.h"
 #import "WLAddressBook.h"
-#import "WLTouchView.h"
 #import "WLHistoryViewController.h"
 #import "WLHintView.h"
 #import "WLUploadingQueue.h"
 #import "WLChangeProfileViewController.h"
 #import "WLStillPictureViewController.h"
 
-@interface WLHomeViewController () <WrapCellDelegate, WLTouchViewDelegate, RecentUpdateListNotifying, WLStillPictureViewControllerDelegate>
+@interface WLHomeViewController () <WrapCellDelegate, RecentUpdateListNotifying, WLStillPictureViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet SegmentedStreamDataSource *dataSource;
 
@@ -31,7 +30,6 @@
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet WLUploadingView *uploadingView;
-@property (weak, nonatomic) IBOutlet UIView *createWrapTipView;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
 @property (weak, nonatomic) IBOutlet WLLabel *verificationEmailLabel;
 @property (strong, nonatomic) IBOutlet LayoutPrioritizer *emailConfirmationLayoutPrioritizer;
@@ -119,47 +117,9 @@
     
     [NSUserDefaults standardUserDefaults].numberOfLaunches++;
     
-    [self performSelector:@selector(showCreateWrapTipIfNeeded) withObject:nil afterDelay:0.0];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCreateWrapTipIfNeeded) name:UIApplicationWillEnterForegroundNotification object:nil];
-    
     [[RecentUpdateList sharedList] addReceiver:self];
     
-    [self fetchLiveBroadcasts];
-}
-
-- (void)fetchLiveBroadcasts {
-    __weak typeof(self)weakSelf = self;
-    [[PubNub sharedInstance] hereNowForChannelGroup:[WLNotificationCenter defaultCenter].userSubscription.name withCompletion:^(PNPresenceChannelGroupHereNowResult *result, PNErrorStatus *status) {
-        NSDictionary *channels = result.data.channels;
-        for (NSString *channel in channels) {
-            Wrap *wrap = [Wrap entry:channel];
-            if (wrap == nil) {
-                continue;
-            }
-            NSArray *uuids = channels[channel][@"uuids"];
-            NSMutableArray *wrapBroadcasts = [NSMutableArray array];
-            for (NSDictionary *uuid in uuids) {
-                NSDictionary *state = uuid[@"state"];
-                User *user = [User entry:state[@"userUid"]];
-                if (user == nil) {
-                    continue;
-                }
-                NSString *streamName = state[@"streamName"];
-                if (streamName != nil) {
-                    LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
-                    broadcast.uuid = uuid[@"uuid"];
-                    broadcast.broadcaster = user;
-                    broadcast.wrap = wrap;
-                    broadcast.title = state[@"title"];
-                    broadcast.streamName = streamName;
-                    [wrapBroadcasts addObject:broadcast];
-                }
-                [user fetchIfNeeded:nil failure:nil];
-            }
-            wrap.liveBroadcasts = [wrapBroadcasts copy];
-            [wrap fetchIfNeeded:nil failure:nil];
-        }
+    [[WLNotificationCenter defaultCenter] fetchLiveBroadcasts:^{
         [weakSelf.dataSource reload];
     }];
 }
@@ -178,49 +138,6 @@
         } else {
             [weakSelf addPhoto:nil];
         }
-    }];
-}
-
-- (void)setCreateWrapTipHidden:(BOOL)createWrapTipHidden {
-    _createWrapTipHidden = createWrapTipHidden;
-    if (self.createWrapTipView.hidden != createWrapTipHidden) {
-        [self.createWrapTipView addAnimation:[CATransition transition:kCATransitionFade]];
-        self.createWrapTipView.hidden = createWrapTipHidden;
-    }
-}
-
-- (void)hideCreateWrapTip {
-    self.createWrapTipHidden = YES;
-}
-
-- (void)showCreateWrapTipIfNeeded {
-    __weak typeof(self)weakSelf = self;
-    [[RunQueue fetchQueue] run:^(Block finish) {
-        User *user = [User currentUser];
-        NSSet *wraps = user.wraps;
-        NSUInteger numberOfLaunches = [[NSUserDefaults standardUserDefaults] numberOfLaunches];
-        
-        void (^showBlock)(void) = ^ {
-            if (weakSelf.createWrapTipHidden) {
-                weakSelf.createWrapTipHidden = NO;
-                [weakSelf performSelector:@selector(hideCreateWrapTip) withObject:nil afterDelay:10.0f];
-            }
-        };
-        
-        if (numberOfLaunches == 1) {
-            if (!self.presentedViewController && wraps.count == 0) {
-                showBlock();
-            }
-        } else if (numberOfLaunches == 2) {
-            static BOOL shownForSecondLaunch = NO;
-            if (wraps.count == 0 || !shownForSecondLaunch) {
-                shownForSecondLaunch = YES;
-                showBlock();
-            }
-        } else if (wraps.count == 0) {
-            showBlock();
-        }
-        finish();
     }];
 }
 
@@ -245,7 +162,6 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self hideCreateWrapTip];
     [self.streamView lock];
 }
 
@@ -360,6 +276,7 @@
     [[APIRequest resendConfirmation:nil] send:^(id object) {
         [WLToast showWithMessage:@"confirmation_resend".ls];
     } failure:^(NSError *error) {
+        [error show];
     }];
 }
 
@@ -424,17 +341,6 @@
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
     [self dismissViewControllerAnimated:NO completion:nil];
-}
-
-// MARK: - WLTouchViewDelegate
-
-- (void)touchViewDidReceiveTouch:(WLTouchView *)touchView {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideCreateWrapTip) object:nil];
-    [self hideCreateWrapTip];
-}
-
-- (NSSet *)touchViewExclusionRects:(WLTouchView *)touchView {
-    return [NSSet setWithObject:[NSValue valueWithCGRect:[touchView convertRect:self.createWrapButton.bounds fromView:self.createWrapButton]]];
 }
 
 // MARK: - RecentUpdateListNotifying

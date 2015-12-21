@@ -28,4 +28,6 @@
 
 - (void)subscribe;
 
+- (void)fetchLiveBroadcasts:(void (^)(void))completionHandler;
+
 @end

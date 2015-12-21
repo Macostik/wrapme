@@ -151,6 +151,40 @@
 
 // MARK: - NotificationSubscriptionDelegate
 
+- (void)fetchLiveBroadcasts:(void (^)(void))completionHandler {
+    [[PubNub sharedInstance] hereNowForChannelGroup:[WLNotificationCenter defaultCenter].userSubscription.name withCompletion:^(PNPresenceChannelGroupHereNowResult *result, PNErrorStatus *status) {
+        NSDictionary *channels = result.data.channels;
+        for (NSString *channel in channels) {
+            Wrap *wrap = [Wrap entry:channel];
+            if (wrap == nil) {
+                continue;
+            }
+            NSArray *uuids = channels[channel][@"uuids"];
+            NSMutableArray *wrapBroadcasts = [NSMutableArray array];
+            for (NSDictionary *uuid in uuids) {
+                NSDictionary *state = uuid[@"state"];
+                User *user = [User entry:state[@"userUid"]];
+                if (user == nil) {
+                    continue;
+                }
+                NSString *streamName = state[@"streamName"];
+                if (streamName != nil) {
+                    LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
+                    broadcast.uuid = uuid[@"uuid"];
+                    broadcast.broadcaster = user;
+                    broadcast.wrap = wrap;
+                    broadcast.title = state[@"title"];
+                    broadcast.streamName = streamName;
+                    [wrapBroadcasts addObject:broadcast];
+                }
+                [user fetchIfNeeded:nil failure:nil];
+            }
+            wrap.liveBroadcasts = [wrapBroadcasts copy];
+        }
+        completionHandler();
+    }];
+}
+
 - (void)notificationSubscription:(NotificationSubscription *)subscription didReceivePresenceEvent:(PNPresenceEventResult * _Nonnull)event {
     Wrap *wrap = [Wrap entry:event.data.actualChannel];
     NSDictionary *state = event.data.presence.state;
@@ -158,29 +192,27 @@
     if (wrap && user) {
         if ([event.data.presenceEvent isEqualToString:@"state-change"]) {
             [user fetchIfNeeded:^(id  _Nullable object) {
-                [wrap fetchIfNeeded:^(id  _Nullable object) {
-                    if ([event.data.presence.uuid isEqualToString:[User channelName]]) {
-                        return;
-                    }
-                    NSString *streamName = state[@"streamName"];
-                    if (streamName != nil) {
-                        LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
-                        broadcast.broadcaster = user;
-                        broadcast.wrap = wrap;
-                        broadcast.title = state[@"title"];
-                        broadcast.streamName = streamName;
-                        broadcast.uuid = event.data.presence.uuid;
-                        broadcast.numberOfViewers = [state[@"numberOfViewers"] integerValue];
-                        [wrap addBroadcast:broadcast];
-                    } else {
-                        for (LiveBroadcast *broadcast in wrap.liveBroadcasts) {
-                            if (broadcast.broadcaster == user) {
-                                [wrap removeBroadcast:broadcast];
-                                break;
-                            }
+                if ([event.data.presence.uuid isEqualToString:[User channelName]]) {
+                    return;
+                }
+                NSString *streamName = state[@"streamName"];
+                if (streamName != nil) {
+                    LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
+                    broadcast.broadcaster = user;
+                    broadcast.wrap = wrap;
+                    broadcast.title = state[@"title"];
+                    broadcast.streamName = streamName;
+                    broadcast.uuid = event.data.presence.uuid;
+                    broadcast.numberOfViewers = [state[@"numberOfViewers"] integerValue];
+                    [wrap addBroadcast:broadcast];
+                } else {
+                    for (LiveBroadcast *broadcast in wrap.liveBroadcasts) {
+                        if (broadcast.broadcaster == user) {
+                            [wrap removeBroadcast:broadcast];
+                            break;
                         }
                     }
-                } failure:nil];
+                }
             } failure:nil];
         } else if ([event.data.presenceEvent isEqualToString:@"timeout"]) {
             if ([event.data.presence.uuid isEqualToString:[User channelName]]) {

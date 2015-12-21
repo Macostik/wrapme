@@ -10,7 +10,7 @@
         <!--Source View Controller-->
         <scene sceneID="2xe-lO-Cav">
             <objects>
-                <viewController storyboardIdentifier="SkiViewController" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" id="1ip-WU-dPb" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SkiViewController" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" id="1ip-WU-dPb" customClass="WLBaseViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DQ3-ra-9NH"/>
                         <viewControllerLayoutGuide type="bottom" id="6pc-QQ-fzI"/>
@@ -232,6 +232,9 @@
                             <constraint firstAttribute="topMargin" secondItem="DAd-gN-dYs" secondAttribute="top" id="wZD-G1-zSH"/>
                         </constraints>
                     </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="statusBarDefault" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RQm-2r-1SZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="hzE-nC-jyS" userLabel="Profile Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
@@ -244,12 +247,12 @@
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="-334" y="568.99999999999989"/>
+            <point key="canvasLocation" x="-334" y="568.99999999999977"/>
         </scene>
         <!--Source View Controller-->
         <scene sceneID="388-qe-J8R">
             <objects>
-                <viewController storyboardIdentifier="HalloweenViewController" id="lTE-hc-VKh" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HalloweenViewController" id="lTE-hc-VKh" customClass="WLBaseViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4xg-r8-1ZY"/>
                         <viewControllerLayoutGuide type="bottom" id="1qZ-f5-QiG"/>
@@ -473,6 +476,9 @@
                             <constraint firstItem="uHk-Tl-2Ns" firstAttribute="leading" secondItem="Nta-jR-Kls" secondAttribute="leading" id="Yl0-tC-BJX"/>
                         </constraints>
                     </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="statusBarDefault" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                 </viewController>
                 <customObject id="sec-de-b4x" userLabel="Profile Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
@@ -485,12 +491,12 @@
                 </customObject>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Gf-v0-CpW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="300" y="568.99999999999989"/>
+            <point key="canvasLocation" x="300" y="568.99999999999977"/>
         </scene>
         <!--Source View Controller-->
         <scene sceneID="QPa-Qc-8WJ">
             <objects>
-                <viewController storyboardIdentifier="WeddingViewController" id="MLb-Ey-woc" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WeddingViewController" id="MLb-Ey-woc" customClass="WLBaseViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GkD-0X-V0M"/>
                         <viewControllerLayoutGuide type="bottom" id="Cd0-vC-juX"/>
@@ -700,6 +706,9 @@
                             <constraint firstAttribute="topMargin" secondItem="uQO-hh-0sD" secondAttribute="top" id="pzy-GY-KuF"/>
                         </constraints>
                     </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="statusBarDefault" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                 </viewController>
                 <customObject id="UxQ-oF-3RN" userLabel="Profile Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
@@ -713,7 +722,7 @@
                 </customObject>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="18P-Hy-VXU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="928" y="568.99999999999989"/>
+            <point key="canvasLocation" x="928" y="568.99999999999977"/>
         </scene>
     </scenes>
     <resources>

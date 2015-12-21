@@ -11,6 +11,7 @@
 @interface WLBaseViewController ()
 
 @property (strong, nonatomic) NSMapTable* keyboardAdjustmentDefaultConstants;
+@property (nonatomic) IBInspectable BOOL statusBarDefault;
 
 @end
 
@@ -47,7 +48,7 @@
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+    return !self.statusBarDefault ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
 - (void)loadView {

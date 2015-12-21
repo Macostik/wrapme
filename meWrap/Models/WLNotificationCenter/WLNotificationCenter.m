@@ -159,18 +159,17 @@
         if ([event.data.presenceEvent isEqualToString:@"state-change"]) {
             [user fetchIfNeeded:^(id  _Nullable object) {
                 [wrap fetchIfNeeded:^(id  _Nullable object) {
-                    NSString *chatChannel = state[@"chatChannel"];
-                    if ([chatChannel isEqualToString:[User channelName]]) {
+                    if ([event.data.presence.uuid isEqualToString:[User channelName]]) {
                         return;
                     }
-                    NSString *viewURL = state[@"viewURL"];
-                    if (viewURL != nil) {
+                    NSString *streamName = state[@"streamName"];
+                    if (streamName != nil) {
                         LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
                         broadcast.broadcaster = user;
                         broadcast.wrap = wrap;
                         broadcast.title = state[@"title"];
-                        broadcast.channel = chatChannel;
-                        broadcast.url = viewURL;
+                        broadcast.streamName = streamName;
+                        broadcast.uuid = event.data.presence.uuid;
                         broadcast.numberOfViewers = [state[@"numberOfViewers"] integerValue];
                         [wrap addBroadcast:broadcast];
                     } else {
@@ -184,12 +183,11 @@
                 } failure:nil];
             } failure:nil];
         } else if ([event.data.presenceEvent isEqualToString:@"timeout"]) {
-            NSString *chatChannel = state[@"chatChannel"];
-            if ([chatChannel isEqualToString:[User channelName]]) {
+            if ([event.data.presence.uuid isEqualToString:[User channelName]]) {
                 return;
             }
-            NSString *viewURL = state[@"viewURL"];
-            if (viewURL == nil) {
+            NSString *streamName = state[@"streamName"];
+            if (streamName == nil) {
                 for (LiveBroadcast *broadcast in wrap.liveBroadcasts) {
                     if (broadcast.broadcaster == user) {
                         [wrap removeBroadcast:broadcast];

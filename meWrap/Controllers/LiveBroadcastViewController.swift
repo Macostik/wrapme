@@ -89,7 +89,6 @@ class LiveBroadcastViewController: WLBaseViewController {
     }
     
     deinit {
-        UIApplication.sharedApplication().idleTimerDisabled = true
         UIApplication.sharedApplication().idleTimerDisabled = false
         guard let item = playerItem else {
             return
@@ -160,7 +159,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         layoutPrioritizer.defaultState = false
         startButton.hidden = true
         
-        if let url = broadcast.url.URL {
+        if let url = "http://live.mewrap.me:1935/live/\(broadcast.streamName)/playlist.m3u8".URL {
             let layer = AVPlayerLayer()
             layer.videoGravity = AVLayerVideoGravityResizeAspectFill
             layer.frame = view.bounds
@@ -179,7 +178,7 @@ class LiveBroadcastViewController: WLBaseViewController {
             updateBroadcastInfo()
             
             if let channel = wrap?.uid {
-                PubNub.sharedInstance.stateForUUID(broadcast.channel, onChannel: channel, withCompletion: { [weak self] (result, status) -> Void in
+                PubNub.sharedInstance.stateForUUID(broadcast.uuid, onChannel: channel, withCompletion: { [weak self] (result, status) -> Void in
                     if let state = result?.data?.state, let numberOfViewers = state["numberOfViewers"] as? Int {
                         if let broadcast = self?.broadcast {
                             broadcast.numberOfViewers = numberOfViewers
@@ -192,7 +191,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     }
     
     private func subscribe(broadcast: LiveBroadcast) {
-        let chatSubscription = NotificationSubscription(name: broadcast.channel, isGroup: false, observePresence: true)
+        let chatSubscription = NotificationSubscription(name: broadcast.streamName, isGroup: false, observePresence: true)
         chatSubscription.delegate = self
         self.chatSubscription = chatSubscription
     }
@@ -256,31 +255,30 @@ class LiveBroadcastViewController: WLBaseViewController {
     func start() throws {
         
         guard let wrap = wrap else { throw NSError(message: "no wrap") }
-        guard let userUID = User.currentUser?.uid else { throw NSError(message: "no user_uid") }
+        guard let user = User.currentUser else { throw NSError(message: "no user_uid") }
         guard let deviceUID = Authorization.currentAuthorization.deviceUID else { throw NSError(message: "no device_uid") }
         
         titleLabel?.text = composeBar.text
         titleLabel?.superview?.hidden = false
         
         let streamer = Streamer.instance() as! Streamer
-        let channel = "\(userUID)-\(deviceUID)"
+        let streamName = "\(wrap.uid)-\(user.uid)-\(deviceUID)"
         
         let broadcast = LiveBroadcast()
         broadcast.title = composeBar.text
-        broadcast.broadcaster = User.currentUser
-        broadcast.url = "http://live.mewrap.me:1935/live/\(channel)/playlist.m3u8"
-        broadcast.channel = channel
+        broadcast.broadcaster = user
+        broadcast.streamName = streamName
+        broadcast.uuid = User.channelName()
         broadcast.wrap = wrap
         self.broadcast = wrap.addBroadcast(broadcast)
         
         userState = [
             "title" : broadcast.title,
-            "viewURL" : broadcast.url,
-            "chatChannel" : channel,
+            "streamName" : streamName,
             "numberOfViewers" : broadcast.numberOfViewers
         ]
         
-        let uri = "rtsp://live.mewrap.me:1935/live/\(channel)"
+        let uri = "rtsp://live.mewrap.me:1935/live/\(streamName)"
         connectionID = streamer.createConnectionWithListener(self, uri: uri, mode: 0)
         
         subscribe(broadcast)
@@ -289,11 +287,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     func stop() {
         if let broadcast = broadcast {
-            
-            userState = [
-                "chatChannel":broadcast.channel
-            ]
-            
+            userState = [NSObject : AnyObject]()
             wrap?.removeBroadcast(broadcast)
         }
         

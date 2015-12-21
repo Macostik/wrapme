@@ -34,9 +34,9 @@ class LiveBroadcast: NSObject {
     var broadcaster: User?
     weak var wrap: Wrap?
     var title = ""
-    var url = ""
-    var channel = ""
+    var streamName = ""
     var numberOfViewers = 1
+    var uuid = ""
     
     var events = [Event]()
     
@@ -175,7 +175,7 @@ class Wrap: Contribution {
     var liveBroadcasts = [LiveBroadcast]()
     
     func addBroadcast(broadcast: LiveBroadcast) -> LiveBroadcast {
-        if let index = liveBroadcasts.indexOf({ $0.channel == broadcast.channel }) {
+        if let index = liveBroadcasts.indexOf({ $0.streamName == broadcast.streamName }) {
             let _broadcast = liveBroadcasts[index]
             _broadcast.title = broadcast.title
             _broadcast.numberOfViewers = broadcast.numberOfViewers
@@ -189,7 +189,7 @@ class Wrap: Contribution {
     }
     
     func removeBroadcast(broadcast: LiveBroadcast) {
-        if let index = liveBroadcasts.indexOf({ $0.channel == broadcast.channel }) {
+        if let index = liveBroadcasts.indexOf({ $0.streamName == broadcast.streamName }) {
             liveBroadcasts.removeAtIndex(index)
         }
         notifyOnUpdate(.LiveBroadcastsChanged)

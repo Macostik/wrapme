@@ -216,25 +216,26 @@ class LiveBroadcastViewController: WLBaseViewController {
         let audioConfig = AudioConfig()
         audioConfig.sampleRate = (AudioConfig.getSupportedSampleRates().first as! NSNumber).floatValue
         let streamer = Streamer.instance() as! Streamer
-        var orientation = AVCaptureVideoOrientation.Portrait
-        switch WLDeviceManager.defaultManager().orientation {
-        case .PortraitUpsideDown:
-            orientation = .PortraitUpsideDown
-            break
-        case .LandscapeLeft:
-            orientation = .LandscapeLeft
-            break
-        case .LandscapeRight:
-            orientation = .LandscapeRight
-            break
-        default: break
-        }
+        let orientation = orientationForVideoConnection()
         let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self)
         layer.frame = view.bounds
         layer.videoGravity = AVLayerVideoGravityResizeAspectFill
         view.layer.insertSublayer(layer, atIndex: 0)
         streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
         previewLayer = layer
+    }
+    
+    private func orientationForVideoConnection() -> AVCaptureVideoOrientation {
+        switch WLDeviceManager.defaultManager().orientation {
+        case .PortraitUpsideDown:
+            return .PortraitUpsideDown
+        case .LandscapeLeft:
+            return .LandscapeLeft
+        case .LandscapeRight:
+            return .LandscapeRight
+        default:
+            return .Portrait
+        }
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -336,6 +337,15 @@ class LiveBroadcastViewController: WLBaseViewController {
                 }
             }
             session.commitConfiguration()
+            
+            let orientation = orientationForVideoConnection()
+            if let outputs = session.outputs as? [AVCaptureOutput] {
+                for output in outputs {
+                    if let connection = output.connectionWithMediaType(AVMediaTypeVideo) {
+                        connection.videoOrientation = orientation
+                    }
+                }
+            }
         }
     }
     
@@ -542,6 +552,5 @@ extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
             default: break
             }
             }, failure: nil)
-        
     }
 }

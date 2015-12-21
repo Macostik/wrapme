@@ -2584,6 +2584,7 @@
                     </view>
                     <connections>
                         <outlet property="bottomView" destination="DOa-Ws-aK4" id="oO2-CG-2mp"/>
+                        <outlet property="bottomViewHeightPrioritizer" destination="xsD-Sv-qce" id="v3H-bW-b4x"/>
                         <outlet property="commentButton" destination="2ai-CO-qH0" id="tMo-Tw-ldD"/>
                         <outlet property="commentButtonPrioritizer" destination="gXs-Hi-baz" id="XGg-CY-Euu"/>
                         <outlet property="contentView" destination="K40-sd-thh" id="kY6-NV-Wgl"/>

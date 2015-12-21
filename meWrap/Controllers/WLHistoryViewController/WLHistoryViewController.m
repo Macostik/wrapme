@@ -20,7 +20,7 @@
 #import "NSArray+WLCollection.h"
 
 @interface WLHistoryViewController () <EntryNotifying>
-
+@property (weak, nonatomic) IBOutlet LayoutPrioritizer *bottomViewHeightPrioritizer;
 @property (weak, nonatomic) IBOutlet LayoutPrioritizer *primaryConstraint;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
@@ -149,6 +149,7 @@
     self.deleteButton.hidden = !candy.deletable;
     self.reportButton.hidden = !self.deleteButton.hidden;
     self.drawButton.hidden = self.editButton.hidden = candy.isVideo;
+    self.bottomViewHeightPrioritizer.defaultState = self.candy.latestComment.valid;
 }
 
 - (void)setCommentButtonTitle:(Candy *)candy {

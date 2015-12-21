@@ -18,7 +18,6 @@
 #import "WLAddressBook.h"
 #import "WLWrapViewController.h"
 #import "CocoaLumberjack.h"
-#import "WLAuthorizationRequest.h"
 #import "WLUploadingQueue.h"
 #import <AWSCore/AWSCore.h>
 #import "MMWormhole.h"
@@ -36,7 +35,7 @@
 @implementation WLAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    WLLog(@"meWrap - API environment initialized: %@", [Environment currentEnvironment]);
+    [Logger log:[NSString stringWithFormat:@"meWrap - API environment initialized: %@", [Environment currentEnvironment]]];
     
     [self registerUserNotificationSettings];
     
@@ -81,15 +80,15 @@
 }
 
 - (void)initializeAPIManager {
-    [WLAPIRequest setUnauthorizedErrorBlock:^ (WLAPIRequest *request, NSError *error) {
-        WLLog(@"UNAUTHORIZED_ERROR: %@", error);
+    [APIRequest setUnauthorizedErrorBlock:^ (APIRequest *request, NSError *error) {
+        [Logger log:[NSString stringWithFormat:@"UNAUTHORIZED_ERROR: %@", error]];
         UIStoryboard *storyboard = [UIStoryboard signUp];
         UIWindow *window = [UIWindow mainWindow];
         if (window.rootViewController.storyboard != storyboard) {
             UIView *topView = (window.rootViewController.presentedViewController ? : window.rootViewController).view;
             topView.userInteractionEnabled = YES;
             [UIAlertController confirmRedirectingToSignUp:^(UIAlertAction *action) {
-                WLLog(@"ERROR - redirection to welcome screen, sign in failed: %@", error);
+                [Logger log:[NSString stringWithFormat:@"ERROR - redirection to welcome screen, sign in failed: %@", error]];
                 [[WLNotificationCenter defaultCenter] clear];
                 [[NSUserDefaults standardUserDefaults] clear];
                 [storyboard present:YES];
@@ -157,7 +156,7 @@
         if (user.isSignupCompleted) {
             [[UIStoryboard main] present:YES];
         } else {
-            WLLog(@"INITIAL SIGN IN - sign up is not completed, redirecting to profile step");
+            [Logger log:[NSString stringWithFormat:@"INITIAL SIGN IN - sign up is not completed, redirecting to profile step"]];
             UINavigationController *navigation = [[UIStoryboard signUp] instantiateInitialViewController];
             WLSignupFlowViewController *signupFlowViewController = navigation.storyboard [@"WLSignupFlowViewController"];
             signupFlowViewController.registrationNotCompleted = YES;
@@ -168,7 +167,7 @@
     
     Authorization* authorization = [Authorization currentAuthorization];
     if ([authorization canAuthorize]) {
-        if (!self.versionChanged && ![WLAuthorizationRequest requiresSignIn]) {
+        if (!self.versionChanged && ![Authorization requiresSignIn]) {
             User *currentUser = [User currentUser];
             if (currentUser) {
                 successBlock(currentUser);
@@ -178,13 +177,13 @@
         }
         self.window.rootViewController = [UIStoryboard introduction][@"launchScreen"];
         __weak typeof(self)weakSelf = self;
-        [authorization signIn:successBlock failure:^(NSError *error) {
+        [[authorization signIn] send:successBlock failure:^(NSError *error) {
             User *currentUser = [User currentUser];
             if ([error isNetworkError] && currentUser) {
                 successBlock(currentUser);
             } else {
                 [UIAlertController confirmRedirectingToSignUp:^(UIAlertAction *action) {
-                    WLLog(@"INITIAL SIGN IN ERROR - couldn't sign in, so redirecting to welcome screen");
+                    [Logger log:[NSString stringWithFormat:@"INITIAL SIGN IN ERROR - couldn't sign in, so redirecting to welcome screen"]];
                     [[UIStoryboard signUp] present:YES];
                 } tryAgain:^(UIAlertAction *action) {
                     [weakSelf presentInitialViewController];
@@ -192,7 +191,7 @@
             }
         }];
     } else {
-        WLLog(@"INITIAL SIGN IN - no data for signing in");
+        [Logger log:[NSString stringWithFormat:@"INITIAL SIGN IN - no data for signing in"]];
         [[UIStoryboard signUp] present:YES];
     }
 }
@@ -265,7 +264,7 @@
     
     __block void (^completion)(UIBackgroundFetchResult) = completionHandler;
     
-    if (![WLAuthorizationRequest authorized]) {
+    if (![Authorization active]) {
         if (completion) {
             completion(UIBackgroundFetchResultFailed);
             completion = nil;
@@ -350,11 +349,11 @@
 
 - (void)networkDidChangeReachability:(Network *)network {
     if (network.reachable) {
-        if ([WLAuthorizationRequest authorized]) {
+        if ([Authorization active]) {
             [WLUploadingQueue start];
-            [[WLAddressBook addressBook] updateCachedRecordsAfterFailure];
+            [[WLAddressBook sharedAddressBook] updateCachedRecordsAfterFailure];
         } else {
-            [[WLAuthorizationRequest signIn] send];
+            [[[Authorization currentAuthorization] signIn] send];
         }
     }
 }

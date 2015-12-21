@@ -17,7 +17,7 @@ class ViolationCell : UICollectionViewCell {
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var leadingContstraint: NSLayoutConstraint!
     
-    var select : ((ViolationCell, String) -> Void)?
+    var select : ((ViolationCell, Violation) -> Void)?
     var entry : Violation? {
         didSet {
             guard let entry = entry else {
@@ -33,8 +33,8 @@ class ViolationCell : UICollectionViewCell {
     }
     
     @IBAction func postViolationRequest(sender: AnyObject) {
-        if let entry = entry, let v_code = entry.code {
-            select?(self, v_code)
+        if let entry = entry where entry.code != nil {
+            select?(self, entry)
         }
     }
 }
@@ -42,7 +42,7 @@ class ViolationCell : UICollectionViewCell {
 class CVDataSource : NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     var data : [Violation] = []
-    var select : ((ViolationCell, String) -> Void)?
+    var select : ((ViolationCell, Violation) -> Void)?
     
     @IBInspectable var identifier: String = ""
     @IBInspectable var cellWidth: CGFloat = 0
@@ -113,16 +113,21 @@ class ReportViewController : WLBaseViewController {
         super.viewDidLoad()
         doneButton.hidden = true
         let violations = Violation.allViolations()
-        dataSource.select = { [weak self] _ , violationCode in
+        dataSource.select = { [weak self] _ , violation in
             guard let candy = self?.candy else {
                 return
             }
-            WLAPIRequest.postCandy(candy, violationCode: violationCode).send({[weak self] (_) -> Void in
+            if let request = APIRequest.reportCandy(candy, violation: violation) {
+                request.send({[weak self] (_) -> Void in
+                    self?.collectionView.hidden = true
+                    self?.doneButton.hidden = false
+                    }, failure: { (error) -> Void in
+                        error?.show()
+                })
+            } else {
                 self?.collectionView.hidden = true
                 self?.doneButton.hidden = false
-                }, failure: { (error) -> Void in
-                    error?.show()
-            })
+            }
         }
         dataSource.data = violations
         collectionView.reloadData()

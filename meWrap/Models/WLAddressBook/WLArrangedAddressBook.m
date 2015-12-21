@@ -14,11 +14,11 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.groups = [NSArray arrayWithObjects:[[WLArrangedAddressBookGroup alloc] initWithTitle:@"friends_on_meWrap".ls addingRule:^BOOL(WLAddressBookRecord *record) {
-            WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
+        self.groups = [NSArray arrayWithObjects:[[WLArrangedAddressBookGroup alloc] initWithTitle:@"friends_on_meWrap".ls addingRule:^BOOL(AddressBookRecord *record) {
+            AddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
             return phoneNumber.user != nil;
-        }],[[WLArrangedAddressBookGroup alloc] initWithTitle:@"invite_to_meWrap".ls addingRule:^BOOL(WLAddressBookRecord *record) {
-            WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
+        }],[[WLArrangedAddressBookGroup alloc] initWithTitle:@"invite_to_meWrap".ls addingRule:^BOOL(AddressBookRecord *record) {
+            AddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
             return phoneNumber.user == nil;
         }], nil];
         self.selectedPhoneNumbers = [NSMutableSet set];
@@ -35,17 +35,17 @@
 }
 
 - (void)addRecords:(NSSet *)records {
-    for (WLAddressBookRecord* record in records) {
+    for (AddressBookRecord* record in records) {
         [self baseAddRecord:record success:nil failure:nil];
     }
     [self sort];
 }
 
-- (void)addRecord:(WLAddressBookRecord *)record {
+- (void)addRecord:(AddressBookRecord *)record {
     [self addRecord:record success:nil failure:nil];
 }
 
-- (void)addRecord:(WLAddressBookRecord *)record success:(WLArrangedAddressBookRecordHandler)success failure:(FailureBlock)failure {
+- (void)addRecord:(AddressBookRecord *)record success:(WLArrangedAddressBookRecordHandler)success failure:(FailureBlock)failure {
     __weak typeof(self)weakSelf = self;
     [self baseAddRecord:record success:^( NSArray *records, NSArray *groups) {
         [weakSelf sort];
@@ -53,9 +53,9 @@
     } failure:failure];
 }
 
-- (void)baseAddRecord:(WLAddressBookRecord*)record success:(WLArrangedAddressBookRecordHandler)success failure:(FailureBlock)failure {
+- (void)baseAddRecord:(AddressBookRecord*)record success:(WLArrangedAddressBookRecordHandler)success failure:(FailureBlock)failure {
     
-    record = [WLAddressBookRecord recordWithRecord:record];
+    record = [[AddressBookRecord alloc] initWithRecord:record];
     
     if (!record.phoneNumbers.nonempty) {
         
@@ -75,9 +75,9 @@
         
         NSMutableArray *removedPhoneNumbers = [NSMutableArray array];
         
-        for (WLAddressBookPhoneNumber *phoneNumber in phoneNumbers) {
+        for (AddressBookPhoneNumber *phoneNumber in phoneNumbers) {
             if (phoneNumber.user) {
-                WLAddressBookRecord *newRecord = [WLAddressBookRecord recordWithNumbers:@[phoneNumber]];
+                AddressBookRecord *newRecord = [[AddressBookRecord alloc] initWithPhoneNumbers:@[phoneNumber]];
                 if (!phoneNumber.user.name.nonempty) {
                     newRecord.name = record.name;
                 }
@@ -105,7 +105,7 @@
     }
 }
 
-- (WLArrangedAddressBookGroup*)addRecordToGroup:(WLAddressBookRecord *)record {
+- (WLArrangedAddressBookGroup*)addRecordToGroup:(AddressBookRecord *)record {
     for (WLArrangedAddressBookGroup *group in self.groups) {
         if ([group addRecord:record]) {
             return group;
@@ -120,15 +120,15 @@
     }
 }
 
-- (WLArrangedAddressBookGroup *)groupWithRecord:(WLAddressBookRecord *)record {
+- (WLArrangedAddressBookGroup *)groupWithRecord:(AddressBookRecord *)record {
     for (WLArrangedAddressBookGroup *group in self.groups) {
         if ([group.records containsObject:record]) return group;
     }
     return nil;
 }
 
-- (void)selectPhoneNumber:(WLAddressBookPhoneNumber *)phoneNumber {
-    WLAddressBookPhoneNumber* _phoneNumber = [self selectedPhoneNumber:phoneNumber];
+- (void)selectPhoneNumber:(AddressBookPhoneNumber *)phoneNumber {
+    AddressBookPhoneNumber* _phoneNumber = [self selectedPhoneNumber:phoneNumber];
     if (_phoneNumber) {
         [self.selectedPhoneNumbers removeObject:_phoneNumber];
     } else {
@@ -136,8 +136,8 @@
     }
 }
 
-- (WLAddressBookPhoneNumber *)selectedPhoneNumber:(WLAddressBookPhoneNumber *)phoneNumber {
-    for (WLAddressBookPhoneNumber* _phoneNumber in self.selectedPhoneNumbers) {
+- (AddressBookPhoneNumber *)selectedPhoneNumber:(AddressBookPhoneNumber *)phoneNumber {
+    for (AddressBookPhoneNumber* _phoneNumber in self.selectedPhoneNumbers) {
         if ([_phoneNumber isEqualToPhoneNumber:phoneNumber]) {
             return _phoneNumber;
         }
@@ -152,8 +152,8 @@
             WLArrangedAddressBookGroup *_group = [[WLArrangedAddressBookGroup alloc] initWithTitle:group.title
                                                                                         addingRule:group.addingRule];
             NSMutableArray *records = [NSMutableArray array];
-            for (WLAddressBookRecord  *record in group.records) {
-                WLAddressBookPhoneNumber *phoneNumbler = record.phoneNumbers.lastObject;
+            for (AddressBookRecord  *record in group.records) {
+                AddressBookPhoneNumber *phoneNumbler = record.phoneNumbers.lastObject;
                 if ([phoneNumbler.name rangeOfString:text options:NSCaseInsensitiveSearch].location != NSNotFound) {
                     [records addObject:record];
                 }
@@ -167,10 +167,10 @@
     }
 }
 
-- (WLAddressBookPhoneNumber *)phoneNumberIdenticalTo:(WLAddressBookPhoneNumber *)phoneNumber {
+- (AddressBookPhoneNumber *)phoneNumberIdenticalTo:(AddressBookPhoneNumber *)phoneNumber {
     for (WLArrangedAddressBookGroup *group in self.groups) {
-        for (WLAddressBookRecord *record in group.records) {
-            for (WLAddressBookPhoneNumber *_phoneNumber in record.phoneNumbers) {
+        for (AddressBookRecord *record in group.records) {
+            for (AddressBookPhoneNumber *_phoneNumber in record.phoneNumbers) {
                 if ([_phoneNumber isEqualToPhoneNumber:phoneNumber]) {
                     return _phoneNumber;
                 }

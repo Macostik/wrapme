@@ -8,6 +8,7 @@
 
 #import "WLCommentCell.h"
 #import "WLToast.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
 @interface WLCommentCell ()
 

@@ -46,7 +46,7 @@
 @implementation WLHomeViewController
 
 - (void)dealloc {
-    [[WLAddressBook addressBook] endCaching];
+    [[WLAddressBook sharedAddressBook] endCaching];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 }
@@ -103,7 +103,7 @@
     
     self.createWrapTipHidden = YES;
     
-    [[WLAddressBook addressBook] beginCaching];
+    [[WLAddressBook sharedAddressBook] beginCaching];
     
     [self addNotifyReceivers];
     
@@ -357,7 +357,7 @@
 // MARK: - Actions
 
 - (IBAction)resendConfirmation:(id)sender {
-    [[WLAPIRequest resendConfirmation:nil] send:^(id object) {
+    [[APIRequest resendConfirmation:nil] send:^(id object) {
         [WLToast showWithMessage:@"confirmation_resend".ls];
     } failure:^(NSError *error) {
     }];

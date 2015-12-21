@@ -7,7 +7,6 @@
 //
 
 #import "WLUploadingQueue.h"
-#import "WLAuthorizationRequest.h"
 
 @interface WLUploadingQueue () <EntryNotifying>
 
@@ -60,7 +59,7 @@ static NSMapTable *queues = nil;
 }
 
 + (void)start {
-    if (![Network sharedNetwork].reachable || ![WLAuthorizationRequest authorized]) {
+    if (![Network sharedNetwork].reachable || ![Authorization active]) {
         return;
     }
     WLUploadingQueue *queue = [WLUploadingQueue defaultQueueForEntityName:[Wrap entityName]];
@@ -101,7 +100,7 @@ static NSMapTable *queues = nil;
 }
 
 - (void)start {
-    if (![Network sharedNetwork].reachable || ![WLAuthorizationRequest authorized]) {
+    if (![Network sharedNetwork].reachable || ![Authorization active]) {
         return;
     }
     if (self.isEmpty) {

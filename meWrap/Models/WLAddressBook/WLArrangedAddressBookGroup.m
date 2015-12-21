@@ -27,7 +27,7 @@
     return self;
 }
 
-- (BOOL)addRecord:(WLAddressBookRecord *)record {
+- (BOOL)addRecord:(AddressBookRecord *)record {
     if (self.addingRule && self.addingRule(record)) {
         [self.records addObject:record];
         return YES;
@@ -37,9 +37,9 @@
 }
 
 - (void)sortByPriorityName {
-    NSComparator comparator = ^NSComparisonResult(WLAddressBookRecord* contact1, WLAddressBookRecord* contact2) {
-        WLAddressBookPhoneNumber *phoneNumber1 =  [contact1.phoneNumbers lastObject];
-        WLAddressBookPhoneNumber *phoneNumber2 =  [contact2.phoneNumbers lastObject];
+    NSComparator comparator = ^NSComparisonResult(AddressBookRecord* contact1, AddressBookRecord* contact2) {
+        AddressBookPhoneNumber *phoneNumber1 =  [contact1.phoneNumbers lastObject];
+        AddressBookPhoneNumber *phoneNumber2 =  [contact2.phoneNumbers lastObject];
         return [phoneNumber1.name compare:phoneNumber2.name];
     };
  

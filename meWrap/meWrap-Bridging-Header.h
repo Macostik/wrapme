@@ -19,7 +19,6 @@
 #import "WLBadgeLabel.h"
 #import "GeometryHelper.h"
 #import "WLUploadingQueue.h"
-#import "WLAPIRequest+Defined.h"
 #import "WLButton.h"
 #import "WLWrapEmbeddedViewController.h"
 #import "WLUploadingView.h"
@@ -27,3 +26,4 @@
 #import "WLDownloadingView.h"
 #import "WLDrawingViewController.h"
 #import "WLImageEditorSession.h"
+#import "WLAddressBook.h"

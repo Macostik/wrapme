@@ -25,18 +25,18 @@ typedef void (^WLArrangedAddressBookUniqueRecordHandler)(BOOL exists, NSArray *r
 
 - (void)addRecords:(NSSet*)records;
 
-- (void)addRecord:(WLAddressBookRecord*)record;
+- (void)addRecord:(AddressBookRecord*)record;
 
-- (void)addRecord:(WLAddressBookRecord*)record success:(WLArrangedAddressBookRecordHandler)success failure:(FailureBlock)failure;
+- (void)addRecord:(AddressBookRecord*)record success:(WLArrangedAddressBookRecordHandler)success failure:(FailureBlock)failure;
 
-- (WLArrangedAddressBookGroup*)groupWithRecord:(WLAddressBookRecord*)record;
+- (WLArrangedAddressBookGroup*)groupWithRecord:(AddressBookRecord*)record;
 
-- (void)selectPhoneNumber:(WLAddressBookPhoneNumber*)phoneNumber;
+- (void)selectPhoneNumber:(AddressBookPhoneNumber*)phoneNumber;
 
-- (WLAddressBookPhoneNumber*)selectedPhoneNumber:(WLAddressBookPhoneNumber*)phoneNumber;
+- (AddressBookPhoneNumber*)selectedPhoneNumber:(AddressBookPhoneNumber*)phoneNumber;
 
 - (instancetype)filteredAddressBookWithText:(NSString*)text;
 
-- (WLAddressBookPhoneNumber*)phoneNumberIdenticalTo:(WLAddressBookPhoneNumber*)phoneNumber;
+- (AddressBookPhoneNumber*)phoneNumberIdenticalTo:(AddressBookPhoneNumber*)phoneNumber;
 
 @end

@@ -9,8 +9,6 @@
 #import "WLAddressBook.h"
 #import <AddressBook/AddressBook.h>
 #import <objc/runtime.h>
-#import "WLAddressBookPhoneNumber.h"
-#import "WLAddressBookRecord.h"
 
 @interface WLAddressBook ()
 
@@ -22,7 +20,7 @@
 
 @implementation WLAddressBook
 
-+ (instancetype)addressBook {
++ (instancetype)sharedAddressBook {
     static id instance = nil;
     if (instance == nil) {
         instance = [[self alloc] init];
@@ -47,8 +45,8 @@
 }
 
 - (BOOL)cachedRecords:(ArrayBlock)success failure:(FailureBlock)failure {
-    for (WLAddressBookRecord *record in self.cachedRecords) {
-        for (WLAddressBookPhoneNumber *phoneNumber in record.phoneNumbers) {
+    for (AddressBookRecord *record in self.cachedRecords) {
+        for (AddressBookPhoneNumber *phoneNumber in record.phoneNumbers) {
             if (phoneNumber.user && !phoneNumber.user.valid) {
                 self.cachedRecords = nil;
                 break;
@@ -73,7 +71,7 @@
 - (void)records:(ABAddressBookRef)addressBook success:(ArrayBlock)success failure:(FailureBlock)failure {
     [self contacts:addressBook success:^(NSArray *array) {
         [self.runQueue run:^(Block finish) {
-            [[WLAPIRequest contributorsFromContacts:array] send:^(id object) {
+            [[APIRequest contributorsFromRecords:array] send:^(id object) {
                 self.cachedRecords = object;
                 if (success) success(object);
                 finish();
@@ -104,8 +102,8 @@ static BOOL updateCachedRecordsFailed = NO;
 }
 
 void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, void *context) {
-    [WLAddressBook addressBook]->sharedAddressBook = addressBook;
-    [[WLAddressBook addressBook] enqueueSelector:@selector(updateCachedRecords) delay:.0f];
+    [[WLAddressBook sharedAddressBook] setABAddressBook:addressBook];
+    [[WLAddressBook sharedAddressBook] enqueueSelector:@selector(updateCachedRecords) delay:.0f];
 }
 
 - (void)beginCaching {
@@ -131,7 +129,7 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
                 CFArrayRef records = ABAddressBookCopyArrayOfAllPeople(addressBook);
                 NSMutableArray* contacts = [NSMutableArray array];
                 for (CFIndex i = 0; i < count; i++) {
-                    WLAddressBookRecord * contact = [WLAddressBookRecord recordWithABRecord:CFArrayGetValueAtIndex(records, i)];
+                    AddressBookRecord * contact = [[AddressBookRecord alloc] initWithABRecord:CFArrayGetValueAtIndex(records, i)];
                     if (contact) {
                         [contacts addObject:contact];
                     }
@@ -161,8 +159,8 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
 }
 
 - (void)addressBook:(void (^)(ABAddressBookRef addressBook))success failure:(FailureBlock)failure {
-    if (sharedAddressBook != NULL) {
-        if (success) success(sharedAddressBook);
+    if (_ABAddressBook != NULL) {
+        if (success) success(_ABAddressBook);
     } else {
         [self.runQueue run:^(Block finish) {
             ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
@@ -171,7 +169,7 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
                     if (error) {
                         if (failure) failure((__bridge NSError *)(error));
                     } else if (granted) {
-                        sharedAddressBook = addressBook;
+                        _ABAddressBook = addressBook;
                         if (success) success(addressBook);
                     } else {
                         if (failure) failure([[NSError alloc] initWithMessage:@"no_access_to_contacts".ls]);
@@ -181,6 +179,14 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
             });
         }];
     }
+}
+
+- (ABAddressBookRef)ABAddressBook {
+    return _ABAddressBook;
+}
+
+- (void)setABAddressBook:(ABAddressBookRef)addressBook {
+    _ABAddressBook = addressBook;
 }
 
 @end

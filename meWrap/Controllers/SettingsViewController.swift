@@ -23,7 +23,7 @@ class SettingsViewController: WLBaseViewController {
     @IBAction func signOut(sender: UIButton) {
         UIAlertController.alert("sign_out".ls, message: "sign_out_confirmation".ls).action("cancel".ls).action("sign_out".ls, handler: { (_) -> Void in
             RunQueue.fetchQueue.cancelAll()
-            WLAPIManager.defaultManager().operationQueue.cancelAllOperations()
+            APIRequest.manager.operationQueue.cancelAllOperations()
             WLNotificationCenter.defaultCenter().clear()
             NSUserDefaults.standardUserDefaults().clear()
             UIStoryboard.signUp().present(true)
@@ -38,7 +38,7 @@ class SettingsViewController: WLBaseViewController {
     
     @IBAction func cleanCache(sender: UIButton) {
         RunQueue.fetchQueue.cancelAll()
-        WLAPIManager.defaultManager().operationQueue.cancelAllOperations()
+        APIRequest.manager.operationQueue.cancelAllOperations()
         let currentUser = User.currentUser
         let context = EntryContext.sharedContext
         for wrap in Wrap.entries() {

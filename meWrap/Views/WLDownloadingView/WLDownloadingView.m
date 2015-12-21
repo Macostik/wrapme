@@ -8,6 +8,7 @@
 
 #import "WLDownloadingView.h"
 #import "WLProgressBar+WLContribution.h"
+#import <AFNetworking/AFNetworking.h>
 
 @interface WLDownloadingView () <ImageFetching, EntryNotifying>
 

@@ -7,8 +7,7 @@
 //
 
 #import "WLBroadcaster.h"
-#import "WLAddressBookRecord.h"
-#import "WLAddressBookPhoneNumber.h"
+#import <AddressBook/AddressBook.h>
 
 @class WLAddressBook;
 
@@ -21,10 +20,10 @@
 
 
 @interface WLAddressBook : WLBroadcaster {
-@public ABAddressBookRef sharedAddressBook;
+    ABAddressBookRef _ABAddressBook;
 }
 
-+ (instancetype)addressBook;
++ (instancetype)sharedAddressBook;
 
 - (BOOL)cachedRecords:(ArrayBlock)success failure:(FailureBlock)failure;
 
@@ -39,5 +38,9 @@
 - (void)updateCachedRecordsAfterFailure;
 
 - (void)contacts:(ArrayBlock)success failure:(FailureBlock)failure;
+
+- (ABAddressBookRef)ABAddressBook;
+
+- (void)setABAddressBook:(ABAddressBookRef)addressBook;
 
 @end

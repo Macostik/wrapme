@@ -31,7 +31,7 @@
 		5BF85BB01B8C774C000215C9 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BF85BAE1B8C774C000215C9 /* icons.ttf */; };
 		C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C500983D1AFCCC6400729DA4 /* WLCommentCell.m */; };
 		C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */; };
-		C504178919B9EE15000E55F3 /* WLAddressBookRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177E19B9EE15000E55F3 /* WLAddressBookRecordCell.m */; };
+		C504178919B9EE15000E55F3 /* AddressBookRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177E19B9EE15000E55F3 /* AddressBookRecordCell.m */; };
 		C5053E201BC7CF0F0040613A /* AssetMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5053E1F1BC7CF0F0040613A /* AssetMetrics.swift */; };
 		C5053E821BC7F7280040613A /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5053E811BC7F7280040613A /* ReportViewController.swift */; };
 		C50541581BD6545400AE6F2C /* WLImageEditorSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C50541571BD6545400AE6F2C /* WLImageEditorSession.m */; };
@@ -40,7 +40,6 @@
 		C50646101ABD815200CB4BE3 /* Today.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645BA1ABD815100CB4BE3 /* Today.storyboard */; };
 		C507F80E1C218BB1006DA3E5 /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C507F80D1C218BB1006DA3E5 /* Dispatch.swift */; };
 		C5092CCE1C1206BE006C9414 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5092CCD1C1206BE006C9414 /* History.swift */; };
-		C5092CD01C120BA4006C9414 /* PaginatedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5092CCF1C120BA4006C9414 /* PaginatedRequest.swift */; };
 		C509E2BA1B96F46A003F6C21 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C509E2B71B96F46A003F6C21 /* Default-667h@2x.png */; };
 		C510BF6D1BCF93C0008223A3 /* UIDevice+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C510BF6C1BCF93C0008223A3 /* UIDevice+Ext.swift */; };
 		C5122D491BD7D2A40096C742 /* UIFont+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5122D481BD7D2A40096C742 /* UIFont+Ext.swift */; };
@@ -97,6 +96,7 @@
 		C53A02321C0D8961003B3D1F /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */; };
 		C53A02331C0D8961003B3D1F /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */; };
 		C53A02341C0D8961003B3D1F /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */; };
+		C53A63B61C2428090004FE84 /* AddressBookRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A63B51C2428090004FE84 /* AddressBookRecord.swift */; };
 		C53BC4861C05B32C0009B0B9 /* AssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53BC4851C05B32C0009B0B9 /* AssetsViewController.swift */; };
 		C53BC48A1C05BC010009B0B9 /* AssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C53BC4881C05BC010009B0B9 /* AssetCell.xib */; };
 		C53BC48E1C05FE620009B0B9 /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53BC48D1C05FE620009B0B9 /* SegmentedControl.swift */; };
@@ -192,6 +192,7 @@
 		C55766A61C0C913D00E94E09 /* EntryStatusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55766A41C0C913D00E94E09 /* EntryStatusIndicator.swift */; };
 		C557B6D91C22BC610067631E /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557B6D81C22BC610067631E /* Network.swift */; };
 		C557B6DB1C22C0B00067631E /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557B6DA1C22C0B00067631E /* SoundPlayer.swift */; };
+		C557B6DE1C22F5980067631E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557B6DD1C22F5980067631E /* Logger.swift */; };
 		C558E7C91A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */; };
 		C559974C1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
 		C55A451A1BAC18580055AEC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C55A451C1BAC18580055AEC2 /* Localizable.strings */; };
@@ -228,9 +229,9 @@
 		C59CEBD31BFB20B500C3E686 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59CEBD21BFB20B500C3E686 /* EntryView.swift */; };
 		C5A406FE1C200A71007D1D0E /* CandyEnlargingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A406FD1C200A71007D1D0E /* CandyEnlargingPresenter.swift */; };
 		C5A407001C202198007D1D0E /* StoryboardTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A406FF1C202198007D1D0E /* StoryboardTransition.swift */; };
-		C5A6150B1B9DC5C8009B92EF /* WLAddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A615091B9DC5C8009B92EF /* WLAddressBookRecordCell.xib */; };
+		C5A6150B1B9DC5C8009B92EF /* AddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A615091B9DC5C8009B92EF /* AddressBookRecordCell.xib */; };
 		C5A6150E1B9DC5EA009B92EF /* WLMultipleAddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A6150C1B9DC5EA009B92EF /* WLMultipleAddressBookRecordCell.xib */; };
-		C5A615111B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A6150F1B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib */; };
+		C5A615111B9DC616009B92EF /* AddressBookPhoneNumberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A6150F1B9DC616009B92EF /* AddressBookPhoneNumberCell.xib */; };
 		C5A82CD91ACD979B00336027 /* WLDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceManager.m */; };
 		C5A877CB1B985E8B006C5226 /* StreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A877C91B985E8B006C5226 /* StreamLayout.swift */; };
 		C5A9CC841B9450660084D0F5 /* EditAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC821B9450660084D0F5 /* EditAssetCell.xib */; };
@@ -300,17 +301,16 @@
 		C5C3FEAE1B8F311500F177EC /* Default-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE9F1B8F311500F177EC /* Default-Portrait@2x.png */; };
 		C5C3FEB01B8F311500F177EC /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FEA11B8F311500F177EC /* Default.png */; };
 		C5C694D51BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C694D41BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift */; };
-		C5C769881BAC10BF00B205CB /* WLAPIRequest+Defined.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C769741BAC10BF00B205CB /* WLAPIRequest+Defined.m */; };
-		C5C7698A1BAC10BF00B205CB /* WLAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C769761BAC10BF00B205CB /* WLAPIRequest.m */; };
-		C5C7698C1BAC10BF00B205CB /* WLAuthorizationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C769781BAC10BF00B205CB /* WLAuthorizationRequest.m */; };
 		C5C769A21BAC11F200B205CB /* WLUploadingQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C7699C1BAC11F200B205CB /* WLUploadingQueue.m */; };
 		C5C991131B9845CF0006F534 /* StreamMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C991111B9845CF0006F534 /* StreamMetrics.swift */; };
 		C5CBA7C81BA9556B0008EAAE /* SquareGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CBA7C61BA9556B0008EAAE /* SquareGridLayout.swift */; };
 		C5CBACF01BA70B70007D2403 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5CBACEE1BA70B70007D2403 /* LoadingView.xib */; };
 		C5CCDEC11BF2323200D9B3BB /* UIView+Shorthand.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CCDEC01BF2323200D9B3BB /* UIView+Shorthand.swift */; };
-		C5D051B71A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */; };
-		C5D051BD1A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B91A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m */; };
-		C5D051C41A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C01A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m */; };
+		C5CFF90A1C27F6A500B3C6F0 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CFF9061C27F6A500B3C6F0 /* APIRequest.swift */; };
+		C5CFF90B1C27F6A500B3C6F0 /* APIRequestDefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CFF9071C27F6A500B3C6F0 /* APIRequestDefined.swift */; };
+		C5CFF90C1C27F6A500B3C6F0 /* AuthorizationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CFF9081C27F6A500B3C6F0 /* AuthorizationRequest.swift */; };
+		C5CFF90D1C27F6A500B3C6F0 /* PaginatedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CFF9091C27F6A500B3C6F0 /* PaginatedRequest.swift */; };
+		C5D051C41A9F7FCE00855A01 /* AddressBookPhoneNumberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C01A9F7FCE00855A01 /* AddressBookPhoneNumberCell.m */; };
 		C5D051CA1A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C61A9F829B00855A01 /* WLArrangedAddressBook.m */; };
 		C5D552201C04BC2400069169 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D5521F1C04BC2300069169 /* Environment.swift */; };
 		C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
@@ -522,8 +522,8 @@
 		C500983D1AFCCC6400729DA4 /* WLCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCommentCell.m; sourceTree = "<group>"; };
 		C504177A19B9EE15000E55F3 /* WLAddContributorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddContributorsViewController.h; sourceTree = "<group>"; };
 		C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddContributorsViewController.m; sourceTree = "<group>"; };
-		C504177D19B9EE15000E55F3 /* WLAddressBookRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookRecordCell.h; sourceTree = "<group>"; };
-		C504177E19B9EE15000E55F3 /* WLAddressBookRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookRecordCell.m; sourceTree = "<group>"; };
+		C504177D19B9EE15000E55F3 /* AddressBookRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookRecordCell.h; sourceTree = "<group>"; };
+		C504177E19B9EE15000E55F3 /* AddressBookRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookRecordCell.m; sourceTree = "<group>"; };
 		C5053E1F1BC7CF0F0040613A /* AssetMetrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetMetrics.swift; sourceTree = "<group>"; };
 		C5053E811BC7F7280040613A /* ReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Report\U0010ViewController.swift"; sourceTree = "<group>"; };
 		C50541561BD6545400AE6F2C /* WLImageEditorSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLImageEditorSession.h; sourceTree = "<group>"; };
@@ -536,7 +536,6 @@
 		C507F80D1C218BB1006DA3E5 /* Dispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
 		C5092CC91C11F299006C9414 /* CoreData 1. 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1. 5.xcdatamodel"; sourceTree = "<group>"; };
 		C5092CCD1C1206BE006C9414 /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
-		C5092CCF1C120BA4006C9414 /* PaginatedRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginatedRequest.swift; sourceTree = "<group>"; };
 		C509E2B81B96F46A003F6C21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
 		C509E2BC1B96F4B8003F6C21 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
 		C510BF6C1BCF93C0008223A3 /* UIDevice+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Ext.swift"; sourceTree = "<group>"; };
@@ -598,6 +597,7 @@
 		C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAddressBookGroupView.xib; sourceTree = "<group>"; };
 		C537F8B51C1828D400105390 /* RecentUpdateList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentUpdateList.swift; sourceTree = "<group>"; };
 		C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryImageCache.swift; sourceTree = "<group>"; };
+		C53A63B51C2428090004FE84 /* AddressBookRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddressBookRecord.swift; path = WLAddressBook/AddressBookRecord.swift; sourceTree = "<group>"; };
 		C53BC4851C05B32C0009B0B9 /* AssetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsViewController.swift; sourceTree = "<group>"; };
 		C53BC4881C05BC010009B0B9 /* AssetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetCell.xib; sourceTree = "<group>"; };
 		C53BC48D1C05FE620009B0B9 /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
@@ -666,6 +666,7 @@
 		C55766A41C0C913D00E94E09 /* EntryStatusIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryStatusIndicator.swift; sourceTree = "<group>"; };
 		C557B6D81C22BC610067631E /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		C557B6DA1C22C0B00067631E /* SoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
+		C557B6DD1C22F5980067631E /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		C557BA801BF5D47900AE9974 /* RecentUpdatesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentUpdatesViewController.swift; sourceTree = "<group>"; };
 		C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLHomePlaceholderView.xib; sourceTree = "<group>"; };
 		C55997471A25EABE003D4B29 /* WLEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEmailConfirmationViewController.h; sourceTree = "<group>"; };
@@ -728,9 +729,9 @@
 		C5A278CB1B9598DF00D5C969 /* meWrapWatchExt-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "meWrapWatchExt-Info.plist"; sourceTree = "<group>"; };
 		C5A406FD1C200A71007D1D0E /* CandyEnlargingPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyEnlargingPresenter.swift; sourceTree = "<group>"; };
 		C5A406FF1C202198007D1D0E /* StoryboardTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardTransition.swift; sourceTree = "<group>"; };
-		C5A615091B9DC5C8009B92EF /* WLAddressBookRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAddressBookRecordCell.xib; sourceTree = "<group>"; };
+		C5A615091B9DC5C8009B92EF /* AddressBookRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressBookRecordCell.xib; sourceTree = "<group>"; };
 		C5A6150C1B9DC5EA009B92EF /* WLMultipleAddressBookRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLMultipleAddressBookRecordCell.xib; sourceTree = "<group>"; };
-		C5A6150F1B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAddressBookPhoneNumberCell.xib; sourceTree = "<group>"; };
+		C5A6150F1B9DC616009B92EF /* AddressBookPhoneNumberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressBookPhoneNumberCell.xib; sourceTree = "<group>"; };
 		C5A82CCD1ACD979B00336027 /* WLDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDeviceManager.h; sourceTree = "<group>"; };
 		C5A82CCE1ACD979B00336027 /* WLDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDeviceManager.m; sourceTree = "<group>"; };
 		C5A877C91B985E8B006C5226 /* StreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamLayout.swift; sourceTree = "<group>"; };
@@ -849,13 +850,6 @@
 		C5C3FEBC1B8F313100F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-Portrait@2x.png"; sourceTree = "<group>"; };
 		C5C3FEBE1B8F313600F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default.png"; sourceTree = "<group>"; };
 		C5C694D41BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+SharedGroup.swift"; sourceTree = "<group>"; };
-		C5C769731BAC10BF00B205CB /* WLAPIRequest+Defined.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLAPIRequest+Defined.h"; sourceTree = "<group>"; };
-		C5C769741BAC10BF00B205CB /* WLAPIRequest+Defined.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLAPIRequest+Defined.m"; sourceTree = "<group>"; };
-		C5C769751BAC10BF00B205CB /* WLAPIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAPIRequest.h; sourceTree = "<group>"; };
-		C5C769761BAC10BF00B205CB /* WLAPIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAPIRequest.m; sourceTree = "<group>"; };
-		C5C769771BAC10BF00B205CB /* WLAuthorizationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAuthorizationRequest.h; sourceTree = "<group>"; };
-		C5C769781BAC10BF00B205CB /* WLAuthorizationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAuthorizationRequest.m; sourceTree = "<group>"; };
-		C5C769821BAC10BF00B205CB /* WLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLLogger.h; sourceTree = "<group>"; };
 		C5C7699B1BAC11F200B205CB /* WLUploadingQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUploadingQueue.h; sourceTree = "<group>"; };
 		C5C7699C1BAC11F200B205CB /* WLUploadingQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUploadingQueue.m; sourceTree = "<group>"; };
 		C5C991111B9845CF0006F534 /* StreamMetrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamMetrics.swift; sourceTree = "<group>"; };
@@ -863,12 +857,12 @@
 		C5CBA7C61BA9556B0008EAAE /* SquareGridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareGridLayout.swift; sourceTree = "<group>"; };
 		C5CBACEE1BA70B70007D2403 /* LoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		C5CCDEC01BF2323200D9B3BB /* UIView+Shorthand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Shorthand.swift"; sourceTree = "<group>"; };
-		C5D051B21A9F7D7B00855A01 /* WLAddressBookRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookRecord.h; sourceTree = "<group>"; };
-		C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookRecord.m; sourceTree = "<group>"; };
-		C5D051B81A9F7E6E00855A01 /* WLAddressBookPhoneNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookPhoneNumber.h; sourceTree = "<group>"; };
-		C5D051B91A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookPhoneNumber.m; sourceTree = "<group>"; };
-		C5D051BF1A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookPhoneNumberCell.h; sourceTree = "<group>"; };
-		C5D051C01A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookPhoneNumberCell.m; sourceTree = "<group>"; };
+		C5CFF9061C27F6A500B3C6F0 /* APIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
+		C5CFF9071C27F6A500B3C6F0 /* APIRequestDefined.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequestDefined.swift; sourceTree = "<group>"; };
+		C5CFF9081C27F6A500B3C6F0 /* AuthorizationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationRequest.swift; sourceTree = "<group>"; };
+		C5CFF9091C27F6A500B3C6F0 /* PaginatedRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginatedRequest.swift; sourceTree = "<group>"; };
+		C5D051BF1A9F7FCE00855A01 /* AddressBookPhoneNumberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookPhoneNumberCell.h; sourceTree = "<group>"; };
+		C5D051C01A9F7FCE00855A01 /* AddressBookPhoneNumberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookPhoneNumberCell.m; sourceTree = "<group>"; };
 		C5D051C51A9F829B00855A01 /* WLArrangedAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLArrangedAddressBook.h; path = WLAddressBook/WLArrangedAddressBook.h; sourceTree = "<group>"; };
 		C5D051C61A9F829B00855A01 /* WLArrangedAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLArrangedAddressBook.m; path = WLAddressBook/WLArrangedAddressBook.m; sourceTree = "<group>"; };
 		C5D5521F1C04BC2300069169 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -1001,9 +995,9 @@
 		129654E018E197D700FF43F6 /* WLAddressBook */ = {
 			isa = PBXGroup;
 			children = (
-				C5916E291A9E3BE800F1988B /* WLAddressBookRecord */,
 				129654E118E197ED00FF43F6 /* WLAddressBook.h */,
 				129654E218E197ED00FF43F6 /* WLAddressBook.m */,
+				C53A63B51C2428090004FE84 /* AddressBookRecord.swift */,
 				C5D051C51A9F829B00855A01 /* WLArrangedAddressBook.h */,
 				C5D051C61A9F829B00855A01 /* WLArrangedAddressBook.m */,
 				C544E4FA1AA069F20025DB3F /* WLArrangedAddressBookGroup.h */,
@@ -1159,6 +1153,7 @@
 				C507F80D1C218BB1006DA3E5 /* Dispatch.swift */,
 				C557B6D81C22BC610067631E /* Network.swift */,
 				C557B6DA1C22C0B00067631E /* SoundPlayer.swift */,
+				C557B6DD1C22F5980067631E /* Logger.swift */,
 				C50541551BD6545400AE6F2C /* WLImageEditorSession */,
 				C5C7699A1BAC11F200B205CB /* WLUploadingQueue */,
 				C5C7696D1BAC10BF00B205CB /* WLAPIManager */,
@@ -1484,9 +1479,9 @@
 		C504177C19B9EE15000E55F3 /* WLAddressBookRecordCell */ = {
 			isa = PBXGroup;
 			children = (
-				C504177D19B9EE15000E55F3 /* WLAddressBookRecordCell.h */,
-				C504177E19B9EE15000E55F3 /* WLAddressBookRecordCell.m */,
-				C5A615091B9DC5C8009B92EF /* WLAddressBookRecordCell.xib */,
+				C504177D19B9EE15000E55F3 /* AddressBookRecordCell.h */,
+				C504177E19B9EE15000E55F3 /* AddressBookRecordCell.m */,
+				C5A615091B9DC5C8009B92EF /* AddressBookRecordCell.xib */,
 				C5A6150C1B9DC5EA009B92EF /* WLMultipleAddressBookRecordCell.xib */,
 				C5D051BE1A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell */,
 			);
@@ -1841,18 +1836,6 @@
 			path = Frameworks/MBL;
 			sourceTree = "<group>";
 		};
-		C5916E291A9E3BE800F1988B /* WLAddressBookRecord */ = {
-			isa = PBXGroup;
-			children = (
-				C5D051B21A9F7D7B00855A01 /* WLAddressBookRecord.h */,
-				C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */,
-				C5D051B81A9F7E6E00855A01 /* WLAddressBookPhoneNumber.h */,
-				C5D051B91A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m */,
-			);
-			name = WLAddressBookRecord;
-			path = WLAddressBook/WLAddressBookRecord;
-			sourceTree = "<group>";
-		};
 		C5978BE31B396FA500D5043E /* WLDrawingSession */ = {
 			isa = PBXGroup;
 			children = (
@@ -2085,28 +2068,16 @@
 		C5C7696D1BAC10BF00B205CB /* WLAPIManager */ = {
 			isa = PBXGroup;
 			children = (
-				C5C769721BAC10BF00B205CB /* WLAPIRequest */,
+				C5CFF9061C27F6A500B3C6F0 /* APIRequest.swift */,
+				C5CFF9071C27F6A500B3C6F0 /* APIRequestDefined.swift */,
+				C5CFF9081C27F6A500B3C6F0 /* AuthorizationRequest.swift */,
+				C5CFF9091C27F6A500B3C6F0 /* PaginatedRequest.swift */,
 				C5D5521F1C04BC2300069169 /* Environment.swift */,
 				C5060D171BEBA6B3007FFD5B /* Entry+APIResponse.swift */,
 				C5E7EF8E1BED0D9F00CDD4C3 /* Entry+APIRequest.swift */,
 				C5F4A1681BF3917600EFC8FA /* Entry+Base.swift */,
-				C5C769821BAC10BF00B205CB /* WLLogger.h */,
 			);
 			path = WLAPIManager;
-			sourceTree = "<group>";
-		};
-		C5C769721BAC10BF00B205CB /* WLAPIRequest */ = {
-			isa = PBXGroup;
-			children = (
-				C5C769731BAC10BF00B205CB /* WLAPIRequest+Defined.h */,
-				C5C769741BAC10BF00B205CB /* WLAPIRequest+Defined.m */,
-				C5C769751BAC10BF00B205CB /* WLAPIRequest.h */,
-				C5C769761BAC10BF00B205CB /* WLAPIRequest.m */,
-				C5C769771BAC10BF00B205CB /* WLAuthorizationRequest.h */,
-				C5C769781BAC10BF00B205CB /* WLAuthorizationRequest.m */,
-				C5092CCF1C120BA4006C9414 /* PaginatedRequest.swift */,
-			);
-			path = WLAPIRequest;
 			sourceTree = "<group>";
 		};
 		C5C7699A1BAC11F200B205CB /* WLUploadingQueue */ = {
@@ -2121,9 +2092,9 @@
 		C5D051BE1A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell */ = {
 			isa = PBXGroup;
 			children = (
-				C5D051BF1A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.h */,
-				C5D051C01A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m */,
-				C5A6150F1B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib */,
+				C5D051BF1A9F7FCE00855A01 /* AddressBookPhoneNumberCell.h */,
+				C5D051C01A9F7FCE00855A01 /* AddressBookPhoneNumberCell.m */,
+				C5A6150F1B9DC616009B92EF /* AddressBookPhoneNumberCell.xib */,
 			);
 			path = WLAddressBookPhoneNumberCell;
 			sourceTree = "<group>";
@@ -2428,7 +2399,7 @@
 				C54AF72719B8C491006F7EDB /* flowers.plist in Resources */,
 				C5BEC3941B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */,
 				C552A8381BFDEA5E00A7FFAD /* MediaViews.xib in Resources */,
-				C5A615111B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib in Resources */,
+				C5A615111B9DC616009B92EF /* AddressBookPhoneNumberCell.xib in Resources */,
 				5BE7CD651C0D8781009A7617 /* WLEditingConfirmView.xib in Resources */,
 				5B66B5B91C24696800451113 /* WrapCell.xib in Resources */,
 				C5C3FEA81B8F311500F177EC /* Default-736h@3x.png in Resources */,
@@ -2468,7 +2439,7 @@
 				C551890E1B8F46C000D1327E /* WLContributorResendCell.xib in Resources */,
 				C5C3FEAA1B8F311500F177EC /* Default@2x.png in Resources */,
 				C5BEC3A51B8F16E800499EEA /* logo_and_caption_orange@2x.png in Resources */,
-				C5A6150B1B9DC5C8009B92EF /* WLAddressBookRecordCell.xib in Resources */,
+				C5A6150B1B9DC5C8009B92EF /* AddressBookRecordCell.xib in Resources */,
 				C5C1273A1C10A46E002FD9AB /* LiveBroadcastEventViews.xib in Resources */,
 				C54731C61B9086DB00B583FD /* WLCommentCell.xib in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,
@@ -2602,7 +2573,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5C769881BAC10BF00B205CB /* WLAPIRequest+Defined.m in Sources */,
 				C5E6DD951C0DC84A004992E4 /* WLBroadcaster.m in Sources */,
 				C54AF65519B8C491006F7EDB /* WLChangeProfileViewController.m in Sources */,
 				C54604D21C08C5D800FB2303 /* NSObject+NibLoading.swift in Sources */,
@@ -2637,6 +2607,7 @@
 				C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */,
 				C530127F1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift in Sources */,
 				C55E10A01B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
+				C53A63B61C2428090004FE84 /* AddressBookRecord.swift in Sources */,
 				C53012941BF4E4BF00098F9C /* Refresher.swift in Sources */,
 				C5F3AC3A1C0335230053EE70 /* EntryDescriptor.swift in Sources */,
 				C52E1FDF1A41951300A2C370 /* WLTextField.m in Sources */,
@@ -2660,7 +2631,6 @@
 				C55E10A71B3C0E1F0032DFDA /* CGPointExtension.m in Sources */,
 				C5E7AB761BCD399B007E314B /* UITextView+Ext.swift in Sources */,
 				C535F9CD1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */,
-				C5D051B71A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */,
 				C5E7AB781BCD3A79007E314B /* UIScrollView+Ext.swift in Sources */,
 				C54CEF9D1BCFB09100128CBE /* UIViewController+Ext.swift in Sources */,
 				C53012911BF4E3EA00098F9C /* EmojiView.swift in Sources */,
@@ -2689,7 +2659,6 @@
 				C5E6DD931C0DC84A004992E4 /* Wrap.swift in Sources */,
 				C50541581BD6545400AE6F2C /* WLImageEditorSession.m in Sources */,
 				C5C769A21BAC11F200B205CB /* WLUploadingQueue.m in Sources */,
-				C5C7698A1BAC10BF00B205CB /* WLAPIRequest.m in Sources */,
 				C52279621BECCA8600B1C49C /* NSDate+Ext.swift in Sources */,
 				C54C423E1BDE6260003E644D /* Archive.swift in Sources */,
 				C51B82C41C1850C20054726A /* GenericCollections+Ext.swift in Sources */,
@@ -2707,7 +2676,6 @@
 				C54731B41B906A7400B583FD /* WLBatchEditPictureViewController.m in Sources */,
 				C53E5CFD1A84FBDB004F61B0 /* WLStillPictureBaseViewController.m in Sources */,
 				C5E4FD0D1BF7AF7100575DA4 /* ShapeView.swift in Sources */,
-				C5C7698C1BAC10BF00B205CB /* WLAuthorizationRequest.m in Sources */,
 				C5D051CA1A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */,
 				C560D22B1AFB7703006B906E /* WLSwipeViewController.m in Sources */,
 				C51E34EC1BD8ECC300C6F678 /* GradientView.swift in Sources */,
@@ -2722,6 +2690,7 @@
 				C52E1FDB1A41951300A2C370 /* WLBadgeLabel.m in Sources */,
 				C5C20BD01A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
 				C5C20B981A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
+				C5CFF90C1C27F6A500B3C6F0 /* AuthorizationRequest.swift in Sources */,
 				C549745B1ABC1C34000E3F54 /* WLQAButton.m in Sources */,
 				C5F4E70B1C072C0200D2FC16 /* FlashModeControl.swift in Sources */,
 				C53BC48E1C05FE620009B0B9 /* SegmentedControl.swift in Sources */,
@@ -2732,11 +2701,10 @@
 				C5A82CD91ACD979B00336027 /* WLDeviceManager.m in Sources */,
 				C54AF6BB19B8C491006F7EDB /* WLWelcomeViewController.m in Sources */,
 				C54CEF991BCFAF1D00128CBE /* UINavigationController+Ext.swift in Sources */,
-				C5D051BD1A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m in Sources */,
 				C55766A51C0C913D00E94E09 /* ImageView.swift in Sources */,
 				C54AF6C419B8C491006F7EDB /* WLWrapViewController.m in Sources */,
 				C54CEF971BCFA86C00128CBE /* NSBundle+Ext.swift in Sources */,
-				C504178919B9EE15000E55F3 /* WLAddressBookRecordCell.m in Sources */,
+				C504178919B9EE15000E55F3 /* AddressBookRecordCell.m in Sources */,
 				C540C0F01B988BF700F880C9 /* GridLayout.swift in Sources */,
 				C559974C1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */,
 				C5EE45A61C01D350008DE8D6 /* Constants.swift in Sources */,
@@ -2786,6 +2754,7 @@
 				C5AEE4361B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */,
 				C5E6F02E1BFF710900FA3D4F /* FontPresetter.swift in Sources */,
 				C5C20BD41A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
+				C557B6DE1C22F5980067631E /* Logger.swift in Sources */,
 				C59CEBD31BFB20B500C3E686 /* EntryView.swift in Sources */,
 				C54AF6EC19B8C491006F7EDB /* WLAddressBook.m in Sources */,
 				C535D69B1C045B56002BCE34 /* WrapCoverView.swift in Sources */,
@@ -2793,7 +2762,8 @@
 				C5E6DD8C1C0DC84A004992E4 /* Contribution.swift in Sources */,
 				C5E6DD941C0DC84A004992E4 /* Notifier.swift in Sources */,
 				C54731B01B906A7400B583FD /* WLEditAvatarViewController.m in Sources */,
-				C5D051C41A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
+				C5CFF90D1C27F6A500B3C6F0 /* PaginatedRequest.swift in Sources */,
+				C5D051C41A9F7FCE00855A01 /* AddressBookPhoneNumberCell.m in Sources */,
 				C557B6D91C22BC610067631E /* Network.swift in Sources */,
 				C5C20BDC1A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
 				C5E6DD8D1C0DC84A004992E4 /* CoreData.xcdatamodeld in Sources */,
@@ -2805,8 +2775,8 @@
 				C5ECD55C1BF64A41005791B1 /* RecentUpdatesViewController.swift in Sources */,
 				C5E6DD911C0DC84A004992E4 /* Message.swift in Sources */,
 				C53CD24C1C1706B600AA4746 /* CandyCell.swift in Sources */,
+				C5CFF90B1C27F6A500B3C6F0 /* APIRequestDefined.swift in Sources */,
 				C53F2FBC1C106472004EBC73 /* PubNub+Ext.swift in Sources */,
-				C5092CD01C120BA4006C9414 /* PaginatedRequest.swift in Sources */,
 				C5CBA7C81BA9556B0008EAAE /* SquareGridLayout.swift in Sources */,
 				C5FAC9021BE2B35F0060FEDB /* NSUserDefaults+Ext.swift in Sources */,
 				C537F8B61C1828D400105390 /* RecentUpdateList.swift in Sources */,
@@ -2815,6 +2785,7 @@
 				C5BCF0151B551B7B00E4AD6D /* WLMessageDateView.m in Sources */,
 				C54531381A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */,
 				C560D2371AFBB55E006B906E /* WLHistoryViewController.m in Sources */,
+				C5CFF90A1C27F6A500B3C6F0 /* APIRequest.swift in Sources */,
 				C525005C1C1F1FD500CF8F9D /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3382,6 +3353,7 @@
 					"$(inherited)",
 					"-all_load",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive;
 				PRODUCT_MODULE_NAME = meWrap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3442,6 +3414,7 @@
 					"$(inherited)",
 					"-all_load",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive;
 				PRODUCT_MODULE_NAME = meWrap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3539,6 +3512,7 @@
 					"$(inherited)",
 					"-all_load",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive;
 				PRODUCT_MODULE_NAME = meWrap;
 				PRODUCT_NAME = "$(TARGET_NAME)";

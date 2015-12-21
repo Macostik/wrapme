@@ -172,7 +172,7 @@
     sender.loading = YES;
     __weak __typeof(self)weakSelf = self;
     [[RunQueue fetchQueue] run:^(Block finish) {
-        [[WLAPIRequest followWrap:self.wrap] send:^(id object) {
+        [[APIRequest followWrap:self.wrap] send:^(id object) {
             sender.loading = NO;
             [weakSelf followingStateForWrap:weakSelf.wrap];
             finish();
@@ -189,7 +189,7 @@
     sender.loading = YES;
     __weak typeof(self)weakSelf = self;
     [[RunQueue fetchQueue] run:^(Block finish) {
-        [[WLAPIRequest unfollowWrap:self.wrap] send:^(id object) {
+        [[APIRequest unfollowWrap:self.wrap] send:^(id object) {
             sender.loading = NO;
             weakSelf.settingsButton.userInteractionEnabled = YES;
             [weakSelf followingStateForWrap:weakSelf.wrap];

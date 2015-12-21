@@ -8,7 +8,6 @@
 
 #import "WLContributorsViewController.h"
 #import "WLContributorCell.h"
-#import "WLAddressBookPhoneNumber.h"
 #import "WLHintView.h"
 
 const static CGFloat WLContributorsVerticalIndent = 48.0f;
@@ -61,7 +60,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     
     self.dataSource.items = [self sortedContributors];
     
-    [[WLAPIRequest contributors:self.wrap] send:^(id object) {
+    [[APIRequest contributors:self.wrap] send:^(id object) {
         weakSelf.dataSource.items = [weakSelf sortedContributors];
     } failure:^(NSError *error) {
         [weakSelf.dataSource reload];
@@ -97,14 +96,14 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 #pragma mark - WLContributorCellDelegate
 
 - (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(User *)contributor {
-    WLAddressBookPhoneNumber *person = [WLAddressBookPhoneNumber new];
+    AddressBookPhoneNumber *person = [AddressBookPhoneNumber new];
     person.user = contributor;
     NSMutableOrderedSet *contributors = (id)self.dataSource.items;
     [contributors removeObject:contributor];
     [self.dataSource reload];
     [self.removedContributors addObject:contributor];
     __weak typeof(self)weakSelf = self;
-    [[WLAPIRequest removeContributors:@[person] wrap:self.wrap] send:^(id object) {
+    [[APIRequest removeContributors:@[person] wrap:self.wrap] send:^(id object) {
         [weakSelf.removedContributors removeObject:contributor];
         if (weakSelf.contributiorWithOpenedMenu == contributor) {
             weakSelf.contributiorWithOpenedMenu = nil;
@@ -131,7 +130,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 
 - (void)contributorCell:(WLContributorCell *)cell didInviteContributor:(User *)contributor completionHandler:(void (^)(BOOL))completionHandler {
     __weak typeof(self)weakSelf = self;
-    [[WLAPIRequest resendInvite:self.wrap user:contributor] send:^(id object) {
+    [[APIRequest resendInvite:self.wrap user:contributor] send:^(id object) {
         if (completionHandler) completionHandler(YES);
         [weakSelf.invitedContributors addObject:contributor];
         [weakSelf enqueueSelector:@selector(hideMenuForContributor:) delay:3.0f];

@@ -105,7 +105,7 @@
 
 - (IBAction)resendEmailConfirmation:(UIButton*)sender {
     sender.userInteractionEnabled = NO;
-    [[WLAPIRequest resendConfirmation:nil] send:^(id object) {
+    [[APIRequest resendConfirmation:nil] send:^(id object) {
         [WLToast showWithMessage:@"confirmation_resend".ls];
         sender.userInteractionEnabled = YES;
     } failure:^(NSError *error) {
@@ -130,7 +130,7 @@
     if (self.editSession.emailSession.hasChanges && ![[Authorization currentAuthorization].email isEqualToString:email]) {
         [[NSUserDefaults standardUserDefaults] setConfirmationDate:nil];
     }
-    [[WLAPIRequest updateUser:[User currentUser] email:email] send:success failure:failure];
+    [[APIRequest updateUser:[User currentUser] email:email] send:success failure:failure];
 }
 
 - (void)didCompleteDoneAction {

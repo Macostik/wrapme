@@ -8,18 +8,11 @@
 
 import UIKit
 
-extension WLAPIRequest {
-    func path(format: String, _ args: CVarArgType...) -> Self {
-        path = String(format: format, arguments: args)
-        return self
-    }
-}
-
 @objc enum PaginatedRequestType: Int {
     case Fresh, Newer, Older
 }
 
-class PaginatedRequest: WLAPIRequest {
+class PaginatedRequest: APIRequest {
 
     var type: PaginatedRequestType = .Fresh
     
@@ -27,22 +20,22 @@ class PaginatedRequest: WLAPIRequest {
     
     var older: NSDate?
     
-    override init() {
-        super.init()
-        parametrize { (request, parameters) -> Void in
+    required init(_ method: APIRequestMethod) {
+        super.init(method)
+        parametrize { (request) -> Void in
             if let request = request as? PaginatedRequest {
                 switch request.type {
                 case .Newer:
                     if let newer = request.newer {
-                        parameters["offset_x_in_epoch"] = newer.timestamp
+                        request["offset_x_in_epoch"] = newer.timestamp
                     }
                     break
                 case .Older:
                     if let newer = request.newer {
-                        parameters["offset_x_in_epoch"] = newer.timestamp
+                        request["offset_x_in_epoch"] = newer.timestamp
                     }
                     if let older = request.older {
-                        parameters["offset_y_in_epoch"] = older.timestamp
+                        request["offset_y_in_epoch"] = older.timestamp
                     }
                     break
                 default: break
@@ -69,9 +62,9 @@ class PaginatedRequest: WLAPIRequest {
 
 extension PaginatedRequest {
     class func wraps(scope: String?) -> Self {
-        return GET().path("wraps").parametrize({ (request, parameters) -> Void in
+        return GET().path("wraps").parametrize({ (request) -> Void in
             if let scope = scope {
-                parameters["scope"] = scope
+                request["scope"] = scope
             }
         }).parse({ (response) -> AnyObject! in
             if let wraps = response.array("wraps") {
@@ -82,18 +75,18 @@ extension PaginatedRequest {
         })
     }
     
-    class func candies(wrap: Wrap) -> PaginatedRequest {
-        return GET().path("wraps/%@/candies", wrap.uid).forceParametrize({ (request, parameters) -> Void in
+    class func candies(wrap: Wrap) -> Self {
+        return GET().path("wraps/%@/candies", wrap.uid).forceParametrize({ (request) -> Void in
             if let request = request as? PaginatedRequest {
                 switch request.type {
                 case .Newer:
                     if let newer = request.newer {
-                        parameters["offset_x_in_epoch"] = newer.timestamp
+                        request["offset_x_in_epoch"] = newer.timestamp
                     }
                     break
                 case .Older:
                     if let older = wrap.candiesPaginationDate {
-                        parameters["offset_y_in_epoch"] = older.timestamp
+                        request["offset_y_in_epoch"] = older.timestamp
                     }
                     break
                 default: break
@@ -112,7 +105,7 @@ extension PaginatedRequest {
         }).contributionUnavailable(wrap)
     }
     
-    class func messages(wrap: Wrap) -> PaginatedRequest {
+    class func messages(wrap: Wrap) -> Self {
         return GET().path("wraps/%@/chats", wrap.uid).parse({ (response) -> AnyObject! in
             if let chats = response.array("chats") where wrap.valid && !chats.isEmpty {
                 let messages = Message.mappedEntries(Message.prefetchArray(chats), container: wrap)
@@ -120,28 +113,6 @@ extension PaginatedRequest {
                 return messages
             } else {
                 return []
-            }
-        }).contributionUnavailable(wrap)
-    }
-    
-    class func wrap(wrap: Wrap, contentType: String?) -> PaginatedRequest {
-        return GET().path("wraps/%@", wrap.uid).parametrize({ (request, parameters) -> Void in
-            if let contentType = contentType {
-                parameters["pick"] = contentType
-            }
-            let request = request as! PaginatedRequest
-            if let newer = request.newer where request.type == .Newer {
-                parameters["condition"] = "newer_than"
-                parameters["offset_in_epoch"] = newer.endOfDay().timestamp
-            } else if let older = request.older where request.type == .Older {
-                parameters["condition"] = "older_than"
-                parameters["offset_in_epoch"] = older.startOfDay().timestamp
-            }
-        }).parse({ (response) -> AnyObject! in
-            if let dictionary = response.dictionary("wrap") where wrap.valid {
-                return wrap.update(Wrap.prefetchDictionary(dictionary))
-            } else {
-                return nil
             }
         }).contributionUnavailable(wrap)
     }

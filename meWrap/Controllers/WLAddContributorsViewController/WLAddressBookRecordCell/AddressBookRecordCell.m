@@ -6,12 +6,11 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLAddressBookRecordCell.h"
+#import "AddressBookRecordCell.h"
 #import "WLAddressBook.h"
-#import "WLAddressBookPhoneNumberCell.h"
-#import "WLAddressBookPhoneNumber.h"
+#import "AddressBookPhoneNumberCell.h"
 
-@interface WLAddressBookRecordCell ()
+@interface AddressBookRecordCell ()
 
 @property (weak, nonatomic) IBOutlet UIButton *selectButton;
 @property (nonatomic, weak) IBOutlet StreamView* streamView;
@@ -28,31 +27,31 @@
 
 @end
 
-@implementation WLAddressBookRecordCell
+@implementation AddressBookRecordCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     __weak typeof(self)weakSelf = self;
     self.dataSource = [[StreamDataSource alloc] initWithStreamView:self.streamView];
-    [self.dataSource addMetrics:[[StreamMetrics alloc] initWithIdentifier:@"WLAddressBookPhoneNumberCell" initializer:^(StreamMetrics *metrics) {
+    [self.dataSource addMetrics:[[StreamMetrics alloc] initWithIdentifier:@"AddressBookPhoneNumberCell" initializer:^(StreamMetrics *metrics) {
         metrics.size = 50;
         metrics.selectable = YES;
-        [metrics setFinalizeAppearing:^(StreamItem *item, WLAddressBookPhoneNumber* phoneNumber) {
-            WLAddressBookPhoneNumberCell* cell = (id)item.view;
+        [metrics setFinalizeAppearing:^(StreamItem *item, AddressBookPhoneNumber* phoneNumber) {
+            AddressBookPhoneNumberCell* cell = (id)item.view;
             cell.checked = [weakSelf.delegate recordCell:weakSelf phoneNumberState:phoneNumber];
         }];
-        [metrics setSelection:^(StreamItem *item, WLAddressBookPhoneNumber *phoneNumber) {
+        [metrics setSelection:^(StreamItem *item, AddressBookPhoneNumber *phoneNumber) {
             [weakSelf.delegate recordCell:weakSelf didSelectPhoneNumber:phoneNumber];
         }];
     }]];
 }
 
-- (void)setup:(WLAddressBookRecord *)record {
-	WLAddressBookPhoneNumber* phoneNumber = [record.phoneNumbers lastObject];
+- (void)setup:(AddressBookRecord *)record {
+	AddressBookPhoneNumber* phoneNumber = [record.phoneNumbers lastObject];
     
     User *user = phoneNumber.user;
 	self.nameLabel.text = phoneNumber.name;
-    NSString *url = phoneNumber.picture.small;
+    NSString *url = phoneNumber.avatar.small;
     if (user && phoneNumber.activated && !url.nonempty) {
         self.avatarView.defaultBackgroundColor = Color.orange;
     } else {
@@ -77,18 +76,18 @@
             self.statusLabel.text = @"invite_me_to_meWrap".ls;
         }
 		self.state = [self.delegate recordCell:self phoneNumberState:phoneNumber];
-        self.statusButton.hidden = !(user && (self.state == WLAddressBookPhoneNumberStateAdded));
-        self.statusPrioritizer.defaultState = !(user && (self.state == WLAddressBookPhoneNumberStateAdded));
+        self.statusButton.hidden = !(user && (self.state == AddressBookPhoneNumberStateAdded));
+        self.statusPrioritizer.defaultState = !(user && (self.state == AddressBookPhoneNumberStateAdded));
 	}
 }
 
-- (void)setState:(WLAddressBookPhoneNumberState)state {
+- (void)setState:(AddressBookPhoneNumberState)state {
 	_state = state;
-    if (state == WLAddressBookPhoneNumberStateAdded) {
+    if (state == AddressBookPhoneNumberStateAdded) {
         self.selectButton.enabled = NO;
     } else {
         self.selectButton.enabled = YES;
-        self.selectButton.selected = state == WLAddressBookPhoneNumberStateSelected;
+        self.selectButton.selected = state == AddressBookPhoneNumberStateSelected;
     }
 }
 
@@ -102,8 +101,8 @@
 #pragma mark - Actions
 
 - (IBAction)select:(id)sender {
-    WLAddressBookRecord* record = self.entry;
-    WLAddressBookPhoneNumber *person = [record.phoneNumbers lastObject];
+    AddressBookRecord* record = self.entry;
+    AddressBookPhoneNumber *person = [record.phoneNumbers lastObject];
 	[self.delegate recordCell:self didSelectPhoneNumber:person];
 }
 

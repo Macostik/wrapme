@@ -52,7 +52,7 @@
         self.continueButton.loading = YES;
         [self.editSession apply];
 		__weak typeof(self)weakSelf = self;
-        [[WLAPIRequest updateUser:self.user email:nil] send:^(id object) {
+        [[APIRequest updateUser:self.user email:nil] send:^(id object) {
             weakSelf.continueButton.loading = NO;
 			weakSelf.view.userInteractionEnabled = YES;
 			completion();

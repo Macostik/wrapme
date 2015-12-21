@@ -8,10 +8,10 @@
 
 #import "StreamReusableView.h"
 
-@class WLAddressBookPhoneNumberCell;
-@class WLAddressBookPhoneNumber;
+@class AddressBookPhoneNumberCell;
+@class AddressBookPhoneNumber;
 
-@interface WLAddressBookPhoneNumberCell : StreamReusableView
+@interface AddressBookPhoneNumberCell : StreamReusableView
 
 @property (nonatomic) BOOL checked;
 

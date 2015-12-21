@@ -62,7 +62,7 @@
     self.chatNotifyTrigger.userInteractionEnabled = NO;
     
     __weak __typeof(self)weakSelf = self;
-    [[WLAPIRequest preferences:self.wrap] send:^(Wrap *wrap) {
+    [[APIRequest preferences:self.wrap] send:^(Wrap *wrap) {
         [weakSelf.candyNotifyTrigger setOn:wrap.isCandyNotifiable];
         [weakSelf.chatNotifyTrigger setOn:wrap.isChatNotifiable];
         weakSelf.candyNotifyTrigger.userInteractionEnabled = YES;
@@ -113,7 +113,7 @@
         BOOL _chatNotify = wrap.isChatNotifiable;
         wrap.isCandyNotifiable = candyNotify;
         wrap.isChatNotifiable = chatNotify;
-        [[WLAPIRequest changePreferences:wrap] send:^(id object) {
+        [[APIRequest changePreferences:wrap] send:^(id object) {
             finish();
         } failure:^(NSError *error) {
             finish();

@@ -17,6 +17,7 @@ private var _imageURI: String?
 private var _videoURI: String?
 private var _avatarURI: String?
 private var _pageSize: Int = -1
+private var _remoteLogging: Bool?
 
 private var cipher = try! AES(key: [0xae, 0x51, 0x89, 0x51, 0x27, 0xab, 0x9f, 0xb9, 0xf6, 0x75, 0xe2, 0x09, 0x74, 0x4b, 0xc0, 0x8f, 0x48, 0x44, 0x1f, 0xe5, 0x24, 0x3d, 0x28, 0x25, 0xca, 0x35, 0x90, 0x05, 0x0b, 0x62, 0xc0, 0xbb])
 
@@ -85,39 +86,23 @@ extension NSUserDefaults {
     }
     
     var appVersion: String? {
-        get {
-            return self["wrapLiveVersion"] as? String
-        }
-        set {
-            self["wrapLiveVersion"] = newValue
-        }
+        get { return self["wrapLiveVersion"] as? String }
+        set { self["wrapLiveVersion"] = newValue }
     }
     
     var numberOfLaunches: Int {
-        get {
-            return (self["WLNumberOfLaucnhes"] as? Int) ?? 0
-        }
-        set {
-            self["WLNumberOfLaucnhes"] = newValue
-        }
+        get { return (self["WLNumberOfLaucnhes"] as? Int) ?? 0 }
+        set { self["WLNumberOfLaucnhes"] = newValue }
     }
     
     var cameraDefaultPosition: NSNumber? {
-        get {
-            return self["WLCameraDefaultPosition"] as? Int
-        }
-        set {
-            self["WLCameraDefaultPosition"] = newValue
-        }
+        get { return self["WLCameraDefaultPosition"] as? Int }
+        set { self["WLCameraDefaultPosition"] = newValue }
     }
     
     var cameraDefaultFlashMode: NSNumber? {
-        get {
-            return self["WLCameraDefaultFlashMode"] as? Int
-        }
-        set {
-            self["WLCameraDefaultFlashMode"] = newValue
-        }
+        get { return self["WLCameraDefaultFlashMode"] as? Int }
+        set { self["WLCameraDefaultFlashMode"] = newValue }
     }
     
     var shownHints: NSMutableDictionary {
@@ -166,12 +151,8 @@ extension NSUserDefaults {
     }
     
     var recentEmojis: [String]? {
-        get {
-            return self["recentEmojis"] as? [String]
-        }
-        set {
-            self["recentEmojis"] = newValue
-        }
+        get { return self["recentEmojis"] as? [String] }
+        set { self["recentEmojis"] = newValue }
     }
     
     var imageURI: String? {
@@ -223,6 +204,20 @@ extension NSUserDefaults {
         set {
             _pageSize = newValue
             self["pageSize"] = newValue
+        }
+    }
+    
+    var remoteLogging: Bool? {
+        get {
+            if _remoteLogging == nil {
+                _remoteLogging = self["remote_logging"] as? Bool
+            }
+            return _remoteLogging
+        }
+        set {
+            Logger.remoteLogging = newValue
+            _remoteLogging = newValue
+            self["remote_logging"] = newValue
         }
     }
     

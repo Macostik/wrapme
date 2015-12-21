@@ -14,7 +14,6 @@
 #import "WLEmailConfirmationViewController.h"
 #import "WLLinkDeviceViewController.h"
 #import "WLActivationViewController.h"
-#import "WLAuthorizationRequest.h"
 
 @interface WLSignupFlowViewController () <UINavigationControllerDelegate>
 
@@ -142,7 +141,7 @@
     // second device signup subflow (different for phone and wifi device)
     
     WLSignupStepCompletionBlock secondDeviceBlock = ^WLSignupStepViewController *{
-        if ([Telephony hasPhoneNumber] || ![WLWhoIs sharedInstance].containsPhoneDevice) {
+        if ([Telephony hasPhoneNumber] || ![WhoIs sharedInstance].containsPhoneDevice) {
             return verificationStepBlock(^WLSignupStepViewController *{
                 return linkDeviceBlock(NO);
             }, NO);

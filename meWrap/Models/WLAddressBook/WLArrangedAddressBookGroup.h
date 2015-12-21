@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "WLAddressBook.h"
 
-typedef BOOL (^WLArrangedAddressBookGroupAddingRule) (WLAddressBookRecord *record);
+typedef BOOL (^WLArrangedAddressBookGroupAddingRule) (AddressBookRecord *record);
 
 @interface WLArrangedAddressBookGroup : NSObject
 
@@ -21,7 +21,7 @@ typedef BOOL (^WLArrangedAddressBookGroupAddingRule) (WLAddressBookRecord *recor
 
 - (instancetype)initWithTitle:(NSString*)title addingRule:(WLArrangedAddressBookGroupAddingRule)rule;
 
-- (BOOL)addRecord:(WLAddressBookRecord*)record;
+- (BOOL)addRecord:(AddressBookRecord*)record;
 
 - (void)sortByPriorityName;
 

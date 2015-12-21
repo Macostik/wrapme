@@ -7,7 +7,6 @@
 //
 
 #import "WLNotificationCenter.h"
-#import "WLAuthorizationRequest.h"
 #import "NSArray+WLCollection.h"
 
 @interface NSData (DeviceTokenSerialization)
@@ -95,8 +94,8 @@
         self.userSubscription.delegate = self;
         
         if (self.pushToken) {
-            if ([WLAuthorizationRequest authorized]) {
-                [[WLAuthorizationRequest updateDevice] send];
+            if ([Authorization active]) {
+                [[APIRequest updateDevice] send];
             }
         } else {
             [self registerForRemoteNotifications];
@@ -111,8 +110,8 @@
 - (void)handleDeviceToken:(NSData*)deviceToken {
     self.pushToken = deviceToken;
     self.pushTokenString = [deviceToken serializeDevicePushToken];
-    if ([WLAuthorizationRequest authorized]) {
-        [[WLAuthorizationRequest updateDevice] send];
+    if ([Authorization active]) {
+        [[APIRequest updateDevice] send];
     }
 }
 
@@ -123,7 +122,7 @@
     }
     __weak typeof(self)weakSelf = self;
     Notification* notification = [[Notification alloc] initWithData:data date:nil];
-    WLLog(@"PUBNUB - received APNS: %@", data);
+    [Logger log:[NSString stringWithFormat:@"PUBNUB - received APNS: %@", data]];
     if (notification) {
         if ([self isAlreadyHandledNotification:notification]) {
             if (success) success(notification);
@@ -232,7 +231,7 @@
                     finish();
                 }];
             }];
-            WLLog(@"PUBNUB - direct message received %@", notification);
+            [Logger log:[NSString stringWithFormat:@"PUBNUB - direct message received %@", notification]];
         }
         
         [[RunQueue fetchQueue] run:^(Block finish) {
@@ -287,18 +286,18 @@
             NSDate *fromDate = historyDate;
             NSDate *toDate = [NSDate now];
 
-            WLLog(@"PUBNUB - requesting history starting from: %@ to: %@", fromDate, toDate);
+            [Logger log:[NSString stringWithFormat:@"PUBNUB - requesting history starting from: %@ to: %@", fromDate, toDate]];
             
             if  ([Network sharedNetwork].reachable && weakSelf.userSubscription) {
                 
                 [weakSelf.userSubscription history:fromDate to:toDate success:^(NSArray *messages) {
                     if (messages.count > 0) {
-                        WLLog(@"PUBNUB - received history starting from: %@ to: %@", fromDate, toDate);
+                        [Logger log:[NSString stringWithFormat:@"PUBNUB - received history starting from: %@ to: %@", fromDate, toDate]];
                         [weakSelf handleHistoryMessages:messages];
                         [NSUserDefaults standardUserDefaults].historyDate = [[NSDate dateWithTimetoken:[(NSDictionary*)[messages lastObject] numberForKey:@"timetoken"]] dateByAddingTimeInterval:0.001];
                         [weakSelf requestHistory];
                     } else {
-                        WLLog(@"PUBNUB - no missed messages in history");
+                        [Logger log:[NSString stringWithFormat:@"PUBNUB - no missed messages in history"]];
                         [NSUserDefaults standardUserDefaults].historyDate = toDate;
                     }
                     finish();
@@ -309,7 +308,7 @@
                 finish();
             }
         } else {
-            WLLog(@"PUBNUB - history date is empty");
+            [Logger log:[NSString stringWithFormat:@"PUBNUB - history date is empty"]];
             [NSUserDefaults standardUserDefaults].historyDate = [NSDate now];
             finish();
         }
@@ -340,7 +339,7 @@
                     finish();
                 }];
             }];
-            WLLog(@"PUBNUB - history message received %@", notification);
+            [Logger log:[NSString stringWithFormat:@"PUBNUB - history message received %@", notification]];
         }
         
         [[RunQueue fetchQueue] run:^(Block finish) {
@@ -357,7 +356,7 @@
     __weak typeof(self)weakSelf = self;
     NSMutableArray *notifications = [[messages map:^id(PNMessageData *message) {
         Notification *notification = [[Notification alloc] initWithMessage:message];
-        if (notification.type != NotificationTypeUserUpdate && ![WLAuthorizationRequest authorized]) {
+        if (notification.type != NotificationTypeUserUpdate && ![Authorization active]) {
             return nil;
         }
         if ((notification.type != NotificationTypeCandyAdd && notification.type != NotificationTypeCandyUpdate) && notification.originatedByCurrentUser) {
@@ -421,15 +420,15 @@
 #pragma mark - PNObjectEventListener
 
 - (void)client:(PubNub *)client didReceiveMessage:(PNMessageResult *)message {
-    WLLog(@"PUBNUB - did receive message");
+    [Logger log:[NSString stringWithFormat:@"PUBNUB - did receive message"]];
 }
 
 - (void)client:(PubNub *)client didReceivePresenceEvent:(PNPresenceEventResult *)event {
-    WLLog(@"PUBNUB - did receive presence event: %@", event.data.presenceEvent);
+    [Logger log:[NSString stringWithFormat:@"PUBNUB - did receive presence event: %@", event.data.presenceEvent]];
 }
 
 - (void)client:(PubNub *)client didReceiveStatus:(PNSubscribeStatus *)status {
-    WLLog(@"PUBNUB - subscribtion status: %@", status.debugDescription);
+    [Logger log:[NSString stringWithFormat:@"PUBNUB - subscribtion status: %@", status.debugDescription]];
     if (status.category == PNConnectedCategory) {
         if (status.subscribedChannelGroups.count > 0) {
             [self requestHistory];

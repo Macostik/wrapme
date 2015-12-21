@@ -7,7 +7,6 @@
 //
 
 #import "WLBaseViewController.h"
-#import "WLAuthorizationRequest.h"
 
 typedef NS_ENUM(NSUInteger, WLSignupStepStatus) {
     WLSignupStepStatusSuccess,

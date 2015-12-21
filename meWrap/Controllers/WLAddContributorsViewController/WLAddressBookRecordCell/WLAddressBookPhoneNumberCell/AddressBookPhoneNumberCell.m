@@ -6,11 +6,10 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLAddressBookPhoneNumberCell.h"
-#import "WLAddressBookPhoneNumber.h"
+#import "AddressBookPhoneNumberCell.h"
 #import "WLAddressBook.h"
 
-@interface WLAddressBookPhoneNumberCell ()
+@interface AddressBookPhoneNumberCell ()
 
 @property (weak, nonatomic) IBOutlet UIButton *selectionView;
 @property (nonatomic, weak) IBOutlet UILabel *typeLabel;
@@ -18,9 +17,9 @@
 
 @end
 
-@implementation WLAddressBookPhoneNumberCell
+@implementation AddressBookPhoneNumberCell
 
-- (void)setup:(WLAddressBookPhoneNumber *)phoneNumber {
+- (void)setup:(AddressBookPhoneNumber *)phoneNumber {
 	self.typeLabel.text = [NSString stringWithFormat:@"%@:", phoneNumber.label?:@""];
 	self.phoneLabel.text = phoneNumber.phone;
   

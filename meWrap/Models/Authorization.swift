@@ -11,6 +11,26 @@ import OpenUDID
 
 class Authorization: Archive {
     
+    static var active: Bool = {
+        if let cookie = NSUserDefaults.standardUserDefaults().authorizationCookie {
+            NSHTTPCookieStorage.sharedHTTPCookieStorage().setCookie(cookie)
+            return true
+        } else {
+            return false
+        }
+    }()
+    
+    class func requiresSignIn() -> Bool {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        guard active else { return true }
+        guard defaults.remoteLogging != nil else { return true }
+        guard defaults.imageURI != nil else { return true }
+        guard defaults.avatarURI != nil else { return true }
+        guard defaults.videoURI != nil else { return true }
+        guard User.currentUser?.uid != nil else { return true }
+        return false
+    }
+    
     override class func archivableProperties() -> Set<String> {
         return ["deviceUID","deviceName","countryCode","phone","email","unconfirmed_email","password"]
     }
@@ -32,6 +52,8 @@ class Authorization: Archive {
     var activationCode: String?
     
     var password: String?
+    
+    var tryUncorfirmedEmail = false
     
     var fullPhoneNumber: String {
         return "+\(countryCode ?? "") \(formattedPhone ?? phone ?? "")"

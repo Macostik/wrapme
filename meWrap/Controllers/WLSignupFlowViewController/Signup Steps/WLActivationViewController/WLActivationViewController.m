@@ -35,7 +35,7 @@
 	if (activationCode.nonempty) {
 		__weak typeof(self)weakSelf = self;
 		[Authorization currentAuthorization].activationCode = activationCode;
-        self.progressBar.operation = [[Authorization currentAuthorization] activate:^(id object) {
+        self.progressBar.operation = [[[Authorization currentAuthorization] activation] send:^(id object) {
             [weakSelf signIn:completion failure:failure];
         } failure:failure];
     } else {
@@ -45,7 +45,7 @@
 
 - (void)signIn:(Block)completion failure:(FailureBlock)failure {
     if (self.shouldSignIn) {
-        self.progressBar.operation = [[Authorization currentAuthorization] signIn:^(id object) {
+        self.progressBar.operation = [[[Authorization currentAuthorization] signIn] send:^(id object) {
             completion();
         } failure:failure];
     } else {
@@ -69,7 +69,7 @@
 - (IBAction)call:(UIButton*)sender {
     __weak typeof(self)weakSelf = self;
     sender.userInteractionEnabled = NO;
-    [[WLAPIRequest verificationCall] send:^(id object) {
+    [[APIRequest verificationCall] send:^(id object) {
         sender.userInteractionEnabled = YES;
         [[UIAlertController alert:[NSString stringWithFormat:@"formatted_calling_now".ls, weakSelf.phoneNumberLabel.text]] show];
     } failure:^(NSError *error) {

@@ -68,7 +68,31 @@ extension Entry {
 
 extension User {
     override func fetch(success: ObjectBlock?, failure: FailureBlock?) {
-        WLAPIRequest.user(self).send(success, failure: failure)
+        if let request = APIRequest.user(self) {
+            request.send(success, failure: failure)
+        } else {
+            failure?(nil)
+        }
+    }
+    
+    func preloadFirstWraps() {
+        RunQueue.fetchQueue.run { (finish) -> Void in
+            PaginatedRequest.wraps(nil).fresh({ [weak self] (wraps) -> Void in
+                
+                if let wraps = self?.sortedWraps {
+                    for (index, wrap) in wraps.enumerate() {
+                        wrap.preload()
+                        if index == 2 {
+                            break
+                        }
+                    }
+                }
+                
+                finish()
+                }, failure: { (_) -> Void in
+                    finish()
+            })
+        }
     }
 }
 
@@ -113,18 +137,18 @@ extension Wrap {
     }
     
     override func add(success: ObjectBlock?, failure: FailureBlock?) {
-        WLAPIRequest.uploadWrap(self).send(success, failure: failure)
+        APIRequest.uploadWrap(self).send(success, failure: failure)
     }
     
     override func update(success: ObjectBlock?, failure: FailureBlock?) {
-        WLAPIRequest.updateWrap(self).send(success, failure: failure)
+        APIRequest.updateWrap(self).send(success, failure: failure)
     }
     
     override func delete(success: ObjectBlock?, failure: FailureBlock?) {
         if deletable {
             
         } else {
-            WLAPIRequest.leaveWrap(self).send(success, failure: failure)
+            APIRequest.leaveWrap(self).send(success, failure: failure)
         }
         switch status {
         case .Ready:
@@ -135,7 +159,7 @@ extension Wrap {
             failure?(NSError(message: "wrap_is_uploading".ls))
             break
         case .Finished:
-            WLAPIRequest.deleteWrap(self).send(success, failure: failure)
+            APIRequest.deleteWrap(self).send(success, failure: failure)
             break
         }
     }
@@ -146,7 +170,7 @@ extension Wrap {
     
     func fetch(contentType: String?, success: ObjectBlock?, failure: FailureBlock?) {
         if uploaded {
-            PaginatedRequest.wrap(self, contentType: contentType).send(success, failure: failure)
+            APIRequest.wrap(self, contentType: contentType).send(success, failure: failure)
         } else {
             success?(self)
         }
@@ -420,7 +444,11 @@ extension Candy {
             if uid == locuid {
                 failure?(NSError(message: "publishing_in_progress".ls))
             } else {
-                WLAPIRequest.deleteCandy(self).send(success, failure: failure)
+                if let request = APIRequest.deleteCandy(self) {
+                    request.send(success, failure: failure)
+                } else {
+                    failure?(nil)
+                }
             }
          break
         }
@@ -428,7 +456,7 @@ extension Candy {
     
     override func fetch(success: ObjectBlock?, failure: FailureBlock?) {
         if uploaded {
-            WLAPIRequest.candy(self).send(success, failure: failure)
+            APIRequest.candy(self).send(success, failure: failure)
         } else {
             failure?(NSError(message:(isVideo ? "video_is_uploading" : "photo_is_uploading").ls))
         }
@@ -437,7 +465,11 @@ extension Candy {
 
 extension Message {
     override func add(success: ObjectBlock?, failure: FailureBlock?) {
-        WLAPIRequest.uploadMessage(self).send(success, failure: failure)
+        if let request = APIRequest.uploadMessage(self) {
+            request.send(success, failure: failure)
+        } else {
+            failure?(nil)
+        }
     }
 }
 
@@ -445,7 +477,11 @@ extension Comment {
     
     override func add(success: ObjectBlock?, failure: FailureBlock?) {
         if candy?.uploaded ?? false {
-            WLAPIRequest.postComment(self).send(success, failure: failure)
+            if let request = APIRequest.postComment(self) {
+                request.send(success, failure: failure)
+            } else {
+                failure?(nil)
+            }
         } else {
             failure?(nil)
         }
@@ -471,7 +507,11 @@ extension Comment {
                     failure?(NSError(message: (candy.isVideo ? "video_is_uploading" : "photo_is_uploading").ls))
                     break
                 case .Finished:
-                    WLAPIRequest.deleteComment(self).send(success, failure: failure)
+                    if let request = APIRequest.deleteComment(self) {
+                        request.send(success, failure: failure)
+                    } else {
+                        failure?(nil)
+                    }
                     break;
                 }
             } else {

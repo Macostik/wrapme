@@ -30,7 +30,7 @@
 
 - (IBAction)resend:(id)sender {
     __weak typeof(self)weakSelf = self;
-    [[WLAPIRequest resendConfirmation:[Authorization currentAuthorization].email] send:^(id object) {
+    [[APIRequest resendConfirmation:[Authorization currentAuthorization].email] send:^(id object) {
         [[UIAlertController alert:@"sending_confirming_email".ls] show];
     } failure:^(NSError *error) {
         if ([error isResponseError:ResponseCodeEmailAlreadyConfirmed]) {

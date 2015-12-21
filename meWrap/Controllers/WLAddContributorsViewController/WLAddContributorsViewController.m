@@ -8,15 +8,14 @@
 
 #import "WLAddContributorsViewController.h"
 #import "WLAddressBook.h"
-#import "WLAddressBookRecordCell.h"
-#import "WLAddressBookPhoneNumber.h"
+#import "AddressBookRecordCell.h"
 #import "WLButton.h"
 #import "WLArrangedAddressBook.h"
 #import "WLAddressBookGroupView.h"
 #import "WLToast.h"
 #import "WLConfirmView.h"
 
-@interface WLAddContributorsViewController () <StreamViewDelegate, WLAddressBookRecordCellDelegate, UITextFieldDelegate, FontPresetting, WLAddressBookReceiver>
+@interface WLAddContributorsViewController () <StreamViewDelegate, AddressBookRecordCellDelegate, UITextFieldDelegate, FontPresetting, WLAddressBookReceiver>
 
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
@@ -42,11 +41,11 @@
     
     __weak typeof(self)weakSelf = self;
     
-    self.singleMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLAddressBookRecordCell" initializer:^(StreamMetrics *metrics) {
+    self.singleMetrics = [[StreamMetrics alloc] initWithIdentifier:@"AddressBookRecordCell" initializer:^(StreamMetrics *metrics) {
         [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
             WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:position.section];
-            WLAddressBookRecord* record = [group.records tryAt:position.index];
-            WLAddressBookPhoneNumber* phoneNumber = [record.phoneNumbers lastObject];
+            AddressBookRecord* record = [group.records tryAt:position.index];
+            AddressBookPhoneNumber* phoneNumber = [record.phoneNumbers lastObject];
             User *user = phoneNumber.user;
             NSString *infoString =  phoneNumber.activated ? @"signup_status".ls : user ? @"invite_status".ls : @"invite_me_to_meWrap".ls;
             CGFloat leftIdent  = user && [self.wrap.contributors containsObject:phoneNumber.user] ? 160.0 : 114.0;
@@ -62,14 +61,14 @@
         metrics.selectable = NO;
         [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
             WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:position.section];
-            WLAddressBookRecord* record = [group.records tryAt:position.index];
+            AddressBookRecord* record = [group.records tryAt:position.index];
             CGFloat nameHeight = [[record name] heightWithFont:[UIFont fontNormal] width:weakSelf.streamView.width - 142.0f];
             CGFloat inviteHeight = [@"invite_me_to_meWrap" heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - 142.0f];
             CGFloat heighCell = MAX(nameHeight + inviteHeight + 16.0, 72);
             return [weakSelf openedPosition:position] ? (heighCell + [record.phoneNumbers count] * 50.0f) : heighCell;
         }];
-        [metrics setFinalizeAppearing:^(StreamItem *item, WLAddressBookRecord *record) {
-            WLAddressBookRecordCell *cell = (id)item.view;
+        [metrics setFinalizeAppearing:^(StreamItem *item, AddressBookRecord *record) {
+            AddressBookRecordCell *cell = (id)item.view;
             cell.opened = ([record.phoneNumbers count] > 1 && [weakSelf openedPosition:item.position] != nil);
         }];
     }];
@@ -88,16 +87,16 @@
     }];
     
 	
-    BOOL cached = [[WLAddressBook addressBook] cachedRecords:^(NSArray *array) {
-        [weakSelf addressBook:[WLAddressBook addressBook] didUpdateCachedRecords:array];
+    BOOL cached = [[WLAddressBook sharedAddressBook] cachedRecords:^(NSArray *array) {
+        [weakSelf addressBook:[WLAddressBook sharedAddressBook] didUpdateCachedRecords:array];
         [weakSelf.spinner stopAnimating];
     } failure:^(NSError *error) {
         [weakSelf.spinner stopAnimating];
         [error show];
     }];
-    [[WLAddressBook addressBook] addReceiver:self];
+    [[WLAddressBook sharedAddressBook] addReceiver:self];
     if (cached) {
-        [[WLAddressBook addressBook] updateCachedRecords];
+        [[WLAddressBook sharedAddressBook] updateCachedRecords];
     }
     [[FontPresetter defaultPresetter] addReceiver:self];
 }
@@ -115,7 +114,7 @@
     self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];
     [self.addressBook addRecords:cachedRecords];
     if (oldAddressBook != nil) {
-        self.addressBook.selectedPhoneNumbers = [[oldAddressBook.selectedPhoneNumbers map:^id (WLAddressBookPhoneNumber *phoneNumber) {
+        self.addressBook.selectedPhoneNumbers = [[oldAddressBook.selectedPhoneNumbers map:^id (AddressBookPhoneNumber *phoneNumber) {
             return [self.addressBook phoneNumberIdenticalTo:phoneNumber];
         }] mutableCopy];
     }
@@ -133,7 +132,7 @@
         return;
     }
     ObjectBlock performRequestBlock = ^ (id __nullable message) {
-        [[WLAPIRequest addContributors:self.addressBook.selectedPhoneNumbers wrap:self.wrap message:message] send:^(id object) {
+        [[APIRequest addContributors:self.addressBook.selectedPhoneNumbers wrap:self.wrap message:message] send:^(id object) {
             [weakSelf.navigationController popViewControllerAnimated:NO];
             if (message) {
                 [WLToast showWithMessage:@"isn't_using_invite".ls];
@@ -189,7 +188,7 @@
 
 - (NSArray * __nonnull)streamView:(StreamView * __nonnull)streamView metricsAt:(StreamPosition * __nonnull)position {
     WLArrangedAddressBookGroup *group = [self.filteredAddressBook.groups tryAt:position.section];
-    WLAddressBookRecord* record = [group.records tryAt:position.index];
+    AddressBookRecord* record = [group.records tryAt:position.index];
     StreamMetrics *metrics = nil;
     __weak typeof(self)weakSelf = self;
     if ([record.phoneNumbers count] > 1) {
@@ -201,18 +200,18 @@
     return @[metrics];
 }
 
-#pragma mark - WLAddressBookRecordCellDelegate
+#pragma mark - AddressBookRecordCellDelegate
 
-- (WLAddressBookPhoneNumberState)recordCell:(WLAddressBookRecordCell *)cell phoneNumberState:(WLAddressBookPhoneNumber *)phoneNumber {
+- (AddressBookPhoneNumberState)recordCell:(AddressBookRecordCell *)cell phoneNumberState:(AddressBookPhoneNumber *)phoneNumber {
     if ([self.wrap.contributors containsObject:phoneNumber.user]) {
-        return WLAddressBookPhoneNumberStateAdded;
+        return AddressBookPhoneNumberStateAdded;
     }
     self.bottomPrioritizer.defaultState = self.addressBook.selectedPhoneNumbers.count == 0;
-    return [self.addressBook selectedPhoneNumber:phoneNumber] != nil ? WLAddressBookPhoneNumberStateSelected : WLAddressBookPhoneNumberStateDefault;
+    return [self.addressBook selectedPhoneNumber:phoneNumber] != nil ? AddressBookPhoneNumberStateSelected : AddressBookPhoneNumberStateDefault;
 }
 
 - (BOOL)containUnregisterAddresBookGroupRecord {
-    for (WLAddressBookPhoneNumber *phoneNumber in self.addressBook.selectedPhoneNumbers) {
+    for (AddressBookPhoneNumber *phoneNumber in self.addressBook.selectedPhoneNumbers) {
         WLArrangedAddressBookGroup *group = self.filteredAddressBook.groups.lastObject;
         if ([group.records containsObject:phoneNumber.record]) {
             return YES;
@@ -221,7 +220,7 @@
     return NO;
 }
 
-- (void)recordCell:(WLAddressBookRecordCell *)cell didSelectPhoneNumber:(WLAddressBookPhoneNumber *)person {
+- (void)recordCell:(AddressBookRecordCell *)cell didSelectPhoneNumber:(AddressBookPhoneNumber *)person {
     [self.addressBook selectPhoneNumber:person];
     [cell resetup];
 }
@@ -232,7 +231,7 @@
     }];
 }
 
-- (void)recordCellDidToggle:(WLAddressBookRecordCell *)cell {
+- (void)recordCellDidToggle:(AddressBookRecordCell *)cell {
     StreamPosition *position = cell.item.position;
     if (position) {
         StreamPosition *_position = [self openedPosition:position];

@@ -7,6 +7,7 @@
 //
 
 #import "WLProgressBar+WLContribution.h"
+#import <AFNetworking/AFNetworking.h>
 
 static CGFloat WLUploadingDataProgressPart = 0.5f;
 static CGFloat WLDownloadingDataProgressPart = 0.5f;

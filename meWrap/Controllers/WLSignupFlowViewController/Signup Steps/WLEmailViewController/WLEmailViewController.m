@@ -30,7 +30,7 @@
     sender.loading = YES;
     [self.view endEditing:YES];
     __weak typeof(self)weakSelf = self;
-    [[WLAuthorizationRequest whois:self.emailField.text] send:^(WLWhoIs* whoIs) {
+    [[APIRequest whois:self.emailField.text] send:^(WhoIs* whoIs) {
         sender.loading = NO;
         if (whoIs.found && whoIs.requiresApproving) {
             if (whoIs.confirmed) {
@@ -52,7 +52,7 @@
     [WLTestUserPicker showInView:self.view.window selection:^(Authorization *authorization) {
         [WLConfirmView showInView:weakSelf.view authorization:authorization success:^(Authorization *authorization) {
             if (authorization.password.nonempty) {
-                [authorization signIn:^(User *user) {
+                [[authorization signIn] send:^(User *user) {
                     [[UIStoryboard main] present:NO];
                 } failure:^(NSError *error) {
                     [error show];

@@ -14,8 +14,6 @@
 	#import <UIKit/UIKit.h>
 	#import <Foundation/Foundation.h>
 	#import "meWrap-Swift.h"
-    #import "WLAPIRequest+Defined.h"
-    #import "WLLogger.h"
 
 #define BEGIN_ARGUMENTS(name) \
 va_list args;\

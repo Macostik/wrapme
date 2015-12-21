@@ -83,20 +83,12 @@
 
 - (void)signUpAuthorization:(Authorization *)authorization success:(Block)success failure:(FailureBlock)failure {
 	__weak typeof(self)weakSelf = self;
-	[authorization signUp:^(Authorization *authorization) {
+	[[authorization signUp] send:^(Authorization *authorization) {
         [weakSelf setStatus:WLSignupStepStatusSuccess animated:NO];
         if (success) success();
 	} failure:^(NSError *error) {
 		[error show];
         if (failure) failure(error);
-	}];
-}
-
-- (void)signInAuthorization:(Authorization *)authorization {
-	[authorization signIn:^(User *user) {
-        
-	} failure:^(NSError *error) {
-		[error show];
 	}];
 }
 

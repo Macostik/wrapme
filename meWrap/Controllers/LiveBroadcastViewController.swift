@@ -49,6 +49,8 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     @IBOutlet weak var joinsCountLabel: UILabel!
     
+    @IBOutlet weak var toggleCameraButton: UIButton!
+    
     @IBOutlet weak var chatStreamView: StreamView!
     
     var chatDataSource: StreamDataSource!
@@ -56,6 +58,8 @@ class LiveBroadcastViewController: WLBaseViewController {
     weak var previewLayer: AVCaptureVideoPreviewLayer?
     
     weak var playerLayer: AVPlayerLayer?
+    
+    @IBOutlet weak var backgroundView: UIView!
     
     var playerItem: AVPlayerItem?
     
@@ -152,6 +156,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     private func initializeViewing(broadcast: LiveBroadcast) {
         isBroadcasting = false
+        toggleCameraButton.hidden = true
         
         layoutPrioritizer.defaultState = false
         startButton.hidden = true
@@ -160,7 +165,7 @@ class LiveBroadcastViewController: WLBaseViewController {
             let layer = AVPlayerLayer()
             layer.videoGravity = AVLayerVideoGravityResizeAspectFill
             layer.frame = view.bounds
-            view.layer.insertSublayer(layer, atIndex: 0)
+            backgroundView.layer.addSublayer(layer)
             playerLayer = layer
             
             let playerItem = AVPlayerItem(URL: url)
@@ -196,6 +201,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     private func initializeBroadcasting() {
         chatStreamView.hidden = true
         joinsCountView.hidden = true
+        toggleCameraButton.hidden = true
         isBroadcasting = true
         titleLabel?.superview?.hidden = true
         guard let cameraInfo = CameraInfo.getCameraList().first as? CameraInfo else {
@@ -228,7 +234,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self)
         layer.frame = view.bounds
         layer.videoGravity = AVLayerVideoGravityResizeAspectFill
-        view.layer.insertSublayer(layer, atIndex: 0)
+        backgroundView.layer.addSublayer(layer)
         streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
         previewLayer = layer
     }
@@ -312,10 +318,31 @@ class LiveBroadcastViewController: WLBaseViewController {
             }
             joinsCountView.hidden = false
             chatStreamView.hidden = false
+            toggleCameraButton.hidden = false
             sender.hidden = true
             composeBar.hidden = true
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "focusing:"))
             view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: "zooming:"))
+        }
+    }
+    
+    @IBAction func toggleCamera() {
+        if let session = previewLayer?.session {
+            session.beginConfiguration()
+            if let input = (session.inputs as? [AVCaptureDeviceInput])?.filter({ $0.device.hasMediaType(AVMediaTypeVideo) }).first {
+                let position: AVCaptureDevicePosition = input.device.position == .Back ? .Front : .Back
+                if let device = (AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as? [AVCaptureDevice])?.filter({ $0.position == position }).last {
+                    do {
+                        let _input = try AVCaptureDeviceInput(device: device)
+                        session.removeInput(input)
+                        if session.canAddInput(_input) {
+                            session.addInput(_input)
+                        }
+                    } catch {
+                    }
+                }
+            }
+            session.commitConfiguration()
         }
     }
     

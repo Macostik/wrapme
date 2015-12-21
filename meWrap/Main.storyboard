@@ -4005,6 +4005,10 @@ QWRkEEZyaWVuZFZpZXc
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="88C-bT-T0D">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oVK-cS-Ps7" customClass="StreamView" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="12" y="32" width="520" height="556"/>
                             </scrollView>
@@ -4231,6 +4235,32 @@ QWRkEEZyaWVuZFZpZXc
                                     <action selector="close:" destination="Ubc-jI-W0F" eventType="touchUpInside" id="rXV-Ah-FJl"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l6r-AU-Age">
+                                <rect key="frame" x="544" y="508" width="44" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="VLN-fc-9MK"/>
+                                    <constraint firstAttribute="width" constant="44" id="szJ-nQ-qUn"/>
+                                </constraints>
+                                <state key="normal" image="switch_to_front_cam">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="22"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="toggleCamera" destination="Ubc-jI-W0F" eventType="touchUpInside" id="VT2-Aa-UB4"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cxE-yC-9tL">
                                 <rect key="frame" x="544" y="564" width="44" height="24"/>
                                 <subviews>
@@ -4269,14 +4299,17 @@ QWRkEEZyaWVuZFZpZXc
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="oVK-cS-Ps7" firstAttribute="top" secondItem="fet-Rv-pld" secondAttribute="bottom" constant="12" id="3Jd-P6-fo8"/>
                             <constraint firstItem="sLm-tZ-lwk" firstAttribute="top" secondItem="u8X-Zw-0D3" secondAttribute="bottom" constant="12" id="5KJ-qu-pkL"/>
                             <constraint firstItem="TDj-ND-asZ" firstAttribute="top" secondItem="oVK-cS-Ps7" secondAttribute="bottom" priority="250" constant="12" id="7JU-6e-fLr"/>
                             <constraint firstItem="TDj-ND-asZ" firstAttribute="top" secondItem="cxE-yC-9tL" secondAttribute="bottom" priority="250" constant="12" id="Aas-yE-qbg"/>
                             <constraint firstItem="sLm-tZ-lwk" firstAttribute="top" secondItem="TDj-ND-asZ" secondAttribute="bottom" priority="750" constant="120" id="DHQ-C8-dip"/>
+                            <constraint firstItem="88C-bT-T0D" firstAttribute="width" secondItem="IgI-7Y-zB6" secondAttribute="width" id="Iqb-4g-fbe"/>
                             <constraint firstItem="6gi-jB-36P" firstAttribute="leading" secondItem="IgI-7Y-zB6" secondAttribute="leading" constant="12" id="KA1-JH-SKc"/>
                             <constraint firstItem="oVK-cS-Ps7" firstAttribute="leading" secondItem="IgI-7Y-zB6" secondAttribute="leading" constant="12" id="QUd-HR-Fr3"/>
+                            <constraint firstItem="88C-bT-T0D" firstAttribute="centerX" secondItem="IgI-7Y-zB6" secondAttribute="centerX" id="Syp-dE-KRG"/>
                             <constraint firstItem="sLm-tZ-lwk" firstAttribute="top" secondItem="cxE-yC-9tL" secondAttribute="bottom" priority="750" constant="12" id="T1R-kP-7e6"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6gi-jB-36P" secondAttribute="trailing" constant="12" id="Ui9-fq-oFL"/>
                             <constraint firstItem="sLm-tZ-lwk" firstAttribute="top" secondItem="TDj-ND-asZ" secondAttribute="bottom" priority="250" id="Uoe-GS-nuw"/>
@@ -4286,8 +4319,12 @@ QWRkEEZyaWVuZFZpZXc
                             <constraint firstItem="sLm-tZ-lwk" firstAttribute="top" secondItem="oVK-cS-Ps7" secondAttribute="bottom" priority="750" constant="12" id="hbb-F0-8mj"/>
                             <constraint firstItem="x6q-A3-oyw" firstAttribute="top" secondItem="fet-Rv-pld" secondAttribute="bottom" constant="12" id="j0t-Y5-QoD"/>
                             <constraint firstItem="u8X-Zw-0D3" firstAttribute="leading" secondItem="IgI-7Y-zB6" secondAttribute="leading" constant="12" id="jbP-gu-KOb"/>
+                            <constraint firstItem="88C-bT-T0D" firstAttribute="centerY" secondItem="IgI-7Y-zB6" secondAttribute="centerY" id="kbx-DS-Ofb"/>
+                            <constraint firstItem="88C-bT-T0D" firstAttribute="height" secondItem="IgI-7Y-zB6" secondAttribute="height" id="khO-TM-u31"/>
                             <constraint firstAttribute="trailing" secondItem="TDj-ND-asZ" secondAttribute="trailing" id="m88-yb-b4b"/>
+                            <constraint firstItem="cxE-yC-9tL" firstAttribute="top" secondItem="l6r-AU-Age" secondAttribute="bottom" constant="12" id="mwS-sG-Dq4"/>
                             <constraint firstAttribute="trailing" secondItem="lcy-Qn-Z2u" secondAttribute="trailing" constant="12" id="o0x-b9-7RJ"/>
+                            <constraint firstAttribute="trailing" secondItem="l6r-AU-Age" secondAttribute="trailing" constant="12" id="pNQ-N0-dMy"/>
                             <constraint firstItem="lcy-Qn-Z2u" firstAttribute="top" secondItem="fet-Rv-pld" secondAttribute="bottom" constant="12" id="qyn-yj-jIi"/>
                             <constraint firstAttribute="trailing" secondItem="cxE-yC-9tL" secondAttribute="trailing" constant="12" id="uj7-eC-08a"/>
                             <constraint firstItem="6gi-jB-36P" firstAttribute="top" secondItem="x6q-A3-oyw" secondAttribute="bottom" constant="12" id="vIA-Rx-4ba"/>
@@ -4299,6 +4336,7 @@ QWRkEEZyaWVuZFZpZXc
 TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
 </string>
                     <connections>
+                        <outlet property="backgroundView" destination="88C-bT-T0D" id="NVT-Qx-7Yd"/>
                         <outlet property="chatStreamView" destination="oVK-cS-Ps7" id="zS1-RU-5sI"/>
                         <outlet property="composeBar" destination="TDj-ND-asZ" id="z95-zG-RuZ"/>
                         <outlet property="joinsCountLabel" destination="0dx-bB-3YN" id="CBO-L4-d7s"/>
@@ -4306,6 +4344,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                         <outlet property="layoutPrioritizer" destination="VI5-dK-eHZ" id="Pdo-Pw-Wfp"/>
                         <outlet property="startButton" destination="u8X-Zw-0D3" id="CAw-XR-ccT"/>
                         <outlet property="titleLabel" destination="JKm-rj-U2W" id="uLx-6o-Jjy"/>
+                        <outlet property="toggleCameraButton" destination="l6r-AU-Age" id="yAg-yz-pNf"/>
                         <outlet property="wrapNameLabel" destination="ejQ-zw-H7R" id="aLC-I6-NdZ"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="DHQ-C8-dip" id="ovN-65-h6S"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="5KJ-qu-pkL" id="UP6-ql-rzA"/>
@@ -4765,5 +4804,6 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
         <image name="btn_wrap_camera_enabled" width="84" height="84"/>
         <image name="btn_wrap_camera_pressed" width="84" height="84"/>
         <image name="camera_medium" width="50" height="50"/>
+        <image name="switch_to_front_cam" width="23" height="18"/>
     </resources>
 </document>

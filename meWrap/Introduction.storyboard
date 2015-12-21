@@ -724,6 +724,43 @@
             </objects>
             <point key="canvasLocation" x="928" y="568.99999999999977"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="UzY-WG-U9Y">
+            <objects>
+                <viewController storyboardIdentifier="launchScreen" id="dhr-tC-cmh" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hPy-sj-DX3"/>
+                        <viewControllerLayoutGuide type="bottom" id="coL-hI-isJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9F9-kd-YFa">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_and_caption_orange.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ggb-F2-pRJ">
+                                <rect key="frame" x="193" y="186" width="215" height="165"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="165" id="NxV-58-35d"/>
+                                    <constraint firstAttribute="width" constant="215" id="fwF-eT-VKW"/>
+                                </constraints>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="etp-A6-PdH">
+                                <rect key="frame" x="290" y="390" width="20" height="20"/>
+                                <color key="color" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="etp-A6-PdH" secondAttribute="centerX" id="5rV-Yo-cMN"/>
+                            <constraint firstAttribute="centerX" secondItem="Ggb-F2-pRJ" secondAttribute="centerX" id="GEw-45-sRh"/>
+                            <constraint firstAttribute="centerY" secondItem="Ggb-F2-pRJ" secondAttribute="centerY" constant="32" id="VTo-wc-8qL"/>
+                            <constraint firstAttribute="centerY" secondItem="etp-A6-PdH" secondAttribute="centerY" constant="-100" id="bvQ-CG-oaa"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wo1-bz-Z0l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="903" y="-196"/>
+        </scene>
     </scenes>
     <resources>
         <image name="halloween1" width="186" height="186"/>
@@ -732,6 +769,7 @@
         <image name="halloween4" width="186" height="187"/>
         <image name="halloween5" width="186" height="186"/>
         <image name="halloween6" width="186" height="186"/>
+        <image name="logo_and_caption_orange.png" width="215" height="165"/>
         <image name="ski1" width="186" height="186"/>
         <image name="ski2" width="186" height="186"/>
         <image name="ski3" width="186" height="186"/>

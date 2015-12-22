@@ -13,11 +13,9 @@ class LiveBroadcast: NSObject {
     
     class Event {
         
-        unowned var broadcast: LiveBroadcast
-        
         enum Type: String {
             case Message = "message"
-            case Join = "join"
+            case Info = "info"
         }
         
         var type: Type
@@ -25,10 +23,9 @@ class LiveBroadcast: NSObject {
         var user: User?
         var disappearingBlock: (Void -> Void)?
         
-        init(type: Type, broadcast: LiveBroadcast) {
-            self.type = type
-            self.broadcast = broadcast
-        }
+        var autoDismiss = true
+        
+        init(type: Type) { self.type = type }
     }
     
     var broadcaster: User?
@@ -45,10 +42,16 @@ class LiveBroadcast: NSObject {
         if (events.count > 3) {
             events.removeLast()
         }
-        Dispatch.mainQueue.after(4) { [weak self] () -> Void in
-            event.disappearingBlock?()
-            self?.remove(event)
+        if event.autoDismiss {
+            Dispatch.mainQueue.after(4) { [weak self] () -> Void in
+                self?.dismiss(event)
+            }
         }
+    }
+    
+    func dismiss(event: Event) {
+        event.disappearingBlock?()
+        remove(event)
     }
     
     func remove(event: Event) {

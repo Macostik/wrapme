@@ -38,8 +38,9 @@ class MediaDataSource: PaginatedStreamDataSource {
     }
     
     override func streamView(streamView: StreamView, entryBlockForItem item: StreamItem) -> (StreamItem -> AnyObject?)? {
-        if let position = item.position where position.section == 0 {
-            return { [weak self] (_) -> AnyObject? in
+        let position = item.position
+        if position.section == 0 {
+            return { [weak self] _ in
                 return self?.liveBroadcasts?()?[position.index]
             }
         } else {

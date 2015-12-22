@@ -21,12 +21,10 @@ class LiveBroadcastEventView: StreamReusableView {
     override func setup(entry: AnyObject!) {
         if let event = entry as? LiveBroadcast.Event {
             if event.type == .Message {
-                textLabel.text = event.text
                 avatarView?.url = event.user?.avatar?.small
                 nameLabel?.text = event.user?.name
-            } else {
-                textLabel.text = "\(event.user?.name ?? "") \("joined".ls)"
             }
+            textLabel.text = event.text
             hidden = false
             event.disappearingBlock = { [weak self] () -> Void in
                 self?.hidden = true
@@ -75,7 +73,9 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     var isBroadcasting = false
     
-    var broadcast: LiveBroadcast?
+    lazy var broadcast: LiveBroadcast = LiveBroadcast()
+    
+    var preparingEvent: LiveBroadcast.Event?
     
     var chatSubscription: NotificationSubscription?
     
@@ -98,10 +98,8 @@ class LiveBroadcastViewController: WLBaseViewController {
     }
     
     private func updateBroadcastInfo() {
-        if let broadcast = broadcast {
-            joinsCountLabel.text = "\(broadcast.numberOfViewers)"
-            titleLabel?.text = broadcast.title
-        }
+        joinsCountLabel.text = "\(broadcast.numberOfViewers)"
+        titleLabel?.text = broadcast.title
     }
     
     override func viewDidLoad() {
@@ -113,18 +111,15 @@ class LiveBroadcastViewController: WLBaseViewController {
         chatDataSource = StreamDataSource(streamView: chatStreamView)
         chatDataSource.addMetrics(StreamMetrics(loader: IndexedStreamLoader(identifier: "LiveBroadcastEventViews", index: 0))).change { (metrics) -> Void in
             metrics.sizeAt = { [weak self] (position, metrics) -> CGFloat in
-                let event = self?.broadcast?.events[position.index]
-                if let streamView = self?.chatStreamView, let view = (metrics as StreamMetrics).loadView() {
-                    view.width = streamView.width
-                    view.entry = event
-                    let size = view.contentView!.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
-                    return max(size.height, 72)
+                let event = self?.broadcast.events[position.index]
+                if let streamView = self?.chatStreamView {
+                    return max(streamView.dynamicSizeForMetrics(metrics, entry: event), 72)
                 } else {
                     return 72
                 }
             }
             metrics.hiddenAt = { [weak self] (position, _) -> Bool in
-                let event = self?.broadcast?.events[position.index]
+                let event = self?.broadcast.events[position.index]
                 return event?.type != .Message
             }
             metrics.insetsAt = { (position, _) -> CGRect in
@@ -132,10 +127,17 @@ class LiveBroadcastViewController: WLBaseViewController {
             }
         }
         chatDataSource.addMetrics(StreamMetrics(loader: IndexedStreamLoader(identifier: "LiveBroadcastEventViews", index: 1))).change { (metrics) -> Void in
-            metrics.size = 32
+            metrics.sizeAt = { [weak self] (position, metrics) -> CGFloat in
+                let event = self?.broadcast.events[position.index]
+                if let streamView = self?.chatStreamView {
+                    return max(streamView.dynamicSizeForMetrics(metrics, entry: event), 32)
+                } else {
+                    return 32
+                }
+            }
             metrics.hiddenAt = { [weak self] (position, _) -> Bool in
-                let event = self?.broadcast?.events[position.index]
-                return event?.type != .Join
+                let event = self?.broadcast.events[position.index]
+                return event?.type != .Info
             }
             metrics.insetsAt = { (position, _) -> CGRect in
                 return CGRect(x: 0, y: position.index == 0 ? 0 : 6, width: 0, height: 0)
@@ -144,7 +146,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         
         wrapNameLabel?.text = wrap?.name
         
-        if let broadcast = broadcast {
+        if broadcast.wrap != nil {
             initializeViewing(broadcast)
         } else {
             initializeBroadcasting()
@@ -162,7 +164,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         guard let url = "http://live.mewrap.me:1935/live/\(broadcast.streamName)/playlist.m3u8".URL else { return }
         
         let layer = AVPlayerLayer()
-        layer.videoGravity = AVLayerVideoGravityResizeAspect
+        layer.videoGravity = AVLayerVideoGravityResizeAspectFill
         layer.frame = view.bounds
         view.layer.insertSublayer(layer, atIndex: 0)
         playerLayer = layer
@@ -253,13 +255,12 @@ class LiveBroadcastViewController: WLBaseViewController {
         let streamer = Streamer.instance() as! Streamer
         let streamName = "\(wrap.uid)-\(user.uid)-\(deviceUID)"
         
-        let broadcast = LiveBroadcast()
         broadcast.title = composeBar.text
         broadcast.broadcaster = user
         broadcast.streamName = streamName
         broadcast.uuid = User.channelName()
         broadcast.wrap = wrap
-        self.broadcast = wrap.addBroadcast(broadcast)
+        wrap.addBroadcast(broadcast)
         
         userState = [
             "title" : broadcast.title,
@@ -275,10 +276,8 @@ class LiveBroadcastViewController: WLBaseViewController {
     }
     
     func stop() {
-        if let broadcast = broadcast {
-            userState = [NSObject : AnyObject]()
-            wrap?.removeBroadcast(broadcast)
-        }
+        userState = [NSObject : AnyObject]()
+        wrap?.removeBroadcast(broadcast)
         
         if let connectionID = connectionID {
             self.connectionID = nil
@@ -305,6 +304,13 @@ class LiveBroadcastViewController: WLBaseViewController {
             composeBar.hidden = true
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "focusing:"))
             view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: "zooming:"))
+            
+            let event = LiveBroadcast.Event(type: .Info)
+            event.text = "preparing_broadcast".ls
+            event.autoDismiss = false
+            broadcast.insert(event)
+            chatDataSource.items = broadcast.events
+            preparingEvent = event
         }
     }
     
@@ -451,30 +457,36 @@ extension LiveBroadcastViewController: StreamerListener {
     
     @objc(connectionStateDidChangeId:State:Status:)
     func connectionStateDidChangeId(connectionID: Int32, state: ConnectionState, status: ConnectionStatus) {
+        
+        if state == .Record {
+            let event = LiveBroadcast.Event(type: .Info)
+            event.text = String(format: "formatted_you_are_now_live".ls, wrap?.name ?? "")
+            broadcast.insert(event)
+            if let preparingEvent = preparingEvent {
+                broadcast.remove(preparingEvent)
+            }
+            chatDataSource.items = broadcast.events
+        }
+        
         if self.connectionID == connectionID && state == .Disconnected {
             stop()
             Dispatch.mainQueue.after(status == .UnknownFail ? 1 : 3, block: { [weak self] () -> Void in
                 do {
                     try self?.start()
-                } catch {
-                }
+                } catch { }
             })
         }
     }
 
-    func videoCaptureStateDidChange(state: CaptureState) {
+    func videoCaptureStateDidChange(state: CaptureState) { }
 
-    }
-
-    func audioCaptureStateDidChange(state: CaptureState) {
-
-    }
+    func audioCaptureStateDidChange(state: CaptureState) { }
 }
 
 extension LiveBroadcastViewController: EntryNotifying {
     
     func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
-        guard let wrap = wrap, let broadcast = broadcast else { return }
+        guard let wrap = wrap else { return }
         guard event == .LiveBroadcastsChanged else { return }
         if !isBroadcasting && !wrap.liveBroadcasts.contains(broadcast) {
             presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
@@ -494,21 +506,19 @@ extension LiveBroadcastViewController: EntryNotifying {
 
 extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
     func notificationSubscription(subscription: NotificationSubscription, didReceiveMessage message: PNMessageResult) {
-        guard let broadcast = broadcast else { return }
         guard let uuid = (message.data?.message as? [String : AnyObject])?["userUid"] as? String else { return }
         guard let user = User.entry(uuid) else { return }
         guard let text = (message.data?.message as? [String : AnyObject])?["chatMessage"] as? String else { return }
         user.fetchIfNeeded({ [weak self] (_) -> Void in
-            let event = LiveBroadcast.Event(type: .Message, broadcast: broadcast)
+            let event = LiveBroadcast.Event(type: .Message)
             event.user = user
             event.text = text
-            broadcast.insert(event)
-            self?.chatDataSource.items = broadcast.events
+            self?.broadcast.insert(event)
+            self?.chatDataSource.items = self?.broadcast.events
             }, failure: nil)
     }
     
     private func setNumberOfViewers(numberOfViewers: Int) {
-        guard let broadcast = broadcast else { return }
         broadcast.numberOfViewers = numberOfViewers
         if isBroadcasting {
             var state = userState
@@ -519,17 +529,15 @@ extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
     }
     
     func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {
-        guard let broadcast = broadcast else { return }
         guard let uuid = event.data?.presence?.uuid where uuid != User.channelName() else { return }
         guard let user = PubNub.userFromUUID(uuid) where !user.current else { return }
         user.fetchIfNeeded({ [weak self] (_) -> Void in
-            guard let controller = self else {
-                return
-            }
+            guard let broadcast = self?.broadcast else { return }
+            guard let controller = self else { return }
             switch event.data.presenceEvent {
             case "join":
-                let event = LiveBroadcast.Event(type: .Join, broadcast: broadcast)
-                event.user = user
+                let event = LiveBroadcast.Event(type: .Info)
+                event.text = "\(user.name ?? "") \("joined".ls)"
                 broadcast.insert(event)
                 controller.chatDataSource.items = broadcast.events
                 controller.setNumberOfViewers(max(1, broadcast.numberOfViewers + 1))

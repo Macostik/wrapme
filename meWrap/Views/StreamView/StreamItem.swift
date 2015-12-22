@@ -12,21 +12,27 @@ import UIKit
 
 class StreamItem: NSObject {
     
-    var frame: CGRect = CGRectZero
+    var frame = CGRectZero
     
-    var visible: Bool = false
+    var visible = false
     
-    var position: StreamPosition?
+    var position: StreamPosition
+    
+    var metrics: StreamMetrics
     
     var column: Int = 0
     
     var entryBlock: (StreamItem -> AnyObject?)?
     
+    required init(metrics: StreamMetrics, position: StreamPosition) {
+        self.metrics = metrics
+        self.position = position
+        super.init()
+    }
+    
     private var _entry: AnyObject?
     var entry: AnyObject? {
-        set {
-            _entry = newValue
-        }
+        set { _entry = newValue }
         get {
             if _entry == nil {
                 _entry = entryBlock?(self)
@@ -34,8 +40,6 @@ class StreamItem: NSObject {
             return _entry
         }
     }
-    
-    weak var metrics: StreamMetrics?
     
     weak var view: StreamReusableView? {
         didSet {

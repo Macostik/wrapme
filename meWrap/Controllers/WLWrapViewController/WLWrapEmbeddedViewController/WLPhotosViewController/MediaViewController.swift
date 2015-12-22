@@ -146,7 +146,9 @@ class MediaViewController: WLWrapEmbeddedViewController {
             }
             if let controller = self?.storyboard?["liveBroadcast"] as? LiveBroadcastViewController {
                 controller.wrap = self?.wrap
-                controller.broadcast = broadcast as? LiveBroadcast
+                if let broadcast = broadcast as? LiveBroadcast {
+                    controller.broadcast = broadcast
+                }
                 self?.navigationController?.presentViewController(controller, animated: false, completion: nil)
             }
         }

@@ -262,3 +262,5 @@
 "welcome" = "Welcome to meWrap!";
 "welcome_introduction_string" = "Wrap in an album where you and people you choose can contribute picture & videos, and broadcast your event live!";
 "let's_get_started" = "Let's get started";
+"preparing_broadcast" = "Preparing your broadcast...";
+"formatted_you_are_now_live" = "You are now LIVE! Friends in \"%@\" are also receiving notification about your broadcast. Enjoy!";

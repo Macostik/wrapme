@@ -121,7 +121,7 @@ class StreamView: UIScrollView {
         while let next = item {
             if let view = next.view {
                 view.hidden = true
-                next.metrics?.enqueueView(view)
+                next.metrics.enqueueView(view)
             }
             item = next.next
         }
@@ -259,9 +259,7 @@ class StreamView: UIScrollView {
     
     func addItem(layout: StreamLayout, metrics: StreamMetrics, position: StreamPosition) -> StreamItem? {
         if (!metrics.hiddenAt(position, metrics)) {
-            let item = StreamItem()
-            item.position = position
-            item.metrics = metrics
+            let item = StreamItem(metrics: metrics, position: position)
             if let currentItem = currentLayoutItem {
                 item.previous = currentItem
                 currentItem.next = item
@@ -302,11 +300,8 @@ class StreamView: UIScrollView {
             return
         }
         item.visible = visible
-        guard let metrics = item.metrics else {
-            return
-        }
         if (visible) {
-            if let view = metrics.dequeueViewWithItem(item) {
+            if let view = item.metrics.dequeueViewWithItem(item) {
                 if view.superview != self {
                     insertSubview(view, atIndex: 0)
                 }
@@ -315,31 +310,33 @@ class StreamView: UIScrollView {
             latestVisibleItem = item
         } else {
             if let view = item.view {
-                metrics.enqueueView(view)
+                item.metrics.enqueueView(view)
                 view.hidden = true
                 item.view = nil
             }
         }
     }
     
+    func dynamicSizeForMetrics(metrics: StreamMetrics, entry: AnyObject?) -> CGFloat {
+        guard let view = metrics.loadView() else { return 0 }
+        view.width = width
+        view.entry = entry
+        let size = view.contentView!.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
+        return size.height
+    }
+    
     // MARK: - User Actions
     
     func visibleItems() -> Set<StreamItem> {
-        return itemsPassingTest({ (item) -> Bool in
-            return item.visible
-        })
+        return itemsPassingTest { $0.visible }
     }
     
     func selectedItems() -> Set<StreamItem> {
-        return itemsPassingTest({ (item) -> Bool in
-            return item.selected
-        })
+        return itemsPassingTest { $0.selected }
     }
     
     var selectedItem: StreamItem? {
-        return itemPassingTest({ (item) -> Bool in
-            return item.selected
-        })
+        return itemPassingTest { $0.selected }
     }
     
     func itemPassingTest(test: (StreamItem) -> Bool) -> StreamItem? {

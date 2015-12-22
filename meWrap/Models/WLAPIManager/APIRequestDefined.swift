@@ -88,7 +88,7 @@ extension APIRequest {
     }
     
     class func followWrap(wrap: Wrap) -> Self {
-        return POST().path("wraps/\(wrap.uid)/leave").parse { response in
+        return POST().path("wraps/\(wrap.uid)/follow").parse { response in
             wrap.touch()
             if let user = User.currentUser {
                 wrap.mutableContributors.addObject(user)
@@ -99,7 +99,7 @@ extension APIRequest {
     }
     
     class func unfollowWrap(wrap: Wrap) -> Self {
-        return DELETE().path("wraps/\(wrap.uid)/leave").parse { response in
+        return DELETE().path("wraps/\(wrap.uid)/unfollow").parse { response in
             if let user = User.currentUser {
                 wrap.mutableContributors.removeObject(user)
                 wrap.notifyOnUpdate(.ContributorsChanged)

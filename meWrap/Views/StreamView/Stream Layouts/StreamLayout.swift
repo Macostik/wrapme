@@ -72,29 +72,27 @@ class StreamLayout: NSObject {
     }
     
     func horizontalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
-        if let metrics = item.metrics, position = item.position {
-            let size = metrics.sizeAt(position, metrics)
-            let insets = metrics.insetsAt(position, metrics)
-            var offset = self.offset
-            if let previous = item.previous {
-                offset = previous.frame.maxX
-            }
-            return CGRectMake(offset + insets.origin.x, insets.origin.y, size + insets.width, streamView.frame.height - insets.origin.y - insets.height)
+        let position = item.position
+        let metrics = item.metrics
+        let size = metrics.sizeAt(position, metrics)
+        let insets = metrics.insetsAt(position, metrics)
+        var offset = self.offset
+        if let previous = item.previous {
+            offset = previous.frame.maxX
         }
-        return CGRectZero
+        return CGRectMake(offset + insets.origin.x, insets.origin.y, size + insets.width, streamView.frame.height - insets.origin.y - insets.height)
     }
     
     func verticalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
-        if let metrics = item.metrics, position = item.position {
-            let size = metrics.sizeAt(position, metrics)
-            let insets = metrics.insetsAt(position, metrics)
-            var offset = self.offset
-            if let previous = item.previous {
-                offset = previous.frame.maxY
-            }
-            return CGRectMake(insets.origin.x, offset + insets.origin.y, streamView.frame.width - insets.origin.x - insets.width, size + insets.height)
+        let position = item.position
+        let metrics = item.metrics
+        let size = metrics.sizeAt(position, metrics)
+        let insets = metrics.insetsAt(position, metrics)
+        var offset = self.offset
+        if let previous = item.previous {
+            offset = previous.frame.maxY
         }
-        return CGRectZero
+        return CGRectMake(insets.origin.x, offset + insets.origin.y, streamView.frame.width - insets.origin.x - insets.width, size + insets.height)
     }
     
     func prepareForNextSection() {

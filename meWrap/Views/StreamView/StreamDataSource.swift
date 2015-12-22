@@ -140,11 +140,7 @@ class StreamDataSource: NSObject, GridLayoutDelegate, StreamLayoutDelegate {
     var didLayoutBlock: (Void -> Void)?
     
     func entryForItem(item: StreamItem) -> AnyObject? {
-        if let position = item.position {
-            return items?.tryAt(position.index)
-        } else {
-            return nil
-        }
+        return items?.tryAt(item.position.index)
     }
     
     // MARK: - UIScrollViewDelegate

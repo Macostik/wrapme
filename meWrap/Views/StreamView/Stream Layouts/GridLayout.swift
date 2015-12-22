@@ -63,11 +63,9 @@ class GridLayout: StreamLayout {
     }
     
     override func horizontalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
-        var ratio: CGFloat = 1
         
-        if let metrics = item.metrics {
-            ratio = metrics.ratioAt(item.position!, metrics)
-        }
+        let metrics = item.metrics
+        let ratio = metrics.ratioAt(item.position, metrics)
         
         let offset = offsets.minElement() ?? 0
         let column = offsets.indexOf(offset) ?? 0
@@ -92,12 +90,8 @@ class GridLayout: StreamLayout {
     }
     
     override func verticalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
-        var ratio: CGFloat = 1
-        
-        if let metrics = item.metrics {
-            ratio = metrics.ratioAt(item.position!, metrics)
-        }
-        
+        let metrics = item.metrics
+        let ratio = metrics.ratioAt(item.position, metrics)
         let offset = offsets.minElement() ?? 0
         let column = offsets.indexOf(offset) ?? 0
         let size = sizes[column] * streamView.frame.width

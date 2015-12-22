@@ -165,6 +165,7 @@ extension NSUserDefaults {
         set {
             _imageURI = newValue
             self["imageURI"] = newValue
+            AssetMetrics.imageMetrics.uri = newValue
         }
     }
     
@@ -178,6 +179,7 @@ extension NSUserDefaults {
         set {
             _videoURI = newValue
             self["videoURI"] = newValue
+            AssetMetrics.videoMetrics.uri = newValue
         }
     }
     
@@ -191,6 +193,7 @@ extension NSUserDefaults {
         set {
             _avatarURI = newValue
             self["avatarURI"] = newValue
+            AssetMetrics.avatarMetrics.uri = newValue
         }
     }
     

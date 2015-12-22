@@ -71,9 +71,8 @@ class Authorization: Archive {
         if let email = userData[Keys.Email] as? String {
             self.email = email
         }
-        if let unconfirmed_email = userData[Keys.UnconfirmedEmail] as? String {
-            self.unconfirmed_email = unconfirmed_email
-        }
+        self.unconfirmed_email = userData[Keys.UnconfirmedEmail] as? String ?? ""
+        
         setCurrent()
     }
     

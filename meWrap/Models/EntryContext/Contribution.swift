@@ -12,9 +12,7 @@ import CoreData
 @objc(Uploading)
 class Uploading: Entry {
     
-    override class func entityName() -> String {
-        return "Uploading"
-    }
+    override class func entityName() -> String { return "Uploading" }
     
     var inProgress = false
 }
@@ -22,9 +20,7 @@ class Uploading: Entry {
 @objc(Contribution)
 class Contribution: Entry {
     
-    override class func entityName() -> String {
-        return "Contribution"
-    }
+    override class func entityName() -> String { return "Contribution" }
     
     class func recentContributions() -> [Contribution] {
         var contributions = [Contribution]()
@@ -69,20 +65,11 @@ class Contribution: Entry {
         }
     }
     
-    var status: ContributionStatus {
-        return statusOfUploadingEvent(.Add)
-    }
+    var status: ContributionStatus { return statusOfUploadingEvent(.Add) }
     
-    var uploaded: Bool {
-        return status == .Finished
-    }
+    var uploaded: Bool { return status == .Finished }
     
-    var deletable: Bool {
-        return contributor?.current ?? false
-    }
+    var deletable: Bool { return contributor?.current ?? false }
     
-    var canBeUploaded: Bool {
-        return true
-    }
-
+    var canBeUploaded: Bool { return true }
 }

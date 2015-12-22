@@ -12,9 +12,7 @@ import CoreData
 @objc(User)
 class User: Entry {
 
-    override class func entityName() -> String {
-        return "User"
-    }
+    override class func entityName() -> String { return "User" }
     
     private static var _currentUser: User?
     static var currentUser: User? {
@@ -33,9 +31,7 @@ class User: Entry {
         }
     }
     
-    var isSignupCompleted: Bool {
-        return name != nil && avatar?.medium != nil
-    }
+    var isSignupCompleted: Bool { return name != nil && avatar?.medium != nil }
     
     var isInvited: Bool {
         if let devices = devices as? Set<Device> where !current {
@@ -90,9 +86,7 @@ class User: Entry {
             }
             return _phones
         }
-        set {
-            _phones = newValue
-        }
+        set { _phones = newValue }
     }
     
     private var _securePhones: String?
@@ -112,9 +106,7 @@ class User: Entry {
         }
     }
     
-    var mutableWraps: NSMutableSet {
-        return mutableSetValueForKey("wraps")
-    }
+    var mutableWraps: NSMutableSet { return mutableSetValueForKey("wraps") }
     
     var sortedWraps: [Wrap]? {
         return (wraps as? Set<Wrap>)?.sort({ $0.updatedAt > $1.updatedAt })
@@ -131,14 +123,10 @@ class User: Entry {
 @objc(Device)
 class Device: Entry {
     
-    override class func entityName() -> String {
-        return "Device"
-    }
+    override class func entityName() -> String { return "Device" }
     
     override var container: Entry? {
-        get {
-            return owner
-        }
+        get { return owner }
         set {
             if let owner = newValue as? User {
                 self.owner = owner

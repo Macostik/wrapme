@@ -12,18 +12,12 @@ import CoreData
 @objc(Message)
 class Message: Contribution {
 
-    override class func entityName() -> String {
-        return "Message"
-    }
+    override class func entityName() -> String { return "Message" }
     
-    override class func containerEntityName() -> String? {
-        return Wrap.entityName()
-    }
+    override class func containerEntityName() -> String? { return Wrap.entityName() }
 
     override var container: Entry? {
-        get {
-            return wrap
-        }
+        get { return wrap }
         set {
             if let wrap = newValue as? Wrap {
                 self.wrap = wrap
@@ -32,11 +26,8 @@ class Message: Contribution {
     }
     
     override var asset: Asset? {
-        get {
-            return contributor?.avatar
-        }
-        set {
-        }
+        get { return contributor?.avatar }
+        set { }
     }
     
     override func willBecomeUnread(unread: Bool) {

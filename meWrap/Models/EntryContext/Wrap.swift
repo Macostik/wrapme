@@ -63,13 +63,9 @@ class Wrap: Contribution {
     
    static var ContentTypeRecent = "recent_candies"
     
-    override class func entityName() -> String {
-        return "Wrap"
-    }
+    override class func entityName() -> String { return "Wrap" }
     
-    override class func contentEntityNames() -> Set<String>? {
-        return [Candy.entityName()]
-    }
+    override class func contentEntityNames() -> Set<String>? { return [Candy.entityName()] }
     
     private var _historyCandies: [Candy]?
     var historyCandies: [Candy]? {
@@ -136,11 +132,8 @@ class Wrap: Contribution {
     }
     
     override var asset: Asset? {
-        get {
-            return cover?.asset
-        }
-        set {
-        }
+        get { return cover?.asset }
+        set { }
     }
     
     var isContributing: Bool {

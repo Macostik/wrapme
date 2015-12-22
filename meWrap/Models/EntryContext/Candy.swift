@@ -12,18 +12,12 @@ import CoreData
 @objc(Candy)
 class Candy: Contribution {
 
-    override class func entityName() -> String {
-        return "Candy"
-    }
+    override class func entityName() -> String { return "Candy" }
     
-    override class func containerEntityName() -> String? {
-        return Wrap.entityName()
-    }
+    override class func containerEntityName() -> String? { return Wrap.entityName() }
 
     override var container: Entry? {
-        get {
-            return wrap
-        }
+        get { return wrap }
         set {
             if let wrap = newValue as? Wrap {
                 self.wrap = wrap
@@ -90,28 +84,16 @@ class Candy: Contribution {
         }
     }
     
-    override var uploaded: Bool {
-        return super.uploaded && uid != locuid
-    }
+    override var uploaded: Bool { return super.uploaded && uid != locuid }
     
-    override var canBeUploaded: Bool {
-        return wrap?.uploading == nil
-    }
+    override var canBeUploaded: Bool { return wrap?.uploading == nil }
     
-    override var deletable: Bool {
-        return super.deletable || (wrap?.deletable ?? false)
-    }
+    override var deletable: Bool { return super.deletable || (wrap?.deletable ?? false) }
     
     var mediaType: MediaType {
-        get {
-            return MediaType(rawValue: type) ?? .Photo
-        }
-        set {
-            type = newValue.rawValue
-        }
+        get { return MediaType(rawValue: type) ?? .Photo }
+        set { type = newValue.rawValue }
     }
     
-    var isVideo: Bool {
-        return mediaType == .Video
-    }
+    var isVideo: Bool { return mediaType == .Video }
 }

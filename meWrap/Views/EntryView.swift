@@ -18,20 +18,7 @@ class EntryView: UIView {
         }
     }
     
-    class func entityName() -> String? {
-        return nil
-    }
-    
-    func update(entry: Entry) {
-        
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        if let name = self.dynamicType.entityName() {
-            EntryNotifier.notifierForName(name).addReceiver(self)
-        }
-    }
+    func update(entry: Entry) { }
 }
 
 extension EntryView: EntryNotifying {
@@ -51,10 +38,6 @@ class UserView: EntryView {
     
     @IBOutlet weak var nameLabel: UILabel?
     
-    override class func entityName() -> String? {
-        return User.entityName()
-    }
-    
     override func update(entry: Entry) {
         if let user = entry as? User {
             avatarView?.url = user.avatar?.small
@@ -64,6 +47,7 @@ class UserView: EntryView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        User.notifier().addReceiver(self)
         if let avatarView = avatarView {
             avatarView.borderWidth = Constants.pixelSize * 2.0
             avatarView.borderColor = UIColor.whiteColor()
@@ -79,10 +63,6 @@ class WrapView: EntryView {
     
     @IBOutlet weak var nameLabel: UILabel?
     
-    override class func entityName() -> String? {
-        return Wrap.entityName()
-    }
-    
     override func update(entry: Entry) {
         if let wrap = entry as? Wrap {
             if let coverView = coverView {
@@ -96,6 +76,7 @@ class WrapView: EntryView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        Wrap.notifier().addReceiver(self)
         coverView?.circled = true
     }
 }

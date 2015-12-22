@@ -12,25 +12,15 @@ import CoreData
 @objc(Entry)
 class Entry: NSManagedObject {
 
-    class func entityName() -> String {
-        return "Entry"
-    }
+    class func entityName() -> String { return "Entry" }
     
-    class func containerEntityName() -> String? {
-        return nil
-    }
+    class func containerEntityName() -> String? { return nil }
     
-    class func contentEntityNames() -> Set<String>? {
-        return nil
-    }
+    class func contentEntityNames() -> Set<String>? { return nil }
     
-    override var description: String {
-        return "\(self.dynamicType.entityName()): \(uid)"
-    }
+    override var description: String { return "\(self.dynamicType.entityName()): \(uid)" }
     
-    func compare(entry: Entry) -> NSComparisonResult {
-        return updatedAt.compare(entry.updatedAt)
-    }
+    func compare(entry: Entry) -> NSComparisonResult { return updatedAt.compare(entry.updatedAt) }
     
     class func entry(uid: String?) -> Self? {
         return entry(uid, locuid: nil)
@@ -71,13 +61,9 @@ class Entry: NSManagedObject {
         return ["name":self.dynamicType.entityName(), "uid":uid];
     }
     
-    var valid: Bool {
-        return managedObjectContext != nil && !self.deleted && (container?.valid ?? true)
-    }
+    var valid: Bool { return managedObjectContext != nil && !self.deleted && (container?.valid ?? true) }
     
-    func validEntry() -> Self? {
-        return valid ? self : nil
-    }
+    func validEntry() -> Self? { return valid ? self : nil }
     
     var container: Entry?
     

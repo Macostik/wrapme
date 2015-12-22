@@ -65,12 +65,13 @@ class HistoryItemCell: StreamReusableView {
     override func setup(entry: AnyObject!) {
         streamView.frame = bounds
         if let item = entry as? HistoryItem {
-            if item.date.isToday() {
+            let candies = item.candies
+            if item.date.isToday() && candies.count >= 3 {
                 streamView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
-                dataSource.items = item.candies.reverse()
+                dataSource.items = candies.reverse()
             } else {
                 streamView.transform = CGAffineTransformIdentity
-                dataSource.items = item.candies
+                dataSource.items = candies
             }
             streamView.contentOffset = item.offset
         }

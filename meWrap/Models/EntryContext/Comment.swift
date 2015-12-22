@@ -12,18 +12,12 @@ import CoreData
 @objc(Comment)
 class Comment: Contribution {
 
-    override class func entityName() -> String {
-        return "Comment"
-    }
+    override class func entityName() -> String { return "Comment" }
     
-    override class func containerEntityName() -> String? {
-        return Candy.entityName()
-    }
+    override class func containerEntityName() -> String? { return Candy.entityName() }
     
     override var container: Entry? {
-        get {
-            return candy
-        }
+        get { return candy }
         set {
             if let candy = newValue as? Candy {
                 self.candy = candy
@@ -31,19 +25,12 @@ class Comment: Contribution {
         }
     }
     
-    override var canBeUploaded: Bool {
-        return candy?.uploading == nil
-    }
+    override var canBeUploaded: Bool { return candy?.uploading == nil }
     
-    override var deletable: Bool {
-        return super.deletable || (candy?.deletable ?? false)
-    }
+    override var deletable: Bool { return super.deletable || (candy?.deletable ?? false) }
     
     override var asset: Asset? {
-        get {
-            return candy?.asset
-        }
-        set {
-        }
+        get { return candy?.asset }
+        set { }
     }
 }

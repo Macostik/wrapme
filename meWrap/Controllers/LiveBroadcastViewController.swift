@@ -159,35 +159,32 @@ class LiveBroadcastViewController: WLBaseViewController {
         layoutPrioritizer.defaultState = false
         startButton.hidden = true
         
-        if let url = "http://live.mewrap.me:1935/live/\(broadcast.streamName)/playlist.m3u8".URL {
-            let layer = AVPlayerLayer()
-            layer.videoGravity = AVLayerVideoGravityResizeAspectFill
-            layer.frame = view.bounds
-            view.layer.insertSublayer(layer, atIndex: 0)
-            playerLayer = layer
-            
-            let playerItem = AVPlayerItem(URL: url)
-            playerItem.addObserver(self, forKeyPath: "status", options: .New, context: nil)
-            playerItem.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .New, context: nil)
-            let player = AVPlayer(playerItem: playerItem)
-            layer.player = player
-            self.playerItem = playerItem
-            
-            subscribe(broadcast)
-            
-            updateBroadcastInfo()
-            
-            if let channel = wrap?.uid {
-                PubNub.sharedInstance.stateForUUID(broadcast.uuid, onChannel: channel, withCompletion: { [weak self] (result, status) -> Void in
-                    if let state = result?.data?.state, let numberOfViewers = state["numberOfViewers"] as? Int {
-                        if let broadcast = self?.broadcast {
-                            broadcast.numberOfViewers = numberOfViewers
-                            self?.updateBroadcastInfo()
-                        }
-                    }
-                })
+        guard let url = "http://live.mewrap.me:1935/live/\(broadcast.streamName)/playlist.m3u8".URL else { return }
+        
+        let layer = AVPlayerLayer()
+        layer.videoGravity = AVLayerVideoGravityResizeAspect
+        layer.frame = view.bounds
+        view.layer.insertSublayer(layer, atIndex: 0)
+        playerLayer = layer
+        
+        let playerItem = AVPlayerItem(URL: url)
+        playerItem.addObserver(self, forKeyPath: "status", options: .New, context: nil)
+        playerItem.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .New, context: nil)
+        let player = AVPlayer(playerItem: playerItem)
+        layer.player = player
+        self.playerItem = playerItem
+        
+        subscribe(broadcast)
+        
+        updateBroadcastInfo()
+        
+        guard let wrap = wrap else { return }
+        PubNub.sharedInstance.stateForUUID(broadcast.uuid, onChannel: wrap.uid) { [weak self] (result, status) -> Void in
+            if let state = result?.data?.state, let numberOfViewers = state["numberOfViewers"] as? Int {
+                broadcast.numberOfViewers = numberOfViewers
+                self?.updateBroadcastInfo()
             }
-        }
+            }
     }
     
     private func subscribe(broadcast: LiveBroadcast) {
@@ -202,12 +199,13 @@ class LiveBroadcastViewController: WLBaseViewController {
         toggleCameraButton.hidden = true
         isBroadcasting = true
         titleLabel?.superview?.hidden = true
-        guard let cameraInfo = CameraInfo.getCameraList().first as? CameraInfo else {
-            return
-        }
+        guard let cameraInfo = CameraInfo.getCameraList().first as? CameraInfo else { return }
         
         let videoConfig = VideoConfig()
-        videoConfig.videoSize = (cameraInfo.videoSizes?[1] as! NSValue).CGSizeValue()
+        
+        let videoSizes: [CGSize] = (cameraInfo.videoSizes as? [NSValue])?.map({ $0.CGSizeValue() }) ?? []
+        let preferedSize = videoSizes.filter({ $0.width == 352 && $0.height == 288 }).first
+        videoConfig.videoSize = preferedSize ?? videoSizes[0]
         videoConfig.bitrate = 2000000
         videoConfig.fps = 30
         videoConfig.keyFrameInterval = 2
@@ -227,29 +225,19 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     private func orientationForVideoConnection() -> AVCaptureVideoOrientation {
         switch WLDeviceManager.defaultManager().orientation {
-        case .PortraitUpsideDown:
-            return .PortraitUpsideDown
-        case .LandscapeLeft:
-            return .LandscapeLeft
-        case .LandscapeRight:
-            return .LandscapeRight
-        default:
-            return .Portrait
+        case .PortraitUpsideDown: return .PortraitUpsideDown
+        case .LandscapeLeft: return .LandscapeLeft
+        case .LandscapeRight: return .LandscapeRight
+        default: return .Portrait
         }
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        guard let player = playerLayer?.player, let item = playerItem else {
-            return
-        }
-        if keyPath == "status" {
-            if item.status == .ReadyToPlay {
-                player.play()
-            }
-        } else if keyPath == "playbackLikelyToKeepUp" {
-            if item.playbackLikelyToKeepUp == true {
-                player.play()
-            }
+        guard let keyPath = keyPath, let item = playerItem else { return }
+        switch keyPath {
+        case "status" where item.status == .ReadyToPlay, "playbackLikelyToKeepUp" where item.playbackLikelyToKeepUp == true:
+            playerLayer?.player?.play()
+        default: break
         }
     }
     

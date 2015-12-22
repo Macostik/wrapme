@@ -109,9 +109,10 @@ class FlowerMenu: UIView {
         var delta = -CGFloat(M_PI_2)
         if centerPoint.x >= 2*width/3 {
             delta -= range
-        } else {
+        } else if centerPoint.x >= width/3 {
             delta -= range/2
         }
+        
         let radius: CGFloat = 60
         
         for (index, action) in actions.enumerate() {

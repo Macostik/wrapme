@@ -219,18 +219,6 @@
 			<key>password</key>
 			<string>50e7c309e8</string>
 		</dict>
-		<dict>
-			<key>countryCode</key>
-			<string>380</string>
-			<key>deviceUID</key>
-			<string>b2a4b58828dae03b5aacfd863368b32754da43e0</string>
-			<key>email</key>
-			<string>y.granchenko@gmail.com</string>
-			<key>password</key>
-			<string>7e53ec2fcf</string>
-			<key>phone</key>
-			<string>957115541</string>
-		</dict>
 	</array>
 </dict>
 </plist>

@@ -36,8 +36,9 @@
     [self.dataSource addMetrics:[[StreamMetrics alloc] initWithIdentifier:@"AddressBookPhoneNumberCell" initializer:^(StreamMetrics *metrics) {
         metrics.size = 50;
         metrics.selectable = YES;
-        [metrics setFinalizeAppearing:^(StreamItem *item, AddressBookPhoneNumber* phoneNumber) {
-            AddressBookPhoneNumberCell* cell = (id)item.view;
+        [metrics setFinalizeAppearing:^(StreamItem *item, StreamReusableView* view) {
+            AddressBookPhoneNumberCell* cell = (id)view;
+            AddressBookPhoneNumber *phoneNumber = item.entry;
             cell.checked = [weakSelf.delegate recordCell:weakSelf phoneNumberState:phoneNumber];
         }];
         [metrics setSelection:^(StreamItem *item, AddressBookPhoneNumber *phoneNumber) {

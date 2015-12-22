@@ -110,38 +110,34 @@ class LiveBroadcastViewController: WLBaseViewController {
         
         chatDataSource = StreamDataSource(streamView: chatStreamView)
         chatDataSource.addMetrics(StreamMetrics(loader: IndexedStreamLoader(identifier: "LiveBroadcastEventViews", index: 0))).change { (metrics) -> Void in
-            metrics.sizeAt = { [weak self] (position, metrics) -> CGFloat in
-                let event = self?.broadcast.events[position.index]
+            metrics.sizeAt = { [weak self] item -> CGFloat in
+                let event = item.entry as? LiveBroadcast.Event
                 if let streamView = self?.chatStreamView {
                     return max(streamView.dynamicSizeForMetrics(metrics, entry: event), 72)
                 } else {
                     return 72
                 }
             }
-            metrics.hiddenAt = { [weak self] (position, _) -> Bool in
-                let event = self?.broadcast.events[position.index]
+            metrics.hiddenAt = { item -> Bool in
+                let event = item.entry as? LiveBroadcast.Event
                 return event?.type != .Message
             }
-            metrics.insetsAt = { (position, _) -> CGRect in
-                return CGRect(x: 0, y: position.index == 0 ? 0 : 6, width: 0, height: 0)
-            }
+            metrics.insetsAt = { CGRect(x: 0, y: $0.position.index == 0 ? 0 : 6, width: 0, height: 0) }
         }
         chatDataSource.addMetrics(StreamMetrics(loader: IndexedStreamLoader(identifier: "LiveBroadcastEventViews", index: 1))).change { (metrics) -> Void in
-            metrics.sizeAt = { [weak self] (position, metrics) -> CGFloat in
-                let event = self?.broadcast.events[position.index]
+            metrics.sizeAt = { [weak self] item -> CGFloat in
+                let event = item.entry as? LiveBroadcast.Event
                 if let streamView = self?.chatStreamView {
                     return max(streamView.dynamicSizeForMetrics(metrics, entry: event), 32)
                 } else {
                     return 32
                 }
             }
-            metrics.hiddenAt = { [weak self] (position, _) -> Bool in
-                let event = self?.broadcast.events[position.index]
+            metrics.hiddenAt = { item -> Bool in
+                let event = item.entry as? LiveBroadcast.Event
                 return event?.type != .Info
             }
-            metrics.insetsAt = { (position, _) -> CGRect in
-                return CGRect(x: 0, y: position.index == 0 ? 0 : 6, width: 0, height: 0)
-            }
+            metrics.insetsAt = { CGRect(x: 0, y: $0.position.index == 0 ? 0 : 6, width: 0, height: 0) }
         }
         
         wrapNameLabel?.text = wrap?.name

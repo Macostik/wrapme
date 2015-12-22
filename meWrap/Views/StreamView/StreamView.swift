@@ -41,45 +41,41 @@ var StreamViewCommonLocksChanged: String = "StreamViewCommonLocksChanged"
 
 class StreamView: UIScrollView {
     
-    var _layout: StreamLayout?
-    
-    @IBOutlet var layout: StreamLayout? {
+    private var _layout: StreamLayout?
+    @IBOutlet var layout: StreamLayout! {
         get {
-            if _layout == nil {
-                self.layout = StreamLayout()
+            if let layout = _layout {
+                return layout
+            } else {
+                let layout = StreamLayout()
+                self.layout = layout
+                return layout
             }
-            return _layout
         }
         set {
-            if let layout = newValue {
-                layout.streamView = self
-                _layout = layout
-            }
+            newValue?.streamView = self
+            _layout = newValue
         }
     }
     
     @IBInspectable var horizontal: Bool {
-        get {
-            return layout?.horizontal ?? false
-        }
-        set {
-            layout?.horizontal = newValue
-        }
+        get { return layout.horizontal }
+        set { layout.horizontal = newValue }
     }
     
     var numberOfSections: Int = 1
     
-    var reloadAfterUnlock = false
+    private var reloadAfterUnlock = false
     
     var locks: Int = 0
     
     static var locks: Int = 0
     
-    var currentLayoutItem: StreamItem?
+    private var currentLayoutItem: StreamItem?
     
-    var rootItem: StreamItem?
+    private var rootItem: StreamItem?
     
-    var latestVisibleItem: StreamItem?
+    private var latestVisibleItem: StreamItem?
     
     deinit {
         delegate = nil
@@ -87,7 +83,7 @@ class StreamView: UIScrollView {
         NSNotificationCenter.defaultCenter().removeObserver(self, name:StreamViewCommonLocksChanged, object:nil)
     }
     
-    func setup() {
+    private func setup() {
         subscribeOnOffsetChange()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "locksChanged", name: StreamViewCommonLocksChanged, object: nil)
     }
@@ -116,7 +112,7 @@ class StreamView: UIScrollView {
         setup()
     }
     
-    func clear() {
+    private func clear() {
         var item = rootItem
         while let next = item {
             if let view = next.view {
@@ -200,31 +196,27 @@ class StreamView: UIScrollView {
         }
     }
     
-    func addItems(delegate: StreamViewDelegate, layout: StreamLayout) {
+    private func addItems(delegate: StreamViewDelegate, layout: StreamLayout) {
         
         if let headers = delegate.streamViewHeaderMetrics?(self) {
             for header in headers {
-                addItem(layout, metrics: header, position: StreamPosition(section: 0, index: 0))
+                addItem(header, position: StreamPosition(section: 0, index: 0))
             }
         }
         
         for section in 0..<numberOfSections {
             
-            let sectionIndex = StreamPosition(section: section, index: 0)
-            
             if let headers = delegate.streamView?(self, headerMetricsInSection: section) {
+                let position = StreamPosition(section: section, index: 0)
                 for header in headers {
-                    addItem(layout, metrics: header, position: sectionIndex)
+                    addItem(header, position: position)
                 }
             }
             
-            let numberOfItems = delegate.streamView(self, numberOfItemsInSection:section)
-            
-            for i in 0..<numberOfItems {
-                let index = StreamPosition(section: section, index: i);
-                let metrics = delegate.streamView(self, metricsAt:index)
-                for itemMetrics in metrics {
-                    if let item = addItem(layout, metrics: itemMetrics, position: index) {
+            for i in 0..<delegate.streamView(self, numberOfItemsInSection:section) {
+                let position = StreamPosition(section: section, index: i);
+                for metrics in delegate.streamView(self, metricsAt:position) {
+                    if let item = addItem(metrics, position: position) {
                         item.entryBlock = delegate.streamView?(self, entryBlockForItem: item)
                         delegate.streamView?(self, didLayoutItem: item)
                     }
@@ -232,18 +224,18 @@ class StreamView: UIScrollView {
             }
             
             if let footers = delegate.streamView?(self, footerMetricsInSection: section) {
+                let position = StreamPosition(section: section, index: 0)
                 for footer in footers {
-                    addItem(layout, metrics: footer, position: sectionIndex)
+                    addItem(footer, position: position)
                 }
             }
-            
             
             layout.prepareForNextSection()
         }
         
         if let footers = delegate.streamViewFooterMetrics?(self) {
             for footer in footers {
-                addItem(layout, metrics: footer, position: StreamPosition(section: 0, index: 0))
+                addItem(footer, position: StreamPosition(section: 0, index: 0))
             }
         }
         
@@ -253,32 +245,30 @@ class StreamView: UIScrollView {
             } else {
                 placeholder.size = self.fittingContentHeight - layout.offset
             }
-            addItem(layout, metrics:placeholder, position:StreamPosition(section: 0, index: 0))
+            addItem(placeholder, position:StreamPosition(section: 0, index: 0))
         }
     }
     
-    func addItem(layout: StreamLayout, metrics: StreamMetrics, position: StreamPosition) -> StreamItem? {
-        if (!metrics.hiddenAt(position, metrics)) {
-            let item = StreamItem(metrics: metrics, position: position)
-            if let currentItem = currentLayoutItem {
-                item.previous = currentItem
-                currentItem.next = item
-            }
-            currentLayoutItem = item
-            
-            if rootItem == nil {
-                rootItem = item
-            }
-            return item
+    private func addItem(metrics: StreamMetrics, position: StreamPosition) -> StreamItem? {
+        let item = StreamItem(metrics: metrics, position: position)
+        guard !metrics.hiddenAt(item) else { return nil }
+        if let currentItem = currentLayoutItem {
+            item.previous = currentItem
+            currentItem.next = item
         }
-        return nil
+        currentLayoutItem = item
+        
+        if rootItem == nil {
+            rootItem = item
+        }
+        return item
     }
     
-    func updateVisibility() {
+    private func updateVisibility() {
         updateVisibility(withRect: layer.bounds)
     }
     
-    func updateVisibility(withRect rect: CGRect) {
+    private func updateVisibility(withRect rect: CGRect) {
         guard let startItem = latestVisibleItem ?? rootItem else {
             return
         }
@@ -295,7 +285,7 @@ class StreamView: UIScrollView {
         }
     }
     
-    func updateItemVisibility(item: StreamItem, visible: Bool) {
+    private func updateItemVisibility(item: StreamItem, visible: Bool) {
         guard item.visible != visible else {
             return
         }
@@ -369,20 +359,20 @@ class StreamView: UIScrollView {
             if horizontal {
                 let offset = _item.frame.origin.x - self.fittingContentWidth / 2 + _item.frame.size.width / 2
                 if offset < minOffset.x {
-                    self.setContentOffset(minOffset, animated: animated)
+                    setContentOffset(minOffset, animated: animated)
                 } else if offset > maxOffset.x {
-                    self.setContentOffset(maxOffset, animated: animated)
+                    setContentOffset(maxOffset, animated: animated)
                 } else {
-                    self.setContentOffset(CGPointMake(offset, 0), animated: animated)
+                    setContentOffset(CGPointMake(offset, 0), animated: animated)
                 }
             } else {
                 let offset = _item.frame.origin.y - self.fittingContentHeight / 2 + _item.frame.size.height / 2
                 if offset < minOffset.y {
-                    self.setContentOffset(minOffset, animated: animated)
+                    setContentOffset(minOffset, animated: animated)
                 } else if offset > maxOffset.y {
-                    self.setContentOffset(maxOffset, animated: animated)
+                    setContentOffset(maxOffset, animated: animated)
                 } else {
-                    self.setContentOffset(CGPointMake(0, offset), animated: animated)
+                    setContentOffset(CGPointMake(0, offset), animated: animated)
                 }
             }
         }

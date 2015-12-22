@@ -85,22 +85,22 @@ class RecentUpdatesViewController: WLBaseViewController {
         let commentMetrics = dataSource.addMetrics(StreamMetrics(identifier: "RecentCommentCell"))
         
         candyMetrics.size = HeightCell
-        candyMetrics.insetsAt = { (position, metrics) -> CGRect in
-            return CGRect.zero.offsetBy(dx: 0, dy: position.index == 0 ? 0 : Constants.pixelSize)
+        candyMetrics.insetsAt = { item -> CGRect in
+            return CGRect.zero.offsetBy(dx: 0, dy: item.position.index == 0 ? 0 : Constants.pixelSize)
         }
         
         commentMetrics.size = HeightCell
-        commentMetrics.insetsAt = { (position, metrics) -> CGRect in
-            return CGRect.zero.offsetBy(dx: 0, dy: position.index == 0 ? 0 : Constants.pixelSize)
+        commentMetrics.insetsAt = { item -> CGRect in
+            return CGRect.zero.offsetBy(dx: 0, dy: item.position.index == 0 ? 0 : Constants.pixelSize)
         }
         
-        candyMetrics.hiddenAt = {[weak self] (position, metrics) -> Bool in
-            let event = self?.events?[position.index]
+        candyMetrics.hiddenAt = { item -> Bool in
+            let event = item.entry as? RecentUpdate
             return !(event?.contribution is Candy)
         }
         
-        commentMetrics.hiddenAt = {[weak self] (position, metrics) -> Bool in
-            let event = self?.events?[position.index]
+        commentMetrics.hiddenAt = { item -> Bool in
+            let event = item.entry as? RecentUpdate
             return !(event?.contribution is Comment)
         }
         

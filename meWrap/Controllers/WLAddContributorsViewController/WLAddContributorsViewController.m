@@ -42,9 +42,9 @@
     __weak typeof(self)weakSelf = self;
     
     self.singleMetrics = [[StreamMetrics alloc] initWithIdentifier:@"AddressBookRecordCell" initializer:^(StreamMetrics *metrics) {
-        [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
-            WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:position.section];
-            AddressBookRecord* record = [group.records tryAt:position.index];
+        [metrics setSizeAt:^CGFloat(StreamItem *item) {
+            WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:item.position.section];
+            AddressBookRecord* record = [group.records tryAt:item.position.index];
             AddressBookPhoneNumber* phoneNumber = [record.phoneNumbers lastObject];
             User *user = phoneNumber.user;
             NSString *infoString =  phoneNumber.activated ? @"signup_status".ls : user ? @"invite_status".ls : @"invite_me_to_meWrap".ls;
@@ -59,16 +59,17 @@
     
     self.multipleMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMultipleAddressBookRecordCell" initializer:^(StreamMetrics *metrics) {
         metrics.selectable = NO;
-        [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
-            WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:position.section];
-            AddressBookRecord* record = [group.records tryAt:position.index];
+        [metrics setSizeAt:^CGFloat(StreamItem *item) {
+            WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:item.position.section];
+            AddressBookRecord* record = [group.records tryAt:item.position.index];
             CGFloat nameHeight = [[record name] heightWithFont:[UIFont fontNormal] width:weakSelf.streamView.width - 142.0f];
             CGFloat inviteHeight = [@"invite_me_to_meWrap" heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - 142.0f];
             CGFloat heighCell = MAX(nameHeight + inviteHeight + 16.0, 72);
-            return [weakSelf openedPosition:position] ? (heighCell + [record.phoneNumbers count] * 50.0f) : heighCell;
+            return [weakSelf openedPosition:item.position] ? (heighCell + [record.phoneNumbers count] * 50.0f) : heighCell;
         }];
-        [metrics setFinalizeAppearing:^(StreamItem *item, AddressBookRecord *record) {
-            AddressBookRecordCell *cell = (id)item.view;
+        [metrics setFinalizeAppearing:^(StreamItem *item, StreamReusableView *view) {
+            AddressBookRecordCell *cell = (id)view;
+            AddressBookRecord *record = item.entry;
             cell.opened = ([record.phoneNumbers count] > 1 && [weakSelf openedPosition:item.position] != nil);
         }];
     }];
@@ -76,13 +77,13 @@
     self.sectionHeaderMetrics = [[StreamMetrics alloc] initWithInitializer:^(StreamMetrics *metrics) {
         metrics.identifier = @"WLAddressBookGroupView";
         metrics.size = 32;
-        [metrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
-            WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:position.section];
+        [metrics setHiddenAt:^BOOL(StreamItem *item) {
+            WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:item.position.section];
             return !(group.title.nonempty && group.records.nonempty);
         }];
-        [metrics setFinalizeAppearing:^(StreamItem *item, id entry) {
-            WLAddressBookGroupView *view = (id)item.view;
-            view.group = [weakSelf.filteredAddressBook.groups tryAt:item.position.section];
+        [metrics setFinalizeAppearing:^(StreamItem *item, StreamReusableView *view) {
+            WLAddressBookGroupView *groupView = (id)view;
+            groupView.group = [weakSelf.filteredAddressBook.groups tryAt:item.position.section];
         }];
     }];
     

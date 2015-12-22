@@ -110,14 +110,14 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         let dataSource = StreamDataSource(streamView: streamView)
         let metrics = StreamMetrics(identifier: "AssetCell")
         metrics.selection = { [weak self] (item, entry) in
-            if let asset = entry as? PHAsset, let item = item {
+            if let item = item, let asset = entry as? PHAsset {
                 item.selected = self?.selectAsset(asset) ?? false
             }
         }
-        metrics.prepareAppearing = { [weak self] (item, entry) in
-            if let asset = entry as? PHAsset, let item = item {
+        metrics.prepareAppearing = { [weak self] (item, view) in
+            if let item = item, let asset = item.entry as? PHAsset {
                 item.selected = self?.selectedAssets.contains(asset.localIdentifier) ?? false
-                item.view?.exclusiveTouch = self?.mode != .Default
+                view.exclusiveTouch = self?.mode != .Default
             }
         }
         

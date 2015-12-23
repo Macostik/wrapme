@@ -88,6 +88,8 @@ class VideoPlayerView: UIView {
                 vibrancyEffectView.contentView.addSubview(label)
                 playButtonView.contentView.addSubview(vibrancyEffectView)
             }
+            playButtonView.layer.masksToBounds = true
+            playButtonView.layer.mask = label.layer
         }
         timeView.userInteractionEnabled = false
         player.addObserver(self, forKeyPath: "status", options: .New, context: nil)

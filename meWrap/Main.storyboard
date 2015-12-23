@@ -652,7 +652,6 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="resendConfirmation:" destination="L91-fZ-J9O" eventType="touchUpInside" id="W3d-f2-SrF"/>
                                             <action selector="resendEmailConfirmation:" destination="7FG-gC-kPg" eventType="touchUpInside" id="GH1-aV-n6f"/>
                                         </connections>
                                     </button>
@@ -903,6 +902,9 @@
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="push:" destination="DBa-Dn-FbP" eventType="touchUpInside" id="RnG-Oy-qyk"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kfw-WI-L3V" customClass="WLPressButton">
                                         <rect key="frame" x="548" y="52" width="42" height="32"/>
@@ -924,6 +926,9 @@
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="resendConfirmation:" destination="L91-fZ-J9O" eventType="touchUpInside" id="3rR-ku-ol4"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1299,6 +1304,7 @@
                         <outlet property="createWrapButton" destination="KxF-7g-Abs" id="DiP-hq-Kq1"/>
                         <outlet property="dataSource" destination="gv8-Nb-wf7" id="lbe-6L-ul4"/>
                         <outlet property="emailConfirmationLayoutPrioritizer" destination="LSq-pS-yid" id="Bin-aV-yY8"/>
+                        <outlet property="emailConfirmationView" destination="lBJ-p7-MjG" id="voU-oV-5wv"/>
                         <outlet property="homeDataSource" destination="fHn-3G-fGW" id="PO3-jr-2b7"/>
                         <outlet property="navigationBar" destination="9Rl-cW-5hv" id="9kd-xs-4J2"/>
                         <outlet property="notificationsLabel" destination="2L6-nO-etl" id="5XW-mo-EXZ"/>
@@ -1307,6 +1313,7 @@
                         <outlet property="publicWrapsHeaderView" destination="dmM-fs-68O" id="kDK-nV-Z3v"/>
                         <outlet property="streamView" destination="uGg-7M-ebG" id="DWY-UV-XhD"/>
                         <outlet property="uploadingView" destination="IWZ-KR-48g" id="KrJ-sE-ftu"/>
+                        <outlet property="verificationEmailLabel" destination="ZDN-HJ-7Th" id="HaN-Oo-VCI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yfT-C3-6mj" userLabel="First Responder" sceneMemberID="firstResponder"/>

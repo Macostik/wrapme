@@ -158,6 +158,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     }
     
     private func initializeViewing(broadcast: LiveBroadcast) {
+        composeBar.placeholder = "view_broadcast_text_placeholder".ls
         isBroadcasting = false
         toggleCameraButton.hidden = true
         

@@ -55,7 +55,7 @@ class History: PaginatedList {
         }
         let item = HistoryItem(candy: candy, history: self)
         entries.append(item)
-        entries.sortInPlace({ $0.listSortDate() > $1.listSortDate() })
+        entries.sortInPlace({ $0.listSort($1) })
         return (item, true)
     }
     
@@ -178,9 +178,14 @@ class HistoryItem: NSObject, ListEntry {
         candies.sortInPlace({ $0.createdAt < $1.createdAt })
     }
     
+    func listSort(entry: ListEntry) -> Bool {
+        return listSortDate() > entry.listSortDate()
+    }
+    
     func listSortDate() -> NSDate {
         return date
     }
+    
     func listEntryEqual(entry: ListEntry) -> Bool {
         return self == (entry as? HistoryItem)
     }

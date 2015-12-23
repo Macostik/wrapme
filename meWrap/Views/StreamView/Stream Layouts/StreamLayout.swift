@@ -72,10 +72,9 @@ class StreamLayout: NSObject {
     }
     
     func horizontalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
-        let position = item.position
         let metrics = item.metrics
-        let size = metrics.sizeAt(position, metrics)
-        let insets = metrics.insetsAt(position, metrics)
+        let size = metrics.sizeAt(item)
+        let insets = metrics.insetsAt(item)
         var offset = self.offset
         if let previous = item.previous {
             offset = previous.frame.maxX
@@ -84,10 +83,9 @@ class StreamLayout: NSObject {
     }
     
     func verticalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
-        let position = item.position
         let metrics = item.metrics
-        let size = metrics.sizeAt(position, metrics)
-        let insets = metrics.insetsAt(position, metrics)
+        let size = metrics.sizeAt(item)
+        let insets = metrics.insetsAt(item)
         var offset = self.offset
         if let previous = item.previous {
             offset = previous.frame.maxY
@@ -95,9 +93,7 @@ class StreamLayout: NSObject {
         return CGRectMake(insets.origin.x, offset + insets.origin.y, streamView.frame.width - insets.origin.x - insets.width, size + insets.height)
     }
     
-    func prepareForNextSection() {
-    
-    }
+    func prepareForNextSection() { }
     
     func finalizeLayout() {
         prepareForNextSection()

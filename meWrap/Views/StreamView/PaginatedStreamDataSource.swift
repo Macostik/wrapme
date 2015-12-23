@@ -16,7 +16,7 @@ class PaginatedStreamDataSource: StreamDataSource {
     var loadingMetrics: StreamMetrics? {
         if _loadingMetrics == nil {
             let metrics = addFooterMetrics(LoadingView.metrics())
-            metrics.sizeAt = { [weak self] (position, metrics) -> CGFloat in
+            metrics.sizeAt = { [weak self] _ -> CGFloat in
                 guard let streamView = self?.streamView else {
                     return 0
                 }

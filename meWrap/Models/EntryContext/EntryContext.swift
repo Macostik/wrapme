@@ -24,55 +24,51 @@ class EntryContext: NSManagedObjectContext {
     
     static var sharedContext: EntryContext = {
         let context = EntryContext(concurrencyType: .MainQueueConcurrencyType)
-        
         let transformer = AssetTransformer()
         NSValueTransformer.setValueTransformer(transformer, forName: "pictureTransformer")
         NSValueTransformer.setValueTransformer(transformer, forName: "assetTransformer")
-        guard let modelURL = NSBundle.mainBundle().URLForResource("CoreData", withExtension: "momd") else {
-            return context
-        }
-        guard let model = NSManagedObjectModel(contentsOfURL: modelURL) else {
-            return context
-        }
+        guard let model = EntryContext.createModel() else { return context }
+        context.persistentStoreCoordinator = EntryContext.createCoordinator(model)
+        context.mergePolicy = NSOverwriteMergePolicy
+        return context
+    }()
+    
+    private class func createCoordinator(model: NSManagedObjectModel) -> NSPersistentStoreCoordinator {
         
-        let manager = NSFileManager.defaultManager()
+        let coordinator: NSPersistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
         
-        var url: NSURL?
-        
-        let documentsURL = manager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).last?.URLByAppendingPathComponent("CoreData.sqlite")
-        
-        #if TARGET_OS_WATCH
-            url = documentsURL
-        #else
-            let sharedURL = manager.containerURLForSecurityApplicationGroupIdentifier("group.com.ravenpod.wraplive")?.URLByAppendingPathComponent("CoreData.sqlite")
-            if sharedURL == nil {
-                url = documentsURL
-            } else {
-                url = sharedURL
-            }
-        #endif
-        
-        guard let storeURL = url else {
-            return context
-        }
+        guard let storeURL = storeURL()?.URLByAppendingPathComponent("CoreData.sqlite") else { return coordinator }
         
         let options = [NSMigratePersistentStoresAutomaticallyOption:true,NSInferMappingModelAutomaticallyOption:true,"journal_mode":"DELETE"]
         
-        let coordinator: NSPersistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
         do {
             try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: options)
         } catch {
             do {
-                try manager.removeItemAtURL(storeURL)
+                try NSFileManager.defaultManager().removeItemAtURL(storeURL)
                 try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: options)
-            } catch {
-            }
+            } catch { }
         }
         
-        context.persistentStoreCoordinator = coordinator
-        context.mergePolicy = NSOverwriteMergePolicy
-        return context
-    }()
+        return coordinator
+    }
+    
+    private class func storeURL() -> NSURL? {
+        let manager = NSFileManager.defaultManager()
+        if let url = manager.containerURLForSecurityApplicationGroupIdentifier(Constants.groupIdentifier) {
+            return url
+        } else {
+            return manager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).last
+        }
+    }
+    
+    private class func createModel() -> NSManagedObjectModel? {
+        if let modelURL = NSBundle.mainBundle().URLForResource("CoreData", withExtension: "momd") {
+            return NSManagedObjectModel(contentsOfURL: modelURL)
+        } else {
+            return nil
+        }
+    }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -81,9 +77,9 @@ class EntryContext: NSManagedObjectContext {
     override init(concurrencyType ct: NSManagedObjectContextConcurrencyType) {
         super.init(concurrencyType: ct)
         let center = NSNotificationCenter.defaultCenter()
-        center.addObserver(self, selector: "enqueueSave", name: "UIApplicationWillTerminateNotification", object: nil)
-        center.addObserver(self, selector: "enqueueSave", name: "UIApplicationDidEnterBackgroundNotification", object: nil)
-        center.addObserver(self, selector: "enqueueSave", name: "UIApplicationWillResignActiveNotification", object: nil)
+        center.addObserver(self, selector: "enqueueSave", name: UIApplicationWillTerminateNotification, object: nil)
+        center.addObserver(self, selector: "enqueueSave", name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        center.addObserver(self, selector: "enqueueSave", name: UIApplicationWillResignActiveNotification, object: nil)
         center.addObserver(self, selector: "enqueueSave", name: NSManagedObjectContextObjectsDidChangeNotification, object: self)
     }
 
@@ -122,11 +118,11 @@ class EntryContext: NSManagedObjectContext {
         if let entry = cachedEntry(uid) {
             return entry
         } else {
-            var request: NSFetchRequest!
+            var request = NSFetchRequest.fetch(name)
             if let locuid = locuid {
-                request = NSFetchRequest.fetch(name).query("uid == %@ OR locuid == %@", uid, locuid)
+                request = request.query("uid == %@ OR locuid == %@", uid, locuid)
             } else {
-                request = NSFetchRequest.fetch(name).query("uid == %@", uid)
+                request = request.query("uid == %@", uid)
             }
             if let entry = request.execute().last as? Entry {
                 return entry
@@ -253,40 +249,9 @@ extension NSFetchRequest {
     
     func sort(key: String, asc: Bool) -> NSFetchRequest {
         let descriptor = NSSortDescriptor(key: key, ascending: asc)
-        if var descriptors = sortDescriptors {
-            descriptors.append(descriptor)
-        } else {
-            sortDescriptors = [descriptor]
-        }
-        return self
-    }
-    
-    func group(properties: NSArray, fetch: NSArray) -> NSFetchRequest {
-        guard let entity = entity else {
-            return self
-        }
-        resultType = .DictionaryResultType
-        let namedProerties = entity.propertiesByName
-        var _propertiesToGroupBy = propertiesToGroupBy ?? [AnyObject]()
-        for property in properties {
-            if let propertyName = property as? String, let property = namedProerties[propertyName] {
-                _propertiesToGroupBy.append(property)
-            } else {
-                _propertiesToGroupBy.append(property)
-            }
-        }
-        propertiesToGroupBy = _propertiesToGroupBy
-        
-        var _propertiesToFetch = propertiesToFetch ?? [AnyObject]()
-        for property in fetch {
-            if let propertyName = property as? String, let property = namedProerties[propertyName] {
-                _propertiesToFetch.append(property)
-            } else {
-                _propertiesToFetch.append(property)
-            }
-        }
-        propertiesToFetch = _propertiesToFetch
-        
+        var descriptors: [NSSortDescriptor] = sortDescriptors ?? []
+        descriptors.append(descriptor)
+        sortDescriptors = descriptors
         return self
     }
 }

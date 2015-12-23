@@ -184,7 +184,7 @@ extension StreamDataSource {
     }
     
     func streamView(streamView: StreamView, entryBlockForItem item: StreamItem) -> (StreamItem -> AnyObject?)? {
-        return { [weak self] (_) -> AnyObject? in
+        return { [weak self] item -> AnyObject? in
             return self?.entryForItem(item)
         }
     }

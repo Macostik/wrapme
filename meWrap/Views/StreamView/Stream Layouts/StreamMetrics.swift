@@ -104,12 +104,8 @@ class StreamMetrics: NSObject {
     var loader = StreamLoader()
     
     @IBInspectable var identifier: String? {
-        get {
-            return loader.identifier
-        }
-        set {
-            loader.identifier = newValue
-        }
+        get { return loader.identifier }
+        set { loader.identifier = newValue }
     }
     
     @IBOutlet weak var nibOwner:AnyObject? {
@@ -123,37 +119,29 @@ class StreamMetrics: NSObject {
     
     @IBInspectable var hidden: Bool = false
     
-    var hiddenAt: (StreamPosition, StreamMetrics) -> Bool = { index, metrics in
-        return metrics.hidden
-    }
+    var hiddenAt: StreamItem -> Bool = { $0.metrics.hidden }
     
     @IBInspectable var size: CGFloat = 0
     
-    var sizeAt: (StreamPosition, StreamMetrics) -> CGFloat = { index, metrics in
-        return metrics.size
-    }
+    var sizeAt: StreamItem -> CGFloat = {  $0.metrics.size }
     
     @IBInspectable var insets: CGRect = CGRectZero
     
-    var insetsAt: (StreamPosition, StreamMetrics) -> CGRect = { index, metrics in
-        return metrics.insets
-    }
+    var insetsAt: StreamItem -> CGRect = { $0.metrics.insets }
     
     @IBInspectable var ratio: CGFloat = 0
     
     var isSeparator = false
     
-    var ratioAt: (StreamPosition, StreamMetrics) -> CGFloat = { index, metrics in
-        return metrics.ratio
-    }
+    var ratioAt: StreamItem -> CGFloat = { $0.metrics.ratio }
     
     var selectable = true
     
     var selection: ((StreamItem?, AnyObject?) -> Void)?
     
-    var prepareAppearing: ((StreamItem?, AnyObject?) -> Void)?
+    var prepareAppearing: ((StreamItem?, StreamReusableView) -> Void)?
     
-    var finalizeAppearing: ((StreamItem?, AnyObject?) -> Void)?
+    var finalizeAppearing: ((StreamItem?, StreamReusableView) -> Void)?
     
     var reusableViews: Set<StreamReusableView> = Set()
     
@@ -186,9 +174,9 @@ class StreamMetrics: NSObject {
             })
             item.view = view
             let entry = item.entry
-            prepareAppearing?(item, entry)
+            prepareAppearing?(item, view)
             view.entry = entry
-            finalizeAppearing?(item, entry)
+            finalizeAppearing?(item, view)
             return view
         }
         return nil

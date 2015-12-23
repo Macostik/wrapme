@@ -42,19 +42,11 @@ class StreamItem: NSObject {
     }
     
     weak var view: StreamReusableView? {
-        didSet {
-            if let view = view {
-                view.selected = selected
-            }
-        }
+        didSet { view?.selected = selected }
     }
     
     var selected: Bool = false {
-        didSet {
-            if let view = view {
-                view.selected = selected
-            }
-        }
+        didSet { view?.selected = selected }
     }
     
     weak var previous: StreamItem?

@@ -76,7 +76,7 @@ class Chat: PaginatedList {
     }
     
     override func sort() {
-        self.entries = self.entries.sort({ $0.listSortDate() < $1.listSortDate() })
+        entries = entries.sort({ $0.listSortDate() < $1.listSortDate() })
     }
     
     override func add(entry: ListEntry) {

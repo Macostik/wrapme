@@ -81,8 +81,8 @@
         self.unreadMessagesMetrics.selectable = NO;
         __weak typeof(self)weakSelf = self;
         self.placeholderMetrics = [[StreamMetrics alloc] initWithIdentifier:@"NoMessagePlaceholderView" initializer:^(StreamMetrics * metrics) {
-            [metrics setPrepareAppearing:^(StreamItem *item, id entry) {
-                PlaceholderView *placeholderView = (id)item.view;
+            [metrics setPrepareAppearing:^(StreamItem *item, StreamReusableView *view) {
+                PlaceholderView *placeholderView = (id)view;
                 placeholderView.textLabel.text = [NSString stringWithFormat:@"no_chat_message".ls, weakSelf.wrap.name];
             }];
         }];
@@ -107,11 +107,12 @@
     
     __weak typeof(self)weakSelf = self;
     
-    void (^finalizeMessageAppearing)(StreamItem *, id) = ^(StreamItem *item, Message *message) {
+    void (^finalizeMessageAppearing)(StreamItem *, id) = ^(StreamItem *item, StreamReusableView *view) {
+        Message *message = item.entry;
         if (message.unread && weakSelf.view.superview && ![weakSelf.chat.readMessages containsObject:message]) {
             [weakSelf.chat addReadMessage:message];
         }
-        WLMessageCell *messageCell = (id)item.view;
+        WLMessageCell *messageCell = (WLMessageCell*)view;
         messageCell.tailView.hidden = !message.chatMetadata.isGroup;
     };
     
@@ -119,13 +120,13 @@
     self.myMessageMetrics.finalizeAppearing = finalizeMessageAppearing;
     self.messageMetrics.finalizeAppearing = finalizeMessageAppearing;
     
-    self.messageWithNameMetrics.sizeAt = self.messageMetrics.sizeAt = self.myMessageMetrics.sizeAt = ^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
-        Message *message = weakSelf.chat[position.index];
+    self.messageWithNameMetrics.sizeAt = self.messageMetrics.sizeAt = self.myMessageMetrics.sizeAt = ^CGFloat(StreamItem *item) {
+        Message *message = item.entry;
         return [weakSelf.chat heightOfMessageCell:message];
     };
     
-    self.messageWithNameMetrics.insetsAt = self.messageMetrics.insetsAt = self.myMessageMetrics.insetsAt = ^CGRect(StreamPosition *position, StreamMetrics *metrics) {
-        Message *message = weakSelf.chat[position.index];
+    self.messageWithNameMetrics.insetsAt = self.messageMetrics.insetsAt = self.myMessageMetrics.insetsAt = ^CGRect(StreamItem *item) {
+        Message *message = item.entry;
         return CGRectMake(0, message.chatMetadata.containsDate ? 0 : message.chatMetadata.isGroup ? Chat.MessageGroupSpacing : 2, 0, 0);
     };
 	

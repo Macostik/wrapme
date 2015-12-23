@@ -48,14 +48,13 @@ class SquareGridLayout: StreamLayout {
     }
     
     override func verticalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
-        let position = item.position
         let metrics = item.metrics
         if metrics.isSeparator {
             var y = spacing
             if let previous = item.previous {
                 y = previous.frame.maxY + spacing
             }
-            return CGRect(x: 0, y: y, width: streamView.width, height: metrics.sizeAt(position, metrics))
+            return CGRect(x: 0, y: y, width: streamView.width, height: metrics.sizeAt(item))
         } else {
             var x = spacing
             var y = spacing

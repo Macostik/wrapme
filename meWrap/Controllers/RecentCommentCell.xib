@@ -79,8 +79,8 @@
                                 </mask>
                             </variation>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DMu-1m-6Zs" customClass="WLLabel">
-                            <rect key="frame" x="12" y="54" width="191" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DMu-1m-6Zs" customClass="WLLabel">
+                            <rect key="frame" x="12" y="49" width="186" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.10051589459180832" green="0.10051288455724716" blue="0.10051459074020386" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -119,10 +119,10 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="g1C-Ug-avG" firstAttribute="width" secondItem="JKA-9p-rHS" secondAttribute="width" multiplier="0.3333" id="16n-XK-hhI"/>
-                        <constraint firstItem="DMu-1m-6Zs" firstAttribute="height" relation="lessThanOrEqual" secondItem="g1C-Ug-avG" secondAttribute="height" id="25O-jR-qiS"/>
+                        <constraint firstItem="DMu-1m-6Zs" firstAttribute="height" relation="lessThanOrEqual" secondItem="g1C-Ug-avG" secondAttribute="height" constant="5" id="25O-jR-qiS"/>
                         <constraint firstItem="ZbH-fY-bfJ" firstAttribute="top" secondItem="g1C-Ug-avG" secondAttribute="bottom" constant="12" id="3Ah-Lq-w3I"/>
                         <constraint firstItem="g1C-Ug-avG" firstAttribute="top" secondItem="tcD-wH-Osi" secondAttribute="bottom" id="8wg-NO-WIN"/>
-                        <constraint firstItem="g1C-Ug-avG" firstAttribute="leading" secondItem="DMu-1m-6Zs" secondAttribute="trailing" id="Hxn-4a-ODN"/>
+                        <constraint firstItem="g1C-Ug-avG" firstAttribute="leading" secondItem="DMu-1m-6Zs" secondAttribute="trailing" constant="5" id="Hxn-4a-ODN"/>
                         <constraint firstItem="DMu-1m-6Zs" firstAttribute="leading" secondItem="JKA-9p-rHS" secondAttribute="leading" constant="12" id="IMy-3a-878"/>
                         <constraint firstAttribute="trailing" secondItem="g1C-Ug-avG" secondAttribute="trailing" id="Ihk-RX-Yja"/>
                         <constraint firstItem="2IC-z8-6Is" firstAttribute="trailing" secondItem="g1C-Ug-avG" secondAttribute="trailing" constant="-12" id="Lif-m9-6lf"/>
@@ -133,7 +133,7 @@
                         <constraint firstAttribute="trailing" secondItem="tcD-wH-Osi" secondAttribute="trailing" id="pmc-VV-13T"/>
                         <constraint firstItem="tcD-wH-Osi" firstAttribute="top" secondItem="JKA-9p-rHS" secondAttribute="top" id="sHj-4m-Hra"/>
                         <constraint firstItem="ZbH-fY-bfJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="JKA-9p-rHS" secondAttribute="leading" constant="12" id="ufS-7k-bj6"/>
-                        <constraint firstItem="DMu-1m-6Zs" firstAttribute="top" secondItem="g1C-Ug-avG" secondAttribute="top" id="zBJ-mr-e7n"/>
+                        <constraint firstItem="DMu-1m-6Zs" firstAttribute="top" secondItem="g1C-Ug-avG" secondAttribute="top" constant="-5" id="zBJ-mr-e7n"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">

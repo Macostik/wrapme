@@ -217,12 +217,13 @@ class LiveBroadcastViewController: WLBaseViewController {
         audioConfig.sampleRate = (AudioConfig.getSupportedSampleRates().first as! NSNumber).floatValue
         let streamer = Streamer.instance() as! Streamer
         let orientation = orientationForVideoConnection()
-        let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self)
-        layer.frame = view.bounds
-        layer.videoGravity = AVLayerVideoGravityResizeAspectFill
-        view.layer.insertSublayer(layer, atIndex: 0)
-        streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
-        previewLayer = layer
+        if let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self) {
+            layer.frame = view.bounds
+            layer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            view.layer.insertSublayer(layer, atIndex: 0)
+            streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
+            previewLayer = layer
+        }
     }
     
     private func orientationForVideoConnection() -> AVCaptureVideoOrientation {

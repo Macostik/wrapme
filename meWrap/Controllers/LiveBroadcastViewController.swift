@@ -53,7 +53,18 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     var chatDataSource: StreamDataSource!
     
-    weak var previewLayer: AVCaptureVideoPreviewLayer?
+    weak var previewLayer: AVCaptureVideoPreviewLayer? {
+        didSet {
+            if let layer = oldValue {
+                layer.removeFromSuperlayer()
+            }
+            if let layer = previewLayer {
+                layer.frame = view.bounds
+                layer.videoGravity = AVLayerVideoGravityResizeAspectFill
+                view.layer.insertSublayer(layer, atIndex: 0)
+            }
+        }
+    }
     
     weak var playerLayer: AVPlayerLayer?
     
@@ -78,6 +89,10 @@ class LiveBroadcastViewController: WLBaseViewController {
     var preparingEvent: LiveBroadcast.Event?
     
     var chatSubscription: NotificationSubscription?
+    
+    var cameraPosition: Int32 = 1
+    
+    let streamer: Streamer = Streamer.instance() as! Streamer
     
     var userState = [NSObject:AnyObject]() {
         didSet {
@@ -112,11 +127,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         chatDataSource.addMetrics(StreamMetrics(loader: IndexedStreamLoader(identifier: "LiveBroadcastEventViews", index: 0))).change { (metrics) -> Void in
             metrics.sizeAt = { [weak self] item -> CGFloat in
                 let event = item.entry as? LiveBroadcast.Event
-                if let streamView = self?.chatStreamView {
-                    return max(streamView.dynamicSizeForMetrics(metrics, entry: event), 72)
-                } else {
-                    return 72
-                }
+                return max(self?.chatStreamView?.dynamicSizeForMetrics(metrics, entry: event) ?? 72, 72)
             }
             metrics.hiddenAt = { item -> Bool in
                 let event = item.entry as? LiveBroadcast.Event
@@ -127,11 +138,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         chatDataSource.addMetrics(StreamMetrics(loader: IndexedStreamLoader(identifier: "LiveBroadcastEventViews", index: 1))).change { (metrics) -> Void in
             metrics.sizeAt = { [weak self] item -> CGFloat in
                 let event = item.entry as? LiveBroadcast.Event
-                if let streamView = self?.chatStreamView {
-                    return max(streamView.dynamicSizeForMetrics(metrics, entry: event), 32)
-                } else {
-                    return 32
-                }
+                return max(self?.chatStreamView?.dynamicSizeForMetrics(metrics, entry: event) ?? 32, 32)
             }
             metrics.hiddenAt = { item -> Bool in
                 let event = item.entry as? LiveBroadcast.Event
@@ -197,7 +204,13 @@ class LiveBroadcastViewController: WLBaseViewController {
         toggleCameraButton.hidden = true
         isBroadcasting = true
         titleLabel?.superview?.hidden = true
-        guard let cameraInfo = CameraInfo.getCameraList().first as? CameraInfo else { return }
+        startCapture(1)
+    }
+    
+    private func startCapture(position: Int32) {
+        cameraPosition = position
+        let cameras = CameraInfo.getCameraList() as? [CameraInfo]
+        guard let cameraInfo = cameras?.filter({ $0.position == position }).first else { return }
         
         let videoConfig = VideoConfig()
         
@@ -211,23 +224,15 @@ class LiveBroadcastViewController: WLBaseViewController {
         
         let audioConfig = AudioConfig()
         audioConfig.sampleRate = (AudioConfig.getSupportedSampleRates().first as! NSNumber).floatValue
-        let streamer = Streamer.instance() as! Streamer
-        let orientation = orientationForVideoConnection()
+        let orientation: AVCaptureVideoOrientation = .LandscapeRight
         let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self)
-        layer.frame = view.bounds
-        layer.videoGravity = AVLayerVideoGravityResizeAspectFill
-        view.layer.insertSublayer(layer, atIndex: 0)
         streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
         previewLayer = layer
     }
     
-    private func orientationForVideoConnection() -> AVCaptureVideoOrientation {
-        switch WLDeviceManager.defaultManager().orientation {
-        case .PortraitUpsideDown: return .PortraitUpsideDown
-        case .LandscapeLeft: return .LandscapeLeft
-        case .LandscapeRight: return .LandscapeRight
-        default: return .Portrait
-        }
+    private func stopCapture() {
+        streamer.stopVideoCapture()
+        streamer.stopAudioCapture()
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -239,16 +244,15 @@ class LiveBroadcastViewController: WLBaseViewController {
         }
     }
     
-    func start() throws {
+    func startBroadcast() {
         
-        guard let wrap = wrap else { throw NSError(message: "no wrap") }
-        guard let user = User.currentUser else { throw NSError(message: "no user_uid") }
-        guard let deviceUID = Authorization.currentAuthorization.deviceUID else { throw NSError(message: "no device_uid") }
+        guard let wrap = wrap else { return }
+        guard let user = User.currentUser else { return }
+        guard let deviceUID = Authorization.currentAuthorization.deviceUID else { return }
         
         titleLabel?.text = composeBar.text
         titleLabel?.superview?.hidden = false
         
-        let streamer = Streamer.instance() as! Streamer
         let streamName = "\(wrap.uid)-\(user.uid)-\(deviceUID)"
         
         broadcast.title = composeBar.text
@@ -264,22 +268,29 @@ class LiveBroadcastViewController: WLBaseViewController {
             "numberOfViewers" : broadcast.numberOfViewers
         ]
         
-        let uri = "rtsp://live.mewrap.me:1935/live/\(streamName)"
-        connectionID = streamer.createConnectionWithListener(self, uri: uri, mode: 0)
+        createConnection(streamName)
         
         subscribe(broadcast)
         updateBroadcastInfo()
     }
     
-    func stop() {
-        userState = [NSObject : AnyObject]()
-        wrap?.removeBroadcast(broadcast)
-        
+    private func createConnection(streamName: String) {
+        let uri = "rtsp://live.mewrap.me:1935/live/\(streamName)"
+        connectionID = streamer.createConnectionWithListener(self, uri: uri, mode: 0)
+    }
+    
+    private func releaseConnection() {
         if let connectionID = connectionID {
             self.connectionID = nil
-            let streamer = Streamer.instance() as! Streamer
             streamer.releaseConnectionId(connectionID)
         }
+    }
+    
+    func stopBroadcast() {
+        userState = [NSObject : AnyObject]()
+        wrap?.removeBroadcast(broadcast)
+        releaseConnection()
+        stopCapture()
     }
     
     @IBAction func startBroadcast(sender: UIButton) {
@@ -289,10 +300,7 @@ class LiveBroadcastViewController: WLBaseViewController {
             if composeBar.isFirstResponder() {
                 composeBar.resignFirstResponder()
             }
-            do {
-                try start()
-            } catch {
-            }
+            startBroadcast()
             joinsCountView.hidden = false
             chatStreamView.hidden = false
             toggleCameraButton.hidden = false
@@ -311,40 +319,15 @@ class LiveBroadcastViewController: WLBaseViewController {
     }
     
     @IBAction func toggleCamera() {
-        if let session = previewLayer?.session {
-            session.beginConfiguration()
-            if let input = (session.inputs as? [AVCaptureDeviceInput])?.filter({ $0.device.hasMediaType(AVMediaTypeVideo) }).first {
-                let position: AVCaptureDevicePosition = input.device.position == .Back ? .Front : .Back
-                if let device = (AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as? [AVCaptureDevice])?.filter({ $0.position == position }).last {
-                    do {
-                        let _input = try AVCaptureDeviceInput(device: device)
-                        session.removeInput(input)
-                        if session.canAddInput(_input) {
-                            session.addInput(_input)
-                        }
-                    } catch {
-                    }
-                }
-            }
-            session.commitConfiguration()
-            
-            let orientation = orientationForVideoConnection()
-            if let outputs = session.outputs as? [AVCaptureOutput] {
-                for output in outputs {
-                    if let connection = output.connectionWithMediaType(AVMediaTypeVideo) {
-                        connection.videoOrientation = orientation
-                    }
-                }
-            }
-        }
+        releaseConnection()
+        stopCapture()
+        startCapture(cameraPosition == 1 ? 2 : 1)
+        createConnection(broadcast.streamName)
     }
     
     @IBAction func close(sender: UIButton) {
         if isBroadcasting {
-            stop()
-            let streamer = Streamer.instance() as! Streamer
-            streamer.stopVideoCapture()
-            streamer.stopAudioCapture()
+            stopBroadcast()
         }
         presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
     }
@@ -408,16 +391,18 @@ class LiveBroadcastViewController: WLBaseViewController {
         }
     }
     
-    private func videoCamera() -> AVCaptureDevice? {
-        guard let session = previewLayer?.session where session.running else {
-            return nil
-        }
+    private func videoInput(session: AVCaptureSession) -> AVCaptureDeviceInput? {
         for input in session.inputs {
             if let input = input as? AVCaptureDeviceInput where input.device.hasMediaType(AVMediaTypeVideo) {
-                return input.device
+                return input
             }
         }
         return nil
+    }
+    
+    private func videoCamera() -> AVCaptureDevice? {
+        guard let session = previewLayer?.session else { return nil }
+        return videoInput(session)?.device
     }
     
     func zooming(sender: UIPinchGestureRecognizer) {
@@ -465,11 +450,9 @@ extension LiveBroadcastViewController: StreamerListener {
         }
         
         if self.connectionID == connectionID && state == .Disconnected {
-            stop()
+            releaseConnection()
             Dispatch.mainQueue.after(status == .UnknownFail ? 1 : 3, block: { [weak self] () -> Void in
-                do {
-                    try self?.start()
-                } catch { }
+                self?.startBroadcast()
             })
         }
     }

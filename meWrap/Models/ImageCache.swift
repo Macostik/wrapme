@@ -47,7 +47,7 @@ class ImageCache: NSObject {
         super.init()
         let manager = NSFileManager.defaultManager()
         dispatch_once(&token) {
-            if let path = manager.containerURLForSecurityApplicationGroupIdentifier("group.com.ravenpod.wraplive")?.path {
+            if let path = manager.containerURLForSecurityApplicationGroupIdentifier(Constants.groupIdentifier)?.path {
                 manager.changeCurrentDirectoryPath(path)
             }
         }

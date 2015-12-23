@@ -216,8 +216,7 @@ class StreamView: UIScrollView {
             for i in 0..<delegate.streamView(self, numberOfItemsInSection:section) {
                 let position = StreamPosition(section: section, index: i);
                 for metrics in delegate.streamView(self, metricsAt:position) {
-                    if let item = addItem(metrics, position: position) {
-                        item.entryBlock = delegate.streamView?(self, entryBlockForItem: item)
+                    if let item = addItem(delegate, metrics: metrics, position: position) {
                         delegate.streamView?(self, didLayoutItem: item)
                     }
                 }
@@ -250,7 +249,12 @@ class StreamView: UIScrollView {
     }
     
     private func addItem(metrics: StreamMetrics, position: StreamPosition) -> StreamItem? {
+        return addItem(nil, metrics: metrics, position: position)
+    }
+    
+    private func addItem(delegate: StreamViewDelegate?, metrics: StreamMetrics, position: StreamPosition) -> StreamItem? {
         let item = StreamItem(metrics: metrics, position: position)
+        item.entryBlock = delegate?.streamView?(self, entryBlockForItem: item)
         guard !metrics.hiddenAt(item) else { return nil }
         if let currentItem = currentLayoutItem {
             item.previous = currentItem

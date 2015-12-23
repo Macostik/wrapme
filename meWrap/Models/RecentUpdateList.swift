@@ -25,6 +25,10 @@ class RecentUpdate: NSObject, ListEntry {
         super.init()
     }
     
+    func listSort(entry: ListEntry) -> Bool {
+        return listSortDate() > entry.listSortDate()
+    }
+    
     func listSortDate() -> NSDate {
         return date
     }

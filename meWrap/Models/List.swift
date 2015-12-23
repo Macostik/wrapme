@@ -9,6 +9,7 @@
 import UIKit
 
 @objc protocol ListEntry: NSObjectProtocol {
+    func listSort(entry: ListEntry) -> Bool
     func listSortDate() -> NSDate
     func listEntryEqual(entry: ListEntry) -> Bool
 }
@@ -25,28 +26,33 @@ class List: Notifier {
         }
     }
     
-    func add(entry: ListEntry) {
+    internal func _add(entry: ListEntry) -> Bool {
         if !entries.contains({ $0.listEntryEqual(entry) }) {
             entries.append(entry)
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func add(entry: ListEntry) {
+        if _add(entry) {
             sort()
         }
     }
     
     func addEntries(entries: [ListEntry]) {
-        var added = false
+        let count = self.entries.count
         for entry in entries {
-            if !self.entries.contains({ $0.listEntryEqual(entry) }) {
-                added = true
-                self.entries.append(entry)
-            }
+            _add(entry)
         }
-        if added {
+        if count != self.entries.count {
             sort()
         }
     }
     
     func sort() {
-        self.entries = self.entries.sort({ $0.listSortDate() > $1.listSortDate() })
+        entries = entries.sort({ $0.listSort($1) })
     }
     
     func sort(entry: ListEntry) {
@@ -212,6 +218,9 @@ class PaginatedList: List {
 }
 
 extension Entry: ListEntry {
+    func listSort(entry: ListEntry) -> Bool {
+        return listSortDate() > entry.listSortDate()
+    }
     func listSortDate() -> NSDate {
         return createdAt
     }

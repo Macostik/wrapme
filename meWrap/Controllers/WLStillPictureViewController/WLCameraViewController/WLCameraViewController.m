@@ -164,6 +164,15 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self enqueueSelector:@selector(setAssetsViewControllerHidden) delay:4.0];
+    __weak __typeof(self)weakSelf = self;
+    self.assetsViewController.assetsHidingHandler = ^ {
+        [NSObject cancelPreviousPerformRequestsWithTarget:weakSelf selector:@selector(setAssetsViewControllerHidden) object:nil];
+    };
+}
+
 - (void)authorize:(Block)success failure:(FailureBlock)failure {
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     if (status == AVAuthorizationStatusAuthorized) {
@@ -253,7 +262,12 @@
     [self setAssetsViewControllerHidden:self.assetsBottomConstraint.constant == 0 animated:YES];
 }
 
+- (void)setAssetsViewControllerHidden {
+    [self setAssetsViewControllerHidden:YES animated:YES];
+}
+
 - (void)setAssetsViewControllerHidden:(BOOL)hidden animated:(BOOL)animated {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(setAssetsViewControllerHidden) object:nil];
     if (hidden) {
         self.assetsBottomConstraint.constant = -self.assetsViewController.view.height;
     } else {

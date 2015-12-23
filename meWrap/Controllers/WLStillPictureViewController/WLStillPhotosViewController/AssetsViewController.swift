@@ -97,6 +97,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
     var dataSource: StreamDataSource?
     @IBOutlet weak var streamView: StreamView!
     @IBOutlet weak var accessErrorLabel: UILabel!
+    var assetsHidingHandler: (Void -> Void)?
     
     deinit {
         PHPhotoLibrary.sharedPhotoLibrary().unregisterChangeObserver(self)
@@ -127,7 +128,14 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         
         self.dataSource = dataSource
         
+        self.streamView.panGestureRecognizer.addTarget(self, action: "scrollAssets")
+        
         PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        token = 0;
     }
     
     func photoLibraryDidChange(changeInstance: PHChange) {
@@ -140,6 +148,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
     }
     
     func selectAsset(asset: PHAsset) -> Bool {
+        hideAssetsViewController()
         let identifier = asset.localIdentifier
         if selectedAssets.contains(identifier) {
             selectedAssets.remove(identifier)
@@ -154,4 +163,15 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         return false
     }
     
+    private var token: dispatch_once_t = 0
+    
+    func hideAssetsViewController() {
+        dispatch_once(&token) { [weak self] in
+            self!.assetsHidingHandler?()
+        }
+    }
+    
+    func scrollAssets() {
+        hideAssetsViewController()
+    }
 }

@@ -286,7 +286,7 @@ class VideoPlayerView: UIView {
         }
     }
     
-    func pan(sender: UITapGestureRecognizer) {
+    func pan(sender: UIPanGestureRecognizer) {
         if (!timeView.hidden) {
             let location = sender.locationInView(timeView)
             switch sender.state {

@@ -2847,7 +2847,7 @@
                                                     <constraint firstAttribute="height" constant="76" id="2Qt-Ik-pH9"/>
                                                     <constraint firstAttribute="width" constant="76" id="Oj9-7P-dlW"/>
                                                 </constraints>
-                                                <blurEffect style="light"/>
+                                                <blurEffect style="extraLight"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                                 </userDefinedRuntimeAttributes>

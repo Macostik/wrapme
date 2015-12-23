@@ -23,9 +23,9 @@ class Logger: NSObject {
     
     enum LogColor: String {
         case Default = "fg255,255,255;"
-        case Yellow = "fg255,255,0;"
-        case Green = "fg0,255,0;"
-        case Red = "fg255,0,0;"
+        case Yellow = "fg219,219,110;"
+        case Green = "fg107,190,31;"
+        case Red = "fg201,91,91;"
     }
     
     private static let Escape = "\u{001b}["

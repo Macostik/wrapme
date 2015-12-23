@@ -26,9 +26,7 @@ import AVKit
 class VideoTimeView: UIView {
     
     var time: Float64 = 0 {
-        didSet {
-            setNeedsDisplay()
-        }
+        didSet { setNeedsDisplay() }
     }
     
     override func drawRect(rect: CGRect) {
@@ -42,9 +40,10 @@ class VideoTimeView: UIView {
         
         UIColor.whiteColor().setStroke()
         
+        path.removeAllPoints()
         if time > 0 {
             let position = (bounds.width - path.lineWidth) * CGFloat(time)
-            path.removeAllPoints()
+            
             path.moveToPoint(CGPoint(x: 0, y: bounds.height / 2))
             path.addLineToPoint(CGPoint(x: position, y: bounds.height / 2))
             path.stroke()
@@ -52,31 +51,18 @@ class VideoTimeView: UIView {
             path.removeAllPoints()
             path.moveToPoint(CGPoint(x: position + path.lineWidth/2, y: 0))
             path.addLineToPoint(CGPoint(x: position + path.lineWidth/2, y: bounds.height))
-            path.stroke()
-            
         } else {
-            
-            path.removeAllPoints()
             path.moveToPoint(CGPoint(x: path.lineWidth/2, y: 0))
             path.addLineToPoint(CGPoint(x: path.lineWidth/2, y: bounds.height))
-            path.stroke()
         }
+        path.stroke()
     }
 }
 
 class VideoPlayerView: UIView {
+    
     override class func layerClass() -> AnyClass  {
         return AVPlayerLayer.self
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        awake()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        awake()
     }
     
     deinit {
@@ -86,17 +72,30 @@ class VideoPlayerView: UIView {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
     }
     
-    private var panGestureRecognizer: UIPanGestureRecognizer?
+    private lazy var panGestureRecognizer: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: "pan:")
     
-    func awake() {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        if let playButtonView = placeholderPlayButton {
+            let label = UILabel(frame: playButtonView.bounds)
+            label.font = UIFont(name: "icons", size: 65)
+            label.text = "."
+            label.textAlignment = .Center
+            if let blurEffect = playButtonView.effect as? UIBlurEffect {
+                let vibrancyEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
+                let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
+                vibrancyEffectView.frame = playButtonView.bounds
+                vibrancyEffectView.contentView.addSubview(label)
+                playButtonView.contentView.addSubview(vibrancyEffectView)
+            }
+        }
+        timeView.userInteractionEnabled = false
         player.addObserver(self, forKeyPath: "status", options: .New, context: nil)
         startObservingTime(player)
         (layer as? AVPlayerLayer)?.player = player
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tap:"))
-        let recognizer = UIPanGestureRecognizer(target: self, action: "pan:")
-        recognizer.delegate = self
-        addGestureRecognizer(recognizer)
-        panGestureRecognizer = recognizer
+        panGestureRecognizer.delegate = self
+        addGestureRecognizer(panGestureRecognizer)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerItemDidPlayToEndTime:", name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
     }
     
@@ -106,41 +105,34 @@ class VideoPlayerView: UIView {
     
     @IBOutlet weak var playButton: UIView? 
     
-    @IBOutlet weak var placeholderPlayButton: UIView?
+    @IBOutlet weak var placeholderPlayButton: UIVisualEffectView?
     
-    @IBOutlet weak var timeView: VideoTimeView! {
-        didSet {
-            timeView.userInteractionEnabled = false
-        }
-    }
+    @IBOutlet weak var timeView: VideoTimeView!
     
     @IBOutlet weak var timeViewPrioritizer: LayoutPrioritizer?
     
     var playing: Bool = false {
         didSet {
-            if playing != oldValue {
-                if playing {
-                    
-                    if let item = item {
-                        if CMTimeCompare(item.currentTime(), item.duration) == 0 {
-                            item.seekToTime(kCMTimeZero)
-                        }
-                    }
-                    player.play()
-                    if player.status != .ReadyToPlay {
-                        spinner?.startAnimating()
-                    }
-                    delegate?.videoPlayerViewDidPlay?(self)
-                } else {
-                    player.pause()
-                    delegate?.videoPlayerViewDidPause?(self)
-                    
-                }
-                hiddenCenterViews(true)
-                hiddenBottomViews(false)
+            guard playing != oldValue else { return }
+            if playing {
                 
-                secondaryPlayButton?.selected = playing
+                if let item = item where CMTimeCompare(item.currentTime(), item.duration) == 0 {
+                    item.seekToTime(kCMTimeZero)
+                }
+                player.play()
+                if player.status != .ReadyToPlay {
+                    spinner?.startAnimating()
+                }
+                delegate?.videoPlayerViewDidPlay?(self)
+            } else {
+                player.pause()
+                delegate?.videoPlayerViewDidPause?(self)
+                
             }
+            hiddenCenterViews(true)
+            hiddenBottomViews(false)
+            
+            secondaryPlayButton?.selected = playing
         }
     }
     
@@ -286,7 +278,11 @@ class VideoPlayerView: UIView {
         if shouldSeekToTimeAtPoint(location) && !timeView.hidden {
             seekToTimeAtPoint(location)
         } else {
-            toggle()
+            if let url = url where url.fileURL || Network.sharedNetwork.reachable {
+                toggle()
+            } else {
+                WLToast.showWithMessage("no_internet_connection".ls)
+            }
         }
     }
     

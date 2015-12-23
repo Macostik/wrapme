@@ -58,7 +58,6 @@
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
-            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -2838,23 +2837,21 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aSz-nQ-Prs" customClass="VideoPlayerView" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <subviews>
-                                            <visualEffectView opaque="NO" clipsSubviews="YES" alpha="0.80000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6d-vU-lMF">
+                                            <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TGN-OW-I2e">
                                                 <rect key="frame" x="262" y="262" width="76" height="76"/>
-                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Trs-fA-duM">
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="f0l-5I-HNz">
                                                     <rect key="frame" x="0.0" y="0.0" width="76" height="76"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </view>
-                                                <blurEffect style="dark"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="76" id="2Qt-Ik-pH9"/>
+                                                    <constraint firstAttribute="width" constant="76" id="Oj9-7P-dlW"/>
+                                                </constraints>
+                                                <blurEffect style="light"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                             </visualEffectView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GKX-Nz-Nwj">
-                                                <rect key="frame" x="265" y="265" width="70" height="70"/>
-                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="70"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YSK-rr-QVM" customClass="WLButton">
                                                 <rect key="frame" x="12" y="442" width="30" height="36"/>
                                                 <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
@@ -2877,22 +2874,17 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="TGN-OW-I2e" firstAttribute="centerX" secondItem="aSz-nQ-Prs" secondAttribute="centerX" id="6OX-TT-Tcc"/>
                                             <constraint firstItem="i5N-vl-dpn" firstAttribute="centerX" secondItem="aSz-nQ-Prs" secondAttribute="centerX" id="9sL-Ue-hfq"/>
                                             <constraint firstItem="G1t-Zw-sJr" firstAttribute="leading" secondItem="YSK-rr-QVM" secondAttribute="trailing" constant="12" id="EhI-Sk-R4h"/>
                                             <constraint firstItem="YSK-rr-QVM" firstAttribute="leading" secondItem="aSz-nQ-Prs" secondAttribute="leading" constant="12" id="NgH-u8-seZ"/>
-                                            <constraint firstItem="a6d-vU-lMF" firstAttribute="width" secondItem="GKX-Nz-Nwj" secondAttribute="width" constant="6" id="Pff-r9-5KV"/>
-                                            <constraint firstItem="a6d-vU-lMF" firstAttribute="height" secondItem="GKX-Nz-Nwj" secondAttribute="height" constant="6" id="ScN-5V-Uxv"/>
-                                            <constraint firstItem="a6d-vU-lMF" firstAttribute="centerY" secondItem="aSz-nQ-Prs" secondAttribute="centerY" id="We6-N8-WiU"/>
-                                            <constraint firstItem="a6d-vU-lMF" firstAttribute="centerX" secondItem="aSz-nQ-Prs" secondAttribute="centerX" id="XAx-R4-0TD"/>
+                                            <constraint firstItem="TGN-OW-I2e" firstAttribute="centerY" secondItem="aSz-nQ-Prs" secondAttribute="centerY" id="bm6-cj-imT"/>
                                             <constraint firstAttribute="trailing" secondItem="G1t-Zw-sJr" secondAttribute="trailing" constant="12" id="feB-NJ-BVL"/>
                                             <constraint firstItem="i5N-vl-dpn" firstAttribute="centerY" secondItem="aSz-nQ-Prs" secondAttribute="centerY" id="hT1-dg-C6g"/>
                                             <constraint firstItem="YSK-rr-QVM" firstAttribute="centerY" secondItem="G1t-Zw-sJr" secondAttribute="centerY" id="jxG-ho-P09"/>
-                                            <constraint firstItem="a6d-vU-lMF" firstAttribute="centerX" secondItem="GKX-Nz-Nwj" secondAttribute="centerX" id="lgW-6w-ZFW"/>
-                                            <constraint firstItem="a6d-vU-lMF" firstAttribute="centerY" secondItem="GKX-Nz-Nwj" secondAttribute="centerY" id="ofk-G2-PzH"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="placeholderPlayButton" destination="a6d-vU-lMF" id="tgD-50-ezf"/>
-                                            <outlet property="playButton" destination="GKX-Nz-Nwj" id="12H-6O-cu3"/>
+                                            <outlet property="placeholderPlayButton" destination="TGN-OW-I2e" id="JeN-q4-fkX"/>
                                             <outlet property="secondaryPlayButton" destination="YSK-rr-QVM" id="FY0-zh-88Q"/>
                                             <outlet property="spinner" destination="i5N-vl-dpn" id="VwF-aA-qRV"/>
                                             <outlet property="timeView" destination="G1t-Zw-sJr" id="AGn-SW-MVy"/>
@@ -4416,10 +4408,10 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WUw-53-Yq6" userLabel="FriendsInviteView">
-                                <rect key="frame" x="0.0" y="124" width="600" height="76"/>
+                                <rect key="frame" x="0.0" y="124" width="600" height="75.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alx-1S-ZGS" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="12" width="54" height="21"/>
+                                        <rect key="frame" x="12" y="12" width="53.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -4429,7 +4421,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KAL-gI-aRC">
-                                        <rect key="frame" x="539" y="45" width="51" height="31"/>
+                                        <rect key="frame" x="539" y="44.5" width="51" height="31"/>
                                         <color key="onTintColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="changeSwichValue:" destination="TKE-mx-bkQ" eventType="valueChanged" id="mXP-hT-OKV"/>
@@ -4437,7 +4429,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                         </connections>
                                     </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="allow_friends_to_add_people" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hr9-nr-ikq" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="45" width="515" height="18"/>
+                                        <rect key="frame" x="12" y="44.5" width="515" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                         <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -4478,7 +4470,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZL1-Bm-SmI" customClass="WLLabel">
-                                        <rect key="frame" x="269" y="32" width="62" height="21"/>
+                                        <rect key="frame" x="269.5" y="32.5" width="61.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -4549,10 +4541,10 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zYA-26-DXt" userLabel="ChatView">
-                                <rect key="frame" x="0.0" y="297" width="600" height="64"/>
+                                <rect key="frame" x="0.0" y="295.5" width="600" height="63.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="741" text="chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zet-Ls-5CH" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="0.0" width="34" height="21"/>
+                                        <rect key="frame" x="12" y="0.0" width="34" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -4562,14 +4554,14 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7VE-Kd-SiX">
-                                        <rect key="frame" x="539" y="33" width="51" height="31"/>
+                                        <rect key="frame" x="539" y="32.5" width="51" height="31"/>
                                         <color key="onTintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="changeSwichValue:" destination="TKE-mx-bkQ" eventType="valueChanged" id="2CM-a7-513"/>
                                         </connections>
                                     </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="notify_about_new_chat" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUR-VV-aaK" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="33" width="515" height="18"/>
+                                        <rect key="frame" x="12" y="32.5" width="515" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                         <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -4592,7 +4584,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBK-OX-573" customClass="WLButton">
-                                <rect key="frame" x="12" y="381" width="576" height="30"/>
+                                <rect key="frame" x="12" y="379" width="576" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="ipo-OD-8dx"/>
                                 </constraints>
@@ -4626,10 +4618,10 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdR-Oj-q4N">
-                                <rect key="frame" x="0.0" y="200" width="600" height="97"/>
+                                <rect key="frame" x="0.0" y="199.5" width="600" height="96"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="737" text="notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vtf-da-c8a" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="0.0" width="94" height="21"/>
+                                        <rect key="frame" x="12" y="0.0" width="94" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -4639,7 +4631,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="747" text="media" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bsu-Ad-ILe" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="33" width="47" height="21"/>
+                                        <rect key="frame" x="12" y="32.5" width="47" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -4649,7 +4641,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="755" text="notify_about_new_media" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHL-LP-6Kt" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="66" width="515" height="18"/>
+                                        <rect key="frame" x="12" y="65" width="515" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                         <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -4659,7 +4651,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="R1I-Cl-5SX">
-                                        <rect key="frame" x="539" y="66" width="51" height="31"/>
+                                        <rect key="frame" x="539" y="65" width="51" height="31"/>
                                         <color key="onTintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="changeSwichValue:" destination="TKE-mx-bkQ" eventType="valueChanged" id="9cm-m9-GQc"/>

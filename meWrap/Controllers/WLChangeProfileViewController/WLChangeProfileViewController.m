@@ -9,12 +9,11 @@
 #import "WLChangeProfileViewController.h"
 #import "WLCameraViewController.h"
 #import "WLStillPictureViewController.h"
-#import "WLKeyboard.h"
 #import "WLToast.h"
 #import "WLWelcomeViewController.h"
 #import "WLTextView.h"
 
-@interface WLChangeProfileViewController () <WLKeyboardBroadcastReceiver, UITextFieldDelegate, WLStillPictureViewControllerDelegate, EntryNotifying, FontPresetting, WLBroadcastReceiver>
+@interface WLChangeProfileViewController () <KeyboardNotifying, UITextFieldDelegate, WLStillPictureViewControllerDelegate, EntryNotifying, FontPresetting, WLBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet ImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *imagePlaceholderView;

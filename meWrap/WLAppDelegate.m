@@ -8,7 +8,6 @@
 
 #import "WLAppDelegate.h"
 #import "WLNotificationCenter.h"
-#import "WLKeyboard.h"
 #import "WLHomeViewController.h"
 #import "iVersion.h"
 #import "WLSignupFlowViewController.h"
@@ -52,7 +51,6 @@
     [self initializeVersionTool];
     
 	[[Network sharedNetwork] addReceiver:self];
-	[[WLKeyboard keyboard] configure];
 	
     NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:notification success:^(id object) {

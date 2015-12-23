@@ -8,7 +8,6 @@
 
 #import "WLChatViewController.h"
 #import "WLComposeBar.h"
-#import "WLKeyboard.h"
 #import "WLMessageCell.h"
 #import "WLMessageDateView.h"
 #import "WLWrapViewController.h"
@@ -16,7 +15,7 @@
 #import "WLBadgeLabel.h"
 #import "PlaceholderView.h"
 
-@interface WLChatViewController () <StreamViewDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, EntryNotifying, ChatNotifying>
+@interface WLChatViewController () <StreamViewDelegate, WLComposeBarDelegate, KeyboardNotifying, EntryNotifying, ChatNotifying>
 
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
 
@@ -180,11 +179,11 @@
 }
 
 - (void)updateInsets {
-    CGFloat bottom = self.composeBar.height + [WLKeyboard keyboard].height + Chat.BubbleIndent;
+    CGFloat bottom = self.composeBar.height + [Keyboard keyboard].height + Chat.BubbleIndent;
     self.streamView.contentInset = self.streamView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, bottom, 0);
 }
 
-- (void)keyboardWillShow:(WLKeyboard *)keyboard {
+- (void)keyboardWillShow:(Keyboard *)keyboard {
     [super keyboardWillShow:keyboard];
     __weak typeof(self)weakSelf = self;
     if (self.streamView.contentInset.bottom > self.composeBar.height + Chat.BubbleIndent) return;
@@ -193,7 +192,7 @@
     }];
 }
 
-- (void)keyboardDidShow:(WLKeyboard *)keyboard {
+- (void)keyboardDidShow:(Keyboard *)keyboard {
     [super keyboardDidShow:keyboard];
     [UIView performWithoutAnimation:^{
         self.streamView.transform = CGAffineTransformIdentity;
@@ -202,7 +201,7 @@
     }];
 }
 
-- (void)keyboardWillHide:(WLKeyboard *)keyboard {
+- (void)keyboardWillHide:(Keyboard *)keyboard {
     [super keyboardWillHide:keyboard];
     [UIView performWithoutAnimation:^{
         CGFloat height = MAX(0, self.streamView.contentOffset.y - keyboard.height);
@@ -215,7 +214,7 @@
     }];
 }
 
-- (void)keyboardDidHide:(WLKeyboard *)keyboard {
+- (void)keyboardDidHide:(Keyboard *)keyboard {
     [super keyboardDidHide:keyboard];
     [UIView performWithoutAnimation:^{
         [self updateInsets];

@@ -139,7 +139,6 @@
 		C54743421C09CD8A00BECB25 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C547433F1C09CD8A00BECB25 /* ImageCache.swift */; };
 		C54743441C09CD8A00BECB25 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54743411C09CD8A00BECB25 /* ImageFetcher.swift */; };
 		C54743461C09CE3700BECB25 /* CATransition+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54743451C09CE3700BECB25 /* CATransition+Ext.swift */; };
-		C547A4541A026B3E005061AB /* WLKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C547A4501A026B3E005061AB /* WLKeyboard.m */; };
 		C549745B1ABC1C34000E3F54 /* WLQAButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLQAButton.m */; };
 		C54AF65519B8C491006F7EDB /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		C54AF67C19B8C491006F7EDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
@@ -312,6 +311,7 @@
 		C5D051C41A9F7FCE00855A01 /* AddressBookPhoneNumberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C01A9F7FCE00855A01 /* AddressBookPhoneNumberCell.m */; };
 		C5D051CA1A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C61A9F829B00855A01 /* WLArrangedAddressBook.m */; };
 		C5D552201C04BC2400069169 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D5521F1C04BC2300069169 /* Environment.swift */; };
+		C5D99E741C2B2BC10022D18B /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D99E731C2B2BC10022D18B /* Keyboard.swift */; };
 		C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
 		C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
 		C5E4FD071BF7629E00575DA4 /* RecentCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E4FD051BF7629E00575DA4 /* RecentCommentCell.xib */; };
@@ -638,8 +638,6 @@
 		C547433F1C09CD8A00BECB25 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		C54743411C09CD8A00BECB25 /* ImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 		C54743451C09CE3700BECB25 /* CATransition+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CATransition+Ext.swift"; sourceTree = "<group>"; };
-		C547A44F1A026B3E005061AB /* WLKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLKeyboard.h; sourceTree = "<group>"; };
-		C547A4501A026B3E005061AB /* WLKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLKeyboard.m; sourceTree = "<group>"; };
 		C54974561ABC1C34000E3F54 /* WLQAButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLQAButton.h; path = WLButton/WLQAButton.h; sourceTree = "<group>"; };
 		C54974571ABC1C34000E3F54 /* WLQAButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLQAButton.m; path = WLButton/WLQAButton.m; sourceTree = "<group>"; };
 		C54AF74A19B8C491006F7EDB /* meWrap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = meWrap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -863,6 +861,7 @@
 		C5D051C51A9F829B00855A01 /* WLArrangedAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLArrangedAddressBook.h; path = WLAddressBook/WLArrangedAddressBook.h; sourceTree = "<group>"; };
 		C5D051C61A9F829B00855A01 /* WLArrangedAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLArrangedAddressBook.m; path = WLAddressBook/WLArrangedAddressBook.m; sourceTree = "<group>"; };
 		C5D5521F1C04BC2300069169 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		C5D99E731C2B2BC10022D18B /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		C5E4FD051BF7629E00575DA4 /* RecentCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecentCommentCell.xib; sourceTree = "<group>"; };
 		C5E4FD061BF7629E00575DA4 /* RecentCandyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecentCandyCell.xib; sourceTree = "<group>"; };
 		C5E4FD0A1BF7AC4300575DA4 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -1151,6 +1150,7 @@
 				C557B6D81C22BC610067631E /* Network.swift */,
 				C557B6DA1C22C0B00067631E /* SoundPlayer.swift */,
 				C557B6DD1C22F5980067631E /* Logger.swift */,
+				C5D99E731C2B2BC10022D18B /* Keyboard.swift */,
 				C50541551BD6545400AE6F2C /* WLImageEditorSession */,
 				C5C7699A1BAC11F200B205CB /* WLUploadingQueue */,
 				C5C7696D1BAC10BF00B205CB /* WLAPIManager */,
@@ -1158,7 +1158,6 @@
 				C5A82CCC1ACD979B00336027 /* WLDeviceManager */,
 				C577C2601A4C426300ECC7E5 /* iVersion */,
 				C5C20B8C1A238ACC008B2E2E /* WLValidation */,
-				C547A44E1A026B3E005061AB /* WLKeyboard */,
 				129654E018E197D700FF43F6 /* WLAddressBook */,
 			);
 			path = Models;
@@ -1676,15 +1675,6 @@
 				C53012881BF4C3A900098F9C /* WrapPickerDataSource.swift */,
 			);
 			path = WLWrapPickerViewController;
-			sourceTree = "<group>";
-		};
-		C547A44E1A026B3E005061AB /* WLKeyboard */ = {
-			isa = PBXGroup;
-			children = (
-				C547A44F1A026B3E005061AB /* WLKeyboard.h */,
-				C547A4501A026B3E005061AB /* WLKeyboard.m */,
-			);
-			path = WLKeyboard;
 			sourceTree = "<group>";
 		};
 		C54FC76E1A16549700623FC1 /* Placeholder Views */ = {
@@ -2632,12 +2622,12 @@
 				C53A02321C0D8961003B3D1F /* InMemoryImageCache.swift in Sources */,
 				C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */,
 				C5C20BD81A239D6F008B2E2E /* WLPhoneViewController.m in Sources */,
+				C5D99E741C2B2BC10022D18B /* Keyboard.swift in Sources */,
 				C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */,
 				C5BCF0331B551B7B00E4AD6D /* WLContributorCell.m in Sources */,
 				C553B1901BF9F75600E50219 /* EntryPresenter.swift in Sources */,
 				C5E6DD921C0DC84A004992E4 /* User.swift in Sources */,
 				C5C694D51BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift in Sources */,
-				C547A4541A026B3E005061AB /* WLKeyboard.m in Sources */,
 				C5B51FE21BFB504D005A1CF6 /* UIAlertController+Ext.swift in Sources */,
 				C5E7AB7C1BCD4E28007E314B /* UIGestureRecognizer+Ext.swift in Sources */,
 				C5122D491BD7D2A40096C742 /* UIFont+Ext.swift in Sources */,

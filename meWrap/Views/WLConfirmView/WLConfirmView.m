@@ -93,7 +93,7 @@
 static CGFloat WLMessageLimit = 280;
 
 - (void)showInView:(UIView *)view withContent:(NSString *)content success:(ObjectBlock)success cancel:(Block)cancel {
-    [[WLKeyboard keyboard] addReceiver:self];
+    [[Keyboard keyboard] addReceiver:self];
     [self.contentTextView determineHyperLink:content];
     self.contentTextView.delegate = self;
     [super showInView:view authorization:nil success:success cancel:cancel];
@@ -104,14 +104,14 @@ static CGFloat WLMessageLimit = 280;
     [self hide];
 }
 
-- (void)keyboardWillShow:(WLKeyboard*)keyboard {
+- (void)keyboardWillShow:(Keyboard*)keyboard {
     [UIView animateWithDuration:0.25 animations:^{
         self.keyboardPrioritizer.constant -= keyboard.height/2;
         [self layoutIfNeeded];
     }];
 }
 
-- (void)keyboardWillHide:(WLKeyboard*)keyboard {
+- (void)keyboardWillHide:(Keyboard*)keyboard {
     [UIView animateWithDuration:0.25 animations:^{
         self.keyboardPrioritizer.constant += keyboard.height/2;
         [self layoutIfNeeded];

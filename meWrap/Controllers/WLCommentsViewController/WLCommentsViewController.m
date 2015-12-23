@@ -153,7 +153,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
     return NO;
 }
 
-#pragma mark - WLKeyboardBroadcastReceiver
+#pragma mark - KeyboardNotifying
 
 static CGFloat WLContstraintOffset = 44.0;
 

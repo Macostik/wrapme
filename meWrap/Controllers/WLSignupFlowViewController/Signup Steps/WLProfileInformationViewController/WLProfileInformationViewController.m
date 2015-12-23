@@ -7,11 +7,10 @@
 //
 
 #import "WLProfileInformationViewController.h"
-#import "WLKeyboard.h"
 #import "WLStillPictureViewController.h"
 #import "WLButton.h"
 
-@interface WLProfileInformationViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
+@interface WLProfileInformationViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, KeyboardNotifying>
 
 @property (strong, nonatomic) IBOutlet ImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet UIButton *createImageButton;

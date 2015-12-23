@@ -22,7 +22,7 @@
 
 @end
 
-@interface WLEditingConfirmView : WLConfirmView <WLKeyboardBroadcastReceiver>
+@interface WLEditingConfirmView : WLConfirmView <KeyboardNotifying>
 @property (weak, nonatomic) IBOutlet WLLabel *titleLabel;
 @property (weak, nonatomic) IBOutlet WLLabel *bodyLabel;
 @property (weak, nonatomic) IBOutlet WLTextView *contentTextView;

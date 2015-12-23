@@ -7,7 +7,6 @@
 //
 
 #import "WLSignupStepViewController.h"
-#import "WLKeyboard.h"
 
 @interface WLSignupStepViewController ()
 

@@ -65,7 +65,7 @@
     }
     self.screenName = NSStringFromClass([self class]);
     self.keyboardAdjustmentAnimated = YES;
-    [[WLKeyboard keyboard] addReceiver:self];
+    [[Keyboard keyboard] addReceiver:self];
 }
 
 - (BOOL)shouldUsePreferredViewFrame {
@@ -101,7 +101,7 @@
     return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown;
 }
 
-#pragma mark - WLKeyboardBroadcastReceiver
+#pragma mark - KeyboardNotifying
 
 - (CGFloat)constantForKeyboardAdjustmentBottomConstraint:(NSLayoutConstraint*)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
     CGFloat adjustment = [self keyboardAdjustmentForConstraint:constraint defaultConstant:defaultConstant keyboardHeight:keyboardHeight];
@@ -150,7 +150,7 @@
     return changed;
 }
 
-- (void)keyboardWillShow:(WLKeyboard *)keyboard {
+- (void)keyboardWillShow:(Keyboard *)keyboard {
     if (!self.isViewLoaded || (!self.keyboardAdjustmentTopConstraints.nonempty && !self.keyboardAdjustmentBottomConstraints.nonempty)) return;
     if ([self updateKeyboardAdjustmentConstraints:keyboard.height]) {
         if (self.keyboardAdjustmentAnimated && self.viewAppeared) {
@@ -168,11 +168,11 @@
     }
 }
 
-- (void)keyboardDidShow:(WLKeyboard *)keyboard {
+- (void)keyboardDidShow:(Keyboard *)keyboard {
     
 }
 
-- (void)keyboardWillHide:(WLKeyboard *)keyboard {
+- (void)keyboardWillHide:(Keyboard *)keyboard {
     if (!self.isViewLoaded || (!self.keyboardAdjustmentTopConstraints.nonempty && !self.keyboardAdjustmentBottomConstraints.nonempty)) return;
     [self updateKeyboardAdjustmentConstraints:0];
     self.keyboardAdjustmentDefaultConstants = nil;
@@ -190,7 +190,7 @@
     }
 }
 
-- (void)keyboardDidHide:(WLKeyboard *)keyboard {
+- (void)keyboardDidHide:(Keyboard *)keyboard {
     
 }
 

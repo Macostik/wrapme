@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WLKeyboard.h"
 #import "GAITrackedViewController.h"
 
-@interface WLBaseViewController : GAITrackedViewController <WLKeyboardBroadcastReceiver>
+@protocol KeyboardNotifying;
+
+@interface WLBaseViewController : GAITrackedViewController <KeyboardNotifying>
 
 @property (nonatomic) CGRect preferredViewFrame;
 

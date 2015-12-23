@@ -9,7 +9,6 @@
 #import "WLWrapPickerViewController.h"
 #import "WLToast.h"
 #import "WLButton.h"
-#import "WLKeyboard.h"
 #import "WLUploadingQueue.h"
 
 @interface WLWrapPickerViewController () <UITextFieldDelegate, EntryNotifying>

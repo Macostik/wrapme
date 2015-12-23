@@ -9,12 +9,11 @@
 #import "WLPhoneViewController.h"
 #import "WLCountriesViewController.h"
 #import "WLToast.h"
-#import "WLKeyboard.h"
 #import "WLButton.h"
 #import "WLPhoneValidation.h"
 #import "WLConfirmView.h"
 
-@interface WLPhoneViewController () <UITextFieldDelegate, WLKeyboardBroadcastReceiver>
+@interface WLPhoneViewController () <UITextFieldDelegate, KeyboardNotifying>
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberTextField;
 

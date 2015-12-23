@@ -108,6 +108,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
     @IBOutlet var primaryConstraint: LayoutPrioritizer!
     @IBOutlet weak var uploadingView: WLUploadingView!
     @IBOutlet weak var addPhotoButton: UIButton!
+    @IBOutlet weak var liveButton: UIButton?
     
     var history: History!
     
@@ -189,6 +190,12 @@ class MediaViewController: WLWrapEmbeddedViewController {
             dropDownCollectionView()
         }
         Wrap.notifier().addReceiver(self)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
+        liveButton?.active = (status == .Authorized)
     }
     
     func enlargingPresenterDismissingView(candy: Candy) -> UIView? {

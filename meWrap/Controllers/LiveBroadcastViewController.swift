@@ -226,9 +226,9 @@ class LiveBroadcastViewController: WLBaseViewController {
         audioConfig.sampleRate = (AudioConfig.getSupportedSampleRates().first as! NSNumber).floatValue
         let orientation: AVCaptureVideoOrientation = .LandscapeRight
         if let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self) {
-		streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
-        previewLayer = layer
-		}
+            streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
+            previewLayer = layer
+        }
     }
     
     private func stopCapture() {

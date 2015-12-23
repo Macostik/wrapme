@@ -3908,6 +3908,7 @@ QWRkEEZyaWVuZFZpZXc
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="addPhotoButton" destination="PNO-TY-VYu" id="m5b-cf-eyT"/>
+                        <outlet property="liveButton" destination="RbZ-zE-qem" id="gjL-9Q-uVk"/>
                         <outlet property="primaryConstraint" destination="8F6-xd-Raa" id="idQ-bf-VUC"/>
                         <outlet property="scrollDirectionPrioritizer" destination="SFh-vB-Xt1" id="AyH-T7-SLa"/>
                         <outlet property="streamView" destination="zI4-B5-vhI" id="oVx-JM-lqd"/>

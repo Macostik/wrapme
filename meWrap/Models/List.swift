@@ -200,11 +200,13 @@ class PaginatedList: List {
     }
     
     internal func newerPaginationDate() -> NSDate? {
-        return entries.first?.listSortDate()
+        let dates = entries.map({ (entry) -> NSDate in return entry.listSortDate() })
+        return dates.maxElement({ $0 < $1 })
     }
     
     internal func olderPaginationDate() -> NSDate? {
-        return entries.last?.listSortDate()
+        let dates = entries.map({ (entry) -> NSDate in return entry.listSortDate() })
+        return dates.maxElement({ $0 > $1 })
     }
     
     internal func configureRequest(request: PaginatedRequest) {
@@ -230,6 +232,27 @@ extension Entry: ListEntry {
 }
 
 extension Wrap {
+    
+    override func listSort(entry: ListEntry) -> Bool {
+        if let wrap = entry as? Wrap {
+            if wrap.liveBroadcasts.count > 0 {
+                if liveBroadcasts.count > 0 {
+                    return name < wrap.name
+                } else {
+                    return false
+                }
+            } else {
+                if liveBroadcasts.count > 0 {
+                    return true
+                } else {
+                    return updatedAt > wrap.updatedAt
+                }
+            }
+        } else {
+            return super.listSort(entry)
+        }
+    }
+    
     override func listSortDate() -> NSDate {
         return updatedAt
     }

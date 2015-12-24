@@ -195,7 +195,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
-        liveButton?.active = (status == .Authorized)
+        liveButton?.alpha = status == .Authorized || status == .NotDetermined ? 1 : 0.5
     }
     
     func enlargingPresenterDismissingView(candy: Candy) -> UIView? {
@@ -262,15 +262,41 @@ class MediaViewController: WLWrapEmbeddedViewController {
     @IBAction func liveBroadcast(sender: UIButton) {
         if !Network.sharedNetwork.reachable {
             WLToast.showWithMessage("no_internet_connection".ls)
-            return;
-        }
-        guard let wrap = wrap else {
             return
         }
-        FollowingViewController.followWrapIfNeeded(wrap) { [weak self] () -> Void in
-            if let controller = self {
-                (controller.delegate as? MediaViewControllerDelegate)?.mediaViewControllerDidOpenLiveBroadcast?(controller)
+        guard wrap != nil else {
+            return
+        }
+        
+        let openLiveBroadcast: (Void -> Void) = {[weak self] () -> Void in
+            FollowingViewController.followWrapIfNeeded(self!.wrap!) {
+                if let controller = self {
+                    (controller.delegate as? MediaViewControllerDelegate)?.mediaViewControllerDidOpenLiveBroadcast?(controller)
+                }
             }
+        }
+        
+        let authorizationStatus = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
+        switch authorizationStatus {
+        case .NotDetermined:
+            AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo,
+                completionHandler: {(access) -> Void in
+                      Dispatch.mainQueue.async {
+                        if !access {
+                            sender.alpha =  0.5
+                            return
+                        } else {
+                            openLiveBroadcast()
+                        }
+                    }
+                })
+        case .Denied, .Restricted:
+            sender.alpha = 0.5
+            return
+        default:
+            openLiveBroadcast()
+            sender.alpha = 1
+            break
         }
     }
 }

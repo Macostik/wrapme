@@ -14,7 +14,6 @@
 #import "GAI.h"
 #import <NewRelicAgent/NewRelic.h>
 #import "WLToast.h"
-#import "WLAddressBook.h"
 #import "WLWrapViewController.h"
 #import "CocoaLumberjack.h"
 #import "WLUploadingQueue.h"
@@ -349,7 +348,6 @@
     if (network.reachable) {
         if ([Authorization active]) {
             [WLUploadingQueue start];
-            [[WLAddressBook sharedAddressBook] updateCachedRecordsAfterFailure];
         } else {
             [[[Authorization currentAuthorization] signIn] send];
         }

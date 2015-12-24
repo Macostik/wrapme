@@ -54,19 +54,7 @@
     __weak typeof(self)weakSelf = self;
     self.spinner.hidden = NO;
     self.errorLabel.hidden = YES;
-    [self.imageView setURL:candy.asset.large success:^(UIImage *image, BOOL cached) {
-        [weakSelf calculateScaleValues];
-        weakSelf.scrollView.userInteractionEnabled = YES;
-        weakSelf.spinner.hidden = weakSelf.errorLabel.hidden = YES;
-    } failure:^(NSError *error) {
-        if ([error isNetworkError]) {
-            [[Network sharedNetwork] addReceiver:self];
-            weakSelf.errorLabel.hidden = NO;
-        } else {
-            weakSelf.errorLabel.hidden = YES;
-        }
-        weakSelf.spinner.hidden = YES;
-    }];
+    
     VideoPlayerView *playerView = self.videoPlayerView;
     NSInteger type = candy.type;
     if (type == MediaTypeVideo) {
@@ -78,6 +66,21 @@
         playerView.url = nil;
         playerView.hidden = YES;
     }
+    
+    [self.imageView setURL:candy.asset.large success:^(UIImage *image, BOOL cached) {
+        [weakSelf calculateScaleValues];
+        weakSelf.scrollView.userInteractionEnabled = YES;
+        weakSelf.spinner.hidden = weakSelf.errorLabel.hidden = YES;
+    } failure:^(NSError *error) {
+        if ([error isNetworkError]) {
+            [[Network sharedNetwork] addReceiver:self];
+            weakSelf.errorLabel.hidden = NO;
+            playerView.hidden = YES;
+        } else {
+            weakSelf.errorLabel.hidden = YES;
+        }
+        weakSelf.spinner.hidden = YES;
+    }];
 }
 
 - (void)calculateScaleValues {

@@ -17,8 +17,8 @@ class AddressBookRecord: NSObject {
     var avatar: Asset? {
         get {
             if _avatar == nil {
-                if  let addressBook = WLAddressBook.sharedAddressBook().ABAddressBook(), let recordID = recordID where hasImage {
-                    let record = ABAddressBookGetPersonWithRecordID(addressBook.takeUnretainedValue(), recordID)?.takeUnretainedValue()
+                if  let addressBook = AddressBook.sharedAddressBook.getABAddressBook(), let recordID = recordID where hasImage {
+                    let record = ABAddressBookGetPersonWithRecordID(addressBook, recordID)?.takeUnretainedValue()
                     let uid = "addressbook_\(recordID)"
                     let path = ImageCache.defaultCache.getPath(uid)
                     if !ImageCache.defaultCache.contains(uid) {
@@ -168,7 +168,7 @@ class AddressBookPhoneNumber: NSObject {
     
     var activated = false
     
-    func isEqualToPhoneNumber(phoneNumber: AddressBookPhoneNumber) -> Bool {
+    func equals(phoneNumber: AddressBookPhoneNumber) -> Bool {
         if let user = user {
             return user == phoneNumber.user
         } else {

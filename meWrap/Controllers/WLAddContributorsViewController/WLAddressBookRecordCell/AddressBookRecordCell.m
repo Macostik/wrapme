@@ -7,8 +7,6 @@
 //
 
 #import "AddressBookRecordCell.h"
-#import "WLAddressBook.h"
-#import "AddressBookPhoneNumberCell.h"
 
 @interface AddressBookRecordCell ()
 

@@ -12,7 +12,6 @@
 #import "WLToast.h"
 #import "WLWrapViewController.h"
 #import "WLUploadingView.h"
-#import "WLAddressBook.h"
 #import "WLHistoryViewController.h"
 #import "WLHintView.h"
 #import "WLUploadingQueue.h"
@@ -44,7 +43,7 @@
 @implementation WLHomeViewController
 
 - (void)dealloc {
-    [[WLAddressBook sharedAddressBook] endCaching];
+    [[AddressBook sharedAddressBook] endCaching];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 }
@@ -101,7 +100,7 @@
     
     self.createWrapTipHidden = YES;
     
-    [[WLAddressBook sharedAddressBook] beginCaching];
+    [[AddressBook sharedAddressBook] beginCaching];
     
     [self addNotifyReceivers];
     

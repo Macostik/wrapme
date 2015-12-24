@@ -26,4 +26,3 @@
 #import "WLDownloadingView.h"
 #import "WLDrawingViewController.h"
 #import "WLImageEditorSession.h"
-#import "WLAddressBook.h"

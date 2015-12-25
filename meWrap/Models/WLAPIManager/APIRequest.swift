@@ -22,9 +22,9 @@ private struct APIRequestContainer<T> {
 
 class APIRequest: NSObject {
 
-    static let manager: AFHTTPRequestOperationManager = {
+    static let manager: AFHTTPSessionManager = {
         let environment = Environment.currentEnvironment
-        let manager = AFHTTPRequestOperationManager(baseURL: environment.endpoint.URL)
+        let manager = AFHTTPSessionManager(baseURL: environment.endpoint.URL)
         let acceptHeader = "application/vnd.ravenpod+json;version=\(environment.version)"
         manager.requestSerializer.setValue(acceptHeader, forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("gzip", forHTTPHeaderField: "Accept-Encoding")
@@ -138,9 +138,12 @@ class APIRequest: NSObject {
     var successBlock: ObjectBlock?
     var failureBlock: FailureBlock?
     
-    weak var operation: AFHTTPRequestOperation?
+    var uploadProgress: (NSProgress -> Void)?
+    var downloadProgress: (NSProgress -> Void)?
     
-    func send(success: ObjectBlock?, failure: FailureBlock?) -> AFHTTPRequestOperation? {
+    weak var task: NSURLSessionDataTask?
+    
+    func send(success: ObjectBlock?, failure: FailureBlock?) -> NSURLSessionDataTask? {
         successBlock = success
         failureBlock = failure
         return send()
@@ -151,56 +154,53 @@ class APIRequest: NSObject {
         parametrize()
     }
     
-    func send() -> AFHTTPRequestOperation? {
+    func send() -> NSURLSessionDataTask? {
         prepare()
         return enqueue()
     }
     
-    func enqueue() -> AFHTTPRequestOperation? {
+    func enqueue() -> NSURLSessionDataTask? {
         guard let request = request() else {
-            handleFailure(nil)
+            handleFailure(nil, response: nil)
             return nil
         }
         Logger.log("\(method.rawValue) - \(path): \(parameters)", color: .Yellow)
         
         let manager = APIRequest.manager
-        operation = manager.HTTPRequestOperationWithRequest(request, success: { (operation, responseObject) -> Void in
-            let response = Response(dictionary: responseObject as! [String : AnyObject])
-            if response.code == .Success {
-                #if DEBUG
-                    Logger.log("RESPONSE - \(self.path): \(response.data)", color: .Green)
-                #else
-                    Logger.log("RESPONSE - \(self.path)")
-                #endif
-                if let parser = self.parser {
-                    let parsedObject = parser(response)
-                    if let object = parsedObject {
-                        Logger.log("PARSED RESPONSE - \(self.path): \(object)")
-                    }
-                    self.handleSuccess(parsedObject)
-                } else {
-                    self.handleSuccess(response)
-                }
-            } else {
-                Logger.log("API ERROR \(response.code.rawValue) - \(self.path)", color: .Red)
-                self.handleFailure(NSError(response: response))
-            }
-            self.trackServerTime(operation.response)
-            }, failure: { (_, error) -> Void in
+        let task = manager.dataTaskWithRequest(request, uploadProgress: uploadProgress, downloadProgress: downloadProgress) { (urlResponse, responseObject, error) -> Void in
+            if let error = error {
                 Logger.log("ERROR - \(self.path): \(error)", color: .Red)
-                self.handleFailure(error)
-        })
-        
-        if let operation = operation {
-            manager.operationQueue.addOperation(operation)
+                self.handleFailure(error, response: urlResponse as? NSHTTPURLResponse)
+            } else {
+                let response = Response(dictionary: responseObject as! [String : AnyObject])
+                if response.code == .Success {
+                    #if DEBUG
+                        Logger.log("RESPONSE - \(self.path): \(response.data)", color: .Green)
+                    #else
+                        Logger.log("RESPONSE - \(self.path)")
+                    #endif
+                    if let parser = self.parser {
+                        let parsedObject = parser(response)
+                        if let object = parsedObject {
+                            Logger.log("PARSED RESPONSE - \(self.path): \(object)")
+                        }
+                        self.handleSuccess(parsedObject)
+                    } else {
+                        self.handleSuccess(response)
+                    }
+                } else {
+                    Logger.log("API ERROR \(response.code.rawValue) - \(self.path)", color: .Red)
+                    self.handleFailure(NSError(response: response), response: urlResponse as? NSHTTPURLResponse)
+                }
+                self.trackServerTime(urlResponse as? NSHTTPURLResponse)
+            }
         }
-        
-        return operation
+        self.task = task
+        task.resume()
+        return task
     }
     
-    func cancel() {
-        operation?.cancel()
-    }
+    func cancel() { task?.cancel() }
     
     func handleSuccess(object: AnyObject?) {
         let success = successBlock
@@ -211,15 +211,12 @@ class APIRequest: NSObject {
     
     var skipReauthorizing = false
     
-    func handleFailure(error: NSError?) {
+    private func handleFailure(error: NSError?, response: NSHTTPURLResponse?) {
     
-        guard (failureValidator?(self, error) ?? true) else {
-            return
-        }
+        guard (failureValidator?(self, error) ?? true) else { return }
         
         beforeFailure?(error)
-        let response = error?.userInfo[AFNetworkingOperationFailingURLResponseErrorKey] as? NSHTTPURLResponse
-        if let response = response where response.statusCode == 401 && !skipReauthorizing {
+        if response?.statusCode == 401 && !skipReauthorizing {
             NSUserDefaults.standardUserDefaults().authorizationCookie = nil
             Authorization.currentAuthorization.signIn().send({ (_) -> Void in
                 self.enqueue()
@@ -227,7 +224,7 @@ class APIRequest: NSObject {
                     if let block = APIRequest.unauthorizedErrorBlock where !(error?.isNetworkError ?? true) {
                         block(self, error)
                     } else {
-                        self.handleFailure(error)
+                        self.handleFailure(error, response: nil)
                     }
             })
         } else {

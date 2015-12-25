@@ -298,12 +298,6 @@
     [self presentViewController:stillPictureViewController animated:NO completion:nil];
 }
 
-- (void)mediaViewControllerDidOpenLiveBroadcast:(MediaViewController *)controller {
-    LiveBroadcastViewController *liveBroadcastController = self.storyboard[@"liveBroadcast"];
-    liveBroadcastController.wrap = self.wrap;
-    [self.navigationController presentViewController:liveBroadcastController animated:NO completion:nil];
-}
-
 // MARK: - RecentUpdateListNotifying
 
 - (void)recentUpdateListUpdated:(RecentUpdateList *)list {

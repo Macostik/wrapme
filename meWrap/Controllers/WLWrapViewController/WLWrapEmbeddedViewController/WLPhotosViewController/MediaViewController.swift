@@ -94,16 +94,14 @@ class LiveBroadcastMediaView: StreamReusableView {
 }
 
 @objc protocol MediaViewControllerDelegate: WLWrapEmbeddedViewControllerDelegate {
-
-optional func mediaViewControllerDidAddPhoto(controller: MediaViewController)
-
-optional func mediaViewControllerDidOpenLiveBroadcast(controller: MediaViewController)
-
+    
+    optional func mediaViewControllerDidAddPhoto(controller: MediaViewController)
+    
 }
 
 class MediaViewController: WLWrapEmbeddedViewController {
     
-    var dataSource: MediaDataSource!
+    lazy var dataSource: MediaDataSource = MediaDataSource(streamView: self.streamView)
     @IBOutlet  weak var streamView: StreamView!
     @IBOutlet var primaryConstraint: LayoutPrioritizer!
     @IBOutlet weak var uploadingView: WLUploadingView!
@@ -114,7 +112,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
     
     weak var candyMetrics: StreamMetrics!
     @IBOutlet weak var scrollDirectionPrioritizer: LayoutPrioritizer!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -122,10 +120,8 @@ class MediaViewController: WLWrapEmbeddedViewController {
             return
         }
         
-        let streamView = self.streamView
         streamView.contentInset = streamView.scrollIndicatorInsets
         
-        dataSource = MediaDataSource(streamView: streamView)
         dataSource.scrollDirectionLayoutPrioritizer = self.scrollDirectionPrioritizer
         dataSource.numberOfGridColumns = 3;
         dataSource.layoutSpacing = Constants.pixelSize
@@ -135,7 +131,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
             wrap.candies = nil
         }
         
-        dataSource.liveBroadcasts = { [weak wrap] _ -> [LiveBroadcast]? in
+        dataSource.liveBroadcasts = { [weak wrap] _ in
             return wrap?.liveBroadcasts
         }
         let loader = IndexedStreamLoader(identifier: "MediaViews", index: 0)
@@ -143,7 +139,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
         dataSource.liveBroadcastMetrics.selection = { [weak self] (item, broadcast) -> Void in
             if !Network.sharedNetwork.reachable {
                 WLToast.showWithMessage("no_internet_connection".ls)
-                return;
+                return
             }
             if let controller = self?.storyboard?["liveBroadcast"] as? LiveBroadcastViewController {
                 controller.wrap = self?.wrap
@@ -162,7 +158,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
             }
         }
         
-        let candyMetrics = dataSource.addMetrics(StreamMetrics(loader: loader.loader(2)))
+        candyMetrics = dataSource.addMetrics(StreamMetrics(loader: loader.loader(2)))
         candyMetrics.size = round(view.width / 2.5)
         candyMetrics.selectable = false
         candyMetrics.selection = { [weak self] (item, entry) -> Void in
@@ -170,7 +166,6 @@ class MediaViewController: WLWrapEmbeddedViewController {
                 return self?.enlargingPresenterDismissingView(candy)
             })
         }
-        self.candyMetrics = candyMetrics
         
         dataSource.appendableBlock = { [weak self] (dataSource) -> Bool in
             return self?.wrap?.uploaded ?? false
@@ -180,13 +175,12 @@ class MediaViewController: WLWrapEmbeddedViewController {
         
         dataSource.setRefreshableWithStyle(.Orange)
         
-        firstLoadRequest()
-        
         uploadingView.queue = WLUploadingQueue.defaultQueueForEntityName(Candy.entityName())
         
         Network.sharedNetwork.addReceiver(self)
         
         if wrap.candies?.count > 0 {
+            dataSource.paginatedSet?.newer(nil, failure: nil)
             dropDownCollectionView()
         }
         Wrap.notifier().addReceiver(self)
@@ -217,8 +211,8 @@ class MediaViewController: WLWrapEmbeddedViewController {
         }
         
         if let candies = wrap.candies as? Set<Candy> {
-            for candy in candies where candy.valid && candy.unread {
-                candy.unread = false
+            for candy in candies where candy.valid {
+                candy.markAsUnread(false)
             }
         }
         RecentUpdateList.sharedList.refreshCount({ [weak self] (_) -> Void in
@@ -228,17 +222,16 @@ class MediaViewController: WLWrapEmbeddedViewController {
         dataSource.items = history
         uploadingView.update()
         streamView.unlock()
+        if view.width > view.height {
+            Dispatch.mainQueue.async { [weak self] _ in
+                self?.dataSource.reload()
+            }
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         streamView.lock()
-    }
-
-    private func firstLoadRequest() {
-        if wrap?.candies?.count > 0 {
-            dataSource.paginatedSet?.newer(nil, failure: nil)
-        }
     }
     
     private func dropDownCollectionView() {
@@ -270,8 +263,9 @@ class MediaViewController: WLWrapEmbeddedViewController {
         
         let openLiveBroadcast: (Void -> Void) = {[weak self] () -> Void in
             FollowingViewController.followWrapIfNeeded(self!.wrap!) {
-                if let controller = self {
-                    (controller.delegate as? MediaViewControllerDelegate)?.mediaViewControllerDidOpenLiveBroadcast?(controller)
+                if let controller = self, let liveBroadcastController = controller.storyboard?["liveBroadcast"] as? LiveBroadcastViewController {
+                    liveBroadcastController.wrap = controller.wrap
+                    controller.navigationController?.presentViewController(liveBroadcastController, animated: false, completion: nil)
                 }
             }
         }
@@ -281,7 +275,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
         case .NotDetermined:
             AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo,
                 completionHandler: {(access) -> Void in
-                      Dispatch.mainQueue.async {
+                    Dispatch.mainQueue.async {
                         if !access {
                             sender.alpha =  0.5
                             return
@@ -289,7 +283,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
                             openLiveBroadcast()
                         }
                     }
-                })
+            })
         case .Denied, .Restricted:
             sender.alpha = 0.5
             return

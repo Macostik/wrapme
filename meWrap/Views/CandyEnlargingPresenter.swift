@@ -92,7 +92,7 @@ class CandyEnlargingPresenter: UIView {
     }
     
     private func addToSuperview() -> UIView? {
-        if let superview = UIWindow.mainWindow?.rootViewController?.view {
+        if let superview = UIWindow.mainWindow.rootViewController?.view {
             frame = superview.frame
             addSubview(imageView)
             superview.addSubview(self)

@@ -311,12 +311,12 @@ class StreamView: UIScrollView {
         }
     }
     
-    func dynamicSizeForMetrics(metrics: StreamMetrics, entry: AnyObject?) -> CGFloat {
-        guard let view = metrics.loadView() else { return 0 }
+    func dynamicSizeForMetrics(metrics: StreamMetrics, entry: AnyObject?, minSize: CGFloat) -> CGFloat {
+        guard let view = metrics.loadView() else { return minSize }
         view.width = width
         view.entry = entry
         let size = view.contentView!.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
-        return size.height
+        return max(minSize, size.height)
     }
     
     // MARK: - User Actions

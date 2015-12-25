@@ -105,9 +105,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     deinit {
         UIApplication.sharedApplication().idleTimerDisabled = false
-        guard let item = playerItem else {
-            return
-        }
+        guard let item = playerItem else { return }
         item.removeObserver(self, forKeyPath: "status")
         item.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
     }
@@ -120,6 +118,9 @@ class LiveBroadcastViewController: WLBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        presentViewController(UIViewController(), animated: false, completion: nil)
+//        dismissViewControllerAnimated(false, completion: nil)
+        
         UIApplication.sharedApplication().idleTimerDisabled = true
         chatStreamView.layer.geometryFlipped = true
         
@@ -127,7 +128,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         chatDataSource.addMetrics(StreamMetrics(loader: IndexedStreamLoader(identifier: "LiveBroadcastEventViews", index: 0))).change { (metrics) -> Void in
             metrics.sizeAt = { [weak self] item -> CGFloat in
                 let event = item.entry as? LiveBroadcast.Event
-                return max(self?.chatStreamView?.dynamicSizeForMetrics(metrics, entry: event) ?? 72, 72)
+                return self?.chatStreamView?.dynamicSizeForMetrics(metrics, entry: event, minSize: 72) ?? 72
             }
             metrics.hiddenAt = { item -> Bool in
                 let event = item.entry as? LiveBroadcast.Event
@@ -138,7 +139,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         chatDataSource.addMetrics(StreamMetrics(loader: IndexedStreamLoader(identifier: "LiveBroadcastEventViews", index: 1))).change { (metrics) -> Void in
             metrics.sizeAt = { [weak self] item -> CGFloat in
                 let event = item.entry as? LiveBroadcast.Event
-                return max(self?.chatStreamView?.dynamicSizeForMetrics(metrics, entry: event) ?? 32, 32)
+                return self?.chatStreamView?.dynamicSizeForMetrics(metrics, entry: event, minSize: 32) ?? 32
             }
             metrics.hiddenAt = { item -> Bool in
                 let event = item.entry as? LiveBroadcast.Event
@@ -155,6 +156,14 @@ class LiveBroadcastViewController: WLBaseViewController {
             initializeBroadcasting()
         }
         Wrap.notifier().addReceiver(self)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        UIView.performWithoutAnimation { () -> Void in
+            self.previewLayer?.frame = self.view.bounds
+            self.playerLayer?.frame = self.view.bounds
+        }
     }
     
     private func initializeViewing(broadcast: LiveBroadcast) {
@@ -184,17 +193,17 @@ class LiveBroadcastViewController: WLBaseViewController {
         
         updateBroadcastInfo()
         
-        guard let wrap = wrap else { return }
-        PubNub.sharedInstance.stateForUUID(broadcast.uuid, onChannel: wrap.uid) { [weak self] (result, status) -> Void in
-            if let state = result?.data?.state, let numberOfViewers = state["numberOfViewers"] as? Int {
-                broadcast.numberOfViewers = numberOfViewers
-                self?.updateBroadcastInfo()
+        Dispatch.mainQueue.after(0.5) { () -> Void in
+            PubNub.sharedInstance.hereNowForChannel("ch-\(broadcast.streamName)", withVerbosity: .Occupancy) { (result, status) -> Void in
+                if let occupancy = result?.data?.occupancy?.integerValue {
+                    self.setNumberOfViewers(occupancy)
+                }
             }
-            }
+        }
     }
     
     private func subscribe(broadcast: LiveBroadcast) {
-        let chatSubscription = NotificationSubscription(name: broadcast.streamName, isGroup: false, observePresence: true)
+        let chatSubscription = NotificationSubscription(name: "ch-\(broadcast.streamName)", isGroup: false, observePresence: true)
         chatSubscription.delegate = self
         self.chatSubscription = chatSubscription
     }
@@ -229,6 +238,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         if let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self) {
             streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
             previewLayer = layer
+            layer.connection.videoOrientation = orientation
         }
     }
     
@@ -260,14 +270,12 @@ class LiveBroadcastViewController: WLBaseViewController {
         broadcast.title = composeBar.text
         broadcast.broadcaster = user
         broadcast.streamName = streamName
-        broadcast.uuid = User.channelName()
         broadcast.wrap = wrap
         wrap.addBroadcast(broadcast)
         
         userState = [
             "title" : broadcast.title,
             "streamName" : streamName,
-            "numberOfViewers" : broadcast.numberOfViewers
         ]
         
         createConnection(streamName)
@@ -427,6 +435,16 @@ class LiveBroadcastViewController: WLBaseViewController {
         
         sender.scale = 1
     }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return [.LandscapeRight]
+    }
+    
+    private var connectionMessageShown = false
 }
 
 extension LiveBroadcastViewController: WLComposeBarDelegate {
@@ -441,7 +459,8 @@ extension LiveBroadcastViewController: StreamerListener {
     @objc(connectionStateDidChangeId:State:Status:)
     func connectionStateDidChangeId(connectionID: Int32, state: ConnectionState, status: ConnectionStatus) {
         
-        if state == .Record {
+        if state == .Record && !connectionMessageShown {
+            connectionMessageShown = true
             let event = LiveBroadcast.Event(type: .Info)
             event.text = String(format: "formatted_you_are_now_live".ls, wrap?.name ?? "")
             broadcast.insert(event)
@@ -477,7 +496,7 @@ extension LiveBroadcastViewController: EntryNotifying {
     }
     
     func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
-        presentingViewController?.dismissViewControllerAnimated(false, completion: nil);
+        presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
     }
     
     func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
@@ -500,12 +519,7 @@ extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
     }
     
     private func setNumberOfViewers(numberOfViewers: Int) {
-        broadcast.numberOfViewers = numberOfViewers
-        if isBroadcasting {
-            var state = userState
-            state["numberOfViewers"] = numberOfViewers
-            userState = state
-        }
+        broadcast.numberOfViewers = max(1, numberOfViewers)
         updateBroadcastInfo()
     }
     

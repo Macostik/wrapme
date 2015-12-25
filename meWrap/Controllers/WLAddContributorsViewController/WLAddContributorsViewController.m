@@ -9,7 +9,6 @@
 #import "WLAddContributorsViewController.h"
 #import "AddressBookRecordCell.h"
 #import "WLButton.h"
-#import "WLArrangedAddressBook.h"
 #import "WLToast.h"
 #import "WLConfirmView.h"
 
@@ -20,8 +19,8 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet LayoutPrioritizer *bottomPrioritizer;
 @property (nonatomic, strong) NSMutableArray* openedRows;
-@property (strong, nonatomic) WLArrangedAddressBook* addressBook;
-@property (strong, nonatomic) WLArrangedAddressBook* filteredAddressBook;
+@property (strong, nonatomic) ArrangedAddressBook* addressBook;
+@property (strong, nonatomic) ArrangedAddressBook* filteredAddressBook;
 @property (strong, nonatomic) StreamMetrics *singleMetrics;
 @property (strong, nonatomic) StreamMetrics *multipleMetrics;
 @property (strong, nonatomic) StreamMetrics *sectionHeaderMetrics;
@@ -107,8 +106,8 @@
 
 - (void)addressBook:(AddressBook *)addressBook didUpdateCachedRecords:(NSArray<AddressBookRecord *> * _Nullable)cachedRecords {
     [self.spinner stopAnimating];
-    WLArrangedAddressBook *oldAddressBook = self.addressBook;
-    self.addressBook = [[WLArrangedAddressBook alloc] init];
+    ArrangedAddressBook *oldAddressBook = self.addressBook;
+    self.addressBook = [[ArrangedAddressBook alloc] init];
     [self.addressBook addRecords:cachedRecords];
     if (oldAddressBook != nil) {
         self.addressBook.selectedPhoneNumbers = [[oldAddressBook.selectedPhoneNumbers map:^id (AddressBookPhoneNumber *phoneNumber) {
@@ -155,7 +154,7 @@
 }
 
 - (IBAction)cancel:(id)sender {
-    [self.addressBook.selectedPhoneNumbers removeAllObjects];
+    [self.addressBook clearSelection];
     [self.streamView reload];
     [self.streamView setNeedsUpdateConstraints];
 }

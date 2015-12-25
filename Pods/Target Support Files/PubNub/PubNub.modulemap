@@ -45,7 +45,6 @@ framework module PubNub {
   private header "PNPresenceWhereNowParser.h"
   private header "PNPushNotificationsAuditParser.h"
   private header "PNPushNotificationsStateModificationParser.h"
-  private header "PNRemoveDeviceFromAPNSResponseParser.h"
   private header "PNSubscribeParser.h"
   private header "PNTimeParser.h"
   private header "PNNetwork.h"

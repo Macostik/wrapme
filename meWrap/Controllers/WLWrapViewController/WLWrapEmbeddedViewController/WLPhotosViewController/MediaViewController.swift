@@ -87,7 +87,11 @@ class LiveBroadcastMediaView: StreamReusableView {
     override func setup(entry: AnyObject!) {
         if let broadcast = entry as? LiveBroadcast {
             nameLabel.text = "\(broadcast.broadcaster?.name ?? "") \("is_live_streaming".ls)"
-            titleLabel.text = broadcast.title
+            if let title = broadcast.title where !title.isEmpty {
+                titleLabel?.text = broadcast.title
+            } else {
+                titleLabel?.text = "untitled".ls
+            }
             imageView.url = broadcast.broadcaster?.avatar?.small
         }
     }

@@ -193,17 +193,15 @@ class LiveBroadcastViewController: WLBaseViewController {
         
         updateBroadcastInfo()
         
-        guard let wrap = wrap else { return }
-        PubNub.sharedInstance.stateForUUID(broadcast.uuid, onChannel: wrap.uid) { [weak self] (result, status) -> Void in
-            if let state = result?.data?.state, let numberOfViewers = state["numberOfViewers"] as? Int {
-                broadcast.numberOfViewers = numberOfViewers
-                self?.updateBroadcastInfo()
+        PubNub.sharedInstance.hereNowForChannel("ch-\(broadcast.streamName)", withVerbosity: .Occupancy) { (result, status) -> Void in
+            if let occupancy = result?.data?.occupancy?.integerValue {
+                self.setNumberOfViewers(occupancy)
             }
-            }
+        }
     }
     
     private func subscribe(broadcast: LiveBroadcast) {
-        let chatSubscription = NotificationSubscription(name: broadcast.streamName, isGroup: false, observePresence: true)
+        let chatSubscription = NotificationSubscription(name: "ch-\(broadcast.streamName)", isGroup: false, observePresence: true)
         chatSubscription.delegate = self
         self.chatSubscription = chatSubscription
     }
@@ -277,7 +275,6 @@ class LiveBroadcastViewController: WLBaseViewController {
         userState = [
             "title" : broadcast.title,
             "streamName" : streamName,
-            "numberOfViewers" : broadcast.numberOfViewers
         ]
         
         createConnection(streamName)
@@ -518,12 +515,7 @@ extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
     }
     
     private func setNumberOfViewers(numberOfViewers: Int) {
-        broadcast.numberOfViewers = numberOfViewers
-        if isBroadcasting {
-            var state = userState
-            state["numberOfViewers"] = numberOfViewers
-            userState = state
-        }
+        broadcast.numberOfViewers = max(1, numberOfViewers)
         updateBroadcastInfo()
     }
     

@@ -203,7 +203,6 @@
                     broadcast.title = state[@"title"];
                     broadcast.streamName = streamName;
                     broadcast.uuid = event.data.presence.uuid;
-                    broadcast.numberOfViewers = [state[@"numberOfViewers"] integerValue];
                     [wrap addBroadcast:broadcast];
                 } else {
                     for (LiveBroadcast *broadcast in wrap.liveBroadcasts) {

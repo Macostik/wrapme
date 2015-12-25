@@ -268,7 +268,6 @@ class LiveBroadcastViewController: WLBaseViewController {
         broadcast.title = composeBar.text
         broadcast.broadcaster = user
         broadcast.streamName = streamName
-        broadcast.uuid = User.channelName()
         broadcast.wrap = wrap
         wrap.addBroadcast(broadcast)
         

@@ -33,7 +33,6 @@ class LiveBroadcast: NSObject {
     var title = ""
     var streamName = ""
     var numberOfViewers = 1
-    var uuid = ""
     
     var events = [Event]()
     

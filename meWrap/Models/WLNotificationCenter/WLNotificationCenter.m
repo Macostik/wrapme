@@ -170,7 +170,6 @@
                 NSString *streamName = state[@"streamName"];
                 if (streamName != nil) {
                     LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
-                    broadcast.uuid = uuid[@"uuid"];
                     broadcast.broadcaster = user;
                     broadcast.wrap = wrap;
                     broadcast.title = state[@"title"];
@@ -202,7 +201,6 @@
                     broadcast.wrap = wrap;
                     broadcast.title = state[@"title"];
                     broadcast.streamName = streamName;
-                    broadcast.uuid = event.data.presence.uuid;
                     [wrap addBroadcast:broadcast];
                 } else {
                     for (LiveBroadcast *broadcast in wrap.liveBroadcasts) {

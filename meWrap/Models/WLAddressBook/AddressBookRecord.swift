@@ -120,6 +120,14 @@ class AddressBookRecord: NSObject {
     }
 }
 
+func ==(lhs: AddressBookPhoneNumber, rhs: AddressBookPhoneNumber) -> Bool {
+    if let user = lhs.user {
+        return user == rhs.user
+    } else {
+        return lhs.phone == rhs.phone
+    }
+}
+
 class AddressBookPhoneNumber: NSObject {
     
     weak var record: AddressBookRecord?
@@ -167,14 +175,6 @@ class AddressBookPhoneNumber: NSObject {
     }
     
     var activated = false
-    
-    func equals(phoneNumber: AddressBookPhoneNumber) -> Bool {
-        if let user = user {
-            return user == phoneNumber.user
-        } else {
-            return phone == phoneNumber.phone
-        }
-    }
     
     override var description: String {
         return phone ?? ""

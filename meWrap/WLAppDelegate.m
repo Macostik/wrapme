@@ -131,9 +131,7 @@
 }
 
 - (void)createWindow {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self.window makeKeyAndVisible];
-    [UIWindow setMainWindow:self.window];
+    [[UIWindow mainWindow] makeKeyAndVisible];
     
     NSString *storedVersion = [NSUserDefaults standardUserDefaults].appVersion;
     NSString *currentVersion = [NSBundle mainBundle].buildVersion;
@@ -172,7 +170,7 @@
                 return;
             }
         }
-        self.window.rootViewController = [UIStoryboard introduction][@"launchScreen"];
+        [UIWindow mainWindow].rootViewController = [UIStoryboard introduction][@"launchScreen"];
         __weak typeof(self)weakSelf = self;
         [[authorization signIn] send:successBlock failure:^(NSError *error) {
             User *currentUser = [User currentUser];

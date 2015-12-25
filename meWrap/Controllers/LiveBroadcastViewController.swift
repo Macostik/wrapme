@@ -105,9 +105,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     deinit {
         UIApplication.sharedApplication().idleTimerDisabled = false
-        guard let item = playerItem else {
-            return
-        }
+        guard let item = playerItem else { return }
         item.removeObserver(self, forKeyPath: "status")
         item.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
     }
@@ -120,6 +118,9 @@ class LiveBroadcastViewController: WLBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        presentViewController(UIViewController(), animated: false, completion: nil)
+//        dismissViewControllerAnimated(false, completion: nil)
+        
         UIApplication.sharedApplication().idleTimerDisabled = true
         chatStreamView.layer.geometryFlipped = true
         
@@ -127,7 +128,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         chatDataSource.addMetrics(StreamMetrics(loader: IndexedStreamLoader(identifier: "LiveBroadcastEventViews", index: 0))).change { (metrics) -> Void in
             metrics.sizeAt = { [weak self] item -> CGFloat in
                 let event = item.entry as? LiveBroadcast.Event
-                return max(self?.chatStreamView?.dynamicSizeForMetrics(metrics, entry: event) ?? 72, 72)
+                return self?.chatStreamView?.dynamicSizeForMetrics(metrics, entry: event, minSize: 72) ?? 72
             }
             metrics.hiddenAt = { item -> Bool in
                 let event = item.entry as? LiveBroadcast.Event
@@ -138,7 +139,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         chatDataSource.addMetrics(StreamMetrics(loader: IndexedStreamLoader(identifier: "LiveBroadcastEventViews", index: 1))).change { (metrics) -> Void in
             metrics.sizeAt = { [weak self] item -> CGFloat in
                 let event = item.entry as? LiveBroadcast.Event
-                return max(self?.chatStreamView?.dynamicSizeForMetrics(metrics, entry: event) ?? 32, 32)
+                return self?.chatStreamView?.dynamicSizeForMetrics(metrics, entry: event, minSize: 32) ?? 32
             }
             metrics.hiddenAt = { item -> Bool in
                 let event = item.entry as? LiveBroadcast.Event
@@ -155,6 +156,14 @@ class LiveBroadcastViewController: WLBaseViewController {
             initializeBroadcasting()
         }
         Wrap.notifier().addReceiver(self)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        UIView.performWithoutAnimation { () -> Void in
+            self.previewLayer?.frame = self.view.bounds
+            self.playerLayer?.frame = self.view.bounds
+        }
     }
     
     private func initializeViewing(broadcast: LiveBroadcast) {
@@ -229,6 +238,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         if let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self) {
             streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
             previewLayer = layer
+            layer.connection.videoOrientation = orientation
         }
     }
     
@@ -427,6 +437,14 @@ class LiveBroadcastViewController: WLBaseViewController {
         
         sender.scale = 1
     }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return [.LandscapeRight]
+    }
 }
 
 extension LiveBroadcastViewController: WLComposeBarDelegate {
@@ -477,7 +495,7 @@ extension LiveBroadcastViewController: EntryNotifying {
     }
     
     func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
-        presentingViewController?.dismissViewControllerAnimated(false, completion: nil);
+        presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
     }
     
     func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {

@@ -62,7 +62,7 @@ class Keyboard: Notifier {
     func keyboardDidShow(notification: NSNotification) {
         fetchKeyboardMetadata(notification)
         notify { $0.keyboardDidShow?(self) }
-        UIWindow.mainWindow?.addGestureRecognizer(tapGestureRecognizer)
+        UIWindow.mainWindow.addGestureRecognizer(tapGestureRecognizer)
     }
     
     func tap(sender: UITapGestureRecognizer) {

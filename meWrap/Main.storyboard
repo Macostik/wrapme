@@ -1326,7 +1326,7 @@
                 <customObject id="fHn-3G-fGW" customClass="HomeDataSource" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WrapCell"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="placeholderIdentifier" value="WLHomePlaceholderView"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="placeholderIdentifier" value="home"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="itemNibOwner" destination="L91-fZ-J9O" id="Amb-WH-e6g"/>
@@ -1339,7 +1339,7 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="itemSize">
                             <real key="value" value="60"/>
                         </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="string" keyPath="placeholderIdentifier" value="PublicWrapPlaceholderView"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="placeholderIdentifier" value="hottest"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="layoutOffset">
                             <real key="value" value="88"/>
                         </userDefinedRuntimeAttribute>
@@ -3229,7 +3229,7 @@
                 <customObject id="RbC-xy-dkj" customClass="StreamDataSource" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLCommentCell"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="placeholderIdentifier" value="NoCommentsPlaceholderView"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="placeholderIdentifier" value="comments"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="streamView" destination="WYU-Tj-StJ" id="zzM-id-Y3t"/>

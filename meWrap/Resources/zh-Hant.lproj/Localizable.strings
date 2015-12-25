@@ -204,6 +204,7 @@
 "got_it" = "知道";
 "swipe_actions_tip" = "滑動即可開啟相機或對話";
 "no_upload_yet" = "未有上載";
+"no_uploads_for_this_day" = "Sorry, there are no images you're trying to look!";
 "no_comments_yet" = "未有任何回應";
 "coming_soon" = "即將推出！";
 "no_messages_today" = "今天沒有訊息。";

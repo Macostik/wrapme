@@ -265,4 +265,7 @@
 "let's_get_started" = "Let's get started";
 "preparing_broadcast" = "Preparing your broadcast...";
 "formatted_you_are_now_live" = "You are now LIVE! Friends in \"%@\" are also receiving notification about your broadcast. Enjoy!";
-"easy_create_wrap" = "meWrap makes it surprisingly easy to create wrap.";
+"easy_create_wrap" = "meWrap makes it surprisingly easy to create a wrap.";
+"live" = "LIVE";
+"maybe_later" = "Maybe later";
+"share_first" = "What do you want to share in your first wrap?";

@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -34,25 +33,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1st_screen_bg" translatesAutoresizingMaskIntoConstraints="NO" id="cYB-ha-wWW">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="1500"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="cYB-ha-wWW" secondAttribute="height" multiplier="16:75" id="C84-41-cyS"/>
-                                </constraints>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_palaroid" translatesAutoresizingMaskIntoConstraints="NO" id="cYB-ha-wWW">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                             </imageView>
-                            <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nRR-2B-Y9e">
-                                <rect key="frame" x="20" y="63" width="280" height="354"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="5aB-iC-Rkp">
-                                    <rect key="frame" x="0.0" y="0.0" width="280" height="354"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <blurEffect style="light"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="4"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </visualEffectView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3MH-ja-zjo">
                                 <rect key="frame" x="20" y="63" width="280" height="278"/>
                                 <subviews>
@@ -66,9 +49,7 @@
                                                     <constraint firstAttribute="width" constant="246" id="pN8-dy-jgN"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="15"/>
-                                                <state key="normal" title="terms_and_conditions">
-                                                    <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
+                                                <state key="normal" title="terms_and_conditions"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
@@ -76,7 +57,7 @@
                                                     <action selector="termsAndConditions:" destination="DOj-fu-IIy" eventType="touchUpInside" id="dAV-Gs-UI4"/>
                                                 </connections>
                                             </button>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_and_caption_orange.png" translatesAutoresizingMaskIntoConstraints="NO" id="YpE-az-8rW">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_and_caption_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="YpE-az-8rW">
                                                 <rect key="frame" x="33" y="63" width="215" height="165"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="165" id="Nnw-QX-O7c"/>
@@ -232,25 +213,21 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="3MH-ja-zjo" firstAttribute="leading" secondItem="v1s-iQ-mYF" secondAttribute="leading" constant="20" id="015-z1-T7z"/>
-                            <constraint firstItem="cYB-ha-wWW" firstAttribute="bottom" secondItem="tCy-Jw-JNH" secondAttribute="bottom" priority="250" id="5B1-T9-0l7"/>
+                            <constraint firstItem="yjh-go-sqL" firstAttribute="top" secondItem="3MH-ja-zjo" secondAttribute="bottom" constant="8" id="53p-Xj-0hT"/>
                             <constraint firstAttribute="centerY" secondItem="3MH-ja-zjo" secondAttribute="centerY" constant="38" id="8lp-Jq-8vl"/>
+                            <constraint firstItem="cYB-ha-wWW" firstAttribute="centerY" secondItem="v1s-iQ-mYF" secondAttribute="centerYWithinMargins" id="ABz-hh-vbC"/>
                             <constraint firstItem="fA2-25-iSn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yjh-go-sqL" secondAttribute="leading" constant="12" id="DTj-Vc-wfj"/>
-                            <constraint firstAttribute="trailing" secondItem="cYB-ha-wWW" secondAttribute="trailing" id="EBR-fu-Ruy"/>
-                            <constraint firstItem="cYB-ha-wWW" firstAttribute="leading" secondItem="v1s-iQ-mYF" secondAttribute="leading" id="GRJ-Gu-X1t"/>
-                            <constraint firstItem="nRR-2B-Y9e" firstAttribute="top" secondItem="3MH-ja-zjo" secondAttribute="top" id="HMe-ia-s8R"/>
                             <constraint firstAttribute="trailing" secondItem="3MH-ja-zjo" secondAttribute="trailing" constant="20" id="PZz-Z4-Q6k"/>
-                            <constraint firstItem="nRR-2B-Y9e" firstAttribute="leading" secondItem="3MH-ja-zjo" secondAttribute="leading" id="TgE-pg-mYn"/>
+                            <constraint firstItem="cYB-ha-wWW" firstAttribute="height" secondItem="v1s-iQ-mYF" secondAttribute="height" id="QOr-xd-hIm"/>
                             <constraint firstAttribute="centerX" secondItem="fA2-25-iSn" secondAttribute="centerX" id="Vc7-qK-BLc"/>
                             <constraint firstItem="fA2-25-iSn" firstAttribute="centerY" secondItem="yjh-go-sqL" secondAttribute="centerY" id="Xro-64-vSo"/>
                             <constraint firstAttribute="centerX" secondItem="yjh-go-sqL" secondAttribute="centerX" id="Y0B-Oq-vtU"/>
-                            <constraint firstItem="nRR-2B-Y9e" firstAttribute="width" secondItem="3MH-ja-zjo" secondAttribute="width" id="auu-bw-r1w"/>
                             <constraint firstItem="yjh-go-sqL" firstAttribute="centerY" secondItem="V11-Xl-ach" secondAttribute="centerY" id="bhM-HM-3ql"/>
                             <constraint firstAttribute="height" secondItem="3MH-ja-zjo" secondAttribute="height" constant="202" id="c40-Lq-yx3"/>
                             <constraint firstItem="yjh-go-sqL" firstAttribute="trailing" secondItem="V11-Xl-ach" secondAttribute="trailing" constant="12" id="dux-df-hP7"/>
                             <constraint firstItem="V11-Xl-ach" firstAttribute="leading" secondItem="fA2-25-iSn" secondAttribute="trailing" constant="12" id="e9C-Xa-9V3"/>
-                            <constraint firstItem="yjh-go-sqL" firstAttribute="bottom" secondItem="nRR-2B-Y9e" secondAttribute="bottom" constant="-20" id="ePu-p5-0UJ"/>
-                            <constraint firstItem="nRR-2B-Y9e" firstAttribute="height" secondItem="3MH-ja-zjo" secondAttribute="height" constant="76" id="l2h-ge-24j"/>
-                            <constraint firstItem="cYB-ha-wWW" firstAttribute="top" secondItem="uY6-5G-NXW" secondAttribute="bottom" priority="750" constant="-20" id="mTX-gn-s6e"/>
+                            <constraint firstItem="cYB-ha-wWW" firstAttribute="width" secondItem="v1s-iQ-mYF" secondAttribute="width" id="kLU-Ns-qEq"/>
+                            <constraint firstItem="cYB-ha-wWW" firstAttribute="centerX" secondItem="v1s-iQ-mYF" secondAttribute="centerXWithinMargins" id="pvc-yW-ZtK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HZb-wB-zXD"/>
@@ -265,12 +242,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RZe-hx-2bQ" sceneMemberID="firstResponder"/>
-                <customObject id="ZcZ-hW-bGa" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
-                    <connections>
-                        <outletCollection property="defaultConstraints" destination="mTX-gn-s6e" collectionClass="NSMutableArray" id="mp1-1E-k24"/>
-                        <outletCollection property="alternativeConstraints" destination="5B1-T9-0l7" collectionClass="NSMutableArray" id="GE3-eO-2X8"/>
-                    </connections>
-                </customObject>
+                <customObject id="ZcZ-hW-bGa" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="624" y="149"/>
         </scene>
@@ -1791,8 +1763,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="1st_screen_bg" width="320" height="1500"/>
-        <image name="logo_and_caption_orange.png" width="215" height="165"/>
+        <image name="background_palaroid" width="298" height="530"/>
+        <image name="logo_and_caption_white.png" width="215" height="165"/>
         <image name="sg_Device_Added" width="183" height="183"/>
         <image name="sg_Email" width="183" height="183"/>
         <image name="sg_Email_Sended" width="183" height="183"/>

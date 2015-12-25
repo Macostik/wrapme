@@ -443,6 +443,8 @@ class LiveBroadcastViewController: WLBaseViewController {
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return [.LandscapeRight]
     }
+    
+    private var connectionMessageShown = false
 }
 
 extension LiveBroadcastViewController: WLComposeBarDelegate {
@@ -457,7 +459,8 @@ extension LiveBroadcastViewController: StreamerListener {
     @objc(connectionStateDidChangeId:State:Status:)
     func connectionStateDidChangeId(connectionID: Int32, state: ConnectionState, status: ConnectionStatus) {
         
-        if state == .Record {
+        if state == .Record && !connectionMessageShown {
+            connectionMessageShown = true
             let event = LiveBroadcast.Event(type: .Info)
             event.text = String(format: "formatted_you_are_now_live".ls, wrap?.name ?? "")
             broadcast.insert(event)

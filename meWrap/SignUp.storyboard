@@ -33,11 +33,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_palaroid" translatesAutoresizingMaskIntoConstraints="NO" id="cYB-ha-wWW">
+                            <imageView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_palaroid" translatesAutoresizingMaskIntoConstraints="NO" id="cYB-ha-wWW">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                             </imageView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3MH-ja-zjo">
-                                <rect key="frame" x="20" y="63" width="280" height="278"/>
+                                <rect key="frame" x="20" y="65" width="280" height="278"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Shv-LU-0zd">
                                         <rect key="frame" x="0.0" y="0.0" width="280" height="278"/>
@@ -163,7 +163,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yjh-go-sqL" customClass="WLButton">
-                                <rect key="frame" x="31" y="349" width="259" height="48"/>
+                                <rect key="frame" x="31" y="351" width="259" height="48"/>
                                 <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="Mvf-zF-hjm"/>
@@ -191,7 +191,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="agree_and_continue" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="fA2-25-iSn" customClass="WLLabel">
-                                <rect key="frame" x="76" y="362" width="169" height="23"/>
+                                <rect key="frame" x="76" y="364" width="169" height="23"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="19"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -201,7 +201,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V11-Xl-ach">
-                                <rect key="frame" x="257" y="363" width="21" height="21"/>
+                                <rect key="frame" x="257" y="365" width="21" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="21" id="q0t-Ef-sX0"/>
                                 </constraints>
@@ -214,11 +214,13 @@
                         <constraints>
                             <constraint firstItem="3MH-ja-zjo" firstAttribute="leading" secondItem="v1s-iQ-mYF" secondAttribute="leading" constant="20" id="015-z1-T7z"/>
                             <constraint firstItem="yjh-go-sqL" firstAttribute="top" secondItem="3MH-ja-zjo" secondAttribute="bottom" constant="8" id="53p-Xj-0hT"/>
-                            <constraint firstAttribute="centerY" secondItem="3MH-ja-zjo" secondAttribute="centerY" constant="38" id="8lp-Jq-8vl"/>
-                            <constraint firstItem="cYB-ha-wWW" firstAttribute="centerY" secondItem="v1s-iQ-mYF" secondAttribute="centerYWithinMargins" id="ABz-hh-vbC"/>
+                            <constraint firstAttribute="trailing" secondItem="cYB-ha-wWW" secondAttribute="trailing" id="8QS-4o-lbs"/>
+                            <constraint firstAttribute="centerY" secondItem="3MH-ja-zjo" secondAttribute="centerY" constant="36" id="8lp-Jq-8vl"/>
+                            <constraint firstItem="cYB-ha-wWW" firstAttribute="leading" secondItem="v1s-iQ-mYF" secondAttribute="leading" id="9Yd-LW-WwQ"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="cYB-ha-wWW" secondAttribute="bottom" id="DDr-gl-2dk"/>
                             <constraint firstItem="fA2-25-iSn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yjh-go-sqL" secondAttribute="leading" constant="12" id="DTj-Vc-wfj"/>
                             <constraint firstAttribute="trailing" secondItem="3MH-ja-zjo" secondAttribute="trailing" constant="20" id="PZz-Z4-Q6k"/>
-                            <constraint firstItem="cYB-ha-wWW" firstAttribute="height" secondItem="v1s-iQ-mYF" secondAttribute="height" id="QOr-xd-hIm"/>
+                            <constraint firstAttribute="topMargin" secondItem="cYB-ha-wWW" secondAttribute="top" id="TBf-YL-fhj"/>
                             <constraint firstAttribute="centerX" secondItem="fA2-25-iSn" secondAttribute="centerX" id="Vc7-qK-BLc"/>
                             <constraint firstItem="fA2-25-iSn" firstAttribute="centerY" secondItem="yjh-go-sqL" secondAttribute="centerY" id="Xro-64-vSo"/>
                             <constraint firstAttribute="centerX" secondItem="yjh-go-sqL" secondAttribute="centerX" id="Y0B-Oq-vtU"/>
@@ -226,8 +228,6 @@
                             <constraint firstAttribute="height" secondItem="3MH-ja-zjo" secondAttribute="height" constant="202" id="c40-Lq-yx3"/>
                             <constraint firstItem="yjh-go-sqL" firstAttribute="trailing" secondItem="V11-Xl-ach" secondAttribute="trailing" constant="12" id="dux-df-hP7"/>
                             <constraint firstItem="V11-Xl-ach" firstAttribute="leading" secondItem="fA2-25-iSn" secondAttribute="trailing" constant="12" id="e9C-Xa-9V3"/>
-                            <constraint firstItem="cYB-ha-wWW" firstAttribute="width" secondItem="v1s-iQ-mYF" secondAttribute="width" id="kLU-Ns-qEq"/>
-                            <constraint firstItem="cYB-ha-wWW" firstAttribute="centerX" secondItem="v1s-iQ-mYF" secondAttribute="centerXWithinMargins" id="pvc-yW-ZtK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HZb-wB-zXD"/>

@@ -4000,7 +4000,7 @@ QWRkEEZyaWVuZFZpZXc
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TDj-ND-asZ" customClass="WLComposeBar">
-                                <rect key="frame" x="0.0" y="432" width="600" height="48"/>
+                                <rect key="frame" x="0.0" y="452" width="600" height="48"/>
                                 <subviews>
                                     <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucQ-tC-vdE">
                                         <rect key="frame" x="0.0" y="2" width="44" height="44"/>
@@ -4238,7 +4238,7 @@ QWRkEEZyaWVuZFZpZXc
                             <constraint firstItem="sLm-tZ-lwk" firstAttribute="top" secondItem="u8X-Zw-0D3" secondAttribute="bottom" constant="12" id="5KJ-qu-pkL"/>
                             <constraint firstItem="TDj-ND-asZ" firstAttribute="top" secondItem="oVK-cS-Ps7" secondAttribute="bottom" priority="250" constant="12" id="7JU-6e-fLr"/>
                             <constraint firstItem="TDj-ND-asZ" firstAttribute="top" secondItem="cxE-yC-9tL" secondAttribute="bottom" priority="250" constant="12" id="Aas-yE-qbg"/>
-                            <constraint firstItem="sLm-tZ-lwk" firstAttribute="top" secondItem="TDj-ND-asZ" secondAttribute="bottom" priority="750" constant="120" id="DHQ-C8-dip"/>
+                            <constraint firstItem="sLm-tZ-lwk" firstAttribute="top" secondItem="TDj-ND-asZ" secondAttribute="bottom" priority="750" constant="100" id="DHQ-C8-dip"/>
                             <constraint firstItem="6gi-jB-36P" firstAttribute="leading" secondItem="IgI-7Y-zB6" secondAttribute="leading" constant="12" id="KA1-JH-SKc"/>
                             <constraint firstItem="oVK-cS-Ps7" firstAttribute="leading" secondItem="IgI-7Y-zB6" secondAttribute="leading" constant="12" id="QUd-HR-Fr3"/>
                             <constraint firstItem="sLm-tZ-lwk" firstAttribute="top" secondItem="cxE-yC-9tL" secondAttribute="bottom" priority="750" constant="12" id="T1R-kP-7e6"/>

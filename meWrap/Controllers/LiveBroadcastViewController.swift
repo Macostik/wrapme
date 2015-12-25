@@ -193,9 +193,11 @@ class LiveBroadcastViewController: WLBaseViewController {
         
         updateBroadcastInfo()
         
-        PubNub.sharedInstance.hereNowForChannel("ch-\(broadcast.streamName)", withVerbosity: .Occupancy) { (result, status) -> Void in
-            if let occupancy = result?.data?.occupancy?.integerValue {
-                self.setNumberOfViewers(occupancy)
+        Dispatch.mainQueue.after(0.5) { () -> Void in
+            PubNub.sharedInstance.hereNowForChannel("ch-\(broadcast.streamName)", withVerbosity: .Occupancy) { (result, status) -> Void in
+                if let occupancy = result?.data?.occupancy?.integerValue {
+                    self.setNumberOfViewers(occupancy)
+                }
             }
         }
     }

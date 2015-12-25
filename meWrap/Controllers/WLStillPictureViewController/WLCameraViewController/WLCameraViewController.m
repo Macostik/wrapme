@@ -12,7 +12,6 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLDeviceManager.h"
 #import "WLToast.h"
-#import "WLProgressBar.h"
 @import AVKit;
 
 @interface WLCameraView : UIView
@@ -74,7 +73,7 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cameraViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewHeightConstraint;
-@property (weak, nonatomic) IBOutlet WLProgressBar *videoRecordingProgressBar;
+@property (weak, nonatomic) IBOutlet ProgressBar *videoRecordingProgressBar;
 @property (weak, nonatomic) IBOutlet UIView *videoRecordingView;
 @property (weak, nonatomic) IBOutlet UILabel *videoRecordingTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *cancelVideoRecordingLabel;

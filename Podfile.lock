@@ -1,24 +1,18 @@
 PODS:
-  - AFNetworking (2.6.3):
-    - AFNetworking/NSURLConnection (= 2.6.3)
-    - AFNetworking/NSURLSession (= 2.6.3)
-    - AFNetworking/Reachability (= 2.6.3)
-    - AFNetworking/Security (= 2.6.3)
-    - AFNetworking/Serialization (= 2.6.3)
-    - AFNetworking/UIKit (= 2.6.3)
-  - AFNetworking/NSURLConnection (2.6.3):
+  - AFNetworking (3.0.4):
+    - AFNetworking/NSURLSession (= 3.0.4)
+    - AFNetworking/Reachability (= 3.0.4)
+    - AFNetworking/Security (= 3.0.4)
+    - AFNetworking/Serialization (= 3.0.4)
+    - AFNetworking/UIKit (= 3.0.4)
+  - AFNetworking/NSURLSession (3.0.4):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.6.3):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.3)
-  - AFNetworking/Security (2.6.3)
-  - AFNetworking/Serialization (2.6.3)
-  - AFNetworking/UIKit (2.6.3):
-    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (3.0.4)
+  - AFNetworking/Security (3.0.4)
+  - AFNetworking/Serialization (3.0.4)
+  - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
   - AWSCore (2.3.2)
   - AWSS3 (2.3.2):
@@ -31,7 +25,7 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.2.0):
     - CocoaLumberjack/Default
-  - CryptoSwift (0.1.1)
+  - CryptoSwift (0.2.1)
   - Google/Analytics (1.0.7):
     - Google/Core
     - GoogleAnalytics (~> 3.12)
@@ -49,10 +43,10 @@ PODS:
   - LogEntries (0.0.1)
   - NewRelicAgent (5.3.4)
   - OpenUDID (1.0.0)
-  - PubNub (4.2.1):
+  - PubNub (4.2.3):
     - CocoaLumberjack (= 2.2.0)
-    - PubNub/Core (= 4.2.1)
-  - PubNub/Core (4.2.1):
+    - PubNub/Core (= 4.2.3)
+  - PubNub/Core (4.2.3):
     - CocoaLumberjack (= 2.2.0)
 
 DEPENDENCIES:
@@ -68,11 +62,11 @@ DEPENDENCIES:
   - PubNub (~> 4.0)
 
 SPEC CHECKSUMS:
-  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   AWSCore: c2f69975fd2caf38a10736961de28a0105cdb00c
   AWSS3: 9ac201e7a4ad8be0b68348c77acfd100027b97af
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
-  CryptoSwift: c11640d3d66107efc8333e4131a5173f072b1d61
+  CryptoSwift: f137af19c369362debf82957d0366c8d79329341
   Google: 875f5a8ade86dd02e36586e4a54814843938c7f6
   GoogleAnalytics: 9be1afdb8deeac4bb5f13ca7f7d3b9db2a1f43dc
   GoogleNetworkingUtilities: 292992ab31b7b4ba32809a0e8b40e324cdfb2c0c
@@ -82,6 +76,6 @@ SPEC CHECKSUMS:
   LogEntries: a1f16e3c9edc0d6a52209fe6cd7281ab07fb7657
   NewRelicAgent: cf111fc652ec0dd7b3fdef05016dc9e0867eaddb
   OpenUDID: e7cb6984c7304906ad20f3a36bf087b025896b6b
-  PubNub: fcfc73f134604c00bf6d54c007965c7c9dc7213d
+  PubNub: 461805c30ce11332a6ee5ab2c34be2d4c82c38d7
 
 COCOAPODS: 0.39.0

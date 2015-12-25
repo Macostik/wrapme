@@ -8,14 +8,13 @@
 
 #import "WLActivationViewController.h"
 #import "WLProfileInformationViewController.h"
-#import "WLProgressBar+WLContribution.h"
 #import "WLHomeViewController.h"
 #import "WLButton.h"
 
 @interface WLActivationViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *activationTextField;
-@property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
+@property (weak, nonatomic) IBOutlet ProgressBar *progressBar;
 @property (strong, nonatomic) IBOutlet UILabel *phoneNumberLabel;
 
 @end
@@ -35,7 +34,7 @@
 	if (activationCode.nonempty) {
 		__weak typeof(self)weakSelf = self;
 		[Authorization currentAuthorization].activationCode = activationCode;
-        self.progressBar.operation = [[[Authorization currentAuthorization] activation] send:^(id object) {
+        [[[[Authorization currentAuthorization] activation] handleProgress:self.progressBar] send:^(id object) {
             [weakSelf signIn:completion failure:failure];
         } failure:failure];
     } else {
@@ -45,7 +44,7 @@
 
 - (void)signIn:(Block)completion failure:(FailureBlock)failure {
     if (self.shouldSignIn) {
-        self.progressBar.operation = [[[Authorization currentAuthorization] signIn] send:^(id object) {
+        [[[[Authorization currentAuthorization] signIn] handleProgress:self.progressBar] send:^(id object) {
             completion();
         } failure:failure];
     } else {

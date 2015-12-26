@@ -7,7 +7,6 @@
 //
 
 #import "WLCandyViewController.h"
-#import "WLDeviceManager.h"
 #import "WLToast.h"
 @import AVKit;
 @import AVFoundation;
@@ -33,7 +32,7 @@
     [super viewDidLoad];
     
     self.scrollView.userInteractionEnabled = NO;
-    [[WLDeviceManager defaultManager] addReceiver:self];
+    [[DeviceManager defaultManager] addReceiver:self];
     self.scrollView.minimumZoomScale = 1;
     self.scrollView.maximumZoomScale = 2;
     
@@ -137,9 +136,9 @@
     return self.candy == entry;
 }
 
-#pragma mark - WLDeviceManagerReceiver
+#pragma mark - DeviceManagerNotifying
 
-- (void)manager:(WLDeviceManager *)manager didChangeOrientation:(NSNumber*)orientation {
+- (void)manager:(DeviceManager *)manager didChangeOrientation:(UIDeviceOrientation)orientation {
     self.scrollView.zoomScale = 1;
     self.scrollView.panGestureRecognizer.enabled = NO;
 }

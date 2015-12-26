@@ -10,7 +10,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "WLDeviceManager.h"
 #import "WLToast.h"
 @import AVKit;
 
@@ -35,7 +34,7 @@
 
 @end
 
-@interface WLCameraViewController () <WLDeviceManagerReceiver, UIGestureRecognizerDelegate, AVCaptureFileOutputRecordingDelegate>
+@interface WLCameraViewController () <DeviceManagerNotifying, UIGestureRecognizerDelegate, AVCaptureFileOutputRecordingDelegate>
 
 #pragma mark - AVCaptureSession interface
 
@@ -98,7 +97,7 @@
 @dynamic delegate;
 
 - (void)dealloc {
-    [[WLDeviceManager defaultManager] endUsingAccelerometer];
+    [[DeviceManager defaultManager] endUsingAccelerometer];
     if (self.videoFilePath) {
         [[NSFileManager defaultManager] removeItemAtPath:self.videoFilePath error:nil];
     }
@@ -119,8 +118,8 @@
     
     self.sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
 	
-    [[WLDeviceManager defaultManager] addReceiver:self];
-    [[WLDeviceManager defaultManager] beginUsingAccelerometer];
+    [[DeviceManager defaultManager] addReceiver:self];
+    [[DeviceManager defaultManager] beginUsingAccelerometer];
     
     self.cropAreaView.borderWidth = 1;
     self.cropAreaView.borderColor = [UIColor colorWithWhite:1 alpha:0.25];
@@ -468,7 +467,7 @@
                 }
                 [[Dispatch mainQueue] async:^{
                     weakSelf.cameraView.layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-                    [weakSelf applyDeviceOrientation:[WLDeviceManager defaultManager].orientation forConnection:weakSelf.movieFileOutputConnection];
+                    [weakSelf applyDeviceOrientation:[DeviceManager defaultManager].orientation forConnection:weakSelf.movieFileOutputConnection];
                     completion();
                     preparingCompletion();
                 }];
@@ -521,7 +520,7 @@
                         device.torchMode = AVCaptureTorchModeOff;
                     }
                 }];
-                [weakSelf applyDeviceOrientation:[WLDeviceManager defaultManager].orientation forConnection:weakSelf.stillImageOutputConnection];
+                [weakSelf applyDeviceOrientation:[DeviceManager defaultManager].orientation forConnection:weakSelf.stillImageOutputConnection];
                 weakSelf.takePhotoButton.userInteractionEnabled = YES;
                 completion();
             }];
@@ -594,7 +593,7 @@
 	}
 	[session commitConfiguration];
 	self.flashModeControl.hidden = !videoInput.device.hasFlash;
-	[self applyDeviceOrientation:[WLDeviceManager defaultManager].orientation];
+	[self applyDeviceOrientation:[DeviceManager defaultManager].orientation];
 }
 
 - (AVCaptureSession *)session {
@@ -833,10 +832,10 @@
     }
 }
 
-#pragma mark - WLDeviceManagerReceiver
+#pragma mark - DeviceManagerNotifying
 
-- (void)manager:(WLDeviceManager *)manager didChangeOrientation:(NSNumber*)orientation {
-	[self applyDeviceOrientation:[orientation integerValue]];
+- (void)manager:(DeviceManager *)manager didChangeOrientation:(UIDeviceOrientation)orientation {
+	[self applyDeviceOrientation:orientation];
 }
 
 // MARK: - AVCaptureFileOutputRecordingDelegate

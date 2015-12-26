@@ -25,13 +25,16 @@ class ImageFetcher: Notifier {
     
     private func broadcast(url: String, block: AnyObject -> Void) {
         urls.remove(url)
-        let receivers = self.receivers
-        for wrapper in receivers {
+        receivers = receivers.filter { (wrapper) -> Bool in
             if let receiver = wrapper.receiver as? ImageFetching {
                 if let targetURL = receiver.fetcherTargetUrl?(self) where targetURL == url {
                     block(receiver)
-                    self.receivers.remove(wrapper)
+                    return false
+                } else {
+                    return true
                 }
+            } else {
+                return false
             }
         }
     }

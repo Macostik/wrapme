@@ -60,7 +60,7 @@ class History: PaginatedList {
     }
     
     override func newerPaginationDate() -> NSDate? {
-        return (entries.first as? HistoryItem)?.candies.first?.createdAt
+        return (entries.first as? HistoryItem)?.candies.last?.createdAt
     }
     
     override func olderPaginationDate() -> NSDate? {
@@ -135,8 +135,8 @@ class History: PaginatedList {
 
 extension History: EntryNotifying {
     
-    func broadcasterOrderPriority(broadcaster: WLBroadcaster!) -> Int {
-        return WLBroadcastReceiverOrderPriorityPrimary
+    func notifier(notifier: OrderedNotifier, shouldNotifyBeforeReceiver receiver: AnyObject) -> Bool {
+        return true
     }
     
     func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {

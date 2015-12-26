@@ -12,7 +12,7 @@ import UIKit
     case Default, ContentAdded, ContentChanged, ContentDeleted, ContributorsChanged, PreferencesChanged, LiveBroadcastsChanged, NumberOfUnreadMessagesChanged
 }
 
-@objc protocol EntryNotifying: WLBroadcastReceiver {
+@objc protocol EntryNotifying: OrderedNotifierReceiver {
     optional func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool
     
     optional func notifier(notifier: EntryNotifier, shouldNotifyOnContainer container: Entry) -> Bool
@@ -26,7 +26,7 @@ import UIKit
     optional func notifier(notifier: EntryNotifier, willDeleteContainer container: Entry)
 }
 
-class EntryNotifier: WLBroadcaster {
+class EntryNotifier: OrderedNotifier {
     
     let name: String
     
@@ -48,7 +48,7 @@ class EntryNotifier: WLBroadcaster {
     }
     
     func notifyOnEntry(entry: Entry, block: ((AnyObject!) -> Void)!) {
-        broadcast { (receiver) -> Void in
+        notify { (receiver) -> Void in
             if receiver.notifier?(self, shouldNotifyOnEntry: entry) ?? true {
                 block(receiver)
             }
@@ -56,15 +56,11 @@ class EntryNotifier: WLBroadcaster {
     }
     
     func notifyOnAddition(entry: Entry) {
-        notifyOnEntry(entry) { (receiver) -> Void in
-            receiver.notifier?(self, didAddEntry: entry)
-        }
+        notifyOnEntry(entry) { $0.notifier?(self, didAddEntry: entry) }
     }
     
     func notifyOnUpdate(entry: Entry, event: EntryUpdateEvent) {
-        notifyOnEntry(entry) { (receiver) -> Void in
-            receiver.notifier?(self, didUpdateEntry: entry, event: event)
-        }
+        notifyOnEntry(entry) { $0.notifier?(self, didUpdateEntry: entry, event: event) }
     }
     
     func notifyOnDeleting(entry: Entry) {
@@ -73,13 +69,11 @@ class EntryNotifier: WLBroadcaster {
                 EntryNotifier.notifierForName(entityName).notifyOnDeletingContainer(entry)
             }
         }
-        notifyOnEntry(entry) { (receiver) -> Void in
-            receiver.notifier?(self, willDeleteEntry: entry)
-        }
+        notifyOnEntry(entry) { $0.notifier?(self, willDeleteEntry: entry) }
     }
     
     func notifyOnDeletingContainer(container: Entry) {
-        broadcast { (receiver) -> Void in
+        notify { (receiver) -> Void in
             if receiver.notifier?(self, shouldNotifyOnContainer: container) ?? true {
                 receiver.notifier?(self, willDeleteContainer: container)
             }
@@ -96,9 +90,7 @@ class EntryNotifyReceiver: NSObject, EntryNotifying {
     var willDelete: (Entry -> Void)?
     var willDeleteContainer: (Entry -> Void)?
     
-    func setup(block: EntryNotifyReceiver -> Void) {
-        block(self)
-    }
+    func setup(block: EntryNotifyReceiver -> Void) { block(self) }
     
     // MARK: - EntryNotifying
     

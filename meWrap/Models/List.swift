@@ -56,11 +56,8 @@ class List: Notifier {
     }
     
     func sort(entry: ListEntry) {
-        if entries.contains({ $0.listEntryEqual(entry) }) {
-            sort()
-        } else {
-            add(entry)
-        }
+        _add(entry)
+        sort()
     }
     
     func remove(entry: ListEntry) {

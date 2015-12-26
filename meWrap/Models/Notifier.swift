@@ -8,28 +8,20 @@
 
 import Foundation
 
-func ==(lhs: NotifyReceiverWrapper, rhs: NotifyReceiverWrapper) -> Bool {
-    return lhs.receiver == rhs.receiver
-}
-
-class NotifyReceiverWrapper: Hashable {
+internal class NotifyReceiverWrapper {
     weak var receiver: NSObject?
     init(receiver: NSObject?) {
         self.receiver = receiver
-    }
-    
-    var hashValue: Int {
-        return receiver?.hashValue ?? 0
     }
 }
 
 class Notifier: NSObject {
     
-    var receivers = Set<NotifyReceiverWrapper>()
+    internal var receivers = [NotifyReceiverWrapper]()
         
     func addReceiver(receiver: NSObject?) {
         if let receiver = receiver {
-            receivers.insert(NotifyReceiverWrapper(receiver: receiver))
+            receivers.append(NotifyReceiverWrapper(receiver: receiver))
         }
     }
     
@@ -40,10 +32,28 @@ class Notifier: NSObject {
     }
     
     func notify(enumerator: (receiver: AnyObject) -> Void) {
-        for wrapper in self.receivers {
+        receivers = receivers.filter { (wrapper) -> Bool in
             if let receiver = wrapper.receiver {
                 enumerator(receiver: receiver)
+                return true
+            } else {
+                return false
             }
+        }
+    }
+}
+
+@objc protocol OrderedNotifierReceiver {
+    optional func notifier(notifier: OrderedNotifier, shouldNotifyBeforeReceiver receiver: AnyObject) -> Bool
+}
+
+class OrderedNotifier: Notifier {
+    override func notify(enumerator: (receiver: AnyObject) -> Void) {
+        var _receivers = [AnyObject]()
+        super.notify { _receivers.append($0) }
+        _receivers = _receivers.sort({ $0.notifier?(self, shouldNotifyBeforeReceiver: $1) ?? false })
+        for receiver in _receivers {
+            enumerator(receiver: receiver)
         }
     }
 }

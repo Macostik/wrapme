@@ -67,7 +67,7 @@ class SettingsViewController: WLBaseViewController {
         }
         
         if let url = NSURL(string: "https://placeimg.com/\(count % 2 == 0 ? "640/1136" : "1136/640")/any") {
-            PHPhotoLibrary.addImageAtFileUrl(url, collectionTitle: Constants.albumName, success: { () -> Void in
+            PHPhotoLibrary.addImageAtFileUrl(url, success: { () -> Void in
                 self.addDemoImageWithCount(count - 1)
                 }, failure: nil)
         }

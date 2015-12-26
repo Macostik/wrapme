@@ -170,9 +170,7 @@ extension Candy {
             if mediaType == .Video {
                 
                 if url.isExistingFilePath {
-                    PHPhotoLibrary.addAsset({ () -> PHAssetChangeRequest? in
-                        return PHAssetChangeRequest.creationRequestForAssetFromVideoAtFileURL(url.fileURL!)
-                        }, collectionTitle: Constants.albumName, success: success, failure: failure)
+                    PHPhotoLibrary.addVideoAtFileUrl(url.fileURL!, success: success, failure: failure)
                 } else {
                     
                     let task = NSURLSession.sharedSession().downloadTaskWithURL(url.URL!, completionHandler: { (location, response, error) -> Void in
@@ -185,14 +183,12 @@ extension Candy {
                                     let manager = NSFileManager.defaultManager()
                                     try manager.moveItemAtURL(location, toURL: url)
                                     if url.checkResourceIsReachableAndReturnError(nil) {
-                                        PHPhotoLibrary.addAsset({ () -> PHAssetChangeRequest? in
-                                            return PHAssetChangeRequest.creationRequestForAssetFromVideoAtFileURL(url)
-                                            }, collectionTitle: Constants.albumName, success: { () -> Void in
-                                                try! manager.removeItemAtURL(url)
-                                                Dispatch.mainQueue.async({ success?() })
+                                        PHPhotoLibrary.addVideoAtFileUrl(url, success: { () -> Void in
+                                            try! manager.removeItemAtURL(url)
+                                            success?()
                                             }, failure: { (error) -> Void in
                                                 try! manager.removeItemAtURL(url)
-                                                Dispatch.mainQueue.async({ failure?(error) })
+                                                failure?(error)
                                         })
                                     } else {
                                         Dispatch.mainQueue.async({ failure?(NSError(message: "Local video file is not reachable")) })
@@ -210,13 +206,7 @@ extension Candy {
                 }
             } else {
                 BlockImageFetching.enqueue(url, success: { (image) -> Void in
-                    if let image = image {
-                        PHPhotoLibrary.addAsset({ () -> PHAssetChangeRequest? in
-                            return PHAssetChangeRequest.creationRequestForAssetFromImage(image)
-                            }, collectionTitle: Constants.albumName, success: success, failure: failure)
-                    } else {
-                        failure?(nil)
-                    }
+                    PHPhotoLibrary.addImage(image, success: success, failure: failure)
                     }, failure: failure)
             }
         }

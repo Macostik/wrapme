@@ -184,7 +184,7 @@ class ImageCache: NSObject {
     }
     
     func setImage(image: UIImage) -> String {
-        let uid = NSString.GUID()
+        let uid = NSString.GUID() + ".jpg"
         write(image, uid: uid)
         return uid
     }

@@ -28,28 +28,22 @@ extension PHPhotoLibrary {
         }
     }
     
-    class func addImage(image: UIImage, collectionTitle: String, success: Block?, failure: FailureBlock?) {
-        addAsset({ () -> PHAssetChangeRequest? in
-            return PHAssetChangeRequest.creationRequestForAssetFromImage(image)
-            }, collectionTitle: collectionTitle, success: success, failure: failure)
+    class func addImage(image: UIImage, success: Block?, failure: FailureBlock?) {
+        addAsset({ PHAssetChangeRequest.creationRequestForAssetFromImage(image) }, success: success, failure: failure)
     }
     
-    class func addImageAtFileUrl(url: NSURL, collectionTitle: String, success: Block?, failure: FailureBlock?) {
-        addAsset({ () -> PHAssetChangeRequest? in
-            return PHAssetChangeRequest.creationRequestForAssetFromImageAtFileURL(url)
-            }, collectionTitle: collectionTitle, success: success, failure: failure)
+    class func addImageAtFileUrl(url: NSURL, success: Block?, failure: FailureBlock?) {
+        addAsset({ PHAssetChangeRequest.creationRequestForAssetFromImageAtFileURL(url) }, success: success, failure: failure)
     }
     
-    class func addVideoAtFileUrl(url: NSURL, collectionTitle: String, success: Block?, failure: FailureBlock?) {
-        addAsset({ () -> PHAssetChangeRequest? in
-            return PHAssetChangeRequest.creationRequestForAssetFromVideoAtFileURL(url)
-            }, collectionTitle: collectionTitle, success: success, failure: failure)
+    class func addVideoAtFileUrl(url: NSURL, success: Block?, failure: FailureBlock?) {
+        addAsset({ PHAssetChangeRequest.creationRequestForAssetFromVideoAtFileURL(url) }, success: success, failure: failure)
     }
     
-    class func addAsset(assetBlock: Void -> PHAssetChangeRequest?, collectionTitle: String, success: Block?, failure: FailureBlock?) {
+    class func addAsset(assetBlock: Void -> PHAssetChangeRequest?, success: Block?, failure: FailureBlock?) {
         sharedPhotoLibrary().performChanges({ () -> Void in
             if let changeRequest = assetBlock() {
-                let collectonRequest = collectionWithTitle(collectionTitle)
+                let collectonRequest = collectionWithTitle(Constants.albumName)
                 if let asset = changeRequest.placeholderForCreatedAsset {
                     collectonRequest.addAssets([asset])
                 }

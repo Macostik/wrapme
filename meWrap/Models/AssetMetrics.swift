@@ -135,7 +135,13 @@ extension Asset {
             let cache = ImageCache.defaultCache
             let manager = NSFileManager.defaultManager()
             if let original = original where original.hasSuffix("mp4") {
-                try manager.removeItemAtPath(original)
+                
+                if let _original = asset.original {
+                    let path = ImageCache.defaultCache.getPath(ImageCache.uidFromURL(_original)) + ".mp4"
+                    try manager.moveItemAtPath(original, toPath: path)
+                } else {
+                    asset.original = original
+                }
             } else if let from = original, let to = asset.original {
                 cache.setImageAtPath(from, withURL: to)
             }
@@ -178,17 +184,9 @@ extension Asset {
         
         var urls = Set<String>()
         
-        if let small = small {
-            urls.insert(small)
-        }
-        
-        if let medium = medium {
-            urls.insert(medium)
-        }
-        
-        if let large = large {
-            urls.insert(large)
-        }
+        if let small = small { urls.insert(small) }
+        if let medium = medium { urls.insert(medium) }
+        if let large = large { urls.insert(large) }
         
         if urls.count > 0 {
             var fetched = 0

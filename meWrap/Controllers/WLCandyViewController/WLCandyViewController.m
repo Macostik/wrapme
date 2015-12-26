@@ -59,7 +59,19 @@
     NSInteger type = candy.type;
     if (type == MediaTypeVideo) {
         if (!playerView.playing) {
-            playerView.url = [candy.asset.original smartURL];
+            NSString *original = candy.asset.original;
+            if (original) {
+                if ([original isExistingFilePath]) {
+                    playerView.url = [original fileURL];
+                } else {
+                    NSString *path = [[[ImageCache defaultCache] getPath:[ImageCache uidFromURL:original]] stringByAppendingPathExtension:@"mp4"];
+                    if ([path isExistingFilePath]) {
+                        playerView.url = [path fileURL];
+                    } else {
+                        playerView.url = [original URL];
+                    }
+                }
+            }
         }
         playerView.hidden = NO;
     } else {

@@ -149,18 +149,12 @@ class MutableAsset: Asset {
     }
     
     func saveToAssets() {
-        PHPhotoLibrary.addAsset({ () -> PHAssetChangeRequest! in
-            if self.type == .Video {
-                return PHAssetChangeRequest.creationRequestForAssetFromVideoAtFileURL(NSURL(fileURLWithPath: self.original!))
-            } else {
-                guard let image = UIImage(data: NSData(contentsOfFile: self.original!)!) else {
-                    return nil;
-                }
-                return PHAssetChangeRequest.creationRequestForAssetFromImage(image)
-            }
-            }, collectionTitle: "meWrap", success: { () -> Void in
-                
-            }) { (error) -> Void in
+        guard let url = original?.fileURL else { return }
+        if self.type == .Video {
+            PHPhotoLibrary.addVideoAtFileUrl(url, success: nil, failure: nil)
+        } else {
+            guard let image = UIImage(data: NSData(contentsOfURL: url)!) else { return }
+            PHPhotoLibrary.addImage(image, success: nil, failure: nil)
         }
     }
     
@@ -175,8 +169,7 @@ class MutableAsset: Asset {
             if let oldOriginal = oldValue {
                 do {
                     try NSFileManager.defaultManager().removeItemAtPath(oldOriginal)
-                } catch {
-                }
+                } catch { }
             }
         }
     }
@@ -186,8 +179,7 @@ class MutableAsset: Asset {
             if let oldSmall = oldValue {
                 do {
                     try NSFileManager.defaultManager().removeItemAtPath(oldSmall)
-                } catch {
-                }
+                } catch { }
             }
         }
     }

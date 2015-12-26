@@ -776,16 +776,12 @@
 
 - (void)showZoomLabel {
 	self.zoomLabel.text = [NSString stringWithFormat:@"%dx", (int)self.zoomScale];
-	[UIView beginAnimations:nil context:nil];
-	self.zoomLabel.alpha = 1.0f;
-	[UIView commitAnimations];
+    [self.zoomLabel setAlpha:1.0f animated:YES];
 	[self enqueueSelector:@selector(hideZoomLabel) delay:1.0f];
 }
 
 - (void)hideZoomLabel {
-	[UIView beginAnimations:nil context:nil];
-	self.zoomLabel.alpha = 0.0f;
-	[UIView commitAnimations];
+	[self.zoomLabel setAlpha:0.0f animated:YES];
 }
 
 - (void)applyDeviceOrientation:(UIDeviceOrientation)orientation {

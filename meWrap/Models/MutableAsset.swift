@@ -18,7 +18,6 @@ class MutableAsset: Asset {
     var date = NSDate.now()
     var edited = false
     var selected = false
-    var deleted = false
     var uploaded = false
     weak var videoExportSession: AVAssetExportSession?
     

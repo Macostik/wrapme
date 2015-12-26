@@ -11,20 +11,12 @@ import UIKit
 class EditAssetViewController: UIViewController {
     
     @IBOutlet weak var imageView: ImageView!
-    @IBOutlet weak var deletionView: UIView!
     
     var asset: MutableAsset?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.url = asset?.large
-        updateDeletionState()
-    }
-
-    func updateDeletionState() {
-        if let asset = asset {
-            deletionView.hidden = !asset.deleted
-        }
     }
 }
 
@@ -33,7 +25,6 @@ class EditAssetCell: StreamReusableView {
     @IBOutlet weak var imageView: ImageView!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var selectionView: UIView!
-    @IBOutlet weak var deletionView: UIView!
     @IBOutlet weak var videoIndicator: UILabel!
     
     override func awakeFromNib() {
@@ -46,7 +37,6 @@ class EditAssetCell: StreamReusableView {
             imageView.url = asset.small
             updateStatus()
             selectionView.hidden = !asset.selected;
-            deletionView.hidden = !asset.deleted;
             videoIndicator.hidden = asset.type != .Video
         }
     }

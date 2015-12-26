@@ -28,7 +28,6 @@
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
-            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -1402,36 +1401,6 @@
                                     <action selector="deletePicture:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="h2S-XD-ScY"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HzZ-19-wUA" customClass="WLButton">
-                                <rect key="frame" x="138" y="373" width="44" height="44"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="HTZ-Z7-6P1"/>
-                                    <constraint firstAttribute="width" constant="44" id="vJN-Fw-R2i"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="30"/>
-                                <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="2" maxY="0.0"/>
-                                <state key="normal" title="5">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="22"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="restoreDeletedPicture:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="6hF-sv-6Gg"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mxa-eX-hMc">
                                 <rect key="frame" x="0.0" y="427" width="320" height="141"/>
                                 <subviews>
@@ -1497,11 +1466,9 @@
                             <constraint firstAttribute="trailing" secondItem="ao0-lV-pbN" secondAttribute="trailing" id="29e-8y-iNm"/>
                             <constraint firstItem="oyu-cu-lw1" firstAttribute="leading" secondItem="fOQ-kN-b10" secondAttribute="leading" constant="10" id="7jQ-wh-hGF"/>
                             <constraint firstItem="ao0-lV-pbN" firstAttribute="top" secondItem="oyu-cu-lw1" secondAttribute="bottom" constant="10" id="EnK-3f-YuW"/>
-                            <constraint firstItem="mxa-eX-hMc" firstAttribute="top" secondItem="HzZ-19-wUA" secondAttribute="bottom" constant="10" id="GiC-TN-qLh"/>
                             <constraint firstItem="3yq-a6-Fsm" firstAttribute="leading" secondItem="ojC-8r-fOh" secondAttribute="trailing" constant="10" id="K11-QH-kPH"/>
                             <constraint firstItem="x4C-3O-a96" firstAttribute="top" secondItem="J8F-Df-FmE" secondAttribute="bottom" id="KNe-Ow-O4e"/>
                             <constraint firstItem="h5t-N3-cw5" firstAttribute="height" secondItem="x4C-3O-a96" secondAttribute="height" id="OTP-3I-lOM"/>
-                            <constraint firstAttribute="centerX" secondItem="HzZ-19-wUA" secondAttribute="centerX" id="U5p-Kr-ULH"/>
                             <constraint firstItem="mxa-eX-hMc" firstAttribute="top" secondItem="x4C-3O-a96" secondAttribute="bottom" id="Wpo-Mb-D43"/>
                             <constraint firstItem="x4C-3O-a96" firstAttribute="leading" secondItem="fOQ-kN-b10" secondAttribute="leading" id="Xsc-OU-2ZG"/>
                             <constraint firstItem="h5t-N3-cw5" firstAttribute="width" secondItem="x4C-3O-a96" secondAttribute="width" id="Xta-sz-1Uc"/>
@@ -1531,7 +1498,6 @@
                         <outlet property="deleteButton" destination="oyu-cu-lw1" id="L5Q-Qr-zRM"/>
                         <outlet property="drawButton" destination="ojC-8r-fOh" id="6Zf-Mm-X3s"/>
                         <outlet property="editButton" destination="3yq-a6-Fsm" id="dCV-6Q-CsV"/>
-                        <outlet property="restoreButton" destination="HzZ-19-wUA" id="uY9-qV-Q1x"/>
                         <outlet property="scrollView" destination="x4C-3O-a96" id="ptX-z4-MSm"/>
                         <outlet property="uploadButton" destination="taU-aO-Oxc" id="uo7-dz-nh2"/>
                         <outlet property="uploadButtonXConstraint" destination="47G-gf-htm" id="9ai-o9-bTV"/>
@@ -1590,25 +1556,12 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <view hidden="YES" contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="q2x-i3-oQd" customClass="GradientView" customModule="meWrap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="BsW-9c-x98" firstAttribute="top" secondItem="vh6-7i-2VL" secondAttribute="bottom" id="FZb-au-1Ey"/>
                             <constraint firstItem="BsW-9c-x98" firstAttribute="leading" secondItem="TNd-Ji-ceT" secondAttribute="leading" id="Nfd-bP-gLh"/>
-                            <constraint firstItem="q2x-i3-oQd" firstAttribute="leading" secondItem="TNd-Ji-ceT" secondAttribute="leading" id="YMf-zv-KFF"/>
-                            <constraint firstAttribute="trailing" secondItem="q2x-i3-oQd" secondAttribute="trailing" id="aTW-9e-gxy"/>
-                            <constraint firstItem="JWW-Ya-7fG" firstAttribute="top" secondItem="q2x-i3-oQd" secondAttribute="bottom" id="bbn-5n-9cg"/>
                             <constraint firstItem="JWW-Ya-7fG" firstAttribute="top" secondItem="BsW-9c-x98" secondAttribute="bottom" id="fqZ-V1-M9E"/>
-                            <constraint firstItem="q2x-i3-oQd" firstAttribute="top" secondItem="vh6-7i-2VL" secondAttribute="bottom" id="jVB-fZ-iFe"/>
                             <constraint firstAttribute="trailing" secondItem="BsW-9c-x98" secondAttribute="trailing" id="mgT-Va-TxG"/>
                         </constraints>
                     </view>
@@ -1618,7 +1571,6 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="400"/>
                     <connections>
-                        <outlet property="deletionView" destination="q2x-i3-oQd" id="W6p-7F-ids"/>
                         <outlet property="imageView" destination="BsW-9c-x98" id="37e-Pz-Wxj"/>
                     </connections>
                 </viewController>

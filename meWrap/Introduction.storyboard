@@ -17,7 +17,7 @@
         <!--Base View Controller-->
         <scene sceneID="7xU-dg-5bb">
             <objects>
-                <viewController storyboardIdentifier="newlySignupScreen" id="zRC-3Q-VMg" customClass="WLBaseViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FirstTimeScreen" id="zRC-3Q-VMg" customClass="WLBaseViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HNe-ZQ-P3S"/>
                         <viewControllerLayoutGuide type="bottom" id="JmL-Fx-fXB"/>

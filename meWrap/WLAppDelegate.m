@@ -149,7 +149,15 @@
 - (void)presentInitialViewController {
     void (^successBlock) (User *user) = ^(User *user) {
         if (user.isSignupCompleted) {
-            [[UIStoryboard main] present:YES];
+            UINavigationController *navigation = [[UIStoryboard main] instantiateInitialViewController];
+//            if (user.firstTimeUse) {
+                UIViewController *firstStepViewController = navigation.storyboard [@"FirstTimeViewController"];
+                navigation.viewControllers = @[firstStepViewController];
+//            } else {
+//                UIViewController *homeViewController = navigation.storyboard [@"WLHomeViewController"];
+//                navigation.viewControllers = @[homeViewController];
+//            }
+             [UIWindow mainWindow].rootViewController = navigation;
         } else {
             [Logger log:[NSString stringWithFormat:@"INITIAL SIGN IN - sign up is not completed, redirecting to profile step"]];
             UINavigationController *navigation = [[UIStoryboard signUp] instantiateInitialViewController];
@@ -159,7 +167,7 @@
             [UIWindow mainWindow].rootViewController = navigation;
         }
     };
-    
+
     Authorization* authorization = [Authorization currentAuthorization];
     if ([authorization canAuthorize]) {
         if (!self.versionChanged && ![Authorization requiresSignIn]) {

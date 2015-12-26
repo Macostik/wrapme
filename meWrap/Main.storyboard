@@ -58,6 +58,8 @@
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -4728,11 +4730,237 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
             </objects>
             <point key="canvasLocation" x="2388.75" y="-531.33802816901402"/>
         </scene>
+        <!--First Time View Controller-->
+        <scene sceneID="GJU-3e-PWF">
+            <objects>
+                <viewController storyboardIdentifier="FirstTimeViewController" id="Ki2-IL-epK" customClass="FirstTimeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZCB-Xa-54d"/>
+                        <viewControllerLayoutGuide type="bottom" id="hNG-fn-KWL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xQd-mp-hca">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pCO-CZ-c8t">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wTp-z0-8av" userLabel="Image's View">
+                                        <rect key="frame" x="12" y="100" width="576" height="204"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="create_wrap_step_first" translatesAutoresizingMaskIntoConstraints="NO" id="2SQ-iw-5FQ">
+                                                <rect key="frame" x="0.0" y="0.0" width="576" height="150"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="EpL-LS-CAZ"/>
+                                                </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="EpL-LS-CAZ"/>
+                                                    </mask>
+                                                </variation>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="easy_create_wrap" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CgL-wa-Jtc" customClass="WLLabel">
+                                                <rect key="frame" x="0.0" y="162" width="576" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="share_first" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeB-md-7Sx" customClass="WLLabel">
+                                                <rect key="frame" x="0.0" y="183" width="576" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="UeB-md-7Sx" secondAttribute="trailing" id="50X-lK-59Q"/>
+                                            <constraint firstItem="2SQ-iw-5FQ" firstAttribute="top" secondItem="wTp-z0-8av" secondAttribute="top" id="BrS-y4-7KD"/>
+                                            <constraint firstItem="CgL-wa-Jtc" firstAttribute="bottom" secondItem="UeB-md-7Sx" secondAttribute="top" id="CgP-Il-szO"/>
+                                            <constraint firstAttribute="trailing" secondItem="2SQ-iw-5FQ" secondAttribute="trailing" id="Hp0-lU-tDR"/>
+                                            <constraint firstAttribute="trailing" secondItem="CgL-wa-Jtc" secondAttribute="trailing" id="Oeh-ix-9Mk"/>
+                                            <constraint firstItem="UeB-md-7Sx" firstAttribute="leading" secondItem="wTp-z0-8av" secondAttribute="leading" id="jxl-9o-ePJ"/>
+                                            <constraint firstItem="CgL-wa-Jtc" firstAttribute="top" secondItem="2SQ-iw-5FQ" secondAttribute="bottom" constant="12" id="kOt-ie-CjS"/>
+                                            <constraint firstItem="2SQ-iw-5FQ" firstAttribute="leading" secondItem="wTp-z0-8av" secondAttribute="leading" id="kwb-XW-2Hl"/>
+                                            <constraint firstAttribute="bottom" secondItem="UeB-md-7Sx" secondAttribute="bottom" id="lyo-P5-mX3"/>
+                                            <constraint firstItem="CgL-wa-Jtc" firstAttribute="leading" secondItem="wTp-z0-8av" secondAttribute="leading" id="tUB-70-224"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dFK-sP-mft" userLabel="Button's View">
+                                        <rect key="frame" x="152" y="324" width="296" height="60"/>
+                                        <subviews>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcd-cQ-lgp" userLabel="Camera Button" customClass="WLButton">
+                                                <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <gestureRecognizers/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="p2h-XE-OZq"/>
+                                                    <constraint firstAttribute="width" constant="60" id="zJz-U2-uzk"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="38"/>
+                                                <state key="normal" title="u">
+                                                    <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted" backgroundImage="btn_wrap_camera_pressed"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOB-kw-uwl" userLabel="Broadcast Button" customClass="WLButton">
+                                                <rect key="frame" x="236" y="0.0" width="60" height="60"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <gestureRecognizers/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="3eB-Iq-GlV"/>
+                                                    <constraint firstAttribute="width" constant="60" id="UNO-PR-9rB"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                <state key="normal" title="live">
+                                                    <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted" backgroundImage="btn_wrap_camera_pressed"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7tQ-df-lVk" userLabel="Video Button" customClass="WLButton">
+                                                <rect key="frame" x="118" y="0.0" width="60" height="60"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <gestureRecognizers/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="60" id="Rbe-AE-vEA"/>
+                                                    <constraint firstAttribute="height" constant="60" id="kvV-jO-KrC"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="38"/>
+                                                <state key="normal" title="+">
+                                                    <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted" backgroundImage="btn_wrap_camera_pressed"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="VOB-kw-uwl" secondAttribute="trailing" id="0ix-jT-vy1"/>
+                                            <constraint firstItem="7tQ-df-lVk" firstAttribute="centerX" secondItem="dFK-sP-mft" secondAttribute="centerX" id="30n-pq-qob"/>
+                                            <constraint firstItem="7tQ-df-lVk" firstAttribute="leading" secondItem="bcd-cQ-lgp" secondAttribute="trailing" constant="162" id="6q4-q6-WzU"/>
+                                            <constraint firstAttribute="bottom" secondItem="7tQ-df-lVk" secondAttribute="bottom" id="BQ1-Fn-ysb"/>
+                                            <constraint firstItem="7tQ-df-lVk" firstAttribute="top" secondItem="dFK-sP-mft" secondAttribute="top" id="CQI-o0-ing"/>
+                                            <constraint firstItem="VOB-kw-uwl" firstAttribute="top" secondItem="dFK-sP-mft" secondAttribute="top" constant="-33" id="Jc0-rw-L9m"/>
+                                            <constraint firstItem="7tQ-df-lVk" firstAttribute="top" secondItem="bcd-cQ-lgp" secondAttribute="bottom" constant="-84" id="OIU-IS-SMg"/>
+                                            <constraint firstAttribute="bottom" secondItem="bcd-cQ-lgp" secondAttribute="bottom" id="QDK-QC-6tC"/>
+                                            <constraint firstItem="7tQ-df-lVk" firstAttribute="centerY" secondItem="bcd-cQ-lgp" secondAttribute="centerY" id="Tig-sv-fp4"/>
+                                            <constraint firstItem="VOB-kw-uwl" firstAttribute="leading" secondItem="7tQ-df-lVk" secondAttribute="trailing" constant="58" id="Vxf-os-swa"/>
+                                            <constraint firstItem="7tQ-df-lVk" firstAttribute="top" secondItem="VOB-kw-uwl" secondAttribute="bottom" constant="-31" id="W7W-Ku-nsg"/>
+                                            <constraint firstItem="bcd-cQ-lgp" firstAttribute="top" secondItem="dFK-sP-mft" secondAttribute="top" id="ZYR-v8-YuG"/>
+                                            <constraint firstItem="VOB-kw-uwl" firstAttribute="top" secondItem="7tQ-df-lVk" secondAttribute="bottom" constant="-84" id="cjN-u2-sBu"/>
+                                            <constraint firstItem="bcd-cQ-lgp" firstAttribute="leading" secondItem="dFK-sP-mft" secondAttribute="leading" id="dFC-tv-3m5"/>
+                                            <constraint firstAttribute="trailing" secondItem="VOB-kw-uwl" secondAttribute="trailing" id="dYx-Gi-w9A"/>
+                                            <constraint firstItem="VOB-kw-uwl" firstAttribute="leading" secondItem="7tQ-df-lVk" secondAttribute="trailing" constant="162" id="fnm-RP-I2Z"/>
+                                            <constraint firstItem="7tQ-df-lVk" firstAttribute="leading" secondItem="bcd-cQ-lgp" secondAttribute="trailing" constant="58" id="fze-ql-JIC"/>
+                                            <constraint firstItem="7tQ-df-lVk" firstAttribute="top" secondItem="dFK-sP-mft" secondAttribute="top" id="hy3-rR-JiX"/>
+                                            <constraint firstItem="VOB-kw-uwl" firstAttribute="top" secondItem="dFK-sP-mft" secondAttribute="top" id="jNb-da-0Zx"/>
+                                            <constraint firstItem="bcd-cQ-lgp" firstAttribute="top" secondItem="7tQ-df-lVk" secondAttribute="bottom" constant="-84" id="rBm-cg-Qwb"/>
+                                            <constraint firstItem="VOB-kw-uwl" firstAttribute="centerY" secondItem="7tQ-df-lVk" secondAttribute="centerY" id="v4y-tU-PoA"/>
+                                            <constraint firstItem="bcd-cQ-lgp" firstAttribute="leading" secondItem="dFK-sP-mft" secondAttribute="leading" id="yLm-pN-3Ya"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="dFC-tv-3m5"/>
+                                                <exclude reference="ZYR-v8-YuG"/>
+                                                <exclude reference="rBm-cg-Qwb"/>
+                                                <exclude reference="QDK-QC-6tC"/>
+                                                <exclude reference="OIU-IS-SMg"/>
+                                                <exclude reference="6q4-q6-WzU"/>
+                                                <exclude reference="30n-pq-qob"/>
+                                                <exclude reference="CQI-o0-ing"/>
+                                                <exclude reference="W7W-Ku-nsg"/>
+                                                <exclude reference="Jc0-rw-L9m"/>
+                                                <exclude reference="cjN-u2-sBu"/>
+                                                <exclude reference="dYx-Gi-w9A"/>
+                                                <exclude reference="fnm-RP-I2Z"/>
+                                                <exclude reference="jNb-da-0Zx"/>
+                                            </mask>
+                                        </variation>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xPg-og-ZfU" customClass="WLButton">
+                                        <rect key="frame" x="495" y="459" width="93" height="33"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="maybe_later">
+                                            <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="2SQ-iw-5FQ" firstAttribute="height" secondItem="pCO-CZ-c8t" secondAttribute="height" multiplier="0.25" id="6Jy-rD-gnJ"/>
+                                    <constraint firstItem="dFK-sP-mft" firstAttribute="top" secondItem="wTp-z0-8av" secondAttribute="bottom" constant="20" id="9pn-P8-G3F"/>
+                                    <constraint firstItem="wTp-z0-8av" firstAttribute="top" secondItem="pCO-CZ-c8t" secondAttribute="top" constant="100" id="OCs-ku-ONo"/>
+                                    <constraint firstItem="wTp-z0-8av" firstAttribute="leading" secondItem="pCO-CZ-c8t" secondAttribute="leading" constant="12" id="P6O-9Y-tg9"/>
+                                    <constraint firstAttribute="trailing" secondItem="wTp-z0-8av" secondAttribute="trailing" constant="12" id="UjZ-xb-eCT"/>
+                                    <constraint firstAttribute="trailing" secondItem="xPg-og-ZfU" secondAttribute="trailing" constant="12" id="htw-Ly-xaH"/>
+                                    <constraint firstItem="xPg-og-ZfU" firstAttribute="top" secondItem="dFK-sP-mft" secondAttribute="bottom" constant="75" id="jlL-TA-0XS"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="pCO-CZ-c8t" secondAttribute="trailing" id="OXP-Tq-8qe"/>
+                            <constraint firstItem="7tQ-df-lVk" firstAttribute="centerX" secondItem="xQd-mp-hca" secondAttribute="centerX" id="Qtw-hh-nfv"/>
+                            <constraint firstItem="pCO-CZ-c8t" firstAttribute="leading" secondItem="xQd-mp-hca" secondAttribute="leading" id="Yxe-yr-c02"/>
+                            <constraint firstItem="pCO-CZ-c8t" firstAttribute="top" secondItem="xQd-mp-hca" secondAttribute="topMargin" id="jZU-mH-ZpU"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="pCO-CZ-c8t" secondAttribute="bottom" id="uEN-cq-ziy"/>
+                        </constraints>
+                    </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="statusBarDefault" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K18-MB-ifo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="997" y="795"/>
+        </scene>
     </scenes>
     <resources>
         <image name="btn_wrap_camera_enabled" width="84" height="84"/>
         <image name="btn_wrap_camera_pressed" width="84" height="84"/>
         <image name="camera_medium" width="50" height="50"/>
+        <image name="create_wrap_step_first" width="1356" height="763"/>
         <image name="switch_to_front_cam" width="23" height="18"/>
     </resources>
 </document>

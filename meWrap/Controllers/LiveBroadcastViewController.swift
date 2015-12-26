@@ -112,14 +112,15 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     private func updateBroadcastInfo() {
         joinsCountLabel.text = "\(broadcast.numberOfViewers)"
-        titleLabel?.text = broadcast.title
+        if let title = broadcast.title where !title.isEmpty {
+            titleLabel?.text = broadcast.title
+        } else {
+            titleLabel?.text = "untitled".ls
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        presentViewController(UIViewController(), animated: false, completion: nil)
-//        dismissViewControllerAnimated(false, completion: nil)
         
         UIApplication.sharedApplication().idleTimerDisabled = true
         chatStreamView.layer.geometryFlipped = true
@@ -268,15 +269,18 @@ class LiveBroadcastViewController: WLBaseViewController {
         let streamName = "\(wrap.uid)-\(user.uid)-\(deviceUID)"
         
         broadcast.title = composeBar.text
+        
         broadcast.broadcaster = user
         broadcast.streamName = streamName
         broadcast.wrap = wrap
         wrap.addBroadcast(broadcast)
         
-        userState = [
-            "title" : broadcast.title,
-            "streamName" : streamName,
-        ]
+        var state = [NSObject:AnyObject]()
+        state["streamName"] = streamName
+        if let title = broadcast.title {
+            state["title"] = title
+        }
+        userState = state
         
         createConnection(streamName)
         
@@ -304,28 +308,24 @@ class LiveBroadcastViewController: WLBaseViewController {
     }
     
     @IBAction func startBroadcast(sender: UIButton) {
-        if composeBar.text.isEmpty {
-            composeBar.becomeFirstResponder()
-        } else {
-            if composeBar.isFirstResponder() {
-                composeBar.resignFirstResponder()
-            }
-            startBroadcast()
-            joinsCountView.hidden = false
-            chatStreamView.hidden = false
-            toggleCameraButton.hidden = false
-            sender.hidden = true
-            composeBar.hidden = true
-            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "focusing:"))
-            view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: "zooming:"))
-            
-            let event = LiveBroadcast.Event(type: .Info)
-            event.text = "preparing_broadcast".ls
-            event.autoDismiss = false
-            broadcast.insert(event)
-            chatDataSource.items = broadcast.events
-            preparingEvent = event
+        if composeBar.isFirstResponder() {
+            composeBar.resignFirstResponder()
         }
+        startBroadcast()
+        joinsCountView.hidden = false
+        chatStreamView.hidden = false
+        toggleCameraButton.hidden = false
+        sender.hidden = true
+        composeBar.hidden = true
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "focusing:"))
+        view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: "zooming:"))
+        
+        let event = LiveBroadcast.Event(type: .Info)
+        event.text = "preparing_broadcast".ls
+        event.autoDismiss = false
+        broadcast.insert(event)
+        chatDataSource.items = broadcast.events
+        preparingEvent = event
     }
     
     @IBAction func toggleCamera() {

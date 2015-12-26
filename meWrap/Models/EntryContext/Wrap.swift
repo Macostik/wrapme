@@ -30,7 +30,7 @@ class LiveBroadcast: NSObject {
     
     var broadcaster: User?
     weak var wrap: Wrap?
-    var title = ""
+    var title: String?
     var streamName = ""
     var numberOfViewers = 1
     

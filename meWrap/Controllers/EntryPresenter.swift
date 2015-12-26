@@ -110,10 +110,6 @@ class HierarchicalEntryPresenter: EntryPresenter {
             _currentEntry = currentEntry.container;
         }
         
-//        if viewControllers.count == 0 {
-//            [WLToast showWithMessage:@"data_invalid".ls];
-//        }
-        
         return viewControllers.reverse()
     }
 

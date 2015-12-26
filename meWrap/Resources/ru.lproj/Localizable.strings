@@ -204,6 +204,7 @@
 "got_it" = "Понял";
 "swipe_actions_tip" = "Быстрый доступ к чату и камере.";
 "no_upload_yet" = "Загрузок еще нет";
+"no_uploads_for_this_day" = "Sorry, there are no images you're trying to look!";
 "no_comments_yet" = "Комментариев еще нет";
 "coming_soon" = "Ждать недолго";
 "no_messages_today" = "Сегодня уведомлений нет";
@@ -266,3 +267,4 @@
 "preparing_broadcast" = "Preparing your broadcast...";
 "formatted_you_are_now_live" = "You are now LIVE! Friends in \"%@\" are also receiving notification about your broadcast. Enjoy!";
 "easy_create_wrap" = "meWrap делает создание wrap удевительно легко";
+"untitled" = "Untitled";

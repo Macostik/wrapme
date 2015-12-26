@@ -11,10 +11,8 @@
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
 #import "WLWrapViewController.h"
-#import "WLUploadingView.h"
 #import "WLHistoryViewController.h"
 #import "WLHintView.h"
-#import "WLUploadingQueue.h"
 #import "WLChangeProfileViewController.h"
 #import "WLStillPictureViewController.h"
 
@@ -28,7 +26,7 @@
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
-@property (weak, nonatomic) IBOutlet WLUploadingView *uploadingView;
+@property (weak, nonatomic) IBOutlet UploaderView *uploadingView;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
 @property (weak, nonatomic) IBOutlet WLLabel *verificationEmailLabel;
 @property (strong, nonatomic) IBOutlet LayoutPrioritizer *emailConfirmationLayoutPrioritizer;
@@ -119,7 +117,7 @@
         [homeDataSource refresh];
     }
     
-    self.uploadingView.queue = [WLUploadingQueue defaultQueueForEntityName:[Candy entityName]];
+    self.uploadingView.uploader = [Uploader candyUploader];
     
     [NSUserDefaults standardUserDefaults].numberOfLaunches++;
     

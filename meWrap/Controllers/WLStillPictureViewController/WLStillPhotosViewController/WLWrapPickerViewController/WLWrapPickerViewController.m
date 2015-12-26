@@ -9,7 +9,6 @@
 #import "WLWrapPickerViewController.h"
 #import "WLToast.h"
 #import "WLButton.h"
-#import "WLUploadingQueue.h"
 
 @interface WLWrapPickerViewController () <UITextFieldDelegate, EntryNotifying>
 
@@ -190,7 +189,7 @@
     [wrap notifyOnAddition];
     [self.delegate wrapPickerViewController:self didSelectWrap:wrap];
     [self.delegate wrapPickerViewControllerDidFinish:self];
-    [WLUploadingQueue upload:[Uploading uploading:wrap] success:^(id object) {
+    [[Uploader wrapUploader] upload:[Uploading uploading:wrap] success:^(id object) {
     } failure:^(NSError *error) {
         if (![error isNetworkError]) {
             [error show];

@@ -28,7 +28,7 @@ class Network: Notifier {
         Dispatch.mainQueue.after(0.2) { () -> Void in
             manager.setReachabilityStatusChangeBlock { [unowned self] (status) -> Void in
                 if self.reachable {
-                    WLUploadingQueue.start()
+                    Uploader.wrapUploader.start()
                 }
                 self.notify({ (receiver) -> Void in
                     receiver.networkDidChangeReachability?(self)

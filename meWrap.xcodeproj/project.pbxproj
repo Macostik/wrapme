@@ -90,6 +90,7 @@
 		C532F4E91C2D5F02004585E0 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532F4E81C2D5F02004585E0 /* ProgressBar.swift */; };
 		C532F4EB1C2D8353004585E0 /* Placeholders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C532F4EA1C2D8353004585E0 /* Placeholders.storyboard */; };
 		C532F4ED1C2D8513004585E0 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532F4EC1C2D8513004585E0 /* PlaceholderView.swift */; };
+		C532F4EF1C2DA4D8004585E0 /* Uploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532F4EE1C2DA4D8004585E0 /* Uploader.swift */; };
 		C535D6991C045476002BCE34 /* OverlayImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C535D6981C045476002BCE34 /* OverlayImageView.swift */; };
 		C535D69B1C045B56002BCE34 /* WrapCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C535D69A1C045B56002BCE34 /* WrapCoverView.swift */; };
 		C537F8B61C1828D400105390 /* RecentUpdateList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C537F8B51C1828D400105390 /* RecentUpdateList.swift */; };
@@ -102,7 +103,6 @@
 		C53BC48E1C05FE620009B0B9 /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53BC48D1C05FE620009B0B9 /* SegmentedControl.swift */; };
 		C53CD24C1C1706B600AA4746 /* CandyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53CD24A1C1706B600AA4746 /* CandyCell.swift */; };
 		C53CD24D1C1706B600AA4746 /* CandyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C53CD24B1C1706B600AA4746 /* CandyCell.xib */; };
-		C53DC22C1AA7637C00D2E4C0 /* WLUploadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53DC2281AA7637C00D2E4C0 /* WLUploadingView.m */; };
 		C53E5CFD1A84FBDB004F61B0 /* WLStillPictureBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5CF91A84FBDB004F61B0 /* WLStillPictureBaseViewController.m */; };
 		C53E5D771A851F71004F61B0 /* WLCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5D581A851F71004F61B0 /* WLCameraViewController.m */; };
 		C53F2FBC1C106472004EBC73 /* PubNub+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53F2FBB1C106472004EBC73 /* PubNub+Ext.swift */; };
@@ -257,6 +257,7 @@
 		C5BCF01A1B551B7B00E4AD6D /* WLMessageDateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5BCEFE41B551B7B00E4AD6D /* WLMessageDateView.xib */; };
 		C5BCF0331B551B7B00E4AD6D /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFF21B551B7B00E4AD6D /* WLContributorCell.m */; };
 		C5BCF0381B551B7B00E4AD6D /* WLContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFF41B551B7B00E4AD6D /* WLContributorsViewController.m */; };
+		C5BD85421C2E999800EE5558 /* UploaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BD85411C2E999800EE5558 /* UploaderView.swift */; };
 		C5BEC3851B8F099300499EEA /* WLContributorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5BEC3831B8F099300499EEA /* WLContributorCell.xib */; };
 		C5BEC38D1B8F129100499EEA /* logo_and_caption_orange@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5BEC38F1B8F129100499EEA /* logo_and_caption_orange@3x.png */; };
 		C5BEC3941B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5BEC3961B8F129B00499EEA /* logo_and_caption_white@3x.png */; };
@@ -288,7 +289,6 @@
 		C5C3FEAE1B8F311500F177EC /* Default-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE9F1B8F311500F177EC /* Default-Portrait@2x.png */; };
 		C5C3FEB01B8F311500F177EC /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FEA11B8F311500F177EC /* Default.png */; };
 		C5C694D51BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C694D41BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift */; };
-		C5C769A21BAC11F200B205CB /* WLUploadingQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C7699C1BAC11F200B205CB /* WLUploadingQueue.m */; };
 		C5C991131B9845CF0006F534 /* StreamMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C991111B9845CF0006F534 /* StreamMetrics.swift */; };
 		C5CBA7C81BA9556B0008EAAE /* SquareGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CBA7C61BA9556B0008EAAE /* SquareGridLayout.swift */; };
 		C5CBACF01BA70B70007D2403 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5CBACEE1BA70B70007D2403 /* LoadingView.xib */; };
@@ -577,6 +577,7 @@
 		C532F4E81C2D5F02004585E0 /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		C532F4EA1C2D8353004585E0 /* Placeholders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Placeholders.storyboard; sourceTree = "<group>"; };
 		C532F4EC1C2D8513004585E0 /* PlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
+		C532F4EE1C2DA4D8004585E0 /* Uploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uploader.swift; sourceTree = "<group>"; };
 		C535D6981C045476002BCE34 /* OverlayImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayImageView.swift; sourceTree = "<group>"; };
 		C535D69A1C045B56002BCE34 /* WrapCoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapCoverView.swift; sourceTree = "<group>"; };
 		C537F8B51C1828D400105390 /* RecentUpdateList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentUpdateList.swift; sourceTree = "<group>"; };
@@ -587,8 +588,6 @@
 		C53BC48D1C05FE620009B0B9 /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		C53CD24A1C1706B600AA4746 /* CandyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CandyCell.swift; path = WLWrapViewController/CandyCell.swift; sourceTree = "<group>"; };
 		C53CD24B1C1706B600AA4746 /* CandyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CandyCell.xib; path = WLWrapViewController/CandyCell.xib; sourceTree = "<group>"; };
-		C53DC2271AA7637C00D2E4C0 /* WLUploadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUploadingView.h; sourceTree = "<group>"; };
-		C53DC2281AA7637C00D2E4C0 /* WLUploadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUploadingView.m; sourceTree = "<group>"; };
 		C53E5CF81A84FBDB004F61B0 /* WLStillPictureBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLStillPictureBaseViewController.h; path = WLStillPictureViewController/WLStillPictureBaseViewController.h; sourceTree = "<group>"; };
 		C53E5CF91A84FBDB004F61B0 /* WLStillPictureBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLStillPictureBaseViewController.m; path = WLStillPictureViewController/WLStillPictureBaseViewController.m; sourceTree = "<group>"; };
 		C53E5D571A851F71004F61B0 /* WLCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCameraViewController.h; sourceTree = "<group>"; };
@@ -759,6 +758,7 @@
 		C5BCEFF21B551B7B00E4AD6D /* WLContributorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLContributorCell.m; sourceTree = "<group>"; };
 		C5BCEFF31B551B7B00E4AD6D /* WLContributorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLContributorsViewController.h; sourceTree = "<group>"; };
 		C5BCEFF41B551B7B00E4AD6D /* WLContributorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLContributorsViewController.m; sourceTree = "<group>"; };
+		C5BD85411C2E999800EE5558 /* UploaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderView.swift; sourceTree = "<group>"; };
 		C5BEC3831B8F099300499EEA /* WLContributorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLContributorCell.xib; sourceTree = "<group>"; };
 		C5BEC38E1B8F129100499EEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/logo_and_caption_orange@3x.png"; sourceTree = "<group>"; };
 		C5BEC3911B8F129400499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_orange@3x.png"; sourceTree = "<group>"; };
@@ -819,8 +819,6 @@
 		C5C3FEBC1B8F313100F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-Portrait@2x.png"; sourceTree = "<group>"; };
 		C5C3FEBE1B8F313600F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default.png"; sourceTree = "<group>"; };
 		C5C694D41BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+SharedGroup.swift"; sourceTree = "<group>"; };
-		C5C7699B1BAC11F200B205CB /* WLUploadingQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUploadingQueue.h; sourceTree = "<group>"; };
-		C5C7699C1BAC11F200B205CB /* WLUploadingQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUploadingQueue.m; sourceTree = "<group>"; };
 		C5C991111B9845CF0006F534 /* StreamMetrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamMetrics.swift; sourceTree = "<group>"; };
 		C5C991141B9846110006F534 /* meWrap-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "meWrap-Bridging-Header.h"; sourceTree = "<group>"; };
 		C5CBA7C61BA9556B0008EAAE /* SquareGridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareGridLayout.swift; sourceTree = "<group>"; };
@@ -1121,8 +1119,8 @@
 				C557B6DA1C22C0B00067631E /* SoundPlayer.swift */,
 				C557B6DD1C22F5980067631E /* Logger.swift */,
 				C5D99E731C2B2BC10022D18B /* Keyboard.swift */,
+				C532F4EE1C2DA4D8004585E0 /* Uploader.swift */,
 				C50541551BD6545400AE6F2C /* WLImageEditorSession */,
-				C5C7699A1BAC11F200B205CB /* WLUploadingQueue */,
 				C5C7696D1BAC10BF00B205CB /* WLAPIManager */,
 				C5BEE0E11B2AC8C300D3CF70 /* WLNotificationCenter */,
 				C5A82CCC1ACD979B00336027 /* WLDeviceManager */,
@@ -1152,9 +1150,9 @@
 				C53BC48D1C05FE620009B0B9 /* SegmentedControl.swift */,
 				C5A406FD1C200A71007D1D0E /* CandyEnlargingPresenter.swift */,
 				C532F4E81C2D5F02004585E0 /* ProgressBar.swift */,
+				C5BD85411C2E999800EE5558 /* UploaderView.swift */,
 				C5978BE31B396FA500D5043E /* WLDrawingSession */,
 				5BD121571B0250E000FF5FBF /* WLDownloadingView */,
-				C53DC2261AA7632600D2E4C0 /* WLUploadingView */,
 				5B2B0C201A77DDC400DADC9D /* WLButton */,
 				C568D8D31A6D490500C2333B /* WLHintView */,
 				C52E1FC71A41947D00A2C370 /* Text Views */,
@@ -1519,15 +1517,6 @@
 				C52E1FE11A41952400A2C370 /* WLTextView.m */,
 			);
 			path = "Text Views";
-			sourceTree = "<group>";
-		};
-		C53DC2261AA7632600D2E4C0 /* WLUploadingView */ = {
-			isa = PBXGroup;
-			children = (
-				C53DC2271AA7637C00D2E4C0 /* WLUploadingView.h */,
-				C53DC2281AA7637C00D2E4C0 /* WLUploadingView.m */,
-			);
-			path = WLUploadingView;
 			sourceTree = "<group>";
 		};
 		C53E5D501A851F71004F61B0 /* WLCameraViewController */ = {
@@ -1998,15 +1987,6 @@
 				C5F4A1681BF3917600EFC8FA /* Entry+Base.swift */,
 			);
 			path = WLAPIManager;
-			sourceTree = "<group>";
-		};
-		C5C7699A1BAC11F200B205CB /* WLUploadingQueue */ = {
-			isa = PBXGroup;
-			children = (
-				C5C7699B1BAC11F200B205CB /* WLUploadingQueue.h */,
-				C5C7699C1BAC11F200B205CB /* WLUploadingQueue.m */,
-			);
-			path = WLUploadingQueue;
 			sourceTree = "<group>";
 		};
 		C5E4FD091BF762A500575DA4 /* RecentUpdatesViewController */ = {
@@ -2535,6 +2515,7 @@
 				C5C20BA41A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
 				C55E10A71B3C0E1F0032DFDA /* CGPointExtension.m in Sources */,
 				C5E7AB761BCD399B007E314B /* UITextView+Ext.swift in Sources */,
+				C532F4EF1C2DA4D8004585E0 /* Uploader.swift in Sources */,
 				C5E7AB781BCD3A79007E314B /* UIScrollView+Ext.swift in Sources */,
 				C54CEF9D1BCFB09100128CBE /* UIViewController+Ext.swift in Sources */,
 				C53012911BF4E3EA00098F9C /* EmojiView.swift in Sources */,
@@ -2563,7 +2544,6 @@
 				C5E6DD8E1C0DC84A004992E4 /* Entry+CoreDataProperties.swift in Sources */,
 				C5E6DD931C0DC84A004992E4 /* Wrap.swift in Sources */,
 				C50541581BD6545400AE6F2C /* WLImageEditorSession.m in Sources */,
-				C5C769A21BAC11F200B205CB /* WLUploadingQueue.m in Sources */,
 				C52279621BECCA8600B1C49C /* NSDate+Ext.swift in Sources */,
 				C54C423E1BDE6260003E644D /* Archive.swift in Sources */,
 				C51B82C41C1850C20054726A /* GenericCollections+Ext.swift in Sources */,
@@ -2606,6 +2586,7 @@
 				C55766A51C0C913D00E94E09 /* ImageView.swift in Sources */,
 				C54AF6C419B8C491006F7EDB /* WLWrapViewController.m in Sources */,
 				C54CEF971BCFA86C00128CBE /* NSBundle+Ext.swift in Sources */,
+				C5BD85421C2E999800EE5558 /* UploaderView.swift in Sources */,
 				C504178919B9EE15000E55F3 /* AddressBookRecordCell.m in Sources */,
 				C540C0F01B988BF700F880C9 /* GridLayout.swift in Sources */,
 				C559974C1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */,
@@ -2667,7 +2648,6 @@
 				C557B6D91C22BC610067631E /* Network.swift in Sources */,
 				C5C20BDC1A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
 				C5E6DD8D1C0DC84A004992E4 /* CoreData.xcdatamodeld in Sources */,
-				C53DC22C1AA7637C00D2E4C0 /* WLUploadingView.m in Sources */,
 				C5BEE0EA1B2AC8C300D3CF70 /* WLNotificationCenter.m in Sources */,
 				C51E34EA1BD8EB4100C6F678 /* SeparatorView.swift in Sources */,
 				C54AF70719B8C491006F7EDB /* WLToast.m in Sources */,

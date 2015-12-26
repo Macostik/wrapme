@@ -204,7 +204,7 @@ class Notification: NSObject {
                         oldPicture?.cacheForAsset(newAsset)
                     }
                     if candy.sortedComments().contains({ $0.uploading != nil }) {
-                        WLUploadingQueue.start()
+                        Uploader.wrapUploader.start()
                     }
                 }
                 

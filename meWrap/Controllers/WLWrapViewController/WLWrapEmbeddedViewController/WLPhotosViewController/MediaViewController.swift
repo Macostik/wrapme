@@ -108,7 +108,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
     lazy var dataSource: MediaDataSource = MediaDataSource(streamView: self.streamView)
     @IBOutlet  weak var streamView: StreamView!
     @IBOutlet var primaryConstraint: LayoutPrioritizer!
-    @IBOutlet weak var uploadingView: WLUploadingView!
+    @IBOutlet weak var uploadingView: UploaderView!
     @IBOutlet weak var addPhotoButton: UIButton!
     @IBOutlet weak var liveButton: UIButton?
     
@@ -179,7 +179,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
         
         dataSource.setRefreshableWithStyle(.Orange)
         
-        uploadingView.queue = WLUploadingQueue.defaultQueueForEntityName(Candy.entityName())
+        uploadingView.uploader = Uploader.candyUploader
         
         Network.sharedNetwork.addReceiver(self)
         

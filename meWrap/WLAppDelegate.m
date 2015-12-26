@@ -16,7 +16,6 @@
 #import "WLToast.h"
 #import "WLWrapViewController.h"
 #import "CocoaLumberjack.h"
-#import "WLUploadingQueue.h"
 #import <AWSCore/AWSCore.h>
 #import "MMWormhole.h"
 
@@ -266,7 +265,7 @@
         }
         return;
     }
-    [WLUploadingQueue start];
+    [[Uploader wrapUploader] start];
     [[Dispatch mainQueue] after:20 block:^{
         if (completion) {
             completion(UIBackgroundFetchResultNewData);
@@ -276,7 +275,7 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [WLUploadingQueue start];
+    [[Uploader wrapUploader] start];
 }
 
 - (void)presentNotification:(Notification *)notification {
@@ -345,7 +344,7 @@
 - (void)networkDidChangeReachability:(Network *)network {
     if (network.reachable) {
         if ([Authorization active]) {
-            [WLUploadingQueue start];
+            [[Uploader wrapUploader] start];
         } else {
             [[[Authorization currentAuthorization] signIn] send];
         }

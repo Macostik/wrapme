@@ -20,6 +20,8 @@
 
 @property (strong, nonatomic) RunQueue *runQueue;
 
+@property (weak, nonatomic) AssetsViewController *assetsViewController;
+
 @end
 
 @implementation WLStillPhotosViewController
@@ -122,6 +124,7 @@
 }
 
 - (void)assetsViewController:(AssetsViewController *)controller didSelectAsset:(PHAsset *)asset {
+    self.assetsViewController = controller;
     [self handleAsset:asset];
 }
 
@@ -204,6 +207,17 @@
     }
     
     [self finishWithPictures:assets];
+}
+
+- (void)batchEditPictureViewController:(WLBatchEditPictureViewController *)controller didDeselectAsset:(MutableAsset *)asset {
+    [self.pictures removeObject:asset];
+    NSMutableSet *selectedAssets = [NSMutableSet set];
+    for (MutableAsset *asset in self.pictures) {
+        [selectedAssets addObject:asset.assetID];
+    }
+    self.assetsViewController.selectedAssets = selectedAssets;
+    [self.assetsViewController.streamView reload];
+    [self updatePicturesCountLabel];
 }
 
 @end

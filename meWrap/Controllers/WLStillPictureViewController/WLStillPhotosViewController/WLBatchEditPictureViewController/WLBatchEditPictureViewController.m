@@ -240,6 +240,7 @@ static const int WLInstanceCommentLimit = 1500;
     NSUInteger index = [self.assets indexOfObject:self.asset];
     NSMutableArray *assets = [NSMutableArray arrayWithArray:self.assets];
     [assets removeObject:self.asset];
+    [self.delegate batchEditPictureViewController:self didDeselectAsset:self.asset];
     if (assets.count > 0) {
         self.assets = [NSArray arrayWithArray:assets];
         self.dataSource.items = self.assets;

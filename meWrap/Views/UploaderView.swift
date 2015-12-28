@@ -54,7 +54,7 @@ class UploaderView: UIView {
     }
     
     private func startAnimating() {
-        if arrowIcon.layer.animationForKey("uploading") != nil {
+        if arrowIcon.layer.animationForKey("uploading") == nil {
             arrowIcon.layer.addAnimation(animation, forKey: "uploading")
         }
     }

@@ -98,16 +98,16 @@ class Uploader: Notifier {
     
     private func _upload(uploading: Uploading, success: ObjectBlock?, failure: FailureBlock?) {
         isUploading = true
-        uploading.upload({ (object) -> Void in
-            self.remove(uploading)
+        uploading.upload({ [weak self] (object) -> Void in
+            self?.remove(uploading)
             success?(object)
-            self.didChange()
-            }) { (error) -> Void in
+            self?.didChange()
+            }) { [weak self] (error) -> Void in
                 if !(uploading.contribution?.valid ?? false) {
-                    self.remove(uploading)
+                    self?.remove(uploading)
                 }
                 failure?(error)
-                self.didChange()
+                self?.didChange()
         }
     }
     
@@ -120,8 +120,8 @@ class Uploader: Notifier {
             return
         }
         runQueue.didFinish = finish
-        runQueue.run { (finish) -> Void in
-            self._upload(uploading, success: { (object) -> Void in
+        runQueue.run { [weak self] (finish) -> Void in
+            self?._upload(uploading, success: { (object) -> Void in
                 finish()
                 success?(object)
                 }, failure: { (error) -> Void in
@@ -196,6 +196,8 @@ extension Uploader: EntryNotifying {
             uploadings.removeAtIndex(index)
             didChange()
         }
+        
+        isUploading = !isEmpty
         
         for uploader in subuploaders {
             uploader.didRemoveContainer(contribution)

@@ -31,7 +31,7 @@ class Notifier: NSObject {
         }
     }
     
-    func notify(enumerator: (receiver: AnyObject) -> Void) {
+    func notify(@noescape enumerator: (receiver: AnyObject) -> Void) {
         receivers = receivers.filter { (wrapper) -> Bool in
             if let receiver = wrapper.receiver {
                 enumerator(receiver: receiver)
@@ -48,7 +48,7 @@ class Notifier: NSObject {
 }
 
 class OrderedNotifier: Notifier {
-    override func notify(enumerator: (receiver: AnyObject) -> Void) {
+    override func notify(@noescape enumerator: (receiver: AnyObject) -> Void) {
         var _receivers = [AnyObject]()
         super.notify { _receivers.append($0) }
         _receivers = _receivers.sort({ $0.notifier?(self, shouldNotifyBeforeReceiver: $1) ?? false })

@@ -56,8 +56,7 @@ class List: Notifier {
     }
     
     func sort(entry: ListEntry) {
-        _add(entry)
-        sort()
+        add(entry)
     }
     
     func remove(entry: ListEntry) {

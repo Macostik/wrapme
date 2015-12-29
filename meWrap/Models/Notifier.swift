@@ -8,20 +8,28 @@
 
 import Foundation
 
-internal class NotifyReceiverWrapper {
+func ==(lhs: NotifyReceiverWrapper, rhs: NotifyReceiverWrapper) -> Bool {
+    return lhs.receiver == rhs.receiver
+}
+
+class NotifyReceiverWrapper: Hashable {
     weak var receiver: NSObject?
     init(receiver: NSObject?) {
         self.receiver = receiver
+    }
+    
+    var hashValue: Int {
+        return receiver?.hashValue ?? 0
     }
 }
 
 class Notifier: NSObject {
     
-    internal var receivers = [NotifyReceiverWrapper]()
+    internal var receivers = Set<NotifyReceiverWrapper>()
         
     func addReceiver(receiver: NSObject?) {
         if let receiver = receiver {
-            receivers.append(NotifyReceiverWrapper(receiver: receiver))
+            receivers.insert(NotifyReceiverWrapper(receiver: receiver))
         }
     }
     
@@ -32,12 +40,9 @@ class Notifier: NSObject {
     }
     
     func notify(@noescape enumerator: (receiver: AnyObject) -> Void) {
-        receivers = receivers.filter { (wrapper) -> Bool in
+        for wrapper in self.receivers {
             if let receiver = wrapper.receiver {
                 enumerator(receiver: receiver)
-                return true
-            } else {
-                return false
             }
         }
     }

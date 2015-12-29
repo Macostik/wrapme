@@ -33,6 +33,12 @@ extension UIViewController {
         view.removeFromSuperview()
         removeFromParentViewController()
     }
+    
+    func modalPresentationOverContext(controller: UIViewController, animated: Bool, completion: (() -> Void)?) {
+        controller.modalPresentationStyle = .OverCurrentContext
+        controller.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
+        self.presentViewController(controller, animated: animated, completion: completion)
+    }
 }
 
 extension UIViewController {

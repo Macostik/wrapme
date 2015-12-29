@@ -161,7 +161,7 @@ extension RecentUpdateList: EntryNotifying {
             }, failure: nil)
     }
     
-    func broadcasterOrderPriority(broadcaster: WLBroadcaster!) -> Int {
-        return WLBroadcastReceiverOrderPriorityPrimary
+    func notifier(notifier: OrderedNotifier, shouldNotifyBeforeReceiver receiver: AnyObject) -> Bool {
+        return true
     }
 }

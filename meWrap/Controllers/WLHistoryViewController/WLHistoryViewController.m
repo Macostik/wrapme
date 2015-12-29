@@ -452,7 +452,7 @@
     viewController.view.alpha = offset;
 }
 
-// MARK: - WLDeviceManagerReceiver
+// MARK: - DeviceManagerNotifying
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return self.disableRotation ? [super supportedInterfaceOrientations] : UIInterfaceOrientationMaskAll;

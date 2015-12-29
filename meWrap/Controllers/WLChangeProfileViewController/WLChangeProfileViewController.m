@@ -13,7 +13,7 @@
 #import "WLWelcomeViewController.h"
 #import "WLTextView.h"
 
-@interface WLChangeProfileViewController () <KeyboardNotifying, UITextFieldDelegate, WLStillPictureViewControllerDelegate, EntryNotifying, FontPresetting, WLBroadcastReceiver>
+@interface WLChangeProfileViewController () <KeyboardNotifying, UITextFieldDelegate, WLStillPictureViewControllerDelegate, EntryNotifying, FontPresetting>
 
 @property (weak, nonatomic) IBOutlet ImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *imagePlaceholderView;
@@ -157,20 +157,18 @@
 
 #pragma mark - EntryNotifying
 
+- (BOOL)notifier:(OrderedNotifier *)notifier shouldNotifyBeforeReceiver:(id)receiver {
+    return NO;
+}
+
 - (void)notifier:(EntryNotifier *)notifier willUpdateEntry:(User *)user {
     [self updateEmailConfirmationView];
 }
 
-#pragma mark -  WLFontPresetterReceiver
+#pragma mark - WLFontPresetterReceiver
 
 - (void)presetterDidChangeContentSizeCategory:(FontPresetter *)presetter {
       self.verificationEmailTextView.attributedText = [WLChangeProfileViewController verificationSuggestion];
-}
-
-#pragma mark - WLBroadcastReceiver
-
-- (NSInteger)broadcasterOrderPriority:(WLBroadcaster *)broadcaster {
-    return WLBroadcastReceiverOrderPrioritySecondary;
 }
 
 @end

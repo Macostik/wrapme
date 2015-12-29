@@ -55,7 +55,7 @@ extension APIRequest {
             
             if !Authorization.active {
                 Authorization.active = true
-                WLUploadingQueue.start()
+                Uploader.wrapUploader.start()
             }
             
             let environment = Environment.currentEnvironment

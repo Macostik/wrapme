@@ -39,13 +39,13 @@ extension APIRequest {
         } else {
             request = request.path("entities/\(candy.uid)")
         }
-        return request.parse { response in
+        return request.parse({ response in
             if let dictionary = response.dictionary("candy") {
                 return candy.validEntry()?.update(Candy.prefetchDictionary(dictionary))
             } else {
                 return nil
             }
-        }
+        }).contributionUnavailable(candy)
     }
     
     class func deleteCandy(candy: Candy) -> Self? {

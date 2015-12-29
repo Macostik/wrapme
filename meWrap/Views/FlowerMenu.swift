@@ -94,7 +94,7 @@ class FlowerMenu: UIView {
         superview.addSubview(self)
         setNeedsDisplay()
         alpha = 0
-        WLDeviceManager.defaultManager().removeReceiver(self)
+        DeviceManager.defaultManager.removeReceiver(self)
         
         UIView.animateWithDuration(0.12, delay: 0, options: .CurveEaseIn, animations: { () -> Void in
             self.alpha = 1
@@ -130,7 +130,7 @@ class FlowerMenu: UIView {
         guard superview != nil else {
             return
         }
-        WLDeviceManager.defaultManager().addReceiver(self)
+        DeviceManager.defaultManager.addReceiver(self)
         entry = nil
         UIView.animateWithDuration(0.12, delay: 0, options: .CurveEaseIn, animations: { () -> Void in
             self.alpha = 0
@@ -240,8 +240,8 @@ class FlowerMenu: UIView {
     
 }
 
-extension FlowerMenu: WLDeviceManagerReceiver {
-    func manager(manager: WLDeviceManager!, didChangeOrientation orientation: NSNumber!) {
+extension FlowerMenu: DeviceManagerNotifying {
+    func manager(manager: DeviceManager, didChangeOrientation orientation: UIDeviceOrientation) {
         hide()
     }
 }

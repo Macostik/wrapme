@@ -13,7 +13,6 @@
 #import "WLWrapViewController.h"
 #import "WLToast.h"
 #import "WLBadgeLabel.h"
-#import "PlaceholderView.h"
 
 @interface WLChatViewController () <StreamViewDelegate, WLComposeBarDelegate, KeyboardNotifying, EntryNotifying, ChatNotifying>
 
@@ -79,7 +78,7 @@
         self.unreadMessagesMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLUnreadMessagesView" size:46];
         self.unreadMessagesMetrics.selectable = NO;
         __weak typeof(self)weakSelf = self;
-        self.placeholderMetrics = [[StreamMetrics alloc] initWithIdentifier:@"NoMessagePlaceholderView" initializer:^(StreamMetrics * metrics) {
+        self.placeholderMetrics = [[[StreamMetrics alloc] initWithLoader:[[PlaceholderLoader alloc] initWithIdentifier:@"chat"]] change:^(StreamMetrics *metrics) {
             [metrics setPrepareAppearing:^(StreamItem *item, StreamReusableView *view) {
                 PlaceholderView *placeholderView = (id)view;
                 placeholderView.textLabel.text = [NSString stringWithFormat:@"no_chat_message".ls, weakSelf.wrap.name];

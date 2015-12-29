@@ -21,83 +21,90 @@ class Environment: NSObject {
     static var QA = "qa"
     static var Production = "production"
     
-    var name: String!
+    var endpoint: String
     
-    var endpoint: String!
+    var version: String
     
-    var version: String!
+    var defaultImageURI: String
     
-    var defaultImageURI: String!
+    var defaultVideoURI: String
     
-    var defaultVideoURI: String!
+    var defaultAvatarURI: String
     
-    var defaultAvatarURI: String!
+    var s3Bucket: String
     
-    var s3Bucket: String!
+    var isProduction: Bool { return self == Environment.productionEnvironment }
     
-    var isProduction: Bool {
-        return name == Environment.Production
-    }
+    static let currentEnvironment = Environment.environments[ENV] ?? productionEnvironment
     
-    static var currentEnvironment = Environment(name: ENV)
+    static let productionEnvironment = Environment(
+        endpoint: "https://prd-api.mewrap.me/api",
+        version: "8",
+        default_image_uri: "https://dhtwvi2qvu3d7.cloudfront.net/candies/image_attachments",
+        default_avatar_uri: "https://dhtwvi2qvu3d7.cloudfront.net/users/avatars",
+        default_video_uri: "https://dhtwvi2qvu3d7.cloudfront.net/candies/video_attachments",
+        s3_bucket: "wraplive-production-upload-placeholder"
+    )
     
     private static var environments = [
-        Environment.Local : [
-            "endpoint":"http://0.0.0.0:3000/api",
-            "version":"8",
-            "default_image_uri":"https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments",
-            "default_avatar_uri":"https://d2rojtzyvje8rl.cloudfront.net/users/avatars",
-            "default_video_uri":"https://d2rojtzyvje8rl.cloudfront.net/candies/video_attachments",
-            "s3_bucket":"wraplive-qa-upload-placeholder"
-        ], Environment.QA:[
-            "endpoint":"https://qa-api.mewrap.me/api",
-            "version":"8",
-            "default_image_uri":"https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments",
-            "default_avatar_uri":"https://d2rojtzyvje8rl.cloudfront.net/users/avatars",
-            "default_video_uri":"https://d2rojtzyvje8rl.cloudfront.net/candies/video_attachments",
-            "s3_bucket":"wraplive-qa-upload-placeholder"
-        ], Environment.Production:[
-            "endpoint":"https://prd-api.mewrap.me/api",
-            "version":"8",
-            "default_image_uri":"https://dhtwvi2qvu3d7.cloudfront.net/candies/image_attachments",
-            "default_avatar_uri":"https://dhtwvi2qvu3d7.cloudfront.net/users/avatars",
-            "default_video_uri":"https://dhtwvi2qvu3d7.cloudfront.net/candies/video_attachments",
-            "s3_bucket":"wraplive-production-upload-placeholder"
-        ]
+        Environment.Local : Environment(
+            endpoint: "http://0.0.0.0:3000/api",
+            version: "8",
+            default_image_uri: "https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments",
+            default_avatar_uri: "https://d2rojtzyvje8rl.cloudfront.net/users/avatars",
+            default_video_uri: "https://d2rojtzyvje8rl.cloudfront.net/candies/video_attachments",
+            s3_bucket: "wraplive-qa-upload-placeholder"
+        ), Environment.QA : Environment(
+            endpoint: "https://qa-api.mewrap.me/api",
+            version: "8",
+            default_image_uri: "https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments",
+            default_avatar_uri: "https://d2rojtzyvje8rl.cloudfront.net/users/avatars",
+            default_video_uri: "https://d2rojtzyvje8rl.cloudfront.net/candies/video_attachments",
+            s3_bucket: "wraplive-qa-upload-placeholder"
+        ), Environment.Production : productionEnvironment
     ]
     
-    init(name: String?) {
-        let name = name ?? Environment.Production
-        if let dictionary = Environment.environments[name] {
-            endpoint = dictionary["endpoint"]
-            version = dictionary["version"]
-            self.name = name
-            defaultImageURI = dictionary["default_image_uri"]
-            defaultAvatarURI = dictionary["default_avatar_uri"]
-            defaultVideoURI = dictionary["default_video_uri"]
-            s3Bucket = dictionary["s3_bucket"]
-        }
+    init(endpoint: String, version: String, default_image_uri: String, default_avatar_uri: String, default_video_uri: String, s3_bucket: String) {
+        self.endpoint = endpoint
+        self.version = version
+        self.defaultImageURI = default_image_uri
+        self.defaultAvatarURI = default_avatar_uri
+        self.defaultVideoURI = default_video_uri
+        self.s3Bucket = s3_bucket
     }
     
     override var description: String {
-        return Environment.environments[name]?.description ?? ""
+        return "environment \(name() ?? ""):\nendpoint=\(endpoint)\nversion=\(version)\ndefault_image_uri=\(defaultImageURI)\ndefault_avatar_uri=\(defaultVideoURI)\ndefault_video_uri=\(defaultAvatarURI)\ns3_bucket=\(s3Bucket)"
+    }
+    
+    private func name() -> String? {
+        let environments = Environment.environments
+        for (name, _) in environments {
+            if environments[name] == self {
+                return name
+            }
+        }
+        return nil
     }
     
     func testUsers() -> [Authorization] {
         var authorizations = [Authorization]()
-        if let users = NSDictionary.plist("test-users")?[name] as? [NSDictionary] {
+        if let name = name(), let users = NSDictionary.plist("test-users")?[name] as? [NSDictionary] {
             for user in users {
                 let authorization = Authorization()
-                authorization.deviceUID = user.stringForKey("deviceUID")
-                authorization.countryCode = user.stringForKey("countryCode")
-                authorization.phone = user.stringForKey("phone")
-                authorization.email = user.stringForKey("email")
-                authorization.activationCode = user.stringForKey("activationCode")
-                authorization.password = user.stringForKey("password")
+                authorization.deviceUID = user["deviceUID"] as? String ?? ""
+                authorization.countryCode = user["countryCode"] as? String ?? ""
+                authorization.phone = user["phone"] as? String ?? ""
+                authorization.email = user["email"] as? String ?? ""
+                authorization.activationCode = user["activationCode"] as? String ?? ""
+                authorization.password = user["password"] as? String ?? ""
                 authorizations.append(authorization)
             }
+            return authorizations
+        } else {
+            return authorizations
         }
-        return authorizations
+        
     }
 }
 

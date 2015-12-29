@@ -25,7 +25,6 @@ static const int WLInstanceCommentLimit = 1500;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
-@property (weak, nonatomic) IBOutlet UIButton *restoreButton;
 @property (weak, nonatomic) IBOutlet UIButton *uploadButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *uploadButtonXConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *drawButton;
@@ -103,26 +102,14 @@ static const int WLInstanceCommentLimit = 1500;
 }
 
 - (void)updatePictureData:(MutableAsset *)asset {
-    if (asset.deleted) {
-        self.drawButton.hidden = self.deleteButton.hidden = self.editButton.hidden = self.composeBar.hidden = YES;
-        self.restoreButton.hidden = NO;
-        if (self.composeBar.isFirstResponder) {
-            [self.composeBar resignFirstResponder];
-        }
+    self.drawButton.hidden = self.editButton.hidden = asset.type == MediaTypeVideo;
+    self.composeBar.text = asset.comment;
+    if (asset.type == MediaTypeVideo) {
+        self.videoPlayerView.url = [asset.original fileURL];
+        self.videoPlayerView.hidden = NO;
+    } else {
         self.videoPlayerView.url = nil;
         self.videoPlayerView.hidden = YES;
-    } else {
-        self.deleteButton.hidden = self.composeBar.hidden = NO;
-        self.drawButton.hidden = self.editButton.hidden = asset.type == MediaTypeVideo;
-        self.restoreButton.hidden = YES;
-        self.composeBar.text = asset.comment;
-        if (asset.type == MediaTypeVideo) {
-            self.videoPlayerView.url = [asset.original fileURL];
-            self.videoPlayerView.hidden = NO;
-        } else {
-            self.videoPlayerView.url = nil;
-            self.videoPlayerView.hidden = YES;
-        }
     }
     for (MutableAsset *asset in self.assets) {
         asset.selected = asset == self.asset;
@@ -206,7 +193,7 @@ static const int WLInstanceCommentLimit = 1500;
 
 // MARK: - Actions
 
-- (void)back:(UIButton *)sender {
+- (void)back {
     if ([[UIDevice currentDevice] systemVersionSince:@"9"]) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
@@ -214,19 +201,13 @@ static const int WLInstanceCommentLimit = 1500;
     }
 }
 
+- (void)back:(UIButton *)sender {
+    [self back];
+}
+
 - (IBAction)upload:(id)sender {
     self.asset.comment = self.composeBar.text;
-    NSMutableArray *assets = [NSMutableArray arrayWithCapacity:self.assets.count];
-    for (MutableAsset *picture in self.assets) {
-        if (!picture.deleted) {
-            [assets addObject:picture];
-        }
-    }
-    if (assets.nonempty) {
-        [self.delegate batchEditPictureViewController:self didFinishWithAssets:assets];
-    } else {
-        [WLToast showWithMessage:@"no_photos_to_upload".ls];
-    }
+    [self.delegate batchEditPictureViewController:self didFinishWithAssets:self.assets];
 }
 
 - (IBAction)edit:(id)sender {
@@ -256,15 +237,23 @@ static const int WLInstanceCommentLimit = 1500;
 }
 
 - (IBAction)deletePicture:(id)sender {
-    self.asset.deleted = YES;
-    [(EditAssetViewController*)self.viewController updateDeletionState];
-    [self updatePictureData:self.asset];
-}
-
-- (IBAction)restoreDeletedPicture:(id)sender {
-    self.asset.deleted = NO;
-    [(EditAssetViewController*)self.viewController updateDeletionState];
-    [self updatePictureData:self.asset];
+    NSUInteger index = [self.assets indexOfObject:self.asset];
+    NSMutableArray *assets = [NSMutableArray arrayWithArray:self.assets];
+    [assets removeObject:self.asset];
+    [self.delegate batchEditPictureViewController:self didDeselectAsset:self.asset];
+    if (assets.count > 0) {
+        self.assets = [NSArray arrayWithArray:assets];
+        self.dataSource.items = self.assets;
+        if (index < assets.count) {
+            self.asset = [assets tryAt:index];
+            [self setViewController:[self editPictureViewControllerForPicture:self.asset] direction:WLSwipeViewControllerDirectionForward animated:YES];
+        } else {
+            self.asset = [assets tryAt:index - 1];
+            [self setViewController:[self editPictureViewControllerForPicture:self.asset] direction:WLSwipeViewControllerDirectionReverse animated:YES];
+        }
+    } else {
+        [self back];
+    }
 }
 
 - (IBAction)draw:(id)sender {

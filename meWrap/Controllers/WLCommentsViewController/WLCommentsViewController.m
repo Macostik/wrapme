@@ -9,7 +9,6 @@
 #import "WLCommentsViewController.h"
 #import "WLCandyViewController.h"
 #import "WLComposeBar.h"
-#import "WLDeviceManager.h"
 #import "WLCommentCell.h"
 #import "WLHistoryViewController.h"
 
@@ -70,7 +69,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
     }
     
     [self addNotifyReceivers];
-    [[WLDeviceManager defaultManager] addReceiver:self];
+    [[DeviceManager defaultManager] addReceiver:self];
     self.historyViewController = (WLHistoryViewController *)self.parentViewController;
 }
 
@@ -161,9 +160,9 @@ static CGFloat WLContstraintOffset = 44.0;
     return keyboardHeight - WLContstraintOffset;
 }
 
-#pragma mark - WLDeviceManager
+#pragma mark - DeviceManager
 
-- (void)manager:(WLDeviceManager*)manager didChangeOrientation:(NSNumber*)orientation {
+- (void)manager:(DeviceManager *)manager didChangeOrientation:(UIDeviceOrientation)orientation {
     [self.view layoutIfNeeded];
     [self.dataSource reload];
 }

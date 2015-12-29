@@ -43,7 +43,11 @@ class ArrangedAddressBookGroup: NSObject {
         records.sortInPlace { (r1, r2) -> Bool in
             let pn1 = r1.phoneNumbers.last
             let pn2 = r2.phoneNumbers.last
-            return pn1?.name > pn2?.name
+            
+            if let name1 = pn1?.name, let name2 = pn2?.name where !name1.isEmpty && !name2.isEmpty {
+                return pn1?.name < pn2?.name
+            }
+            return r1.hashValue < r2.hashValue
         }
     }
     

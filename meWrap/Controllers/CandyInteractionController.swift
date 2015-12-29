@@ -70,7 +70,7 @@ class CandyInteractionController: NSObject, UIGestureRecognizerDelegate {
     private func addScreenShotView () {
         if let screenShotView = snapshotView()?.snapshotViewAfterScreenUpdates(true) {
             screenShotView.alpha = 0
-            switch WLDeviceManager.defaultManager().orientation {
+            switch DeviceManager.defaultManager.orientation {
             case .LandscapeLeft:
                 screenShotView.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2));
                 break

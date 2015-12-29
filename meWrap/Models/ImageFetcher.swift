@@ -109,10 +109,10 @@ class BlockImageFetching: NSObject {
     
     private static var fetchings = Set<BlockImageFetching>()
     private var url: String?
-    private var success: (UIImage? -> Void)?
+    private var success: (UIImage -> Void)?
     private var failure: (NSError? -> Void)?
     
-    class func enqueue(url: String, success: (UIImage? -> Void)?, failure: (NSError? -> Void)?) {
+    class func enqueue(url: String, success: (UIImage -> Void)?, failure: (NSError? -> Void)?) {
         let fetching = BlockImageFetching(url: url)
         fetching.enqueue(success, failure: failure)
     }
@@ -122,7 +122,7 @@ class BlockImageFetching: NSObject {
         self.url = url
     }
     
-    func enqueue(success: (UIImage? -> Void)?, failure: (NSError? -> Void)?) {
+    func enqueue(success: (UIImage -> Void)?, failure: (NSError? -> Void)?) {
         BlockImageFetching.fetchings.insert(self)
         self.success = success
         self.failure = failure

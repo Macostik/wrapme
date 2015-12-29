@@ -111,7 +111,7 @@ extension Wrap {
             message.wrap = self
             message.text = text
             message.notifyOnAddition()
-            WLUploadingQueue.upload(uploading)
+            Uploader.messageUploader.upload(uploading)
         }
     }
     
@@ -123,7 +123,7 @@ extension Wrap {
                 Comment.comment(comment)?.candy = candy
             }
             candy.notifyOnAddition()
-            WLUploadingQueue.upload(uploading)
+            Uploader.candyUploader.upload(uploading)
         }
     }
     
@@ -300,7 +300,7 @@ extension Candy {
             case .Ready: break
             case .Finished:
                 if let uploading = Uploading.uploading(self, event: .Update) {
-                    WLUploadingQueue.upload(uploading)
+                    Uploader.candyUploader.upload(uploading)
                 }
                 notifyOnUpdate(.Default)
                 break
@@ -343,7 +343,7 @@ extension Candy {
             commentCount++
             comment.candy = self
             comment.notifyOnAddition()
-            Dispatch.mainQueue.after(0.3, block: { WLUploadingQueue.upload(uploading) })
+            Dispatch.mainQueue.after(0.3, block: { Uploader.commentUploader.upload(uploading) })
         }
     }
 

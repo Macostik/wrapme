@@ -7,7 +7,6 @@
 //
 
 #import "WLCandyViewController.h"
-#import "WLDeviceManager.h"
 #import "WLToast.h"
 @import AVKit;
 @import AVFoundation;
@@ -33,7 +32,7 @@
     [super viewDidLoad];
     
     self.scrollView.userInteractionEnabled = NO;
-    [[WLDeviceManager defaultManager] addReceiver:self];
+    [[DeviceManager defaultManager] addReceiver:self];
     self.scrollView.minimumZoomScale = 1;
     self.scrollView.maximumZoomScale = 2;
     
@@ -59,7 +58,19 @@
     NSInteger type = candy.type;
     if (type == MediaTypeVideo) {
         if (!playerView.playing) {
-            playerView.url = [candy.asset.original smartURL];
+            NSString *original = candy.asset.original;
+            if (original) {
+                if ([original isExistingFilePath]) {
+                    playerView.url = [original fileURL];
+                } else {
+                    NSString *path = [[[ImageCache defaultCache] getPath:[ImageCache uidFromURL:original]] stringByAppendingPathExtension:@"mp4"];
+                    if ([path isExistingFilePath]) {
+                        playerView.url = [path fileURL];
+                    } else {
+                        playerView.url = [original URL];
+                    }
+                }
+            }
         }
         playerView.hidden = NO;
     } else {
@@ -125,9 +136,9 @@
     return self.candy == entry;
 }
 
-#pragma mark - WLDeviceManagerReceiver
+#pragma mark - DeviceManagerNotifying
 
-- (void)manager:(WLDeviceManager *)manager didChangeOrientation:(NSNumber*)orientation {
+- (void)manager:(DeviceManager *)manager didChangeOrientation:(UIDeviceOrientation)orientation {
     self.scrollView.zoomScale = 1;
     self.scrollView.panGestureRecognizer.enabled = NO;
 }

@@ -17,6 +17,13 @@ class FirstTimeViewController: WLBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    }
+    
+    @IBAction func createDefaultWrap() {
+        if let wrap = Wrap.wrap() {
+            wrap.name = String(format:"first_wrap".ls, User.currentUser?.name ?? "")
+            wrap.notifyOnAddition()
+            Uploader.wrapUploader.upload(Uploading.uploading(wrap)!, success:nil, failure: nil);
+        }
     }
 }

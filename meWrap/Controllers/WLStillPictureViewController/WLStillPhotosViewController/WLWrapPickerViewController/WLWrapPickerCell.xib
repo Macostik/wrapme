@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -17,7 +17,6 @@
                     <subviews>
                         <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2os-5R-rsy" customClass="WrapCoverView" customModule="meWrap" customModuleProvider="target">
                             <rect key="frame" x="12" y="10" width="36" height="36"/>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="ibN-wD-yvs"/>
@@ -36,7 +35,6 @@
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moji name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGB-B8-v1O" customClass="WLLabel">
                             <rect key="frame" x="60" y="18" width="228" height="21"/>
-                            <animations/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                             <color key="textColor" white="0.1010000035" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
@@ -45,7 +43,6 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="55" id="1Yt-FI-ePi"/>
                         <constraint firstItem="2os-5R-rsy" firstAttribute="centerY" secondItem="yyu-he-0gz" secondAttribute="centerY" id="Dyg-Tm-oPA"/>
@@ -64,7 +61,6 @@
                 </view>
                 <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="KgR-Oy-EzF" customClass="SeparatorView" customModule="meWrap" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="54" width="300" height="1"/>
-                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="IJf-n5-Kgt"/>
@@ -76,7 +72,6 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
-            <animations/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="KgR-Oy-EzF" secondAttribute="bottom" id="9KK-GN-cF1"/>
                 <constraint firstAttribute="bottom" secondItem="yyu-he-0gz" secondAttribute="bottom" id="dYN-G1-Io0"/>

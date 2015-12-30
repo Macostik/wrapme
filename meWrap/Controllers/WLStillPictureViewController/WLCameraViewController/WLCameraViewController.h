@@ -12,6 +12,8 @@
 
 @class WLCameraViewController, PHAsset;
 
+@protocol AssetsViewControllerDelegate;
+
 @protocol WLCameraViewControllerDelegate <WLStillPictureBaseViewControllerDelegate, AssetsViewControllerDelegate>
 
 - (void)cameraViewController:(WLCameraViewController*)controller didFinishWithImage:(UIImage*)image saveToAlbum:(BOOL)saveToAlbum;

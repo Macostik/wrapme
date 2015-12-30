@@ -150,7 +150,7 @@
         if (user.isSignupCompleted) {
             UINavigationController *navigation = [[UIStoryboard main] instantiateInitialViewController];
             UIViewController *viewController = YES ? navigation.storyboard[@"FirstTimeBeginViewController"] :
-                                                                   navigation.storyboard [@"WLHomeViewController"];
+                                                     navigation.storyboard [@"WLHomeViewController"];
             navigation.viewControllers = @[viewController];
             [UIWindow mainWindow].rootViewController = navigation;
         } else {

@@ -8,6 +8,11 @@
 
 #import "WLBaseViewController.h"
 
+typedef NS_OPTIONS(NSUInteger, WLStillPictureMode) {
+    Default,
+    Square
+};
+
 @class WLStillPictureBaseViewController;
 @protocol WLStillPictureBaseViewController;
 
@@ -19,9 +24,11 @@
 
 @end
 
+@class WrapView;
+
 @protocol WLStillPictureBaseViewController <WLStillPictureBaseViewControllerDelegate>
 
-@property (nonatomic) StillPictureMode mode;
+@property (nonatomic) WLStillPictureMode mode;
 
 @property (weak, nonatomic) Wrap *wrap;
 

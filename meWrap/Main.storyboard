@@ -4730,7 +4730,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
             </objects>
             <point key="canvasLocation" x="2388.75" y="-531.33802816901402"/>
         </scene>
-        <!--Source View Controller-->
+        <!--First Time View Controller-->
         <scene sceneID="GJU-3e-PWF">
             <objects>
                 <viewController storyboardIdentifier="FirstTimeBeginViewController" id="Ki2-IL-epK" customClass="FirstTimeViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
@@ -4810,7 +4810,6 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                                     <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="highlighted" backgroundImage="btn_wrap_camera_pressed"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -4821,7 +4820,33 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="createDefaultWrap" destination="Ki2-IL-epK" eventType="touchUpInside" id="A08-un-iHH"/>
+                                                    <action selector="presentCamera:" destination="Ki2-IL-epK" eventType="touchUpInside" id="C0r-tF-IOE"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7tQ-df-lVk" userLabel="Video Button" customClass="WLButton">
+                                                <rect key="frame" x="118" y="0.0" width="60" height="60"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <gestureRecognizers/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="60" id="Rbe-AE-vEA"/>
+                                                    <constraint firstAttribute="height" constant="60" id="kvV-jO-KrC"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="38"/>
+                                                <state key="normal" title="+">
+                                                    <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="presentCamera:" destination="Ki2-IL-epK" eventType="touchUpInside" id="kiy-1Y-O8a"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOB-kw-uwl" userLabel="Broadcast Button" customClass="WLButton">
@@ -4837,7 +4862,6 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                                     <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="highlighted" backgroundImage="btn_wrap_camera_pressed"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                         <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -4848,32 +4872,8 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7tQ-df-lVk" userLabel="Video Button" customClass="WLButton">
-                                                <rect key="frame" x="118" y="0.0" width="60" height="60"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <gestureRecognizers/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="60" id="Rbe-AE-vEA"/>
-                                                    <constraint firstAttribute="height" constant="60" id="kvV-jO-KrC"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="38"/>
-                                                <state key="normal" title="+">
-                                                    <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <state key="highlighted" backgroundImage="btn_wrap_camera_pressed"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                        <real key="value" value="2"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="createDefaultWrap" destination="Ki2-IL-epK" eventType="touchUpInside" id="vcW-nQ-DQm"/>
+                                                    <action selector="presentBroadcastLive:" destination="Ki2-IL-epK" eventType="touchUpInside" id="uS6-6E-ZAz"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -4931,7 +4931,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="present:" destination="CLr-cJ-Fyx" eventType="touchUpInside" id="RLq-nc-2cB"/>
+                                            <action selector="cancelingIntroduction:" destination="Ki2-IL-epK" eventType="touchUpInside" id="QP2-ka-KXQ"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -4961,14 +4961,6 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                     </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K18-MB-ifo" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="CLr-cJ-Fyx" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLHomeViewController"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="sourceViewController" destination="Ki2-IL-epK" id="LhS-CK-u2C"/>
-                    </connections>
-                </customObject>
             </objects>
             <point key="canvasLocation" x="997" y="-1228"/>
         </scene>

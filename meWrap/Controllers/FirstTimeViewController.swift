@@ -35,6 +35,7 @@ class FirstTimeViewController: WLBaseViewController, WLStillPictureViewControlle
         defaultWrap({ [weak self] wrap -> Void in
             if let addFriendsController = self?.storyboard?["WLAddContributorsViewController"] as? WLAddContributorsViewController {
                 addFriendsController.wrap = wrap as? Wrap
+                addFriendsController.isBroadcasting = true
                 self?.navigationController?.pushViewController(addFriendsController, animated: false)
             }
             },failure: { [weak self](error) -> Void in

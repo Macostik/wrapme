@@ -26,6 +26,7 @@ static const int WLInstanceCommentLimit = 1500;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (weak, nonatomic) IBOutlet UIButton *uploadButton;
+@property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *uploadButtonXConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *drawButton;
 @property (weak, nonatomic) IBOutlet VideoPlayerView *videoPlayerView;
@@ -81,6 +82,8 @@ static const int WLInstanceCommentLimit = 1500;
     [super viewDidAppear:animated];
     self.dataSource.items = self.assets;
     self.uploadButton.active = YES;
+    self.nextButton.hidden = !User.currentUser.firstTimeUse;
+    self.uploadButton.hidden = !self.nextButton.hidden;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

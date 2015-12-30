@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet LayoutPrioritizer *bottomPrioritizer;
+@property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (nonatomic, strong) NSMutableArray* openedRows;
 @property (strong, nonatomic) ArrangedAddressBook* addressBook;
 @property (strong, nonatomic) ArrangedAddressBook* filteredAddressBook;
@@ -129,20 +130,35 @@
     }
     ObjectBlock performRequestBlock = ^ (id __nullable message) {
         [[APIRequest addContributors:self.addressBook.selectedPhoneNumbers wrap:self.wrap message:message] send:^(id object) {
-            [weakSelf.navigationController popViewControllerAnimated:NO];
-            if (message) {
-                [WLToast showWithMessage:@"isn't_using_invite".ls];
+            if (User.currentUser.firstTimeUse) {
+                UIViewController *homeViewController = weakSelf.storyboard[@"WLHomeViewController"];
+                weakSelf.navigationController.viewControllers = @[homeViewController];
+                if (weakSelf.isBroadcasting) {
+                    LiveBroadcastViewController *controller = weakSelf.storyboard[@"liveBroadcast"];
+                    controller.wrap = weakSelf.wrap;
+                    [homeViewController presentViewController:controller animated:NO completion:nil];
+                } else {
+                    UIViewController *endStepController = weakSelf.storyboard[@"FirstTimeEndViewController"];
+                    [homeViewController modalPresentationOverContext:endStepController animated:NO completion:nil];
+                }
             } else {
-                [WLToast showWithMessage:@"is_using_invite".ls];
-            }}
-                                                                                                          failure:^(NSError *error) {
-                                                                                                              [error show];
-                                                                                                          }];
+                [weakSelf.navigationController popViewControllerAnimated:NO];
+                if (message) {
+                    [WLToast showWithMessage:@"isn't_using_invite".ls];
+                } else {
+                    [WLToast showWithMessage:@"is_using_invite".ls];
+                }}
+        }
+                                                                                                        failure:^(NSError *error) {
+                                                                                                            [error show];
+                                                                                                        }];
     };
     
     if (self.addressBook.selectedPhoneNumbers.count == 0) {
         [self.navigationController popViewControllerAnimated:NO];
         return;
+    } else if (User.currentUser.firstTimeUse) {
+        performRequestBlock(nil);
     } else if ([self containUnregisterAddresBookGroupRecord]) {
         NSString *content = [NSString stringWithFormat:@"send_message_to_friends_content".ls, [User currentUser].name, self.wrap.name];
         [WLEditingConfirmView showInView:self.view withContent:content success:^(id  _Nullable object) {
@@ -202,7 +218,6 @@
     if ([self.wrap.contributors containsObject:phoneNumber.user]) {
         return AddressBookPhoneNumberStateAdded;
     }
-    self.bottomPrioritizer.defaultState = self.addressBook.selectedPhoneNumbers.count == 0;
     return [self.addressBook selectedPhoneNumber:phoneNumber] != nil ? AddressBookPhoneNumberStateSelected : AddressBookPhoneNumberStateDefault;
 }
 
@@ -217,6 +232,8 @@
 
 - (void)recordCell:(AddressBookRecordCell *)cell didSelectPhoneNumber:(AddressBookPhoneNumber *)person {
     [self.addressBook selectPhoneNumber:person];
+    self.nextButton.hidden = self.addressBook.selectedPhoneNumbers.count == 0 || !User.currentUser.firstTimeUse;
+    self.bottomPrioritizer.defaultState = self.addressBook.selectedPhoneNumbers.count == 0 || User.currentUser.firstTimeUse;
     [cell resetup];
 }
 

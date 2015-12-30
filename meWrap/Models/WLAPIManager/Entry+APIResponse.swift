@@ -113,7 +113,7 @@ extension User {
         super.map(dictionary, container: container)
         
         if let signInCount = dictionary[Keys.SignInCount] as? Int {
-            let firstTimeUse = signInCount == 1
+            let firstTimeUse = true
             if firstTimeUse != self.firstTimeUse {
                 self.firstTimeUse = firstTimeUse
             }

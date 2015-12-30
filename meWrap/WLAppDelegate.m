@@ -149,7 +149,7 @@
     void (^successBlock) (User *user) = ^(User *user) {
         if (user.isSignupCompleted) {
             UINavigationController *navigation = [[UIStoryboard main] instantiateInitialViewController];
-            UIViewController *viewController = YES ? navigation.storyboard[@"FirstTimeBeginViewController"] :
+            UIViewController *viewController = user.firstTimeUse ? navigation.storyboard[@"FirstTimeBeginViewController"] :
                                                      navigation.storyboard [@"WLHomeViewController"];
             navigation.viewControllers = @[viewController];
             [UIWindow mainWindow].rootViewController = navigation;

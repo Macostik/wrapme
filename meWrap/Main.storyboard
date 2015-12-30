@@ -1439,12 +1439,32 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
+                                    <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ilp-si-Jvv" customClass="WLButton">
+                                        <rect key="frame" x="548" y="25" width="40" height="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <state key="normal" title="Next">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.74208140369999998" green="0.2443449795" blue="0.04564923421" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="done:" destination="2bk-UF-zkR" eventType="touchUpInside" id="gN0-ev-k3I"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="KJ6-LJ-st0"/>
                                     <constraint firstItem="Bop-dI-sMz" firstAttribute="leading" secondItem="Bvm-fO-3Iz" secondAttribute="leading" constant="75" id="NTl-Tt-QHs"/>
+                                    <constraint firstAttribute="trailing" secondItem="ilp-si-Jvv" secondAttribute="trailing" constant="12" id="WEC-OH-yUU"/>
                                     <constraint firstAttribute="trailing" secondItem="Bop-dI-sMz" secondAttribute="trailing" constant="75" id="esB-Qq-K9f"/>
+                                    <constraint firstItem="ilp-si-Jvv" firstAttribute="centerY" secondItem="Bop-dI-sMz" secondAttribute="centerY" id="hB3-US-A7m"/>
                                     <constraint firstAttribute="centerY" secondItem="khD-F3-MeT" secondAttribute="centerY" constant="-10" id="mV9-C1-n3Y"/>
                                     <constraint firstItem="Bop-dI-sMz" firstAttribute="top" secondItem="Bvm-fO-3Iz" secondAttribute="top" constant="20" id="xuq-u1-RkS"/>
                                     <constraint firstItem="khD-F3-MeT" firstAttribute="leading" secondItem="Bvm-fO-3Iz" secondAttribute="leading" constant="12" id="zWR-F8-v5m"/>
@@ -1603,6 +1623,7 @@
                     <connections>
                         <outlet property="bottomPrioritizer" destination="r5W-2b-A9y" id="bmn-YA-MP1"/>
                         <outlet property="navigationBar" destination="Bvm-fO-3Iz" id="AU6-vM-XHp"/>
+                        <outlet property="nextButton" destination="ilp-si-Jvv" id="pMd-qA-HVZ"/>
                         <outlet property="searchField" destination="KDf-WU-v2H" id="eMH-vk-lNZ"/>
                         <outlet property="spinner" destination="eU0-nK-XkS" id="3qg-cQ-HkS"/>
                         <outlet property="streamView" destination="Ez1-OW-DA8" id="3rG-mw-bMC"/>
@@ -4988,6 +5009,9 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="cancelingIntroduction:" destination="F6O-rd-ftl" eventType="touchUpInside" id="HEN-Su-kpe"/>
+                                        </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQ6-QK-JKf" userLabel="Image's View">
                                         <rect key="frame" x="12" y="33" width="552" height="221"/>

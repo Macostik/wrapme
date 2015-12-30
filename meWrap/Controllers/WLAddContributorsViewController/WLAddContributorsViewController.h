@@ -12,4 +12,6 @@
 
 @property (weak, nonatomic) Wrap *wrap;
 
+@property (assign, nonatomic) BOOL isBroadcasting;
+
 @end

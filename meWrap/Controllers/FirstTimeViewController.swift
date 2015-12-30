@@ -10,11 +10,21 @@ import Foundation
 
 class FirstTimeViewController: WLBaseViewController, WLStillPictureViewControllerDelegate {
     
+    private var wrap: Wrap?
+    
     func defaultWrap (success: ObjectBlock?, failure: FailureBlock?) {
+        if let success = success, let wrap = wrap {
+            return success(wrap)
+        }
         if let wrap = Wrap.wrap() {
             wrap.name = String(format:"first_wrap".ls, User.currentUser?.name ?? "")
             wrap.notifyOnAddition()
-            Uploader.wrapUploader.upload(Uploading.uploading(wrap)!, success: success, failure: failure)
+            Uploader.wrapUploader.upload(Uploading.uploading(wrap)!, success: {[weak self] wrap -> Void in
+                if let wrap = wrap as? Wrap {
+                    self?.wrap = wrap
+                    success?(wrap)
+                }
+            }, failure: failure)
         }
     }
     
@@ -51,5 +61,17 @@ class FirstTimeViewController: WLBaseViewController, WLStillPictureViewControlle
     
     func stillPictureViewControllerDidCancel(controller: WLStillPictureViewController) {
         self.dismissViewControllerAnimated(false, completion: nil)
+    }
+    
+    func stillPictureViewController(controller: WLStillPictureViewController!, didFinishWithPictures pictures: [AnyObject]!) {
+        guard let wrap = wrap else {
+            return
+        }
+        FollowingViewController.followWrapIfNeeded(wrap) { () -> Void in
+            SoundPlayer.player.play(.s04)
+            if let pictures = pictures as? [MutableAsset] {
+                 self.wrap?.uploadAssets(pictures)
+            }
+        }
     }
 }

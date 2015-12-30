@@ -148,11 +148,7 @@
 - (void)presentInitialViewController {
     void (^successBlock) (User *user) = ^(User *user) {
         if (user.isSignupCompleted) {
-            UINavigationController *navigation = [[UIStoryboard main] instantiateInitialViewController];
-            UIViewController *viewController = user.firstTimeUse ? navigation.storyboard[@"FirstTimeBeginViewController"] :
-                                                     navigation.storyboard [@"WLHomeViewController"];
-            navigation.viewControllers = @[viewController];
-            [UIWindow mainWindow].rootViewController = navigation;
+            [[UIStoryboard main] present:YES];
         } else {
             [Logger log:[NSString stringWithFormat:@"INITIAL SIGN IN - sign up is not completed, redirecting to profile step"]];
             UINavigationController *navigation = [[UIStoryboard signUp] instantiateInitialViewController];

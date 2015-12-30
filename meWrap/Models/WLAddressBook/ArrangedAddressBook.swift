@@ -95,14 +95,16 @@ class ArrangedAddressBook: NSObject {
             
             var phoneNumbers = record.phoneNumbers
             
-            for (index, phoneNumber) in record.phoneNumbers.enumerate() {
+            for phoneNumber in record.phoneNumbers {
                 if let user = phoneNumber.user {
                     let newRecord = AddressBookRecord(phoneNumbers: [phoneNumber])
                     if user.name == nil {
                         newRecord.name = record.name
                     }
                     addRecordToGroup(newRecord)
-                    phoneNumbers.removeAtIndex(index)
+                    if let index = phoneNumbers.indexOf(phoneNumber) {
+                        phoneNumbers.removeAtIndex(index)
+                    }
                 }
             }
             

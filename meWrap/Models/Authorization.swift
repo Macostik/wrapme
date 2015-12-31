@@ -55,6 +55,8 @@ class Authorization: Archive {
     
     var tryUncorfirmedEmail = false
     
+    var isFirstStepsRepresenting = false
+    
     var fullPhoneNumber: String {
         return "+\(countryCode ?? "") \(formattedPhone ?? phone ?? "")"
     }

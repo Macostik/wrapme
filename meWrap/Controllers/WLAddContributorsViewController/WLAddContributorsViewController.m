@@ -130,7 +130,7 @@
     }
     ObjectBlock performRequestBlock = ^ (id __nullable message) {
         [[APIRequest addContributors:self.addressBook.selectedPhoneNumbers wrap:self.wrap message:message] send:^(id object) {
-            if (User.currentUser.firstTimeUse) {
+            if ([Authorization currentAuthorization].isFirstStepsRepresenting) {
                 UIViewController *homeViewController = weakSelf.storyboard[@"WLHomeViewController"];
                 weakSelf.navigationController.viewControllers = @[homeViewController];
                 if (weakSelf.isBroadcasting) {
@@ -141,6 +141,7 @@
                     UIViewController *endStepController = weakSelf.storyboard[@"FirstTimeEndViewController"];
                     [homeViewController modalPresentationOverContext:endStepController animated:NO completion:nil];
                 }
+                [Authorization currentAuthorization].isFirstStepsRepresenting = NO;
             } else {
                 [weakSelf.navigationController popViewControllerAnimated:NO];
                 if (message) {
@@ -157,7 +158,7 @@
     if (self.addressBook.selectedPhoneNumbers.count == 0) {
         [self.navigationController popViewControllerAnimated:NO];
         return;
-    } else if (User.currentUser.firstTimeUse) {
+    } else if ([Authorization currentAuthorization].isFirstStepsRepresenting) {
         performRequestBlock(nil);
     } else if ([self containUnregisterAddresBookGroupRecord]) {
         NSString *content = [NSString stringWithFormat:@"send_message_to_friends_content".ls, [User currentUser].name, self.wrap.name];
@@ -232,8 +233,8 @@
 
 - (void)recordCell:(AddressBookRecordCell *)cell didSelectPhoneNumber:(AddressBookPhoneNumber *)person {
     [self.addressBook selectPhoneNumber:person];
-    self.nextButton.hidden = self.addressBook.selectedPhoneNumbers.count == 0 || !User.currentUser.firstTimeUse;
-    self.bottomPrioritizer.defaultState = self.addressBook.selectedPhoneNumbers.count == 0 || User.currentUser.firstTimeUse;
+    self.nextButton.hidden = self.addressBook.selectedPhoneNumbers.count == 0 || ![Authorization currentAuthorization].isFirstStepsRepresenting;
+    self.bottomPrioritizer.defaultState = self.addressBook.selectedPhoneNumbers.count == 0 || [Authorization currentAuthorization].isFirstStepsRepresenting;
     [cell resetup];
 }
 

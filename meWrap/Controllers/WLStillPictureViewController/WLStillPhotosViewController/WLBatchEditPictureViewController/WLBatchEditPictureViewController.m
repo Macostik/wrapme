@@ -82,7 +82,7 @@ static const int WLInstanceCommentLimit = 1500;
     [super viewDidAppear:animated];
     self.dataSource.items = self.assets;
     self.uploadButton.active = YES;
-    self.nextButton.hidden = !User.currentUser.firstTimeUse;
+    self.nextButton.hidden = ![Authorization currentAuthorization].isFirstStepsRepresenting;
     self.uploadButton.hidden = !self.nextButton.hidden;
 }
 

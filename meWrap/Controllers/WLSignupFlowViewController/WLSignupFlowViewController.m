@@ -79,6 +79,7 @@
             UIViewController *viewController =  navigation.storyboard[@"FirstTimeBeginViewController"];
             navigation.viewControllers = @[viewController];
             [UIWindow mainWindow].rootViewController = navigation;
+            [Authorization currentAuthorization].isFirstStepsRepresenting = YES;
         } else {
             [[UIStoryboard main] present:YES];
         }

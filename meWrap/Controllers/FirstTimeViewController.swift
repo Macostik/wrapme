@@ -36,7 +36,7 @@ class FirstTimeViewController: WLBaseViewController, WLStillPictureViewControlle
                 stillPictureViewController.delegate = self
                 self?.presentViewController(stillPictureViewController, animated: true, completion: nil)
             }
-            },failure: { [weak self](error) -> Void in
+            },failure: { [weak self] error -> Void in
                 self?.cancelingIntroduction(nil)
         })
     }
@@ -54,6 +54,7 @@ class FirstTimeViewController: WLBaseViewController, WLStillPictureViewControlle
     }
     
     @IBAction func cancelingIntroduction(sender: AnyObject?) {
+        self.dismissViewControllerAnimated(false, completion: nil)
         UIStoryboard.main().present(false)
     }
     
@@ -67,10 +68,10 @@ class FirstTimeViewController: WLBaseViewController, WLStillPictureViewControlle
         guard let wrap = wrap else {
             return
         }
-        FollowingViewController.followWrapIfNeeded(wrap) { () -> Void in
+        FollowingViewController.followWrapIfNeeded(wrap) {[weak self] () -> Void in
             SoundPlayer.player.play(.s04)
             if let pictures = pictures as? [MutableAsset] {
-                 self.wrap?.uploadAssets(pictures)
+                 self?.wrap?.uploadAssets(pictures)
             }
         }
     }

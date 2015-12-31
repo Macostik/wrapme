@@ -74,7 +74,16 @@
     // final completion block
     
     WLSignupStepCompletionBlock completeSignUp = ^WLSignupStepViewController *{
-        [[UIStoryboard main] present:YES];
+        if (User.currentUser.firstTimeUse) {
+            UINavigationController *navigation = [[UIStoryboard main] instantiateInitialViewController];
+            UIViewController *viewController =  navigation.storyboard[@"FirstTimeBeginViewController"];
+            navigation.viewControllers = @[viewController];
+            [UIWindow mainWindow].rootViewController = navigation;
+            [Authorization currentAuthorization].isFirstStepsRepresenting = YES;
+        } else {
+            [[UIStoryboard main] present:YES];
+        }
+    
         return nil;
     };
     

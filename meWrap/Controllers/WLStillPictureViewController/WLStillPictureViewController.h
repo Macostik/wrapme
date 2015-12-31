@@ -20,7 +20,7 @@
 
 - (void)stillPictureViewController:(WLStillPictureViewController*)controller didFinishWithPictures:(NSArray*)pictures;
 
-- (StillPictureMode)stillPictureViewControllerMode:(WLStillPictureViewController*)controller;
+- (WLStillPictureMode)stillPictureViewControllerMode:(WLStillPictureViewController*)controller;
 
 @end
 

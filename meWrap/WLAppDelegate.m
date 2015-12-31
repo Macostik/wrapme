@@ -158,7 +158,7 @@
             [UIWindow mainWindow].rootViewController = navigation;
         }
     };
-    
+
     Authorization* authorization = [Authorization currentAuthorization];
     if ([authorization canAuthorize]) {
         if (!self.versionChanged && ![Authorization requiresSignIn]) {

@@ -15,6 +15,7 @@
 
 - (void)batchEditPictureViewController:(WLBatchEditPictureViewController*)controller didFinishWithAssets:(NSArray*)assets;
 - (void)batchEditPictureViewController:(WLBatchEditPictureViewController *)controller didDeselectAsset:(MutableAsset *)asset;
+
 @end
 
 @interface WLBatchEditPictureViewController : WLSwipeViewController <WLStillPictureBaseViewController>

@@ -197,23 +197,17 @@ extension Chat: NotificationSubscriptionDelegate {
                 chat.wrap.mutableContributors.addObject(user)
             }
             chat.addTypingUser(user)
-            chat.notify({ (receiver) -> Void in
-                receiver.chat?(chat, didBeginTyping: user)
-            })
+            chat.notify({ $0.chat?(chat, didBeginTyping: user) })
             }) { (error) -> Void in
                 error?.showNonNetworkError()
         }
         
-        notify({ (receiver) -> Void in
-            receiver.chat?(self, didBeginTyping: user)
-        })
+        notify({ $0.chat?(self, didBeginTyping: user) })
     }
     
     private func didEndTyping(user: User) {
         removeTypingUser(user)
-        notify({ (receiver) -> Void in
-            receiver.chat?(self, didEndTyping: user)
-        })
+        notify({ $0.chat?(self, didEndTyping: user) })
     }
     
     func sendTyping(typing: Bool) {

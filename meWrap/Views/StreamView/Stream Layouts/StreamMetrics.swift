@@ -72,7 +72,7 @@ class StreamMetrics: NSObject {
         self.loader = loader
     }
     
-    convenience init(initializer: (StreamMetrics) -> Void) {
+    convenience init(@noescape initializer: (StreamMetrics) -> Void) {
         self.init()
         self.change(initializer)
     }
@@ -81,7 +81,7 @@ class StreamMetrics: NSObject {
         self.init(loader: StreamLoader(identifier: identifier))
     }
     
-    convenience init(identifier: String, initializer: (StreamMetrics) -> Void) {
+    convenience init(identifier: String, @noescape initializer: (StreamMetrics) -> Void) {
         self.init(identifier: identifier)
         self.change(initializer)
     }
@@ -96,7 +96,7 @@ class StreamMetrics: NSObject {
         self.ratio = ratio
     }
     
-    func change(initializer: (StreamMetrics) -> Void) -> StreamMetrics {
+    func change(@noescape initializer: (StreamMetrics) -> Void) -> StreamMetrics {
         initializer(self)
         return self
     }

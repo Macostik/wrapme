@@ -25,12 +25,11 @@ class ImageFetcher: Notifier {
     
     private func broadcast(url: String, block: AnyObject -> Void) {
         urls.remove(url)
-        let receivers = self.receivers
         for wrapper in receivers {
             if let receiver = wrapper.receiver as? ImageFetching {
                 if let targetURL = receiver.fetcherTargetUrl?(self) where targetURL == url {
                     block(receiver)
-                    self.receivers.remove(wrapper)
+                    receivers.remove(wrapper)
                 }
             }
         }
@@ -38,25 +37,19 @@ class ImageFetcher: Notifier {
     
     func enqueue(url: String?, receiver: NSObject?) -> Void {
         
-        guard let url = url, let receiver = receiver where !url.isEmpty else {
-            return
-        }
+        guard let url = url where !url.isEmpty else { return }
         
         addReceiver(receiver)
         
-        guard !urls.contains(url) else {
-            return
-        }
+        guard !urls.contains(url) else { return }
         
         urls.insert(url)
         
         let uid = ImageCache.uidFromURL(url)
         if let image = InMemoryImageCache.instance[uid] {
-            self.broadcast(url, block: { (receiver) in
-                receiver.fetcher?(self, didFinishWithImage: image, cached: true)
-            })
+            self.broadcast(url, block: { $0.fetcher?(self, didFinishWithImage: image, cached: true) })
         } else {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
+            Dispatch.defaultQueue.async({ () -> Void in
                 var image: UIImage?
                 var cached = false
                 if ImageCache.defaultCache.contains(uid) {
@@ -68,19 +61,15 @@ class ImageFetcher: Notifier {
                 } else {
                     image = self.imageAtURL(url)
                 }
-                dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                Dispatch.mainQueue.async({ () -> Void in
                     if let image = image {
-                        self.broadcast(url, block: { (receiver) in
-                            receiver.fetcher?(self, didFinishWithImage: image, cached: cached)
-                        })
+                        self.broadcast(url, block: { $0.fetcher?(self, didFinishWithImage: image, cached: cached) })
                     } else {
                         let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
-                        self.broadcast(url, block: { (receiver) in
-                            receiver.fetcher?(self, didFailWithError: error)
-                        })
+                        self.broadcast(url, block: { $0.fetcher?(self, didFailWithError: error) })
                     }
-                }
-            }
+                })
+            })
         }
     }
     
@@ -131,9 +120,7 @@ class BlockImageFetching: NSObject {
 }
 
 extension BlockImageFetching: ImageFetching {
-    func fetcherTargetUrl(fetcher: ImageFetcher) -> String? {
-        return url
-    }
+    func fetcherTargetUrl(fetcher: ImageFetcher) -> String? { return url }
     
     func fetcher(fetcher: ImageFetcher, didFinishWithImage image: UIImage, cached: Bool) {
         success?(image)

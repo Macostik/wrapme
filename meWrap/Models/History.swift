@@ -43,6 +43,14 @@ class History: PaginatedList {
         entries.insert(item, atIndex: 0)
     }
     
+    override func _add(entry: ListEntry) -> Bool {
+        if let candy = entry as? Candy {
+            return addCandy(candy).added
+        } else {
+            return false
+        }
+    }
+    
     private func addCandy(candy: Candy) -> (item: HistoryItem, added: Bool) {
         if let items = entries as? [HistoryItem] {
             if let item = items.last where item.date.isSameDay(candy.createdAt) {

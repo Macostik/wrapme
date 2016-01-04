@@ -56,7 +56,8 @@ class List: Notifier {
     }
     
     func sort(entry: ListEntry) {
-        add(entry)
+        _add(entry)
+        sort()
     }
     
     func remove(entry: ListEntry) {
@@ -66,9 +67,7 @@ class List: Notifier {
     }
     
     internal func didChange() {
-        notify { (receiver) -> Void in
-            receiver.listChanged?(self)
-        }
+        notify { $0.listChanged?(self) }
     }
     
     subscript(index: Int) -> ListEntry? {
@@ -132,18 +131,14 @@ class PaginatedList: List {
     private func addLoadingType(type: PaginatedRequestType) {
         loadingTypes.insert(type)
         if loadingTypes.count == 1 {
-            notify({ (receiver) -> Void in
-                receiver.paginatedListDidStartLoading?(self)
-            })
+            notify({ $0.paginatedListDidStartLoading?(self) })
         }
     }
     
     private func removeLoadingType(type: PaginatedRequestType) {
         loadingTypes.remove(type)
         if loadingTypes.count == 0 {
-            notify({ (receiver) -> Void in
-                receiver.paginatedListDidFinishLoading?(self)
-            })
+            notify({ $0.paginatedListDidFinishLoading?(self) })
         }
     }
     

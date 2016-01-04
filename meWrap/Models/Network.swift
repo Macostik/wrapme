@@ -30,9 +30,7 @@ class Network: Notifier {
                 if self.reachable {
                     Uploader.wrapUploader.start()
                 }
-                self.notify({ (receiver) -> Void in
-                    receiver.networkDidChangeReachability?(self)
-                })
+                self.notify({ $0.networkDidChangeReachability?(self) })
             }
         }
     }

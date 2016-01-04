@@ -28,7 +28,7 @@ class AddressBook: Notifier {
     
     var cachedRecords: [AddressBookRecord]? {
         didSet {
-            notify { $0.addressBook?(self, didUpdateCachedRecords: self.cachedRecords) }
+            notify { $0.addressBook?(self, didUpdateCachedRecords: cachedRecords) }
         }
     }
     

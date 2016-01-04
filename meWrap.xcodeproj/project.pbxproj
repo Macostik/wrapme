@@ -470,7 +470,7 @@
 		5B1D045A1BFCE16C00263102 /* CandyInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyInteractionController.swift; sourceTree = "<group>"; };
 		5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalScrollView.swift; sourceTree = "<group>"; };
 		5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Wraplive_TermsAndConditions.rtf; path = WLTermsAndConditions/Wraplive_TermsAndConditions.rtf; sourceTree = "<group>"; };
-		5B40D6B11C2EBB1C009EF38C /* FirstTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirstTimeViewController.swift; path = meWrap/Controllers/FirstTimeViewController.swift; sourceTree = "<group>"; };
+		5B40D6B11C2EBB1C009EF38C /* FirstTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstTimeViewController.swift; sourceTree = "<group>"; };
 		5B4792081C1B27060090FDD2 /* Today_Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Today_Bridge.h; sourceTree = "<group>"; };
 		5B4792091C1B2B110090FDD2 /* libmmwormhole.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmmwormhole.a; sourceTree = "<group>"; };
 		5B47920C1C1B2BDF0090FDD2 /* MMWormhole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMWormhole.h; sourceTree = "<group>"; };
@@ -971,7 +971,6 @@
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
-				5B40D6B11C2EBB1C009EF38C /* FirstTimeViewController.swift */,
 				C5B19DA81BC3C0AC00EB5353 /* exportAdhoc.plist */,
 				C5B19DA91BC3C0AC00EB5353 /* exportAppStore.plist */,
 				C5A278C41B9598DF00D5C969 /* Info */,
@@ -1068,6 +1067,7 @@
 				C52500571C1F1F8200CF8F9D /* HistoryItemViewController.swift */,
 				C52500591C1F1FCB00CF8F9D /* FollowingViewController.swift */,
 				C525005B1C1F1FD500CF8F9D /* SettingsViewController.swift */,
+				5B40D6B11C2EBB1C009EF38C /* FirstTimeViewController.swift */,
 				C5E4FD091BF762A500575DA4 /* RecentUpdatesViewController */,
 				C5B8F7161B8215FE00A5E541 /* WLDrawingViewController */,
 				C560D2311AFBB53C006B906E /* WLHistoryViewController */,

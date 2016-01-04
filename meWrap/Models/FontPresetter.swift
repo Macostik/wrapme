@@ -19,9 +19,7 @@ class FontPresetter: Notifier {
     override init() {
         super.init()
         NSNotificationCenter.defaultCenter().addObserverForName(UIContentSizeCategoryDidChangeNotification, object: nil, queue: NSOperationQueue.mainQueue()) { [unowned self] (_) -> Void in
-            self.notify({ (receiver) -> Void in
-                receiver.presetterDidChangeContentSizeCategory?(self)
-            })
+            self.notify({ $0.presetterDidChangeContentSizeCategory?(self) })
         }
     }
     

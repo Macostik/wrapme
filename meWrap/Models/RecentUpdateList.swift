@@ -132,33 +132,17 @@ class RecentUpdateList: Notifier {
 extension RecentUpdateList: EntryNotifying {
     
     func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {
-        guard let contributor = (entry as? Contribution)?.contributor where !contributor.current else {
-            return
-        }
-        update({ () -> Void in
-            self.notify { (receiver) -> Void in
-                receiver.recentUpdateListUpdated?(self)
-            }
-            }, failure: nil)
+        guard let contributor = (entry as? Contribution)?.contributor where !contributor.current else { return }
+        update({ self.notify { $0.recentUpdateListUpdated?(self) } }, failure: nil)
     }
     
     func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
-        guard let contributor = (entry as? Contribution)?.contributor where !contributor.current else {
-            return
-        }
-        update({ () -> Void in
-            self.notify { (receiver) -> Void in
-                receiver.recentUpdateListUpdated?(self)
-            }
-            }, failure: nil)
+        guard let contributor = (entry as? Contribution)?.contributor where !contributor.current else { return }
+        update({ self.notify { $0.recentUpdateListUpdated?(self) } }, failure: nil)
     }
     
     func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
-        update({ () -> Void in
-            self.notify { (receiver) -> Void in
-                receiver.recentUpdateListUpdated?(self)
-            }
-            }, failure: nil)
+        update({ self.notify { $0.recentUpdateListUpdated?(self) } }, failure: nil)
     }
     
     func notifier(notifier: OrderedNotifier, shouldNotifyBeforeReceiver receiver: AnyObject) -> Bool {

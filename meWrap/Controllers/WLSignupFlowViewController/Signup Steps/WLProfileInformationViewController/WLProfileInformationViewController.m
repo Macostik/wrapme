@@ -88,7 +88,7 @@
 	self.profileImageView.url = picture.large;
     self.editSession.avatarSession.changedValue = picture.large;
     [self verifyContinueButton];
-    self.addPhotoLabel.hidden = picture.medium.nonempty;
+    self.addPhotoLabel.hidden = YES;
 	[controller.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 }
 

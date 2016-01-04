@@ -37,6 +37,15 @@
     self.openedRows = [NSMutableArray array];
     [self.spinner startAnimating];
     
+    if ([Authorization currentAuthorization].isFirstStepsRepresenting) {
+        self.nextButton.hidden = self.isBroadcasting;
+        if (self.isBroadcasting) {
+            [self.nextButton setTitle:@"next".ls forState:UIControlStateNormal];
+        } else {
+            [self.nextButton setTitle:@"skip".ls forState:UIControlStateNormal];
+        }
+    }
+    
     __weak typeof(self)weakSelf = self;
     
     self.singleMetrics = [[StreamMetrics alloc] initWithIdentifier:@"AddressBookRecordCell" initializer:^(StreamMetrics *metrics) {
@@ -121,6 +130,39 @@
 
 #pragma mark - Actions
 
+- (IBAction)next:(id)sender {
+    
+    __weak typeof(self)weakSelf = self;
+    
+    Block completionHandler = ^{
+        UIViewController *homeViewController = weakSelf.storyboard[@"WLHomeViewController"];
+        weakSelf.navigationController.viewControllers = @[homeViewController];
+        if (weakSelf.isBroadcasting) {
+            LiveBroadcastViewController *controller = weakSelf.storyboard[@"liveBroadcast"];
+            controller.wrap = weakSelf.wrap;
+            [homeViewController presentViewController:controller animated:NO completion:nil];
+        } else {
+            UIViewController *endStepController = weakSelf.storyboard[@"FirstTimeEndViewController"];
+            [homeViewController modalPresentationOverContext:endStepController animated:NO completion:nil];
+        }
+        [Authorization currentAuthorization].isFirstStepsRepresenting = NO;
+    };
+    
+    if (self.addressBook.selectedPhoneNumbers.count == 0) {
+        completionHandler();
+    } else {
+        if (![Network sharedNetwork].reachable) {
+            [WLToast showWithMessage:@"no_internet_connection".ls];
+            return;
+        }
+        
+        [[APIRequest addContributors:self.addressBook.selectedPhoneNumbers wrap:self.wrap message:nil] send:^(id object) {
+            completionHandler();
+        } failure:^(NSError *error) {
+            [error show];
+        }];
+    }
+}
 
 - (IBAction)done:(WLButton*)sender {
     __weak typeof(self)weakSelf = self;
@@ -130,41 +172,22 @@
     }
     ObjectBlock performRequestBlock = ^ (id __nullable message) {
         [[APIRequest addContributors:self.addressBook.selectedPhoneNumbers wrap:self.wrap message:message] send:^(id object) {
-            if ([Authorization currentAuthorization].isFirstStepsRepresenting) {
-                UIViewController *homeViewController = weakSelf.storyboard[@"WLHomeViewController"];
-                weakSelf.navigationController.viewControllers = @[homeViewController];
-                if (weakSelf.isBroadcasting) {
-                    LiveBroadcastViewController *controller = weakSelf.storyboard[@"liveBroadcast"];
-                    controller.wrap = weakSelf.wrap;
-                    [homeViewController presentViewController:controller animated:NO completion:nil];
-                } else {
-                    UIViewController *endStepController = weakSelf.storyboard[@"FirstTimeEndViewController"];
-                    [homeViewController modalPresentationOverContext:endStepController animated:NO completion:nil];
-                }
-                [Authorization currentAuthorization].isFirstStepsRepresenting = NO;
+            [weakSelf.navigationController popViewControllerAnimated:NO];
+            if (message) {
+                [WLToast showWithMessage:@"isn't_using_invite".ls];
             } else {
-                [weakSelf.navigationController popViewControllerAnimated:NO];
-                if (message) {
-                    [WLToast showWithMessage:@"isn't_using_invite".ls];
-                } else {
-                    [WLToast showWithMessage:@"is_using_invite".ls];
-                }}
-        }
-                                                                                                        failure:^(NSError *error) {
-                                                                                                            [error show];
-                                                                                                        }];
+                [WLToast showWithMessage:@"is_using_invite".ls];
+            }
+        } failure:^(NSError *error) {
+            [error show];
+        }];
     };
     
     if (self.addressBook.selectedPhoneNumbers.count == 0) {
         [self.navigationController popViewControllerAnimated:NO];
-        return;
-    } else if ([Authorization currentAuthorization].isFirstStepsRepresenting) {
-        performRequestBlock(nil);
     } else if ([self containUnregisterAddresBookGroupRecord]) {
         NSString *content = [NSString stringWithFormat:@"send_message_to_friends_content".ls, [User currentUser].name, self.wrap.name];
-        [WLEditingConfirmView showInView:self.view withContent:content success:^(id  _Nullable object) {
-            performRequestBlock(object);
-        } cancel: ^{}];
+        [WLEditingConfirmView showInView:self.view withContent:content success:performRequestBlock cancel: ^{}];
     } else  {
         performRequestBlock(nil);
     }
@@ -233,8 +256,18 @@
 
 - (void)recordCell:(AddressBookRecordCell *)cell didSelectPhoneNumber:(AddressBookPhoneNumber *)person {
     [self.addressBook selectPhoneNumber:person];
-    self.nextButton.hidden = self.addressBook.selectedPhoneNumbers.count == 0 || ![Authorization currentAuthorization].isFirstStepsRepresenting;
-    self.bottomPrioritizer.defaultState = self.addressBook.selectedPhoneNumbers.count == 0 || [Authorization currentAuthorization].isFirstStepsRepresenting;
+    BOOL isEmpty = self.addressBook.selectedPhoneNumbers.count == 0;
+    if ([Authorization currentAuthorization].isFirstStepsRepresenting) {
+        if (self.isBroadcasting) {
+            self.nextButton.hidden = isEmpty;
+            [self.nextButton setTitle:@"next".ls forState:UIControlStateNormal];
+        } else {
+            [self.nextButton setTitle:isEmpty ? @"skip".ls : @"next".ls forState:UIControlStateNormal];
+        }
+        self.bottomPrioritizer.defaultState = YES;
+    } else {
+        self.bottomPrioritizer.defaultState = isEmpty;
+    }
     [cell resetup];
 }
 

@@ -33,7 +33,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *photoButton;
 @property (weak, nonatomic) RecentCandiesView *candiesView;
 
-@property (nonatomic) BOOL createWrapTipHidden;
 @property (weak, nonatomic) IBOutlet UIView *publicWrapsHeaderView;
 
 @end
@@ -102,8 +101,6 @@
     [self.dataSource setRefreshableWithStyle:RefresherStyleOrange];
     
     [super viewDidLoad];
-    
-    self.createWrapTipHidden = YES;
     
     [[AddressBook sharedAddressBook] beginCaching];
     

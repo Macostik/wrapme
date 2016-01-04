@@ -8,71 +8,69 @@
 
 import Foundation
 
-class FirstTimeViewController: WLBaseViewController, WLStillPictureViewControllerDelegate {
+class FirstTimeViewController: WLBaseViewController {
     
     private var wrap: Wrap?
     
-    func defaultWrap (success: ObjectBlock?, failure: FailureBlock?) {
-        if let success = success, let wrap = wrap {
-            return success(wrap)
-        }
-        if let wrap = Wrap.wrap() {
+    private func defaultWrap() -> Wrap? {
+        if let wrap = wrap {
+            return wrap
+        } else if let wrap = Wrap.wrap() {
             wrap.name = String(format:"first_wrap".ls, User.currentUser?.name ?? "")
             wrap.notifyOnAddition()
-            Uploader.wrapUploader.upload(Uploading.uploading(wrap)!, success: {[weak self] wrap -> Void in
-                if let wrap = wrap as? Wrap {
-                    self?.wrap = wrap
-                    success?(wrap)
-                }
-            }, failure: failure)
+            self.wrap = wrap
+            Uploader.wrapUploader.upload(Uploading.uploading(wrap)!, success: nil, failure: { [weak self] error in
+                    if let error = error where !error.isNetworkError {
+                        self?.wrap = nil
+                        error.show()
+                        wrap.remove()
+                        self?.cancelingIntroduction(nil)
+                    }
+            })
+            return wrap
+        } else {
+            return nil
         }
     }
     
     @IBAction func presentCamera(sender: AnyObject) {
-        defaultWrap({ [weak self] wrap -> Void in
-            if let stillPictureViewController = WLStillPictureViewController.stillPhotosViewController() {
-                stillPictureViewController.wrap = wrap as? Wrap
-                stillPictureViewController.mode = .Default
-                stillPictureViewController.delegate = self
-                self?.presentViewController(stillPictureViewController, animated: true, completion: nil)
+        if let wrap = defaultWrap() {
+            if let controller = WLStillPictureViewController.stillPhotosViewController() {
+                controller.wrap = wrap
+                controller.mode = .Default
+                controller.delegate = self
+                presentViewController(controller, animated: true, completion: nil)
             }
-            },failure: { [weak self] error -> Void in
-                self?.cancelingIntroduction(nil)
-        })
+        }
     }
     
     @IBAction func presentBroadcastLive(sender: AnyObject) {
-        defaultWrap({ [weak self] wrap -> Void in
-            if let addFriendsController = self?.storyboard?["WLAddContributorsViewController"] as? WLAddContributorsViewController {
-                addFriendsController.wrap = wrap as? Wrap
+        if let wrap = defaultWrap() {
+            if let addFriendsController = storyboard?["WLAddContributorsViewController"] as? WLAddContributorsViewController {
+                addFriendsController.wrap = wrap
                 addFriendsController.isBroadcasting = true
-                self?.navigationController?.pushViewController(addFriendsController, animated: false)
+                navigationController?.pushViewController(addFriendsController, animated: false)
             }
-            },failure: { [weak self](error) -> Void in
-                self?.cancelingIntroduction(nil)
-            })
+        }
     }
     
     @IBAction func cancelingIntroduction(sender: AnyObject?) {
-        self.dismissViewControllerAnimated(false, completion: nil)
+        dismissViewControllerAnimated(false, completion: nil)
         UIStoryboard.main().present(false)
     }
-    
-    //MARK: WLStillPictureViewControllerDelegate
+}
+
+extension FirstTimeViewController: WLStillPictureViewControllerDelegate {
     
     func stillPictureViewControllerDidCancel(controller: WLStillPictureViewController) {
-        self.dismissViewControllerAnimated(false, completion: nil)
+        dismissViewControllerAnimated(false, completion: nil)
     }
     
     func stillPictureViewController(controller: WLStillPictureViewController!, didFinishWithPictures pictures: [AnyObject]!) {
-        guard let wrap = wrap else {
-            return
-        }
-        FollowingViewController.followWrapIfNeeded(wrap) {[weak self] () -> Void in
-            SoundPlayer.player.play(.s04)
-            if let pictures = pictures as? [MutableAsset] {
-                 self?.wrap?.uploadAssets(pictures)
-            }
+        guard let wrap = wrap else { return }
+        SoundPlayer.player.play(.s04)
+        if let pictures = pictures as? [MutableAsset] {
+            wrap.uploadAssets(pictures)
         }
     }
 }

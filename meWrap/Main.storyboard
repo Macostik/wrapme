@@ -1454,7 +1454,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="done:" destination="2bk-UF-zkR" eventType="touchUpInside" id="gN0-ev-k3I"/>
+                                            <action selector="next:" destination="2bk-UF-zkR" eventType="touchUpInside" id="UDu-7u-Eza"/>
                                         </connections>
                                     </button>
                                 </subviews>

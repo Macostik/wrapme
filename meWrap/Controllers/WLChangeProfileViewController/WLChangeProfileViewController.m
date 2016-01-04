@@ -10,7 +10,6 @@
 #import "WLCameraViewController.h"
 #import "WLStillPictureViewController.h"
 #import "WLToast.h"
-#import "WLWelcomeViewController.h"
 #import "WLTextView.h"
 
 @interface WLChangeProfileViewController () <KeyboardNotifying, UITextFieldDelegate, WLStillPictureViewControllerDelegate, EntryNotifying, FontPresetting>

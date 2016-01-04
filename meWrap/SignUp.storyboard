@@ -24,7 +24,7 @@
         <!--Welcome View Controller-->
         <scene sceneID="zGg-Ko-EYU">
             <objects>
-                <viewController storyboardIdentifier="WLWelcomeViewController" automaticallyAdjustsScrollViewInsets="NO" id="DOj-fu-IIy" customClass="WLWelcomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLWelcomeViewController" automaticallyAdjustsScrollViewInsets="NO" id="DOj-fu-IIy" customClass="WelcomeViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uY6-5G-NXW"/>
                         <viewControllerLayoutGuide type="bottom" id="tCy-Jw-JNH"/>
@@ -233,8 +233,6 @@
                     <navigationItem key="navigationItem" id="HZb-wB-zXD"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="backgroundAnimationPrioritizer" destination="ZcZ-hW-bGa" id="MTn-cc-fOh"/>
-                        <outlet property="backgroundView" destination="cYB-ha-wWW" id="CXE-7b-FjC"/>
                         <outlet property="licenseButton" destination="YBa-zu-GaJ" id="xt7-BX-nBS"/>
                         <outlet property="placeholderView" destination="KJl-bw-KDb" id="VGv-4O-4bc"/>
                         <outlet property="termsAndConditionsTextView" destination="ltR-Py-7vC" id="Oa3-lb-au7"/>
@@ -242,7 +240,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RZe-hx-2bQ" sceneMemberID="firstResponder"/>
-                <customObject id="ZcZ-hW-bGa" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="624" y="149"/>
         </scene>

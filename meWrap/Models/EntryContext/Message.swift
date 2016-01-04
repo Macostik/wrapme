@@ -34,7 +34,7 @@ class Message: Contribution {
         if let wrap = wrap {
             if unread && createdAt > NSDate.dayAgo() {
                 wrap.numberOfUnreadMessages++
-            } else {
+            } else if wrap.numberOfUnreadMessages > 0 {
                 wrap.numberOfUnreadMessages--
             }
             wrap.notifyOnUpdate(.NumberOfUnreadMessagesChanged)

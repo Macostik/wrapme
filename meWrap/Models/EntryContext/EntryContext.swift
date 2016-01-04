@@ -44,10 +44,8 @@ class EntryContext: NSManagedObjectContext {
         do {
             try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: options)
         } catch {
-            do {
-                try NSFileManager.defaultManager().removeItemAtURL(storeURL)
-                try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: options)
-            } catch { }
+            _ = try? NSFileManager.defaultManager().removeItemAtURL(storeURL)
+            _ = try? coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: options)
         }
         
         return coordinator
@@ -158,20 +156,13 @@ class EntryContext: NSManagedObjectContext {
     }
     
     func execute(request: NSFetchRequest) -> [AnyObject] {
-        do {
-            return try executeFetchRequest(request)
-        } catch {
-            return []
-        }
+        return (try? executeFetchRequest(request)) ?? []
     }
     
     func enqueueSave() {
         if hasChanges && persistentStoreCoordinator?.persistentStores.count > 0 {
             performBlockAndWait({[unowned self] () -> Void in
-                do {
-                    try self.save()
-                } catch {
-                }
+                _ = try? self.save()
             })
             if assureSaveBlocks.count > 0 {
                 let blocks = assureSaveBlocks
@@ -193,13 +184,9 @@ class EntryContext: NSManagedObjectContext {
     
     func execute(request: NSFetchRequest, completion: [AnyObject] -> Void) {
         performBlock { () -> Void in
-            do {
-                try self.executeRequest(NSAsynchronousFetchRequest(fetchRequest: request) { (result) -> Void in
-                    completion(result.finalResult ?? [])
-                    })
-            } catch {
-                completion([])
-            }
+            _ = try? self.executeRequest(NSAsynchronousFetchRequest(fetchRequest: request) { (result) -> Void in
+                completion(result.finalResult ?? [])
+                })
         }
     }
 }

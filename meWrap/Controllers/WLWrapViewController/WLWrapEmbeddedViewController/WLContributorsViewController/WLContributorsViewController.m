@@ -96,14 +96,12 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 #pragma mark - WLContributorCellDelegate
 
 - (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(User *)contributor {
-    AddressBookPhoneNumber *person = [AddressBookPhoneNumber new];
-    person.user = contributor;
-    NSMutableOrderedSet *contributors = (id)self.dataSource.items;
+    NSMutableArray *contributors = [(NSArray*)self.dataSource.items mutableCopy];
     [contributors removeObject:contributor];
-    [self.dataSource reload];
+    self.dataSource.items = [contributors copy];
     [self.removedContributors addObject:contributor];
     __weak typeof(self)weakSelf = self;
-    [[APIRequest removeContributors:@[person] wrap:self.wrap] send:^(id object) {
+    [[APIRequest removeContributors:@[contributor] wrap:self.wrap] send:^(id object) {
         [weakSelf.removedContributors removeObject:contributor];
         if (weakSelf.contributiorWithOpenedMenu == contributor) {
             weakSelf.contributiorWithOpenedMenu = nil;

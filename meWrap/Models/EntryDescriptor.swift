@@ -40,10 +40,7 @@ extension EntryContext {
     func deleteEntry(entry: Entry) {
         cachedEntries.removeObjectForKey(entry.uid)
         deleteObject(entry)
-        do {
-            try save()
-        } catch {
-        }
+        _ = try? save()
     }
     
     func clear() {
@@ -53,10 +50,7 @@ extension EntryContext {
         for user in User.entries() {
             deleteObject(user)
         }
-        do {
-            try save()
-        } catch {
-        }
+        _ = try? save()
         cachedEntries.removeAllObjects()
     }
     

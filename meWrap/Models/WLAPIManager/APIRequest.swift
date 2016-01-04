@@ -124,10 +124,7 @@ class APIRequest: NSObject {
                 guard let url = file.fileURL else { return }
                 guard let fileName = url.lastPathComponent else { return }
                 guard file.isExistingFilePath else { return }
-                do {
-                    try formData.appendPartWithFileURL(url, name: "qqfile", fileName: fileName, mimeType: "image/jpeg")
-                } catch {
-                }
+                _ = try? formData.appendPartWithFileURL(url, name: "qqfile", fileName: fileName, mimeType: "image/jpeg")
             }
             return serializer.multipartFormRequestWithMethod(method.rawValue, URLString: url, parameters: parameters, constructingBodyWithBlock: constructing, error: nil)
         } else {

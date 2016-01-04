@@ -28,26 +28,16 @@ class ExtensionMessage: NSObject {
     }
     
     class func deserialize(string: String) -> Self? {
-        guard let data = NSData(base64EncodedString: string, options: .IgnoreUnknownCharacters) else {
+        guard let data = NSData(base64EncodedString: string, options: .IgnoreUnknownCharacters) else { return nil }
+        guard let dictionary = (try? NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)) as? [String : AnyObject] else {
             return nil
         }
-        do {
-            guard let dictionary = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as? [String : AnyObject] else {
-                return nil
-            }
-            return fromDictionary(dictionary)
-        } catch {
-            return nil
-        }
+        return fromDictionary(dictionary)
     }
     
     func serialize() -> String? {
-        do {
-            let dictionary = toDictionary()
-            let data = try NSJSONSerialization.dataWithJSONObject(dictionary, options: NSJSONWritingOptions())
-            return data.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
-        } catch {
-            return nil
-        }
+        let dictionary = toDictionary()
+        let data = try? NSJSONSerialization.dataWithJSONObject(dictionary, options: NSJSONWritingOptions())
+        return data?.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
     }
 }

@@ -56,8 +56,7 @@ class ImageCache: NSObject {
             try manager.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
             permitted = true
             uids = Set(try manager.contentsOfDirectoryAtPath(path))
-        } catch {
-        }
+        } catch { }
     }
     
     subscript(uid: String) -> UIImage? {
@@ -128,8 +127,7 @@ class ImageCache: NSObject {
     func fetchUIDs() {
         do {
             self.uids = Set(try NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.path))
-        } catch {
-        }
+        } catch { }
     }
     
     private func checkSize() -> Bool {
@@ -168,19 +166,15 @@ class ImageCache: NSObject {
                     
                 }
             }
-        } catch {
-        }
+        } catch { }
         return true
     }
     
     func clear() {
-        do {
-            for uid in uids {
-                try NSFileManager.defaultManager().removeItemAtPath(getPath(uid))
-            }
-            uids.removeAll()
-        } catch {
+        for uid in uids {
+            _ = try? NSFileManager.defaultManager().removeItemAtPath(getPath(uid))
         }
+        uids.removeAll()
     }
     
     func setImage(image: UIImage) -> String {
@@ -190,9 +184,7 @@ class ImageCache: NSObject {
     }
     
     func setImageAtPath(path: String, uid: String) {
-        guard permitted && path.isExistingFilePath else {
-            return
-        }
+        guard permitted && path.isExistingFilePath else { return }
         do {
             let manager = NSFileManager.defaultManager()
             let toPath = getPath(uid)
@@ -204,14 +196,11 @@ class ImageCache: NSObject {
                 InMemoryImageCache.instance[uid] = UIImage(data: data)
             }
             uids.insert(uid)
-        } catch {
-        }
+        } catch { }
     }
     
     func setImageData(data: NSData, uid: String) {
-        guard permitted else {
-            return
-        }
+        guard permitted else { return }
         data.writeToFile(getPath(uid), atomically:false)
         uids.insert(uid)
         enqueueCheckSize()
@@ -250,10 +239,6 @@ class ImageCache: NSObject {
 
 extension NSURL {
     func resource(key: String) -> AnyObject? {
-        do {
-            return try resourceValuesForKeys([key])[key]
-        } catch {
-            return nil
-        }
+        return (try? resourceValuesForKeys([key]))?[key]
     }
 }

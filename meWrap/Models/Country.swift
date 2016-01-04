@@ -34,18 +34,15 @@ class Country: NSObject {
             return []
         }
         var countries = [Country]()
-        do {
-            guard let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as? [[String : String]] else {
-                return []
-            }
-            for dictionary in json {
-                let country = Country()
-                country.name = dictionary["name"]
-                country.callingCode = dictionary["dial_code"]
-                country.code = dictionary["code"]
-                countries.append(country)
-            }
-        } catch {
+        guard let json = (try? NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)) as? [[String : String]] else {
+            return []
+        }
+        for dictionary in json {
+            let country = Country()
+            country.name = dictionary["name"]
+            country.callingCode = dictionary["dial_code"]
+            country.code = dictionary["code"]
+            countries.append(country)
         }
         return countries
     }

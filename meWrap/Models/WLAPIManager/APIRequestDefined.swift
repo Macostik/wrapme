@@ -240,9 +240,9 @@ extension APIRequest {
         }).parseContributors(wrap).contributionUnavailable(wrap)
     }
     
-    class func removeContributors(contributors: [AddressBookPhoneNumber], wrap: Wrap) -> Self? {
+    class func removeContributors(contributors: [User], wrap: Wrap) -> Self? {
         return DELETE().path("wraps/\(wrap.uid)/remove_contributor").parametrize({
-            $0["user_uids"] = contributors.filter({ $0.user != nil }).map({ $0.user!.uid })
+            $0["user_uids"] = contributors.map({ $0.uid })
         }).parseContributors(wrap).contributionUnavailable(wrap)
     }
     

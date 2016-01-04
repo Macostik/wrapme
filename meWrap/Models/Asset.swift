@@ -26,15 +26,13 @@ class Asset: Archive {
     
     convenience init(json: NSData) throws {
         self.init()
-        do {
-            if let data = try NSJSONSerialization.JSONObjectWithData(json, options: .AllowFragments) as? [String : AnyObject] {
-                type = MediaType(rawValue: Int16((data["type"] as? Int) ?? 0)) ?? .Photo
-                original = data["original"] as? String
-                large = data["large"] as? String
-                medium = data["medium"] as? String
-                small = data["small"] as? String
-            }
-        } catch {}
+        if let data = (try? NSJSONSerialization.JSONObjectWithData(json, options: .AllowFragments)) as? [String : AnyObject] {
+            type = MediaType(rawValue: Int16((data["type"] as? Int) ?? 0)) ?? .Photo
+            original = data["original"] as? String
+            large = data["large"] as? String
+            medium = data["medium"] as? String
+            small = data["small"] as? String
+        }
     }
     
     func JSONValue() -> NSData? {
@@ -52,11 +50,7 @@ class Asset: Archive {
         if let small = small {
             dictionary["small"] = small
         }
-        do {
-            return try NSJSONSerialization.dataWithJSONObject(dictionary, options: [])
-        } catch {
-            return nil
-        }
+        return try? NSJSONSerialization.dataWithJSONObject(dictionary, options: [])
     }
 }
 

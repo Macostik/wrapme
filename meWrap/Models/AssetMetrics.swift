@@ -131,46 +131,43 @@ extension Asset {
     }
     
     func cacheForAsset(asset: Asset) {
-        do {
-            let cache = ImageCache.defaultCache
-            let manager = NSFileManager.defaultManager()
-            if let original = original where original.hasSuffix("mp4") {
-                
-                if let _original = asset.original {
-                    let path = ImageCache.defaultCache.getPath(ImageCache.uidFromURL(_original)) + ".mp4"
-                    try manager.moveItemAtPath(original, toPath: path)
-                } else {
-                    asset.original = original
-                }
-            } else if let from = original, let to = asset.original {
-                cache.setImageAtPath(from, withURL: to)
+        let cache = ImageCache.defaultCache
+        let manager = NSFileManager.defaultManager()
+        if let original = original where original.hasSuffix("mp4") {
+            
+            if let _original = asset.original {
+                let path = ImageCache.defaultCache.getPath(ImageCache.uidFromURL(_original)) + ".mp4"
+                _ = try? manager.moveItemAtPath(original, toPath: path)
+            } else {
+                asset.original = original
             }
-            if let from = large, let to = asset.large {
-                cache.setImageAtPath(from, withURL: to)
-            }
-            if let from = medium, let to = asset.medium {
-                cache.setImageAtPath(from, withURL: to)
-            }
-            if let from = small, let to = asset.small {
-                cache.setImageAtPath(from, withURL: to)
-            }
-            if let url = original {
-                try manager.removeItemAtPath(url)
-                cache.uids.remove(ImageCache.uidFromURL(url))
-            }
-            if let url = large {
-                try manager.removeItemAtPath(url)
-                cache.uids.remove(ImageCache.uidFromURL(url))
-            }
-            if let url = medium {
-                try manager.removeItemAtPath(url)
-                cache.uids.remove(ImageCache.uidFromURL(url))
-            }
-            if let url = small {
-                try manager.removeItemAtPath(url)
-                cache.uids.remove(ImageCache.uidFromURL(url))
-            }
-        } catch {
+        } else if let from = original, let to = asset.original {
+            cache.setImageAtPath(from, withURL: to)
+        }
+        if let from = large, let to = asset.large {
+            cache.setImageAtPath(from, withURL: to)
+        }
+        if let from = medium, let to = asset.medium {
+            cache.setImageAtPath(from, withURL: to)
+        }
+        if let from = small, let to = asset.small {
+            cache.setImageAtPath(from, withURL: to)
+        }
+        if let url = original {
+            _ = try? manager.removeItemAtPath(url)
+            cache.uids.remove(ImageCache.uidFromURL(url))
+        }
+        if let url = large {
+            _ = try? manager.removeItemAtPath(url)
+            cache.uids.remove(ImageCache.uidFromURL(url))
+        }
+        if let url = medium {
+            _ = try? manager.removeItemAtPath(url)
+            cache.uids.remove(ImageCache.uidFromURL(url))
+        }
+        if let url = small {
+            _ = try? manager.removeItemAtPath(url)
+            cache.uids.remove(ImageCache.uidFromURL(url))
         }
     }
     

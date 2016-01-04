@@ -23,22 +23,18 @@ class MutableAsset: Asset {
     
     deinit {
         if !uploaded {
-            do {
-                let manager = NSFileManager.defaultManager()
-                if let original = original {
-                    try manager.removeItemAtPath(original)
-                }
-                if let large = large where large != original {
-                    try manager.removeItemAtPath(large)
-                }
-                if let medium = medium {
-                    try manager.removeItemAtPath(medium)
-                }
-                if let small = small {
-                    try manager.removeItemAtPath(small)
-                }
-                
-            } catch {
+            let manager = NSFileManager.defaultManager()
+            if let original = original {
+                _ = try? manager.removeItemAtPath(original)
+            }
+            if let large = large where large != original {
+                _ = try? manager.removeItemAtPath(large)
+            }
+            if let medium = medium {
+                _ = try? manager.removeItemAtPath(medium)
+            }
+            if let small = small {
+                _ = try? manager.removeItemAtPath(small)
             }
         }
     }
@@ -78,8 +74,7 @@ class MutableAsset: Asset {
             large = cache.getPath(cache.setImage(image))
             let thumbnail = image.thumbnail(240)
             small = cache.getPath(cache.setImage(thumbnail))
-        } catch {
-        }
+        } catch { }
     }
     
     func setVideoAtPath(path: String, completion: MutableAsset? -> Void) {
@@ -99,9 +94,7 @@ class MutableAsset: Asset {
         if let session = PHImageManager.defaultManager().requestExportSessionForVideo(asset, options: options, exportPreset: AVAssetExportPresetMediumQuality) {
             var outputPath = "\(NSHomeDirectory())/Documents/Videos/"
             let manager = NSFileManager.defaultManager()
-            do {
-                try manager.createDirectoryAtPath(outputPath, withIntermediateDirectories: true, attributes: nil)
-            } catch {}
+            _ = try? manager.createDirectoryAtPath(outputPath, withIntermediateDirectories: true, attributes: nil)
             outputPath = outputPath + ("\(NSProcessInfo.processInfo().globallyUniqueString).mp4")
             session.outputURL = NSURL(fileURLWithPath: outputPath)
             session.outputFileType = AVFileTypeMPEG4
@@ -167,9 +160,7 @@ class MutableAsset: Asset {
     override var original: String? {
         didSet {
             if let oldOriginal = oldValue {
-                do {
-                    try NSFileManager.defaultManager().removeItemAtPath(oldOriginal)
-                } catch { }
+                _ = try? NSFileManager.defaultManager().removeItemAtPath(oldOriginal)
             }
         }
     }
@@ -177,9 +168,7 @@ class MutableAsset: Asset {
     override var small: String? {
         didSet {
             if let oldSmall = oldValue {
-                do {
-                    try NSFileManager.defaultManager().removeItemAtPath(oldSmall)
-                } catch { }
+                _ = try? NSFileManager.defaultManager().removeItemAtPath(oldSmall)
             }
         }
     }

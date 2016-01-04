@@ -30,11 +30,7 @@ extension NSUserDefaults {
             if _authorization == nil {
                 NSKeyedUnarchiver.setClass(Authorization.classForKeyedUnarchiver(), forClassName: "WLAuthorization")
                 if let data = NSUserDefaults.sharedUserDefaults?["encrypted_authorization"] as? NSData {
-                    do {
-                        let data = try data.decrypt(cipher)
-                        _authorization = Authorization.unarchive(data)
-                    } catch {
-                    }
+                    _authorization = Authorization.unarchive(try? data.decrypt(cipher))
                 } else if let data = self["WrapLiveAuthorization"] as? NSData {
                     _authorization = Authorization.unarchive(data)
                 }
@@ -47,10 +43,7 @@ extension NSUserDefaults {
                 return
             }
             if let authorization = newValue, let data = authorization.archive() {
-                do {
-                    sharedUserDefaults["encrypted_authorization"] = try data.encrypt(cipher)
-                } catch {
-                }
+                sharedUserDefaults["encrypted_authorization"] = try? data.encrypt(cipher)
                 self["WrapLiveAuthorization"] = data
             } else {
                 self["WrapLiveAuthorization"] = nil

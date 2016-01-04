@@ -178,23 +178,19 @@ extension Candy {
                             Dispatch.mainQueue.async({ failure?(error) })
                         } else {
                             if let location = location {
-                                do {
-                                    let url = NSURL(fileURLWithPath: "Documents/\(NSString.GUID()).mp4")
-                                    let manager = NSFileManager.defaultManager()
-                                    try manager.moveItemAtURL(location, toURL: url)
-                                    if url.checkResourceIsReachableAndReturnError(nil) {
-                                        PHPhotoLibrary.addVideoAtFileUrl(url, success: { () -> Void in
-                                            try! manager.removeItemAtURL(url)
-                                            success?()
-                                            }, failure: { (error) -> Void in
-                                                try! manager.removeItemAtURL(url)
-                                                failure?(error)
-                                        })
-                                    } else {
-                                        Dispatch.mainQueue.async({ failure?(NSError(message: "Local video file is not reachable")) })
-                                    }
-                                } catch {
-                                    
+                                let url = NSURL(fileURLWithPath: "Documents/\(NSString.GUID()).mp4")
+                                let manager = NSFileManager.defaultManager()
+                                _ = try? manager.moveItemAtURL(location, toURL: url)
+                                if url.checkResourceIsReachableAndReturnError(nil) {
+                                    PHPhotoLibrary.addVideoAtFileUrl(url, success: { () -> Void in
+                                        _ = try? manager.removeItemAtURL(url)
+                                        success?()
+                                        }, failure: { (error) -> Void in
+                                            _ = try? manager.removeItemAtURL(url)
+                                            failure?(error)
+                                    })
+                                } else {
+                                    Dispatch.mainQueue.async({ failure?(NSError(message: "Local video file is not reachable")) })
                                 }
                             } else {
                                 Dispatch.mainQueue.async({ failure?(error) })

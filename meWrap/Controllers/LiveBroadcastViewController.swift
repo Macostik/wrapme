@@ -397,8 +397,7 @@ class LiveBroadcastViewController: WLBaseViewController {
                 }) { (_) -> Void in
                     focusView.removeFromSuperview()
             }
-        } catch {
-        }
+        } catch { }
     }
     
     private func videoInput(session: AVCaptureSession) -> AVCaptureDeviceInput? {
@@ -417,9 +416,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     func zooming(sender: UIPinchGestureRecognizer) {
         
-        guard let device = videoCamera() else {
-            return
-        }
+        guard let device = videoCamera() else { return }
         
         let maxZoomScale = min(8, device.activeFormat.videoMaxZoomFactor)
         let zoomScale = max(1, min(maxZoomScale, sender.scale * device.videoZoomFactor))
@@ -429,8 +426,7 @@ class LiveBroadcastViewController: WLBaseViewController {
                 try device.lockForConfiguration()
                 device.videoZoomFactor = zoomScale
                 device.unlockForConfiguration()
-            } catch {
-            }
+            } catch { }
         }
         
         sender.scale = 1

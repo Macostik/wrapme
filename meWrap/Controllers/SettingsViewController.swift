@@ -49,10 +49,7 @@ class SettingsViewController: WLBaseViewController {
             context.uncacheEntry(user)
             context.deleteObject(user)
         }
-        do {
-            try context.save()
-        } catch {
-        }
+        _ = try? context.save()
         
         currentUser?.wraps = NSSet()
         ImageCache.defaultCache.clear()

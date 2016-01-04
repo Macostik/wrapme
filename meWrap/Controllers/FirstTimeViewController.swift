@@ -44,17 +44,22 @@ class FirstTimeViewController: WLBaseViewController {
         }
     }
     
+    private func presentAddFriends(wrap: Wrap, isBroadcasting: Bool) {
+        if let addFriendsController = storyboard?["WLAddContributorsViewController"] as? WLAddContributorsViewController {
+            addFriendsController.wrap = wrap
+            addFriendsController.isBroadcasting = isBroadcasting
+            navigationController?.pushViewController(addFriendsController, animated: false)
+        }
+    }
+    
     @IBAction func presentBroadcastLive(sender: AnyObject) {
         if let wrap = defaultWrap() {
-            if let addFriendsController = storyboard?["WLAddContributorsViewController"] as? WLAddContributorsViewController {
-                addFriendsController.wrap = wrap
-                addFriendsController.isBroadcasting = true
-                navigationController?.pushViewController(addFriendsController, animated: false)
-            }
+            presentAddFriends(wrap, isBroadcasting: true)
         }
     }
     
     @IBAction func cancelingIntroduction(sender: AnyObject?) {
+        Authorization.currentAuthorization.isFirstStepsRepresenting = false
         dismissViewControllerAnimated(false, completion: nil)
         UIStoryboard.main().present(false)
     }
@@ -67,10 +72,12 @@ extension FirstTimeViewController: WLStillPictureViewControllerDelegate {
     }
     
     func stillPictureViewController(controller: WLStillPictureViewController!, didFinishWithPictures pictures: [AnyObject]!) {
+        dismissViewControllerAnimated(false, completion: nil)
         guard let wrap = wrap else { return }
         SoundPlayer.player.play(.s04)
         if let pictures = pictures as? [MutableAsset] {
             wrap.uploadAssets(pictures)
         }
+        presentAddFriends(wrap, isBroadcasting: false)
     }
 }

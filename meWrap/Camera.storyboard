@@ -1462,8 +1462,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="finish:" destination="gkl-Du-487" eventType="touchUpInside" id="Vcp-NR-8e7"/>
-                                            <action selector="push:" destination="Gxe-fl-o5l" eventType="touchUpInside" id="Zhc-jZ-YfI"/>
+                                            <action selector="upload:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="DWd-cd-h2l"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1557,16 +1556,6 @@
                         <outletCollection property="alternativeConstraints" destination="jba-cK-jBq" collectionClass="NSMutableArray" id="h94-gX-lTa"/>
                         <outletCollection property="defaultConstraints" destination="WRL-nH-baO" collectionClass="NSMutableArray" id="gIz-0c-T3U"/>
                         <outletCollection property="parentViews" destination="ao0-lV-pbN" collectionClass="NSMutableArray" id="HgC-mF-TVe"/>
-                    </connections>
-                </customObject>
-                <customObject id="Gxe-fl-o5l" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLAddContributorsViewController"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="storyboard" value="Main"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="wrap"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="sourceViewController" destination="CvA-oq-Pt1" id="46r-51-EbK"/>
                     </connections>
                 </customObject>
             </objects>

@@ -63,7 +63,6 @@ class Toast: UIView {
                 return
             }
             let view = viewController.view
-            
             let referenceView = viewController.toastAppearanceReferenceView(self)
             
             self.applyAppearance(appearance)
@@ -74,19 +73,7 @@ class Toast: UIView {
                 self.removeFromSuperview()
                 self.translatesAutoresizingMaskIntoConstraints = false
                 view.addSubview(self)
-                view.addConstraint(self.constraintToItem(referenceView, equal: .Width))
-                view.addConstraint(self.constraintToItem(referenceView, equal: .CenterX))
-                if referenceView == view {
-                    let topViewConstraint = self.constraintToItem(referenceView, equal: .Top)
-                    view.addConstraint(topViewConstraint)
-                    self.topViewConstraint = topViewConstraint;
-                    self.topMessageInset.constant = UIApplication.sharedApplication().statusBarHidden ? 6 : 26
-                } else {
-                    let topViewConstraint = self.constraintForAttrbute(.Top, toItem: referenceView, equalToAttribute: .Bottom)
-                    view.addConstraint(topViewConstraint)
-                    self.topViewConstraint = topViewConstraint
-                    self.topMessageInset.constant = 6;
-                }
+                self.addConstraints(view, referenceView: referenceView)
                 self.layoutIfNeeded()
                 self.alpha = 0.0
                 UIView.performAnimated(true) { self.alpha = 1.0 }
@@ -100,19 +87,30 @@ class Toast: UIView {
         }
     }
     
-    private func dismiss() {
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: "dismiss", object: nil)
-        if alpha > 0 {
-            UIView.animateWithDuration(0.25, animations: { () -> Void in
-                self.alpha = 0
-                }, completion: { (_) -> Void in
-                    self.removeFromSuperview()
-                    self.dismissBlock?()
-            })
+    private func addConstraints(view: UIView, referenceView: UIView) {
+        view.addConstraint(constraintToItem(referenceView, equal: .Width))
+        view.addConstraint(constraintToItem(referenceView, equal: .CenterX))
+        if referenceView == view {
+            let topViewConstraint = constraintToItem(referenceView, equal: .Top)
+            view.addConstraint(topViewConstraint)
+            self.topViewConstraint = topViewConstraint;
+            topMessageInset.constant = UIApplication.sharedApplication().statusBarHidden ? 6 : 26
         } else {
-            removeFromSuperview()
-            dismissBlock?()
+            let topViewConstraint = constraintForAttrbute(.Top, toItem: referenceView, equalToAttribute: .Bottom)
+            view.addConstraint(topViewConstraint)
+            self.topViewConstraint = topViewConstraint
+            topMessageInset.constant = 6
         }
+    }
+    
+    func dismiss() {
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: "dismiss", object: nil)
+        UIView.animateWithDuration(0.25, animations: { () -> Void in
+            self.alpha = 0
+            }, completion: { (_) -> Void in
+                self.removeFromSuperview()
+                self.dismissBlock?()
+        })
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -155,10 +153,6 @@ extension UIViewController {
             return view
         }
     }
-
-}
-
-extension UIAlertController {
 
 }
 

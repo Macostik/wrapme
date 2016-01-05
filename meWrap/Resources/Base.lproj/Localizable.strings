@@ -36,7 +36,6 @@
 "new_version_is_available" = "A new version of meWrap is available";
 "update" = "Update";
 "not_now" = "Not now";
-"engagement_notification_alert" = "Got new photos? Share them on meWrap now!";
 "upload" = "Upload";
 "invalid_image_error" = "Error occurred while processing the photo.";
 "too_small_image_error" = "The photo is too small. Please choose another one.";
@@ -101,6 +100,8 @@
 "APNS_MSG06" = "meWrap has a new update! Download it now!";
 "APNS_TT07" = "New video";
 "APNS_MSG07" = "%@ just added a new video in '%@'. Check it out!";
+"APNS_TT08" = "Live Event";
+"APNS_MSG08" = "%@ is live: '%@'";
 "reply" = "Reply";
 "no_chat_message" = "Friends in \"%@\" will see your chat messages instantly.";
 "no_photos_to_upload" = "No photos or video to be uploaded.";

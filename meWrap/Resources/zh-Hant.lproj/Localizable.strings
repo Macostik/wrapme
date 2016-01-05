@@ -36,7 +36,6 @@
 "new_version_is_available" = "meWrap有更新版本";
 "update" = "更新";
 "not_now" = "稍後再提醒我";
-"engagement_notification_alert" = "分享最近拍攝的精彩相片到meWrap吧！";
 "upload" = "上載";
 "invalid_image_error" = "處理相片過程中發生錯誤。";
 "too_small_image_error" = "相片解像度太低。";
@@ -101,6 +100,8 @@
 "APNS_MSG06" = "meWrap有更新版本。現在就下載吧！";
 "APNS_TT07" = "新影片";
 "APNS_MSG07" = "%@為\"%@\"添加了新影片。";
+"APNS_TT08" = "Live Event";
+"APNS_MSG08" = "%@ is live: '%@'";
 "reply" = "回複";
 "no_chat_message" = "跟\"%@\"成員在此聊天。";
 "no_photos_to_upload" = "請拍攝新相片或從圖庫中選擇相片上傳。";

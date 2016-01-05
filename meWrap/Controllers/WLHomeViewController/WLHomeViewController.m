@@ -125,7 +125,8 @@
     [[RecentUpdateList sharedList] addReceiver:self];
     
     [[WLNotificationCenter defaultCenter] fetchLiveBroadcasts:^{
-        [weakSelf.dataSource reload];
+        [homeDataSource.paginatedSet sort];
+        [publicDataSource.paginatedSet sort];
     }];
 }
 

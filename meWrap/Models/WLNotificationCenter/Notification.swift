@@ -22,7 +22,7 @@ import PubNub
     case WrapUpdate            = 1000
     case UpdateAvailable       = 1100
     case CandyUpdate           = 1200
-    case Engagement            = 99
+    case LiveBroadcast         = 1300
 }
 
 class Notification: NSObject {

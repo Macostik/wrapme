@@ -29,3 +29,5 @@
 "APNS_MSG06" = "meWrap has a new update! Download it now!";
 "APNS_TT07" = "New video";
 "APNS_MSG07" = "%@ just added a new video in '%@'. Check it out!";
+"APNS_TT08" = "Live Event";
+"APNS_MSG08" = "%@ is live: '%@'";

@@ -86,8 +86,6 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     lazy var broadcast: LiveBroadcast = LiveBroadcast()
     
-    var preparingEvent: LiveBroadcast.Event?
-    
     var chatSubscription: NotificationSubscription?
     
     var cameraPosition: Int32 = 1
@@ -275,13 +273,6 @@ class LiveBroadcastViewController: WLBaseViewController {
         broadcast.wrap = wrap
         wrap.addBroadcast(broadcast)
         
-        var state = [NSObject:AnyObject]()
-        state["streamName"] = streamName
-        if let title = broadcast.title {
-            state["title"] = title
-        }
-        userState = state
-        
         createConnection(streamName)
         
         subscribe(broadcast)
@@ -320,12 +311,56 @@ class LiveBroadcastViewController: WLBaseViewController {
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "focusing:"))
         view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: "zooming:"))
         
-        let event = LiveBroadcast.Event(type: .Info)
-        event.text = "preparing_broadcast".ls
-        event.autoDismiss = false
-        broadcast.insert(event)
+        let preparingEvent = LiveBroadcast.Event(type: .Info)
+        preparingEvent.text = "preparing_broadcast".ls
+        preparingEvent.autoDismiss = false
+        broadcast.insert(preparingEvent)
         chatDataSource.items = broadcast.events
-        preparingEvent = event
+        
+        Dispatch.mainQueue.after(6) { [weak self] _ in
+            
+            guard let _self = self else { return }
+            guard let wrap = _self.wrap else { return }
+            guard let user = User.currentUser else { return }
+            guard let deviceUID = Authorization.currentAuthorization.deviceUID else { return }
+            
+            let broadcast = _self.broadcast
+            
+            var state = [NSObject:AnyObject]()
+            state["streamName"] = broadcast.streamName
+            if let title = broadcast.title {
+                state["title"] = title
+            }
+            _self.userState = state
+            
+            let pushPayload: [NSObject : AnyObject] = [
+                "aps" : [
+                    "alert" : [
+                        "title-loc-key" : "APNS_TT08",
+                        "loc-key" : "APNS_MSG08",
+                        "loc-args" : [user.name ?? "", wrap.name ?? ""]
+                    ],
+                    "sound" : "s01.wav",
+                    "content-available" : 1
+                ],
+                
+                "msg_type" : NotificationType.LiveBroadcast.rawValue,
+                "wrap_uid" : wrap.uid,
+                "user_uid" : user.uid,
+                "device_uid" : deviceUID,
+                "title" : broadcast.title ?? ""
+            ]
+            let message: [NSObject : AnyObject] = [
+                "wrap_uid" : wrap.uid,
+            ]
+            PubNub.sharedInstance.publish(message, toChannel: wrap.uid, mobilePushPayload: pushPayload, withCompletion: nil)
+            
+            let liveEvent = LiveBroadcast.Event(type: .Info)
+            liveEvent.text = String(format: "formatted_you_are_now_live".ls, wrap.name ?? "")
+            broadcast.insert(liveEvent)
+            broadcast.remove(preparingEvent)
+            _self.chatDataSource.items = broadcast.events
+        }
     }
     
     @IBAction func toggleCamera() {
@@ -439,8 +474,6 @@ class LiveBroadcastViewController: WLBaseViewController {
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return [.LandscapeRight]
     }
-    
-    private var connectionMessageShown = false
 }
 
 extension LiveBroadcastViewController: WLComposeBarDelegate {
@@ -454,18 +487,6 @@ extension LiveBroadcastViewController: StreamerListener {
     
     @objc(connectionStateDidChangeId:State:Status:)
     func connectionStateDidChangeId(connectionID: Int32, state: ConnectionState, status: ConnectionStatus) {
-        
-        if state == .Record && !connectionMessageShown {
-            connectionMessageShown = true
-            let event = LiveBroadcast.Event(type: .Info)
-            event.text = String(format: "formatted_you_are_now_live".ls, wrap?.name ?? "")
-            broadcast.insert(event)
-            if let preparingEvent = preparingEvent {
-                broadcast.remove(preparingEvent)
-            }
-            chatDataSource.items = broadcast.events
-        }
-        
         if self.connectionID == connectionID && state == .Disconnected {
             releaseConnection()
             Dispatch.mainQueue.after(status == .UnknownFail ? 1 : 3, block: { [weak self] () -> Void in

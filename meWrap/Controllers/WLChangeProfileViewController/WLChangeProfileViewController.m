@@ -9,7 +9,6 @@
 #import "WLChangeProfileViewController.h"
 #import "WLCameraViewController.h"
 #import "WLStillPictureViewController.h"
-#import "WLToast.h"
 #import "WLTextView.h"
 
 @interface WLChangeProfileViewController () <KeyboardNotifying, UITextFieldDelegate, WLStillPictureViewControllerDelegate, EntryNotifying, FontPresetting>
@@ -104,7 +103,7 @@
 - (IBAction)resendEmailConfirmation:(UIButton*)sender {
     sender.userInteractionEnabled = NO;
     [[APIRequest resendConfirmation:nil] send:^(id object) {
-        [WLToast showWithMessage:@"confirmation_resend".ls];
+        [Toast show:@"confirmation_resend".ls];
         sender.userInteractionEnabled = YES;
     } failure:^(NSError *error) {
         sender.userInteractionEnabled = YES;

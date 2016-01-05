@@ -9,7 +9,6 @@
 #import "WLWrapViewController.h"
 #import "WLStillPictureViewController.h"
 #import "WLBadgeLabel.h"
-#import "WLToast.h"
 #import "WLChatViewController.h"
 #import "WLContributorsViewController.h"
 #import "WLButton.h"
@@ -137,7 +136,7 @@
         receiver.willDelete = ^(Entry *entry) {
             if (weakSelf.viewAppeared) {
                 [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-                [WLToast showMessageForUnavailableWrap:(Wrap*)entry];
+                [Toast showMessageForUnavailableWrap:(Wrap*)entry];
             }
         };
     }];

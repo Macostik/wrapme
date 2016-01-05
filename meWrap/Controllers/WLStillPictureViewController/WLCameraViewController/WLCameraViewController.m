@@ -10,7 +10,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "WLToast.h"
 @import AVKit;
 
 @interface WLCameraView : UIView

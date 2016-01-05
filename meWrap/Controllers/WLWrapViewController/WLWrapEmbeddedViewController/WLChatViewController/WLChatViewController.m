@@ -11,7 +11,6 @@
 #import "WLMessageCell.h"
 #import "WLMessageDateView.h"
 #import "WLWrapViewController.h"
-#import "WLToast.h"
 #import "WLBadgeLabel.h"
 
 @interface WLChatViewController () <StreamViewDelegate, WLComposeBarDelegate, KeyboardNotifying, EntryNotifying, ChatNotifying>

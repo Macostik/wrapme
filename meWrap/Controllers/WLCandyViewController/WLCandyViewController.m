@@ -7,7 +7,6 @@
 //
 
 #import "WLCandyViewController.h"
-#import "WLToast.h"
 @import AVKit;
 @import AVFoundation;
 

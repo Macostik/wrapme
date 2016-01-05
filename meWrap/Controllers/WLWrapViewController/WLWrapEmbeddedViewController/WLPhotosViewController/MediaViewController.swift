@@ -142,7 +142,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
         dataSource.liveBroadcastMetrics.loader = loader
         dataSource.liveBroadcastMetrics.selection = { [weak self] (item, broadcast) -> Void in
             if !Network.sharedNetwork.reachable {
-                WLToast.showWithMessage("no_internet_connection".ls)
+                Toast.show("no_internet_connection".ls)
                 return
             }
             if let controller = self?.storyboard?["liveBroadcast"] as? LiveBroadcastViewController {
@@ -258,7 +258,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
     
     @IBAction func liveBroadcast(sender: UIButton) {
         if !Network.sharedNetwork.reachable {
-            WLToast.showWithMessage("no_internet_connection".ls)
+            Toast.show("no_internet_connection".ls)
             return
         }
         guard wrap != nil else {

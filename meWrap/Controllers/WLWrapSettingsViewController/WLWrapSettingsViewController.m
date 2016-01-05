@@ -7,7 +7,6 @@
 //
 
 #import "WLWrapSettingsViewController.h"
-#import "WLToast.h"
 #import "WLButton.h"
 
 @interface WLWrapSettingsViewController () <EntryNotifying>
@@ -87,7 +86,7 @@
                 [weakSelf.navigationController popViewControllerAnimated:NO];
             } else {
                 [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-                if (deletable) [WLToast showWithMessage:@"delete_wrap_success".ls];
+                if (deletable) [Toast show:@"delete_wrap_success".ls];
             }
             sender.loading = NO;
         } failure:^(NSError *error) {
@@ -156,7 +155,7 @@
             }];
         }
     } else {
-        [WLToast showWithMessage:@"wrap_name_cannot_be_blank".ls];
+        [Toast show:@"wrap_name_cannot_be_blank".ls];
         self.wrapNameTextField.text = (NSString*)self.editSession.originalValue;
     }
     self.editButton.selected = NO;
@@ -183,7 +182,7 @@
     if (self.viewAppeared && !self.userInitiatedDestructiveAction) {
         [self.navigationController popToRootViewControllerAnimated:NO];
         if (!wrap.deletable) {
-            [WLToast showMessageForUnavailableWrap:wrap];
+            [Toast showMessageForUnavailableWrap:wrap];
         }
     }
 }

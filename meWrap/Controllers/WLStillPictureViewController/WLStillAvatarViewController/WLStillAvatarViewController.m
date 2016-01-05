@@ -11,7 +11,6 @@
 #import "WLHintView.h"
 #import "WLEditAvatarViewController.h"
 #import "WLHomeViewController.h"
-#import "WLToast.h"
 
 @interface WLStillAvatarViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate>
 

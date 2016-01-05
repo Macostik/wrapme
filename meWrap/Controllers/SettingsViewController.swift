@@ -33,7 +33,7 @@ class SettingsViewController: WLBaseViewController {
     
     @IBAction func addDemoImages(sender: UIButton) {
         addDemoImageWithCount(5)
-        WLToast.showWithMessage("5 demo images will be added to Photos")
+        Toast.show("5 demo images will be added to Photos")
     }
     
     @IBAction func cleanCache(sender: UIButton) {

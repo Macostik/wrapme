@@ -280,7 +280,7 @@ class VideoPlayerView: UIView {
             if let url = url where url.fileURL || Network.sharedNetwork.reachable {
                 toggle()
             } else {
-                WLToast.showWithMessage("no_internet_connection".ls)
+                Toast.show("no_internet_connection".ls)
             }
         }
     }

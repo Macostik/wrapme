@@ -11,7 +11,6 @@
 #import "WLTextView.h"
 #import "WLLabel.h"
 #import "WLHintView.h"
-#import "WLToast.h"
 #import "WLCandyViewController.h"
 #import "WLDownloadingView.h"
 #import "WLCommentsViewController.h"
@@ -221,10 +220,10 @@
             [self.navigationController dismissViewControllerAnimated:NO completion:nil];
         }
         if (self.removedCandy == candy) {
-            [WLToast showWithMessage:(candy.isVideo ? @"video_deleted" : @"photo_deleted").ls];
+            [Toast show:(candy.isVideo ? @"video_deleted" : @"photo_deleted").ls];
             self.removedCandy = nil;
         } else {
-            [WLToast showWithMessage:(candy.isVideo ? @"video_unavailable" : @"photo_unavailable").ls];
+            [Toast show:(candy.isVideo ? @"video_unavailable" : @"photo_unavailable").ls];
         }
         Candy *nextCandy = [self candyAfterDeletingCandy:candy];
         if (nextCandy) {
@@ -238,7 +237,7 @@
 }
 
 - (void)notifier:(EntryNotifier *)notifier willDeleteContainer:(Wrap *)wrap {
-    [WLToast showMessageForUnavailableWrap:wrap];
+    [Toast showMessageForUnavailableWrap:wrap];
     [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
@@ -274,10 +273,10 @@
         sender.loading = YES;
         [weakSelf.candy download:^{
             sender.loading = NO;
-            [WLToast showDownloadingMediaMessageForCandy:weakSelf.candy];
+            [Toast showDownloadingMediaMessageForCandy:weakSelf.candy];
         } failure:^(NSError *error) {
             if (error.isNetworkError) {
-                [WLToast showWithMessage:@"downloading_internet_connection_error".ls];
+                [Toast show:@"downloading_internet_connection_error".ls];
             } else {
                 [error show];
             }

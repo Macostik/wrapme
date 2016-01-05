@@ -8,7 +8,6 @@
 
 #import "WLStillPictureViewController.h"
 #import "WLWrapPickerViewController.h"
-#import "WLToast.h"
 #import "WLHomeViewController.h"
 #import "WLHintView.h"
 #import "WLCameraViewController.h"
@@ -95,7 +94,7 @@
     [pickerController showInViewController:self animated:NO];
 }
 
-- (UIViewController *)toastAppearanceViewController:(WLToast *)toast {
+- (UIViewController *)toastAppearanceViewController:(Toast *)toast {
     for (UIViewController *controller in self.childViewControllers) {
         if ([controller isKindOfClass:[WLWrapPickerViewController class]]) {
             return controller;

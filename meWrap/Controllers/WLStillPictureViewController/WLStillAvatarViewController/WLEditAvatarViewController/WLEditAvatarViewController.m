@@ -7,7 +7,6 @@
 //
 
 #import "WLEditAvatarViewController.h"
-#import "WLToast.h"
 #import "WLImageEditorSession.h"
 
 @interface WLEditAvatarViewController ()

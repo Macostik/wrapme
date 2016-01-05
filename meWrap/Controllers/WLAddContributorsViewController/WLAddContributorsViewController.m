@@ -9,7 +9,6 @@
 #import "WLAddContributorsViewController.h"
 #import "AddressBookRecordCell.h"
 #import "WLButton.h"
-#import "WLToast.h"
 #import "WLConfirmView.h"
 
 @interface WLAddContributorsViewController () <StreamViewDelegate, AddressBookRecordCellDelegate, UITextFieldDelegate, FontPresetting, AddressBookNoifying>
@@ -136,7 +135,7 @@
         if (weakSelf.completionHandler) weakSelf.completionHandler();
     } else {
         if (![Network sharedNetwork].reachable) {
-            [WLToast showWithMessage:@"no_internet_connection".ls];
+            [Toast show:@"no_internet_connection".ls];
             return;
         }
         
@@ -151,16 +150,16 @@
 - (IBAction)done:(WLButton*)sender {
     __weak typeof(self)weakSelf = self;
     if (![Network sharedNetwork].reachable) {
-        [WLToast showWithMessage:@"no_internet_connection".ls];
+        [Toast show:@"no_internet_connection".ls];
         return;
     }
     ObjectBlock performRequestBlock = ^ (id __nullable message) {
         [[APIRequest addContributors:self.addressBook.selectedPhoneNumbers wrap:self.wrap message:message] send:^(id object) {
             [weakSelf.navigationController popViewControllerAnimated:NO];
             if (message) {
-                [WLToast showWithMessage:@"isn't_using_invite".ls];
+                [Toast show:@"isn't_using_invite".ls];
             } else {
-                [WLToast showWithMessage:@"is_using_invite".ls];
+                [Toast show:@"is_using_invite".ls];
             }
         } failure:^(NSError *error) {
             [error show];

@@ -130,7 +130,7 @@ class RecentUpdatesViewController: WLBaseViewController {
 extension RecentUpdatesViewController: EntryNotifying {
     func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
         if let wrap = entry as? Wrap {
-            WLToast.showMessageForUnavailableWrap(wrap)
+            Toast.showMessageForUnavailableWrap(wrap)
         }
     }
 }

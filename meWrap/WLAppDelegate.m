@@ -13,7 +13,6 @@
 #import "WLSignupFlowViewController.h"
 #import "GAI.h"
 #import <NewRelicAgent/NewRelic.h>
-#import "WLToast.h"
 #import "WLWrapViewController.h"
 #import "CocoaLumberjack.h"
 #import <AWSCore/AWSCore.h>
@@ -104,7 +103,7 @@
         }
     }];
     [NSError setShowingBlock:^ (NSError *error) {
-        [WLToast showWithMessage:[error errorMessage]];
+        [Toast show:[error errorMessage]];
     }];
 }
 

@@ -7,7 +7,6 @@
 //
 
 #import "WLConfirmView.h"
-#import "WLToast.h"
 
 @interface WLConfirmView ()
 

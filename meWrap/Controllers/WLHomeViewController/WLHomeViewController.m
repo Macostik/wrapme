@@ -9,7 +9,6 @@
 #import "WLCandyViewController.h"
 #import "WLHomeViewController.h"
 #import "WLBadgeLabel.h"
-#import "WLToast.h"
 #import "WLWrapViewController.h"
 #import "WLHistoryViewController.h"
 #import "WLHintView.h"
@@ -280,7 +279,7 @@
 
 - (IBAction)resendConfirmation:(id)sender {
     [[APIRequest resendConfirmation:nil] send:^(id object) {
-        [WLToast showWithMessage:@"confirmation_resend".ls];
+        [Toast show:@"confirmation_resend".ls];
     } failure:^(NSError *error) {
         [error show];
     }];

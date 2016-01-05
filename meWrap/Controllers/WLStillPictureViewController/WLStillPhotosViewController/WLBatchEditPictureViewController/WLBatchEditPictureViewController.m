@@ -9,7 +9,6 @@
 #import "WLBatchEditPictureViewController.h"
 #import "WLComposeBar.h"
 #import "WLImageEditorSession.h"
-#import "WLToast.h"
 #import "WLHintView.h"
 #import "WLDrawingViewController.h"
 
@@ -289,7 +288,7 @@ static const int WLInstanceCommentLimit = 1500;
         comment = [comment substringToIndex:comment.length - 1];
     }
     if (![comment isEqualToString:composeBar.text]) {
-        [WLToast showWithMessage:@"comment_limit".ls];
+        [Toast show:@"comment_limit".ls];
         composeBar.text = comment;
     }
     self.asset.comment = comment;

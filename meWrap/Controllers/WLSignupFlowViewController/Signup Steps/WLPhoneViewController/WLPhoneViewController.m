@@ -8,7 +8,6 @@
 
 #import "WLPhoneViewController.h"
 #import "WLCountriesViewController.h"
-#import "WLToast.h"
 #import "WLButton.h"
 #import "WLPhoneValidation.h"
 #import "WLConfirmView.h"

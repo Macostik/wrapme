@@ -7,7 +7,6 @@
 //
 
 #import "WLWrapPickerViewController.h"
-#import "WLToast.h"
 #import "WLButton.h"
 
 @interface WLWrapPickerViewController () <UITextFieldDelegate, EntryNotifying>
@@ -179,7 +178,7 @@
     
     NSString *name = [self.wrapNameTextField.text trim];
     if (!name.nonempty) {
-        [WLToast showWithMessage:@"wrap_name_cannot_be_blank".ls];
+        [Toast show:@"wrap_name_cannot_be_blank".ls];
         return;
     }
     

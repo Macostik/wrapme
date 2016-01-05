@@ -55,7 +55,7 @@ class CandyCell: StreamReusableView {
             
             menu.addDownloadAction({ (_) -> Void in
                 candy.download({ () -> Void in
-                    WLToast.showDownloadingMediaMessageForCandy(candy)
+                    Toast.showDownloadingMediaMessageForCandy(candy)
                     }, failure: { (error) -> Void in
                         error?.show()
                 })

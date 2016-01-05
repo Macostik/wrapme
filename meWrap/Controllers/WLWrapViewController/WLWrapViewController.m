@@ -275,7 +275,7 @@
         return [controller.restorationIdentifier isEqualToString:name];
     }];
     if (viewController == nil) {
-        viewController = self.storyboard[name];
+        viewController = (id)self.storyboard[name];
         viewController.preferredViewFrame = self.containerView.bounds;
         viewController.wrap = self.wrap;
         viewController.delegate = self;

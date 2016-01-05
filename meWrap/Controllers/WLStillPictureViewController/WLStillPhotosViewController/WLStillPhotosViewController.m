@@ -64,7 +64,7 @@
             return [obj1.date compare:obj2.date];
         }];
         
-        WLBatchEditPictureViewController *editController = self.storyboard[@"WLBatchEditPictureViewController"];
+        WLBatchEditPictureViewController *editController = (id)self.storyboard[@"WLBatchEditPictureViewController"];
         editController.assets = weakSelf.pictures;
         editController.delegate = weakSelf;
         editController.wrap = weakSelf.wrap;

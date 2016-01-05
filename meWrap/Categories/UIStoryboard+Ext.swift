@@ -30,7 +30,7 @@ extension UIStoryboard {
         UIWindow.mainWindow.rootViewController = instantiateInitialViewController()
     }
     
-    subscript(key: String) -> AnyObject? {
+    subscript(key: String) -> UIViewController? {
         return instantiateViewControllerWithIdentifier(key)
     }
 }

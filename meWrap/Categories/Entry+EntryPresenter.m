@@ -15,7 +15,7 @@
 @implementation Candy (WLEntryPresenter)
 
 - (UIViewController *)viewController {
-    WLHistoryViewController* controller = [UIStoryboard main][@"WLHistoryViewController"];
+    WLHistoryViewController* controller = (id)[UIStoryboard main][@"WLHistoryViewController"];
     controller.candy = self;
     return controller;
 }
@@ -33,7 +33,7 @@
 - (UIViewController *)viewController {
     Wrap *wrap = self.wrap;
     if (wrap) {
-        WLWrapViewController* controller = [UIStoryboard main][@"WLWrapViewController"];
+        WLWrapViewController* controller = (id)[UIStoryboard main][@"WLWrapViewController"];
         controller.wrap = wrap;
         controller.segment = WLWrapSegmentChat;
         return controller;
@@ -53,7 +53,7 @@
 @implementation Wrap (WLEntryPresenter)
 
 - (UIViewController *)viewController {
-    WLWrapViewController* controller = [UIStoryboard main][@"WLWrapViewController"];
+    WLWrapViewController* controller = (id)[UIStoryboard main][@"WLWrapViewController"];
     controller.wrap = self;
     return controller;
 }

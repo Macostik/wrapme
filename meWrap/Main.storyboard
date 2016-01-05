@@ -799,7 +799,7 @@
         <!--Home View Controller-->
         <scene sceneID="MbJ-3V-1SB">
             <objects>
-                <viewController storyboardIdentifier="WLHomeViewController" automaticallyAdjustsScrollViewInsets="NO" id="L91-fZ-J9O" userLabel="Home View Controller" customClass="WLHomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="home" automaticallyAdjustsScrollViewInsets="NO" id="L91-fZ-J9O" userLabel="Home View Controller" customClass="WLHomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XNa-AC-NhU"/>
                         <viewControllerLayoutGuide type="bottom" id="FgI-7k-v3i"/>
@@ -1396,7 +1396,7 @@
         <!--Add Contributors View Controller-->
         <scene sceneID="eJ4-7I-sOa">
             <objects>
-                <viewController storyboardIdentifier="WLAddContributorsViewController" automaticallyAdjustsScrollViewInsets="NO" id="2bk-UF-zkR" customClass="WLAddContributorsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addFriends" automaticallyAdjustsScrollViewInsets="NO" id="2bk-UF-zkR" customClass="WLAddContributorsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XL6-C7-uSs"/>
                         <viewControllerLayoutGuide type="bottom" id="vmi-EB-j8P"/>
@@ -4751,10 +4751,10 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
             </objects>
             <point key="canvasLocation" x="2388.75" y="-531.33802816901402"/>
         </scene>
-        <!--First Time View Controller-->
+        <!--Upload Wizard View Controller-->
         <scene sceneID="GJU-3e-PWF">
             <objects>
-                <viewController storyboardIdentifier="FirstTimeBeginViewController" id="Ki2-IL-epK" customClass="FirstTimeViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="uploadWizard" id="Ki2-IL-epK" customClass="UploadWizardViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZCB-Xa-54d"/>
                         <viewControllerLayoutGuide type="bottom" id="hNG-fn-KWL"/>
@@ -4902,7 +4902,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="cancelingIntroduction:" destination="Ki2-IL-epK" eventType="touchUpInside" id="QP2-ka-KXQ"/>
+                                            <action selector="cancel:" destination="Ki2-IL-epK" eventType="touchUpInside" id="vZ3-JL-BKi"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -4935,10 +4935,10 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
             </objects>
             <point key="canvasLocation" x="1012" y="-1228"/>
         </scene>
-        <!--First Time View Controller-->
+        <!--Upload Wizard End View Controller-->
         <scene sceneID="txz-r7-CiX">
             <objects>
-                <viewController storyboardIdentifier="FirstTimeEndViewController" id="F6O-rd-ftl" customClass="FirstTimeViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="uploadWizardEnd" modalPresentationStyle="overCurrentContext" id="F6O-rd-ftl" customClass="UploadWizardEndViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="X6C-ST-Cix"/>
                         <viewControllerLayoutGuide type="bottom" id="Kfi-TY-Vpk"/>
@@ -4960,7 +4960,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="cancelingIntroduction:" destination="F6O-rd-ftl" eventType="touchUpInside" id="HEN-Su-kpe"/>
+                                            <action selector="close:" destination="F6O-rd-ftl" eventType="touchUpInside" id="jL5-zI-ZC6"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQ6-QK-JKf" userLabel="Image's View">
@@ -5024,7 +5024,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Y7K-BP-shZ" firstAttribute="width" secondItem="0QE-1w-1ed" secondAttribute="width" multiplier="0.75" id="3Bv-6L-KAK"/>
                             <constraint firstItem="Y7K-BP-shZ" firstAttribute="centerX" secondItem="0QE-1w-1ed" secondAttribute="centerX" id="MQS-wI-njg"/>

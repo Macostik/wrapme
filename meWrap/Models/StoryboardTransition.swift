@@ -29,9 +29,9 @@ class StoryboardTransition: NSObject {
     private func getDestinationViewController() -> UIViewController? {
         if let destinationID = destinationID {
             if let name = storyboard {
-                return UIStoryboard(name: name, bundle: nil)[destinationID] as? UIViewController
+                return UIStoryboard(name: name, bundle: nil)[destinationID]
             } else {
-                return sourceViewController?.storyboard?[destinationID] as? UIViewController
+                return sourceViewController?.storyboard?[destinationID]
             }
         } else if let name = storyboard {
             return UIStoryboard(name: name, bundle: nil).instantiateInitialViewController()

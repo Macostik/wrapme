@@ -152,7 +152,7 @@
         } else {
             [Logger log:[NSString stringWithFormat:@"INITIAL SIGN IN - sign up is not completed, redirecting to profile step"]];
             UINavigationController *navigation = [[UIStoryboard signUp] instantiateInitialViewController];
-            WLSignupFlowViewController *signupFlowViewController = navigation.storyboard [@"WLSignupFlowViewController"];
+            WLSignupFlowViewController *signupFlowViewController = (id)navigation.storyboard [@"WLSignupFlowViewController"];
             signupFlowViewController.registrationNotCompleted = YES;
             navigation.viewControllers = @[signupFlowViewController];
             [UIWindow mainWindow].rootViewController = navigation;

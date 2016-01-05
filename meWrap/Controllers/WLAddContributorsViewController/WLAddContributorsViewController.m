@@ -37,7 +37,7 @@
     self.openedRows = [NSMutableArray array];
     [self.spinner startAnimating];
     
-    if ([Authorization currentAuthorization].isFirstStepsRepresenting) {
+    if ([UploadWizardViewController isActive]) {
         self.nextButton.hidden = self.isBroadcasting;
         if (self.isBroadcasting) {
             [self.nextButton setTitle:@"next".ls forState:UIControlStateNormal];
@@ -131,25 +131,9 @@
 #pragma mark - Actions
 
 - (IBAction)next:(id)sender {
-    
     __weak typeof(self)weakSelf = self;
-    
-    Block completionHandler = ^{
-        UIViewController *homeViewController = weakSelf.storyboard[@"WLHomeViewController"];
-        weakSelf.navigationController.viewControllers = @[homeViewController];
-        if (weakSelf.isBroadcasting) {
-            LiveBroadcastViewController *controller = weakSelf.storyboard[@"liveBroadcast"];
-            controller.wrap = weakSelf.wrap;
-            [homeViewController presentViewController:controller animated:NO completion:nil];
-        } else {
-            UIViewController *endStepController = weakSelf.storyboard[@"FirstTimeEndViewController"];
-            [homeViewController modalPresentationOverContext:endStepController animated:NO completion:nil];
-        }
-        [Authorization currentAuthorization].isFirstStepsRepresenting = NO;
-    };
-    
     if (self.addressBook.selectedPhoneNumbers.count == 0) {
-        completionHandler();
+        if (weakSelf.completionHandler) weakSelf.completionHandler();
     } else {
         if (![Network sharedNetwork].reachable) {
             [WLToast showWithMessage:@"no_internet_connection".ls];
@@ -157,7 +141,7 @@
         }
         
         [[APIRequest addContributors:self.addressBook.selectedPhoneNumbers wrap:self.wrap message:nil] send:^(id object) {
-            completionHandler();
+            if (weakSelf.completionHandler) weakSelf.completionHandler();
         } failure:^(NSError *error) {
             [error show];
         }];
@@ -257,7 +241,7 @@
 - (void)recordCell:(AddressBookRecordCell *)cell didSelectPhoneNumber:(AddressBookPhoneNumber *)person {
     [self.addressBook selectPhoneNumber:person];
     BOOL isEmpty = self.addressBook.selectedPhoneNumbers.count == 0;
-    if ([Authorization currentAuthorization].isFirstStepsRepresenting) {
+    if ([UploadWizardViewController isActive]) {
         if (self.isBroadcasting) {
             self.nextButton.hidden = isEmpty;
             [self.nextButton setTitle:@"next".ls forState:UIControlStateNormal];

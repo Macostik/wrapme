@@ -52,11 +52,7 @@ class Authorization: Archive {
     var activationCode: String?
     
     var password: String?
-    
-    var tryUncorfirmedEmail = false
-    
-    var isFirstStepsRepresenting = false
-    
+        
     var fullPhoneNumber: String {
         return "+\(countryCode ?? "") \(formattedPhone ?? phone ?? "")"
     }

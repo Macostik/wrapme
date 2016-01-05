@@ -63,7 +63,7 @@
 }
 
 - (IBAction)selectCountry:(id)sender {
-    WLCountriesViewController *controller = self.storyboard[@"WLCountriesViewController"];
+    WLCountriesViewController *controller = (id)self.storyboard[@"WLCountriesViewController"];
     controller.selectedCountry = self.country;
     __weak typeof(self)weakSelf = self;
     [controller setSelectionBlock:^(Country *country) {

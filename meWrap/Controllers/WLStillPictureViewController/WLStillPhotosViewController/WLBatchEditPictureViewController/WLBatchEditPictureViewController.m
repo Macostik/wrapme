@@ -82,7 +82,7 @@ static const int WLInstanceCommentLimit = 1500;
     [super viewDidAppear:animated];
     self.dataSource.items = self.assets;
     self.uploadButton.active = YES;
-    self.nextButton.hidden = ![Authorization currentAuthorization].isFirstStepsRepresenting;
+    self.nextButton.hidden = ![UploadWizardViewController isActive];
     self.uploadButton.hidden = !self.nextButton.hidden;
 }
 
@@ -167,7 +167,7 @@ static const int WLInstanceCommentLimit = 1500;
 }
 
 - (EditAssetViewController *)editPictureViewControllerForPicture:(MutableAsset *)asset {
-    EditAssetViewController *controller = self.storyboard[@"editAsset"];
+    EditAssetViewController *controller = (id)self.storyboard[@"editAsset"];
     controller.asset = asset;
     return controller;
 }

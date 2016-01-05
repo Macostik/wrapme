@@ -37,7 +37,7 @@
 }
 
 - (void)editImage:(UIImage*)image completion:(WLUploadPhotoCompletionBlock)completion {
-    WLEditAvatarViewController *controller = self.storyboard[@"WLEditAvatarViewController"];
+    WLEditAvatarViewController *controller = (id)self.storyboard[@"WLEditAvatarViewController"];
     controller.mode = self.mode;
     controller.image = image;
     controller.delegate = self;

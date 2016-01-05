@@ -74,16 +74,15 @@
     // final completion block
     
     WLSignupStepCompletionBlock completeSignUp = ^WLSignupStepViewController *{
+        UIStoryboard *storyboard = [UIStoryboard main];
         if (User.currentUser.firstTimeUse) {
-            UINavigationController *navigation = [[UIStoryboard main] instantiateInitialViewController];
-            UIViewController *viewController =  navigation.storyboard[@"FirstTimeBeginViewController"];
-            navigation.viewControllers = @[viewController];
+            UINavigationController *navigation = [storyboard instantiateInitialViewController];
+            UIViewController *viewController =  navigation.storyboard[@"uploadWizard"];
+            navigation.viewControllers = @[navigation.viewControllers.firstObject, viewController];
             [UIWindow mainWindow].rootViewController = navigation;
-            [Authorization currentAuthorization].isFirstStepsRepresenting = YES;
         } else {
-            [[UIStoryboard main] present:YES];
+            [storyboard present:YES];
         }
-    
         return nil;
     };
     

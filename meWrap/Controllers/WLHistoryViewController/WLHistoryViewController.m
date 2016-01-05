@@ -305,7 +305,7 @@
 }
 
 - (IBAction)report:(id)sender {
-    ReportViewController *controller = self.storyboard[@"report"];
+    ReportViewController *controller = (id)self.storyboard[@"report"];
     controller.candy = self.candy;
     [self.navigationController pushViewController:controller animated:NO];
 }
@@ -354,7 +354,7 @@
         }
         [weakSelf setBarsHidden:YES animated:YES];
         [self applyScaleToCandyViewController:YES];
-        WLCommentsViewController *controller = weakSelf.storyboard[@"WLCommentsViewController"];
+        WLCommentsViewController *controller = (id)weakSelf.storyboard[@"WLCommentsViewController"];
         controller.candy = weakSelf.candy;
         [controller presentForController:weakSelf animated:YES];
     }];
@@ -391,7 +391,7 @@
     }
     WLCandyViewController *candyViewController = [self.cachedCandyViewControllers objectForKey:candy];
     if (!candyViewController) {
-        candyViewController = self.storyboard[@"WLCandyViewController"];
+        candyViewController = (id)self.storyboard[@"WLCandyViewController"];
         candyViewController.candy = candy;
         [self.cachedCandyViewControllers setObject:candyViewController forKey:candy];
     }

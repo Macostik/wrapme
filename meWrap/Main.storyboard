@@ -3756,7 +3756,7 @@ QWRkEEZyaWVuZFZpZXc
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RN9-r6-64a" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="J7o-pO-jkz" userLabel="Add Contributors Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLAddContributorsViewController"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="addFriends"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="wrap"/>
                     </userDefinedRuntimeAttributes>
                     <connections>

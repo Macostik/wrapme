@@ -14,6 +14,6 @@
 
 @property (assign, nonatomic) BOOL isBroadcasting;
 
-@property (strong, nonatomic) Block completionHandler;
+@property (strong, nonatomic) BooleanBlock completionHandler;
 
 @end

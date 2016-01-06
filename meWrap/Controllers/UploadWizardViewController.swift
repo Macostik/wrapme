@@ -60,7 +60,7 @@ class UploadWizardViewController: WLBaseViewController {
             controller.wrap = wrap
             controller.isBroadcasting = isBroadcasting
             navigationController?.pushViewController(controller, animated: false)
-            controller.completionHandler = { [unowned self] _ in
+            controller.completionHandler = { [unowned self] invited in
                 let storyboard = self.storyboard
                 let navigationController = self.navigationController
                 var controllers: [UIViewController] = []
@@ -80,7 +80,8 @@ class UploadWizardViewController: WLBaseViewController {
                         navigationController?.presentViewController(controller, animated: false, completion: nil)
                     }
                 } else {
-                    if let controller = storyboard?["uploadWizardEnd"] {
+                    if let controller = storyboard?["uploadWizardEnd"] as? UploadWizardEndViewController {
+                        controller.friendsInvited = invited
                         navigationController?.presentViewController(controller, animated: false, completion: nil)
                     }
                 }
@@ -117,6 +118,20 @@ extension UploadWizardViewController: WLStillPictureViewControllerDelegate {
 }
 
 class UploadWizardEndViewController: WLBaseViewController {
+    
+    var friendsInvited = false
+    
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if friendsInvited {
+            descriptionLabel.text = "your_friends_are_receiving_invite".ls
+        } else {
+            descriptionLabel.text = "wrap_is_better_with_friends".ls
+        }
+    }
+    
     @IBAction func close(sender: UIButton) {
         presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
     }

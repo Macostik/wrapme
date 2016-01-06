@@ -134,7 +134,7 @@
 - (IBAction)next:(id)sender {
     __weak typeof(self)weakSelf = self;
     if (self.addressBook.selectedPhoneNumbers.count == 0) {
-        if (weakSelf.completionHandler) weakSelf.completionHandler();
+        if (weakSelf.completionHandler) weakSelf.completionHandler(NO);
     } else {
         if (![Network sharedNetwork].reachable) {
             [Toast show:@"no_internet_connection".ls];
@@ -142,7 +142,7 @@
         }
         
         [[APIRequest addContributors:self.addressBook.selectedPhoneNumbers wrap:self.wrap message:nil] send:^(id object) {
-            if (weakSelf.completionHandler) weakSelf.completionHandler();
+            if (weakSelf.completionHandler) weakSelf.completionHandler(YES);
         } failure:^(NSError *error) {
             [error show];
         }];

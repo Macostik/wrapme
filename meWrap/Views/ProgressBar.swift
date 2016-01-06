@@ -107,14 +107,18 @@ class ProgressBar: UIView {
 extension ProgressBar {
     func uploadProgress() -> NSProgress -> Void {
         return { [weak self] progress in
-            let value = 0.45 * CGFloat(progress.completedUnitCount/progress.totalUnitCount)
+            let completed = CGFloat(progress.completedUnitCount)
+            let total = CGFloat(progress.totalUnitCount)
+            let value = 0.45 * completed/total
             self?.setProgress(0.1 + value, animated: true)
         }
     }
     
     func downloadProgress() -> NSProgress -> Void {
         return { [weak self] progress in
-            let value = 0.45 + 0.45 * CGFloat(progress.completedUnitCount/progress.totalUnitCount)
+            let completed = CGFloat(progress.completedUnitCount)
+            let total = CGFloat(progress.totalUnitCount)
+            let value = 0.45 + 0.45 * completed/total
             self?.setProgress(0.1 + value, animated: true)
         }
     }

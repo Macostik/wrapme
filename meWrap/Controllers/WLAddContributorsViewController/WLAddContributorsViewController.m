@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet LayoutPrioritizer *bottomPrioritizer;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (nonatomic, strong) NSMutableArray* openedRows;
 @property (strong, nonatomic) ArrangedAddressBook* addressBook;
@@ -37,6 +38,7 @@
     [self.spinner startAnimating];
     
     if ([UploadWizardViewController isActive]) {
+        self.titleLabel.text = @"tell_friends_to_join".ls;
         self.nextButton.hidden = self.isBroadcasting;
         if (self.isBroadcasting) {
             [self.nextButton setTitle:@"next".ls forState:UIControlStateNormal];

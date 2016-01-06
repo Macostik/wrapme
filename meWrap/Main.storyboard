@@ -1627,6 +1627,7 @@
                         <outlet property="searchField" destination="KDf-WU-v2H" id="eMH-vk-lNZ"/>
                         <outlet property="spinner" destination="eU0-nK-XkS" id="3qg-cQ-HkS"/>
                         <outlet property="streamView" destination="Ez1-OW-DA8" id="3rG-mw-bMC"/>
+                        <outlet property="titleLabel" destination="Bop-dI-sMz" id="n4w-3G-b1s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Adp-VB-Iup" userLabel="First Responder" sceneMemberID="firstResponder"/>

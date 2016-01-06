@@ -333,7 +333,7 @@ class StreamView: UIScrollView {
         return itemPassingTest { $0.selected }
     }
     
-    func itemPassingTest(test: (StreamItem) -> Bool) -> StreamItem? {
+    func itemPassingTest(@noescape test: (StreamItem) -> Bool) -> StreamItem? {
         var item = rootItem
         while let next = item {
             if test(next) {
@@ -344,7 +344,7 @@ class StreamView: UIScrollView {
         return nil
     }
     
-    func itemsPassingTest(test: (StreamItem) -> Bool) -> Set<StreamItem> {
+    func itemsPassingTest(@noescape test: (StreamItem) -> Bool) -> Set<StreamItem> {
         var items: Set<StreamItem> = Set()
         var item = rootItem
         while let next = item {
@@ -357,27 +357,26 @@ class StreamView: UIScrollView {
     }
     
     func scrollToItem(item: StreamItem?, animated: Bool)  {
-        if let _item = item {
-            let minOffset = minimumContentOffset
-            let maxOffset = maximumContentOffset
-            if horizontal {
-                let offset = _item.frame.origin.x - self.fittingContentWidth / 2 + _item.frame.size.width / 2
-                if offset < minOffset.x {
-                    setContentOffset(minOffset, animated: animated)
-                } else if offset > maxOffset.x {
-                    setContentOffset(maxOffset, animated: animated)
-                } else {
-                    setContentOffset(CGPointMake(offset, 0), animated: animated)
-                }
+        guard let item = item else { return }
+        let minOffset = minimumContentOffset
+        let maxOffset = maximumContentOffset
+        if horizontal {
+            let offset = item.frame.origin.x - fittingContentWidth / 2 + item.frame.size.width / 2
+            if offset < minOffset.x {
+                setContentOffset(minOffset, animated: animated)
+            } else if offset > maxOffset.x {
+                setContentOffset(maxOffset, animated: animated)
             } else {
-                let offset = _item.frame.origin.y - self.fittingContentHeight / 2 + _item.frame.size.height / 2
-                if offset < minOffset.y {
-                    setContentOffset(minOffset, animated: animated)
-                } else if offset > maxOffset.y {
-                    setContentOffset(maxOffset, animated: animated)
-                } else {
-                    setContentOffset(CGPointMake(0, offset), animated: animated)
-                }
+                setContentOffset(CGPointMake(offset, 0), animated: animated)
+            }
+        } else {
+            let offset = item.frame.origin.y - fittingContentHeight / 2 + item.frame.size.height / 2
+            if offset < minOffset.y {
+                setContentOffset(minOffset, animated: animated)
+            } else if offset > maxOffset.y {
+                setContentOffset(maxOffset, animated: animated)
+            } else {
+                setContentOffset(CGPointMake(0, offset), animated: animated)
             }
         }
     }

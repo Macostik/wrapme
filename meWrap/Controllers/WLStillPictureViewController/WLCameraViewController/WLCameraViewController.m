@@ -28,7 +28,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.layer.videoGravity = AVLayerVideoGravityResizeAspect;
+    self.layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 }
 
 @end
@@ -59,7 +59,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 
 @property (weak, nonatomic) AssetsViewController* assetsViewController;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *assetsBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *assetsHeightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *assetsArrow;
 @property (weak, nonatomic) IBOutlet UIView *assetsView;
 
@@ -106,12 +106,12 @@
 
 - (void)viewDidLoad {
     
-    if (self.bottomViewHeightConstraint) {
-        CGRect frame = self.preferredViewFrame;
-        CGFloat bottomViewHeight = MAX(130, frame.size.height - frame.size.width / 0.75);
-        self.bottomViewHeightConstraint.constant = bottomViewHeight;
-        self.cameraViewBottomConstraint.constant = bottomViewHeight;
-    }
+//    if (self.bottomViewHeightConstraint) {
+//        CGRect frame = self.preferredViewFrame;
+//        CGFloat bottomViewHeight = MAX(130, frame.size.height - frame.size.width / 0.75);
+//        self.bottomViewHeightConstraint.constant = bottomViewHeight;
+//        self.cameraViewBottomConstraint.constant = bottomViewHeight;
+//    }
     
 	[super viewDidLoad];
     
@@ -237,12 +237,13 @@
 }
 
 - (IBAction)panning:(UIPanGestureRecognizer*)sender {
-    if (sender.state == UIGestureRecognizerStateBegan) {
-        
-    } else if (sender.state == UIGestureRecognizerStateChanged) {
+    CGFloat maxHeight = 16;
+    CGFloat minHeight = maxHeight - self.assetsViewController.view.height;
+    NSLayoutConstraint *constraint = self.assetsHeightConstraint;
+    if (sender.state == UIGestureRecognizerStateChanged) {
         CGPoint translation = [sender translationInView:sender.view];
-        self.assetsBottomConstraint.constant = Smoothstep(-self.assetsViewController.view.height, 0, self.assetsBottomConstraint.constant - translation.y / 2);
-        self.assetsArrow.layer.transform = CATransform3DMakeRotation(M_PI * self.assetsBottomConstraint.constant / self.assetsViewController.view.height, 1, 0, 0);
+        constraint.constant = Smoothstep(minHeight, maxHeight, constraint.constant - translation.y / 2);
+        self.assetsArrow.layer.transform = CATransform3DMakeRotation(M_PI * constraint.constant / minHeight, 1, 0, 0);
         [self.view layoutIfNeeded];
         [sender setTranslation:CGPointZero inView:sender.view];
     } else if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
@@ -250,13 +251,13 @@
         if (ABS(velocity) > 500) {
             [self setAssetsViewControllerHidden:velocity > 0 animated:YES];
         } else {
-            [self setAssetsViewControllerHidden:ABS(self.assetsBottomConstraint.constant) > self.assetsViewController.view.height/2 animated:YES];
+            [self setAssetsViewControllerHidden:constraint.constant < minHeight/2 animated:YES];
         }
     }
 }
 
 - (IBAction)toggleQuickAssets:(id)sender {
-    [self setAssetsViewControllerHidden:self.assetsBottomConstraint.constant == 0 animated:YES];
+    [self setAssetsViewControllerHidden:self.assetsHeightConstraint.constant == 16 animated:YES];
 }
 
 - (void)setAssetsViewControllerHidden {
@@ -264,20 +265,21 @@
 }
 
 - (void)setAssetsViewControllerHidden:(BOOL)hidden animated:(BOOL)animated {
+    CGFloat maxHeight = 16;
+    CGFloat minHeight = maxHeight - self.assetsViewController.view.height;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(setAssetsViewControllerHidden) object:nil];
     if (hidden) {
-        self.assetsBottomConstraint.constant = -self.assetsViewController.view.height;
+        self.assetsHeightConstraint.constant = minHeight;
     } else {
-        self.assetsBottomConstraint.constant = 0;
+        self.assetsHeightConstraint.constant = maxHeight;
     }
-    [UIView animateWithDuration:animated ? 0.3 : 0 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:animated ? 0.3 : 0 animations:^{
         if (hidden) {
             self.assetsArrow.layer.transform = CATransform3DMakeRotation(M_PI, 1, 0, 0);
         } else {
             self.assetsArrow.layer.transform = CATransform3DIdentity;
         }
         [self.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
     }];
 }
 
@@ -465,7 +467,6 @@
                     [device unlockForConfiguration];
                 }
                 [[Dispatch mainQueue] async:^{
-                    weakSelf.cameraView.layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
                     [weakSelf applyDeviceOrientation:[DeviceManager defaultManager].orientation forConnection:weakSelf.movieFileOutputConnection];
                     completion();
                     preparingCompletion();
@@ -509,7 +510,6 @@
                     [session addOutput:weakSelf.stillImageOutput];
                 }
             } completion:^{
-                weakSelf.cameraView.layer.videoGravity = AVLayerVideoGravityResizeAspect;
                 [weakSelf configureDevice:^(AVCaptureDevice *device) {
                     device.videoZoomFactor = Smoothstep(1, MIN(8, device.activeFormat.videoMaxZoomFactor), _zoomScale);
                     if ([device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {

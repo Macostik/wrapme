@@ -199,7 +199,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
     func enlargingPresenterDismissingView(candy: Candy) -> UIView? {
         guard let historyItems = history.entries as? [HistoryItem] else { return nil }
         guard let historyItem = historyItems.filter({ $0.candies.contains(candy) ?? false }).last else { return nil }
-        guard let streamHistoryItem = streamView.itemPassingTest({ $0.entry === historyItem && $0.metrics == self.candyMetrics}) else { return nil }
+        guard let streamHistoryItem = streamView.itemPassingTest({ $0.entry === historyItem && $0.metrics == candyMetrics}) else { return nil }
         streamView.scrollRectToVisible(streamHistoryItem.frame, animated: true)
         guard let cell = streamHistoryItem.view as? HistoryItemCell else { return nil }
         guard let streamCandyItem = cell.streamView.itemPassingTest({ ($0.entry as? Candy) == candy}) else { return nil }

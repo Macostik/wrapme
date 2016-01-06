@@ -88,7 +88,7 @@
 
 - (void)showWrapPickerWithController:(BOOL)animated {
     [self.view layoutIfNeeded];
-    WLWrapPickerViewController *pickerController = self.storyboard[@"WLWrapPickerViewController"];
+    WLWrapPickerViewController *pickerController = (id)self.storyboard[@"WLWrapPickerViewController"];
     pickerController.delegate = self;
     pickerController.wrap = self.wrap;
     [pickerController showInViewController:self animated:NO];
@@ -139,11 +139,18 @@
     __weak typeof(self)weakSelf = self;
     [[Dispatch defaultQueue] fetch:^id _Nullable{
         CGFloat resultWidth = [weakSelf imageWidthForCurrentMode];
+        UIImage *resultImage = nil;
+        CGSize fitSize = CGSizeThatFitsSize(image.size, weakSelf.view.size);
         if (image.size.width > image.size.height) {
-            return [image resize:CGSizeMake(1, resultWidth) aspectFill:YES];
+            CGFloat scale = image.size.height / fitSize.height;
+            resultImage = [image resize:CGSizeMake(1, resultWidth * scale) aspectFill:YES];
         } else {
-            return [image resize:CGSizeMake(resultWidth, 1) aspectFill:YES];
+            CGFloat scale = image.size.width / fitSize.width;
+            resultImage = [image resize:CGSizeMake(resultWidth * scale, 1) aspectFill:YES];
         }
+        CGRect cropRect = CGRectThatFitsSize(resultImage.size, weakSelf.view.size);
+        resultImage = [resultImage crop:cropRect];
+        return resultImage;
     } completion:completion];
 }
 

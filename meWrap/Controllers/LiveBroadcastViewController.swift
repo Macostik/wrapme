@@ -238,6 +238,18 @@ class LiveBroadcastViewController: WLBaseViewController {
             streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
             previewLayer = layer
             layer.connection.videoOrientation = orientation
+            if let device = videoCamera() {
+                do {
+                    try device.lockForConfiguration()
+                    if device.isFocusModeSupported(.ContinuousAutoFocus) {
+                        device.focusMode = .ContinuousAutoFocus
+                    }
+                    if device.isExposureModeSupported(.ContinuousAutoExposure) {
+                        device.exposureMode = .ContinuousAutoExposure
+                    }
+                    device.unlockForConfiguration()
+                } catch { }
+            }
         }
     }
     
@@ -524,9 +536,9 @@ extension LiveBroadcastViewController: EntryNotifying {
 
 extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
     func notificationSubscription(subscription: NotificationSubscription, didReceiveMessage message: PNMessageResult) {
-        guard let uuid = (message.data?.message as? [String : AnyObject])?["userUid"] as? String else { return }
-        guard let user = User.entry(uuid) else { return }
-        guard let text = (message.data?.message as? [String : AnyObject])?["chatMessage"] as? String else { return }
+        guard let message = message.data?.message as? [String : AnyObject],
+            let user = User.entry(message["userUid"] as? String),
+            let text = message["content"] as? String else { return }
         user.fetchIfNeeded({ [weak self] (_) -> Void in
             let event = LiveBroadcast.Event(type: .Message)
             event.user = user

@@ -384,7 +384,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         } else {
             if let text = composeBar.text, let uuid = User.currentUser?.uid where !text.isEmpty {
                 chatSubscription?.send([
-                    "chatMessage" : text,
+                    "content" : text,
                     "userUid" : uuid
                     ])
             }

@@ -26,7 +26,7 @@ extension PubNub {
                     configuration = PNConfiguration(publishKey: "pub-c-16ba2a90-9331-4472-b00a-83f01ff32089", subscribeKey: "sub-c-bc5bfa70-d166-11e3-8d06-02ee2ddab7fe")
                 }
                 configuration.uuid = User.channelName()
-                PNLog.enabled(false)
+                PNLog.enabled(true)
                 _sharedInstance = clientWithConfiguration(configuration)
             }
             return _sharedInstance!

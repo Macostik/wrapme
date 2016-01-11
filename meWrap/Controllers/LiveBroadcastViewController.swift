@@ -167,7 +167,6 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     private func initializeViewing(broadcast: LiveBroadcast) {
         composeBar.placeholder = "view_broadcast_text_placeholder".ls
-        isBroadcasting = false
         toggleCameraButton.hidden = true
         
         layoutPrioritizer.defaultState = false
@@ -211,7 +210,6 @@ class LiveBroadcastViewController: WLBaseViewController {
         chatStreamView.hidden = true
         joinsCountView.hidden = true
         toggleCameraButton.hidden = true
-        isBroadcasting = true
         titleLabel?.superview?.hidden = true
         startCapture(1)
     }

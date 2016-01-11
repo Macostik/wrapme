@@ -14,9 +14,9 @@ class Entry: NSManagedObject {
 
     class func entityName() -> String { return "Entry" }
     
-    class func containerEntityName() -> String? { return nil }
+    class func containerType() -> Entry.Type? { return nil }
     
-    class func contentEntityNames() -> Set<String>? { return nil }
+    class func contentTypes() -> [Entry.Type]? { return nil }
     
     override var description: String { return "\(self.dynamicType.entityName()): \(uid)" }
     

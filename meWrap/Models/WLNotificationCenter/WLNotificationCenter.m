@@ -98,13 +98,9 @@
                 [[APIRequest updateDevice] send];
             }
         } else {
-            [self registerForRemoteNotifications];
+            [[UIApplication sharedApplication] registerForRemoteNotifications];
         }
     }
-}
-
-- (void)registerForRemoteNotifications {
-    [[UIApplication sharedApplication] registerForRemoteNotifications];
 }
 
 - (void)handleDeviceToken:(NSData*)deviceToken {
@@ -121,10 +117,10 @@
         return;
     }
     __weak typeof(self)weakSelf = self;
-    Notification* notification = [[Notification alloc] initWithData:data date:nil];
+    Notification* notification = [Notification notificationWithBody:data publishedAt:nil];
     [Logger log:[NSString stringWithFormat:@"PUBNUB - received APNS: %@", data]];
     if (notification) {
-        if ([self isAlreadyHandledNotification:notification]) {
+        if ([self canSkipNotification:notification]) {
             if (success) success(notification);
         } else {
             [[RunQueue fetchQueue] run:^(Block finish) {
@@ -152,7 +148,7 @@
 // MARK: - NotificationSubscriptionDelegate
 
 - (void)fetchLiveBroadcasts:(void (^)(void))completionHandler {
-    [[PubNub sharedInstance] hereNowForChannelGroup:[WLNotificationCenter defaultCenter].userSubscription.name withCompletion:^(PNPresenceChannelGroupHereNowResult *result, PNErrorStatus *status) {
+    [[PubNub sharedInstance] hereNowForChannelGroup:self.userSubscription.name withCompletion:^(PNPresenceChannelGroupHereNowResult *result, PNErrorStatus *status) {
         NSDictionary *channels = result.data.channels;
         for (NSString *channel in channels) {
             Wrap *wrap = [Wrap entry:channel];
@@ -234,15 +230,10 @@
 }
 
 - (void)handleEnqueuedMessages {
-    NSArray *messages = [self.enqueuedMessages copy];
+    NSArray *notifications = [self notificationsFromMessages:self.enqueuedMessages];
     [self.enqueuedMessages removeAllObjects];
-    NSArray *notifications = [self notificationsFromMessages:messages];
     if (notifications.nonempty) {
         NSMutableIndexSet *playedSoundTypes = [NSMutableIndexSet indexSet];
-        
-        for (Notification *notification in notifications) {
-            [notification prepare];
-        }
         
         for (Notification *notification in notifications) {
             [[RunQueue fetchQueue] run:^(Block finish) {
@@ -251,8 +242,8 @@
                     return;
                 }
                 [notification fetch:^{
-                    if (![playedSoundTypes containsIndex:notification.type]) [[SoundPlayer player] playForNotification:notification];
-                    [playedSoundTypes addIndex:notification.type];
+                    if (![playedSoundTypes containsIndex:notification.soundType]) [[SoundPlayer player] playForNotification:notification];
+                    [playedSoundTypes addIndex:notification.soundType];
                     finish();
                 } failure:^(NSError *error) {
                     finish();
@@ -263,7 +254,7 @@
         
         [[RunQueue fetchQueue] run:^(Block finish) {
             for (Notification *notification in notifications) {
-                [notification finalizeNotification];
+                [notification submit];
             }
             finish();
         }];
@@ -272,37 +263,9 @@
 
 - (void)clear {
     self.userSubscription = nil;
-    [NSUserDefaults standardUserDefaults].handledNotifications = nil;
+    [[NSUserDefaults standardUserDefaults] clearHandledNotifications];
     [NSUserDefaults standardUserDefaults].historyDate = nil;
     [PubNub setSharedInstance:nil];
-}
-
-- (BOOL)isAlreadyHandledNotification:(Notification*)notification {
-    return [[NSUserDefaults standardUserDefaults].handledNotifications containsObject:notification.uid];
-}
-
-- (void)handleNotification:(Notification*)notification completion:(Block)completion {
-    [notification handle:^{
-        [[SoundPlayer player] playForNotification:notification];
-        if (completion) completion();
-    } failure:^(NSError *error) {
-        if (completion) completion();
-    }];
-}
-
-- (void)addHandledNotifications:(NSArray*)notifications {
-    NSArray *uids = [notifications map:^id(Notification* notification) {
-        return notification.uid;
-    }];
-    
-    if (uids.nonempty) {
-        NSMutableOrderedSet *handledNotifications = [[NSUserDefaults standardUserDefaults].handledNotifications mutableCopy];
-        if (handledNotifications.count > 100) {
-            [handledNotifications removeObjectsInRange:NSMakeRange(0, MIN(100, uids.count))];
-        }
-        [handledNotifications unionOrderedSet:[NSOrderedSet orderedSetWithArray:uids]];
-        [NSUserDefaults standardUserDefaults].handledNotifications = handledNotifications;
-    }
 }
 
 - (void)requestHistory {
@@ -349,18 +312,14 @@
         NSMutableIndexSet *playedSoundTypes = [NSMutableIndexSet indexSet];
         
         for (Notification *notification in notifications) {
-            [notification prepare];
-        }
-        
-        for (Notification *notification in notifications) {
             [[RunQueue fetchQueue] run:^(Block finish) {
                 if (!notification) {
                     finish();
                     return;
                 }
                 [notification fetch:^{
-                    if (![playedSoundTypes containsIndex:notification.type]) [[SoundPlayer player] playForNotification:notification];
-                    [playedSoundTypes addIndex:notification.type];
+                    if (![playedSoundTypes containsIndex:notification.soundType]) [[SoundPlayer player] playForNotification:notification];
+                    [playedSoundTypes addIndex:notification.soundType];
                     finish();
                 } failure:^(NSError *error) {
                     finish();
@@ -371,77 +330,11 @@
         
         [[RunQueue fetchQueue] run:^(Block finish) {
             for (Notification *notification in notifications) {
-                [notification finalizeNotification];
+                [notification submit];
             }
             finish();
         }];
     }
-}
-
-- (NSArray*)notificationsFromMessages:(NSArray*)messages {
-    if (!messages.nonempty) return nil;
-    __weak typeof(self)weakSelf = self;
-    NSMutableArray *notifications = [[messages map:^id(PNMessageData *message) {
-        Notification *notification = [[Notification alloc] initWithMessage:message];
-        if (notification.type != NotificationTypeUserUpdate && ![Authorization active]) {
-            return nil;
-        }
-        if ((notification.type != NotificationTypeCandyAdd && notification.type != NotificationTypeCandyUpdate) && notification.originatedByCurrentUser) {
-            return nil;
-        }
-        return [weakSelf isAlreadyHandledNotification:notification] ? nil : notification;
-    }] mutableCopy];
-    
-    if (!notifications.nonempty) return nil;
-    
-    [self addHandledNotifications:notifications];
-    
-    if (notifications.count == 1) {
-        return [notifications copy];
-    }
-    
-    NSArray *deleteNotifications = [notifications where:@"event == %d", EventDelete];
-    
-    for (Notification *notification in deleteNotifications) {
-        if (![notifications containsObject:notification]) {
-            continue;
-        }
-        NSArray *deleted = [deleteNotifications where:@"descriptor.uid == %@", notification.descriptor.uid];
-        NSArray *added = [notifications where:@"event == %d AND descriptor.uid == %@", EventAdd, notification.descriptor.uid];
-        if (added.count > deleted.count) {
-            NSMutableArray *_added = [NSMutableArray arrayWithArray:added];
-            [_added removeLastObject];
-            added = [NSArray arrayWithArray:_added];
-        } else if (added.count < deleted.count) {
-            NSMutableArray *_deleted = [NSMutableArray arrayWithArray:deleted];
-            [_deleted removeLastObject];
-            deleted = [NSArray arrayWithArray:_deleted];
-        }
-        [notifications removeObjectsInArray:deleted];
-        [notifications removeObjectsInArray:added];
-    }
-    
-    deleteNotifications = [notifications where:@"event == %d", EventDelete];
-    
-    for (Notification *deleteNotification in deleteNotifications) {
-        if (![notifications containsObject:deleteNotification]) {
-            continue;
-        }
-        NSString *uid = deleteNotification.descriptor.uid;
-        if (uid.nonempty) {
-            NSArray *discardedNotifications = [notifications where:@"SELF != %@ AND (descriptor.uid == %@ OR descriptor.container == %@)",deleteNotification, uid, uid];
-            [notifications removeObjectsInArray:discardedNotifications];
-            if (![deleteNotification.descriptor entryExists]) {
-                [notifications removeObject:deleteNotification];
-            }
-        } else {
-            [notifications removeObject:deleteNotification];
-        }
-    }
-    
-    [notifications sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]]];
-    
-    return [notifications copy];
 }
 
 #pragma mark - PNObjectEventListener

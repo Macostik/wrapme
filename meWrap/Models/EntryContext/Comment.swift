@@ -14,7 +14,7 @@ class Comment: Contribution {
 
     override class func entityName() -> String { return "Comment" }
     
-    override class func containerEntityName() -> String? { return Candy.entityName() }
+    override class func containerType() -> Entry.Type? { return Candy.self }
     
     override var container: Entry? {
         get { return candy }

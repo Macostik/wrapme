@@ -66,6 +66,14 @@
     self.settingsButton.exclusiveTouch = self.followButton.exclusiveTouch = self.unfollowButton.exclusiveTouch = YES;
 }
 
+- (void)presentLiveProadcast:(LiveBroadcast *)broadcast {
+    if (self.segment != WLWrapSegmentMedia) {
+        [self changeSegment:WLWrapSegmentMedia];
+    }
+    MediaViewController *controller = (id)[self controllerNamed:@"media" badge:self.candyCountLabel];
+    [controller presentLiveBroadcast:broadcast];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (self.wrap.valid) {
@@ -155,16 +163,20 @@
     [[RecentUpdateList sharedList] addReceiver:self];
 }
 
-- (IBAction)segmentChanged:(SegmentedControl*)sender {
-    NSUInteger selectedSegment = self.segment = sender.selectedSegment;
-    if (selectedSegment == WLWrapSegmentMedia) {
+- (void)changeSegment:(WLWrapSegment)segment {
+    self.segment = segment;
+    if (segment == WLWrapSegmentMedia) {
         self.viewController = [self controllerNamed:@"media" badge:self.candyCountLabel];
-    } else if (selectedSegment == WLWrapSegmentChat) {
+    } else if (segment == WLWrapSegmentChat) {
         self.viewController = [self controllerNamed:@"chat" badge:self.messageCountLabel];
     } else {
         self.viewController = [self controllerNamed:@"friends" badge:nil];
     }
     [self updateCandyCounter];
+}
+
+- (IBAction)segmentChanged:(SegmentedControl*)sender {
+    [self changeSegment:sender.selectedSegment];
 }
 
 - (IBAction)follow:(WLButton*)sender {

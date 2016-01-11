@@ -148,7 +148,7 @@ extension UIViewController {
             
     func toastAppearanceReferenceView(toast: Toast) -> UIView {
         if respondsToSelector("navigationBar") {
-            return performSelector("navigationBar").takeUnretainedValue() as? UIView ?? view
+            return performSelector("navigationBar")?.takeUnretainedValue() as? UIView ?? view
         } else {
             return view
         }

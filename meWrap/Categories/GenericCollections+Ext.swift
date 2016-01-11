@@ -14,7 +14,7 @@ extension NSArray {
         return count > 0
     }
     
-    func map(mapper: AnyObject -> AnyObject?) -> [AnyObject] {
+    func map(@noescape mapper: AnyObject -> AnyObject?) -> [AnyObject] {
         var array = [AnyObject]()
         for object in self as [AnyObject] {
             if let _object = mapper(object) {
@@ -24,7 +24,7 @@ extension NSArray {
         return array
     }
     
-    func selectObject(selector: AnyObject -> Bool) -> AnyObject? {
+    func selectObject(@noescape selector: AnyObject -> Bool) -> AnyObject? {
         for object in self as [AnyObject] where selector(object) {
             return object
         }
@@ -38,7 +38,7 @@ extension NSSet {
         return count > 0
     }
     
-    func map(mapper: AnyObject -> AnyObject?) -> NSSet {
+    func map(@noescape mapper: AnyObject -> AnyObject?) -> NSSet {
         let set = NSMutableSet()
         for object in self {
             if let _object = mapper(object) {

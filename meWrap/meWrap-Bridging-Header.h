@@ -12,6 +12,7 @@
 #import "Streamer.h"
 #import "VideoConfig.h"
 #import "WLComposeBar.h"
+#import "WLWrapViewController.h"
 #import "WLCandyViewController.h"
 #import "WLNotificationCenter.h"
 #import "WLBadgeLabel.h"

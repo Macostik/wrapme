@@ -14,7 +14,7 @@ class Message: Contribution {
 
     override class func entityName() -> String { return "Message" }
     
-    override class func containerEntityName() -> String? { return Wrap.entityName() }
+    override class func containerType() -> Entry.Type? { return Wrap.self }
 
     override var container: Entry? {
         get { return wrap }

@@ -107,6 +107,12 @@
 		C53CD24D1C1706B600AA4746 /* CandyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C53CD24B1C1706B600AA4746 /* CandyCell.xib */; };
 		C53E5CFD1A84FBDB004F61B0 /* WLStillPictureBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5CF91A84FBDB004F61B0 /* WLStillPictureBaseViewController.m */; };
 		C53E5D771A851F71004F61B0 /* WLCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5D581A851F71004F61B0 /* WLCameraViewController.m */; };
+		C53E96301C3D438A003663FA /* WrapNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53E962F1C3D438A003663FA /* WrapNotification.swift */; };
+		C53E96321C3D43F0003663FA /* CandyNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53E96311C3D43F0003663FA /* CandyNotification.swift */; };
+		C53E96341C3D440F003663FA /* CommentNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53E96331C3D440F003663FA /* CommentNotification.swift */; };
+		C53E96361C3D442B003663FA /* MessageNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53E96351C3D442B003663FA /* MessageNotification.swift */; };
+		C53E96381C3D4435003663FA /* UserNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53E96371C3D4435003663FA /* UserNotification.swift */; };
+		C53E963A1C3D51A5003663FA /* WLNotificationCenter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53E96391C3D51A5003663FA /* WLNotificationCenter+Ext.swift */; };
 		C53F2FBC1C106472004EBC73 /* PubNub+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53F2FBB1C106472004EBC73 /* PubNub+Ext.swift */; };
 		C540C0F01B988BF700F880C9 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540C0EE1B988BF700F880C9 /* GridLayout.swift */; };
 		C540C0F31B988BFD00F880C9 /* StreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540C0F11B988BFD00F880C9 /* StreamItem.swift */; };
@@ -590,6 +596,12 @@
 		C53E5CF91A84FBDB004F61B0 /* WLStillPictureBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLStillPictureBaseViewController.m; path = WLStillPictureViewController/WLStillPictureBaseViewController.m; sourceTree = "<group>"; };
 		C53E5D571A851F71004F61B0 /* WLCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCameraViewController.h; sourceTree = "<group>"; };
 		C53E5D581A851F71004F61B0 /* WLCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCameraViewController.m; sourceTree = "<group>"; };
+		C53E962F1C3D438A003663FA /* WrapNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapNotification.swift; sourceTree = "<group>"; };
+		C53E96311C3D43F0003663FA /* CandyNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyNotification.swift; sourceTree = "<group>"; };
+		C53E96331C3D440F003663FA /* CommentNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentNotification.swift; sourceTree = "<group>"; };
+		C53E96351C3D442B003663FA /* MessageNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageNotification.swift; sourceTree = "<group>"; };
+		C53E96371C3D4435003663FA /* UserNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNotification.swift; sourceTree = "<group>"; };
+		C53E96391C3D51A5003663FA /* WLNotificationCenter+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WLNotificationCenter+Ext.swift"; sourceTree = "<group>"; };
 		C53F2FBB1C106472004EBC73 /* PubNub+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PubNub+Ext.swift"; sourceTree = "<group>"; };
 		C540C0EE1B988BF700F880C9 /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		C540C0F11B988BFD00F880C9 /* StreamItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamItem.swift; sourceTree = "<group>"; };
@@ -1837,7 +1849,13 @@
 			children = (
 				C5BEE0E21B2AC8C300D3CF70 /* WLNotificationCenter.h */,
 				C5BEE0E31B2AC8C300D3CF70 /* WLNotificationCenter.m */,
+				C53E96391C3D51A5003663FA /* WLNotificationCenter+Ext.swift */,
 				C57F7AF31C1ED59100FFB465 /* Notification.swift */,
+				C53E962F1C3D438A003663FA /* WrapNotification.swift */,
+				C53E96311C3D43F0003663FA /* CandyNotification.swift */,
+				C53E96331C3D440F003663FA /* CommentNotification.swift */,
+				C53E96351C3D442B003663FA /* MessageNotification.swift */,
+				C53E96371C3D4435003663FA /* UserNotification.swift */,
 				C53F2FBB1C106472004EBC73 /* PubNub+Ext.swift */,
 			);
 			path = WLNotificationCenter;
@@ -2458,6 +2476,8 @@
 				C510BF6D1BCF93C0008223A3 /* UIDevice+Ext.swift in Sources */,
 				C5D552201C04BC2400069169 /* Environment.swift in Sources */,
 				C53937661C3BD82600EEEC0A /* Toast.swift in Sources */,
+				C53E96321C3D43F0003663FA /* CandyNotification.swift in Sources */,
+				C53E96381C3D4435003663FA /* UserNotification.swift in Sources */,
 				C54743461C09CE3700BECB25 /* CATransition+Ext.swift in Sources */,
 				C5ECD55B1BF649B9005791B1 /* UIStoryboard+Ext.swift in Sources */,
 				C5BCF0011B551B7B00E4AD6D /* WLChatViewController.m in Sources */,
@@ -2465,6 +2485,7 @@
 				C5E6F0231BFF38C200FA3D4F /* SwipeAction.swift in Sources */,
 				C530127D1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift in Sources */,
 				C51A521E1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */,
+				C53E96361C3D442B003663FA /* MessageNotification.swift in Sources */,
 				C5AA71D61BE3D39D00EA106A /* MutableAsset.swift in Sources */,
 				C5BCF0381B551B7B00E4AD6D /* WLContributorsViewController.m in Sources */,
 				C577C2661A4C427100ECC7E5 /* iVersion.m in Sources */,
@@ -2481,6 +2502,7 @@
 				C54743441C09CD8A00BECB25 /* ImageFetcher.swift in Sources */,
 				C54AF67C19B8C491006F7EDB /* main.m in Sources */,
 				C57E1CCB1B98930900E2303B /* StreamView.swift in Sources */,
+				C53E96341C3D440F003663FA /* CommentNotification.swift in Sources */,
 				C5C20BE81A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */,
 				5B1D045B1BFCE16C00263102 /* CandyInteractionController.swift in Sources */,
 				C5B4E5681BF60E0300A4B223 /* PHPhotoLibrary+Ext.swift in Sources */,
@@ -2504,6 +2526,7 @@
 				C50541581BD6545400AE6F2C /* WLImageEditorSession.m in Sources */,
 				C52279621BECCA8600B1C49C /* NSDate+Ext.swift in Sources */,
 				C54C423E1BDE6260003E644D /* Archive.swift in Sources */,
+				C53E96301C3D438A003663FA /* WrapNotification.swift in Sources */,
 				C51B82C41C1850C20054726A /* GenericCollections+Ext.swift in Sources */,
 				C55D04121C203B1B008F87FF /* HistoryFooterView.swift in Sources */,
 				C5C20B921A238AE7008B2E2E /* WLValidation.m in Sources */,
@@ -2587,6 +2610,7 @@
 				C545312D1A24A1F20048A677 /* WLCountriesViewController.m in Sources */,
 				C53012871BF4C0AD00098F9C /* HomeDataSource.swift in Sources */,
 				C53BC4861C05B32C0009B0B9 /* AssetsViewController.swift in Sources */,
+				C53E963A1C3D51A5003663FA /* WLNotificationCenter+Ext.swift in Sources */,
 				C5E6DD901C0DC84A004992E4 /* EntryContext.swift in Sources */,
 				C5E6DD8B1C0DC84A004992E4 /* Comment.swift in Sources */,
 				C507F80E1C218BB1006DA3E5 /* Dispatch.swift in Sources */,

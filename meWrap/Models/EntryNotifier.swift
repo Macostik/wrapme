@@ -64,9 +64,9 @@ class EntryNotifier: OrderedNotifier {
     }
     
     func notifyOnDeleting(entry: Entry) {
-        if let contentEntityNames = entry.dynamicType.contentEntityNames() {
-            for entityName in contentEntityNames {
-                EntryNotifier.notifierForName(entityName).notifyOnDeletingContainer(entry)
+        if let contentTypes = entry.dynamicType.contentTypes() {
+            for type in contentTypes {
+                type.notifier().notifyOnDeletingContainer(entry)
             }
         }
         notifyOnEntry(entry) { $0.notifier?(self, willDeleteEntry: entry) }

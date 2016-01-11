@@ -51,9 +51,7 @@
 	
     NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:notification success:^(id object) {
-        if (object) {
-            [self presentNotification:object];
-        }
+        [object presentWithIdentifier:nil];
     } failure:^(NSError *error) {
         [error show];
     }];
@@ -204,7 +202,7 @@
     BOOL presentable = state == UIApplicationStateInactive;
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(Notification *notification) {
         if (presentable) {
-            [self presentNotification:notification];
+            [notification presentWithIdentifier:nil];
         }
         if (completion) {
             completion(UIBackgroundFetchResultNewData);
@@ -223,7 +221,7 @@
     __block void (^completion)(UIBackgroundFetchResult) = completionHandler;
     
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(Notification *notification) {
-        [self presentNotification:notification handleActionWithIdentifier:identifier];
+        [notification presentWithIdentifier:identifier];
         if (completion) {
             completion(UIBackgroundFetchResultNewData);
             completion = nil;
@@ -275,28 +273,6 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [[Uploader wrapUploader] start];
-}
-
-- (void)presentNotification:(Notification *)notification {
-    [self presentNotification:notification handleActionWithIdentifier:nil];
-}
-
-- (void)presentNotification:(Notification *)notification handleActionWithIdentifier:(NSString *)identifier {
-    
-    NotificationType type = notification.type;
-    if (type == NotificationTypeUpdateAvailable) {
-        [[UIApplication sharedApplication] openURL:[[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@",@(Constants.appStoreID)] URL]];
-    } else {
-        Entry *entry = notification.entry;
-        if (entry) {
-            NSDictionary *entryReference = [notification.entry serializeReference];
-            [[EventualEntryPresenter sharedPresenter] presentEntry:entryReference];
-            if ([identifier isEqualToString:@"reply"]) {
-                id wrapViewController = [entry viewControllerWithNavigationController:[UINavigationController mainNavigationController]];
-                [wrapViewController setShowKeyboard:YES];
-            }
-        }
-    }
 }
 
 - (void)registerUserNotificationSettings {

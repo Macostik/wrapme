@@ -141,16 +141,8 @@ class MediaViewController: WLWrapEmbeddedViewController {
         let loader = IndexedStreamLoader(identifier: "MediaViews", index: 0)
         dataSource.liveBroadcastMetrics.loader = loader
         dataSource.liveBroadcastMetrics.selection = { [weak self] (item, broadcast) -> Void in
-            if !Network.sharedNetwork.reachable {
-                Toast.show("no_internet_connection".ls)
-                return
-            }
-            if let controller = self?.storyboard?["liveBroadcast"] as? LiveBroadcastViewController {
-                controller.wrap = self?.wrap
-                if let broadcast = broadcast as? LiveBroadcast {
-                    controller.broadcast = broadcast
-                }
-                self?.navigationController?.presentViewController(controller, animated: false, completion: nil)
+            if let broadcast = broadcast as? LiveBroadcast {
+                self?.presentLiveBroadcast(broadcast)
             }
         }
         let dateMetrics = dataSource.addMetrics(StreamMetrics(loader: loader.loader(1)))
@@ -188,6 +180,18 @@ class MediaViewController: WLWrapEmbeddedViewController {
             dropDownCollectionView()
         }
         Wrap.notifier().addReceiver(self)
+    }
+    
+    func presentLiveBroadcast(broadcast: LiveBroadcast) {
+        if !Network.sharedNetwork.reachable {
+            Toast.show("no_internet_connection".ls)
+            return
+        }
+        if let controller = storyboard?["liveBroadcast"] as? LiveBroadcastViewController {
+            controller.wrap = wrap
+            controller.broadcast = broadcast
+            navigationController?.presentViewController(controller, animated: false, completion: nil)
+        }
     }
     
     override func viewDidAppear(animated: Bool) {

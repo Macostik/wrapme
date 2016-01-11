@@ -10,6 +10,7 @@ import UIKit
 import PubNub
 
 @objc enum NotificationType: Int {
+    
     case ContributorAdd        = 100
     case ContributorDelete     = 200
     case CandyAdd              = 300
@@ -23,472 +24,158 @@ import PubNub
     case UpdateAvailable       = 1100
     case CandyUpdate           = 1200
     case LiveBroadcast         = 1300
+    
+    func typeValue() -> Notification.Type {
+        switch self {
+        case .ContributorAdd: return ContributorAddNotification.self
+        case .ContributorDelete: return ContributorDeleteNotification.self
+        case .WrapDelete: return WrapDeleteNotification.self
+        case .WrapUpdate: return WrapUpdateNotification.self
+        case .CandyAdd: return CandyAddNotification.self
+        case .CandyDelete: return CandyDeleteNotification.self
+        case .CandyUpdate: return CandyUpdateNotification.self
+        case .MessageAdd: return MessageAddNotification.self
+        case .CommentAdd: return CommentAddNotification.self
+        case .CommentDelete: return CommentDeleteNotification.self
+        case .UserUpdate: return UserUpdateNotification.self
+        case .UpdateAvailable: return UpdateAvailableNotification.self
+        case .LiveBroadcast: return LiveBroadcastNotification.self
+        }
+    }
+}
+
+class UpdateAvailableNotification: Notification {
+    override func presentWithIdentifier(identifier: String?) {
+        if let url = "itms-apps://itunes.apple.com/app/id\(Constants.appStoreID)".URL {
+            UIApplication.sharedApplication().openURL(url)
+        }
+    }
 }
 
 class Notification: NSObject {
-    var type: NotificationType = .ContributorAdd
-    var event: Event = .Add
     var uid: String?
-    var playSound: Bool {
-        guard let entry = entry where isSoundAllowed else {
-            return false
-        }
-        switch (type) {
-        case .ContributorAdd, .MessageAdd, .CommentAdd:
-            return entry.notifiableForNotification(self) ?? false
-        default:
-            return false
-        }
-
+    
+    func playSound() -> Bool {
+        return entry != nil && body?["pn_apns"] != nil && notifiable()
     }
-    var isSoundAllowed = false
-    var presentable: Bool {
-        return event != .Delete
-    }
-    var date: NSDate?
-    var publishedAt: NSDate?
-    var data: [String:AnyObject]?
-    var requester: User?
+    
+    func soundType() -> Sound { return .Off }
+    
+    func notifiable() -> Bool { return false }
+    
+    var publishedAt: NSDate
+    var body: [String:AnyObject]?
     var descriptor: EntryDescriptor?
-    var trimmed = false
     var inserted = false
     var originatedByCurrentUser = false
+    var type: NotificationType
     
-    convenience init?(message: AnyObject?) {
-        var data: [String:AnyObject]?
-        var timetoken: NSNumber?
+    private class func parseMessage(message: AnyObject?) -> (body: [String:AnyObject]?, timetoken: NSNumber?) {
         if let message = message as? PNMessageData {
-            data = message.message as? [String:AnyObject]
-            timetoken = message.timetoken
+            return (message.message as? [String:AnyObject], message.timetoken)
         } else if let message = message as? [String:AnyObject] {
-            data = message["message"] as? [String:AnyObject]
-            timetoken = message["timetoken"] as? NSNumber
-        }
-        
-        if let data = data, let timetoken = timetoken {
-            self.init(data: data, date: NSDate.dateWithTimetoken(timetoken))
+            return (message["message"] as? [String:AnyObject], message["timetoken"] as? NSNumber)
         } else {
-            return nil
+            return (nil, nil)
         }
     }
     
-    convenience init?(data: [String:AnyObject], date: NSDate?) {
-        if let msg_type = data["msg_type"] as? Int, let type = NotificationType(rawValue: msg_type) {
-            self.init(type: type, data: data, date: date)
-        } else {
-            return nil
-        }
+    private class func parseNotificationType(data: [String:AnyObject]) -> NotificationType? {
+        guard let type = data["msg_type"] as? Int else { return nil }
+        return NotificationType(rawValue: type)
     }
     
-    required init(type: NotificationType, data: [String:AnyObject], date: NSDate?) {
+    class func notificationWithMessage(message: AnyObject?) -> Notification? {
+        let result = parseMessage(message)
+        guard let body = result.body, let timetoken = result.timetoken else { return nil }
+        let publishedAt = NSDate.dateWithTimetoken(timetoken)
+        return notificationWithBody(body, publishedAt: publishedAt)
+    }
+    
+    class func notificationWithBody(body: [String:AnyObject], publishedAt: NSDate?) -> Notification? {
+        guard let type = parseNotificationType(body) else { return nil }
+        return type.typeValue().init(type: type, body: body, publishedAt: publishedAt)
+    }
+    
+    required init(type: NotificationType, body: [String:AnyObject], publishedAt: NSDate?) {
+        self.publishedAt = publishedAt ?? NSDate(timeIntervalSince1970: 0)
+        self.body = body
+        self.uid = body["msg_uid"] as? String
         self.type = type
-        self.date = date
-        self.data = data
-        self.uid = data["msg_uid"] as? String
         super.init()
-        setup(data)
+        setup(body)
     }
     
-    private func setup(data: [String:AnyObject]) {
-        publishedAt = data.dateForKey("msg_published_at")
-        
-        if let originator = data["originator"] as? [String:AnyObject] {
+    internal func setup(body: [String:AnyObject]) {
+        if let originator = body["originator"] as? [String:AnyObject] {
             let userID = originator["user_uid"] as? String
             let deviceID = originator["device_uid"] as? String
             originatedByCurrentUser = userID == User.currentUser?.uid && deviceID == Authorization.currentAuthorization.deviceUID
         }
-        
-        guard type != .UpdateAvailable else { return }
-        
-        isSoundAllowed = data["pn_apns"] != nil
-        
-        switch (type) {
-        case .ContributorDelete, .CandyDelete, .WrapDelete, .CommentDelete:
-            event = .Delete
-            break
-        case .ContributorAdd, .CandyAdd, .MessageAdd, .CommentAdd:
-            event = .Add
-            break
-        case .UserUpdate, .WrapUpdate, .CandyUpdate:
-            event = .Update
-            break
-        default: break
-        }
-        
-        let descriptor = EntryDescriptor()
-        var uid: String?
-        var entryData: [String:AnyObject]?
-        switch type {
-        case .ContributorAdd, .ContributorDelete, .WrapDelete, .WrapUpdate:
-            descriptor.name = Wrap.entityName()
-            entryData = data["wrap"] as? [String:AnyObject]
-            uid = Wrap.uid(entryData ?? data)
-            descriptor.locuid = Wrap.locuid(entryData ?? data)
-            break
-        case .CandyAdd, .CandyDelete, .CandyUpdate:
-            descriptor.name = Candy.entityName()
-            entryData = data["candy"] as? [String:AnyObject]
-            uid = Candy.uid(entryData ?? data)
-            descriptor.locuid = Candy.locuid(entryData ?? data)
-            break
-        case .MessageAdd:
-            descriptor.name = Message.entityName()
-            entryData = data["chat"] as? [String:AnyObject]
-            uid = Message.uid(entryData ?? data)
-            descriptor.locuid = Message.locuid(entryData ?? data)
-            break
-        case .CommentAdd, .CommentDelete:
-            descriptor.name = Comment.entityName()
-            entryData = data["comment"] as? [String:AnyObject]
-            uid = Comment.uid(entryData ?? data)
-            descriptor.locuid = Comment.locuid(entryData ?? data)
-            break
-        case .UserUpdate:
-            descriptor.name = User.entityName()
-            entryData = data["user"] as? [String:AnyObject]
-            uid = User.uid(entryData ?? data)
-            descriptor.locuid = User.locuid(entryData ?? data)
-            break
-        default: break
-        }
-        descriptor.data = entryData
-        trimmed = entryData == nil
-        
-        switch type {
-        case .CandyAdd, .CandyDelete, .MessageAdd:
-            descriptor.container = Wrap.uid(data)
-            break
-        case .CommentAdd, .CommentDelete:
-            descriptor.container = Candy.uid(data)
-            break
-        default: break
-        }
-        
-        if let uid = uid {
-            descriptor.uid = uid
+    }
+    
+    internal func createDescriptor<T: Entry>(type: T.Type, body: [String:AnyObject], key: String) {
+        let entryData = body[key] as? [String:AnyObject]
+        if let uid = T.uid(entryData ?? body) {
+            let descriptor = EntryDescriptor(name: T.entityName(), uid: uid)
+            descriptor.locuid = T.locuid(entryData ?? body)
+            descriptor.data = entryData
             self.descriptor = descriptor
         }
     }
     
-    private var _entry: Entry?
+    internal func getEntry<T: Entry>(type: T.Type, descriptor: EntryDescriptor, @noescape mapper: ((entry: T, data: [String:AnyObject]) -> Void)) -> T? {
+        guard let entry = T.entry(descriptor.uid, locuid:descriptor.locuid) else { return nil }
+        
+        if let data = descriptor.data {
+            mapper(entry: entry, data: data)
+        }
+        
+        if let containerType = T.containerType() where entry.container == nil {
+            entry.container = containerType.entry(descriptor.container, locuid: nil, allowInsert: false)
+        }
+        _entry = entry
+        return entry
+    }
+    
+    internal var _entry: Entry?
     var entry: Entry? {
         if let entry = _entry {
             return entry
         } else {
-            createEntry()
+            if let descriptor = descriptor where shouldCreateEntry(descriptor) {
+                createEntry(descriptor)
+            }
+            inserted = _entry?.inserted ?? false
             return _entry
         }
     }
     
-    private func createEntry() {
-        guard let descriptor = descriptor else {
-            return
-        }
-        
-        if event == .Delete && !descriptor.entryExists() {
-            return
-        }
-        
-        guard let entry = EntryContext.sharedContext.entry(descriptor.name, uid:descriptor.uid, locuid:descriptor.locuid) else {
-            return
-        }
-        if let data = descriptor.data {
-            if type == .UserUpdate {
-                Authorization.currentAuthorization.updateWithUserData(data)
-            }
-            if ((type == .CandyAdd || type == .CandyUpdate) && originatedByCurrentUser) {
-                if let candy = entry as? Candy {
-                    let oldPicture = candy.asset?.copy() as? Asset
-                    entry.map(data)
-                    if let newAsset = candy.asset {
-                        oldPicture?.cacheForAsset(newAsset)
-                    }
-                    if candy.sortedComments().contains({ $0.uploading != nil }) {
-                        Uploader.wrapUploader.start()
-                    }
-                }
-                
-            } else {
-                entry.map(data)
-            }
-        }
-        
-        inserted = entry.inserted
-        
-        if entry.container == nil {
-            if let name = entry.dynamicType.containerEntityName(), let uid = descriptor.container {
-                entry.container = EntryContext.sharedContext.entry(name, uid: uid, locuid: nil, allowInsert: false)
-            }
-        }
-        
-        _entry = entry;
-    }
+    internal func shouldCreateEntry(descriptor: EntryDescriptor) -> Bool { return true }
     
-    func prepare() {
-        guard let entry = entry else { return }
-        
-        switch event {
-        case .Add:
-            entry.prepareForAddNotification(self)
-        case .Update:
-            entry.prepareForUpdateNotification(self)
-        case .Delete:
-            entry.prepareForDeleteNotification(self)
-        }
-    }
+    internal func createEntry(descriptor: EntryDescriptor) { }
 
     func fetch(success: Block, failure: FailureBlock) {
-        guard let entry = entry else {
-            success()
-            return
-        }
-        
-        switch event {
-        case .Add:
-            entry.fetchAddNotification(self, success: success, failure: failure)
-        case .Update:
-            entry.fetchUpdateNotification(self, success: success, failure: failure)
-        case .Delete:
-            entry.fetchDeleteNotification(self, success: success, failure: failure)
-        }
+        success()
     }
     
-    func finalizeNotification() {
-        guard let entry = entry else { return }
-        
-        switch event {
-        case .Add:
-            entry.finalizeAddNotification(self)
-        case .Update:
-            entry.finalizeUpdateNotification(self)
-        case .Delete:
-            entry.finalizeDeleteNotification(self)
-        }
-    }
+    func submit() { }
     
     func handle(success: Block, failure: FailureBlock) {
-        prepare()
-        fetch({ () -> Void in
-            self.finalizeNotification()
+        fetch({ _ in
+            self.submit()
             success()
             }, failure: failure)
     }
     
     override var description: String {
-        return "\(type.rawValue): \(descriptor?.uid ?? "")"
-    }
-}
-
-extension Entry {
-    
-    func notifiableForNotification(notification: Notification) -> Bool {
-        return false
+        return "\(body?["msg_type"] ?? ""): \(descriptor?.uid ?? "")"
     }
     
-    func markAsUnreadIfNeededForNotification(notification: Notification) {
-        if notifiableForNotification(notification) {
-            markAsUnread(true)
+    func presentWithIdentifier(identifier: String?) {
+        if let entry = entry {
+            let entryReference = entry.serializeReference()
+            EventualEntryPresenter.sharedPresenter.presentEntry(entryReference)
         }
-    }
-    
-    func prepareForAddNotification(notification: Notification) {
-    
-    }
-    
-    func prepareForUpdateNotification(notification: Notification) {
-    
-    }
-    
-    func prepareForDeleteNotification(notification: Notification) {
-    
-    }
-    
-    func fetchAddNotification(notification: Notification, success: Block, failure: FailureBlock) {
-        recursivelyFetchIfNeeded(success, failure: failure)
-    }
-    
-    func fetchUpdateNotification(notification: Notification, success: Block, failure: FailureBlock) {
-        if notification.trimmed {
-            fetch({ (_) -> Void in
-                success()
-                }, failure: failure)
-        } else {
-            success()
-        }
-    }
-    
-    func fetchDeleteNotification(notification: Notification, success: Block, failure: FailureBlock) {
-        success()
-    }
-    
-    func finalizeAddNotification(notification: Notification) {
-        notifyOnAddition()
-    }
-    
-    func finalizeUpdateNotification(notification: Notification) {
-        notifyOnUpdate(.Default)
-    }
-    
-    func finalizeDeleteNotification(notification: Notification) {
-        remove()
-    }
-}
-
-extension Contribution {
-    override func notifiableForNotification(notification: Notification) -> Bool {
-        if notification.event == .Add {
-            return !(self.contributor?.current ?? true)
-        } else if notification.event == .Update {
-            return !(self.editor?.current ?? true)
-        } else {
-            return false
-        }
-    }
-}
-
-extension Wrap {
-    override func notifiableForNotification(notification: Notification) -> Bool {
-        if notification.event == .Add {
-            guard let data = notification.data else { return false }
-            guard let contributor = contributor else { return false }
-            guard let currentUser = User.currentUser else { return false }
-            var uid: String?
-            if let _uid = data["user_uid"] as? String {
-                uid = _uid
-            } else if let _uid = data["user"]?["user_uid"] as? String {
-                uid = _uid
-            }
-            return !contributor.current && uid == currentUser.uid && notification.requester != currentUser
-        } else {
-            return super.notifiableForNotification(notification)
-        }
-
-    }
-
-    override func fetchAddNotification(notification: Notification, success: Block, failure: FailureBlock) {
-        guard let data = notification.data else { return }
-        let userData = data["user"] as? [String: AnyObject]
-        let user = userData != nil ? User.mappedEntry(userData!) : User.entry(data["user_uid"] as? String)
-        if let user = user where !(contributors?.containsObject(user) ?? false) {
-            mutableContributors.addObject(user)
-        }
-        if let inviter = data["inviter"] as? [String: AnyObject] {
-            notification.requester = User.mappedEntry(inviter)
-        }
-        super.fetchAddNotification(notification, success:success, failure:failure)
-    }
-    
-    override func finalizeAddNotification(notification: Notification) {
-        if isPublic && !notification.inserted {
-            notifyOnUpdate(.ContributorsChanged)
-        } else {
-            notifyOnAddition()
-        }
-    }
-    
-    override func finalizeDeleteNotification(notification: Notification) {
-        guard let data = notification.data else { return }
-        let userData = data["user"] as? [String: AnyObject]
-        if let user = userData != nil ? User.mappedEntry(userData!) : User.entry(data["user_uid"] as? String) {
-            if (notification.type == .WrapDelete || (user.current && !isPublic)) {
-                super.finalizeDeleteNotification(notification)
-            } else {
-                mutableContributors.removeObject(user)
-                notifyOnUpdate(.ContributorsChanged)
-            }
-        }
-    }
-}
-
-extension Candy {
-    
-    override func fetchAddNotification(notification: Notification, success: Block, failure: FailureBlock) {
-        super.fetchAddNotification(notification, success: { [weak self] () -> Void in
-            if let asset = self?.asset {
-                asset.fetch(success)
-            } else {
-                success()
-            }
-            }, failure: failure)
-    }
-
-    override func fetchUpdateNotification(notification: Notification, success: Block, failure: FailureBlock) {
-        super.fetchUpdateNotification(notification, success: { [weak self] () -> Void in
-            if let asset = self?.asset {
-                asset.fetch(success)
-            } else {
-                success()
-            }
-            }, failure: failure)
-    }
-
-    override func finalizeAddNotification(notification: Notification) {
-        if notification.inserted {
-            markAsUnreadIfNeededForNotification(notification)
-        }
-        super.finalizeAddNotification(notification)
-    }
-    
-    override func finalizeUpdateNotification(notification: Notification) {
-        markAsUnreadIfNeededForNotification(notification)
-        super.finalizeUpdateNotification(notification)
-    }
-    
-    override func finalizeDeleteNotification(notification: Notification) {
-        super.finalizeDeleteNotification(notification)
-        if let wrap = wrap where wrap.valid && wrap.candies?.count < Constants.recentCandiesLimit {
-            wrap.fetch(Wrap.ContentTypeRecent, success: nil, failure: nil)
-        }
-    }
-}
-
-extension Message {
-    override func finalizeAddNotification(notification: Notification) {
-        if (notification.inserted) {
-            markAsUnreadIfNeededForNotification(notification)
-        }
-        super.finalizeAddNotification(notification)
-    }
-}
-
-extension Comment {
-    
-    override func finalizeAddNotification(notification: Notification) {
-        guard let candy = candy else {
-            return
-        }
-        if candy.valid {
-            candy.commentCount = Int16(candy.comments?.count ?? 0)
-        }
-        if (notification.inserted) {
-            markAsUnreadIfNeededForNotification(notification)
-        }
-        super.finalizeAddNotification(notification)
-    }
-    
-    override func notifiableForNotification(notification: Notification) -> Bool {
-        if (notification.event != .Add) {
-            return super.notifiableForNotification(notification)
-        }
-        
-        guard let currentUser = User.currentUser, let candy = candy else {
-            return false
-        }
-        
-        if self.contributor == currentUser {
-            return false
-        } else {
-            if candy.contributor == currentUser {
-                return true
-            } else {
-                for comment in candy.sortedComments() {
-                    if (comment.contributor == currentUser) {
-                        return true
-                    }
-                }
-            }
-        }
-        
-        return false
     }
 }

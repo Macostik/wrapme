@@ -70,22 +70,8 @@ class SoundPlayer: NSObject {
 
 extension SoundPlayer {
     func playForNotification(notification: Notification) {
-        if notification.playSound {
-            switch notification.type {
-            case .ContributorAdd:
-                if User.currentUser?.uid == notification.data?["user_uid"] as? String {
-                    play(.s01)
-                }
-                break;
-            case .CommentAdd:
-                play(.s02)
-                break;
-            case .MessageAdd:
-                play(.s03)
-                break;
-            default:
-                break;
-            }
+        if notification.playSound() {
+            play(notification.soundType())
         }
     }
 }

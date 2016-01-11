@@ -333,27 +333,28 @@ class LiveBroadcastViewController: WLBaseViewController {
             }
             _self.userState = state
             
-            let pushPayload: [NSObject : AnyObject] = [
-                "aps" : [
-                    "alert" : [
-                        "title-loc-key" : "APNS_TT08",
-                        "loc-key" : "APNS_MSG08",
-                        "loc-args" : [user.name ?? "", wrap.name ?? ""]
-                    ],
-                    "sound" : "s01.wav",
-                    "content-available" : 1
-                ],
-                
+            var message: [NSObject : AnyObject] = [
                 "msg_type" : NotificationType.LiveBroadcast.rawValue,
                 "wrap_uid" : wrap.uid,
                 "user_uid" : user.uid,
                 "device_uid" : deviceUID,
                 "title" : broadcast.title ?? ""
             ]
-            let message: [NSObject : AnyObject] = [
-                "wrap_uid" : wrap.uid,
+            
+            var pushPayload: [NSObject : AnyObject] = message
+            pushPayload["aps"] = [
+                "alert" : [
+                    "title-loc-key" : "APNS_TT08",
+                    "loc-key" : "APNS_MSG08",
+                    "loc-args" : [user.name ?? "", wrap.name ?? ""]
+                ],
+                "sound" : "s01.wav",
+                "content-available" : 1
             ]
-            PubNub.sharedInstance.publish(message, toChannel: wrap.uid, mobilePushPayload: pushPayload, withCompletion: nil)
+            
+            message["pn_apns"] = pushPayload
+            
+            PubNub.sharedInstance.publish(message, toChannel: wrap.uid, withCompletion: nil)
             
             let liveEvent = LiveBroadcast.Event(type: .Info)
             liveEvent.text = String(format: "formatted_you_are_now_live".ls, wrap.name ?? "")

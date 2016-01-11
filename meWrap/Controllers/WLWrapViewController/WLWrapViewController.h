@@ -8,6 +8,8 @@
 
 #import "WLBaseViewController.h"
 
+@class Wrap, LiveBroadcast;
+
 typedef NS_OPTIONS(NSUInteger, WLWrapSegment) {
     WLWrapSegmentMedia,
     WLWrapSegmentChat,
@@ -21,5 +23,7 @@ typedef NS_OPTIONS(NSUInteger, WLWrapSegment) {
 @property (nonatomic) WLWrapSegment segment;
 
 @property (nonatomic) BOOL showKeyboard;
+
+- (void)presentLiveProadcast:(LiveBroadcast*)broadcast;
 
 @end

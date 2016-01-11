@@ -29,11 +29,11 @@
 @synthesize mode = _mode;
 
 + (instancetype)stillPhotosViewController {
-    return [UIStoryboard camera][@"WLStillPhotosViewController"];
+    return (id)[UIStoryboard camera][@"WLStillPhotosViewController"];
 }
 
 + (instancetype)stillAvatarViewController {
-    return [UIStoryboard camera][@"WLStillAvatarViewController"];
+    return (id)[UIStoryboard camera][@"WLStillAvatarViewController"];
 }
 
 - (void)viewDidLoad {

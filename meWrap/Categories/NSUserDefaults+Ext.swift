@@ -12,7 +12,7 @@ import CryptoSwift
 private var _authorization: Authorization?
 private var _confirmationDate: NSDate?
 private var _historyDate: NSDate?
-private var _handledNotifications: NSOrderedSet?
+private var _handledNotifications: [String]?
 private var _imageURI: String?
 private var _videoURI: String?
 private var _avatarURI: String?
@@ -126,21 +126,25 @@ extension NSUserDefaults {
         }
     }
     
-    var handledNotifications: NSOrderedSet? {
+    var handledNotifications: [String] {
         get {
-            if _handledNotifications == nil {
-                if let array = self["handledNotifications"] as? [AnyObject] {
-                    _handledNotifications = NSOrderedSet(array: array)
-                } else {
-                    _handledNotifications = NSOrderedSet()
-                }
+            if let notifications = _handledNotifications {
+                return notifications
+            } else {
+                let notifications = self["handledNotifications"] as? [String] ?? [String]()
+                _handledNotifications = notifications
+                return notifications
             }
-            return _handledNotifications
         }
         set {
             _handledNotifications = newValue
-            self["handledNotifications"] = newValue?.array
+            self["handledNotifications"] = newValue
         }
+    }
+    
+    func clearHandledNotifications() {
+        _handledNotifications = nil
+        self["handledNotifications"] = nil
     }
     
     var recentEmojis: [String]? {

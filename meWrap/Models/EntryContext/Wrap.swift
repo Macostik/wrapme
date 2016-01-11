@@ -67,7 +67,7 @@ class Wrap: Contribution {
     
     override class func entityName() -> String { return "Wrap" }
     
-    override class func contentEntityNames() -> Set<String>? { return [Candy.entityName()] }
+    override class func contentTypes() -> [Entry.Type]? { return [Candy.self, Message.self] }
     
     private var _historyCandies: [Candy]?
     var historyCandies: [Candy]? {

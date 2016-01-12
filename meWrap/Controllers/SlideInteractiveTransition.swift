@@ -1,5 +1,5 @@
 //
-//  CandyInteractionController.swift
+//  SlideInteractiveTransition.swift
 //  meWrap
 //
 //  Created by Yura Granchenko on 18/11/15.
@@ -8,18 +8,18 @@
 
 import UIKit
 
-@objc protocol CandyInteractionControllerDelegate {
+@objc protocol SlideInteractiveTransitionDelegate {
     
-    optional func candyInteractionController(controller: CandyInteractionController, hideViews: Bool)
+    optional func slideInteractiveTransition(controller: SlideInteractiveTransition, hideViews: Bool)
     
-    optional func candyInteractionControllerDidFinish(controller: CandyInteractionController)
+    optional func slideInteractiveTransitionDidFinish(controller: SlideInteractiveTransition)
     
-    optional func candyInteractionControllerSnapshotView(controller: CandyInteractionController) -> UIView?
+    optional func slideInteractiveTransitionSnapshotView(controller: SlideInteractiveTransition) -> UIView?
 }
 
-class CandyInteractionController: NSObject, UIGestureRecognizerDelegate {
+class SlideInteractiveTransition: NSObject, UIGestureRecognizerDelegate {
 
-    weak var delegate: CandyInteractionControllerDelegate?
+    weak var delegate: SlideInteractiveTransitionDelegate?
     
     private weak var screenShotView: UIView?
     private weak var contentView: UIView!
@@ -33,30 +33,31 @@ class CandyInteractionController: NSObject, UIGestureRecognizerDelegate {
     }
     
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
-        let translation = gesture.translationInView(contentView).y
-        let percentCompleted = abs(translation/contentView.height)
+        guard let superview = contentView.superview else { return }
+        let translation = gesture.translationInView(superview).y
+        let percentCompleted = abs(translation/superview.height)
         switch gesture.state {
         case .Began:
             addScreenShotView()
-            delegate?.candyInteractionController?(self, hideViews: true)
+            delegate?.slideInteractiveTransition?(self, hideViews: true)
         case .Changed:
             contentView.transform = CGAffineTransformMakeTranslation(0, translation)
             screenShotView?.alpha = percentCompleted
         case .Ended, .Cancelled:
-            if  (percentCompleted > 0.5 || abs(gesture.velocityInView(contentView).y) > 1000) {
-                let endPoint = contentView.height
+            if  (percentCompleted > 0.25 || abs(gesture.velocityInView(superview).y) > 1000) {
+                let endPoint = superview.height
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
                     self.screenShotView?.alpha = 1
                     self.contentView.transform = CGAffineTransformMakeTranslation(0, translation <= 0 ? -endPoint : endPoint)
                     }, completion: { (finished) -> Void in
-                        self.delegate?.candyInteractionControllerDidFinish?(self)
+                        self.delegate?.slideInteractiveTransitionDidFinish?(self)
                 })
             } else {
-                UIView.animateWithDuration(0.25, animations: { [weak self] () -> Void in
-                     self!.contentView.transform = CGAffineTransformIdentity
+                UIView.animateWithDuration(0.25, animations: { () -> Void in
+                     self.contentView.transform = CGAffineTransformIdentity
                     }, completion: { (finished) -> Void in
                         self.screenShotView?.removeFromSuperview()
-                        self.delegate?.candyInteractionController?(self, hideViews: false)
+                        self.delegate?.slideInteractiveTransition?(self, hideViews: false)
                 })
             }
         default:break
@@ -64,7 +65,7 @@ class CandyInteractionController: NSObject, UIGestureRecognizerDelegate {
     }
     
     private func snapshotView() -> UIView? {
-        return delegate?.candyInteractionControllerSnapshotView?(self)
+        return delegate?.slideInteractiveTransitionSnapshotView?(self)
     }
     
     private func addScreenShotView () {

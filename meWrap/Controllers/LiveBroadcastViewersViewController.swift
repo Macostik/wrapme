@@ -29,8 +29,13 @@ class LiveBroadcastViewersViewController: UIViewController {
     
     var broadcast: LiveBroadcast?
     
+    private lazy var slideTransition: SlideInteractiveTransition = SlideInteractiveTransition(contentView: self.streamView.superview!)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        slideTransition.delegate = self
+        
         if let broadcast = broadcast {
             let metrics = StreamMetrics(identifier: "LiveBroadcastViewerCell")
             metrics.size = LiveBroadcastViewerCell.DefaultHeight
@@ -57,6 +62,12 @@ class LiveBroadcastViewersViewController: UIViewController {
     }
     
     @IBAction func close(sender: AnyObject) {
+        presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+    }
+}
+
+extension LiveBroadcastViewersViewController: SlideInteractiveTransitionDelegate {
+    func slideInteractiveTransitionDidFinish(controller: SlideInteractiveTransition) {
         presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
     }
 }

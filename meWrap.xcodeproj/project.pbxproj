@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		18D7F6737186E5350A00FFEE /* Pods_meWrap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8302B2CF78A9F0C0ED319A0E /* Pods_meWrap.framework */; };
-		5B1D045B1BFCE16C00263102 /* CandyInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1D045A1BFCE16C00263102 /* CandyInteractionController.swift */; };
+		5B1D045B1BFCE16C00263102 /* SlideInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1D045A1BFCE16C00263102 /* SlideInteractiveTransition.swift */; };
 		5B1DD0371BD7B67000D30E1A /* InternalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */; };
 		5B211FB21C087137000EC3DB /* (null) in Resources */ = {isa = PBXBuildFile; };
 		5B40D6B21C2EBB1C009EF38C /* UploadWizardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40D6B11C2EBB1C009EF38C /* UploadWizardViewController.swift */; };
@@ -470,7 +470,7 @@
 		12E8FF1D18E9885100BF1B96 /* WLComposeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComposeBar.h; path = WLComposeBar/WLComposeBar.h; sourceTree = "<group>"; };
 		12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLComposeBar.m; path = WLComposeBar/WLComposeBar.m; sourceTree = "<group>"; };
 		12E8FF2518E9B33E00BF1B96 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		5B1D045A1BFCE16C00263102 /* CandyInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyInteractionController.swift; sourceTree = "<group>"; };
+		5B1D045A1BFCE16C00263102 /* SlideInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInteractiveTransition.swift; sourceTree = "<group>"; };
 		5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalScrollView.swift; sourceTree = "<group>"; };
 		5B40D6B11C2EBB1C009EF38C /* UploadWizardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadWizardViewController.swift; sourceTree = "<group>"; };
 		5B4792081C1B27060090FDD2 /* Today_Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Today_Bridge.h; sourceTree = "<group>"; };
@@ -1070,12 +1070,9 @@
 		12A7A73718DA09A9008FF6F0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5B1D045A1BFCE16C00263102 /* CandyInteractionController.swift */,
+				C5F814251C455B4000B478C2 /* LiveBroadcastViewController */,
+				5B1D045A1BFCE16C00263102 /* SlideInteractiveTransition.swift */,
 				C5053E811BC7F7280040613A /* ReportViewController.swift */,
-				C5861A6B1BFA3C9400C64663 /* LiveBroadcastViewController.swift */,
-				C54D12CA1C4524D3009014FB /* LiveBroadcastViewersViewController.swift */,
-				C5C127391C10A46E002FD9AB /* LiveBroadcastEventViews.xib */,
-				C54D12CC1C4526B7009014FB /* LiveBroadcastViewerCell.xib */,
 				C53012851BF4C0AD00098F9C /* HomeDataSource.swift */,
 				C5E6F0271BFF558000FA3D4F /* MediaDataSource.swift */,
 				C553B18F1BF9F75600E50219 /* EntryPresenter.swift */,
@@ -2048,6 +2045,17 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		C5F814251C455B4000B478C2 /* LiveBroadcastViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C5861A6B1BFA3C9400C64663 /* LiveBroadcastViewController.swift */,
+				C54D12CA1C4524D3009014FB /* LiveBroadcastViewersViewController.swift */,
+				C5C127391C10A46E002FD9AB /* LiveBroadcastEventViews.xib */,
+				C54D12CC1C4526B7009014FB /* LiveBroadcastViewerCell.xib */,
+			);
+			name = LiveBroadcastViewController;
+			sourceTree = "<group>";
+		};
 		C6D377F53D04E1E569F5EDAA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2511,7 +2519,7 @@
 				C57E1CCB1B98930900E2303B /* StreamView.swift in Sources */,
 				C53E96341C3D440F003663FA /* CommentNotification.swift in Sources */,
 				C5C20BE81A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */,
-				5B1D045B1BFCE16C00263102 /* CandyInteractionController.swift in Sources */,
+				5B1D045B1BFCE16C00263102 /* SlideInteractiveTransition.swift in Sources */,
 				C5B4E5681BF60E0300A4B223 /* PHPhotoLibrary+Ext.swift in Sources */,
 				C532F4ED1C2D8513004585E0 /* PlaceholderView.swift in Sources */,
 				C5294E781C0B6242001CE272 /* ExtensionEntry.swift in Sources */,

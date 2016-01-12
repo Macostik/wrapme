@@ -3963,7 +3963,7 @@ QWRkEEZyaWVuZFZpZXc
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BlU-3r-33w">
-                                <rect key="frame" x="24" y="66" width="552" height="300"/>
+                                <rect key="frame" x="24" y="150" width="552" height="300"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9lc-Ly-eOc" customClass="StreamView" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44" width="552" height="256"/>
@@ -4028,9 +4028,9 @@ QWRkEEZyaWVuZFZpZXc
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.80023734177215189" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="BlU-3r-33w" firstAttribute="centerY" secondItem="62f-qc-H32" secondAttribute="centerY" id="1sZ-Pg-CKK"/>
                             <constraint firstItem="BlU-3r-33w" firstAttribute="leading" secondItem="62f-qc-H32" secondAttribute="leading" constant="24" id="FES-Fe-4AH"/>
                             <constraint firstAttribute="trailing" secondItem="BlU-3r-33w" secondAttribute="trailing" constant="24" id="PRS-Jh-2KZ"/>
-                            <constraint firstItem="BlU-3r-33w" firstAttribute="top" secondItem="uXt-gP-g3n" secondAttribute="bottom" constant="66" id="XG1-lV-YNa"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>

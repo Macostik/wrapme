@@ -9,7 +9,7 @@
 #import "WLBaseViewController.h"
 #import "WLHistoryViewController.h"
 
-@class  Candy, CandyInteractionController, ImageView;
+@class  Candy, SlideInteractiveTransition, ImageView;
 
 @interface WLCandyViewController : WLBaseViewController
 

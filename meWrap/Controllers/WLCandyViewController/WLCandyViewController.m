@@ -10,14 +10,14 @@
 @import AVKit;
 @import AVFoundation;
 
-@interface WLCandyViewController () <EntryNotifying, UIScrollViewDelegate, VideoPlayerViewDelegate, CandyInteractionControllerDelegate, NetworkNotifying>
+@interface WLCandyViewController () <EntryNotifying, UIScrollViewDelegate, VideoPlayerViewDelegate, SlideInteractiveTransitionDelegate, NetworkNotifying>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *aspectRatioConstraint;
 @property (weak, nonatomic) IBOutlet VideoPlayerView *videoPlayerView;
-@property (strong, nonatomic) CandyInteractionController *candyInteractionController;
+@property (strong, nonatomic) SlideInteractiveTransition *slideInteractiveTransition;
 
 @end
 
@@ -44,8 +44,8 @@
     self.videoPlayerView.delegate = self;
     
     [self.candy fetch:nil failure:nil];
-    self.candyInteractionController = [[CandyInteractionController alloc] initWithContentView:self.contentView];
-    self.candyInteractionController.delegate = self;
+    self.slideInteractiveTransition = [[SlideInteractiveTransition alloc] initWithContentView:self.contentView];
+    self.slideInteractiveTransition.delegate = self;
 }
 
 - (void)setup:(Candy *)candy {
@@ -159,7 +159,7 @@
 }
 
 - (void)videoPlayerViewDidPlay:(VideoPlayerView *)view {
-    self.candyInteractionController.panGestureRecognizer.enabled = NO;
+    self.slideInteractiveTransition.panGestureRecognizer.enabled = NO;
     self.historyViewController.scrollView.panGestureRecognizer.enabled = NO;
     [self.historyViewController setBarsHidden:NO animated:YES];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideAllViews) object:nil];
@@ -171,7 +171,7 @@
         [view pause];
     };
     [self.historyViewController  hideSecondaryViews:NO];
-    self.candyInteractionController.panGestureRecognizer.enabled = YES;
+    self.slideInteractiveTransition.panGestureRecognizer.enabled = YES;
     self.historyViewController.scrollView.panGestureRecognizer.enabled = YES;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideAllViews) object:nil];
 }
@@ -185,13 +185,13 @@
 
 - (void)videoPlayerViewDidPlayToEnd:(VideoPlayerView *)view {
     [self.historyViewController hideSecondaryViews:NO];
-    self.candyInteractionController.panGestureRecognizer.enabled = YES;
+    self.slideInteractiveTransition.panGestureRecognizer.enabled = YES;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideAllViews) object:nil];
 }
 
-// MARK: - CandyInteractionControllerDelegate
+// MARK: - SlideInteractiveTransitionDelegate
 
-- (void)candyInteractionController:(CandyInteractionController *)controller hideViews:(BOOL)hideViews {
+- (void)slideInteractiveTransition:(SlideInteractiveTransition *)controller hideViews:(BOOL)hideViews {
     VideoPlayerView *videoPlayerView = self.videoPlayerView;
     videoPlayerView.timeView.hidden = videoPlayerView.secondaryPlayButton.hidden = hideViews || !videoPlayerView.playButton.hidden;
     [videoPlayerView.timeView addAnimation:[CATransition transition:kCATransitionFade]];
@@ -199,12 +199,12 @@
     [self.historyViewController hideSecondaryViews:hideViews];
 }
 
-- (UIView *)candyInteractionControllerSnapshotView:(CandyInteractionController *)controller {
+- (UIView *)slideInteractiveTransitionSnapshotView:(SlideInteractiveTransition *)controller {
     NSArray *viewControllers = self.historyViewController.navigationController.viewControllers;
     return [[viewControllers tryAt:[viewControllers indexOfObject:self.historyViewController] - 1] view];
 }
 
-- (void)candyInteractionControllerDidFinish:(CandyInteractionController *)controller {
+- (void)slideInteractiveTransitionDidFinish:(SlideInteractiveTransition *)controller {
     [self.historyViewController.navigationController popViewControllerAnimated:NO];
 }
 

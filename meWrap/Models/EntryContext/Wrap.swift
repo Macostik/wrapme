@@ -32,7 +32,7 @@ class LiveBroadcast: NSObject {
     weak var wrap: Wrap?
     var title: String?
     var streamName = ""
-    var numberOfViewers = 1
+    var viewers = Set<User>()
     
     var events = [Event]()
     
@@ -173,7 +173,7 @@ class Wrap: Contribution {
         if let index = liveBroadcasts.indexOf({ $0.streamName == broadcast.streamName }) {
             let _broadcast = liveBroadcasts[index]
             _broadcast.title = broadcast.title
-            _broadcast.numberOfViewers = broadcast.numberOfViewers
+            _broadcast.viewers = broadcast.viewers
             notifyOnUpdate(.LiveBroadcastsChanged)
             return _broadcast
         } else {

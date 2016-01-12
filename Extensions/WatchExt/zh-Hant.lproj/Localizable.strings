@@ -30,4 +30,4 @@
 "APNS_TT07" = "新影片";
 "APNS_MSG07" = "%@為\"%@\"添加了新影片。";
 "APNS_TT08" = "Live Event";
-"APNS_MSG08" = "%@ is live: '%@'";
+"APNS_MSG08" = "%@ is live: %@ (%@)";

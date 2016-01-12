@@ -109,7 +109,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     }
     
     private func updateBroadcastInfo() {
-        joinsCountLabel.text = "\(broadcast.numberOfViewers)"
+        joinsCountLabel.text = "\(max(1, broadcast.viewers.count))"
         if let title = broadcast.title where !title.isEmpty {
             titleLabel?.text = broadcast.title
         } else {
@@ -192,9 +192,19 @@ class LiveBroadcastViewController: WLBaseViewController {
         updateBroadcastInfo()
         
         Dispatch.mainQueue.after(0.5) { () -> Void in
-            PubNub.sharedInstance.hereNowForChannel("ch-\(broadcast.streamName)", withVerbosity: .Occupancy) { (result, status) -> Void in
-                if let occupancy = result?.data?.occupancy?.integerValue {
-                    self.setNumberOfViewers(occupancy)
+            PubNub.sharedInstance.hereNowForChannel("ch-\(broadcast.streamName)", withVerbosity: .UUID) { [weak self] (result, status) -> Void in
+                if let uuids = result?.data?.uuids as? [String] {
+                    var viewers = Set<User>()
+                    for uuid in uuids {
+                        guard let user = PubNub.userFromUUID(uuid) else { return }
+                        user.fetchIfNeeded(nil, failure: nil)
+                        viewers.insert(user)
+                    }
+                    if let user = User.currentUser where !viewers.contains(user) {
+                        viewers.insert(user)
+                    }
+                    broadcast.viewers = viewers
+                    self?.updateBroadcastInfo()
                 }
             }
         }
@@ -328,6 +338,10 @@ class LiveBroadcastViewController: WLBaseViewController {
         broadcast.insert(preparingEvent)
         chatDataSource.items = broadcast.events
         
+        if let user = User.currentUser {
+            broadcast.viewers = [user]
+        }
+        
         Dispatch.mainQueue.after(6) { [weak self] _ in
             
             guard let _self = self else { return }
@@ -336,6 +350,8 @@ class LiveBroadcastViewController: WLBaseViewController {
             guard let deviceUID = Authorization.currentAuthorization.deviceUID else { return }
             
             let broadcast = _self.broadcast
+            
+            broadcast.viewers = [user]
             
             var state = [NSObject:AnyObject]()
             state["streamName"] = broadcast.streamName
@@ -357,7 +373,7 @@ class LiveBroadcastViewController: WLBaseViewController {
                 "alert" : [
                     "title-loc-key" : "APNS_TT08",
                     "loc-key" : "APNS_MSG08",
-                    "loc-args" : [user.name ?? "", wrap.name ?? ""]
+                    "loc-args" : [user.name ?? "", broadcast.title ?? "", wrap.name ?? ""]
                 ],
                 "sound" : "s01.wav",
                 "content-available" : 1
@@ -479,6 +495,13 @@ class LiveBroadcastViewController: WLBaseViewController {
         sender.scale = 1
     }
     
+    @IBAction func presentViewers(sender: AnyObject) {
+        if let controller = storyboard?["broadcastViewers"] as? LiveBroadcastViewersViewController {
+            controller.broadcast = broadcast
+            presentViewController(controller, animated: false, completion: nil)
+        }
+    }
+    
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
@@ -547,14 +570,9 @@ extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
             }, failure: nil)
     }
     
-    private func setNumberOfViewers(numberOfViewers: Int) {
-        broadcast.numberOfViewers = max(1, numberOfViewers)
-        updateBroadcastInfo()
-    }
-    
     func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {
         guard let uuid = event.data?.presence?.uuid where uuid != User.channelName() else { return }
-        guard let user = PubNub.userFromUUID(uuid) where !user.current else { return }
+        guard let user = PubNub.userFromUUID(uuid) where !user.current && user != broadcast.broadcaster else { return }
         user.fetchIfNeeded({ [weak self] (_) -> Void in
             guard let broadcast = self?.broadcast else { return }
             guard let controller = self else { return }
@@ -564,13 +582,14 @@ extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
                 event.text = "\(user.name ?? "") \("joined".ls)"
                 broadcast.insert(event)
                 controller.chatDataSource.items = broadcast.events
-                controller.setNumberOfViewers(max(1, broadcast.numberOfViewers + 1))
+                controller.broadcast.viewers.insert(user)
                 break
             case "leave", "timeout":
-                self?.setNumberOfViewers(max(1, broadcast.numberOfViewers - 1))
+                controller.broadcast.viewers.remove(user)
                 break
             default: break
             }
+            controller.updateBroadcastInfo()
             }, failure: nil)
     }
 }

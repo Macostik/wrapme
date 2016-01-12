@@ -139,9 +139,9 @@ class StreamMetrics: NSObject {
     
     var selection: ((StreamItem?, AnyObject?) -> Void)?
     
-    var prepareAppearing: ((StreamItem?, StreamReusableView) -> Void)?
+    var prepareAppearing: ((StreamItem, StreamReusableView) -> Void)?
     
-    var finalizeAppearing: ((StreamItem?, StreamReusableView) -> Void)?
+    var finalizeAppearing: ((StreamItem, StreamReusableView) -> Void)?
     
     var reusableViews: Set<StreamReusableView> = Set()
     

@@ -58,7 +58,7 @@ class HistoryItemCell: StreamReusableView {
         candyMetrics.selection = metrics.selection
         dataSource.layoutSpacing = Constants.pixelSize
         candyMetrics.prepareAppearing = { [weak self] item, _ in
-            item?.view?.transform = self?.streamView.transform ?? CGAffineTransformIdentity
+            item.view?.transform = self?.streamView.transform ?? CGAffineTransformIdentity
         }
     }
     

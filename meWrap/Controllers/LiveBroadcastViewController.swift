@@ -242,7 +242,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         
         let audioConfig = AudioConfig()
         audioConfig.sampleRate = (AudioConfig.getSupportedSampleRates().first as! NSNumber).floatValue
-        let orientation: AVCaptureVideoOrientation = .LandscapeRight
+        let orientation: AVCaptureVideoOrientation = orientationForVideoConnection()
         if let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self) {
             streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
             previewLayer = layer
@@ -259,6 +259,15 @@ class LiveBroadcastViewController: WLBaseViewController {
                     device.unlockForConfiguration()
                 } catch { }
             }
+        }
+    }
+    
+    private func orientationForVideoConnection() -> AVCaptureVideoOrientation {
+        switch DeviceManager.defaultManager.orientation {
+        case .Portrait: return .Portrait
+        case .PortraitUpsideDown: return .PortraitUpsideDown
+        case .LandscapeRight: return .LandscapeLeft
+        default: return .LandscapeRight
         }
     }
     
@@ -495,10 +504,13 @@ class LiveBroadcastViewController: WLBaseViewController {
         sender.scale = 1
     }
     
+    private weak var viewersController: LiveBroadcastViewersViewController?
+    
     @IBAction func presentViewers(sender: AnyObject) {
         if let controller = storyboard?["broadcastViewers"] as? LiveBroadcastViewersViewController {
             controller.broadcast = broadcast
             presentViewController(controller, animated: false, completion: nil)
+            viewersController = controller
         }
     }
     
@@ -507,7 +519,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return [.LandscapeRight]
+        return [.All]
     }
 }
 
@@ -574,22 +586,23 @@ extension LiveBroadcastViewController: NotificationSubscriptionDelegate {
         guard let uuid = event.data?.presence?.uuid where uuid != User.channelName() else { return }
         guard let user = PubNub.userFromUUID(uuid) where !user.current && user != broadcast.broadcaster else { return }
         user.fetchIfNeeded({ [weak self] (_) -> Void in
-            guard let broadcast = self?.broadcast else { return }
             guard let controller = self else { return }
+            let broadcast = controller.broadcast
             switch event.data.presenceEvent {
             case "join":
                 let event = LiveBroadcast.Event(type: .Info)
                 event.text = "\(user.name ?? "") \("joined".ls)"
                 broadcast.insert(event)
                 controller.chatDataSource.items = broadcast.events
-                controller.broadcast.viewers.insert(user)
+                broadcast.viewers.insert(user)
                 break
             case "leave", "timeout":
-                controller.broadcast.viewers.remove(user)
+                broadcast.viewers.remove(user)
                 break
             default: break
             }
             controller.updateBroadcastInfo()
+            controller.viewersController?.update()
             }, failure: nil)
     }
 }

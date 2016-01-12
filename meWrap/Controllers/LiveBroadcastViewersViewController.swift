@@ -10,16 +10,11 @@ import UIKit
 
 class LiveBroadcastViewerCell: StreamReusableView {
     
+    static let DefaultHeight: CGFloat = 56
+    
     @IBOutlet weak var avatarView: ImageView!
     
     @IBOutlet weak var nameLabel: UILabel!
-    
-    override func setup(entry: AnyObject!) {
-        if let user = entry as? User {
-            avatarView.url = user.avatar?.small
-            nameLabel.text = user.name
-        }
-    }
 }
 
 class LiveBroadcastViewersViewController: UIViewController {
@@ -36,9 +31,23 @@ class LiveBroadcastViewersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let cellHeight: CGFloat = 56
-        dataSource.addMetrics(StreamMetrics(identifier: "LiveBroadcastViewerCell", size: cellHeight))
         if let broadcast = broadcast {
+            let metrics = StreamMetrics(identifier: "LiveBroadcastViewerCell")
+            metrics.size = LiveBroadcastViewerCell.DefaultHeight
+            metrics.finalizeAppearing = { [unowned broadcast] item, view in
+                if let view = view as? LiveBroadcastViewerCell, let user = item.entry as? User {
+                    view.avatarView.url = user.avatar?.small
+                    view.nameLabel.text = user == broadcast.broadcaster ? "\(user.name ?? "") (\("broadcaster".ls))" : user.name
+                }
+            }
+            dataSource.addMetrics(metrics)
+            update()
+        }
+    }
+    
+    func update() {
+        if let broadcast = broadcast {
+            let cellHeight = LiveBroadcastViewerCell.DefaultHeight
             let viewers = broadcast.viewers
             numberOfViewersLabel.text = "\(viewers.count) \("live_viewers".ls)"
             contentHeightConstraint.constant = 44 + min(cellHeight * 5, cellHeight * CGFloat(viewers.count))

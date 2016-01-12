@@ -34,6 +34,10 @@
 
 @property (weak, nonatomic) IBOutlet UIView *publicWrapsHeaderView;
 
+@property (strong, nonatomic) EntryNotifyReceiver *userNotifyReceiver;
+
+@property (strong, nonatomic) EntryNotifyReceiver *wrapNotifyReceiver;
+
 @end
 
 @implementation WLHomeViewController
@@ -226,7 +230,7 @@
     
     __weak typeof(self)weakSelf = self;
     
-    [[Wrap notifyReceiver:self] setup:^(EntryNotifyReceiver *receiver) {
+    self.wrapNotifyReceiver = [[Wrap notifyReceiver] setup:^(EntryNotifyReceiver *receiver) {
         [receiver setDidAdd:^(Entry *entry) {
             Wrap *wrap = (Wrap*)entry;
             if (wrap.isPublic) {
@@ -267,7 +271,7 @@
         }];
     }];
     
-    [[User notifyReceiver:self] setup:^(EntryNotifyReceiver *receiver) {
+    self.userNotifyReceiver = [[User notifyReceiver] setup:^(EntryNotifyReceiver *receiver) {
         [receiver setDidUpdate:^(Entry *entry, EntryUpdateEvent event) {
             if (weakSelf.isTopViewController) {
                 [weakSelf updateEmailConfirmationView:YES];
@@ -310,18 +314,6 @@
 }
 
 - (IBAction)addPhoto:(id)sender {
-//    NSString *channel = @"test_channel";
-//    [[PubNub sharedInstance] publish:@{@"message":@"test_message"} toChannel:self.homeDataSource.wrap.uid withCompletion:nil];
-//    [[Dispatch mainQueue] after:2 block:^{
-//        [[PubNub sharedInstance] subscribeToChannels:@[channel] withPresence:YES];
-//        [[Dispatch mainQueue] after:2 block:^{
-//            [[PubNub sharedInstance] unsubscribeFromChannels:@[channel] withPresence:YES];
-//            [[Dispatch mainQueue] after:3 block:^{
-//                [[PubNub sharedInstance] publish:@{@"message":@"test_message"} toChannel:self.homeDataSource.wrap.uid withCompletion:nil];
-//            }];
-//        }];
-//    }];
-    
     [self openCameraForWrap:[self topWrap] animated:NO];
 }
 

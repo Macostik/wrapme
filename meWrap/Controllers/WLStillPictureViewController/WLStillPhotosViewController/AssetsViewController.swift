@@ -115,7 +115,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
             }
         }
         metrics.prepareAppearing = { [weak self] (item, view) in
-            if let item = item, let asset = item.entry as? PHAsset {
+            if let asset = item.entry as? PHAsset {
                 item.selected = self?.selectedAssets.contains(asset.localIdentifier) ?? false
                 view.exclusiveTouch = self?.mode != .Default
             }

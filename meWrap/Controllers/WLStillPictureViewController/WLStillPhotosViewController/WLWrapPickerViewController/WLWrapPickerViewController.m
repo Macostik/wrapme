@@ -17,6 +17,8 @@
 
 @property (strong, nonatomic) IBOutlet LayoutPrioritizer *editingPrioritizer;
 
+@property (strong, nonatomic) EntryNotifyReceiver *wrapNotifyReceiver;
+
 @end
 
 @implementation WLWrapPickerViewController
@@ -56,7 +58,7 @@
         }
     }
     
-    [[Wrap notifyReceiver:self] setup:^(EntryNotifyReceiver *receiver) {
+    self.wrapNotifyReceiver = [[Wrap notifyReceiver] setup:^(EntryNotifyReceiver *receiver) {
         receiver.willDelete = ^ (Entry *entry) {
             NSMutableArray *wraps = [NSMutableArray arrayWithArray:(NSArray*)dataSource.items];
             [wraps removeObject:entry];

@@ -43,10 +43,10 @@ PODS:
   - LogEntries (0.0.1)
   - NewRelicAgent (5.3.5)
   - OpenUDID (1.0.0)
-  - PubNub (4.2.3):
+  - PubNub (4.2.4):
     - CocoaLumberjack (= 2.2.0)
-    - PubNub/Core (= 4.2.3)
-  - PubNub/Core (4.2.3):
+    - PubNub/Core (= 4.2.4)
+  - PubNub/Core (4.2.4):
     - CocoaLumberjack (= 2.2.0)
 
 DEPENDENCIES:
@@ -76,6 +76,6 @@ SPEC CHECKSUMS:
   LogEntries: a1f16e3c9edc0d6a52209fe6cd7281ab07fb7657
   NewRelicAgent: 0e5d8312054fe779237efc12e05f10c314884c47
   OpenUDID: e7cb6984c7304906ad20f3a36bf087b025896b6b
-  PubNub: 461805c30ce11332a6ee5ab2c34be2d4c82c38d7
+  PubNub: 2e5045d9140d289d41673388b8af615739e8660c
 
 COCOAPODS: 0.39.0

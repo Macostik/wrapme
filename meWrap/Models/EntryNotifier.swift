@@ -90,7 +90,10 @@ class EntryNotifyReceiver: NSObject, EntryNotifying {
     var willDelete: (Entry -> Void)?
     var willDeleteContainer: (Entry -> Void)?
     
-    func setup( @noescape block: EntryNotifyReceiver -> Void) { block(self) }
+    func setup( @noescape block: EntryNotifyReceiver -> Void) -> Self {
+        block(self)
+        return self
+    }
     
     // MARK: - EntryNotifying
     
@@ -137,9 +140,8 @@ extension Entry {
         return EntryNotifier.notifierForName(entityName())
     }
     
-    class func notifyReceiver(owner: AnyObject) -> EntryNotifyReceiver {
+    class func notifyReceiver() -> EntryNotifyReceiver {
         let receiver = EntryNotifyReceiver()
-        objc_setAssociatedObject(owner, "\(entityName())_EntryNotifyReceiver", receiver, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         notifier().addReceiver(receiver)
         return receiver
     }

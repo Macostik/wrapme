@@ -22,6 +22,10 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
 @property (weak, nonatomic) IBOutlet InternalScrollView *contentView;
 @property (weak, nonatomic) WLHistoryViewController *historyViewController;
 
+@property (strong, nonatomic) EntryNotifyReceiver *candyNotifyReceiver;
+
+@property (strong, nonatomic) EntryNotifyReceiver *commentNotifyReceiver;
+
 @end
 
 @implementation WLCommentsViewController
@@ -110,7 +114,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
 - (void)addNotifyReceivers {
     __weak typeof(self)weakSelf = self;
     
-    [[Comment notifyReceiver:self] setup:^(EntryNotifyReceiver *receiver) {
+    self.commentNotifyReceiver = [[Comment notifyReceiver] setup:^(EntryNotifyReceiver *receiver) {
         [receiver setShouldNotify:^BOOL(Entry *entry) {
             Comment *comment = (Comment *)entry;
             NSArray *comments = (NSArray*)weakSelf.dataSource.items;
@@ -129,7 +133,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
         };
     }];
     
-    [[Candy notifyReceiver:self] setup:^(EntryNotifyReceiver *receiver) {
+    self.candyNotifyReceiver = [[Candy notifyReceiver] setup:^(EntryNotifyReceiver *receiver) {
         [receiver setEntry:^Entry *{
             return weakSelf.candy;
         }];

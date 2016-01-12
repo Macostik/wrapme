@@ -34,6 +34,10 @@
 @property (strong, nonatomic) IBOutlet LayoutPrioritizer *titleViewPrioritizer;
 @property (weak, nonatomic) IBOutlet WLLabel *typingLabel;
 
+@property (strong, nonatomic) EntryNotifyReceiver *wrapNotifyReceiver;
+
+@property (strong, nonatomic) EntryNotifyReceiver *candyNotifyReceiver;
+
 @end
 
 @implementation WLWrapViewController
@@ -128,7 +132,7 @@
 - (void)addNotifyReceivers {
     __weak typeof(self)weakSelf = self;
     
-    [[Wrap notifyReceiver:self] setup:^(EntryNotifyReceiver *receiver) {
+    self.wrapNotifyReceiver = [[Wrap notifyReceiver] setup:^(EntryNotifyReceiver *receiver) {
         [receiver setEntry:^Entry *{
             return weakSelf.wrap;
         }];
@@ -149,7 +153,7 @@
         };
     }];
     
-    [[Candy notifyReceiver:self] setup:^(EntryNotifyReceiver *receiver) {
+    self.candyNotifyReceiver = [[Candy notifyReceiver] setup:^(EntryNotifyReceiver *receiver) {
         [receiver setContainer:^Entry *{
             return weakSelf.wrap;
         }];

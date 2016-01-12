@@ -47,6 +47,7 @@ class ContributorAddNotification: WrapNotification {
     }
     
     override func fetch(success: Block, failure: FailureBlock) {
+        createEntryIfNeeded()
         guard let wrap = wrap else {
             success()
             return
@@ -91,6 +92,7 @@ class WrapUpdateNotification: WrapNotification {
     }
     
     override func fetch(success: Block, failure: FailureBlock) {
+        createEntryIfNeeded()
         if descriptor?.data == nil {
             wrap?.fetch({ (_) -> Void in
                 success()

@@ -26,6 +26,7 @@ class Logger: NSObject {
         case Yellow = "fg219,219,110;"
         case Green = "fg107,190,31;"
         case Red = "fg201,91,91;"
+        case Blue = "fg0,204,204;"
     }
     
     private static let Escape = "\u{001b}["
@@ -41,7 +42,6 @@ class Logger: NSObject {
     }
     
     class func log(string: String, color: LogColor) {
-        
         #if DEBUG
             print("\(Escape)\(color.rawValue)\n\n\(string)\n\(Escape);")
         #else

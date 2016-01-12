@@ -47,7 +47,7 @@ class EntryNotifier: OrderedNotifier {
         }
     }
     
-    func notifyOnEntry(entry: Entry, block: ((AnyObject!) -> Void)!) {
+    func notifyOnEntry(entry: Entry, @noescape block: AnyObject -> Void) {
         notify { (receiver) -> Void in
             if receiver.notifier?(self, shouldNotifyOnEntry: entry) ?? true {
                 block(receiver)
@@ -90,7 +90,7 @@ class EntryNotifyReceiver: NSObject, EntryNotifying {
     var willDelete: (Entry -> Void)?
     var willDeleteContainer: (Entry -> Void)?
     
-    func setup(block: EntryNotifyReceiver -> Void) { block(self) }
+    func setup( @noescape block: EntryNotifyReceiver -> Void) { block(self) }
     
     // MARK: - EntryNotifying
     
@@ -139,7 +139,7 @@ extension Entry {
     
     class func notifyReceiver(owner: AnyObject) -> EntryNotifyReceiver {
         let receiver = EntryNotifyReceiver()
-        objc_setAssociatedObject(owner, "\(entityName())_EntryNotifyReceiver", receiver, .OBJC_ASSOCIATION_RETAIN)
+        objc_setAssociatedObject(owner, "\(entityName())_EntryNotifyReceiver", receiver, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         notifier().addReceiver(receiver)
         return receiver
     }
@@ -159,16 +159,12 @@ extension Entry {
     }
     
     func touchContainer() {
-        
-        guard let container = container else {
-            return
-        }
+        guard let container = container else { return }
         if updatedAt.later(container.updatedAt) {
             container.updatedAt = updatedAt
-            container.notifyOnUpdate(.ContentChanged)
         } else if createdAt.later(container.updatedAt) {
             container.updatedAt = createdAt
-            container.notifyOnUpdate(.ContentChanged)
         }
+        container.notifyOnUpdate(.ContentChanged)
     }
 }

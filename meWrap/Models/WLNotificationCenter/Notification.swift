@@ -87,13 +87,17 @@ class Notification: NSObject {
     
     class func notificationWithMessage(message: AnyObject?) -> Notification? {
         let result = parseMessage(message)
-        guard let body = result.body, let timetoken = result.timetoken else { return nil }
+        guard let body = result.body, let timetoken = result.timetoken else {
+            return nil
+        }
         let publishedAt = NSDate.dateWithTimetoken(timetoken)
         return notificationWithBody(body, publishedAt: publishedAt)
     }
     
     class func notificationWithBody(body: [String:AnyObject], publishedAt: NSDate?) -> Notification? {
-        guard let type = parseNotificationType(body) else { return nil }
+        guard let type = parseNotificationType(body) else {
+            return nil
+        }
         return type.typeValue().init(type: type, body: body, publishedAt: publishedAt)
     }
     
@@ -140,22 +144,25 @@ class Notification: NSObject {
     
     internal var _entry: Entry?
     var entry: Entry? {
-        if let entry = _entry {
-            return entry
-        } else {
-            if let descriptor = descriptor where shouldCreateEntry(descriptor) {
-                createEntry(descriptor)
-            }
-            inserted = _entry?.inserted ?? false
-            return _entry
-        }
+        createEntryIfNeeded()
+        return _entry
     }
     
     internal func shouldCreateEntry(descriptor: EntryDescriptor) -> Bool { return true }
     
+    internal func createEntryIfNeeded() {
+        if _entry == nil {
+            if let descriptor = descriptor where shouldCreateEntry(descriptor) {
+                createEntry(descriptor)
+            }
+            inserted = _entry?.inserted ?? false
+        }
+    }
+    
     internal func createEntry(descriptor: EntryDescriptor) { }
 
     func fetch(success: Block, failure: FailureBlock) {
+        createEntryIfNeeded()
         success()
     }
     
@@ -171,6 +178,8 @@ class Notification: NSObject {
     override var description: String {
         return "\(body?["msg_type"] ?? ""): \(descriptor?.uid ?? "")"
     }
+    
+    func canBeHandled() -> Bool { return Authorization.active && !originatedByCurrentUser }
     
     func presentWithIdentifier(identifier: String?) {
         if let entry = entry {

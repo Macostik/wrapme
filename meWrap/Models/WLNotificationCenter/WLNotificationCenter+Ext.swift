@@ -39,11 +39,16 @@ extension WLNotificationCenter {
         var notifications = [Notification]()
         
         for message in messages {
-            guard let n = Notification.notificationWithMessage(message) else { break }
-            guard n.type == .UserUpdate || Authorization.active else { break }
-            guard n.type == .CandyAdd || n.type == .CandyUpdate || !n.originatedByCurrentUser else { break }
-            guard !canSkipNotification(n) else { break }
+            guard let n = Notification.notificationWithMessage(message) else {
+                print("no notification object \(message)")
+                break
+            }
+            guard n.canBeHandled() && !canSkipNotification(n) else {
+                print("cannot be handled \(message)")
+                break
+            }
             notifications.append(n)
+            print("added message \(message)")
         }
         
         if notifications.isEmpty { return nil }

@@ -15,7 +15,7 @@
 static CGFloat WLNotificationCommentHorizontalSpacing = 84.0f;
 static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
 
-@interface WLCommentsViewController () <UIViewControllerTransitioningDelegate, UIScrollViewDelegate>
+@interface WLCommentsViewController () <UIViewControllerTransitioningDelegate, UIScrollViewDelegate, EntryNotifying>
 
 @property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
 @property (weak, nonatomic) IBOutlet LayoutPrioritizer *composeBarBottomPrioritizer;
@@ -113,7 +113,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
     [[Comment notifyReceiver:self] setup:^(EntryNotifyReceiver *receiver) {
         [receiver setShouldNotify:^BOOL(Entry *entry) {
             Comment *comment = (Comment *)entry;
-            NSMutableOrderedSet *comments = (NSMutableOrderedSet*)weakSelf.dataSource.items;
+            NSArray *comments = (NSArray*)weakSelf.dataSource.items;
             return comment.candy == weakSelf.candy || [comments containsObject:comment];
         }];
         receiver.willDelete = ^(Entry *entry) {

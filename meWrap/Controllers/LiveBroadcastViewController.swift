@@ -203,6 +203,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     private func subscribe(broadcast: LiveBroadcast) {
         let chatSubscription = NotificationSubscription(name: "ch-\(broadcast.streamName)", isGroup: false, observePresence: true)
         chatSubscription.delegate = self
+        chatSubscription.subscribe()
         self.chatSubscription = chatSubscription
     }
     

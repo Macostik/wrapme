@@ -23,6 +23,7 @@ class CommentNotification: Notification {
     }
     
     override func fetch(success: Block, failure: FailureBlock) {
+        createEntryIfNeeded()
         if let comment = comment {
             comment.recursivelyFetchIfNeeded(success, failure: failure)
         } else {
@@ -74,6 +75,10 @@ class CommentDeleteNotification: CommentNotification {
     }
     
     override func submit() {
-        comment?.remove()
+        guard let comment = comment else { return }
+        if let candy = comment.candy {
+            candy.commentCount--
+        }
+        comment.remove()
     }
 }

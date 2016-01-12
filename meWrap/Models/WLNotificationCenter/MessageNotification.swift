@@ -25,6 +25,7 @@ class MessageAddNotification: Notification {
     }
     
     override func fetch(success: Block, failure: FailureBlock) {
+        createEntryIfNeeded()
         if let message = message {
             message.recursivelyFetchIfNeeded(success, failure: failure)
         } else {

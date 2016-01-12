@@ -25,6 +25,7 @@ class UserUpdateNotification: Notification {
     }
     
     override func fetch(success: Block, failure: FailureBlock) {
+        createEntryIfNeeded()
         if let user = user {
             user.recursivelyFetchIfNeeded(success, failure: failure)
         } else {
@@ -35,4 +36,6 @@ class UserUpdateNotification: Notification {
     override func submit() {
         user?.notifyOnUpdate(.Default)
     }
+    
+    override func canBeHandled() -> Bool { return !originatedByCurrentUser }
 }

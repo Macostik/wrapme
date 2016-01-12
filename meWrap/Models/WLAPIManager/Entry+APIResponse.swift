@@ -338,7 +338,7 @@ extension Candy {
         
         if let commentCount = dictionary[Keys.CommentCount] as? Int {
             let commentCount = Int16(commentCount)
-            if self.commentCount < commentCount {
+            if self.commentCount != commentCount {
                 self.commentCount = commentCount
             }
         }

@@ -310,6 +310,18 @@
 }
 
 - (IBAction)addPhoto:(id)sender {
+//    NSString *channel = @"test_channel";
+//    [[PubNub sharedInstance] publish:@{@"message":@"test_message"} toChannel:self.homeDataSource.wrap.uid withCompletion:nil];
+//    [[Dispatch mainQueue] after:2 block:^{
+//        [[PubNub sharedInstance] subscribeToChannels:@[channel] withPresence:YES];
+//        [[Dispatch mainQueue] after:2 block:^{
+//            [[PubNub sharedInstance] unsubscribeFromChannels:@[channel] withPresence:YES];
+//            [[Dispatch mainQueue] after:3 block:^{
+//                [[PubNub sharedInstance] publish:@{@"message":@"test_message"} toChannel:self.homeDataSource.wrap.uid withCompletion:nil];
+//            }];
+//        }];
+//    }];
+    
     [self openCameraForWrap:[self topWrap] animated:NO];
 }
 

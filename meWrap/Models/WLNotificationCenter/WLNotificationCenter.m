@@ -87,9 +87,7 @@
         return;
     }
     NSString *channelName = [NSString stringWithFormat:@"cg-%@", uuid];
-    if ([self.userSubscription.name isEqualToString:channelName]) {
-        [self.userSubscription subscribe];
-    } else {
+    if (![self.userSubscription.name isEqualToString:channelName]) {
         self.userSubscription = [[NotificationSubscription alloc] initWithName:channelName isGroup:YES observePresence:YES];
         self.userSubscription.delegate = self;
         
@@ -101,6 +99,7 @@
             [[UIApplication sharedApplication] registerForRemoteNotifications];
         }
     }
+    [self.userSubscription subscribe];
 }
 
 - (void)handleDeviceToken:(NSData*)deviceToken {
@@ -225,6 +224,7 @@
 }
 
 - (void)notificationSubscription:(NotificationSubscription *)subscription didReceiveMessage:(PNMessageResult * _Nonnull)message {
+    NSLog(@"notificationSubscription:didReceiveMessage:");
     [self.enqueuedMessages addObject:message.data];
     [self enqueueSelector:@selector(handleEnqueuedMessages)];
 }
@@ -340,7 +340,11 @@
 #pragma mark - PNObjectEventListener
 
 - (void)client:(PubNub *)client didReceiveMessage:(PNMessageResult *)message {
+#if DEBUG
+    [Logger log:[NSString stringWithFormat:@"listener didReceiveMessage %@", message.data.message]];
+#else
     [Logger log:[NSString stringWithFormat:@"PUBNUB - did receive message"]];
+#endif
 }
 
 - (void)client:(PubNub *)client didReceivePresenceEvent:(PNPresenceEventResult *)event {

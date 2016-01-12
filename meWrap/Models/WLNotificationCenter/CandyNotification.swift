@@ -35,6 +35,7 @@ class CandyNotification: Notification {
 class CandyAddNotification: CandyNotification {
     
     override func fetch(success: Block, failure: FailureBlock) {
+        createEntryIfNeeded()
         if let candy = candy {
             candy.recursivelyFetchIfNeeded({ _ in
                 if let asset = candy.asset {
@@ -55,11 +56,14 @@ class CandyAddNotification: CandyNotification {
         }
         candy.notifyOnAddition()
     }
+    
+    override func canBeHandled() -> Bool { return Authorization.active }
 }
 
 class CandyUpdateNotification: CandyNotification {
     
     override func fetch(success: Block, failure: FailureBlock) {
+        createEntryIfNeeded()
         if let candy = candy {
             if descriptor?.data == nil {
                 candy.fetch({ (_) -> Void in
@@ -88,6 +92,8 @@ class CandyUpdateNotification: CandyNotification {
         }
         candy.notifyOnUpdate(.Default)
     }
+    
+    override func canBeHandled() -> Bool { return Authorization.active }
 }
 
 class CandyDeleteNotification: CandyNotification {

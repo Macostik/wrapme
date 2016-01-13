@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+
 @import AVKit;
 
 @interface WLCameraView : UIView
@@ -96,6 +97,7 @@
 @dynamic delegate;
 
 - (void)dealloc {
+    [[VolumeChangeObserver sharedObserver] unregisterChagneObserver];
     [[DeviceManager defaultManager] endUsingAccelerometer];
     if (self.videoFilePath) {
         [[NSFileManager defaultManager] removeItemAtPath:self.videoFilePath error:nil];
@@ -168,6 +170,9 @@
     self.assetsViewController.assetsHidingHandler = ^ {
         [NSObject cancelPreviousPerformRequestsWithTarget:weakSelf selector:@selector(setAssetsViewControllerHidden) object:nil];
     };
+    [[VolumeChangeObserver sharedObserver] registerChangeObserver:^{
+        [weakSelf shot:nil];
+    }];
 }
 
 - (void)authorize:(Block)success failure:(FailureBlock)failure {

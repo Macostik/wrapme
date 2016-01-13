@@ -15,6 +15,13 @@ class LiveBroadcastViewerCell: StreamReusableView {
     @IBOutlet weak var avatarView: ImageView!
     
     @IBOutlet weak var nameLabel: UILabel!
+    
+    override func setup(entry: AnyObject!) {
+        if let user = entry as? User {
+            avatarView.url = user.avatar?.small
+            nameLabel.text = user.name
+        }
+    }
 }
 
 class LiveBroadcastViewersViewController: UIViewController {
@@ -36,18 +43,10 @@ class LiveBroadcastViewersViewController: UIViewController {
         
         slideTransition.delegate = self
         
-        if let broadcast = broadcast {
-            let metrics = StreamMetrics(identifier: "LiveBroadcastViewerCell")
-            metrics.size = LiveBroadcastViewerCell.DefaultHeight
-            metrics.finalizeAppearing = { [unowned broadcast] item, view in
-                if let view = view as? LiveBroadcastViewerCell, let user = item.entry as? User {
-                    view.avatarView.url = user.avatar?.small
-                    view.nameLabel.text = user == broadcast.broadcaster ? "\(user.name ?? "") (\("broadcaster".ls))" : user.name
-                }
-            }
-            dataSource.addMetrics(metrics)
-            update()
-        }
+        let metrics = StreamMetrics(identifier: "LiveBroadcastViewerCell")
+        metrics.size = LiveBroadcastViewerCell.DefaultHeight
+        dataSource.addMetrics(metrics)
+        update()
     }
     
     func update() {
@@ -55,7 +54,7 @@ class LiveBroadcastViewersViewController: UIViewController {
             let cellHeight = LiveBroadcastViewerCell.DefaultHeight
             let viewers = broadcast.viewers
             numberOfViewersLabel.text = "\(viewers.count) \("live_viewers".ls)"
-            contentHeightConstraint.constant = 44 + min(cellHeight * 5, cellHeight * CGFloat(viewers.count))
+            contentHeightConstraint.constant = 48 + min(cellHeight * 5, cellHeight * CGFloat(viewers.count))
             view.layoutIfNeeded()
             dataSource.items = viewers.sort({ $0.name > $1.name })
         }

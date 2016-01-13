@@ -3968,7 +3968,7 @@ QWRkEEZyaWVuZFZpZXc
                                 <rect key="frame" x="24" y="150" width="552" height="300"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9lc-Ly-eOc" customClass="StreamView" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44" width="552" height="256"/>
+                                        <rect key="frame" x="0.0" y="44" width="552" height="252"/>
                                     </scrollView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F2a-3l-4Yx">
                                         <rect key="frame" x="0.0" y="0.0" width="552" height="44"/>
@@ -4017,7 +4017,7 @@ QWRkEEZyaWVuZFZpZXc
                                     <constraint firstItem="9lc-Ly-eOc" firstAttribute="top" secondItem="F2a-3l-4Yx" secondAttribute="bottom" id="MHL-zD-CDi"/>
                                     <constraint firstItem="F2a-3l-4Yx" firstAttribute="top" secondItem="BlU-3r-33w" secondAttribute="top" id="ia9-x9-RDl"/>
                                     <constraint firstItem="9lc-Ly-eOc" firstAttribute="leading" secondItem="BlU-3r-33w" secondAttribute="leading" id="lUu-VV-bDF"/>
-                                    <constraint firstAttribute="bottom" secondItem="9lc-Ly-eOc" secondAttribute="bottom" id="v6V-Ln-wnG"/>
+                                    <constraint firstAttribute="bottom" secondItem="9lc-Ly-eOc" secondAttribute="bottom" constant="4" id="v6V-Ln-wnG"/>
                                     <constraint firstAttribute="height" constant="300" id="wyY-Hk-NZZ"/>
                                     <constraint firstAttribute="trailing" secondItem="F2a-3l-4Yx" secondAttribute="trailing" id="zDb-nr-JSF"/>
                                 </constraints>

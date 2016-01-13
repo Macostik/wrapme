@@ -192,7 +192,9 @@ class LiveBroadcastViewController: WLBaseViewController {
                     for uuid in uuids {
                         guard let user = PubNub.userFromUUID(uuid) else { return }
                         user.fetchIfNeeded(nil, failure: nil)
-                        viewers.insert(user)
+                        if user != broadcast.broadcaster {
+                            viewers.insert(user)
+                        }
                     }
                     if let user = User.currentUser where !viewers.contains(user) {
                         viewers.insert(user)
@@ -369,10 +371,6 @@ class LiveBroadcastViewController: WLBaseViewController {
         broadcast.insert(preparingEvent)
         chatDataSource.items = broadcast.events
         
-        if let user = User.currentUser {
-            broadcast.viewers = [user]
-        }
-        
         Dispatch.mainQueue.after(6) { [weak self] _ in
             
             guard let _self = self else { return }
@@ -381,8 +379,6 @@ class LiveBroadcastViewController: WLBaseViewController {
             guard let deviceUID = Authorization.currentAuthorization.deviceUID else { return }
             
             let broadcast = _self.broadcast
-            
-            broadcast.viewers = [user]
             
             var state = [NSObject:AnyObject]()
             state["streamName"] = broadcast.streamName

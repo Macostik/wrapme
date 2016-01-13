@@ -111,7 +111,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     }
     
     private func updateBroadcastInfo() {
-        joinsCountLabel.text = "\(max(1, broadcast.viewers.count))"
+        joinsCountLabel.text = "\(max(0, broadcast.viewers.count))"
         titleLabel?.text = broadcast.displayTitle()
     }
     

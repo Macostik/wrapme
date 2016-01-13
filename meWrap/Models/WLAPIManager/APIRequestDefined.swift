@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PubNub
 
 extension APIRequest {
     
@@ -94,6 +95,28 @@ extension APIRequest {
                 wrap.mutableContributors.addObject(user)
                 wrap.notifyOnUpdate(.ContributorsChanged)
             }
+            PubNub.sharedInstance.hereNowForChannel(wrap.uid, withVerbosity: .State) { (result, status) -> Void in
+                if let uuids = result?.data?.uuids as? [[String:AnyObject]] {
+                    var broadcasts = [LiveBroadcast]()
+                    for uuid in uuids {
+                        guard let state = uuid["state"] as? [String:AnyObject] else { continue }
+                        guard let user = User.entry(state["userUid"] as? String) else { continue }
+                        if let streamName = state["streamName"] as? String {
+                            let broadcast = LiveBroadcast()
+                            broadcast.broadcaster = user
+                            broadcast.wrap = wrap
+                            broadcast.title = state["title"] as? String
+                            broadcast.streamName = streamName
+                            broadcasts.append(broadcast)
+                            user.fetchIfNeeded(nil, failure: nil)
+                        }
+                    }
+                    if broadcasts.count > 0 {
+                        wrap.liveBroadcasts = broadcasts
+                        wrap.notifyOnUpdate(.LiveBroadcastsChanged)
+                    }
+                }
+            }
             return wrap
             }.contributionUnavailable(wrap)
     }
@@ -103,6 +126,10 @@ extension APIRequest {
             if let user = User.currentUser {
                 wrap.mutableContributors.removeObject(user)
                 wrap.notifyOnUpdate(.ContributorsChanged)
+            }
+            if wrap.liveBroadcasts.count > 0 {
+                wrap.liveBroadcasts = []
+                wrap.notifyOnUpdate(.LiveBroadcastsChanged)
             }
             return nil
             }.contributionUnavailable(wrap)

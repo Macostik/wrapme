@@ -27,10 +27,10 @@ extension User {
     @NSManaged var current: Bool
     @NSManaged var firstTimeUse: Bool
     @NSManaged var name: String?
-    @NSManaged var contributions: NSSet?
-    @NSManaged var devices: NSSet?
-    @NSManaged var editings: NSSet?
-    @NSManaged var wraps: NSSet?
+    @NSManaged var contributions: Set<Contribution>?
+    @NSManaged var devices: Set<Device>?
+    @NSManaged var editings: Set<Contribution>?
+    @NSManaged var wraps: Set<Wrap>?
     @NSManaged var avatar: Asset?
     @NSManaged var invitedAt: NSDate
 }
@@ -68,9 +68,9 @@ extension Wrap {
     @NSManaged var isPublic: Bool
     @NSManaged var isRestrictedInvite: Bool
     @NSManaged var name: String?
-    @NSManaged var candies: NSSet?
-    @NSManaged var contributors: NSSet?
-    @NSManaged var messages: NSSet?
+    @NSManaged var candies: Set<Candy>?
+    @NSManaged var contributors: Set<User>?
+    @NSManaged var messages: Set<Message>?
     @NSManaged var candiesPaginationDate: NSDate?
     
 }
@@ -79,7 +79,7 @@ extension Candy {
     
     @NSManaged var commentCount: Int16
     @NSManaged var type: Int16
-    @NSManaged var comments: NSSet?
+    @NSManaged var comments: Set<Comment>?
     @NSManaged var wrap: Wrap?
     
 }

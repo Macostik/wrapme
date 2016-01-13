@@ -31,10 +31,7 @@ class Candy: Contribution {
     var latestComment: Comment? {
         get {
             if _latestComment == nil {
-                guard let comments = comments as? Set<Comment> else {
-                    return nil
-                }
-                _latestComment = comments.sort({ $0.createdAt.later($1.createdAt) }).first
+                _latestComment = comments?.sort({ $0.createdAt.later($1.createdAt) }).first
             }
             return _latestComment
         }
@@ -79,11 +76,7 @@ class Candy: Contribution {
     }
     
     func sortedComments() -> [Comment] {
-        if let comments = comments as? Set<Comment> {
-            return comments.sort({ $0.createdAt < $1.createdAt })
-        } else {
-            return []
-        }
+        return comments?.sort({ $0.createdAt < $1.createdAt }) ?? []
     }
     
     override var uploaded: Bool { return super.uploaded && uid != locuid }

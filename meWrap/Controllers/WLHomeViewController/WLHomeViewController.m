@@ -299,7 +299,9 @@
 }
 
 - (IBAction)createWrap:(id)sender {
-    [self openCameraForWrap:nil animated:NO];
+    UploadWizardViewController *controller = (id)self.storyboard[@"uploadWizard"];
+    controller.isNewWrap = YES;
+    [self.navigationController pushViewController:controller animated:NO];
 }
 
 - (Wrap*)topWrap {

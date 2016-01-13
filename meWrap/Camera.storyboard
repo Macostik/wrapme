@@ -26,8 +26,6 @@
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
-            <string>icons</string>
-            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -152,7 +150,7 @@
                                             <action selector="toggleQuickAssets:" destination="gev-MF-K1G" eventType="touchUpInside" id="3ZY-ag-Qpt"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="&quot;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acO-Zn-Gz0">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acO-Zn-Gz0">
                                         <rect key="frame" x="149" y="-3" width="24" height="24"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -452,7 +450,7 @@
                                             <action selector="toggleQuickAssets:" destination="gkl-Du-487" eventType="touchUpInside" id="7qc-He-dlf"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="&quot;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t2i-cM-gaQ">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t2i-cM-gaQ">
                                         <rect key="frame" x="148" y="-4" width="24" height="24"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -498,7 +496,7 @@
                                                     <action selector="getSamplePhoto:" destination="gkl-Du-487" eventType="touchUpInside" id="EsT-ac-NpJ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ITP-VR-CiW" customClass="WLButton">
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ITP-VR-CiW" customClass="WLButton">
                                                 <rect key="frame" x="10" y="41" width="36" height="48"/>
                                                 <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
                                                 <state key="normal" title="L">
@@ -1073,7 +1071,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h5t-N3-cw5" customClass="VideoPlayerView" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="427"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1xn-ct-1bD" customClass="WLButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1xn-ct-1bD" customClass="WLButton">
                                         <rect key="frame" x="12" y="275" width="30" height="36"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                         <state key="normal" title=","/>
@@ -1258,7 +1256,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <button tag="5" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ovp-Nk-uxq" customClass="WLButton">
+                                    <button tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ovp-Nk-uxq" customClass="WLButton">
                                         <rect key="frame" x="320" y="6" width="45" height="36"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1410,7 +1408,7 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceHorizontal="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OZr-dY-Xul" customClass="StreamView" customModule="meWrap">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="141"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8l4-7n-9vU" customClass="WLButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8l4-7n-9vU" customClass="WLButton">
                                                 <rect key="frame" x="12" y="47" width="36" height="48"/>
                                                 <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
                                                 <state key="normal" title="L">
@@ -1436,7 +1434,7 @@
                                             <outlet property="delegate" destination="y7X-Pb-ZcE" id="iPS-E5-9ct"/>
                                         </connections>
                                     </scrollView>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taU-aO-Oxc" customClass="WLButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taU-aO-Oxc" customClass="WLButton">
                                         <rect key="frame" x="272" y="47" width="36" height="48"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
                                         <state key="normal" title=")">
@@ -1622,88 +1620,11 @@
                                     <outletCollection property="gestureRecognizers" destination="W2D-by-Qd2" appends="YES" id="Ih7-gV-tgx"/>
                                 </connections>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ILu-Xn-X2e" customClass="StreamView" customModule="meWrap">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ILu-Xn-X2e" customClass="StreamView" customModule="meWrap">
                                 <rect key="frame" x="10" y="202" width="300" height="165"/>
-                                <subviews>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cHc-Ku-aIc">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="55"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQs-5i-dNx" customClass="WLButton">
-                                                <rect key="frame" x="12" y="10" width="36" height="36"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="36" id="JlU-fe-vsp"/>
-                                                    <constraint firstAttribute="width" constant="36" id="zu8-3l-6PG"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
-                                                <state key="normal" title="P">
-                                                    <color key="titleColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <state key="highlighted">
-                                                    <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="createNewWrap:" destination="c77-hp-0nQ" eventType="touchUpInside" id="Uba-VQ-Tq2"/>
-                                                </connections>
-                                            </button>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="new_wrap" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Caa-Xm-Qlw" customClass="WLTextField">
-                                                <rect key="frame" x="60" y="6" width="228" height="44"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="jhO-z9-ga9"/>
-                                                </constraints>
-                                                <color key="textColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="disableSeparator" value="YES"/>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="trim" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="textFieldDidChange:" destination="c77-hp-0nQ" eventType="editingChanged" id="6vD-3J-BiH"/>
-                                                    <outlet property="delegate" destination="c77-hp-0nQ" id="U7Y-2I-i4W"/>
-                                                </connections>
-                                            </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mRj-Yl-hQH" customClass="WLButton">
-                                                <rect key="frame" x="300" y="10" width="36" height="36"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="36" id="eBm-Qy-KdO"/>
-                                                    <constraint firstAttribute="height" constant="36" id="sgm-Pv-UDx"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
-                                                <state key="normal" title="N">
-                                                    <color key="titleColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <state key="highlighted">
-                                                    <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="saveNewWrap:" destination="c77-hp-0nQ" eventType="touchUpInside" id="mrA-eh-G9P"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="EQs-5i-dNx" firstAttribute="leading" secondItem="cHc-Ku-aIc" secondAttribute="leading" constant="12" id="3gF-bn-Glv"/>
-                                            <constraint firstItem="EQs-5i-dNx" firstAttribute="centerY" secondItem="cHc-Ku-aIc" secondAttribute="centerY" id="4LE-DE-nVe"/>
-                                            <constraint firstItem="Caa-Xm-Qlw" firstAttribute="trailing" secondItem="mRj-Yl-hQH" secondAttribute="leading" constant="-12" id="Bg1-Tb-5AE"/>
-                                            <constraint firstItem="Caa-Xm-Qlw" firstAttribute="leading" secondItem="EQs-5i-dNx" secondAttribute="trailing" constant="12" id="Fpr-Rs-aYt"/>
-                                            <constraint firstAttribute="width" constant="300" id="LhI-hX-f6y"/>
-                                            <constraint firstAttribute="trailing" secondItem="Caa-Xm-Qlw" secondAttribute="trailing" priority="250" constant="60" id="OZl-et-35j"/>
-                                            <constraint firstItem="Caa-Xm-Qlw" firstAttribute="centerY" secondItem="EQs-5i-dNx" secondAttribute="centerY" id="TrI-95-V1J"/>
-                                            <constraint firstItem="mRj-Yl-hQH" firstAttribute="centerY" secondItem="Caa-Xm-Qlw" secondAttribute="centerY" id="UoB-gT-ERW"/>
-                                            <constraint firstAttribute="trailing" secondItem="Caa-Xm-Qlw" secondAttribute="trailing" priority="750" constant="12" id="eTP-6B-WzT"/>
-                                            <constraint firstAttribute="height" constant="55" id="oWl-KI-wRC"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="0.83999999999999997" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="165" id="9RM-jM-fiH"/>
-                                    <constraint firstItem="cHc-Ku-aIc" firstAttribute="centerX" secondItem="ILu-Xn-X2e" secondAttribute="centerX" id="DtH-2R-IYX"/>
-                                    <constraint firstItem="cHc-Ku-aIc" firstAttribute="top" secondItem="ILu-Xn-X2e" secondAttribute="top" id="gb1-cq-3yB"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1731,9 +1652,6 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="dataSource" destination="0yt-I4-bE6" id="62b-B2-H5G"/>
-                        <outlet property="editingPrioritizer" destination="9tn-uH-4kd" id="Vgj-2J-sUA"/>
-                        <outlet property="wrapNameTextField" destination="Caa-Xm-Qlw" id="jMV-YT-Ixg"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="yUW-OR-QOp" id="2hS-5z-STp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E26-2U-hXn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1743,18 +1661,9 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="itemSize">
                             <real key="value" value="55"/>
                         </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layoutOffset">
-                            <real key="value" value="55"/>
-                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="streamView" destination="ILu-Xn-X2e" id="3KG-2y-mi9"/>
-                    </connections>
-                </customObject>
-                <customObject id="9tn-uH-4kd" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
-                    <connections>
-                        <outletCollection property="alternativeConstraints" destination="OZl-et-35j" collectionClass="NSMutableArray" id="OYm-hd-UjT"/>
-                        <outletCollection property="defaultConstraints" destination="eTP-6B-WzT" collectionClass="NSMutableArray" id="k5O-KJ-hgl"/>
                     </connections>
                 </customObject>
                 <tapGestureRecognizer id="W2D-by-Qd2">

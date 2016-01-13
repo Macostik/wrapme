@@ -12,19 +12,16 @@ import Photos
 
 extension Entry {
     
-    class func entry() -> Self? {
+    class func entry() -> Self {
         return entry(self)
     }
     
-    class func entry<T>(type: T.Type) -> T? {
-        if let entry = NSEntityDescription.insertNewObjectForEntityForName(entityName(), inManagedObjectContext: EntryContext.sharedContext) as? Entry {
-            entry.uid = NSString.GUID()
-            entry.createdAt = NSDate.now()
-            entry.updatedAt = entry.createdAt
-            return entry as? T
-        } else {
-            return nil
-        }
+    class func entry<T: Entry>(type: T.Type) -> T {
+        let entry = NSEntityDescription.insertNewObjectForEntityForName(entityName(), inManagedObjectContext: EntryContext.sharedContext) as! T
+        entry.uid = NSString.GUID()
+        entry.createdAt = NSDate.now()
+        entry.updatedAt = entry.createdAt
+        return entry
     }
     
     func markAsUnread(unread: Bool) {
@@ -94,33 +91,23 @@ extension Device {
 
 extension Contribution {
     
-    class func contribution() -> Self? {
-        return contribution(self)
-    }
-    
-    class func contribution<T>(type: T.Type) -> T? {
-        if let contributrion = entry() {
-            contributrion.locuid = contributrion.uid
-            contributrion.contributor = User.currentUser
-            return contributrion as? T
-        } else {
-            return nil
-        }
+    class func contribution() -> Self {
+        let contributrion = entry()
+        contributrion.locuid = contributrion.uid
+        contributrion.contributor = User.currentUser
+        return contributrion
     }
 }
 
 extension Wrap {
     
-    class func wrap() -> Wrap? {
-        if let wrap = contribution() {
-            if let contributor = wrap.contributor {
-                contributor.mutableWraps.addObject(wrap)
-                wrap.contributors = NSSet(object: contributor)
-            }
-            return wrap
-        } else {
-            return nil
+    class func wrap() -> Wrap {
+        let wrap = contribution()
+        if let contributor = wrap.contributor {
+            contributor.mutableWraps.addObject(wrap)
+            wrap.contributors = NSSet(object: contributor)
         }
+        return wrap
     }
     
     override func fetched() -> Bool {
@@ -130,13 +117,10 @@ extension Wrap {
 
 extension Candy {
     
-    class func candy(mediaType: MediaType) -> Candy? {
-        if let candy = contribution() {
-            candy.mediaType = mediaType
-            return candy
-        } else {
-            return nil
-        }
+    class func candy(mediaType: MediaType) -> Candy {
+        let candy = contribution()
+        candy.mediaType = mediaType
+        return candy
     }
     
     override func fetched() -> Bool {
@@ -218,13 +202,10 @@ extension Message {
 
 extension Comment {
     
-    class func comment(text: String) -> Comment? {
-        if let comment = contribution() {
-            comment.text = text
-            return comment
-        } else {
-            return nil
-        }
+    class func comment(text: String) -> Comment {
+        let comment = contribution()
+        comment.text = text
+        return comment
     }
     
     override func fetched() -> Bool {

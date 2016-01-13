@@ -56,10 +56,6 @@ extension NSDate {
     class func dateWithTimetoken(timetoken: NSNumber) -> NSDate {
         return NSDate(timeIntervalSince1970:timetoken.doubleValue / TimetokenPrecisionMultiplier)
     }
-    
-    func timetoken() -> NSNumber {
-        return NSNumber(double: timeIntervalSince1970 * NSDate.TimetokenPrecisionMultiplier)
-    }
 }
 
 @objc protocol NotificationSubscriptionDelegate {
@@ -135,8 +131,8 @@ class NotificationSubscription: NSObject {
     }
     
     func history(from: NSDate, to: NSDate, success: [[NSObject:AnyObject]]? -> Void, failure: NSError? -> Void) {
-        let startDate = from.timetoken()
-        let endDate = to.timetoken()
+        let startDate = from.timestamp
+        let endDate = to.timestamp
         let pubnub = PubNub.sharedInstance
         if isGroup {
             pubnub.channelsForGroup(name, withCompletion: { (result, status) -> Void in

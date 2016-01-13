@@ -107,24 +107,24 @@ extension Contribution {
 extension Wrap {
     
     func uploadMessage(text: String) {
-        if let message = Message.contribution(), let uploading = Uploading.uploading(message) {
-            message.wrap = self
-            message.text = text
-            message.notifyOnAddition()
-            Uploader.messageUploader.upload(uploading)
-        }
+        let message = Message.contribution()
+        let uploading = Uploading.uploading(message)
+        message.wrap = self
+        message.text = text
+        message.notifyOnAddition()
+        Uploader.messageUploader.upload(uploading)
     }
     
     func uploadAsset(asset: MutableAsset) {
-        if let candy = Candy.candy(asset.type), let uploading = Uploading.uploading(candy) {
-            candy.wrap = self
-            candy.asset = asset.uploadablePicture(true)
-            if let comment = asset.comment where !comment.isEmpty {
-                Comment.comment(comment)?.candy = candy
-            }
-            candy.notifyOnAddition()
-            Uploader.candyUploader.upload(uploading)
+        let candy = Candy.candy(asset.type)
+        let uploading = Uploading.uploading(candy)
+        candy.wrap = self
+        candy.asset = asset.uploadablePicture(true)
+        if let comment = asset.comment where !comment.isEmpty {
+            Comment.comment(comment).candy = candy
         }
+        candy.notifyOnAddition()
+        Uploader.candyUploader.upload(uploading)
     }
     
     func uploadAssets(assets: [MutableAsset]) {
@@ -198,18 +198,15 @@ extension Wrap {
 
 extension Uploading {
     
-    class func uploading(contribution: Contribution) -> Uploading? {
+    class func uploading(contribution: Contribution) -> Uploading {
         return uploading(contribution, event: .Add)
     }
     
-    class func uploading(contribution: Contribution, event: Event) -> Uploading? {
-        if let uploading = EntryContext.sharedContext.insertEntry(entityName()) as? Uploading {
-            uploading.type = event.rawValue
-            uploading.contribution = contribution
-            return uploading
-        } else {
-            return nil
-        }
+    class func uploading(contribution: Contribution, event: Event) -> Uploading {
+        let uploading = EntryContext.sharedContext.insertEntry(entityName()) as! Uploading
+        uploading.type = event.rawValue
+        uploading.contribution = contribution
+        return uploading
     }
     
     func upload(success: ObjectBlock?, failure: FailureBlock?) {
@@ -299,9 +296,8 @@ extension Candy {
             switch (status) {
             case .Ready: break
             case .Finished:
-                if let uploading = Uploading.uploading(self, event: .Update) {
-                    Uploader.candyUploader.upload(uploading)
-                }
+                let uploading = Uploading.uploading(self, event: .Update)
+                Uploader.candyUploader.upload(uploading)
                 notifyOnUpdate(.Default)
                 break
             default:
@@ -339,12 +335,12 @@ extension Candy {
     }
     
     func uploadComment(text: String) {
-        if let comment = Comment.comment(text), let uploading = Uploading.uploading(comment) {
-            commentCount++
-            comment.candy = self
-            comment.notifyOnAddition()
-            Dispatch.mainQueue.after(0.3, block: { Uploader.commentUploader.upload(uploading) })
-        }
+        let comment = Comment.comment(text)
+        let uploading = Uploading.uploading(comment)
+        commentCount++
+        comment.candy = self
+        comment.notifyOnAddition()
+        Dispatch.mainQueue.after(0.3, block: { Uploader.commentUploader.upload(uploading) })
     }
 
     override func add(success: ObjectBlock?, failure: FailureBlock?) {

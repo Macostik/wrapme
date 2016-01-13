@@ -14,14 +14,32 @@ class UploadWizardViewController: WLBaseViewController {
     
     private var wrap: Wrap?
     
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
+    @IBOutlet weak var nameTextField: UITextField!
+    
+    @IBOutlet weak var laterButton: UIButton!
+    
+    @IBOutlet weak var backButton: UIButton!
+    
+    @IBOutlet var layoutPrioritizer: LayoutPrioritizer!
+    
     private func defaultWrap() -> Wrap? {
         if let wrap = wrap {
             return wrap
-        } else if let wrap = Wrap.wrap() {
-            wrap.name = String(format:"first_wrap".ls, User.currentUser?.name ?? "")
+        } else {
+            var text: String?
+            if isNewWrap {
+                text = nameTextField.text
+            } else {
+                text = String(format:"first_wrap".ls, User.currentUser?.name ?? "")
+            }
+            guard let name = text where !name.isEmpty else { return nil }
+            let wrap = Wrap.wrap()
+            wrap.name = name
             wrap.notifyOnAddition()
             self.wrap = wrap
-            Uploader.wrapUploader.upload(Uploading.uploading(wrap)!, success: nil, failure: { [weak self] error in
+            Uploader.wrapUploader.upload(Uploading.uploading(wrap), success: nil, failure: { [weak self] error in
                     if let error = error where !error.isNetworkError {
                         self?.wrap = nil
                         error.show()
@@ -30,8 +48,6 @@ class UploadWizardViewController: WLBaseViewController {
                     }
             })
             return wrap
-        } else {
-            return nil
         }
     }
     
@@ -39,9 +55,16 @@ class UploadWizardViewController: WLBaseViewController {
         UploadWizardViewController.isActive = false
     }
     
+    var isNewWrap = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         UploadWizardViewController.isActive = true
+        descriptionLabel.hidden = isNewWrap
+        nameTextField.hidden = !isNewWrap
+        laterButton.hidden = isNewWrap
+        backButton.hidden = !isNewWrap
+        layoutPrioritizer.defaultState = !isNewWrap
     }
     
     @IBAction func presentCamera(sender: AnyObject) {
@@ -97,6 +120,20 @@ class UploadWizardViewController: WLBaseViewController {
     
     @IBAction func cancel(sender: AnyObject?) {
         navigationController?.popViewControllerAnimated(false)
+    }
+}
+
+extension UploadWizardViewController: UITextFieldDelegate {
+    
+    @IBAction func textFieldDidChange(textField: UITextField) {
+        if let text = textField.text where text.characters.count > Constants.profileNameLimit {
+            textField.text = text.substringToIndex(text.startIndex.advancedBy(Constants.profileNameLimit))
+        }
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 

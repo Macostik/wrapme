@@ -1426,7 +1426,7 @@
                                             <action selector="back:" destination="2bk-UF-zkR" eventType="touchUpInside" id="ggg-rE-vem"/>
                                         </connections>
                                     </button>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="add_friends" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="170" translatesAutoresizingMaskIntoConstraints="NO" id="Bop-dI-sMz" customClass="WLLabel">
+                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="add_friends" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="170" translatesAutoresizingMaskIntoConstraints="NO" id="Bop-dI-sMz" customClass="WLLabel">
                                         <rect key="frame" x="250" y="31" width="100" height="23"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -1460,6 +1460,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="KJ6-LJ-st0"/>
                                     <constraint firstItem="ilp-si-Jvv" firstAttribute="centerY" secondItem="Bvm-fO-3Iz" secondAttribute="centerY" constant="10" id="KVz-15-fJq"/>
+                                    <constraint firstItem="ilp-si-Jvv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Bop-dI-sMz" secondAttribute="trailing" constant="12" id="OmD-Oy-ueh"/>
                                     <constraint firstAttribute="trailing" secondItem="ilp-si-Jvv" secondAttribute="trailing" constant="12" id="WEC-OH-yUU"/>
                                     <constraint firstItem="Bop-dI-sMz" firstAttribute="centerX" secondItem="Bvm-fO-3Iz" secondAttribute="centerX" id="fYW-q1-29V"/>
                                     <constraint firstAttribute="centerY" secondItem="khD-F3-MeT" secondAttribute="centerY" constant="-10" id="mV9-C1-n3Y"/>

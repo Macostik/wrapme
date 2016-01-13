@@ -92,6 +92,8 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     let streamer: Streamer = Streamer.instance() as! Streamer
     
+    var allowAutorotate = true
+    
     var userState = [NSObject:AnyObject]() {
         didSet {
             if let channel = wrap?.uid, let uuid = User.currentUser?.uid {
@@ -418,6 +420,8 @@ class LiveBroadcastViewController: WLBaseViewController {
             broadcast.remove(preparingEvent)
             _self.chatDataSource.items = broadcast.events
         }
+        
+        allowAutorotate = false
     }
     
     @IBAction func toggleCamera() {
@@ -540,6 +544,10 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return [.All]
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return allowAutorotate
     }
 }
 

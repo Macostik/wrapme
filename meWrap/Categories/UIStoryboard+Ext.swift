@@ -47,7 +47,10 @@ extension UINavigationController {
     }
     
     public override func shouldAutorotate() -> Bool {
-        return true
+        guard let topViewController = topViewController else {
+            return super.shouldAutorotate()
+        }
+        return topViewController.shouldAutorotate()
     }
     public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         guard let topViewController = topViewController else {

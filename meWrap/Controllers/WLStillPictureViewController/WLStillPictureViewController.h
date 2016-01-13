@@ -38,8 +38,6 @@
 
 - (id<WLStillPictureViewControllerDelegate>)getValidDelegate;
 
-- (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion;
-
 - (void)cropAsset:(PHAsset*)asset completion:(void (^)(UIImage *croppedImage))completion;
 
 - (void)handleImage:(UIImage*)image saveToAlbum:(BOOL)saveToAlbum;

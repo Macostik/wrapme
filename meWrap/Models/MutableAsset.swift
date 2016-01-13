@@ -43,10 +43,10 @@ class MutableAsset: Asset {
         let cache = ImageCache.uploadingCache
         let isPad = UI_USER_INTERFACE_IDIOM() == .Pad
         let isCandy = mode == .Default
-        let smallSize: CGFloat = isPad ? (isCandy ? 480 : 160) : (isCandy ? 240 : 160)
         let largePath = cache.getPath(cache.setImage(image))
         original = largePath
         large = largePath
+        let smallSize: CGFloat = isPad ? (isCandy ? 480 : 160) : (isCandy ? 240 : 160)
         let thumbnail = image.thumbnail(smallSize)
         small = cache.getPath(cache.setImage(thumbnail))
     }

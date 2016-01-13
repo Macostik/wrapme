@@ -155,14 +155,26 @@
 }
 
 - (void)cropAsset:(PHAsset*)asset completion:(void (^)(UIImage *croppedImage))completion {
-    __weak __typeof(self)weakSelf = self;
+    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+    options.resizeMode   = PHImageRequestOptionsResizeModeExact;
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+  
+    CGFloat scale = 0;
+    if (asset.pixelWidth > asset.pixelHeight) {
+        scale = asset.pixelHeight / [self imageWidthForCurrentMode];
+    } else {
+        scale = asset.pixelWidth / [self imageWidthForCurrentMode];
+    }
+    CGSize size = scale < 0.5 && [[UIDevice currentDevice] systemVersionBefore:@"9"] ?
+    CGSizeMake(asset.pixelWidth * scale, asset.pixelHeight * scale) : CGSizeMake(asset.pixelWidth / scale, asset.pixelHeight / scale);
+ 
     [[PHImageManager defaultManager] requestImageForAsset:asset
-                                               targetSize:PHImageManagerMaximumSize
-                                              contentMode:PHImageContentModeAspectFill 
-                                                  options:nil
+                                               targetSize:size
+                                              contentMode:PHImageContentModeAspectFill
+                                                  options:options
                                             resultHandler:^(UIImage *image, NSDictionary *info) {
-        [weakSelf cropImage:image completion:completion];
-    }];
+                                                    completion(image);
+                                            }];
 }
 
 - (void)handleImage:(UIImage*)image saveToAlbum:(BOOL)saveToAlbum{

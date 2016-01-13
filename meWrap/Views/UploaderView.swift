@@ -14,6 +14,7 @@ class UploaderView: UIView {
         didSet {
             uploader?.addReceiver(self)
             Network.sharedNetwork.addReceiver(self)
+            update()
         }
     }
     

@@ -72,13 +72,20 @@ class Uploader: Notifier {
         }
     }
     
-    func start() {
-        
+    private func prepare() {
         if let contributions = NSFetchRequest.fetch(entityName).query("uploading != nil").sort("createdAt", asc:true).execute() as? [Contribution] {
             uploadings = contributions.map({ (contribution) -> Uploading in
                 return contribution.uploading!
             })
         }
+        for uploader in subuploaders {
+            uploader.prepare()
+        }
+    }
+    
+    func start() {
+        
+        prepare()
         
         guard Network.sharedNetwork.reachable && Authorization.active else { return }
         

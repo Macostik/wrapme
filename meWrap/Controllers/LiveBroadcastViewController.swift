@@ -112,11 +112,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     private func updateBroadcastInfo() {
         joinsCountLabel.text = "\(max(1, broadcast.viewers.count))"
-        if let title = broadcast.title where !title.isEmpty {
-            titleLabel?.text = broadcast.title
-        } else {
-            titleLabel?.text = "untitled".ls
-        }
+        titleLabel?.text = broadcast.displayTitle()
     }
     
     override func viewDidLoad() {
@@ -400,7 +396,7 @@ class LiveBroadcastViewController: WLBaseViewController {
                 "alert" : [
                     "title-loc-key" : "APNS_TT08",
                     "loc-key" : "APNS_MSG08",
-                    "loc-args" : [user.name ?? "", broadcast.title ?? "", wrap.name ?? ""]
+                    "loc-args" : [user.name ?? "", broadcast.displayTitle(), wrap.name ?? ""]
                 ],
                 "sound" : "s01.wav",
                 "content-available" : 1

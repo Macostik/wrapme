@@ -58,6 +58,14 @@ class LiveBroadcast: NSObject {
             events.removeAtIndex(index)
         }
     }
+    
+    func displayTitle() -> String {
+        if let title = title where !title.isEmpty {
+            return title
+        } else {
+            return "untitled".ls
+        }
+    }
 }
 
 @objc(Wrap)

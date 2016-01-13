@@ -157,14 +157,6 @@ class LiveBroadcastViewController: WLBaseViewController {
         Wrap.notifier().addReceiver(self)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        UIView.performWithoutAnimation { () -> Void in
-            self.previewLayer?.frame = self.view.bounds
-            self.playerLayer?.frame = self.view.bounds
-        }
-    }
-    
     private func initializeViewing(broadcast: LiveBroadcast) {
         composeBar.placeholder = "view_broadcast_text_placeholder".ls
         toggleCameraButton.hidden = true
@@ -226,6 +218,11 @@ class LiveBroadcastViewController: WLBaseViewController {
     }
     
     private func startCapture(position: Int32) {
+        startVideoCapture(position)
+        startAudioCapture()
+    }
+    
+    private func startVideoCapture(position: Int32) {
         cameraPosition = position
         let cameras = CameraInfo.getCameraList() as? [CameraInfo]
         guard let cameraInfo = cameras?.filter({ $0.position == position }).first else { return }
@@ -240,11 +237,8 @@ class LiveBroadcastViewController: WLBaseViewController {
         videoConfig.keyFrameInterval = 2
         videoConfig.profileLevel = VideoConfig.getSupportedProfiles().first as! String
         
-        let audioConfig = AudioConfig()
-        audioConfig.sampleRate = (AudioConfig.getSupportedSampleRates().first as! NSNumber).floatValue
         let orientation: AVCaptureVideoOrientation = orientationForVideoConnection()
         if let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self) {
-            streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
             previewLayer = layer
             layer.connection.videoOrientation = orientation
             if let device = videoCamera() {
@@ -262,7 +256,33 @@ class LiveBroadcastViewController: WLBaseViewController {
         }
     }
     
+    private func startAudioCapture() {
+        let audioConfig = AudioConfig()
+        audioConfig.sampleRate = (AudioConfig.getSupportedSampleRates().first as! NSNumber).floatValue
+        streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        UIView.performWithoutAnimation { [unowned self] () -> Void in
+            if let layer = self.previewLayer {
+                layer.frame = self.view.bounds
+                layer.frame = self.view.bounds
+                layer.connection?.videoOrientation = self.orientationForPreview()
+            }
+        }
+    }
+    
     private func orientationForVideoConnection() -> AVCaptureVideoOrientation {
+        switch DeviceManager.defaultManager.orientation {
+        case .Portrait: return .Portrait
+        case .PortraitUpsideDown: return .PortraitUpsideDown
+        case .LandscapeRight: return .LandscapeLeft
+        default: return .LandscapeRight
+        }
+    }
+    
+    private func orientationForPreview() -> AVCaptureVideoOrientation {
         switch DeviceManager.defaultManager.orientation {
         case .Portrait: return .Portrait
         case .PortraitUpsideDown: return .PortraitUpsideDown

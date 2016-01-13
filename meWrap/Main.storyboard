@@ -4190,7 +4190,7 @@ QWRkEEZyaWVuZFZpZXc
                                             <constraint firstAttribute="width" constant="45" id="ByF-Cb-Mtg"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
-                                        <state key="normal" title="9">
+                                        <state key="normal" title=")">
                                             <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>

@@ -23,7 +23,7 @@ class ImageFetcher: Notifier {
     
     static var defaultFetcher = ImageFetcher()
     
-    private func broadcast(url: String, block: AnyObject -> Void) {
+    private func notify(url: String, @noescape block: AnyObject -> Void) {
         urls.remove(url)
         for wrapper in receivers {
             if let receiver = wrapper.receiver as? ImageFetching {
@@ -45,51 +45,56 @@ class ImageFetcher: Notifier {
         
         urls.insert(url)
         
+        imageAtURL(url) { (image, cached) -> Void in
+            if let image = image {
+                self.notify(url, block: { $0.fetcher?(self, didFinishWithImage: image, cached: cached) })
+            } else {
+                let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
+                self.notify(url, block: { $0.fetcher?(self, didFailWithError: error) })
+            }
+        }
+    }
+    
+    private func imageAtURL(url: String, result: (UIImage?, Bool) -> Void) {
+        if url.isExistingFilePath {
+            imageWithContentsOfFile(url, result: result)
+        } else {
+            imageWithContentsOfURL(url, result: result)
+        }
+    }
+    
+    private func imageWithContentsOfFile(path: String, result: (UIImage?, Bool) -> Void) {
+        let uid = (path as NSString).lastPathComponent
+        if let image = InMemoryImageCache.instance[uid] {
+            result(image, true)
+        } else if ImageCache.defaultCache.contains(uid) {
+            Dispatch.defaultQueue.fetch({ ImageCache.defaultCache[uid] }, completion: { result($0 as? UIImage, false) })
+        } else if ImageCache.uploadingCache.contains(uid) {
+            Dispatch.defaultQueue.fetch({ ImageCache.uploadingCache[uid] }, completion: { result($0 as? UIImage, false) })
+        } else if let image = InMemoryImageCache.instance[path] {
+            result(image, true)
+        } else {
+            Dispatch.defaultQueue.fetch({
+                guard let data = NSData(contentsOfFile: path), let image = UIImage(data: data) else { return nil }
+                InMemoryImageCache.instance[path] = image
+                return image
+                }, completion: { result($0 as? UIImage, false) })
+        }
+    }
+    
+    private func imageWithContentsOfURL(url: String, result: (UIImage?, Bool) -> Void) {
         let uid = ImageCache.uidFromURL(url)
         if let image = InMemoryImageCache.instance[uid] {
-            self.broadcast(url, block: { $0.fetcher?(self, didFinishWithImage: image, cached: true) })
+            result(image, true)
         } else {
-            Dispatch.defaultQueue.async({ () -> Void in
-                var image: UIImage?
-                var cached = false
-                if ImageCache.defaultCache.contains(uid) {
-                    image = ImageCache.defaultCache[uid]
-                } else if url.isExistingFilePath {
-                    let result = self.imageAtPath(url)
-                    image = result.image
-                    cached = result.cached
+            Dispatch.defaultQueue.fetch({ () -> AnyObject? in
+                if let _url = url.URL, let data = NSData(contentsOfURL: _url), let image = UIImage(data: data) {
+                    ImageCache.defaultCache.write(image, uid: uid)
+                    return image
                 } else {
-                    image = self.imageAtURL(url)
+                    return nil
                 }
-                Dispatch.mainQueue.async({ () -> Void in
-                    if let image = image {
-                        self.broadcast(url, block: { $0.fetcher?(self, didFinishWithImage: image, cached: cached) })
-                    } else {
-                        let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
-                        self.broadcast(url, block: { $0.fetcher?(self, didFailWithError: error) })
-                    }
-                })
-            })
-        }
-    }
-    
-    private func imageAtPath(path: String) -> (image: UIImage?, cached: Bool) {
-        if let image = InMemoryImageCache.instance[path] {
-            return (image, true)
-        } else if let data = NSData(contentsOfFile: path), let image = UIImage(data: data) {
-            InMemoryImageCache.instance[path] = image
-            return (image, false)
-        } else {
-            return (nil, false)
-        }
-    }
-    
-    private func imageAtURL(url: String) -> UIImage? {
-        if let _url = url.URL, let data = NSData(contentsOfURL: _url), let image = UIImage(data: data) {
-            ImageCache.defaultCache.setImage(image, withURL: url)
-            return image
-        } else {
-            return nil
+                }, completion: { result($0 as? UIImage, false) })
         }
     }
 }

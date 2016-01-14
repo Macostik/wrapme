@@ -106,14 +106,12 @@ class CandyCell: StreamReusableView {
         commentLabel.text = candy.latestComment?.text
         commentLabel.superview?.hidden = commentLabel.text?.isEmpty ?? true
         
-        guard let asset = candy.asset else {
-            return
-        }
+        guard let asset = candy.asset else { return }
         
         if asset.justUploaded {
             StreamView.lock()
             alpha = 0.0
-            UIView.animateWithDuration(3, animations: {[weak self] () -> Void in
+            UIView.animateWithDuration(0.5, animations: {[weak self] () -> Void in
                 self?.alpha = 1
                 }, completion: { (_) -> Void in
                     asset.justUploaded = false

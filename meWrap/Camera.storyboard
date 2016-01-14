@@ -1524,7 +1524,7 @@
                         <outlet property="nextButton" destination="dg4-sR-b0I" id="E1E-jb-FPs"/>
                         <outlet property="scrollView" destination="x4C-3O-a96" id="ptX-z4-MSm"/>
                         <outlet property="uploadButton" destination="taU-aO-Oxc" id="uo7-dz-nh2"/>
-                        <outlet property="uploadButtonXConstraint" destination="47G-gf-htm" id="9ai-o9-bTV"/>
+                        <outlet property="uploadButtonXConstraint" destination="upg-mR-abJ" id="hjt-4P-dYD"/>
                         <outlet property="videoPlayerView" destination="h5t-N3-cw5" id="HLF-FV-6pp"/>
                         <outlet property="wrapView" destination="JfN-vq-FkG" id="CCE-sT-AcV"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="kJD-sK-cdk" id="hSw-7b-6xa"/>

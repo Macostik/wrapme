@@ -104,8 +104,7 @@ extension Wrap {
     class func wrap() -> Wrap {
         let wrap = contribution()
         if let contributor = wrap.contributor {
-            contributor.mutableWraps.addObject(wrap)
-            wrap.contributors = NSSet(object: contributor)
+            wrap.contributors = [contributor]
         }
         return wrap
     }

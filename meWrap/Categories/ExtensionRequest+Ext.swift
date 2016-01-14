@@ -150,7 +150,7 @@ extension Candy {
         wrap.uid = self.wrap?.uid ?? ""
         wrap.name = self.wrap?.name
         candy.wrap = wrap
-        if let comments = comments where includeComments {
+        if includeComments {
             candy.comments = Array(comments).map({ (comment) -> ExtensionComment in
                 return comment.extensionComment()
             })

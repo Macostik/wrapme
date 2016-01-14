@@ -354,7 +354,7 @@ extension Candy {
             Keys.ContributedAt : "\(createdAt.timestamp)"
         ]
         
-        if let comment = comments?.filter({ $0.uploading == nil }).first  {
+        if let comment = comments.filter({ $0.uploading == nil }).first  {
             if let text = comment.text, let locuid = comment.locuid {
                 var escapedText = ""
                 for unicodeScalar in text.unicodeScalars {

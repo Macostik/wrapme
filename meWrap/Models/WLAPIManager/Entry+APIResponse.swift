@@ -232,8 +232,8 @@ extension Wrap {
         }
         
         if let array = dictionary[Keys.Contributors] as? [[String:AnyObject]] {
-            let contributors = Set(User.mappedEntries(array))
-            if (self.contributors?.isEqualToSet(contributors) ?? false) == false {
+            let contributors = Set(User.mappedEntries(array)) as! Set<User>
+            if self.contributors != contributors {
                 self.contributors = contributors
             }
         }
@@ -245,17 +245,17 @@ extension Wrap {
         }
         
         if let currentUser = User.currentUser {
-            let isContributing = contributors?.containsObject(currentUser) ?? false
+            let isContributing = contributors.contains(currentUser)
             if isPublic {
                 if let isFollowing = dictionary["is_following"] as? Bool {
                     if isFollowing && !isContributing {
-                        mutableContributors.addObject(currentUser)
+                        contributors.insert(currentUser)
                     } else if (!isFollowing && isContributing) {
-                        mutableContributors.removeObject(currentUser)
+                        contributors.remove(currentUser)
                     }
                 }
             } else if !isContributing {
-                mutableContributors.addObject(currentUser)
+                contributors.insert(currentUser)
             }
         }
         

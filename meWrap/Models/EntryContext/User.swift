@@ -34,7 +34,7 @@ class User: Entry {
     var isSignupCompleted: Bool { return name != nil && avatar?.medium != nil }
     
     var isInvited: Bool {
-        if let devices = devices as? Set<Device> where !current {
+        if !current {
             if devices.count > 0 {
                 for device in devices where device.activated {
                     return false
@@ -46,9 +46,6 @@ class User: Entry {
     }
     
     private func formatPhones(secure: Bool) -> String? {
-        guard let devices = devices as? Set<Device> else {
-            return nil
-        }
 		var phones = ""
         for device in devices {
             guard let phone = device.phone else {
@@ -105,11 +102,9 @@ class User: Entry {
             _securePhones = newValue
         }
     }
-    
-    var mutableWraps: NSMutableSet { return mutableSetValueForKey("wraps") }
-    
+        
     var sortedWraps: [Wrap]? {
-        return (wraps as? Set<Wrap>)?.sort({ $0.updatedAt > $1.updatedAt })
+        return wraps.sort({ $0.updatedAt > $1.updatedAt })
     }
     
     override func awakeFromInsert() {

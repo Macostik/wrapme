@@ -52,8 +52,8 @@ class ContributorAddNotification: WrapNotification {
             success()
             return
         }
-        if let user = user where !(wrap.contributors?.containsObject(user) ?? false) {
-            wrap.mutableContributors.addObject(user)
+        if let user = user where !wrap.contributors.contains(user) {
+            wrap.contributors.insert(user)
         }
         wrap.recursivelyFetchIfNeeded(success, failure: failure)
     }
@@ -78,7 +78,7 @@ class ContributorDeleteNotification: WrapNotification {
             if user.current && !wrap.isPublic {
                 wrap.remove()
             } else {
-                wrap.mutableContributors.removeObject(user)
+                wrap.contributors.remove(user)
                 wrap.notifyOnUpdate(.ContributorsChanged)
             }
         }

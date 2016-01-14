@@ -70,9 +70,7 @@ class Chat: PaginatedList {
     }
     
     func resetMessages() {
-        if let messages = wrap.messages as? Set<Message> {
-            entries = messages.sort({ $0.createdAt < $1.createdAt })
-        }
+        entries = wrap.messages.sort({ $0.createdAt < $1.createdAt })
     }
     
     override func sort() {
@@ -193,8 +191,8 @@ extension Chat: NotificationSubscriptionDelegate {
             guard let chat = self else {
                 return
             }
-            if let contributors = chat.wrap.contributors where !contributors.containsObject(user) {
-                chat.wrap.mutableContributors.addObject(user)
+            if !chat.wrap.contributors.contains(user) {
+                chat.wrap.contributors.insert(user)
             }
             chat.addTypingUser(user)
             chat.notify({ $0.chat?(chat, didBeginTyping: user) })

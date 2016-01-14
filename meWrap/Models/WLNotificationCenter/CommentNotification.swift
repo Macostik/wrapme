@@ -59,7 +59,7 @@ class CommentAddNotification: CommentNotification {
         guard let comment = comment else { return }
         guard let candy = comment.candy else { return }
         if candy.valid {
-            candy.commentCount = Int16(candy.comments?.count ?? 0)
+            candy.commentCount = Int16(candy.comments.count)
         }
         if inserted && notifiable() {
             comment.markAsUnread(true)

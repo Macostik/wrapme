@@ -51,7 +51,7 @@ class SettingsViewController: WLBaseViewController {
         }
         _ = try? context.save()
         
-        currentUser?.wraps = NSSet()
+        currentUser?.wraps = []
         ImageCache.defaultCache.clear()
         ImageCache.uploadingCache.clear()
         InMemoryImageCache.instance.removeAllObjects()

@@ -69,10 +69,7 @@ class RecentUpdateList: Notifier {
         }
         let date = NSDate.dayAgo()
         var contributions = [AnyObject]()
-        var uids = [NSManagedObjectID]()
-        if let wraps = user.wraps as? Set<Wrap> {
-            uids = wraps.map({ $0.objectID })
-        }
+        let uids: [NSManagedObjectID] = user.wraps.map({ $0.objectID })
         Comment.fetch().query(commentPredicate, uids, date, user).execute { (result) -> Void in
             contributions.appendContentsOf(result)
             Candy.fetch().query(self.candyPredicate, uids, date, user).execute({ (result) -> Void in

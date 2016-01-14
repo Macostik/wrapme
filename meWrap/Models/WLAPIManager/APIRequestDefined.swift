@@ -78,7 +78,7 @@ extension APIRequest {
         return DELETE().path("wraps/\(wrap.uid)/leave").parse { response in
             if wrap.isPublic {
                 if let user = User.currentUser {
-                    wrap.mutableContributors.removeObject(user)
+                    wrap.contributors.remove(user)
                     wrap.notifyOnUpdate(.ContributorsChanged)
                 }
             } else {
@@ -92,7 +92,7 @@ extension APIRequest {
         return POST().path("wraps/\(wrap.uid)/follow").parse { response in
             wrap.touch()
             if let user = User.currentUser {
-                wrap.mutableContributors.addObject(user)
+                wrap.contributors.insert(user)
                 wrap.notifyOnUpdate(.ContributorsChanged)
             }
             PubNub.sharedInstance.hereNowForChannel(wrap.uid, withVerbosity: .State) { (result, status) -> Void in
@@ -124,7 +124,7 @@ extension APIRequest {
     class func unfollowWrap(wrap: Wrap) -> Self {
         return DELETE().path("wraps/\(wrap.uid)/unfollow").parse { response in
             if let user = User.currentUser {
-                wrap.mutableContributors.removeObject(user)
+                wrap.contributors.remove(user)
                 wrap.notifyOnUpdate(.ContributorsChanged)
             }
             if wrap.liveBroadcasts.count > 0 {
@@ -224,8 +224,8 @@ extension APIRequest {
     private func parseContributors(wrap: Wrap) -> Self {
         return parse { response in
             if let _wrap = wrap.validEntry(), let array = response.array("contributors") {
-                let contributors = NSSet(array:User.mappedEntries(User.prefetchArray(array))) as Set<NSObject>
-                if !(_wrap.contributors?.isEqualToSet(contributors) ?? false) {
+                let contributors = Set(User.mappedEntries(User.prefetchArray(array))) as! Set<User>
+                if _wrap.contributors != contributors {
                     _wrap.contributors = contributors
                     _wrap.notifyOnUpdate(.ContributorsChanged)
                 }

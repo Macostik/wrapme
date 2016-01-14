@@ -81,7 +81,7 @@ class Wrap: Contribution {
     var historyCandies: [Candy]? {
         get {
             if _historyCandies == nil {
-                _historyCandies = (candies as? Set<Candy>)?.sort({ $0.createdAt < $1.createdAt })
+                _historyCandies = candies.sort({ $0.createdAt < $1.createdAt })
             }
             return _historyCandies
         }
@@ -94,9 +94,7 @@ class Wrap: Contribution {
     var recentCandies: [Candy]? {
         get {
             if _recentCandies == nil {
-                if let candies = candies {
-                    _recentCandies = (candies as? Set<Candy>)?.sort({ $0.updatedAt > $1.updatedAt })
-                }
+                _recentCandies = candies.sort({ $0.updatedAt > $1.updatedAt })
             }
             return _recentCandies
         }
@@ -147,32 +145,18 @@ class Wrap: Contribution {
     }
     
     var isContributing: Bool {
-        guard let currentUser = User.currentUser, let contributors = contributors else {
-            return false
-        }
-        return contributors.containsObject(currentUser) ?? false
+        guard let currentUser = User.currentUser else { return false }
+        return contributors.contains(currentUser)
     }
     
     var isFirstCreated: Bool {
-        guard let currentUser = User.currentUser else {
-            return false
-        }
-        guard let contributions = currentUser.contributions as? Set<Entry> else {
-            return false
-        }
-        guard let wraps = currentUser.wraps as? Set<Entry> else {
-            return false
-        }
-        let contributedWraps = contributions.intersect(wraps)
+        guard let currentUser = User.currentUser else { return false }
+        let contributedWraps = currentUser.contributions.filter({ $0 is Wrap })
         return contributedWraps.contains(self) && contributedWraps.count == 1
     }
     
     var requiresFollowing: Bool {
         return isPublic && !isContributing
-    }
-    
-    var mutableContributors: NSMutableSet {
-        return mutableSetValueForKey("contributors")
     }
     
     var liveBroadcasts = [LiveBroadcast]()
@@ -205,7 +189,7 @@ class Wrap: Contribution {
                 return number
             } else {
                 let dayAgo = NSDate.dayAgo()
-                let number = (messages as? Set<Message>)?.filter({ $0.unread && $0.createdAt > dayAgo }).count ?? 0
+                let number = messages.filter({ $0.unread && $0.createdAt > dayAgo }).count ?? 0
                 _numberOfUnreadMessages = number
                 return number
             }

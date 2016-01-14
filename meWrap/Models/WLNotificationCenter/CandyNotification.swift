@@ -108,7 +108,7 @@ class CandyDeleteNotification: CandyNotification {
     
     override func submit() {
         candy?.remove()
-        if let wrap = candy?.wrap where wrap.valid && wrap.candies?.count < Constants.recentCandiesLimit {
+        if let wrap = candy?.wrap where wrap.valid && wrap.candies.count < Constants.recentCandiesLimit {
             wrap.fetch(Wrap.ContentTypeRecent, success: nil, failure: nil)
         }
     }

@@ -26,7 +26,7 @@ class HomeDataSource: PaginatedStreamDataSource {
     }
     
     func fetchTopWrapIfNeeded(wrap: Wrap) {
-        if (wrap.candies?.count ?? 0) < Constants.recentCandiesLimit {
+        if wrap.candies.count < Constants.recentCandiesLimit {
             RunQueue.fetchQueue.run({ [weak wrap] (finish) -> Void in
                 if let wrap = wrap where wrap.valid {
                     APIRequest.wrap(wrap, contentType: Wrap.ContentTypeRecent).send({ (candies) -> Void in

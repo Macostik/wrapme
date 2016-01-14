@@ -78,7 +78,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
 }
 
 - (void)requestAuthorizationForPresentingEntry:(Entry *)entry completion:(BooleanBlock)completion {
-    if (completion) completion(![self.candy.comments containsObject:entry]);
+    if (completion) completion(![self.candy.comments containsObject:(id)entry]);
 }
 
 - (void)sendMessageWithText:(NSString*)text {

@@ -24,7 +24,7 @@ class SettingsViewController: WLBaseViewController {
         UIAlertController.alert("sign_out".ls, message: "sign_out_confirmation".ls).action("cancel".ls).action("sign_out".ls, handler: { (_) -> Void in
             RunQueue.fetchQueue.cancelAll()
             APIRequest.manager.operationQueue.cancelAllOperations()
-            WLNotificationCenter.defaultCenter().clear()
+            NotificationCenter.defaultCenter.clear()
             NSUserDefaults.standardUserDefaults().clear()
             UIStoryboard.signUp().present(true)
             RecentUpdateList.sharedList.updates = nil

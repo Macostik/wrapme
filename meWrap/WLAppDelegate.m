@@ -7,7 +7,6 @@
 //
 
 #import "WLAppDelegate.h"
-#import "WLNotificationCenter.h"
 #import "WLHomeViewController.h"
 #import "iVersion.h"
 #import "WLSignupFlowViewController.h"
@@ -39,7 +38,7 @@
     
     [self initializeAPIManager];
     
-    [[WLNotificationCenter defaultCenter] configure];
+    [[NotificationCenter defaultCenter] configure];
     
     [self createWindow];
     
@@ -50,7 +49,7 @@
 	[[Network sharedNetwork] addReceiver:self];
 	
     NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    [[WLNotificationCenter defaultCenter] handleRemoteNotification:notification success:^(id object) {
+    [[NotificationCenter defaultCenter] handleRemoteNotification:notification success:^(id object) {
         [object presentWithIdentifier:nil];
     } failure:^(NSError *error) {
         [error show];
@@ -82,7 +81,7 @@
             topView.userInteractionEnabled = YES;
             [UIAlertController confirmRedirectingToSignUp:^(UIAlertAction *action) {
                 [Logger log:[NSString stringWithFormat:@"ERROR - redirection to welcome screen, sign in failed: %@", error]];
-                [[WLNotificationCenter defaultCenter] clear];
+                [[NotificationCenter defaultCenter] clear];
                 [[NSUserDefaults standardUserDefaults] clear];
                 [storyboard present:YES];
                 topView.userInteractionEnabled = YES;
@@ -188,7 +187,7 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    [[WLNotificationCenter defaultCenter] handleDeviceToken:deviceToken];
+    [[NotificationCenter defaultCenter] handleDeviceToken:deviceToken];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
@@ -200,7 +199,7 @@
         return;
     }
     BOOL presentable = state == UIApplicationStateInactive;
-    [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(Notification *notification) {
+    [[NotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(Notification *notification) {
         if (presentable) {
             [notification presentWithIdentifier:nil];
         }
@@ -220,7 +219,7 @@
     
     __block void (^completion)(UIBackgroundFetchResult) = completionHandler;
     
-    [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(Notification *notification) {
+    [[NotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(Notification *notification) {
         [notification presentWithIdentifier:identifier];
         if (completion) {
             completion(UIBackgroundFetchResultNewData);

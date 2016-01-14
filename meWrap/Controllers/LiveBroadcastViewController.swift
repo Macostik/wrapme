@@ -98,7 +98,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         didSet {
             if let channel = wrap?.uid, let uuid = User.currentUser?.uid {
                 userState["userUid"] = uuid
-                WLNotificationCenter.defaultCenter().userSubscription.changeState(userState, channel: channel)
+                NotificationCenter.defaultCenter.userSubscription.changeState(userState, channel: channel)
             }
         }
     }

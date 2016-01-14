@@ -93,9 +93,9 @@ extension ExtensionRequest {
             return
         }
         
-        WLNotificationCenter.defaultCenter().handleRemoteNotification(notification, success: { (notification) -> Void in
-            if let url = (notification?.entry as? Contribution)?.asset?.small {
-                success(ExtensionReply(reply:  ["url":url]))
+        NotificationCenter.defaultCenter.handleRemoteNotification(notification, success: { (notification) -> Void in
+            if let url = (notification.entry as? Contribution)?.asset?.small {
+                success(ExtensionReply(reply: ["url":url]))
             } else {
                 failure(ExtensionError(message: "No data"))
             }

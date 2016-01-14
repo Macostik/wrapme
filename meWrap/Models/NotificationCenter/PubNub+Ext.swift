@@ -50,11 +50,8 @@ extension PubNub {
 }
 
 extension NSDate {
-    
-    private static var TimetokenPrecisionMultiplier: NSTimeInterval = 10000000.0
-    
-    class func dateWithTimetoken(timetoken: NSNumber) -> NSDate {
-        return NSDate(timeIntervalSince1970:timetoken.doubleValue / TimetokenPrecisionMultiplier)
+    convenience init(timetoken: NSNumber) {
+        self.init(timeIntervalSince1970:timetoken.doubleValue / 10000000)
     }
 }
 
@@ -130,7 +127,7 @@ class NotificationSubscription: NSObject {
         }
     }
     
-    func history(from: NSDate, to: NSDate, success: [[NSObject:AnyObject]]? -> Void, failure: NSError? -> Void) {
+    func history(from: NSDate, to: NSDate, success: [[NSObject:AnyObject]] -> Void, failure: NSError? -> Void) {
         let startDate = from.timestamp
         let endDate = to.timestamp
         let pubnub = PubNub.sharedInstance
@@ -150,7 +147,7 @@ class NotificationSubscription: NSObject {
                                 }
                                 if fetchedChannels == channels.count {
                                     messages.sortUsingDescriptors([NSSortDescriptor(key: "timetoken", ascending: true)])
-                                    success(NSArray(array: messages) as? [[NSObject:AnyObject]])
+                                    success(NSArray(array: messages) as? [[NSObject:AnyObject]] ?? [])
                                 }
                             })
                         }
@@ -164,7 +161,7 @@ class NotificationSubscription: NSObject {
                 if status?.error ?? false {
                     failure(nil)
                 } else {
-                    success(result?.data?.messages as? [[NSObject:AnyObject]])
+                    success(result?.data?.messages as? [[NSObject:AnyObject]] ?? [])
                 }
             })
         }

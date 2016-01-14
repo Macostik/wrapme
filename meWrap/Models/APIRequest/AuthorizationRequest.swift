@@ -23,7 +23,7 @@ extension APIRequest {
             request["country_calling_code"] = authorization.countryCode
             request["phone_number"] = authorization.phone
             request["email"] = authorization.email
-            request["device_token"] = WLNotificationCenter.defaultCenter().pushTokenString
+            request["device_token"] = NotificationCenter.defaultCenter.pushTokenString
             request["os"] = "ios"
         }).parse({ (_) -> AnyObject? in return authorization })
     }
@@ -99,7 +99,7 @@ extension APIRequest {
     
     class func updateDevice() -> Self {
         return APIRequest(.PUT).path("users/device").parametrize({ (request) -> Void in
-            request["device_token"] = WLNotificationCenter.defaultCenter().pushTokenString
+            request["device_token"] = NotificationCenter.defaultCenter.pushTokenString
             request["os"] = "ios";
             request["os_version"] = UIDevice.currentDevice().systemVersion
             request["app_version"] = NSBundle.mainBundle().buildVersion

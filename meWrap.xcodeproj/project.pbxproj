@@ -28,19 +28,36 @@
 		5BE7CD651C0D8781009A7617 /* WLEditingConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE7CD641C0D8781009A7617 /* WLEditingConfirmView.xib */; };
 		5BF85BB01B8C774C000215C9 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BF85BAE1B8C774C000215C9 /* icons.ttf */; };
 		C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C500983D1AFCCC6400729DA4 /* WLCommentCell.m */; };
+		C502B3131C47F2EC00F66EAE /* CandyNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B30B1C47F2EC00F66EAE /* CandyNotification.swift */; };
+		C502B3141C47F2EC00F66EAE /* CommentNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B30C1C47F2EC00F66EAE /* CommentNotification.swift */; };
+		C502B3151C47F2EC00F66EAE /* MessageNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B30D1C47F2EC00F66EAE /* MessageNotification.swift */; };
+		C502B3161C47F2EC00F66EAE /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B30E1C47F2EC00F66EAE /* Notification.swift */; };
+		C502B3171C47F2EC00F66EAE /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B30F1C47F2EC00F66EAE /* NotificationCenter.swift */; };
+		C502B3181C47F2EC00F66EAE /* PubNub+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B3101C47F2EC00F66EAE /* PubNub+Ext.swift */; };
+		C502B3191C47F2EC00F66EAE /* UserNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B3111C47F2EC00F66EAE /* UserNotification.swift */; };
+		C502B31A1C47F2EC00F66EAE /* WrapNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B3121C47F2EC00F66EAE /* WrapNotification.swift */; };
+		C502B3241C47F30400F66EAE /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B31C1C47F30400F66EAE /* APIRequest.swift */; };
+		C502B3251C47F30400F66EAE /* APIRequestDefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B31D1C47F30400F66EAE /* APIRequestDefined.swift */; };
+		C502B3261C47F30400F66EAE /* AuthorizationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B31E1C47F30400F66EAE /* AuthorizationRequest.swift */; };
+		C502B3271C47F30400F66EAE /* Entry+APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B31F1C47F30400F66EAE /* Entry+APIRequest.swift */; };
+		C502B3281C47F30400F66EAE /* Entry+APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B3201C47F30400F66EAE /* Entry+APIResponse.swift */; };
+		C502B3291C47F30400F66EAE /* Entry+Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B3211C47F30400F66EAE /* Entry+Base.swift */; };
+		C502B32A1C47F30400F66EAE /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B3221C47F30400F66EAE /* Environment.swift */; };
+		C502B32B1C47F30400F66EAE /* PaginatedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B3231C47F30400F66EAE /* PaginatedRequest.swift */; };
+		C502B3301C47F33100F66EAE /* AddressBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B32D1C47F33100F66EAE /* AddressBook.swift */; };
+		C502B3311C47F33100F66EAE /* AddressBookRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B32E1C47F33100F66EAE /* AddressBookRecord.swift */; };
+		C502B3321C47F33100F66EAE /* ArrangedAddressBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B32F1C47F33100F66EAE /* ArrangedAddressBook.swift */; };
 		C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */; };
 		C504178919B9EE15000E55F3 /* AddressBookRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177E19B9EE15000E55F3 /* AddressBookRecordCell.m */; };
 		C5053E201BC7CF0F0040613A /* AssetMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5053E1F1BC7CF0F0040613A /* AssetMetrics.swift */; };
 		C5053E821BC7F7280040613A /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5053E811BC7F7280040613A /* ReportViewController.swift */; };
 		C50541581BD6545400AE6F2C /* WLImageEditorSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C50541571BD6545400AE6F2C /* WLImageEditorSession.m */; };
-		C5060D181BEBA6B3007FFD5B /* Entry+APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5060D171BEBA6B3007FFD5B /* Entry+APIResponse.swift */; };
 		C5060D1A1BEBA7E2007FFD5B /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5060D191BEBA7E2007FFD5B /* String+Ext.swift */; };
 		C50646101ABD815200CB4BE3 /* Today.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645BA1ABD815100CB4BE3 /* Today.storyboard */; };
 		C507F80E1C218BB1006DA3E5 /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C507F80D1C218BB1006DA3E5 /* Dispatch.swift */; };
 		C5092CCE1C1206BE006C9414 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5092CCD1C1206BE006C9414 /* History.swift */; };
 		C509E2BA1B96F46A003F6C21 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C509E2B71B96F46A003F6C21 /* Default-667h@2x.png */; };
 		C510BF6D1BCF93C0008223A3 /* UIDevice+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C510BF6C1BCF93C0008223A3 /* UIDevice+Ext.swift */; };
-		C5120F951C2C5B7400881B39 /* ArrangedAddressBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5120F941C2C5B7400881B39 /* ArrangedAddressBook.swift */; };
 		C5122D491BD7D2A40096C742 /* UIFont+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5122D481BD7D2A40096C742 /* UIFont+Ext.swift */; };
 		C51A521E1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */; };
 		C51B4BE81C3AA2D6009F1566 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B4BE71C3AA2D6009F1566 /* WelcomeViewController.swift */; };
@@ -100,7 +117,6 @@
 		C53A02321C0D8961003B3D1F /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */; };
 		C53A02331C0D8961003B3D1F /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */; };
 		C53A02341C0D8961003B3D1F /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */; };
-		C53A63B61C2428090004FE84 /* AddressBookRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A63B51C2428090004FE84 /* AddressBookRecord.swift */; };
 		C53BC4861C05B32C0009B0B9 /* AssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53BC4851C05B32C0009B0B9 /* AssetsViewController.swift */; };
 		C53BC48A1C05BC010009B0B9 /* AssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C53BC4881C05BC010009B0B9 /* AssetCell.xib */; };
 		C53BC48E1C05FE620009B0B9 /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53BC48D1C05FE620009B0B9 /* SegmentedControl.swift */; };
@@ -108,13 +124,6 @@
 		C53CD24D1C1706B600AA4746 /* CandyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C53CD24B1C1706B600AA4746 /* CandyCell.xib */; };
 		C53E5CFD1A84FBDB004F61B0 /* WLStillPictureBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5CF91A84FBDB004F61B0 /* WLStillPictureBaseViewController.m */; };
 		C53E5D771A851F71004F61B0 /* WLCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5D581A851F71004F61B0 /* WLCameraViewController.m */; };
-		C53E96301C3D438A003663FA /* WrapNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53E962F1C3D438A003663FA /* WrapNotification.swift */; };
-		C53E96321C3D43F0003663FA /* CandyNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53E96311C3D43F0003663FA /* CandyNotification.swift */; };
-		C53E96341C3D440F003663FA /* CommentNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53E96331C3D440F003663FA /* CommentNotification.swift */; };
-		C53E96361C3D442B003663FA /* MessageNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53E96351C3D442B003663FA /* MessageNotification.swift */; };
-		C53E96381C3D4435003663FA /* UserNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53E96371C3D4435003663FA /* UserNotification.swift */; };
-		C53E963A1C3D51A5003663FA /* WLNotificationCenter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53E96391C3D51A5003663FA /* WLNotificationCenter+Ext.swift */; };
-		C53F2FBC1C106472004EBC73 /* PubNub+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53F2FBB1C106472004EBC73 /* PubNub+Ext.swift */; };
 		C540C0F01B988BF700F880C9 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540C0EE1B988BF700F880C9 /* GridLayout.swift */; };
 		C540C0F31B988BFD00F880C9 /* StreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540C0F11B988BFD00F880C9 /* StreamItem.swift */; };
 		C54531231A2497470048A677 /* WLPhoneValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C545311F1A2497470048A677 /* WLPhoneValidation.m */; };
@@ -223,7 +232,6 @@
 		C57F7AEF1C1ECD5F00FFB465 /* test-users.plist in Resources */ = {isa = PBXBuildFile; fileRef = C57F7AEC1C1ECD5F00FFB465 /* test-users.plist */; };
 		C57F7AF01C1ECD5F00FFB465 /* violations.plist in Resources */ = {isa = PBXBuildFile; fileRef = C57F7AED1C1ECD5F00FFB465 /* violations.plist */; };
 		C57F7AF11C1ECD5F00FFB465 /* country-codes.json in Resources */ = {isa = PBXBuildFile; fileRef = C57F7AEE1C1ECD5F00FFB465 /* country-codes.json */; };
-		C57F7AF41C1ED59100FFB465 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57F7AF31C1ED59100FFB465 /* Notification.swift */; };
 		C581680519F169D90081F350 /* WLBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C581680119F169D90081F350 /* WLBaseViewController.m */; };
 		C5861A671BFA07E300C64663 /* libmbl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5861A661BFA07E300C64663 /* libmbl.a */; };
 		C5861A6A1BFA307200C64663 /* Entry+EntryPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5861A691BFA307200C64663 /* Entry+EntryPresenter.m */; };
@@ -274,7 +282,6 @@
 		C5BEC3A51B8F16E800499EEA /* logo_and_caption_orange@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5BEC39C1B8F16E800499EEA /* logo_and_caption_orange@2x.png */; };
 		C5BEC3A71B8F16E800499EEA /* logo_and_caption_white.png in Resources */ = {isa = PBXBuildFile; fileRef = C5BEC39E1B8F16E800499EEA /* logo_and_caption_white.png */; };
 		C5BEC3A91B8F16E800499EEA /* logo_and_caption_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5BEC3A01B8F16E800499EEA /* logo_and_caption_white@2x.png */; };
-		C5BEE0EA1B2AC8C300D3CF70 /* WLNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEE0E31B2AC8C300D3CF70 /* WLNotificationCenter.m */; };
 		C5BFE4D31B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BFE4CE1B4FD930004B655E /* WLWrapEmbeddedViewController.m */; };
 		C5C0AFA31B99CF1F00B8B242 /* StreamReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C0AFA11B99CF1F00B8B242 /* StreamReusableView.m */; };
 		C5C1273A1C10A46E002FD9AB /* LiveBroadcastEventViews.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5C127391C10A46E002FD9AB /* LiveBroadcastEventViews.xib */; };
@@ -302,13 +309,7 @@
 		C5CBA7C81BA9556B0008EAAE /* SquareGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CBA7C61BA9556B0008EAAE /* SquareGridLayout.swift */; };
 		C5CBACF01BA70B70007D2403 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5CBACEE1BA70B70007D2403 /* LoadingView.xib */; };
 		C5CCDEC11BF2323200D9B3BB /* UIView+Shorthand.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CCDEC01BF2323200D9B3BB /* UIView+Shorthand.swift */; };
-		C5CFF90A1C27F6A500B3C6F0 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CFF9061C27F6A500B3C6F0 /* APIRequest.swift */; };
-		C5CFF90B1C27F6A500B3C6F0 /* APIRequestDefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CFF9071C27F6A500B3C6F0 /* APIRequestDefined.swift */; };
-		C5CFF90C1C27F6A500B3C6F0 /* AuthorizationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CFF9081C27F6A500B3C6F0 /* AuthorizationRequest.swift */; };
-		C5CFF90D1C27F6A500B3C6F0 /* PaginatedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CFF9091C27F6A500B3C6F0 /* PaginatedRequest.swift */; };
-		C5D552201C04BC2400069169 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D5521F1C04BC2300069169 /* Environment.swift */; };
 		C5D99E741C2B2BC10022D18B /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D99E731C2B2BC10022D18B /* Keyboard.swift */; };
-		C5D99E761C2B39AB0022D18B /* AddressBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D99E751C2B39AB0022D18B /* AddressBook.swift */; };
 		C5DA2FD41C2C0B0500038352 /* AddressBookGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DA2FD31C2C0B0500038352 /* AddressBookGroupView.swift */; };
 		C5DA2FD71C2C0C7D00038352 /* AddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5DA2FD51C2C0C7D00038352 /* AddressBookGroupView.xib */; };
 		C5DA2FD81C2C0C7D00038352 /* AddressBookPhoneNumberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5DA2FD61C2C0C7D00038352 /* AddressBookPhoneNumberCell.xib */; };
@@ -352,7 +353,6 @@
 		C5E7AB781BCD3A79007E314B /* UIScrollView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7AB771BCD3A79007E314B /* UIScrollView+Ext.swift */; };
 		C5E7AB7A1BCD47D4007E314B /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7AB791BCD47D4007E314B /* UIView+Ext.swift */; };
 		C5E7AB7C1BCD4E28007E314B /* UIGestureRecognizer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7AB7B1BCD4E28007E314B /* UIGestureRecognizer+Ext.swift */; };
-		C5E7EF8F1BED0D9F00CDD4C3 /* Entry+APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7EF8E1BED0D9F00CDD4C3 /* Entry+APIRequest.swift */; };
 		C5EAE4CB1C18335900DA19C9 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EAE4CA1C18335900DA19C9 /* Chat.swift */; };
 		C5EBD75B1C172DF600ED2FCF /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EBD75A1C172DF600ED2FCF /* List.swift */; };
 		C5ECD55B1BF649B9005791B1 /* UIStoryboard+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ECD55A1BF649B9005791B1 /* UIStoryboard+Ext.swift */; };
@@ -360,7 +360,6 @@
 		C5EE45A41C01C4A2008DE8D6 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EE45A31C01C4A2008DE8D6 /* UIImage+Ext.swift */; };
 		C5EE45A61C01D350008DE8D6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EE45A51C01D350008DE8D6 /* Constants.swift */; };
 		C5F3AC3A1C0335230053EE70 /* EntryDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F0766B1BE2A97900021FAE /* EntryDescriptor.swift */; };
-		C5F4A1691BF3917600EFC8FA /* Entry+Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4A1681BF3917600EFC8FA /* Entry+Base.swift */; };
 		C5F4E70B1C072C0200D2FC16 /* FlashModeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4E70A1C072C0200D2FC16 /* FlashModeControl.swift */; };
 		C5F4E70D1C07489E00D2FC16 /* EditSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4E70C1C07489E00D2FC16 /* EditSession.swift */; };
 		C5F4E70F1C07687A00D2FC16 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4E70E1C07687A00D2FC16 /* UIColor+Ext.swift */; };
@@ -509,6 +508,25 @@
 		ACF8D9171934B45C0001E570 /* cars.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cars.plist; sourceTree = "<group>"; };
 		C500983C1AFCCC6400729DA4 /* WLCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCommentCell.h; sourceTree = "<group>"; };
 		C500983D1AFCCC6400729DA4 /* WLCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCommentCell.m; sourceTree = "<group>"; };
+		C502B30B1C47F2EC00F66EAE /* CandyNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyNotification.swift; sourceTree = "<group>"; };
+		C502B30C1C47F2EC00F66EAE /* CommentNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentNotification.swift; sourceTree = "<group>"; };
+		C502B30D1C47F2EC00F66EAE /* MessageNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageNotification.swift; sourceTree = "<group>"; };
+		C502B30E1C47F2EC00F66EAE /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		C502B30F1C47F2EC00F66EAE /* NotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
+		C502B3101C47F2EC00F66EAE /* PubNub+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PubNub+Ext.swift"; sourceTree = "<group>"; };
+		C502B3111C47F2EC00F66EAE /* UserNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNotification.swift; sourceTree = "<group>"; };
+		C502B3121C47F2EC00F66EAE /* WrapNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapNotification.swift; sourceTree = "<group>"; };
+		C502B31C1C47F30400F66EAE /* APIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
+		C502B31D1C47F30400F66EAE /* APIRequestDefined.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequestDefined.swift; sourceTree = "<group>"; };
+		C502B31E1C47F30400F66EAE /* AuthorizationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationRequest.swift; sourceTree = "<group>"; };
+		C502B31F1C47F30400F66EAE /* Entry+APIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entry+APIRequest.swift"; sourceTree = "<group>"; };
+		C502B3201C47F30400F66EAE /* Entry+APIResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entry+APIResponse.swift"; sourceTree = "<group>"; };
+		C502B3211C47F30400F66EAE /* Entry+Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entry+Base.swift"; sourceTree = "<group>"; };
+		C502B3221C47F30400F66EAE /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		C502B3231C47F30400F66EAE /* PaginatedRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginatedRequest.swift; sourceTree = "<group>"; };
+		C502B32D1C47F33100F66EAE /* AddressBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBook.swift; sourceTree = "<group>"; };
+		C502B32E1C47F33100F66EAE /* AddressBookRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookRecord.swift; sourceTree = "<group>"; };
+		C502B32F1C47F33100F66EAE /* ArrangedAddressBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrangedAddressBook.swift; sourceTree = "<group>"; };
 		C504177A19B9EE15000E55F3 /* WLAddContributorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddContributorsViewController.h; sourceTree = "<group>"; };
 		C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddContributorsViewController.m; sourceTree = "<group>"; };
 		C504177D19B9EE15000E55F3 /* AddressBookRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookRecordCell.h; sourceTree = "<group>"; };
@@ -517,7 +535,6 @@
 		C5053E811BC7F7280040613A /* ReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Report\U0010ViewController.swift"; sourceTree = "<group>"; };
 		C50541561BD6545400AE6F2C /* WLImageEditorSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLImageEditorSession.h; sourceTree = "<group>"; };
 		C50541571BD6545400AE6F2C /* WLImageEditorSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLImageEditorSession.m; sourceTree = "<group>"; };
-		C5060D171BEBA6B3007FFD5B /* Entry+APIResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entry+APIResponse.swift"; sourceTree = "<group>"; };
 		C5060D191BEBA7E2007FFD5B /* String+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		C50645BA1ABD815100CB4BE3 /* Today.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Today.storyboard; sourceTree = "<group>"; };
 		C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WatchImages.xcassets; sourceTree = "<group>"; };
@@ -528,7 +545,6 @@
 		C509E2B81B96F46A003F6C21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
 		C509E2BC1B96F4B8003F6C21 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
 		C510BF6C1BCF93C0008223A3 /* UIDevice+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Ext.swift"; sourceTree = "<group>"; };
-		C5120F941C2C5B7400881B39 /* ArrangedAddressBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArrangedAddressBook.swift; path = WLAddressBook/ArrangedAddressBook.swift; sourceTree = "<group>"; };
 		C5122D481BD7D2A40096C742 /* UIFont+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Ext.swift"; sourceTree = "<group>"; };
 		C51A52191A24DCED00558BF3 /* WLPasscodeValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPasscodeValidation.h; path = WLValidation/WLPasscodeValidation.h; sourceTree = "<group>"; };
 		C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPasscodeValidation.m; path = WLValidation/WLPasscodeValidation.m; sourceTree = "<group>"; };
@@ -590,7 +606,6 @@
 		C53937641C3BD82600EEEC0A /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		C53937651C3BD82600EEEC0A /* Toast.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Toast.xib; sourceTree = "<group>"; };
 		C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryImageCache.swift; sourceTree = "<group>"; };
-		C53A63B51C2428090004FE84 /* AddressBookRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddressBookRecord.swift; path = WLAddressBook/AddressBookRecord.swift; sourceTree = "<group>"; };
 		C53BC4851C05B32C0009B0B9 /* AssetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsViewController.swift; sourceTree = "<group>"; };
 		C53BC4881C05BC010009B0B9 /* AssetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetCell.xib; sourceTree = "<group>"; };
 		C53BC48D1C05FE620009B0B9 /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
@@ -600,13 +615,6 @@
 		C53E5CF91A84FBDB004F61B0 /* WLStillPictureBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLStillPictureBaseViewController.m; path = WLStillPictureViewController/WLStillPictureBaseViewController.m; sourceTree = "<group>"; };
 		C53E5D571A851F71004F61B0 /* WLCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCameraViewController.h; sourceTree = "<group>"; };
 		C53E5D581A851F71004F61B0 /* WLCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCameraViewController.m; sourceTree = "<group>"; };
-		C53E962F1C3D438A003663FA /* WrapNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapNotification.swift; sourceTree = "<group>"; };
-		C53E96311C3D43F0003663FA /* CandyNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyNotification.swift; sourceTree = "<group>"; };
-		C53E96331C3D440F003663FA /* CommentNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentNotification.swift; sourceTree = "<group>"; };
-		C53E96351C3D442B003663FA /* MessageNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageNotification.swift; sourceTree = "<group>"; };
-		C53E96371C3D4435003663FA /* UserNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNotification.swift; sourceTree = "<group>"; };
-		C53E96391C3D51A5003663FA /* WLNotificationCenter+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WLNotificationCenter+Ext.swift"; sourceTree = "<group>"; };
-		C53F2FBB1C106472004EBC73 /* PubNub+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PubNub+Ext.swift"; sourceTree = "<group>"; };
 		C540C0EE1B988BF700F880C9 /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		C540C0F11B988BFD00F880C9 /* StreamItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamItem.swift; sourceTree = "<group>"; };
 		C545311E1A2497470048A677 /* WLPhoneValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPhoneValidation.h; path = WLValidation/WLPhoneValidation.h; sourceTree = "<group>"; };
@@ -701,7 +709,6 @@
 		C57F7AEC1C1ECD5F00FFB465 /* test-users.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "test-users.plist"; sourceTree = "<group>"; };
 		C57F7AED1C1ECD5F00FFB465 /* violations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = violations.plist; sourceTree = "<group>"; };
 		C57F7AEE1C1ECD5F00FFB465 /* country-codes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "country-codes.json"; sourceTree = "<group>"; };
-		C57F7AF31C1ED59100FFB465 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		C581680019F169D90081F350 /* WLBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLBaseViewController.h; path = WLBaseViewController/WLBaseViewController.h; sourceTree = "<group>"; };
 		C581680119F169D90081F350 /* WLBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLBaseViewController.m; path = WLBaseViewController/WLBaseViewController.m; sourceTree = "<group>"; };
 		C5861A621BFA07E300C64663 /* AudioConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioConfig.h; sourceTree = "<group>"; };
@@ -788,8 +795,6 @@
 		C5BEC3B21B8F170700499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_white.png"; sourceTree = "<group>"; };
 		C5BEC3B51B8F170D00499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_white@2x.png"; sourceTree = "<group>"; };
 		C5BEC4171B8F1E9800499EEA /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
-		C5BEE0E21B2AC8C300D3CF70 /* WLNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationCenter.h; sourceTree = "<group>"; };
-		C5BEE0E31B2AC8C300D3CF70 /* WLNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationCenter.m; sourceTree = "<group>"; };
 		C5BFE4CD1B4FD930004B655E /* WLWrapEmbeddedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapEmbeddedViewController.h; sourceTree = "<group>"; };
 		C5BFE4CE1B4FD930004B655E /* WLWrapEmbeddedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapEmbeddedViewController.m; sourceTree = "<group>"; };
 		C5C0AF9C1B997D2100B8B242 /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -839,13 +844,7 @@
 		C5CBA7C61BA9556B0008EAAE /* SquareGridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareGridLayout.swift; sourceTree = "<group>"; };
 		C5CBACEE1BA70B70007D2403 /* LoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		C5CCDEC01BF2323200D9B3BB /* UIView+Shorthand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Shorthand.swift"; sourceTree = "<group>"; };
-		C5CFF9061C27F6A500B3C6F0 /* APIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
-		C5CFF9071C27F6A500B3C6F0 /* APIRequestDefined.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequestDefined.swift; sourceTree = "<group>"; };
-		C5CFF9081C27F6A500B3C6F0 /* AuthorizationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationRequest.swift; sourceTree = "<group>"; };
-		C5CFF9091C27F6A500B3C6F0 /* PaginatedRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginatedRequest.swift; sourceTree = "<group>"; };
-		C5D5521F1C04BC2300069169 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		C5D99E731C2B2BC10022D18B /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
-		C5D99E751C2B39AB0022D18B /* AddressBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBook.swift; sourceTree = "<group>"; };
 		C5DA2FD31C2C0B0500038352 /* AddressBookGroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookGroupView.swift; sourceTree = "<group>"; };
 		C5DA2FD51C2C0C7D00038352 /* AddressBookGroupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressBookGroupView.xib; sourceTree = "<group>"; };
 		C5DA2FD61C2C0C7D00038352 /* AddressBookPhoneNumberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressBookPhoneNumberCell.xib; sourceTree = "<group>"; };
@@ -884,7 +883,6 @@
 		C5E7AB771BCD3A79007E314B /* UIScrollView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Ext.swift"; sourceTree = "<group>"; };
 		C5E7AB791BCD47D4007E314B /* UIView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		C5E7AB7B1BCD4E28007E314B /* UIGestureRecognizer+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Ext.swift"; sourceTree = "<group>"; };
-		C5E7EF8E1BED0D9F00CDD4C3 /* Entry+APIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entry+APIRequest.swift"; sourceTree = "<group>"; };
 		C5EA6D9A1BFCC8270029970A /* FlowerMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowerMenu.swift; sourceTree = "<group>"; };
 		C5EAE4CA1C18335900DA19C9 /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		C5EBD75A1C172DF600ED2FCF /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
@@ -893,7 +891,6 @@
 		C5EE45A51C01D350008DE8D6 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C5F0766B1BE2A97900021FAE /* EntryDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDescriptor.swift; sourceTree = "<group>"; };
 		C5F4A1651BF36DD300EFC8FA /* StreamDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamDataSource.swift; sourceTree = "<group>"; };
-		C5F4A1681BF3917600EFC8FA /* Entry+Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entry+Base.swift"; sourceTree = "<group>"; };
 		C5F4E70A1C072C0200D2FC16 /* FlashModeControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashModeControl.swift; sourceTree = "<group>"; };
 		C5F4E70C1C07489E00D2FC16 /* EditSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSession.swift; sourceTree = "<group>"; };
 		C5F4E70E1C07687A00D2FC16 /* UIColor+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
@@ -971,16 +968,6 @@
 				128156AA1938A1DA00035F89 /* WLStillPictureViewController.m */,
 			);
 			name = WLStillPictureViewController;
-			sourceTree = "<group>";
-		};
-		129654E018E197D700FF43F6 /* WLAddressBook */ = {
-			isa = PBXGroup;
-			children = (
-				C5D99E751C2B39AB0022D18B /* AddressBook.swift */,
-				C53A63B51C2428090004FE84 /* AddressBookRecord.swift */,
-				C5120F941C2C5B7400881B39 /* ArrangedAddressBook.swift */,
-			);
-			name = WLAddressBook;
 			sourceTree = "<group>";
 		};
 		12A7A6F618DA0945008FF6F0 = {
@@ -1134,12 +1121,12 @@
 				C532F4EE1C2DA4D8004585E0 /* Uploader.swift */,
 				C55141A31C2EFB090080E731 /* DeviceManager.swift */,
 				5B2C97CA1C46610E00FAED6A /* VolumeChangeObserver.swift */,
+				C502B32C1C47F33100F66EAE /* AddressBook */,
+				C502B31B1C47F30400F66EAE /* APIRequest */,
+				C502B30A1C47F2EC00F66EAE /* NotificationCenter */,
 				C50541551BD6545400AE6F2C /* WLImageEditorSession */,
-				C5C7696D1BAC10BF00B205CB /* WLAPIManager */,
-				C5BEE0E11B2AC8C300D3CF70 /* WLNotificationCenter */,
 				C577C2601A4C426300ECC7E5 /* iVersion */,
 				C5C20B8C1A238ACC008B2E2E /* WLValidation */,
-				129654E018E197D700FF43F6 /* WLAddressBook */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1400,6 +1387,46 @@
 			);
 			name = WLCommentCell;
 			path = Controllers/WLCommentsViewController/WLCommentCell;
+			sourceTree = "<group>";
+		};
+		C502B30A1C47F2EC00F66EAE /* NotificationCenter */ = {
+			isa = PBXGroup;
+			children = (
+				C502B30F1C47F2EC00F66EAE /* NotificationCenter.swift */,
+				C502B3101C47F2EC00F66EAE /* PubNub+Ext.swift */,
+				C502B30E1C47F2EC00F66EAE /* Notification.swift */,
+				C502B30B1C47F2EC00F66EAE /* CandyNotification.swift */,
+				C502B30C1C47F2EC00F66EAE /* CommentNotification.swift */,
+				C502B30D1C47F2EC00F66EAE /* MessageNotification.swift */,
+				C502B3111C47F2EC00F66EAE /* UserNotification.swift */,
+				C502B3121C47F2EC00F66EAE /* WrapNotification.swift */,
+			);
+			path = NotificationCenter;
+			sourceTree = "<group>";
+		};
+		C502B31B1C47F30400F66EAE /* APIRequest */ = {
+			isa = PBXGroup;
+			children = (
+				C502B31C1C47F30400F66EAE /* APIRequest.swift */,
+				C502B31D1C47F30400F66EAE /* APIRequestDefined.swift */,
+				C502B31E1C47F30400F66EAE /* AuthorizationRequest.swift */,
+				C502B31F1C47F30400F66EAE /* Entry+APIRequest.swift */,
+				C502B3201C47F30400F66EAE /* Entry+APIResponse.swift */,
+				C502B3211C47F30400F66EAE /* Entry+Base.swift */,
+				C502B3221C47F30400F66EAE /* Environment.swift */,
+				C502B3231C47F30400F66EAE /* PaginatedRequest.swift */,
+			);
+			path = APIRequest;
+			sourceTree = "<group>";
+		};
+		C502B32C1C47F33100F66EAE /* AddressBook */ = {
+			isa = PBXGroup;
+			children = (
+				C502B32D1C47F33100F66EAE /* AddressBook.swift */,
+				C502B32E1C47F33100F66EAE /* AddressBookRecord.swift */,
+				C502B32F1C47F33100F66EAE /* ArrangedAddressBook.swift */,
+			);
+			path = AddressBook;
 			sourceTree = "<group>";
 		};
 		C504177919B9EE15000E55F3 /* WLAddContributorsViewController */ = {
@@ -1850,23 +1877,6 @@
 			path = WLPhotosViewController;
 			sourceTree = "<group>";
 		};
-		C5BEE0E11B2AC8C300D3CF70 /* WLNotificationCenter */ = {
-			isa = PBXGroup;
-			children = (
-				C5BEE0E21B2AC8C300D3CF70 /* WLNotificationCenter.h */,
-				C5BEE0E31B2AC8C300D3CF70 /* WLNotificationCenter.m */,
-				C53E96391C3D51A5003663FA /* WLNotificationCenter+Ext.swift */,
-				C57F7AF31C1ED59100FFB465 /* Notification.swift */,
-				C53E962F1C3D438A003663FA /* WrapNotification.swift */,
-				C53E96311C3D43F0003663FA /* CandyNotification.swift */,
-				C53E96331C3D440F003663FA /* CommentNotification.swift */,
-				C53E96351C3D442B003663FA /* MessageNotification.swift */,
-				C53E96371C3D4435003663FA /* UserNotification.swift */,
-				C53F2FBB1C106472004EBC73 /* PubNub+Ext.swift */,
-			);
-			path = WLNotificationCenter;
-			sourceTree = "<group>";
-		};
 		C5BFE4CC1B4FD913004B655E /* WLWrapEmbeddedViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1964,21 +1974,6 @@
 				C5C20BC61A239D6F008B2E2E /* WLProfileInformationViewController.m */,
 			);
 			path = WLProfileInformationViewController;
-			sourceTree = "<group>";
-		};
-		C5C7696D1BAC10BF00B205CB /* WLAPIManager */ = {
-			isa = PBXGroup;
-			children = (
-				C5CFF9061C27F6A500B3C6F0 /* APIRequest.swift */,
-				C5CFF9071C27F6A500B3C6F0 /* APIRequestDefined.swift */,
-				C5CFF9081C27F6A500B3C6F0 /* AuthorizationRequest.swift */,
-				C5CFF9091C27F6A500B3C6F0 /* PaginatedRequest.swift */,
-				C5D5521F1C04BC2300069169 /* Environment.swift */,
-				C5060D171BEBA6B3007FFD5B /* Entry+APIResponse.swift */,
-				C5E7EF8E1BED0D9F00CDD4C3 /* Entry+APIRequest.swift */,
-				C5F4A1681BF3917600EFC8FA /* Entry+Base.swift */,
-			);
-			path = WLAPIManager;
 			sourceTree = "<group>";
 		};
 		C5E4FD091BF762A500575DA4 /* RecentUpdatesViewController */ = {
@@ -2458,12 +2453,13 @@
 				C5EBD75B1C172DF600ED2FCF /* List.swift in Sources */,
 				C5A407001C202198007D1D0E /* StoryboardTransition.swift in Sources */,
 				C5E6F0281BFF558000FA3D4F /* MediaDataSource.swift in Sources */,
+				C502B3151C47F2EC00F66EAE /* MessageNotification.swift in Sources */,
 				C531AE411C1B248A00C01535 /* EditAssetViewController.swift in Sources */,
+				C502B3311C47F33100F66EAE /* AddressBookRecord.swift in Sources */,
 				5B1DD0371BD7B67000D30E1A /* InternalScrollView.swift in Sources */,
 				C55BE8C91C031D54006B04FC /* EventualEntryPresenter.swift in Sources */,
 				C5BCF0101B551B7B00E4AD6D /* WLMessageCell.m in Sources */,
 				5BD121561B0250B500FF5FBF /* WLDownloadingView.m in Sources */,
-				C5F4A1691BF3917600EFC8FA /* Entry+Base.swift in Sources */,
 				C5AEE4441B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */,
 				C53E5D771A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C54731BC1B906A7400B583FD /* WLStillPhotosViewController.m in Sources */,
@@ -2472,8 +2468,8 @@
 				C5BFE4D31B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */,
 				C5060D1A1BEBA7E2007FFD5B /* String+Ext.swift in Sources */,
 				C5C20BEC1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */,
-				C5D99E761C2B39AB0022D18B /* AddressBook.swift in Sources */,
 				C5E6DD8A1C0DC84A004992E4 /* Candy.swift in Sources */,
+				C502B3301C47F33100F66EAE /* AddressBook.swift in Sources */,
 				C54C42501BDE77BB003E644D /* ExtensionMessage.swift in Sources */,
 				C5861A6C1BFA3C9400C64663 /* LiveBroadcastViewController.swift in Sources */,
 				C5E6DD9F1C0DD11A004992E4 /* Keys.swift in Sources */,
@@ -2484,27 +2480,25 @@
 				C535D6991C045476002BCE34 /* OverlayImageView.swift in Sources */,
 				C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */,
 				C530127F1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift in Sources */,
+				C502B3251C47F30400F66EAE /* APIRequestDefined.swift in Sources */,
 				C55E10A01B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
-				C53A63B61C2428090004FE84 /* AddressBookRecord.swift in Sources */,
 				C53012941BF4E4BF00098F9C /* Refresher.swift in Sources */,
 				C5F3AC3A1C0335230053EE70 /* EntryDescriptor.swift in Sources */,
 				C52E1FDF1A41951300A2C370 /* WLTextField.m in Sources */,
 				C5E6DD971C0DC8F5004992E4 /* CommonEnums.swift in Sources */,
 				C5B8F71A1B82161500A5E541 /* WLDrawingViewController.m in Sources */,
 				C510BF6D1BCF93C0008223A3 /* UIDevice+Ext.swift in Sources */,
-				C5D552201C04BC2400069169 /* Environment.swift in Sources */,
 				C53937661C3BD82600EEEC0A /* Toast.swift in Sources */,
-				C53E96321C3D43F0003663FA /* CandyNotification.swift in Sources */,
-				C53E96381C3D4435003663FA /* UserNotification.swift in Sources */,
 				C54743461C09CE3700BECB25 /* CATransition+Ext.swift in Sources */,
 				C5ECD55B1BF649B9005791B1 /* UIStoryboard+Ext.swift in Sources */,
 				C5BCF0011B551B7B00E4AD6D /* WLChatViewController.m in Sources */,
 				C530128A1BF4C87F00098F9C /* WrapPickerDataSource.swift in Sources */,
 				C5E6F0231BFF38C200FA3D4F /* SwipeAction.swift in Sources */,
 				C530127D1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift in Sources */,
+				C502B3141C47F2EC00F66EAE /* CommentNotification.swift in Sources */,
 				C51A521E1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */,
-				C53E96361C3D442B003663FA /* MessageNotification.swift in Sources */,
 				C5AA71D61BE3D39D00EA106A /* MutableAsset.swift in Sources */,
+				C502B3191C47F2EC00F66EAE /* UserNotification.swift in Sources */,
 				C5BCF0381B551B7B00E4AD6D /* WLContributorsViewController.m in Sources */,
 				C577C2661A4C427100ECC7E5 /* iVersion.m in Sources */,
 				C5AEE43D1B3AC9E3000C8CCF /* WLDrawingBrush.m in Sources */,
@@ -2512,6 +2506,7 @@
 				C5C20BA41A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
 				C55E10A71B3C0E1F0032DFDA /* CGPointExtension.m in Sources */,
 				C5E7AB761BCD399B007E314B /* UITextView+Ext.swift in Sources */,
+				C502B3281C47F30400F66EAE /* Entry+APIResponse.swift in Sources */,
 				C532F4EF1C2DA4D8004585E0 /* Uploader.swift in Sources */,
 				C5E7AB781BCD3A79007E314B /* UIScrollView+Ext.swift in Sources */,
 				C54CEF9D1BCFB09100128CBE /* UIViewController+Ext.swift in Sources */,
@@ -2520,7 +2515,6 @@
 				C54743441C09CD8A00BECB25 /* ImageFetcher.swift in Sources */,
 				C54AF67C19B8C491006F7EDB /* main.m in Sources */,
 				C57E1CCB1B98930900E2303B /* StreamView.swift in Sources */,
-				C53E96341C3D440F003663FA /* CommentNotification.swift in Sources */,
 				C5C20BE81A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */,
 				5B1D045B1BFCE16C00263102 /* SlideInteractiveTransition.swift in Sources */,
 				C5B4E5681BF60E0300A4B223 /* PHPhotoLibrary+Ext.swift in Sources */,
@@ -2539,13 +2533,13 @@
 				C5B51FE21BFB504D005A1CF6 /* UIAlertController+Ext.swift in Sources */,
 				C5E7AB7C1BCD4E28007E314B /* UIGestureRecognizer+Ext.swift in Sources */,
 				C5122D491BD7D2A40096C742 /* UIFont+Ext.swift in Sources */,
+				C502B3171C47F2EC00F66EAE /* NotificationCenter.swift in Sources */,
 				C5CCDEC11BF2323200D9B3BB /* UIView+Shorthand.swift in Sources */,
 				C5E6DD8E1C0DC84A004992E4 /* Entry+CoreDataProperties.swift in Sources */,
 				C5E6DD931C0DC84A004992E4 /* Wrap.swift in Sources */,
 				C50541581BD6545400AE6F2C /* WLImageEditorSession.m in Sources */,
 				C52279621BECCA8600B1C49C /* NSDate+Ext.swift in Sources */,
 				C54C423E1BDE6260003E644D /* Archive.swift in Sources */,
-				C53E96301C3D438A003663FA /* WrapNotification.swift in Sources */,
 				C51B82C41C1850C20054726A /* GenericCollections+Ext.swift in Sources */,
 				C55D04121C203B1B008F87FF /* HistoryFooterView.swift in Sources */,
 				C5C20B921A238AE7008B2E2E /* WLValidation.m in Sources */,
@@ -2553,11 +2547,12 @@
 				5BA7AC241A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD71A41951300A2C370 /* WLLabel.m in Sources */,
 				C522795E1BECCA6B00B1C49C /* Dictionary+Ext.swift in Sources */,
-				C5E7EF8F1BED0D9F00CDD4C3 /* Entry+APIRequest.swift in Sources */,
 				C52E1FD31A41951300A2C370 /* WLButton.m in Sources */,
+				C502B3181C47F2EC00F66EAE /* PubNub+Ext.swift in Sources */,
 				C581680519F169D90081F350 /* WLBaseViewController.m in Sources */,
 				C54C42531BDE77BB003E644D /* ExtensionRequest.swift in Sources */,
 				C54731B41B906A7400B583FD /* WLBatchEditPictureViewController.m in Sources */,
+				C502B31A1C47F2EC00F66EAE /* WrapNotification.swift in Sources */,
 				C53E5CFD1A84FBDB004F61B0 /* WLStillPictureBaseViewController.m in Sources */,
 				C5E4FD0D1BF7AF7100575DA4 /* ShapeView.swift in Sources */,
 				C560D22B1AFB7703006B906E /* WLSwipeViewController.m in Sources */,
@@ -2566,17 +2561,17 @@
 				C54731B21B906A7400B583FD /* WLStillAvatarViewController.m in Sources */,
 				C5C0AFA31B99CF1F00B8B242 /* StreamReusableView.m in Sources */,
 				C5053E821BC7F7280040613A /* ReportViewController.swift in Sources */,
-				C5060D181BEBA6B3007FFD5B /* Entry+APIResponse.swift in Sources */,
 				C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */,
 				C5C991131B9845CF0006F534 /* StreamMetrics.swift in Sources */,
 				C5DA2FD41C2C0B0500038352 /* AddressBookGroupView.swift in Sources */,
 				C51B4BE81C3AA2D6009F1566 /* WelcomeViewController.swift in Sources */,
+				C502B3161C47F2EC00F66EAE /* Notification.swift in Sources */,
+				C502B32A1C47F30400F66EAE /* Environment.swift in Sources */,
 				5B40D6B21C2EBB1C009EF38C /* UploadWizardViewController.swift in Sources */,
 				5B2C97CB1C46610E00FAED6A /* VolumeChangeObserver.swift in Sources */,
 				C52E1FDB1A41951300A2C370 /* WLBadgeLabel.m in Sources */,
 				C5C20BD01A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
 				C5C20B981A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
-				C5CFF90C1C27F6A500B3C6F0 /* AuthorizationRequest.swift in Sources */,
 				C549745B1ABC1C34000E3F54 /* WLQAButton.m in Sources */,
 				C5F4E70B1C072C0200D2FC16 /* FlashModeControl.swift in Sources */,
 				C53BC48E1C05FE620009B0B9 /* SegmentedControl.swift in Sources */,
@@ -2594,12 +2589,13 @@
 				C5EE45A61C01D350008DE8D6 /* Constants.swift in Sources */,
 				C55141A41C2EFB090080E731 /* DeviceManager.swift in Sources */,
 				C55BE8C31C03062C006B04FC /* NSObject+Ext.swift in Sources */,
+				C502B3241C47F30400F66EAE /* APIRequest.swift in Sources */,
 				C53012931BF4E3EA00098F9C /* EmojiCell.swift in Sources */,
 				C521E18C1BC7AE1B00505432 /* VideoPlayerView.swift in Sources */,
+				C502B3131C47F2EC00F66EAE /* CandyNotification.swift in Sources */,
 				C540C0F31B988BFD00F880C9 /* StreamItem.swift in Sources */,
 				C5E6DD891C0DC84A004992E4 /* Asset.swift in Sources */,
 				C5AA71AF1BE3946700EA106A /* EntryNotifier.swift in Sources */,
-				C5120F951C2C5B7400881B39 /* ArrangedAddressBook.swift in Sources */,
 				5BD303451B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */,
 				C5F4E70D1C07489E00D2FC16 /* EditSession.swift in Sources */,
 				C5E6DD8F1C0DC84A004992E4 /* Entry.swift in Sources */,
@@ -2624,13 +2620,12 @@
 				C5AEE42F1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */,
 				C54AF6E019B8C491006F7EDB /* WLAppDelegate.m in Sources */,
 				C568D8D91A6D491800C2333B /* WLHintView.m in Sources */,
-				C57F7AF41C1ED59100FFB465 /* Notification.swift in Sources */,
+				C502B3291C47F30400F66EAE /* Entry+Base.swift in Sources */,
 				C523D8CA1BD76BC0006FE7AB /* LayoutPrioritizer.swift in Sources */,
 				C5E4FD0B1BF7AC4300575DA4 /* LoadingView.swift in Sources */,
 				C545312D1A24A1F20048A677 /* WLCountriesViewController.m in Sources */,
 				C53012871BF4C0AD00098F9C /* HomeDataSource.swift in Sources */,
 				C53BC4861C05B32C0009B0B9 /* AssetsViewController.swift in Sources */,
-				C53E963A1C3D51A5003663FA /* WLNotificationCenter+Ext.swift in Sources */,
 				C5E6DD901C0DC84A004992E4 /* EntryContext.swift in Sources */,
 				C5E6DD8B1C0DC84A004992E4 /* Comment.swift in Sources */,
 				C507F80E1C218BB1006DA3E5 /* Dispatch.swift in Sources */,
@@ -2642,32 +2637,31 @@
 				C5C20BD41A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
 				C557B6DE1C22F5980067631E /* Logger.swift in Sources */,
 				C59CEBD31BFB20B500C3E686 /* EntryView.swift in Sources */,
+				C502B32B1C47F30400F66EAE /* PaginatedRequest.swift in Sources */,
 				C535D69B1C045B56002BCE34 /* WrapCoverView.swift in Sources */,
 				C5EAE4CB1C18335900DA19C9 /* Chat.swift in Sources */,
 				C5E6DD8C1C0DC84A004992E4 /* Contribution.swift in Sources */,
 				C5E6DD941C0DC84A004992E4 /* Notifier.swift in Sources */,
 				C54731B01B906A7400B583FD /* WLEditAvatarViewController.m in Sources */,
-				C5CFF90D1C27F6A500B3C6F0 /* PaginatedRequest.swift in Sources */,
 				C557B6D91C22BC610067631E /* Network.swift in Sources */,
 				C5C20BDC1A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
 				C5E6DD8D1C0DC84A004992E4 /* CoreData.xcdatamodeld in Sources */,
-				C5BEE0EA1B2AC8C300D3CF70 /* WLNotificationCenter.m in Sources */,
 				C51E34EA1BD8EB4100C6F678 /* SeparatorView.swift in Sources */,
 				C56337591C16CE8300F4E182 /* MediaViewController.swift in Sources */,
+				C502B3321C47F33100F66EAE /* ArrangedAddressBook.swift in Sources */,
 				C5ECD55C1BF64A41005791B1 /* RecentUpdatesViewController.swift in Sources */,
 				C5E6DD911C0DC84A004992E4 /* Message.swift in Sources */,
 				C53CD24C1C1706B600AA4746 /* CandyCell.swift in Sources */,
-				C5CFF90B1C27F6A500B3C6F0 /* APIRequestDefined.swift in Sources */,
-				C53F2FBC1C106472004EBC73 /* PubNub+Ext.swift in Sources */,
 				C5CBA7C81BA9556B0008EAAE /* SquareGridLayout.swift in Sources */,
 				C5FAC9021BE2B35F0060FEDB /* NSUserDefaults+Ext.swift in Sources */,
 				C537F8B61C1828D400105390 /* RecentUpdateList.swift in Sources */,
 				C54531311A24A1F20048A677 /* WLCountryCell.m in Sources */,
+				C502B3261C47F30400F66EAE /* AuthorizationRequest.swift in Sources */,
 				C52BA62C1BFF314600D58D75 /* WrapCell.swift in Sources */,
 				C5BCF0151B551B7B00E4AD6D /* WLMessageDateView.m in Sources */,
 				C54531381A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */,
+				C502B3271C47F30400F66EAE /* Entry+APIRequest.swift in Sources */,
 				C560D2371AFBB55E006B906E /* WLHistoryViewController.m in Sources */,
-				C5CFF90A1C27F6A500B3C6F0 /* APIRequest.swift in Sources */,
 				C525005C1C1F1FD500CF8F9D /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

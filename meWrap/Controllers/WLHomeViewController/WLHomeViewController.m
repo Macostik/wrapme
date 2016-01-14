@@ -128,7 +128,7 @@
     
     [[RecentUpdateList sharedList] addReceiver:self];
     
-    [[WLNotificationCenter defaultCenter] fetchLiveBroadcasts:^{
+    [[NotificationCenter defaultCenter] fetchLiveBroadcasts:^{
         [homeDataSource.paginatedSet sort];
         [publicDataSource.paginatedSet sort];
     }];

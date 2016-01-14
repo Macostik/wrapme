@@ -90,7 +90,7 @@ class Notification: NSObject {
         guard let body = result.body, let timetoken = result.timetoken else {
             return nil
         }
-        let publishedAt = NSDate.dateWithTimetoken(timetoken)
+        let publishedAt = NSDate(timetoken:timetoken)
         return notificationWithBody(body, publishedAt: publishedAt)
     }
     

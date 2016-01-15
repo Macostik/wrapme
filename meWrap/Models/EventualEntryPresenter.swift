@@ -14,7 +14,7 @@ class EventualEntryPresenter: NSObject {
     
     var isLoaded = false {
         didSet {
-            if let entryReference = entryReference where isLoaded {
+            if let entryReference = entryReference where oldValue != isLoaded && isLoaded == true {
                 presentEntry(entryReference)
                 self.entryReference = nil
             }

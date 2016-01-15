@@ -44,7 +44,7 @@
 
 - (void)dealloc {
     [[AddressBook sharedAddressBook] endCaching];
-    
+    [EventualEntryPresenter sharedPresenter].isLoaded = NO;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 

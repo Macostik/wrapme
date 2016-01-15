@@ -16,7 +16,7 @@ extension PubNub {
     static var sharedInstance: PubNub! {
         get {
             if _sharedInstance == nil {
-                guard User.currentUser != nil else {
+                guard User.currentUser != nil || !Authorization.currentAuthorization.canSignUp else {
                     return nil
                 }
                 let configuration: PNConfiguration!

@@ -14,20 +14,18 @@ class VolumeChangeObserver : NSObject {
     let audioSession = AVAudioSession.sharedInstance()
     var success: Block?
     var volumeView: MPVolumeView?
-    var context: UnsafeMutablePointer<Void>?
+    private var lock = false
     
     static var sharedObserver: VolumeChangeObserver = {
         let volumeChangeObserver = VolumeChangeObserver()
-        do {
-            try volumeChangeObserver.audioSession.setActive(true)
-        } catch {}
+        _ = try? volumeChangeObserver.audioSession.setActive(true)
         return volumeChangeObserver
     }()
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == "outputVolume" {
-            self.context = context
-            success?()
+            let value = change![NSKeyValueChangeOldKey] as? Float
+            changeVolumeValue(value != nil)
         } else {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
         }
@@ -35,7 +33,7 @@ class VolumeChangeObserver : NSObject {
     
     func registerChangeObserver(success: Block) {
         self.success = success
-        audioSession.addObserver(self, forKeyPath: "outputVolume", options: [.New] , context: nil)
+        audioSession.addObserver(self, forKeyPath: "outputVolume", options: [.Initial, .New, .Old] , context: nil)
         volumeView = MPVolumeView()
         guard let volumeView = volumeView else { return }
         let window = UIWindow.mainWindow
@@ -44,10 +42,33 @@ class VolumeChangeObserver : NSObject {
     }
     
     func unregisterChagneObserver() {
-        volumeView?.removeFromSuperview()
-        if var context = context {
-            audioSession.removeObserver(self, forKeyPath: "outputVolume", context: context)
-            context = nil
+        if volumeView != nil {
+            audioSession.removeObserver(self, forKeyPath: "outputVolume", context: nil)
         }
+        volumeView?.removeFromSuperview()
+        lock(false)
+    }
+    
+    func changeVolumeValue(change: Bool) {
+        if (lock) { return }
+        var i = 0
+        while i < volumeView?.subviews.count {
+            if let slider = volumeView?.subviews[i] as? UISlider {
+                if (change) {
+                if (slider.value != 0.5) {
+                    slider.value = 0.5
+                        self.success?()
+                    }
+                } else {
+                    slider.value = 0.5
+                }
+                break
+            }
+            ++i
+        }
+    }
+    
+    func lock(lock: Bool) {
+        self.lock = lock
     }
 }

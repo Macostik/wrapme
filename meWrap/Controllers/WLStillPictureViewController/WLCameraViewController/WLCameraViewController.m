@@ -170,8 +170,12 @@
     self.assetsViewController.assetsHidingHandler = ^ {
         [NSObject cancelPreviousPerformRequestsWithTarget:weakSelf selector:@selector(setAssetsViewControllerHidden) object:nil];
     };
-    [[VolumeChangeObserver sharedObserver] registerChangeObserver:^{
-        [weakSelf shot:nil];
+    VolumeChangeObserver *observer = [VolumeChangeObserver sharedObserver];
+    [observer registerChangeObserver:^{
+        [observer lock:YES];
+        [weakSelf captureImage:nil complition:^{
+           [observer lock:NO];
+        }];
     }];
 }
 
@@ -204,17 +208,20 @@
 	}
 }
 
-- (IBAction)shot:(UIButton*)sender {
+- (IBAction)shot:(UIButton*)sender  {
     if ([self.delegate respondsToSelector:@selector(cameraViewControllerCaptureMedia:)]) {
         if ([self.delegate cameraViewControllerCaptureMedia:self] == NO) {
             return;
         }
     }
-    
+    [self captureImage:sender complition:nil];
+}
+
+- (void)captureImage:(UIButton *)sender complition:(Block)compliton {
     [self setAssetsViewControllerHidden:YES animated:YES];
-	__weak typeof(self)weakSelf = self;
-	self.view.userInteractionEnabled = NO;
-	sender.active = NO;
+    __weak typeof(self)weakSelf = self;
+    self.view.userInteractionEnabled = NO;
+    sender.active = NO;
     
     [UIView animateWithDuration:0.1 animations:^{
         weakSelf.cameraView.alpha = 0.0f;
@@ -223,19 +230,21 @@
             weakSelf.cameraView.alpha = 1.0f;
         }];
     }];
-    
     [self captureImage:^(UIImage *image) {
         [weakSelf finishWithImage:image];
         weakSelf.view.userInteractionEnabled = YES;
         sender.active = YES;
+        if (compliton) compliton();
     } failure:^(NSError *error) {
         sender.active = YES;
         weakSelf.view.userInteractionEnabled = YES;
         [error show];
+        if (compliton) compliton();
     }];
 }
 
 - (IBAction)finish:(id)sender {
+    [[VolumeChangeObserver sharedObserver] unregisterChagneObserver];
     if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:)]) {
         [self.delegate cameraViewControllerDidFinish:self];
     }

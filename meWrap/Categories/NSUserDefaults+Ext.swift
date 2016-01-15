@@ -215,7 +215,7 @@ extension NSUserDefaults {
             return _remoteLogging
         }
         set {
-            Logger.remoteLogging = newValue
+            Logger.remoteLogging = newValue ?? false
             _remoteLogging = newValue
             self["remote_logging"] = newValue
         }

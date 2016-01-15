@@ -79,32 +79,27 @@ class Environment: NSObject {
     
     private func name() -> String? {
         let environments = Environment.environments
-        for (name, _) in environments {
-            if environments[name] == self {
-                return name
-            }
+        for (name, _) in environments where environments[name] == self {
+            return name
         }
         return nil
     }
     
     func testUsers() -> [Authorization] {
         var authorizations = [Authorization]()
-        if let name = name(), let users = NSDictionary.plist("test-users")?[name] as? [NSDictionary] {
+        if let name = name(), let users = NSDictionary.plist("test-users")?[name] as? [[String:String]] {
             for user in users {
                 let authorization = Authorization()
-                authorization.deviceUID = user["deviceUID"] as? String ?? ""
-                authorization.countryCode = user["countryCode"] as? String ?? ""
-                authorization.phone = user["phone"] as? String ?? ""
-                authorization.email = user["email"] as? String ?? ""
-                authorization.activationCode = user["activationCode"] as? String ?? ""
-                authorization.password = user["password"] as? String ?? ""
+                authorization.deviceUID = user["deviceUID"] ?? ""
+                authorization.countryCode = user["countryCode"]
+                authorization.phone = user["phone"]
+                authorization.email = user["email"]
+                authorization.activationCode = user["activationCode"]
+                authorization.password = user["password"]
                 authorizations.append(authorization)
             }
-            return authorizations
-        } else {
-            return authorizations
         }
-        
+        return authorizations
     }
 }
 

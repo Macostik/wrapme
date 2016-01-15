@@ -115,16 +115,9 @@ class NotificationCenter: NSObject {
         var notifications = [Notification]()
         
         for message in messages {
-            guard let n = Notification.notificationWithMessage(message) else {
-                print("no notification object \(message)")
-                break
-            }
-            guard n.canBeHandled() && !canSkipNotification(n) else {
-                print("cannot be handled \(message)")
-                break
-            }
+            guard let n = Notification.notificationWithMessage(message) else { continue }
+            guard n.canBeHandled() && !canSkipNotification(n) else { continue }
             notifications.append(n)
-            print("added message \(message)")
         }
         
         if notifications.isEmpty { return notifications }
@@ -136,39 +129,35 @@ class NotificationCenter: NSObject {
     
     func requestHistory() {
         RunQueue.fetchQueue.run { [unowned self] finish in
+            
+            guard Network.sharedNetwork.reachable && !self.userSubscription.name.isEmpty else {
+                finish()
+                return
+            }
+            
             let userDefaults = NSUserDefaults.standardUserDefaults()
             guard let fromDate = userDefaults.historyDate else {
-                Logger.log("PUBNUB - history date is empty")
                 NSUserDefaults.standardUserDefaults().historyDate = NSDate.now()
                 finish()
                 return
             }
             let toDate = NSDate.now()
             
-            Logger.log("PUBNUB - requesting history starting from: \(fromDate) to: \(toDate)")
-            
-            if Network.sharedNetwork.reachable && !self.userSubscription.name.isEmpty {
-                self.userSubscription.history(fromDate, to: toDate, success: { (messages) -> Void in
-                    if messages.count > 0 {
-                        Logger.log("PUBNUB - received history starting from: \(fromDate) to: \(toDate)")
-                        self.handleNotifications(self.notificationsFromMessages(messages))
-                        if let timetoken = messages.last?["timetoken"] as? NSNumber {
-                            userDefaults.historyDate = NSDate(timetoken: timetoken).dateByAddingTimeInterval(0.001)
-                            self.requestHistory()
-                        } else {
-                            userDefaults.historyDate = toDate
-                        }
+            self.userSubscription.history(fromDate, to: toDate, success: { (messages) -> Void in
+                if messages.count > 0 {
+                    Logger.log("PUBNUB - received history starting from: \(fromDate) to: \(toDate)")
+                    self.handleNotifications(self.notificationsFromMessages(messages))
+                    if let timetoken = messages.last?["timetoken"] as? NSNumber {
+                        userDefaults.historyDate = NSDate(timetoken: timetoken).dateByAddingTimeInterval(0.001)
+                        self.requestHistory()
                     } else {
-                        Logger.log("PUBNUB - no missed messages in history")
                         userDefaults.historyDate = toDate
                     }
-                    finish()
-                    }, failure: { _ in
-                        finish()
-                })
-            } else {
-                finish();
-            }
+                } else {
+                    userDefaults.historyDate = toDate
+                }
+                finish()
+                }, failure: { _ in finish() })
         }
     }
     
@@ -187,7 +176,7 @@ class NotificationCenter: NSObject {
                             finish()
                     })
                 }
-                Logger.log("PUBNUB - history message received \(notification)")
+                Logger.log("PUBNUB - message received \(notification)")
             }
             
             RunQueue.fetchQueue.run { finish in

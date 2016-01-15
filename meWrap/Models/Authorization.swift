@@ -35,7 +35,7 @@ class Authorization: Archive {
         return ["deviceUID","deviceName","countryCode","phone","email","unconfirmed_email","password"]
     }
     
-    var deviceUID: String? = OpenUDID.value()
+    var deviceUID: String = OpenUDID.value()
     
     var deviceName: String = UIDevice.currentDevice().modelName()
     
@@ -70,21 +70,12 @@ class Authorization: Archive {
             self.email = email
         }
         self.unconfirmed_email = userData[Keys.UnconfirmedEmail] as? String ?? ""
-        
         setCurrent()
     }
     
     static var currentAuthorization: Authorization {
-        get {
-            if let authorization = NSUserDefaults.standardUserDefaults().authorization {
-                return authorization
-            } else {
-                return Authorization()
-            }
-        }
-        set {
-            NSUserDefaults.standardUserDefaults().authorization = newValue
-        }
+        get { return NSUserDefaults.standardUserDefaults().authorization ?? Authorization() }
+        set { NSUserDefaults.standardUserDefaults().authorization = newValue }
     }
     
     var priorityEmail: String? {

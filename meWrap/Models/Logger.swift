@@ -19,7 +19,7 @@ class Logger: NSObject {
         return log
     }()
     
-    static var remoteLogging: Bool?
+    static var remoteLogging: Bool = NSUserDefaults.standardUserDefaults().remoteLogging ?? false
     
     enum LogColor: String {
         case Default = "fg255,255,255;"
@@ -31,21 +31,11 @@ class Logger: NSObject {
     
     private static let Escape = "\u{001b}["
     
-    private class func removeLoggingEnabled() -> Bool {
-        if let remoteLogging = remoteLogging {
-            return remoteLogging
-        } else {
-            let remoteLogging = NSUserDefaults.standardUserDefaults().remoteLogging ?? false
-            self.remoteLogging = remoteLogging
-            return remoteLogging
-        }
-    }
-    
     class func log(string: String, color: LogColor) {
         #if DEBUG
             print("\(Escape)\(color.rawValue)\n\n\(string)\n\(Escape);")
         #else
-            if removeLoggingEnabled() {
+            if remoteLogging {
                 leLog.log("\(User.channelName()) >> \(string)")
             }
         #endif

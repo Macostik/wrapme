@@ -318,7 +318,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         
         guard let wrap = wrap else { return }
         guard let user = User.currentUser else { return }
-        guard let deviceUID = Authorization.currentAuthorization.deviceUID else { return }
+        let deviceUID = Authorization.currentAuthorization.deviceUID
         
         titleLabel?.text = composeBar.text
         titleLabel?.superview?.hidden = false
@@ -381,7 +381,6 @@ class LiveBroadcastViewController: WLBaseViewController {
             guard let _self = self else { return }
             guard let wrap = _self.wrap else { return }
             guard let user = User.currentUser else { return }
-            guard let deviceUID = Authorization.currentAuthorization.deviceUID else { return }
             
             let broadcast = _self.broadcast
             
@@ -396,7 +395,7 @@ class LiveBroadcastViewController: WLBaseViewController {
                 "msg_type" : NotificationType.LiveBroadcast.rawValue,
                 "wrap_uid" : wrap.uid,
                 "user_uid" : user.uid,
-                "device_uid" : deviceUID,
+                "device_uid" : Authorization.currentAuthorization.deviceUID,
                 "title" : broadcast.title ?? ""
             ]
             

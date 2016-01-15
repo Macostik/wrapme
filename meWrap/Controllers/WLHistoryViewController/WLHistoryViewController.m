@@ -12,7 +12,6 @@
 #import "WLLabel.h"
 #import "WLHintView.h"
 #import "WLCandyViewController.h"
-#import "WLDownloadingView.h"
 #import "WLCommentsViewController.h"
 #import "WLDrawingViewController.h"
 #import "WLImageEditorSession.h"
@@ -365,7 +364,7 @@
         if (error) {
             if (failure) failure(error);
         } else {
-            [WLDownloadingView downloadCandy:candy success:success failure:failure];
+            [DownloadingView downloadCandy:candy success:success failure:failure];
         }
     } else {
         if (failure) failure(nil);

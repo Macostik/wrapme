@@ -95,28 +95,12 @@ extension APIRequest {
                 wrap.contributors.insert(user)
                 wrap.notifyOnUpdate(.ContributorsChanged)
             }
-            PubNub.sharedInstance?.hereNowForChannel(wrap.uid, withVerbosity: .State) { (result, status) -> Void in
-                if let uuids = result?.data?.uuids as? [[String:AnyObject]] {
-                    var broadcasts = [LiveBroadcast]()
-                    for uuid in uuids {
-                        guard let state = uuid["state"] as? [String:AnyObject] else { continue }
-                        guard let user = User.entry(state["userUid"] as? String) else { continue }
-                        if let streamName = state["streamName"] as? String {
-                            let broadcast = LiveBroadcast()
-                            broadcast.broadcaster = user
-                            broadcast.wrap = wrap
-                            broadcast.title = state["title"] as? String
-                            broadcast.streamName = streamName
-                            broadcasts.append(broadcast)
-                            user.fetchIfNeeded(nil, failure: nil)
-                        }
-                    }
-                    if broadcasts.count > 0 {
-                        wrap.liveBroadcasts = broadcasts
-                        wrap.notifyOnUpdate(.LiveBroadcastsChanged)
-                    }
+            NotificationCenter.defaultCenter.fetchLiveBroadcastsForWrap(wrap, completionHandler: { (broadcasts) -> Void in
+                if broadcasts.count > 0 {
+                    wrap.liveBroadcasts = broadcasts
+                    wrap.notifyOnUpdate(.LiveBroadcastsChanged)
                 }
-            }
+            })
             return wrap
             }.contributionUnavailable(wrap)
     }

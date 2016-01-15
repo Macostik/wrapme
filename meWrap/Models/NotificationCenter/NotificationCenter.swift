@@ -134,32 +134,6 @@ class NotificationCenter: NSObject {
         return notifications.sort({ $0.publishedAt < $1.publishedAt })
     }
     
-    func fetchLiveBroadcasts(completionHandler: Void -> Void) {
-        PubNub.sharedInstance?.hereNowForChannelGroup(userSubscription.name) { (result, status) -> Void in
-            if let channels = result?.data?.channels as? [String:[String:AnyObject]] {
-                for (channel, data) in channels {
-                    guard let wrap = Wrap.entry(channel) else { continue }
-                    guard let uuids = data["uuids"] as? [[String:AnyObject]] else { continue }
-                    var wrapBroadcasts = [LiveBroadcast]()
-                    for uuid in uuids {
-                        guard let state = uuid["state"] as? [String : AnyObject] else { continue }
-                        guard let user = User.entry(state["userUid"] as? String) else { continue }
-                        guard let streamName = state["streamName"] as? String else { continue }
-                        let broadcast = LiveBroadcast()
-                        broadcast.broadcaster = user
-                        broadcast.wrap = wrap
-                        broadcast.title = state["title"] as? String
-                        broadcast.streamName = streamName
-                        wrapBroadcasts.append(broadcast)
-                        user.fetchIfNeeded(nil, failure: nil)
-                    }
-                    wrap.liveBroadcasts = wrapBroadcasts
-                }
-            }
-            completionHandler()
-        }
-    }
-    
     func requestHistory() {
         RunQueue.fetchQueue.run { [unowned self] finish in
             let userDefaults = NSUserDefaults.standardUserDefaults()
@@ -331,6 +305,47 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
                     wrap.removeBroadcast(broadcast)
                     break;
                 }
+            }
+        }
+    }
+    
+    private func liveBroadcastsFromUUIDs(uuids: [[String:AnyObject]], wrap: Wrap) -> [LiveBroadcast] {
+        var broadcasts = [LiveBroadcast]()
+        for uuid in uuids {
+            guard (uuid["uuid"] as? String) != User.channelName() else { continue }
+            guard let state = uuid["state"] as? [String:AnyObject] else { continue }
+            guard let user = User.entry(state["userUid"] as? String) else { continue }
+            guard let streamName = state["streamName"] as? String else { continue }
+            let broadcast = LiveBroadcast()
+            broadcast.broadcaster = user
+            broadcast.wrap = wrap
+            broadcast.title = state["title"] as? String
+            broadcast.streamName = streamName
+            broadcasts.append(broadcast)
+            user.fetchIfNeeded(nil, failure: nil)
+        }
+        return broadcasts
+    }
+    
+    func fetchLiveBroadcasts(completionHandler: Void -> Void) {
+        PubNub.sharedInstance?.hereNowForChannelGroup(userSubscription.name) { (result, status) -> Void in
+            if let channels = result?.data?.channels as? [String:[String:AnyObject]] {
+                for (channel, data) in channels {
+                    guard let wrap = Wrap.entry(channel) else { continue }
+                    guard let uuids = data["uuids"] as? [[String:AnyObject]] else { continue }
+                    wrap.liveBroadcasts = self.liveBroadcastsFromUUIDs(uuids, wrap: wrap)
+                }
+            }
+            completionHandler()
+        }
+    }
+    
+    func fetchLiveBroadcastsForWrap(wrap: Wrap, completionHandler: [LiveBroadcast] -> Void) {
+        PubNub.sharedInstance?.hereNowForChannel(wrap.uid, withVerbosity: .State) { (result, status) -> Void in
+            if let uuids = result?.data?.uuids as? [[String:AnyObject]] {
+                completionHandler(self.liveBroadcastsFromUUIDs(uuids, wrap: wrap))
+            } else {
+                completionHandler([])
             }
         }
     }

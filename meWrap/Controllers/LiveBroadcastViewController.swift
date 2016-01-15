@@ -106,6 +106,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     }
     
     deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         UIApplication.sharedApplication().idleTimerDisabled = false
         guard let item = playerItem else { return }
         item.removeObserver(self, forKeyPath: "status")
@@ -218,6 +219,11 @@ class LiveBroadcastViewController: WLBaseViewController {
         toggleCameraButton.hidden = true
         titleLabel?.superview?.hidden = true
         startCapture(1)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillTerminate:", name: UIApplicationWillTerminateNotification, object: nil)
+    }
+    
+    func applicationWillTerminate(notification: NSNotification) {
+        stopBroadcast()
     }
     
     private func startCapture(position: Int32) {

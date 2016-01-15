@@ -18,7 +18,6 @@
 #import "GeometryHelper.h"
 #import "WLButton.h"
 #import "WLWrapEmbeddedViewController.h"
-#import "WLDownloadingView.h"
 #import "WLDrawingViewController.h"
 #import "WLImageEditorSession.h"
 #import "WLStillPictureViewController.h"

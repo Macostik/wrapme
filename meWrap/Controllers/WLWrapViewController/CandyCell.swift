@@ -29,7 +29,7 @@ class CandyCell: StreamReusableView {
             if candy.updateError() == nil && !candy.isVideo {
                 
                 menu.addEditPhotoAction({ (_) -> Void in
-                    WLDownloadingView.downloadCandy(candy, success: { (image) -> Void in
+                    DownloadingView.downloadCandy(candy, success: { (image) -> Void in
                         WLImageEditorSession.editImage(image, completion: { (image) -> Void in
                             if let image = image {
                                 candy.editWithImage(image)
@@ -41,7 +41,7 @@ class CandyCell: StreamReusableView {
                 })
                 
                 menu.addDrawPhotoAction({ (_) -> Void in
-                    WLDownloadingView.downloadCandy(candy, success: { (image) -> Void in
+                    DownloadingView.downloadCandy(candy, success: { (image) -> Void in
                         WLDrawingViewController.draw(image, finish: { (image) -> Void in
                             if let image = image {
                                 candy.editWithImage(image)

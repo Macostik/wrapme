@@ -5181,17 +5181,27 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Y7K-BP-shZ" firstAttribute="width" secondItem="0QE-1w-1ed" secondAttribute="width" multiplier="0.9" id="3Bv-6L-KAK"/>
                             <constraint firstItem="Y7K-BP-shZ" firstAttribute="centerX" secondItem="0QE-1w-1ed" secondAttribute="centerX" id="MQS-wI-njg"/>
                             <constraint firstItem="Y7K-BP-shZ" firstAttribute="centerY" secondItem="0QE-1w-1ed" secondAttribute="centerY" id="Rl0-1d-fJ4"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="gRg-uE-e2k" appends="YES" id="2nn-aO-8xV"/>
+                        </connections>
                     </view>
                     <connections>
+                        <outlet property="contentView" destination="Y7K-BP-shZ" id="Cpj-0W-h2S"/>
                         <outlet property="descriptionLabel" destination="UJa-bv-mLk" id="bmf-LZ-Cs3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XCy-VB-G9b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="gRg-uE-e2k">
+                    <connections>
+                        <action selector="panHanle:" destination="F6O-rd-ftl" id="ycM-kY-mh5"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1730" y="-1228"/>
         </scene>

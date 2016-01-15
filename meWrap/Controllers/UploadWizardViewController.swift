@@ -159,6 +159,7 @@ class UploadWizardEndViewController: WLBaseViewController {
     var friendsInvited = false
     
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var contentView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -169,7 +170,40 @@ class UploadWizardEndViewController: WLBaseViewController {
         }
     }
     
-    @IBAction func close(sender: UIButton) {
+    @IBAction func close(sender: UIButton?) {
         presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+    }
+    
+    @IBAction func panHanle(gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translationInView(view).y
+        let percentCompleted = abs(translation/view.height)
+        switch gesture.state {
+        case .Changed:
+            contentView.transform = CGAffineTransformMakeTranslation(0, translation)
+        case .Ended, .Cancelled:
+            if  (percentCompleted > 0.25 || abs(gesture.velocityInView(view).y) > 1000) {
+                let endPoint = view.height
+                UIView.animateWithDuration(0.25, animations: { () -> Void in
+                    self.contentView.transform = CGAffineTransformMakeTranslation(0, translation <= 0 ? -endPoint : endPoint)
+                    }, completion: { (finished) -> Void in
+                        self.close(nil)
+                })
+            } else {
+                UIView.animateWithDuration(0.25, animations: { () -> Void in
+                    self.contentView.transform = CGAffineTransformIdentity
+                })
+            }
+        default:break
+        }
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+       let touch = touches.first
+        if let point = touch?.locationInView(view) {
+            if (!contentView.frame.contains(point)) {
+                close(nil)
+            }
+            
+        }
     }
 }

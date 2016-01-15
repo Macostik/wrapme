@@ -51,6 +51,8 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     @IBOutlet weak var chatStreamView: StreamView!
     
+    @IBOutlet weak var sendButton: UIButton!
+    
     var chatDataSource: StreamDataSource!
     
     weak var previewLayer: AVCaptureVideoPreviewLayer? {
@@ -161,6 +163,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         
         layoutPrioritizer.defaultState = false
         startButton.hidden = true
+        sendButton.highlighted = true
         
         guard let url = "http://live.mewrap.me:1935/live/\(broadcast.streamName)/playlist.m3u8".URL else { return }
         

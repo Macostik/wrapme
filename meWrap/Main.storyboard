@@ -4198,8 +4198,8 @@ QWRkEEZyaWVuZFZpZXc
                                         <state key="disabled">
                                             <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="highlighted" title=")">
+                                            <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="size" keyPath="touchArea">
@@ -4400,6 +4400,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                         <outlet property="joinsCountLabel" destination="0dx-bB-3YN" id="CBO-L4-d7s"/>
                         <outlet property="joinsCountView" destination="cxE-yC-9tL" id="H2T-aO-YBN"/>
                         <outlet property="layoutPrioritizer" destination="VI5-dK-eHZ" id="Pdo-Pw-Wfp"/>
+                        <outlet property="sendButton" destination="SNf-v4-cws" id="tVE-Kq-9ZO"/>
                         <outlet property="startButton" destination="u8X-Zw-0D3" id="CAw-XR-ccT"/>
                         <outlet property="titleLabel" destination="JKm-rj-U2W" id="uLx-6o-Jjy"/>
                         <outlet property="toggleCameraButton" destination="l6r-AU-Age" id="yAg-yz-pNf"/>

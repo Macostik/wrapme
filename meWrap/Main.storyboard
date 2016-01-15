@@ -4198,9 +4198,7 @@ QWRkEEZyaWVuZFZpZXc
                                         <state key="disabled">
                                             <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
-                                        <state key="highlighted" title=")">
-                                            <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
+                                        <state key="selected" title=")"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="size" keyPath="touchArea">
                                                 <size key="value" width="70" height="70"/>

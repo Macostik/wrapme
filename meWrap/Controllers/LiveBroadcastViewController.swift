@@ -163,7 +163,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         
         layoutPrioritizer.defaultState = false
         startButton.hidden = true
-        sendButton.highlighted = true
+        sendButton.setTitle(")", forState: .Normal)
         
         guard let url = "http://live.mewrap.me:1935/live/\(broadcast.streamName)/playlist.m3u8".URL else { return }
         

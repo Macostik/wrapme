@@ -83,31 +83,33 @@ class UploadWizardViewController: WLBaseViewController {
             controller.wrap = wrap
             controller.isBroadcasting = isBroadcasting
             navigationController?.pushViewController(controller, animated: false)
-            controller.completionHandler = { [unowned self] invited in
-                let storyboard = self.storyboard
-                let navigationController = self.navigationController
+            controller.completionHandler = { [weak self] invited in
+                let storyboard = self?.storyboard
+                let navigationController = self?.navigationController
                 var controllers: [UIViewController] = []
                 if let controller = navigationController?.viewControllers.first ?? storyboard?["home"] {
                     controllers.append(controller)
                 }
                 
-                if let controller = self.wrap?.viewController() {
+                if let controller = self?.wrap?.viewController() {
                     controllers.append(controller)
                 }
                 
-                self.navigationController?.viewControllers = controllers
+                navigationController?.viewControllers = controllers
                 
-                if isBroadcasting {
-                    if let controller = storyboard?["liveBroadcast"] as? LiveBroadcastViewController {
-                        controller.wrap = wrap
-                        navigationController?.presentViewController(controller, animated: false, completion: nil)
+                Dispatch.mainQueue.async({ () -> Void in
+                    if isBroadcasting {
+                        if let controller = storyboard?["liveBroadcast"] as? LiveBroadcastViewController {
+                            controller.wrap = wrap
+                            navigationController?.presentViewController(controller, animated: false, completion: nil)
+                        }
+                    } else {
+                        if let controller = storyboard?["uploadWizardEnd"] as? UploadWizardEndViewController {
+                            controller.friendsInvited = invited
+                            navigationController?.presentViewController(controller, animated: false, completion: nil)
+                        }
                     }
-                } else {
-                    if let controller = storyboard?["uploadWizardEnd"] as? UploadWizardEndViewController {
-                        controller.friendsInvited = invited
-                        navigationController?.presentViewController(controller, animated: false, completion: nil)
-                    }
-                }
+                })
             }
         }
     }
@@ -145,6 +147,9 @@ extension UploadWizardViewController: WLStillPictureViewControllerDelegate {
     
     func stillPictureViewController(controller: WLStillPictureViewController!, didFinishWithPictures pictures: [AnyObject]!) {
         dismissViewControllerAnimated(false, completion: nil)
+        if let wrap = controller.wrap where self.wrap != wrap {
+            self.wrap = wrap
+        }
         guard let wrap = wrap else { return }
         SoundPlayer.player.play(.s04)
         if let pictures = pictures as? [MutableAsset] {

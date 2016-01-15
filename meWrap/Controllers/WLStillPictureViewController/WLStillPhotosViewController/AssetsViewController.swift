@@ -122,9 +122,6 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         }
         
         dataSource.addMetrics(metrics)
-        dataSource.numberOfGridColumns = 1
-        dataSource.sizeForGridColumns = 1
-        dataSource.layoutSpacing = 3
         
         self.dataSource = dataSource
         

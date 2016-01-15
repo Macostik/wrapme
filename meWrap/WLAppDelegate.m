@@ -67,6 +67,30 @@
     [self.wormhole listenForMessageWithIdentifier:@"recentUpdatesRequest" listener:^(id  _Nullable messageObject) {
         [self.wormhole passMessageObject:[Contribution recentUpdates:6] identifier:@"recentUpdatesResponse"];
     }];
+    CGFloat _size = 84;
+    UIImage *image = [UIImage draw:CGSizeMake(_size, _size) opaque:NO scale:1 drawing:^(CGSize size) {
+        [[UIColor whiteColor] setFill];
+        [[UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, _size, _size)] fill];
+        UIImage *image = [UIImage imageWithContentsOfFile:@"/Users/sergeymaximenko/Downloads/camera_btn.imageset/camera_btn.png"];
+        [image drawInRect:CGRectMake(0, 0, _size, _size)];
+    }];
+    [UIImagePNGRepresentation(image) writeToFile:@"/Users/sergeymaximenko/Downloads/camera_btn.png" atomically:NO];
+    _size = 168;
+    image = [UIImage draw:CGSizeMake(_size, _size) opaque:NO scale:1 drawing:^(CGSize size) {
+        [[UIColor whiteColor] setFill];
+        [[UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, _size, _size)] fill];
+        UIImage *image = [UIImage imageWithContentsOfFile:@"/Users/sergeymaximenko/Downloads/camera_btn.imageset/camera_btn@2x.png"];
+        [image drawInRect:CGRectMake(0, 0, _size, _size)];
+    }];
+    [UIImagePNGRepresentation(image) writeToFile:@"/Users/sergeymaximenko/Downloads/camera_btn@2x.png" atomically:NO];
+    _size = 252;
+    image = [UIImage draw:CGSizeMake(_size, _size) opaque:NO scale:1 drawing:^(CGSize size) {
+        [[UIColor whiteColor] setFill];
+        [[UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, _size, _size)] fill];
+        UIImage *image = [UIImage imageWithContentsOfFile:@"/Users/sergeymaximenko/Downloads/camera_btn.imageset/camera_btn@3x.png"];
+        [image drawInRect:CGRectMake(0, 0, _size, _size)];
+    }];
+    [UIImagePNGRepresentation(image) writeToFile:@"/Users/sergeymaximenko/Downloads/camera_btn@3x.png" atomically:NO];
     
 	return YES;
 }

@@ -185,7 +185,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         updateBroadcastInfo()
         
         Dispatch.mainQueue.after(0.5) { () -> Void in
-            PubNub.sharedInstance.hereNowForChannel("ch-\(broadcast.streamName)", withVerbosity: .UUID) { [weak self] (result, status) -> Void in
+            PubNub.sharedInstance?.hereNowForChannel("ch-\(broadcast.streamName)", withVerbosity: .UUID) { [weak self] (result, status) -> Void in
                 if let uuids = result?.data?.uuids as? [String] {
                     var viewers = Set<User>()
                     for uuid in uuids {
@@ -407,7 +407,7 @@ class LiveBroadcastViewController: WLBaseViewController {
             
             message["pn_apns"] = pushPayload
             
-            PubNub.sharedInstance.publish(message, toChannel: wrap.uid, withCompletion: nil)
+            PubNub.sharedInstance?.publish(message, toChannel: wrap.uid, withCompletion: nil)
             
             let liveEvent = LiveBroadcast.Event(type: .Info)
             liveEvent.text = String(format: "formatted_you_are_now_live".ls, wrap.name ?? "")

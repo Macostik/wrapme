@@ -43,7 +43,7 @@ class NotificationCenter: NSObject {
     }
     
     func configure() {
-        PubNub.sharedInstance.addListener(self)
+        PubNub.sharedInstance?.addListener(self)
         User.notifier().addReceiver(self)
     }
     
@@ -135,7 +135,7 @@ class NotificationCenter: NSObject {
     }
     
     func fetchLiveBroadcasts(completionHandler: Void -> Void) {
-        PubNub.sharedInstance.hereNowForChannelGroup(userSubscription.name) { (result, status) -> Void in
+        PubNub.sharedInstance?.hereNowForChannelGroup(userSubscription.name) { (result, status) -> Void in
             if let channels = result?.data?.channels as? [String:[String:AnyObject]] {
                 for (channel, data) in channels {
                     guard let wrap = Wrap.entry(channel) else { continue }

@@ -206,6 +206,7 @@
 		C557B6D91C22BC610067631E /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557B6D81C22BC610067631E /* Network.swift */; };
 		C557B6DB1C22C0B00067631E /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557B6DA1C22C0B00067631E /* SoundPlayer.swift */; };
 		C557B6DE1C22F5980067631E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557B6DD1C22F5980067631E /* Logger.swift */; };
+		C558710E1C48F63500F09E58 /* NotificationSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = C558710D1C48F63500F09E58 /* NotificationSubscription.swift */; };
 		C559974C1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
 		C55A451A1BAC18580055AEC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C55A451C1BAC18580055AEC2 /* Localizable.strings */; };
 		C55BE8C31C03062C006B04FC /* NSObject+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BE8C21C03062C006B04FC /* NSObject+Ext.swift */; };
@@ -669,6 +670,7 @@
 		C557B6DA1C22C0B00067631E /* SoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
 		C557B6DD1C22F5980067631E /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		C557BA801BF5D47900AE9974 /* RecentUpdatesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentUpdatesViewController.swift; sourceTree = "<group>"; };
+		C558710D1C48F63500F09E58 /* NotificationSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSubscription.swift; sourceTree = "<group>"; };
 		C55997471A25EABE003D4B29 /* WLEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEmailConfirmationViewController.h; sourceTree = "<group>"; };
 		C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEmailConfirmationViewController.m; sourceTree = "<group>"; };
 		C55A45151BAC17CF0055AEC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1393,6 +1395,7 @@
 			isa = PBXGroup;
 			children = (
 				C502B30F1C47F2EC00F66EAE /* NotificationCenter.swift */,
+				C558710D1C48F63500F09E58 /* NotificationSubscription.swift */,
 				C502B3101C47F2EC00F66EAE /* PubNub+Ext.swift */,
 				C502B30E1C47F2EC00F66EAE /* Notification.swift */,
 				C502B30B1C47F2EC00F66EAE /* CandyNotification.swift */,
@@ -2590,6 +2593,7 @@
 				C55141A41C2EFB090080E731 /* DeviceManager.swift in Sources */,
 				C55BE8C31C03062C006B04FC /* NSObject+Ext.swift in Sources */,
 				C502B3241C47F30400F66EAE /* APIRequest.swift in Sources */,
+				C558710E1C48F63500F09E58 /* NotificationSubscription.swift in Sources */,
 				C53012931BF4E3EA00098F9C /* EmojiCell.swift in Sources */,
 				C521E18C1BC7AE1B00505432 /* VideoPlayerView.swift in Sources */,
 				C502B3131C47F2EC00F66EAE /* CandyNotification.swift in Sources */,

@@ -95,7 +95,7 @@ extension APIRequest {
                 wrap.contributors.insert(user)
                 wrap.notifyOnUpdate(.ContributorsChanged)
             }
-            PubNub.sharedInstance.hereNowForChannel(wrap.uid, withVerbosity: .State) { (result, status) -> Void in
+            PubNub.sharedInstance?.hereNowForChannel(wrap.uid, withVerbosity: .State) { (result, status) -> Void in
                 if let uuids = result?.data?.uuids as? [[String:AnyObject]] {
                     var broadcasts = [LiveBroadcast]()
                     for uuid in uuids {

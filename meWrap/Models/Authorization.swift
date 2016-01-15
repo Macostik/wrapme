@@ -62,7 +62,7 @@ class Authorization: Archive {
     }
     
     var canAuthorize: Bool {
-        return canSignUp && !(email?.isEmpty ?? true)
+        return canSignUp && !(password?.isEmpty ?? true)
     }
     
     func updateWithUserData(userData: [String : AnyObject]) {

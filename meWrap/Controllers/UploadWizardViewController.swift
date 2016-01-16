@@ -77,7 +77,7 @@ class UploadWizardViewController: WLBaseViewController {
         }
     }
     
-    private func finish(isBroadcasting: Bool, friendsInvited: Bool) {
+    private func finish(isBroadcasting: Bool) {
         var controllers: [UIViewController] = []
         if let controller = navigationController?.viewControllers.first ?? storyboard?["home"] {
             controllers.append(controller)
@@ -93,14 +93,8 @@ class UploadWizardViewController: WLBaseViewController {
                 controller.wrap = wrap
                 controllers.append(controller)
             }
-            navigationController?.viewControllers = controllers
-        } else {
-            navigationController?.viewControllers = controllers
-            if let controller = storyboard?["uploadWizardEnd"] as? UploadWizardEndViewController {
-                controller.friendsInvited = friendsInvited
-                navigationController?.presentViewController(controller, animated: false, completion: nil)
-            }
         }
+        navigationController?.viewControllers = controllers
     }
     
     private func presentAddFriends(wrap: Wrap, isBroadcasting: Bool) {
@@ -110,7 +104,7 @@ class UploadWizardViewController: WLBaseViewController {
             controller.isWrapCreation = true
             navigationController?.pushViewController(controller, animated: false)
             controller.completionHandler = { [weak self] invited in
-                self?.finish(isBroadcasting, friendsInvited: invited)
+                self?.finish(isBroadcasting)
             }
         }
     }
@@ -156,7 +150,12 @@ extension UploadWizardViewController: WLStillPictureViewControllerDelegate {
         if let pictures = pictures as? [MutableAsset] {
             wrap.uploadAssets(pictures)
         }
-        finish(false, friendsInvited: controller.friendsInvited)
+        let navigationController = self.navigationController
+        finish(false)
+        if let uploadWizardEnd = storyboard?["uploadWizardEnd"] as? UploadWizardEndViewController {
+            uploadWizardEnd.friendsInvited = controller.friendsInvited
+            navigationController?.presentViewController(uploadWizardEnd, animated: false, completion: nil)
+        }
     }
 }
 
@@ -209,7 +208,6 @@ class UploadWizardEndViewController: WLBaseViewController {
             if (!contentView.frame.contains(point)) {
                 close(nil)
             }
-            
         }
     }
 }

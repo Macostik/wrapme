@@ -37,7 +37,7 @@
     self.openedRows = [NSMutableArray array];
     [self.spinner startAnimating];
     
-    if ([UploadWizardViewController isActive]) {
+    if (self.isWrapCreation) {
         self.titleLabel.text = @"tell_friends_to_join".ls;
         self.nextButton.hidden = self.isBroadcasting;
         if (self.isBroadcasting) {
@@ -242,7 +242,7 @@
 - (void)recordCell:(AddressBookRecordCell *)cell didSelectPhoneNumber:(AddressBookPhoneNumber *)person {
     [self.addressBook selectPhoneNumber:person];
     BOOL isEmpty = self.addressBook.selectedPhoneNumbers.count == 0;
-    if ([UploadWizardViewController isActive]) {
+    if (self.isWrapCreation) {
         if (self.isBroadcasting) {
             self.nextButton.hidden = isEmpty;
             [self.nextButton setTitle:@"next".ls forState:UIControlStateNormal];

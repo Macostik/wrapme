@@ -826,7 +826,7 @@
         <!--Edit Avatar View Controller-->
         <scene sceneID="bbN-NV-w14">
             <objects>
-                <viewController storyboardIdentifier="WLEditAvatarViewController" id="qIf-F1-lSO" customClass="WLEditAvatarViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="editAvatar" id="qIf-F1-lSO" customClass="EditAvatarViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bNq-o4-O2V"/>
                         <viewControllerLayoutGuide type="bottom" id="WFI-ef-EyH"/>
@@ -971,10 +971,10 @@
             </objects>
             <point key="canvasLocation" x="3680" y="-906"/>
         </scene>
-        <!--Still Avatar View Controller-->
+        <!--Capture Avatar View Controller-->
         <scene sceneID="g5Y-fv-wW9">
             <objects>
-                <navigationController storyboardIdentifier="WLStillAvatarViewController" definesPresentationContext="YES" navigationBarHidden="YES" id="owE-f8-xzI" customClass="WLStillAvatarViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="captureAvatar" definesPresentationContext="YES" navigationBarHidden="YES" id="owE-f8-xzI" customClass="CaptureAvatarViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedStatusBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="e7n-qu-DxN">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1771,6 +1771,6 @@
         <image name="switch_to_front_cam" width="23" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Eot-wR-oeG"/>
+        <segue reference="l1z-eb-ReB"/>
     </inferredMetricsTieBreakers>
 </document>

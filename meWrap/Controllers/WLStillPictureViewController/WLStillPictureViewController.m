@@ -11,6 +11,7 @@
 #import "WLHomeViewController.h"
 #import "WLHintView.h"
 #import "WLCameraViewController.h"
+#import "WLStillPhotosViewController.h"
 
 @import Photos;
 
@@ -26,36 +27,35 @@
 
 @synthesize wrapView = _wrapView;
 
-@synthesize mode = _mode;
+@synthesize isAvatar = _isAvatar;
 
-+ (instancetype)stillPhotosViewController {
-    return (id)[UIStoryboard camera][@"WLStillPhotosViewController"];
++ (instancetype)stillPhotosViewController:(Wrap*)wrap {
+    WLStillPhotosViewController *controller = (id)[UIStoryboard camera][@"WLStillPhotosViewController"];
+    controller.wrap = wrap;
+    controller.isAvatar = NO;
+    return controller;
 }
 
-+ (instancetype)stillAvatarViewController {
-    return (id)[UIStoryboard camera][@"WLStillAvatarViewController"];
++ (instancetype)captureAvatarViewController {
+    CaptureAvatarViewController *controller = (id)[UIStoryboard camera][@"captureAvatar"];
+    controller.isAvatar = YES;
+    return controller;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    id <WLStillPictureViewControllerDelegate> delegate = [self getValidDelegate];
-    if ([delegate respondsToSelector:@selector(stillPictureViewControllerMode:)]) {
-        self.mode = [delegate stillPictureViewControllerMode:self];
-    }
-    
     WLCameraViewController* cameraViewController = [self.viewControllers lastObject];
     cameraViewController.delegate = self;
-    cameraViewController.mode = self.mode;
+    cameraViewController.isAvatar = self.isAvatar;
     cameraViewController.wrap = self.wrap;
     self.cameraViewController = cameraViewController;
     
-    if (self.mode == StillPictureModeDefault) {
+    if (!self.isAvatar) {
         [[Wrap notifier] addReceiver:self];
-    }
-    
-    if (self.wrap == nil && self.mode == StillPictureModeDefault) {
-        [self showWrapPickerWithController:NO];
+        if (self.wrap == nil) {
+            [self showWrapPickerWithController:NO];
+        }
     }
 }
 
@@ -128,11 +128,7 @@
 }
 
 - (CGFloat)imageWidthForCurrentMode {
-    if (self.mode == StillPictureModeDefault) {
-        return 1200;
-    } else {
-        return 600;
-    }
+    return self.isAvatar ? 600 : 1200;
 }
 
 - (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion {
@@ -184,8 +180,22 @@
 - (void)finishWithPictures:(NSArray*)pictures {
     
     id <WLStillPictureViewControllerDelegate> delegate = [self getValidDelegate];
-    if ([delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
-        [delegate stillPictureViewController:self didFinishWithPictures:pictures];
+    if (!self.isAvatar && [self.createdWraps containsObject:self.wrap]) {
+        __weak typeof(self)weakSelf = self;
+        WLAddContributorsViewController *addFriends = (id)[UIStoryboard main][@"addFriends"];
+        addFriends.wrap = self.wrap;
+        addFriends.isWrapCreation = YES;
+        [addFriends setCompletionHandler:^(BOOL added) {
+            weakSelf.friendsInvited = added;
+            if ([delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
+                [delegate stillPictureViewController:weakSelf didFinishWithPictures:pictures];
+            }
+        }];
+        [self pushViewController:addFriends animated:NO];
+    } else {
+        if ([delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
+            [delegate stillPictureViewController:self didFinishWithPictures:pictures];
+        }
     }
 }
 
@@ -210,6 +220,13 @@
 
 // MARK: - WLWrapPickerViewControllerDelegate
 
+- (void)wrapPickerViewController:(WLWrapPickerViewController *)controller didCreateWrap:(Wrap *)wrap {
+    if (!self.createdWraps) {
+        self.createdWraps = [NSMutableArray array];
+    }
+    [self.createdWraps addObject:wrap];
+}
+
 - (void)wrapPickerViewController:(WLWrapPickerViewController *)controller didSelectWrap:(Wrap *)wrap {
     self.wrap = wrap;
 }
@@ -233,6 +250,9 @@
 }
 
 - (void)notifier:(EntryNotifier *)notifier willDeleteEntry:(Entry *)entry {
+    if ([self.createdWraps containsObject:entry]) {
+        [self.createdWraps removeObject:entry];
+    }
     self.wrap = [[[User currentUser] sortedWraps] firstObject];
     id <WLStillPictureViewControllerDelegate> delegate = [self getValidDelegate];
     if (!self.presentedViewController && [delegate respondsToSelector:@selector(stillPictureViewController:didSelectWrap:)]) {

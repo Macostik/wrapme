@@ -16,10 +16,6 @@ import Foundation
     case Ready, InProgress, Finished
 }
 
-@objc enum StillPictureMode: Int {
-    case Default, Square
-}
-
 @objc enum MediaType: Int16 {
     case Photo = 10, Video = 20
 }

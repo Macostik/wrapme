@@ -69,11 +69,35 @@ class UploadWizardViewController: WLBaseViewController {
     
     @IBAction func presentCamera(sender: AnyObject) {
         if let wrap = defaultWrap() {
-            if let controller = WLStillPictureViewController.stillPhotosViewController() {
-                controller.wrap = wrap
-                controller.mode = .Default
+            if let controller = WLStillPictureViewController.stillPhotosViewController(wrap) {
+                controller.createdWraps = NSMutableArray(object: wrap)
                 controller.delegate = self
                 presentViewController(controller, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    private func finish(isBroadcasting: Bool, friendsInvited: Bool) {
+        var controllers: [UIViewController] = []
+        if let controller = navigationController?.viewControllers.first ?? storyboard?["home"] {
+            controllers.append(controller)
+        }
+        
+        if let controller = wrap?.viewController() {
+            controllers.append(controller)
+        }
+        
+        if isBroadcasting {
+            if let controller = storyboard?["liveBroadcast"] as? LiveBroadcastViewController {
+                controller.wrap = wrap
+                controllers.append(controller)
+            }
+            navigationController?.viewControllers = controllers
+        } else {
+            navigationController?.viewControllers = controllers
+            if let controller = storyboard?["uploadWizardEnd"] as? UploadWizardEndViewController {
+                controller.friendsInvited = friendsInvited
+                navigationController?.presentViewController(controller, animated: false, completion: nil)
             }
         }
     }
@@ -82,34 +106,10 @@ class UploadWizardViewController: WLBaseViewController {
         if let controller = storyboard?["addFriends"] as? WLAddContributorsViewController {
             controller.wrap = wrap
             controller.isBroadcasting = isBroadcasting
+            controller.isWrapCreation = true
             navigationController?.pushViewController(controller, animated: false)
             controller.completionHandler = { [weak self] invited in
-                let storyboard = self?.storyboard
-                let navigationController = self?.navigationController
-                var controllers: [UIViewController] = []
-                if let controller = navigationController?.viewControllers.first ?? storyboard?["home"] {
-                    controllers.append(controller)
-                }
-                
-                if let controller = self?.wrap?.viewController() {
-                    controllers.append(controller)
-                }
-                
-                navigationController?.viewControllers = controllers
-                
-                Dispatch.mainQueue.async({ () -> Void in
-                    if isBroadcasting {
-                        if let controller = storyboard?["liveBroadcast"] as? LiveBroadcastViewController {
-                            controller.wrap = wrap
-                            navigationController?.presentViewController(controller, animated: false, completion: nil)
-                        }
-                    } else {
-                        if let controller = storyboard?["uploadWizardEnd"] as? UploadWizardEndViewController {
-                            controller.friendsInvited = invited
-                            navigationController?.presentViewController(controller, animated: false, completion: nil)
-                        }
-                    }
-                })
+                self?.finish(isBroadcasting, friendsInvited: invited)
             }
         }
     }
@@ -155,7 +155,7 @@ extension UploadWizardViewController: WLStillPictureViewControllerDelegate {
         if let pictures = pictures as? [MutableAsset] {
             wrap.uploadAssets(pictures)
         }
-        presentAddFriends(wrap, isBroadcasting: false)
+        finish(false, friendsInvited: controller.friendsInvited)
     }
 }
 

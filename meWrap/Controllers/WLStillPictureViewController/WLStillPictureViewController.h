@@ -20,8 +20,6 @@
 
 - (void)stillPictureViewController:(WLStillPictureViewController*)controller didFinishWithPictures:(NSArray*)pictures;
 
-- (WLStillPictureMode)stillPictureViewControllerMode:(WLStillPictureViewController*)controller;
-
 @end
 
 @interface WLStillPictureViewController : UINavigationController <WLStillPictureBaseViewController, WLCameraViewControllerDelegate>
@@ -30,9 +28,13 @@
 
 @property (weak, nonatomic) WLCameraViewController *cameraViewController;
 
-+ (instancetype)stillPhotosViewController;
+@property (strong, nonatomic) NSMutableArray *createdWraps;
 
-+ (instancetype)stillAvatarViewController;
+@property (nonatomic) BOOL friendsInvited;
+
++ (instancetype)stillPhotosViewController:(Wrap*)wrap;
+
++ (instancetype)captureAvatarViewController;
 
 - (void)showWrapPickerWithController:(BOOL)animated;
 

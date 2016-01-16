@@ -291,9 +291,7 @@
 }
 
 - (void)openCameraForWrap:(Wrap *)wrap animated:(BOOL)animated {
-    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPhotosViewController];
-    stillPictureViewController.wrap = wrap;
-    stillPictureViewController.mode = StillPictureModeDefault;
+    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPhotosViewController:wrap];
     stillPictureViewController.delegate = self;
     [self presentViewController:stillPictureViewController animated:animated completion:nil];
 }

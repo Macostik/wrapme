@@ -121,6 +121,8 @@ class LiveBroadcastViewController: WLBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UIView.performWithoutAnimation { UIViewController.attemptRotationToDeviceOrientation() }
+        
         UIApplication.sharedApplication().idleTimerDisabled = true
         chatStreamView.layer.geometryFlipped = true
         
@@ -275,7 +277,6 @@ class LiveBroadcastViewController: WLBaseViewController {
         super.viewDidLayoutSubviews()
         UIView.performWithoutAnimation { [unowned self] () -> Void in
             if let layer = self.previewLayer {
-                layer.frame = self.view.bounds
                 layer.frame = self.view.bounds
                 layer.connection?.videoOrientation = self.orientationForPreview()
             }
@@ -435,7 +436,7 @@ class LiveBroadcastViewController: WLBaseViewController {
         if isBroadcasting {
             stopBroadcast()
         }
-        presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+        navigationController?.popViewControllerAnimated(false)
     }
     
     @IBAction func finishTitleInput(sender: UIButton) {
@@ -581,14 +582,14 @@ extension LiveBroadcastViewController: EntryNotifying {
         guard let wrap = wrap else { return }
         guard event == .LiveBroadcastsChanged else { return }
         if !isBroadcasting && !wrap.liveBroadcasts.contains(broadcast) {
-            presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+            navigationController?.popViewControllerAnimated(false)
         } else {
             updateBroadcastInfo()
         }
     }
     
     func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
-        presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+        navigationController?.popViewControllerAnimated(false)
     }
     
     func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {

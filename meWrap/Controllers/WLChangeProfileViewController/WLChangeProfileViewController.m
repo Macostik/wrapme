@@ -149,10 +149,6 @@
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
-- (StillPictureMode)stillPictureViewControllerMode:(WLStillPictureViewController *)controller {
-    return StillPictureModeSquare;
-}
-
 #pragma mark - EntryNotifying
 
 - (BOOL)notifier:(OrderedNotifier *)notifier shouldNotifyBeforeReceiver:(id)receiver {

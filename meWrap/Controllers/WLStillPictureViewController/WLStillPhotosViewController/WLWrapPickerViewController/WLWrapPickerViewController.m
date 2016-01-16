@@ -189,6 +189,7 @@
     wrap.name = name;
     [wrap notifyOnAddition];
     [self.delegate wrapPickerViewController:self didSelectWrap:wrap];
+    [self.delegate wrapPickerViewController:self didCreateWrap:wrap];
     [self.delegate wrapPickerViewControllerDidFinish:self];
     [[Uploader wrapUploader] upload:[Uploading uploading:wrap] success:^(id object) {
     } failure:^(NSError *error) {

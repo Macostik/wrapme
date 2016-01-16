@@ -36,7 +36,7 @@
     __weak typeof(self)weakSelf = self;
     self.view.userInteractionEnabled = NO;
     MutableAsset *picture = [[MutableAsset alloc] init];
-    picture.mode = self.mode;
+    picture.isAvatar = self.isAvatar;
     picture.canBeSavedToAssets = saveToAlbum;
     [self addPicture:picture success:^(MutableAsset *picture){
         [weakSelf.runQueue run:^(Block finish) {
@@ -90,7 +90,7 @@
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithVideoAtPath:(NSString *)path saveToAlbum:(BOOL)saveToAlbum {
     MutableAsset *picture = [[MutableAsset alloc] init];
-    picture.mode = self.mode;
+    picture.isAvatar = self.isAvatar;
     picture.type = MediaTypeVideo;
     picture.date = [NSDate now];
     picture.canBeSavedToAssets = saveToAlbum;
@@ -143,7 +143,7 @@
 - (void)handleAsset:(PHAsset*)asset {
     __weak typeof(self)weakSelf = self;
     MutableAsset *picture = [[MutableAsset alloc] init];
-    picture.mode = self.mode;
+    picture.isAvatar = self.isAvatar;
     picture.assetID = asset.localIdentifier;
     picture.date = asset.creationDate;
     picture.type = asset.mediaType == PHAssetMediaTypeVideo ? MediaTypeVideo : MediaTypePhoto;

@@ -12,6 +12,8 @@
 
 @protocol WLWrapPickerViewControllerDelegate <NSObject>
 
+- (void)wrapPickerViewController:(WLWrapPickerViewController*)controller didCreateWrap:(Wrap *)wrap;
+
 - (void)wrapPickerViewController:(WLWrapPickerViewController*)controller didSelectWrap:(Wrap *)wrap;
 
 - (void)wrapPickerViewControllerDidFinish:(WLWrapPickerViewController*)controller;

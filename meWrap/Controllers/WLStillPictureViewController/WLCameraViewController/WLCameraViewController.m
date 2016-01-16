@@ -107,14 +107,6 @@
 #pragma mark - View controller lifecycle
 
 - (void)viewDidLoad {
-    
-//    if (self.bottomViewHeightConstraint) {
-//        CGRect frame = self.preferredViewFrame;
-//        CGFloat bottomViewHeight = MAX(130, frame.size.height - frame.size.width / 0.75);
-//        self.bottomViewHeightConstraint.constant = bottomViewHeight;
-//        self.cameraViewBottomConstraint.constant = bottomViewHeight;
-//    }
-    
 	[super viewDidLoad];
     
     self.sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
@@ -127,7 +119,7 @@
     
     __weak typeof(self)weakSelf = self;
     
-    if (self.mode == StillPictureModeDefault) {
+    if (!self.isAvatar) {
         UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(startVideoRecording:)];
         recognizer.delegate = self;
         [self.takePhotoButton addGestureRecognizer:recognizer];
@@ -136,13 +128,13 @@
     [self authorize:^{
         AVCaptureDevicePosition position = AVCaptureDevicePositionBack;
         AVCaptureFlashMode flashMode = AVCaptureFlashModeOff;
-        if (weakSelf.mode == StillPictureModeDefault) {
+        if (weakSelf.isAvatar) {
+            position = AVCaptureDevicePositionFront;
+        } else {
             NSNumber *savedPosition = [NSUserDefaults standardUserDefaults].cameraDefaultPosition;
             if (savedPosition) position = [savedPosition integerValue];
             NSNumber *savedFlashMode = [NSUserDefaults standardUserDefaults].cameraDefaultFlashMode;
             if (savedFlashMode) flashMode = [savedFlashMode integerValue];
-        } else {
-            position = AVCaptureDevicePositionFront;
         }
         weakSelf.position = position;
         weakSelf.flashMode = weakSelf.flashModeControl.mode = flashMode;
@@ -157,7 +149,7 @@
         if ([assetsViewController isKindOfClass:[AssetsViewController class]]) {
             self.assetsViewController = assetsViewController;
             self.assetsViewController.delegate = self.delegate;
-            self.assetsViewController.mode = self.mode;
+            self.assetsViewController.isAvatar = self.isAvatar;
             break;
         }
     }
@@ -307,7 +299,7 @@
     [self configureDevice:^(AVCaptureDevice *device) {
         if ([device isFlashModeSupported:flashMode]) {
             device.flashMode = flashMode;
-            if (weakSelf.mode == StillPictureModeDefault) {
+            if (!weakSelf.isAvatar) {
                 [NSUserDefaults standardUserDefaults].cameraDefaultFlashMode = @(flashMode);
             }
         } else {
@@ -324,7 +316,7 @@
 	}
 	self.flashMode = self.flashModeControl.mode;
     self.zoomScale = 1;
-    if (self.mode == StillPictureModeDefault) {
+    if (!self.isAvatar) {
         if (self.position != AVCaptureDevicePositionUnspecified)
             [NSUserDefaults standardUserDefaults].cameraDefaultPosition = @(self.position);
     }

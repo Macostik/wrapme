@@ -306,9 +306,7 @@
 // MARK: - WLMediaViewControllerDelegate
 
 - (void)mediaViewControllerDidAddPhoto:(MediaViewController *)controller {
-    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPhotosViewController];
-    stillPictureViewController.wrap = self.wrap;
-    stillPictureViewController.mode = StillPictureModeDefault;
+    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPhotosViewController:self.wrap];
     stillPictureViewController.delegate = self;
     [self presentViewController:stillPictureViewController animated:NO completion:nil];
 }

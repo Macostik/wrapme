@@ -8,11 +8,6 @@
 
 #import "WLBaseViewController.h"
 
-typedef NS_OPTIONS(NSUInteger, WLStillPictureMode) {
-    Default,
-    Square
-};
-
 @class WLStillPictureBaseViewController;
 @protocol WLStillPictureBaseViewController;
 
@@ -28,7 +23,7 @@ typedef NS_OPTIONS(NSUInteger, WLStillPictureMode) {
 
 @protocol WLStillPictureBaseViewController <WLStillPictureBaseViewControllerDelegate>
 
-@property (nonatomic) WLStillPictureMode mode;
+@property (nonatomic) BOOL isAvatar;
 
 @property (weak, nonatomic) Wrap *wrap;
 

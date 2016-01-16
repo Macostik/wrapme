@@ -146,8 +146,6 @@
 		C54605261C08C8CB00FB2303 /* NSDate+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52279611BECCA8600B1C49C /* NSDate+Ext.swift */; };
 		C54605271C08C8CB00FB2303 /* NSDate+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52279651BECCE8A00B1C49C /* NSDate+Formatting.swift */; };
 		C546052C1C08C8CB00FB2303 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4E70E1C07687A00D2FC16 /* UIColor+Ext.swift */; };
-		C54731B01B906A7400B583FD /* WLEditAvatarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731931B906A7400B583FD /* WLEditAvatarViewController.m */; };
-		C54731B21B906A7400B583FD /* WLStillAvatarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731951B906A7400B583FD /* WLStillAvatarViewController.m */; };
 		C54731B41B906A7400B583FD /* WLBatchEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731991B906A7400B583FD /* WLBatchEditPictureViewController.m */; };
 		C54731BC1B906A7400B583FD /* WLStillPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731A31B906A7400B583FD /* WLStillPhotosViewController.m */; };
 		C54731BE1B906A7400B583FD /* WLWrapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731A61B906A7400B583FD /* WLWrapPickerViewController.m */; };
@@ -222,6 +220,7 @@
 		C560D22B1AFB7703006B906E /* WLSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C560D2271AFB7703006B906E /* WLSwipeViewController.m */; };
 		C560D2371AFBB55E006B906E /* WLHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C560D2331AFBB55E006B906E /* WLHistoryViewController.m */; };
 		C56337591C16CE8300F4E182 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56337581C16CE8300F4E182 /* MediaViewController.swift */; };
+		C564C8161C4A47EE001C6460 /* CaptureAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C564C8151C4A47EE001C6460 /* CaptureAvatarViewController.swift */; };
 		C565ED6D1B9F2567002352C8 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B787D9C1A27876F004AE459 /* NotificationCenter.framework */; };
 		C568D8D91A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
 		C56D4E4F1C0B54D300B20566 /* meWrapWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C54604D71C08C6DF00FB2303 /* meWrapWatchApp.app */; };
@@ -627,10 +626,6 @@
 		C54604D11C08C5D800FB2303 /* NSObject+NibLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+NibLoading.swift"; sourceTree = "<group>"; };
 		C54604D71C08C6DF00FB2303 /* meWrapWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = meWrapWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54604E31C08C6DF00FB2303 /* meWrapWatchExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = meWrapWatchExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		C54731921B906A7400B583FD /* WLEditAvatarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEditAvatarViewController.h; sourceTree = "<group>"; };
-		C54731931B906A7400B583FD /* WLEditAvatarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEditAvatarViewController.m; sourceTree = "<group>"; };
-		C54731941B906A7400B583FD /* WLStillAvatarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLStillAvatarViewController.h; sourceTree = "<group>"; };
-		C54731951B906A7400B583FD /* WLStillAvatarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLStillAvatarViewController.m; sourceTree = "<group>"; };
 		C54731981B906A7400B583FD /* WLBatchEditPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLBatchEditPictureViewController.h; sourceTree = "<group>"; };
 		C54731991B906A7400B583FD /* WLBatchEditPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLBatchEditPictureViewController.m; sourceTree = "<group>"; };
 		C54731A21B906A7400B583FD /* WLStillPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLStillPhotosViewController.h; sourceTree = "<group>"; };
@@ -699,6 +694,7 @@
 		C560D2331AFBB55E006B906E /* WLHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLHistoryViewController.m; sourceTree = "<group>"; };
 		C562D1071BDF65F60033EDC8 /* WatchExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchExtensionDelegate.swift; sourceTree = "<group>"; };
 		C56337581C16CE8300F4E182 /* MediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
+		C564C8151C4A47EE001C6460 /* CaptureAvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CaptureAvatarViewController.swift; path = WLStillPictureViewController/CaptureAvatarViewController.swift; sourceTree = "<group>"; };
 		C568D8D41A6D491800C2333B /* WLHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHintView.h; sourceTree = "<group>"; };
 		C568D8D51A6D491800C2333B /* WLHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLHintView.m; sourceTree = "<group>"; };
 		C577C2611A4C427100ECC7E5 /* iVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iVersion.h; sourceTree = "<group>"; };
@@ -960,7 +956,7 @@
 		128156A81938A0BF00035F89 /* WLStillPictureViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C54731841B906A7400B583FD /* WLStillAvatarViewController */,
+				C564C8151C4A47EE001C6460 /* CaptureAvatarViewController.swift */,
 				C54731961B906A7400B583FD /* WLStillPhotosViewController */,
 				C53E5D501A851F71004F61B0 /* WLCameraViewController */,
 				C53E5CF81A84FBDB004F61B0 /* WLStillPictureBaseViewController.h */,
@@ -1580,26 +1576,6 @@
 				C54531341A24D6750048A677 /* WLLinkDeviceViewController.m */,
 			);
 			name = WLLinkDeviceViewController;
-			sourceTree = "<group>";
-		};
-		C54731841B906A7400B583FD /* WLStillAvatarViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C54731911B906A7400B583FD /* WLEditAvatarViewController */,
-				C54731941B906A7400B583FD /* WLStillAvatarViewController.h */,
-				C54731951B906A7400B583FD /* WLStillAvatarViewController.m */,
-			);
-			name = WLStillAvatarViewController;
-			path = WLStillPictureViewController/WLStillAvatarViewController;
-			sourceTree = "<group>";
-		};
-		C54731911B906A7400B583FD /* WLEditAvatarViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C54731921B906A7400B583FD /* WLEditAvatarViewController.h */,
-				C54731931B906A7400B583FD /* WLEditAvatarViewController.m */,
-			);
-			path = WLEditAvatarViewController;
 			sourceTree = "<group>";
 		};
 		C54731961B906A7400B583FD /* WLStillPhotosViewController */ = {
@@ -2558,7 +2534,6 @@
 				C560D22B1AFB7703006B906E /* WLSwipeViewController.m in Sources */,
 				C51E34EC1BD8ECC300C6F678 /* GradientView.swift in Sources */,
 				C5092CCE1C1206BE006C9414 /* History.swift in Sources */,
-				C54731B21B906A7400B583FD /* WLStillAvatarViewController.m in Sources */,
 				C5C0AFA31B99CF1F00B8B242 /* StreamReusableView.m in Sources */,
 				C5053E821BC7F7280040613A /* ReportViewController.swift in Sources */,
 				C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */,
@@ -2619,6 +2594,7 @@
 				C54C42631BDE8AEC003E644D /* Authorization.swift in Sources */,
 				C5C20B9E1A238E22008B2E2E /* WLEmailValidation.m in Sources */,
 				C552A83E1BFE293300A7FFAD /* RecentCandiesView.swift in Sources */,
+				C564C8161C4A47EE001C6460 /* CaptureAvatarViewController.swift in Sources */,
 				C5AEE42F1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */,
 				C54AF6E019B8C491006F7EDB /* WLAppDelegate.m in Sources */,
 				C568D8D91A6D491800C2333B /* WLHintView.m in Sources */,
@@ -2644,7 +2620,6 @@
 				C5EAE4CB1C18335900DA19C9 /* Chat.swift in Sources */,
 				C5E6DD8C1C0DC84A004992E4 /* Contribution.swift in Sources */,
 				C5E6DD941C0DC84A004992E4 /* Notifier.swift in Sources */,
-				C54731B01B906A7400B583FD /* WLEditAvatarViewController.m in Sources */,
 				C557B6D91C22BC610067631E /* Network.swift in Sources */,
 				C5C20BDC1A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
 				C5E6DD8D1C0DC84A004992E4 /* CoreData.xcdatamodeld in Sources */,

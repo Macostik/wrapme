@@ -186,7 +186,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
         if let controller = storyboard?["liveBroadcast"] as? LiveBroadcastViewController {
             controller.wrap = wrap
             controller.broadcast = broadcast
-            navigationController?.presentViewController(controller, animated: false, completion: nil)
+            navigationController?.pushViewController(controller, animated: false)
         }
     }
     
@@ -266,7 +266,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
                 if let controller = self?.storyboard?["liveBroadcast"] as? LiveBroadcastViewController {
                     controller.wrap = wrap
                     controller.isBroadcasting = true
-                    self?.navigationController?.presentViewController(controller, animated: false, completion: nil)
+                    self?.navigationController?.pushViewController(controller, animated: false)
                 }
             }
         }

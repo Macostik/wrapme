@@ -40,7 +40,7 @@ static const int WLInstanceCommentLimit = 1500;
 
 @synthesize wrapView = _wrapView;
 
-@synthesize mode = _mode;
+@synthesize isAvatar = _isAvatar;
 
 - (void)dealloc {
     [self.dataSource.streamView removeObserver:self forKeyPath:@"contentOffset" context:NULL];

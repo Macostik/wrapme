@@ -42,8 +42,8 @@ class EntryPresenter: NSObject {
 }
 
 extension UIViewController {
-    func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock?) {
-        completion?(true)
+    func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {
+        completion(true)
     }
 }
 

@@ -11,7 +11,7 @@ import AVFoundation
 import Photos
 
 class MutableAsset: Asset {
-    var mode: StillPictureMode = .Default
+    var isAvatar: Bool = false
     var comment: String?
     var canBeSavedToAssets: Bool = false
     var assetID: String?
@@ -42,7 +42,7 @@ class MutableAsset: Asset {
     func setImage(image: UIImage) {
         let cache = ImageCache.uploadingCache
         let isPad = UI_USER_INTERFACE_IDIOM() == .Pad
-        let isCandy = mode == .Default
+        let isCandy = !isAvatar
         let largePath = cache.getPath(cache.setImage(image))
         original = largePath
         large = largePath

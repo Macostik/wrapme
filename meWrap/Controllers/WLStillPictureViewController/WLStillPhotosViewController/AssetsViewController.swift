@@ -76,14 +76,14 @@ extension PHFetchResult: BaseOrderedContainer {
 
 class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
     
-    var mode: StillPictureMode = .Default {
+    var isAvatar: Bool = false {
         didSet {
             let options = PHFetchOptions()
             options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-            if mode == .Default {
-                assets = PHAsset.fetchAssetsWithOptions(options)
-            } else {
+            if isAvatar {
                 assets = PHAsset.fetchAssetsWithMediaType(.Image, options:options)
+            } else {
+                assets = PHAsset.fetchAssetsWithOptions(options)
             }
             dataSource?.items = assets
         }
@@ -117,7 +117,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         metrics.prepareAppearing = { [weak self] (item, view) in
             if let asset = item.entry as? PHAsset {
                 item.selected = self?.selectedAssets.contains(asset.localIdentifier) ?? false
-                view.exclusiveTouch = self?.mode != .Default
+                view.exclusiveTouch = self?.isAvatar ?? true
             }
         }
         

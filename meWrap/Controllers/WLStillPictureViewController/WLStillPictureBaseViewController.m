@@ -20,7 +20,7 @@
 
 @synthesize wrapView = _wrapView;
 
-@synthesize mode = _mode;
+@synthesize isAvatar = _isAvatar;
 
 - (void)viewDidLoad {
     [super viewDidLoad];

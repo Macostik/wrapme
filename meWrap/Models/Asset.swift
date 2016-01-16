@@ -21,7 +21,7 @@ class Asset: Archive {
     }
     
     override var description: String {
-        return "asset:\noriginal: \(original)\nlarge: \(large)\nmedium: \(medium)\nsmall: \(small)"
+        return "urls \noriginal: \(original)\nlarge: \(large)\nmedium: \(medium)\nsmall: \(small)"
     }
     
     convenience init(json: NSData) throws {

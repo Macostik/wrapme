@@ -161,32 +161,28 @@ class APIRequest: NSObject {
             handleFailure(nil, response: nil)
             return nil
         }
-        Logger.log("\(method.rawValue) - \(path): \(parameters)", color: .Yellow)
+        Logger.log("API call \(self.method.rawValue) \(self.path): \(parameters)", color: .Yellow)
         
         let manager = APIRequest.manager
         let task = manager.dataTaskWithRequest(request, uploadProgress: uploadProgress, downloadProgress: downloadProgress) { (urlResponse, responseObject, error) -> Void in
             if let error = error {
-                Logger.log("ERROR - \(self.path): \(error)", color: .Red)
+                Logger.log("API error \(self.method.rawValue) \(self.path): \(error)", color: .Red)
                 self.handleFailure(error, response: urlResponse as? NSHTTPURLResponse)
             } else {
                 let response = Response(dictionary: responseObject as! [String : AnyObject])
                 if response.code == .Success {
-                    #if DEBUG
-                        Logger.log("RESPONSE - \(self.path): \(response.data)", color: .Green)
-                    #else
-                        Logger.log("RESPONSE - \(self.path)")
-                    #endif
+                    Logger.debugLog("RESPONSE - \(self.path): \(response.data)", color: .Green)
                     if let parser = self.parser {
                         let parsedObject = parser(response)
                         if let object = parsedObject {
-                            Logger.log("PARSED RESPONSE - \(self.path): \(object)")
+                            Logger.log("API response \(self.method.rawValue) \(self.path) Object(s) parsed and saved from the response: \(object)")
                         }
                         self.handleSuccess(parsedObject)
                     } else {
                         self.handleSuccess(response)
                     }
                 } else {
-                    Logger.log("API ERROR \(response.code.rawValue) - \(self.path)", color: .Red)
+                    Logger.log("API internal error \(self.method.rawValue) \(self.path): \(response.code.rawValue) - \(response.message)", color: .Red)
                     self.handleFailure(NSError(response: response), response: urlResponse as? NSHTTPURLResponse)
                 }
                 self.trackServerTime(urlResponse as? NSHTTPURLResponse)

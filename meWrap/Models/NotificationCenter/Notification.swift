@@ -176,7 +176,7 @@ class Notification: NSObject {
     }
     
     override var description: String {
-        return "\(body?["msg_type"] ?? ""): \(descriptor?.uid ?? "")"
+        return "\(type.rawValue): \(descriptor?.description ?? "")"
     }
     
     func canBeHandled() -> Bool { return Authorization.active && !originatedByCurrentUser }

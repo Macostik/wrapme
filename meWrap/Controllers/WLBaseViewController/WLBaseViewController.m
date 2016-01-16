@@ -87,9 +87,16 @@
     return constants;
 }
 
+static NSString *lastAppearedScreenName = nil;
+
++ (NSString *)lastAppearedScreenName {
+    return lastAppearedScreenName;
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.viewAppeared = YES;
+    lastAppearedScreenName = [self screenName];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

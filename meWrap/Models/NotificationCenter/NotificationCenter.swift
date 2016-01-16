@@ -176,7 +176,7 @@ class NotificationCenter: NSObject {
                             finish()
                     })
                 }
-                Logger.log("PUBNUB - message received \(notification)")
+                Logger.log("PubNub message received \(notification)")
             }
             
             RunQueue.fetchQueue.run { finish in
@@ -193,8 +193,9 @@ class NotificationCenter: NSObject {
             failure?(nil)
             return
         }
-        Logger.log("PUBNUB - received APNS: \(data)")
+        
         if let notification = Notification.notificationWithBody(data, publishedAt:nil) {
+            Logger.log("APNS received: \(notification.description)")
             if canSkipNotification(notification) {
                 success(notification)
             } else {

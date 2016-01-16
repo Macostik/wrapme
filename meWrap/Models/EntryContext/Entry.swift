@@ -18,7 +18,7 @@ class Entry: NSManagedObject {
     
     class func contentTypes() -> [Entry.Type]? { return nil }
     
-    override var description: String { return "\(self.dynamicType.entityName()): \(uid)" }
+    override var description: String { return "\(self.dynamicType.entityName()): \(uid), upload_uid = \(locuid ?? "")" }
     
     func compare(entry: Entry) -> NSComparisonResult { return updatedAt.compare(entry.updatedAt) }
     

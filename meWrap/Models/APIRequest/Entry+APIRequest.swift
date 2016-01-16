@@ -384,6 +384,8 @@ extension Candy {
     
     func uploadToS3Bucket(metadata: [String:String], success: ObjectBlock?, failure: FailureBlock?) {
         
+        Logger.log("Uploading to S3 bucket: \(metadata)")
+        
         dispatch_once(&S3ConfigurationToken) {
             let accessKey = "AKIAIPEMEBV7F4GN2FVA"
             let secretKey = "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"

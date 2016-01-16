@@ -33,6 +33,8 @@ class EntryDescriptor: NSObject {
             return uid == entry.uid
         }
     }
+    
+    override var description: String { return "\(name): \(uid), upload_uid = \(locuid ?? "")" }
 }
 
 extension EntryContext {

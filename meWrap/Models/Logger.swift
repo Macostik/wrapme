@@ -9,6 +9,16 @@
 import UIKit
 import LogEntries
 
+extension UIApplicationState {
+    func displayName() -> String {
+        switch self {
+        case .Active: return "active"
+        case .Inactive: return "active"
+        case .Background: return "active"
+        }
+    }
+}
+
 class Logger: NSObject {
     private static let leLog: LELog = {
         #if DEBUG
@@ -31,12 +41,20 @@ class Logger: NSObject {
     
     private static let Escape = "\u{001b}["
     
+    class func debugLog(string: String, color: LogColor) {
+        #if DEBUG
+            print("\(Escape)\(color.rawValue)\n\n\(string)\n\(Escape);")
+        #endif
+    }
+    
     class func log(string: String, color: LogColor) {
         #if DEBUG
             print("\(Escape)\(color.rawValue)\n\n\(string)\n\(Escape);")
         #else
             if remoteLogging {
-                leLog.log("\(User.channelName()) >> \(string)")
+                let appState = UIApplication.sharedApplication().applicationState.displayName()
+                let screenName = WLBaseViewController.lastAppearedScreenName() ?? ""
+                leLog.log("\(User.channelName()) (app is \(appState), last visited screen is \(screenName))\n \(string)")
             }
         #endif
     }

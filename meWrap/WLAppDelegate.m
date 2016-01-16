@@ -30,7 +30,7 @@
 @implementation WLAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [Logger log:[NSString stringWithFormat:@"meWrap - API environment initialized: %@", [Environment currentEnvironment]]];
+    [Logger log:[NSString stringWithFormat:@"API environment: %@", [Environment currentEnvironment]]];
     
     [self registerUserNotificationSettings];
     

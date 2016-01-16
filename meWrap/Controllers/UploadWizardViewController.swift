@@ -89,6 +89,7 @@ class UploadWizardViewController: WLBaseViewController {
         
         if isBroadcasting {
             if let controller = storyboard?["liveBroadcast"] as? LiveBroadcastViewController {
+                controller.isBroadcasting = true
                 controller.wrap = wrap
                 controllers.append(controller)
             }

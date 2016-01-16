@@ -331,7 +331,6 @@ class LiveBroadcastViewController: WLBaseViewController {
         broadcast.broadcaster = user
         broadcast.streamName = streamName
         broadcast.wrap = wrap
-        wrap.addBroadcast(broadcast)
         
         createConnection(streamName)
         
@@ -353,7 +352,6 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     func stopBroadcast() {
         userState = [NSObject : AnyObject]()
-        wrap?.removeBroadcast(broadcast)
         releaseConnection()
         stopCapture()
     }

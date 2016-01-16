@@ -51,7 +51,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tqy-PM-oQ8">
-                            <rect key="frame" x="35" y="369" width="250" height="81"/>
+                            <rect key="frame" x="35" y="349" width="250" height="81"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="easy_create_wrap" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TgF-VF-Xal" customClass="WLLabel">
                                     <rect key="frame" x="0.0" y="0.0" width="250" height="21"/>
@@ -114,7 +114,7 @@
                         <constraint firstAttribute="centerX" secondItem="ltc-A8-P5g" secondAttribute="centerX" id="O9u-gP-5lb"/>
                         <constraint firstAttribute="centerY" secondItem="ltc-A8-P5g" secondAttribute="centerY" constant="80" id="QAQ-xg-9Ym"/>
                         <constraint firstItem="ltc-A8-P5g" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YB6-dT-Vhh" secondAttribute="leading" constant="10" id="nfP-Ah-eCg"/>
-                        <constraint firstItem="tqy-PM-oQ8" firstAttribute="bottom" secondItem="ltc-A8-P5g" secondAttribute="top" constant="300" id="pPl-8r-sHJ"/>
+                        <constraint firstItem="tqy-PM-oQ8" firstAttribute="bottom" secondItem="ltc-A8-P5g" secondAttribute="top" constant="280" id="pPl-8r-sHJ"/>
                     </constraints>
                 </view>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vdz-dn-o4Q" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -13,7 +13,8 @@ class VolumeChangeObserver : NSObject {
     
     let audioSession = AVAudioSession.sharedInstance()
     var success: Block?
-    var volumeView: MPVolumeView?
+    weak var volumeView: MPVolumeView?
+    var context:UnsafeMutablePointer<Void>?
     private var lock = false
     
     static var sharedObserver: VolumeChangeObserver = {
@@ -23,7 +24,7 @@ class VolumeChangeObserver : NSObject {
     }()
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if keyPath == "outputVolume" {
+        if keyPath == NSStringFromSelector("outputVolume") {
             let value = change![NSKeyValueChangeOldKey] as? Float
             changeVolumeValue(value != nil)
         } else {
@@ -33,7 +34,7 @@ class VolumeChangeObserver : NSObject {
     
     func registerChangeObserver(success: Block) {
         self.success = success
-        audioSession.addObserver(self, forKeyPath: "outputVolume", options: [.Initial, .New, .Old] , context: nil)
+        audioSession.addObserver(self, forKeyPath: NSStringFromSelector("outputVolume"), options: [.Initial, .New, .Old] , context:nil)
         volumeView = MPVolumeView()
         guard let volumeView = volumeView else { return }
         let window = UIWindow.mainWindow
@@ -42,8 +43,8 @@ class VolumeChangeObserver : NSObject {
     }
     
     func unregisterChagneObserver() {
-        if volumeView != nil {
-            audioSession.removeObserver(self, forKeyPath: "outputVolume", context: nil)
+        if volumeView != nil && success != nil {
+            audioSession.removeObserver(self, forKeyPath: NSStringFromSelector("outputVolume"), context: nil)
         }
         volumeView?.removeFromSuperview()
         lock(false)

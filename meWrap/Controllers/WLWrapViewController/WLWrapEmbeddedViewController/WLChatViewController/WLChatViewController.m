@@ -163,10 +163,9 @@
 
 - (void)scrollToLastUnreadMessage {
     __weak typeof(self)weakSelf = self;
-    StreamItem *unreadMessagesItem = [self.streamView itemPassingTest:^BOOL(StreamItem *item) {
+    [self.streamView scrollToItemPassingTest:^BOOL(StreamItem *item) {
         return item.metrics == weakSelf.unreadMessagesMetrics;
-    }];
-    [self.streamView scrollToItem:unreadMessagesItem animated:NO];
+    } animated:NO];
 }
 
 - (void)setShowKeyboard:(BOOL)showKeyboard {

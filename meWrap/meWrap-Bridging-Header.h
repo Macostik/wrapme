@@ -21,4 +21,5 @@
 #import "WLDrawingViewController.h"
 #import "WLImageEditorSession.h"
 #import "WLStillPictureViewController.h"
+#import "UploadSummaryViewController.h"
 #import "WLAddContributorsViewController.h"

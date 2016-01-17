@@ -987,10 +987,10 @@
             </objects>
             <point key="canvasLocation" x="2349.375" y="-965.49295774647885"/>
         </scene>
-        <!--Still Photos View Controller-->
+        <!--Capture Media View Controller-->
         <scene sceneID="O3c-HS-T9w">
             <objects>
-                <navigationController storyboardIdentifier="WLStillPhotosViewController" definesPresentationContext="YES" navigationBarHidden="YES" id="wIV-3O-e5v" customClass="WLStillPhotosViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="captureMedia" definesPresentationContext="YES" navigationBarHidden="YES" id="wIV-3O-e5v" customClass="CaptureMediaViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedStatusBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HPN-v5-Re3">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1055,7 +1055,7 @@
         <!--Delegate-->
         <scene sceneID="WkN-uv-Mwe">
             <objects>
-                <viewController storyboardIdentifier="WLBatchEditPictureViewController" id="CvA-oq-Pt1" customClass="WLBatchEditPictureViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="uploadSummary" id="CvA-oq-Pt1" customClass="UploadSummaryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="J8F-Df-FmE"/>
                         <viewControllerLayoutGuide type="bottom" id="l8v-Ox-qTy"/>

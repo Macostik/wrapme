@@ -356,6 +356,12 @@ class StreamView: UIScrollView {
         return items
     }
     
+    func scrollToItemPassingTest(@noescape test: (StreamItem) -> Bool, animated: Bool) -> StreamItem? {
+        let item = itemPassingTest(test)
+        scrollToItem(item, animated: animated)
+        return item
+    }
+    
     func scrollToItem(item: StreamItem?, animated: Bool)  {
         guard let item = item else { return }
         let minOffset = minimumContentOffset

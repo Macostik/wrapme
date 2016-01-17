@@ -11,7 +11,6 @@
 #import "WLHomeViewController.h"
 #import "WLHintView.h"
 #import "WLCameraViewController.h"
-#import "WLStillPhotosViewController.h"
 
 @import Photos;
 
@@ -30,7 +29,7 @@
 @synthesize isAvatar = _isAvatar;
 
 + (instancetype)stillPhotosViewController:(Wrap*)wrap {
-    WLStillPhotosViewController *controller = (id)[UIStoryboard camera][@"WLStillPhotosViewController"];
+    CaptureMediaViewController *controller = (id)[UIStoryboard camera][@"captureMedia"];
     controller.wrap = wrap;
     controller.isAvatar = NO;
     return controller;

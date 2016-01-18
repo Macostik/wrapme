@@ -42,7 +42,7 @@ extension UIWindow {
 
 extension UINavigationController {
     
-    class func mainNavigationController() -> UINavigationController? {
+    class func main() -> UINavigationController? {
         return UIWindow.mainWindow.rootViewController as? UINavigationController
     }
     

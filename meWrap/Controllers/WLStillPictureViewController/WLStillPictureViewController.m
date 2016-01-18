@@ -103,7 +103,7 @@
 - (id<WLStillPictureViewControllerDelegate>)getValidDelegate {
     id delegate = self.delegate;
     if (!delegate) {
-        UINavigationController *navigationController = [UINavigationController mainNavigationController];
+        UINavigationController *navigationController = [UINavigationController main];
         WLHomeViewController *homeViewController = [navigationController.viewControllers firstObject];
         if ([homeViewController isKindOfClass:[WLHomeViewController class]]) {
             delegate = homeViewController;

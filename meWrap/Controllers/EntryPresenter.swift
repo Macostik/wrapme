@@ -11,7 +11,7 @@ import Foundation
 class EntryPresenter: NSObject {
     
     class func presentEntry(entry: Entry, animated: Bool) {
-        if let navigationController = UINavigationController.mainNavigationController() {
+        if let navigationController = UINavigationController.main() {
             presentEntry(entry, inNavigationController: navigationController, animated:animated)
         }
     }
@@ -21,7 +21,7 @@ class EntryPresenter: NSObject {
     }
     
     class func presentEntryRequestingAuthorization(entry: Entry, animated: Bool) {
-        if let navigationController = UINavigationController.mainNavigationController() {
+        if let navigationController = UINavigationController.main() {
             presentEntryRequestingAuthorization(entry, inNavigationController: navigationController, animated:animated)
         }
     }
@@ -94,8 +94,6 @@ class HierarchicalEntryPresenter: EntryPresenter {
         }
         navigationController.setViewControllers(viewControllers, animated:animated)
     }
-    
-    
     
     class func viewControllersForEntry(entry: Entry, inNavigationController navigationController: UINavigationController) -> [UIViewController] {
         var viewControllers = [UIViewController]()

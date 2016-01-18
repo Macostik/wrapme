@@ -24,7 +24,7 @@ class CandyEnlargingPresenter: UIView {
                 let presenter = CandyEnlargingPresenter()
                 historyViewController.presenter = presenter
                 let presented = presenter.present(candy, fromView: cell, completionHandler: { (_) -> Void in
-                    UINavigationController.mainNavigationController()?.pushViewController(historyViewController, animated: false)
+                    UINavigationController.main()?.pushViewController(historyViewController, animated: false)
                 })
                 if presented {
                     presenter.dismissingView = dismissingView

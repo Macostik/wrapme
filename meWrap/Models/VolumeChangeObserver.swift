@@ -17,11 +17,7 @@ class VolumeChangeObserver : NSObject {
     var context:UnsafeMutablePointer<Void>?
     private var lock = false
     
-    static var sharedObserver: VolumeChangeObserver = {
-        let volumeChangeObserver = VolumeChangeObserver()
-        _ = try? volumeChangeObserver.audioSession.setActive(true)
-        return volumeChangeObserver
-    }()
+    static let sharedObserver = VolumeChangeObserver()
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == NSStringFromSelector("outputVolume") {
@@ -33,13 +29,19 @@ class VolumeChangeObserver : NSObject {
     }
     
     func registerChangeObserver(success: Block) {
-        self.success = success
+        let center = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector: "sessionInterruption:", name: AVAudioSessionInterruptionNotification, object: nil)
+        center.addObserver(self, selector: "activate:", name: UIApplicationDidBecomeActiveNotification, object: nil)
         audioSession.addObserver(self, forKeyPath: NSStringFromSelector("outputVolume"), options: [.Initial, .New, .Old] , context:nil)
-        volumeView = MPVolumeView()
+        self.success = success
+        initVolumeView()
+    }
+    
+    func initVolumeView () {
+        volumeView = MPVolumeView(frame: CGRectMake(CGFloat(MAXFLOAT), CGFloat(MAXFLOAT), 0, 0))
         guard let volumeView = volumeView else { return }
-        let window = UIWindow.mainWindow
-        window.addSubview(volumeView)
-        volumeView.layer.transform = CATransform3DMakeTranslation(0, -window.frame.height, 0)
+        UIWindow.mainWindow.addSubview(volumeView)
+        _ = try? audioSession.setActive(true)
     }
     
     func unregisterChagneObserver() {
@@ -48,6 +50,16 @@ class VolumeChangeObserver : NSObject {
         }
         volumeView?.removeFromSuperview()
         lock(false)
+    }
+    
+    func sessionInterruption(notification: NSNotification) {
+        if (notification.userInfo![AVAudioSessionInterruptionTypeKey] as? UInt == 1) {
+           initVolumeView()
+        }
+    }
+    
+    func activate (notification: NSNotification) {
+        initVolumeView()
     }
     
     func changeVolumeValue(change: Bool) {
@@ -61,7 +73,9 @@ class VolumeChangeObserver : NSObject {
                         self.success?()
                     }
                 } else {
-                    slider.value = 0.5
+                    Dispatch.mainQueue.after(0.1, block: { _ in
+                        slider.value = 0.5
+                    })
                 }
                 break
             }

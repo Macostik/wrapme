@@ -162,11 +162,15 @@
     self.assetsViewController.assetsHidingHandler = ^ {
         [NSObject cancelPreviousPerformRequestsWithTarget:weakSelf selector:@selector(setAssetsViewControllerHidden) object:nil];
     };
+   
     VolumeChangeObserver *observer = [VolumeChangeObserver sharedObserver];
+    [observer lock:NO];
     [observer registerChangeObserver:^{
         [observer lock:YES];
         [weakSelf captureImage:nil complition:^{
-           [observer lock:NO];
+            if (!weakSelf.isAvatar) {
+                [observer lock:NO];
+            }
         }];
     }];
 }

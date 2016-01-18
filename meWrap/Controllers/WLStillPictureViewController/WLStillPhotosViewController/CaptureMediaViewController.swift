@@ -48,7 +48,10 @@ class CaptureMediaViewController: WLStillPictureViewController {
                         finish()
                     })
                 } else {
-                    self?.cropAsset(asset, completion: { (croppedImage) -> Void in
+                    let option = PHImageRequestOptions()
+                    option.resizeMode = .Exact
+                    option.deliveryMode = .HighQualityFormat
+                    self?.cropAsset(asset, option:option, completion: { (croppedImage) -> Void in
                         mediaAsset.setImage(croppedImage, completion: { (_) -> Void in
                             finish()
                         })

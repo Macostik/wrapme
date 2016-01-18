@@ -38,10 +38,13 @@ class CaptureAvatarViewController: WLStillPictureViewController {
     
     func handleAsset(asset: PHAsset) {
         view.userInteractionEnabled = false
-        cropAsset(asset) { [weak self] (croppedImage) -> Void in
+        let option = PHImageRequestOptions()
+        option.resizeMode = .Exact
+        option.deliveryMode = .HighQualityFormat
+        cropAsset(asset, option:option, completion: { [weak self] (croppedImage) -> Void in
             self?.handleImage(croppedImage, saveToAlbum: false)
             self?.view.userInteractionEnabled = true
-        }
+        })
     }
     
     func assetsViewController(controller: AssetsViewController, shouldSelectAsset asset: PHAsset) -> Bool {

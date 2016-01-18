@@ -12,8 +12,6 @@
 #import "WLHintView.h"
 #import "WLCameraViewController.h"
 
-@import Photos;
-
 @interface WLStillPictureViewController () <WLWrapPickerViewControllerDelegate, EntryNotifying>
 
 @end
@@ -149,26 +147,31 @@
     } completion:completion];
 }
 
-- (void)cropAsset:(PHAsset*)asset completion:(void (^)(UIImage *croppedImage))completion {
-    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-    options.resizeMode   = PHImageRequestOptionsResizeModeExact;
-    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-  
+- (void)cropAsset:(PHAsset*)asset option:(PHImageRequestOptions *)option completion:(void (^)(UIImage *croppedImage))completion {
     CGFloat scale = 0;
     if (asset.pixelWidth > asset.pixelHeight) {
         scale = asset.pixelHeight / [self imageWidthForCurrentMode];
     } else {
         scale = asset.pixelWidth / [self imageWidthForCurrentMode];
     }
-    CGSize size = scale < 0.5 && [[UIDevice currentDevice] systemVersionBefore:@"9"] ?
+    
+    BOOL incorrectPhoto = scale < 0.5 && [[UIDevice currentDevice] systemVersionBefore:@"9"];
+    CGSize size = incorrectPhoto ?
     CGSizeMake(asset.pixelWidth * scale, asset.pixelHeight * scale) : CGSizeMake(asset.pixelWidth / scale, asset.pixelHeight / scale);
  
     [[PHImageManager defaultManager] requestImageForAsset:asset
                                                targetSize:size
                                               contentMode:PHImageContentModeAspectFill
-                                                  options:options
+                                                  options:option
                                             resultHandler:^(UIImage *image, NSDictionary *info) {
+                                                if (image != nil) {
                                                     completion(image);
+                                                } else {
+                                                    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+                                                    options.resizeMode   = PHImageRequestOptionsResizeModeExact;
+                                                    options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
+                                                    [self cropAsset:asset option:options completion:completion];
+                                                }
                                             }];
 }
 

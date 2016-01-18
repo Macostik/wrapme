@@ -10,6 +10,8 @@
 #import <AVFoundation/AVCaptureDevice.h>
 #import "WLCameraViewController.h"
 
+@import Photos;
+
 @class WLStillPictureViewController;
 
 @protocol WLStillPictureViewControllerDelegate <WLStillPictureBaseViewControllerDelegate, UINavigationControllerDelegate>
@@ -40,7 +42,7 @@
 
 - (id<WLStillPictureViewControllerDelegate>)getValidDelegate;
 
-- (void)cropAsset:(PHAsset*)asset completion:(void (^)(UIImage *croppedImage))completion;
+- (void)cropAsset:(PHAsset*)asset option:(PHImageRequestOptions *)option completion:(void (^)(UIImage *croppedImage))completion ;
 
 - (void)handleImage:(UIImage*)image saveToAlbum:(BOOL)saveToAlbum;
 

@@ -98,24 +98,8 @@
 
 @implementation WLHintView (DefinedHintViews)
 
-+ (BOOL)showInviteHintViewInView:(UIView *)view withFocusToView:(UIView *)target {
-    return [self showHintViewFromNibNamed:@"WLInviteHintView" inView:view drawing:^(CGContextRef ctx, CGRect rect) {
-        CGFloat size = MAX(target.width, target.height);
-        CGRect focusRect = [view convertRect:target.bounds fromView:target];
-        [self toDrawOvalInRect:CGRectMake(CGRectGetMidX(focusRect) - size/2.0f, CGRectGetMidY(focusRect) - size/2, size, size)];
-    }];
-}
-
 + (BOOL)showHomeSwipeTransitionHintViewInView:(UIView *)view {
     return [self showHintViewFromNibNamed:@"WLHomeSwipeTransitionView" inView:view drawing:nil];
-}
-
-+ (void)toDrawOvalInRect:(CGRect)bounds {
-    UIBezierPath *transparentPath = [UIBezierPath bezierPathWithOvalInRect:bounds];
-    [[UIColor colorWithRed:0.953 green:0.459 blue:0.149 alpha:1.000] setStroke];
-    transparentPath.lineWidth = 8;
-    [transparentPath stroke];
-    [transparentPath fillWithBlendMode:kCGBlendModeClear alpha:1.0f];
 }
 
 @end

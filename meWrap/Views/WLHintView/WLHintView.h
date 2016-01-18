@@ -31,8 +31,6 @@ typedef void (^WLHintViewDrawing)(CGContextRef ctx, CGRect rect);
 
 @interface WLHintView (DefinedHintViews)
 
-+ (BOOL)showInviteHintViewInView:(UIView *)view withFocusToView:(UIView *)target;
-
 + (BOOL)showHomeSwipeTransitionHintViewInView:(UIView *)view;
 
 @end

@@ -149,12 +149,6 @@ class Wrap: Contribution {
         return contributors.contains(currentUser)
     }
     
-    var isFirstCreated: Bool {
-        guard let currentUser = User.currentUser else { return false }
-        let contributedWraps = currentUser.contributions.filter({ $0 is Wrap })
-        return contributedWraps.contains(self) && contributedWraps.count == 1
-    }
-    
     var requiresFollowing: Bool {
         return isPublic && !isContributing
     }

@@ -264,7 +264,6 @@
 		C5B91A481BB412A0000E08E7 /* WLUnreadMessagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A461BB412A0000E08E7 /* WLUnreadMessagesView.xib */; };
 		C5B91A4B1BB41343000E08E7 /* DownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A491BB41343000E08E7 /* DownloadingView.xib */; };
 		C5B91A4F1BB414E1000E08E7 /* WLHomeSwipeTransitionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A4C1BB414E1000E08E7 /* WLHomeSwipeTransitionView.xib */; };
-		C5B91A511BB414E1000E08E7 /* WLInviteHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A4D1BB414E1000E08E7 /* WLInviteHintView.xib */; };
 		C5B91A601BB4177B000E08E7 /* WLConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A5E1BB4177B000E08E7 /* WLConfirmView.xib */; };
 		C5B9F9CD1BAD61B200B7D8F3 /* WLMessageWithNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B9F9CB1BAD61B200B7D8F3 /* WLMessageWithNameCell.xib */; };
 		C5BCF0011B551B7B00E4AD6D /* WLChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFD91B551B7B00E4AD6D /* WLChatViewController.m */; };
@@ -759,7 +758,6 @@
 		C5B91A461BB412A0000E08E7 /* WLUnreadMessagesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLUnreadMessagesView.xib; sourceTree = "<group>"; };
 		C5B91A491BB41343000E08E7 /* DownloadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DownloadingView.xib; path = WLDownloadingView/DownloadingView.xib; sourceTree = "<group>"; };
 		C5B91A4C1BB414E1000E08E7 /* WLHomeSwipeTransitionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLHomeSwipeTransitionView.xib; sourceTree = "<group>"; };
-		C5B91A4D1BB414E1000E08E7 /* WLInviteHintView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLInviteHintView.xib; sourceTree = "<group>"; };
 		C5B91A5E1BB4177B000E08E7 /* WLConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLConfirmView.xib; path = WLConfirmView/WLConfirmView.xib; sourceTree = "<group>"; };
 		C5B993C31B302E73002BCC8C /* chat_presets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = chat_presets.plist; sourceTree = "<group>"; };
 		C5B993C41B302E73002BCC8C /* comment_presets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = comment_presets.plist; sourceTree = "<group>"; };
@@ -1694,7 +1692,6 @@
 				C568D8D41A6D491800C2333B /* WLHintView.h */,
 				C568D8D51A6D491800C2333B /* WLHintView.m */,
 				C5B91A4C1BB414E1000E08E7 /* WLHomeSwipeTransitionView.xib */,
-				C5B91A4D1BB414E1000E08E7 /* WLInviteHintView.xib */,
 			);
 			path = WLHintView;
 			sourceTree = "<group>";
@@ -2277,7 +2274,6 @@
 				C5B91A3E1BB40D88000E08E7 /* Camera.storyboard in Resources */,
 				C5B9F9CD1BAD61B200B7D8F3 /* WLMessageWithNameCell.xib in Resources */,
 				C5BCF01A1B551B7B00E4AD6D /* WLMessageDateView.xib in Resources */,
-				C5B91A511BB414E1000E08E7 /* WLInviteHintView.xib in Resources */,
 				C509E2BA1B96F46A003F6C21 /* Default-667h@2x.png in Resources */,
 				C53BC48A1C05BC010009B0B9 /* AssetCell.xib in Resources */,
 				C5E6F0211BFF38C200FA3D4F /* LeftSwipeActionView.xib in Resources */,

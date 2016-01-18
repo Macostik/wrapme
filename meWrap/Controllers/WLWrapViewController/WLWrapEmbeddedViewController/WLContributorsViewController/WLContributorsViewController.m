@@ -70,9 +70,6 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if ([self.wrap isFirstCreated]) {
-        [WLHintView showInviteHintViewInView:[UIWindow mainWindow] withFocusToView:self.addFriendView];
-    }
     if (!self.wrap.contributor.current) {
         self.restrictedInvitePrioritizer.defaultState = !self.wrap.isRestrictedInvite;
     }

@@ -20,10 +20,10 @@ class LiveBroadcastEventView: StreamReusableView {
     
     override func setup(entry: AnyObject!) {
         if let event = entry as? LiveBroadcast.Event {
-            if event.type == .Message {
-                avatarView?.url = event.user?.avatar?.small
+            if event.kind == .Message {
                 nameLabel?.text = event.user?.name
             }
+            avatarView?.url = event.user?.avatar?.small
             textLabel.text = event.text
             hidden = false
             event.disappearingBlock = { [weak self] () -> Void in
@@ -72,35 +72,32 @@ class LiveViewController: WLBaseViewController {
         titleLabel?.text = broadcast.displayTitle()
     }
     
+    private let loader = IndexedStreamLoader(identifier: "LiveBroadcastEventViews", index: 0)
+    
+    private func metricsForEventOfKind(kind: LiveBroadcast.Event.Kind, minSize: CGFloat) -> StreamMetrics {
+        let metrics = StreamMetrics(loader: loader.loader(kind.rawValue))
+        return metrics.change { [weak self] (metrics) -> Void in
+            metrics.sizeAt = { self?.chatStreamView.dynamicSizeForMetrics(metrics, item: $0, minSize: minSize) ?? minSize }
+            metrics.hiddenAt = { ($0.entry as! LiveBroadcast.Event).kind != kind }
+            metrics.insetsAt = { CGRect(x: 0, y: $0.position.index == 0 ? 0 : 6, width: 0, height: 0) }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         UIView.performWithoutAnimation { UIViewController.attemptRotationToDeviceOrientation() }
         
         UIApplication.sharedApplication().idleTimerDisabled = true
-        chatStreamView.layer.geometryFlipped = true
         
-        chatDataSource = StreamDataSource(streamView: chatStreamView)
-        chatDataSource.addMetrics(StreamMetrics(loader: IndexedStreamLoader(identifier: "LiveBroadcastEventViews", index: 0))).change { (metrics) -> Void in
-            metrics.sizeAt = { [weak self] item -> CGFloat in
-                return self?.chatStreamView?.dynamicSizeForMetrics(metrics, item: item, minSize: 72) ?? 72
-            }
-            metrics.hiddenAt = { item -> Bool in
-                let event = item.entry as? LiveBroadcast.Event
-                return event?.type != .Message
-            }
-            metrics.insetsAt = { CGRect(x: 0, y: $0.position.index == 0 ? 0 : 6, width: 0, height: 0) }
-        }
-        chatDataSource.addMetrics(StreamMetrics(loader: IndexedStreamLoader(identifier: "LiveBroadcastEventViews", index: 1))).change { (metrics) -> Void in
-            metrics.sizeAt = { [weak self] item -> CGFloat in
-                return self?.chatStreamView?.dynamicSizeForMetrics(metrics, item: item, minSize: 32) ?? 32
-            }
-            metrics.hiddenAt = { item -> Bool in
-                let event = item.entry as? LiveBroadcast.Event
-                return event?.type != .Info
-            }
-            metrics.insetsAt = { CGRect(x: 0, y: $0.position.index == 0 ? 0 : 6, width: 0, height: 0) }
-        }
+        let streamView = chatStreamView
+        
+        streamView.layer.geometryFlipped = true
+        
+        chatDataSource = StreamDataSource(streamView: streamView)
+        chatDataSource.addMetrics(metricsForEventOfKind(.Message, minSize: 64))
+        chatDataSource.addMetrics(metricsForEventOfKind(.Join, minSize: 64))
+        chatDataSource.addMetrics(metricsForEventOfKind(.Info, minSize: 32))
         
         wrapNameLabel?.text = wrap?.name
         
@@ -176,7 +173,7 @@ extension LiveViewController: NotificationSubscriptionDelegate {
             let user = User.entry(message["userUid"] as? String),
             let text = message["content"] as? String else { return }
         user.fetchIfNeeded({ [weak self] (_) -> Void in
-            let event = LiveBroadcast.Event(type: .Message)
+            let event = LiveBroadcast.Event(kind: .Message)
             event.user = user
             event.text = text
             self?.broadcast.insert(event)
@@ -192,8 +189,9 @@ extension LiveViewController: NotificationSubscriptionDelegate {
             let broadcast = controller.broadcast
             switch event.data.presenceEvent {
             case "join":
-                let event = LiveBroadcast.Event(type: .Info)
+                let event = LiveBroadcast.Event(kind: .Join)
                 event.text = "\(user.name ?? "") \("joined".ls)"
+                event.user = user
                 broadcast.insert(event)
                 controller.chatDataSource.items = broadcast.events
                 broadcast.viewers.insert(user)

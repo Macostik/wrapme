@@ -85,6 +85,71 @@
             </connections>
             <point key="canvasLocation" x="359" y="-135.5"/>
         </view>
+        <view contentMode="scaleToFill" id="ULg-lj-ahe" customClass="LiveBroadcastEventView" customModule="meWrap" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="101"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z5X-Nz-1Gn">
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="101"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NtC-NQ-a5u" customClass="ImageView" customModule="meWrap" customModuleProvider="target">
+                            <rect key="frame" x="12" y="12" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="5fo-y9-pxb"/>
+                                <constraint firstAttribute="width" constant="40" id="o1Q-0h-Q4j"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                            </userDefinedRuntimeAttributes>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label Label Label Label Label Label Label Label Label Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="224" translatesAutoresizingMaskIntoConstraints="NO" id="3T1-zr-A50" customClass="WLLabel">
+                            <rect key="frame" x="64" y="12" width="224" height="77"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="3T1-zr-A50" secondAttribute="trailing" constant="12" id="TLL-55-tj1"/>
+                        <constraint firstItem="3T1-zr-A50" firstAttribute="top" secondItem="Z5X-Nz-1Gn" secondAttribute="top" constant="12" id="bgF-sR-DPz"/>
+                        <constraint firstItem="NtC-NQ-a5u" firstAttribute="top" secondItem="Z5X-Nz-1Gn" secondAttribute="top" constant="12" id="ezu-qH-uc6"/>
+                        <constraint firstItem="3T1-zr-A50" firstAttribute="leading" secondItem="NtC-NQ-a5u" secondAttribute="trailing" constant="12" id="fR7-mt-Ea1"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="NtC-NQ-a5u" secondAttribute="bottom" constant="12" id="fkT-fF-hCn"/>
+                        <constraint firstAttribute="bottom" secondItem="3T1-zr-A50" secondAttribute="bottom" constant="12" id="klr-XN-Le8"/>
+                        <constraint firstItem="NtC-NQ-a5u" firstAttribute="leading" secondItem="Z5X-Nz-1Gn" secondAttribute="leading" constant="12" id="lRh-VD-eDQ"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Z5X-Nz-1Gn" firstAttribute="top" secondItem="ULg-lj-ahe" secondAttribute="top" id="0s8-bK-99h"/>
+                <constraint firstItem="Z5X-Nz-1Gn" firstAttribute="leading" secondItem="ULg-lj-ahe" secondAttribute="leading" id="Doz-VB-ryG"/>
+                <constraint firstAttribute="bottom" secondItem="Z5X-Nz-1Gn" secondAttribute="bottom" id="VBU-kS-8El"/>
+                <constraint firstAttribute="trailing" secondItem="Z5X-Nz-1Gn" secondAttribute="trailing" id="m5i-b7-9Be"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="2"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="avatarView" destination="NtC-NQ-a5u" id="cbP-BY-WIo"/>
+                <outlet property="contentView" destination="Z5X-Nz-1Gn" id="2v5-Vv-09W"/>
+                <outlet property="textLabel" destination="3T1-zr-A50" id="wKc-zQ-XhJ"/>
+            </connections>
+            <point key="canvasLocation" x="359" y="-135.5"/>
+        </view>
         <view contentMode="scaleToFill" id="CPq-zu-u0e" customClass="LiveBroadcastEventView" customModule="meWrap" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="300" height="32"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

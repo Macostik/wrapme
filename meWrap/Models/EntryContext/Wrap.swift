@@ -13,19 +13,20 @@ class LiveBroadcast: NSObject {
     
     class Event {
         
-        enum Type: String {
-            case Message = "message"
-            case Info = "info"
+        enum Kind: Int {
+            case Message
+            case Join
+            case Info
         }
         
-        var type: Type
+        var kind: Kind
         var text: String?
         var user: User?
         var disappearingBlock: (Void -> Void)?
         
         var autoDismiss = true
         
-        init(type: Type) { self.type = type }
+        init(kind: Kind) { self.kind = kind }
     }
     
     var broadcaster: User?

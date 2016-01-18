@@ -195,7 +195,7 @@ class LiveBroadcasterViewController: LiveViewController {
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "focusing:"))
         view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: "zooming:"))
         
-        let preparingEvent = LiveBroadcast.Event(type: .Info)
+        let preparingEvent = LiveBroadcast.Event(kind: .Info)
         preparingEvent.text = "preparing_broadcast".ls
         preparingEvent.autoDismiss = false
         broadcast.insert(preparingEvent)
@@ -239,7 +239,7 @@ class LiveBroadcasterViewController: LiveViewController {
             
             PubNub.sharedInstance?.publish(message, toChannel: wrap.uid, withCompletion: nil)
             
-            let liveEvent = LiveBroadcast.Event(type: .Info)
+            let liveEvent = LiveBroadcast.Event(kind: .Info)
             liveEvent.text = String(format: "formatted_you_are_now_live".ls, wrap.name ?? "")
             broadcast.insert(liveEvent)
             broadcast.remove(preparingEvent)

@@ -9,6 +9,9 @@
 import UIKit
 import PubNub
 
+private let LiveBroadcastUsername = "ravenpod"
+private let LiveBroadcastPassword = "34f82ab09fb501330b3910ddb1e38026"
+
 class LiveBroadcasterViewController: LiveViewController {
 
     var cameraPosition: Int32 = 1
@@ -165,7 +168,7 @@ class LiveBroadcasterViewController: LiveViewController {
     }
     
     private func createConnection(streamName: String) {
-        let uri = "rtsp://live.mewrap.me:1935/live/\(streamName)"
+        let uri = "rtsp://\(LiveBroadcastUsername):\(LiveBroadcastPassword)@live.mewrap.me:1935/live/\(streamName)"
         connectionID = streamer.createConnectionWithListener(self, uri: uri, mode: 0)
     }
     
@@ -194,12 +197,6 @@ class LiveBroadcasterViewController: LiveViewController {
         composeBar.hidden = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "focusing:"))
         view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: "zooming:"))
-        
-        let preparingEvent = LiveBroadcast.Event(kind: .Info)
-        preparingEvent.text = "preparing_broadcast".ls
-        preparingEvent.autoDismiss = false
-        broadcast.insert(preparingEvent)
-        chatDataSource.items = broadcast.events
         
         Dispatch.mainQueue.after(6) { [weak self] _ in
             
@@ -240,9 +237,8 @@ class LiveBroadcasterViewController: LiveViewController {
             PubNub.sharedInstance?.publish(message, toChannel: wrap.uid, withCompletion: nil)
             
             let liveEvent = LiveBroadcast.Event(kind: .Info)
-            liveEvent.text = String(format: "formatted_you_are_now_live".ls, wrap.name ?? "")
+            liveEvent.text = String(format: "formatted_broadcast_notification".ls, wrap.name ?? "")
             broadcast.insert(liveEvent)
-            broadcast.remove(preparingEvent)
             _self.chatDataSource.items = broadcast.events
         }
         
@@ -342,12 +338,23 @@ class LiveBroadcasterViewController: LiveViewController {
     override func wrapLiveBroadcastsUpdated() {
         updateBroadcastInfo()
     }
+    
+    private var startEventIsAlreadyPresented = false
 }
 
 extension LiveBroadcasterViewController: StreamerListener {
     
     @objc(connectionStateDidChangeId:State:Status:)
     func connectionStateDidChangeId(connectionID: Int32, state: ConnectionState, status: ConnectionStatus) {
+        
+        if state == .Record && !startEventIsAlreadyPresented {
+            startEventIsAlreadyPresented = true
+            let liveEvent = LiveBroadcast.Event(kind: .Info)
+            liveEvent.text = String(format: "your_broadcast_is_live".ls)
+            broadcast.insert(liveEvent)
+            chatDataSource.items = broadcast.events
+        }
+        
         if self.connectionID == connectionID && state == .Disconnected {
             releaseConnection()
             Dispatch.mainQueue.after(status == .UnknownFail ? 1 : 3, block: { [weak self] () -> Void in

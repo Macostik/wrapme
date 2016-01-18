@@ -24,8 +24,6 @@ class LiveBroadcast: NSObject {
         var user: User?
         var disappearingBlock: (Void -> Void)?
         
-        var autoDismiss = true
-        
         init(kind: Kind) { self.kind = kind }
     }
     
@@ -42,10 +40,8 @@ class LiveBroadcast: NSObject {
         if (events.count > 3) {
             events.removeLast()
         }
-        if event.autoDismiss {
-            Dispatch.mainQueue.after(4) { [weak self] () -> Void in
-                self?.dismiss(event)
-            }
+        Dispatch.mainQueue.after(4) { [weak self] () -> Void in
+            self?.dismiss(event)
         }
     }
     

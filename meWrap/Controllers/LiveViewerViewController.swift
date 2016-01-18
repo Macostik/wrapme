@@ -11,6 +11,8 @@ import PubNub
 
 class LiveViewerViewController: LiveViewController {
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     private weak var playerLayer: AVPlayerLayer?
     
     private var playerItem: AVPlayerItem?
@@ -68,6 +70,11 @@ class LiveViewerViewController: LiveViewController {
 
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         guard let keyPath = keyPath, let item = playerItem else { return }
+        if item.playbackLikelyToKeepUp {
+            spinner.stopAnimating()
+        } else {
+            spinner.startAnimating()
+        }
         switch keyPath {
         case "status" where item.status == .ReadyToPlay, "playbackLikelyToKeepUp" where item.playbackLikelyToKeepUp == true:
             playerLayer?.player?.play()
@@ -89,6 +96,7 @@ class LiveViewerViewController: LiveViewController {
     override func wrapLiveBroadcastsUpdated() {
         if let wrap = wrap where !wrap.liveBroadcasts.contains(broadcast) {
             navigationController?.popViewControllerAnimated(false)
+            Toast.show(String(format:"formatted_broadcast_end".ls, broadcast.broadcaster?.name ?? ""))
         }
     }
 }

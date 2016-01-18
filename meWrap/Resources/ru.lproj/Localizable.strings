@@ -266,6 +266,7 @@
 "let's_get_started" = "Let's get started";
 "your_broadcast_is_live" = "Your broadcast is now live.";
 "formatted_broadcast_notification" = "Your friends in \"%@\" are now receiving notification about your broadcast.";
+"formatted_broadcast_end" = "%@ has ended the broadcast.";
 "easy_create_wrap" = "meWrap делает создание wrap удевительно легко";
 "live" = "LIVE";
 "maybe_later" = "Позже";

@@ -4680,6 +4680,9 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                     <constraint firstAttribute="bottom" secondItem="r9P-ch-MQf" secondAttribute="bottom" id="yFA-rE-LYX"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="TNP-Tj-SnO">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -4688,6 +4691,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                             <constraint firstItem="deR-u8-UBI" firstAttribute="top" secondItem="gcl-pD-GVE" secondAttribute="bottom" constant="12" id="E4g-KA-YoN"/>
                             <constraint firstItem="bV7-Wf-Fwe" firstAttribute="top" secondItem="hu9-eF-Xks" secondAttribute="bottom" constant="12" id="H3q-j3-IJN"/>
                             <constraint firstAttribute="trailing" secondItem="tx8-ZB-cyU" secondAttribute="trailing" constant="12" id="L8h-Jq-R3n"/>
+                            <constraint firstItem="TNP-Tj-SnO" firstAttribute="centerX" secondItem="7gj-ZE-Pva" secondAttribute="centerX" id="Mbf-N6-GeG"/>
                             <constraint firstItem="bV7-Wf-Fwe" firstAttribute="leading" secondItem="7gj-ZE-Pva" secondAttribute="leading" constant="12" id="Nvc-aQ-aDo"/>
                             <constraint firstItem="MNj-8d-QHe" firstAttribute="top" secondItem="ppk-Jn-1HT" secondAttribute="bottom" constant="12" id="Ojr-7n-Lk7"/>
                             <constraint firstItem="deR-u8-UBI" firstAttribute="top" secondItem="bV7-Wf-Fwe" secondAttribute="bottom" constant="12" id="Pq9-fi-g4C"/>
@@ -4699,6 +4703,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                             <constraint firstItem="MNj-8d-QHe" firstAttribute="leading" secondItem="7gj-ZE-Pva" secondAttribute="leading" constant="12" id="fmq-nR-drA"/>
                             <constraint firstItem="Mu5-Wm-mgc" firstAttribute="top" secondItem="gcl-pD-GVE" secondAttribute="bottom" priority="750" constant="12" id="jD9-Gi-Mx9"/>
                             <constraint firstAttribute="trailing" secondItem="deR-u8-UBI" secondAttribute="trailing" id="mNi-kS-sQh"/>
+                            <constraint firstItem="TNP-Tj-SnO" firstAttribute="centerY" secondItem="7gj-ZE-Pva" secondAttribute="centerY" id="mXo-3P-gmM"/>
                             <constraint firstItem="tx8-ZB-cyU" firstAttribute="top" secondItem="hu9-eF-Xks" secondAttribute="bottom" constant="12" id="qyf-qv-wkS"/>
                             <constraint firstAttribute="trailing" secondItem="gcl-pD-GVE" secondAttribute="trailing" constant="12" id="sZr-rR-akI"/>
                             <constraint firstItem="ppk-Jn-1HT" firstAttribute="top" secondItem="hu9-eF-Xks" secondAttribute="bottom" constant="12" id="scZ-u7-kPJ"/>
@@ -4713,6 +4718,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                         <outlet property="composeBar" destination="deR-u8-UBI" id="u3k-F1-9SI"/>
                         <outlet property="joinsCountLabel" destination="New-SG-Ebr" id="L9v-cO-moh"/>
                         <outlet property="joinsCountView" destination="gcl-pD-GVE" id="ZcG-wb-LTy"/>
+                        <outlet property="spinner" destination="TNP-Tj-SnO" id="QEB-FQ-BEi"/>
                         <outlet property="titleLabel" destination="reu-XV-mzP" id="thH-Yn-Bf3"/>
                         <outlet property="wrapNameLabel" destination="Utt-DA-1Lo" id="frq-ld-kma"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="fJc-VB-I0I" id="3c5-B1-fRT"/>

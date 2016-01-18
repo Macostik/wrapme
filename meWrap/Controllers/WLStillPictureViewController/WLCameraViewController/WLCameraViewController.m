@@ -175,6 +175,11 @@
     }];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self  selector:@selector(setAssetsViewControllerHidden) object:nil];
+}
+
 - (void)authorize:(Block)success failure:(FailureBlock)failure {
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     if (status == AVAuthorizationStatusAuthorized) {

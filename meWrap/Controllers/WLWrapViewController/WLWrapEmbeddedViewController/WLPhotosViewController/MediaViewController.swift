@@ -183,7 +183,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
             Toast.show("no_internet_connection".ls)
             return
         }
-        if let controller = storyboard?["liveBroadcast"] as? LiveBroadcastViewController {
+        if let controller = storyboard?["liveViewer"] as? LiveViewerViewController {
             controller.wrap = wrap
             controller.broadcast = broadcast
             navigationController?.pushViewController(controller, animated: false)
@@ -263,9 +263,8 @@ class MediaViewController: WLWrapEmbeddedViewController {
         
         let openLiveBroadcast: (Void -> Void) = { [weak self] () -> Void in
             FollowingViewController.followWrapIfNeeded(wrap) {
-                if let controller = self?.storyboard?["liveBroadcast"] as? LiveBroadcastViewController {
+                if let controller = self?.storyboard?["liveBroadcaster"] as? LiveBroadcasterViewController {
                     controller.wrap = wrap
-                    controller.isBroadcasting = true
                     self?.navigationController?.pushViewController(controller, animated: false)
                 }
             }

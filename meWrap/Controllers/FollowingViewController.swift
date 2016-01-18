@@ -24,7 +24,8 @@ class FollowingViewController: WLBaseViewController {
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
     
-    class func followWrapIfNeeded(wrap: Wrap, performAction action: Block) {
+    class func followWrapIfNeeded(wrap: Wrap?, performAction action: Block) {
+        guard let wrap = wrap?.validEntry() else { return }
         if (wrap.requiresFollowing) {
             if let controller = UIStoryboard.main()["FollowingViewController"] as? FollowingViewController {
                 controller.wrap = wrap

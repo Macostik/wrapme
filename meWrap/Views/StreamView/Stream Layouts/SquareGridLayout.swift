@@ -23,9 +23,9 @@ class SquareGridLayout: StreamLayout {
             
             let num = CGFloat(numberOfColumns)
             if horizontal {
-                size = (sv.frame.height - spacing * (num + 1)) / num
+                size = (sv.frame.height - spacing * (num - 1)) / num
             } else {
-                size = (sv.frame.width - spacing * (num + 1)) / num
+                size = (sv.frame.width - spacing * (num - 1)) / num
             }
         }
     }
@@ -56,7 +56,7 @@ class SquareGridLayout: StreamLayout {
             }
             return CGRect(x: 0, y: y, width: streamView.width, height: metrics.sizeAt(item))
         } else {
-            var x = spacing
+            var x: CGFloat = 0
             var y = spacing
             var column: Int = 0
             if let previous = item.previous {

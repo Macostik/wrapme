@@ -4465,7 +4465,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="wrap name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fAr-sp-GCB" customClass="WLLabel">
-                                        <rect key="frame" x="56" y="21" width="532" height="21"/>
+                                        <rect key="frame" x="56" y="21" width="488" height="21"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4475,7 +4475,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="17 Dec 2015" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oce-sY-pyn" customClass="WLLabel">
-                                        <rect key="frame" x="56" y="42" width="532" height="16"/>
+                                        <rect key="frame" x="56" y="42" width="488" height="16"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4489,7 +4489,12 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="4Hn-E9-EA6"/>
                                     <constraint firstAttribute="trailing" secondItem="oce-sY-pyn" secondAttribute="trailing" constant="12" id="5x8-Uh-HIC"/>
+                                    <constraint firstItem="fAr-sp-GCB" firstAttribute="centerX" secondItem="E6f-if-6iX" secondAttribute="centerX" id="AeB-oZ-0cJ"/>
+                                    <constraint firstItem="oce-sY-pyn" firstAttribute="centerX" secondItem="E6f-if-6iX" secondAttribute="centerX" id="I5V-DX-407"/>
+                                    <constraint firstAttribute="trailing" secondItem="fAr-sp-GCB" secondAttribute="trailing" constant="56" id="ISe-Dd-EPw"/>
+                                    <constraint firstAttribute="trailing" secondItem="oce-sY-pyn" secondAttribute="trailing" constant="56" id="SHO-Lg-gzJ"/>
                                     <constraint firstAttribute="centerY" secondItem="fAr-sp-GCB" secondAttribute="bottom" constant="-10" id="Tde-YA-MKC"/>
+                                    <constraint firstAttribute="trailing" secondItem="oce-sY-pyn" secondAttribute="trailing" priority="999" constant="56" id="V08-xI-mdS"/>
                                     <constraint firstItem="OHf-zN-126" firstAttribute="leading" secondItem="E6f-if-6iX" secondAttribute="leading" constant="12" id="YHK-IE-TOi"/>
                                     <constraint firstAttribute="trailing" secondItem="fAr-sp-GCB" secondAttribute="trailing" constant="12" id="dNl-v0-BQe"/>
                                     <constraint firstItem="fAr-sp-GCB" firstAttribute="leading" secondItem="OHf-zN-126" secondAttribute="trailing" constant="12" id="dUe-ka-IGP"/>
@@ -4497,6 +4502,15 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                     <constraint firstItem="oce-sY-pyn" firstAttribute="leading" secondItem="OHf-zN-126" secondAttribute="trailing" constant="12" id="n7t-c1-BgA"/>
                                     <constraint firstAttribute="centerY" secondItem="OHf-zN-126" secondAttribute="centerY" constant="-10" id="vx2-8m-wWL"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="AeB-oZ-0cJ"/>
+                                        <exclude reference="dNl-v0-BQe"/>
+                                        <exclude reference="5x8-Uh-HIC"/>
+                                        <exclude reference="I5V-DX-407"/>
+                                        <exclude reference="V08-xI-mdS"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2kP-h9-ZMO" customClass="StreamView" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>

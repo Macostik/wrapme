@@ -128,9 +128,14 @@
     
     [[RecentUpdateList sharedList] addReceiver:self];
     
-    [[NotificationCenter defaultCenter] fetchLiveBroadcasts:^{
-        [homeDataSource.paginatedSet sort];
-        [publicDataSource.paginatedSet sort];
+    [[Dispatch mainQueue] async:^{
+        [[RunQueue fetchQueue] run:^(Block finish) {
+            [[NotificationCenter defaultCenter] fetchLiveBroadcasts:^{
+                [homeDataSource.paginatedSet sort];
+                [publicDataSource.paginatedSet sort];
+                finish();
+            }];
+        }];
     }];
 }
 

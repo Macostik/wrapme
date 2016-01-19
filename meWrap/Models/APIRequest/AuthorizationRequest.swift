@@ -67,7 +67,7 @@ extension APIRequest {
                 }
             }
             
-            userDefaults.remoteLogging = response["remote_logging"] as? Bool ?? false
+            
             userDefaults.pageSize = response["pagination_fetch_size"] as? Int ?? 30
             userDefaults.imageURI = response["image_uri"] as? String ?? environment.defaultImageURI
             userDefaults.avatarURI = response["avatar_uri"] as? String ?? environment.defaultAvatarURI

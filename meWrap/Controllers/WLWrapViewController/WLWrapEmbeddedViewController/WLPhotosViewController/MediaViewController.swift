@@ -14,7 +14,7 @@ class HistoryDateSeparator: StreamReusableView {
     
     override func setup(entry: AnyObject!) {
         if let item = entry as? HistoryItem {
-            dateLabel.text = item.date.stringWithDateStyle(.MediumStyle)
+            dateLabel.text = item.date.stringWithFormat("EEE MMM d, yyyy")
         }
     }
 }

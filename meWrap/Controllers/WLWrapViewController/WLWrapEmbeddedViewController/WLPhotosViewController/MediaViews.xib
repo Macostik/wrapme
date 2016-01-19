@@ -81,13 +81,13 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="nY2-aj-pJr" customClass="WLLabel">
-                    <rect key="frame" x="142" y="9" width="37" height="18"/>
+                    <rect key="frame" x="12" y="8" width="42" height="21"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                     </userDefinedRuntimeAttributes>
                 </label>
             </subviews>
@@ -95,10 +95,15 @@
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="nY2-aj-pJr" secondAttribute="centerX" id="G5x-3F-lM6"/>
                 <constraint firstItem="nY2-aj-pJr" firstAttribute="centerY" secondItem="WcT-6C-2AP" secondAttribute="centerY" id="GWw-ua-Cfp"/>
-                <constraint firstItem="nY2-aj-pJr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WcT-6C-2AP" secondAttribute="leading" constant="12" id="jv1-9L-8mc"/>
+                <constraint firstItem="nY2-aj-pJr" firstAttribute="leading" secondItem="WcT-6C-2AP" secondAttribute="leading" constant="12" id="jv1-9L-8mc"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nY2-aj-pJr" secondAttribute="trailing" constant="12" id="zmz-ih-vHj"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="G5x-3F-lM6"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="dateLabel" destination="nY2-aj-pJr" id="1H6-ST-96B"/>
             </connections>

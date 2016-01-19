@@ -16,10 +16,11 @@ class EntryDescriptor: NSObject {
     var container: String?
     var data: [String:AnyObject]?
     
-    convenience init(name: String, uid: String) {
+    convenience init(name: String, uid: String, locuid: String?) {
         self.init()
         self.name = name
         self.uid = uid
+        self.locuid = locuid
     }
     
     func entryExists() -> Bool {

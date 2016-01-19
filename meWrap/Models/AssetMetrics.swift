@@ -90,6 +90,24 @@ class AssetMetrics: NSObject {
 
 extension Asset {
     
+    func editCandyAsset(dictionary: [String : AnyObject], mediaType: MediaType) -> Asset {
+        switch mediaType {
+        case .Photo:
+            if let urls = dictionary[Keys.MediaURLs] as? [String : String] {
+                return edit(urls, metrics: AssetMetrics.imageMetrics)
+            } else if let urls = dictionary[Keys.ImageURLs] as? [String : String] {
+                return edit(urls, metrics: AssetMetrics.imageMetrics)
+            }
+        case .Video:
+            if let urls = dictionary[Keys.MediaURLs] as? [String : String] {
+                return edit(urls, metrics: AssetMetrics.videoMetrics)
+            } else if let urls = dictionary[Keys.VideoURLs] as? [String : String] {
+                return edit(urls, metrics: AssetMetrics.videoMetrics)
+            }
+        }
+        return self
+    }
+    
     func edit(dictionary: [String : String], metrics: AssetMetrics) -> Asset {
         
         guard let uri = metrics.uri else {

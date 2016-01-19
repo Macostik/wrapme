@@ -153,22 +153,20 @@ class LiveBroadcasterViewController: LiveViewController {
         titleLabel?.text = composeBar.text
         titleLabel?.superview?.hidden = false
         
-        let streamName = "\(wrap.uid)-\(user.uid)-\(deviceUID)"
-        
         broadcast.title = composeBar.text
         
         broadcast.broadcaster = user
-        broadcast.streamName = streamName
+        broadcast.streamName = "\(wrap.uid)-\(user.uid)-\(deviceUID)"
         broadcast.wrap = wrap
         
-        createConnection(streamName)
+        createConnection()
         
         subscribe(broadcast)
         updateBroadcastInfo()
     }
     
-    private func createConnection(streamName: String) {
-        let uri = "rtsp://\(LiveBroadcastUsername):\(LiveBroadcastPassword)@live.mewrap.me:1935/live/\(streamName)"
+    private func createConnection() {
+        let uri = "rtsp://\(LiveBroadcastUsername):\(LiveBroadcastPassword)@live.mewrap.me:1935/live/\(broadcast.streamName)"
         connectionID = streamer.createConnectionWithListener(self, uri: uri, mode: 0)
     }
     
@@ -249,7 +247,7 @@ class LiveBroadcasterViewController: LiveViewController {
         releaseConnection()
         stopCapture()
         startCapture(cameraPosition == 1 ? 2 : 1)
-        createConnection(broadcast.streamName)
+        createConnection()
     }
     
     internal override func close() {
@@ -347,6 +345,10 @@ extension LiveBroadcasterViewController: StreamerListener {
     @objc(connectionStateDidChangeId:State:Status:)
     func connectionStateDidChangeId(connectionID: Int32, state: ConnectionState, status: ConnectionStatus) {
         
+        guard self.connectionID == connectionID else {
+            return
+        }
+        
         if state == .Record && !startEventIsAlreadyPresented {
             startEventIsAlreadyPresented = true
             let liveEvent = LiveBroadcast.Event(kind: .Info)
@@ -355,10 +357,13 @@ extension LiveBroadcasterViewController: StreamerListener {
             chatDataSource.items = broadcast.events
         }
         
-        if self.connectionID == connectionID && state == .Disconnected {
+        if state == .Disconnected {
+            #if DEBUG
+                Toast.show("Reconnecting...")
+            #endif
             releaseConnection()
             Dispatch.mainQueue.after(status == .UnknownFail ? 1 : 3, block: { [weak self] () -> Void in
-                self?.startBroadcast()
+                self?.createConnection()
                 })
         }
     }

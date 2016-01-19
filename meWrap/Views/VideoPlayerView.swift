@@ -30,32 +30,20 @@ class VideoTimeView: UIView {
     }
     
     override func drawRect(rect: CGRect) {
-        
         let path = UIBezierPath()
         path.lineWidth = 2
-        path.moveToPoint(CGPoint(x: 0, y: bounds.height / 2))
-        path.addLineToPoint(CGPoint(x: bounds.width, y: bounds.height / 2))
         UIColor.whiteColor().colorWithAlphaComponent(0.5).setStroke()
-        path.stroke()
-        
+        path.move(0, bounds.height / 2).line(bounds.width, bounds.height / 2).stroke()
         UIColor.whiteColor().setStroke()
-        
         path.removeAllPoints()
         if time > 0 {
             let position = (bounds.width - path.lineWidth) * CGFloat(time)
-            
-            path.moveToPoint(CGPoint(x: 0, y: bounds.height / 2))
-            path.addLineToPoint(CGPoint(x: position, y: bounds.height / 2))
-            path.stroke()
-            
+            path.move(0, bounds.height / 2).line(position, bounds.height / 2).stroke()
             path.removeAllPoints()
-            path.moveToPoint(CGPoint(x: position + path.lineWidth/2, y: 0))
-            path.addLineToPoint(CGPoint(x: position + path.lineWidth/2, y: bounds.height))
+            path.move(position + path.lineWidth/2, 0).line(position + path.lineWidth/2, bounds.height).stroke()
         } else {
-            path.moveToPoint(CGPoint(x: path.lineWidth/2, y: 0))
-            path.addLineToPoint(CGPoint(x: path.lineWidth/2, y: bounds.height))
+            path.move(path.lineWidth/2, 0).line(path.lineWidth/2, bounds.height).stroke()
         }
-        path.stroke()
     }
 }
 

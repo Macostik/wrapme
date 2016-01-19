@@ -223,6 +223,7 @@
 		C56337591C16CE8300F4E182 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56337581C16CE8300F4E182 /* MediaViewController.swift */; };
 		C564C8161C4A47EE001C6460 /* CaptureAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C564C8151C4A47EE001C6460 /* CaptureAvatarViewController.swift */; };
 		C565ED6D1B9F2567002352C8 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B787D9C1A27876F004AE459 /* NotificationCenter.framework */; };
+		C566BD9E1C4E6B50000E80BA /* UIBezierPath+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566BD9D1C4E6B50000E80BA /* UIBezierPath+Ext.swift */; };
 		C568D8D91A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
 		C56D4E4F1C0B54D300B20566 /* meWrapWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C54604D71C08C6DF00FB2303 /* meWrapWatchApp.app */; };
 		C577C2661A4C427100ECC7E5 /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C577C2621A4C427100ECC7E5 /* iVersion.m */; };
@@ -695,6 +696,7 @@
 		C562D1071BDF65F60033EDC8 /* WatchExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchExtensionDelegate.swift; sourceTree = "<group>"; };
 		C56337581C16CE8300F4E182 /* MediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
 		C564C8151C4A47EE001C6460 /* CaptureAvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CaptureAvatarViewController.swift; path = WLStillPictureViewController/CaptureAvatarViewController.swift; sourceTree = "<group>"; };
+		C566BD9D1C4E6B50000E80BA /* UIBezierPath+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Ext.swift"; sourceTree = "<group>"; };
 		C568D8D41A6D491800C2333B /* WLHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHintView.h; sourceTree = "<group>"; };
 		C568D8D51A6D491800C2333B /* WLHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLHintView.m; sourceTree = "<group>"; };
 		C577C2611A4C427100ECC7E5 /* iVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iVersion.h; sourceTree = "<group>"; };
@@ -1332,6 +1334,7 @@
 				C5EE45A31C01C4A2008DE8D6 /* UIImage+Ext.swift */,
 				C55BE8C61C031BA6006B04FC /* ExtensionRequest+Ext.swift */,
 				C54743451C09CE3700BECB25 /* CATransition+Ext.swift */,
+				C566BD9D1C4E6B50000E80BA /* UIBezierPath+Ext.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2565,6 +2568,7 @@
 				C5E6DD891C0DC84A004992E4 /* Asset.swift in Sources */,
 				C5AA71AF1BE3946700EA106A /* EntryNotifier.swift in Sources */,
 				C5F4E70D1C07489E00D2FC16 /* EditSession.swift in Sources */,
+				C566BD9E1C4E6B50000E80BA /* UIBezierPath+Ext.swift in Sources */,
 				C5E6DD8F1C0DC84A004992E4 /* Entry.swift in Sources */,
 				C525005A1C1F1FCB00CF8F9D /* FollowingViewController.swift in Sources */,
 				C54531231A2497470048A677 /* WLPhoneValidation.m in Sources */,

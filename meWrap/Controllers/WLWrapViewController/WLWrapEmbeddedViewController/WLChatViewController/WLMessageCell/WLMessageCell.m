@@ -35,27 +35,18 @@
     
     UIColor *color = self.textView.superview.backgroundColor;
     if (self.tailView) {
-        if (self.tailView.x > self.textView.superview.x) {
-            self.tailView.image = [WLMessageCell tailImageWithColor:color size:self.tailView.size drawing:^(CGSize size) {
-                UIBezierPath *path = [UIBezierPath bezierPath];
-                [path moveToPoint:CGPointZero];
-                [path addQuadCurveToPoint:CGPointMake(size.width, 0) controlPoint:CGPointMake(size.width/2, size.height/2)];
-                [path addQuadCurveToPoint:CGPointMake(0, size.height) controlPoint:CGPointMake(size.width, size.height)];
-                [path addLineToPoint:CGPointZero];
-                [color setFill];
-                [path fill];
-            }];
-        } else {
-            self.tailView.image = [WLMessageCell tailImageWithColor:color size:self.tailView.size drawing:^(CGSize size) {
-                UIBezierPath *path = [UIBezierPath bezierPath];
-                [path moveToPoint:CGPointMake(size.width, 0)];
-                [path addQuadCurveToPoint:CGPointMake(0, 0) controlPoint:CGPointMake(size.width/2, size.height/2)];
-                [path addQuadCurveToPoint:CGPointMake(size.width, size.height) controlPoint:CGPointMake(0, size.height)];
-                [path addLineToPoint:CGPointMake(size.width, 0)];
-                [color setFill];
-                [path fill];
-            }];
-        }
+        self.tailView.image = [WLMessageCell tailImageWithColor:color size:self.tailView.size drawing:^(CGSize size) {
+            UIBezierPath *path = [UIBezierPath bezierPath];
+            if (self.tailView.x > self.textView.superview.x) {
+                [[path move:0 :0] quadCurve:size.width :0 controlX:size.width/2 controlY:size.height/2];
+                [[path quadCurve:0 :size.height controlX:size.width controlY:size.height] line:0 :0];
+            } else {
+                [[path move:size.width :0] quadCurve:0 :0 controlX:size.width/2 controlY:size.height/2];
+                [[path quadCurve:size.width :size.height controlX:0 controlY:size.height] line:size.width :0];
+            }
+            [color setFill];
+            [path fill];
+        }];
     }
 }
 

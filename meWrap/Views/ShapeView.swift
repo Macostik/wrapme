@@ -9,58 +9,39 @@
 import UIKit
 
 class ShapeView: UIView {
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-    
         let path = UIBezierPath()
-        
         defineShapePath(path, contentMode:contentMode)
-        
         let shape = CAShapeLayer()
         shape.path = path.CGPath
         shape.frame = bounds
         layer.mask = shape
     }
     
-    func defineShapePath(path: UIBezierPath, contentMode: UIViewContentMode) {
-    
-    }
+    func defineShapePath(path: UIBezierPath, contentMode: UIViewContentMode) { }
 }
 
 class TriangleView: ShapeView {
 
     override func defineShapePath(path: UIBezierPath, contentMode: UIViewContentMode) {
-        let rect = bounds
+        let r = bounds
         switch contentMode {
         case .Top:
-            path.moveToPoint(CGPointMake(rect.minX, rect.maxY))
-            path.addLineToPoint(CGPointMake(rect.maxX, rect.maxY))
-            path.addLineToPoint(CGPointMake(rect.midX, rect.minY))
-            path.addLineToPoint(CGPointMake(rect.minX, rect.maxY))
+            path.move(r.minX, r.maxY).line(r.maxX, r.maxY).line(r.midX, r.minY).line(r.minX, r.maxY)
             break
         case .Left:
-            path.moveToPoint(CGPointMake(rect.minX, rect.minY))
-            path.addLineToPoint(CGPointMake(rect.minX, rect.maxY))
-            path.addLineToPoint(CGPointMake(rect.maxX, rect.midY))
-            path.addLineToPoint(CGPointMake(rect.minX, rect.minY))
+            path.move(r.minX, r.minY).line(r.minX, r.maxY).line(r.maxX, r.midY).line(r.minX, r.minY)
             break
         case .Right:
-            path.moveToPoint(CGPointMake(rect.maxX, rect.minY))
-            path.addLineToPoint(CGPointMake(rect.minX, rect.midY))
-            path.addLineToPoint(CGPointMake(rect.maxX, rect.maxY))
-            path.addLineToPoint(CGPointMake(rect.maxX, rect.minY))
+            path.move(r.maxX, r.minY).line(r.minX, r.midY).line(r.maxX, r.maxY).line(r.maxX, r.minY)
             break
         case .Bottom:
-            path.moveToPoint(CGPointMake(rect.minX, rect.minY))
-            path.addLineToPoint(CGPointMake(rect.maxX, rect.minY))
-            path.addLineToPoint(CGPointMake(rect.midX, rect.maxY))
-            path.addLineToPoint(CGPointMake(rect.minX, rect.minY))
+            path.move(r.minX, r.minY).line(r.maxX, r.minY).line(r.midX, r.maxY).line(r.minX, r.minY)
             break
         default:
-            path.moveToPoint(CGPointMake(rect.minX, rect.maxY))
-            path.addLineToPoint(CGPointMake(rect.maxX, rect.maxY))
-            path.addLineToPoint(CGPointMake(rect.midX, rect.minY))
-            path.addLineToPoint(CGPointMake(rect.minX, rect.maxY))
+            path.move(r.minX, r.maxY).line(r.maxX, r.maxY).line(r.midX, r.minY).line(r.minX, r.maxY)
             break
         }
     }
@@ -69,24 +50,12 @@ class TriangleView: ShapeView {
 class SwipeActionView: ShapeView {
 
     override func defineShapePath(path: UIBezierPath, contentMode: UIViewContentMode) {
-        let rect = bounds
-        let height = rect.height
-        let width = rect.width
+        let h = bounds.height
+        let w = bounds.width
         if contentMode == .Left {
-            path.moveToPoint(CGPointMake(0, 0))
-            path.addLineToPoint(CGPointMake(0, height))
-            path.addLineToPoint(CGPointMake(width - height/2.0, height))
-            path.addLineToPoint(CGPointMake(width, height/2.0))
-            path.addLineToPoint(CGPointMake(width - height/2.0, 0))
-            path.moveToPoint(CGPointMake(0, 0))
+            path.move(0, 0).line(0, h).line(w - h/2.0, h).line(w, h/2.0).line(w - h/2.0, 0).line(0, 0)
         } else if (contentMode == .Right) {
-            path.moveToPoint(CGPointMake(width, 0))
-            path.addLineToPoint(CGPointMake(height/2.0, 0))
-            path.addLineToPoint(CGPointMake(0, height/2.0))
-            path.addLineToPoint(CGPointMake(height/2.0, height))
-            path.addLineToPoint(CGPointMake(width, height))
-            path.moveToPoint(CGPointMake(width, 0))
+            path.move(w, 0).line(h/2.0, 0).line(0, h/2.0).line(h/2.0, h).line(w, h).line(w, 0)
         }
     }
-
 }

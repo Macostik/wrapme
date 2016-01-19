@@ -5425,19 +5425,19 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y7K-BP-shZ">
-                                <rect key="frame" x="0.0" y="92" width="600" height="416"/>
+                                <rect key="frame" x="0.0" y="89" width="600" height="422"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQ6-QK-JKf" userLabel="Image's View">
-                                        <rect key="frame" x="10" y="10" width="580" height="396"/>
+                                        <rect key="frame" x="50" y="50" width="500" height="352"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="create_wrap_step_last" translatesAutoresizingMaskIntoConstraints="NO" id="Yge-mS-wJa">
-                                                <rect key="frame" x="0.0" y="0.0" width="580" height="325"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="500" height="281"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Yge-mS-wJa" secondAttribute="height" multiplier="1272:714" id="U5a-CB-P5Y"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="all_set" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3w9-Jx-SJ2" customClass="WLLabel">
-                                                <rect key="frame" x="0.0" y="337" width="580" height="26"/>
+                                                <rect key="frame" x="0.0" y="293" width="500" height="26"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                 <color key="textColor" red="0.2627450980392157" green="0.2627450980392157" blue="0.2627450980392157" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -5447,7 +5447,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="enjoy_and_happy" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJa-bv-mLk" customClass="WLLabel">
-                                                <rect key="frame" x="0.0" y="375" width="580" height="21"/>
+                                                <rect key="frame" x="0.0" y="331" width="500" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -5474,10 +5474,10 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="nQ6-QK-JKf" firstAttribute="leading" secondItem="Y7K-BP-shZ" secondAttribute="leading" constant="10" id="EPC-va-feC"/>
-                                    <constraint firstAttribute="trailing" secondItem="nQ6-QK-JKf" secondAttribute="trailing" constant="10" id="TgY-dP-tje"/>
-                                    <constraint firstAttribute="bottom" secondItem="nQ6-QK-JKf" secondAttribute="bottom" constant="10" id="X1B-no-nxJ"/>
-                                    <constraint firstItem="nQ6-QK-JKf" firstAttribute="top" secondItem="Y7K-BP-shZ" secondAttribute="top" constant="10" id="YS6-fQ-FT6"/>
+                                    <constraint firstItem="nQ6-QK-JKf" firstAttribute="leading" secondItem="Y7K-BP-shZ" secondAttribute="leading" constant="50" id="EPC-va-feC"/>
+                                    <constraint firstAttribute="trailing" secondItem="nQ6-QK-JKf" secondAttribute="trailing" constant="50" id="TgY-dP-tje"/>
+                                    <constraint firstAttribute="bottom" secondItem="nQ6-QK-JKf" secondAttribute="bottom" constant="20" id="X1B-no-nxJ"/>
+                                    <constraint firstItem="nQ6-QK-JKf" firstAttribute="top" secondItem="Y7K-BP-shZ" secondAttribute="top" constant="50" id="YS6-fQ-FT6"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">

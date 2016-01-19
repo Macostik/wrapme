@@ -247,7 +247,7 @@
             self.nextButton.hidden = isEmpty;
             [self.nextButton setTitle:@"next".ls forState:UIControlStateNormal];
         } else {
-            [self.nextButton setTitle:isEmpty ? @"skip".ls : @"next".ls forState:UIControlStateNormal];
+            [self.nextButton setTitle:isEmpty ? @"skip".ls : @"finish".ls forState:UIControlStateNormal];
         }
         self.bottomPrioritizer.defaultState = YES;
     } else {

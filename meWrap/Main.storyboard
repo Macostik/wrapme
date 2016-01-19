@@ -2167,7 +2167,7 @@
                 </customObject>
                 <customObject id="xXv-P7-bPX" userLabel="Wrap Settings Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLWrapSettingsViewContoller"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WrapSettingsViewController"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="wrap"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -4844,7 +4844,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
         <!--Wrap Settings View Controller-->
         <scene sceneID="6Yj-w4-GCu">
             <objects>
-                <viewController storyboardIdentifier="WLWrapSettingsViewContoller" id="TKE-mx-bkQ" customClass="WLWrapSettingsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WrapSettingsViewController" id="TKE-mx-bkQ" customClass="WrapSettingsViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gRX-BZ-QRM"/>
                         <viewControllerLayoutGuide type="bottom" id="4fr-aE-Nvt"/>
@@ -4867,7 +4867,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KAL-gI-aRC">
-                                        <rect key="frame" x="539" y="45" width="51" height="31"/>
+                                        <rect key="frame" x="539" y="39" width="51" height="31"/>
                                         <color key="onTintColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="changeSwichValue:" destination="TKE-mx-bkQ" eventType="valueChanged" id="mXP-hT-OKV"/>
@@ -4888,7 +4888,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="alx-1S-ZGS" firstAttribute="top" secondItem="WUw-53-Yq6" secondAttribute="top" constant="12" id="Iqu-1t-zz5"/>
-                                    <constraint firstItem="KAL-gI-aRC" firstAttribute="top" secondItem="hr9-nr-ikq" secondAttribute="top" id="PK2-NI-Mtn"/>
+                                    <constraint firstItem="KAL-gI-aRC" firstAttribute="centerY" secondItem="hr9-nr-ikq" secondAttribute="centerY" id="PK2-NI-Mtn"/>
                                     <constraint firstItem="hr9-nr-ikq" firstAttribute="leading" secondItem="WUw-53-Yq6" secondAttribute="leading" constant="12" id="RZs-CR-RkH"/>
                                     <constraint firstAttribute="trailing" secondItem="KAL-gI-aRC" secondAttribute="trailing" constant="12" id="dnC-IR-cYJ"/>
                                     <constraint firstItem="hr9-nr-ikq" firstAttribute="top" secondItem="alx-1S-ZGS" secondAttribute="bottom" constant="12" id="fG8-OF-vkV"/>
@@ -5000,7 +5000,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7VE-Kd-SiX">
-                                        <rect key="frame" x="539" y="33" width="51" height="31"/>
+                                        <rect key="frame" x="539" y="27" width="51" height="31"/>
                                         <color key="onTintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="changeSwichValue:" destination="TKE-mx-bkQ" eventType="valueChanged" id="2CM-a7-513"/>
@@ -5021,7 +5021,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                 <constraints>
                                     <constraint firstItem="zet-Ls-5CH" firstAttribute="leading" secondItem="zYA-26-DXt" secondAttribute="leading" constant="12" id="AL7-Yc-sPd"/>
                                     <constraint firstAttribute="trailing" secondItem="7VE-Kd-SiX" secondAttribute="trailing" constant="12" id="ASg-9f-Rda"/>
-                                    <constraint firstItem="7VE-Kd-SiX" firstAttribute="top" secondItem="cUR-VV-aaK" secondAttribute="top" id="CRM-Rr-ieB"/>
+                                    <constraint firstItem="7VE-Kd-SiX" firstAttribute="centerY" secondItem="cUR-VV-aaK" secondAttribute="centerY" id="CRM-Rr-ieB"/>
                                     <constraint firstItem="cUR-VV-aaK" firstAttribute="leading" secondItem="zYA-26-DXt" secondAttribute="leading" constant="12" id="Myf-dH-dDH"/>
                                     <constraint firstItem="cUR-VV-aaK" firstAttribute="top" secondItem="zet-Ls-5CH" secondAttribute="bottom" constant="12" id="Qm5-pC-aIZ"/>
                                     <constraint firstItem="zet-Ls-5CH" firstAttribute="top" secondItem="zYA-26-DXt" secondAttribute="top" id="Ssd-3n-Yfz"/>
@@ -5035,7 +5035,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                     <constraint firstAttribute="height" constant="30" id="ipo-OD-8dx"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="leave_wrap">
+                                <state key="normal" title="LEAVE_WRAP">
                                     <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -5097,7 +5097,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="R1I-Cl-5SX">
-                                        <rect key="frame" x="539" y="66" width="51" height="31"/>
+                                        <rect key="frame" x="539" y="60" width="51" height="31"/>
                                         <color key="onTintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="changeSwichValue:" destination="TKE-mx-bkQ" eventType="valueChanged" id="9cm-m9-GQc"/>
@@ -5110,7 +5110,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                     <constraint firstItem="bsu-Ad-ILe" firstAttribute="top" secondItem="Vtf-da-c8a" secondAttribute="bottom" constant="12" id="QcC-UM-DoK"/>
                                     <constraint firstItem="Vtf-da-c8a" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="Y1Y-Ub-xYv"/>
                                     <constraint firstItem="bHL-LP-6Kt" firstAttribute="top" secondItem="bsu-Ad-ILe" secondAttribute="bottom" constant="12" id="alO-fn-qxf"/>
-                                    <constraint firstItem="bHL-LP-6Kt" firstAttribute="top" secondItem="R1I-Cl-5SX" secondAttribute="top" id="bM8-1u-v5M"/>
+                                    <constraint firstItem="bHL-LP-6Kt" firstAttribute="centerY" secondItem="R1I-Cl-5SX" secondAttribute="centerY" id="bM8-1u-v5M"/>
                                     <constraint firstItem="bsu-Ad-ILe" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="las-NM-t1v"/>
                                     <constraint firstItem="bHL-LP-6Kt" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="qNg-2o-Ona"/>
                                     <constraint firstAttribute="trailing" secondItem="R1I-Cl-5SX" secondAttribute="trailing" constant="12" id="qnG-SU-abf"/>
@@ -5127,7 +5127,6 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                             <constraint firstAttribute="trailing" secondItem="zYA-26-DXt" secondAttribute="trailing" id="BEw-qS-Waq"/>
                             <constraint firstItem="NbD-y4-9Ou" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" id="C2z-GJ-NoN"/>
                             <constraint firstItem="fdR-Oj-q4N" firstAttribute="bottom" secondItem="zYA-26-DXt" secondAttribute="top" priority="750" id="EzZ-4T-m9D"/>
-                            <constraint firstItem="NbD-y4-9Ou" firstAttribute="bottom" secondItem="WUw-53-Yq6" secondAttribute="bottom" priority="250" id="FSp-fX-lJ8"/>
                             <constraint firstItem="zYA-26-DXt" firstAttribute="bottom" secondItem="zBK-OX-573" secondAttribute="top" constant="-20" id="MNL-sJ-su2"/>
                             <constraint firstItem="GMA-8i-bdS" firstAttribute="top" secondItem="gRX-BZ-QRM" secondAttribute="bottom" constant="-20" id="SS9-B6-bXb"/>
                             <constraint firstItem="zBK-OX-573" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" constant="12" id="SlH-Wj-xsc"/>
@@ -5138,31 +5137,24 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                             <constraint firstAttribute="trailing" secondItem="WUw-53-Yq6" secondAttribute="trailing" id="itK-bI-ECP"/>
                             <constraint firstAttribute="trailing" secondItem="zBK-OX-573" secondAttribute="trailing" constant="12" id="pDQ-i2-HGG"/>
                             <constraint firstItem="WUw-53-Yq6" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" id="qJN-HA-4yn"/>
-                            <constraint firstItem="NbD-y4-9Ou" firstAttribute="bottom" secondItem="WUw-53-Yq6" secondAttribute="top" priority="750" id="tgH-6b-vF6"/>
+                            <constraint firstItem="NbD-y4-9Ou" firstAttribute="bottom" secondItem="WUw-53-Yq6" secondAttribute="top" id="tgH-6b-vF6"/>
                             <constraint firstItem="fdR-Oj-q4N" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" id="xYj-GO-7JX"/>
                             <constraint firstItem="zYA-26-DXt" firstAttribute="bottom" secondItem="fdR-Oj-q4N" secondAttribute="bottom" priority="250" id="xfs-B5-TbF"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="actionButton" destination="zBK-OX-573" id="X6v-wJ-diD"/>
+                        <outlet property="adminLabel" destination="hr9-nr-ikq" id="HEY-gd-INb"/>
                         <outlet property="candyNotifyTrigger" destination="R1I-Cl-5SX" id="3u9-S3-WZv"/>
                         <outlet property="chatNotifyTrigger" destination="7VE-Kd-SiX" id="Mhz-BY-Ri7"/>
                         <outlet property="chatPrioritizer" destination="0bc-8G-SJK" id="SKf-X9-x0w"/>
                         <outlet property="editButton" destination="EbT-vV-AiD" id="HS8-7x-q20"/>
-                        <outlet property="friendsInvitePrioritizer" destination="qS3-OX-s1K" id="zhy-hq-3Mg"/>
                         <outlet property="navigationBar" destination="GMA-8i-bdS" id="99Z-Cx-GMM"/>
-                        <outlet property="restictedInviteTrigger" destination="KAL-gI-aRC" id="DBq-la-KGN"/>
+                        <outlet property="restrictedInviteTrigger" destination="KAL-gI-aRC" id="uVh-lV-LM9"/>
                         <outlet property="wrapNameTextField" destination="dOb-uE-FSR" id="aVm-EK-wPl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aVH-vU-f4A" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="qS3-OX-s1K" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
-                    <connections>
-                        <outletCollection property="parentViews" destination="fdR-Oj-q4N" collectionClass="NSMutableArray" id="EVk-Ev-SJN"/>
-                        <outletCollection property="alternativeConstraints" destination="FSp-fX-lJ8" collectionClass="NSMutableArray" id="PiD-af-CRC"/>
-                        <outletCollection property="defaultConstraints" destination="tgH-6b-vF6" collectionClass="NSMutableArray" id="yKw-kV-GRJ"/>
-                    </connections>
-                </customObject>
                 <customObject id="0bc-8G-SJK" userLabel="Chat Prioritizer" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <connections>
                         <outletCollection property="parentViews" destination="LGQ-2s-xPN" collectionClass="NSMutableArray" id="8o5-JV-E0B"/>

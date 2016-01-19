@@ -22,7 +22,7 @@
 		5BA6AA451A66779E00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
 		5BA7AC241A7916AB00BB922E /* WLCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */; };
 		5BB04F2B19D9822300B5C6EE /* WLEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2719D9822300B5C6EE /* WLEditViewController.m */; };
-		5BD303451B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */; };
+		5BCC41911C4E40FC0047E7C2 /* WrapSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCC41901C4E40FC0047E7C2 /* WrapSettingsViewController.swift */; };
 		5BD529491BDA796000527077 /* SmartLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD529481BDA796000527077 /* SmartLabel.swift */; };
 		5BE7CD651C0D8781009A7617 /* WLEditingConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE7CD641C0D8781009A7617 /* WLEditingConfirmView.xib */; };
 		5BF85BB01B8C774C000215C9 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BF85BAE1B8C774C000215C9 /* icons.ttf */; };
@@ -490,8 +490,7 @@
 		5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCommentsViewController.m; path = Controllers/WLCommentsViewController/WLCommentsViewController.m; sourceTree = "<group>"; };
 		5BB04F2619D9822300B5C6EE /* WLEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEditViewController.h; path = WLEditViewController/WLEditViewController.h; sourceTree = "<group>"; };
 		5BB04F2719D9822300B5C6EE /* WLEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEditViewController.m; path = WLEditViewController/WLEditViewController.m; sourceTree = "<group>"; };
-		5BD3033F1B2971D2002EA8D7 /* WLWrapSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapSettingsViewController.h; path = WLWrapSettingsViewController/WLWrapSettingsViewController.h; sourceTree = "<group>"; };
-		5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapSettingsViewController.m; path = WLWrapSettingsViewController/WLWrapSettingsViewController.m; sourceTree = "<group>"; };
+		5BCC41901C4E40FC0047E7C2 /* WrapSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapSettingsViewController.swift; sourceTree = "<group>"; };
 		5BD529481BDA796000527077 /* SmartLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartLabel.swift; sourceTree = "<group>"; };
 		5BE7CD641C0D8781009A7617 /* WLEditingConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLEditingConfirmView.xib; path = WLConfirmView/WLEditingConfirmView.xib; sourceTree = "<group>"; };
 		5BF1B2481A49A683000BB2C1 /* meWrapToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = meWrapToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1068,6 +1067,7 @@
 				C525005B1C1F1FD500CF8F9D /* SettingsViewController.swift */,
 				5B40D6B11C2EBB1C009EF38C /* UploadWizardViewController.swift */,
 				C51B4BE71C3AA2D6009F1566 /* WelcomeViewController.swift */,
+				5BCC41901C4E40FC0047E7C2 /* WrapSettingsViewController.swift */,
 				C5E4FD091BF762A500575DA4 /* RecentUpdatesViewController */,
 				C5B8F7161B8215FE00A5E541 /* WLDrawingViewController */,
 				C560D2311AFBB53C006B906E /* WLHistoryViewController */,
@@ -1082,7 +1082,6 @@
 				12DCBA8818DB399B00A4BC44 /* WLWrapViewController */,
 				12A7A74218DA17F7008FF6F0 /* WLHomeViewController */,
 				C5C20BB21A239D6F008B2E2E /* WLSignupFlowViewController */,
-				5BD303461B29C89E002EA8D7 /* WLWrapSettingsViewController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1355,15 +1354,6 @@
 				C5B91A491BB41343000E08E7 /* DownloadingView.xib */,
 			);
 			name = WLDownloadingView;
-			sourceTree = "<group>";
-		};
-		5BD303461B29C89E002EA8D7 /* WLWrapSettingsViewController */ = {
-			isa = PBXGroup;
-			children = (
-				5BD3033F1B2971D2002EA8D7 /* WLWrapSettingsViewController.h */,
-				5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */,
-			);
-			name = WLWrapSettingsViewController;
 			sourceTree = "<group>";
 		};
 		AC00A4C419095E5600EE6EDA /* WLChangeProfileViewController */ = {
@@ -2489,6 +2479,7 @@
 				C5861A6A1BFA307200C64663 /* Entry+EntryPresenter.m in Sources */,
 				C54743441C09CD8A00BECB25 /* ImageFetcher.swift in Sources */,
 				C54AF67C19B8C491006F7EDB /* main.m in Sources */,
+				5BCC41911C4E40FC0047E7C2 /* WrapSettingsViewController.swift in Sources */,
 				C57E1CCB1B98930900E2303B /* StreamView.swift in Sources */,
 				C5C20BE81A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */,
 				C517FD7C1C4D07E100A7EE55 /* LiveBroadcasterViewController.swift in Sources */,
@@ -2573,7 +2564,6 @@
 				C540C0F31B988BFD00F880C9 /* StreamItem.swift in Sources */,
 				C5E6DD891C0DC84A004992E4 /* Asset.swift in Sources */,
 				C5AA71AF1BE3946700EA106A /* EntryNotifier.swift in Sources */,
-				5BD303451B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */,
 				C5F4E70D1C07489E00D2FC16 /* EditSession.swift in Sources */,
 				C5E6DD8F1C0DC84A004992E4 /* Entry.swift in Sources */,
 				C525005A1C1F1FCB00CF8F9D /* FollowingViewController.swift in Sources */,

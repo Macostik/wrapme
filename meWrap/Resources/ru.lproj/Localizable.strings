@@ -16,6 +16,7 @@
 "delete_photo" = "Удалить фотографию";
 "delete_photo_confirmation" = "Вы уверены, что хотите удалить это фото?";
 "delete_wrap" = "Удалить Wrap?";
+"DELETE_WRAP" = "УДАЛИТЬ ВРАП";
 "delete_wrap_success" = "Wrap был успешно удален.";
 "downloading_internet_connection_error" = "Интернет не доступен. Попытайтесь скачать позже, пожалуйста.";
 "editing_internet_connection_error" = "Нет соединения с Интернетом. Невозможно скачать фотографию для редактирования.";
@@ -137,7 +138,7 @@
 "about_app" = "О приложении";
 "edit_your_profile" = "Редактировать профиль";
 "change_email" = "Изменить e-mail";
-"following" = "Вы подписаны";
+"FOLLOWING" = "ОТПИСАТЬСЯ";
 "recent_updates" = "RECENT UPDATES";
 "enter_your_friends_name" = "Введите имя и телефон Вашего друга";
 "no_internet_connection" = "Проблемы соединения с meWrap. Проверте интернет соединение и попытайтесь снова.";
@@ -153,11 +154,12 @@
 "account" = "Аккаунт";
 "photos" = "Фото";
 "allow_friends_to_add_people" = "Разрешить друзьям добавлять людей в этот wrap.";
+"only_admin_can_add_people" = "Только админ может доболять людей в врап.";
 "send_invite" = "Отправить приглашение";
 "uppercase_follow" = "ПОДПИСАТЬСЯ";
 "public_wrap_label" = "Публичный - подписчики могут видеть все содержимое";
 "follow_and_join_this_wrap" = "ПОДПИСАТЬСЯ НА ЭТОТ WRAP?";
-"leave_wrap" = "ПОКИНУТЬ WRAP";
+"LEAVE_WRAP" = "ПОКИНУТЬ WRAP";
 "next" = "Далее";
 "sending_passcode_message" = "Мы отравили Вам код на e-mail и телефон...";
 "select_your_country" = "Выберите свою страну";

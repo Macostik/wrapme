@@ -24,6 +24,7 @@
 "cannot_add_yourself" = "You're already in the wrap.";
 "wrap_name_cannot_be_blank" = "Please give the wrap a name.";
 "delete_wrap" = "Delete wrap?";
+"DELETE_WRAP" = "DELETE WRAP";
 "leave_wrap" = "Leave wrap?";
 "formatted_delete_wrap_confirmation" = "Are you sure you want to delete \"%@\"?";
 "leave_wrap_confirmation" = "Are you sure you want to leave the wrap?";
@@ -115,6 +116,7 @@
 "followed_wrap_suggestion" = "YOU ARE NOW FOLLOWING";
 "no_recent_updates" = "No recent updates";
 "following" = "Following";
+"FOLLOWING" = "FOLLOWING";
 "unfollow_confirmation_title" = "Unfollow wrap?";
 "unfollow_confirmation_message" = "Are you sure you want to unfollow the wrap?";
 "url_open_in_safari" = "Open in Safari";
@@ -152,11 +154,12 @@
 "account" = "Account";
 "photos" = "Photos";
 "allow_friends_to_add_people" = "Allow friends to add people to the wrap.";
+"only_admin_can_add_people" = "Only admin can add people to the wrap.";
 "send_invite" = "Send invite";
 "uppercase_follow" = "FOLLOW";
 "public_wrap_label" = "Public - followers can see all content";
 "follow_and_join_this_wrap" = "FOLLOW & JOIN THIS WRAP?";
-"leave_wrap" = "LEAVE WRAP";
+"LEAVE_WRAP" = "LEAVE WRAP";
 "next" = "Next";
 "sending_passcode_message" = "We're sending you a passcode to your e-mail...";
 "select_your_country" = "Select your country";

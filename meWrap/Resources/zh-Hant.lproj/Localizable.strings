@@ -137,8 +137,6 @@
 "about_app" = "關於meWrap";
 "edit_your_profile" = "編輯個人資料";
 "change_email" = "更改電郵地址";
-"following" = "追隨中";
-"recent_updates" = "RECENT UPDATES";
 "whats_up" = "最近更新";
 "enter_your_friends_name" = "輸入好友名稱和手機號碼";
 "no_internet_connection" = "無法連線。請稍後重試。";
@@ -157,7 +155,6 @@
 "uppercase_follow" = "追隨";
 "public_wrap_label" = "公開圍拍 - 追隨者可瀏覽所有內容。";
 "follow_and_join_this_wrap" = "確定要追隨這個圍拍嗎？";
-"leave_wrap" = "退出圍拍";
 "next" = "下一步";
 "sending_passcode_message" = "現正傳送連結密碼到你的電郵。";
 "select_your_country" = "選擇國家";
@@ -205,7 +202,6 @@
 "got_it" = "知道";
 "swipe_actions_tip" = "滑動即可開啟相機或對話";
 "no_upload_yet" = "未有上載";
-"no_uploads_for_this_day" = "No uploads on this day";
 "no_comments_yet" = "未有任何回應";
 "coming_soon" = "即將推出！";
 "no_updates_today" = "今天沒有訊息。";
@@ -234,7 +230,6 @@
 "video_deleted" = "已成功刪除影片。";
 "video_unavailable" = "找不到影片。";
 "downloading_video" = "下載影片中。影片將會保存到此裝置的\"%@\"資料夾內。";
-"downloading_media" = "Downloading the media now. It'll be in \"%@\" album momentarily.";
 "formatted_video_by" = "拍攝者 %@";
 "editing_video_internet_connection_error" = "找不到網絡連線，未能下載影片進行編輯。";
 "no_video_to_upload" = "請拍攝新影片或從圖庫中選擇影片上傳。";
@@ -285,3 +280,10 @@
 "live_viewers" = "LIVE viewers";
 "broadcaster" = "Broadcaster";
 "type_new_wrap_name_here" = "Type new wrap title here...";
+"DELETE_WRAP" = "DELETE WRAP";
+"LEAVE_WRAP" = "LEAVE WRAP";
+"FOLLOWING" = "FOLLOWING";
+"recent_updates" = "RECENT UPDATES";
+"no_uploads_for_this_day" = "No uploads on this day";
+"downloading_media" = "Downloading the media now. It'll be in \"%@\" album momentarily.";
+"only_admin_can_add_people" = "Only admin can add people to the wrap.";

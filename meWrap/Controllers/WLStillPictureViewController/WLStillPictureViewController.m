@@ -203,7 +203,7 @@
 
 // MARK: - WLCameraViewControllerDelegate
 
-- (void)cameraViewController:(WLCameraViewController*)controller didFinishWithImage:(UIImage*)image saveToAlbum:(BOOL)saveToAlbum {
+- (void)cameraViewController:(WLCameraViewController*)controller didCaptureImage:(UIImage *)image saveToAlbum:(BOOL)saveToAlbum {
     self.view.userInteractionEnabled = NO;
     __weak typeof(self)weakSelf = self;
     [self cropImage:image completion:^(UIImage *croppedImage) {

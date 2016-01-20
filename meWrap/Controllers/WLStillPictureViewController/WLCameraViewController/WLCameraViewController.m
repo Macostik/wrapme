@@ -167,7 +167,7 @@
     [observer lock:NO];
     [observer registerChangeObserver:^{
         [observer lock:YES];
-        [weakSelf captureImage:nil complition:^{
+        [weakSelf captureImage:^{
             if (!weakSelf.isAvatar) {
                 [observer lock:NO];
             }
@@ -215,15 +215,19 @@
             return;
         }
     }
-    [self captureImage:sender complition:nil];
+    sender.active = NO;
+    [self captureImage:^{
+        sender.active = YES;
+    }];
 }
 
-- (void)captureImage:(UIButton *)sender complition:(Block)compliton {
+- (void)captureImage:(Block)completon {
+    if ([self.delegate respondsToSelector:@selector(cameraViewControllerWillCaptureImage:)]) {
+        [self.delegate cameraViewControllerWillCaptureImage:self];
+    }
     [self setAssetsViewControllerHidden:YES animated:YES];
     __weak typeof(self)weakSelf = self;
     self.view.userInteractionEnabled = NO;
-    sender.active = NO;
-    
     [UIView animateWithDuration:0.1 animations:^{
         weakSelf.cameraView.alpha = 0.0f;
     } completion:^(BOOL finished) {
@@ -234,13 +238,11 @@
     [self captureImage:^(UIImage *image) {
         [weakSelf finishWithImage:image];
         weakSelf.view.userInteractionEnabled = YES;
-        sender.active = YES;
-        if (compliton) compliton();
+        if (completon) completon();
     } failure:^(NSError *error) {
-        sender.active = YES;
         weakSelf.view.userInteractionEnabled = YES;
         [error show];
-        if (compliton) compliton();
+        if (completon) completon();
     }];
 }
 
@@ -299,7 +301,7 @@
 }
 
 - (void)finishWithImage:(UIImage*)image {
-    [self.delegate cameraViewController:self didFinishWithImage:image saveToAlbum:YES];
+    [self.delegate cameraViewController:self didCaptureImage:image saveToAlbum:YES];
 }
 
 - (IBAction)flashModeChanged:(FlashModeControl *)sender {
@@ -374,7 +376,7 @@
         return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[url URL]]];
     } completion:^(UIImage *image) {
         if (image) {
-            [weakSelf.delegate cameraViewController:weakSelf didFinishWithImage:image saveToAlbum:NO];
+            [weakSelf.delegate cameraViewController:weakSelf didCaptureImage:image saveToAlbum:NO];
         }
         weakSelf.takePhotoButton.active = YES;
     }];
@@ -863,10 +865,8 @@
     self.videoRecordingView.hidden = YES;
     if (self.videoRecordingCancelled) {
         [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:NULL];
-    } else {
-        if ([self.delegate respondsToSelector:@selector(cameraViewController:didFinishWithVideoAtPath:saveToAlbum:)]) {
-            [self.delegate cameraViewController:self didFinishWithVideoAtPath:self.videoFilePath saveToAlbum:YES];
-        }
+    } else if ([self.delegate respondsToSelector:@selector(cameraViewController:didCaptureVideoAtPath:saveToAlbum:)]) {
+        [self.delegate cameraViewController:self didCaptureVideoAtPath:self.videoFilePath saveToAlbum:YES];
     }
 }
 

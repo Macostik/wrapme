@@ -16,11 +16,13 @@
 
 @protocol WLCameraViewControllerDelegate <WLStillPictureBaseViewControllerDelegate, AssetsViewControllerDelegate>
 
-- (void)cameraViewController:(WLCameraViewController*)controller didFinishWithImage:(UIImage*)image saveToAlbum:(BOOL)saveToAlbum;
+- (void)cameraViewController:(WLCameraViewController*)controller didCaptureImage:(UIImage*)image saveToAlbum:(BOOL)saveToAlbum;
 - (void)cameraViewControllerDidCancel:(WLCameraViewController*)controller;
 
 @optional
-- (void)cameraViewController:(WLCameraViewController*)controller didFinishWithVideoAtPath:(NSString*)path saveToAlbum:(BOOL)saveToAlbum;
+- (void)cameraViewControllerDidFailImageCapturing:(WLCameraViewController*)controller;
+- (void)cameraViewControllerWillCaptureImage:(WLCameraViewController*)controller;
+- (void)cameraViewController:(WLCameraViewController*)controller didCaptureVideoAtPath:(NSString*)path saveToAlbum:(BOOL)saveToAlbum;
 - (void)cameraViewControllerDidFinish:(WLCameraViewController*)controller;
 - (BOOL)cameraViewControllerCaptureMedia:(WLCameraViewController*)controller;
 

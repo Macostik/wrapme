@@ -15,6 +15,8 @@ class CaptureMediaViewController: WLStillPictureViewController {
     
     private var assets = [MutableAsset]()
     
+    private var assetsCount = 0
+    
     private weak var assetsViewController: AssetsViewController?
 
     override func viewDidLoad() {
@@ -70,6 +72,7 @@ class CaptureMediaViewController: WLStillPictureViewController {
     func addAsset(asset: MutableAsset, @noescape success: ObjectBlock, @noescape failure: FailureBlock) {
         shouldAddAsset({ () -> Void in
             assets.append(asset)
+            assetsCount = assets.count
             updateCountLabel()
             success(asset)
             if assets.count == 10 {
@@ -91,8 +94,11 @@ class CaptureMediaViewController: WLStillPictureViewController {
     }
 
     func updateCountLabel() {
-        cameraViewController?.takePhotoButton?.setTitle("\(assets.count)", forState: .Normal)
-        cameraViewController?.finishButton?.hidden = assets.count == 0;
+        if assetsCount < 0 {
+            assetsCount = 0
+        }
+        cameraViewController?.takePhotoButton?.setTitle("\(assetsCount)", forState: .Normal)
+        cameraViewController?.finishButton?.hidden = assetsCount == 0;
     }
     
     func assetsViewController(controller: AssetsViewController, shouldSelectAsset asset: PHAsset) -> Bool {
@@ -115,6 +121,7 @@ class CaptureMediaViewController: WLStillPictureViewController {
                 exportSession.cancelExport()
             }
             assets.removeAtIndex(index)
+            assetsCount = assets.count
             break
         }
         updateCountLabel()
@@ -146,6 +153,16 @@ class CaptureMediaViewController: WLStillPictureViewController {
         
     }
     
+    override func cameraViewControllerWillCaptureImage(controller: WLCameraViewController!) {
+        assetsCount++
+        updateCountLabel()
+    }
+    
+    override func cameraViewControllerDidFailImageCapturing(controller: WLCameraViewController!) {
+        assetsCount--
+        updateCountLabel()
+    }
+    
     override func cameraViewControllerDidFinish(controller: WLCameraViewController!) {
         showUploadSummary(nil)
     }
@@ -154,7 +171,7 @@ class CaptureMediaViewController: WLStillPictureViewController {
         return shouldAddAsset({}, failure: { $0?.show() })
     }
     
-    override func cameraViewController(controller: WLCameraViewController!, didFinishWithVideoAtPath path: String!, saveToAlbum: Bool) {
+    override func cameraViewController(controller: WLCameraViewController!, didCaptureVideoAtPath path: String!, saveToAlbum: Bool) {
         let asset = MutableAsset()
         asset.isAvatar = isAvatar
         asset.type = .Video
@@ -178,6 +195,7 @@ extension CaptureMediaViewController: UploadSummaryViewControllerDelegate {
         
         if let index = assets.indexOf(asset) {
             assets.removeAtIndex(index)
+            assetsCount = assets.count
         }
         
         if let assetID = asset.assetID {

@@ -211,26 +211,27 @@ class LiveBroadcasterViewController: LiveViewController {
             }
             _self.userState = state
             
-            var message: [NSObject : AnyObject] = [
-                "msg_type" : NotificationType.LiveBroadcast.rawValue,
-                "wrap_uid" : wrap.uid,
-                "user_uid" : user.uid,
-                "device_uid" : Authorization.currentAuthorization.deviceUID,
-                "title" : broadcast.title ?? ""
-            ]
-            
-            var pushPayload: [NSObject : AnyObject] = message
-            pushPayload["aps"] = [
-                "alert" : [
-                    "title-loc-key" : "APNS_TT08",
-                    "loc-key" : "APNS_MSG08",
-                    "loc-args" : [user.name ?? "", broadcast.displayTitle(), wrap.name ?? ""]
+            let message: [NSObject : AnyObject] = [
+                "pn_apns" : [
+                    "aps" : [
+                        "alert" : [
+                            "title-loc-key" : "APNS_TT08",
+                            "loc-key" : "APNS_MSG08",
+                            "loc-args" : [user.name ?? "", broadcast.displayTitle(), wrap.name ?? ""]
+                        ],
+                        "sound" : "s01.wav",
+                        "content-available" : 1
+                    ],
+                    "stream_info" : [
+                        "wrap_uid" : wrap.uid,
+                        "user_uid" : user.uid,
+                        "device_uid" : Authorization.currentAuthorization.deviceUID,
+                        "title" : broadcast.title ?? ""
+                    ],
+                    "msg_type" : NotificationType.LiveBroadcast.rawValue
                 ],
-                "sound" : "s01.wav",
-                "content-available" : 1
+                "msg_type" : NotificationType.LiveBroadcast.rawValue
             ]
-            
-            message["pn_apns"] = pushPayload
             
             PubNub.sharedInstance?.publish(message, toChannel: wrap.uid, withCompletion: nil)
             

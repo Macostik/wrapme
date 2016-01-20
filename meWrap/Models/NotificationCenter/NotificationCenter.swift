@@ -320,7 +320,6 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
     func fetchLiveBroadcasts(completionHandler: Void -> Void) {
         PubNub.sharedInstance?.hereNowForChannelGroup(userSubscription.name) { (result, status) -> Void in
             if let channels = result?.data?.channels as? [String:[String:AnyObject]] {
-                print(channels)
                 for (channel, data) in channels {
                     guard let wrap = Wrap.entry(channel) else { continue }
                     guard let uuids = data["uuids"] as? [[String:AnyObject]] else { continue }

@@ -24,6 +24,7 @@ class EntryContext: NSManagedObjectContext {
     
     static var sharedContext: EntryContext = {
         let context = EntryContext(concurrencyType: .MainQueueConcurrencyType)
+        context.retainsRegisteredObjects = true
         let transformer = AssetTransformer()
         NSValueTransformer.setValueTransformer(transformer, forName: "pictureTransformer")
         NSValueTransformer.setValueTransformer(transformer, forName: "assetTransformer")

@@ -50,38 +50,39 @@ class WrapSettingsViewController: WLBaseViewController, EntryNotifying {
         candyNotifyTrigger.userInteractionEnabled = false
         chatNotifyTrigger.userInteractionEnabled = false
         
-        APIRequest.preferences(wrap).send({[unowned self] wrap -> Void in
+        APIRequest.preferences(wrap).send({[weak self] wrap -> Void in
             if let wrap = wrap {
-                self.candyNotifyTrigger.on = wrap.isCandyNotifiable
-                self.chatNotifyTrigger.on = wrap.isChatNotifiable
-                self.candyNotifyTrigger.userInteractionEnabled = true
-                self.chatNotifyTrigger.userInteractionEnabled = true
+                self?.candyNotifyTrigger.on = wrap.isCandyNotifiable
+                self?.chatNotifyTrigger.on = wrap.isChatNotifiable
+                self?.candyNotifyTrigger.userInteractionEnabled = true
+                self?.chatNotifyTrigger.userInteractionEnabled = true
             }
-            }) {[unowned self] error -> Void in
-                self.candyNotifyTrigger.userInteractionEnabled = true
-                self.chatNotifyTrigger.userInteractionEnabled = true
+            }) {[weak self] error -> Void in
+                self?.candyNotifyTrigger.userInteractionEnabled = true
+                self?.chatNotifyTrigger.userInteractionEnabled = true
         }
         Wrap.notifier().addReceiver(self)
     }
     
     @IBAction func handleAction(sender: WLButton) {
         guard  let wrap = wrap else { return }
-        UIAlertController.confirmWrapDeleting(wrap, success: {[unowned self] _ in
-            self.userInitiatedDestructiveAction = true
+        UIAlertController.confirmWrapDeleting(wrap, success: {[weak self] _ in
+            self?.userInitiatedDestructiveAction = true
             sender.loading = false
-            self.view.userInteractionEnabled = false
-            wrap.delete({[unowned self] _ in
+            self?.view.userInteractionEnabled = false
+            wrap.delete({[weak self] _ in
                 if (wrap.isPublic) {
-                    self.navigationController?.popViewControllerAnimated(false)
+                    self?.navigationController?.popViewControllerAnimated(false)
                 } else {
-                    self.navigationController?.popToRootViewControllerAnimated(false)
+                    self?.navigationController?.popToRootViewControllerAnimated(false)
                     if  (wrap.deletable) { Toast.show("delete_wrap_success".ls) }
                 }
-                }, failure: { [unowned self] error -> Void in
-                    self.userInitiatedDestructiveAction = false
+                sender.loading = false
+                }, failure: { [weak self] error -> Void in
+                    self?.userInitiatedDestructiveAction = false
                     error?.show()
                     sender.loading = false
-                    self.view.userInteractionEnabled = true
+                    self?.view.userInteractionEnabled = true
                 })
             }, failure: { _ in })
     }
@@ -118,8 +119,8 @@ class WrapSettingsViewController: WLBaseViewController, EntryNotifying {
         if let name = textField.text?.trim {
             if editSession?.hasChanges == true {
                 wrap.name = name
-                wrap.update({ [unowned self] _ in
-                    self.editButton.selected = false
+                wrap.update({ [weak self] _ in
+                    self?.editButton.selected = false
                     }, failure: { _ in })
             }
         } else {
@@ -158,12 +159,12 @@ class WrapSettingsViewController: WLBaseViewController, EntryNotifying {
                 wrap.isChatNotifiable = chatNotify
                 APIRequest.changePreferences(wrap).send({ _ in
                     finish()
-                    }, failure: { [unowned self] _ in
+                    }, failure: { [weak self] _ in
                         finish()
-                        self.candyNotifyTrigger.on = _candyNotify
-                        wrap.isCandyNotifiable =     _candyNotify
-                        self.chatNotifyTrigger.on =  _chatNotify
-                        wrap.isChatNotifiable =      _chatNotify
+                        self?.candyNotifyTrigger.on = _candyNotify
+                        wrap.isCandyNotifiable =      _candyNotify
+                        self?.chatNotifyTrigger.on =  _chatNotify
+                        wrap.isChatNotifiable =       _chatNotify
                     })
             })
         }

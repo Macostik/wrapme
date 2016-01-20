@@ -23,6 +23,7 @@ class WrapSettingsViewController: WLBaseViewController, EntryNotifying {
     lazy var runQueue: RunQueue = RunQueue(limit: 1)
     var editSession: EditSession?
     var userInitiatedDestructiveAction = false
+    var isAdmin = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,9 +40,13 @@ class WrapSettingsViewController: WLBaseViewController, EntryNotifying {
             editButton.hidden = isFollowing
             wrapNameTextField.enabled = !isFollowing
         }
-        let isAdmin = wrap.contributor?.current ?? false && !wrap.isPublic
+        isAdmin = wrap.contributor?.current ?? false && !wrap.isPublic
         restrictedInviteTrigger.hidden = !isAdmin
-        adminLabel.text = isAdmin ? "allow_friends_to_add_people".ls : "only_admin_can_add_people".ls
+        if (isAdmin) {
+            adminLabel.text = "allow_friends_to_add_people".ls
+        } else {
+            adminLabel.text = !wrap.isRestrictedInvite ? "friends_allowed_to_app_people".ls : "only_admin_can_add_people".ls
+        }
         chatPrioritizer.defaultState = !wrap.isPublic
         
         candyNotifyTrigger.on = wrap.isCandyNotifiable
@@ -179,6 +184,14 @@ class WrapSettingsViewController: WLBaseViewController, EntryNotifying {
                 if (!wrap.deletable) {
                     Toast.showMessageForUnavailableWrap(wrap)
                 }
+            }
+        }
+    }
+    
+    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
+         if let wrap = entry as? Wrap {
+            if (!isAdmin) {
+                adminLabel.text = !wrap.isRestrictedInvite ? "friends_allowed_to_app_people".ls : "only_admin_can_add_people".ls
             }
         }
     }

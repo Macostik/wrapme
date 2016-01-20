@@ -154,7 +154,8 @@
 "account" = "Аккаунт";
 "photos" = "Фото";
 "allow_friends_to_add_people" = "Разрешить друзьям добавлять людей в этот wrap.";
-"only_admin_can_add_people" = "Только админ может доболять людей в врап.";
+"only_admin_can_add_people" = "Только админ разрешено доболять людей в врап.";
+"friends_allowed_to_app_people" = "Друзьям разрешено добовлять людей в врап.";
 "send_invite" = "Отправить приглашение";
 "uppercase_follow" = "ПОДПИСАТЬСЯ";
 "public_wrap_label" = "Публичный - подписчики могут видеть все содержимое";

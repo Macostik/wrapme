@@ -283,7 +283,7 @@
 "DELETE_WRAP" = "DELETE WRAP";
 "LEAVE_WRAP" = "LEAVE WRAP";
 "FOLLOWING" = "FOLLOWING";
-"recent_updates" = "RECENT UPDATES";
+"recent_updates" = "Recent Updates";
 "no_uploads_for_this_day" = "No uploads on this day";
 "downloading_media" = "Downloading the media now. It'll be in \"%@\" album momentarily.";
 "only_admin_can_add_people" = "Only admin is allowed to add people to the wrap.";

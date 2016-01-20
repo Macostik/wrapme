@@ -102,7 +102,7 @@ class UploadWizardViewController: WLBaseViewController {
             controller.isBroadcasting = isBroadcasting
             controller.isWrapCreation = true
             navigationController?.pushViewController(controller, animated: false)
-            controller.completionHandler = { [weak self] invited in
+            controller.completionHandler = { [weak self] _ in
                 self?.finish(isBroadcasting)
             }
         }

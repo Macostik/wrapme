@@ -181,7 +181,7 @@
 
 - (void)finishWithPictures:(NSArray*)pictures {
     
-    id <WLStillPictureViewControllerDelegate> delegate = [self getValidDelegate];
+    __weak id <WLStillPictureViewControllerDelegate> delegate = [self getValidDelegate];
     if (!self.isAvatar && [self.createdWraps containsObject:self.wrap]) {
         __weak typeof(self)weakSelf = self;
         WLAddContributorsViewController *addFriends = (id)[UIStoryboard main][@"addFriends"];

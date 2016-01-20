@@ -153,7 +153,9 @@ extension UploadWizardViewController: WLStillPictureViewControllerDelegate {
         finish(false)
         if let uploadWizardEnd = storyboard?["uploadWizardEnd"] as? UploadWizardEndViewController {
             uploadWizardEnd.friendsInvited = controller.friendsInvited
-            navigationController?.presentViewController(uploadWizardEnd, animated: false, completion: nil)
+            if let wrapViewController = navigationController?.viewControllers.last {
+                 wrapViewController.addContainedViewController(uploadWizardEnd, animated: false)
+            }
         }
     }
 }
@@ -175,7 +177,7 @@ class UploadWizardEndViewController: WLBaseViewController {
     }
     
     @IBAction func close(sender: UIButton?) {
-        presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+       removeFromContainerAnimated(false)
     }
     
     @IBAction func panHanle(gesture: UIPanGestureRecognizer) {

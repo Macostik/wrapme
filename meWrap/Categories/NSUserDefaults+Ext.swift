@@ -225,6 +225,12 @@ extension NSUserDefaults {
         User.currentUser = nil
         authorization = nil
         authorizationCookie = nil
+        if let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies {
+            for cookie in cookies where cookie.name  == "_session_id" {
+                NSHTTPCookieStorage.sharedHTTPCookieStorage().deleteCookie(cookie)
+                break
+            }
+        }
         EntryContext.sharedContext.clear()
     }
 }

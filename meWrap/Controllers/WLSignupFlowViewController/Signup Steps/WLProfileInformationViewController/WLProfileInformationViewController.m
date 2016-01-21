@@ -73,7 +73,7 @@
 }
 
 - (void)verifyContinueButton {
-	self.continueButton.active = self.editSession.avatarSession.hasValidChanges && self.editSession.nameSession.hasValidChanges;
+	self.continueButton.active = self.editSession.nameSession.hasValidChanges;
 }
 
 #pragma mark - WLStillPictureViewControllerDelegate

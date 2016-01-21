@@ -38,7 +38,7 @@
     [self.spinner startAnimating];
     
     if (self.isWrapCreation) {
-        self.titleLabel.text = @"tell_friends_to_join".ls;
+        self.titleLabel.text = @"share_with_friends".ls;
         self.nextButton.hidden = self.isBroadcasting;
         if (self.isBroadcasting) {
             [self.nextButton setTitle:@"next".ls forState:UIControlStateNormal];

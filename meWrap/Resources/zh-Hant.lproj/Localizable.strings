@@ -274,7 +274,7 @@
 "introduction_step_2_part_1" = "...can participate in";
 "introduction_step_2_part_2" = "sharing photos, videos and even live broadcast!";
 "skip" = "Skip";
-"tell_friends_to_join" = "Tell My Friends To Join Me";
+"share_with_friends" = "Share With Friends";
 "wrap_is_better_with_friends" = "Wrap is always better with friends. Simply open the \"Friends\" tab to tell your friends to join your wrap. Enjoy!";
 "your_friends_are_receiving_invite" = "Your friends are now receiving your wrap invite. Enjoy!";
 "live_viewers" = "LIVE viewers";
@@ -288,3 +288,4 @@
 "downloading_media" = "Downloading the media now. It'll be in \"%@\" album momentarily.";
 "only_admin_can_add_people" = "Only admin is allowed to add people to the wrap.";
 "friends_allowed_to_app_people" = "Friends are allowed to add people to the wrap";
+"please_enter_title" = "Please enter a title for the new wrap.";

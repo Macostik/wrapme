@@ -283,9 +283,10 @@
 "introduction_step_2_part_1" = "...can participate in";
 "introduction_step_2_part_2" = "sharing photos, videos and even live broadcast!";
 "skip" = "Skip";
-"tell_friends_to_join" = "Tell My Friends To Join Me";
+"share_with_friends" = "Share With Friends";
 "wrap_is_better_with_friends" = "Wrap is always better with friends. Simply open the \"Friends\" tab to tell your friends to join your wrap. Enjoy!";
 "your_friends_are_receiving_invite" = "Your friends are now receiving your wrap invite. Enjoy!";
 "live_viewers" = "LIVE viewers";
 "broadcaster" = "Broadcaster";
 "type_new_wrap_name_here" = "Type new wrap title here...";
+"please_enter_title" = "Please enter a title for the new wrap.";

@@ -131,6 +131,7 @@ class ReportViewController : WLBaseViewController {
         }
         dataSource.data = violations
         collectionView.reloadData()
+        DeviceManager.defaultManager.addReceiver(self)
     }
     
     @IBAction func done() {
@@ -138,6 +139,14 @@ class ReportViewController : WLBaseViewController {
             navigationController.popViewControllerAnimated(false)
         } else {
             presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+        }
+    }
+    
+    //MARK: DeviceManagerNotifying
+    
+    func manager(manager: DeviceManager, didChangeOrientation orientation: UIDeviceOrientation) {
+        UIView.performAnimated(false) {
+             self.collectionView.collectionViewLayout.invalidateLayout()
         }
     }
 }

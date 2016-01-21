@@ -116,18 +116,29 @@ class WrapDeleteNotification: WrapNotification {
 
 class LiveBroadcastNotification: WrapNotification {
     
+    override func canBeHandled() -> Bool {
+        return false
+    }
+    
     var liveBroadcast: LiveBroadcast?
     
+    override func setup(body: [String : AnyObject]) {
+        super.setup(body)
+        if let streamInfo = body["stream_info"] as? [String:String] {
+            createDescriptor(Wrap.self, body: streamInfo, key: Keys.UID.Wrap)
+        }
+    }
+    
     override func createEntry(descriptor: EntryDescriptor) {
-        super.createEntry(descriptor)
-        if let body = body {
-            guard let userUID = body["user_uid"] as? String else { return }
-            guard let deviceUID = body["device_uid"] as? String else { return }
-            guard let wrap = wrap else { return }
+        if let body = body, let streamInfo = body["stream_info"] as? [String:String] {
+            guard let userUID = streamInfo["user_uid"] else { return }
+            guard let deviceUID = streamInfo["device_uid"] else { return }
+            guard let wrap = Wrap.entry(descriptor.uid) else { return }
+            self.wrap = wrap
             let broadcast = LiveBroadcast()
             broadcast.broadcaster = User.entry(userUID)
             broadcast.wrap = wrap
-            broadcast.title = body["title"] as? String
+            broadcast.title = streamInfo["title"]
             broadcast.streamName = "\(wrap.uid)-\(userUID)-\(deviceUID)"
             liveBroadcast = wrap.addBroadcast(broadcast)
         }

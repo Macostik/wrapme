@@ -35,9 +35,6 @@ class NotificationSubscription: NSObject {
     }
     
     func subscribe() {
-        if isSubscribed {
-            return
-        }
         if isGroup {
             PubNub.sharedInstance?.subscribeToChannelGroups([name], withPresence: observePresence)
         } else {
@@ -46,9 +43,6 @@ class NotificationSubscription: NSObject {
     }
     
     func unsubscribe() {
-        if !isSubscribed {
-            return
-        }
         if isGroup {
             PubNub.sharedInstance?.unsubscribeFromChannelGroups([name], withPresence: observePresence)
         } else {

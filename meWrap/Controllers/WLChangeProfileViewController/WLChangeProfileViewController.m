@@ -155,7 +155,7 @@
     return NO;
 }
 
-- (void)notifier:(EntryNotifier *)notifier willUpdateEntry:(User *)user {
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Entry *)entry event:(enum EntryUpdateEvent)event {
     [self updateEmailConfirmationView];
 }
 

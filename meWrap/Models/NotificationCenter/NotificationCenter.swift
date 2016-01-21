@@ -29,9 +29,7 @@ class NotificationCenter: NSObject {
     
     var userSubscription = NotificationSubscription(name:"", isGroup:true, observePresence:true)
     
-    var pushToken: NSData?
-    
-    var pushTokenString: String?
+    var pushToken: String?
     
     override init() {
         super.init()
@@ -48,8 +46,7 @@ class NotificationCenter: NSObject {
     }
     
     func handleDeviceToken(deviceToken: NSData) {
-        pushToken = deviceToken;
-        pushTokenString = deviceToken.serializeDevicePushToken()
+        pushToken = deviceToken.serializeDevicePushToken()
         if Authorization.active {
             APIRequest.updateDevice().send()
         }

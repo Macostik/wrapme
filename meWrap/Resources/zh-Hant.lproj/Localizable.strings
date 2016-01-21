@@ -240,7 +240,7 @@
 "send_message" = "Send message";
 "start_broadcast" = "Start Broadcast";
 "broadcast_text_placeholder" = "What're you seeing now?";
-"view_broadcast_text_placeholder" = "Say something...";
+"view_broadcast_text_placeholder" = "Write your message...";
 "is_live_streaming" = "is live-streaming";
 "posted_new_photo" = "posted a new photo";
 "posted_new_video" = "posted a new video";

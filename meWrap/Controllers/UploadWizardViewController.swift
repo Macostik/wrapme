@@ -68,6 +68,7 @@ class UploadWizardViewController: WLBaseViewController {
     }
     
     @IBAction func presentCamera(sender: AnyObject) {
+        showHint()
         if let wrap = defaultWrap() {
             if let controller = WLStillPictureViewController.stillPhotosViewController(wrap) {
                 controller.createdWraps = NSMutableArray(object: wrap)
@@ -109,6 +110,7 @@ class UploadWizardViewController: WLBaseViewController {
     }
     
     @IBAction func presentBroadcastLive(sender: AnyObject) {
+        showHint()
         if let wrap = defaultWrap() {
             presentAddFriends(wrap, isBroadcasting: true)
         }
@@ -116,6 +118,11 @@ class UploadWizardViewController: WLBaseViewController {
     
     @IBAction func cancel(sender: AnyObject?) {
         navigationController?.popViewControllerAnimated(false)
+    }
+    
+    func showHint () {
+        guard nameTextField.text?.isEmpty ?? false else { return }
+        Toast.show("please_enter_title".ls)
     }
 }
 

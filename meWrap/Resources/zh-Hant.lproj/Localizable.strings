@@ -288,3 +288,4 @@
 "downloading_media" = "Downloading the media now. It'll be in \"%@\" album momentarily.";
 "only_admin_can_add_people" = "Only admin is allowed to add people to the wrap.";
 "friends_allowed_to_app_people" = "Friends are allowed to add people to the wrap";
+"please_enter_title" = "Please enter a title for the new wrap.";

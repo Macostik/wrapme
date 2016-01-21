@@ -984,6 +984,7 @@
 				12A7A70018DA0945008FF6F0 /* Products */,
 				C6D377F53D04E1E569F5EDAA /* Pods */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
 		};
 		12A7A70018DA0945008FF6F0 /* Products */ = {

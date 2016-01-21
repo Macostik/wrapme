@@ -24,7 +24,10 @@ class UploadWizardViewController: WLBaseViewController {
     
     @IBOutlet var layoutPrioritizer: LayoutPrioritizer!
     
+    var editSession: EditSession?
+    
     private func defaultWrap() -> Wrap? {
+        guard validateWrap() else { return nil }
         if let wrap = wrap {
             return wrap
         } else {
@@ -39,6 +42,9 @@ class UploadWizardViewController: WLBaseViewController {
             wrap.name = name
             wrap.notifyOnAddition()
             self.wrap = wrap
+            editSession = EditSession(originalValue: wrap.name, setter: { _ , value -> Void in
+                wrap.name = value as? String
+            })
             Uploader.wrapUploader.upload(Uploading.uploading(wrap), success: nil, failure: { [weak self] error in
                     if let error = error where !error.isNetworkError {
                         self?.wrap = nil
@@ -68,7 +74,6 @@ class UploadWizardViewController: WLBaseViewController {
     }
     
     @IBAction func presentCamera(sender: AnyObject) {
-        showHint()
         if let wrap = defaultWrap() {
             if let controller = WLStillPictureViewController.stillPhotosViewController(wrap) {
                 controller.createdWraps = NSMutableArray(object: wrap)
@@ -76,6 +81,7 @@ class UploadWizardViewController: WLBaseViewController {
                 presentViewController(controller, animated: true, completion: nil)
             }
         }
+        
     }
     
     private func finish(isBroadcasting: Bool) {
@@ -110,7 +116,6 @@ class UploadWizardViewController: WLBaseViewController {
     }
     
     @IBAction func presentBroadcastLive(sender: AnyObject) {
-        showHint()
         if let wrap = defaultWrap() {
             presentAddFriends(wrap, isBroadcasting: true)
         }
@@ -120,9 +125,18 @@ class UploadWizardViewController: WLBaseViewController {
         navigationController?.popViewControllerAnimated(false)
     }
     
-    func showHint () {
-        guard nameTextField.text?.isEmpty ?? false else { return }
-        Toast.show("please_enter_title".ls)
+    func validateWrap () -> Bool {
+        let name = nameTextField.text
+        editSession?.changedValue = name
+        if name?.isEmpty ?? false {
+            Toast.show("please_enter_title".ls)
+             return false
+        } else if name != wrap?.name {
+                editSession?.apply()
+                wrap?.update({ _ in
+                    }, failure: { _ in })
+        }
+        return true
     }
 }
 

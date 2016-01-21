@@ -4991,7 +4991,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                                     <constraint firstAttribute="height" constant="44" id="0w6-EU-xtr"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>

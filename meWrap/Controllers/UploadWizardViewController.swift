@@ -27,7 +27,7 @@ class UploadWizardViewController: WLBaseViewController {
     var editSession: EditSession?
     
     private func defaultWrap() -> Wrap? {
-        guard validateWrap() else { return nil }
+        guard isValidateWrap() else { return nil }
         if let wrap = wrap {
             return wrap
         } else {
@@ -125,10 +125,12 @@ class UploadWizardViewController: WLBaseViewController {
         navigationController?.popViewControllerAnimated(false)
     }
     
-    func validateWrap () -> Bool {
+    func isValidateWrap () -> Bool {
         let name = nameTextField.text
         editSession?.changedValue = name
-        if name?.isEmpty ?? false {
+        if  !isNewWrap {
+           return true
+        } else if name?.isEmpty ?? false {
             Toast.show("please_enter_title".ls)
              return false
         } else if name != wrap?.name {

@@ -67,7 +67,9 @@ class LiveBroadcasterViewController: LiveViewController {
         UIView.performWithoutAnimation { [unowned self] () -> Void in
             if let layer = self.previewLayer {
                 layer.frame = self.view.bounds
-                layer.connection?.videoOrientation = self.orientationForVideoConnection()
+                if self.allowAutorotate {
+                    layer.connection?.videoOrientation = self.orientationForVideoConnection()
+                }
             }
         }
     }

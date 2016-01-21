@@ -67,26 +67,18 @@ class LiveBroadcasterViewController: LiveViewController {
         UIView.performWithoutAnimation { [unowned self] () -> Void in
             if let layer = self.previewLayer {
                 layer.frame = self.view.bounds
-                layer.connection?.videoOrientation = self.orientationForPreview()
+                layer.connection?.videoOrientation = self.orientationForVideoConnection()
             }
         }
     }
     
     private func orientationForVideoConnection() -> AVCaptureVideoOrientation {
-        switch DeviceManager.defaultManager.orientation {
-        case .Portrait: return .Portrait
+        let orientation = DeviceManager.defaultManager.orientation
+        switch orientation {
+        case .LandscapeLeft: return .LandscapeRight
         case .PortraitUpsideDown: return .PortraitUpsideDown
         case .LandscapeRight: return .LandscapeLeft
-        default: return .LandscapeRight
-        }
-    }
-    
-    private func orientationForPreview() -> AVCaptureVideoOrientation {
-        switch DeviceManager.defaultManager.orientation {
-        case .Portrait: return .Portrait
-        case .PortraitUpsideDown: return .PortraitUpsideDown
-        case .LandscapeRight: return .LandscapeLeft
-        default: return .LandscapeRight
+        default: return .Portrait
         }
     }
 

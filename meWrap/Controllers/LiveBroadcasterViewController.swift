@@ -56,7 +56,6 @@ class LiveBroadcasterViewController: LiveViewController {
         super.viewDidLoad()
         chatStreamView.hidden = true
         joinsCountView.hidden = true
-        toggleCameraButton.hidden = true
         titleLabel?.superview?.hidden = true
         startCapture(1)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillTerminate:", name: UIApplicationWillTerminateNotification, object: nil)
@@ -184,7 +183,7 @@ class LiveBroadcasterViewController: LiveViewController {
         startBroadcast()
         joinsCountView.hidden = false
         chatStreamView.hidden = false
-        toggleCameraButton.hidden = false
+        toggleCameraButton.hidden = true
         sender.hidden = true
         composeBar.hidden = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "focusing:"))
@@ -239,10 +238,8 @@ class LiveBroadcasterViewController: LiveViewController {
     }
     
     @IBAction func toggleCamera() {
-        releaseConnection()
         stopCapture()
         startCapture(cameraPosition == 1 ? 2 : 1)
-        createConnection()
     }
     
     internal override func close() {

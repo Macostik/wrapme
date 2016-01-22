@@ -145,11 +145,6 @@ extension Wrap {
     }
     
     override func delete(success: ObjectBlock?, failure: FailureBlock?) {
-        if deletable {
-            
-        } else {
-            APIRequest.leaveWrap(self).send(success, failure: failure)
-        }
         switch status {
         case .Ready:
             remove()
@@ -159,7 +154,11 @@ extension Wrap {
             failure?(NSError(message: "wrap_is_uploading".ls))
             break
         case .Finished:
-            APIRequest.deleteWrap(self).send(success, failure: failure)
+            if deletable {
+                 APIRequest.deleteWrap(self).send(success, failure: failure)
+            } else {
+                APIRequest.leaveWrap(self).send(success, failure: failure)
+            }
             break
         }
     }

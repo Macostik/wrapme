@@ -31,7 +31,7 @@ class User: Entry {
         }
     }
     
-    var isSignupCompleted: Bool { return name != nil && avatar?.medium != nil }
+    var isSignupCompleted: Bool { return name != nil }
     
     var isInvited: Bool {
         if !current {

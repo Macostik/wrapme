@@ -475,6 +475,22 @@
 		5B1D045A1BFCE16C00263102 /* SlideInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInteractiveTransition.swift; sourceTree = "<group>"; };
 		5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalScrollView.swift; sourceTree = "<group>"; };
 		5B2C97CA1C46610E00FAED6A /* VolumeChangeObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeChangeObserver.swift; sourceTree = "<group>"; };
+		5B3DBD201C5243C000A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		5B3DBD211C5243C000A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		5B3DBD221C5243C000A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		5B3DBD231C5243C000A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
+		5B3DBD241C5243C000A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/Default-736h@3x.png"; sourceTree = "<group>"; };
+		5B3DBD251C5243C000A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/Default.png"; sourceTree = "<group>"; };
+		5B3DBD261C5243C100A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/Default@2x.png"; sourceTree = "<group>"; };
+		5B3DBD271C5243C100A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/Default-Portrait.png"; sourceTree = "<group>"; };
+		5B3DBD281C5243C100A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/Default-Portrait@2x.png"; sourceTree = "<group>"; };
+		5B3DBD291C5243C100A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
+		5B3DBD2A1C5243C100A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/logo_and_caption_orange.png"; sourceTree = "<group>"; };
+		5B3DBD2B1C5243C100A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/logo_and_caption_orange@2x.png"; sourceTree = "<group>"; };
+		5B3DBD2C1C5243C100A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/logo_and_caption_white.png"; sourceTree = "<group>"; };
+		5B3DBD2D1C5243C100A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/logo_and_caption_white@2x.png"; sourceTree = "<group>"; };
+		5B3DBD2E1C5243C100A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/logo_and_caption_orange@3x.png"; sourceTree = "<group>"; };
+		5B3DBD2F1C5243C100A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/logo_and_caption_white@3x.png"; sourceTree = "<group>"; };
 		5B40D6B11C2EBB1C009EF38C /* UploadWizardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadWizardViewController.swift; sourceTree = "<group>"; };
 		5B4792081C1B27060090FDD2 /* Today_Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Today_Bridge.h; sourceTree = "<group>"; };
 		5B4792091C1B2B110090FDD2 /* libmmwormhole.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmmwormhole.a; sourceTree = "<group>"; };
@@ -2174,6 +2190,7 @@
 				Base,
 				ru,
 				"zh-Hant",
+				"zh-Hans",
 			);
 			mainGroup = 12A7A6F618DA0945008FF6F0;
 			productRefGroup = 12A7A70018DA0945008FF6F0 /* Products */;
@@ -2667,6 +2684,7 @@
 				C55A45151BAC17CF0055AEC2 /* Base */,
 				C5B91A371BB3FE97000E08E7 /* ru */,
 				C5B91A381BB3FE9F000E08E7 /* zh-Hant */,
+				5B3DBD221C5243C000A5F33E /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2676,6 +2694,7 @@
 			children = (
 				C509E2B81B96F46A003F6C21 /* Base */,
 				C509E2BC1B96F4B8003F6C21 /* zh-Hant */,
+				5B3DBD291C5243C100A5F33E /* zh-Hans */,
 			);
 			name = "Default-667h@2x.png";
 			sourceTree = "<group>";
@@ -2686,6 +2705,7 @@
 				C55A451B1BAC18580055AEC2 /* Base */,
 				C55A451D1BAC185A0055AEC2 /* ru */,
 				C55A451E1BAC185A0055AEC2 /* zh-Hant */,
+				5B3DBD201C5243C000A5F33E /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2696,6 +2716,7 @@
 				C55A45241BAC189C0055AEC2 /* Base */,
 				C55A45261BAC189D0055AEC2 /* ru */,
 				C55A45271BAC189E0055AEC2 /* zh-Hant */,
+				5B3DBD211C5243C000A5F33E /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2705,6 +2726,7 @@
 			children = (
 				C5BEC38E1B8F129100499EEA /* Base */,
 				C5BEC3911B8F129400499EEA /* zh-Hant */,
+				5B3DBD2E1C5243C100A5F33E /* zh-Hans */,
 			);
 			name = "logo_and_caption_orange@3x.png";
 			sourceTree = "<group>";
@@ -2714,6 +2736,7 @@
 			children = (
 				C5BEC3951B8F129B00499EEA /* Base */,
 				C5BEC3991B8F129F00499EEA /* zh-Hant */,
+				5B3DBD2F1C5243C100A5F33E /* zh-Hans */,
 			);
 			name = "logo_and_caption_white@3x.png";
 			sourceTree = "<group>";
@@ -2723,6 +2746,7 @@
 			children = (
 				C5BEC39B1B8F16E800499EEA /* Base */,
 				C5BEC3AC1B8F16F900499EEA /* zh-Hant */,
+				5B3DBD2A1C5243C100A5F33E /* zh-Hans */,
 			);
 			name = logo_and_caption_orange.png;
 			sourceTree = "<group>";
@@ -2732,6 +2756,7 @@
 			children = (
 				C5BEC39D1B8F16E800499EEA /* Base */,
 				C5BEC3AF1B8F170000499EEA /* zh-Hant */,
+				5B3DBD2B1C5243C100A5F33E /* zh-Hans */,
 			);
 			name = "logo_and_caption_orange@2x.png";
 			sourceTree = "<group>";
@@ -2741,6 +2766,7 @@
 			children = (
 				C5BEC39F1B8F16E800499EEA /* Base */,
 				C5BEC3B21B8F170700499EEA /* zh-Hant */,
+				5B3DBD2C1C5243C100A5F33E /* zh-Hans */,
 			);
 			name = logo_and_caption_white.png;
 			sourceTree = "<group>";
@@ -2750,6 +2776,7 @@
 			children = (
 				C5BEC3A11B8F16E800499EEA /* Base */,
 				C5BEC3B51B8F170D00499EEA /* zh-Hant */,
+				5B3DBD2D1C5243C100A5F33E /* zh-Hans */,
 			);
 			name = "logo_and_caption_white@2x.png";
 			sourceTree = "<group>";
@@ -2760,6 +2787,7 @@
 				C5C3FE961B8F311500F177EC /* Base */,
 				C5C3FEB21B8F311D00F177EC /* zh-Hant */,
 				C5C0AF9C1B997D2100B8B242 /* ru */,
+				5B3DBD231C5243C000A5F33E /* zh-Hans */,
 			);
 			name = "Default-568h@2x.png";
 			sourceTree = "<group>";
@@ -2769,6 +2797,7 @@
 			children = (
 				C5C3FE9A1B8F311500F177EC /* Base */,
 				C5C3FEB61B8F312400F177EC /* zh-Hant */,
+				5B3DBD241C5243C000A5F33E /* zh-Hans */,
 			);
 			name = "Default-736h@3x.png";
 			sourceTree = "<group>";
@@ -2778,6 +2807,7 @@
 			children = (
 				C5C3FE9C1B8F311500F177EC /* Base */,
 				C5C3FEB81B8F312900F177EC /* zh-Hant */,
+				5B3DBD261C5243C100A5F33E /* zh-Hans */,
 			);
 			name = "Default@2x.png";
 			sourceTree = "<group>";
@@ -2787,6 +2817,7 @@
 			children = (
 				C5C3FE9E1B8F311500F177EC /* Base */,
 				C5C3FEBA1B8F312D00F177EC /* zh-Hant */,
+				5B3DBD271C5243C100A5F33E /* zh-Hans */,
 			);
 			name = "Default-Portrait.png";
 			sourceTree = "<group>";
@@ -2796,6 +2827,7 @@
 			children = (
 				C5C3FEA01B8F311500F177EC /* Base */,
 				C5C3FEBC1B8F313100F177EC /* zh-Hant */,
+				5B3DBD281C5243C100A5F33E /* zh-Hans */,
 			);
 			name = "Default-Portrait@2x.png";
 			sourceTree = "<group>";
@@ -2805,6 +2837,7 @@
 			children = (
 				C5C3FEA21B8F311500F177EC /* Base */,
 				C5C3FEBE1B8F313600F177EC /* zh-Hant */,
+				5B3DBD251C5243C000A5F33E /* zh-Hans */,
 			);
 			name = Default.png;
 			sourceTree = "<group>";

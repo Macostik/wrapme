@@ -150,7 +150,6 @@ class LiveBroadcastNotification: WrapNotification {
         guard let nc = UINavigationController.main() else { return }
         weak var controller = wrap?.viewControllerWithNavigationController(nc) as? WLWrapViewController
         guard let liveBroadcast = liveBroadcast else { return }
-        NSLog("%@", controller != nil)
         Dispatch.mainQueue.after(1.2) { _ in
             controller?.presentLiveProadcast(liveBroadcast)
         }

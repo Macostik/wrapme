@@ -26,7 +26,7 @@ class UserUpdateNotification: Notification {
     
     override func fetch(success: Block, failure: FailureBlock) {
         createEntryIfNeeded()
-        if let user = user {
+        if let user = user where Authorization.active {
             user.recursivelyFetchIfNeeded(success, failure: failure)
         } else {
             success()

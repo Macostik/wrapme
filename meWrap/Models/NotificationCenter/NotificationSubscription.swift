@@ -19,7 +19,7 @@ class NotificationSubscription: NSObject {
     var observePresence = false
     
     var isSubscribed: Bool {
-        return PubNub.sharedInstance?.isSubscribedOn(name) ?? false
+        return PubNub.sharedInstance.isSubscribedOn(name) ?? false
     }
     
     deinit {
@@ -31,32 +31,32 @@ class NotificationSubscription: NSObject {
         self.isGroup = isGroup
         self.observePresence = observePresence
         super.init()
-        PubNub.sharedInstance?.addListener(self)
+        PubNub.sharedInstance.addListener(self)
     }
     
     func subscribe() {
         if isGroup {
-            PubNub.sharedInstance?.subscribeToChannelGroups([name], withPresence: observePresence)
+            PubNub.sharedInstance.subscribeToChannelGroups([name], withPresence: observePresence)
         } else {
-            PubNub.sharedInstance?.subscribeToChannels([name], withPresence: observePresence)
+            PubNub.sharedInstance.subscribeToChannels([name], withPresence: observePresence)
         }
     }
     
     func unsubscribe() {
         if isGroup {
-            PubNub.sharedInstance?.unsubscribeFromChannelGroups([name], withPresence: observePresence)
+            PubNub.sharedInstance.unsubscribeFromChannelGroups([name], withPresence: observePresence)
         } else {
-            PubNub.sharedInstance?.unsubscribeFromChannels([name], withPresence: observePresence)
+            PubNub.sharedInstance.unsubscribeFromChannels([name], withPresence: observePresence)
         }
     }
     
     func send(message: [NSObject : AnyObject]?) {
-        PubNub.sharedInstance?.publish(message, toChannel: name, withCompletion: nil)
+        PubNub.sharedInstance.publish(message, toChannel: name, withCompletion: nil)
     }
     
     func changeState(state: [NSObject : AnyObject]?, channel: String) {
-        if let uuid = PubNub.sharedInstance?.currentConfiguration().uuid {
-            PubNub.sharedInstance?.setState(state, forUUID: uuid, onChannel: channel, withCompletion: nil)
+        if let uuid = PubNub.sharedInstance.currentConfiguration()?.uuid {
+            PubNub.sharedInstance.setState(state, forUUID: uuid, onChannel: channel, withCompletion: nil)
         }
     }
     
@@ -65,11 +65,7 @@ class NotificationSubscription: NSObject {
     }
     
     func hereNow(completion: [[NSObject : AnyObject]]? -> Void) {
-        guard let pubnub = PubNub.sharedInstance else {
-            completion([])
-            return
-        }
-        pubnub.hereNowForChannel(name, withVerbosity: .State) { (result, status) -> Void in
+        PubNub.sharedInstance.hereNowForChannel(name, withVerbosity: .State) { (result, status) -> Void in
             completion(result?.data?.uuids as? [[NSObject : AnyObject]])
         }
     }
@@ -77,10 +73,7 @@ class NotificationSubscription: NSObject {
     func history(from: NSDate, to: NSDate, success: [[NSObject:AnyObject]] -> Void, failure: NSError? -> Void) {
         let startDate = from.timestamp
         let endDate = to.timestamp
-        guard let pubnub = PubNub.sharedInstance else {
-            failure(nil)
-            return
-        }
+        let pubnub = PubNub.sharedInstance
         if isGroup {
             pubnub.channelsForGroup(name, withCompletion: { (result, status) -> Void in
                 if status?.error ?? false {

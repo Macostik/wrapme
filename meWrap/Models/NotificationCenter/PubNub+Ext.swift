@@ -13,27 +13,35 @@ extension PubNub {
     
     private static var _sharedInstance: PubNub?
     
-    static var sharedInstance: PubNub? {
-        get {
-            if _sharedInstance == nil {
-                guard User.currentUser != nil else {
-                    return nil
-                }
-                let configuration: PNConfiguration!
-                if Environment.currentEnvironment.isProduction {
-                    configuration = PNConfiguration(publishKey: "pub-c-87bbbc30-fc43-4f6b-b1f4-cedd5f30d5e8", subscribeKey: "sub-c-6562fe64-4270-11e4-aed8-02ee2ddab7fe")
-                } else {
-                    configuration = PNConfiguration(publishKey: "pub-c-16ba2a90-9331-4472-b00a-83f01ff32089", subscribeKey: "sub-c-bc5bfa70-d166-11e3-8d06-02ee2ddab7fe")
-                }
-                configuration.uuid = User.channelName()
-                PNLog.enabled(false)
-                _sharedInstance = clientWithConfiguration(configuration)
+    static var sharedInstance: PubNub {
+        if var pubnub = _sharedInstance {
+            if pubnub.currentConfiguration().uuid != User.channelName() {
+                let configuration = defaultConfiguration()
+                pubnub = pubnub.copyWithConfiguration(configuration)
+                _sharedInstance = pubnub
             }
-            return _sharedInstance
+            return pubnub
         }
-        set {
-            _sharedInstance = newValue
+        let configuration = defaultConfiguration()
+        PNLog.enabled(false)
+        let pubnub = clientWithConfiguration(configuration)
+        _sharedInstance = pubnub
+        return pubnub
+    }
+    
+    class func defaultConfiguration() -> PNConfiguration {
+        let configuration: PNConfiguration!
+        if Environment.currentEnvironment.isProduction {
+            configuration = PNConfiguration(publishKey: "pub-c-87bbbc30-fc43-4f6b-b1f4-cedd5f30d5e8", subscribeKey: "sub-c-6562fe64-4270-11e4-aed8-02ee2ddab7fe")
+        } else {
+            configuration = PNConfiguration(publishKey: "pub-c-16ba2a90-9331-4472-b00a-83f01ff32089", subscribeKey: "sub-c-bc5bfa70-d166-11e3-8d06-02ee2ddab7fe")
         }
+        configuration.uuid = User.channelName()
+        return configuration
+    }
+    
+    class func clearSharedInstance() {
+        _sharedInstance = nil
     }
     
     class func userFromUUID(uuid: String?) -> User? {

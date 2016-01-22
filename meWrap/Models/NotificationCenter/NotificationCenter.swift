@@ -41,7 +41,7 @@ class NotificationCenter: NSObject {
     }
     
     func configure() {
-        PubNub.sharedInstance?.addListener(self)
+        PubNub.sharedInstance.addListener(self)
         User.notifier().addReceiver(self)
     }
     
@@ -80,7 +80,7 @@ class NotificationCenter: NSObject {
         userSubscription.unsubscribe()
         NSUserDefaults.standardUserDefaults().clearHandledNotifications()
         NSUserDefaults.standardUserDefaults().historyDate = nil
-        PubNub.sharedInstance = nil
+        PubNub.clearSharedInstance()
     }
     
     func addHandledNotifications(notifications: [Notification]) {
@@ -315,7 +315,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
     }
     
     func fetchLiveBroadcasts(completionHandler: Void -> Void) {
-        PubNub.sharedInstance?.hereNowForChannelGroup(userSubscription.name) { (result, status) -> Void in
+        PubNub.sharedInstance.hereNowForChannelGroup(userSubscription.name) { (result, status) -> Void in
             if let channels = result?.data?.channels as? [String:[String:AnyObject]] {
                 for (channel, data) in channels {
                     guard let wrap = Wrap.entry(channel) else { continue }
@@ -328,7 +328,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
     }
     
     func fetchLiveBroadcastsForWrap(wrap: Wrap, completionHandler: [LiveBroadcast] -> Void) {
-        PubNub.sharedInstance?.hereNowForChannel(wrap.uid, withVerbosity: .State) { (result, status) -> Void in
+        PubNub.sharedInstance.hereNowForChannel(wrap.uid, withVerbosity: .State) { (result, status) -> Void in
             if let uuids = result?.data?.uuids as? [[String:AnyObject]] {
                 completionHandler(self.liveBroadcastsFromUUIDs(uuids, wrap: wrap))
             } else {

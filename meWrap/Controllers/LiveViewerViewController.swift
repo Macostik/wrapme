@@ -48,7 +48,7 @@ class LiveViewerViewController: LiveViewController {
         updateBroadcastInfo()
         
         Dispatch.mainQueue.after(0.5) { [weak self] () -> Void in
-            PubNub.sharedInstance?.hereNowForChannel("ch-\(broadcast.streamName)", withVerbosity: .UUID) { (result, status) -> Void in
+            PubNub.sharedInstance.hereNowForChannel("ch-\(broadcast.streamName)", withVerbosity: .UUID) { (result, status) -> Void in
                 if let uuids = result?.data?.uuids as? [String] {
                     var viewers = Set<User>()
                     for uuid in uuids {

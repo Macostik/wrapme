@@ -150,7 +150,7 @@
  
  @since 4.0
  */
-- (void)copyWithConfiguration:(PNConfiguration *)configuration
+- (instancetype)copyWithConfiguration:(PNConfiguration *)configuration
                    completion:(void(^)(PubNub *client))block;
 
 /**
@@ -192,9 +192,11 @@
  
  @since 4.0
  */
-- (void)copyWithConfiguration:(PNConfiguration *)configuration
+- (instancetype)copyWithConfiguration:(PNConfiguration *)configuration
                 callbackQueue:(dispatch_queue_t)callbackQueue
                    completion:(void(^)(PubNub *client))block;
+
+- (instancetype)copyWithConfiguration:(PNConfiguration *)configuration;
 
 #pragma mark -
 

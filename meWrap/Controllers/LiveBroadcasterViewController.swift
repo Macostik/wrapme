@@ -226,7 +226,7 @@ class LiveBroadcasterViewController: LiveViewController {
                 "msg_type" : NotificationType.LiveBroadcast.rawValue
             ]
             
-            PubNub.sharedInstance?.publish(message, toChannel: wrap.uid, withCompletion: nil)
+            PubNub.sharedInstance.publish(message, toChannel: wrap.uid, withCompletion: nil)
             
             let liveEvent = LiveBroadcast.Event(kind: .Info)
             liveEvent.text = String(format: "formatted_broadcast_notification".ls, wrap.name ?? "")

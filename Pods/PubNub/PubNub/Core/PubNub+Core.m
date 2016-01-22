@@ -271,13 +271,17 @@ void pn_safe_property_write(dispatch_queue_t queue, dispatch_block_t block) {
     return self;
 }
 
-- (void)copyWithConfiguration:(PNConfiguration *)configuration
-                   completion:(void(^)(PubNub *client))block {
-
-    [self copyWithConfiguration:configuration callbackQueue:self.callbackQueue completion:block];
+- (instancetype)copyWithConfiguration:(PNConfiguration *)configuration {
+    return [self copyWithConfiguration:configuration callbackQueue:self.callbackQueue completion:nil];
 }
 
-- (void)copyWithConfiguration:(PNConfiguration *)configuration
+- (instancetype)copyWithConfiguration:(PNConfiguration *)configuration
+                   completion:(void(^)(PubNub *client))block {
+
+    return [self copyWithConfiguration:configuration callbackQueue:self.callbackQueue completion:block];
+}
+
+- (instancetype)copyWithConfiguration:(PNConfiguration *)configuration
                 callbackQueue:(dispatch_queue_t)callbackQueue
                    completion:(void(^)(PubNub *client))block {
     
@@ -330,6 +334,7 @@ void pn_safe_property_write(dispatch_queue_t queue, dispatch_block_t block) {
             block(client);
         });
     }
+    return client;
 }
 
 - (void)setRecentClientStatus:(PNStatusCategory)recentClientStatus {

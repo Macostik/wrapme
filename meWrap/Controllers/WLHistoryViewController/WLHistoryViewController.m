@@ -305,7 +305,7 @@
 - (IBAction)report:(id)sender {
     ReportViewController *controller = (id)self.storyboard[@"report"];
     controller.candy = self.candy;
-    [self.navigationController pushViewController:controller animated:NO];
+    [self.navigationController presentViewController:controller animated:NO completion:nil];
 }
 
 - (IBAction)editPhoto:(id)sender {

@@ -75,12 +75,13 @@ class WrapSettingsViewController: WLBaseViewController, EntryNotifying {
             self?.userInitiatedDestructiveAction = true
             sender.loading = false
             self?.view.userInteractionEnabled = false
+            let deletable = wrap.deletable
             wrap.delete({[weak self] _ in
                 if (wrap.isPublic) {
                     self?.navigationController?.popViewControllerAnimated(false)
                 } else {
                     self?.navigationController?.popToRootViewControllerAnimated(false)
-                    if  (wrap.deletable) { Toast.show("delete_wrap_success".ls) }
+                    if  (deletable) { Toast.show("delete_wrap_success".ls) }
                 }
                 sender.loading = false
                 }, failure: { [weak self] error -> Void in

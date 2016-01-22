@@ -135,6 +135,7 @@ class LiveBroadcastNotification: WrapNotification {
             guard let deviceUID = streamInfo["device_uid"] else { return }
             guard let wrap = Wrap.entry(descriptor.uid) else { return }
             self.wrap = wrap
+            _entry = wrap
             let broadcast = LiveBroadcast()
             broadcast.broadcaster = User.entry(userUID)
             broadcast.wrap = wrap
@@ -149,6 +150,7 @@ class LiveBroadcastNotification: WrapNotification {
         guard let nc = UINavigationController.main() else { return }
         weak var controller = wrap?.viewControllerWithNavigationController(nc) as? WLWrapViewController
         guard let liveBroadcast = liveBroadcast else { return }
+        NSLog("%@", controller != nil)
         Dispatch.mainQueue.after(1.2) { _ in
             controller?.presentLiveProadcast(liveBroadcast)
         }

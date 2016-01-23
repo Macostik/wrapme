@@ -97,7 +97,7 @@
 @dynamic delegate;
 
 - (void)dealloc {
-    [[VolumeChangeObserver sharedObserver] unregisterChagneObserver];
+    [[VolumeChangeObserver sharedObserver] unregister];
     [[DeviceManager defaultManager] endUsingAccelerometer];
     if (self.videoFilePath) {
         [[NSFileManager defaultManager] removeItemAtPath:self.videoFilePath error:nil];
@@ -163,9 +163,14 @@
         [NSObject cancelPreviousPerformRequestsWithTarget:weakSelf selector:@selector(setAssetsViewControllerHidden) object:nil];
     };
    
+    [self registerOnVolumeChange];
+}
+
+- (void)registerOnVolumeChange {
+    __weak __typeof(self)weakSelf = self;
     VolumeChangeObserver *observer = [VolumeChangeObserver sharedObserver];
     observer.locked = NO;
-    [observer registerChangeObserver:^{
+    [observer registerWithBlock:^{
         if ([weakSelf canCaptureMedia]) {
             observer.locked = YES;
             [weakSelf captureImage:^{
@@ -181,7 +186,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[VolumeChangeObserver sharedObserver] unregisterChagneObserver];
+    [[VolumeChangeObserver sharedObserver] unregister];
     [NSObject cancelPreviousPerformRequestsWithTarget:self  selector:@selector(setAssetsViewControllerHidden) object:nil];
 }
 
@@ -438,6 +443,7 @@
 }
 
 - (void)prepareSessionForVideoRecording:(Block)preparingCompletion {
+    [[VolumeChangeObserver sharedObserver] unregister];
     __weak typeof(self)weakSelf = self;
     if (![self.session.outputs containsObject:self.movieFileOutput]) {
         [self blurCamera:^(Block completion) {
@@ -522,6 +528,7 @@
 }
 
 - (void)prepareSessionForPhotoTaking {
+    [self registerOnVolumeChange];
     __weak typeof(self)weakSelf = self;
     if (![self.session.outputs containsObject:self.stillImageOutput]) {
         self.takePhotoButton.userInteractionEnabled = NO;

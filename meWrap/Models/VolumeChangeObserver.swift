@@ -27,7 +27,7 @@ class VolumeChangeObserver : NSObject {
         }
     }
     
-    func registerChangeObserver(success: Block) {
+    func registerWithBlock(success: Block) {
         let center = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: "sessionInterruption:", name: AVAudioSessionInterruptionNotification, object: nil)
         center.addObserver(self, selector: "activate:", name: UIApplicationDidBecomeActiveNotification, object: nil)
@@ -36,14 +36,14 @@ class VolumeChangeObserver : NSObject {
         initVolumeView()
     }
     
-    func initVolumeView () {
+    private func initVolumeView () {
         volumeView = MPVolumeView(frame: CGRectMake(CGFloat(MAXFLOAT), CGFloat(MAXFLOAT), 0, 0))
         guard let volumeView = volumeView else { return }
         UIWindow.mainWindow.addSubview(volumeView)
         _ = try? audioSession.setActive(true)
     }
     
-    func unregisterChagneObserver() {
+    func unregister() {
         if volumeView != nil && success != nil {
             audioSession.removeObserver(self, forKeyPath: "outputVolume", context: nil)
         }
@@ -57,11 +57,11 @@ class VolumeChangeObserver : NSObject {
         }
     }
     
-    func activate (notification: NSNotification) {
+    func activate(notification: NSNotification) {
         initVolumeView()
     }
     
-    func changeVolumeValue(change: Bool) {
+    private func changeVolumeValue(change: Bool) {
         guard let subviews = volumeView?.subviews else { return }
         for subview in subviews {
             if let slider = subview as? UISlider {

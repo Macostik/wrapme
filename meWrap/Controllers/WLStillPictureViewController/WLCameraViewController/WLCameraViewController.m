@@ -164,12 +164,14 @@
     };
    
     VolumeChangeObserver *observer = [VolumeChangeObserver sharedObserver];
-    [observer lock:NO];
+    observer.locked = NO;
     [observer registerChangeObserver:^{
-        [observer lock:YES];
+        observer.locked = YES;
         [weakSelf captureImage:^{
             if (!weakSelf.isAvatar) {
-                [observer lock:NO];
+                [[Dispatch mainQueue] after:0.3 block:^{
+                    observer.locked = NO;
+                }];
             }
         }];
     }];

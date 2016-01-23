@@ -686,10 +686,8 @@
 		C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEmailConfirmationViewController.m; sourceTree = "<group>"; };
 		C55A45151BAC17CF0055AEC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C55A451B1BAC18580055AEC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C55A451D1BAC185A0055AEC2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C55A451E1BAC185A0055AEC2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C55A45241BAC189C0055AEC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C55A45261BAC189D0055AEC2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C55A45271BAC189E0055AEC2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C55BE8C21C03062C006B04FC /* NSObject+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Ext.swift"; sourceTree = "<group>"; };
 		C55BE8C61C031BA6006B04FC /* ExtensionRequest+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ExtensionRequest+Ext.swift"; path = "meWrap/Categories/ExtensionRequest+Ext.swift"; sourceTree = SOURCE_ROOT; };
@@ -771,7 +769,6 @@
 		C5B8F7181B82161500A5E541 /* WLDrawingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDrawingViewController.m; sourceTree = "<group>"; };
 		C5B8F71E1B82172D00A5E541 /* WLDrawingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLDrawingViewController.xib; sourceTree = "<group>"; };
 		C5B91A341BB3F812000E08E7 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		C5B91A371BB3FE97000E08E7 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C5B91A381BB3FE9F000E08E7 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C5B91A391BB40423000E08E7 /* SignUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
 		C5B91A3C1BB40D88000E08E7 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
@@ -811,7 +808,6 @@
 		C5BEC4171B8F1E9800499EEA /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		C5BFE4CD1B4FD930004B655E /* WLWrapEmbeddedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapEmbeddedViewController.h; sourceTree = "<group>"; };
 		C5BFE4CE1B4FD930004B655E /* WLWrapEmbeddedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapEmbeddedViewController.m; sourceTree = "<group>"; };
-		C5C0AF9C1B997D2100B8B242 /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
 		C5C0AFA01B99CF1F00B8B242 /* StreamReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamReusableView.h; sourceTree = "<group>"; };
 		C5C0AFA11B99CF1F00B8B242 /* StreamReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamReusableView.m; sourceTree = "<group>"; };
 		C5C127391C10A46E002FD9AB /* LiveBroadcastEventViews.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveBroadcastEventViews.xib; sourceTree = "<group>"; };
@@ -2188,7 +2184,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
-				ru,
 				"zh-Hant",
 				"zh-Hans",
 			);
@@ -2682,7 +2677,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C55A45151BAC17CF0055AEC2 /* Base */,
-				C5B91A371BB3FE97000E08E7 /* ru */,
 				C5B91A381BB3FE9F000E08E7 /* zh-Hant */,
 				5B3DBD221C5243C000A5F33E /* zh-Hans */,
 			);
@@ -2703,7 +2697,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C55A451B1BAC18580055AEC2 /* Base */,
-				C55A451D1BAC185A0055AEC2 /* ru */,
 				C55A451E1BAC185A0055AEC2 /* zh-Hant */,
 				5B3DBD201C5243C000A5F33E /* zh-Hans */,
 			);
@@ -2714,7 +2707,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C55A45241BAC189C0055AEC2 /* Base */,
-				C55A45261BAC189D0055AEC2 /* ru */,
 				C55A45271BAC189E0055AEC2 /* zh-Hant */,
 				5B3DBD211C5243C000A5F33E /* zh-Hans */,
 			);
@@ -2786,7 +2778,6 @@
 			children = (
 				C5C3FE961B8F311500F177EC /* Base */,
 				C5C3FEB21B8F311D00F177EC /* zh-Hant */,
-				C5C0AF9C1B997D2100B8B242 /* ru */,
 				5B3DBD231C5243C000A5F33E /* zh-Hans */,
 			);
 			name = "Default-568h@2x.png";

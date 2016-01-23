@@ -14,14 +14,13 @@ class VolumeChangeObserver : NSObject {
     let audioSession = AVAudioSession.sharedInstance()
     var success: Block?
     weak var volumeView: MPVolumeView?
-    var context:UnsafeMutablePointer<Void>?
-    private var lock = false
+    var locked = false
     
     static let sharedObserver = VolumeChangeObserver()
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if keyPath == NSStringFromSelector("outputVolume") {
-            let value = change![NSKeyValueChangeOldKey] as? Float
+        if keyPath == "outputVolume" {
+            let value = change?[NSKeyValueChangeOldKey]
             changeVolumeValue(value != nil)
         } else {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
@@ -32,7 +31,7 @@ class VolumeChangeObserver : NSObject {
         let center = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: "sessionInterruption:", name: AVAudioSessionInterruptionNotification, object: nil)
         center.addObserver(self, selector: "activate:", name: UIApplicationDidBecomeActiveNotification, object: nil)
-        audioSession.addObserver(self, forKeyPath: NSStringFromSelector("outputVolume"), options: [.Initial, .New, .Old] , context:nil)
+        audioSession.addObserver(self, forKeyPath: "outputVolume", options: [.Initial, .New, .Old] , context:nil)
         self.success = success
         initVolumeView()
     }
@@ -46,15 +45,15 @@ class VolumeChangeObserver : NSObject {
     
     func unregisterChagneObserver() {
         if volumeView != nil && success != nil {
-            audioSession.removeObserver(self, forKeyPath: NSStringFromSelector("outputVolume"), context: nil)
+            audioSession.removeObserver(self, forKeyPath: "outputVolume", context: nil)
         }
         volumeView?.removeFromSuperview()
-        lock(false)
+        locked = false
     }
     
     func sessionInterruption(notification: NSNotification) {
-        if (notification.userInfo![AVAudioSessionInterruptionTypeKey] as? UInt == 1) {
-           initVolumeView()
+        if (notification.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt == 1) {
+            initVolumeView()
         }
     }
     
@@ -63,13 +62,12 @@ class VolumeChangeObserver : NSObject {
     }
     
     func changeVolumeValue(change: Bool) {
-        if (lock) { return }
-        var i = 0
-        while i < volumeView?.subviews.count {
-            if let slider = volumeView?.subviews[i] as? UISlider {
-                if (change) {
-                if (slider.value != 0.5) {
-                    slider.value = 0.5
+        guard let subviews = volumeView?.subviews where !locked else { return }
+        for subview in subviews {
+            if let slider = subview as? UISlider {
+                if change {
+                    if (slider.value != 0.5) {
+                        slider.value = 0.5
                         self.success?()
                     }
                 } else {
@@ -79,11 +77,6 @@ class VolumeChangeObserver : NSObject {
                 }
                 break
             }
-            ++i
         }
-    }
-    
-    func lock(lock: Bool) {
-        self.lock = lock
     }
 }

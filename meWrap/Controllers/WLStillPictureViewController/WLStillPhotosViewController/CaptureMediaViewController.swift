@@ -167,7 +167,7 @@ class CaptureMediaViewController: WLStillPictureViewController {
         showUploadSummary(nil)
     }
     
-    override func cameraViewControllerCaptureMedia(controller: WLCameraViewController!) -> Bool {
+    override func cameraViewControllerCanCaptureMedia(controller: WLCameraViewController!) -> Bool {
         return shouldAddAsset({}, failure: { $0?.show() })
     }
     

@@ -24,7 +24,7 @@
 - (void)cameraViewControllerWillCaptureImage:(WLCameraViewController*)controller;
 - (void)cameraViewController:(WLCameraViewController*)controller didCaptureVideoAtPath:(NSString*)path saveToAlbum:(BOOL)saveToAlbum;
 - (void)cameraViewControllerDidFinish:(WLCameraViewController*)controller;
-- (BOOL)cameraViewControllerCaptureMedia:(WLCameraViewController*)controller;
+- (BOOL)cameraViewControllerCanCaptureMedia:(WLCameraViewController*)controller;
 
 @end
 

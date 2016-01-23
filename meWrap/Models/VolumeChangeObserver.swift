@@ -62,13 +62,15 @@ class VolumeChangeObserver : NSObject {
     }
     
     func changeVolumeValue(change: Bool) {
-        guard let subviews = volumeView?.subviews where !locked else { return }
+        guard let subviews = volumeView?.subviews else { return }
         for subview in subviews {
             if let slider = subview as? UISlider {
                 if change {
                     if (slider.value != 0.5) {
                         slider.value = 0.5
-                        self.success?()
+                        if !locked {
+                            success?()
+                        }
                     }
                 } else {
                     Dispatch.mainQueue.after(0.1, block: { _ in

@@ -166,19 +166,22 @@
     VolumeChangeObserver *observer = [VolumeChangeObserver sharedObserver];
     observer.locked = NO;
     [observer registerChangeObserver:^{
-        observer.locked = YES;
-        [weakSelf captureImage:^{
-            if (!weakSelf.isAvatar) {
-                [[Dispatch mainQueue] after:0.3 block:^{
-                    observer.locked = NO;
-                }];
-            }
-        }];
+        if ([weakSelf canCaptureMedia]) {
+            observer.locked = YES;
+            [weakSelf captureImage:^{
+                if (!weakSelf.isAvatar) {
+                    [[Dispatch mainQueue] after:0.5 block:^{
+                        observer.locked = NO;
+                    }];
+                }
+            }];
+        }
     }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[VolumeChangeObserver sharedObserver] unregisterChagneObserver];
     [NSObject cancelPreviousPerformRequestsWithTarget:self  selector:@selector(setAssetsViewControllerHidden) object:nil];
 }
 
@@ -212,18 +215,21 @@
 }
 
 - (IBAction)shot:(UIButton*)sender  {
-    if ([self.delegate respondsToSelector:@selector(cameraViewControllerCaptureMedia:)]) {
-        if ([self.delegate cameraViewControllerCaptureMedia:self] == NO) {
-            return;
-        }
+    if ([self canCaptureMedia]) {
+        [self captureImage:nil];
     }
-    sender.active = NO;
-    [self captureImage:^{
-        sender.active = YES;
-    }];
+}
+
+- (BOOL)canCaptureMedia {
+    if ([self.delegate respondsToSelector:@selector(cameraViewControllerCanCaptureMedia:)]) {
+        return [self.delegate cameraViewControllerCanCaptureMedia:self];
+    } else {
+        return YES;
+    }
 }
 
 - (void)captureImage:(Block)completon {
+    self.takePhotoButton.active = NO;
     if ([self.delegate respondsToSelector:@selector(cameraViewControllerWillCaptureImage:)]) {
         [self.delegate cameraViewControllerWillCaptureImage:self];
     }
@@ -241,15 +247,16 @@
         [weakSelf finishWithImage:image];
         weakSelf.view.userInteractionEnabled = YES;
         if (completon) completon();
+        weakSelf.takePhotoButton.active = YES;
     } failure:^(NSError *error) {
         weakSelf.view.userInteractionEnabled = YES;
         [error show];
         if (completon) completon();
+        weakSelf.takePhotoButton.active = YES;
     }];
 }
 
 - (IBAction)finish:(id)sender {
-    [[VolumeChangeObserver sharedObserver] unregisterChagneObserver];
     if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:)]) {
         [self.delegate cameraViewControllerDidFinish:self];
     }
@@ -385,10 +392,8 @@
 }
 
 - (void)startVideoRecording:(UILongPressGestureRecognizer*)sender {
-    if ([self.delegate respondsToSelector:@selector(cameraViewControllerCaptureMedia:)]) {
-        if ([self.delegate cameraViewControllerCaptureMedia:self] == NO) {
-            return;
-        }
+    if (![self canCaptureMedia]) {
+        return;
     }
     
     switch (sender.state) {

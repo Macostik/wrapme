@@ -48,17 +48,25 @@ class LiveBroadcasterViewController: LiveViewController {
         }
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        let center = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector: "applicationWillTerminate:", name: UIApplicationWillTerminateNotification, object: nil)
+        center.addObserver(self, selector: "applicationWillResignActive:", name: UIApplicationWillResignActiveNotification, object: nil)
+        center.addObserver(self, selector: "applicationDidBecomeActive:", name: UIApplicationDidBecomeActiveNotification, object: nil)
+    }
+    
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.composeBar.text = self.broadcast.title
         chatStreamView.hidden = true
         joinsCountView.hidden = true
         titleLabel?.superview?.hidden = true
-        startCapture(1)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillTerminate:", name: UIApplicationWillTerminateNotification, object: nil)
+        startCapture(cameraPosition)
     }
 
     override func viewDidLayoutSubviews() {
@@ -85,6 +93,16 @@ class LiveBroadcasterViewController: LiveViewController {
 
     func applicationWillTerminate(notification: NSNotification) {
         stopBroadcast()
+    }
+    
+    func applicationWillResignActive(notification: NSNotification) {
+        stopBroadcast()
+        view = nil
+    }
+    
+    func applicationDidBecomeActive(notification: NSNotification) {
+        presentViewController(UIViewController(), animated: false, completion: nil)
+        dismissViewControllerAnimated(false, completion: nil)
     }
     
     private func startCapture(position: Int32) {
@@ -164,6 +182,7 @@ class LiveBroadcasterViewController: LiveViewController {
     }
     
     private func releaseConnection() {
+        startEventIsAlreadyPresented = false
         if let connectionID = connectionID {
             self.connectionID = nil
             streamer.releaseConnectionId(connectionID)

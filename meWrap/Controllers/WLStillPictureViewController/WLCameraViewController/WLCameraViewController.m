@@ -157,7 +157,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self enqueueSelector:@selector(setAssetsViewControllerHidden) delay:4.0];
+    [self enqueueSelector:@selector(setAssetsViewControllerHidden) delay:3.0];
     __weak __typeof(self)weakSelf = self;
     self.assetsViewController.assetsHidingHandler = ^ {
         [NSObject cancelPreviousPerformRequestsWithTarget:weakSelf selector:@selector(setAssetsViewControllerHidden) object:nil];

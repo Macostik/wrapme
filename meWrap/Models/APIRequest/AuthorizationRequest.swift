@@ -89,7 +89,7 @@ extension APIRequest {
             }
         }).validateFailure({ (request, error) -> Bool in
             guard let error = error else { return true }
-            guard let unconfirmed_email = authorization.unconfirmed_email else { return true }
+            guard let unconfirmed_email = authorization.unconfirmed_email where !unconfirmed_email.isEmpty else { return true }
             guard error.isResponseError(.NotFoundEntry) else { return true }
             guard (request["email"] as? String) != unconfirmed_email else { return true }
             request["email"] = unconfirmed_email

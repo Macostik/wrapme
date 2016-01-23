@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1ip-WU-dPb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1ip-WU-dPb">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -525,10 +525,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_palaroid" translatesAutoresizingMaskIntoConstraints="NO" id="MRK-26-iin">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_and_caption_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ggb-F2-pRJ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_and_caption_orange.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ggb-F2-pRJ">
                                 <rect key="frame" x="193" y="188" width="215" height="165"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="165" id="NxV-58-35d"/>
@@ -537,18 +534,15 @@
                             </imageView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="etp-A6-PdH">
                                 <rect key="frame" x="290" y="390" width="20" height="20"/>
+                                <color key="color" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="etp-A6-PdH" secondAttribute="centerX" id="5rV-Yo-cMN"/>
                             <constraint firstAttribute="centerX" secondItem="Ggb-F2-pRJ" secondAttribute="centerX" id="GEw-45-sRh"/>
-                            <constraint firstItem="MRK-26-iin" firstAttribute="leading" secondItem="9F9-kd-YFa" secondAttribute="leading" id="JUj-Ze-FZI"/>
-                            <constraint firstAttribute="trailing" secondItem="MRK-26-iin" secondAttribute="trailing" id="V5v-Bl-M3R"/>
                             <constraint firstAttribute="centerY" secondItem="Ggb-F2-pRJ" secondAttribute="centerY" constant="30" id="VTo-wc-8qL"/>
                             <constraint firstAttribute="centerY" secondItem="etp-A6-PdH" secondAttribute="centerY" constant="-100" id="bvQ-CG-oaa"/>
-                            <constraint firstItem="MRK-26-iin" firstAttribute="top" secondItem="9F9-kd-YFa" secondAttribute="topMargin" id="mdo-a7-J9R"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="MRK-26-iin" secondAttribute="bottom" id="ngo-PV-Sh1"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -558,8 +552,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="background_palaroid" width="298" height="530"/>
-        <image name="logo_and_caption_white.png" width="215" height="165"/>
+        <image name="logo_and_caption_orange.png" width="215" height="165"/>
         <image name="ski1" width="186" height="186"/>
         <image name="ski2" width="186" height="186"/>
         <image name="ski3" width="186" height="186"/>

@@ -16,7 +16,7 @@ extension UIImage {
             return
         }
         
-        let names = ["Default.png", "Default2x.png", "Default-667h2x.png", "Default-736h3x.png", "Default-568h2x.png", "Default-Portrait.png", "Default-Portrait2x.png"]
+        let names = ["Default.png", "Default@2x.png", "Default-667h@2x.png", "Default-736h@3x.png", "Default-568h@2x.png", "Default-Portrait.png", "Default-Portrait@2x.png"]
         let sizes = [CGSizeMake(320, 480), CGSizeMake(320, 480), CGSizeMake(375, 667), CGSizeMake(414, 736), CGSizeMake(320, 568), CGSizeMake(768, 1024), CGSizeMake(768, 1024)]
         let scales: [CGFloat] = [1,2,2,3,2,1,2]
         
@@ -30,7 +30,7 @@ extension UIImage {
                 view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: true)
             })
             
-            let path = "/Users/sergeymaximenko/Downloads/Default/\(NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode))/"
+            let path = "/Users/sergeymaximenko/Downloads/Default/\(NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) ?? "")/"
             try! NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
             UIImagePNGRepresentation(image)?.writeToFile(path + name, atomically: true)
         }

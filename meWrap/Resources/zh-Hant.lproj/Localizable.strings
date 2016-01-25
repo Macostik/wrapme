@@ -290,3 +290,4 @@
 "friends_allowed_to_app_people" = "Friends are allowed to add people to the wrap";
 "please_enter_title" = "Please enter a title for the new wrap.";
 "title" = "Title";
+"microphone_access_message" = "Please go to Settings > meWrap to allow meWrap access the microphone";

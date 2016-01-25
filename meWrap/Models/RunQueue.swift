@@ -16,11 +16,8 @@ class RunQueue: NSObject {
         
     static var uploadCandiesQueue = RunQueue(limit: 1)
     
-    private class Block {
+    private struct Block {
         var block: (finish: Void -> Void) -> Void
-        init(block: (finish: Void -> Void) -> Void) {
-            self.block = block
-        }
     }
     
     private var blocks = [Block]()
@@ -45,13 +42,9 @@ class RunQueue: NSObject {
     
     var limit = 0
     
-    required init(limit: Int) {
-        super.init()
+    convenience init(limit: Int) {
+        self.init()
         self.limit = limit
-    }
-    
-    convenience override init() {
-        self.init(limit: 0)
     }
     
     private func _run(block: (finish: Void -> Void) -> Void) {

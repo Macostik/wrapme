@@ -153,6 +153,11 @@
             break;
         }
     }
+    
+    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+    if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
+        [Toast show:@"microphone_access_message".ls];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

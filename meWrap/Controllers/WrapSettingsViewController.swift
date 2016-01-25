@@ -122,7 +122,7 @@ class WrapSettingsViewController: WLBaseViewController, EntryNotifying {
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         guard let wrap = wrap else {  return false }
-        if let name = textField.text?.trim {
+        if let name = textField.text?.trim where !name.isEmpty {
             if editSession?.hasChanges == true {
                 wrap.name = name
                 wrap.update({ [weak self] _ in
@@ -135,8 +135,13 @@ class WrapSettingsViewController: WLBaseViewController, EntryNotifying {
         }
         editButton.selected = false
         textField.resignFirstResponder()
-        
+   
         return true
+    }
+    
+    @IBAction override func back(sender: UIButton) {
+        self.textFieldShouldReturn(wrapNameTextField)
+        navigationController?.popViewControllerAnimated(false)
     }
     
     @IBAction func handleFriendsInvite(sender: UISwitch) {

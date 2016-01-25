@@ -72,7 +72,7 @@
 }
 
 - (void)initializeAPIManager {
-    [APIRequest setUnauthorizedErrorBlock:^ (APIRequest *request, NSError *error) {
+    [APIRequest setUnauthorizedErrorBlock:^BOOL (APIRequest *request, NSError *error) {
         [Logger log:[NSString stringWithFormat:@"UNAUTHORIZED_ERROR: %@", error]];
         UIStoryboard *storyboard = [UIStoryboard signUp];
         UIWindow *window = [UIWindow mainWindow];
@@ -97,6 +97,9 @@
                     if (failureBlock) failureBlock(error);
                 }];
             }];
+            return YES;
+        } else {
+            return NO;
         }
     }];
     [NSError setShowingBlock:^ (NSError *error) {
@@ -319,7 +322,7 @@
     if (network.reachable) {
         if ([Authorization active]) {
             [[Uploader wrapUploader] start];
-        } else {
+        } else if ([[Authorization currentAuthorization] canAuthorize]) {
             [[[Authorization currentAuthorization] signIn] send];
         }
     }

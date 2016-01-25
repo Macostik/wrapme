@@ -62,6 +62,7 @@ extension NSUserDefaults {
         }
         set {
             self["authorizationCookie"] = newValue?.properties
+            Authorization.active = newValue != nil
         }
     }
     

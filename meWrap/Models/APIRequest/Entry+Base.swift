@@ -61,17 +61,6 @@ extension Entry {
     func fetched() -> Bool {
         return true
     }
-    
-    func recursivelyFetched() -> Bool {
-        var entry: Entry? = self
-        while let _entry = entry {
-            if !_entry.fetched() {
-                return false
-            }
-            entry = _entry.container
-        }
-        return true
-    }
 }
 
 extension User {

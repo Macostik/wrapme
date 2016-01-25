@@ -80,7 +80,6 @@ class NotificationCenter: NSObject {
         userSubscription.unsubscribe()
         NSUserDefaults.standardUserDefaults().clearHandledNotifications()
         NSUserDefaults.standardUserDefaults().historyDate = nil
-        PubNub.clearSharedInstance()
     }
     
     func addHandledNotifications(notifications: [Notification]) {

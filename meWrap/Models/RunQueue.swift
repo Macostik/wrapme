@@ -16,8 +16,6 @@ class RunQueue: NSObject {
         
     static var uploadCandiesQueue = RunQueue(limit: 1)
     
-    static var soundPlayerQueue = RunQueue(limit: 1)
-    
     private class Block {
         var block: (finish: Void -> Void) -> Void
         init(block: (finish: Void -> Void) -> Void) {

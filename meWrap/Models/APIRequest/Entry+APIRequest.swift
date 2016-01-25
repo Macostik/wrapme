@@ -15,17 +15,13 @@ private var S3ConfigurationToken: dispatch_once_t = 0
 extension Entry {
     
     func recursivelyFetchIfNeeded(success: Block?, failure: FailureBlock?) {
-        if recursivelyFetched() {
-            success?()
-        } else {
-            fetchIfNeeded({ [weak self] (object) -> Void in
-                if let container = self?.container {
-                    container.recursivelyFetchIfNeeded(success, failure: failure)
-                } else {
-                    success?()
-                }
-                }, failure: failure)
-        }
+        fetchIfNeeded({ [weak self] (object) -> Void in
+            if let container = self?.container {
+                container.recursivelyFetchIfNeeded(success, failure: failure)
+            } else {
+                success?()
+            }
+            }, failure: failure)
     }
     
     func fetchIfNeeded(success: ObjectBlock?, failure: FailureBlock?) {
@@ -79,12 +75,9 @@ extension User {
         RunQueue.fetchQueue.run { (finish) -> Void in
             PaginatedRequest.wraps(nil).fresh({ [weak self] (wraps) -> Void in
                 
-                if let wraps = self?.sortedWraps {
-                    for (index, wrap) in wraps.enumerate() {
+                if let wraps = self?.sortedWraps?.prefix(2) {
+                    for wrap in wraps {
                         wrap.preload()
-                        if index == 2 {
-                            break
-                        }
                     }
                 }
                 
@@ -178,17 +171,11 @@ extension Wrap {
     func preload() {
         let history = History(wrap: self)
         history.fresh({ (object) -> Void in
-            for (index, entry) in history.entries.enumerate() {
-                if let item = entry as? HistoryItem {
-                    for (index, candy) in item.candies.enumerate() {
+            for item in history.entries.prefix(5) {
+                if let item = item as? HistoryItem {
+                    for candy in item.candies.prefix(20) {
                         candy.asset?.fetch(nil)
-                        if index == 20 {
-                            break
-                        }
                     }
-                }
-                if index == 5 {
-                    break
                 }
             }
             }, failure: nil)

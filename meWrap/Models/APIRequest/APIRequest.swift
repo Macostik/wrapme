@@ -52,7 +52,7 @@ class APIRequest: NSObject {
         return self
     }
     
-    static var unauthorizedErrorBlock: ((APIRequest, NSError?) -> Void)?
+    static var unauthorizedErrorBlock: ((APIRequest, NSError?) -> Bool)?
     
     private var parameters = [String:AnyObject]()
     
@@ -211,15 +211,7 @@ class APIRequest: NSObject {
         beforeFailure?(error)
         if response?.statusCode == 401 && !skipReauthorizing {
             NSUserDefaults.standardUserDefaults().authorizationCookie = nil
-            Authorization.currentAuthorization.signIn().send({ (_) -> Void in
-                self.enqueue()
-                }, failure: { (error) -> Void in
-                    if let block = APIRequest.unauthorizedErrorBlock where !(error?.isNetworkError ?? true) {
-                        block(self, error)
-                    } else {
-                        self.handleFailure(error, response: nil)
-                    }
-            })
+            reauthorize(error)
         } else {
             let failure = self.failureBlock
             failureBlock = nil
@@ -228,6 +220,24 @@ class APIRequest: NSObject {
         }
         
         afterFailure?(error)
+    }
+    
+    private func reauthorize(error: NSError?) {
+        if Authorization.currentAuthorization.canAuthorize {
+            Authorization.currentAuthorization.signIn().send({ (_) -> Void in
+                self.enqueue()
+                }, failure: { (error) -> Void in
+                    if let block = APIRequest.unauthorizedErrorBlock where !(error?.isNetworkError ?? true) {
+                        if !block(self, error) {
+                            self.handleFailure(error, response: nil)
+                        }
+                    } else {
+                        self.handleFailure(error, response: nil)
+                    }
+            })
+        } else {
+            self.handleFailure(error, response: nil)
+        }
     }
     
     private static var previousDateString: String?

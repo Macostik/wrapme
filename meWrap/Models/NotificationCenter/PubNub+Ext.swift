@@ -23,7 +23,6 @@ extension PubNub {
             return pubnub
         }
         let configuration = defaultConfiguration()
-        PNLog.enabled(false)
         let pubnub = clientWithConfiguration(configuration)
         _sharedInstance = pubnub
         return pubnub
@@ -38,10 +37,6 @@ extension PubNub {
         }
         configuration.uuid = User.channelName()
         return configuration
-    }
-    
-    class func clearSharedInstance() {
-        _sharedInstance = nil
     }
     
     class func userFromUUID(uuid: String?) -> User? {

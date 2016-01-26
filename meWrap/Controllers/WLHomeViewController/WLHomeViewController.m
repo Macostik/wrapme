@@ -12,7 +12,6 @@
 #import "WLWrapViewController.h"
 #import "WLHistoryViewController.h"
 #import "WLHintView.h"
-#import "WLChangeProfileViewController.h"
 #import "WLStillPictureViewController.h"
 
 @interface WLHomeViewController () <WrapCellDelegate, RecentUpdateListNotifying, WLStillPictureViewControllerDelegate>
@@ -183,7 +182,7 @@
 - (void)updateEmailConfirmationView:(BOOL)animated {
     BOOL hidden = ([[[NSUserDefaults standardUserDefaults] confirmationDate] isToday] || ![[Authorization currentAuthorization] unconfirmed_email].nonempty);
     if (!hidden) {
-        self.verificationEmailLabel.attributedText = [WLChangeProfileViewController verificationSuggestion];
+        self.verificationEmailLabel.attributedText = [ChangeProfileViewController verificationSuggestion];
         [self deadlineEmailConfirmationView];
     }
     [self setEmailConfirmationViewHidden:hidden animated:animated];

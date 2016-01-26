@@ -463,7 +463,7 @@
                 </viewController>
                 <customObject id="5n6-Z7-rk2" userLabel="Profile Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLChangeProfileViewController"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="ChangeProfileViewController"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="sourceViewController" destination="zBt-TT-rM7" id="EJt-X6-2cc"/>
@@ -476,7 +476,7 @@
         <!--ChangeProfile View Controller-->
         <scene sceneID="zxY-Lu-ZtN">
             <objects>
-                <viewController storyboardIdentifier="WLChangeProfileViewController" automaticallyAdjustsScrollViewInsets="NO" id="7FG-gC-kPg" userLabel="ChangeProfile View Controller" customClass="WLChangeProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChangeProfileViewController" automaticallyAdjustsScrollViewInsets="NO" id="7FG-gC-kPg" userLabel="ChangeProfile View Controller" customClass="ChangeProfileViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AL9-yK-5IY"/>
                         <viewControllerLayoutGuide type="bottom" id="JSr-ZC-7FZ"/>
@@ -557,6 +557,9 @@
                                     <constraint firstItem="AYn-Zt-xUG" firstAttribute="leading" secondItem="SJq-9P-McW" secondAttribute="leading" id="pjl-TY-fWm"/>
                                     <constraint firstItem="zT6-pp-ssq" firstAttribute="top" secondItem="SJq-9P-McW" secondAttribute="top" id="tE1-1e-B3k"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="your_name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D1N-1e-psu" customClass="WLTextField">
                                 <rect key="frame" x="180" y="429" width="240" height="32"/>
@@ -1161,7 +1164,7 @@
                 </customObject>
                 <customObject id="DBa-Dn-FbP" userLabel="Profile Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLChangeProfileViewController"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="ChangeProfileViewController"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="sourceViewController" destination="L91-fZ-J9O" id="2aI-EZ-H5r"/>

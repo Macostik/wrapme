@@ -23,3 +23,4 @@
 #import "WLStillPictureViewController.h"
 #import "UploadSummaryViewController.h"
 #import "WLAddContributorsViewController.h"
+#import "WLTextView.h"

@@ -28,12 +28,15 @@ class VolumeChangeObserver : NSObject {
     }
     
     func registerWithBlock(success: Block) {
-        let center = NSNotificationCenter.defaultCenter()
-        center.addObserver(self, selector: "sessionInterruption:", name: AVAudioSessionInterruptionNotification, object: nil)
-        center.addObserver(self, selector: "activate:", name: UIApplicationDidBecomeActiveNotification, object: nil)
-        audioSession.addObserver(self, forKeyPath: "outputVolume", options: [.Initial, .New, .Old] , context:nil)
-        self.success = success
         initVolumeView()
+        self.success = success
+        defer {
+            let center = NSNotificationCenter.defaultCenter()
+            center.addObserver(self, selector: "sessionInterruption:", name: AVAudioSessionInterruptionNotification, object: nil)
+            center.addObserver(self, selector: "activate:", name: UIApplicationDidBecomeActiveNotification, object: nil)
+            audioSession.addObserver(self, forKeyPath: "outputVolume", options: [.New, .Old] , context:nil)
+            changeVolumeValue(false)
+        }
     }
     
     private func initVolumeView () {

@@ -25,6 +25,7 @@
 @property (strong, nonatomic) StreamMetrics *singleMetrics;
 @property (strong, nonatomic) StreamMetrics *multipleMetrics;
 @property (strong, nonatomic) StreamMetrics *sectionHeaderMetrics;
+@property (strong, nonatomic) StreamMetrics *placeholderMetrics;
 
 
 @end
@@ -94,7 +95,9 @@
         }];
     }];
     
-	
+    self.placeholderMetrics = [[StreamMetrics alloc] initWithLoader:[[PlaceholderLoader alloc] initWithIdentifier:@"search"]];
+    self.placeholderMetrics.selectable = NO;
+
     BOOL cached = [[AddressBook sharedAddressBook] cachedRecords:^(NSArray *array) {
         [weakSelf addressBook:[AddressBook sharedAddressBook] didUpdateCachedRecords:array];
         [weakSelf.spinner stopAnimating];
@@ -220,6 +223,10 @@
     }
     metrics.nibOwner = weakSelf;
     return @[metrics];
+}
+
+- (StreamMetrics *)streamViewPlaceholderMetrics:(StreamView *)streamView {
+    return self.placeholderMetrics;
 }
 
 #pragma mark - AddressBookRecordCellDelegate

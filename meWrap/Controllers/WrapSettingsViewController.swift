@@ -124,10 +124,13 @@ class WrapSettingsViewController: WLBaseViewController, EntryNotifying {
         guard let wrap = wrap else {  return false }
         if let name = textField.text?.trim where !name.isEmpty {
             if editSession?.hasChanges == true {
-                wrap.name = name
+                editSession?.apply()
                 wrap.update({ [weak self] _ in
                     self?.editButton.selected = false
-                    }, failure: { _ in })
+                    }, failure: { [weak self] error in
+                        error?.show()
+                        self?.editSession?.reset()
+                })
             }
         } else {
             Toast.show("wrap_name_cannot_be_blank".ls)

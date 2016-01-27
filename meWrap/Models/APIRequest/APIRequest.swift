@@ -52,8 +52,6 @@ class APIRequest: NSObject {
         return self
     }
     
-    static var unauthorizedErrorBlock: ((APIRequest, NSError?) -> Bool)?
-    
     private var parameters = [String:AnyObject]()
     
     func parametrize() {
@@ -227,13 +225,42 @@ class APIRequest: NSObject {
             Authorization.currentAuthorization.signIn().send({ (_) -> Void in
                 self.enqueue()
                 }, failure: { (error) -> Void in
-                    if let block = APIRequest.unauthorizedErrorBlock where !(error?.isNetworkError ?? true) {
-                        if !block(self, error) {
-                            self.handleFailure(error, response: nil)
-                        }
+                    if !(error?.isNetworkError ?? true) {
+                        self.reauthorizeFailed(error)
                     } else {
                         self.handleFailure(error, response: nil)
                     }
+            })
+        } else {
+            self.handleFailure(error, response: nil)
+        }
+    }
+    
+    private func reauthorizeFailed(error: NSError?) {
+        Logger.log("UNAUTHORIZED_ERROR: \(error)")
+        let storyboard = UIStoryboard.signUp()
+        let window = UIWindow.mainWindow
+        if window.rootViewController?.storyboard != storyboard {
+            let topView = (window.rootViewController?.presentedViewController ?? window.rootViewController)?.view
+            topView?.userInteractionEnabled = true
+            UIAlertController.confirmRedirectingToSignUp({ action in
+                self.handleFailure(error, response: nil)
+                Logger.log("ERROR - redirection to welcome screen, sign in failed: \(error)")
+                NotificationCenter.defaultCenter.clear()
+                NSUserDefaults.standardUserDefaults().clear()
+                storyboard.present(true)
+                topView?.userInteractionEnabled = true
+                }, tryAgain: { action in
+                    topView?.userInteractionEnabled = false
+                    let successBlock = self.successBlock
+                    let failureBlock = self.failureBlock
+                    self.send({ object in
+                        successBlock?(object)
+                        topView?.userInteractionEnabled = true
+                        }, failure: { error in
+                            topView?.userInteractionEnabled = true
+                            failureBlock?(error)
+                    })
             })
         } else {
             self.handleFailure(error, response: nil)

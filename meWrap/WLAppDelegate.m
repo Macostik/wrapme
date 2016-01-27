@@ -35,9 +35,7 @@
     [self registerUserNotificationSettings];
     
     [self initializeCrashlyticsAndLogging];
-    
-    [self initializeAPIManager];
-    
+        
     [[NotificationCenter defaultCenter] configure];
     
     [self createWindow];
@@ -69,42 +67,6 @@
     }];
     
 	return YES;
-}
-
-- (void)initializeAPIManager {
-    [APIRequest setUnauthorizedErrorBlock:^BOOL (APIRequest *request, NSError *error) {
-        [Logger log:[NSString stringWithFormat:@"UNAUTHORIZED_ERROR: %@", error]];
-        UIStoryboard *storyboard = [UIStoryboard signUp];
-        UIWindow *window = [UIWindow mainWindow];
-        if (window.rootViewController.storyboard != storyboard) {
-            UIView *topView = (window.rootViewController.presentedViewController ? : window.rootViewController).view;
-            topView.userInteractionEnabled = YES;
-            [UIAlertController confirmRedirectingToSignUp:^(UIAlertAction *action) {
-                [Logger log:[NSString stringWithFormat:@"ERROR - redirection to welcome screen, sign in failed: %@", error]];
-                [[NotificationCenter defaultCenter] clear];
-                [[NSUserDefaults standardUserDefaults] clear];
-                [storyboard present:YES];
-                topView.userInteractionEnabled = YES;
-            } tryAgain:^(UIAlertAction *action) {
-                topView.userInteractionEnabled = NO;
-                ObjectBlock successBlock = request.successBlock;
-                FailureBlock failureBlock = request.failureBlock;
-                [request send:^(id object) {
-                    if (successBlock) successBlock(object);
-                    topView.userInteractionEnabled = YES;
-                } failure:^(NSError *error) {
-                     topView.userInteractionEnabled = YES;
-                    if (failureBlock) failureBlock(error);
-                }];
-            }];
-            return YES;
-        } else {
-            return NO;
-        }
-    }];
-    [NSError setShowingBlock:^ (NSError *error) {
-        [Toast show:[error errorMessage]];
-    }];
 }
 
 - (void)initializeCrashlyticsAndLogging {

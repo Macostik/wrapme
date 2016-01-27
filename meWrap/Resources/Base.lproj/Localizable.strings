@@ -203,7 +203,6 @@
 "slide_to_chat" = "Slide to chat";
 "unread_messages" = "UNREAD MESSAGES";
 "downloading_photo_for_editing" = "Downloading the photo for editing...";
-"wrap_is_better_with_friends" = "Wrap is better with friends.";
 "invitation_tip" = "Add friends.\nChip in photos.\nStay connected.";
 "got_it" = "Got it";
 "swipe_actions_tip" = "Opening camera & chat just got easier";
@@ -275,7 +274,7 @@
 "live" = "LIVE";
 "maybe_later" = "Maybe later";
 "share_first" = "What do you want to share in your first wrap?";
-"all_set" = "You're all set!";
+"all_set" = "Done!";
 "enjoy_and_happy" = "If you invite your friends to wrap. They are receiving the notifications from meWrap now. Enjoy and happy wrapping!";
 "first_wrap" = "%@'s first wrap";
 "introduction_step_1_part_1" = "A collection of albums";
@@ -284,8 +283,9 @@
 "introduction_step_2_part_2" = "sharing photos, videos and even live broadcast!";
 "skip" = "Skip";
 "share_with_friends" = "Share With Friends";
-"wrap_is_better_with_friends" = "Wrap is always better with friends. Simply open the \"Friends\" tab to tell your friends to join your wrap. Enjoy!";
-"your_friends_are_receiving_invite" = "Your friends are now receiving your wrap invite. Enjoy!";
+"share_wrap_message" = "Share \"%@\" with friends";
+"here" = "here";
+"wrap_shared_message" = "\"%@\" shared and friends notified";
 "live_viewers" = "LIVE viewers";
 "broadcaster" = "Broadcaster";
 "type_new_wrap_name_here" = "Type new wrap title here...";

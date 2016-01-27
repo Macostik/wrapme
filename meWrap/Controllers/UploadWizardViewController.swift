@@ -24,8 +24,6 @@ class UploadWizardViewController: WLBaseViewController {
     
     @IBOutlet var layoutPrioritizer: LayoutPrioritizer!
     
-    var editSession: EditSession?
-    
     private func defaultWrap() -> Wrap? {
         guard isValidateWrap() else { return nil }
         if let wrap = wrap {
@@ -42,17 +40,14 @@ class UploadWizardViewController: WLBaseViewController {
             wrap.name = name
             wrap.notifyOnAddition()
             self.wrap = wrap
-            editSession = EditSession(originalValue: wrap.name, setter: { _ , value -> Void in
-                wrap.name = value as? String
-            })
             Uploader.wrapUploader.upload(Uploading.uploading(wrap), success: nil, failure: { [weak self] error in
-                    if let error = error where !error.isNetworkError {
-                        self?.wrap = nil
-                        error.show()
-                        wrap.remove()
-                        self?.navigationController?.popViewControllerAnimated(false)
-                    }
-            })
+                if let error = error where !error.isNetworkError {
+                    self?.wrap = nil
+                    error.show()
+                    wrap.remove()
+                    self?.navigationController?.popViewControllerAnimated(false)
+                }
+                })
             return wrap
         }
     }
@@ -95,16 +90,16 @@ class UploadWizardViewController: WLBaseViewController {
         }
         
         if isBroadcasting {
-            if let controller = storyboard?["liveBroadcaster"] as? LiveBroadcasterViewController {
+            Storyboard.LiveBroadcaster.instantiate({ (controller) -> Void in
                 controller.wrap = wrap
                 controllers.append(controller)
-            }
+            })
         }
         navigationController?.viewControllers = controllers
     }
     
     private func presentAddFriends(wrap: Wrap, isBroadcasting: Bool) {
-        if let controller = storyboard?["addFriends"] as? WLAddContributorsViewController {
+        Storyboard.AddFriends.instantiate { (controller) -> Void in
             controller.wrap = wrap
             controller.isBroadcasting = isBroadcasting
             controller.isWrapCreation = true
@@ -126,17 +121,19 @@ class UploadWizardViewController: WLBaseViewController {
     }
     
     func isValidateWrap () -> Bool {
-        let name = nameTextField.text?.trim
-        editSession?.changedValue = name
+        let name = nameTextField.text? .trim
         if !isNewWrap {
-           return true
+            return true
         } else if name?.isEmpty ?? false {
             Toast.show("please_enter_title".ls)
-             return false
+            return false
         } else if name != wrap?.name {
-                editSession?.apply()
-                wrap?.update({ _ in
-                    }, failure: { _ in })
+            let currentName = wrap?.name
+            wrap?.name = name
+            wrap?.update({ _ in
+                }, failure: { [weak self] error in
+                    self?.wrap?.name = currentName
+            })
         }
         return true
     }
@@ -174,10 +171,11 @@ extension UploadWizardViewController: WLStillPictureViewControllerDelegate {
         }
         let navigationController = self.navigationController
         finish(false)
-        if let uploadWizardEnd = storyboard?["uploadWizardEnd"] as? UploadWizardEndViewController {
+        Storyboard.UploadWizardEnd.instantiate { (uploadWizardEnd) -> Void in
+            uploadWizardEnd.wrap = wrap
             uploadWizardEnd.friendsInvited = controller.friendsInvited
             if let wrapViewController = navigationController?.viewControllers.last {
-                 wrapViewController.addContainedViewController(uploadWizardEnd, animated: false)
+                wrapViewController.addContainedViewController(uploadWizardEnd, animated: false)
             }
         }
     }
@@ -187,51 +185,53 @@ class UploadWizardEndViewController: WLBaseViewController {
     
     var friendsInvited = false
     
+    weak var wrap: Wrap?
+    
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var contentView: UIView!
     
+    private lazy var slideTransition: SlideInteractiveTransition = SlideInteractiveTransition(contentView: self.contentView)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        slideTransition.delegate = self
         if friendsInvited {
-            descriptionLabel.text = "your_friends_are_receiving_invite".ls
+            descriptionLabel.text = String(format: "wrap_shared_message".ls, wrap?.name ?? "")
         } else {
-            descriptionLabel.text = "wrap_is_better_with_friends".ls
+            let message = NSMutableAttributedString(string: String(format: "share_wrap_message".ls, wrap?.name ?? ""), attributes: [NSFontAttributeName:descriptionLabel.font,NSForegroundColorAttributeName:Color.grayDark])
+            let action = NSAttributedString(string: "here".ls, attributes: [NSFontAttributeName:descriptionLabel.font,NSForegroundColorAttributeName:Color.orange])
+            message.appendAttributedString(NSAttributedString(string: " "))
+            message.appendAttributedString(action)
+            descriptionLabel.attributedText = message
+            descriptionLabel.userInteractionEnabled = true
+            descriptionLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "addFriends:"))
         }
     }
     
-    @IBAction func close(sender: UIButton?) {
-       removeFromContainerAnimated(false)
+    func close() {
+        removeFromContainerAnimated(false)
     }
     
-    @IBAction func panHanle(gesture: UIPanGestureRecognizer) {
-        let translation = gesture.translationInView(view).y
-        let percentCompleted = abs(translation/view.height)
-        switch gesture.state {
-        case .Changed:
-            contentView.transform = CGAffineTransformMakeTranslation(0, translation)
-        case .Ended, .Cancelled:
-            if  (percentCompleted > 0.25 || abs(gesture.velocityInView(view).y) > 1000) {
-                let endPoint = view.height
-                UIView.animateWithDuration(0.25, animations: { () -> Void in
-                    self.contentView.transform = CGAffineTransformMakeTranslation(0, translation <= 0 ? -endPoint : endPoint)
-                    }, completion: { (finished) -> Void in
-                        self.close(nil)
-                })
-            } else {
-                UIView.animateWithDuration(0.25, animations: { () -> Void in
-                    self.contentView.transform = CGAffineTransformIdentity
-                })
-            }
-        default:break
+    func addFriends(sender: AnyObject?) {
+        Storyboard.AddFriends.instantiate { (controller) -> Void in
+            controller.wrap = wrap
+            navigationController?.pushViewController(controller, animated: false)
         }
+        close()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-       let touch = touches.first
+        let touch = touches.first
         if let point = touch?.locationInView(view) {
             if (!contentView.frame.contains(point)) {
-                close(nil)
+                close()
             }
         }
+    }
+}
+
+extension UploadWizardEndViewController: SlideInteractiveTransitionDelegate {
+    func slideInteractiveTransitionDidFinish(controller: SlideInteractiveTransition) {
+        close()
     }
 }

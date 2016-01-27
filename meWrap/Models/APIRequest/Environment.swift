@@ -15,8 +15,6 @@ class Environment: NSObject {
     
     static var ErrorResponseDataKey = "\(Environment.ErrorDomain).response.data"
     
-    static var ErrorShowingBlock: (NSError -> Void)?
-    
     static var Local = "local"
     static var QA = "qa"
     static var Production = "production"
@@ -193,18 +191,9 @@ extension NSError {
         }
     }
     
-    static var showingBlock: (NSError -> Void)? {
-        get {
-            return Environment.ErrorShowingBlock
-        }
-        set {
-            Environment.ErrorShowingBlock = newValue
-        }
-    }
-    
     func show() {
         if code != NSURLErrorCancelled {
-            NSError.showingBlock?(self)
+            Toast.show(errorMessage)
         }
     }
     

@@ -76,7 +76,7 @@
         playerView.url = nil;
         playerView.hidden = YES;
     }
-    
+        
     [self.imageView setURL:candy.asset.large success:^(UIImage *image, BOOL cached) {
         [weakSelf calculateScaleValues];
         weakSelf.scrollView.userInteractionEnabled = YES;

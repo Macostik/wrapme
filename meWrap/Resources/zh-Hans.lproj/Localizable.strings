@@ -276,7 +276,7 @@
 "share_with_friends" = "Share With Friends";
 "share_wrap_message" = "Share \"%@\" with friends";
 "here" = "here";
-"wrap_shared_message" = "\"%@\" shared and friends notified";
+"wrap_shared_message" = "\"%@\" shared and friends notified.";
 "live_viewers" = "LIVE viewers";
 "broadcaster" = "Broadcaster";
 "type_new_wrap_name_here" = "Type new wrap title here...";

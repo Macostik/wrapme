@@ -155,7 +155,7 @@
     }
     
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
-    if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
+    if ((status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) && !self.isAvatar) {
         [Toast show:@"microphone_access_message".ls];
     }
 }

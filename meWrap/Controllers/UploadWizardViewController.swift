@@ -126,9 +126,9 @@ class UploadWizardViewController: WLBaseViewController {
     }
     
     func isValidateWrap () -> Bool {
-        let name = nameTextField.text
+        let name = nameTextField.text?.trim
         editSession?.changedValue = name
-        if  !isNewWrap {
+        if !isNewWrap {
            return true
         } else if name?.isEmpty ?? false {
             Toast.show("please_enter_title".ls)

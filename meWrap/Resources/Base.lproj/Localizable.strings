@@ -155,7 +155,7 @@
 "photos" = "Photos";
 "allow_friends_to_add_people" = "Allow friends to add people to the wrap.";
 "only_admin_can_add_people" = "Only admin is allowed to add people to the wrap.";
-"friends_allowed_to_app_people" = "Friends are allowed to add people to the wrap";
+"friends_allowed_to_app_people" = "Friends are allowed to add people to the wrap.";
 "send_invite" = "Send invite";
 "uppercase_follow" = "FOLLOW";
 "public_wrap_label" = "Public - followers can see all content";

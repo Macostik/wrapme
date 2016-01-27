@@ -63,6 +63,7 @@
             return nameHeight + pandingHeight +inviteHeight + phoneHeight + 24.0;
         }];
     }];
+    self.singleMetrics.selectable = NO;
     
     self.multipleMetrics = [[StreamMetrics alloc] initWithIdentifier:@"MultipleAddressBookRecordCell" initializer:^(StreamMetrics *metrics) {
         metrics.selectable = NO;

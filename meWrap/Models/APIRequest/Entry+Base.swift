@@ -37,14 +37,11 @@ extension Entry {
     
     func remove() {
         let context = EntryContext.sharedContext
-        context.assureSave {[weak self] () -> Void in
-            if let entry = self {
-                let container = entry.container
-                entry.notifyOnDeleting()
-                context.deleteEntry(entry)
-                container?.notifyOnUpdate(.ContentDeleted)
-            }
-        }
+        _ = try? context.save()
+        let container = self.container
+        notifyOnDeleting()
+        context.deleteEntry(self)
+        container?.notifyOnUpdate(.ContentDeleted)
     }
     
     func touch() {

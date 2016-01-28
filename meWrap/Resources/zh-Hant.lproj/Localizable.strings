@@ -290,4 +290,9 @@
 "friends_allowed_to_app_people" = "Friends are allowed to add people to the wrap.";
 "please_enter_title" = "Please enter a title for the new wrap.";
 "title" = "Title";
-"microphone_access_message" = "Please go to Settings > meWrap to allow meWrap access the microphone";
+"camera_access_title" = "No Camera Access";
+"camera_access_message" = "Please go to Settings > meWrap to allow meWrap access the camera.";
+"microphone_access_title" = "No Microphone Access";
+"microphone_access_message" = "Please go to Settings > meWrap to allow meWrap access the microphone.";
+"media_access_title" = "No Camera and Microphone Access";
+"media_access_message" = "Please go to Settings > meWrap to allow meWrap access the camera and microphone.";

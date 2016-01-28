@@ -17,8 +17,6 @@ class EntryContext: NSManagedObjectContext {
     
     var cachedEntries = NSMapTable.strongToWeakObjectsMapTable()
     
-    private var assureSaveBlocks = [EntryContextBlockWrapper]()
-    
     static var sharedContext: EntryContext = {
         let context = EntryContext(concurrencyType: .MainQueueConcurrencyType)
         context.retainsRegisteredObjects = true
@@ -162,21 +160,6 @@ class EntryContext: NSManagedObjectContext {
             performBlockAndWait({[unowned self] () -> Void in
                 _ = try? self.save()
             })
-            if assureSaveBlocks.count > 0 {
-                let blocks = assureSaveBlocks
-                for wrapper in blocks {
-                    wrapper.block()
-                }
-                assureSaveBlocks.removeAll()
-            }
-        }
-    }
-    
-    func assureSave(block: Void -> Void) {
-        if hasChanges {
-            assureSaveBlocks.append(EntryContextBlockWrapper(block: block))
-        } else {
-            block()
         }
     }
     

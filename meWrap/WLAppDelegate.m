@@ -236,7 +236,9 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [[Uploader wrapUploader] start];
+    [[Dispatch mainQueue] async:^{
+        [[Uploader wrapUploader] start];
+    }];
 }
 
 - (void)registerUserNotificationSettings {

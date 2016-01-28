@@ -13,8 +13,8 @@ extension UIApplicationState {
     func displayName() -> String {
         switch self {
         case .Active: return "active"
-        case .Inactive: return "active"
-        case .Background: return "active"
+        case .Inactive: return "inactive"
+        case .Background: return "in background"
         }
     }
 }

@@ -231,9 +231,9 @@ extension Candy {
     
     override func map(dictionary: [String : AnyObject], container: Entry?) {
         
-//        if let updatedAt = dictionary.dateForKey(Keys.LastTouchedAt) where uploaded && updatedAt < self.updatedAt {
-//            return
-//        }
+        if let updatedAt = dictionary.dateForKey(Keys.LastTouchedAt) where uploaded && updatedAt < self.updatedAt {
+            return
+        }
         
         super.map(dictionary, container: container)
         

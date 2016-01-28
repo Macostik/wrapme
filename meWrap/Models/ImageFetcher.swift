@@ -86,6 +86,8 @@ class ImageFetcher: Notifier {
         let uid = ImageCache.uidFromURL(url)
         if let image = InMemoryImageCache.instance[uid] {
             result(image, true)
+        } else if ImageCache.defaultCache.contains(uid) {
+            Dispatch.defaultQueue.fetch({ ImageCache.defaultCache[uid] }, completion: { result($0 as? UIImage, false) })
         } else {
             Dispatch.defaultQueue.fetch({ () -> AnyObject? in
                 if let _url = url.URL, let data = NSData(contentsOfURL: _url), let image = UIImage(data: data) {

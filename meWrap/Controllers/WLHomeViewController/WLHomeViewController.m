@@ -11,7 +11,6 @@
 #import "WLBadgeLabel.h"
 #import "WLWrapViewController.h"
 #import "WLHistoryViewController.h"
-#import "WLHintView.h"
 #import "WLStillPictureViewController.h"
 
 @interface WLHomeViewController () <WrapCellDelegate, RecentUpdateListNotifying, WLStillPictureViewControllerDelegate>
@@ -169,7 +168,7 @@
     [EventualEntryPresenter sharedPresenter].isLoaded = YES;
     [self.uploadingView update];
     if ([NSUserDefaults standardUserDefaults].numberOfLaunches >= 3 && [User currentUser].wraps.count >= 3) {
-        [WLHintView showHomeSwipeTransitionHintViewInView:[UIWindow mainWindow]];
+        [HintView showHomeSwipeTransitionHintView];
     }
     [self.streamView unlock];
 }

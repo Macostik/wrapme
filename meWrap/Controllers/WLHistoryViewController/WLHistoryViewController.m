@@ -9,7 +9,6 @@
 #import "WLHistoryViewController.h"
 #import "WLTextView.h"
 #import "WLLabel.h"
-#import "WLHintView.h"
 #import "WLCandyViewController.h"
 #import "WLCommentsViewController.h"
 #import "WLDrawingViewController.h"

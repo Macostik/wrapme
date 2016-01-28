@@ -101,16 +101,16 @@ extension NSUserDefaults {
     
     var shownHints: NSMutableDictionary {
         get {
-            if let shownHints = self["WLHintView_shownHints"] as? NSDictionary {
+            if let shownHints = self["HintView_shownHints"] as? NSDictionary {
                 return shownHints.mutableCopy() as! NSMutableDictionary
             } else {
                 let shownHints = NSMutableDictionary()
-                self["WLHintView_shownHints"] = shownHints
+                self["HintView_shownHints"] = shownHints
                 return shownHints
             }
         }
         set {
-            self["WLHintView_shownHints"] = newValue
+            self["HintView_shownHints"] = newValue
         }
     }
     

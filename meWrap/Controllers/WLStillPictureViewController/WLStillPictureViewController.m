@@ -9,7 +9,6 @@
 #import "WLStillPictureViewController.h"
 #import "WLWrapPickerViewController.h"
 #import "WLHomeViewController.h"
-#import "WLHintView.h"
 #import "WLCameraViewController.h"
 
 @interface WLStillPictureViewController () <WLWrapPickerViewControllerDelegate, EntryNotifying>

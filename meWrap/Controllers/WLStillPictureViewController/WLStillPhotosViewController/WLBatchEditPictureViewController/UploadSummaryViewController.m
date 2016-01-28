@@ -9,7 +9,6 @@
 #import "UploadSummaryViewController.h"
 #import "WLComposeBar.h"
 #import "WLImageEditorSession.h"
-#import "WLHintView.h"
 #import "WLDrawingViewController.h"
 
 static const int WLInstanceCommentLimit = 1500;

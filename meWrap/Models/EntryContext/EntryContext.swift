@@ -9,11 +9,8 @@
 import Foundation
 import CoreData
 
-private class EntryContextBlockWrapper {
+private struct EntryContextBlockWrapper {
     var block: Void -> Void
-    required init(block: Void -> Void) {
-        self.block = block
-    }
 }
 
 class EntryContext: NSManagedObjectContext {

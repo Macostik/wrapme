@@ -8,7 +8,6 @@
 
 #import "WLProfileInformationViewController.h"
 #import "WLStillPictureViewController.h"
-#import "WLButton.h"
 
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, KeyboardNotifying>
 
@@ -17,7 +16,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *addPhotoLabel;
 @property (weak, nonatomic) User * user;
-@property (strong, nonatomic) IBOutlet WLButton *continueButton;
+@property (strong, nonatomic) IBOutlet Button *continueButton;
 @property (strong, nonatomic) ProfileEditSession *editSession;
 
 @end

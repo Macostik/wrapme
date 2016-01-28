@@ -13,6 +13,7 @@
 		5B211FB21C087137000EC3DB /* (null) in Resources */ = {isa = PBXBuildFile; };
 		5B2C97CB1C46610E00FAED6A /* VolumeChangeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C97CA1C46610E00FAED6A /* VolumeChangeObserver.swift */; };
 		5B31A7871C56620D002E1A2A /* ChangeProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */; };
+		5B37C75E1C5A06E30068E693 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37C75D1C5A06E30068E693 /* Button.swift */; };
 		5B40D6B21C2EBB1C009EF38C /* UploadWizardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40D6B11C2EBB1C009EF38C /* UploadWizardViewController.swift */; };
 		5B47920A1C1B2B110090FDD2 /* libmmwormhole.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4792091C1B2B110090FDD2 /* libmmwormhole.a */; };
 		5B47920B1C1B2B280090FDD2 /* libmmwormhole.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4792091C1B2B110090FDD2 /* libmmwormhole.a */; };
@@ -89,7 +90,6 @@
 		C5294E8E1C0B8C33001CE272 /* WCSession+DefinedMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E8C1C0B8C33001CE272 /* WCSession+DefinedMessages.swift */; };
 		C5294E8F1C0B8C33001CE272 /* WKInterfaceExtended.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E8D1C0B8C33001CE272 /* WKInterfaceExtended.swift */; };
 		C52BA62C1BFF314600D58D75 /* WrapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52BA62B1BFF314600D58D75 /* WrapCell.swift */; };
-		C52E1FD31A41951300A2C370 /* WLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FC91A41951300A2C370 /* WLButton.m */; };
 		C52E1FD71A41951300A2C370 /* WLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FCB1A41951300A2C370 /* WLLabel.m */; };
 		C52E1FDB1A41951300A2C370 /* WLBadgeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FCD1A41951300A2C370 /* WLBadgeLabel.m */; };
 		C52E1FDF1A41951300A2C370 /* WLTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FCF1A41951300A2C370 /* WLTextField.m */; };
@@ -154,7 +154,6 @@
 		C54743421C09CD8A00BECB25 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C547433F1C09CD8A00BECB25 /* ImageCache.swift */; };
 		C54743441C09CD8A00BECB25 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54743411C09CD8A00BECB25 /* ImageFetcher.swift */; };
 		C54743461C09CE3700BECB25 /* CATransition+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54743451C09CE3700BECB25 /* CATransition+Ext.swift */; };
-		C549745B1ABC1C34000E3F54 /* WLQAButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLQAButton.m */; };
 		C54AF67C19B8C491006F7EDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
 		C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104819067095007DB4AC /* WLCandyViewController.m */; };
 		C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */; };
@@ -475,6 +474,7 @@
 		5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalScrollView.swift; sourceTree = "<group>"; };
 		5B2C97CA1C46610E00FAED6A /* VolumeChangeObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeChangeObserver.swift; sourceTree = "<group>"; };
 		5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeProfileViewController.swift; sourceTree = "<group>"; };
+		5B37C75D1C5A06E30068E693 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		5B3DBD201C5243C000A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5B3DBD211C5243C000A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5B3DBD221C5243C000A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -588,8 +588,6 @@
 		C5294E8C1C0B8C33001CE272 /* WCSession+DefinedMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WCSession+DefinedMessages.swift"; sourceTree = "<group>"; };
 		C5294E8D1C0B8C33001CE272 /* WKInterfaceExtended.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WKInterfaceExtended.swift; sourceTree = "<group>"; };
 		C52BA62B1BFF314600D58D75 /* WrapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WrapCell.swift; path = WLHomeViewController/WrapCell.swift; sourceTree = "<group>"; };
-		C52E1FC81A41951300A2C370 /* WLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLButton.h; path = WLButton/WLButton.h; sourceTree = "<group>"; };
-		C52E1FC91A41951300A2C370 /* WLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLButton.m; path = WLButton/WLButton.m; sourceTree = "<group>"; };
 		C52E1FCA1A41951300A2C370 /* WLLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLLabel.h; sourceTree = "<group>"; };
 		C52E1FCB1A41951300A2C370 /* WLLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLLabel.m; sourceTree = "<group>"; };
 		C52E1FCC1A41951300A2C370 /* WLBadgeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLBadgeLabel.h; sourceTree = "<group>"; };
@@ -649,8 +647,6 @@
 		C547433F1C09CD8A00BECB25 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		C54743411C09CD8A00BECB25 /* ImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 		C54743451C09CE3700BECB25 /* CATransition+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CATransition+Ext.swift"; sourceTree = "<group>"; };
-		C54974561ABC1C34000E3F54 /* WLQAButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLQAButton.h; path = WLButton/WLQAButton.h; sourceTree = "<group>"; };
-		C54974571ABC1C34000E3F54 /* WLQAButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLQAButton.m; path = WLButton/WLQAButton.m; sourceTree = "<group>"; };
 		C54AF74A19B8C491006F7EDB /* meWrap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = meWrap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54C423D1BDE6260003E644D /* Archive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
 		C54C424D1BDE77BB003E644D /* ExtensionMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionMessage.swift; sourceTree = "<group>"; };
@@ -1140,6 +1136,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5B37C75D1C5A06E30068E693 /* Button.swift */,
 				5BD529481BDA796000527077 /* SmartLabel.swift */,
 				C51E34E91BD8EB4100C6F678 /* SeparatorView.swift */,
 				5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */,
@@ -1160,7 +1157,6 @@
 				C53937631C3BD82600EEEC0A /* Toast */,
 				C5978BE31B396FA500D5043E /* WLDrawingSession */,
 				5BD121571B0250E000FF5FBF /* WLDownloadingView */,
-				5B2B0C201A77DDC400DADC9D /* WLButton */,
 				C568D8D31A6D490500C2333B /* WLHintView */,
 				C52E1FC71A41947D00A2C370 /* Text Views */,
 				C54FC76E1A16549700623FC1 /* Placeholder Views */,
@@ -1293,17 +1289,6 @@
 				5BA6CAF11A10E51B004AD41C /* s04.wav */,
 			);
 			name = Sounds;
-			sourceTree = "<group>";
-		};
-		5B2B0C201A77DDC400DADC9D /* WLButton */ = {
-			isa = PBXGroup;
-			children = (
-				C52E1FC81A41951300A2C370 /* WLButton.h */,
-				C52E1FC91A41951300A2C370 /* WLButton.m */,
-				C54974561ABC1C34000E3F54 /* WLQAButton.h */,
-				C54974571ABC1C34000E3F54 /* WLQAButton.m */,
-			);
-			name = WLButton;
 			sourceTree = "<group>";
 		};
 		5BA432AE1A3F3F5200B53BC7 /* WLConfirmView */ = {
@@ -2505,8 +2490,8 @@
 				C5EE45A41C01C4A2008DE8D6 /* UIImage+Ext.swift in Sources */,
 				5BA7AC241A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD71A41951300A2C370 /* WLLabel.m in Sources */,
+				5B37C75E1C5A06E30068E693 /* Button.swift in Sources */,
 				C522795E1BECCA6B00B1C49C /* Dictionary+Ext.swift in Sources */,
-				C52E1FD31A41951300A2C370 /* WLButton.m in Sources */,
 				C502B3181C47F2EC00F66EAE /* PubNub+Ext.swift in Sources */,
 				C581680519F169D90081F350 /* WLBaseViewController.m in Sources */,
 				C54C42531BDE77BB003E644D /* ExtensionRequest.swift in Sources */,
@@ -2531,7 +2516,6 @@
 				C52E1FDB1A41951300A2C370 /* WLBadgeLabel.m in Sources */,
 				C5C20BD01A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
 				C5C20B981A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
-				C549745B1ABC1C34000E3F54 /* WLQAButton.m in Sources */,
 				C5F4E70B1C072C0200D2FC16 /* FlashModeControl.swift in Sources */,
 				C53BC48E1C05FE620009B0B9 /* SegmentedControl.swift in Sources */,
 				C53012791BF4968200098F9C /* StreamDataSource.swift in Sources */,

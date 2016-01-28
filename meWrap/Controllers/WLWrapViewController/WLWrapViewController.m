@@ -11,7 +11,6 @@
 #import "WLBadgeLabel.h"
 #import "WLChatViewController.h"
 #import "WLContributorsViewController.h"
-#import "WLButton.h"
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, MediaViewControllerDelegate, RecentUpdateListNotifying>
 
@@ -183,7 +182,7 @@
     [self changeSegment:sender.selectedSegment];
 }
 
-- (IBAction)follow:(WLButton*)sender {
+- (IBAction)follow:(Button *)sender {
     sender.loading = YES;
     __weak __typeof(self)weakSelf = self;
     [[RunQueue fetchQueue] run:^(Block finish) {
@@ -199,7 +198,7 @@
     }];
 }
 
-- (IBAction)unfollow:(WLButton*)sender {
+- (IBAction)unfollow:(Button *)sender {
     self.settingsButton.userInteractionEnabled = NO;
     sender.loading = YES;
     __weak typeof(self)weakSelf = self;

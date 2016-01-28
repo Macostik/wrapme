@@ -8,7 +8,6 @@
 
 #import "WLAddContributorsViewController.h"
 #import "AddressBookRecordCell.h"
-#import "WLButton.h"
 #import "WLConfirmView.h"
 
 @interface WLAddContributorsViewController () <StreamViewDelegate, AddressBookRecordCellDelegate, UITextFieldDelegate, FontPresetting, AddressBookNoifying>
@@ -149,7 +148,7 @@
     }
 }
 
-- (IBAction)done:(WLButton*)sender {
+- (IBAction)done:(Button *)sender {
     __weak typeof(self)weakSelf = self;
     if (![Network sharedNetwork].reachable) {
         [Toast show:@"no_internet_connection".ls];

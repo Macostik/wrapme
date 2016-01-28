@@ -16,7 +16,6 @@
 #import "WLCandyViewController.h"
 #import "WLBadgeLabel.h"
 #import "GeometryHelper.h"
-#import "WLButton.h"
 #import "WLWrapEmbeddedViewController.h"
 #import "WLDrawingViewController.h"
 #import "WLImageEditorSession.h"

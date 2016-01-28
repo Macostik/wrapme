@@ -5,13 +5,12 @@
 //  Created by Ravenpod on 1/19/15.
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
-#import "WLButton.h"
 
 typedef void (^WLHintViewDrawing)(CGContextRef ctx, CGRect rect);
 
 @interface WLHintView : UIView
 
-@property (weak, nonatomic) IBOutlet WLButton *gotItButton;
+@property (weak, nonatomic) IBOutlet Button *gotItButton;
 
 @property (strong, nonatomic) IBInspectable UIColor* startColor;
 

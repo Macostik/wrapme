@@ -7,7 +7,6 @@
 //
 
 #import "WLEmailViewController.h"
-#import "WLButton.h"
 #import "WLTestUserPicker.h"
 #import "WLConfirmView.h"
 
@@ -26,7 +25,7 @@
     self.emailField.text = [Authorization currentAuthorization].email;
 }
 
-- (IBAction)next:(WLButton*)sender {
+- (IBAction)next:(Button *)sender {
     sender.loading = YES;
     [self.view endEditing:YES];
     __weak typeof(self)weakSelf = self;

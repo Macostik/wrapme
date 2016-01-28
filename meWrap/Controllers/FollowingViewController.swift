@@ -72,7 +72,7 @@ class FollowingViewController: WLBaseViewController {
         self.window?.hidden = true
     }
     
-    @IBAction func follow(sender: WLButton) {
+    @IBAction func follow(sender: Button) {
         guard let wrap = wrap else { return }
         sender.loading = true
         APIRequest.followWrap(wrap).send({ [weak self] (_) -> Void in

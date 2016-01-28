@@ -10,9 +10,9 @@ import Foundation
 
 class ChangeProfileViewController: WLBaseViewController, EditSessionDelegate, UITextFieldDelegate, WLStillPictureViewControllerDelegate, EntryNotifying, FontPresetting {
     
-    @IBOutlet weak var cancelButton: WLButton!
-    @IBOutlet weak var doneButton: WLButton!
-    @IBOutlet weak var resendButton: WLButton!
+    @IBOutlet weak var cancelButton: Button!
+    @IBOutlet weak var doneButton: Button!
+    @IBOutlet weak var resendButton: Button!
     @IBOutlet weak var imageView: ImageView!
     @IBOutlet weak var emailConfirmationView: UIView!
     @IBOutlet weak var imagePlaceholderView: UIView!
@@ -101,7 +101,7 @@ class ChangeProfileViewController: WLBaseViewController, EditSessionDelegate, UI
         }
     }
     
-    @IBAction func done(sender: WLButton) {
+    @IBAction func done(sender: Button) {
         view.endEditing(true)
             validate({[weak self] _ in
                 self?.lock()

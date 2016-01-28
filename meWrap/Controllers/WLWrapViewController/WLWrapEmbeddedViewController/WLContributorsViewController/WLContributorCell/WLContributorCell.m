@@ -7,14 +7,13 @@
 //
 
 #import "WLContributorCell.h"
-#import "WLButton.h"
 
 @interface WLContributorCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet ImageView *avatarView;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
-@property (weak, nonatomic) IBOutlet WLButton *slideMenuButton;
+@property (weak, nonatomic) IBOutlet Button *slideMenuButton;
 @property (weak, nonatomic) IBOutlet UILabel *inviteLabel;
 @property (weak, nonatomic) IBOutlet UILabel *pandingLabel;
 
@@ -127,7 +126,7 @@
 	[self.delegate contributorCell:self didRemoveContributor:self.entry];
 }
 
-- (IBAction)resendInvite:(WLButton*)sender {
+- (IBAction)resendInvite:(Button *)sender {
     self.resendMetrics.hidden = YES;
     self.spinnerMetrics.hidden = NO;
     [self.dataSource reload];

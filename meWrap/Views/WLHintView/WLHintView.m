@@ -7,7 +7,6 @@
 //
 
 #import "WLHintView.h"
-#import "WLButton.h"
 
 @implementation WLHintView 
 

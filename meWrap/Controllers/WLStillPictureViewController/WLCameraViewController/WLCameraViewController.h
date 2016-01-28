@@ -8,9 +8,8 @@
 
 #import "WLStillPictureBaseViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "WLButton.h"
 
-@class WLCameraViewController, PHAsset;
+@class WLCameraViewController, PHAsset, Button;
 
 @protocol AssetsViewControllerDelegate;
 
@@ -30,7 +29,7 @@
 
 @interface WLCameraViewController : WLStillPictureBaseViewController
 
-@property (weak, nonatomic) IBOutlet WLButton *finishButton;
+@property (weak, nonatomic) IBOutlet Button *finishButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 

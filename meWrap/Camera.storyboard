@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="owE-f8-xzI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="owE-f8-xzI">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -485,7 +485,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zkq-Ye-DlO">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qck-Rs-PkM" customClass="WLDebugButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qck-Rs-PkM" customClass="DebugButton" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="97" width="135" height="33"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <state key="normal" title="Get sample photo">
@@ -498,7 +498,7 @@
                                                     <action selector="getSamplePhoto:" destination="gkl-Du-487" eventType="touchUpInside" id="EsT-ac-NpJ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ITP-VR-CiW" customClass="WLButton">
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ITP-VR-CiW" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="10" y="41" width="36" height="48"/>
                                                 <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
                                                 <state key="normal" title="L">
@@ -515,7 +515,7 @@
                                                     <action selector="cancel:" destination="gkl-Du-487" eventType="touchUpInside" id="Ohw-9D-PNA"/>
                                                 </connections>
                                             </button>
-                                            <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agr-RC-KiU" customClass="WLButton">
+                                            <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agr-RC-KiU" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="274" y="49" width="36" height="33"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <state key="normal" title="Next">
@@ -639,7 +639,7 @@
                                     <constraint firstItem="ELi-ZJ-CL2" firstAttribute="leading" secondItem="4Ox-Dh-lbB" secondAttribute="leading" id="i3J-If-N80"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iHd-sT-PMV" customClass="WLButton">
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iHd-sT-PMV" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="118" y="373" width="84" height="84"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -707,7 +707,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zfd-IS-5qk" customClass="WLButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zfd-IS-5qk" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1" width="320" height="53"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -717,8 +717,8 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="selectWrap:" destination="gkl-Du-487" eventType="touchUpInside" id="aIh-dG-9We"/>
-                                            <outletCollection property="highlightings" destination="zto-LL-FxR" id="dZg-TD-Vlb"/>
-                                            <outletCollection property="highlightings" destination="av4-g2-N6y" id="0uN-qe-lo2"/>
+                                            <outletCollection property="highlightings" destination="zto-LL-FxR" collectionClass="NSMutableArray" id="dZg-TD-Vlb"/>
+                                            <outletCollection property="highlightings" destination="av4-g2-N6y" collectionClass="NSMutableArray" id="0uN-qe-lo2"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -839,7 +839,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="458"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y8K-4d-qnf" customClass="WLButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y8K-4d-qnf" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="540" y="16" width="44" height="44"/>
                                 <color key="backgroundColor" white="0.10100000351667404" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -870,7 +870,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rvH-xd-AOc">
                                 <rect key="frame" x="0.0" y="458" width="600" height="142"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KhT-og-9O7" customClass="WLButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KhT-og-9O7" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="192" y="41" width="60" height="60"/>
                                         <color key="backgroundColor" white="0.10100000351667404" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -903,7 +903,7 @@
                                             <action selector="cancel:" destination="qIf-F1-lSO" eventType="touchUpInside" id="TNc-mD-oej"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8mx-Ir-fiv" customClass="WLButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8mx-Ir-fiv" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="348" y="41" width="60" height="60"/>
                                         <color key="backgroundColor" white="0.10100000351667404" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1073,7 +1073,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h5t-N3-cw5" customClass="VideoPlayerView" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="427"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1xn-ct-1bD" customClass="WLButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1xn-ct-1bD" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="12" y="275" width="30" height="36"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                         <state key="normal" title=","/>
@@ -1152,7 +1152,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1H0-uZ-hv1" customClass="WLButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1H0-uZ-hv1" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1" width="320" height="53"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1162,8 +1162,8 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="selectWrap:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="Aet-ey-qug"/>
-                                            <outletCollection property="highlightings" destination="4e8-Qt-lNv" id="Cf6-0U-APj"/>
-                                            <outletCollection property="highlightings" destination="upJ-Du-Uru" id="5hl-Ce-VAS"/>
+                                            <outletCollection property="highlightings" destination="4e8-Qt-lNv" collectionClass="NSMutableArray" id="Cf6-0U-APj"/>
+                                            <outletCollection property="highlightings" destination="upJ-Du-Uru" collectionClass="NSMutableArray" id="5hl-Ce-VAS"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1258,7 +1258,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <button tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ovp-Nk-uxq" customClass="WLButton">
+                                    <button tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ovp-Nk-uxq" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="320" y="6" width="45" height="36"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1315,7 +1315,7 @@
                                     <outlet property="trailingPrioritizer" destination="h5f-E8-jro" id="eJ1-i0-fbq"/>
                                 </connections>
                             </view>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3yq-a6-Fsm" customClass="WLButton">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3yq-a6-Fsm" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="266" y="325" width="44" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1345,7 +1345,7 @@
                                     <action selector="edit:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="2Tc-Q6-IzI"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ojC-8r-fOh" customClass="WLButton">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ojC-8r-fOh" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="212" y="325" width="44" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1375,7 +1375,7 @@
                                     <action selector="draw:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="m0n-c9-PJm"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oyu-cu-lw1" customClass="WLButton">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oyu-cu-lw1" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="10" y="325" width="44" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1410,7 +1410,7 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceHorizontal="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OZr-dY-Xul" customClass="StreamView" customModule="meWrap">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="141"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8l4-7n-9vU" customClass="WLButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8l4-7n-9vU" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="12" y="47" width="36" height="48"/>
                                                 <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
                                                 <state key="normal" title="L">
@@ -1436,7 +1436,7 @@
                                             <outlet property="delegate" destination="y7X-Pb-ZcE" id="iPS-E5-9ct"/>
                                         </connections>
                                     </scrollView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taU-aO-Oxc" customClass="WLButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taU-aO-Oxc" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="272" y="47" width="36" height="48"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
                                         <state key="normal" title=")">
@@ -1450,7 +1450,7 @@
                                             <action selector="upload:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="VWF-1E-M64"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dg4-sR-b0I" customClass="WLButton">
+                                    <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dg4-sR-b0I" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="272" y="54" width="36" height="33"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="Next">
@@ -1628,7 +1628,7 @@
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cHc-Ku-aIc">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="55"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQs-5i-dNx" customClass="WLButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQs-5i-dNx" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="12" y="10" width="36" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="JlU-fe-vsp"/>
@@ -1666,7 +1666,7 @@
                                                     <outlet property="delegate" destination="c77-hp-0nQ" id="U7Y-2I-i4W"/>
                                                 </connections>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mRj-Yl-hQH" customClass="WLButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mRj-Yl-hQH" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="300" y="10" width="36" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="36" id="eBm-Qy-KdO"/>

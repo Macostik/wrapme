@@ -7,7 +7,6 @@
 //
 
 #import "WLWrapPickerViewController.h"
-#import "WLButton.h"
 
 @interface WLWrapPickerViewController () <UITextFieldDelegate, EntryNotifying>
 
@@ -176,7 +175,7 @@
     [self.wrapNameTextField becomeFirstResponder];
 }
 
-- (IBAction)saveNewWrap:(WLButton*)sender {
+- (IBAction)saveNewWrap:(Button *)sender {
     
     NSString *name = [self.wrapNameTextField.text trim];
     if (!name.nonempty) {

@@ -9,18 +9,13 @@
 import Foundation
 import CoreData
 
-private class EntryContextBlockWrapper {
+private struct EntryContextBlockWrapper {
     var block: Void -> Void
-    required init(block: Void -> Void) {
-        self.block = block
-    }
 }
 
 class EntryContext: NSManagedObjectContext {
     
     var cachedEntries = NSMapTable.strongToWeakObjectsMapTable()
-    
-    private var assureSaveBlocks = [EntryContextBlockWrapper]()
     
     static var sharedContext: EntryContext = {
         let context = EntryContext(concurrencyType: .MainQueueConcurrencyType)
@@ -165,21 +160,6 @@ class EntryContext: NSManagedObjectContext {
             performBlockAndWait({[unowned self] () -> Void in
                 _ = try? self.save()
             })
-            if assureSaveBlocks.count > 0 {
-                let blocks = assureSaveBlocks
-                for wrapper in blocks {
-                    wrapper.block()
-                }
-                assureSaveBlocks.removeAll()
-            }
-        }
-    }
-    
-    func assureSave(block: Void -> Void) {
-        if hasChanges {
-            assureSaveBlocks.append(EntryContextBlockWrapper(block: block))
-        } else {
-            block()
         }
     }
     

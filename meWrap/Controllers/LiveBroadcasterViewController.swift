@@ -67,11 +67,7 @@ class LiveBroadcasterViewController: LiveViewController {
         joinsCountView.hidden = true
         titleLabel?.superview?.hidden = true
         startCapture(cameraPosition)
-        
-        let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeAudio)
-        if status == .Denied || status == .Restricted {
-            Toast.show("microphone_access_message".ls)
-        }
+        UIAlertController.showNoMediaAccess(true)
     }
 
     override func viewDidLayoutSubviews() {

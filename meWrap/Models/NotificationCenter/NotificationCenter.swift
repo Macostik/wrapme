@@ -196,16 +196,15 @@ class NotificationCenter: NSObject {
                 success(notification)
             } else {
                 RunQueue.fetchQueue.run { finish in
-                    EntryContext.sharedContext.assureSave {
-                        notification.handle({ () -> Void in
-                            self.addHandledNotifications([notification])
-                            success(notification)
+                    _ = try? EntryContext.sharedContext.save()
+                    notification.handle({ () -> Void in
+                        self.addHandledNotifications([notification])
+                        success(notification)
+                        finish()
+                        }, failure: { (error) -> Void in
+                            failure?(error)
                             finish()
-                            }, failure: { (error) -> Void in
-                                failure?(error)
-                                finish()
-                        })
-                    }
+                    })
                 }
             }
         } else {

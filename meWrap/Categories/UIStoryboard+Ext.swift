@@ -8,6 +8,28 @@
 
 import UIKit
 
+struct StoryboardObject<T: UIViewController> {
+    let identifier: String
+    let storyboard: UIStoryboard
+    func instantiate() -> T? {
+        return storyboard.instantiateViewControllerWithIdentifier(identifier) as? T
+    }
+    func instantiate(@noescape block: T -> Void) -> T? {
+        if let controller = instantiate() {
+            block(controller)
+            return controller
+        } else {
+            return nil
+        }
+    }
+}
+
+struct Storyboard {
+    static let AddFriends = StoryboardObject<WLAddContributorsViewController>(identifier: "addFriends", storyboard: UIStoryboard.main())
+    static let UploadWizardEnd = StoryboardObject<UploadWizardEndViewController>(identifier: "uploadWizardEnd", storyboard: UIStoryboard.main())
+    static let LiveBroadcaster = StoryboardObject<LiveBroadcasterViewController>(identifier: "liveBroadcaster", storyboard: UIStoryboard.main())
+}
+
 extension UIStoryboard {
     
     @nonobjc private static var _main = UIStoryboard(name: "Main", bundle: nil)

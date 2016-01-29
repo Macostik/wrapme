@@ -100,4 +100,35 @@ extension UIAlertController {
         controller.action("authorization_error_sign_up".ls, handler: signUp)
         controller.show()
     }
+    
+    class func showNoMediaAccess(includeMicrophone: Bool) {
+        
+        func alertText() -> (title: String, message: String)? {
+            let noCameraAccess = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo).denied
+            let noMicrophoneAccess = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeAudio).denied
+            if includeMicrophone && noMicrophoneAccess {
+                if noCameraAccess {
+                    return ("media_access_title", "media_access_message")
+                } else {
+                    return ("microphone_access_title", "microphone_access_message")
+                }
+            } else if noCameraAccess {
+                return ("camera_access_title", "camera_access_message")
+            } else {
+                return nil
+            }
+        }
+        
+        if let text = alertText() {
+            UIAlertController.alert(text.title.ls, message:text.message.ls).action("cancel".ls).action("settings".ls, handler: { _ in
+                UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+            }).show()
+        }
+    }
+}
+
+extension AVAuthorizationStatus {
+    var denied: Bool {
+        return self == .Denied || self == .Restricted
+    }
 }

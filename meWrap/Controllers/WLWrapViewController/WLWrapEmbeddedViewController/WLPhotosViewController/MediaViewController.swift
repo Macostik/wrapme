@@ -263,10 +263,10 @@ class MediaViewController: WLWrapEmbeddedViewController {
         
         let openLiveBroadcast: (Void -> Void) = { [weak self] () -> Void in
             FollowingViewController.followWrapIfNeeded(wrap) {
-                if let controller = self?.storyboard?["liveBroadcaster"] as? LiveBroadcasterViewController {
+                Storyboard.LiveBroadcaster.instantiate({ (controller) -> Void in
                     controller.wrap = wrap
                     self?.navigationController?.pushViewController(controller, animated: false)
-                }
+                })
             }
         }
         

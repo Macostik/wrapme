@@ -26,6 +26,9 @@ class LiveViewerViewController: LiveViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        _ = try? AVAudioSession.sharedInstance().setActive(true)
+        
         let broadcast = self.broadcast
         
         guard let url = "http://live.mewrap.me:1935/live/\(broadcast.streamName)/playlist.m3u8".URL else { return }

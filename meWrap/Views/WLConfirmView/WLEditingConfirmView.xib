@@ -11,8 +11,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2fw-v0-Qf2">
-                    <rect key="frame" x="28" y="206" width="264" height="158"/>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2fw-v0-Qf2">
+                    <rect key="frame" x="28" y="205" width="264" height="159"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="invite_to_meWrap" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1JS-So-Qed" userLabel="Title Label" customClass="Label" customModule="meWrap" customModuleProvider="target">
                             <rect key="frame" x="12" y="12" width="240" height="21"/>
@@ -24,8 +24,8 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="send_message_to_friends_body" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4yW-Zs-dWt" userLabel="Body Label" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                            <rect key="frame" x="12" y="45" width="240" height="20"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="send_message_to_friends_body" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4yW-Zs-dWt" userLabel="Body Label" customClass="Label" customModule="meWrap" customModuleProvider="target">
+                            <rect key="frame" x="12" y="45" width="240" height="21"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                             <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -34,8 +34,8 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" text="Lorem ipsum dolor sit er elit lamet," textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="T6X-wj-KrC" userLabel="Content Text View" customClass="WLTextView">
-                            <rect key="frame" x="12" y="77" width="240" height="33"/>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Lorem ipsum dolor sit er elit lamet," textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="T6X-wj-KrC" userLabel="Content Text View" customClass="WLTextView">
+                            <rect key="frame" x="12" y="78" width="240" height="33"/>
                             <color key="backgroundColor" red="0.93333333730697632" green="0.93333333730697632" blue="0.93333333730697632" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="lessThanOrEqual" constant="145" id="Jz2-0R-h6x"/>
@@ -51,8 +51,8 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </textView>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YnF-Z7-edb">
-                            <rect key="frame" x="0.0" y="122" width="264" height="36"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YnF-Z7-edb">
+                            <rect key="frame" x="0.0" y="123" width="264" height="36"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V6O-AR-SJd" customClass="PressButton" customModule="meWrap" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="1" width="132" height="35"/>

@@ -197,7 +197,6 @@
 "slide_to_chat" = "滑動開啟對話";
 "unread_messages" = "未讀訊息";
 "downloading_photo_for_editing" = "下載相片中，請稍候...";
-"wrap_is_better_with_friends" = "三五知己令圍拍增添色彩";
 "invitation_tip" = "邀請摯友。\n上載照片。\n緊扣一起。";
 "got_it" = "知道";
 "swipe_actions_tip" = "滑動即可開啟相機或對話";
@@ -266,7 +265,7 @@
 "live" = "LIVE";
 "maybe_later" = "Maybe later";
 "share_first" = "What do you want to share in your first wrap?";
-"all_set" = "You're all set!";
+"all_set" = "Done!";
 "enjoy_and_happy" = "If you invite your friends to wrap. They are receiving the notifications from meWrap now. Enjoy and happy wrapping!";
 "first_wrap" = "%@'s first wrap";
 "introduction_step_1_part_1" = "A collection of albums";
@@ -275,8 +274,9 @@
 "introduction_step_2_part_2" = "sharing photos, videos and even live broadcast!";
 "skip" = "Skip";
 "share_with_friends" = "Share With Friends";
-"wrap_is_better_with_friends" = "Wrap is always better with friends. Simply open the \"Friends\" tab to tell your friends to join your wrap. Enjoy!";
-"your_friends_are_receiving_invite" = "Your friends are now receiving your wrap invite. Enjoy!";
+"share_wrap_message" = "Share \"%@\" with friends";
+"here" = "here";
+"wrap_shared_message" = "\"%@\" shared and friends notified.";
 "live_viewers" = "LIVE viewers";
 "broadcaster" = "Broadcaster";
 "type_new_wrap_name_here" = "Type new wrap title here...";
@@ -287,7 +287,12 @@
 "no_uploads_for_this_day" = "No uploads on this day";
 "downloading_media" = "Downloading the media now. It'll be in \"%@\" album momentarily.";
 "only_admin_can_add_people" = "Only admin is allowed to add people to the wrap.";
-"friends_allowed_to_app_people" = "Friends are allowed to add people to the wrap";
+"friends_allowed_to_app_people" = "Friends are allowed to add people to the wrap.";
 "please_enter_title" = "Please enter a title for the new wrap.";
 "title" = "Title";
-"microphone_access_message" = "Please go to Settings > meWrap to allow meWrap access the microphone";
+"camera_access_title" = "No Camera Access";
+"camera_access_message" = "Please go to Settings > meWrap to allow meWrap access the camera.";
+"microphone_access_title" = "No Microphone Access";
+"microphone_access_message" = "Please go to Settings > meWrap to allow meWrap access the microphone.";
+"media_access_title" = "No Camera and Microphone Access";
+"media_access_message" = "Please go to Settings > meWrap to allow meWrap access the camera and microphone.";

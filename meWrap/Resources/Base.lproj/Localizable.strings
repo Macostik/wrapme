@@ -19,6 +19,7 @@
 "continue" = "Continue";
 "cancel" = "Cancel";
 "ok" = "OK";
+"edit" = "Edit";
 "confirmation_resend" = "Confirmation email re-sent successfully.";
 "formatted_calling_now" = "Calling %@ now. Please wait.";
 "cannot_add_yourself" = "You're already in the wrap.";

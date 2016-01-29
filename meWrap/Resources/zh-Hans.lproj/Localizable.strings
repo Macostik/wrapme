@@ -296,3 +296,4 @@
 "microphone_access_message" = "Please go to Settings > meWrap to allow meWrap access the microphone.";
 "media_access_title" = "No Camera and Microphone Access";
 "media_access_message" = "Please go to Settings > meWrap to allow meWrap access the camera and microphone.";
+"edit" = "Edit";

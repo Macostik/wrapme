@@ -14,6 +14,7 @@
 		5B211FB21C087137000EC3DB /* (null) in Resources */ = {isa = PBXBuildFile; };
 		5B2C97CB1C46610E00FAED6A /* VolumeChangeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C97CA1C46610E00FAED6A /* VolumeChangeObserver.swift */; };
 		5B2FB96A1C5B501A001C4385 /* BadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB9691C5B501A001C4385 /* BadgeLabel.swift */; };
+		5B2FB96C1C5B71C8001C4385 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96B1C5B71C8001C4385 /* TextField.swift */; };
 		5B31A7871C56620D002E1A2A /* ChangeProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */; };
 		5B37C75E1C5A06E30068E693 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37C75D1C5A06E30068E693 /* Button.swift */; };
 		5B37C7601C5A3C9F0068E693 /* HintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37C75F1C5A3C9F0068E693 /* HintView.swift */; };
@@ -93,7 +94,6 @@
 		C5294E8E1C0B8C33001CE272 /* WCSession+DefinedMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E8C1C0B8C33001CE272 /* WCSession+DefinedMessages.swift */; };
 		C5294E8F1C0B8C33001CE272 /* WKInterfaceExtended.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E8D1C0B8C33001CE272 /* WKInterfaceExtended.swift */; };
 		C52BA62C1BFF314600D58D75 /* WrapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52BA62B1BFF314600D58D75 /* WrapCell.swift */; };
-		C52E1FDF1A41951300A2C370 /* WLTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FCF1A41951300A2C370 /* WLTextField.m */; };
 		C52E1FE51A41952400A2C370 /* WLTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FE11A41952400A2C370 /* WLTextView.m */; };
 		C53012791BF4968200098F9C /* StreamDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4A1651BF36DD300EFC8FA /* StreamDataSource.swift */; };
 		C530127D1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530127C1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift */; };
@@ -475,6 +475,7 @@
 		5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalScrollView.swift; sourceTree = "<group>"; };
 		5B2C97CA1C46610E00FAED6A /* VolumeChangeObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeChangeObserver.swift; sourceTree = "<group>"; };
 		5B2FB9691C5B501A001C4385 /* BadgeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeLabel.swift; sourceTree = "<group>"; };
+		5B2FB96B1C5B71C8001C4385 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeProfileViewController.swift; sourceTree = "<group>"; };
 		5B37C75D1C5A06E30068E693 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		5B37C75F1C5A3C9F0068E693 /* HintView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HintView.swift; path = meWrap/Views/WLHintView/HintView.swift; sourceTree = SOURCE_ROOT; };
@@ -591,8 +592,6 @@
 		C5294E8C1C0B8C33001CE272 /* WCSession+DefinedMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WCSession+DefinedMessages.swift"; sourceTree = "<group>"; };
 		C5294E8D1C0B8C33001CE272 /* WKInterfaceExtended.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WKInterfaceExtended.swift; sourceTree = "<group>"; };
 		C52BA62B1BFF314600D58D75 /* WrapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WrapCell.swift; path = WLHomeViewController/WrapCell.swift; sourceTree = "<group>"; };
-		C52E1FCE1A41951300A2C370 /* WLTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTextField.h; sourceTree = "<group>"; };
-		C52E1FCF1A41951300A2C370 /* WLTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTextField.m; sourceTree = "<group>"; };
 		C52E1FE01A41952400A2C370 /* WLTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTextView.h; sourceTree = "<group>"; };
 		C52E1FE11A41952400A2C370 /* WLTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTextView.m; sourceTree = "<group>"; };
 		C530127A1BF49AD600098F9C /* Refresher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Refresher.swift; sourceTree = "<group>"; };
@@ -1493,8 +1492,7 @@
 			children = (
 				5B03F90B1C5A65A60085BA51 /* Label.swift */,
 				5B2FB9691C5B501A001C4385 /* BadgeLabel.swift */,
-				C52E1FCE1A41951300A2C370 /* WLTextField.h */,
-				C52E1FCF1A41951300A2C370 /* WLTextField.m */,
+				5B2FB96B1C5B71C8001C4385 /* TextField.swift */,
 				C52E1FE01A41952400A2C370 /* WLTextView.h */,
 				C52E1FE11A41952400A2C370 /* WLTextView.m */,
 			);
@@ -2403,6 +2401,7 @@
 				5BD529491BDA796000527077 /* SmartLabel.swift in Sources */,
 				C5BFE4D31B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */,
 				C5060D1A1BEBA7E2007FFD5B /* String+Ext.swift in Sources */,
+				5B2FB96C1C5B71C8001C4385 /* TextField.swift in Sources */,
 				C5C20BEC1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */,
 				C5E6DD8A1C0DC84A004992E4 /* Candy.swift in Sources */,
 				5B31A7871C56620D002E1A2A /* ChangeProfileViewController.swift in Sources */,
@@ -2420,7 +2419,6 @@
 				C55E10A01B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
 				C53012941BF4E4BF00098F9C /* Refresher.swift in Sources */,
 				C5F3AC3A1C0335230053EE70 /* EntryDescriptor.swift in Sources */,
-				C52E1FDF1A41951300A2C370 /* WLTextField.m in Sources */,
 				C5E6DD971C0DC8F5004992E4 /* CommonEnums.swift in Sources */,
 				C5B8F71A1B82161500A5E541 /* WLDrawingViewController.m in Sources */,
 				C510BF6D1BCF93C0008223A3 /* UIDevice+Ext.swift in Sources */,

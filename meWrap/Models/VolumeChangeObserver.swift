@@ -48,7 +48,9 @@ class VolumeChangeObserver : NSObject {
     
     func unregister() {
         if volumeView != nil && success != nil {
+            NSNotificationCenter.defaultCenter().removeObserver(self)
             audioSession.removeObserver(self, forKeyPath: "outputVolume", context: nil)
+            success = nil
         }
         volumeView?.removeFromSuperview()
         locked = false

@@ -137,7 +137,7 @@
             if ([error isNetworkError] && currentUser) {
                 successBlock(currentUser);
             } else {
-                [UIAlertController confirmRedirectingToSignUp:^(UIAlertAction *action) {
+                [UIAlertController confirmReauthorization:^(UIAlertAction *action) {
                     [Logger log:[NSString stringWithFormat:@"INITIAL SIGN IN ERROR - couldn't sign in, so redirecting to welcome screen"]];
                     [[UIStoryboard signUp] present:YES];
                 } tryAgain:^(UIAlertAction *action) {

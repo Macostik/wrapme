@@ -94,13 +94,6 @@ extension UIAlertController {
         controller.show()
     }
     
-    class func confirmRedirectingToSignUp(signUp: (UIAlertAction -> Void)?, tryAgain: (UIAlertAction -> Void)?) {
-        let controller = alert("authorization_error_title".ls, message: "authorization_error_message".ls)
-        controller.action("try_again".ls, handler: tryAgain)
-        controller.action("authorization_error_sign_up".ls, handler: signUp)
-        controller.show()
-    }
-    
     class func showNoMediaAccess(includeMicrophone: Bool) {
         
         func alertText() -> (title: String, message: String)? {
@@ -123,6 +116,47 @@ extension UIAlertController {
             UIAlertController.alert(text.title.ls, message:text.message.ls).action("cancel".ls).action("settings".ls, handler: { _ in
                 UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
             }).show()
+        }
+    }
+}
+
+struct ConfirmReauthorizationHandler {
+    var block: (UIAlertAction -> Void)
+}
+
+extension UIAlertController {
+    
+    private static var confirmingReauthorization = false
+    
+    private static var reauthorizeHandlers = [ConfirmReauthorizationHandler]()
+    
+    private static var tryAgainHandlers = [ConfirmReauthorizationHandler]()
+    
+    class func confirmReauthorization(signUp: (UIAlertAction -> Void), tryAgain: (UIAlertAction -> Void)) {
+        
+        reauthorizeHandlers.append(ConfirmReauthorizationHandler(block: signUp))
+        tryAgainHandlers.append(ConfirmReauthorizationHandler(block: tryAgain))
+        
+        if !confirmingReauthorization {
+            confirmingReauthorization = true
+            let controller = alert("authorization_error_title".ls, message: "authorization_error_message".ls)
+            controller.action("try_again".ls, handler: { action in
+                confirmingReauthorization = false
+                for handler in tryAgainHandlers {
+                    handler.block(action)
+                }
+                tryAgainHandlers.removeAll()
+                reauthorizeHandlers.removeAll()
+            })
+            controller.action("authorization_error_sign_up".ls, handler: { action in
+                confirmingReauthorization = false
+                for handler in reauthorizeHandlers {
+                    handler.block(action)
+                }
+                tryAgainHandlers.removeAll()
+                reauthorizeHandlers.removeAll()
+            })
+            controller.show()
         }
     }
 }

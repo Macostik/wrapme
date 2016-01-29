@@ -243,7 +243,7 @@ class APIRequest: NSObject {
         if window.rootViewController?.storyboard != storyboard {
             let topView = (window.rootViewController?.presentedViewController ?? window.rootViewController)?.view
             topView?.userInteractionEnabled = true
-            UIAlertController.confirmRedirectingToSignUp({ action in
+            UIAlertController.confirmReauthorization({ action in
                 self.handleFailure(error, response: nil)
                 Logger.log("ERROR - redirection to welcome screen, sign in failed: \(error)")
                 NotificationCenter.defaultCenter.clear()

@@ -82,7 +82,7 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </button>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="John Williams Brown" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cam-yd-Fom" customClass="WLLabel">
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="John Williams Brown" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cam-yd-Fom" customClass="Label" customModule="meWrap" customModuleProvider="target">
                     <rect key="frame" x="72" y="12" width="210" height="18"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -92,7 +92,7 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cd1-3S-5bf" userLabel="Panding Label" customClass="WLLabel">
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cd1-3S-5bf" userLabel="Panding Label" customClass="Label" customModule="meWrap" customModuleProvider="target">
                     <rect key="frame" x="72" y="30" width="210" height="0.0"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
@@ -103,7 +103,7 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SH-Wi-uR7" userLabel="Status Label" customClass="WLLabel">
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SH-Wi-uR7" userLabel="Status Label" customClass="Label" customModule="meWrap" customModuleProvider="target">
                     <rect key="frame" x="72" y="30" width="210" height="0.0"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
@@ -114,7 +114,7 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="+380955522220" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUV-8d-GXp" userLabel="Phone Label" customClass="WLLabel">
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="+380955522220" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUV-8d-GXp" userLabel="Phone Label" customClass="Label" customModule="meWrap" customModuleProvider="target">
                     <rect key="frame" x="72" y="30" width="210" height="16"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>

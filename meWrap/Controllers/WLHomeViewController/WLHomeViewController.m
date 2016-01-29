@@ -8,7 +8,6 @@
 
 #import "WLCandyViewController.h"
 #import "WLHomeViewController.h"
-#import "WLBadgeLabel.h"
 #import "WLWrapViewController.h"
 #import "WLHistoryViewController.h"
 #import "WLStillPictureViewController.h"
@@ -22,10 +21,10 @@
 @property (strong, nonatomic) IBOutlet HomeDataSource *homeDataSource;
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
-@property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
+@property (weak, nonatomic) IBOutlet BadgeLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet UploaderView *uploadingView;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
-@property (weak, nonatomic) IBOutlet WLLabel *verificationEmailLabel;
+@property (weak, nonatomic) IBOutlet Label *verificationEmailLabel;
 @property (strong, nonatomic) IBOutlet LayoutPrioritizer *emailConfirmationLayoutPrioritizer;
 @property (weak, nonatomic) IBOutlet UIButton *photoButton;
 @property (weak, nonatomic) RecentCandiesView *candiesView;

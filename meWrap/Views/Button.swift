@@ -10,7 +10,7 @@ import Foundation
 
 class Button : UIButton {
     
-    let minTouchSize: CGFloat = 44.0
+    static let minTouchSize: CGFloat = 44.0
     
     var animated: Bool = false
     var spinner: UIActivityIndicatorView?
@@ -45,10 +45,8 @@ class Button : UIButton {
         }
     }
     
-    @IBInspectable var touchArea: CGSize {
-        return CGSizeMake(minTouchSize, minTouchSize)
-    }
-    
+    @IBInspectable var touchArea: CGSize = CGSizeMake(minTouchSize, minTouchSize)
+     
     var loading: Bool = false {
         willSet {
             if loading != newValue {

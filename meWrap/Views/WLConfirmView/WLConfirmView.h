@@ -23,8 +23,8 @@
 @end
 
 @interface WLEditingConfirmView : WLConfirmView <KeyboardNotifying>
-@property (weak, nonatomic) IBOutlet WLLabel *titleLabel;
-@property (weak, nonatomic) IBOutlet WLLabel *bodyLabel;
+@property (weak, nonatomic) IBOutlet Label *titleLabel;
+@property (weak, nonatomic) IBOutlet Label *bodyLabel;
 @property (weak, nonatomic) IBOutlet WLTextView *contentTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *keyboardPrioritizer;
 

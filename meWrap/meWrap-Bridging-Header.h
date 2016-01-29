@@ -5,7 +5,6 @@
 #import "StreamReusableView.h"
 #import <OpenUDID/OpenUDID.h>
 #import "DefinedBlocks.h"
-#import "WLLabel.h"
 #import "WLBaseViewController.h"
 #import "CameraInfo.h"
 #import "AudioConfig.h"
@@ -14,7 +13,6 @@
 #import "WLComposeBar.h"
 #import "WLWrapViewController.h"
 #import "WLCandyViewController.h"
-#import "WLBadgeLabel.h"
 #import "GeometryHelper.h"
 #import "WLWrapEmbeddedViewController.h"
 #import "WLDrawingViewController.h"

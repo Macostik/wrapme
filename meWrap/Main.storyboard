@@ -4645,7 +4645,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WUw-53-Yq6" userLabel="FriendsInviteView">
                                 <rect key="frame" x="0.0" y="144" width="600" height="64"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alx-1S-ZGS" customClass="Label" customModule="meWrap" customModuleProvider="target">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" misplaced="YES" text="friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alx-1S-ZGS" customClass="Label" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="12" y="12" width="54" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -4663,7 +4663,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                             <action selector="handleFriendsInvite:" destination="TKE-mx-bkQ" eventType="valueChanged" id="T25-GI-D70"/>
                                         </connections>
                                     </switch>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="allow_friends_to_add_people" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hr9-nr-ikq" customClass="Label" customModule="meWrap" customModuleProvider="target">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" misplaced="YES" text="allow_friends_to_add_people" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hr9-nr-ikq" customClass="Label" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="12" y="45" width="515" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                         <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -4728,23 +4728,6 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                             <view contentMode="scaleToFill" restorationIdentifier="WLSettingsView" translatesAutoresizingMaskIntoConstraints="NO" id="NbD-y4-9Ou" userLabel="Settings View">
                                 <rect key="frame" x="0.0" y="64" width="600" height="80"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dOb-uE-FSR" customClass="WLTextField">
-                                        <rect key="frame" x="12" y="33" width="534" height="47"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="strokeColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="trim" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="textFieldEditChange:" destination="TKE-mx-bkQ" eventType="editingChanged" id="Mj4-Ai-O2P"/>
-                                            <outlet property="delegate" destination="TKE-mx-bkQ" id="GrY-26-scl"/>
-                                        </connections>
-                                    </textField>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EbT-vV-AiD" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="558" y="33" width="30" height="47"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
@@ -4841,7 +4824,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                     <constraint firstItem="7VE-Kd-SiX" firstAttribute="leading" secondItem="cUR-VV-aaK" secondAttribute="trailing" constant="12" id="l7g-8y-DB5"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBK-OX-573" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBK-OX-573" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="12" y="347" width="576" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="ipo-OD-8dx"/>
@@ -5236,7 +5219,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                                     <constraint firstAttribute="width" secondItem="Yge-mS-wJa" secondAttribute="height" multiplier="1272:714" id="U5a-CB-P5Y"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="all_set" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3w9-Jx-SJ2" customClass="Label" customModule="meWrap" customModuleProvider="target">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="all_set" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3w9-Jx-SJ2" customClass="Label" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="293" width="500" height="26"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                 <color key="textColor" red="0.2627450980392157" green="0.2627450980392157" blue="0.2627450980392157" alpha="1" colorSpace="calibratedRGB"/>
@@ -5246,7 +5229,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="enjoy_and_happy" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJa-bv-mLk" customClass="Label" customModule="meWrap" customModuleProvider="target">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="enjoy_and_happy" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJa-bv-mLk" customClass="Label" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="331" width="500" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>

@@ -14,11 +14,11 @@ private var _dayInterval: NSTimeInterval = 86400
 private var _weekInterval: NSTimeInterval = 604800
 
 func >(lhs: NSDate, rhs: NSDate) -> Bool {
-    return lhs.timeIntervalSinceDate(rhs) > 0
+    return lhs.timestamp > rhs.timestamp
 }
 
 func <(lhs: NSDate, rhs: NSDate) -> Bool {
-    return lhs.timeIntervalSinceDate(rhs) < 0
+    return lhs.timestamp < rhs.timestamp
 }
 
 extension NSDate {
@@ -35,7 +35,7 @@ extension NSDate {
     }
     
     func isSameDay(date: NSDate) -> Bool {
-        if abs(timeIntervalSinceDate(date)) > _dayInterval {
+        if abs(timestamp - date.timestamp) > _dayInterval {
             return false
         }
         return NSCalendar.currentCalendar().isDate(self, inSameDayAsDate: date)

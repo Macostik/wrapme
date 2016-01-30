@@ -231,10 +231,6 @@ extension Candy {
     
     override func map(dictionary: [String : AnyObject], container: Entry?) {
         
-        if let updatedAt = dictionary.dateForKey(Keys.LastTouchedAt) where uploaded && updatedAt < self.updatedAt {
-            return
-        }
-        
         super.map(dictionary, container: container)
         
         editor <!= User.mappedEntry(dictionary[Keys.Editor] as? [String:AnyObject])

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="owE-f8-xzI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="owE-f8-xzI">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -34,7 +34,7 @@
         <!--Camera View Controller-->
         <scene sceneID="0PQ-rD-aRH">
             <objects>
-                <viewController storyboardIdentifier="WLCameraViewController" automaticallyAdjustsScrollViewInsets="NO" id="gev-MF-K1G" customClass="WLCameraViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="gev-MF-K1G" customClass="CameraViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="weq-bn-rHW"/>
                         <viewControllerLayoutGuide type="bottom" id="tIy-iw-Nju"/>
@@ -46,7 +46,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wih-RU-1lv">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QJU-xo-V0A" customClass="WLCameraView">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QJU-xo-V0A" customClass="CameraView" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U2Z-fs-pUr">
@@ -312,10 +312,10 @@
             </objects>
             <point key="canvasLocation" x="3153.75" y="-965.49295774647885"/>
         </scene>
-        <!--Camera View Controller-->
+        <!--Capture Media Camera View Controller-->
         <scene sceneID="Oov-Zb-46C">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="gkl-Du-487" customClass="WLCameraViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="gkl-Du-487" customClass="CaptureMediaCameraViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hhr-CR-oNx"/>
                         <viewControllerLayoutGuide type="bottom" id="Ji3-dV-tYy"/>
@@ -327,7 +327,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Dh-4e-Zqm">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VyQ-Yd-53E" customClass="WLCameraView">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VyQ-Yd-53E" customClass="CameraView" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZBo-Mg-GjJ">
@@ -716,7 +716,6 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="selectWrap:" destination="gkl-Du-487" eventType="touchUpInside" id="aIh-dG-9We"/>
                                             <outletCollection property="highlightings" destination="zto-LL-FxR" id="dZg-TD-Vlb"/>
                                             <outletCollection property="highlightings" destination="av4-g2-N6y" id="0uN-qe-lo2"/>
                                         </connections>
@@ -785,9 +784,7 @@
                         <outlet property="assetsView" destination="11F-0m-rSj" id="vSP-H0-mJL"/>
                         <outlet property="backButton" destination="ITP-VR-CiW" id="vKq-el-2ef"/>
                         <outlet property="bottomView" destination="arS-gD-sRq" id="5R3-CV-j0O"/>
-                        <outlet property="bottomViewHeightConstraint" destination="Yfr-5l-4y1" id="1F9-Mv-ozh"/>
                         <outlet property="cameraView" destination="VyQ-Yd-53E" id="a7I-sg-s71"/>
-                        <outlet property="cameraViewBottomConstraint" destination="sUd-FS-F3r" id="Pll-Tt-7fP"/>
                         <outlet property="cancelVideoRecordingLabel" destination="dWv-la-g37" id="cWp-R4-hD8"/>
                         <outlet property="cropAreaView" destination="ZBo-Mg-GjJ" id="hfg-be-WHR"/>
                         <outlet property="finishButton" destination="agr-RC-KiU" id="RfS-La-zuu"/>
@@ -1055,7 +1052,7 @@
         <!--Delegate-->
         <scene sceneID="WkN-uv-Mwe">
             <objects>
-                <viewController storyboardIdentifier="uploadSummary" id="CvA-oq-Pt1" customClass="UploadSummaryViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="uploadSummary" id="CvA-oq-Pt1" customClass="UploadSummaryViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="J8F-Df-FmE"/>
                         <viewControllerLayoutGuide type="bottom" id="l8v-Ox-qTy"/>
@@ -1432,9 +1429,6 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="horizontal" value="YES"/>
                                         </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="y7X-Pb-ZcE" id="iPS-E5-9ct"/>
-                                        </connections>
                                     </scrollView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taU-aO-Oxc" customClass="WLButton">
                                         <rect key="frame" x="272" y="47" width="36" height="48"/>
@@ -1517,12 +1511,12 @@
                     <connections>
                         <outlet property="bottomView" destination="mxa-eX-hMc" id="dYr-Td-HR0"/>
                         <outlet property="composeBar" destination="ao0-lV-pbN" id="QXo-Sk-wDV"/>
-                        <outlet property="dataSource" destination="y7X-Pb-ZcE" id="sTZ-vw-b7l"/>
                         <outlet property="deleteButton" destination="oyu-cu-lw1" id="L5Q-Qr-zRM"/>
                         <outlet property="drawButton" destination="ojC-8r-fOh" id="6Zf-Mm-X3s"/>
                         <outlet property="editButton" destination="3yq-a6-Fsm" id="dCV-6Q-CsV"/>
                         <outlet property="nextButton" destination="dg4-sR-b0I" id="E1E-jb-FPs"/>
                         <outlet property="scrollView" destination="x4C-3O-a96" id="ptX-z4-MSm"/>
+                        <outlet property="streamView" destination="OZr-dY-Xul" id="mes-0t-0fB"/>
                         <outlet property="uploadButton" destination="taU-aO-Oxc" id="uo7-dz-nh2"/>
                         <outlet property="uploadButtonXConstraint" destination="47G-gf-htm" id="qqm-yL-CmA"/>
                         <outlet property="videoPlayerView" destination="h5t-N3-cw5" id="HLF-FV-6pp"/>
@@ -1531,26 +1525,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ATF-e2-Nit" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="y7X-Pb-ZcE" customClass="StreamDataSource" customModule="meWrap" customModuleProvider="target">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="EditAssetCell"/>
-                        <userDefinedRuntimeAttribute type="number" keyPath="numberOfGridColumns">
-                            <integer key="value" value="1"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="sizeForGridColumns">
-                            <real key="value" value="1"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="itemSize">
-                            <real key="value" value="100"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layoutOffset">
-                            <real key="value" value="60"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="streamView" destination="OZr-dY-Xul" id="Hcs-B7-L36"/>
-                    </connections>
-                </customObject>
                 <customObject id="h5f-E8-jro" userLabel="ComposeBar Trailing Prioritizer" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>
@@ -1605,7 +1579,7 @@
         <!--Wrap Picker View Controller-->
         <scene sceneID="040-1b-JMW">
             <objects>
-                <viewController storyboardIdentifier="WLWrapPickerViewController" id="c77-hp-0nQ" customClass="WLWrapPickerViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="wrapPicker" id="c77-hp-0nQ" customClass="WrapPickerViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2Td-FD-O3V"/>
                         <viewControllerLayoutGuide type="bottom" id="cGC-n9-Dox"/>
@@ -1710,9 +1684,6 @@
                                         <real key="value" value="6"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="delegate" destination="0yt-I4-bE6" id="YJl-Kc-sMZ"/>
-                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
@@ -1730,27 +1701,13 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="dataSource" destination="0yt-I4-bE6" id="62b-B2-H5G"/>
                         <outlet property="editingPrioritizer" destination="9tn-uH-4kd" id="Vgj-2J-sUA"/>
+                        <outlet property="streamView" destination="ILu-Xn-X2e" id="h7R-4A-SgA"/>
                         <outlet property="wrapNameTextField" destination="Caa-Xm-Qlw" id="jMV-YT-Ixg"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="yUW-OR-QOp" id="2hS-5z-STp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E26-2U-hXn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="0yt-I4-bE6" customClass="WrapPickerDataSource" customModule="meWrap" customModuleProvider="target">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLWrapPickerCell"/>
-                        <userDefinedRuntimeAttribute type="number" keyPath="itemSize">
-                            <real key="value" value="55"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layoutOffset">
-                            <real key="value" value="55"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="streamView" destination="ILu-Xn-X2e" id="3KG-2y-mi9"/>
-                    </connections>
-                </customObject>
                 <customObject id="9tn-uH-4kd" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <connections>
                         <outletCollection property="alternativeConstraints" destination="OZl-et-35j" collectionClass="NSMutableArray" id="OYm-hd-UjT"/>
@@ -1771,6 +1728,6 @@
         <image name="switch_to_front_cam" width="23" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="l1z-eb-ReB"/>
+        <segue reference="Eot-wR-oeG"/>
     </inferredMetricsTieBreakers>
 </document>

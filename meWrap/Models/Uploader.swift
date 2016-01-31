@@ -60,6 +60,7 @@ class Uploader: Notifier {
         self.entityName = entityName
         self.subuploaders = subuploaders
         self.limit = limit
+        self.runQueue.limit = limit
         super.init()
         EntryNotifier.notifierForName(entityName).addReceiver(self)
     }

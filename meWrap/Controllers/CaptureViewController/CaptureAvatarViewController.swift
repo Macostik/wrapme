@@ -9,22 +9,36 @@
 import Foundation
 import Photos
 
-class CaptureAvatarViewController: WLStillPictureViewController {
+@objc protocol CaptureAvatarViewControllerDelegate {
+    func captureViewController(controller: CaptureAvatarViewController, didFinishWithAvatar avatar: MutableAsset)
+    func captureViewControllerDidCancel(controller: CaptureAvatarViewController)
+}
+
+class CaptureAvatarViewController: CaptureViewController {
+    
+    weak var captureDelegate: CaptureAvatarViewControllerDelegate?
     
     override func viewDidLoad() {
-        isAvatar = true
         super.viewDidLoad()
+        cameraViewController?.isAvatar = true
     }
     
-    override func handleImage(image: UIImage!, saveToAlbum: Bool) {
+    override func resizeImageWidth() -> CGFloat {
+        return 600
+    }
+    
+    private func finish(avatar: MutableAsset) {
+        (delegate as? CaptureAvatarViewControllerDelegate)?.captureViewController(self, didFinishWithAvatar: avatar)
+    }
+    
+    private func handleImage(image: UIImage, saveToAlbum: Bool) {
         editImage(image) { [unowned self] (image) -> Void in
-            let asset = MutableAsset()
-            asset.isAvatar = self.isAvatar
+            let asset = MutableAsset(isAvatar: true)
             asset.setImage(image)
             if saveToAlbum {
                 asset.saveToAssets()
             }
-            self.finishWithPictures([asset])
+            self.finish(asset)
         }
     }
     
@@ -41,15 +55,36 @@ class CaptureAvatarViewController: WLStillPictureViewController {
         let option = PHImageRequestOptions()
         option.resizeMode = .Exact
         option.deliveryMode = .HighQualityFormat
-        cropAsset(asset, option:option, completion: { [weak self] (croppedImage) -> Void in
-            self?.handleImage(croppedImage, saveToAlbum: false)
+        cropAsset(asset, options:option, completion: { [weak self] (croppedImage) -> Void in
+            if let image = croppedImage {
+                self?.handleImage(image, saveToAlbum: false)
+            }
             self?.view.userInteractionEnabled = true
         })
     }
+}
+
+extension CaptureAvatarViewController {
     
     func assetsViewController(controller: AssetsViewController, shouldSelectAsset asset: PHAsset) -> Bool {
         handleAsset(asset)
         return false
+    }
+    
+    func cameraViewController(controller: CameraViewController, didCaptureImage image: UIImage, saveToAlbum: Bool) {
+        view.userInteractionEnabled = false
+        cropImage(image) { [weak self] (image) -> Void in
+            self?.handleImage(image, saveToAlbum: saveToAlbum)
+            self?.view.userInteractionEnabled = true
+        }
+    }
+    
+    func cameraViewControllerDidCancel(controller: CameraViewController) {
+        if let delegate = captureDelegate {
+            delegate.captureViewControllerDidCancel(self)
+        } else {
+            presentingViewController?.dismissViewControllerAnimated(false, completion:nil)
+        }
     }
 }
 
@@ -76,7 +111,7 @@ class EditAvatarViewController: WLBaseViewController {
     }
     
     @IBAction func edit(sender: AnyObject) {
-        let controller = WLImageEditorSession.editControllerWithImage(image, completion: { [weak self] (image) -> Void in
+        let controller = ImageEditor.editControllerWithImage(image, completion: { [weak self] (image) -> Void in
             self?.image = image
             self?.imageView.image = image
             self?.navigationController?.popViewControllerAnimated(false)

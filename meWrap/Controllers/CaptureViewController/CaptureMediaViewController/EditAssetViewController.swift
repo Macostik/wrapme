@@ -27,11 +27,6 @@ class EditAssetCell: StreamReusableView {
     @IBOutlet weak var selectionView: UIView!
     @IBOutlet weak var videoIndicator: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        imageView.borderColor = UIColor.whiteColor()
-    }
-    
     override func setup(entry: AnyObject!) {
         if let asset = entry as? MutableAsset {
             imageView.url = asset.small

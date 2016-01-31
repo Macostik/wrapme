@@ -70,9 +70,9 @@ class UploadWizardViewController: WLBaseViewController {
     
     @IBAction func presentCamera(sender: AnyObject) {
         if let wrap = defaultWrap() {
-            if let controller = WLStillPictureViewController.stillPhotosViewController(wrap) {
-                controller.createdWraps = NSMutableArray(object: wrap)
-                controller.delegate = self
+            if let controller = CaptureViewController.captureMediaViewController(wrap) {
+                controller.createdWraps = [wrap]
+                controller.captureDelegate = self
                 presentViewController(controller, animated: true, completion: nil)
             }
         }
@@ -153,22 +153,19 @@ extension UploadWizardViewController: UITextFieldDelegate {
     }
 }
 
-extension UploadWizardViewController: WLStillPictureViewControllerDelegate {
+extension UploadWizardViewController: CaptureMediaViewControllerDelegate {
     
-    func stillPictureViewControllerDidCancel(controller: WLStillPictureViewController) {
+    func captureViewControllerDidCancel(controller: CaptureMediaViewController) {
         dismissViewControllerAnimated(false, completion: nil)
     }
     
-    func stillPictureViewController(controller: WLStillPictureViewController!, didFinishWithPictures pictures: [AnyObject]!) {
+    func captureViewController(controller: CaptureMediaViewController, didFinishWithAssets assets: [MutableAsset]) {
         dismissViewControllerAnimated(false, completion: nil)
         if let wrap = controller.wrap where self.wrap != wrap {
             self.wrap = wrap
         }
-        guard let wrap = wrap else { return }
         SoundPlayer.player.play(.s04)
-        if let pictures = pictures as? [MutableAsset] {
-            wrap.uploadAssets(pictures)
-        }
+        wrap?.uploadAssets(assets)
         let navigationController = self.navigationController
         finish(false)
         Storyboard.UploadWizardEnd.instantiate { (uploadWizardEnd) -> Void in

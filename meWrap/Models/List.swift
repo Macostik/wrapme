@@ -183,9 +183,14 @@ class PaginatedList: List {
     
     internal func handleResponse(entries: AnyObject?, type: PaginatedRequestType) {
         if let entries = entries as? [ListEntry] {
-            addEntries(entries)
-            if entries.isEmpty && type == .Older {
-                completed = true
+            if entries.isEmpty {
+                if type == .Older {
+                    completed = true
+                } else {
+                    didChange()
+                }
+            } else {
+                addEntries(entries)
             }
         }
     }

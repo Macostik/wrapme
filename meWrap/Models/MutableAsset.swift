@@ -11,7 +11,6 @@ import AVFoundation
 import Photos
 
 class MutableAsset: Asset {
-    var isAvatar: Bool = false
     var comment: String?
     var canBeSavedToAssets: Bool = false
     var assetID: String?
@@ -19,6 +18,7 @@ class MutableAsset: Asset {
     var edited = false
     var selected = false
     var uploaded = false
+    var thumbnailSize: CGFloat = 0
     weak var videoExportSession: AVAssetExportSession?
     
     deinit {
@@ -39,24 +39,28 @@ class MutableAsset: Asset {
         }
     }
     
+    convenience init(isAvatar: Bool) {
+        let isPad = UI_USER_INTERFACE_IDIOM() == .Pad
+        self.init(thumbnailSize: isPad ? (isAvatar ? 160 : 480) : (isAvatar ? 160 : 240))
+    }
+    
+    convenience init(thumbnailSize: CGFloat) {
+        self.init()
+        self.thumbnailSize = thumbnailSize
+    }
+    
     func setImage(image: UIImage) {
         let cache = ImageCache.uploadingCache
-        let isPad = UI_USER_INTERFACE_IDIOM() == .Pad
-        let isCandy = !isAvatar
         let largePath = cache.getPath(cache.setImage(image))
         original = largePath
         large = largePath
-        let smallSize: CGFloat = isPad ? (isCandy ? 480 : 160) : (isCandy ? 240 : 160)
-        let thumbnail = image.thumbnail(smallSize)
-        small = cache.getPath(cache.setImage(thumbnail))
+        small = cache.getPath(cache.setImage(image.thumbnail(thumbnailSize)))
     }
     
-    func setImage(image: UIImage, completion: MutableAsset? -> Void) {
+    func setImage(image: UIImage, completion: Void -> Void) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {[weak self] () -> Void in
             self?.setImage(image)
-            dispatch_async(dispatch_get_main_queue(), {[weak self] () -> Void in
-                completion(self)
-            })
+            dispatch_async(dispatch_get_main_queue(), completion)
         })
     }
     

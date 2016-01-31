@@ -12,12 +12,9 @@ import AVFoundation
 private extension AVCaptureFlashMode {
     func stringValue() -> String {
         switch self {
-        case .On:
-            return "d"
-        case .Off:
-            return "c"
-        case .Auto:
-            return "b"
+        case .On: return "d"
+        case .Off: return "c"
+        case .Auto: return "b"
         }
     }
 }

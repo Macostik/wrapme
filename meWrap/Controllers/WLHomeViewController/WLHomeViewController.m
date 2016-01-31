@@ -13,9 +13,8 @@
 #import "WLHistoryViewController.h"
 #import "WLHintView.h"
 #import "WLChangeProfileViewController.h"
-#import "WLStillPictureViewController.h"
 
-@interface WLHomeViewController () <WrapCellDelegate, RecentUpdateListNotifying, WLStillPictureViewControllerDelegate>
+@interface WLHomeViewController () <WrapCellDelegate, RecentUpdateListNotifying, CaptureMediaViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet SegmentedStreamDataSource *dataSource;
 
@@ -296,9 +295,9 @@
 }
 
 - (void)openCameraForWrap:(Wrap *)wrap animated:(BOOL)animated {
-    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPhotosViewController:wrap];
-    stillPictureViewController.delegate = self;
-    [self presentViewController:stillPictureViewController animated:animated completion:nil];
+    CaptureMediaViewController *captureViewController = [CaptureViewController captureMediaViewController:wrap];
+    captureViewController.captureDelegate = self;
+    [self presentViewController:captureViewController animated:animated completion:nil];
 }
 
 - (IBAction)createWrap:(id)sender {
@@ -335,9 +334,9 @@
     self.publicWrapsHeaderView.hidden = YES;
 }
 
-// MARK: - WLStillPictureViewControllerDelegate
+// MARK: - CaptureViewControllerDelegate
 
-- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
+- (void)captureViewController:(CaptureMediaViewController *)controller didFinishWithAssets:(NSArray<MutableAsset *> *)assets {
     [self dismissViewControllerAnimated:NO completion:nil];
     Wrap* wrap = controller.wrap;
     if (wrap) {
@@ -349,12 +348,12 @@
         
         [FollowingViewController followWrapIfNeeded:wrap performAction:^{
             [[SoundPlayer player] play:Sounds04];
-            [wrap uploadAssets:pictures];
+            [wrap uploadAssets:assets];
         }];
     }
 }
 
-- (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
+- (void)captureViewControllerDidCancel:(CaptureViewController *)controller {
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 

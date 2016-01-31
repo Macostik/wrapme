@@ -30,7 +30,7 @@ class CandyCell: StreamReusableView {
                 
                 menu.addEditPhotoAction({ (_) -> Void in
                     DownloadingView.downloadCandy(candy, success: { (image) -> Void in
-                        WLImageEditorSession.editImage(image, completion: { (image) -> Void in
+                        ImageEditor.editImage(image, completion: { (image) -> Void in
                             if let image = image {
                                 candy.editWithImage(image)
                             }

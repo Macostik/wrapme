@@ -89,14 +89,20 @@ extension NSUserDefaults {
         set { self["WLNumberOfLaucnhes"] = newValue }
     }
     
-    var cameraDefaultPosition: NSNumber? {
-        get { return self["WLCameraDefaultPosition"] as? Int }
-        set { self["WLCameraDefaultPosition"] = newValue }
+    var captureMediaDevicePosition: AVCaptureDevicePosition {
+        get {
+            guard let position = self["captureMediaDevicePosition"] as? Int else { return .Back }
+            return AVCaptureDevicePosition(rawValue: position) ?? .Back
+        }
+        set { self["captureMediaDevicePosition"] = newValue.rawValue }
     }
     
-    var cameraDefaultFlashMode: NSNumber? {
-        get { return self["WLCameraDefaultFlashMode"] as? Int }
-        set { self["WLCameraDefaultFlashMode"] = newValue }
+    var captureMediaFlashMode: AVCaptureFlashMode {
+        get {
+            guard let flashMode = self["captureMediaFlashMode"] as? Int else { return .Off }
+            return AVCaptureFlashMode(rawValue: flashMode) ?? .Off
+        }
+        set { self["captureMediaFlashMode"] = newValue.rawValue }
     }
     
     var shownHints: NSMutableDictionary {

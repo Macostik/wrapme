@@ -19,7 +19,5 @@
 #import "WLButton.h"
 #import "WLWrapEmbeddedViewController.h"
 #import "WLDrawingViewController.h"
-#import "WLImageEditorSession.h"
-#import "WLStillPictureViewController.h"
-#import "UploadSummaryViewController.h"
+#import "ImageEditor.h"
 #import "WLAddContributorsViewController.h"

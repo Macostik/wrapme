@@ -7,13 +7,12 @@
 //
 
 #import "WLWrapViewController.h"
-#import "WLStillPictureViewController.h"
 #import "WLBadgeLabel.h"
 #import "WLChatViewController.h"
 #import "WLContributorsViewController.h"
 #import "WLButton.h"
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, MediaViewControllerDelegate, RecentUpdateListNotifying>
+@interface WLWrapViewController () <CaptureMediaViewControllerDelegate, MediaViewControllerDelegate, RecentUpdateListNotifying>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
@@ -223,9 +222,9 @@
     self.unfollowButton.hidden = !self.followButton.hidden;
 }
 
-// MARK: - WLStillPictureViewControllerDelegate
+// MARK: - CaptureViewControllerDelegate
 
-- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
+- (void)captureViewController:(CaptureMediaViewController *)controller didFinishWithAssets:(NSArray<MutableAsset *> *)assets {
     
     Wrap *wrap = controller.wrap ? : self.wrap;
     if (self.wrap != wrap) {
@@ -243,11 +242,11 @@
     
     [FollowingViewController followWrapIfNeeded:wrap performAction:^{
         [[SoundPlayer player] play:Sounds04];
-        [wrap uploadAssets:pictures];
+        [wrap uploadAssets:assets];
     }];
 }
 
-- (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
+- (void)captureViewControllerDidCancel:(CaptureViewController *)controller {
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
@@ -306,9 +305,9 @@
 // MARK: - WLMediaViewControllerDelegate
 
 - (void)mediaViewControllerDidAddPhoto:(MediaViewController *)controller {
-    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPhotosViewController:self.wrap];
-    stillPictureViewController.delegate = self;
-    [self presentViewController:stillPictureViewController animated:NO completion:nil];
+    CaptureMediaViewController *captureViewController = [CaptureViewController captureMediaViewController:self.wrap];
+    captureViewController.captureDelegate = self;
+    [self presentViewController:captureViewController animated:NO completion:nil];
 }
 
 // MARK: - RecentUpdateListNotifying

@@ -85,6 +85,61 @@ extension Entry {
     }
 }
 
+extension Candy {
+    
+    override func viewController() -> UIViewController? {
+        let controller = UIStoryboard.main()["WLHistoryViewController"] as? WLHistoryViewController
+        controller?.candy = self
+        return controller
+    }
+    
+    override func isValidViewController(controller: UIViewController) -> Bool {
+        return (controller as? WLHistoryViewController)?.candy == self
+    }
+}
+
+extension Message {
+    
+    override func viewController() -> UIViewController? {
+        let controller = wrap?.viewController() as? WLWrapViewController
+        controller?.segment = .Chat
+        return controller
+    }
+    
+    override func isValidViewController(controller: UIViewController) -> Bool {
+        return (controller as? WLWrapViewController)?.wrap == wrap
+    }
+}
+
+extension Wrap {
+    
+    override func viewController() -> UIViewController? {
+        let controller = UIStoryboard.main()["WLWrapViewController"] as? WLWrapViewController
+        controller?.wrap = self
+        return controller
+    }
+    
+    override func isValidViewController(controller: UIViewController) -> Bool {
+        return (controller as? WLWrapViewController)?.wrap == self
+    }
+}
+
+extension Comment {
+    
+    override func configureViewController(controller: UIViewController, fromContainer container: Entry) {
+        if container == candy {
+            if let controller = controller as? WLHistoryViewController {
+                if controller.isViewLoaded() {
+                    controller.showCommentView()
+                } else {
+                    controller.showCommentViewController = true
+                }
+            }
+            
+        }
+    }
+}
+
 class HierarchicalEntryPresenter: EntryPresenter {
 
     override class func presentEntry(entry: Entry, inNavigationController navigationController: UINavigationController, animated: Bool) {

@@ -14,7 +14,7 @@
 #import "WLCandyViewController.h"
 #import "WLCommentsViewController.h"
 #import "WLDrawingViewController.h"
-#import "WLImageEditorSession.h"
+#import "ImageEditor.h"
 #import "NSArray+WLCollection.h"
 
 @interface WLHistoryViewController () <EntryNotifying>
@@ -313,7 +313,7 @@
     [FollowingViewController followWrapIfNeeded:self.wrap performAction:^{
         __weak Candy *candy = weakSelf.candy;
         [weakSelf downloadCandyOriginal:candy success:^(UIImage *image) {
-            [WLImageEditorSession editImage:image completion:^(UIImage *image) {
+            [ImageEditor editImage:image completion:^(UIImage *image) {
                 [candy editWithImage:image];
             } cancel:nil];
         } failure:^(NSError *error) {

@@ -7,10 +7,9 @@
 //
 
 #import "WLProfileInformationViewController.h"
-#import "WLStillPictureViewController.h"
 #import "WLButton.h"
 
-@interface WLProfileInformationViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, KeyboardNotifying>
+@interface WLProfileInformationViewController () <UITextFieldDelegate, CaptureAvatarViewControllerDelegate, KeyboardNotifying>
 
 @property (strong, nonatomic) IBOutlet ImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet UIButton *createImageButton;
@@ -67,8 +66,8 @@
 }
 
 - (IBAction)createImage:(id)sender {
-	WLStillPictureViewController* cameraNavigation = [WLStillPictureViewController captureAvatarViewController];
-    cameraNavigation.delegate = self;
+	CaptureAvatarViewController* cameraNavigation = [CaptureViewController captureAvatarViewController];
+    cameraNavigation.captureDelegate = self;
     [self presentViewController:cameraNavigation animated:NO completion:nil];
 }
 
@@ -76,16 +75,15 @@
 	self.continueButton.active = self.editSession.nameSession.hasValidChanges;
 }
 
-#pragma mark - WLStillPictureViewControllerDelegate
+#pragma mark - CaptureViewControllerDelegate
 
-- (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
+- (void)captureViewControllerDidCancel:(CaptureViewController *)controller {
 	[controller.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 }
 
-- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
-	Asset *picture = [[pictures lastObject] uploadablePicture:NO];
-	self.profileImageView.url = picture.large;
-    self.editSession.avatarSession.changedValue = picture.large;
+- (void)captureViewController:(CaptureAvatarViewController *)controller didFinishWithAvatar:(MutableAsset * _Nonnull)avatar {
+	self.profileImageView.url = avatar.large;
+    self.editSession.avatarSession.changedValue = avatar.large;
     [self verifyContinueButton];
     self.addPhotoLabel.hidden = YES;
 	[controller.presentingViewController dismissViewControllerAnimated:NO completion:nil];

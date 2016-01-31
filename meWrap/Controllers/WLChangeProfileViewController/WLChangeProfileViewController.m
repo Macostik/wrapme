@@ -7,11 +7,9 @@
 //
 
 #import "WLChangeProfileViewController.h"
-#import "WLCameraViewController.h"
-#import "WLStillPictureViewController.h"
 #import "WLTextView.h"
 
-@interface WLChangeProfileViewController () <KeyboardNotifying, UITextFieldDelegate, WLStillPictureViewControllerDelegate, EntryNotifying, FontPresetting>
+@interface WLChangeProfileViewController () <KeyboardNotifying, UITextFieldDelegate, CaptureAvatarViewControllerDelegate, EntryNotifying, FontPresetting>
 
 @property (weak, nonatomic) IBOutlet ImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *imagePlaceholderView;
@@ -135,17 +133,16 @@
     [self editSession:self.editSession hasChanges:NO];
 }
 
-#pragma mark - WLStillPictureViewControllerDelegate
+#pragma mark - CaptureViewControllerDelegate
 
-- (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
+- (void)captureViewControllerDidCancel:(CaptureViewController *)controller {
     [self updateEmailConfirmationView];
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
-- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
-    Asset *picture = [[pictures lastObject] uploadablePicture:NO];
-    self.imageView.url = picture.large;
-    self.editSession.avatarSession.changedValue = picture.large;
+- (void)captureViewController:(CaptureAvatarViewController *)controller didFinishWithAvatar:(MutableAsset *)avatar {
+    self.imageView.url = avatar.large;
+    self.editSession.avatarSession.changedValue = avatar.large;
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 

@@ -1,20 +1,20 @@
 //
-//  WLImageEditorSession.m
+//  ImageEditor.m
 //  meWrap
 //
 //  Created by Sergey Maximenko on 10/20/15.
 //  Copyright © 2015 Ravenpod. All rights reserved.
 //
 
-#import "WLImageEditorSession.h"
+#import "ImageEditor.h"
 #import <AdobeCreativeSDKCore/AdobeCreativeSDKCore.h>
 #import <AdobeCreativeSDKImage/AdobeCreativeSDKImage.h>
 
-@interface WLImageEditorSession ()
+@interface ImageEditor ()
 
 @end
 
-@implementation WLImageEditorSession
+@implementation ImageEditor
 
 + (void)editImage:(UIImage *)image completion:(ImageBlock)completion cancel:(Block)cancel {
     UIViewController *presentingViewController = [UIWindow mainWindow].rootViewController;
@@ -29,7 +29,7 @@
     [presentingViewController presentViewController:controller animated:NO completion:nil];
 }
 
-+ (AdobeUXImageEditorViewController*)editControllerWithImage:(UIImage*)image completion:(WLImageEditingCompletionBlock)completion cancel:(WLImageEditingCancelBlock)cancel {
++ (AdobeUXImageEditorViewController*)editControllerWithImage:(UIImage*)image completion:(ImageBlock)completion cancel:(Block)cancel {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [AdobeImageEditorCustomization setSupportedIpadOrientations:@[@(UIInterfaceOrientationPortrait),@(UIInterfaceOrientationPortraitUpsideDown),@(UIInterfaceOrientationLandscapeLeft),@(UIInterfaceOrientationLandscapeRight)]];

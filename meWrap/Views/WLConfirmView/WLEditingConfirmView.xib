@@ -34,7 +34,7 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Lorem ipsum dolor sit er elit lamet," textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="T6X-wj-KrC" userLabel="Content Text View" customClass="WLTextView">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Lorem ipsum dolor sit er elit lamet," textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="T6X-wj-KrC" userLabel="Content Text View" customClass="TextView" customModule="meWrap" customModuleProvider="target">
                             <rect key="frame" x="12" y="78" width="240" height="33"/>
                             <color key="backgroundColor" red="0.93333333730697632" green="0.93333333730697632" blue="0.93333333730697632" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>

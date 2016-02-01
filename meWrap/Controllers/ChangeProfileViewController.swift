@@ -18,7 +18,7 @@ class ChangeProfileViewController: WLBaseViewController, EditSessionDelegate, UI
     @IBOutlet weak var imagePlaceholderView: UIView!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var verificationEmailTextView: WLTextView!
+    @IBOutlet weak var verificationEmailTextView: TextView!
     
     
     private var editSession: ProfileEditSession! {

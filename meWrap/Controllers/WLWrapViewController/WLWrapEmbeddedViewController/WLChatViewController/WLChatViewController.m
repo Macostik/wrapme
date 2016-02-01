@@ -7,16 +7,15 @@
 //
 
 #import "WLChatViewController.h"
-#import "WLComposeBar.h"
 #import "WLMessageCell.h"
 #import "WLMessageDateView.h"
 #import "WLWrapViewController.h"
 
-@interface WLChatViewController () <StreamViewDelegate, WLComposeBarDelegate, KeyboardNotifying, EntryNotifying, ChatNotifying>
+@interface WLChatViewController () <StreamViewDelegate, ComposeBarDelegate, KeyboardNotifying, EntryNotifying, ChatNotifying>
 
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
 
-@property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
+@property (weak, nonatomic) IBOutlet ComposeBar *composeBar;
 
 @property (nonatomic) BOOL typing;
 
@@ -319,7 +318,7 @@
     }
 }
 
-#pragma mark - WLComposeBarDelegate
+#pragma mark - ComposeBarDelegate
 
 - (void)sendMessageWithText:(NSString*)text {
     if (self.wrap.valid) {
@@ -332,12 +331,12 @@
     }
 }
 
-- (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
+- (void)composeBar:(ComposeBar *)composeBar didFinishWithText:(NSString *)text {
     self.typing = NO;
 	[self sendMessageWithText:text];
 }
 
-- (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
+- (BOOL)composeBarDidShouldResignOnFinish:(ComposeBar *)composeBar {
 	return NO;
 }
 
@@ -352,7 +351,7 @@
     [self.chat sendTyping:_typing];
 }
 
-- (void)composeBarDidChangeText:(WLComposeBar*)composeBar {
+- (void)composeBarDidChangeText:(ComposeBar*)composeBar {
     self.typing = composeBar.text.nonempty;
 }
 

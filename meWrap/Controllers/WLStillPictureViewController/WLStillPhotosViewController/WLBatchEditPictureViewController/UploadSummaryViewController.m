@@ -7,19 +7,18 @@
 //
 
 #import "UploadSummaryViewController.h"
-#import "WLComposeBar.h"
 #import "WLImageEditorSession.h"
 #import "WLDrawingViewController.h"
 
 static const int WLInstanceCommentLimit = 1500;
 
-@interface UploadSummaryViewController () <WLComposeBarDelegate, VideoPlayerViewDelegate>
+@interface UploadSummaryViewController () <ComposeBarDelegate, VideoPlayerViewDelegate>
 
 @property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
 
 @property (weak, nonatomic) MutableAsset *asset;
 
-@property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
+@property (weak, nonatomic) IBOutlet ComposeBar *composeBar;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
@@ -277,14 +276,14 @@ static const int WLInstanceCommentLimit = 1500;
     }
 }
 
-// MARK: - WLComposeBarDelegate
+// MARK: - ComposeBarDelegate
 
 - (IBAction)composeBarDidFinish:(id)sender {
     [self.composeBar resignFirstResponder];
     [self.composeBar setDoneButtonHidden:YES];
 }
 
-- (void)composeBarDidChangeText:(WLComposeBar *)composeBar {
+- (void)composeBarDidChangeText:(ComposeBar *)composeBar {
     NSString *comment = composeBar.text;
     while ([self commentLimitExceeded:comment]) {
         comment = [comment substringToIndex:comment.length - 1];
@@ -309,12 +308,12 @@ static const int WLInstanceCommentLimit = 1500;
     }
 }
 
-- (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
+- (void)composeBarDidEndEditing:(ComposeBar *)composeBar {
     self.asset.comment = composeBar.text;
     self.scrollView.userInteractionEnabled = YES;
 }
 
-- (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
+- (void)composeBarDidBeginEditing:(ComposeBar *)composeBar {
     self.scrollView.userInteractionEnabled = NO;
 }
 

@@ -10,7 +10,6 @@
 #import "AudioConfig.h"
 #import "Streamer.h"
 #import "VideoConfig.h"
-#import "WLComposeBar.h"
 #import "WLWrapViewController.h"
 #import "WLCandyViewController.h"
 #import "GeometryHelper.h"
@@ -20,4 +19,3 @@
 #import "WLStillPictureViewController.h"
 #import "UploadSummaryViewController.h"
 #import "WLAddContributorsViewController.h"
-#import "WLTextView.h"

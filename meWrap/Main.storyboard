@@ -662,7 +662,7 @@
                                             <action selector="resendEmailConfirmation:" destination="7FG-gC-kPg" eventType="touchUpInside" id="GH1-aV-n6f"/>
                                         </connections>
                                     </button>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXa-Dq-6e9" customClass="WLTextView">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXa-Dq-6e9" customClass="TextView" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="10" y="28" width="580" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="11"/>
@@ -2830,7 +2830,7 @@
                                                             <constraint firstAttribute="trailing" secondItem="2nE-rT-l31" secondAttribute="trailing" id="YhM-bE-R7C"/>
                                                         </constraints>
                                                     </view>
-                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zd4-Tx-fC0" customClass="WLComposeBar">
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zd4-Tx-fC0" customClass="ComposeBar" customModule="meWrap" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="429" width="600" height="48"/>
                                                         <subviews>
                                                             <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CUX-Dn-0ih">
@@ -2851,7 +2851,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PpO-T6-nxR">
                                                                 <rect key="frame" x="44" y="6" width="556" height="36"/>
                                                                 <subviews>
-                                                                    <textView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gx7-jO-EPe" customClass="WLTextView">
+                                                                    <textView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gx7-jO-EPe" customClass="TextView" customModule="meWrap" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="8" width="556" height="20"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         <color key="textColor" red="0.1505631506" green="0.1505586505" blue="0.15056121350000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -2862,6 +2862,7 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                         <connections>
                                                                             <outlet property="delegate" destination="zd4-Tx-fC0" id="syJ-Jf-Bxm"/>
+                                                                            <outlet property="placeholderLabel" destination="4Ie-sv-g0D" id="tp2-GQ-XPq"/>
                                                                         </connections>
                                                                     </textView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="comment_placeholder" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ie-sv-g0D" customClass="Label" customModule="meWrap" customModuleProvider="target">
@@ -2940,7 +2941,6 @@
                                                             <action selector="enableDefaultState:" destination="6yG-IE-KDc" eventType="editingDidBegin" id="Xpf-TV-gfD"/>
                                                             <outlet property="delegate" destination="M8n-42-KAe" id="F2e-Zh-H0Z"/>
                                                             <outlet property="heightConstraint" destination="GQL-cm-nfb" id="PVz-AN-yrU"/>
-                                                            <outlet property="placeholderLabel" destination="4Ie-sv-g0D" id="3AT-c6-iEj"/>
                                                             <outlet property="textView" destination="gx7-jO-EPe" id="hlu-G6-PKd"/>
                                                             <outlet property="trailingPrioritizer" destination="np4-hr-S7e" id="Svx-1X-UDC"/>
                                                         </connections>
@@ -3268,7 +3268,7 @@
                                     <outlet property="delegate" destination="ef1-h7-yay" id="DUf-p4-jBl"/>
                                 </connections>
                             </scrollView>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQp-Lx-kpC" customClass="WLComposeBar">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQp-Lx-kpC" customClass="ComposeBar" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="552" width="600" height="48"/>
                                 <subviews>
                                     <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W2G-E9-yFD">
@@ -3289,7 +3289,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDd-ic-aQG">
                                         <rect key="frame" x="44" y="6" width="556" height="36"/>
                                         <subviews>
-                                            <textView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nbf-xV-IYw" customClass="WLTextView">
+                                            <textView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nbf-xV-IYw" customClass="TextView" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="8" width="556" height="20"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
@@ -3300,6 +3300,7 @@
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="delegate" destination="dQp-Lx-kpC" id="yV7-5t-d7e"/>
+                                                    <outlet property="placeholderLabel" destination="uda-Ra-Xj8" id="JBj-18-P8v"/>
                                                 </connections>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="message_placeholder" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uda-Ra-Xj8" customClass="Label" customModule="meWrap" customModuleProvider="target">
@@ -3390,7 +3391,6 @@
                                 <connections>
                                     <outlet property="delegate" destination="ef1-h7-yay" id="uwe-aK-54k"/>
                                     <outlet property="heightConstraint" destination="o7B-UN-bDu" id="tlc-m2-MDJ"/>
-                                    <outlet property="placeholderLabel" destination="uda-Ra-Xj8" id="d1z-hi-OZi"/>
                                     <outlet property="textView" destination="nbf-xV-IYw" id="bO7-rh-xRL"/>
                                     <outlet property="trailingPrioritizer" destination="6Mj-ZQ-LyI" id="da6-vy-kQZ"/>
                                 </connections>
@@ -3908,7 +3908,7 @@ QWRkEEZyaWVuZFZpZXc
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TDj-ND-asZ" customClass="WLComposeBar">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TDj-ND-asZ" customClass="ComposeBar" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="452" width="600" height="48"/>
                                 <subviews>
                                     <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucQ-tC-vdE">
@@ -3930,7 +3930,7 @@ QWRkEEZyaWVuZFZpZXc
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IA6-ZX-Rx4">
                                         <rect key="frame" x="44" y="4" width="556" height="40"/>
                                         <subviews>
-                                            <textView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tr4-75-HXp" customClass="WLTextView">
+                                            <textView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tr4-75-HXp" customClass="TextView" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="8" width="556" height="24"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3998,6 +3998,7 @@ QWRkEEZyaWVuZFZpZXc
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <action selector="done:" destination="TDj-ND-asZ" eventType="touchUpInside" id="O8D-I0-b7d"/>
                                             <action selector="finishTitleInput:" destination="Ubc-jI-W0F" eventType="touchUpInside" id="Mzn-D4-fMK"/>
                                         </connections>
                                     </button>
@@ -4022,7 +4023,6 @@ QWRkEEZyaWVuZFZpZXc
                                 <connections>
                                     <outlet property="delegate" destination="Ubc-jI-W0F" id="Mvl-to-FM6"/>
                                     <outlet property="heightConstraint" destination="gDW-Sz-owx" id="lrP-a4-jiL"/>
-                                    <outlet property="placeholderLabel" destination="pnR-3j-WnM" id="EWX-xW-o6i"/>
                                     <outlet property="textView" destination="Tr4-75-HXp" id="0Ba-1r-Xtk"/>
                                     <outlet property="trailingPrioritizer" destination="529-A5-Axn" id="gWi-8v-VCh"/>
                                 </connections>
@@ -4277,7 +4277,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="deR-u8-UBI" customClass="WLComposeBar">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="deR-u8-UBI" customClass="ComposeBar" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="552" width="600" height="48"/>
                                 <subviews>
                                     <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E7D-tf-gvh">
@@ -4299,7 +4299,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5gE-jJ-HHw">
                                         <rect key="frame" x="44" y="4" width="556" height="40"/>
                                         <subviews>
-                                            <textView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Nb-Gz-Qb4" customClass="WLTextView">
+                                            <textView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Nb-Gz-Qb4" customClass="TextView" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="8" width="556" height="24"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4367,6 +4367,7 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <action selector="done:" destination="deR-u8-UBI" eventType="touchUpInside" id="1Wi-aW-PlT"/>
                                             <action selector="sendMessage:" destination="pQT-cT-yzK" eventType="touchUpInside" id="eiJ-tk-TqH"/>
                                         </connections>
                                     </button>
@@ -4391,7 +4392,6 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                                 <connections>
                                     <outlet property="delegate" destination="pQT-cT-yzK" id="1Ep-tU-3jd"/>
                                     <outlet property="heightConstraint" destination="pu6-gP-oVC" id="apf-KO-aAu"/>
-                                    <outlet property="placeholderLabel" destination="hrm-H4-5fN" id="Zbz-on-WDN"/>
                                     <outlet property="textView" destination="8Nb-Gz-Qb4" id="qh8-4G-g7r"/>
                                     <outlet property="trailingPrioritizer" destination="wSp-6d-TbA" id="6vf-Ff-cWo"/>
                                 </connections>

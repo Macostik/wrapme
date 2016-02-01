@@ -1191,7 +1191,7 @@
                                     <outlet property="nameLabel" destination="4e8-Qt-lNv" id="xkt-X2-JnQ"/>
                                 </connections>
                             </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ao0-lV-pbN" customClass="WLComposeBar">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ao0-lV-pbN" customClass="ComposeBar" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="379" width="320" height="48"/>
                                 <subviews>
                                     <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XHr-LD-08v">
@@ -1211,7 +1211,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q6p-H5-Fb8">
                                         <rect key="frame" x="44" y="4" width="276" height="40"/>
                                         <subviews>
-                                            <textView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HH9-aQ-kkJ" customClass="WLTextView">
+                                            <textView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HH9-aQ-kkJ" customClass="TextView" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="8" width="276" height="24"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1282,6 +1282,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="composeBarDidFinish:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="ESp-sI-r6p"/>
+                                            <action selector="done:" destination="ao0-lV-pbN" eventType="touchUpInside" id="lEf-1c-tVh"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1310,7 +1311,6 @@
                                 <connections>
                                     <outlet property="delegate" destination="CvA-oq-Pt1" id="kgd-bp-UKs"/>
                                     <outlet property="heightConstraint" destination="bgi-k4-ZQ1" id="uE4-MT-ueg"/>
-                                    <outlet property="placeholderLabel" destination="2ag-My-O3m" id="snX-2y-03T"/>
                                     <outlet property="textView" destination="HH9-aQ-kkJ" id="6WM-0j-fmc"/>
                                     <outlet property="trailingPrioritizer" destination="h5f-E8-jro" id="eJ1-i0-fbq"/>
                                 </connections>

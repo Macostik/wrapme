@@ -15,6 +15,8 @@
 		5B2C97CB1C46610E00FAED6A /* VolumeChangeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C97CA1C46610E00FAED6A /* VolumeChangeObserver.swift */; };
 		5B2FB96A1C5B501A001C4385 /* BadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB9691C5B501A001C4385 /* BadgeLabel.swift */; };
 		5B2FB96C1C5B71C8001C4385 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96B1C5B71C8001C4385 /* TextField.swift */; };
+		5B2FB96E1C5B8513001C4385 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96D1C5B8513001C4385 /* TextView.swift */; };
+		5B2FB9701C5BA958001C4385 /* ComposeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96F1C5BA958001C4385 /* ComposeBar.swift */; };
 		5B31A7871C56620D002E1A2A /* ChangeProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */; };
 		5B37C75E1C5A06E30068E693 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37C75D1C5A06E30068E693 /* Button.swift */; };
 		5B37C7601C5A3C9F0068E693 /* HintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37C75F1C5A3C9F0068E693 /* HintView.swift */; };
@@ -94,7 +96,6 @@
 		C5294E8E1C0B8C33001CE272 /* WCSession+DefinedMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E8C1C0B8C33001CE272 /* WCSession+DefinedMessages.swift */; };
 		C5294E8F1C0B8C33001CE272 /* WKInterfaceExtended.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E8D1C0B8C33001CE272 /* WKInterfaceExtended.swift */; };
 		C52BA62C1BFF314600D58D75 /* WrapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52BA62B1BFF314600D58D75 /* WrapCell.swift */; };
-		C52E1FE51A41952400A2C370 /* WLTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FE11A41952400A2C370 /* WLTextView.m */; };
 		C53012791BF4968200098F9C /* StreamDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4A1651BF36DD300EFC8FA /* StreamDataSource.swift */; };
 		C530127D1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530127C1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift */; };
 		C530127F1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530127E1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift */; };
@@ -157,7 +158,6 @@
 		C54743461C09CE3700BECB25 /* CATransition+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54743451C09CE3700BECB25 /* CATransition+Ext.swift */; };
 		C54AF67C19B8C491006F7EDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
 		C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104819067095007DB4AC /* WLCandyViewController.m */; };
-		C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */; };
 		C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */; };
 		C54AF6C419B8C491006F7EDB /* WLWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */; };
 		C54AF6DD19B8C491006F7EDB /* WLStillPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 128156AA1938A1DA00035F89 /* WLStillPictureViewController.m */; };
@@ -467,8 +467,6 @@
 		12E1104719067095007DB4AC /* WLCandyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCandyViewController.h; sourceTree = "<group>"; };
 		12E1104819067095007DB4AC /* WLCandyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCandyViewController.m; sourceTree = "<group>"; };
 		12E3DA5018E049C300DBDB79 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		12E8FF1D18E9885100BF1B96 /* WLComposeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComposeBar.h; path = WLComposeBar/WLComposeBar.h; sourceTree = "<group>"; };
-		12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLComposeBar.m; path = WLComposeBar/WLComposeBar.m; sourceTree = "<group>"; };
 		12E8FF2518E9B33E00BF1B96 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5B03F90B1C5A65A60085BA51 /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		5B1D045A1BFCE16C00263102 /* SlideInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInteractiveTransition.swift; sourceTree = "<group>"; };
@@ -476,6 +474,8 @@
 		5B2C97CA1C46610E00FAED6A /* VolumeChangeObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeChangeObserver.swift; sourceTree = "<group>"; };
 		5B2FB9691C5B501A001C4385 /* BadgeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeLabel.swift; sourceTree = "<group>"; };
 		5B2FB96B1C5B71C8001C4385 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		5B2FB96D1C5B8513001C4385 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		5B2FB96F1C5BA958001C4385 /* ComposeBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBar.swift; sourceTree = "<group>"; };
 		5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeProfileViewController.swift; sourceTree = "<group>"; };
 		5B37C75D1C5A06E30068E693 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		5B37C75F1C5A3C9F0068E693 /* HintView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HintView.swift; path = meWrap/Views/WLHintView/HintView.swift; sourceTree = SOURCE_ROOT; };
@@ -592,17 +592,15 @@
 		C5294E8C1C0B8C33001CE272 /* WCSession+DefinedMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WCSession+DefinedMessages.swift"; sourceTree = "<group>"; };
 		C5294E8D1C0B8C33001CE272 /* WKInterfaceExtended.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WKInterfaceExtended.swift; sourceTree = "<group>"; };
 		C52BA62B1BFF314600D58D75 /* WrapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WrapCell.swift; path = WLHomeViewController/WrapCell.swift; sourceTree = "<group>"; };
-		C52E1FE01A41952400A2C370 /* WLTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTextView.h; sourceTree = "<group>"; };
-		C52E1FE11A41952400A2C370 /* WLTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTextView.m; sourceTree = "<group>"; };
 		C530127A1BF49AD600098F9C /* Refresher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Refresher.swift; sourceTree = "<group>"; };
 		C530127C1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedStreamDataSource.swift; sourceTree = "<group>"; };
 		C530127E1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginatedStreamDataSource.swift; sourceTree = "<group>"; };
 		C53012851BF4C0AD00098F9C /* HomeDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDataSource.swift; sourceTree = "<group>"; };
 		C53012881BF4C3A900098F9C /* WrapPickerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapPickerDataSource.swift; sourceTree = "<group>"; };
-		C530128C1BF4E3EA00098F9C /* EmojiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EmojiCell.xib; path = WLComposeBar/EmojiCell.xib; sourceTree = "<group>"; };
-		C530128D1BF4E3EA00098F9C /* EmojiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmojiView.swift; path = WLComposeBar/EmojiView.swift; sourceTree = "<group>"; };
-		C530128E1BF4E3EA00098F9C /* EmojiView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EmojiView.xib; path = WLComposeBar/EmojiView.xib; sourceTree = "<group>"; };
-		C530128F1BF4E3EA00098F9C /* EmojiCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmojiCell.swift; path = WLComposeBar/EmojiCell.swift; sourceTree = "<group>"; };
+		C530128C1BF4E3EA00098F9C /* EmojiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmojiCell.xib; sourceTree = "<group>"; };
+		C530128D1BF4E3EA00098F9C /* EmojiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiView.swift; sourceTree = "<group>"; };
+		C530128E1BF4E3EA00098F9C /* EmojiView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmojiView.xib; sourceTree = "<group>"; };
+		C530128F1BF4E3EA00098F9C /* EmojiCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiCell.swift; sourceTree = "<group>"; };
 		C531AE401C1B248A00C01535 /* EditAssetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAssetViewController.swift; sourceTree = "<group>"; };
 		C5326F0B1C159279007A8BEF /* RunQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunQueue.swift; sourceTree = "<group>"; };
 		C532F4E81C2D5F02004585E0 /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
@@ -1157,7 +1155,7 @@
 				C52E1FC71A41947D00A2C370 /* Text Views */,
 				C54FC76E1A16549700623FC1 /* Placeholder Views */,
 				12A8AA6E18F5919D00F67113 /* LoadingView */,
-				12E8FF1C18E9883700BF1B96 /* WLComposeBar */,
+				12E8FF1C18E9883700BF1B96 /* ComposeBar */,
 				12E8FF0718E960E000BF1B96 /* StreamView */,
 				5BA432AE1A3F3F5200B53BC7 /* WLConfirmView */,
 			);
@@ -1263,17 +1261,16 @@
 			path = "Stream Layouts";
 			sourceTree = "<group>";
 		};
-		12E8FF1C18E9883700BF1B96 /* WLComposeBar */ = {
+		12E8FF1C18E9883700BF1B96 /* ComposeBar */ = {
 			isa = PBXGroup;
 			children = (
 				C530128D1BF4E3EA00098F9C /* EmojiView.swift */,
 				C530128E1BF4E3EA00098F9C /* EmojiView.xib */,
 				C530128F1BF4E3EA00098F9C /* EmojiCell.swift */,
 				C530128C1BF4E3EA00098F9C /* EmojiCell.xib */,
-				12E8FF1D18E9885100BF1B96 /* WLComposeBar.h */,
-				12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */,
+				5B2FB96F1C5BA958001C4385 /* ComposeBar.swift */,
 			);
-			name = WLComposeBar;
+			path = ComposeBar;
 			sourceTree = "<group>";
 		};
 		14AE4FEE19700B23002EEF3F /* Sounds */ = {
@@ -1493,8 +1490,7 @@
 				5B03F90B1C5A65A60085BA51 /* Label.swift */,
 				5B2FB9691C5B501A001C4385 /* BadgeLabel.swift */,
 				5B2FB96B1C5B71C8001C4385 /* TextField.swift */,
-				C52E1FE01A41952400A2C370 /* WLTextView.h */,
-				C52E1FE11A41952400A2C370 /* WLTextView.m */,
+				5B2FB96D1C5B8513001C4385 /* TextView.swift */,
 			);
 			path = "Text Views";
 			sourceTree = "<group>";
@@ -2461,7 +2457,6 @@
 				C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */,
 				C5C20BD81A239D6F008B2E2E /* WLPhoneViewController.m in Sources */,
 				C5D99E741C2B2BC10022D18B /* Keyboard.swift in Sources */,
-				C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */,
 				C5BCF0331B551B7B00E4AD6D /* WLContributorCell.m in Sources */,
 				C553B1901BF9F75600E50219 /* EntryPresenter.swift in Sources */,
 				C5E6DD921C0DC84A004992E4 /* User.swift in Sources */,
@@ -2512,6 +2507,7 @@
 				C53012791BF4968200098F9C /* StreamDataSource.swift in Sources */,
 				5B03F90C1C5A65A60085BA51 /* Label.swift in Sources */,
 				C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
+				5B2FB9701C5BA958001C4385 /* ComposeBar.swift in Sources */,
 				C52500581C1F1F8200CF8F9D /* HistoryItemViewController.swift in Sources */,
 				C51B82C71C1852110054726A /* NSArray+WLCollection.m in Sources */,
 				C55766A51C0C913D00E94E09 /* ImageView.swift in Sources */,
@@ -2521,6 +2517,7 @@
 				C504178919B9EE15000E55F3 /* AddressBookRecordCell.m in Sources */,
 				C540C0F01B988BF700F880C9 /* GridLayout.swift in Sources */,
 				C559974C1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */,
+				5B2FB96E1C5B8513001C4385 /* TextView.swift in Sources */,
 				C5EE45A61C01D350008DE8D6 /* Constants.swift in Sources */,
 				C55141A41C2EFB090080E731 /* DeviceManager.swift in Sources */,
 				C55BE8C31C03062C006B04FC /* NSObject+Ext.swift in Sources */,
@@ -2546,7 +2543,6 @@
 				C55766A61C0C913D00E94E09 /* EntryStatusIndicator.swift in Sources */,
 				C54731BE1B906A7400B583FD /* WLWrapPickerViewController.m in Sources */,
 				C5AEE44B1B3AE770000C8CCF /* WLColorPicker.m in Sources */,
-				C52E1FE51A41952400A2C370 /* WLTextView.m in Sources */,
 				C5053E201BC7CF0F0040613A /* AssetMetrics.swift in Sources */,
 				C5A877CB1B985E8B006C5226 /* StreamLayout.swift in Sources */,
 				C54AF6DD19B8C491006F7EDB /* WLStillPictureViewController.m in Sources */,

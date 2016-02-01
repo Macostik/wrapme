@@ -716,8 +716,8 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <outletCollection property="highlightings" destination="zto-LL-FxR" id="dZg-TD-Vlb"/>
-                                            <outletCollection property="highlightings" destination="av4-g2-N6y" id="0uN-qe-lo2"/>
+                                            <outletCollection property="highlightings" destination="zto-LL-FxR" collectionClass="NSMutableArray" id="dZg-TD-Vlb"/>
+                                            <outletCollection property="highlightings" destination="av4-g2-N6y" collectionClass="NSMutableArray" id="0uN-qe-lo2"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1728,6 +1728,6 @@
         <image name="switch_to_front_cam" width="23" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Eot-wR-oeG"/>
+        <segue reference="l1z-eb-ReB"/>
     </inferredMetricsTieBreakers>
 </document>

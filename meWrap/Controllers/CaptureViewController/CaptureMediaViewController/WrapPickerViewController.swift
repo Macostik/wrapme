@@ -149,7 +149,7 @@ extension WrapPickerViewController {
         wrapNameTextField.becomeFirstResponder()
     }
     
-    @IBAction func saveNewWrap(sender: WLButton) {
+    @IBAction func saveNewWrap(sender: Button) {
         
         guard let name = wrapNameTextField.text?.trim where name.isEmpty == false else {
             Toast.show("wrap_name_cannot_be_blank".ls)

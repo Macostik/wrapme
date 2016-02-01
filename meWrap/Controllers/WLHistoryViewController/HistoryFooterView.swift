@@ -17,8 +17,8 @@ class HistoryFooterView: GradientView {
     @IBOutlet weak var heightPrioritizer: LayoutPrioritizer!
     
     @IBOutlet weak var avatarImageView: ImageView!
-    @IBOutlet weak var postLabel: WLLabel!
-    @IBOutlet weak var timeLabel: WLLabel!
+    @IBOutlet weak var postLabel: Label!
+    @IBOutlet weak var timeLabel: Label!
     @IBOutlet weak var commentLabel: SmartLabel!
     
     override func awakeFromNib() {

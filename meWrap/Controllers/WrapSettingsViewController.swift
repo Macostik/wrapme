@@ -68,8 +68,8 @@ class WrapSettingsViewController: WLBaseViewController, EntryNotifying {
         }
         Wrap.notifier().addReceiver(self)
     }
-    
-    @IBAction func handleAction(sender: WLButton) {
+
+    @IBAction func handleAction(sender: Button) {
         guard  let wrap = wrap else { return }
         UIAlertController.confirmWrapDeleting(wrap, success: {[weak self] _ in
             self?.userInitiatedDestructiveAction = true

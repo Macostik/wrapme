@@ -29,7 +29,7 @@ class UploadSummaryViewController: WLSwipeViewController, CaptureWrapContainer {
     
     var assets: [MutableAsset] = []
     
-    @IBOutlet weak var composeBar: WLComposeBar!
+    @IBOutlet weak var composeBar: ComposeBar!
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
@@ -248,15 +248,15 @@ extension UploadSummaryViewController: VideoPlayerViewDelegate {
 
 private let InstanceCommentLimit = 1500
 
-extension UploadSummaryViewController: WLComposeBarDelegate {
+extension UploadSummaryViewController: ComposeBarDelegate {
     
     @IBAction func composeBarDidFinish(sender: AnyObject) {
         composeBar.resignFirstResponder()
         composeBar.setDoneButtonHidden(true)
     }
     
-    func composeBarDidChangeText(composeBar: WLComposeBar!) {
-        var comment = composeBar.text;
+    func composeBarDidChangeText(composeBar: ComposeBar) {
+        var comment = composeBar.text ?? ""
         while commentLimitExceeded(comment) {
             comment = comment.substringToIndex(comment.endIndex.predecessor())
         }
@@ -277,11 +277,11 @@ extension UploadSummaryViewController: WLComposeBarDelegate {
         }
     }
     
-    func composeBarDidBeginEditing(composeBar: WLComposeBar!) {
+    func composeBarDidBeginEditing(composeBar: ComposeBar) {
         scrollView?.userInteractionEnabled = false
     }
     
-    func composeBarDidEndEditing(composeBar: WLComposeBar!) {
+    func composeBarDidEndEditing(composeBar: ComposeBar) {
         asset?.comment = composeBar.text;
         scrollView?.userInteractionEnabled = true
     }

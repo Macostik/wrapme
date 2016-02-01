@@ -8,11 +8,8 @@
 
 #import "WLCandyViewController.h"
 #import "WLHomeViewController.h"
-#import "WLBadgeLabel.h"
 #import "WLWrapViewController.h"
 #import "WLHistoryViewController.h"
-#import "WLHintView.h"
-#import "WLChangeProfileViewController.h"
 
 @interface WLHomeViewController () <WrapCellDelegate, RecentUpdateListNotifying, CaptureMediaViewControllerDelegate>
 
@@ -23,10 +20,10 @@
 @property (strong, nonatomic) IBOutlet HomeDataSource *homeDataSource;
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
-@property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
+@property (weak, nonatomic) IBOutlet BadgeLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet UploaderView *uploadingView;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
-@property (weak, nonatomic) IBOutlet WLLabel *verificationEmailLabel;
+@property (weak, nonatomic) IBOutlet Label *verificationEmailLabel;
 @property (strong, nonatomic) IBOutlet LayoutPrioritizer *emailConfirmationLayoutPrioritizer;
 @property (weak, nonatomic) IBOutlet UIButton *photoButton;
 @property (weak, nonatomic) RecentCandiesView *candiesView;
@@ -169,7 +166,7 @@
     [EventualEntryPresenter sharedPresenter].isLoaded = YES;
     [self.uploadingView update];
     if ([NSUserDefaults standardUserDefaults].numberOfLaunches >= 3 && [User currentUser].wraps.count >= 3) {
-        [WLHintView showHomeSwipeTransitionHintViewInView:[UIWindow mainWindow]];
+        [HintView showHomeSwipeTransitionHintView];
     }
     [self.streamView unlock];
 }
@@ -182,7 +179,7 @@
 - (void)updateEmailConfirmationView:(BOOL)animated {
     BOOL hidden = ([[[NSUserDefaults standardUserDefaults] confirmationDate] isToday] || ![[Authorization currentAuthorization] unconfirmed_email].nonempty);
     if (!hidden) {
-        self.verificationEmailLabel.attributedText = [WLChangeProfileViewController verificationSuggestion];
+        self.verificationEmailLabel.attributedText = [ChangeProfileViewController verificationSuggestion];
         [self deadlineEmailConfirmationView];
     }
     [self setEmailConfirmationViewHidden:hidden animated:animated];

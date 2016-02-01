@@ -8,7 +8,6 @@
 
 #import "WLPhoneViewController.h"
 #import "WLCountriesViewController.h"
-#import "WLButton.h"
 #import "WLPhoneValidation.h"
 #import "WLConfirmView.h"
 
@@ -44,7 +43,7 @@
 
 #pragma mark - Actions
 
-- (IBAction)next:(WLButton*)sender {
+- (IBAction)next:(Button *)sender {
     [self.view endEditing:YES];
     Authorization *authorization = [Authorization currentAuthorization];
     authorization.countryCode = self.country.callingCode;

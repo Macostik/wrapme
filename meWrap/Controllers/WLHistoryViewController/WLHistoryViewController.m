@@ -7,10 +7,6 @@
 //
 
 #import "WLHistoryViewController.h"
-#import "WLButton.h"
-#import "WLTextView.h"
-#import "WLLabel.h"
-#import "WLHintView.h"
 #import "WLCandyViewController.h"
 #import "WLCommentsViewController.h"
 #import "WLDrawingViewController.h"
@@ -28,7 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *reportButton;
 @property (weak, nonatomic) IBOutlet HistoryFooterView *bottomView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
-@property (weak, nonatomic) IBOutlet WLButton *commentButton;
+@property (weak, nonatomic) IBOutlet Button *commentButton;
 
 @property (nonatomic) BOOL disableRotation;
 @property (strong, nonatomic) NSIndexPath *candyIndex;
@@ -266,7 +262,7 @@
     
 }
 
-- (IBAction)downloadCandy:(WLButton*)sender {
+- (IBAction)downloadCandy:(Button*)sender {
     __weak typeof(self)weakSelf = self;
     [FollowingViewController followWrapIfNeeded:self.wrap performAction:^{
         sender.loading = YES;
@@ -284,7 +280,7 @@
     }];
 }
 
-- (IBAction)deleteCandy:(WLButton *)sender {
+- (IBAction)deleteCandy:(Button *)sender {
     __weak typeof(self)weakSelf = self;
     [FollowingViewController followWrapIfNeeded:self.wrap performAction:^{
         Candy *candy = weakSelf.candy;

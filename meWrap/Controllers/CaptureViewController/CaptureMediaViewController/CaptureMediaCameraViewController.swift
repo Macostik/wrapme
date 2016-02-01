@@ -10,7 +10,7 @@ import UIKit
 
 class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContainer {
 
-    @IBOutlet weak var finishButton: WLButton!
+    @IBOutlet weak var finishButton: Button!
     
     @IBOutlet weak var videoRecordingProgressBar: ProgressBar!
     @IBOutlet weak var videoRecordingView: UIView!

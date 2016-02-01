@@ -7,7 +7,6 @@
 //
 
 #import "WLLinkDeviceViewController.h"
-#import "WLButton.h"
 #import "WLProfileInformationViewController.h"
 
 @interface WLLinkDeviceViewController ()
@@ -24,7 +23,7 @@
     }];
 }
 
-- (IBAction)next:(WLButton*)sender {
+- (IBAction)next:(Button *)sender {
     sender.loading = YES;
     __weak typeof(self)weakSelf = self;
     [[APIRequest linkDevice:self.passcodeField.text] send:^(id object) {

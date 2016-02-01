@@ -8,10 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		18D7F6737186E5350A00FFEE /* Pods_meWrap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8302B2CF78A9F0C0ED319A0E /* Pods_meWrap.framework */; };
+		5B03F90C1C5A65A60085BA51 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B03F90B1C5A65A60085BA51 /* Label.swift */; };
 		5B1D045B1BFCE16C00263102 /* SlideInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1D045A1BFCE16C00263102 /* SlideInteractiveTransition.swift */; };
 		5B1DD0371BD7B67000D30E1A /* InternalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */; };
 		5B211FB21C087137000EC3DB /* (null) in Resources */ = {isa = PBXBuildFile; };
 		5B2C97CB1C46610E00FAED6A /* VolumeChangeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C97CA1C46610E00FAED6A /* VolumeChangeObserver.swift */; };
+		5B2FB96A1C5B501A001C4385 /* BadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB9691C5B501A001C4385 /* BadgeLabel.swift */; };
+		5B2FB96C1C5B71C8001C4385 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96B1C5B71C8001C4385 /* TextField.swift */; };
+		5B2FB96E1C5B8513001C4385 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96D1C5B8513001C4385 /* TextView.swift */; };
+		5B2FB9701C5BA958001C4385 /* ComposeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96F1C5BA958001C4385 /* ComposeBar.swift */; };
+		5B31A7871C56620D002E1A2A /* ChangeProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */; };
+		5B37C75E1C5A06E30068E693 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37C75D1C5A06E30068E693 /* Button.swift */; };
+		5B37C7601C5A3C9F0068E693 /* HintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37C75F1C5A3C9F0068E693 /* HintView.swift */; };
 		5B40D6B21C2EBB1C009EF38C /* UploadWizardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40D6B11C2EBB1C009EF38C /* UploadWizardViewController.swift */; };
 		5B47920A1C1B2B110090FDD2 /* libmmwormhole.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4792091C1B2B110090FDD2 /* libmmwormhole.a */; };
 		5B47920B1C1B2B280090FDD2 /* libmmwormhole.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4792091C1B2B110090FDD2 /* libmmwormhole.a */; };
@@ -21,11 +29,11 @@
 		5BA4F8831A1CA08A00DB1A25 /* s02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* s02.wav */; };
 		5BA6AA451A66779E00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
 		5BA7AC241A7916AB00BB922E /* WLCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */; };
-		5BB04F2B19D9822300B5C6EE /* WLEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2719D9822300B5C6EE /* WLEditViewController.m */; };
 		5BCC41911C4E40FC0047E7C2 /* WrapSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCC41901C4E40FC0047E7C2 /* WrapSettingsViewController.swift */; };
 		5BD529491BDA796000527077 /* SmartLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD529481BDA796000527077 /* SmartLabel.swift */; };
 		5BE7CD651C0D8781009A7617 /* WLEditingConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE7CD641C0D8781009A7617 /* WLEditingConfirmView.xib */; };
 		5BF85BB01B8C774C000215C9 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BF85BAE1B8C774C000215C9 /* icons.ttf */; };
+		5BF9F9AB1C5F70670075402C /* HomeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF9F9AA1C5F70670075402C /* HomeDataSource.swift */; };
 		C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C500983D1AFCCC6400729DA4 /* WLCommentCell.m */; };
 		C502B3131C47F2EC00F66EAE /* CandyNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B30B1C47F2EC00F66EAE /* CandyNotification.swift */; };
 		C502B3141C47F2EC00F66EAE /* CommentNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B30C1C47F2EC00F66EAE /* CommentNotification.swift */; };
@@ -92,15 +100,10 @@
 		C5294E8E1C0B8C33001CE272 /* WCSession+DefinedMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E8C1C0B8C33001CE272 /* WCSession+DefinedMessages.swift */; };
 		C5294E8F1C0B8C33001CE272 /* WKInterfaceExtended.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E8D1C0B8C33001CE272 /* WKInterfaceExtended.swift */; };
 		C52BA62C1BFF314600D58D75 /* WrapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52BA62B1BFF314600D58D75 /* WrapCell.swift */; };
-		C52E1FD31A41951300A2C370 /* WLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FC91A41951300A2C370 /* WLButton.m */; };
-		C52E1FD71A41951300A2C370 /* WLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FCB1A41951300A2C370 /* WLLabel.m */; };
-		C52E1FDB1A41951300A2C370 /* WLBadgeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FCD1A41951300A2C370 /* WLBadgeLabel.m */; };
-		C52E1FDF1A41951300A2C370 /* WLTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FCF1A41951300A2C370 /* WLTextField.m */; };
-		C52E1FE51A41952400A2C370 /* WLTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FE11A41952400A2C370 /* WLTextView.m */; };
 		C53012791BF4968200098F9C /* StreamDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4A1651BF36DD300EFC8FA /* StreamDataSource.swift */; };
 		C530127D1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530127C1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift */; };
 		C530127F1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530127E1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift */; };
-		C53012871BF4C0AD00098F9C /* HomeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53012851BF4C0AD00098F9C /* HomeDataSource.swift */; };
+		C53012871BF4C0AD00098F9C /* (null) in Sources */ = {isa = PBXBuildFile; };
 		C53012901BF4E3EA00098F9C /* EmojiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C530128C1BF4E3EA00098F9C /* EmojiCell.xib */; };
 		C53012911BF4E3EA00098F9C /* EmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530128D1BF4E3EA00098F9C /* EmojiView.swift */; };
 		C53012921BF4E3EA00098F9C /* EmojiView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C530128E1BF4E3EA00098F9C /* EmojiView.xib */; };
@@ -151,11 +154,8 @@
 		C54743421C09CD8A00BECB25 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C547433F1C09CD8A00BECB25 /* ImageCache.swift */; };
 		C54743441C09CD8A00BECB25 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54743411C09CD8A00BECB25 /* ImageFetcher.swift */; };
 		C54743461C09CE3700BECB25 /* CATransition+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54743451C09CE3700BECB25 /* CATransition+Ext.swift */; };
-		C549745B1ABC1C34000E3F54 /* WLQAButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLQAButton.m */; };
-		C54AF65519B8C491006F7EDB /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		C54AF67C19B8C491006F7EDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
 		C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104819067095007DB4AC /* WLCandyViewController.m */; };
-		C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */; };
 		C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */; };
 		C54AF6C419B8C491006F7EDB /* WLWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */; };
 		C54AF6E019B8C491006F7EDB /* WLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A71218DA0946008FF6F0 /* WLAppDelegate.m */; };
@@ -222,7 +222,6 @@
 		C564C8161C4A47EE001C6460 /* CaptureAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C564C8151C4A47EE001C6460 /* CaptureAvatarViewController.swift */; };
 		C565ED6D1B9F2567002352C8 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B787D9C1A27876F004AE459 /* NotificationCenter.framework */; };
 		C566BD9E1C4E6B50000E80BA /* UIBezierPath+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566BD9D1C4E6B50000E80BA /* UIBezierPath+Ext.swift */; };
-		C568D8D91A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
 		C56D4E4F1C0B54D300B20566 /* meWrapWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C54604D71C08C6DF00FB2303 /* meWrapWatchApp.app */; };
 		C577C2661A4C427100ECC7E5 /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C577C2621A4C427100ECC7E5 /* iVersion.m */; };
 		C57CB2A91BAAE50D0050FBF7 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB2A31BAAE4ED0050FBF7 /* libc++.tbd */; };
@@ -466,12 +465,18 @@
 		12E1104719067095007DB4AC /* WLCandyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCandyViewController.h; sourceTree = "<group>"; };
 		12E1104819067095007DB4AC /* WLCandyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCandyViewController.m; sourceTree = "<group>"; };
 		12E3DA5018E049C300DBDB79 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		12E8FF1D18E9885100BF1B96 /* WLComposeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComposeBar.h; path = WLComposeBar/WLComposeBar.h; sourceTree = "<group>"; };
-		12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLComposeBar.m; path = WLComposeBar/WLComposeBar.m; sourceTree = "<group>"; };
 		12E8FF2518E9B33E00BF1B96 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		5B03F90B1C5A65A60085BA51 /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		5B1D045A1BFCE16C00263102 /* SlideInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInteractiveTransition.swift; sourceTree = "<group>"; };
 		5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalScrollView.swift; sourceTree = "<group>"; };
 		5B2C97CA1C46610E00FAED6A /* VolumeChangeObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeChangeObserver.swift; sourceTree = "<group>"; };
+		5B2FB9691C5B501A001C4385 /* BadgeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeLabel.swift; sourceTree = "<group>"; };
+		5B2FB96B1C5B71C8001C4385 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		5B2FB96D1C5B8513001C4385 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		5B2FB96F1C5BA958001C4385 /* ComposeBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBar.swift; sourceTree = "<group>"; };
+		5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeProfileViewController.swift; sourceTree = "<group>"; };
+		5B37C75D1C5A06E30068E693 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		5B37C75F1C5A3C9F0068E693 /* HintView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HintView.swift; path = meWrap/Views/WLHintView/HintView.swift; sourceTree = SOURCE_ROOT; };
 		5B3DBD201C5243C000A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5B3DBD211C5243C000A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5B3DBD221C5243C000A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -502,16 +507,13 @@
 		5BA6CAF11A10E51B004AD41C /* s04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s04.wav; path = Sounds/s04.wav; sourceTree = "<group>"; };
 		5BA7AC1F1A7916AB00BB922E /* WLCommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCommentsViewController.h; path = Controllers/WLCommentsViewController/WLCommentsViewController.h; sourceTree = "<group>"; };
 		5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCommentsViewController.m; path = Controllers/WLCommentsViewController/WLCommentsViewController.m; sourceTree = "<group>"; };
-		5BB04F2619D9822300B5C6EE /* WLEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEditViewController.h; path = WLEditViewController/WLEditViewController.h; sourceTree = "<group>"; };
-		5BB04F2719D9822300B5C6EE /* WLEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEditViewController.m; path = WLEditViewController/WLEditViewController.m; sourceTree = "<group>"; };
 		5BCC41901C4E40FC0047E7C2 /* WrapSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapSettingsViewController.swift; sourceTree = "<group>"; };
 		5BD529481BDA796000527077 /* SmartLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartLabel.swift; sourceTree = "<group>"; };
 		5BE7CD641C0D8781009A7617 /* WLEditingConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLEditingConfirmView.xib; path = WLConfirmView/WLEditingConfirmView.xib; sourceTree = "<group>"; };
 		5BF1B2481A49A683000BB2C1 /* meWrapToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = meWrapToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF85BAE1B8C774C000215C9 /* icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icons.ttf; sourceTree = "<group>"; };
+		5BF9F9AA1C5F70670075402C /* HomeDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDataSource.swift; sourceTree = "<group>"; };
 		8302B2CF78A9F0C0ED319A0E /* Pods_meWrap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meWrap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChangeProfileViewController.h; path = WLChangeProfileViewController/WLChangeProfileViewController.h; sourceTree = "<group>"; };
-		AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChangeProfileViewController.m; path = WLChangeProfileViewController/WLChangeProfileViewController.m; sourceTree = "<group>"; };
 		AC1A179C1937694B002B3737 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		ACF8D90F1934B4350001E570 /* smiles.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = smiles.plist; sourceTree = "<group>"; };
 		ACF8D9111934B4400001E570 /* numbers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = numbers.plist; sourceTree = "<group>"; };
@@ -592,24 +594,13 @@
 		C5294E8C1C0B8C33001CE272 /* WCSession+DefinedMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WCSession+DefinedMessages.swift"; sourceTree = "<group>"; };
 		C5294E8D1C0B8C33001CE272 /* WKInterfaceExtended.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WKInterfaceExtended.swift; sourceTree = "<group>"; };
 		C52BA62B1BFF314600D58D75 /* WrapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WrapCell.swift; path = WLHomeViewController/WrapCell.swift; sourceTree = "<group>"; };
-		C52E1FC81A41951300A2C370 /* WLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLButton.h; path = WLButton/WLButton.h; sourceTree = "<group>"; };
-		C52E1FC91A41951300A2C370 /* WLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLButton.m; path = WLButton/WLButton.m; sourceTree = "<group>"; };
-		C52E1FCA1A41951300A2C370 /* WLLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLLabel.h; sourceTree = "<group>"; };
-		C52E1FCB1A41951300A2C370 /* WLLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLLabel.m; sourceTree = "<group>"; };
-		C52E1FCC1A41951300A2C370 /* WLBadgeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLBadgeLabel.h; sourceTree = "<group>"; };
-		C52E1FCD1A41951300A2C370 /* WLBadgeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLBadgeLabel.m; sourceTree = "<group>"; };
-		C52E1FCE1A41951300A2C370 /* WLTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTextField.h; sourceTree = "<group>"; };
-		C52E1FCF1A41951300A2C370 /* WLTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTextField.m; sourceTree = "<group>"; };
-		C52E1FE01A41952400A2C370 /* WLTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTextView.h; sourceTree = "<group>"; };
-		C52E1FE11A41952400A2C370 /* WLTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTextView.m; sourceTree = "<group>"; };
 		C530127A1BF49AD600098F9C /* Refresher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Refresher.swift; sourceTree = "<group>"; };
 		C530127C1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedStreamDataSource.swift; sourceTree = "<group>"; };
 		C530127E1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginatedStreamDataSource.swift; sourceTree = "<group>"; };
-		C53012851BF4C0AD00098F9C /* HomeDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDataSource.swift; sourceTree = "<group>"; };
-		C530128C1BF4E3EA00098F9C /* EmojiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EmojiCell.xib; path = WLComposeBar/EmojiCell.xib; sourceTree = "<group>"; };
-		C530128D1BF4E3EA00098F9C /* EmojiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmojiView.swift; path = WLComposeBar/EmojiView.swift; sourceTree = "<group>"; };
-		C530128E1BF4E3EA00098F9C /* EmojiView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EmojiView.xib; path = WLComposeBar/EmojiView.xib; sourceTree = "<group>"; };
-		C530128F1BF4E3EA00098F9C /* EmojiCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmojiCell.swift; path = WLComposeBar/EmojiCell.swift; sourceTree = "<group>"; };
+		C530128C1BF4E3EA00098F9C /* EmojiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmojiCell.xib; sourceTree = "<group>"; };
+		C530128D1BF4E3EA00098F9C /* EmojiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiView.swift; sourceTree = "<group>"; };
+		C530128E1BF4E3EA00098F9C /* EmojiView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmojiView.xib; sourceTree = "<group>"; };
+		C530128F1BF4E3EA00098F9C /* EmojiCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiCell.swift; sourceTree = "<group>"; };
 		C5326F0B1C159279007A8BEF /* RunQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunQueue.swift; sourceTree = "<group>"; };
 		C532F4E81C2D5F02004585E0 /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		C532F4EA1C2D8353004585E0 /* Placeholders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Placeholders.storyboard; sourceTree = "<group>"; };
@@ -643,8 +634,6 @@
 		C547433F1C09CD8A00BECB25 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		C54743411C09CD8A00BECB25 /* ImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 		C54743451C09CE3700BECB25 /* CATransition+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CATransition+Ext.swift"; sourceTree = "<group>"; };
-		C54974561ABC1C34000E3F54 /* WLQAButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLQAButton.h; path = WLButton/WLQAButton.h; sourceTree = "<group>"; };
-		C54974571ABC1C34000E3F54 /* WLQAButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLQAButton.m; path = WLButton/WLQAButton.m; sourceTree = "<group>"; };
 		C54AF74A19B8C491006F7EDB /* meWrap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = meWrap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54C423D1BDE6260003E644D /* Archive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
 		C54C424D1BDE77BB003E644D /* ExtensionMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionMessage.swift; sourceTree = "<group>"; };
@@ -703,8 +692,6 @@
 		C56337581C16CE8300F4E182 /* MediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
 		C564C8151C4A47EE001C6460 /* CaptureAvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureAvatarViewController.swift; sourceTree = "<group>"; };
 		C566BD9D1C4E6B50000E80BA /* UIBezierPath+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Ext.swift"; sourceTree = "<group>"; };
-		C568D8D41A6D491800C2333B /* WLHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHintView.h; sourceTree = "<group>"; };
-		C568D8D51A6D491800C2333B /* WLHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLHintView.m; sourceTree = "<group>"; };
 		C577C2611A4C427100ECC7E5 /* iVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iVersion.h; sourceTree = "<group>"; };
 		C577C2621A4C427100ECC7E5 /* iVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iVersion.m; sourceTree = "<group>"; };
 		C57CB2A31BAAE4ED0050FBF7 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -1067,8 +1054,8 @@
 				C5053E811BC7F7280040613A /* ReportViewController.swift */,
 				C5E6F0271BFF558000FA3D4F /* MediaDataSource.swift */,
 				C553B18F1BF9F75600E50219 /* EntryPresenter.swift */,
-				C53012851BF4C0AD00098F9C /* HomeDataSource.swift */,
 				C52500571C1F1F8200CF8F9D /* HistoryItemViewController.swift */,
+				5BF9F9AA1C5F70670075402C /* HomeDataSource.swift */,
 				C52500591C1F1FCB00CF8F9D /* FollowingViewController.swift */,
 				C525005B1C1F1FD500CF8F9D /* SettingsViewController.swift */,
 				5B40D6B11C2EBB1C009EF38C /* UploadWizardViewController.swift */,
@@ -1081,9 +1068,7 @@
 				5BA7AC1E1A79167B00BB922E /* WLCommentsViewController */,
 				C58167FF19F169BD0081F350 /* WLBaseViewController */,
 				C504177919B9EE15000E55F3 /* WLAddContributorsViewController */,
-				CE1FEABF196EB73000BF1B22 /* WLEditViewController */,
 				128156A81938A0BF00035F89 /* CaptureViewController */,
-				AC00A4C419095E5600EE6EDA /* WLChangeProfileViewController */,
 				12E1104619067095007DB4AC /* WLCandyViewController */,
 				12DCBA8818DB399B00A4BC44 /* WLWrapViewController */,
 				12A7A74218DA17F7008FF6F0 /* WLHomeViewController */,
@@ -1137,6 +1122,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5B37C75D1C5A06E30068E693 /* Button.swift */,
 				5BD529481BDA796000527077 /* SmartLabel.swift */,
 				C51E34E91BD8EB4100C6F678 /* SeparatorView.swift */,
 				5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */,
@@ -1157,12 +1143,11 @@
 				C53937631C3BD82600EEEC0A /* Toast */,
 				C5978BE31B396FA500D5043E /* WLDrawingSession */,
 				5BD121571B0250E000FF5FBF /* WLDownloadingView */,
-				5B2B0C201A77DDC400DADC9D /* WLButton */,
 				C568D8D31A6D490500C2333B /* WLHintView */,
 				C52E1FC71A41947D00A2C370 /* Text Views */,
 				C54FC76E1A16549700623FC1 /* Placeholder Views */,
 				12A8AA6E18F5919D00F67113 /* LoadingView */,
-				12E8FF1C18E9883700BF1B96 /* WLComposeBar */,
+				12E8FF1C18E9883700BF1B96 /* ComposeBar */,
 				12E8FF0718E960E000BF1B96 /* StreamView */,
 				5BA432AE1A3F3F5200B53BC7 /* WLConfirmView */,
 			);
@@ -1268,17 +1253,16 @@
 			path = "Stream Layouts";
 			sourceTree = "<group>";
 		};
-		12E8FF1C18E9883700BF1B96 /* WLComposeBar */ = {
+		12E8FF1C18E9883700BF1B96 /* ComposeBar */ = {
 			isa = PBXGroup;
 			children = (
 				C530128D1BF4E3EA00098F9C /* EmojiView.swift */,
 				C530128E1BF4E3EA00098F9C /* EmojiView.xib */,
 				C530128F1BF4E3EA00098F9C /* EmojiCell.swift */,
 				C530128C1BF4E3EA00098F9C /* EmojiCell.xib */,
-				12E8FF1D18E9885100BF1B96 /* WLComposeBar.h */,
-				12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */,
+				5B2FB96F1C5BA958001C4385 /* ComposeBar.swift */,
 			);
-			name = WLComposeBar;
+			path = ComposeBar;
 			sourceTree = "<group>";
 		};
 		14AE4FEE19700B23002EEF3F /* Sounds */ = {
@@ -1290,17 +1274,6 @@
 				5BA6CAF11A10E51B004AD41C /* s04.wav */,
 			);
 			name = Sounds;
-			sourceTree = "<group>";
-		};
-		5B2B0C201A77DDC400DADC9D /* WLButton */ = {
-			isa = PBXGroup;
-			children = (
-				C52E1FC81A41951300A2C370 /* WLButton.h */,
-				C52E1FC91A41951300A2C370 /* WLButton.m */,
-				C54974561ABC1C34000E3F54 /* WLQAButton.h */,
-				C54974571ABC1C34000E3F54 /* WLQAButton.m */,
-			);
-			name = WLButton;
 			sourceTree = "<group>";
 		};
 		5BA432AE1A3F3F5200B53BC7 /* WLConfirmView */ = {
@@ -1359,15 +1332,6 @@
 				C5B91A491BB41343000E08E7 /* DownloadingView.xib */,
 			);
 			name = WLDownloadingView;
-			sourceTree = "<group>";
-		};
-		AC00A4C419095E5600EE6EDA /* WLChangeProfileViewController */ = {
-			isa = PBXGroup;
-			children = (
-				AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */,
-				AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */,
-			);
-			name = WLChangeProfileViewController;
 			sourceTree = "<group>";
 		};
 		C500983B1AFCCC6400729DA4 /* WLCommentCell */ = {
@@ -1513,14 +1477,10 @@
 		C52E1FC71A41947D00A2C370 /* Text Views */ = {
 			isa = PBXGroup;
 			children = (
-				C52E1FCA1A41951300A2C370 /* WLLabel.h */,
-				C52E1FCB1A41951300A2C370 /* WLLabel.m */,
-				C52E1FCC1A41951300A2C370 /* WLBadgeLabel.h */,
-				C52E1FCD1A41951300A2C370 /* WLBadgeLabel.m */,
-				C52E1FCE1A41951300A2C370 /* WLTextField.h */,
-				C52E1FCF1A41951300A2C370 /* WLTextField.m */,
-				C52E1FE01A41952400A2C370 /* WLTextView.h */,
-				C52E1FE11A41952400A2C370 /* WLTextView.m */,
+				5B03F90B1C5A65A60085BA51 /* Label.swift */,
+				5B2FB9691C5B501A001C4385 /* BadgeLabel.swift */,
+				5B2FB96B1C5B71C8001C4385 /* TextField.swift */,
+				5B2FB96D1C5B8513001C4385 /* TextView.swift */,
 			);
 			path = "Text Views";
 			sourceTree = "<group>";
@@ -1658,8 +1618,7 @@
 		C568D8D31A6D490500C2333B /* WLHintView */ = {
 			isa = PBXGroup;
 			children = (
-				C568D8D41A6D491800C2333B /* WLHintView.h */,
-				C568D8D51A6D491800C2333B /* WLHintView.m */,
+				5B37C75F1C5A3C9F0068E693 /* HintView.swift */,
 				C5B91A4C1BB414E1000E08E7 /* WLHomeSwipeTransitionView.xib */,
 			);
 			path = WLHintView;
@@ -1987,6 +1946,7 @@
 		C5F814251C455B4000B478C2 /* LiveBroadcastViewController */ = {
 			isa = PBXGroup;
 			children = (
+				5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */,
 				C5861A6B1BFA3C9400C64663 /* LiveViewController.swift */,
 				C517FD791C4D070D00A7EE55 /* LiveViewerViewController.swift */,
 				C517FD7B1C4D07E100A7EE55 /* LiveBroadcasterViewController.swift */,
@@ -2005,15 +1965,6 @@
 				FB55C16CD2E21F54394A9DD0 /* Pods-meWrap.adhoc.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		CE1FEABF196EB73000BF1B22 /* WLEditViewController */ = {
-			isa = PBXGroup;
-			children = (
-				5BB04F2619D9822300B5C6EE /* WLEditViewController.h */,
-				5BB04F2719D9822300B5C6EE /* WLEditViewController.m */,
-			);
-			name = WLEditViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2390,7 +2341,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C532F4E91C2D5F02004585E0 /* ProgressBar.swift in Sources */,
-				C54AF65519B8C491006F7EDB /* WLChangeProfileViewController.m in Sources */,
 				C54604D21C08C5D800FB2303 /* NSObject+NibLoading.swift in Sources */,
 				C5EBD75B1C172DF600ED2FCF /* List.swift in Sources */,
 				C5A407001C202198007D1D0E /* StoryboardTransition.swift in Sources */,
@@ -2405,15 +2355,16 @@
 				5BD529491BDA796000527077 /* SmartLabel.swift in Sources */,
 				C5BFE4D31B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */,
 				C5060D1A1BEBA7E2007FFD5B /* String+Ext.swift in Sources */,
+				5B2FB96C1C5B71C8001C4385 /* TextField.swift in Sources */,
 				C5C20BEC1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */,
 				C5E6DD8A1C0DC84A004992E4 /* Candy.swift in Sources */,
+				5B31A7871C56620D002E1A2A /* ChangeProfileViewController.swift in Sources */,
 				C502B3301C47F33100F66EAE /* AddressBook.swift in Sources */,
 				C54C42501BDE77BB003E644D /* ExtensionMessage.swift in Sources */,
 				C5861A6C1BFA3C9400C64663 /* LiveViewController.swift in Sources */,
 				C5E6DD9F1C0DD11A004992E4 /* Keys.swift in Sources */,
 				C55BE8C71C031BA6006B04FC /* ExtensionRequest+Ext.swift in Sources */,
 				C5C20BCC1A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
-				5BB04F2B19D9822300B5C6EE /* WLEditViewController.m in Sources */,
 				C5C20BE41A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
 				C535D6991C045476002BCE34 /* OverlayImageView.swift in Sources */,
 				C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */,
@@ -2422,7 +2373,6 @@
 				C55E10A01B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
 				C53012941BF4E4BF00098F9C /* Refresher.swift in Sources */,
 				C5F3AC3A1C0335230053EE70 /* EntryDescriptor.swift in Sources */,
-				C52E1FDF1A41951300A2C370 /* WLTextField.m in Sources */,
 				C5E6DD971C0DC8F5004992E4 /* CommonEnums.swift in Sources */,
 				C5B8F71A1B82161500A5E541 /* WLDrawingViewController.m in Sources */,
 				C510BF6D1BCF93C0008223A3 /* UIDevice+Ext.swift in Sources */,
@@ -2461,10 +2411,10 @@
 				C532F4ED1C2D8513004585E0 /* PlaceholderView.swift in Sources */,
 				C5294E781C0B6242001CE272 /* ExtensionEntry.swift in Sources */,
 				C53A02321C0D8961003B3D1F /* InMemoryImageCache.swift in Sources */,
+				5B37C7601C5A3C9F0068E693 /* HintView.swift in Sources */,
 				C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */,
 				C5C20BD81A239D6F008B2E2E /* WLPhoneViewController.m in Sources */,
 				C5D99E741C2B2BC10022D18B /* Keyboard.swift in Sources */,
-				C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */,
 				C5BCF0331B551B7B00E4AD6D /* WLContributorCell.m in Sources */,
 				C553B1901BF9F75600E50219 /* EntryPresenter.swift in Sources */,
 				C5E6DD921C0DC84A004992E4 /* User.swift in Sources */,
@@ -2486,9 +2436,8 @@
 				C5C20B921A238AE7008B2E2E /* WLValidation.m in Sources */,
 				C5EE45A41C01C4A2008DE8D6 /* UIImage+Ext.swift in Sources */,
 				5BA7AC241A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
-				C52E1FD71A41951300A2C370 /* WLLabel.m in Sources */,
+				5B37C75E1C5A06E30068E693 /* Button.swift in Sources */,
 				C522795E1BECCA6B00B1C49C /* Dictionary+Ext.swift in Sources */,
-				C52E1FD31A41951300A2C370 /* WLButton.m in Sources */,
 				C502B3181C47F2EC00F66EAE /* PubNub+Ext.swift in Sources */,
 				C581680519F169D90081F350 /* WLBaseViewController.m in Sources */,
 				C54C42531BDE77BB003E644D /* ExtensionRequest.swift in Sources */,
@@ -2498,6 +2447,7 @@
 				C51E34EC1BD8ECC300C6F678 /* GradientView.swift in Sources */,
 				C5092CCE1C1206BE006C9414 /* History.swift in Sources */,
 				C5C0AFA31B99CF1F00B8B242 /* StreamReusableView.m in Sources */,
+				5BF9F9AB1C5F70670075402C /* HomeDataSource.swift in Sources */,
 				C5053E821BC7F7280040613A /* ReportViewController.swift in Sources */,
 				C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */,
 				C5C991131B9845CF0006F534 /* StreamMetrics.swift in Sources */,
@@ -2508,13 +2458,13 @@
 				5B40D6B21C2EBB1C009EF38C /* UploadWizardViewController.swift in Sources */,
 				C55871101C4910B500F09E58 /* DownloadingView.swift in Sources */,
 				5B2C97CB1C46610E00FAED6A /* VolumeChangeObserver.swift in Sources */,
-				C52E1FDB1A41951300A2C370 /* WLBadgeLabel.m in Sources */,
 				C5C20BD01A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
 				C5C20B981A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
-				C549745B1ABC1C34000E3F54 /* WLQAButton.m in Sources */,
 				C53BC48E1C05FE620009B0B9 /* SegmentedControl.swift in Sources */,
 				C53012791BF4968200098F9C /* StreamDataSource.swift in Sources */,
+				5B03F90C1C5A65A60085BA51 /* Label.swift in Sources */,
 				C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
+				5B2FB9701C5BA958001C4385 /* ComposeBar.swift in Sources */,
 				C52500581C1F1F8200CF8F9D /* HistoryItemViewController.swift in Sources */,
 				C51B82C71C1852110054726A /* NSArray+WLCollection.m in Sources */,
 				C55766A51C0C913D00E94E09 /* ImageView.swift in Sources */,
@@ -2524,6 +2474,7 @@
 				C504178919B9EE15000E55F3 /* AddressBookRecordCell.m in Sources */,
 				C540C0F01B988BF700F880C9 /* GridLayout.swift in Sources */,
 				C559974C1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */,
+				5B2FB96E1C5B8513001C4385 /* TextView.swift in Sources */,
 				C5EE45A61C01D350008DE8D6 /* Constants.swift in Sources */,
 				C55141A41C2EFB090080E731 /* DeviceManager.swift in Sources */,
 				C55BE8C31C03062C006B04FC /* NSObject+Ext.swift in Sources */,
@@ -2550,7 +2501,6 @@
 				C5A406FE1C200A71007D1D0E /* CandyEnlargingPresenter.swift in Sources */,
 				C55766A61C0C913D00E94E09 /* EntryStatusIndicator.swift in Sources */,
 				C5AEE44B1B3AE770000C8CCF /* WLColorPicker.m in Sources */,
-				C52E1FE51A41952400A2C370 /* WLTextView.m in Sources */,
 				C5053E201BC7CF0F0040613A /* AssetMetrics.swift in Sources */,
 				C5A877CB1B985E8B006C5226 /* StreamLayout.swift in Sources */,
 				C54C42631BDE8AEC003E644D /* Authorization.swift in Sources */,
@@ -2559,13 +2509,12 @@
 				C564C8161C4A47EE001C6460 /* CaptureAvatarViewController.swift in Sources */,
 				C5AEE42F1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */,
 				C54AF6E019B8C491006F7EDB /* WLAppDelegate.m in Sources */,
-				C568D8D91A6D491800C2333B /* WLHintView.m in Sources */,
 				C502B3291C47F30400F66EAE /* Entry+Base.swift in Sources */,
 				C523D8CA1BD76BC0006FE7AB /* LayoutPrioritizer.swift in Sources */,
 				C5E4FD0B1BF7AC4300575DA4 /* LoadingView.swift in Sources */,
 				C55E533D1C4FB4DB006ACF8F /* CaptureMediaCameraViewController.swift in Sources */,
 				C545312D1A24A1F20048A677 /* WLCountriesViewController.m in Sources */,
-				C53012871BF4C0AD00098F9C /* HomeDataSource.swift in Sources */,
+				C53012871BF4C0AD00098F9C /* (null) in Sources */,
 				C53BC4861C05B32C0009B0B9 /* AssetsViewController.swift in Sources */,
 				C5E6DD901C0DC84A004992E4 /* EntryContext.swift in Sources */,
 				C5E6DD8B1C0DC84A004992E4 /* Comment.swift in Sources */,
@@ -2586,6 +2535,7 @@
 				C5F9A49E1C4B8A1700A7D83B /* CaptureMediaViewController.swift in Sources */,
 				C5E6DD941C0DC84A004992E4 /* Notifier.swift in Sources */,
 				C557B6D91C22BC610067631E /* Network.swift in Sources */,
+				5B2FB96A1C5B501A001C4385 /* BadgeLabel.swift in Sources */,
 				C5C20BDC1A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
 				C5E6DD8D1C0DC84A004992E4 /* CoreData.xcdatamodeld in Sources */,
 				C51E34EA1BD8EB4100C6F678 /* SeparatorView.swift in Sources */,

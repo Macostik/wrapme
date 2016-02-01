@@ -104,7 +104,9 @@ extension UIView {
     
     @IBInspectable var circled: Bool {
         set {
-            cornerRadius = newValue ? bounds.height/2.0 : 0
+            Dispatch.mainQueue.async { [weak self] _ in
+                self?.cornerRadius = newValue ? (self?.bounds.size.height ?? 0)/2.0 : 0
+            }
         }
         get {
             return cornerRadius == bounds.height/2.0

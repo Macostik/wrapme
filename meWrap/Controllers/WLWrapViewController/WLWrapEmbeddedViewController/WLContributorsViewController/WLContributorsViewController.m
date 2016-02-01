@@ -8,7 +8,6 @@
 
 #import "WLContributorsViewController.h"
 #import "WLContributorCell.h"
-#import "WLHintView.h"
 
 const static CGFloat WLContributorsVerticalIndent = 48.0f;
 const static CGFloat WLContributorsHorizontalIndent = 96.0f;

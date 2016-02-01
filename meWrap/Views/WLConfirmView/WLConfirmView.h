@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WLTextView.h"
 
 @interface WLConfirmView : UIView
 
@@ -23,9 +22,9 @@
 @end
 
 @interface WLEditingConfirmView : WLConfirmView <KeyboardNotifying>
-@property (weak, nonatomic) IBOutlet WLLabel *titleLabel;
-@property (weak, nonatomic) IBOutlet WLLabel *bodyLabel;
-@property (weak, nonatomic) IBOutlet WLTextView *contentTextView;
+@property (weak, nonatomic) IBOutlet Label *titleLabel;
+@property (weak, nonatomic) IBOutlet Label *bodyLabel;
+@property (weak, nonatomic) IBOutlet TextView *contentTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *keyboardPrioritizer;
 
 + (void)showInView:(UIView *)view withContent:(NSString *)content success:(ObjectBlock)succes cancel:(Block)cancel;

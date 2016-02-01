@@ -55,7 +55,7 @@ class LiveViewController: WLBaseViewController {
     
     var wrap: Wrap?
     
-    @IBOutlet weak var composeBar: WLComposeBar!
+    @IBOutlet weak var composeBar: ComposeBar!
     
     lazy var broadcast: LiveBroadcast = LiveBroadcast()
     
@@ -142,9 +142,9 @@ class LiveViewController: WLBaseViewController {
     }
 }
 
-extension LiveViewController: WLComposeBarDelegate {
+extension LiveViewController: ComposeBarDelegate {
     
-    func composeBarDidShouldResignOnFinish(composeBar: WLComposeBar!) -> Bool {
+    func composeBarDidShouldResignOnFinish(composeBar: ComposeBar!) -> Bool {
         return true
     }
 }

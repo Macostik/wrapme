@@ -9,7 +9,6 @@
 #import "WLActivationViewController.h"
 #import "WLProfileInformationViewController.h"
 #import "WLHomeViewController.h"
-#import "WLButton.h"
 
 @interface WLActivationViewController () <UITextFieldDelegate>
 
@@ -52,7 +51,7 @@
     }
 }
 
-- (IBAction)next:(WLButton*)sender {
+- (IBAction)next:(Button *)sender {
     sender.loading = YES;
     __weak typeof(self)weakSelf = self;
     [self activate:^{

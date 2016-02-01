@@ -26,8 +26,8 @@ class WrapCell: StreamReusableView {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel?
     
-    @IBOutlet weak var wrapNotificationLabel: WLBadgeLabel?
-    @IBOutlet weak var chatNotificationLabel: WLBadgeLabel?
+    @IBOutlet weak var wrapNotificationLabel: BadgeLabel?
+    @IBOutlet weak var chatNotificationLabel: BadgeLabel?
     @IBOutlet weak var chatButton: UIButton?
     
     @IBOutlet var chatPrioritizer: LayoutPrioritizer?

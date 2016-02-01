@@ -36,7 +36,7 @@ class CameraView: UIView {
 
 class CameraViewController: WLBaseViewController {
     
-    @IBOutlet weak var finishButton: WLButton!
+    @IBOutlet weak var finishButton: Button!
     
     @IBOutlet weak var takePhotoButton: UIButton!
     

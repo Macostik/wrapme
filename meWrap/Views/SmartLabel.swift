@@ -32,7 +32,7 @@ func ==(lhs: CheckingType, rhs: CheckingType) -> Bool {
 
 let kPadding: CGFloat = 5.0
 
-class SmartLabel: WLLabel, UIGestureRecognizerDelegate,  MFMailComposeViewControllerDelegate {
+class SmartLabel: Label, UIGestureRecognizerDelegate,  MFMailComposeViewControllerDelegate {
   
     lazy var linkContainer = Set<CheckingType>()
     var bufferAttributedString: NSAttributedString?

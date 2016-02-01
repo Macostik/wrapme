@@ -7,16 +7,14 @@
 //
 
 #import "WLWrapViewController.h"
-#import "WLBadgeLabel.h"
 #import "WLChatViewController.h"
 #import "WLContributorsViewController.h"
-#import "WLButton.h"
 
 @interface WLWrapViewController () <CaptureMediaViewControllerDelegate, MediaViewControllerDelegate, RecentUpdateListNotifying>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
-@property (weak, nonatomic) IBOutlet WLBadgeLabel *candyCountLabel;
+@property (weak, nonatomic) IBOutlet BadgeLabel *messageCountLabel;
+@property (weak, nonatomic) IBOutlet BadgeLabel *candyCountLabel;
 @property (weak, nonatomic) IBOutlet SegmentedControl *segmentedControl;
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -31,7 +29,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *ownerDescriptionLabel;
 @property (strong, nonatomic) IBOutlet LayoutPrioritizer *publicWrapPrioritizer;
 @property (strong, nonatomic) IBOutlet LayoutPrioritizer *titleViewPrioritizer;
-@property (weak, nonatomic) IBOutlet WLLabel *typingLabel;
+@property (weak, nonatomic) IBOutlet Label *typingLabel;
 
 @property (strong, nonatomic) EntryNotifyReceiver *wrapNotifyReceiver;
 
@@ -182,7 +180,7 @@
     [self changeSegment:sender.selectedSegment];
 }
 
-- (IBAction)follow:(WLButton*)sender {
+- (IBAction)follow:(Button *)sender {
     sender.loading = YES;
     __weak __typeof(self)weakSelf = self;
     [[RunQueue fetchQueue] run:^(Block finish) {
@@ -198,7 +196,7 @@
     }];
 }
 
-- (IBAction)unfollow:(WLButton*)sender {
+- (IBAction)unfollow:(Button *)sender {
     self.settingsButton.userInteractionEnabled = NO;
     sender.loading = YES;
     __weak typeof(self)weakSelf = self;
@@ -284,7 +282,7 @@
     }
 }
 
-- (WLWrapEmbeddedViewController *)controllerNamed:(NSString*)name badge:(WLBadgeLabel*)badge {
+- (WLWrapEmbeddedViewController *)controllerNamed:(NSString*)name badge:(BadgeLabel*)badge {
     WLWrapEmbeddedViewController *viewController = [self.childViewControllers selectObject:^BOOL(WLWrapEmbeddedViewController *controller) {
         return [controller.restorationIdentifier isEqualToString:name];
     }];

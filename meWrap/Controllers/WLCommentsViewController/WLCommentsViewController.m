@@ -8,7 +8,6 @@
 
 #import "WLCommentsViewController.h"
 #import "WLCandyViewController.h"
-#import "WLComposeBar.h"
 #import "WLCommentCell.h"
 #import "WLHistoryViewController.h"
 
@@ -146,13 +145,13 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
     }];
 }
 
-#pragma mark - WLComposeBarDelegate
+#pragma mark - ComposeBarDelegate
 
-- (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
+- (void)composeBar:(ComposeBar *)composeBar didFinishWithText:(NSString *)text {
     [self sendMessageWithText:text];
 }
 
-- (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
+- (BOOL)composeBarDidShouldResignOnFinish:(ComposeBar *)composeBar {
     return NO;
 }
 

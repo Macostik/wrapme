@@ -716,6 +716,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <action selector="selectWrap:" destination="gkl-Du-487" eventType="touchUpInside" id="3qw-hp-mVU"/>
                                             <outletCollection property="highlightings" destination="zto-LL-FxR" id="dZg-TD-Vlb"/>
                                             <outletCollection property="highlightings" destination="av4-g2-N6y" id="0uN-qe-lo2"/>
                                         </connections>

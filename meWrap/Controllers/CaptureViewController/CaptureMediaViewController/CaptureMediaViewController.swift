@@ -30,7 +30,7 @@ extension CaptureWrapContainer {
 }
 
 class CaptureMediaViewController: CaptureViewController {
-    
+        
     weak var captureDelegate: CaptureMediaViewControllerDelegate?
     
     private var runQueue = RunQueue(limit: 1)
@@ -55,10 +55,13 @@ class CaptureMediaViewController: CaptureViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        (cameraViewController as? CaptureMediaCameraViewController)?.wrap = wrap
-        (cameraViewController as? CaptureMediaCameraViewController)?.changeWrap = { [weak self] _ in
-            self?.showWrapPicker()
+        if let cameraViewController = cameraViewController as? CaptureMediaCameraViewController {
+            cameraViewController.wrap = wrap
+            cameraViewController.changeWrap = { [weak self] _ in
+                self?.showWrapPicker()
+            }
         }
+        
         Dispatch.mainQueue.async { self.updateCountLabel() }
         Wrap.notifier().addReceiver(self)
         if wrap == nil {
@@ -68,10 +71,10 @@ class CaptureMediaViewController: CaptureViewController {
     
     func showWrapPicker() {
         view.layoutIfNeeded()
-        if let pickerController = storyboard?["wrapPicker"] as? WrapPickerViewController {
-            pickerController.delegate = self
-            pickerController.wrap = wrap
-            pickerController.showInViewController(self)
+        Storyboard.WrapPicker.instantiate { (controller) -> Void in
+            controller.delegate = self
+            controller.wrap = wrap
+            controller.showInViewController(self)
         }
     }
     
@@ -152,7 +155,7 @@ class CaptureMediaViewController: CaptureViewController {
             assetsCount = 0
         }
         cameraViewController?.takePhotoButton?.setTitle("\(assetsCount)", forState: .Normal)
-        cameraViewController?.finishButton?.hidden = assetsCount == 0
+        (cameraViewController as? CaptureMediaCameraViewController)?.finishButton?.hidden = assetsCount == 0
     }
     
     private func showUploadSummary(completionHandler: (Void -> Void)?) {
@@ -160,20 +163,21 @@ class CaptureMediaViewController: CaptureViewController {
         
         let completionBlock: Block = { [unowned self] _ in
             queue.didFinish = nil
-            if let controller = self.storyboard?["uploadSummary"] as? UploadSummaryViewController {
+            Storyboard.UploadSummary.instantiate({ (controller) -> Void in
                 controller.assets = self.assets.sort { $0.date < $1.date }
                 controller.delegate = self
                 controller.changeWrap = { self.showWrapPicker() }
                 controller.wrap = self.wrap
                 self.pushViewController(controller, animated: false)
                 completionHandler?()
-            }
+            })
         }
         
         if queue.isExecuting {
-            cameraViewController?.finishButton?.loading = true
-            queue.didFinish = { [weak self] _ in
-                self?.cameraViewController?.finishButton?.loading = false
+            weak var finishButton = (cameraViewController as? CaptureMediaCameraViewController)?.finishButton
+            finishButton?.loading = true
+            queue.didFinish = {
+                finishButton?.loading = false
                 completionBlock()
             }
         } else {
@@ -288,14 +292,14 @@ extension CaptureMediaViewController: UploadSummaryViewControllerDelegate {
             asset.saveToAssetsIfNeeded()
         }
         if let wrap = self.wrap where createdWraps.contains(wrap) {
-            if let addFriends = UIStoryboard.main()["addFriends"] as? WLAddContributorsViewController {
-                addFriends.wrap = wrap
-                addFriends.isWrapCreation = true
-                addFriends.completionHandler = { [weak self] friendsInvited in
+            Storyboard.AddFriends.instantiate {
+                $0.wrap = wrap
+                $0.isWrapCreation = true
+                $0.completionHandler = { [weak self] friendsInvited in
                     self?.friendsInvited = friendsInvited
                     self?.finish(assets)
                 }
-                pushViewController(addFriends, animated: false)
+                pushViewController($0, animated: false)
             }
         } else {
             finish(assets)

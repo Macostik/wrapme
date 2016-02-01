@@ -10,6 +10,8 @@ import UIKit
 
 class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContainer {
 
+    @IBOutlet weak var finishButton: WLButton!
+    
     @IBOutlet weak var videoRecordingProgressBar: ProgressBar!
     @IBOutlet weak var videoRecordingView: UIView!
     @IBOutlet weak var videoRecordingTimeLabel: UILabel!
@@ -145,17 +147,18 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
                     session.tryRemoveInput(self.audioInput)
                     session.tryRemoveOutput(self.movieFileOutput)
                     session.tryAddOutput(output)
+                    }, completion: {
+                        self.videoInput?.device.lock({ (device) -> Void in
+                            device.videoZoomFactor = Smoothstep(1, min(8, device.activeFormat.videoMaxZoomFactor), self.zoomScale)
+                            device.setSupportedFocusMode(.AutoFocus)
+                            if device.isTorchModeSupported(.Off) {
+                                device.torchMode = .Off
+                            }
+                        })
+                        output.videoConnection()?.applyDeviceOrientation(DeviceManager.defaultManager.orientation)
+                        self.takePhotoButton.userInteractionEnabled = true
+                        completion()
                 })
-                self.videoInput?.device.lock({ (device) -> Void in
-                    device.videoZoomFactor = Smoothstep(1, min(8, device.activeFormat.videoMaxZoomFactor), self.zoomScale)
-                    device.setSupportedFocusMode(.AutoFocus)
-                    if device.isTorchModeSupported(.Off) {
-                        device.torchMode = .Off
-                    }
-                })
-                output.videoConnection()?.applyDeviceOrientation(DeviceManager.defaultManager.orientation)
-                self.takePhotoButton.userInteractionEnabled = true
-                completion()
             })
         }
     }
@@ -212,6 +215,7 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     override func animateOrientationChange(transform: CGAffineTransform) {
         super.animateOrientationChange(transform)
         videoRecordingTimeLabel.transform = transform
+        finishButton.transform = transform
     }
 }
 
@@ -225,7 +229,7 @@ extension CaptureMediaCameraViewController: AVCaptureFileOutputRecordingDelegate
         videoRecordingTimer?.invalidate()
         prepareSessionForPhotoTaking()
         updateVideoRecordingViews(false)
-        videoRecordingView.hidden = false
+        videoRecordingView.hidden = true
         if videoRecordingCancelled {
             _ = try? NSFileManager.defaultManager().removeItemAtURL(outputFileURL)
         } else {

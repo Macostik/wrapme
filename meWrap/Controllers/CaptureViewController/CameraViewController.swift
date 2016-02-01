@@ -36,8 +36,6 @@ class CameraView: UIView {
 
 class CameraViewController: WLBaseViewController {
     
-    @IBOutlet weak var finishButton: WLButton!
-    
     @IBOutlet weak var takePhotoButton: UIButton!
     
     weak var delegate: CameraViewControllerDelegate?
@@ -305,11 +303,10 @@ class CameraViewController: WLBaseViewController {
     }
     
     internal func animateOrientationChange(transform: CGAffineTransform) {
-        self.backButton.transform = transform
-        self.rotateButton.transform = transform
-        self.takePhotoButton.transform = transform
-        self.finishButton.transform = transform
-        for subView in self.flashModeControl.subviews {
+        backButton.transform = transform
+        rotateButton.transform = transform
+        takePhotoButton.transform = transform
+        for subView in flashModeControl.subviews {
             subView.transform = transform
         }
     }

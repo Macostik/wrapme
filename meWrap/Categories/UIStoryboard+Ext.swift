@@ -28,6 +28,8 @@ struct Storyboard {
     static let AddFriends = StoryboardObject<WLAddContributorsViewController>(identifier: "addFriends", storyboard: UIStoryboard.main())
     static let UploadWizardEnd = StoryboardObject<UploadWizardEndViewController>(identifier: "uploadWizardEnd", storyboard: UIStoryboard.main())
     static let LiveBroadcaster = StoryboardObject<LiveBroadcasterViewController>(identifier: "liveBroadcaster", storyboard: UIStoryboard.main())
+    static let UploadSummary = StoryboardObject<UploadSummaryViewController>(identifier: "uploadSummary", storyboard: UIStoryboard.camera())
+    static let WrapPicker = StoryboardObject<WrapPickerViewController>(identifier: "wrapPicker", storyboard: UIStoryboard.camera())
 }
 
 extension UIStoryboard {

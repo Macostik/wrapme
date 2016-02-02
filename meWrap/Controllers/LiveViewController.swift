@@ -144,7 +144,7 @@ class LiveViewController: WLBaseViewController {
 
 extension LiveViewController: ComposeBarDelegate {
     
-    func composeBarDidShouldResignOnFinish(composeBar: ComposeBar!) -> Bool {
+    func composeBarDidShouldResignOnFinish(composeBar: ComposeBar) -> Bool {
         return true
     }
 }

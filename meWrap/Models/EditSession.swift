@@ -14,10 +14,6 @@ import UIKit
 
 class EditSession: NSObject {
     
-    deinit {
-        print("EditSession dealloc")
-    }
-    
     weak var delegate: EditSessionDelegate?
     
     var setter: ((EditSession, NSObject?) -> Void)?

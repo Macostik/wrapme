@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ChangeProfileViewController: WLBaseViewController, EditSessionDelegate, UITextFieldDelegate, CaptureAvatarViewControllerDelegate, EntryNotifying, FontPresetting {
+final class ChangeProfileViewController: WLBaseViewController, EditSessionDelegate, UITextFieldDelegate, CaptureAvatarViewControllerDelegate, EntryNotifying, FontPresetting {
     
     @IBOutlet weak var cancelButton: Button!
     @IBOutlet weak var doneButton: Button!
@@ -39,10 +39,8 @@ class ChangeProfileViewController: WLBaseViewController, EditSessionDelegate, UI
         let fullRange = NSMakeRange(0, emailVerificationString.length)
         let emailString = emailVerificationString.string as NSString
         let bitRange = emailString.rangeOfString(email)
-        if let lightFontXSmall = UIFont.lightFontXSmall(), let fontXSmall = UIFont.fontXSmall() {
-            emailVerificationString.addAttribute(NSFontAttributeName, value: lightFontXSmall, range:fullRange)
-            emailVerificationString.addAttribute(NSFontAttributeName, value: fontXSmall, range:bitRange)
-        }
+        emailVerificationString.addAttribute(NSFontAttributeName, value: UIFont.lightFontXSmall(), range:fullRange)
+        emailVerificationString.addAttribute(NSFontAttributeName, value: UIFont.fontXSmall(), range:bitRange)
         return emailVerificationString
     }
     
@@ -66,7 +64,7 @@ class ChangeProfileViewController: WLBaseViewController, EditSessionDelegate, UI
         verificationEmailTextView.textContainer.exclusionPaths = [resendButtonExclusionPath, avatarPath]
     }
     
-    final func updateEmailConfirmationView() {
+    func updateEmailConfirmationView() {
         let unconfirmed_Email = Authorization.currentAuthorization.unconfirmed_email
         if let email = unconfirmed_Email where !email.isEmpty {
             verificationEmailTextView.attributedText = ChangeProfileViewController.verificationSuggestion(email)
@@ -74,54 +72,51 @@ class ChangeProfileViewController: WLBaseViewController, EditSessionDelegate, UI
         emailConfirmationView.hidden = unconfirmed_Email?.isEmpty ?? false
     }
     
-    final func setupEditableUserInterface() {
+    func setupEditableUserInterface() {
         guard let user = User.currentUser else { return }
         nameTextField.text = user.name
         imageView.url = user.avatar?.large
         emailTextField.text = Authorization.currentAuthorization.priorityEmail
     }
     
-    final func validate(success: ObjectBlock?, failure: FailureBlock?) {
+    func validate( @noescape success: Block, @noescape failure: FailureBlock) {
         if !editSession.emailSession.hasValidChanges {
-            failure?(NSError(message: "incorrect_email".ls))
+            failure(NSError(message: "incorrect_email".ls))
         } else if !editSession.nameSession.hasValidChanges {
-            failure?(NSError(message: "name_cannot_be_blank".ls))
+            failure(NSError(message: "name_cannot_be_blank".ls))
         } else {
-            success?(nil)
+            success()
         }
     }
     
-    final func apply(success: ObjectBlock?, failure: FailureBlock) {
-        if let email = editSession.emailSession.changedValue as? String {
-            if case let emailSession = editSession.emailSession where emailSession.hasChanges && Authorization.currentAuthorization.email != email {
-                NSUserDefaults.standardUserDefaults().confirmationDate = nil
-            }
-            guard let user = User.currentUser else { return }
-            APIRequest.updateUser(user, email: email).send(success, failure: failure)
+    func apply(success: ObjectBlock?, failure: FailureBlock) {
+        guard let email = editSession.emailSession.changedValue as? String else { return }
+        if editSession.emailSession.hasChanges && Authorization.currentAuthorization.email != email {
+            NSUserDefaults.standardUserDefaults().confirmationDate = nil
         }
+        guard let user = User.currentUser else { return }
+        APIRequest.updateUser(user, email: email).send(success, failure: failure)
     }
     
     @IBAction func done(sender: Button) {
         view.endEditing(true)
-            validate({[weak self] _ in
-                self?.lock()
-                sender.loading = true
-                self?.editSession.apply()
-                self?.apply({[weak self] _ in
-                    self?.didCompleteDoneAction()
+        validate({
+            lock()
+            sender.loading = true
+            editSession.apply()
+            apply({[weak self] _ in
+                self?.didCompleteDoneAction()
+                sender.loading = false
+                self?.unlock()
+                }, failure: {[weak self] (error) -> Void in
+                    self?.editSession.reset()
+                    error?.show()
                     sender.loading = false
                     self?.unlock()
-                    }, failure: {[weak self] (error) -> Void in
-                        self?.editSession.reset()
-                        error?.show()
-                        sender.loading = false
-                        self?.unlock()
-                    })
-                }, failure: { (error) in
-                    error?.show()
-            })
-        
-        
+                })
+            }, failure: { (error) in
+                error?.show()
+        })
     }
     
     @IBAction func cancel(sender: AnyObject) {
@@ -130,18 +125,18 @@ class ChangeProfileViewController: WLBaseViewController, EditSessionDelegate, UI
         view.endEditing(true)
     }
     
-    final func didCompleteDoneAction() {
+    func didCompleteDoneAction() {
         self.editSession = ProfileEditSession(user: User.currentUser!)
         editSession(self.editSession, hasChanges: false)
     }
     
-    final func lock() {
+    func lock() {
         for subView in view.subviews {
             subView.userInteractionEnabled = false
         }
     }
     
-    final func unlock() {
+    func unlock() {
         for subView in view.subviews {
             subView.userInteractionEnabled = true
         }
@@ -182,7 +177,7 @@ class ChangeProfileViewController: WLBaseViewController, EditSessionDelegate, UI
     
     //MARK: EditSessionDelegate
     
-    final func editSession(session: EditSession, hasChanges: Bool) {
+    func editSession(session: EditSession, hasChanges: Bool) {
         doneButton.hidden =     !hasChanges
         cancelButton.hidden =   !hasChanges
         doneButton.addAnimation(CATransition.transition(kCATransitionFade))
@@ -217,5 +212,4 @@ class ChangeProfileViewController: WLBaseViewController, EditSessionDelegate, UI
     func presetterDidChangeContentSizeCategory(presetter: FontPresetter) {
         verificationEmailTextView.attributedText = ChangeProfileViewController.verificationSuggestion()
     }
-    
 }

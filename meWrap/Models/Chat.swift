@@ -253,9 +253,7 @@ extension Chat: FontPresetting {
         if let cachedHeight = cachedMessageHeights[message] {
             return cachedHeight
         } else {
-            guard let messageFont = messageFont, let nameFont = nameFont, let text = message.text else {
-                return 0
-            }
+            guard let text = message.text else { return 0 }
             let containsName = message.chatMetadata.containsName
             let calculateWight = (message.contributor?.current ?? false) ? Chat.MaxWidth : Chat.MinWidth
             var commentHeight = text.heightWithFont(messageFont, width: calculateWight) ?? 0

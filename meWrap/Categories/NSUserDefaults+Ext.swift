@@ -105,14 +105,12 @@ extension NSUserDefaults {
         set { self["captureMediaFlashMode"] = newValue.rawValue }
     }
     
-    var shownHints: NSMutableDictionary {
+    var shownHints: [String:Bool] {
         get {
-            if let shownHints = self["HintView_shownHints"] as? NSDictionary {
-                return shownHints.mutableCopy() as! NSMutableDictionary
-            } else {
-                let shownHints = NSMutableDictionary()
-                self["HintView_shownHints"] = shownHints
+            if let shownHints = self["HintView_shownHints"] as? [String:Bool] {
                 return shownHints
+            } else {
+                return [String:Bool]()
             }
         }
         set {

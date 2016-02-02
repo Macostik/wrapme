@@ -8,6 +8,23 @@
 
 import Foundation
 
+protocol Highlightable: class {
+    var highlighted: Bool { get set }
+}
+
+protocol Selectable: class {
+    var selected: Bool { get set }
+}
+
+extension UIControl: Highlightable, Selectable {}
+
+extension UILabel: Highlightable, Selectable {
+    var selected: Bool {
+        get { return highlighted }
+        set { highlighted = newValue }
+    }
+}
+
 class Button : UIButton {
     
     static let minTouchSize: CGFloat = 44.0
@@ -39,38 +56,32 @@ class Button : UIButton {
     @IBInspectable var preset: String? {
         willSet {
             if let newValue = newValue {
-                titleLabel?.font = titleLabel?.font .fontWithPreset(newValue)
+                titleLabel?.font = titleLabel?.font.fontWithPreset(newValue)
                 FontPresetter.defaultPresetter.addReceiver(self)
             }
         }
     }
     
     @IBInspectable var touchArea: CGSize = CGSizeMake(minTouchSize, minTouchSize)
-     
+    
     var loading: Bool = false {
         willSet {
             if loading != newValue {
-                if  newValue == true {
+                if newValue == true {
                     let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
-                    if let spinnerColor = spinnerColor {
-                        spinner.color = spinnerColor
-                    } else {
-                        spinner.color = titleColorForState(.Normal)
-                    }
-                    var center = CGPointZero
-                    var spinnerSuperView = self
+                    spinner.color = spinnerColor ?? titleColorForState(.Normal)
+                    var spinnerSuperView: UIView = self
                     let contentWidth = sizeThatFits(size).width
                     if (self.width - contentWidth) < spinner.width {
-                        if let superView = self.superview as? Button {
+                        if let superView = self.superview {
                             spinnerSuperView = superView
                         }
-                        center = self.center
+                        spinner.center = center
                         alpha = 0
                     } else {
                         let size = bounds.size
-                        center = CGPointMake(size.width - size.height/2, size.height/2)
+                        spinner.center = CGPointMake(size.width - size.height/2, size.height/2)
                     }
-                    spinner.center = center
                     spinnerSuperView.addSubview(spinner)
                     spinner.startAnimating()
                     self.spinner = spinner
@@ -91,11 +102,7 @@ class Button : UIButton {
             update()
             guard let highlightings = highlightings else { return }
             for highlighting in highlightings {
-                if let highlighting = highlighting as? UIControl {
-                    highlighting.highlighted = highlighted
-                } else if let highlighting = highlighting as? UILabel {
-                    highlighting.highlighted = highlighted
-                }
+                (highlighting as? Highlightable)?.highlighted = highlighted
             }
         }
     }
@@ -105,11 +112,7 @@ class Button : UIButton {
             update()
             guard let selectings = selectings else { return }
             for selecting in selectings {
-                if let selecting = selecting as? UIControl {
-                    selecting.selected = selected
-                } else if let selecting = selecting as? UILabel {
-                    selecting.highlighted = selected
-                }
+                (selecting as? Selectable)?.selected = selected
             }
         }
     }
@@ -130,7 +133,7 @@ class Button : UIButton {
     }
     
     func update() {
-        var backgroundColor = self.backgroundColor
+        var backgroundColor: UIColor?
         if enabled {
             if highlighted {
                 backgroundColor = highlightedColor
@@ -181,7 +184,7 @@ class Button : UIButton {
 }
 
 class SegmentButton: Button {
-
+    
     override var highlighted: Bool {
         set { }
         get {
@@ -192,7 +195,7 @@ class SegmentButton: Button {
 
 class PressButton: Button {
     
-   override func defaultHighlightedColor() -> UIColor {
+    override func defaultHighlightedColor() -> UIColor {
         return normalColor.colorByAddingValue(0.1) ?? UIColor.clearColor()
     }
 }

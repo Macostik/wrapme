@@ -65,6 +65,9 @@
     [self.wormhole listenForMessageWithIdentifier:@"recentUpdatesRequest" listener:^(id  _Nullable messageObject) {
         [self.wormhole passMessageObject:[Contribution recentUpdates:6] identifier:@"recentUpdatesResponse"];
     }];
+    [self.wormhole listenForMessageWithIdentifier:@"allWrapsRequest" listener:^(id  _Nullable messageObject) {
+        [self.wormhole passMessageObject:[Contribution recentUpdates:6] identifier:@"allWrapsResponse"];
+    }];
     
 	return YES;
 }

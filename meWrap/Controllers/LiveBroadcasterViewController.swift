@@ -121,10 +121,11 @@ class LiveBroadcasterViewController: LiveViewController {
         let videoSizes: [CGSize] = (cameraInfo.videoSizes as? [NSValue])?.map({ $0.CGSizeValue() }) ?? []
         let preferedSize = videoSizes.filter({ $0.width == 352 && $0.height == 288 }).first
         videoConfig.videoSize = preferedSize ?? videoSizes[0]
-        videoConfig.bitrate = 2000000
-        videoConfig.fps = 30
+        videoConfig.bitrate = 300000
+        videoConfig.fps = 20
         videoConfig.keyFrameInterval = 2
-        videoConfig.profileLevel = VideoConfig.getSupportedProfiles().first as! String
+        let profiles = VideoConfig.getSupportedProfiles() as! [String]
+        videoConfig.profileLevel = profiles[0]
         
         let orientation: AVCaptureVideoOrientation = orientationForVideoConnection()
         if let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self) {
@@ -147,7 +148,9 @@ class LiveBroadcasterViewController: LiveViewController {
     
     private func startAudioCapture() {
         let audioConfig = AudioConfig()
-        audioConfig.sampleRate = (AudioConfig.getSupportedSampleRates().first as! NSNumber).floatValue
+        audioConfig.bitrate = 32000
+        audioConfig.channelCount = 1
+        audioConfig.sampleRate = 44100
         streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
     }
     

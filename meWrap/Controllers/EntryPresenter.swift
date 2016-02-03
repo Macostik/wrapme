@@ -88,13 +88,11 @@ extension Entry {
 extension Candy {
     
     override func viewController() -> UIViewController? {
-        let controller = UIStoryboard.main()["WLHistoryViewController"] as? WLHistoryViewController
-        controller?.candy = self
-        return controller
+        return Storyboard.History.instantiate({ $0.candy = self })
     }
     
     override func isValidViewController(controller: UIViewController) -> Bool {
-        return (controller as? WLHistoryViewController)?.candy == self
+        return (controller as? HistoryViewController)?.candy == self
     }
 }
 
@@ -128,7 +126,7 @@ extension Comment {
     
     override func configureViewController(controller: UIViewController, fromContainer container: Entry) {
         if container == candy {
-            if let controller = controller as? WLHistoryViewController {
+            if let controller = controller as? HistoryViewController {
                 if controller.isViewLoaded() {
                     controller.showCommentView()
                 } else {

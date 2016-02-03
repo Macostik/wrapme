@@ -13,7 +13,7 @@ protocol UploadSummaryViewControllerDelegate: class {
     func uploadSummaryViewController(controller: UploadSummaryViewController, didDeselectAsset asset: MutableAsset)
 }
 
-class UploadSummaryViewController: WLSwipeViewController, CaptureWrapContainer {
+class UploadSummaryViewController: SwipeViewController, CaptureWrapContainer {
     
     @IBOutlet weak var streamView: StreamView!
     
@@ -147,19 +147,13 @@ class UploadSummaryViewController: WLSwipeViewController, CaptureWrapContainer {
         return (keyboardHeight - bottomView.height)
     }
     
-    override func viewControllerAfterViewController(viewController: UIViewController!) -> UIViewController! {
+    override func viewControllerNextTo(viewController: UIViewController?, direction: SwipeDirection) -> UIViewController? {
         guard let asset = (viewController as? EditAssetViewController)?.asset else { return nil }
         guard let index = assets.indexOf(asset) else { return nil }
-        return editAssetViewControllerForAsset(assets[safe: index + 1])
+        return editAssetViewControllerForAsset(assets[safe: direction == .Forward ? index + 1 : index - 1])
     }
     
-    override func viewControllerBeforeViewController(viewController: UIViewController!) -> UIViewController! {
-        guard let asset = (viewController as? EditAssetViewController)?.asset else { return nil }
-        guard let index = assets.indexOf(asset) else { return nil }
-        return editAssetViewControllerForAsset(assets[safe: index - 1])
-    }
-    
-    override func didChangeViewController(viewController: UIViewController!) {
+    override func didChangeViewController(viewController: UIViewController?) {
         if let asset = (viewController as? EditAssetViewController)?.asset {
             self.asset = asset
         }
@@ -184,7 +178,7 @@ extension UploadSummaryViewController { // MARK actions
     @IBAction func edit(sender: AnyObject?) {
         guard let image = (viewController as? EditAssetViewController)?.imageView.image else { return }
         let controller = ImageEditor.editControllerWithImage(image, completion: { [weak self] image in
-            self?.editCurrentPictureWithImage(image!)
+            self?.editCurrentPictureWithImage(image)
             self?.navigationController?.popViewControllerAnimated(false)
             }, cancel: { [weak self] _ in
                 self?.navigationController?.popViewControllerAnimated(false)
@@ -226,7 +220,7 @@ extension UploadSummaryViewController { // MARK actions
         guard let image = (viewController as? EditAssetViewController)?.imageView.image else { return }
         let drawingViewController = WLDrawingViewController()
         drawingViewController.setImage(image, done: { [weak self] (image) -> Void in
-            self?.editCurrentPictureWithImage(image!)
+            self?.editCurrentPictureWithImage(image)
             self?.dismissViewControllerAnimated(false, completion: nil)
             }) { [weak self] () -> Void in
                 self?.dismissViewControllerAnimated(false, completion: nil)

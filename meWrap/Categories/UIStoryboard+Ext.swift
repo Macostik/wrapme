@@ -30,6 +30,9 @@ struct Storyboard {
     static let LiveBroadcaster = StoryboardObject<LiveBroadcasterViewController>(identifier: "liveBroadcaster", storyboard: UIStoryboard.main())
     static let UploadSummary = StoryboardObject<UploadSummaryViewController>(identifier: "uploadSummary", storyboard: UIStoryboard.camera())
     static let WrapPicker = StoryboardObject<WrapPickerViewController>(identifier: "wrapPicker", storyboard: UIStoryboard.camera())
+    static let ReportCandy = StoryboardObject<ReportViewController>(identifier: "report", storyboard: UIStoryboard.main())
+    static let Comments = StoryboardObject<WLCommentsViewController>(identifier: "comments", storyboard: UIStoryboard.main())
+    static let History = StoryboardObject<HistoryViewController>(identifier: "history", storyboard: UIStoryboard.main())
 }
 
 extension UIStoryboard {

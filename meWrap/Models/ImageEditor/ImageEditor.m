@@ -16,16 +16,14 @@
 
 @implementation ImageEditor
 
-+ (void)editImage:(UIImage *)image completion:(ImageBlock)completion cancel:(Block)cancel {
++ (void)editImage:(UIImage *)image completion:(ImageBlock)completion {
     UIViewController *presentingViewController = [UIWindow mainWindow].rootViewController;
     AdobeUXImageEditorViewController* controller = (id)[self editControllerWithImage:image completion:^(UIImage *image) {
         if (completion) completion(image);
         [presentingViewController dismissViewControllerAnimated:NO completion:nil];
     } cancel:^ {
-        if (cancel) cancel();
         [presentingViewController dismissViewControllerAnimated:NO completion:nil];
     }];
-    
     [presentingViewController presentViewController:controller animated:NO completion:nil];
 }
 

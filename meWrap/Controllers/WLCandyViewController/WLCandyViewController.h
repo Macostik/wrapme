@@ -7,15 +7,14 @@
 //
 
 #import "WLBaseViewController.h"
-#import "WLHistoryViewController.h"
 
-@class  Candy, SlideInteractiveTransition, ImageView;
+@class  Candy, SlideInteractiveTransition, ImageView, HistoryViewController;
 
 @interface WLCandyViewController : WLBaseViewController
 
 @property (weak, nonatomic) Candy *candy;
 @property (weak, nonatomic) IBOutlet ImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
-@property (weak, nonatomic) WLHistoryViewController *historyViewController;
+@property (weak, nonatomic) HistoryViewController *historyViewController;
 
 @end

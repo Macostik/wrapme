@@ -30,11 +30,7 @@ class CandyCell: StreamReusableView {
                 
                 menu.addEditPhotoAction({ (_) -> Void in
                     DownloadingView.downloadCandy(candy, success: { (image) -> Void in
-                        ImageEditor.editImage(image, completion: { (image) -> Void in
-                            if let image = image {
-                                candy.editWithImage(image)
-                            }
-                            }, cancel: nil)
+                        ImageEditor.editImage(image) { candy.editWithImage($0) }
                         }, failure: { (error) -> Void in
                             error?.show()
                     })
@@ -42,11 +38,7 @@ class CandyCell: StreamReusableView {
                 
                 menu.addDrawPhotoAction({ (_) -> Void in
                     DownloadingView.downloadCandy(candy, success: { (image) -> Void in
-                        WLDrawingViewController.draw(image, finish: { (image) -> Void in
-                            if let image = image {
-                                candy.editWithImage(image)
-                            }
-                        })
+                        WLDrawingViewController.draw(image) { candy.editWithImage($0) }
                         }, failure: { (error) -> Void in
                             error?.show()
                     })

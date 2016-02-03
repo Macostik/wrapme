@@ -111,6 +111,7 @@ class EditAvatarViewController: WLBaseViewController {
     }
     
     @IBAction func edit(sender: AnyObject) {
+        guard let image = image else { return }
         let controller = ImageEditor.editControllerWithImage(image, completion: { [weak self] (image) -> Void in
             self?.image = image
             self?.imageView.image = image

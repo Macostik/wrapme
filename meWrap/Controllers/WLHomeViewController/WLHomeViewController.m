@@ -9,7 +9,6 @@
 #import "WLCandyViewController.h"
 #import "WLHomeViewController.h"
 #import "WLWrapViewController.h"
-#import "WLHistoryViewController.h"
 
 @interface WLHomeViewController () <WrapCellDelegate, RecentUpdateListNotifying, CaptureMediaViewControllerDelegate>
 

@@ -19,8 +19,8 @@ class CandyEnlargingPresenter: UIView {
             return
         }
         if candy.valid && cell.imageView.image != nil {
-            if let historyViewController = candy.viewController() as? WLHistoryViewController {
-                historyViewController.historyItem = historyItem
+            if let historyViewController = candy.viewController() as? HistoryViewController {
+                historyViewController.history = historyItem?.history
                 let presenter = CandyEnlargingPresenter()
                 historyViewController.presenter = presenter
                 let presented = presenter.present(candy, fromView: cell, completionHandler: { (_) -> Void in

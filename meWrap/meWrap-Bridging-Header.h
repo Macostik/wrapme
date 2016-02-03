@@ -17,3 +17,4 @@
 #import "WLDrawingViewController.h"
 #import "ImageEditor.h"
 #import "WLAddContributorsViewController.h"
+#import "WLCommentsViewController.h"

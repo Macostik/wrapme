@@ -8,6 +8,8 @@
 
 #import "WLBaseViewController.h"
 
+@class Candy;
+
 @interface WLCommentsViewController : WLBaseViewController
 
 @property (weak, nonatomic) Candy *candy;

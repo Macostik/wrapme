@@ -19,27 +19,35 @@ class DownloadingView: UIView {
     
     weak var candy: Candy?
     
-    class func downloadCandy(candy: Candy, success: ImageBlock, failure: FailureBlock?) {
+    class func downloadCandy(candy: Candy, success: UIImage -> Void, failure: FailureBlock?) {
         guard let url = candy.asset?.original else {
             failure?(nil)
             return
         }
+        if let cachedImage = cachedImage(url) {
+            success(cachedImage)
+        } else {
+            DownloadingView.loadFromNib("DownloadingView")?.downloadCandy(candy, success:success, failure:failure)
+        }
+    }
+    
+    private class func cachedImage(url: String) -> UIImage? {
         let uid = ImageCache.uidFromURL(url)
         if ImageCache.defaultCache.contains(uid) {
-            success(ImageCache.defaultCache.read(uid))
+            return ImageCache.defaultCache.read(uid)
         } else if url.isExistingFilePath {
             var image = InMemoryImageCache.instance[url]
             if image == nil {
                 image = UIImage(contentsOfFile:url)
                 InMemoryImageCache.instance[url] = image
             }
-            success(image)
+            return image
         } else {
-            DownloadingView.loadFromNib("DownloadingView")?.downloadCandy(candy, success:success, failure:failure)
+            return nil
         }
     }
     
-    private func downloadCandy(candy: Candy, success: ImageBlock, failure: FailureBlock?) {
+    private func downloadCandy(candy: Candy, success: UIImage -> Void, failure: FailureBlock?) {
         Candy.notifier().addReceiver(self)
         let view = UIWindow.mainWindow
         frame = view.frame
@@ -72,7 +80,7 @@ class DownloadingView: UIView {
         })
     }
     
-    private func download(success: ImageBlock,  failure: FailureBlock?) {
+    private func download(success: UIImage -> Void,  failure: FailureBlock?) {
         guard let url = candy?.asset?.original else {
             failure?(nil)
             return

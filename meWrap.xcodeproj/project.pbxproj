@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		18D7F6737186E5350A00FFEE /* Pods_meWrap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8302B2CF78A9F0C0ED319A0E /* Pods_meWrap.framework */; };
 		5B03F90C1C5A65A60085BA51 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B03F90B1C5A65A60085BA51 /* Label.swift */; };
+		5B1061341C610A1900496647 /* ConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1061331C610A1900496647 /* ConfirmView.swift */; };
 		5B1D045B1BFCE16C00263102 /* SlideInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1D045A1BFCE16C00263102 /* SlideInteractiveTransition.swift */; };
 		5B1DD0371BD7B67000D30E1A /* InternalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */; };
 		5B211FB21C087137000EC3DB /* (null) in Resources */ = {isa = PBXBuildFile; };
@@ -32,7 +33,6 @@
 		5B47920A1C1B2B110090FDD2 /* libmmwormhole.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4792091C1B2B110090FDD2 /* libmmwormhole.a */; };
 		5B47920B1C1B2B280090FDD2 /* libmmwormhole.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4792091C1B2B110090FDD2 /* libmmwormhole.a */; };
 		5B66B5B91C24696800451113 /* WrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B66B5B81C24696800451113 /* WrapCell.xib */; };
-		5BA432AD1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */; };
 		5BA4F8821A1CA08A00DB1A25 /* s01.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEE1A10E51B004AD41C /* s01.wav */; };
 		5BA4F8831A1CA08A00DB1A25 /* s02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* s02.wav */; };
 		5BA6AA451A66779E00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
@@ -46,7 +46,7 @@
 		5BAF17AD1C624E1E00D33026 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5060D191BEBA7E2007FFD5B /* String+Ext.swift */; };
 		5BCC41911C4E40FC0047E7C2 /* WrapSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCC41901C4E40FC0047E7C2 /* WrapSettingsViewController.swift */; };
 		5BD529491BDA796000527077 /* SmartLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD529481BDA796000527077 /* SmartLabel.swift */; };
-		5BE7CD651C0D8781009A7617 /* WLEditingConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE7CD641C0D8781009A7617 /* WLEditingConfirmView.xib */; };
+		5BE7CD651C0D8781009A7617 /* EditingConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE7CD641C0D8781009A7617 /* EditingConfirmView.xib */; };
 		5BF85BB01B8C774C000215C9 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BF85BAE1B8C774C000215C9 /* icons.ttf */; };
 		5BF9F9AB1C5F70670075402C /* HomeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF9F9AA1C5F70670075402C /* HomeDataSource.swift */; };
 		C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C500983D1AFCCC6400729DA4 /* WLCommentCell.m */; };
@@ -275,7 +275,7 @@
 		C5B91A481BB412A0000E08E7 /* WLUnreadMessagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A461BB412A0000E08E7 /* WLUnreadMessagesView.xib */; };
 		C5B91A4B1BB41343000E08E7 /* DownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A491BB41343000E08E7 /* DownloadingView.xib */; };
 		C5B91A4F1BB414E1000E08E7 /* WLHomeSwipeTransitionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A4C1BB414E1000E08E7 /* WLHomeSwipeTransitionView.xib */; };
-		C5B91A601BB4177B000E08E7 /* WLConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A5E1BB4177B000E08E7 /* WLConfirmView.xib */; };
+		C5B91A601BB4177B000E08E7 /* ConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A5E1BB4177B000E08E7 /* ConfirmView.xib */; };
 		C5B9F9CD1BAD61B200B7D8F3 /* WLMessageWithNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B9F9CB1BAD61B200B7D8F3 /* WLMessageWithNameCell.xib */; };
 		C5BCF0011B551B7B00E4AD6D /* WLChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFD91B551B7B00E4AD6D /* WLChatViewController.m */; };
 		C5BCF0101B551B7B00E4AD6D /* WLMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFE01B551B7B00E4AD6D /* WLMessageCell.m */; };
@@ -489,6 +489,7 @@
 		12E3DA5018E049C300DBDB79 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		12E8FF2518E9B33E00BF1B96 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5B03F90B1C5A65A60085BA51 /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
+		5B1061331C610A1900496647 /* ConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmView.swift; sourceTree = "<group>"; };
 		5B1D045A1BFCE16C00263102 /* SlideInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInteractiveTransition.swift; sourceTree = "<group>"; };
 		5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalScrollView.swift; sourceTree = "<group>"; };
 		5B2960541C60F5B9008D121A /* ShareExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -526,8 +527,6 @@
 		5B47920C1C1B2BDF0090FDD2 /* MMWormhole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMWormhole.h; sourceTree = "<group>"; };
 		5B66B5B81C24696800451113 /* WrapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WrapCell.xib; path = WLHomeViewController/WrapCell.xib; sourceTree = "<group>"; };
 		5B787D9C1A27876F004AE459 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		5BA432A81A3F3F3D00B53BC7 /* WLConfirmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLConfirmView.h; path = WLConfirmView/WLConfirmView.h; sourceTree = "<group>"; };
-		5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLConfirmView.m; path = WLConfirmView/WLConfirmView.m; sourceTree = "<group>"; };
 		5BA6CAEE1A10E51B004AD41C /* s01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s01.wav; path = Sounds/s01.wav; sourceTree = "<group>"; };
 		5BA6CAEF1A10E51B004AD41C /* s02.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s02.wav; path = Sounds/s02.wav; sourceTree = "<group>"; };
 		5BA6CAF01A10E51B004AD41C /* s03.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s03.wav; path = Sounds/s03.wav; sourceTree = "<group>"; };
@@ -536,7 +535,7 @@
 		5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCommentsViewController.m; path = Controllers/WLCommentsViewController/WLCommentsViewController.m; sourceTree = "<group>"; };
 		5BCC41901C4E40FC0047E7C2 /* WrapSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapSettingsViewController.swift; sourceTree = "<group>"; };
 		5BD529481BDA796000527077 /* SmartLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartLabel.swift; sourceTree = "<group>"; };
-		5BE7CD641C0D8781009A7617 /* WLEditingConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLEditingConfirmView.xib; path = WLConfirmView/WLEditingConfirmView.xib; sourceTree = "<group>"; };
+		5BE7CD641C0D8781009A7617 /* EditingConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditingConfirmView.xib; sourceTree = "<group>"; };
 		5BF1B2481A49A683000BB2C1 /* meWrapToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = meWrapToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF85BAE1B8C774C000215C9 /* icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icons.ttf; sourceTree = "<group>"; };
 		5BF9F9AA1C5F70670075402C /* HomeDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDataSource.swift; sourceTree = "<group>"; };
@@ -778,7 +777,7 @@
 		C5B91A461BB412A0000E08E7 /* WLUnreadMessagesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLUnreadMessagesView.xib; sourceTree = "<group>"; };
 		C5B91A491BB41343000E08E7 /* DownloadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DownloadingView.xib; path = WLDownloadingView/DownloadingView.xib; sourceTree = "<group>"; };
 		C5B91A4C1BB414E1000E08E7 /* WLHomeSwipeTransitionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLHomeSwipeTransitionView.xib; sourceTree = "<group>"; };
-		C5B91A5E1BB4177B000E08E7 /* WLConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLConfirmView.xib; path = WLConfirmView/WLConfirmView.xib; sourceTree = "<group>"; };
+		C5B91A5E1BB4177B000E08E7 /* ConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmView.xib; sourceTree = "<group>"; };
 		C5B993C31B302E73002BCC8C /* chat_presets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = chat_presets.plist; sourceTree = "<group>"; };
 		C5B993C41B302E73002BCC8C /* comment_presets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = comment_presets.plist; sourceTree = "<group>"; };
 		C5B9F9CB1BAD61B200B7D8F3 /* WLMessageWithNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLMessageWithNameCell.xib; sourceTree = "<group>"; };
@@ -1185,7 +1184,7 @@
 				12A8AA6E18F5919D00F67113 /* LoadingView */,
 				12E8FF1C18E9883700BF1B96 /* ComposeBar */,
 				12E8FF0718E960E000BF1B96 /* StreamView */,
-				5BA432AE1A3F3F5200B53BC7 /* WLConfirmView */,
+				5BA432AE1A3F3F5200B53BC7 /* ConfirmView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1323,15 +1322,14 @@
 			path = ../ShareExt;
 			sourceTree = "<group>";
 		};
-		5BA432AE1A3F3F5200B53BC7 /* WLConfirmView */ = {
+		5BA432AE1A3F3F5200B53BC7 /* ConfirmView */ = {
 			isa = PBXGroup;
 			children = (
-				5BA432A81A3F3F3D00B53BC7 /* WLConfirmView.h */,
-				5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */,
-				C5B91A5E1BB4177B000E08E7 /* WLConfirmView.xib */,
-				5BE7CD641C0D8781009A7617 /* WLEditingConfirmView.xib */,
+				5B1061331C610A1900496647 /* ConfirmView.swift */,
+				C5B91A5E1BB4177B000E08E7 /* ConfirmView.xib */,
+				5BE7CD641C0D8781009A7617 /* EditingConfirmView.xib */,
 			);
-			name = WLConfirmView;
+			path = ConfirmView;
 			sourceTree = "<group>";
 		};
 		5BA60BF71A8257ED000F795C /* Categories */ = {
@@ -2258,7 +2256,7 @@
 				C54D12CD1C4526B7009014FB /* LiveBroadcastViewerCell.xib in Resources */,
 				C5DA2FD71C2C0C7D00038352 /* AddressBookGroupView.xib in Resources */,
 				C552A8381BFDEA5E00A7FFAD /* MediaViews.xib in Resources */,
-				5BE7CD651C0D8781009A7617 /* WLEditingConfirmView.xib in Resources */,
+				5BE7CD651C0D8781009A7617 /* EditingConfirmView.xib in Resources */,
 				5B66B5B91C24696800451113 /* WrapCell.xib in Resources */,
 				C5C3FEA81B8F311500F177EC /* Default-736h@3x.png in Resources */,
 				C55189101B8F46C000D1327E /* WLContributorResendDoneCell.xib in Resources */,
@@ -2275,7 +2273,7 @@
 				C5BEC3851B8F099300499EEA /* WLContributorCell.xib in Resources */,
 				C57F7AEF1C1ECD5F00FFB465 /* test-users.plist in Resources */,
 				C54AF73719B8C491006F7EDB /* rings.plist in Resources */,
-				C5B91A601BB4177B000E08E7 /* WLConfirmView.xib in Resources */,
+				C5B91A601BB4177B000E08E7 /* ConfirmView.xib in Resources */,
 				C54AF73819B8C491006F7EDB /* smiles.plist in Resources */,
 				C5C3FEA41B8F311500F177EC /* Default-568h@2x.png in Resources */,
 				C5BEC3A71B8F16E800499EEA /* logo_and_caption_white.png in Resources */,
@@ -2486,6 +2484,7 @@
 				C55E53431C4FCD3B006ACF8F /* CaptureViewController.swift in Sources */,
 				C5E6F0231BFF38C200FA3D4F /* SwipeAction.swift in Sources */,
 				C530127D1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift in Sources */,
+				5B1061341C610A1900496647 /* ConfirmView.swift in Sources */,
 				C502B3141C47F2EC00F66EAE /* CommentNotification.swift in Sources */,
 				C51A521E1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */,
 				C5AA71D61BE3D39D00EA106A /* MutableAsset.swift in Sources */,
@@ -2599,7 +2598,6 @@
 				C523D8CE1BD775AC006FE7AB /* Country.swift in Sources */,
 				C5326F0C1C159279007A8BEF /* RunQueue.swift in Sources */,
 				C5F4E70F1C07687A00D2FC16 /* UIColor+Ext.swift in Sources */,
-				5BA432AD1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */,
 				C557B6DB1C22C0B00067631E /* SoundPlayer.swift in Sources */,
 				C5A406FE1C200A71007D1D0E /* CandyEnlargingPresenter.swift in Sources */,
 				C55766A61C0C913D00E94E09 /* EntryStatusIndicator.swift in Sources */,

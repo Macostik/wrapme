@@ -9,7 +9,6 @@
 #import "WLPhoneViewController.h"
 #import "WLCountriesViewController.h"
 #import "WLPhoneValidation.h"
-#import "WLConfirmView.h"
 
 @interface WLPhoneViewController () <UITextFieldDelegate, KeyboardNotifying>
 
@@ -73,7 +72,7 @@
 
 - (void)confirmAuthorization:(Authorization *)authorization success:(void (^)(Authorization *authorization))success {
     __weak typeof(self)weakSelf = self;
-    [WLConfirmView showInView:self.view authorization:authorization success:success cancel:^{
+    [ConfirmView showInView:self.view authorization:authorization success:success cancel:^{
         [weakSelf setStatus:WLSignupStepStatusCancel animated:NO];
     }];
 }

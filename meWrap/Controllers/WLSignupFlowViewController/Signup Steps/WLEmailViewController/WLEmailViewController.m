@@ -8,7 +8,6 @@
 
 #import "WLEmailViewController.h"
 #import "WLTestUserPicker.h"
-#import "WLConfirmView.h"
 
 @interface WLEmailViewController ()
 
@@ -49,7 +48,7 @@
 - (IBAction)useTestAccount:(id)sender {
     __weak typeof(self)weakSelf = self;
     [WLTestUserPicker showInView:self.view.window selection:^(Authorization *authorization) {
-        [WLConfirmView showInView:weakSelf.view authorization:authorization success:^(Authorization *authorization) {
+        [ConfirmView showInView:weakSelf.view authorization:authorization success:^(Authorization *authorization) {
             if (authorization.password.nonempty) {
                 [[authorization signIn] send:^(User *user) {
                     [[UIStoryboard main] present:NO];

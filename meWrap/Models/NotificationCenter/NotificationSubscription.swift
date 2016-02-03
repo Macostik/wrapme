@@ -71,8 +71,8 @@ class NotificationSubscription: NSObject {
     }
     
     func history(from: NSDate, to: NSDate, success: [[NSObject:AnyObject]] -> Void, failure: NSError? -> Void) {
-        let startDate = from.timestamp
-        let endDate = to.timestamp
+        let startDate = NSNumber(double: from.timestamp)
+        let endDate = NSNumber(double: to.timestamp)
         let pubnub = PubNub.sharedInstance
         if isGroup {
             pubnub.channelsForGroup(name, withCompletion: { (result, status) -> Void in

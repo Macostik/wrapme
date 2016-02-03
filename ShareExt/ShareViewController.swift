@@ -17,6 +17,7 @@ class ShareWrapCell : UITableViewCell {
     
     @IBOutlet weak var timeLabel: UILabel!
     
+    
 }
 
 class ShareViewController: UIViewController {
@@ -24,6 +25,7 @@ class ShareViewController: UIViewController {
     var wormhole = MMWormhole(applicationGroupIdentifier: "group.com.ravenpod.wraplive", optionalDirectory: "wormhole")
     
     @IBOutlet weak var tableView: UITableView!
+    var wraps: [ExtensionWrap]?
     
     deinit {
         tableView.removeObserver(self, forKeyPath: "contentSize", context: nil)
@@ -31,13 +33,14 @@ class ShareViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        wraps = NSUserDefaults.sharedUserDefaults?["allWraps"] as? [ExtensionWrap]
         tableView.addObserver(self, forKeyPath: "contentSize", options: .New, context: nil)
-        wormhole.messageWithIdentifier("recentUpdatesResponse")
-        wormhole.passMessageObject(nil, identifier: "allWrapsRequest")
         
         wormhole.listenForMessageWithIdentifier("allWrapsResponse", listener: {(messageObject) -> Void in
             print (">>self - \(messageObject)<<")
             })
+        wormhole.messageWithIdentifier("allWrapsResponse")
+        wormhole.passMessageObject(nil, identifier: "allWrapsRequest")
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -45,13 +48,11 @@ class ShareViewController: UIViewController {
             preferredContentSize = CGSize(width: 0.0, height: max(65, tableView.contentSize.height))
         }
     }
-    
 }
-
 
 extension ShareViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return wraps?.count ?? 0
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("wrapCell", forIndexPath: indexPath) as! ShareWrapCell

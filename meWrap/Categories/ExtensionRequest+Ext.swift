@@ -134,6 +134,16 @@ extension Contribution {
     }
 }
 
+extension Wrap {
+    func extensionWrap() -> ExtensionWrap {
+        let wrap = ExtensionWrap()
+        wrap.uid = uid ?? ""
+        wrap.name = self.name
+        wrap.lastCandy = self.asset?.small
+        return wrap
+    }
+}
+
 extension Candy {
     func extensionCandy(includeComments includeComments: Bool) -> ExtensionCandy {
         let candy = ExtensionCandy()

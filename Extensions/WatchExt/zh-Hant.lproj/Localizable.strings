@@ -16,7 +16,7 @@
 "formatted_calendar_units_ago" = "%.f%@%@前";
 "at" = "";
 "APNS_TT01" = "你已被邀請！";
-"APNS_MSG01" = "%@邀請你加入\"%@\"，一起分享當中樂趣。";
+"APNS_MSG01" = "%@邀請你加入\"%@\"，一起拼湊生活回憶。";
 "APNS_TT02" = "新相片";
 "APNS_MSG02" = "%@為\"%@\"添加了新相片。";
 "APNS_TT03" = "新回應";
@@ -24,10 +24,10 @@
 "APNS_TT04" = "新對話";
 "APNS_MSG04" = "%@:\"%@\"在\"%@\"上的對話";
 "APNS_TT05" = "修圖";
-"APNS_MSG05" = "%@剛修輯了相片。";
+"APNS_MSG05" = "%@添加了相片特效。";
 "APNS_TT06" = "meWrap有更新版本";
 "APNS_MSG06" = "meWrap有更新版本。現在就下載吧！";
 "APNS_TT07" = "新影片";
 "APNS_MSG07" = "%@為\"%@\"添加了新影片。";
-"APNS_TT08" = "Live Event";
-"APNS_MSG08" = "%@ is live: %@ (%@)";
+"APNS_TT08" = "現場直播";
+"APNS_MSG08" = "%@正在直播中: %@ (%@)";

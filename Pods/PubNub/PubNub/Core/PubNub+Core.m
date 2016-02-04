@@ -271,10 +271,6 @@ void pn_safe_property_write(dispatch_queue_t queue, dispatch_block_t block) {
     return self;
 }
 
-- (instancetype)copyWithConfiguration:(PNConfiguration *)configuration {
-    return [self copyWithConfiguration:configuration callbackQueue:self.callbackQueue completion:nil];
-}
-
 - (instancetype)copyWithConfiguration:(PNConfiguration *)configuration
                    completion:(void(^)(PubNub *client))block {
 

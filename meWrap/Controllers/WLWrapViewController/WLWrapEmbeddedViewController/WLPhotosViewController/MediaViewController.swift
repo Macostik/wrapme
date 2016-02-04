@@ -131,9 +131,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
             wrap.candies = []
         }
         
-        dataSource.liveBroadcasts = { [weak wrap] _ in
-            return wrap?.liveBroadcasts
-        }
+        dataSource.wrap = wrap
         let loader = IndexedStreamLoader(identifier: "MediaViews", index: 0)
         dataSource.liveBroadcastMetrics.loader = loader
         dataSource.liveBroadcastMetrics.selection = { [weak self] (item, broadcast) -> Void in

@@ -10,7 +10,7 @@ import Foundation
 
 class MediaDataSource: PaginatedStreamDataSource {
     
-    var liveBroadcasts: (Void -> [LiveBroadcast]?)?
+    weak var wrap: Wrap?
     
     var liveBroadcastMetrics = StreamMetrics { (metrics) -> Void in
         metrics.size = 70
@@ -23,7 +23,7 @@ class MediaDataSource: PaginatedStreamDataSource {
     
     override func streamView(streamView: StreamView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            return liveBroadcasts?()?.count ?? 0
+            return wrap?.liveBroadcasts.count ?? 0
         } else {
             return super.streamView(streamView, numberOfItemsInSection: section)
         }
@@ -41,7 +41,7 @@ class MediaDataSource: PaginatedStreamDataSource {
         let position = item.position
         if position.section == 0 {
             return { [weak self] _ in
-                return self?.liveBroadcasts?()?[position.index]
+                return self?.wrap?.liveBroadcasts[position.index]
             }
         } else {
             return super.streamView(streamView, entryBlockForItem: item)

@@ -330,7 +330,7 @@ void pn_safe_property_write(dispatch_queue_t queue, dispatch_block_t block) {
             block(client);
         });
     }
-    return self;
+    return client;
 }
 
 - (void)setRecentClientStatus:(PNStatusCategory)recentClientStatus {

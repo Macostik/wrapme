@@ -14,10 +14,6 @@ enum ValidationStatus {
     case Valid
 }
 
-@objc protocol ValidationDelegate {
-    func validationStatusChanged(validation: Validation)
-}
-
 class Validation: NSObject, UITextFieldDelegate {
     
     var reason: String?
@@ -28,11 +24,13 @@ class Validation: NSObject, UITextFieldDelegate {
             newValue.addTarget(self, action: "textFieldDidChange:", forControlEvents: .EditingChanged)
         }
     }
+    
     @IBOutlet weak var statusView: UIView! {
         didSet {
             updateStatusView(self.status ?? .Undefined)
         }
     }
+    
     var status: ValidationStatus = .Undefined {
         willSet {
             updateStatusView(newValue ?? .Undefined)
@@ -53,9 +51,8 @@ class Validation: NSObject, UITextFieldDelegate {
     
     func statusChanged(status: ValidationStatus) {
         updateStatusView(status)
-        delegate?.validationStatusChanged(self)
     }
-    
+
     func updateStatusView(status: ValidationStatus) {
         statusView?.userInteractionEnabled = status == .Valid
         statusView?.alpha = status == .Valid ? 1.0 : 0.5

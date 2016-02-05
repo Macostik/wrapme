@@ -132,7 +132,7 @@ class LiveViewController: WLBaseViewController {
     @IBAction func presentViewers(sender: AnyObject) {
         if let controller = storyboard?["broadcastViewers"] as? LiveBroadcastViewersViewController {
             controller.broadcast = broadcast
-            presentViewController(controller, animated: false, completion: nil)
+            addContainedViewController(controller, animated: false)
             viewersController = controller
         }
     }

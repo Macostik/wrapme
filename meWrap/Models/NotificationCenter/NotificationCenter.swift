@@ -266,7 +266,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
         guard data.presence.uuid != User.channelName() else { return }
         guard let wrap = Wrap.entry(data.actualChannel) else { return }
         guard let state = data.presence?.state else { return }
-        guard let user = User.entry(state["userUid"] as? String) else { return }
+        guard let user = PubNub.userFromUUID(data.presence.uuid) else { return }
         if data.presenceEvent == "state-change" {
             user.fetchIfNeeded({ _ in
                 if let streamName = state["streamName"] as? String {
@@ -297,9 +297,9 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
     private func liveBroadcastsFromUUIDs(uuids: [[String:AnyObject]], wrap: Wrap) -> [LiveBroadcast] {
         var broadcasts = [LiveBroadcast]()
         for uuid in uuids {
-            guard (uuid["uuid"] as? String) != User.channelName() else { continue }
+            guard let uid = uuid["uuid"] as? String where uid != User.channelName() else { continue }
             guard let state = uuid["state"] as? [String:AnyObject] else { continue }
-            guard let user = User.entry(state["userUid"] as? String) else { continue }
+            guard let user = PubNub.userFromUUID(uid) else { continue }
             guard let streamName = state["streamName"] as? String else { continue }
             let broadcast = LiveBroadcast()
             broadcast.broadcaster = user

@@ -41,8 +41,7 @@ class LiveBroadcasterViewController: LiveViewController {
     
     var userState = [NSObject:AnyObject]() {
         didSet {
-            if let channel = wrap?.uid, let uuid = User.currentUser?.uid {
-                userState["userUid"] = uuid
+            if let channel = wrap?.uid {
                 NotificationCenter.defaultCenter.userSubscription.changeState(userState, channel: channel)
             }
         }

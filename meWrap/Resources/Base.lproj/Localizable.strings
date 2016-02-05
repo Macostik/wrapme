@@ -268,8 +268,8 @@
 "sign_up_pending" = "Sign up pending";
 "welcome" = "Welcome to meWrap!";
 "let's_get_started" = "Let's get started";
-"your_broadcast_is_live" = "Your broadcast is now live.";
-"formatted_broadcast_notification" = "Your friends in \"%@\" are now receiving notification about your broadcast.";
+"your_broadcast_is_live" = "Your broadcast is LIVE.";
+"formatted_broadcast_notification" = "Friends in \"%@\" notified.";
 "formatted_broadcast_end" = "%@ has ended the broadcast.";
 "easy_create_wrap" = "meWrap makes it surprisingly easy to create a wrap.";
 "live" = "LIVE";

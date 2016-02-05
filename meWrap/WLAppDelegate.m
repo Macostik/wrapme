@@ -70,12 +70,12 @@
         [self.wormhole passMessageObject:@"string" identifier:@"allWrapsResponse"];
     }];
     
-//    __block NSMutableArray *wraps = [NSMutableArray array];
-//    [[[User currentUser] wraps] enumerateObjectsUsingBlock:^(Wrap * _Nonnull wrap, BOOL * _Nonnull stop) {
-//         [wraps addObject:[[wrap extensionWrap] toDictionary]];
-//    }];
-//    [[NSUserDefaults sharedUserDefaults] setObject:wraps forKey:@"allWraps"];
-//    [[NSUserDefaults sharedUserDefaults] synchronize];
+    __block NSMutableArray *wraps = [NSMutableArray array];
+    [[[User currentUser] wraps] enumerateObjectsUsingBlock:^(Wrap * _Nonnull wrap, BOOL * _Nonnull stop) {
+         [wraps addObject:[[wrap extensionWrap] toDictionary]];
+    }];
+    [[NSUserDefaults sharedUserDefaults] setObject:wraps forKey:@"allWraps"];
+    [[NSUserDefaults sharedUserDefaults] synchronize];
     
 	return YES;
 }

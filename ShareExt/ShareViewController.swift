@@ -17,7 +17,10 @@ class ShareWrapCell : UITableViewCell {
     
     @IBOutlet weak var timeLabel: UILabel!
     
-    
+    func setup() {
+        pictureView = 
+        
+    }
 }
 
 class ShareViewController: UIViewController {
@@ -25,7 +28,7 @@ class ShareViewController: UIViewController {
     var wormhole = MMWormhole(applicationGroupIdentifier: "group.com.ravenpod.wraplive", optionalDirectory: "wormhole")
     
     @IBOutlet weak var tableView: UITableView!
-    var wraps: [ExtensionWrap]?
+    var wraps: [NSDictionary]?
     
     deinit {
         tableView.removeObserver(self, forKeyPath: "contentSize", context: nil)
@@ -33,7 +36,7 @@ class ShareViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        wraps = NSUserDefaults.sharedUserDefaults?["allWraps"] as? [ExtensionWrap]
+        wraps = NSUserDefaults.sharedUserDefaults?["allWraps"] as? [NSDictionary]
         tableView.addObserver(self, forKeyPath: "contentSize", options: .New, context: nil)
         
         wormhole.listenForMessageWithIdentifier("allWrapsResponse", listener: {(messageObject) -> Void in

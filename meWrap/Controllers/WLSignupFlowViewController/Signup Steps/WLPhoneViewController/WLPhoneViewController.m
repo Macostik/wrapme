@@ -8,7 +8,6 @@
 
 #import "WLPhoneViewController.h"
 #import "WLCountriesViewController.h"
-#import "WLPhoneValidation.h"
 
 @interface WLPhoneViewController () <UITextFieldDelegate, KeyboardNotifying>
 
@@ -19,7 +18,7 @@
 
 @property (strong, nonatomic) Country *country;
 
-@property (strong, nonatomic) IBOutlet WLPhoneValidation *validation;
+@property (strong, nonatomic) IBOutlet PhoneValidation *validation;
 
 @end
 

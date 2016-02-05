@@ -142,13 +142,6 @@ class LiveViewController: WLBaseViewController {
     }
 }
 
-extension LiveViewController: WLComposeBarDelegate {
-    
-    func composeBarDidShouldResignOnFinish(composeBar: WLComposeBar!) -> Bool {
-        return true
-    }
-}
-
 extension LiveViewController: EntryNotifying {
     
     internal func wrapLiveBroadcastsUpdated() { }

@@ -86,7 +86,6 @@ class LiveViewerViewController: LiveViewController {
     }
     
     @IBAction func sendMessage(sender: AnyObject?) {
-        composeBar.resignFirstResponder()
         if let text = composeBar.text, let uuid = User.currentUser?.uid where !text.isEmpty {
             chatSubscription?.send([
                 "content" : text,

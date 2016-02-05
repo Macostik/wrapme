@@ -9,7 +9,6 @@
 #import "WLAppDelegate.h"
 #import "WLHomeViewController.h"
 #import "iVersion.h"
-#import "WLSignupFlowViewController.h"
 #import "GAI.h"
 #import <NewRelicAgent/NewRelic.h>
 #import "WLWrapViewController.h"
@@ -113,14 +112,14 @@
         } else {
             [Logger log:[NSString stringWithFormat:@"INITIAL SIGN IN - sign up is not completed, redirecting to profile step"]];
             UINavigationController *navigation = [[UIStoryboard signUp] instantiateInitialViewController];
-            WLSignupFlowViewController *signupFlowViewController = (id)navigation.storyboard [@"WLSignupFlowViewController"];
+            SignupFlowViewController *signupFlowViewController = (id)navigation.storyboard [@"signupFlow"];
             signupFlowViewController.registrationNotCompleted = YES;
             navigation.viewControllers = @[signupFlowViewController];
             [UIWindow mainWindow].rootViewController = navigation;
         }
     };
 
-    Authorization* authorization = [Authorization currentAuthorization];
+    Authorization* authorization = [Authorization current];
     if ([authorization canAuthorize]) {
         if (!self.versionChanged && ![Authorization requiresSignIn]) {
             User *currentUser = [User currentUser];
@@ -286,8 +285,8 @@
     if (network.reachable) {
         if ([Authorization active]) {
             [[Uploader wrapUploader] start];
-        } else if ([[Authorization currentAuthorization] canAuthorize]) {
-            [[[Authorization currentAuthorization] signIn] send];
+        } else if ([[Authorization current] canAuthorize]) {
+            [[[Authorization current] signIn] send];
         }
     }
 }

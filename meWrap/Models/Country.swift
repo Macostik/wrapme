@@ -47,17 +47,12 @@ class Country: NSObject {
         return countries
     }
     
-    static var getCurrentCountry: Country? {
-        var code = Telephony.countryCode
-        if code == nil {
-            code = NSLocale.currentLocale().objectForKey(NSLocaleCountryCode)?.lowercaseString
-        }
+    class func currentCountry() -> Country {
+        let code = Telephony.countryCode ?? NSLocale.currentLocale().objectForKey(NSLocaleCountryCode)?.lowercaseString
         let countries = Country.allCountries
-        for country in countries {
-            if country.code?.lowercaseString == code {
-                return country;
-            }
+        for country in countries where country.code?.lowercaseString == code {
+            return country
         }
-        return countries.first
+        return countries.first!
     }
 }

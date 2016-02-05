@@ -63,7 +63,7 @@ extension Entry {
 extension User {
     
     class func channelName() -> String {
-        return "\(User.currentUser?.uid ?? "")-\(Authorization.currentAuthorization.deviceUID ?? "")"
+        return "\(User.currentUser?.uid ?? "")-\(Authorization.current.deviceUID ?? "")"
     }
     
     override func fetched() -> Bool {

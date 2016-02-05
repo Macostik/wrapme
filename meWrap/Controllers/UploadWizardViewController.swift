@@ -70,11 +70,10 @@ class UploadWizardViewController: WLBaseViewController {
     
     @IBAction func presentCamera(sender: AnyObject) {
         if let wrap = defaultWrap() {
-            if let controller = CaptureViewController.captureMediaViewController(wrap) {
-                controller.createdWraps = [wrap]
-                controller.captureDelegate = self
-                presentViewController(controller, animated: true, completion: nil)
-            }
+            let controller = CaptureViewController.captureMediaViewController(wrap)
+            controller.createdWraps = [wrap]
+            controller.captureDelegate = self
+            presentViewController(controller, animated: true, completion: nil)
         }
         
     }

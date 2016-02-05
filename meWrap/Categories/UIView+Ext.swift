@@ -12,12 +12,12 @@ extension UIView {
     
     // MARK: - Regular Animation
     
-    class func performAnimated(animated: Bool, animation:((Void) -> (Void))?) {
+    class func performAnimated( animated: Bool, @noescape animation: Void -> Void) {
         if animated {
             UIView.beginAnimations(nil, context: nil)
             UIView.setAnimationBeginsFromCurrentState(true)
         }
-        animation?()
+        animation()
         if animated {
             UIView.commitAnimations()
         }

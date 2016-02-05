@@ -333,7 +333,7 @@ extension Candy {
 
         var metadata = [
             "Accept" : "application/vnd.ravenpod+json;version=\(Environment.currentEnvironment.version)",
-            Keys.UID.Device : Authorization.currentAuthorization.deviceUID ?? "",
+            Keys.UID.Device : Authorization.current.deviceUID ?? "",
             Keys.UID.User : contributor?.uid ?? "",
             Keys.UID.Wrap : wrap?.uid ?? "",
             Keys.UID.Upload : locuid ?? "",
@@ -358,7 +358,7 @@ extension Candy {
         
         let metadata = [
             "Accept" : "application/vnd.ravenpod+json;version=\(Environment.currentEnvironment.version)",
-            Keys.UID.Device : Authorization.currentAuthorization.deviceUID ?? "",
+            Keys.UID.Device : Authorization.current.deviceUID ?? "",
             Keys.UID.User : User.currentUser?.uid ?? "",
             Keys.UID.Wrap : wrap?.uid ?? "",
             Keys.UID.Candy : uid,

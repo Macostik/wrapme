@@ -221,8 +221,8 @@ class APIRequest: NSObject {
     }
     
     private func reauthorize(error: NSError?) {
-        if Authorization.currentAuthorization.canAuthorize {
-            Authorization.currentAuthorization.signIn().send({ (_) -> Void in
+        if Authorization.current.canAuthorize {
+            Authorization.current.signIn().send({ (_) -> Void in
                 self.enqueue()
                 }, failure: { (error) -> Void in
                     if !(error?.isNetworkError ?? true) {

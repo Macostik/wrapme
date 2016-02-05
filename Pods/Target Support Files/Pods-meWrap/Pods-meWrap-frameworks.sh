@@ -92,6 +92,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-meWrap/LogEntries.framework"
   install_framework "Pods-meWrap/OpenUDID.framework"
   install_framework "Pods-meWrap/PubNub.framework"
+  install_framework "Pods-meWrap/SnapKit.framework"
   install_framework "Pods-meWrap/libPhoneNumber_iOS.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -103,6 +104,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-meWrap/LogEntries.framework"
   install_framework "Pods-meWrap/OpenUDID.framework"
   install_framework "Pods-meWrap/PubNub.framework"
+  install_framework "Pods-meWrap/SnapKit.framework"
   install_framework "Pods-meWrap/libPhoneNumber_iOS.framework"
 fi
 if [[ "$CONFIGURATION" == "AdHoc" ]]; then
@@ -114,5 +116,6 @@ if [[ "$CONFIGURATION" == "AdHoc" ]]; then
   install_framework "Pods-meWrap/LogEntries.framework"
   install_framework "Pods-meWrap/OpenUDID.framework"
   install_framework "Pods-meWrap/PubNub.framework"
+  install_framework "Pods-meWrap/SnapKit.framework"
   install_framework "Pods-meWrap/libPhoneNumber_iOS.framework"
 fi

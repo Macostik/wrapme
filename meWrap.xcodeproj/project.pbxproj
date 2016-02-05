@@ -13,16 +13,11 @@
 		5B1D045B1BFCE16C00263102 /* SlideInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1D045A1BFCE16C00263102 /* SlideInteractiveTransition.swift */; };
 		5B1DD0371BD7B67000D30E1A /* InternalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */; };
 		5B211FB21C087137000EC3DB /* (null) in Resources */ = {isa = PBXBuildFile; };
-		5B289D371C633E850047921F /* TextFieldValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B289D361C633E850047921F /* TextFieldValidation.swift */; };
-		5B289D391C6388D00047921F /* EmailValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B289D381C6388D00047921F /* EmailValidation.swift */; };
 		5B2C97CB1C46610E00FAED6A /* VolumeChangeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C97CA1C46610E00FAED6A /* VolumeChangeObserver.swift */; };
 		5B2FB96A1C5B501A001C4385 /* BadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB9691C5B501A001C4385 /* BadgeLabel.swift */; };
 		5B2FB96C1C5B71C8001C4385 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96B1C5B71C8001C4385 /* TextField.swift */; };
 		5B2FB96E1C5B8513001C4385 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96D1C5B8513001C4385 /* TextView.swift */; };
 		5B2FB9701C5BA958001C4385 /* ComposeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96F1C5BA958001C4385 /* ComposeBar.swift */; };
-		5B312E751C63951D0060F8A3 /* PhoneValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B312E741C63951D0060F8A3 /* PhoneValidation.swift */; };
-		5B312E761C639B310060F8A3 /* ValidationGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B312E701C638E6D0060F8A3 /* ValidationGroup.swift */; };
-		5B312E771C639B3B0060F8A3 /* PasscodeValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B312E6E1C638C540060F8A3 /* PasscodeValidation.swift */; };
 		5B31A7871C56620D002E1A2A /* ChangeProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */; };
 		5B37C75E1C5A06E30068E693 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37C75D1C5A06E30068E693 /* Button.swift */; };
 		5B37C7601C5A3C9F0068E693 /* HintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37C75F1C5A3C9F0068E693 /* HintView.swift */; };
@@ -34,7 +29,6 @@
 		5BA4F8831A1CA08A00DB1A25 /* s02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* s02.wav */; };
 		5BA6AA451A66779E00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
 		5BA7AC241A7916AB00BB922E /* WLCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */; };
-		5BAF17AF1C6252C100D33026 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAF17AE1C6252C100D33026 /* Validation.swift */; };
 		5BCC41911C4E40FC0047E7C2 /* WrapSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCC41901C4E40FC0047E7C2 /* WrapSettingsViewController.swift */; };
 		5BD529491BDA796000527077 /* SmartLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD529481BDA796000527077 /* SmartLabel.swift */; };
 		5BE7CD651C0D8781009A7617 /* EditingConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE7CD641C0D8781009A7617 /* EditingConfirmView.xib */; };
@@ -92,6 +86,7 @@
 		C52279661BECCE8A00B1C49C /* NSDate+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52279651BECCE8A00B1C49C /* NSDate+Formatting.swift */; };
 		C523D8CA1BD76BC0006FE7AB /* LayoutPrioritizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C523D8C91BD76BC0006FE7AB /* LayoutPrioritizer.swift */; };
 		C523D8CE1BD775AC006FE7AB /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C523D8CD1BD775AC006FE7AB /* Country.swift */; };
+		C52462771C63CA020097AF45 /* SignupFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52462761C63CA020097AF45 /* SignupFlowViewController.swift */; };
 		C52500581C1F1F8200CF8F9D /* HistoryItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52500571C1F1F8200CF8F9D /* HistoryItemViewController.swift */; };
 		C525005A1C1F1FCB00CF8F9D /* FollowingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52500591C1F1FCB00CF8F9D /* FollowingViewController.swift */; };
 		C525005C1C1F1FD500CF8F9D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C525005B1C1F1FD500CF8F9D /* SettingsViewController.swift */; };
@@ -135,9 +130,6 @@
 		C53CD24D1C1706B600AA4746 /* CandyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C53CD24B1C1706B600AA4746 /* CandyCell.xib */; };
 		C540C0F01B988BF700F880C9 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540C0EE1B988BF700F880C9 /* GridLayout.swift */; };
 		C540C0F31B988BFD00F880C9 /* StreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540C0F11B988BFD00F880C9 /* StreamItem.swift */; };
-		C545312D1A24A1F20048A677 /* WLCountriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54531261A24A1F20048A677 /* WLCountriesViewController.m */; };
-		C54531311A24A1F20048A677 /* WLCountryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C54531291A24A1F20048A677 /* WLCountryCell.m */; };
-		C54531381A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54531341A24D6750048A677 /* WLLinkDeviceViewController.m */; };
 		C54604D21C08C5D800FB2303 /* NSObject+NibLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54604D11C08C5D800FB2303 /* NSObject+NibLoading.swift */; };
 		C54604E41C08C6DF00FB2303 /* meWrapWatchExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C54604E31C08C6DF00FB2303 /* meWrapWatchExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C54604FD1C08C71700FB2303 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC7C1B9432920084D0F5 /* Interface.storyboard */; };
@@ -207,7 +199,6 @@
 		C557B6DE1C22F5980067631E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557B6DD1C22F5980067631E /* Logger.swift */; };
 		C558710E1C48F63500F09E58 /* NotificationSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = C558710D1C48F63500F09E58 /* NotificationSubscription.swift */; };
 		C55871101C4910B500F09E58 /* DownloadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C558710F1C4910B500F09E58 /* DownloadingView.swift */; };
-		C559974C1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
 		C55A451A1BAC18580055AEC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C55A451C1BAC18580055AEC2 /* Localizable.strings */; };
 		C55BE8C31C03062C006B04FC /* NSObject+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BE8C21C03062C006B04FC /* NSObject+Ext.swift */; };
 		C55BE8C71C031BA6006B04FC /* ExtensionRequest+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BE8C61C031BA6006B04FC /* ExtensionRequest+Ext.swift */; };
@@ -255,7 +246,6 @@
 		C5AEE44B1B3AE770000C8CCF /* WLColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4461B3AE770000C8CCF /* WLColorPicker.m */; };
 		C5B4E5681BF60E0300A4B223 /* PHPhotoLibrary+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B4E5671BF60E0300A4B223 /* PHPhotoLibrary+Ext.swift */; };
 		C5B51FE21BFB504D005A1CF6 /* UIAlertController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B51FE11BFB504D005A1CF6 /* UIAlertController+Ext.swift */; };
-		C5B681261B835ABD00BEE613 /* WLCountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B681241B835ABD00BEE613 /* WLCountryCell.xib */; };
 		C5B8F71A1B82161500A5E541 /* WLDrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B8F7181B82161500A5E541 /* WLDrawingViewController.m */; };
 		C5B8F7201B82172D00A5E541 /* WLDrawingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B8F71E1B82172D00A5E541 /* WLDrawingViewController.xib */; };
 		C5B91A361BB3F812000E08E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A341BB3F812000E08E7 /* Main.storyboard */; };
@@ -284,15 +274,6 @@
 		C5BFE4D31B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BFE4CE1B4FD930004B655E /* WLWrapEmbeddedViewController.m */; };
 		C5C0AFA31B99CF1F00B8B242 /* StreamReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C0AFA11B99CF1F00B8B242 /* StreamReusableView.m */; };
 		C5C1273A1C10A46E002FD9AB /* LiveBroadcastEventViews.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5C127391C10A46E002FD9AB /* LiveBroadcastEventViews.xib */; };
-		C5C20BCC1A239D6F008B2E2E /* WLActivationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BB61A239D6F008B2E2E /* WLActivationViewController.m */; };
-		C5C20BD01A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BB81A239D6F008B2E2E /* WLSignupStepViewController.m */; };
-		C5C20BD41A239D6F008B2E2E /* WLEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BBB1A239D6F008B2E2E /* WLEmailViewController.m */; };
-		C5C20BD81A239D6F008B2E2E /* WLPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BBE1A239D6F008B2E2E /* WLPhoneViewController.m */; };
-		C5C20BDC1A239D6F008B2E2E /* WLTestUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC01A239D6F008B2E2E /* WLTestUserCell.m */; };
-		C5C20BE01A239D6F008B2E2E /* WLTestUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5C20BC11A239D6F008B2E2E /* WLTestUserCell.xib */; };
-		C5C20BE41A239D6F008B2E2E /* WLTestUserPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC31A239D6F008B2E2E /* WLTestUserPicker.m */; };
-		C5C20BE81A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC61A239D6F008B2E2E /* WLProfileInformationViewController.m */; };
-		C5C20BEC1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */; };
 		C5C3FEA41B8F311500F177EC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE951B8F311500F177EC /* Default-568h@2x.png */; };
 		C5C3FEA81B8F311500F177EC /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE991B8F311500F177EC /* Default-736h@3x.png */; };
 		C5C3FEAA1B8F311500F177EC /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE9B1B8F311500F177EC /* Default@2x.png */; };
@@ -354,6 +335,17 @@
 		C5ECD55C1BF64A41005791B1 /* RecentUpdatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557BA801BF5D47900AE9974 /* RecentUpdatesViewController.swift */; };
 		C5EE45A41C01C4A2008DE8D6 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EE45A31C01C4A2008DE8D6 /* UIImage+Ext.swift */; };
 		C5EE45A61C01D350008DE8D6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EE45A51C01D350008DE8D6 /* Constants.swift */; };
+		C5F11E501C64A21C001C2486 /* ActivationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E461C64A21C001C2486 /* ActivationViewController.swift */; };
+		C5F11E511C64A21C001C2486 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E471C64A21C001C2486 /* EmailViewController.swift */; };
+		C5F11E521C64A21C001C2486 /* PhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E481C64A21C001C2486 /* PhoneViewController.swift */; };
+		C5F11E531C64A21C001C2486 /* CountriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E491C64A21C001C2486 /* CountriesViewController.swift */; };
+		C5F11E541C64A21C001C2486 /* CountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5F11E4A1C64A21C001C2486 /* CountryCell.xib */; };
+		C5F11E551C64A21C001C2486 /* TestUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5F11E4B1C64A21C001C2486 /* TestUserCell.xib */; };
+		C5F11E561C64A21C001C2486 /* TestUserPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E4C1C64A21C001C2486 /* TestUserPicker.swift */; };
+		C5F11E571C64A21C001C2486 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E4D1C64A21C001C2486 /* EditProfileViewController.swift */; };
+		C5F11E581C64A21C001C2486 /* LinkDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E4E1C64A21C001C2486 /* LinkDeviceViewController.swift */; };
+		C5F11E591C64A21C001C2486 /* SignupStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E4F1C64A21C001C2486 /* SignupStepViewController.swift */; };
+		C5F11E5B1C64B8FC001C2486 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E5A1C64B8FC001C2486 /* Validation.swift */; };
 		C5F3AC3A1C0335230053EE70 /* EntryDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F0766B1BE2A97900021FAE /* EntryDescriptor.swift */; };
 		C5F44FED1C5CB9780049215D /* UploadSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F44FE61C5CB9780049215D /* UploadSummaryViewController.swift */; };
 		C5F44FEE1C5CB9780049215D /* EditAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5F44FE81C5CB9780049215D /* EditAssetCell.xib */; };
@@ -470,16 +462,11 @@
 		5B1061331C610A1900496647 /* ConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmView.swift; sourceTree = "<group>"; };
 		5B1D045A1BFCE16C00263102 /* SlideInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInteractiveTransition.swift; sourceTree = "<group>"; };
 		5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalScrollView.swift; sourceTree = "<group>"; };
-		5B289D361C633E850047921F /* TextFieldValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextFieldValidation.swift; path = Validation/TextFieldValidation.swift; sourceTree = "<group>"; };
-		5B289D381C6388D00047921F /* EmailValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmailValidation.swift; path = Validation/EmailValidation.swift; sourceTree = "<group>"; };
 		5B2C97CA1C46610E00FAED6A /* VolumeChangeObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeChangeObserver.swift; sourceTree = "<group>"; };
 		5B2FB9691C5B501A001C4385 /* BadgeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeLabel.swift; sourceTree = "<group>"; };
 		5B2FB96B1C5B71C8001C4385 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		5B2FB96D1C5B8513001C4385 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		5B2FB96F1C5BA958001C4385 /* ComposeBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBar.swift; sourceTree = "<group>"; };
-		5B312E6E1C638C540060F8A3 /* PasscodeValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PasscodeValidation.swift; path = Validation/PasscodeValidation.swift; sourceTree = "<group>"; };
-		5B312E701C638E6D0060F8A3 /* ValidationGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidationGroup.swift; path = Validation/ValidationGroup.swift; sourceTree = "<group>"; };
-		5B312E741C63951D0060F8A3 /* PhoneValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneValidation.swift; sourceTree = "<group>"; };
 		5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeProfileViewController.swift; sourceTree = "<group>"; };
 		5B37C75D1C5A06E30068E693 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		5B37C75F1C5A3C9F0068E693 /* HintView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HintView.swift; path = meWrap/Views/HintView/HintView.swift; sourceTree = SOURCE_ROOT; };
@@ -511,7 +498,6 @@
 		5BA6CAF11A10E51B004AD41C /* s04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s04.wav; path = Sounds/s04.wav; sourceTree = "<group>"; };
 		5BA7AC1F1A7916AB00BB922E /* WLCommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCommentsViewController.h; path = Controllers/WLCommentsViewController/WLCommentsViewController.h; sourceTree = "<group>"; };
 		5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCommentsViewController.m; path = Controllers/WLCommentsViewController/WLCommentsViewController.m; sourceTree = "<group>"; };
-		5BAF17AE1C6252C100D33026 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Validation.swift; path = Validation/Validation.swift; sourceTree = "<group>"; };
 		5BCC41901C4E40FC0047E7C2 /* WrapSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapSettingsViewController.swift; sourceTree = "<group>"; };
 		5BD529481BDA796000527077 /* SmartLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartLabel.swift; sourceTree = "<group>"; };
 		5BE7CD641C0D8781009A7617 /* EditingConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditingConfirmView.xib; sourceTree = "<group>"; };
@@ -585,6 +571,7 @@
 		C52279651BECCE8A00B1C49C /* NSDate+Formatting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Formatting.swift"; sourceTree = "<group>"; };
 		C523D8C91BD76BC0006FE7AB /* LayoutPrioritizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LayoutPrioritizer.swift; path = meWrap/Models/LayoutPrioritizer.swift; sourceTree = SOURCE_ROOT; };
 		C523D8CD1BD775AC006FE7AB /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		C52462761C63CA020097AF45 /* SignupFlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupFlowViewController.swift; sourceTree = "<group>"; };
 		C52500571C1F1F8200CF8F9D /* HistoryItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItemViewController.swift; sourceTree = "<group>"; };
 		C52500591C1F1FCB00CF8F9D /* FollowingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingViewController.swift; sourceTree = "<group>"; };
 		C525005B1C1F1FD500CF8F9D /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -623,12 +610,6 @@
 		C53CD24B1C1706B600AA4746 /* CandyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CandyCell.xib; path = WLWrapViewController/CandyCell.xib; sourceTree = "<group>"; };
 		C540C0EE1B988BF700F880C9 /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		C540C0F11B988BFD00F880C9 /* StreamItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamItem.swift; sourceTree = "<group>"; };
-		C54531251A24A1F20048A677 /* WLCountriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCountriesViewController.h; sourceTree = "<group>"; };
-		C54531261A24A1F20048A677 /* WLCountriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCountriesViewController.m; sourceTree = "<group>"; };
-		C54531281A24A1F20048A677 /* WLCountryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCountryCell.h; sourceTree = "<group>"; };
-		C54531291A24A1F20048A677 /* WLCountryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCountryCell.m; sourceTree = "<group>"; };
-		C54531331A24D6750048A677 /* WLLinkDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLinkDeviceViewController.h; path = WLLinkDeviceViewController/WLLinkDeviceViewController.h; sourceTree = "<group>"; };
-		C54531341A24D6750048A677 /* WLLinkDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLLinkDeviceViewController.m; path = WLLinkDeviceViewController/WLLinkDeviceViewController.m; sourceTree = "<group>"; };
 		C54604D11C08C5D800FB2303 /* NSObject+NibLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+NibLoading.swift"; sourceTree = "<group>"; };
 		C54604D71C08C6DF00FB2303 /* meWrapWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = meWrapWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54604E31C08C6DF00FB2303 /* meWrapWatchExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = meWrapWatchExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -663,8 +644,6 @@
 		C557BA801BF5D47900AE9974 /* RecentUpdatesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentUpdatesViewController.swift; sourceTree = "<group>"; };
 		C558710D1C48F63500F09E58 /* NotificationSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSubscription.swift; sourceTree = "<group>"; };
 		C558710F1C4910B500F09E58 /* DownloadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadingView.swift; path = DownloadingView/DownloadingView.swift; sourceTree = "<group>"; };
-		C55997471A25EABE003D4B29 /* WLEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEmailConfirmationViewController.h; sourceTree = "<group>"; };
-		C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEmailConfirmationViewController.m; sourceTree = "<group>"; };
 		C55A45151BAC17CF0055AEC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C55A451B1BAC18580055AEC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C55A451E1BAC185A0055AEC2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -738,7 +717,6 @@
 		C5B19DA91BC3C0AC00EB5353 /* exportAppStore.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = exportAppStore.plist; sourceTree = "<group>"; };
 		C5B4E5671BF60E0300A4B223 /* PHPhotoLibrary+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PHPhotoLibrary+Ext.swift"; sourceTree = "<group>"; };
 		C5B51FE11BFB504D005A1CF6 /* UIAlertController+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Ext.swift"; sourceTree = "<group>"; };
-		C5B681241B835ABD00BEE613 /* WLCountryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCountryCell.xib; sourceTree = "<group>"; };
 		C5B8F7171B82161500A5E541 /* WLDrawingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDrawingViewController.h; sourceTree = "<group>"; };
 		C5B8F7181B82161500A5E541 /* WLDrawingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDrawingViewController.m; sourceTree = "<group>"; };
 		C5B8F71E1B82172D00A5E541 /* WLDrawingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLDrawingViewController.xib; sourceTree = "<group>"; };
@@ -785,23 +763,6 @@
 		C5C0AFA01B99CF1F00B8B242 /* StreamReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamReusableView.h; sourceTree = "<group>"; };
 		C5C0AFA11B99CF1F00B8B242 /* StreamReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamReusableView.m; sourceTree = "<group>"; };
 		C5C127391C10A46E002FD9AB /* LiveBroadcastEventViews.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveBroadcastEventViews.xib; sourceTree = "<group>"; };
-		C5C20BB51A239D6F008B2E2E /* WLActivationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLActivationViewController.h; sourceTree = "<group>"; };
-		C5C20BB61A239D6F008B2E2E /* WLActivationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLActivationViewController.m; sourceTree = "<group>"; };
-		C5C20BB71A239D6F008B2E2E /* WLSignupStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSignupStepViewController.h; sourceTree = "<group>"; };
-		C5C20BB81A239D6F008B2E2E /* WLSignupStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignupStepViewController.m; sourceTree = "<group>"; };
-		C5C20BBA1A239D6F008B2E2E /* WLEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEmailViewController.h; sourceTree = "<group>"; };
-		C5C20BBB1A239D6F008B2E2E /* WLEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEmailViewController.m; sourceTree = "<group>"; };
-		C5C20BBD1A239D6F008B2E2E /* WLPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPhoneViewController.h; sourceTree = "<group>"; };
-		C5C20BBE1A239D6F008B2E2E /* WLPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPhoneViewController.m; sourceTree = "<group>"; };
-		C5C20BBF1A239D6F008B2E2E /* WLTestUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTestUserCell.h; sourceTree = "<group>"; };
-		C5C20BC01A239D6F008B2E2E /* WLTestUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTestUserCell.m; sourceTree = "<group>"; };
-		C5C20BC11A239D6F008B2E2E /* WLTestUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLTestUserCell.xib; sourceTree = "<group>"; };
-		C5C20BC21A239D6F008B2E2E /* WLTestUserPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTestUserPicker.h; sourceTree = "<group>"; };
-		C5C20BC31A239D6F008B2E2E /* WLTestUserPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTestUserPicker.m; sourceTree = "<group>"; };
-		C5C20BC51A239D6F008B2E2E /* WLProfileInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLProfileInformationViewController.h; sourceTree = "<group>"; };
-		C5C20BC61A239D6F008B2E2E /* WLProfileInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLProfileInformationViewController.m; sourceTree = "<group>"; };
-		C5C20BC71A239D6F008B2E2E /* WLSignupFlowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSignupFlowViewController.h; sourceTree = "<group>"; };
-		C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignupFlowViewController.m; sourceTree = "<group>"; };
 		C5C3FE961B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
 		C5C3FE9A1B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-736h@3x.png"; sourceTree = "<group>"; };
 		C5C3FE9C1B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default@2x.png"; sourceTree = "<group>"; };
@@ -866,6 +827,17 @@
 		C5EE45A31C01C4A2008DE8D6 /* UIImage+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		C5EE45A51C01D350008DE8D6 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C5F0766B1BE2A97900021FAE /* EntryDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDescriptor.swift; sourceTree = "<group>"; };
+		C5F11E461C64A21C001C2486 /* ActivationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivationViewController.swift; sourceTree = "<group>"; };
+		C5F11E471C64A21C001C2486 /* EmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
+		C5F11E481C64A21C001C2486 /* PhoneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneViewController.swift; sourceTree = "<group>"; };
+		C5F11E491C64A21C001C2486 /* CountriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesViewController.swift; sourceTree = "<group>"; };
+		C5F11E4A1C64A21C001C2486 /* CountryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CountryCell.xib; sourceTree = "<group>"; };
+		C5F11E4B1C64A21C001C2486 /* TestUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestUserCell.xib; sourceTree = "<group>"; };
+		C5F11E4C1C64A21C001C2486 /* TestUserPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUserPicker.swift; sourceTree = "<group>"; };
+		C5F11E4D1C64A21C001C2486 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		C5F11E4E1C64A21C001C2486 /* LinkDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkDeviceViewController.swift; sourceTree = "<group>"; };
+		C5F11E4F1C64A21C001C2486 /* SignupStepViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupStepViewController.swift; sourceTree = "<group>"; };
+		C5F11E5A1C64B8FC001C2486 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		C5F44FE61C5CB9780049215D /* UploadSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadSummaryViewController.swift; sourceTree = "<group>"; };
 		C5F44FE81C5CB9780049215D /* EditAssetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAssetCell.xib; sourceTree = "<group>"; };
 		C5F44FE91C5CB9780049215D /* EditAssetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAssetViewController.swift; sourceTree = "<group>"; };
@@ -1063,7 +1035,7 @@
 				12E1104619067095007DB4AC /* WLCandyViewController */,
 				12DCBA8818DB399B00A4BC44 /* WLWrapViewController */,
 				12A7A74218DA17F7008FF6F0 /* WLHomeViewController */,
-				C5C20BB21A239D6F008B2E2E /* WLSignupFlowViewController */,
+				C5C20BB21A239D6F008B2E2E /* SignupFlowViewController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1100,12 +1072,12 @@
 				C532F4EE1C2DA4D8004585E0 /* Uploader.swift */,
 				C55141A31C2EFB090080E731 /* DeviceManager.swift */,
 				5B2C97CA1C46610E00FAED6A /* VolumeChangeObserver.swift */,
+				C5F11E5A1C64B8FC001C2486 /* Validation.swift */,
 				C502B32C1C47F33100F66EAE /* AddressBook */,
 				C502B31B1C47F30400F66EAE /* APIRequest */,
 				C502B30A1C47F2EC00F66EAE /* NotificationCenter */,
 				C50541551BD6545400AE6F2C /* ImageEditor */,
 				C577C2601A4C426300ECC7E5 /* iVersion */,
-				C5C20B8C1A238ACC008B2E2E /* Validation */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1484,35 +1456,6 @@
 			path = Toast;
 			sourceTree = "<group>";
 		};
-		C54531241A24A1F20048A677 /* WLCountriesViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C54531251A24A1F20048A677 /* WLCountriesViewController.h */,
-				C54531261A24A1F20048A677 /* WLCountriesViewController.m */,
-				C54531271A24A1F20048A677 /* WLCountryCell */,
-			);
-			path = WLCountriesViewController;
-			sourceTree = "<group>";
-		};
-		C54531271A24A1F20048A677 /* WLCountryCell */ = {
-			isa = PBXGroup;
-			children = (
-				C54531281A24A1F20048A677 /* WLCountryCell.h */,
-				C54531291A24A1F20048A677 /* WLCountryCell.m */,
-				C5B681241B835ABD00BEE613 /* WLCountryCell.xib */,
-			);
-			path = WLCountryCell;
-			sourceTree = "<group>";
-		};
-		C54531321A24D6580048A677 /* WLLinkDeviceViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C54531331A24D6750048A677 /* WLLinkDeviceViewController.h */,
-				C54531341A24D6750048A677 /* WLLinkDeviceViewController.m */,
-			);
-			name = WLLinkDeviceViewController;
-			sourceTree = "<group>";
-		};
 		C54731961B906A7400B583FD /* CaptureMediaViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1536,15 +1479,6 @@
 				C532F4EC1C2D8513004585E0 /* PlaceholderView.swift */,
 			);
 			path = "Placeholder Views";
-			sourceTree = "<group>";
-		};
-		C55997461A25EA9A003D4B29 /* WLEmailConfirmationViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C55997471A25EABE003D4B29 /* WLEmailConfirmationViewController.h */,
-				C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */,
-			);
-			path = WLEmailConfirmationViewController;
 			sourceTree = "<group>";
 		};
 		C55C36671ACEB7A900C614BD /* Tests */ = {
@@ -1771,84 +1705,22 @@
 			path = WLWrapViewController/WLWrapEmbeddedViewController;
 			sourceTree = "<group>";
 		};
-		C5C20B8C1A238ACC008B2E2E /* Validation */ = {
+		C5C20BB21A239D6F008B2E2E /* SignupFlowViewController */ = {
 			isa = PBXGroup;
 			children = (
-				5B312E701C638E6D0060F8A3 /* ValidationGroup.swift */,
-				5B289D381C6388D00047921F /* EmailValidation.swift */,
-				5B312E6E1C638C540060F8A3 /* PasscodeValidation.swift */,
-				5BAF17AE1C6252C100D33026 /* Validation.swift */,
-				5B289D361C633E850047921F /* TextFieldValidation.swift */,
-				5B312E741C63951D0060F8A3 /* PhoneValidation.swift */,
+				C52462761C63CA020097AF45 /* SignupFlowViewController.swift */,
+				C5F11E4F1C64A21C001C2486 /* SignupStepViewController.swift */,
+				C5F11E461C64A21C001C2486 /* ActivationViewController.swift */,
+				C5F11E471C64A21C001C2486 /* EmailViewController.swift */,
+				C5F11E481C64A21C001C2486 /* PhoneViewController.swift */,
+				C5F11E491C64A21C001C2486 /* CountriesViewController.swift */,
+				C5F11E4A1C64A21C001C2486 /* CountryCell.xib */,
+				C5F11E4C1C64A21C001C2486 /* TestUserPicker.swift */,
+				C5F11E4B1C64A21C001C2486 /* TestUserCell.xib */,
+				C5F11E4D1C64A21C001C2486 /* EditProfileViewController.swift */,
+				C5F11E4E1C64A21C001C2486 /* LinkDeviceViewController.swift */,
 			);
-			name = Validation;
-			sourceTree = "<group>";
-		};
-		C5C20BB21A239D6F008B2E2E /* WLSignupFlowViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C5C20BB31A239D6F008B2E2E /* Signup Steps */,
-				C5C20BC71A239D6F008B2E2E /* WLSignupFlowViewController.h */,
-				C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */,
-			);
-			path = WLSignupFlowViewController;
-			sourceTree = "<group>";
-		};
-		C5C20BB31A239D6F008B2E2E /* Signup Steps */ = {
-			isa = PBXGroup;
-			children = (
-				C5C20BB71A239D6F008B2E2E /* WLSignupStepViewController.h */,
-				C5C20BB81A239D6F008B2E2E /* WLSignupStepViewController.m */,
-				C55997461A25EA9A003D4B29 /* WLEmailConfirmationViewController */,
-				C54531321A24D6580048A677 /* WLLinkDeviceViewController */,
-				C54531241A24A1F20048A677 /* WLCountriesViewController */,
-				C5C20BB41A239D6F008B2E2E /* WLActivationViewController */,
-				C5C20BB91A239D6F008B2E2E /* WLEmailViewController */,
-				C5C20BBC1A239D6F008B2E2E /* WLPhoneViewController */,
-				C5C20BC41A239D6F008B2E2E /* WLProfileInformationViewController */,
-			);
-			path = "Signup Steps";
-			sourceTree = "<group>";
-		};
-		C5C20BB41A239D6F008B2E2E /* WLActivationViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C5C20BB51A239D6F008B2E2E /* WLActivationViewController.h */,
-				C5C20BB61A239D6F008B2E2E /* WLActivationViewController.m */,
-			);
-			path = WLActivationViewController;
-			sourceTree = "<group>";
-		};
-		C5C20BB91A239D6F008B2E2E /* WLEmailViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C5C20BBA1A239D6F008B2E2E /* WLEmailViewController.h */,
-				C5C20BBB1A239D6F008B2E2E /* WLEmailViewController.m */,
-			);
-			path = WLEmailViewController;
-			sourceTree = "<group>";
-		};
-		C5C20BBC1A239D6F008B2E2E /* WLPhoneViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C5C20BBD1A239D6F008B2E2E /* WLPhoneViewController.h */,
-				C5C20BBE1A239D6F008B2E2E /* WLPhoneViewController.m */,
-				C5C20BBF1A239D6F008B2E2E /* WLTestUserCell.h */,
-				C5C20BC01A239D6F008B2E2E /* WLTestUserCell.m */,
-				C5C20BC11A239D6F008B2E2E /* WLTestUserCell.xib */,
-				C5C20BC21A239D6F008B2E2E /* WLTestUserPicker.h */,
-				C5C20BC31A239D6F008B2E2E /* WLTestUserPicker.m */,
-			);
-			path = WLPhoneViewController;
-			sourceTree = "<group>";
-		};
-		C5C20BC41A239D6F008B2E2E /* WLProfileInformationViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C5C20BC51A239D6F008B2E2E /* WLProfileInformationViewController.h */,
-				C5C20BC61A239D6F008B2E2E /* WLProfileInformationViewController.m */,
-			);
-			path = WLProfileInformationViewController;
+			path = SignupFlowViewController;
 			sourceTree = "<group>";
 		};
 		C5E4FD091BF762A500575DA4 /* RecentUpdatesViewController */ = {
@@ -2122,7 +1994,6 @@
 				C5B91A421BB4101A000E08E7 /* Introduction.storyboard in Resources */,
 				C560B16C1AE6A0580010B2EC /* AdobeCreativeSDKImageResources.bundle in Resources */,
 				C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */,
-				C5C20BE01A239D6F008B2E2E /* WLTestUserCell.xib in Resources */,
 				C5A9CC921B9482D20084D0F5 /* WLMyMessageCell.xib in Resources */,
 				C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */,
 				C53012921BF4E3EA00098F9C /* EmojiView.xib in Resources */,
@@ -2144,6 +2015,7 @@
 				C54AF72719B8C491006F7EDB /* flowers.plist in Resources */,
 				C5BEC3941B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */,
 				C5F44FF01C5CB9780049215D /* WrapPickerCell.xib in Resources */,
+				C5F11E541C64A21C001C2486 /* CountryCell.xib in Resources */,
 				C54D12CD1C4526B7009014FB /* LiveBroadcastViewerCell.xib in Resources */,
 				C5DA2FD71C2C0C7D00038352 /* AddressBookGroupView.xib in Resources */,
 				C552A8381BFDEA5E00A7FFAD /* MediaViews.xib in Resources */,
@@ -2153,9 +2025,9 @@
 				C55189101B8F46C000D1327E /* WLContributorResendDoneCell.xib in Resources */,
 				5BA4F8821A1CA08A00DB1A25 /* s01.wav in Resources */,
 				C532F4EB1C2D8353004585E0 /* Placeholders.storyboard in Resources */,
-				C5B681261B835ABD00BEE613 /* WLCountryCell.xib in Resources */,
 				C5A6150E1B9DC5EA009B92EF /* MultipleAddressBookRecordCell.xib in Resources */,
 				5B211FB21C087137000EC3DB /* (null) in Resources */,
+				C5F11E551C64A21C001C2486 /* TestUserCell.xib in Resources */,
 				C5BEC38D1B8F129100499EEA /* logo_and_caption_orange@3x.png in Resources */,
 				C5A9CC8F1B9482C30084D0F5 /* WLMessageCell.xib in Resources */,
 				C5BEC3A31B8F16E800499EEA /* logo_and_caption_orange.png in Resources */,
@@ -2317,21 +2189,23 @@
 			files = (
 				C532F4E91C2D5F02004585E0 /* ProgressBar.swift in Sources */,
 				C54604D21C08C5D800FB2303 /* NSObject+NibLoading.swift in Sources */,
+				C52462771C63CA020097AF45 /* SignupFlowViewController.swift in Sources */,
 				C5EBD75B1C172DF600ED2FCF /* List.swift in Sources */,
 				C5A407001C202198007D1D0E /* StoryboardTransition.swift in Sources */,
 				C5E6F0281BFF558000FA3D4F /* MediaDataSource.swift in Sources */,
 				C502B3151C47F2EC00F66EAE /* MessageNotification.swift in Sources */,
+				C5F11E561C64A21C001C2486 /* TestUserPicker.swift in Sources */,
 				C502B3311C47F33100F66EAE /* AddressBookRecord.swift in Sources */,
 				5B1DD0371BD7B67000D30E1A /* InternalScrollView.swift in Sources */,
 				C55BE8C91C031D54006B04FC /* EventualEntryPresenter.swift in Sources */,
 				C5BCF0101B551B7B00E4AD6D /* WLMessageCell.m in Sources */,
 				C5AEE4441B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */,
+				C5F11E5B1C64B8FC001C2486 /* Validation.swift in Sources */,
 				C54CEF9B1BCFAFA800128CBE /* UIButton+Ext.swift in Sources */,
 				5BD529491BDA796000527077 /* SmartLabel.swift in Sources */,
 				C5BFE4D31B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */,
 				C5060D1A1BEBA7E2007FFD5B /* String+Ext.swift in Sources */,
 				5B2FB96C1C5B71C8001C4385 /* TextField.swift in Sources */,
-				C5C20BEC1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */,
 				C5E6DD8A1C0DC84A004992E4 /* Candy.swift in Sources */,
 				5B31A7871C56620D002E1A2A /* ChangeProfileViewController.swift in Sources */,
 				C502B3301C47F33100F66EAE /* AddressBook.swift in Sources */,
@@ -2339,8 +2213,6 @@
 				C5861A6C1BFA3C9400C64663 /* LiveViewController.swift in Sources */,
 				C5E6DD9F1C0DD11A004992E4 /* Keys.swift in Sources */,
 				C55BE8C71C031BA6006B04FC /* ExtensionRequest+Ext.swift in Sources */,
-				C5C20BCC1A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
-				C5C20BE41A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
 				C535D6991C045476002BCE34 /* OverlayImageView.swift in Sources */,
 				C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */,
 				C530127F1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift in Sources */,
@@ -2350,14 +2222,12 @@
 				C5F3AC3A1C0335230053EE70 /* EntryDescriptor.swift in Sources */,
 				C5E6DD971C0DC8F5004992E4 /* CommonEnums.swift in Sources */,
 				C5B8F71A1B82161500A5E541 /* WLDrawingViewController.m in Sources */,
-				5B289D391C6388D00047921F /* EmailValidation.swift in Sources */,
 				C510BF6D1BCF93C0008223A3 /* UIDevice+Ext.swift in Sources */,
 				C53937661C3BD82600EEEC0A /* Toast.swift in Sources */,
 				C54743461C09CE3700BECB25 /* CATransition+Ext.swift in Sources */,
 				C5ECD55B1BF649B9005791B1 /* UIStoryboard+Ext.swift in Sources */,
 				C5BCF0011B551B7B00E4AD6D /* WLChatViewController.m in Sources */,
 				C55E53431C4FCD3B006ACF8F /* CaptureViewController.swift in Sources */,
-				5B289D371C633E850047921F /* TextFieldValidation.swift in Sources */,
 				C5E6F0231BFF38C200FA3D4F /* SwipeAction.swift in Sources */,
 				C530127D1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift in Sources */,
 				5B1061341C610A1900496647 /* ConfirmView.swift in Sources */,
@@ -2372,7 +2242,6 @@
 				C5E7AB761BCD399B007E314B /* UITextView+Ext.swift in Sources */,
 				C502B3281C47F30400F66EAE /* Entry+APIResponse.swift in Sources */,
 				C532F4EF1C2DA4D8004585E0 /* Uploader.swift in Sources */,
-				5B312E761C639B310060F8A3 /* ValidationGroup.swift in Sources */,
 				C5E7AB781BCD3A79007E314B /* UIScrollView+Ext.swift in Sources */,
 				C54CEF9D1BCFB09100128CBE /* UIViewController+Ext.swift in Sources */,
 				C53012911BF4E3EA00098F9C /* EmojiView.swift in Sources */,
@@ -2381,7 +2250,7 @@
 				C54AF67C19B8C491006F7EDB /* main.m in Sources */,
 				5BCC41911C4E40FC0047E7C2 /* WrapSettingsViewController.swift in Sources */,
 				C57E1CCB1B98930900E2303B /* StreamView.swift in Sources */,
-				C5C20BE81A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */,
+				C5F11E521C64A21C001C2486 /* PhoneViewController.swift in Sources */,
 				C517FD7C1C4D07E100A7EE55 /* LiveBroadcasterViewController.swift in Sources */,
 				C509F7471C5E3C4800E6BFF0 /* CameraViewController.swift in Sources */,
 				5B1D045B1BFCE16C00263102 /* SlideInteractiveTransition.swift in Sources */,
@@ -2391,7 +2260,6 @@
 				C53A02321C0D8961003B3D1F /* InMemoryImageCache.swift in Sources */,
 				5B37C7601C5A3C9F0068E693 /* HintView.swift in Sources */,
 				C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */,
-				C5C20BD81A239D6F008B2E2E /* WLPhoneViewController.m in Sources */,
 				C5D99E741C2B2BC10022D18B /* Keyboard.swift in Sources */,
 				C5BCF0331B551B7B00E4AD6D /* WLContributorCell.m in Sources */,
 				C553B1901BF9F75600E50219 /* EntryPresenter.swift in Sources */,
@@ -2401,7 +2269,6 @@
 				C5C694D51BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift in Sources */,
 				C5B51FE21BFB504D005A1CF6 /* UIAlertController+Ext.swift in Sources */,
 				C5E7AB7C1BCD4E28007E314B /* UIGestureRecognizer+Ext.swift in Sources */,
-				5B312E771C639B3B0060F8A3 /* PasscodeValidation.swift in Sources */,
 				C5122D491BD7D2A40096C742 /* UIFont+Ext.swift in Sources */,
 				C502B3171C47F2EC00F66EAE /* NotificationCenter.swift in Sources */,
 				C5CCDEC11BF2323200D9B3BB /* UIView+Shorthand.swift in Sources */,
@@ -2418,7 +2285,6 @@
 				C522795E1BECCA6B00B1C49C /* Dictionary+Ext.swift in Sources */,
 				C502B3181C47F2EC00F66EAE /* PubNub+Ext.swift in Sources */,
 				C581680519F169D90081F350 /* WLBaseViewController.m in Sources */,
-				5B312E751C63951D0060F8A3 /* PhoneValidation.swift in Sources */,
 				C54C42531BDE77BB003E644D /* ExtensionRequest.swift in Sources */,
 				C502B31A1C47F2EC00F66EAE /* WrapNotification.swift in Sources */,
 				C5E4FD0D1BF7AF7100575DA4 /* ShapeView.swift in Sources */,
@@ -2433,16 +2299,19 @@
 				C51B4BE81C3AA2D6009F1566 /* WelcomeViewController.swift in Sources */,
 				C502B3161C47F2EC00F66EAE /* Notification.swift in Sources */,
 				C502B32A1C47F30400F66EAE /* Environment.swift in Sources */,
+				C5F11E531C64A21C001C2486 /* CountriesViewController.swift in Sources */,
 				5B40D6B21C2EBB1C009EF38C /* UploadWizardViewController.swift in Sources */,
 				C55871101C4910B500F09E58 /* DownloadingView.swift in Sources */,
 				5B2C97CB1C46610E00FAED6A /* VolumeChangeObserver.swift in Sources */,
-				C5C20BD01A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
 				C53BC48E1C05FE620009B0B9 /* SegmentedControl.swift in Sources */,
 				C53012791BF4968200098F9C /* StreamDataSource.swift in Sources */,
 				5B03F90C1C5A65A60085BA51 /* Label.swift in Sources */,
+				C5F11E501C64A21C001C2486 /* ActivationViewController.swift in Sources */,
 				C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
 				5B2FB9701C5BA958001C4385 /* ComposeBar.swift in Sources */,
 				C52500581C1F1F8200CF8F9D /* HistoryItemViewController.swift in Sources */,
+				C5F11E581C64A21C001C2486 /* LinkDeviceViewController.swift in Sources */,
+				C5F11E511C64A21C001C2486 /* EmailViewController.swift in Sources */,
 				C51B82C71C1852110054726A /* NSArray+WLCollection.m in Sources */,
 				C55766A51C0C913D00E94E09 /* ImageView.swift in Sources */,
 				C54AF6C419B8C491006F7EDB /* WLWrapViewController.m in Sources */,
@@ -2450,7 +2319,6 @@
 				C5BD85421C2E999800EE5558 /* UploaderView.swift in Sources */,
 				C504178919B9EE15000E55F3 /* AddressBookRecordCell.m in Sources */,
 				C540C0F01B988BF700F880C9 /* GridLayout.swift in Sources */,
-				C559974C1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */,
 				5B2FB96E1C5B8513001C4385 /* TextView.swift in Sources */,
 				C5EE45A61C01D350008DE8D6 /* Constants.swift in Sources */,
 				C55141A41C2EFB090080E731 /* DeviceManager.swift in Sources */,
@@ -2480,6 +2348,7 @@
 				C5053E201BC7CF0F0040613A /* AssetMetrics.swift in Sources */,
 				C5A877CB1B985E8B006C5226 /* StreamLayout.swift in Sources */,
 				C54C42631BDE8AEC003E644D /* Authorization.swift in Sources */,
+				C5F11E591C64A21C001C2486 /* SignupStepViewController.swift in Sources */,
 				C552A83E1BFE293300A7FFAD /* RecentCandiesView.swift in Sources */,
 				C564C8161C4A47EE001C6460 /* CaptureAvatarViewController.swift in Sources */,
 				C5AEE42F1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */,
@@ -2488,7 +2357,6 @@
 				C523D8CA1BD76BC0006FE7AB /* LayoutPrioritizer.swift in Sources */,
 				C5E4FD0B1BF7AC4300575DA4 /* LoadingView.swift in Sources */,
 				C55E533D1C4FB4DB006ACF8F /* CaptureMediaCameraViewController.swift in Sources */,
-				C545312D1A24A1F20048A677 /* WLCountriesViewController.m in Sources */,
 				C53012871BF4C0AD00098F9C /* (null) in Sources */,
 				C53BC4861C05B32C0009B0B9 /* AssetsViewController.swift in Sources */,
 				C5E6DD901C0DC84A004992E4 /* EntryContext.swift in Sources */,
@@ -2500,7 +2368,6 @@
 				C54743421C09CD8A00BECB25 /* ImageCache.swift in Sources */,
 				C5AEE4361B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */,
 				C5E6F02E1BFF710900FA3D4F /* FontPresetter.swift in Sources */,
-				C5C20BD41A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
 				C557B6DE1C22F5980067631E /* Logger.swift in Sources */,
 				C59CEBD31BFB20B500C3E686 /* EntryView.swift in Sources */,
 				C502B32B1C47F30400F66EAE /* PaginatedRequest.swift in Sources */,
@@ -2509,9 +2376,9 @@
 				C5E6DD8C1C0DC84A004992E4 /* Contribution.swift in Sources */,
 				C5F9A49E1C4B8A1700A7D83B /* CaptureMediaViewController.swift in Sources */,
 				C5E6DD941C0DC84A004992E4 /* Notifier.swift in Sources */,
+				C5F11E571C64A21C001C2486 /* EditProfileViewController.swift in Sources */,
 				C557B6D91C22BC610067631E /* Network.swift in Sources */,
 				5B2FB96A1C5B501A001C4385 /* BadgeLabel.swift in Sources */,
-				C5C20BDC1A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
 				C5E6DD8D1C0DC84A004992E4 /* CoreData.xcdatamodeld in Sources */,
 				C51E34EA1BD8EB4100C6F678 /* SeparatorView.swift in Sources */,
 				C56337591C16CE8300F4E182 /* MediaViewController.swift in Sources */,
@@ -2523,12 +2390,9 @@
 				C5CBA7C81BA9556B0008EAAE /* SquareGridLayout.swift in Sources */,
 				C5FAC9021BE2B35F0060FEDB /* NSUserDefaults+Ext.swift in Sources */,
 				C537F8B61C1828D400105390 /* RecentUpdateList.swift in Sources */,
-				C54531311A24A1F20048A677 /* WLCountryCell.m in Sources */,
 				C502B3261C47F30400F66EAE /* AuthorizationRequest.swift in Sources */,
-				5BAF17AF1C6252C100D33026 /* Validation.swift in Sources */,
 				C52BA62C1BFF314600D58D75 /* WrapCell.swift in Sources */,
 				C5BCF0151B551B7B00E4AD6D /* WLMessageDateView.m in Sources */,
-				C54531381A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */,
 				C502B3271C47F30400F66EAE /* Entry+APIRequest.swift in Sources */,
 				C509F7491C5E3C4800E6BFF0 /* FlashModeControl.swift in Sources */,
 				C525005C1C1F1FD500CF8F9D /* SettingsViewController.swift in Sources */,

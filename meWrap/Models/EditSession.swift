@@ -8,21 +8,29 @@
 
 import UIKit
 
-@objc protocol EditSessionDelegate {
-    func editSession(session: EditSession, hasChanges: Bool)
+protocol EditSessionProtocol: class {
+    var hasChanges: Bool { get set }
+    func apply()
+    func reset()
+    func clean()
+    weak var delegate: EditSessionDelegate? { get set }
 }
 
-class EditSession: NSObject {
+protocol EditSessionDelegate: class {
+    func editSession(session: EditSessionProtocol, hasChanges: Bool)
+}
+
+class EditSession<T: Equatable>: EditSessionProtocol {
     
     weak var delegate: EditSessionDelegate?
     
-    var setter: ((EditSession, NSObject?) -> Void)?
+    var setter: (T -> Void)?
     
-    var validator: ((EditSession, NSObject?) -> Bool)?
+    var validator: (T -> Bool)?
     
-    var originalValue: NSObject?
+    var originalValue: T
     
-    var changedValue: NSObject? {
+    var changedValue: T {
         didSet {
             hasChanges = !(changedValue == originalValue)
         }
@@ -37,15 +45,15 @@ class EditSession: NSObject {
     }
     
     var hasValidChanges: Bool {
-        return validator?(self, changedValue) ?? true
+        return validator?(changedValue) ?? true
     }
     
     func apply() {
-        setter?(self, changedValue)
+        setter?(changedValue)
     }
     
     func reset() {
-        setter?(self, originalValue)
+        setter?(originalValue)
     }
     
     func clean() {
@@ -53,12 +61,11 @@ class EditSession: NSObject {
         hasChanges = false
     }
     
-    convenience init(originalValue: NSObject?, setter: ((EditSession, NSObject?) -> Void)?) {
+    convenience init(originalValue: T, setter: (T -> Void)?) {
         self.init(originalValue: originalValue, setter: setter, validator: nil)
     }
     
-    convenience init(originalValue: NSObject?, setter: ((EditSession, NSObject?) -> Void)?, validator: ((EditSession, NSObject?) -> Bool)?) {
-        self.init()
+    init(originalValue: T, setter: (T -> Void)?, validator: (T -> Bool)?) {
         self.setter = setter
         self.validator = validator
         self.originalValue = originalValue
@@ -66,28 +73,38 @@ class EditSession: NSObject {
     }
 }
 
-class CompoundEditSession: EditSession {
+class CompoundEditSession: EditSessionProtocol {
     
-    private var sessions = [EditSession]()
+    private var sessions = [EditSessionProtocol]()
     
-    func addSession(session: EditSession) {
+    func addSession(session: EditSessionProtocol) {
         session.delegate = self
         sessions.append(session)
     }
     
-    override func apply() {
+    weak var delegate: EditSessionDelegate?
+    
+    var hasChanges = false {
+        didSet {
+            if hasChanges != oldValue {
+                delegate?.editSession(self, hasChanges: hasChanges)
+            }
+        }
+    }
+    
+    func apply() {
         for session in sessions {
             session.apply()
         }
     }
     
-    override func reset() {
+    func reset() {
         for session in sessions {
             session.reset()
         }
     }
     
-    override func clean() {
+    func clean() {
         for session in sessions {
             session.clean()
         }
@@ -95,35 +112,24 @@ class CompoundEditSession: EditSession {
 }
 
 extension CompoundEditSession: EditSessionDelegate {
-    func editSession(session: EditSession, hasChanges: Bool) {
+    func editSession(session: EditSessionProtocol, hasChanges: Bool) {
         self.hasChanges = hasChanges || sessions.contains({ $0.hasChanges })
     }
 }
 
 class ProfileEditSession: CompoundEditSession {
     
-    var nameSession: EditSession
-    var emailSession: EditSession
-    var avatarSession: EditSession
+    var nameSession: EditSession<String>
+    var emailSession: EditSession<String>
+    var avatarSession: EditSession<String>
     
     required init(user: User) {
-        nameSession = EditSession(originalValue: user.name, setter: { [weak user] (session, value) -> Void in
-            user?.name = (value as? String)
-            }, validator: { (session, value) -> Bool in
-                return (value as? NSString)?.nonempty ?? false
-        })
-        emailSession = EditSession(originalValue: Authorization.currentAuthorization.priorityEmail, setter: nil, validator: { (session, value) -> Bool in
-            if let email = value as? NSString {
-                return email.nonempty && email.isValidEmail
-            } else {
-                return false
-            }
-        })
-        avatarSession = EditSession(originalValue: user.avatar?.large, setter: { [weak user] (session, value) -> Void in
-            user?.avatar?.large = (value as? String)
-            }, validator: { (session, value) -> Bool in
-                return (value as? NSString)?.nonempty ?? false
-        })
+        nameSession = EditSession(originalValue: user.name ?? "", setter: { user.name = $0 })
+        nameSession.validator = { return !$0.isEmpty }
+        emailSession = EditSession(originalValue: Authorization.current.priorityEmail ?? "", setter: nil)
+        emailSession.validator = { return $0.nonempty && $0.isValidEmail }
+        avatarSession = EditSession(originalValue: user.avatar?.large ?? "", setter: { user.avatar?.large = $0 })
+        avatarSession.validator = { return !$0.isEmpty }
         super.init()
         addSession(nameSession)
         addSession(emailSession)

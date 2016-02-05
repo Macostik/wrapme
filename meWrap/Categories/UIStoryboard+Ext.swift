@@ -11,16 +11,13 @@ import UIKit
 struct StoryboardObject<T: UIViewController> {
     let identifier: String
     let storyboard: UIStoryboard
-    func instantiate() -> T? {
-        return storyboard.instantiateViewControllerWithIdentifier(identifier) as? T
+    func instantiate() -> T {
+        return storyboard.instantiateViewControllerWithIdentifier(identifier) as! T
     }
-    func instantiate(@noescape block: T -> Void) -> T? {
-        if let controller = instantiate() {
-            block(controller)
-            return controller
-        } else {
-            return nil
-        }
+    func instantiate(@noescape block: T -> Void) -> T {
+        let controller = instantiate()
+        block(controller)
+        return controller
     }
 }
 
@@ -33,6 +30,7 @@ struct Storyboard {
     static let ReportCandy = StoryboardObject<ReportViewController>(identifier: "report", storyboard: UIStoryboard.main())
     static let Comments = StoryboardObject<WLCommentsViewController>(identifier: "comments", storyboard: UIStoryboard.main())
     static let History = StoryboardObject<HistoryViewController>(identifier: "history", storyboard: UIStoryboard.main())
+    static let Countries = StoryboardObject<CountriesViewController>(identifier: "countries", storyboard: UIStoryboard.signUp())
 }
 
 extension UIStoryboard {

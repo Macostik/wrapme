@@ -48,6 +48,7 @@ PODS:
     - PubNub/Core (= 4.2.5)
   - PubNub/Core (4.2.5):
     - CocoaLumberjack (= 2.2.0)
+  - SnapKit (0.15.0)
 
 DEPENDENCIES:
   - AFNetworking
@@ -60,6 +61,7 @@ DEPENDENCIES:
   - NewRelicAgent
   - OpenUDID
   - PubNub (~> 4.0)
+  - SnapKit (~> 0.15.0)
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
@@ -77,5 +79,6 @@ SPEC CHECKSUMS:
   NewRelicAgent: 731c3b39030885531dad40e43cd80b8dbe61647e
   OpenUDID: e7cb6984c7304906ad20f3a36bf087b025896b6b
   PubNub: 92c9e3556a5666a597bcf613c72e2e426d3321d4
+  SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
 
 COCOAPODS: 0.39.0

@@ -184,8 +184,8 @@ extension APIRequest {
     
     class func verificationCall() -> Self {
         return POST().path("users/call").parametrize({
-            $0["email"] = Authorization.currentAuthorization.email
-            $0["device_uid"] = Authorization.currentAuthorization.deviceUID
+            $0["email"] = Authorization.current.email
+            $0["device_uid"] = Authorization.current.deviceUID
         })
     }
     
@@ -281,7 +281,7 @@ extension APIRequest {
             $0["email"] = email
         }).parse({ (response) -> AnyObject? in
             if let userData = response.dictionary("user") {
-                let authorization = Authorization.currentAuthorization
+                let authorization = Authorization.current
                 authorization.updateWithUserData(userData)
                 user.map(userData)
                 User.currentUser = user

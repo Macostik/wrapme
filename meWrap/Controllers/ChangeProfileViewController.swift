@@ -20,7 +20,6 @@ final class ChangeProfileViewController: WLBaseViewController, EditSessionDelega
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var verificationEmailTextView: TextView!
     
-    
     private var editSession: ProfileEditSession! {
         didSet {
             editSession.delegate = self
@@ -28,7 +27,7 @@ final class ChangeProfileViewController: WLBaseViewController, EditSessionDelega
     }
     
     class func verificationSuggestion() -> NSAttributedString? {
-        if let email = Authorization.currentAuthorization.unconfirmed_email {
+        if let email = Authorization.current.unconfirmed_email {
             return verificationSuggestion(email)
         }
         return nil
@@ -65,7 +64,7 @@ final class ChangeProfileViewController: WLBaseViewController, EditSessionDelega
     }
     
     func updateEmailConfirmationView() {
-        let unconfirmed_Email = Authorization.currentAuthorization.unconfirmed_email
+        let unconfirmed_Email = Authorization.current.unconfirmed_email
         if let email = unconfirmed_Email where !email.isEmpty {
             verificationEmailTextView.attributedText = ChangeProfileViewController.verificationSuggestion(email)
         }
@@ -76,7 +75,7 @@ final class ChangeProfileViewController: WLBaseViewController, EditSessionDelega
         guard let user = User.currentUser else { return }
         nameTextField.text = user.name
         imageView.url = user.avatar?.large
-        emailTextField.text = Authorization.currentAuthorization.priorityEmail
+        emailTextField.text = Authorization.current.priorityEmail
     }
     
     func validate( @noescape success: Block, @noescape failure: FailureBlock) {
@@ -90,12 +89,12 @@ final class ChangeProfileViewController: WLBaseViewController, EditSessionDelega
     }
     
     func apply(success: ObjectBlock?, failure: FailureBlock) {
-        guard let email = editSession.emailSession.changedValue as? String else { return }
-        if editSession.emailSession.hasChanges && Authorization.currentAuthorization.email != email {
+        let email = editSession.emailSession.changedValue
+        if editSession.emailSession.hasChanges && Authorization.current.email != email {
             NSUserDefaults.standardUserDefaults().confirmationDate = nil
         }
         guard let user = User.currentUser else { return }
-        APIRequest.updateUser(user, email: email).send(success, failure: failure)
+        APIRequest.updateUser(user, email: email.isEmpty ? nil : email).send(success, failure: failure)
     }
     
     @IBAction func done(sender: Button) {
@@ -158,11 +157,11 @@ final class ChangeProfileViewController: WLBaseViewController, EditSessionDelega
     }
     
     @IBAction func nameTextFieldChanged(sender: UITextField) {
-        editSession.nameSession.changedValue = nameTextField.text
+        editSession.nameSession.changedValue = nameTextField.text ?? ""
     }
     
     @IBAction func emailTextFieldChanged(sender: UITextField) {
-        editSession.emailSession.changedValue = emailTextField.text
+        editSession.emailSession.changedValue = emailTextField.text ?? ""
     }
     
     @IBAction func resendEmailConfirmation(sender: UIButton) {
@@ -177,7 +176,7 @@ final class ChangeProfileViewController: WLBaseViewController, EditSessionDelega
     
     //MARK: EditSessionDelegate
     
-    func editSession(session: EditSession, hasChanges: Bool) {
+    func editSession(session: EditSessionProtocol, hasChanges: Bool) {
         doneButton.hidden =     !hasChanges
         cancelButton.hidden =   !hasChanges
         doneButton.addAnimation(CATransition.transition(kCATransitionFade))
@@ -193,7 +192,7 @@ final class ChangeProfileViewController: WLBaseViewController, EditSessionDelega
     func captureViewController(controller: CaptureAvatarViewController, didFinishWithAvatar avatar: MutableAsset) {
         let picture = avatar.uploadablePicture(false)
         imageView.url = picture.large
-        editSession.avatarSession.changedValue = picture.large
+        editSession.avatarSession.changedValue = picture.large ?? ""
         dismissViewControllerAnimated(false, completion: nil)
     }
     

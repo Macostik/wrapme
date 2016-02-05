@@ -24,7 +24,7 @@
         <!--Welcome View Controller-->
         <scene sceneID="zGg-Ko-EYU">
             <objects>
-                <viewController storyboardIdentifier="WLWelcomeViewController" automaticallyAdjustsScrollViewInsets="NO" id="DOj-fu-IIy" customClass="WelcomeViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="DOj-fu-IIy" customClass="WelcomeViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uY6-5G-NXW"/>
                         <viewControllerLayoutGuide type="bottom" id="tCy-Jw-JNH"/>
@@ -246,7 +246,7 @@
         <!--Countries View Controller-->
         <scene sceneID="nHf-Y0-hnR">
             <objects>
-                <viewController storyboardIdentifier="WLCountriesViewController" automaticallyAdjustsScrollViewInsets="NO" id="Raz-QX-I3L" customClass="WLCountriesViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="countries" automaticallyAdjustsScrollViewInsets="NO" id="Raz-QX-I3L" customClass="CountriesViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="f94-vb-CBy"/>
                         <viewControllerLayoutGuide type="bottom" id="sKU-M0-Mdi"/>
@@ -341,7 +341,7 @@
         <!--Signup Flow View Controller-->
         <scene sceneID="KIU-R9-Z52">
             <objects>
-                <viewController storyboardIdentifier="WLSignupFlowViewController" automaticallyAdjustsScrollViewInsets="NO" id="m5i-GB-PRL" customClass="WLSignupFlowViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="signupFlow" automaticallyAdjustsScrollViewInsets="NO" id="m5i-GB-PRL" customClass="SignupFlowViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HnA-wf-T7X"/>
                         <viewControllerLayoutGuide type="bottom" id="Bow-xI-eNH"/>
@@ -400,7 +400,6 @@
                     <connections>
                         <outlet property="headerView" destination="mJg-XG-GUq" id="ZAr-c3-Ck7"/>
                         <outlet property="navigationBar" destination="mJg-XG-GUq" id="zcs-my-3Xd"/>
-                        <outlet property="topHeaderConstraint" destination="zkc-gH-NLm" id="WSa-tP-nW6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dSP-Vd-Pvb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -423,7 +422,7 @@
         <!--Email View Controller-->
         <scene sceneID="hja-EI-vlV">
             <objects>
-                <viewController storyboardIdentifier="WLEmailViewController" id="vAS-6Z-GhZ" customClass="WLEmailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="email" id="vAS-6Z-GhZ" customClass="EmailViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Tdn-DO-lOv"/>
                         <viewControllerLayoutGuide type="bottom" id="N6Z-Q2-AaT"/>
@@ -536,7 +535,6 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="emailField" destination="HvP-Ka-9z4" id="URT-lL-iQK"/>
-                        <outlet property="testAccountButton" destination="xlM-wc-LL0" id="6lD-KB-hRn"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="fNr-FB-Pjx" id="imn-WU-eY2"/>
                     </connections>
                 </viewController>
@@ -558,7 +556,7 @@
         <!--Phone View Controller-->
         <scene sceneID="6Mj-Ca-yv9">
             <objects>
-                <viewController storyboardIdentifier="WLPhoneViewController" automaticallyAdjustsScrollViewInsets="NO" id="Jh0-1l-1TK" customClass="WLPhoneViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="phone" automaticallyAdjustsScrollViewInsets="NO" id="Jh0-1l-1TK" customClass="PhoneViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mzE-aK-5Kc"/>
                         <viewControllerLayoutGuide type="bottom" id="K1q-bO-uyh"/>
@@ -725,7 +723,7 @@
         <!--Activation View Controller-->
         <scene sceneID="Cfp-ZT-uPv">
             <objects>
-                <viewController storyboardIdentifier="WLActivationViewController" automaticallyAdjustsScrollViewInsets="NO" id="eE2-rt-SMr" customClass="WLActivationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="activation" automaticallyAdjustsScrollViewInsets="NO" id="eE2-rt-SMr" customClass="ActivationViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8e3-cE-tfJ"/>
                         <viewControllerLayoutGuide type="bottom" id="BnE-Xf-kE8"/>
@@ -955,7 +953,7 @@
         <!--Link Device View Controller-->
         <scene sceneID="VEZ-iE-Dgw">
             <objects>
-                <viewController storyboardIdentifier="WLLinkDeviceViewController" automaticallyAdjustsScrollViewInsets="NO" id="NDJ-L2-4IJ" customClass="WLLinkDeviceViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="linkDevice" automaticallyAdjustsScrollViewInsets="NO" id="NDJ-L2-4IJ" customClass="LinkDeviceViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xwL-po-hkw"/>
                         <viewControllerLayoutGuide type="bottom" id="jGo-CV-5BT"/>
@@ -1078,7 +1076,7 @@
         <!--Signup Step View Controller-->
         <scene sceneID="z6Q-Yy-wFN">
             <objects>
-                <viewController storyboardIdentifier="WLVerificationSuccessViewController" id="TZ4-9w-lte" customClass="WLSignupStepViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="verificationSuccess" id="TZ4-9w-lte" customClass="SignupStepViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="J9H-E4-PmH"/>
                         <viewControllerLayoutGuide type="bottom" id="wdL-N0-f8J"/>
@@ -1159,7 +1157,7 @@
         <!--Signup Step View Controller-->
         <scene sceneID="aj4-sh-G9s">
             <objects>
-                <viewController storyboardIdentifier="WLVerificationFailureViewController" id="VZT-19-ksm" customClass="WLSignupStepViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="verificationFailure" id="VZT-19-ksm" customClass="SignupStepViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fIu-Q8-sKe"/>
                         <viewControllerLayoutGuide type="bottom" id="5ph-p4-f41"/>
@@ -1299,7 +1297,7 @@
         <!--Signup Step View Controller-->
         <scene sceneID="OWf-p5-Ww5">
             <objects>
-                <viewController storyboardIdentifier="WLLinkDeviceSuccessViewController" id="Vpu-Ls-zan" customClass="WLSignupStepViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="linkDeviceSuccess" id="Vpu-Ls-zan" customClass="SignupStepViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="22Q-mQ-7gg"/>
                         <viewControllerLayoutGuide type="bottom" id="Tws-aA-u5y"/>
@@ -1377,7 +1375,7 @@
         <!--Signup Step View Controller-->
         <scene sceneID="KFr-Qc-gu3">
             <objects>
-                <viewController storyboardIdentifier="WLEmailConfirmationSuccessViewController" id="cxC-vG-j0j" customClass="WLSignupStepViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="emailConfirmationSuccess" id="cxC-vG-j0j" customClass="SignupStepViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nZh-mj-fgS"/>
                         <viewControllerLayoutGuide type="bottom" id="Mc6-pa-DOi"/>
@@ -1456,10 +1454,10 @@
             </objects>
             <point key="canvasLocation" x="2682" y="130"/>
         </scene>
-        <!--Email Confirmation View Controller-->
+        <!--Confirm Email View Controller-->
         <scene sceneID="4nj-BC-Eea">
             <objects>
-                <viewController storyboardIdentifier="WLEmailConfirmationViewController" id="vZf-ZB-Nuz" customClass="WLEmailConfirmationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="confirmEmail" id="vZf-ZB-Nuz" customClass="ConfirmEmailViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5RL-w2-pY5"/>
                         <viewControllerLayoutGuide type="bottom" id="f5K-9a-8FW"/>
@@ -1584,10 +1582,10 @@
             </objects>
             <point key="canvasLocation" x="2281" y="130"/>
         </scene>
-        <!--Profile Information View Controller-->
+        <!--Edit Profile View Controller-->
         <scene sceneID="Vwg-Ce-jcW">
             <objects>
-                <viewController storyboardIdentifier="WLProfileInformationViewController" automaticallyAdjustsScrollViewInsets="NO" id="d1e-rR-MvT" customClass="WLProfileInformationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="editProfile" automaticallyAdjustsScrollViewInsets="NO" id="d1e-rR-MvT" customClass="EditProfileViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bnk-1q-dk7"/>
                         <viewControllerLayoutGuide type="bottom" id="xMa-Vx-xXv"/>

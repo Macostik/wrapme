@@ -18,9 +18,11 @@ class LiveBroadcastEventView: StreamReusableView {
     
     @IBOutlet weak var textLabel: UILabel!
     
+    static let queue: RunQueue = RunQueue(limit: 1)
+    
     override func setup(entry: AnyObject!) {
         if let event = entry as? LiveBroadcast.Event {
-            RunQueue.fetchQueue.run({ (finish) -> Void in
+            LiveBroadcastEventView.queue.run({ (finish) -> Void in
                 self.alpha = 0.0
                 UIView.animateWithDuration(1.0, animations: { () -> Void in
                     self.alpha = 1.0

@@ -23,6 +23,7 @@ class LiveBroadcast: NSObject {
         var text: String?
         var user: User?
         var disappearingBlock: (Void -> Void)?
+        var apperingBlock: (Void -> Void)?
         
         init(kind: Kind) { self.kind = kind }
     }
@@ -37,6 +38,7 @@ class LiveBroadcast: NSObject {
     
     func insert(event: Event) {
         events.insert(event, atIndex: 0)
+        event.apperingBlock?()
         if (events.count > 3) {
             events.removeLast()
         }

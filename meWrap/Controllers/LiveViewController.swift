@@ -20,6 +20,14 @@ class LiveBroadcastEventView: StreamReusableView {
     
     override func setup(entry: AnyObject!) {
         if let event = entry as? LiveBroadcast.Event {
+            RunQueue.fetchQueue.run({ (finish) -> Void in
+                self.alpha = 0.0
+                UIView.animateWithDuration(1.0, animations: { () -> Void in
+                    self.alpha = 1.0
+                    finish()
+                })
+            })
+            
             if event.kind == .Message {
                 nameLabel?.text = event.user?.name
             }

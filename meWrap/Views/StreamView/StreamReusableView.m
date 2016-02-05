@@ -16,14 +16,6 @@
 
 @implementation StreamReusableView
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(select)];
-    gestureRecognizer.delegate = self;
-    [self addGestureRecognizer:gestureRecognizer];
-    self.selectTapGestureRecognizer = gestureRecognizer;
-}
-
 - (UIView *)contentView {
     if (_contentView == nil) {
         return self;
@@ -32,8 +24,13 @@
     }
 }
 
+- (void)layoutWithMetrics:(StreamMetrics *)metrics {}
+
 - (void)loadedWithMetrics:(StreamMetrics *)metrics {
-    
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(select)];
+    gestureRecognizer.delegate = self;
+    [self addGestureRecognizer:gestureRecognizer];
+    self.selectTapGestureRecognizer = gestureRecognizer;
 }
 
 - (void)setEntry:(id)entry {
@@ -41,9 +38,7 @@
     [self setup:entry];
 }
 
-- (void)setup:(id)entry {
-    
-}
+- (void)setup:(id)entry {}
 
 - (void)resetup {
     [self setup:self.entry];
@@ -57,13 +52,9 @@
     [self select:self.entry];
 }
 
-- (void)didDequeue {
-    
-}
+- (void)didDequeue {}
 
-- (void)willEnqueue {
-    
-}
+- (void)willEnqueue {}
 
 // MARK: - UIGestureRecognizerDelegate
 

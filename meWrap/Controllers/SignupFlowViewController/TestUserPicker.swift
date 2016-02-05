@@ -16,7 +16,6 @@ class TestUserCell: StreamReusableView {
     @IBOutlet weak var deviceUID: UILabel!
     @IBOutlet weak var active: UIView!
     
-    
     override func setup(entry: AnyObject!) {
         if let authorization = entry as? Authorization {
             phone.text = authorization.fullPhoneNumber
@@ -35,16 +34,19 @@ final class TestUserPicker: UIView {
         label.textColor = UIColor.whiteColor()
         return label
     }()
+    
     private let closeButton: UIButton = {
         let button = UIButton(type: .Custom)
         button.setTitle("Close", forState: .Normal)
         return button
     }()
+    
     private let navigationBar: UIView = {
         let view = UIView()
         view.backgroundColor = Color.orange
         return view
     }()
+    
     private let streamView = StreamView()
     
     private var dataSource: StreamDataSource!

@@ -25,7 +25,7 @@ class StreamLoader: NSObject {
     
     weak var nibOwner:AnyObject?
     
-    func loadView() -> StreamReusableView? {
+    func loadView(metrics: StreamMetrics) -> StreamReusableView? {
         if let nib = nib {
             for object in nib.instantiateWithOwner(nibOwner, options: nil) {
                 if let reusing = object as? StreamReusableView {
@@ -51,12 +51,20 @@ class IndexedStreamLoader: StreamLoader {
         self.index = index
     }
     
-    override func loadView() -> StreamReusableView? {
+    override func loadView(metrics: StreamMetrics) -> StreamReusableView? {
         return nib?.instantiateWithOwner(nibOwner, options: nil)[index] as? StreamReusableView
     }
     
     func loader(index: Int) -> IndexedStreamLoader {
         return IndexedStreamLoader(identifier: identifier, index: index)
+    }
+}
+
+class LayoutStreamLoader<T: StreamReusableView>: StreamLoader {
+    override func loadView(metrics: StreamMetrics) -> StreamReusableView? {
+        let view = T()
+        view.layoutWithMetrics(metrics)
+        return view
     }
 }
 
@@ -109,12 +117,8 @@ class StreamMetrics: NSObject {
     }
     
     @IBOutlet weak var nibOwner:AnyObject? {
-        get {
-            return loader.nibOwner
-        }
-        set {
-            loader.nibOwner = newValue
-        }
+        get { return loader.nibOwner }
+        set { loader.nibOwner = newValue }
     }
     
     @IBInspectable var hidden: Bool = false
@@ -148,7 +152,7 @@ class StreamMetrics: NSObject {
     var disableMenu = false
     
     func loadView () -> StreamReusableView? {
-        if let reusing = loader.loadView() {
+        if let reusing = loader.loadView(self) {
             reusing.metrics = self
             reusing.loadedWithMetrics(self)
             return reusing

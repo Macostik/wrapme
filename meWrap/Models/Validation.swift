@@ -9,15 +9,11 @@
 import Foundation
 
 enum ValidationStatus {
-    case Undefined
-    case Invalid
-    case Valid
+    case Undefined, Invalid, Valid
 }
 
 class Validation: NSObject, UITextFieldDelegate {
     
-    var reason: String?
-    weak var delegate: ValidationDelegate?
     @IBOutlet weak var inputView: UITextField! {
         willSet {
             newValue.delegate = self
@@ -27,30 +23,14 @@ class Validation: NSObject, UITextFieldDelegate {
     
     @IBOutlet weak var statusView: UIView! {
         didSet {
-            updateStatusView(self.status ?? .Undefined)
+            updateStatusView(status)
         }
     }
     
     var status: ValidationStatus = .Undefined {
         willSet {
-            updateStatusView(newValue ?? .Undefined)
+            updateStatusView(newValue)
         }
-    }
-    
-    override init() {
-        super.init()
-        prepare()
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        prepare()
-    }
-    
-    func prepare() {}
-    
-    func statusChanged(status: ValidationStatus) {
-        updateStatusView(status)
     }
 
     func updateStatusView(status: ValidationStatus) {
@@ -71,7 +51,7 @@ class Validation: NSObject, UITextFieldDelegate {
 
 class TextFieldValidation: Validation {
     
-    var limit = 0
+    @IBInspectable var limit: Int = 0
     
     override func defineCurrentStatus(textField: UITextField) -> ValidationStatus {
         return textField.text?.isEmpty ?? false ? .Invalid : .Valid

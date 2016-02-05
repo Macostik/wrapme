@@ -339,7 +339,6 @@
 		C5F11E511C64A21C001C2486 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E471C64A21C001C2486 /* EmailViewController.swift */; };
 		C5F11E521C64A21C001C2486 /* PhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E481C64A21C001C2486 /* PhoneViewController.swift */; };
 		C5F11E531C64A21C001C2486 /* CountriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E491C64A21C001C2486 /* CountriesViewController.swift */; };
-		C5F11E541C64A21C001C2486 /* CountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5F11E4A1C64A21C001C2486 /* CountryCell.xib */; };
 		C5F11E551C64A21C001C2486 /* TestUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5F11E4B1C64A21C001C2486 /* TestUserCell.xib */; };
 		C5F11E561C64A21C001C2486 /* TestUserPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E4C1C64A21C001C2486 /* TestUserPicker.swift */; };
 		C5F11E571C64A21C001C2486 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E4D1C64A21C001C2486 /* EditProfileViewController.swift */; };
@@ -831,7 +830,6 @@
 		C5F11E471C64A21C001C2486 /* EmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
 		C5F11E481C64A21C001C2486 /* PhoneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneViewController.swift; sourceTree = "<group>"; };
 		C5F11E491C64A21C001C2486 /* CountriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesViewController.swift; sourceTree = "<group>"; };
-		C5F11E4A1C64A21C001C2486 /* CountryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CountryCell.xib; sourceTree = "<group>"; };
 		C5F11E4B1C64A21C001C2486 /* TestUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestUserCell.xib; sourceTree = "<group>"; };
 		C5F11E4C1C64A21C001C2486 /* TestUserPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUserPicker.swift; sourceTree = "<group>"; };
 		C5F11E4D1C64A21C001C2486 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -1714,7 +1712,6 @@
 				C5F11E471C64A21C001C2486 /* EmailViewController.swift */,
 				C5F11E481C64A21C001C2486 /* PhoneViewController.swift */,
 				C5F11E491C64A21C001C2486 /* CountriesViewController.swift */,
-				C5F11E4A1C64A21C001C2486 /* CountryCell.xib */,
 				C5F11E4C1C64A21C001C2486 /* TestUserPicker.swift */,
 				C5F11E4B1C64A21C001C2486 /* TestUserCell.xib */,
 				C5F11E4D1C64A21C001C2486 /* EditProfileViewController.swift */,
@@ -2015,7 +2012,6 @@
 				C54AF72719B8C491006F7EDB /* flowers.plist in Resources */,
 				C5BEC3941B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */,
 				C5F44FF01C5CB9780049215D /* WrapPickerCell.xib in Resources */,
-				C5F11E541C64A21C001C2486 /* CountryCell.xib in Resources */,
 				C54D12CD1C4526B7009014FB /* LiveBroadcastViewerCell.xib in Resources */,
 				C5DA2FD71C2C0C7D00038352 /* AddressBookGroupView.xib in Resources */,
 				C552A8381BFDEA5E00A7FFAD /* MediaViews.xib in Resources */,

@@ -25,6 +25,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 
+- (void)layoutWithMetrics:(StreamMetrics*)metrics;
+
 - (void)loadedWithMetrics:(StreamMetrics*)metrics;
 
 - (void)didDequeue;

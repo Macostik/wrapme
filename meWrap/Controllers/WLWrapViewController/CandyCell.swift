@@ -17,6 +17,7 @@ class CandyCell: StreamReusableView {
     @IBOutlet weak var videoIndicatorView: UIView!
     
     override func loadedWithMetrics(metrics: StreamMetrics!) {
+        super.loadedWithMetrics(metrics)
         guard !metrics.disableMenu else {
             return
         }

@@ -50,7 +50,7 @@ final class PhoneViewController: SignupStepViewController {
         didSet {
             Authorization.current.countryCode = country.callingCode
             selectCountryButton.setTitle(country.name, forState:.Normal)
-            countryCodeLabel.text = "+\(country.callingCode)"
+            countryCodeLabel.text = "+\(country.callingCode ?? "")"
             validation.country = country
         }
     }

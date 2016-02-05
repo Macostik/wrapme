@@ -174,6 +174,9 @@ class LiveBroadcasterViewController: LiveViewController {
         broadcast.streamName = "\(wrap.uid)-\(user.uid)-\(deviceUID)"
         broadcast.wrap = wrap
         
+        stopCapture()
+        startCapture(cameraPosition)
+        
         createConnection()
         
         subscribe(broadcast)

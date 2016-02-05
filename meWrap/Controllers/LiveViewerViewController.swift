@@ -70,6 +70,13 @@ class LiveViewerViewController: LiveViewController {
             }
         }
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        UIView.performWithoutAnimation { [unowned self] () -> Void in
+            self.playerLayer?.frame = self.view.bounds
+        }
+    }
 
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         guard let keyPath = keyPath, let item = playerItem else { return }

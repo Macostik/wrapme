@@ -547,7 +547,7 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="inputView" destination="HvP-Ka-9z4" id="8uG-c5-F55"/>
-                        <outlet property="statusView" destination="59A-fh-MwM" id="T0j-TP-qKs"/>
+                        <outlet property="statusView" destination="59A-fh-MwM" id="X0E-Tz-I4t"/>
                     </connections>
                 </customObject>
             </objects>

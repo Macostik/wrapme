@@ -29,7 +29,7 @@ class Validation: NSObject, UITextFieldDelegate {
         }
     }
     @IBOutlet weak var statusView: UIView! {
-        willSet {
+        didSet {
             updateStatusView(self.status ?? .Undefined)
         }
     }
@@ -57,15 +57,18 @@ class Validation: NSObject, UITextFieldDelegate {
     }
     
     func updateStatusView(status: ValidationStatus) {
-        if let statusView = statusView {
-            statusView.userInteractionEnabled = status == .Valid
-            statusView.alpha = status == .Valid ? 1.0 : 0.5
-        }
+        statusView?.userInteractionEnabled = status == .Valid
+        statusView?.alpha = status == .Valid ? 1.0 : 0.5
     }
     
     func validate() -> ValidationStatus {
-        status = .Valid
+        let status = defineCurrentStatus(inputView)
+        self.status = status
         return status
+    }
+    
+    func defineCurrentStatus(textField: UITextField) -> ValidationStatus {
+        return .Valid
     }
 }
 
@@ -73,7 +76,7 @@ class TextFieldValidation: Validation {
     
     var limit = 0
     
-    func defineCurrentStatus(textField: UITextField) -> ValidationStatus {
+    override func defineCurrentStatus(textField: UITextField) -> ValidationStatus {
         return textField.text?.isEmpty ?? false ? .Invalid : .Valid
     }
     
@@ -86,5 +89,6 @@ class TextFieldValidation: Validation {
                 textField.text = text.substringToIndex(index)
             }
         }
+        validate()
     }
 }

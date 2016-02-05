@@ -15,7 +15,7 @@ class TextField: UITextField {
     @IBInspectable var strokeColor: UIColor?
     @IBInspectable var localize: Bool = false {
         willSet {
-            if let text = text where !text.isEmpty {
+            if let text = placeholder where !text.isEmpty {
                 super.placeholder = text.ls
             }
         }
@@ -31,11 +31,8 @@ class TextField: UITextField {
     }
     
     override var text: String? {
-        willSet {
-            if let text = newValue where !text.isEmpty {
-                super.text = text
-                sendActionsForControlEvents(.EditingChanged)
-            }
+        didSet {
+            sendActionsForControlEvents(.EditingChanged)
         }
     }
     

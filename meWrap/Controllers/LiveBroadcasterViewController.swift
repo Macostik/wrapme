@@ -121,7 +121,7 @@ class LiveBroadcasterViewController: LiveViewController {
         let videoSizes: [CGSize] = (cameraInfo.videoSizes as? [NSValue])?.map({ $0.CGSizeValue() }) ?? []
         let preferedSize = videoSizes.filter({ $0.width == 640 && $0.height == 480 }).first
         videoConfig.videoSize = preferedSize ?? videoSizes[3]
-        videoConfig.bitrate = 300000
+        videoConfig.bitrate = 280000
         videoConfig.fps = 15
         videoConfig.keyFrameInterval = 2
         let profiles = VideoConfig.getSupportedProfiles() as! [String]

@@ -196,7 +196,7 @@ class LiveBroadcasterViewController: LiveViewController {
     }
     
     func stopBroadcast() {
-        userState = [NSObject : AnyObject]()
+        userState = ["is_streaming" : false]
         releaseConnection()
         stopCapture()
     }
@@ -223,6 +223,7 @@ class LiveBroadcasterViewController: LiveViewController {
             let broadcast = _self.broadcast
             
             var state = [NSObject:AnyObject]()
+            state["is_streaming"] = true
             state["streamName"] = broadcast.streamName
             if let title = broadcast.title {
                 state["title"] = title

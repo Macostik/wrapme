@@ -14,8 +14,9 @@ class CountryCell: StreamReusableView {
     weak var countryNameLabel: UILabel!
     
     override func layoutWithMetrics(metrics: StreamMetrics!) {
-        let countryNameLabel = UILabel()
+        let countryNameLabel = Label()
         countryNameLabel.font = UIFont.fontNormal()
+        countryNameLabel.preset = FontPreset.Normal.rawValue
         countryNameLabel.textColor = Color.grayDark
         addSubview(countryNameLabel)
         self.countryNameLabel = countryNameLabel

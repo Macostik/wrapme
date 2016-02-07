@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SnapKit
 
 class CandyCell: StreamReusableView {
     
@@ -15,6 +16,45 @@ class CandyCell: StreamReusableView {
     @IBOutlet weak var commentLabel: UILabel!
     
     @IBOutlet weak var videoIndicatorView: UIView!
+    
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        let imageView = ImageView()
+        imageView.contentMode = .ScaleAspectFill
+        imageView.clipsToBounds = true
+        addSubview(imageView)
+        self.imageView = imageView
+        let videoIndicatorView = UILabel()
+        videoIndicatorView.font = UIFont(name: "icons", size: 24)
+        videoIndicatorView.textColor = UIColor.whiteColor()
+        videoIndicatorView.text = "+"
+        addSubview(videoIndicatorView)
+        self.videoIndicatorView = videoIndicatorView
+        let gradientView = GradientView()
+        gradientView.startColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
+        gradientView.contentMode = .Bottom
+        addSubview(gradientView)
+        let commentLabel = Label()
+        commentLabel.font = UIFont.lightFontSmaller()
+        commentLabel.preset = "smaller"
+        commentLabel.textAlignment = .Center
+        commentLabel.numberOfLines = 2
+        commentLabel.textColor = UIColor.whiteColor()
+        gradientView.addSubview(commentLabel)
+        self.commentLabel = commentLabel
+        
+        imageView.snp_makeConstraints(closure: { $0.edges.equalTo(self) })
+        
+        videoIndicatorView.snp_makeConstraints { $0.top.right.equalTo(self) }
+
+        gradientView.snp_makeConstraints { make in
+            make.left.right.equalTo(self)
+            make.bottom.equalTo(self)
+        }
+
+        commentLabel.snp_makeConstraints { make in
+            make.edges.equalTo(gradientView).inset(UIEdgeInsetsMake(4, 4, 4, 4))
+        }
+    }
     
     override func loadedWithMetrics(metrics: StreamMetrics!) {
         super.loadedWithMetrics(metrics)
@@ -32,26 +72,20 @@ class CandyCell: StreamReusableView {
                 menu.addEditPhotoAction({ (_) -> Void in
                     DownloadingView.downloadCandy(candy, success: { (image) -> Void in
                         ImageEditor.editImage(image) { candy.editWithImage($0) }
-                        }, failure: { (error) -> Void in
-                            error?.show()
-                    })
+                        }, failure: { $0?.show() })
                 })
                 
                 menu.addDrawPhotoAction({ (_) -> Void in
                     DownloadingView.downloadCandy(candy, success: { (image) -> Void in
                         WLDrawingViewController.draw(image) { candy.editWithImage($0) }
-                        }, failure: { (error) -> Void in
-                            error?.show()
-                    })
+                        }, failure: { $0?.show() })
                 })
             }
             
             menu.addDownloadAction({ (_) -> Void in
                 candy.download({ () -> Void in
                     Toast.showDownloadingMediaMessageForCandy(candy)
-                    }, failure: { (error) -> Void in
-                        error?.show()
-                })
+                    }, failure: { $0?.show() })
             })
             
             if (candy.deletable) {
@@ -76,7 +110,7 @@ class CandyCell: StreamReusableView {
             }
             
             menu.entry = candy
-        })
+            })
     }
     
     override func didDequeue() {

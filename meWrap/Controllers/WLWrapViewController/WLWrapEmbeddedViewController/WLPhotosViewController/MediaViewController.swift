@@ -55,7 +55,7 @@ class HistoryItemCell: StreamReusableView {
         super.loadedWithMetrics(metrics)
         streamView.layout = SquareLayout(horizontal: true)
         dataSource = HistoryItemDataSource(streamView: streamView)
-        candyMetrics = dataSource.addMetrics(StreamMetrics(identifier: "CandyCell"))
+        candyMetrics = dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<CandyCell>()))
         candyMetrics.selection = metrics.selection
         dataSource.layoutSpacing = Constants.pixelSize
         candyMetrics.prepareAppearing = { [weak self] item, _ in

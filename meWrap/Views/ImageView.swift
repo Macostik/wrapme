@@ -7,35 +7,23 @@
 //
 
 import UIKit
+import SnapKit
 
 class ImageView: UIImageView {
     
-    private var originalBackgroundColor = UIColor.clearColor()
-    
-    private weak var _defaultIconView: UILabel?
-    @IBOutlet weak var defaultIconView: UILabel! {
-        get {
-            if let iconView = _defaultIconView {
-                return iconView
-            } else {
-                let iconView = UILabel()
-                iconView.translatesAutoresizingMaskIntoConstraints = false
-                iconView.hidden = true
-                iconView.font = UIFont(name:"icons", size:defaultIconSize)
-                iconView.textAlignment = .Center
-                iconView.textColor = defaultIconColor
-                iconView.text = defaultIconText
-                addSubview(iconView)
-                addConstraint(NSLayoutConstraint(item: iconView, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0))
-                addConstraint(NSLayoutConstraint(item: iconView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0))
-                _defaultIconView = iconView
-                return iconView
-            }
-        }
-        set {
-            _defaultIconView = newValue
-        }
-    }
+    lazy var defaultIconView: UILabel = {
+        let iconView = UILabel()
+        iconView.translatesAutoresizingMaskIntoConstraints = false
+        iconView.hidden = true
+        iconView.font = UIFont(name:"icons", size:self.defaultIconSize)
+        iconView.textAlignment = .Center
+        iconView.textColor = self.defaultIconColor
+        iconView.backgroundColor = self.defaultBackgroundColor
+        iconView.text = self.defaultIconText
+        self.insertSubview(iconView, atIndex: 0)
+        iconView.snp_makeConstraints(closure: { $0.left.right.top.bottom.equalTo(self) })
+        return iconView
+    }()
     
     @IBInspectable var defaultIconSize: CGFloat = 24
     
@@ -49,10 +37,10 @@ class ImageView: UIImageView {
         didSet {
             image = nil
             if let url = url where !url.isEmpty {
-                setDefaultIconViewHidden(true)
+                defaultIconView.hidden = true
                 ImageFetcher.defaultFetcher.enqueue(url, receiver: self)
             } else {
-                setDefaultIconViewHidden(false)
+                defaultIconView.hidden = false
             }
         }
     }
@@ -61,28 +49,10 @@ class ImageView: UIImageView {
     
     var failure: FailureBlock?
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        if let color = backgroundColor {
-            originalBackgroundColor = color
-        }
-    }
-    
     func setURL(url: String?, success: ((image: UIImage?, cached: Bool) -> Void)?, failure: FailureBlock?) {
         self.success = success
         self.failure = failure
         self.url = url
-    }
-    
-    private func setDefaultIconViewHidden(hidden: Bool) {
-        defaultIconView.hidden = hidden
-        if hidden {
-            backgroundColor = originalBackgroundColor
-        } else {
-            if let color = defaultBackgroundColor {
-                backgroundColor = color
-            }
-        }
     }
 }
 
@@ -91,13 +61,13 @@ extension ImageView: ImageFetching {
         return url
     }
     func fetcher(fetcher: ImageFetcher, didFailWithError error: NSError) {
-        setDefaultIconViewHidden(false)
+        defaultIconView.hidden = false
         failure?(error)
         failure = nil
         success = nil
     }
     func fetcher(fetcher: ImageFetcher, didFinishWithImage image: UIImage, cached: Bool) {
-        setDefaultIconViewHidden(true)
+        defaultIconView.hidden = true
         self.image = image
         if !cached {
             addAnimation(CATransition.transition(kCATransitionFade))

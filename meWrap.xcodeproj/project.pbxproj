@@ -127,7 +127,6 @@
 		C53BC48A1C05BC010009B0B9 /* AssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C53BC4881C05BC010009B0B9 /* AssetCell.xib */; };
 		C53BC48E1C05FE620009B0B9 /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53BC48D1C05FE620009B0B9 /* SegmentedControl.swift */; };
 		C53CD24C1C1706B600AA4746 /* CandyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53CD24A1C1706B600AA4746 /* CandyCell.swift */; };
-		C53CD24D1C1706B600AA4746 /* CandyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C53CD24B1C1706B600AA4746 /* CandyCell.xib */; };
 		C540C0F01B988BF700F880C9 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540C0EE1B988BF700F880C9 /* GridLayout.swift */; };
 		C540C0F31B988BFD00F880C9 /* StreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540C0F11B988BFD00F880C9 /* StreamItem.swift */; };
 		C54604D21C08C5D800FB2303 /* NSObject+NibLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54604D11C08C5D800FB2303 /* NSObject+NibLoading.swift */; };
@@ -606,7 +605,6 @@
 		C53BC4881C05BC010009B0B9 /* AssetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetCell.xib; sourceTree = "<group>"; };
 		C53BC48D1C05FE620009B0B9 /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		C53CD24A1C1706B600AA4746 /* CandyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CandyCell.swift; path = WLWrapViewController/CandyCell.swift; sourceTree = "<group>"; };
-		C53CD24B1C1706B600AA4746 /* CandyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CandyCell.xib; path = WLWrapViewController/CandyCell.xib; sourceTree = "<group>"; };
 		C540C0EE1B988BF700F880C9 /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		C540C0F11B988BFD00F880C9 /* StreamItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamItem.swift; sourceTree = "<group>"; };
 		C54604D11C08C5D800FB2303 /* NSObject+NibLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+NibLoading.swift"; sourceTree = "<group>"; };
@@ -1144,7 +1142,6 @@
 			isa = PBXGroup;
 			children = (
 				C53CD24A1C1706B600AA4746 /* CandyCell.swift */,
-				C53CD24B1C1706B600AA4746 /* CandyCell.xib */,
 				C5BFE4CC1B4FD913004B655E /* WLWrapEmbeddedViewController */,
 				12DCBA8918DB39B500A4BC44 /* WLWrapViewController.h */,
 				12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */,
@@ -1999,7 +1996,6 @@
 				C5B8F7201B82172D00A5E541 /* WLDrawingViewController.xib in Resources */,
 				C5B91A4B1BB41343000E08E7 /* DownloadingView.xib in Resources */,
 				C5B91A361BB3F812000E08E7 /* Main.storyboard in Resources */,
-				C53CD24D1C1706B600AA4746 /* CandyCell.xib in Resources */,
 				5BA4F8831A1CA08A00DB1A25 /* s02.wav in Resources */,
 				C54AF72219B8C491006F7EDB /* Images.xcassets in Resources */,
 				C53012901BF4E3EA00098F9C /* EmojiCell.xib in Resources */,
@@ -3038,7 +3034,7 @@
 				PROVISIONING_PROFILE = "962da5dd-698a-46b8-80cf-fb08e5bde505";
 				SWIFT_OBJC_BRIDGING_HEADER = "meWrap/meWrap-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "meWrap-Swift.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				USE_NEWRELIC = "$(inherited)";
@@ -3136,7 +3132,7 @@
 				PROVISIONING_PROFILE = "9e60a793-5241-4eda-8a64-d45653a0faf9";
 				SWIFT_OBJC_BRIDGING_HEADER = "meWrap/meWrap-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "meWrap-Swift.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				USE_NEWRELIC = "$(inherited)";

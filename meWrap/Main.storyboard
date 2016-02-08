@@ -3046,7 +3046,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kjg-TD-Vmm" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="RbC-xy-dkj" customClass="StreamDataSource" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLCommentCell"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="CommentCell"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="placeholderIdentifier" value="comments"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -3560,7 +3560,7 @@ QWRkEEZyaWVuZFZpZXc
                 </customObject>
                 <customObject id="zjC-7P-9tZ" customClass="StreamDataSource" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLContributorCell"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="ContributorCell"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="streamView" destination="EqA-Dj-Zuu" id="ZdB-P1-x3k"/>

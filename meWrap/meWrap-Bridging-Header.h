@@ -2,7 +2,6 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
-#import "StreamReusableView.h"
 #import <OpenUDID/OpenUDID.h>
 #import "DefinedBlocks.h"
 #import "WLBaseViewController.h"

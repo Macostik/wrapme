@@ -7,13 +7,12 @@
 //
 
 #import "WLContributorsViewController.h"
-#import "WLContributorCell.h"
 
 const static CGFloat WLContributorsVerticalIndent = 48.0f;
 const static CGFloat WLContributorsHorizontalIndent = 96.0f;
 const static CGFloat WLContributorsMinHeight = 72.0f;
 
-@interface WLContributorsViewController () <WLContributorCellDelegate, EntryNotifying>
+@interface WLContributorsViewController () <ContributorCellDelegate, EntryNotifying>
 
 @property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
 
@@ -47,7 +46,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
         User *contributor = item.entry;
         CGFloat pandingHeight = contributor.isInvited ? [@"sign_up_pending".ls heightWithFont:font width:textWidth] : 0;
         CGFloat phoneHeight = contributor.securePhones.nonempty ? [contributor.securePhones heightWithFont:font width:textWidth] : 0;
-        NSString *invitationText = [WLContributorCell invitationHintText:contributor];
+        NSString *invitationText = [ContributorCell invitationHintText:contributor];
         phoneHeight += [invitationText heightWithFont:font width:textWidth];
         
         return MAX(phoneHeight + pandingHeight + WLContributorsVerticalIndent, WLContributorsMinHeight) + 1;
@@ -91,7 +90,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 
 #pragma mark - WLContributorCellDelegate
 
-- (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(User *)contributor {
+- (void)contributorCell:(ContributorCell *)cell didRemoveContributor:(User *)contributor {
     NSMutableArray *contributors = [(NSArray*)self.dataSource.items mutableCopy];
     [contributors removeObject:contributor];
     self.dataSource.items = [contributors copy];
@@ -113,7 +112,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     if (self.contributiorWithOpenedMenu == contributor) {
         self.contributiorWithOpenedMenu = nil;
         for (StreamItem *item in self.dataSource.streamView.visibleItems) {
-            WLContributorCell *cell = (id)item.view;
+            ContributorCell *cell = (id)item.view;
             if (cell.entry == contributor) {
                 [cell setMenuHidden:YES animated:YES];
                 break;
@@ -122,7 +121,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     }
 }
 
-- (void)contributorCell:(WLContributorCell *)cell didInviteContributor:(User *)contributor completionHandler:(void (^)(BOOL))completionHandler {
+- (void)contributorCell:(ContributorCell *)cell didInviteContributor:(User *)contributor completionHandler:(void (^)(BOOL))completionHandler {
     __weak typeof(self)weakSelf = self;
     [[APIRequest resendInvite:self.wrap user:contributor] send:^(id object) {
         if (completionHandler) completionHandler(YES);
@@ -134,15 +133,15 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     }];
 }
 
-- (BOOL)contributorCell:(WLContributorCell *)cell isInvitedContributor:(User *)contributor {
+- (BOOL)contributorCell:(ContributorCell *)cell isInvitedContributor:(User *)contributor {
     return [self.invitedContributors containsObject:contributor];
 }
 
-- (BOOL)contributorCell:(WLContributorCell *)cell isCreator:(User *)contributor {
+- (BOOL)contributorCell:(ContributorCell *)cell isCreator:(User *)contributor {
     return self.wrap.contributor == contributor;
 }
 
-- (void)contributorCell:(WLContributorCell *)cell didToggleMenu:(User *)contributor {
+- (void)contributorCell:(ContributorCell *)cell didToggleMenu:(User *)contributor {
     if (self.contributiorWithOpenedMenu) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideMenuForContributor:) object:self.contributiorWithOpenedMenu];
     }
@@ -152,7 +151,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     } else {
         self.contributiorWithOpenedMenu = contributor;
         for (StreamItem *item in self.dataSource.streamView.visibleItems) {
-            WLContributorCell *cell = (id)item.view;
+            ContributorCell *cell = (id)item.view;
             if (cell.entry != contributor) {
                 [cell setMenuHidden:YES animated:YES];
             }
@@ -160,7 +159,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     }
 }
 
-- (BOOL)contributorCell:(WLContributorCell *)cell showMenu:(User *)contributor {
+- (BOOL)contributorCell:(ContributorCell *)cell showMenu:(User *)contributor {
     return self.contributiorWithOpenedMenu == contributor;
 }
 

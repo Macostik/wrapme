@@ -7,7 +7,6 @@
 //
 
 #import "WLAddContributorsViewController.h"
-#import "AddressBookRecordCell.h"
 
 @interface WLAddContributorsViewController () <StreamViewDelegate, AddressBookRecordCellDelegate, UITextFieldDelegate, FontPresetting, AddressBookNoifying>
 

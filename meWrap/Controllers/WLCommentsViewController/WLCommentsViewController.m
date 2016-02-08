@@ -8,7 +8,6 @@
 
 #import "WLCommentsViewController.h"
 #import "WLCandyViewController.h"
-#import "WLCommentCell.h"
 
 static CGFloat WLNotificationCommentHorizontalSpacing = 84.0f;
 static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;

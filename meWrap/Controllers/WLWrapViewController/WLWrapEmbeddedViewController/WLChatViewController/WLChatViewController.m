@@ -7,8 +7,6 @@
 //
 
 #import "WLChatViewController.h"
-#import "WLMessageCell.h"
-#import "WLMessageDateView.h"
 #import "WLWrapViewController.h"
 
 @interface WLChatViewController () <StreamViewDelegate, ComposeBarDelegate, KeyboardNotifying, EntryNotifying, ChatNotifying>
@@ -64,13 +62,13 @@
     self = [super initWithCoder:coder];
     if (self) {
         self.runQueue = [[RunQueue alloc] initWithLimit:1];
-        self.messageMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageCell"];
+        self.messageMetrics = [[StreamMetrics alloc] initWithIdentifier:@"MessageCell"];
         self.messageMetrics.selectable = NO;
-        self.messageWithNameMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageWithNameCell"];
+        self.messageWithNameMetrics = [[StreamMetrics alloc] initWithIdentifier:@"MessageWithNameCell"];
         self.messageWithNameMetrics.selectable = NO;
-        self.myMessageMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMyMessageCell"];
+        self.myMessageMetrics = [[StreamMetrics alloc] initWithIdentifier:@"MyMessageCell"];
         self.myMessageMetrics.selectable = NO;
-        self.dateMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageDateView" size:33];
+        self.dateMetrics = [[StreamMetrics alloc] initWithIdentifier:@"MessageDateView" size:33];
         self.dateMetrics.selectable = NO;
         self.unreadMessagesMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLUnreadMessagesView" size:46];
         self.unreadMessagesMetrics.selectable = NO;
@@ -107,7 +105,7 @@
         if (message.unread && weakSelf.view.superview && ![weakSelf.chat.readMessages containsObject:message]) {
             [weakSelf.chat addReadMessage:message];
         }
-        WLMessageCell *messageCell = (WLMessageCell*)view;
+        MessageCell *messageCell = (MessageCell*)view;
         messageCell.tailView.hidden = !message.chatMetadata.isGroup;
     };
     

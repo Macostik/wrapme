@@ -147,7 +147,7 @@
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    return self.imageView;
+    return self.candy.type == MediaTypeVideo ? nil : self.imageView;
 }
 
 // MARK: - VideoPlayerViewDelegate

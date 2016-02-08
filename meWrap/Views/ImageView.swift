@@ -31,7 +31,7 @@ class ImageView: UIImageView {
     
     @IBInspectable var defaultIconColor = UIColor.whiteColor()
     
-    @IBInspectable var defaultBackgroundColor: UIColor?
+    @IBInspectable lazy var defaultBackgroundColor: UIColor? = self.backgroundColor
     
     var url: String? {
         didSet {

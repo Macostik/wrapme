@@ -11,14 +11,18 @@ import SnapKit
 
 class CandyCell: StreamReusableView {
     
-    @IBOutlet weak var imageView: ImageView!
+    weak var imageView: ImageView!
     
-    @IBOutlet weak var commentLabel: UILabel!
+    weak var commentLabel: UILabel!
     
-    @IBOutlet weak var videoIndicatorView: UIView!
+    weak var videoIndicatorView: UIView!
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         let imageView = ImageView()
+        imageView.backgroundColor = UIColor.whiteColor()
+        imageView.defaultIconSize = 56
+        imageView.defaultIconText = "t"
+        imageView.defaultIconColor = Color.grayLighter
         imageView.contentMode = .ScaleAspectFill
         imageView.clipsToBounds = true
         addSubview(imageView)

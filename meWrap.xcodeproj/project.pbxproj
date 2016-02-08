@@ -353,6 +353,7 @@
 		C5F4E70D1C07489E00D2FC16 /* EditSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4E70C1C07489E00D2FC16 /* EditSession.swift */; };
 		C5F4E70F1C07687A00D2FC16 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4E70E1C07687A00D2FC16 /* UIColor+Ext.swift */; };
 		C5F5EAE91BDEA79F00DF1DA5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50647681ABD889100CB4BE3 /* CoreData.framework */; };
+		C5F5F0BE1C687B1B002F74C9 /* UserActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F5F0BD1C687B1B002F74C9 /* UserActivity.swift */; };
 		C5F9A49E1C4B8A1700A7D83B /* CaptureMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F9A49D1C4B8A1700A7D83B /* CaptureMediaViewController.swift */; };
 		C5FAC9021BE2B35F0060FEDB /* NSUserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FAC9011BE2B35F0060FEDB /* NSUserDefaults+Ext.swift */; };
 /* End PBXBuildFile section */
@@ -842,6 +843,7 @@
 		C5F4A1651BF36DD300EFC8FA /* StreamDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamDataSource.swift; sourceTree = "<group>"; };
 		C5F4E70C1C07489E00D2FC16 /* EditSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSession.swift; sourceTree = "<group>"; };
 		C5F4E70E1C07687A00D2FC16 /* UIColor+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		C5F5F0BD1C687B1B002F74C9 /* UserActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivity.swift; sourceTree = "<group>"; };
 		C5F9A49D1C4B8A1700A7D83B /* CaptureMediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureMediaViewController.swift; sourceTree = "<group>"; };
 		C5FAC9011BE2B35F0060FEDB /* NSUserDefaults+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+Ext.swift"; sourceTree = "<group>"; };
 		D2F89869A3934855EF0732E8 /* Pods-meWrap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meWrap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-meWrap/Pods-meWrap.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1306,6 +1308,7 @@
 			isa = PBXGroup;
 			children = (
 				C502B30F1C47F2EC00F66EAE /* NotificationCenter.swift */,
+				C5F5F0BD1C687B1B002F74C9 /* UserActivity.swift */,
 				C558710D1C48F63500F09E58 /* NotificationSubscription.swift */,
 				C502B3101C47F2EC00F66EAE /* PubNub+Ext.swift */,
 				C502B30E1C47F2EC00F66EAE /* Notification.swift */,
@@ -2225,6 +2228,7 @@
 				5B1061341C610A1900496647 /* ConfirmView.swift in Sources */,
 				C502B3141C47F2EC00F66EAE /* CommentNotification.swift in Sources */,
 				C5AA71D61BE3D39D00EA106A /* MutableAsset.swift in Sources */,
+				C5F5F0BE1C687B1B002F74C9 /* UserActivity.swift in Sources */,
 				C502B3191C47F2EC00F66EAE /* UserNotification.swift in Sources */,
 				C5BCF0381B551B7B00E4AD6D /* WLContributorsViewController.m in Sources */,
 				C577C2661A4C427100ECC7E5 /* iVersion.m in Sources */,

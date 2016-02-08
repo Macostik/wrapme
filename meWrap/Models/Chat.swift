@@ -54,14 +54,11 @@ class Chat: PaginatedList {
             self?.subscription = subscription
             subscription.delegate = self
             subscription.hereNow({ (uuids) -> Void in
-                guard let uuids = uuids else {
-                    return
-                }
+                guard let uuids = uuids else { return }
                 for uuid in uuids {
-                    guard let user = PubNub.userFromUUID(uuid["uuid"] as? String) where !user.current else {
-                        continue
-                    }
-                    if let typing = uuid["state"]?["typing"] as? Bool where typing == true {
+                    guard let activity = UserActivity(uuid: uuid["uuid"] as? String, state: uuid["state"] as? [NSObject:AnyObject]) else { return }
+                    guard activity.type == .Typing else { return }
+                    if let user = activity.user where activity.inProgress {
                         self?.didBeginTyping(user)
                     }
                 }
@@ -209,7 +206,12 @@ extension Chat: NotificationSubscriptionDelegate {
     }
     
     func sendTyping(typing: Bool) {
-        subscription?.changeState(["typing" : typing])
+        subscription?.changeState([
+            "activity" : [
+                "type" : UserActivityType.Typing.rawValue,
+                "in_progress" : typing
+            ]
+            ])
     }
     
     func beginTyping() {
@@ -220,29 +222,18 @@ extension Chat: NotificationSubscriptionDelegate {
         sendTyping(false)
     }
     
-    private func handleClientState(state: [NSObject:AnyObject], user: User) {
-        if let typing = state["typing"] as? Bool {
-            if typing {
-                didBeginTyping(user)
-            } else {
-                didEndTyping(user)
-            }
-        }
-    }
-    
     func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {
-        guard let user = PubNub.userFromUUID(event.data?.presence?.uuid) where !user.current else {
-            return
+        let presence = event.data?.presence
+        guard let activity = UserActivity(uuid: presence?.uuid, state: presence?.state) else { return }
+        guard activity.type == .Typing else { return }
+        guard let user = activity.user else { return }
+        if event.data.presenceEvent == "timeout" {
+            activity.inProgress = false
         }
-        
-        switch event.data.presenceEvent {
-        case "state-change":
-            handleClientState(event.data.presence.state, user: user)
-            break
-        case "leave", "timeout" where typingUsers.contains(user):
+        if activity.inProgress && event.data.presenceEvent == "state-change" {
+            didBeginTyping(user)
+        } else {
             didEndTyping(user)
-            break
-        default: break
         }
     }
 }

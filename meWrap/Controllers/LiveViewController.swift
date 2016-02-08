@@ -18,8 +18,18 @@ class LiveBroadcastEventView: StreamReusableView {
     
     @IBOutlet weak var textLabel: UILabel!
     
+    static let queue: RunQueue = RunQueue(limit: 1)
+    
     override func setup(entry: AnyObject!) {
         if let event = entry as? LiveBroadcast.Event {
+            LiveBroadcastEventView.queue.run({ (finish) -> Void in
+                self.alpha = 0.0
+                UIView.animateWithDuration(1.0, animations: { () -> Void in
+                    self.alpha = 1.0
+                    finish()
+                })
+            })
+            
             if event.kind == .Message {
                 nameLabel?.text = event.user?.name
             }
@@ -55,7 +65,7 @@ class LiveViewController: WLBaseViewController {
     
     var wrap: Wrap?
     
-    @IBOutlet weak var composeBar: ComposeBar!
+    @IBOutlet weak var composeBar: WLComposeBar!
     
     lazy var broadcast: LiveBroadcast = LiveBroadcast()
     
@@ -124,7 +134,7 @@ class LiveViewController: WLBaseViewController {
     @IBAction func presentViewers(sender: AnyObject) {
         if let controller = storyboard?["broadcastViewers"] as? LiveBroadcastViewersViewController {
             controller.broadcast = broadcast
-            presentViewController(controller, animated: false, completion: nil)
+            addContainedViewController(controller, animated: false)
             viewersController = controller
         }
     }
@@ -139,13 +149,6 @@ class LiveViewController: WLBaseViewController {
     
     override func shouldAutorotate() -> Bool {
         return allowAutorotate
-    }
-}
-
-extension LiveViewController: ComposeBarDelegate {
-    
-    func composeBarDidShouldResignOnFinish(composeBar: ComposeBar) -> Bool {
-        return true
     }
 }
 

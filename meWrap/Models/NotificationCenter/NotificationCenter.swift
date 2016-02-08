@@ -263,33 +263,33 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
     
     func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {
         guard let data = event.data else { return }
-        guard data.presence.uuid != User.channelName() else { return }
+        guard let uuid = data.presence?.uuid else { return }
+        guard uuid != User.channelName() else { return }
         guard let wrap = Wrap.entry(data.actualChannel) else { return }
         guard let state = data.presence?.state else { return }
-        guard let user = User.entry(state["userUid"] as? String) else { return }
+        guard let activity = UserActivity(uuid: uuid, state: state) where activity.type == .Streaming else { return }
         if data.presenceEvent == "state-change" {
-            user.fetchIfNeeded({ _ in
-                if let streamName = state["streamName"] as? String {
+            
+            activity.user?.fetchIfNeeded({ _ in
+                if activity.inProgress {
                     let broadcast = LiveBroadcast()
-                    broadcast.broadcaster = user
+                    broadcast.broadcaster = activity.user
                     broadcast.wrap = wrap
-                    broadcast.title = state["title"] as? String
-                    broadcast.streamName = streamName
+                    broadcast.title = activity.info["title"] as? String
+                    broadcast.streamName = activity.info["streamName"] as? String ?? ""
                     wrap.addBroadcast(broadcast)
                 } else {
-                    for broadcast in wrap.liveBroadcasts where broadcast.broadcaster == user {
+                    for broadcast in wrap.liveBroadcasts where broadcast.broadcaster == activity.user {
                         wrap.removeBroadcast(broadcast)
                         break
                     }
                 }
                 }, failure: nil)
         } else if data.presenceEvent == "timeout" {
-            let streamName = state["streamName"] as? String
-            if streamName == nil {
-                for broadcast in wrap.liveBroadcasts where broadcast.broadcaster == user {
-                    wrap.removeBroadcast(broadcast)
-                    break;
-                }
+            activity.inProgress = false
+            for broadcast in wrap.liveBroadcasts where broadcast.broadcaster == activity.user {
+                wrap.removeBroadcast(broadcast)
+                break
             }
         }
     }
@@ -297,17 +297,17 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
     private func liveBroadcastsFromUUIDs(uuids: [[String:AnyObject]], wrap: Wrap) -> [LiveBroadcast] {
         var broadcasts = [LiveBroadcast]()
         for uuid in uuids {
-            guard (uuid["uuid"] as? String) != User.channelName() else { continue }
+            guard let uid = uuid["uuid"] as? String where uid != User.channelName() else { continue }
             guard let state = uuid["state"] as? [String:AnyObject] else { continue }
-            guard let user = User.entry(state["userUid"] as? String) else { continue }
-            guard let streamName = state["streamName"] as? String else { continue }
+            guard let activity = UserActivity(uuid: uid, state: state) else { continue }
+            guard activity.inProgress && activity.type == .Streaming else { continue }
             let broadcast = LiveBroadcast()
-            broadcast.broadcaster = user
+            broadcast.broadcaster = activity.user
             broadcast.wrap = wrap
-            broadcast.title = state["title"] as? String
-            broadcast.streamName = streamName
+            broadcast.title = activity.info["title"] as? String
+            broadcast.streamName = activity.info["streamName"] as? String ?? ""
             broadcasts.append(broadcast)
-            user.fetchIfNeeded(nil, failure: nil)
+            activity.user?.fetchIfNeeded(nil, failure: nil)
         }
         return broadcasts
     }

@@ -61,12 +61,16 @@ class LiveBroadcastViewersViewController: UIViewController {
     }
     
     @IBAction func close(sender: AnyObject) {
-        presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+        removeFromContainerAnimated(false)
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
 }
 
 extension LiveBroadcastViewersViewController: SlideInteractiveTransitionDelegate {
     func slideInteractiveTransitionDidFinish(controller: SlideInteractiveTransition) {
-        presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+        removeFromContainerAnimated(false)
     }
 }

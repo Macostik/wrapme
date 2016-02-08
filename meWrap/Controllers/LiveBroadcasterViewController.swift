@@ -12,8 +12,8 @@ import PubNub
 private let LiveBroadcastUsername = "ravenpod"
 private let LiveBroadcastPassword = "34f82ab09fb501330b3910ddb1e38026"
 
-class LiveBroadcasterViewController: LiveViewController {
-
+final class LiveBroadcasterViewController: LiveViewController {
+    
     var cameraPosition: Int32 = 1
     
     let streamer: Streamer = Streamer.instance() as! Streamer
@@ -28,9 +28,7 @@ class LiveBroadcasterViewController: LiveViewController {
     
     weak var previewLayer: AVCaptureVideoPreviewLayer? {
         didSet {
-            if let layer = oldValue {
-                layer.removeFromSuperlayer()
-            }
+            oldValue?.removeFromSuperlayer()
             if let layer = previewLayer {
                 layer.frame = view.bounds
                 layer.videoGravity = AVLayerVideoGravityResizeAspectFill
@@ -39,7 +37,7 @@ class LiveBroadcasterViewController: LiveViewController {
         }
     }
     
-    var userState = [NSObject:AnyObject]() {
+    private var userState = [NSObject:AnyObject]() {
         didSet {
             if let channel = wrap?.uid {
                 NotificationCenter.defaultCenter.userSubscription.changeState(userState, channel: channel)
@@ -68,7 +66,7 @@ class LiveBroadcasterViewController: LiveViewController {
         startCapture(cameraPosition)
         UIAlertController.showNoMediaAccess(true)
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         UIView.performWithoutAnimation { [unowned self] () -> Void in
@@ -90,7 +88,7 @@ class LiveBroadcasterViewController: LiveViewController {
         default: return .Portrait
         }
     }
-
+    
     func applicationWillTerminate(notification: NSNotification) {
         stopBroadcast()
     }
@@ -196,7 +194,7 @@ class LiveBroadcasterViewController: LiveViewController {
     }
     
     func stopBroadcast() {
-        userState = ["is_streaming" : false]
+        userState = ["activity" : ["type":UserActivityType.Streaming.rawValue,"in_progress":false]]
         releaseConnection()
         stopCapture()
     }
@@ -222,13 +220,14 @@ class LiveBroadcasterViewController: LiveViewController {
             
             let broadcast = _self.broadcast
             
-            var state = [NSObject:AnyObject]()
-            state["is_streaming"] = true
-            state["streamName"] = broadcast.streamName
-            if let title = broadcast.title {
-                state["title"] = title
-            }
-            _self.userState = state
+            _self.userState = [
+                "activity" : [
+                    "type" : UserActivityType.Streaming.rawValue,
+                    "in_progress" : true,
+                    "streamName" : broadcast.streamName,
+                    "title" : broadcast.title ?? ""
+                ]
+            ]
             
             let message: [NSObject : AnyObject] = [
                 "pn_apns" : [

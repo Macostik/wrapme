@@ -157,12 +157,12 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
-    __block void (^completion)(UIBackgroundFetchResult) = completionHandler;
-    
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
     if (state == UIApplicationStateActive) {
+        completionHandler(UIBackgroundFetchResultNoData);
         return;
     }
+    __block void (^completion)(UIBackgroundFetchResult) = completionHandler;
     BOOL presentable = state == UIApplicationStateInactive;
     [[NotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(Notification *notification) {
         if (presentable) {

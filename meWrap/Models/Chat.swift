@@ -226,7 +226,7 @@ extension Chat: NotificationSubscriptionDelegate {
         let presence = event.data?.presence
         guard let activity = UserActivity(uuid: presence?.uuid, state: presence?.state) else { return }
         guard activity.type == .Typing else { return }
-        guard let user = activity.user else { return }
+        guard let user = activity.user where !user.current else { return }
         if event.data.presenceEvent == "timeout" {
             activity.inProgress = false
         }

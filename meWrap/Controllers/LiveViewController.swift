@@ -65,7 +65,7 @@ class LiveViewController: WLBaseViewController {
     
     var wrap: Wrap?
     
-    @IBOutlet weak var composeBar: WLComposeBar!
+    @IBOutlet weak var composeBar: ComposeBar!
     
     lazy var broadcast: LiveBroadcast = LiveBroadcast()
     

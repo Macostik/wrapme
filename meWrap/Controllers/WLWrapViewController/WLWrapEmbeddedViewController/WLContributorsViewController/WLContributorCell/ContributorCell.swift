@@ -77,8 +77,8 @@ class ContributorCell: StreamReusableView {
         let canBeInvited = user.isInvited
         if canBeInvited {
             let invited = delegate?.contributorCell(self, isInvitedContributor: user)
-            resendDoneMetrics.hidden = invited ?? true
-            resendMetrics.hidden = invited ?? false
+            resendDoneMetrics.hidden = invited != true
+            resendMetrics.hidden = invited == true
         }
         layoutIfNeeded()
         dataSource.layoutOffset = width
@@ -98,7 +98,7 @@ class ContributorCell: StreamReusableView {
         inviteLabel.text = ContributorCell.invitationHintText(user)
         slideMenuButton.hidden = !deletable && !canBeInvited
         let showMenu = delegate?.contributorCell(self, showMenu: user)
-        setMenuHidden(showMenu ?? false, animated: false)
+        setMenuHidden(showMenu != true, animated: false)
     }
     
     func setMenuHidden(hidden: Bool, animated: Bool) {

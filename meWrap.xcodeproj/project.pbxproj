@@ -2278,7 +2278,6 @@
 				C5F11E581C64A21C001C2486 /* LinkDeviceViewController.swift in Sources */,
 				C5F11E511C64A21C001C2486 /* EmailViewController.swift in Sources */,
 				5B5EE4921C68D44C0074D66F /* CommentCell.swift in Sources */,
-				C51B82C71C1852110054726A /* NSArray+WLCollection.m in Sources */,
 				C55766A51C0C913D00E94E09 /* ImageView.swift in Sources */,
 				C54AF6C419B8C491006F7EDB /* WLWrapViewController.m in Sources */,
 				C54CEF971BCFA86C00128CBE /* NSBundle+Ext.swift in Sources */,

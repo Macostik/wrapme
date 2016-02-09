@@ -184,13 +184,8 @@
 		C54D12CB1C4524D3009014FB /* LiveBroadcastViewersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D12CA1C4524D3009014FB /* LiveBroadcastViewersViewController.swift */; };
 		C54D12CD1C4526B7009014FB /* LiveBroadcastViewerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54D12CC1C4526B7009014FB /* LiveBroadcastViewerCell.xib */; };
 		C55141A41C2EFB090080E731 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55141A31C2EFB090080E731 /* DeviceManager.swift */; };
-		C551890C1B8F46C000D1327E /* ContributorRemoveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55189071B8F46C000D1327E /* ContributorRemoveCell.xib */; };
-		C551890E1B8F46C000D1327E /* ContributorResendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55189081B8F46C000D1327E /* ContributorResendCell.xib */; };
-		C55189101B8F46C000D1327E /* ContributorResendDoneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55189091B8F46C000D1327E /* ContributorResendDoneCell.xib */; };
-		C55189121B8F46C000D1327E /* ContributorSpinnerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C551890A1B8F46C000D1327E /* ContributorSpinnerCell.xib */; };
 		C5528A0F1B3425C500AF1311 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		C552A8321BFDD37B00A7FFAD /* FlowerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA6D9A1BFCC8270029970A /* FlowerMenu.swift */; };
-		C552A8381BFDEA5E00A7FFAD /* MediaViews.xib in Resources */ = {isa = PBXBuildFile; fileRef = C552A8371BFDEA5E00A7FFAD /* MediaViews.xib */; };
 		C552A83E1BFE293300A7FFAD /* RecentCandiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C552A83D1BFE293300A7FFAD /* RecentCandiesView.swift */; };
 		C552A8401BFE2BF600A7FFAD /* RecentCandiesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C552A83F1BFE2BF600A7FFAD /* RecentCandiesView.xib */; };
 		C553B1901BF9F75600E50219 /* EntryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C553B18F1BF9F75600E50219 /* EntryPresenter.swift */; };
@@ -201,6 +196,7 @@
 		C557B6DE1C22F5980067631E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557B6DD1C22F5980067631E /* Logger.swift */; };
 		C558710E1C48F63500F09E58 /* NotificationSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = C558710D1C48F63500F09E58 /* NotificationSubscription.swift */; };
 		C55871101C4910B500F09E58 /* DownloadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C558710F1C4910B500F09E58 /* DownloadingView.swift */; };
+		C559A2431C6A556E006E9FD1 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C559A2421C6A556E006E9FD1 /* MediaViewController.swift */; };
 		C55A451A1BAC18580055AEC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C55A451C1BAC18580055AEC2 /* Localizable.strings */; };
 		C55BE8C31C03062C006B04FC /* NSObject+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BE8C21C03062C006B04FC /* NSObject+Ext.swift */; };
 		C55BE8C71C031BA6006B04FC /* ExtensionRequest+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BE8C61C031BA6006B04FC /* ExtensionRequest+Ext.swift */; };
@@ -214,7 +210,6 @@
 		C560B1641AE69F7D0010B2EC /* AdobeCreativeSDKImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C560B15C1AE69F7C0010B2EC /* AdobeCreativeSDKImage.framework */; };
 		C560B16C1AE6A0580010B2EC /* AdobeCreativeSDKImageResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C560B1691AE6A0260010B2EC /* AdobeCreativeSDKImageResources.bundle */; };
 		C560B1721AE6A19B0010B2EC /* AdobeCreativeSDKCoreResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C560B16E1AE6A1980010B2EC /* AdobeCreativeSDKCoreResources.bundle */; };
-		C56337591C16CE8300F4E182 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56337581C16CE8300F4E182 /* MediaViewController.swift */; };
 		C564C8161C4A47EE001C6460 /* CaptureAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C564C8151C4A47EE001C6460 /* CaptureAvatarViewController.swift */; };
 		C565ED6D1B9F2567002352C8 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B787D9C1A27876F004AE459 /* NotificationCenter.framework */; };
 		C566BD9E1C4E6B50000E80BA /* UIBezierPath+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566BD9D1C4E6B50000E80BA /* UIBezierPath+Ext.swift */; };
@@ -624,11 +619,6 @@
 		C54D12CA1C4524D3009014FB /* LiveBroadcastViewersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveBroadcastViewersViewController.swift; sourceTree = "<group>"; };
 		C54D12CC1C4526B7009014FB /* LiveBroadcastViewerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveBroadcastViewerCell.xib; sourceTree = "<group>"; };
 		C55141A31C2EFB090080E731 /* DeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
-		C55189071B8F46C000D1327E /* ContributorRemoveCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContributorRemoveCell.xib; sourceTree = "<group>"; };
-		C55189081B8F46C000D1327E /* ContributorResendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContributorResendCell.xib; sourceTree = "<group>"; };
-		C55189091B8F46C000D1327E /* ContributorResendDoneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContributorResendDoneCell.xib; sourceTree = "<group>"; };
-		C551890A1B8F46C000D1327E /* ContributorSpinnerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContributorSpinnerCell.xib; sourceTree = "<group>"; };
-		C552A8371BFDEA5E00A7FFAD /* MediaViews.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaViews.xib; sourceTree = "<group>"; };
 		C552A83D1BFE293300A7FFAD /* RecentCandiesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentCandiesView.swift; path = WLHomeViewController/RecentCandiesView.swift; sourceTree = "<group>"; };
 		C552A83F1BFE2BF600A7FFAD /* RecentCandiesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RecentCandiesView.xib; path = WLHomeViewController/RecentCandiesView.xib; sourceTree = "<group>"; };
 		C553B18F1BF9F75600E50219 /* EntryPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryPresenter.swift; sourceTree = "<group>"; };
@@ -640,6 +630,7 @@
 		C557BA801BF5D47900AE9974 /* RecentUpdatesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentUpdatesViewController.swift; sourceTree = "<group>"; };
 		C558710D1C48F63500F09E58 /* NotificationSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSubscription.swift; sourceTree = "<group>"; };
 		C558710F1C4910B500F09E58 /* DownloadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadingView.swift; path = DownloadingView/DownloadingView.swift; sourceTree = "<group>"; };
+		C559A2421C6A556E006E9FD1 /* MediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
 		C55A45151BAC17CF0055AEC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C55A451B1BAC18580055AEC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C55A451E1BAC185A0055AEC2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -662,7 +653,6 @@
 		C560B1691AE6A0260010B2EC /* AdobeCreativeSDKImageResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdobeCreativeSDKImageResources.bundle; path = AdobeCreativeSDKImage.framework/Versions/A/Resources/AdobeCreativeSDKImageResources.bundle; sourceTree = "<group>"; };
 		C560B16E1AE6A1980010B2EC /* AdobeCreativeSDKCoreResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdobeCreativeSDKCoreResources.bundle; path = AdobeCreativeSDKCore.framework/Versions/A/Resources/AdobeCreativeSDKCoreResources.bundle; sourceTree = "<group>"; };
 		C562D1071BDF65F60033EDC8 /* WatchExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchExtensionDelegate.swift; sourceTree = "<group>"; };
-		C56337581C16CE8300F4E182 /* MediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
 		C564C8151C4A47EE001C6460 /* CaptureAvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureAvatarViewController.swift; sourceTree = "<group>"; };
 		C566BD9D1C4E6B50000E80BA /* UIBezierPath+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Ext.swift"; sourceTree = "<group>"; };
 		C577C2611A4C427100ECC7E5 /* iVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iVersion.h; sourceTree = "<group>"; };
@@ -1643,31 +1633,17 @@
 			isa = PBXGroup;
 			children = (
 				C5BEC3831B8F099300499EEA /* ContributorCell.xib */,
-				C55189071B8F46C000D1327E /* ContributorRemoveCell.xib */,
-				C55189081B8F46C000D1327E /* ContributorResendCell.xib */,
-				C55189091B8F46C000D1327E /* ContributorResendDoneCell.xib */,
-				C551890A1B8F46C000D1327E /* ContributorSpinnerCell.xib */,
 				5B5EE4971C68E4D00074D66F /* ContributorCell.swift */,
 			);
 			path = WLContributorCell;
 			sourceTree = "<group>";
 		};
-		C5BCEFF51B551B7B00E4AD6D /* WLMediaViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C56337581C16CE8300F4E182 /* MediaViewController.swift */,
-				C552A8371BFDEA5E00A7FFAD /* MediaViews.xib */,
-			);
-			name = WLMediaViewController;
-			path = WLPhotosViewController;
-			sourceTree = "<group>";
-		};
 		C5BFE4CC1B4FD913004B655E /* WLWrapEmbeddedViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C559A2421C6A556E006E9FD1 /* MediaViewController.swift */,
 				C5BCEFD51B551B7B00E4AD6D /* WLChatViewController */,
 				C5BCEFEF1B551B7B00E4AD6D /* WLContributorsViewController */,
-				C5BCEFF51B551B7B00E4AD6D /* WLMediaViewController */,
 				C5BFE4CD1B4FD930004B655E /* WLWrapEmbeddedViewController.h */,
 				C5BFE4CE1B4FD930004B655E /* WLWrapEmbeddedViewController.m */,
 			);
@@ -1976,7 +1952,6 @@
 				C53012901BF4E3EA00098F9C /* EmojiCell.xib in Resources */,
 				C552A8401BFE2BF600A7FFAD /* RecentCandiesView.xib in Resources */,
 				C5B91A3B1BB40423000E08E7 /* SignUp.storyboard in Resources */,
-				C551890C1B8F46C000D1327E /* ContributorRemoveCell.xib in Resources */,
 				C5E4FD071BF7629E00575DA4 /* RecentCommentCell.xib in Resources */,
 				C5B91A4F1BB414E1000E08E7 /* WLHomeSwipeTransitionView.xib in Resources */,
 				C54AF72619B8C491006F7EDB /* cars.plist in Resources */,
@@ -1985,11 +1960,9 @@
 				C5F44FF01C5CB9780049215D /* WrapPickerCell.xib in Resources */,
 				C54D12CD1C4526B7009014FB /* LiveBroadcastViewerCell.xib in Resources */,
 				C5DA2FD71C2C0C7D00038352 /* AddressBookGroupView.xib in Resources */,
-				C552A8381BFDEA5E00A7FFAD /* MediaViews.xib in Resources */,
 				5BE7CD651C0D8781009A7617 /* EditingConfirmView.xib in Resources */,
 				5B66B5B91C24696800451113 /* WrapCell.xib in Resources */,
 				C5C3FEA81B8F311500F177EC /* Default-736h@3x.png in Resources */,
-				C55189101B8F46C000D1327E /* ContributorResendDoneCell.xib in Resources */,
 				5BA4F8821A1CA08A00DB1A25 /* s01.wav in Resources */,
 				C532F4EB1C2D8353004585E0 /* Placeholders.storyboard in Resources */,
 				C5A6150E1B9DC5EA009B92EF /* MultipleAddressBookRecordCell.xib in Resources */,
@@ -2015,7 +1988,6 @@
 				C53BC48A1C05BC010009B0B9 /* AssetCell.xib in Resources */,
 				C5E6F0211BFF38C200FA3D4F /* LeftSwipeActionView.xib in Resources */,
 				C5C3FEAC1B8F311500F177EC /* Default-Portrait.png in Resources */,
-				C551890E1B8F46C000D1327E /* ContributorResendCell.xib in Resources */,
 				C5C3FEAA1B8F311500F177EC /* Default@2x.png in Resources */,
 				C5BEC3A51B8F16E800499EEA /* logo_and_caption_orange@2x.png in Resources */,
 				C5A6150B1B9DC5C8009B92EF /* AddressBookRecordCell.xib in Resources */,
@@ -2024,7 +1996,6 @@
 				C54731C61B9086DB00B583FD /* CommentCell.xib in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,
 				C5C3FEB01B8F311500F177EC /* Default.png in Resources */,
-				C55189121B8F46C000D1327E /* ContributorSpinnerCell.xib in Resources */,
 				5BA6AA451A66779E00493582 /* Localizable.strings in Resources */,
 				C5BEC3A91B8F16E800499EEA /* logo_and_caption_white@2x.png in Resources */,
 				C560B1721AE6A19B0010B2EC /* AdobeCreativeSDKCoreResources.bundle in Resources */,
@@ -2228,6 +2199,7 @@
 				5B37C7601C5A3C9F0068E693 /* HintView.swift in Sources */,
 				C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */,
 				C5D99E741C2B2BC10022D18B /* Keyboard.swift in Sources */,
+				C559A2431C6A556E006E9FD1 /* MediaViewController.swift in Sources */,
 				C553B1901BF9F75600E50219 /* EntryPresenter.swift in Sources */,
 				C5E6DD921C0DC84A004992E4 /* User.swift in Sources */,
 				C54D12CB1C4524D3009014FB /* LiveBroadcastViewersViewController.swift in Sources */,
@@ -2347,7 +2319,6 @@
 				5B2FB96A1C5B501A001C4385 /* BadgeLabel.swift in Sources */,
 				C5E6DD8D1C0DC84A004992E4 /* CoreData.xcdatamodeld in Sources */,
 				C51E34EA1BD8EB4100C6F678 /* SeparatorView.swift in Sources */,
-				C56337591C16CE8300F4E182 /* MediaViewController.swift in Sources */,
 				C517FD7A1C4D070D00A7EE55 /* LiveViewerViewController.swift in Sources */,
 				C502B3321C47F33100F66EAE /* ArrangedAddressBook.swift in Sources */,
 				C5ECD55C1BF64A41005791B1 /* RecentUpdatesViewController.swift in Sources */,

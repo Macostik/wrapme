@@ -61,8 +61,17 @@ class IndexedStreamLoader: StreamLoader {
 }
 
 class LayoutStreamLoader<T: StreamReusableView>: StreamLoader {
+    
+    var layoutBlock: (T -> Void)?
+    
+    convenience init(layoutBlock: (T -> Void)?) {
+        self.init()
+        self.layoutBlock = layoutBlock
+    }
+    
     override func loadView(metrics: StreamMetrics) -> StreamReusableView? {
         let view = T()
+        layoutBlock?(view)
         view.layoutWithMetrics(metrics)
         return view
     }

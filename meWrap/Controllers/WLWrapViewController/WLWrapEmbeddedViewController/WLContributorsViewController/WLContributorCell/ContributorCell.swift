@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SnapKit
 
 @objc protocol ContributorCellDelegate {
     func contributorCell(cell: ContributorCell, didRemoveContributor contributor: User)
@@ -29,30 +30,75 @@ class ContributorCell: StreamReusableView {
     @IBOutlet weak var pandingLabel: UILabel!
     @IBOutlet weak var streamView: StreamView!
     lazy var dataSource: StreamDataSource = StreamDataSource(streamView: self.streamView)
-    lazy var removeMetrics: StreamMetrics = self.dataSource.addMetrics(StreamMetrics(identifier: "ContributorRemoveCell", size: 76))
-    lazy var resendMetrics: StreamMetrics = self.dataSource.addMetrics(StreamMetrics(identifier: "ContributorResendCell", size: 76))
-    lazy var spinnerMetics: StreamMetrics = self.dataSource.addMetrics(StreamMetrics(identifier: "ContributorSpinnerCell", size: 76))
-    lazy var resendDoneMetrics: StreamMetrics = self.dataSource.addMetrics(StreamMetrics(identifier: "ContributorResendDoneCell", size: 76))
+    
+    lazy var removeMetrics: StreamMetrics = {
+        let loader = LayoutStreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
+            let button = PressButton(type: .Custom)
+            button.backgroundColor = Color.dangerRed
+            button.normalColor = Color.dangerRed
+            button.preset = FontPreset.Small.rawValue
+            button.titleLabel?.font = UIFont.lightFontSmall()
+            button.setTitle("Remove", forState: .Normal)
+            button.addTarget(self, action: "remove:", forControlEvents: .TouchUpInside)
+            view.addSubview(button)
+            button.snp_makeConstraints(closure: { $0.edges.equalTo(view) })
+        })
+        return self.addMetrics(StreamMetrics(loader: loader, size: 76))
+    }()
+    
+    lazy var resendMetrics: StreamMetrics = {
+        let loader = LayoutStreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
+            let button = PressButton(type: .Custom)
+            button.backgroundColor = Color.orange
+            button.normalColor = Color.orange
+            button.preset = FontPreset.Small.rawValue
+            button.titleLabel?.font = UIFont.lightFontSmall()
+            button.titleLabel?.numberOfLines = 2
+            button.titleLabel?.textAlignment = .Center
+            button.setTitle("Resend invite", forState: .Normal)
+            button.addTarget(self, action: "resendInvite:", forControlEvents: .TouchUpInside)
+            view.addSubview(button)
+            button.snp_makeConstraints(closure: { $0.edges.equalTo(view) })
+        })
+        return self.addMetrics(StreamMetrics(loader: loader, size: 76))
+    }()
+    
+    lazy var spinnerMetics: StreamMetrics = {
+        let loader = LayoutStreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
+            view.backgroundColor = Color.orange
+            let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
+            view.addSubview(spinner)
+            spinner.startAnimating()
+            spinner.snp_makeConstraints(closure: { $0.center.equalTo(view) })
+        })
+        return self.addMetrics(StreamMetrics(loader: loader, size: 76))
+    }()
+    
+    lazy var resendDoneMetrics: StreamMetrics = {
+        let loader = LayoutStreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
+            view.backgroundColor = Color.orange
+            let icon = UILabel()
+            icon.font = UIFont(name: "icons", size: 36)
+            icon.text = "l"
+            icon.textColor = UIColor.whiteColor()
+            view.addSubview(icon)
+            icon.snp_makeConstraints(closure: { $0.center.equalTo(view) })
+        })
+        return self.addMetrics(StreamMetrics(loader: loader, size: 76))
+    }()
     
     class func invitationHintText(user: User) -> String {
         let invitedAt = user.invitedAt
         if user.isInvited {
-            return String(format: "invite_status_swipe_to".ls, invitedAt.stringWithDateStyle(.ShortStyle) ?? "")
+            return String(format: "invite_status_swipe_to".ls, invitedAt.stringWithDateStyle(.ShortStyle))
         } else {
             return "signup_status".ls
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        removeMetrics.nibOwner =        self
-        resendMetrics.nibOwner =        self
-        spinnerMetics.nibOwner =        self
-        resendDoneMetrics.nibOwner =    self
-        removeMetrics.hidden =          true
-        resendMetrics.hidden =          true
-        spinnerMetics.hidden =          true
-        resendDoneMetrics.hidden =      true
+    private func addMetrics(metrics: StreamMetrics) -> StreamMetrics {
+        metrics.hidden = true
+        return self.dataSource.addMetrics(metrics)
     }
     
     override func didDequeue() {
@@ -66,7 +112,7 @@ class ContributorCell: StreamReusableView {
     override func setup(entry: AnyObject) {
         guard let user = entry as? User else { return }
         var deletable = false
-        if let _ = delegate?.contributorCell(self, isCreator: user) {
+        if delegate?.contributorCell(self, isCreator: user) == true {
             deletable = !user.current
         } else {
             deletable = false

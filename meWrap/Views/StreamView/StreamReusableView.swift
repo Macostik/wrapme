@@ -10,8 +10,8 @@ import Foundation
 
 class StreamReusableView: UIView, UIGestureRecognizerDelegate {
     var entry: AnyObject! {
-        willSet {
-            if let entry = newValue {
+        didSet {
+            if let entry = entry {
                 setup(entry)
             }
         }
@@ -20,15 +20,10 @@ class StreamReusableView: UIView, UIGestureRecognizerDelegate {
     var item: StreamItem?
     var selected: Bool = false
     var selectTapGestureRecognizer: UITapGestureRecognizer?
-    private var _contentView: UIView?
+    private weak var _contentView: UIView?
     @IBOutlet weak var contentView: UIView! {
-        set {
-                _contentView = newValue
-            }
-        get {
-            guard let _contentView = _contentView  else { return self }
-                return _contentView
-            }
+        set { _contentView = newValue }
+        get { return _contentView ?? self }
     }
     
     func layoutWithMetrics(metrics: StreamMetrics) {}
@@ -63,6 +58,4 @@ class StreamReusableView: UIView, UIGestureRecognizerDelegate {
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         return gestureRecognizer != selectTapGestureRecognizer || metrics?.selectable ?? false
     }
-    
-    
 }

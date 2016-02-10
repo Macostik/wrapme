@@ -90,7 +90,7 @@ class WrapCell: StreamReusableView {
         swipeAction?.reset()
     }
     
-    override func setup(entry: AnyObject!) {
+    override func setup(entry: AnyObject) {
         guard let wrap = entry as? Wrap else {
             return
         }

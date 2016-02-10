@@ -10,6 +10,13 @@ import Foundation
 
 class Label: UILabel {
     
+    convenience init(preset: FontPreset, weight: CGFloat, textColor: UIColor = Color.grayDarker) {
+        self.init()
+        font = UIFont.fontWithPreset(preset, weight: weight)
+        self.preset = preset.rawValue
+        self.textColor = textColor
+    }
+    
     @IBInspectable var preset: String? {
         willSet {
             if let preset = newValue where !preset.isEmpty {

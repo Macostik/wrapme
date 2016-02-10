@@ -16,7 +16,7 @@ class TestUserCell: StreamReusableView {
     @IBOutlet weak var deviceUID: UILabel!
     @IBOutlet weak var active: UIView!
     
-    override func setup(entry: AnyObject!) {
+    override func setup(entry: AnyObject) {
         if let authorization = entry as? Authorization {
             phone.text = authorization.fullPhoneNumber
             email.text = authorization.email

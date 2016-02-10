@@ -68,7 +68,7 @@
         self.messageWithNameMetrics.selectable = NO;
         self.myMessageMetrics = [[StreamMetrics alloc] initWithIdentifier:@"MyMessageCell"];
         self.myMessageMetrics.selectable = NO;
-        self.dateMetrics = [[StreamMetrics alloc] initWithIdentifier:@"MessageDateView" size:33];
+        self.dateMetrics = [MessageDateView layoutMetrics];
         self.dateMetrics.selectable = NO;
         self.unreadMessagesMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLUnreadMessagesView" size:46];
         self.unreadMessagesMetrics.selectable = NO;

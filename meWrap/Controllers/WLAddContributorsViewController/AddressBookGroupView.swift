@@ -33,7 +33,7 @@ class AddressBookPhoneNumberCell: StreamReusableView {
         }
     }
     
-    override func setup(entry: AnyObject!) {
+    override func setup(entry: AnyObject) {
         if let phoneNumber = entry as? AddressBookPhoneNumber {
             typeLabel.text = "\(phoneNumber.label ?? ""):"
             phoneLabel.text = phoneNumber.phone

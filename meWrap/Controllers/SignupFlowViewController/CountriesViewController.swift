@@ -13,11 +13,8 @@ class CountryCell: StreamReusableView {
     
     weak var countryNameLabel: UILabel!
     
-    override func layoutWithMetrics(metrics: StreamMetrics!) {
-        let countryNameLabel = Label()
-        countryNameLabel.font = UIFont.fontNormal()
-        countryNameLabel.preset = FontPreset.Normal.rawValue
-        countryNameLabel.textColor = Color.grayDark
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        let countryNameLabel = Label(preset: FontPreset.Normal, weight: UIFontWeightRegular, textColor: Color.grayDark)
         addSubview(countryNameLabel)
         self.countryNameLabel = countryNameLabel
         let separator = SeparatorView()
@@ -35,7 +32,7 @@ class CountryCell: StreamReusableView {
         }
     }
     
-    override func setup(entry: AnyObject!) {
+    override func setup(entry: AnyObject) {
         if let country = entry as? Country {
             countryNameLabel.text = country.name
         }

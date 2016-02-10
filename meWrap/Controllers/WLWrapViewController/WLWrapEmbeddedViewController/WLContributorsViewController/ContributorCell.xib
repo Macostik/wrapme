@@ -150,7 +150,6 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="avatarView" destination="IZ7-8e-1ob" id="RLg-wO-LU2"/>
-                <outlet property="delegate" destination="-1" id="cwk-mV-Ed9"/>
                 <outlet property="inviteLabel" destination="ZuV-DA-CsE" id="hyh-B0-pxC"/>
                 <outlet property="nameLabel" destination="j5r-kg-fkz" id="weT-Ch-7Dw"/>
                 <outlet property="pandingLabel" destination="h02-Iy-v5M" id="3KW-fu-ubI"/>

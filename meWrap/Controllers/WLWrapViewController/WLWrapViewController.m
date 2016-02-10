@@ -8,7 +8,6 @@
 
 #import "WLWrapViewController.h"
 #import "WLChatViewController.h"
-#import "WLContributorsViewController.h"
 
 @interface WLWrapViewController () <CaptureMediaViewControllerDelegate, MediaViewControllerDelegate, RecentUpdateListNotifying>
 

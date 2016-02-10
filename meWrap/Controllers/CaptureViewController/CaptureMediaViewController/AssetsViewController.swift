@@ -30,7 +30,7 @@ class AssetCell: StreamReusableView {
         return options
     }()
     
-    override func setup(entry: AnyObject!) {
+    override func setup(entry: AnyObject) {
         if let asset = entry as? PHAsset {
             let scale = UIScreen.mainScreen().scale
             let thumbnail = CGSize(width: bounds.width * scale, height: bounds.height * scale)

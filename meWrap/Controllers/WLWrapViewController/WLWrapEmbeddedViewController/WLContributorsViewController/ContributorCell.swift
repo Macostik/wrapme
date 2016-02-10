@@ -9,19 +9,18 @@
 import Foundation
 import SnapKit
 
-@objc protocol ContributorCellDelegate {
+protocol ContributorCellDelegate: class {
     func contributorCell(cell: ContributorCell, didRemoveContributor contributor: User)
     func contributorCell(cell: ContributorCell, didInviteContributor contributor: User, completionHandler: Bool -> Void)
     func contributorCell(cell: ContributorCell, isInvitedContributor contributor: User) -> Bool
     func contributorCell(cell: ContributorCell, isCreator contributor: User) -> Bool
     func contributorCell(cell: ContributorCell, didToggleMenu contributor: User)
     func contributorCell(cell: ContributorCell, showMenu contributor: User) -> Bool
-    
 }
 
 class ContributorCell: StreamReusableView {
     
-    @IBOutlet weak var delegate: ContributorCellDelegate!
+    weak var delegate: ContributorCellDelegate?
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var avatarView: ImageView!
     @IBOutlet weak var phoneLabel: UILabel!

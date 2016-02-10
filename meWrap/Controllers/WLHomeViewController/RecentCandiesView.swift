@@ -24,7 +24,7 @@ class RecentCandiesView: StreamReusableView {
         dataSource.layoutSpacing = Constants.pixelSize
     }
     
-    override func setup(entry: AnyObject!) {
+    override func setup(entry: AnyObject) {
         guard let wrap = entry as? Wrap, let recentCandies = wrap.recentCandies else {
             return
         }

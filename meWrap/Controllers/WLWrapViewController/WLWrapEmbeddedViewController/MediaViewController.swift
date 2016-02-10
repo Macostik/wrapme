@@ -14,10 +14,8 @@ class HistoryDateSeparator: StreamReusableView {
     weak var dateLabel: UILabel!
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
-        let dateLabel = Label()
-        dateLabel.textColor = Color.grayDark
+        let dateLabel = Label(preset: FontPreset.Normal, weight: UIFontWeightRegular, textColor: Color.grayDark)
         dateLabel.textAlignment = .Left
-        dateLabel.font = UIFont.fontNormal()
         addSubview(dateLabel)
         self.dateLabel = dateLabel
         dateLabel.snp_makeConstraints(closure: {
@@ -120,28 +118,19 @@ class LiveBroadcastMediaView: StreamReusableView {
         addSubview(imageView)
         self.imageView = imageView
         
-        let nameLabel = Label()
-        nameLabel.textColor = Color.grayDarker
-        nameLabel.font = UIFont.lightFontSmall()
-        nameLabel.preset = FontPreset.Small.rawValue
+        let nameLabel = Label(preset: FontPreset.Small, weight: UIFontWeightLight)
         addSubview(nameLabel)
         self.nameLabel = nameLabel
         
-        let titleLabel = Label()
-        titleLabel.textColor = Color.grayLighter
-        titleLabel.font = UIFont.lightFontSmaller()
-        titleLabel.preset = FontPreset.Smaller.rawValue
+        let titleLabel = Label(preset: FontPreset.Smaller, weight: UIFontWeightLight, textColor: Color.grayLighter)
         addSubview(titleLabel)
         self.titleLabel = titleLabel
         
-        let liveBadge = Label()
+        let liveBadge = Label(preset: FontPreset.XSmall, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
         liveBadge.textAlignment = .Center
         liveBadge.cornerRadius = 8
         liveBadge.clipsToBounds = true
         liveBadge.backgroundColor = Color.dangerRed
-        liveBadge.textColor = UIColor.whiteColor()
-        liveBadge.font = UIFont.lightFontXSmall()
-        liveBadge.preset = FontPreset.XSmall.rawValue
         liveBadge.text = "LIVE"
         addSubview(liveBadge)
         

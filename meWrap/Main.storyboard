@@ -3451,7 +3451,7 @@
         <!--Contributors View Controller-->
         <scene sceneID="8UV-zT-Qeh">
             <objects>
-                <viewController storyboardIdentifier="friends" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qRW-aK-Lk5" userLabel="Contributors View Controller" customClass="WLContributorsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="friends" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qRW-aK-Lk5" userLabel="Contributors View Controller" customClass="ContributorsViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hQR-1L-vX5"/>
                         <viewControllerLayoutGuide type="bottom" id="Xt0-mU-aTu"/>
@@ -3524,9 +3524,6 @@ QWRkEEZyaWVuZFZpZXc
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EqA-Dj-Zuu" customClass="StreamView" customModule="meWrap">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
-                                <connections>
-                                    <outlet property="delegate" destination="zjC-7P-9tZ" id="cNt-cp-fNB"/>
-                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -3544,8 +3541,8 @@ QWRkEEZyaWVuZFZpZXc
                     <navigationItem key="navigationItem" id="eIg-JY-jsf"/>
                     <connections>
                         <outlet property="addFriendView" destination="dW2-yZ-nvK" id="83H-Z9-P0v"/>
-                        <outlet property="dataSource" destination="zjC-7P-9tZ" id="72Y-Da-JLc"/>
                         <outlet property="restrictedInvitePrioritizer" destination="N09-Ii-tK7" id="zjP-H2-x6C"/>
+                        <outlet property="streamView" destination="EqA-Dj-Zuu" id="VAG-qp-qNT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RN9-r6-64a" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3556,14 +3553,6 @@ QWRkEEZyaWVuZFZpZXc
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="sourceViewController" destination="qRW-aK-Lk5" id="DD7-V9-sE0"/>
-                    </connections>
-                </customObject>
-                <customObject id="zjC-7P-9tZ" customClass="StreamDataSource" customModule="meWrap" customModuleProvider="target">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="ContributorCell"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="streamView" destination="EqA-Dj-Zuu" id="ZdB-P1-x3k"/>
                     </connections>
                 </customObject>
                 <customObject id="N09-Ii-tK7" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">

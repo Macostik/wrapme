@@ -37,12 +37,9 @@ class CandyCell: StreamReusableView {
         gradientView.startColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
         gradientView.contentMode = .Bottom
         addSubview(gradientView)
-        let commentLabel = Label()
-        commentLabel.font = UIFont.lightFontSmaller()
-        commentLabel.preset = "smaller"
+        let commentLabel = Label(preset: FontPreset.Smaller, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
         commentLabel.textAlignment = .Center
         commentLabel.numberOfLines = 2
-        commentLabel.textColor = UIColor.whiteColor()
         gradientView.addSubview(commentLabel)
         self.commentLabel = commentLabel
         
@@ -122,7 +119,7 @@ class CandyCell: StreamReusableView {
         imageView.image = nil
     }
     
-    override func setup(entry: AnyObject!) {
+    override func setup(entry: AnyObject) {
         
         userInteractionEnabled = true
         

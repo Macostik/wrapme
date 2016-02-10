@@ -7,31 +7,53 @@
 //
 
 import Foundation
+import MobileCoreServices
 
-class MessageCell: StreamReusableView, EntryNotifying {
+final class MessageDateView: StreamReusableView {
     
-    @IBOutlet weak var tailView: UIImageView!
-    @IBOutlet weak var avatarView: ImageView!
+    class func layoutMetrics() -> StreamMetrics {
+        return StreamMetrics(loader: LayoutStreamLoader<MessageDateView>(), size: 33)
+    }
+    
+    weak var dateLabel: Label!
+    
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        let label = Label(preset: FontPreset.Normal, weight: UIFontWeightRegular)
+        label.textAlignment = .Center
+        addSubview(label)
+        dateLabel = label
+        label.snp_makeConstraints(closure: { $0.center.equalTo(self) })
+    }
+    
+    override func setup(entry: AnyObject) {
+        guard let message = entry as? Message else { return }
+        dateLabel.text = message.createdAt.stringWithDateStyle(.MediumStyle)
+    }
+}
+
+final class MessageCell: StreamReusableView {
+    
+    @IBOutlet weak var tailView: UIImageView?
+    @IBOutlet weak var avatarView: ImageView?
     @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel?
     @IBOutlet weak var textView: UILabel!
-    @IBOutlet weak var indicator: EntryStatusIndicator!
+    @IBOutlet weak var indicator: EntryStatusIndicator?
     
     override func awakeFromNib () {
         super.awakeFromNib()
         FlowerMenu.sharedMenu().registerView(self, constructor: { [weak self] (menu) in
             menu.addCopyAction({ (message) -> Void in
                 if let message = message as? Message, let text = message.text where !text.isEmpty {
-                    UIPasteboard.generalPasteboard().setValue(text, forPasteboardType: "kUTTypeText")
+                    UIPasteboard.generalPasteboard().setValue(text, forPasteboardType: kUTTypeText as String)
                 }
             })
             menu.entry = self?.entry
             })
-        guard let color = textView.superview?.backgroundColor else { return }
-        if tailView != nil {
-            tailView.image = MessageCell.tailImageWithColor(color, size: tailView.size, drawing: { [weak self] size in
+        if let tailView = tailView, let color = textView.superview?.backgroundColor {
+            tailView.image = MessageCell.tailImageWithColor(color, size: tailView.size, drawing: { size in
                 let path = UIBezierPath()
-                if self?.tailView.x > self?.textView.superview?.x {
+                if tailView.x > textView.superview?.x {
                     path.move(0, 0).quadCurve(size.width, 0, controlX: size.width/2, controlY: size.height/2)
                     path.quadCurve(0, size.height, controlX: size.width, controlY: size.height).line(0, 0)
                 } else {
@@ -44,35 +66,27 @@ class MessageCell: StreamReusableView, EntryNotifying {
         }
     }
     
-    class func tailImageWithColor(color: UIColor, size: CGSize,  drawing: CGSize -> Void) -> UIImage? {
-        var tails = NSDictionary()
-        var image = tails.objectForKey(color)
-        if image == nil {
-            image = UIImage.draw(size, opaque: false, scale:  UIScreen.mainScreen().scale, drawing: drawing)
-            if tails.count == 0 {
-                let _tails = tails.mutableCopy()
-                _tails.setObject(image, forKey:color)
-                tails = _tails.copy() as! NSDictionary
-            } else {
-                if let image = image {
-                    tails = NSDictionary(object: image, forKey: color)
-                }
-            }
+    private static var tails = [UIColor:UIImage]()
+    
+    private class func tailImageWithColor(color: UIColor, size: CGSize, @noescape drawing: CGSize -> Void) -> UIImage? {
+        if let image = tails[color] {
+            return image
+        } else {
+            let image = UIImage.draw(size, opaque: false, scale:  UIScreen.mainScreen().scale, drawing: drawing)
+            tails[color] = image
+            return image
         }
-        return image as? UIImage
     }
     
     override func setup(entry: AnyObject) {
         guard let message = entry as? Message else { return }
         if nameLabel != nil {
-           avatarView.url = message.contributor?.avatar?.small
-            nameLabel.text = message.contributor?.name
+            avatarView?.url = message.contributor?.avatar?.small
+            nameLabel?.text = message.contributor?.name
         }
         timeLabel.text = message.createdAt.stringWithDateStyle(.ShortStyle)
         textView.text = message.text
-        if indicator != nil {
-            indicator.updateStatusIndicator(message)
-        }
+        indicator?.updateStatusIndicator(message)
         FlowerMenu.sharedMenu().hide()
     }
 }

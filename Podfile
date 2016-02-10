@@ -13,4 +13,5 @@ target 'meWrap' do
     pod 'Google/Analytics', '~> 1.0.0'
     pod 'NewRelicAgent'
     pod 'CryptoSwift'
+    pod 'SnapKit', '~> 0.15.0'
 end

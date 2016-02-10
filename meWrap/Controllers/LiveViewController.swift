@@ -20,7 +20,7 @@ class LiveBroadcastEventView: StreamReusableView {
     
     static let queue: RunQueue = RunQueue(limit: 1)
     
-    override func setup(entry: AnyObject!) {
+    override func setup(entry: AnyObject) {
         if let event = entry as? LiveBroadcast.Event {
             LiveBroadcastEventView.queue.run({ (finish) -> Void in
                 self.alpha = 0.0
@@ -65,7 +65,7 @@ class LiveViewController: WLBaseViewController {
     
     var wrap: Wrap?
     
-    @IBOutlet weak var composeBar: WLComposeBar!
+    @IBOutlet weak var composeBar: ComposeBar!
     
     lazy var broadcast: LiveBroadcast = LiveBroadcast()
     

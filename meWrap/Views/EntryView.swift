@@ -8,27 +8,14 @@
 
 import UIKit
 
-class EntryView: UIView {
-    
-    var entry: Entry? {
-        didSet {
-            if let entry = entry {
-                update(entry)
-            }
-        }
-    }
-    
-    func update(entry: Entry) { }
-}
-
-extension EntryView: EntryNotifying {
+class EntryView: StreamReusableView, EntryNotifying {
     
     func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
-        update(entry)
+        setup(entry)
     }
     
     func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
-        return self.entry == entry
+        return self.entry === entry
     }
 }
 
@@ -38,7 +25,7 @@ class UserView: EntryView {
     
     @IBOutlet weak var nameLabel: UILabel?
     
-    override func update(entry: Entry) {
+    override func setup(entry: AnyObject) {
         if let user = entry as? User {
             avatarView?.url = user.avatar?.small
             nameLabel?.text = user.name
@@ -63,7 +50,7 @@ class WrapView: EntryView {
     
     @IBOutlet weak var nameLabel: UILabel?
     
-    override func update(entry: Entry) {
+    override func setup(entry: AnyObject) {
         if let wrap = entry as? Wrap {
             if let coverView = coverView {
                 coverView.url = wrap.asset?.small

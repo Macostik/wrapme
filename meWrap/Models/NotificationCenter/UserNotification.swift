@@ -19,7 +19,7 @@ class UserUpdateNotification: Notification {
     
     internal override func createEntry(descriptor: EntryDescriptor) {
         user = getEntry(User.self, descriptor: descriptor, mapper: {
-            Authorization.currentAuthorization.updateWithUserData($1)
+            Authorization.current.updateWithUserData($1)
             $0.map($1)
         })
     }

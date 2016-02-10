@@ -16,7 +16,7 @@ class PlaceholderLoader: StreamLoader {
     
     static let storyboard = UIStoryboard(name: "Placeholders", bundle: nil)
     
-    override func loadView() -> StreamReusableView? {
+    override func loadView(metrics: StreamMetrics) -> StreamReusableView? {
         if let identifier = identifier {
             let controller = PlaceholderLoader.storyboard.instantiateViewControllerWithIdentifier(identifier) as? PlaceholderLoaderController
             return controller?.placeholderView

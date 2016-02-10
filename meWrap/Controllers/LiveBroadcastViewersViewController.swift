@@ -16,7 +16,7 @@ class LiveBroadcastViewerCell: StreamReusableView {
     
     @IBOutlet weak var nameLabel: UILabel!
     
-    override func setup(entry: AnyObject!) {
+    override func setup(entry: AnyObject) {
         if let user = entry as? User {
             avatarView.url = user.avatar?.small
             nameLabel.text = user.name

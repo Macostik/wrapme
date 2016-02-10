@@ -7,7 +7,6 @@
 //
 
 #import "WLDrawingViewController.h"
-#import "WLButton.h"
 #import "WLDrawingCanvas.h"
 #import "WLDrawingSession.h"
 #import "WLColorPicker.h"
@@ -126,7 +125,7 @@
     self.undoButton.hidden = self.session.empty;
 }
 
-- (IBAction)finish:(WLButton *)sender {
+- (IBAction)finish:(Button *)sender {
     if ([self.delegate respondsToSelector:@selector(drawingViewController:didFinishWithImage:)]) {
         __weak typeof(self)weakSelf = self;
         

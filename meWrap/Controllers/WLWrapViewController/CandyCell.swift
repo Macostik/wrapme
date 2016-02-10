@@ -7,16 +7,58 @@
 //
 
 import Foundation
+import SnapKit
 
 class CandyCell: StreamReusableView {
     
-    @IBOutlet weak var imageView: ImageView!
+    weak var imageView: ImageView!
     
-    @IBOutlet weak var commentLabel: UILabel!
+    weak var commentLabel: UILabel!
     
-    @IBOutlet weak var videoIndicatorView: UIView!
+    weak var videoIndicatorView: UIView!
+    
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        let imageView = ImageView()
+        imageView.backgroundColor = UIColor.whiteColor()
+        imageView.defaultIconSize = 56
+        imageView.defaultIconText = "t"
+        imageView.defaultIconColor = Color.grayLighter
+        imageView.contentMode = .ScaleAspectFill
+        imageView.clipsToBounds = true
+        addSubview(imageView)
+        self.imageView = imageView
+        let videoIndicatorView = UILabel()
+        videoIndicatorView.font = UIFont(name: "icons", size: 24)
+        videoIndicatorView.textColor = UIColor.whiteColor()
+        videoIndicatorView.text = "+"
+        addSubview(videoIndicatorView)
+        self.videoIndicatorView = videoIndicatorView
+        let gradientView = GradientView()
+        gradientView.startColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
+        gradientView.contentMode = .Bottom
+        addSubview(gradientView)
+        let commentLabel = Label(preset: FontPreset.Smaller, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
+        commentLabel.textAlignment = .Center
+        commentLabel.numberOfLines = 2
+        gradientView.addSubview(commentLabel)
+        self.commentLabel = commentLabel
+        
+        imageView.snp_makeConstraints(closure: { $0.edges.equalTo(self) })
+        
+        videoIndicatorView.snp_makeConstraints { $0.top.right.equalTo(self) }
+
+        gradientView.snp_makeConstraints { make in
+            make.left.right.equalTo(self)
+            make.bottom.equalTo(self)
+        }
+
+        commentLabel.snp_makeConstraints { make in
+            make.edges.equalTo(gradientView).inset(UIEdgeInsetsMake(4, 4, 4, 4))
+        }
+    }
     
     override func loadedWithMetrics(metrics: StreamMetrics!) {
+        super.loadedWithMetrics(metrics)
         guard !metrics.disableMenu else {
             return
         }
@@ -30,35 +72,21 @@ class CandyCell: StreamReusableView {
                 
                 menu.addEditPhotoAction({ (_) -> Void in
                     DownloadingView.downloadCandy(candy, success: { (image) -> Void in
-                        WLImageEditorSession.editImage(image, completion: { (image) -> Void in
-                            if let image = image {
-                                candy.editWithImage(image)
-                            }
-                            }, cancel: nil)
-                        }, failure: { (error) -> Void in
-                            error?.show()
-                    })
+                        ImageEditor.editImage(image) { candy.editWithImage($0) }
+                        }, failure: { $0?.show() })
                 })
                 
                 menu.addDrawPhotoAction({ (_) -> Void in
                     DownloadingView.downloadCandy(candy, success: { (image) -> Void in
-                        WLDrawingViewController.draw(image, finish: { (image) -> Void in
-                            if let image = image {
-                                candy.editWithImage(image)
-                            }
-                        })
-                        }, failure: { (error) -> Void in
-                            error?.show()
-                    })
+                        WLDrawingViewController.draw(image) { candy.editWithImage($0) }
+                        }, failure: { $0?.show() })
                 })
             }
             
             menu.addDownloadAction({ (_) -> Void in
                 candy.download({ () -> Void in
                     Toast.showDownloadingMediaMessageForCandy(candy)
-                    }, failure: { (error) -> Void in
-                        error?.show()
-                })
+                    }, failure: { $0?.show() })
             })
             
             if (candy.deletable) {
@@ -83,7 +111,7 @@ class CandyCell: StreamReusableView {
             }
             
             menu.entry = candy
-        })
+            })
     }
     
     override func didDequeue() {
@@ -91,7 +119,7 @@ class CandyCell: StreamReusableView {
         imageView.image = nil
     }
     
-    override func setup(entry: AnyObject!) {
+    override func setup(entry: AnyObject) {
         
         userInteractionEnabled = true
         

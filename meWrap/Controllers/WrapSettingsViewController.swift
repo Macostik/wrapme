@@ -21,7 +21,7 @@ class WrapSettingsViewController: WLBaseViewController, EntryNotifying {
     
     weak var wrap: Wrap?
     lazy var runQueue: RunQueue = RunQueue(limit: 1)
-    var editSession: EditSession?
+    var editSession: EditSession<String>?
     var userInitiatedDestructiveAction = false
     var isAdmin = false
     
@@ -32,9 +32,7 @@ class WrapSettingsViewController: WLBaseViewController, EntryNotifying {
         let title = wrap.deletable ? "DELETE_WRAP".ls : (wrap.isPublic ? "FOLLOWING" : "LEAVE_WRAP").ls
         actionButton.setTitle(title, forState: .Normal)
         wrapNameTextField.text = wrap.name
-        editSession = EditSession(originalValue: wrap.name, setter: { _ , value -> Void in
-            wrap.name = value as? String
-        })
+        editSession = EditSession<String>(originalValue: wrap.name ?? "", setter: { wrap.name = $0 })
         if wrap.isPublic && !(wrap.contributor?.current ?? false)  {
             let isFollowing = wrap.isContributing
             editButton.hidden = isFollowing
@@ -68,8 +66,8 @@ class WrapSettingsViewController: WLBaseViewController, EntryNotifying {
         }
         Wrap.notifier().addReceiver(self)
     }
-    
-    @IBAction func handleAction(sender: WLButton) {
+
+    @IBAction func handleAction(sender: Button) {
         guard  let wrap = wrap else { return }
         UIAlertController.confirmWrapDeleting(wrap, success: {[weak self] _ in
             self?.userInitiatedDestructiveAction = true
@@ -101,7 +99,7 @@ class WrapSettingsViewController: WLBaseViewController, EntryNotifying {
         if (sender.selected) {
             editSession?.reset()
             wrapNameTextField.resignFirstResponder()
-            wrapNameTextField.text = editSession?.originalValue as? String
+            wrapNameTextField.text = editSession?.originalValue
         } else {
             wrapNameTextField.becomeFirstResponder()
         }
@@ -116,7 +114,7 @@ class WrapSettingsViewController: WLBaseViewController, EntryNotifying {
                 text = text?.substringToIndex(index)
             }
         }
-        editSession?.changedValue = textfield.text?.trim
+        editSession?.changedValue = textfield.text?.trim ?? ""
         editButton.selected = editSession?.hasChanges ?? false
     }
     
@@ -134,7 +132,7 @@ class WrapSettingsViewController: WLBaseViewController, EntryNotifying {
             }
         } else {
             Toast.show("wrap_name_cannot_be_blank".ls)
-            wrapNameTextField.text = editSession?.originalValue as? String
+            wrapNameTextField.text = editSession?.originalValue
         }
         editButton.selected = false
         textField.resignFirstResponder()

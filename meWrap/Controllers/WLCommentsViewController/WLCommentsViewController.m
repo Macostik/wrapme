@@ -8,9 +8,6 @@
 
 #import "WLCommentsViewController.h"
 #import "WLCandyViewController.h"
-#import "WLComposeBar.h"
-#import "WLCommentCell.h"
-#import "WLHistoryViewController.h"
 
 static CGFloat WLNotificationCommentHorizontalSpacing = 84.0f;
 static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
@@ -20,7 +17,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
 @property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
 @property (weak, nonatomic) IBOutlet LayoutPrioritizer *composeBarBottomPrioritizer;
 @property (weak, nonatomic) IBOutlet InternalScrollView *contentView;
-@property (weak, nonatomic) WLHistoryViewController *historyViewController;
+@property (weak, nonatomic) HistoryViewController *historyViewController;
 
 @property (strong, nonatomic) EntryNotifyReceiver *candyNotifyReceiver;
 
@@ -74,7 +71,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
     
     [self addNotifyReceivers];
     [[DeviceManager defaultManager] addReceiver:self];
-    self.historyViewController = (WLHistoryViewController *)self.parentViewController;
+    self.historyViewController = (HistoryViewController *)self.parentViewController;
 }
 
 - (void)requestAuthorizationForPresentingEntry:(Entry *)entry completion:(BooleanBlock)completion {
@@ -146,13 +143,13 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
     }];
 }
 
-#pragma mark - WLComposeBarDelegate
+#pragma mark - ComposeBarDelegate
 
-- (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
+- (void)composeBar:(ComposeBar *)composeBar didFinishWithText:(NSString *)text {
     [self sendMessageWithText:text];
 }
 
-- (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
+- (BOOL)composeBarDidShouldResignOnFinish:(ComposeBar *)composeBar {
     return NO;
 }
 

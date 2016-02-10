@@ -7,9 +7,6 @@
 //
 
 #import "WLAddContributorsViewController.h"
-#import "AddressBookRecordCell.h"
-#import "WLButton.h"
-#import "WLConfirmView.h"
 
 @interface WLAddContributorsViewController () <StreamViewDelegate, AddressBookRecordCellDelegate, UITextFieldDelegate, FontPresetting, AddressBookNoifying>
 
@@ -153,7 +150,7 @@
     }
 }
 
-- (IBAction)done:(WLButton*)sender {
+- (IBAction)done:(Button *)sender {
     __weak typeof(self)weakSelf = self;
     if (![Network sharedNetwork].reachable) {
         [Toast show:@"no_internet_connection".ls];
@@ -176,7 +173,7 @@
         [self.navigationController popViewControllerAnimated:NO];
     } else if ([self containUnregisterAddresBookGroupRecord]) {
         NSString *content = [NSString stringWithFormat:@"send_message_to_friends_content".ls, [User currentUser].name, self.wrap.name];
-        [WLEditingConfirmView showInView:self.view withContent:content success:performRequestBlock cancel: ^{}];
+        [EditingConfirmView showInView:self.view content:content success:performRequestBlock cancel:nil];
     } else  {
         performRequestBlock(nil);
     }

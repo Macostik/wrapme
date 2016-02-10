@@ -8,14 +8,9 @@
 
 #import "WLCandyViewController.h"
 #import "WLHomeViewController.h"
-#import "WLBadgeLabel.h"
 #import "WLWrapViewController.h"
-#import "WLHistoryViewController.h"
-#import "WLHintView.h"
-#import "WLChangeProfileViewController.h"
-#import "WLStillPictureViewController.h"
 
-@interface WLHomeViewController () <WrapCellDelegate, RecentUpdateListNotifying, WLStillPictureViewControllerDelegate>
+@interface WLHomeViewController () <WrapCellDelegate, RecentUpdateListNotifying, CaptureMediaViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet SegmentedStreamDataSource *dataSource;
 
@@ -24,10 +19,10 @@
 @property (strong, nonatomic) IBOutlet HomeDataSource *homeDataSource;
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
-@property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
+@property (weak, nonatomic) IBOutlet BadgeLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet UploaderView *uploadingView;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
-@property (weak, nonatomic) IBOutlet WLLabel *verificationEmailLabel;
+@property (weak, nonatomic) IBOutlet Label *verificationEmailLabel;
 @property (strong, nonatomic) IBOutlet LayoutPrioritizer *emailConfirmationLayoutPrioritizer;
 @property (weak, nonatomic) IBOutlet UIButton *photoButton;
 @property (weak, nonatomic) RecentCandiesView *candiesView;
@@ -170,7 +165,7 @@
     [EventualEntryPresenter sharedPresenter].isLoaded = YES;
     [self.uploadingView update];
     if ([NSUserDefaults standardUserDefaults].numberOfLaunches >= 3 && [User currentUser].wraps.count >= 3) {
-        [WLHintView showHomeSwipeTransitionHintViewInView:[UIWindow mainWindow]];
+        [HintView showHomeSwipeTransitionHintView];
     }
     [self.streamView unlock];
 }
@@ -181,9 +176,9 @@
 }
 
 - (void)updateEmailConfirmationView:(BOOL)animated {
-    BOOL hidden = ([[[NSUserDefaults standardUserDefaults] confirmationDate] isToday] || ![[Authorization currentAuthorization] unconfirmed_email].nonempty);
+    BOOL hidden = ([[[NSUserDefaults standardUserDefaults] confirmationDate] isToday] || ![[Authorization current] unconfirmed_email].nonempty);
     if (!hidden) {
-        self.verificationEmailLabel.attributedText = [WLChangeProfileViewController verificationSuggestion];
+        self.verificationEmailLabel.attributedText = [ChangeProfileViewController verificationSuggestion];
         [self deadlineEmailConfirmationView];
     }
     [self setEmailConfirmationViewHidden:hidden animated:animated];
@@ -296,9 +291,9 @@
 }
 
 - (void)openCameraForWrap:(Wrap *)wrap animated:(BOOL)animated {
-    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPhotosViewController:wrap];
-    stillPictureViewController.delegate = self;
-    [self presentViewController:stillPictureViewController animated:animated completion:nil];
+    CaptureMediaViewController *captureViewController = [CaptureViewController captureMediaViewController:wrap];
+    captureViewController.captureDelegate = self;
+    [self presentViewController:captureViewController animated:animated completion:nil];
 }
 
 - (IBAction)createWrap:(id)sender {
@@ -335,9 +330,9 @@
     self.publicWrapsHeaderView.hidden = YES;
 }
 
-// MARK: - WLStillPictureViewControllerDelegate
+// MARK: - CaptureViewControllerDelegate
 
-- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
+- (void)captureViewController:(CaptureMediaViewController *)controller didFinishWithAssets:(NSArray<MutableAsset *> *)assets {
     [self dismissViewControllerAnimated:NO completion:nil];
     Wrap* wrap = controller.wrap;
     if (wrap) {
@@ -349,12 +344,12 @@
         
         [FollowingViewController followWrapIfNeeded:wrap performAction:^{
             [[SoundPlayer player] play:Sounds04];
-            [wrap uploadAssets:pictures];
+            [wrap uploadAssets:assets];
         }];
     }
 }
 
-- (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
+- (void)captureViewControllerDidCancel:(CaptureViewController *)controller {
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 

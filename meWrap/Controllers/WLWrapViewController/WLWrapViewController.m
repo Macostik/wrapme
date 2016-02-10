@@ -7,17 +7,13 @@
 //
 
 #import "WLWrapViewController.h"
-#import "WLStillPictureViewController.h"
-#import "WLBadgeLabel.h"
 #import "WLChatViewController.h"
-#import "WLContributorsViewController.h"
-#import "WLButton.h"
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, MediaViewControllerDelegate, RecentUpdateListNotifying>
+@interface WLWrapViewController () <CaptureMediaViewControllerDelegate, MediaViewControllerDelegate, RecentUpdateListNotifying>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
-@property (weak, nonatomic) IBOutlet WLBadgeLabel *candyCountLabel;
+@property (weak, nonatomic) IBOutlet BadgeLabel *messageCountLabel;
+@property (weak, nonatomic) IBOutlet BadgeLabel *candyCountLabel;
 @property (weak, nonatomic) IBOutlet SegmentedControl *segmentedControl;
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -32,7 +28,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *ownerDescriptionLabel;
 @property (strong, nonatomic) IBOutlet LayoutPrioritizer *publicWrapPrioritizer;
 @property (strong, nonatomic) IBOutlet LayoutPrioritizer *titleViewPrioritizer;
-@property (weak, nonatomic) IBOutlet WLLabel *typingLabel;
+@property (weak, nonatomic) IBOutlet Label *typingLabel;
 
 @property (strong, nonatomic) EntryNotifyReceiver *wrapNotifyReceiver;
 
@@ -183,7 +179,7 @@
     [self changeSegment:sender.selectedSegment];
 }
 
-- (IBAction)follow:(WLButton*)sender {
+- (IBAction)follow:(Button *)sender {
     sender.loading = YES;
     __weak __typeof(self)weakSelf = self;
     [[RunQueue fetchQueue] run:^(Block finish) {
@@ -199,7 +195,7 @@
     }];
 }
 
-- (IBAction)unfollow:(WLButton*)sender {
+- (IBAction)unfollow:(Button *)sender {
     self.settingsButton.userInteractionEnabled = NO;
     sender.loading = YES;
     __weak typeof(self)weakSelf = self;
@@ -223,9 +219,9 @@
     self.unfollowButton.hidden = !self.followButton.hidden;
 }
 
-// MARK: - WLStillPictureViewControllerDelegate
+// MARK: - CaptureViewControllerDelegate
 
-- (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
+- (void)captureViewController:(CaptureMediaViewController *)controller didFinishWithAssets:(NSArray<MutableAsset *> *)assets {
     
     Wrap *wrap = controller.wrap ? : self.wrap;
     if (self.wrap != wrap) {
@@ -243,11 +239,11 @@
     
     [FollowingViewController followWrapIfNeeded:wrap performAction:^{
         [[SoundPlayer player] play:Sounds04];
-        [wrap uploadAssets:pictures];
+        [wrap uploadAssets:assets];
     }];
 }
 
-- (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
+- (void)captureViewControllerDidCancel:(CaptureViewController *)controller {
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
@@ -285,7 +281,7 @@
     }
 }
 
-- (WLWrapEmbeddedViewController *)controllerNamed:(NSString*)name badge:(WLBadgeLabel*)badge {
+- (WLWrapEmbeddedViewController *)controllerNamed:(NSString*)name badge:(BadgeLabel*)badge {
     WLWrapEmbeddedViewController *viewController = [self.childViewControllers selectObject:^BOOL(WLWrapEmbeddedViewController *controller) {
         return [controller.restorationIdentifier isEqualToString:name];
     }];
@@ -306,9 +302,9 @@
 // MARK: - WLMediaViewControllerDelegate
 
 - (void)mediaViewControllerDidAddPhoto:(MediaViewController *)controller {
-    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPhotosViewController:self.wrap];
-    stillPictureViewController.delegate = self;
-    [self presentViewController:stillPictureViewController animated:NO completion:nil];
+    CaptureMediaViewController *captureViewController = [CaptureViewController captureMediaViewController:self.wrap];
+    captureViewController.captureDelegate = self;
+    [self presentViewController:captureViewController animated:NO completion:nil];
 }
 
 // MARK: - RecentUpdateListNotifying

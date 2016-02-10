@@ -26,8 +26,8 @@ class WrapCell: StreamReusableView {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel?
     
-    @IBOutlet weak var wrapNotificationLabel: WLBadgeLabel?
-    @IBOutlet weak var chatNotificationLabel: WLBadgeLabel?
+    @IBOutlet weak var wrapNotificationLabel: BadgeLabel?
+    @IBOutlet weak var chatNotificationLabel: BadgeLabel?
     @IBOutlet weak var chatButton: UIButton?
     
     @IBOutlet var chatPrioritizer: LayoutPrioritizer?
@@ -90,7 +90,7 @@ class WrapCell: StreamReusableView {
         swipeAction?.reset()
     }
     
-    override func setup(entry: AnyObject!) {
+    override func setup(entry: AnyObject) {
         guard let wrap = entry as? Wrap else {
             return
         }

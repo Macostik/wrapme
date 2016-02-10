@@ -28,9 +28,7 @@ class WelcomeViewController: WLBaseViewController {
         let title = NSMutableAttributedString(string:"terms_and_conditions".ls)
         let range = NSMakeRange(0, title.length)
         title.addAttribute(NSUnderlineStyleAttributeName, value: NSUnderlineStyle.StyleSingle.rawValue, range: range)
-        if let font = UIFont.fontSmall() {
-            title.addAttribute(NSFontAttributeName, value: font, range: range)
-        }
+        title.addAttribute(NSFontAttributeName, value: UIFont.fontSmall(), range: range)
         title.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: range)
         licenseButton.setAttributedTitle(title, forState: .Normal)
     }

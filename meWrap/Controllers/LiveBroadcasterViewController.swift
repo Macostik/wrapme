@@ -160,7 +160,7 @@ final class LiveBroadcasterViewController: LiveViewController {
         
         guard let wrap = wrap else { return }
         guard let user = User.currentUser else { return }
-        let deviceUID = Authorization.currentAuthorization.deviceUID
+        let deviceUID = Authorization.current.deviceUID
         
         titleLabel?.text = composeBar.text
         titleLabel?.superview?.hidden = false
@@ -243,7 +243,7 @@ final class LiveBroadcasterViewController: LiveViewController {
                     "stream_info" : [
                         "wrap_uid" : wrap.uid,
                         "user_uid" : user.uid,
-                        "device_uid" : Authorization.currentAuthorization.deviceUID,
+                        "device_uid" : Authorization.current.deviceUID,
                         "title" : broadcast.title ?? ""
                     ],
                     "msg_type" : NotificationType.LiveBroadcast.rawValue

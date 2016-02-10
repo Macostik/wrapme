@@ -89,28 +89,32 @@ extension NSUserDefaults {
         set { self["WLNumberOfLaucnhes"] = newValue }
     }
     
-    var cameraDefaultPosition: NSNumber? {
-        get { return self["WLCameraDefaultPosition"] as? Int }
-        set { self["WLCameraDefaultPosition"] = newValue }
-    }
-    
-    var cameraDefaultFlashMode: NSNumber? {
-        get { return self["WLCameraDefaultFlashMode"] as? Int }
-        set { self["WLCameraDefaultFlashMode"] = newValue }
-    }
-    
-    var shownHints: NSMutableDictionary {
+    var captureMediaDevicePosition: AVCaptureDevicePosition {
         get {
-            if let shownHints = self["WLHintView_shownHints"] as? NSDictionary {
-                return shownHints.mutableCopy() as! NSMutableDictionary
-            } else {
-                let shownHints = NSMutableDictionary()
-                self["WLHintView_shownHints"] = shownHints
+            guard let position = self["captureMediaDevicePosition"] as? Int else { return .Back }
+            return AVCaptureDevicePosition(rawValue: position) ?? .Back
+        }
+        set { self["captureMediaDevicePosition"] = newValue.rawValue }
+    }
+    
+    var captureMediaFlashMode: AVCaptureFlashMode {
+        get {
+            guard let flashMode = self["captureMediaFlashMode"] as? Int else { return .Off }
+            return AVCaptureFlashMode(rawValue: flashMode) ?? .Off
+        }
+        set { self["captureMediaFlashMode"] = newValue.rawValue }
+    }
+    
+    var shownHints: [String:Bool] {
+        get {
+            if let shownHints = self["HintView_shownHints"] as? [String:Bool] {
                 return shownHints
+            } else {
+                return [String:Bool]()
             }
         }
         set {
-            self["WLHintView_shownHints"] = newValue
+            self["HintView_shownHints"] = newValue
         }
     }
     

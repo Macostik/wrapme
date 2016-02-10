@@ -11,16 +11,13 @@ import UIKit
 struct StoryboardObject<T: UIViewController> {
     let identifier: String
     let storyboard: UIStoryboard
-    func instantiate() -> T? {
-        return storyboard.instantiateViewControllerWithIdentifier(identifier) as? T
+    func instantiate() -> T {
+        return storyboard.instantiateViewControllerWithIdentifier(identifier) as! T
     }
-    func instantiate(@noescape block: T -> Void) -> T? {
-        if let controller = instantiate() {
-            block(controller)
-            return controller
-        } else {
-            return nil
-        }
+    func instantiate(@noescape block: T -> Void) -> T {
+        let controller = instantiate()
+        block(controller)
+        return controller
     }
 }
 
@@ -28,6 +25,12 @@ struct Storyboard {
     static let AddFriends = StoryboardObject<WLAddContributorsViewController>(identifier: "addFriends", storyboard: UIStoryboard.main())
     static let UploadWizardEnd = StoryboardObject<UploadWizardEndViewController>(identifier: "uploadWizardEnd", storyboard: UIStoryboard.main())
     static let LiveBroadcaster = StoryboardObject<LiveBroadcasterViewController>(identifier: "liveBroadcaster", storyboard: UIStoryboard.main())
+    static let UploadSummary = StoryboardObject<UploadSummaryViewController>(identifier: "uploadSummary", storyboard: UIStoryboard.camera())
+    static let WrapPicker = StoryboardObject<WrapPickerViewController>(identifier: "wrapPicker", storyboard: UIStoryboard.camera())
+    static let ReportCandy = StoryboardObject<ReportViewController>(identifier: "report", storyboard: UIStoryboard.main())
+    static let Comments = StoryboardObject<WLCommentsViewController>(identifier: "comments", storyboard: UIStoryboard.main())
+    static let History = StoryboardObject<HistoryViewController>(identifier: "history", storyboard: UIStoryboard.main())
+    static let Countries = StoryboardObject<CountriesViewController>(identifier: "countries", storyboard: UIStoryboard.signUp())
 }
 
 extension UIStoryboard {

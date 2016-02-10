@@ -20,11 +20,11 @@ class RecentCandiesView: StreamReusableView {
         dataSource.numberOfGridColumns = 3
         dataSource.sizeForGridColumns = 0.333
         streamView.layout = SquareGridLayout(horizontal: false)
-        dataSource.addMetrics(StreamMetrics(identifier:"CandyCell")).disableMenu = true
+        dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<CandyCell>())).disableMenu = true
         dataSource.layoutSpacing = Constants.pixelSize
     }
     
-    override func setup(entry: AnyObject!) {
+    override func setup(entry: AnyObject) {
         guard let wrap = entry as? Wrap, let recentCandies = wrap.recentCandies else {
             return
         }

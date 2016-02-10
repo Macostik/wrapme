@@ -151,11 +151,11 @@ extension APIRequest {
     
     class func linkDevice(passcode: String) -> Self {
         return APIRequest(.POST).path("users/link_device").parametrize({ (request) -> Void in
-            request["email"] = Authorization.currentAuthorization.email
-            request["device_uid"] = Authorization.currentAuthorization.deviceUID
+            request["email"] = Authorization.current.email
+            request["device_uid"] = Authorization.current.deviceUID
             request["approval_code"] = passcode
         }).parse({ (response) -> AnyObject? in
-            let authorization = Authorization.currentAuthorization
+            let authorization = Authorization.current
             authorization.password = response.dictionary("device")?["password"] as? String
             authorization.setCurrent()
             return authorization

@@ -3829,10 +3829,10 @@ QWRkEEZyaWVuZFZpZXc
             </objects>
             <point key="canvasLocation" x="1730" y="2187"/>
         </scene>
-        <!--Live Brodcast View Controller Scene-->
+        <!--LiveBroadcasterViewController-->
         <scene sceneID="9S4-kb-k72">
             <objects>
-                <viewController storyboardIdentifier="liveBroadcaster" id="Ubc-jI-W0F" customClass="LiveBroadcasterViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="liveBroadcaster" id="Ubc-jI-W0F" userLabel="LiveBroadcasterViewController" customClass="LiveBroadcasterViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fet-Rv-pld"/>
                         <viewControllerLayoutGuide type="bottom" id="sLm-tZ-lwk"/>
@@ -4169,9 +4169,6 @@ QWRkEEZyaWVuZFZpZXc
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <string key="userLabel" base64-UTF8="YES">
-TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
-</string>
                     <connections>
                         <outlet property="chatStreamView" destination="oVK-cS-Ps7" id="zS1-RU-5sI"/>
                         <outlet property="composeBar" destination="TDj-ND-asZ" id="z95-zG-RuZ"/>
@@ -4198,10 +4195,10 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
             </objects>
             <point key="canvasLocation" x="1730" y="1518"/>
         </scene>
-        <!--Live Brodcast View Controller Scene-->
+        <!--LiveViewerViewController-->
         <scene sceneID="UmL-eZ-UqG">
             <objects>
-                <viewController storyboardIdentifier="liveViewer" id="pQT-cT-yzK" customClass="LiveViewerViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="liveViewer" id="pQT-cT-yzK" userLabel="LiveViewerViewController" customClass="LiveViewerViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hu9-eF-Xks"/>
                         <viewControllerLayoutGuide type="bottom" id="Mu5-Wm-mgc"/>
@@ -4489,9 +4486,6 @@ TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <string key="userLabel" base64-UTF8="YES">
-TGl2ZRBCcm9kY2FzdCBWaWV3IENvbnRyb2xsZXIgU2NlbmU
-</string>
                     <connections>
                         <outlet property="chatStreamView" destination="bV7-Wf-Fwe" id="w7v-Dl-atP"/>
                         <outlet property="composeBar" destination="deR-u8-UBI" id="u3k-F1-9SI"/>

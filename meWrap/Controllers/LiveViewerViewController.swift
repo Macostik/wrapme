@@ -17,6 +17,12 @@ class LiveViewerViewController: LiveViewController {
     
     private var playerItem: AVPlayerItem?
     
+    private weak var coverView: UIView?
+    
+    private weak var coverLabel: UIView?
+    
+    private var broadcastExists = false
+    
     deinit {
         guard let item = playerItem else { return }
         item.removeObserver(self, forKeyPath: "status")
@@ -69,6 +75,118 @@ class LiveViewerViewController: LiveViewController {
                 }
             }
         }
+        
+        showCoverViewWithText("loading...".ls)
+        
+        if let wrap = wrap {
+            PubNub.sharedInstance.hereNowForChannel(wrap.uid, withVerbosity: .State, completion: { [weak self] (result, status) -> Void in
+                guard let broadcast = self?.broadcast else { return }
+                if let uuids = result?.data?.uuids as? [[String:AnyObject]] {
+                    for uuid in uuids {
+                        guard let activity = uuid["state"]?["activity"] as? [String:AnyObject] else { continue }
+                        guard activity["type"] as? Int == UserActivityType.Streaming.rawValue else { continue }
+                        guard let streamName = activity["streamName"] as? String else { continue }
+                        if streamName == broadcast.streamName {
+                            self?.broadcastExists = true
+                            self?.removeCoverViewIfNeeded()
+                            return
+                        }
+                    }
+                }
+                self?.wrap?.removeBroadcast(broadcast)
+                self?.showEndBroadcast()
+            })
+        }
+    }
+    
+    private func removeCoverViewIfNeeded() {
+        if broadcastExists && !spinner.isAnimating() {
+            coverView?.removeFromSuperview()
+        }
+    }
+    
+    private func showEndBroadcast() {
+        showCoverViewWithText("broadcast_end".ls)
+    }
+    
+    private func showCoverViewWithText(text: String) {
+
+        self.coverView?.removeFromSuperview()
+        
+        let coverView = UIView()
+        coverView.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(coverView, belowSubview: spinner)
+        self.coverView = coverView
+        
+        let coverImageView = ImageView()
+        coverImageView.translatesAutoresizingMaskIntoConstraints = false
+        coverImageView.backgroundColor = UIColor.blackColor()
+        coverImageView.contentMode = .ScaleAspectFill
+        coverImageView.clipsToBounds = true
+        coverView.addSubview(coverImageView)
+        
+        let blurEffect = UIBlurEffect(style: .Light)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        let vibrancyEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
+        let vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
+        vibrancyView.translatesAutoresizingMaskIntoConstraints = false
+        coverView.addSubview(blurView)
+        blurView.contentView.addSubview(vibrancyView)
+        
+        let wrapNameLabel = WLLabel()
+        wrapNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        wrapNameLabel.font = UIFont.fontXLarge()
+        wrapNameLabel.preset = FontPreset.XLarge.rawValue
+        wrapNameLabel.textColor = UIColor.whiteColor()
+        wrapNameLabel.text = wrap?.name
+        vibrancyView.contentView.addSubview(wrapNameLabel)
+        
+        let titleLabel = WLLabel()
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.font = UIFont.lightFontLarger()
+        titleLabel.preset = FontPreset.Larger.rawValue
+        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.text = broadcast.displayTitle()
+        vibrancyView.contentView.addSubview(titleLabel)
+        
+        let messageLabel = WLLabel()
+        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        messageLabel.font = UIFont.lightFontNormal()
+        messageLabel.preset = FontPreset.Normal.rawValue
+        messageLabel.textColor = UIColor.whiteColor()
+        messageLabel.text = text
+        vibrancyView.contentView.addSubview(messageLabel)
+        
+        let backButton = WLButton()
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.titleLabel?.font = UIFont(name: "icons", size: 36)
+        backButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        backButton.setTitleColor(UIColor.whiteColor().darkerColor(), forState: .Normal)
+        backButton.setTitle("w", forState: .Normal)
+        backButton.addTarget(self, action: "close:", forControlEvents: .TouchUpInside)
+        vibrancyView.contentView.addSubview(backButton)
+        
+        view.makeResizibleSubview(coverView)
+        coverView.makeResizibleSubview(coverImageView)
+        coverView.makeResizibleSubview(blurView)
+        blurView.makeResizibleSubview(vibrancyView)
+        
+        vibrancyView.addConstraint(NSLayoutConstraint(item: wrapNameLabel, attribute: .CenterY, relatedBy: .Equal, toItem: vibrancyView, attribute: .CenterY, multiplier: 1, constant: -100))
+        vibrancyView.addConstraint(NSLayoutConstraint(item: wrapNameLabel, attribute: .CenterX, relatedBy: .Equal, toItem: vibrancyView, attribute: .CenterX, multiplier: 1, constant: 0))
+        
+        vibrancyView.addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: wrapNameLabel, attribute: .Bottom, multiplier: 1, constant: 0))
+        vibrancyView.addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .CenterX, relatedBy: .Equal, toItem: vibrancyView, attribute: .CenterX, multiplier: 1, constant: 0))
+        
+        vibrancyView.addConstraint(NSLayoutConstraint(item: messageLabel, attribute: .CenterY, relatedBy: .Equal, toItem: vibrancyView, attribute: .CenterY, multiplier: 1, constant: 80))
+        vibrancyView.addConstraint(NSLayoutConstraint(item: messageLabel, attribute: .CenterX, relatedBy: .Equal, toItem: vibrancyView, attribute: .CenterX, multiplier: 1, constant: 0))
+        
+        vibrancyView.addConstraint(NSLayoutConstraint(item: backButton, attribute: .Leading, relatedBy: .Equal, toItem: vibrancyView, attribute: .Leading, multiplier: 1, constant: 12))
+        vibrancyView.addConstraint(NSLayoutConstraint(item: backButton, attribute: .Top, relatedBy: .Equal, toItem: vibrancyView, attribute: .Top, multiplier: 1, constant: 12))
+        
+        coverImageView.url = wrap?.asset?.large
+        
+        self.coverView = coverView
     }
     
     override func viewDidLayoutSubviews() {
@@ -82,6 +200,7 @@ class LiveViewerViewController: LiveViewController {
         guard let keyPath = keyPath, let item = playerItem else { return }
         if item.playbackLikelyToKeepUp {
             spinner.stopAnimating()
+            removeCoverViewIfNeeded()
         } else {
             spinner.startAnimating()
         }
@@ -104,8 +223,7 @@ class LiveViewerViewController: LiveViewController {
     
     override func wrapLiveBroadcastsUpdated() {
         if let wrap = wrap where !wrap.liveBroadcasts.contains(broadcast) {
-            navigationController?.popViewControllerAnimated(false)
-            Toast.show(String(format:"formatted_broadcast_end".ls, broadcast.broadcaster?.name ?? ""))
+            showEndBroadcast()
         }
     }
 }

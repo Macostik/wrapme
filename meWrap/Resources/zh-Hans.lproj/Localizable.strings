@@ -298,3 +298,5 @@
 "microphone_access_message" = "请前往「设定」> meWrap，并允许meWrap取用麦克风。";
 "media_access_title" = "未有相机和麦克风权限";
 "media_access_message" = "请前往「设定」> meWrap，并允许meWrap取用相机和麦克风。";
+"loading..." = "Loading...";
+"broadcast_end" = "The live broadcast has ended.";

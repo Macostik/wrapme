@@ -26,10 +26,10 @@ final class EditProfileViewController: SignupStepViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        editSession = ProfileEditSession(user: user)
         user = User.currentUser
         nameTextField.text = user.name
         profileImageView.url = user.avatar?.large
-        editSession = ProfileEditSession(user: user)
         continueButton.active = false
     }
     

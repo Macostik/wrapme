@@ -57,7 +57,7 @@ class CandyCell: StreamReusableView {
         }
     }
     
-    override func loadedWithMetrics(metrics: StreamMetrics!) {
+    override func loadedWithMetrics(metrics: StreamMetrics) {
         super.loadedWithMetrics(metrics)
         guard !metrics.disableMenu else {
             return

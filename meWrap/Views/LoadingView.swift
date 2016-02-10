@@ -17,7 +17,7 @@ class LoadingView: StreamReusableView {
         return StreamMetrics(loader: LayoutStreamLoader<LoadingView>(), size: DefaultSize)
     }
     
-    override func layoutWithMetrics(metrics: StreamMetrics!) {
+    override func layoutWithMetrics(metrics: StreamMetrics) {
         let spinner = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         spinner.color = Color.orange
         spinner.hidesWhenStopped = true

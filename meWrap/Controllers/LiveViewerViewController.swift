@@ -134,7 +134,7 @@ class LiveViewerViewController: LiveViewController {
         coverView.addSubview(blurView)
         blurView.contentView.addSubview(vibrancyView)
         
-        let wrapNameLabel = WLLabel()
+        let wrapNameLabel = Label()
         wrapNameLabel.translatesAutoresizingMaskIntoConstraints = false
         wrapNameLabel.font = UIFont.fontXLarge()
         wrapNameLabel.preset = FontPreset.XLarge.rawValue
@@ -142,7 +142,7 @@ class LiveViewerViewController: LiveViewController {
         wrapNameLabel.text = wrap?.name
         vibrancyView.contentView.addSubview(wrapNameLabel)
         
-        let titleLabel = WLLabel()
+        let titleLabel = Label()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = UIFont.lightFontLarger()
         titleLabel.preset = FontPreset.Larger.rawValue
@@ -150,7 +150,7 @@ class LiveViewerViewController: LiveViewController {
         titleLabel.text = broadcast.displayTitle()
         vibrancyView.contentView.addSubview(titleLabel)
         
-        let messageLabel = WLLabel()
+        let messageLabel = Label()
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
         messageLabel.font = UIFont.lightFontNormal()
         messageLabel.preset = FontPreset.Normal.rawValue
@@ -158,7 +158,7 @@ class LiveViewerViewController: LiveViewController {
         messageLabel.text = text
         vibrancyView.contentView.addSubview(messageLabel)
         
-        let backButton = WLButton()
+        let backButton = Button()
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.titleLabel?.font = UIFont(name: "icons", size: 36)
         backButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)

@@ -28,7 +28,7 @@ class CandyNotification: Notification {
                 
                 let oldPicture = candy.asset?.copy() as? Asset
                 candy.map(data)
-                if let newAsset = candy.asset {
+                if let newAsset = candy.asset where originatedByCurrentUser {
                     oldPicture?.cacheForAsset(newAsset)
                 }
                 if candy.sortedComments().contains({ $0.uploading != nil }) {

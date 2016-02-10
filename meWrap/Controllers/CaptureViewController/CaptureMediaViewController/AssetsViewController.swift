@@ -8,12 +8,54 @@
 
 import UIKit
 import Photos
+import SnapKit
 
 class AssetCell: StreamReusableView {
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var acceptView: UIView!
     @IBOutlet weak var videoIndicator: UILabel!
     private var requestID: PHImageRequestID?
+    
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        let imageView = ImageView()
+        imageView.backgroundColor = UIColor.clearColor()
+        imageView.contentMode = .ScaleAspectFill
+        imageView.clipsToBounds = true
+        addSubview(imageView)
+        self.imageView = imageView
+        
+        let videoIndicator = UILabel()
+        videoIndicator.font = UIFont(name: "icons", size: 20)
+        videoIndicator.textColor = UIColor.whiteColor()
+        videoIndicator.text = "+"
+        addSubview(videoIndicator)
+        self.videoIndicator = videoIndicator
+        
+        let acceptView = UILabel()
+        acceptView.textAlignment = .Center
+        acceptView.backgroundColor = UIColor.whiteColor()
+        acceptView.cornerRadius = 10
+        acceptView.borderColor = Color.orange
+        acceptView.borderWidth = 1
+        acceptView.clipsToBounds = true
+        acceptView.font = UIFont(name: "icons", size: 12)
+        acceptView.textColor = Color.orange
+        acceptView.text = "l"
+        addSubview(acceptView)
+        self.acceptView = acceptView
+        
+        imageView.snp_makeConstraints(closure: { $0.edges.equalTo(self) })
+        videoIndicator.snp_makeConstraints(closure: {
+            $0.top.equalTo(self).offset(2)
+            $0.trailing.equalTo(self).offset(-2)
+        })
+        acceptView.snp_makeConstraints(closure: {
+            $0.bottom.equalTo(self).offset(-2)
+            $0.trailing.equalTo(self).offset(-2)
+            $0.width.height.equalTo(20)
+        })
+    }
     
     override func willEnqueue() {
         if let requestID = requestID {
@@ -108,7 +150,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         
         streamView.layout = SquareLayout(horizontal: true)
         let dataSource = StreamDataSource(streamView: streamView)
-        let metrics = StreamMetrics(identifier: "AssetCell")
+        let metrics = StreamMetrics(loader: LayoutStreamLoader<AssetCell>())
         metrics.selection = { [weak self] (item, entry) in
             if let item = item, let asset = entry as? PHAsset {
                 item.selected = self?.selectAsset(asset) ?? false

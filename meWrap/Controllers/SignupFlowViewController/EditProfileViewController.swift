@@ -26,8 +26,8 @@ final class EditProfileViewController: SignupStepViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        editSession = ProfileEditSession(user: user)
         user = User.currentUser
+        editSession = ProfileEditSession(user: user)
         nameTextField.text = user.name
         profileImageView.url = user.avatar?.large
         continueButton.active = false

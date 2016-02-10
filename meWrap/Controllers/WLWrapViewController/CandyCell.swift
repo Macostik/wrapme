@@ -45,7 +45,10 @@ class CandyCell: StreamReusableView {
         
         imageView.snp_makeConstraints(closure: { $0.edges.equalTo(self) })
         
-        videoIndicatorView.snp_makeConstraints { $0.top.right.equalTo(self) }
+        videoIndicatorView.snp_makeConstraints {
+            $0.top.equalTo(self).offset(2)
+            $0.right.equalTo(self).offset(-2)
+        }
 
         gradientView.snp_makeConstraints { make in
             make.left.right.equalTo(self)

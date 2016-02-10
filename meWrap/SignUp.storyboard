@@ -1632,6 +1632,7 @@
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7KX-2Q-61m" customClass="ImageView" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="add_avatar" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w5f-mm-zRg" customClass="Label" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="49" y="80" width="83" height="21"/>

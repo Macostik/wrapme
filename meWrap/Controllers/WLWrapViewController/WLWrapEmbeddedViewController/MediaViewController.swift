@@ -9,30 +9,13 @@
 import UIKit
 import SnapKit
 
-class HistoryDateSeparator: StreamReusableView {
-    
-    weak var dateLabel: UILabel!
-    
-    override func layoutWithMetrics(metrics: StreamMetrics) {
-        let dateLabel = Label(preset: FontPreset.Normal, weight: UIFontWeightRegular, textColor: Color.grayDark)
-        dateLabel.textAlignment = .Left
-        addSubview(dateLabel)
-        self.dateLabel = dateLabel
-        dateLabel.snp_makeConstraints(closure: {
-            $0.centerY.equalTo(self)
-            $0.leading.equalTo(self).offset(12)
-            $0.trailing.greaterThanOrEqualTo(self).offset(12)
-        })
-    }
-    
-    override func setup(entry: AnyObject) {
-        if let item = entry as? HistoryItem {
-            dateLabel.text = item.date.stringWithFormat("EEE MMM d, yyyy")
-        }
-    }
+protocol HistoryItemCellDelegate: class {
+    func historyItemCell(cell: HistoryItemCell, didSelectItem item: HistoryItem)
 }
 
 class HistoryItemCell: StreamReusableView {
+    
+    weak var delegate: HistoryItemCellDelegate?
     
     class HistoryItemDataSource: StreamDataSource {
         func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -53,7 +36,9 @@ class HistoryItemCell: StreamReusableView {
         }
     }
     
-    @IBOutlet weak var streamView: StreamView!
+    weak var streamView: StreamView!
+    
+    weak var dateLabel: UILabel!
     
     private var dataSource: HistoryItemDataSource!
     
@@ -65,7 +50,54 @@ class HistoryItemCell: StreamReusableView {
         streamView.showsVerticalScrollIndicator = false
         addSubview(streamView)
         self.streamView = streamView
-        streamView.snp_makeConstraints(closure: { $0.edges.equalTo(self) })
+        
+        let dateView = Button()
+        dateView.normalColor = UIColor.whiteColor()
+        dateView.highlightedColor = Color.orange
+        dateView.cornerRadius = 7
+        dateView.clipsToBounds = true
+        dateView.backgroundColor = UIColor.whiteColor()
+        dateView.borderWidth = 1
+        dateView.borderColor = Color.orange
+        dateView.addTarget(self, action: "openHistoryItem:", forControlEvents: .TouchUpInside)
+        addSubview(dateView)
+        
+        let dateLabel = Label(preset: FontPreset.Normal, weight: UIFontWeightRegular, textColor: Color.orange)
+        dateLabel.highlightedTextColor = UIColor.whiteColor()
+        dateLabel.textAlignment = .Left
+        dateView.addSubview(dateLabel)
+        self.dateLabel = dateLabel
+        dateView.highlightings.append(dateLabel)
+        
+        let arrow = Label()
+        arrow.font = UIFont(name: "icons", size: 15)
+        arrow.text = "x"
+        arrow.highlightedTextColor = UIColor.whiteColor()
+        arrow.textAlignment = .Left
+        arrow.textColor = Color.orange
+        dateView.addSubview(arrow)
+        dateView.highlightings.append(arrow)
+        
+        streamView.snp_makeConstraints(closure: {
+            $0.top.equalTo(self).offset(40)
+            $0.leading.trailing.bottom.equalTo(self)
+        })
+        
+        dateView.snp_makeConstraints(closure: {
+            $0.leading.equalTo(self).offset(12)
+            $0.centerY.equalTo(streamView.snp_top)
+        })
+        
+        dateLabel.snp_makeConstraints(closure: {
+            $0.leading.equalTo(dateView).offset(8)
+            $0.trailing.equalTo(arrow.snp_leading)
+            $0.top.bottom.equalTo(dateView).inset(6)
+        })
+        
+        arrow.snp_makeConstraints(closure: {
+            $0.trailing.equalTo(dateView).inset(8)
+            $0.centerY.equalTo(dateLabel)
+        })
     }
     
     internal override func willEnqueue() {
@@ -86,8 +118,9 @@ class HistoryItemCell: StreamReusableView {
     }
     
     override func setup(entry: AnyObject) {
-        streamView.frame = bounds
+        streamView.layoutIfNeeded()
         if let item = entry as? HistoryItem {
+            dateLabel.text = item.date.stringWithFormat("EEE MMM d, yyyy")
             let candies = item.candies
             if item.date.isToday() && candies.count >= 3 {
                 streamView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
@@ -97,6 +130,12 @@ class HistoryItemCell: StreamReusableView {
                 dataSource.items = candies
             }
             streamView.contentOffset = item.offset
+        }
+    }
+    
+    func openHistoryItem(sender: Button) {
+        if let item = entry as? HistoryItem {
+            delegate?.historyItemCell(self, didSelectItem: item)
         }
     }
 }
@@ -213,17 +252,12 @@ class MediaViewController: WLWrapEmbeddedViewController {
                 self?.presentLiveBroadcast(broadcast)
             }
         }
-        let dateMetrics = dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<HistoryDateSeparator>()))
-        dateMetrics.size = 42
-        dateMetrics.selection = { [weak self] (item, entry) -> Void in
-            if let controller = self?.storyboard?["historyItem"] as? HistoryItemViewController {
-                controller.item = entry as? HistoryItem
-                self?.navigationController?.pushViewController(controller, animated: false)
-            }
-        }
         
         candyMetrics = dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<HistoryItemCell>()))
-        candyMetrics.size = round(view.width / 2.5)
+        candyMetrics.prepareAppearing = { item, view in
+            (view as? HistoryItemCell)?.delegate = self
+        }
+        candyMetrics.size = round(view.width / 2.5) + 40
         candyMetrics.selectable = false
         candyMetrics.selection = { [weak self] (item, entry) -> Void in
             CandyEnlargingPresenter.handleCandySelection(item, entry: entry, historyItem: self?.history.itemWithCandy(entry as? Candy), dismissingView: { (presenter, candy) -> UIView? in
@@ -384,5 +418,14 @@ extension MediaViewController: EntryNotifying {
     
     func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
         return wrap == entry
+    }
+}
+
+extension MediaViewController: HistoryItemCellDelegate {
+    
+    func historyItemCell(cell: HistoryItemCell, didSelectItem item: HistoryItem) {
+        let controller = Storyboard.HistoryItem.instantiate()
+        controller.item = item
+        navigationController?.pushViewController(controller, animated: false)
     }
 }

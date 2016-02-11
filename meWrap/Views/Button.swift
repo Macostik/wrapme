@@ -32,8 +32,8 @@ class Button : UIButton {
     var animated: Bool = false
     var spinner: UIActivityIndicatorView?
     
-    @IBOutlet var highlightings: [UIView]?
-    @IBOutlet var selectings: [UIView]?
+    @IBOutlet var highlightings: [UIView] = []
+    @IBOutlet var selectings: [UIView] = []
     
     @IBInspectable var insets: CGSize = CGSizeZero
     @IBInspectable var spinnerColor: UIColor?
@@ -100,7 +100,6 @@ class Button : UIButton {
     override var highlighted: Bool {
         didSet {
             update()
-            guard let highlightings = highlightings else { return }
             for highlighting in highlightings {
                 (highlighting as? Highlightable)?.highlighted = highlighted
             }
@@ -110,7 +109,6 @@ class Button : UIButton {
     override var selected: Bool {
         didSet {
             update()
-            guard let selectings = selectings else { return }
             for selecting in selectings {
                 (selecting as? Selectable)?.selected = selected
             }

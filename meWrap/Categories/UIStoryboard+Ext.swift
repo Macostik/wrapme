@@ -30,6 +30,7 @@ struct Storyboard {
     static let ReportCandy = StoryboardObject<ReportViewController>(identifier: "report", storyboard: UIStoryboard.main())
     static let Comments = StoryboardObject<WLCommentsViewController>(identifier: "comments", storyboard: UIStoryboard.main())
     static let History = StoryboardObject<HistoryViewController>(identifier: "history", storyboard: UIStoryboard.main())
+    static let HistoryItem = StoryboardObject<HistoryItemViewController>(identifier: "historyItem", storyboard: UIStoryboard.main())
     static let Countries = StoryboardObject<CountriesViewController>(identifier: "countries", storyboard: UIStoryboard.signUp())
 }
 

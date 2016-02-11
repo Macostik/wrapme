@@ -28,8 +28,6 @@ class Toast: UIView {
     
     @IBOutlet weak var iconView: UIView!
     
-    private weak var topViewConstraint: NSLayoutConstraint?
-    
     @IBOutlet weak var topMessageInset: NSLayoutConstraint!
     
     private var dismissBlock: Block?
@@ -93,12 +91,10 @@ class Toast: UIView {
         if referenceView == view {
             let topViewConstraint = constraintToItem(referenceView, equal: .Top)
             view.addConstraint(topViewConstraint)
-            self.topViewConstraint = topViewConstraint;
             topMessageInset.constant = UIApplication.sharedApplication().statusBarHidden ? 10 : 30
         } else {
             let topViewConstraint = constraintForAttrbute(.Top, toItem: referenceView, equalToAttribute: .Bottom)
             view.addConstraint(topViewConstraint)
-            self.topViewConstraint = topViewConstraint
             topMessageInset.constant = 10
         }
     }

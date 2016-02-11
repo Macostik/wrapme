@@ -197,13 +197,10 @@ class AddContributorsViewController: WLBaseViewController, AddressBookRecordCell
     //MARK: AddressBookRecordCellDelegate
     
     func recordCell(cell: AddressBookRecordCell, phoneNumberState phoneNumber: AddressBookPhoneNumber) -> AddressBookPhoneNumberState {
-        guard let user = phoneNumber.user else {
-            return addressBook.selectedPhoneNumber(phoneNumber) != nil ? .Selected : .Default
-        }
-        if wrap.contributors.contains(user) {
+        if let user = phoneNumber.user where wrap.contributors.contains(user) {
             return .Added
         }
-        return .Selected
+        return addressBook.selectedPhoneNumber(phoneNumber) != nil ? .Selected : .Default
     }
     
     func containUnregisterAddresBookGroupRecord() -> Bool {

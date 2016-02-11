@@ -14,12 +14,7 @@ enum ValidationStatus {
 
 class Validation: NSObject, UITextFieldDelegate {
     
-    @IBOutlet weak var inputView: UITextField! {
-        willSet {
-            newValue.delegate = self
-            newValue.addTarget(self, action: "textFieldDidChange:", forControlEvents: .EditingChanged)
-        }
-    }
+    @IBOutlet weak var inputView: UITextField!
     
     @IBOutlet weak var statusView: UIView! {
         didSet {
@@ -28,8 +23,8 @@ class Validation: NSObject, UITextFieldDelegate {
     }
     
     var status: ValidationStatus = .Undefined {
-        willSet {
-            updateStatusView(newValue)
+        didSet {
+            updateStatusView(status)
         }
     }
 
@@ -39,31 +34,37 @@ class Validation: NSObject, UITextFieldDelegate {
     }
     
     func validate() -> ValidationStatus {
-        let status = defineCurrentStatus(inputView)
+        let status = defineCurrentStatus()
         self.status = status
         return status
     }
     
-    func defineCurrentStatus(textField: UITextField) -> ValidationStatus {
+    func defineCurrentStatus() -> ValidationStatus {
         return .Valid
     }
 }
 
 class TextFieldValidation: Validation {
     
+    override weak var inputView: UITextField! {
+        didSet {
+            inputView.addTarget(self, action: "textDidChange", forControlEvents: .EditingChanged)
+        }
+    }
+    
     @IBInspectable var limit: Int = 0
     
-    override func defineCurrentStatus(textField: UITextField) -> ValidationStatus {
-        return textField.text?.isEmpty ?? false ? .Invalid : .Valid
+    override func defineCurrentStatus() -> ValidationStatus {
+        return inputView.text?.isEmpty ?? true ? .Invalid : .Valid
     }
     
     //MARK: ValidationDelegate
     
-    func textFieldDidChange(textField: UITextField) {
-        if let text = textField.text {
+    func textDidChange() {
+        if let text = inputView.text {
             if limit > 0 && text.characters.count > limit {
                 let index = text.startIndex.advancedBy(limit)
-                textField.text = text.substringToIndex(index)
+                inputView.text = text.substringToIndex(index)
             }
         }
         validate()

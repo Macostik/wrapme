@@ -10,10 +10,10 @@ import UIKit
 
 class PasscodeValidation: TextFieldValidation {
     
-    override func defineCurrentStatus(textField: UITextField) -> ValidationStatus {
-        var status = super.defineCurrentStatus(textField)
+    override func defineCurrentStatus() -> ValidationStatus {
+        var status = super.defineCurrentStatus()
         if status == .Valid {
-            status = textField.text?.characters.count == limit ? .Valid : .Invalid
+            status = inputView.text?.characters.count == limit ? .Valid : .Invalid
         }
         return status
     }

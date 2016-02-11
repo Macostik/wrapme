@@ -10,10 +10,10 @@ import UIKit
 
 final class EmailValidation: TextFieldValidation {
     
-    override func defineCurrentStatus(textField: UITextField) -> ValidationStatus {
-        var status = super.defineCurrentStatus(textField)
+    override func defineCurrentStatus() -> ValidationStatus {
+        var status = super.defineCurrentStatus()
         if status == .Valid {
-            status = textField.text?.isValidEmail ?? false ? .Valid : .Invalid
+            status = inputView.text?.isValidEmail ?? false ? .Valid : .Invalid
         }
         return status
     }

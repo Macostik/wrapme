@@ -129,6 +129,7 @@
 
 + (void)debugKeychainQueryStatus:(OSStatus)status {
     
+#ifdef DEBUG
     switch (status) {
         case errSecParam:
         case errSecBadReq:
@@ -143,6 +144,7 @@
         default:
             break;
     }
+#endif
 }
 
 + (void)checkExistingDataWithQuery:(NSMutableDictionary *)query completionBlock:(void(^)(BOOL))block {
@@ -266,7 +268,10 @@
 + (NSMutableDictionary *)baseInformationForItemWithKey:(NSString *)key {
     
     // Compose base item description query.
-    NSString *bundleIdentifier = [[NSBundle mainBundle] infoDictionary][(NSString *)(kCFBundleIdentifierKey)];
+    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+    // In case if we client used from tests environment configuration should use specified
+    // device identifier.
+    if (NSClassFromString(@"XCTestExpectation")) { bundleIdentifier = @"com.pubnub.objc-tests"; }
     NSMutableDictionary *query = [NSMutableDictionary new];
     query[(__bridge id)(kSecClass)] = (__bridge id)(kSecClassGenericPassword);
     query[(__bridge id)(kSecAttrSynchronizable)] = (__bridge id)(kCFBooleanFalse);

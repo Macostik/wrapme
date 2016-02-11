@@ -9,39 +9,65 @@
 import UIKit
 import libPhoneNumber_iOS
 
+class PhoneTextField: TextField {
+    
+    var phoneNumberUtility: NBPhoneNumberUtil = NBPhoneNumberUtil()
+    lazy var phoneNumberFormatter: NBAsYouTypeFormatter = NBAsYouTypeFormatter(regionCode: self.countryCode)
+    
+    var countryCode: String = "KR" {
+        didSet {
+            phoneNumberFormatter = NBAsYouTypeFormatter(regionCode: countryCode)
+            numberTextDidChange()
+        }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        registerForNotifications()
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    override func deleteBackward() {
+        if text?.characters.last == " " {
+            if let indexNumberWithWhiteSpace = text?.endIndex.advancedBy(-1) {
+                text = text?.substringToIndex(indexNumberWithWhiteSpace)
+            }
+            return
+        }
+        super.deleteBackward()
+    }
+    
+    private func registerForNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "numberTextDidChange", name: UITextFieldTextDidChangeNotification, object: self)
+    }
+    
+    func numberTextDidChange() {
+        let selectedRange = self.selectedTextRange
+        let numbersOnly = phoneNumberUtility.normalizePhoneNumber(text)
+        text = phoneNumberFormatter.inputStringAndRememberPosition(numbersOnly)
+        if let range = selectedRange where comparePosition(range.end, toPosition: self.endOfDocument) != .OrderedDescending {
+            self.selectedTextRange = range
+        }
+    }
+}
+
 class PhoneValidation: TextFieldValidation {
     
-    private var formatter: NBAsYouTypeFormatter?
-    
-    var country: Country? {
-        willSet {
-            formatter = NBAsYouTypeFormatter(regionCode: country?.code)
-            if let text = inputView.text where !text.isEmpty {
-                inputView.text = formatter?.inputString(text.clearPhoneNumber())
-                validate()
-            }
-        }
-    }
-    
-    override func defineCurrentStatus(textField: UITextField) -> ValidationStatus {
-        var status = super.defineCurrentStatus(textField)
+    override func defineCurrentStatus() -> ValidationStatus {
+        var status = super.defineCurrentStatus()
         if status == .Valid {
-            status = textField.text?.characters.count > 5 ? .Valid : .Invalid
+            status = inputView.text?.characters.count > 5 ? .Valid : .Invalid
         }
         return status
-    }
-    
-    //MARK: UITextFieldDelegate
-    
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        textField.text = string.characters.count > 0 ? formatter?.inputDigit(string) : formatter?.removeLastDigit()
-        return false
     }
 }
 
 final class PhoneViewController: SignupStepViewController {
     
-    @IBOutlet weak var phoneNumberTextField: UITextField!
+    @IBOutlet weak var phoneNumberTextField: PhoneTextField!
     
     @IBOutlet weak var selectCountryButton: UIButton!
     @IBOutlet weak var countryCodeLabel: UILabel!
@@ -51,7 +77,7 @@ final class PhoneViewController: SignupStepViewController {
             Authorization.current.countryCode = country.callingCode
             selectCountryButton.setTitle(country.name, forState:.Normal)
             countryCodeLabel.text = "+\(country.callingCode ?? "")"
-            validation.country = country
+            phoneNumberTextField.countryCode = country.code
         }
     }
     

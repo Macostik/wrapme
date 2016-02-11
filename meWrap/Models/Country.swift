@@ -24,9 +24,9 @@ class Telephony: NSObject {
 }
 
 class Country: NSObject {
-    var name: String?
-    var callingCode: String?
-    var code: String?
+    var name: String!
+    var callingCode: String!
+    var code: String!
     
     static var allCountries: [Country] {
         guard let path = NSBundle.mainBundle().pathForResource("country-codes", ofType: "json"),

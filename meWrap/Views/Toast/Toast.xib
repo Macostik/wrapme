@@ -33,6 +33,9 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="749" text="text" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hd1-jA-vOk" customClass="WLLabel">
                     <rect key="frame" x="45" y="10" width="27" height="21"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="Qsa-ME-aUP"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -46,7 +49,6 @@
                 <constraint firstItem="rSD-kD-oSR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hd1-jA-vOk" secondAttribute="trailing" id="1UI-az-WFh"/>
                 <constraint firstAttribute="bottom" secondItem="hd1-jA-vOk" secondAttribute="bottom" constant="10" id="35F-Va-lAa"/>
                 <constraint firstItem="hd1-jA-vOk" firstAttribute="centerY" secondItem="QH0-I2-lBV" secondAttribute="centerY" id="3Xl-qN-edv"/>
-                <constraint firstItem="hd1-jA-vOk" firstAttribute="height" relation="greaterThanOrEqual" secondItem="QH0-I2-lBV" secondAttribute="height" id="ADk-zR-JW4"/>
                 <constraint firstItem="QH0-I2-lBV" firstAttribute="leading" secondItem="gyt-q4-RU1" secondAttribute="leading" constant="12" id="M5v-Nv-DOH"/>
                 <constraint firstItem="hd1-jA-vOk" firstAttribute="top" secondItem="gyt-q4-RU1" secondAttribute="top" constant="10" id="SkJ-sb-gV7"/>
                 <constraint firstAttribute="trailing" secondItem="rSD-kD-oSR" secondAttribute="trailing" id="Umv-c9-KkC"/>

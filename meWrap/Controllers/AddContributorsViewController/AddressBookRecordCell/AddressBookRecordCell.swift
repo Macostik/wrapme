@@ -79,8 +79,9 @@ class AddressBookRecordCell: StreamReusableView {
     override func setup(entry: AnyObject) {
         guard let record = entry as? AddressBookRecord else { return }
         guard let phoneNumber = record.phoneNumbers.last else { return }
+        nameLabel.text = phoneNumber.name
         let url = phoneNumber.avatar?.small
-        if url?.isEmpty ?? true && phoneNumber.user != nil {
+        if url?.isEmpty == true && phoneNumber.user != nil {
             avatarView.defaultBackgroundColor = Color.orange
         } else {
             avatarView.defaultBackgroundColor = Color.grayLighter

@@ -10,7 +10,7 @@
         </mutableArray>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLAddContributorsViewController"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddContributorsViewController" customModule="meWrap" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="66a-3B-7b6" customClass="AddressBookRecordCell" customModule="meWrap" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>

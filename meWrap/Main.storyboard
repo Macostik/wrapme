@@ -1193,7 +1193,7 @@
         <!--Add Contributors View Controller-->
         <scene sceneID="eJ4-7I-sOa">
             <objects>
-                <viewController storyboardIdentifier="addFriends" automaticallyAdjustsScrollViewInsets="NO" id="2bk-UF-zkR" customClass="WLAddContributorsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addFriends" automaticallyAdjustsScrollViewInsets="NO" id="2bk-UF-zkR" customClass="AddContributorsViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XL6-C7-uSs"/>
                         <viewControllerLayoutGuide type="bottom" id="vmi-EB-j8P"/>

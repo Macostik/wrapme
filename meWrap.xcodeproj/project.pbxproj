@@ -33,6 +33,7 @@
 		5BA4F8831A1CA08A00DB1A25 /* s02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* s02.wav */; };
 		5BA6AA451A66779E00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
 		5BA7AC241A7916AB00BB922E /* WLCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */; };
+		5BA83EEC1C6B4E3400FC5A9F /* AddContributorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA83EEB1C6B4E3400FC5A9F /* AddContributorsViewController.swift */; };
 		5BCC41911C4E40FC0047E7C2 /* WrapSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCC41901C4E40FC0047E7C2 /* WrapSettingsViewController.swift */; };
 		5BD529491BDA796000527077 /* SmartLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD529481BDA796000527077 /* SmartLabel.swift */; };
 		5BE7CD651C0D8781009A7617 /* EditingConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE7CD641C0D8781009A7617 /* EditingConfirmView.xib */; };
@@ -57,7 +58,6 @@
 		C502B3301C47F33100F66EAE /* AddressBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B32D1C47F33100F66EAE /* AddressBook.swift */; };
 		C502B3311C47F33100F66EAE /* AddressBookRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B32E1C47F33100F66EAE /* AddressBookRecord.swift */; };
 		C502B3321C47F33100F66EAE /* ArrangedAddressBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B32F1C47F33100F66EAE /* ArrangedAddressBook.swift */; };
-		C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */; };
 		C5053E201BC7CF0F0040613A /* AssetMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5053E1F1BC7CF0F0040613A /* AssetMetrics.swift */; };
 		C5053E821BC7F7280040613A /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5053E811BC7F7280040613A /* ReportViewController.swift */; };
 		C50541581BD6545400AE6F2C /* ImageEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = C50541571BD6545400AE6F2C /* ImageEditor.m */; };
@@ -491,6 +491,7 @@
 		5BA6CAF11A10E51B004AD41C /* s04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s04.wav; path = Sounds/s04.wav; sourceTree = "<group>"; };
 		5BA7AC1F1A7916AB00BB922E /* WLCommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCommentsViewController.h; path = Controllers/WLCommentsViewController/WLCommentsViewController.h; sourceTree = "<group>"; };
 		5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCommentsViewController.m; path = Controllers/WLCommentsViewController/WLCommentsViewController.m; sourceTree = "<group>"; };
+		5BA83EEB1C6B4E3400FC5A9F /* AddContributorsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContributorsViewController.swift; sourceTree = "<group>"; };
 		5BCC41901C4E40FC0047E7C2 /* WrapSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapSettingsViewController.swift; sourceTree = "<group>"; };
 		5BD529481BDA796000527077 /* SmartLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartLabel.swift; sourceTree = "<group>"; };
 		5BE7CD641C0D8781009A7617 /* EditingConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditingConfirmView.xib; sourceTree = "<group>"; };
@@ -523,8 +524,6 @@
 		C502B32D1C47F33100F66EAE /* AddressBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBook.swift; sourceTree = "<group>"; };
 		C502B32E1C47F33100F66EAE /* AddressBookRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookRecord.swift; sourceTree = "<group>"; };
 		C502B32F1C47F33100F66EAE /* ArrangedAddressBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrangedAddressBook.swift; sourceTree = "<group>"; };
-		C504177A19B9EE15000E55F3 /* WLAddContributorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddContributorsViewController.h; sourceTree = "<group>"; };
-		C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddContributorsViewController.m; sourceTree = "<group>"; };
 		C5053E1F1BC7CF0F0040613A /* AssetMetrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetMetrics.swift; sourceTree = "<group>"; };
 		C5053E811BC7F7280040613A /* ReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Report\U0010ViewController.swift"; sourceTree = "<group>"; };
 		C50541561BD6545400AE6F2C /* ImageEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageEditor.h; sourceTree = "<group>"; };
@@ -1000,7 +999,7 @@
 				C560D2311AFBB53C006B906E /* HistoryViewController */,
 				5BA7AC1E1A79167B00BB922E /* WLCommentsViewController */,
 				C58167FF19F169BD0081F350 /* WLBaseViewController */,
-				C504177919B9EE15000E55F3 /* WLAddContributorsViewController */,
+				C504177919B9EE15000E55F3 /* AddContributorsViewController */,
 				128156A81938A0BF00035F89 /* CaptureViewController */,
 				12E1104619067095007DB4AC /* WLCandyViewController */,
 				12DCBA8818DB399B00A4BC44 /* WLWrapViewController */,
@@ -1305,17 +1304,16 @@
 			path = AddressBook;
 			sourceTree = "<group>";
 		};
-		C504177919B9EE15000E55F3 /* WLAddContributorsViewController */ = {
+		C504177919B9EE15000E55F3 /* AddContributorsViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C504177A19B9EE15000E55F3 /* WLAddContributorsViewController.h */,
-				C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */,
 				C5DA2FD31C2C0B0500038352 /* AddressBookGroupView.swift */,
 				C5DA2FD51C2C0C7D00038352 /* AddressBookGroupView.xib */,
 				C5DA2FD61C2C0C7D00038352 /* AddressBookPhoneNumberCell.xib */,
 				C504177C19B9EE15000E55F3 /* AddressBookRecordCell */,
+				5BA83EEB1C6B4E3400FC5A9F /* AddContributorsViewController.swift */,
 			);
-			path = WLAddContributorsViewController;
+			path = AddContributorsViewController;
 			sourceTree = "<group>";
 		};
 		C504177C19B9EE15000E55F3 /* AddressBookRecordCell */ = {
@@ -2201,6 +2199,7 @@
 				C5092CCE1C1206BE006C9414 /* History.swift in Sources */,
 				5BF9F9AB1C5F70670075402C /* HomeDataSource.swift in Sources */,
 				C5053E821BC7F7280040613A /* ReportViewController.swift in Sources */,
+				5BA83EEC1C6B4E3400FC5A9F /* AddContributorsViewController.swift in Sources */,
 				C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */,
 				C5C991131B9845CF0006F534 /* StreamMetrics.swift in Sources */,
 				C5DA2FD41C2C0B0500038352 /* AddressBookGroupView.swift in Sources */,
@@ -2215,7 +2214,6 @@
 				C53012791BF4968200098F9C /* StreamDataSource.swift in Sources */,
 				5B03F90C1C5A65A60085BA51 /* Label.swift in Sources */,
 				C5F11E501C64A21C001C2486 /* ActivationViewController.swift in Sources */,
-				C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
 				5B2FB9701C5BA958001C4385 /* ComposeBar.swift in Sources */,
 				C52500581C1F1F8200CF8F9D /* HistoryItemViewController.swift in Sources */,
 				C5F11E581C64A21C001C2486 /* LinkDeviceViewController.swift in Sources */,

@@ -24,9 +24,14 @@ class LiveViewerViewController: LiveViewController {
     private var broadcastExists = false
     
     deinit {
+        unsubscribeObserving()
+    }
+    
+    private func unsubscribeObserving() {
         guard let item = playerItem else { return }
         item.removeObserver(self, forKeyPath: "status")
         item.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
+        playerItem = nil
     }
 
     override func viewDidLoad() {
@@ -218,6 +223,7 @@ class LiveViewerViewController: LiveViewController {
     
     override func wrapLiveBroadcastsUpdated() {
         if let wrap = wrap where !wrap.liveBroadcasts.contains(broadcast) {
+            unsubscribeObserving()
             playerLayer?.player?.pause()
             spinner.stopAnimating()
             showEndBroadcast()

@@ -184,7 +184,7 @@ class LiveViewerViewController: LiveViewController {
         vibrancyView.addConstraint(NSLayoutConstraint(item: backButton, attribute: .Leading, relatedBy: .Equal, toItem: vibrancyView, attribute: .Leading, multiplier: 1, constant: 12))
         vibrancyView.addConstraint(NSLayoutConstraint(item: backButton, attribute: .Top, relatedBy: .Equal, toItem: vibrancyView, attribute: .Top, multiplier: 1, constant: 12))
         
-        coverImageView.url = wrap?.asset?.large
+        coverImageView.url = broadcast.broadcaster?.avatar?.large
         
         self.coverView = coverView
     }

@@ -223,6 +223,8 @@ class LiveViewerViewController: LiveViewController {
     
     override func wrapLiveBroadcastsUpdated() {
         if let wrap = wrap where !wrap.liveBroadcasts.contains(broadcast) {
+            playerLayer?.player?.pause()
+            spinner.stopAnimating()
             showEndBroadcast()
         }
     }

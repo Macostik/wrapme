@@ -13,18 +13,25 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="64" id="5Fo-ku-fTz" customClass="Toast" customModule="meWrap" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="400" height="45"/>
+        <view contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="64" id="gyt-q4-RU1" customClass="Toast" customModule="meWrap" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="41"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Z" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fC1-xk-GUJ">
-                    <rect key="frame" x="12" y="22" width="21" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Z" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QH0-I2-lBV">
+                    <rect key="frame" x="12" y="10" width="21" height="21"/>
                     <fontDescription key="fontDescription" name="icons" family="icons" pointSize="21"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="3" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ze-pi-KDI" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                    <rect key="frame" x="45" y="26" width="310" height="13"/>
+                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rSD-kD-oSR">
+                    <rect key="frame" x="362" y="-5" width="38" height="51"/>
+                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="38"/>
+                    <state key="normal" title="i">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="749" text="text" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hd1-jA-vOk" customClass="Label" customModule="meWrap" customModuleProvider="target">
+                    <rect key="frame" x="45" y="10" width="27" height="21"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -33,33 +40,27 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xC6-zn-QY9">
-                    <rect key="frame" x="355" y="7" width="45" height="50"/>
-                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="38"/>
-                    <state key="normal" title="i">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
             </subviews>
-            <color key="backgroundColor" red="0.7420814037322998" green="0.24434497952461243" blue="0.04564923420548439" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.74208140369999998" green="0.2443449795" blue="0.04564923421" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="0Ze-pi-KDI" firstAttribute="leading" secondItem="fC1-xk-GUJ" secondAttribute="trailing" constant="12" id="1LI-ta-ShG"/>
-                <constraint firstItem="xC6-zn-QY9" firstAttribute="centerY" secondItem="0Ze-pi-KDI" secondAttribute="centerY" id="2Nz-sy-uDn"/>
-                <constraint firstItem="fC1-xk-GUJ" firstAttribute="leading" secondItem="5Fo-ku-fTz" secondAttribute="leading" constant="12" id="Bw5-Ei-Icf"/>
-                <constraint firstItem="0Ze-pi-KDI" firstAttribute="centerY" secondItem="fC1-xk-GUJ" secondAttribute="centerY" id="DE5-JT-Jmc"/>
-                <constraint firstAttribute="centerX" secondItem="0Ze-pi-KDI" secondAttribute="centerX" id="EMB-xi-gWw"/>
-                <constraint firstAttribute="bottom" secondItem="0Ze-pi-KDI" secondAttribute="bottom" constant="6" id="T5V-fx-2hP"/>
-                <constraint firstItem="0Ze-pi-KDI" firstAttribute="top" secondItem="5Fo-ku-fTz" secondAttribute="top" constant="26" id="ZJ2-el-NwA"/>
-                <constraint firstItem="xC6-zn-QY9" firstAttribute="leading" secondItem="0Ze-pi-KDI" secondAttribute="trailing" id="d5l-re-HIr"/>
-                <constraint firstAttribute="trailing" secondItem="xC6-zn-QY9" secondAttribute="trailing" id="jb5-lG-SX5"/>
+                <constraint firstItem="rSD-kD-oSR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hd1-jA-vOk" secondAttribute="trailing" id="1UI-az-WFh"/>
+                <constraint firstAttribute="bottom" secondItem="hd1-jA-vOk" secondAttribute="bottom" constant="10" id="35F-Va-lAa"/>
+                <constraint firstItem="hd1-jA-vOk" firstAttribute="centerY" secondItem="QH0-I2-lBV" secondAttribute="centerY" id="3Xl-qN-edv"/>
+                <constraint firstItem="hd1-jA-vOk" firstAttribute="height" relation="greaterThanOrEqual" secondItem="QH0-I2-lBV" secondAttribute="height" id="ADk-zR-JW4"/>
+                <constraint firstItem="QH0-I2-lBV" firstAttribute="leading" secondItem="gyt-q4-RU1" secondAttribute="leading" constant="12" id="M5v-Nv-DOH"/>
+                <constraint firstItem="hd1-jA-vOk" firstAttribute="top" secondItem="gyt-q4-RU1" secondAttribute="top" constant="10" id="SkJ-sb-gV7"/>
+                <constraint firstAttribute="trailing" secondItem="rSD-kD-oSR" secondAttribute="trailing" id="Umv-c9-KkC"/>
+                <constraint firstItem="rSD-kD-oSR" firstAttribute="centerY" secondItem="hd1-jA-vOk" secondAttribute="centerY" id="pV4-we-RTi"/>
+                <constraint firstItem="hd1-jA-vOk" firstAttribute="leading" secondItem="QH0-I2-lBV" secondAttribute="trailing" constant="12" id="pgR-jz-3Mu"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="iconView" destination="fC1-xk-GUJ" id="og5-le-30M"/>
-                <outlet property="messageLabel" destination="0Ze-pi-KDI" id="Mth-Sd-zsm"/>
-                <outlet property="topMessageInset" destination="ZJ2-el-NwA" id="Y86-Ot-1LR"/>
+                <outlet property="iconView" destination="QH0-I2-lBV" id="tKW-2Y-Wcj"/>
+                <outlet property="messageLabel" destination="hd1-jA-vOk" id="0j9-Fc-w8d"/>
+                <outlet property="topMessageInset" destination="SkJ-sb-gV7" id="2Kd-g0-FY3"/>
             </connections>
-            <point key="canvasLocation" x="350" y="83.5"/>
+            <point key="canvasLocation" x="202" y="85.5"/>
         </view>
     </objects>
 </document>

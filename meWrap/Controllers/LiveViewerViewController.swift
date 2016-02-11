@@ -128,11 +128,7 @@ class LiveViewerViewController: LiveViewController {
         let blurEffect = UIBlurEffect(style: .Light)
         let blurView = UIVisualEffectView(effect: blurEffect)
         blurView.translatesAutoresizingMaskIntoConstraints = false
-        let vibrancyEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
-        let vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
-        vibrancyView.translatesAutoresizingMaskIntoConstraints = false
         coverView.addSubview(blurView)
-        blurView.contentView.addSubview(vibrancyView)
         
         let wrapNameLabel = Label()
         wrapNameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -140,7 +136,7 @@ class LiveViewerViewController: LiveViewController {
         wrapNameLabel.preset = FontPreset.XLarge.rawValue
         wrapNameLabel.textColor = UIColor.whiteColor()
         wrapNameLabel.text = wrap?.name
-        vibrancyView.contentView.addSubview(wrapNameLabel)
+        coverView.addSubview(wrapNameLabel)
         
         let titleLabel = Label()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -148,7 +144,7 @@ class LiveViewerViewController: LiveViewController {
         titleLabel.preset = FontPreset.Larger.rawValue
         titleLabel.textColor = UIColor.whiteColor()
         titleLabel.text = broadcast.displayTitle()
-        vibrancyView.contentView.addSubview(titleLabel)
+        coverView.addSubview(titleLabel)
         
         let messageLabel = Label()
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -156,7 +152,7 @@ class LiveViewerViewController: LiveViewController {
         messageLabel.preset = FontPreset.Normal.rawValue
         messageLabel.textColor = UIColor.whiteColor()
         messageLabel.text = text
-        vibrancyView.contentView.addSubview(messageLabel)
+        coverView.addSubview(messageLabel)
         
         let backButton = Button()
         backButton.translatesAutoresizingMaskIntoConstraints = false
@@ -165,24 +161,23 @@ class LiveViewerViewController: LiveViewController {
         backButton.setTitleColor(UIColor.whiteColor().darkerColor(), forState: .Normal)
         backButton.setTitle("w", forState: .Normal)
         backButton.addTarget(self, action: "close:", forControlEvents: .TouchUpInside)
-        vibrancyView.contentView.addSubview(backButton)
+        coverView.addSubview(backButton)
         
         view.makeResizibleSubview(coverView)
         coverView.makeResizibleSubview(coverImageView)
         coverView.makeResizibleSubview(blurView)
-        blurView.makeResizibleSubview(vibrancyView)
         
-        vibrancyView.addConstraint(NSLayoutConstraint(item: wrapNameLabel, attribute: .CenterY, relatedBy: .Equal, toItem: vibrancyView, attribute: .CenterY, multiplier: 1, constant: -100))
-        vibrancyView.addConstraint(NSLayoutConstraint(item: wrapNameLabel, attribute: .CenterX, relatedBy: .Equal, toItem: vibrancyView, attribute: .CenterX, multiplier: 1, constant: 0))
+        coverView.addConstraint(NSLayoutConstraint(item: wrapNameLabel, attribute: .CenterY, relatedBy: .Equal, toItem: coverView, attribute: .CenterY, multiplier: 1, constant: -100))
+        coverView.addConstraint(NSLayoutConstraint(item: wrapNameLabel, attribute: .CenterX, relatedBy: .Equal, toItem: coverView, attribute: .CenterX, multiplier: 1, constant: 0))
         
-        vibrancyView.addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: wrapNameLabel, attribute: .Bottom, multiplier: 1, constant: 0))
-        vibrancyView.addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .CenterX, relatedBy: .Equal, toItem: vibrancyView, attribute: .CenterX, multiplier: 1, constant: 0))
+        coverView.addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: wrapNameLabel, attribute: .Bottom, multiplier: 1, constant: 0))
+        coverView.addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .CenterX, relatedBy: .Equal, toItem: coverView, attribute: .CenterX, multiplier: 1, constant: 0))
         
-        vibrancyView.addConstraint(NSLayoutConstraint(item: messageLabel, attribute: .CenterY, relatedBy: .Equal, toItem: vibrancyView, attribute: .CenterY, multiplier: 1, constant: 80))
-        vibrancyView.addConstraint(NSLayoutConstraint(item: messageLabel, attribute: .CenterX, relatedBy: .Equal, toItem: vibrancyView, attribute: .CenterX, multiplier: 1, constant: 0))
+        coverView.addConstraint(NSLayoutConstraint(item: messageLabel, attribute: .CenterY, relatedBy: .Equal, toItem: coverView, attribute: .CenterY, multiplier: 1, constant: 80))
+        coverView.addConstraint(NSLayoutConstraint(item: messageLabel, attribute: .CenterX, relatedBy: .Equal, toItem: coverView, attribute: .CenterX, multiplier: 1, constant: 0))
         
-        vibrancyView.addConstraint(NSLayoutConstraint(item: backButton, attribute: .Leading, relatedBy: .Equal, toItem: vibrancyView, attribute: .Leading, multiplier: 1, constant: 12))
-        vibrancyView.addConstraint(NSLayoutConstraint(item: backButton, attribute: .Top, relatedBy: .Equal, toItem: vibrancyView, attribute: .Top, multiplier: 1, constant: 12))
+        coverView.addConstraint(NSLayoutConstraint(item: backButton, attribute: .Leading, relatedBy: .Equal, toItem: coverView, attribute: .Leading, multiplier: 1, constant: 12))
+        coverView.addConstraint(NSLayoutConstraint(item: backButton, attribute: .Top, relatedBy: .Equal, toItem: coverView, attribute: .Top, multiplier: 1, constant: 12))
         
         coverImageView.url = broadcast.broadcaster?.avatar?.large
         
@@ -223,6 +218,8 @@ class LiveViewerViewController: LiveViewController {
     
     override func wrapLiveBroadcastsUpdated() {
         if let wrap = wrap where !wrap.liveBroadcasts.contains(broadcast) {
+            playerLayer?.player?.pause()
+            spinner.stopAnimating()
             showEndBroadcast()
         }
     }

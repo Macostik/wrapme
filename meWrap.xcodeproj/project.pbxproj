@@ -125,7 +125,6 @@
 		C53A02331C0D8961003B3D1F /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */; };
 		C53A02341C0D8961003B3D1F /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */; };
 		C53BC4861C05B32C0009B0B9 /* AssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53BC4851C05B32C0009B0B9 /* AssetsViewController.swift */; };
-		C53BC48A1C05BC010009B0B9 /* AssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C53BC4881C05BC010009B0B9 /* AssetCell.xib */; };
 		C53BC48E1C05FE620009B0B9 /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53BC48D1C05FE620009B0B9 /* SegmentedControl.swift */; };
 		C53CD24C1C1706B600AA4746 /* CandyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53CD24A1C1706B600AA4746 /* CandyCell.swift */; };
 		C540C0F01B988BF700F880C9 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540C0EE1B988BF700F880C9 /* GridLayout.swift */; };
@@ -592,7 +591,6 @@
 		C53937651C3BD82600EEEC0A /* Toast.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Toast.xib; sourceTree = "<group>"; };
 		C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryImageCache.swift; sourceTree = "<group>"; };
 		C53BC4851C05B32C0009B0B9 /* AssetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsViewController.swift; sourceTree = "<group>"; };
-		C53BC4881C05BC010009B0B9 /* AssetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetCell.xib; sourceTree = "<group>"; };
 		C53BC48D1C05FE620009B0B9 /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		C53CD24A1C1706B600AA4746 /* CandyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CandyCell.swift; path = WLWrapViewController/CandyCell.swift; sourceTree = "<group>"; };
 		C540C0EE1B988BF700F880C9 /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
@@ -1418,7 +1416,6 @@
 			isa = PBXGroup;
 			children = (
 				C53BC4851C05B32C0009B0B9 /* AssetsViewController.swift */,
-				C53BC4881C05BC010009B0B9 /* AssetCell.xib */,
 				C5F44FE81C5CB9780049215D /* EditAssetCell.xib */,
 				C5F44FE91C5CB9780049215D /* EditAssetViewController.swift */,
 				C5F44FE61C5CB9780049215D /* UploadSummaryViewController.swift */,
@@ -1960,7 +1957,6 @@
 				C5B9F9CD1BAD61B200B7D8F3 /* MessageWithNameCell.xib in Resources */,
 				C509E2BA1B96F46A003F6C21 /* Default-667h@2x.png in Resources */,
 				C5F9146F1C6B4FE200B5E7AB /* ContributorCell.xib in Resources */,
-				C53BC48A1C05BC010009B0B9 /* AssetCell.xib in Resources */,
 				C5E6F0211BFF38C200FA3D4F /* LeftSwipeActionView.xib in Resources */,
 				C5C3FEAC1B8F311500F177EC /* Default-Portrait.png in Resources */,
 				C5C3FEAA1B8F311500F177EC /* Default@2x.png in Resources */,

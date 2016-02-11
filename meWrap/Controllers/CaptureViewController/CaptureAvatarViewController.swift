@@ -28,7 +28,7 @@ class CaptureAvatarViewController: CaptureViewController {
     }
     
     private func finish(avatar: MutableAsset) {
-        (delegate as? CaptureAvatarViewControllerDelegate)?.captureViewController(self, didFinishWithAvatar: avatar)
+        captureDelegate?.captureViewController(self, didFinishWithAvatar: avatar)
     }
     
     private func handleImage(image: UIImage, saveToAlbum: Bool) {

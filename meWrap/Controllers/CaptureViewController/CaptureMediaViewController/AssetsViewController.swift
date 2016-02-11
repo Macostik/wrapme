@@ -58,6 +58,7 @@ class AssetCell: StreamReusableView {
     }
     
     override func willEnqueue() {
+        imageView.image = nil
         if let requestID = requestID {
             PHImageManager.defaultManager().cancelImageRequest(requestID)
         }
@@ -67,8 +68,8 @@ class AssetCell: StreamReusableView {
         let options = PHImageRequestOptions()
         options.synchronous = false
         options.networkAccessAllowed = true
-        options.resizeMode = .Exact
-        options.deliveryMode = .HighQualityFormat
+        options.resizeMode = .Fast
+        options.deliveryMode = .Opportunistic
         return options
     }()
     
@@ -78,8 +79,7 @@ class AssetCell: StreamReusableView {
             let thumbnail = CGSize(width: bounds.width * scale, height: bounds.height * scale)
             let options = AssetCell.requestImageOptions
             requestID = PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: thumbnail, contentMode: .AspectFill, options: options, resultHandler: {[weak self] (image, info) -> Void in
-                if let cell = self, let requestID = (info?[PHImageResultRequestIDKey] as? NSNumber)?.intValue where requestID == cell.requestID {
-                    cell.requestID = nil
+                if let cell = self where (info?[PHImageResultRequestIDKey] as? NSNumber)?.intValue == cell.requestID {
                     cell.imageView.image = image
                 }
                 })

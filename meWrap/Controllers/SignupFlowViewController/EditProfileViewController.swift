@@ -17,11 +17,7 @@ final class EditProfileViewController: SignupStepViewController {
     
     @IBOutlet weak var continueButton: Button!
     
-    private var editSession: ProfileEditSession! {
-        didSet {
-            editSession.delegate = self
-        }
-    }
+    private var editSession: ProfileEditSession!
     private weak var user: User!
     
     override func viewDidLoad() {
@@ -95,11 +91,6 @@ extension EditProfileViewController: UITextFieldDelegate {
             sender.text = text.substringToIndex(text.startIndex.advancedBy(Constants.profileNameLimit))
         }
         editSession.nameSession.changedValue = sender.text ?? ""
-    }
-}
-
-extension EditProfileViewController: EditSessionDelegate {
-    func editSession(session: EditSessionProtocol, hasChanges: Bool) {
         continueButton.active = editSession.nameSession.hasValidChanges
     }
 }

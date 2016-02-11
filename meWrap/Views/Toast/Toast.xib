@@ -60,7 +60,7 @@
                 <outlet property="messageLabel" destination="hd1-jA-vOk" id="0j9-Fc-w8d"/>
                 <outlet property="topMessageInset" destination="SkJ-sb-gV7" id="2Kd-g0-FY3"/>
             </connections>
-            <point key="canvasLocation" x="202" y="85.5"/>
+            <point key="canvasLocation" x="135" y="87.5"/>
         </view>
     </objects>
 </document>

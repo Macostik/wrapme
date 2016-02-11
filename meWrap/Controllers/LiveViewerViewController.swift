@@ -184,7 +184,16 @@ class LiveViewerViewController: LiveViewController {
         coverView.addConstraint(NSLayoutConstraint(item: backButton, attribute: .Leading, relatedBy: .Equal, toItem: coverView, attribute: .Leading, multiplier: 1, constant: 12))
         coverView.addConstraint(NSLayoutConstraint(item: backButton, attribute: .Top, relatedBy: .Equal, toItem: coverView, attribute: .Top, multiplier: 1, constant: 12))
         
-        coverImageView.url = broadcast.broadcaster?.avatar?.large
+        if let user = broadcast.broadcaster {
+            if let url = user.avatar?.large where !url.isEmpty {
+                coverImageView.url = url
+            } else {
+                user.fetch({ (_) -> Void in
+                    coverImageView.url = user.avatar?.large
+                    }, failure: nil)
+            }
+        }
+        
         
         self.coverView = coverView
     }

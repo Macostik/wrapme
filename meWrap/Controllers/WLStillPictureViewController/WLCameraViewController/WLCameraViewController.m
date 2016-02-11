@@ -121,6 +121,7 @@
     
     if (!self.isAvatar) {
         UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(startVideoRecording:)];
+        recognizer.allowableMovement = self.takePhotoButton.width;
         recognizer.delegate = self;
         [self.takePhotoButton addGestureRecognizer:recognizer];
     }

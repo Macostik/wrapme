@@ -94,12 +94,12 @@ class Toast: UIView {
             let topViewConstraint = constraintToItem(referenceView, equal: .Top)
             view.addConstraint(topViewConstraint)
             self.topViewConstraint = topViewConstraint;
-            topMessageInset.constant = UIApplication.sharedApplication().statusBarHidden ? 6 : 26
+            topMessageInset.constant = UIApplication.sharedApplication().statusBarHidden ? 10 : 30
         } else {
             let topViewConstraint = constraintForAttrbute(.Top, toItem: referenceView, equalToAttribute: .Bottom)
             view.addConstraint(topViewConstraint)
             self.topViewConstraint = topViewConstraint
-            topMessageInset.constant = 6
+            topMessageInset.constant = 10
         }
     }
     

@@ -52,6 +52,7 @@ class HistoryItemCell: StreamReusableView {
         self.streamView = streamView
         
         let dateView = Button()
+        dateView.exclusiveTouch = true
         dateView.normalColor = UIColor.whiteColor()
         dateView.highlightedColor = Color.orange
         dateView.cornerRadius = 7

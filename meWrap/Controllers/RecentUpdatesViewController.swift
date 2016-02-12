@@ -10,7 +10,7 @@ import UIKit
 
 let WhatsUpCommentHorizontalSpacing: CGFloat = 144.0
 let PaddingCell: CGFloat = 24.0
-let HeightCell: CGFloat = Constants.screenWidth / 3 + 96.0
+let HeightCell: CGFloat = Constants.screenWidth / 2.5 + 96.0
 
 class RecentUpdateCell: StreamReusableView {
     

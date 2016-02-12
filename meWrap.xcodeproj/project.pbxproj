@@ -27,6 +27,9 @@
 		5B2FB96E1C5B8513001C4385 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96D1C5B8513001C4385 /* TextView.swift */; };
 		5B2FB9701C5BA958001C4385 /* ComposeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96F1C5BA958001C4385 /* ComposeBar.swift */; };
 		5B31A7871C56620D002E1A2A /* ChangeProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */; };
+		5B35CDB31C6CBCBC00616AFA /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */; };
+		5B35CDB41C6CE2E300616AFA /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7AB791BCD47D4007E314B /* UIView+Ext.swift */; };
+		5B35CDB51C6CE30100616AFA /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C507F80D1C218BB1006DA3E5 /* Dispatch.swift */; };
 		5B37C75E1C5A06E30068E693 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37C75D1C5A06E30068E693 /* Button.swift */; };
 		5B37C7601C5A3C9F0068E693 /* HintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37C75F1C5A3C9F0068E693 /* HintView.swift */; };
 		5B40D6B21C2EBB1C009EF38C /* UploadWizardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40D6B11C2EBB1C009EF38C /* UploadWizardViewController.swift */; };
@@ -2379,12 +2382,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BAF17AD1C624E1E00D33026 /* String+Ext.swift in Sources */,
+				5B35CDB41C6CE2E300616AFA /* UIView+Ext.swift in Sources */,
 				5B2BB79A1C620CB1005045FF /* NSUserDefaults+SharedGroup.swift in Sources */,
 				5BAF17AA1C624DDE00D33026 /* Dictionary+Ext.swift in Sources */,
 				5BAF17A71C624D5F00D33026 /* ExtensionEntry.swift in Sources */,
 				5B2960571C60F5B9008D121A /* ShareViewController.swift in Sources */,
 				5BAF17A91C624DB600D33026 /* NSDate+Ext.swift in Sources */,
+				5B35CDB31C6CBCBC00616AFA /* InMemoryImageCache.swift in Sources */,
 				5BAF17AB1C624DFB00D33026 /* CommonEnums.swift in Sources */,
+				5B35CDB51C6CE30100616AFA /* Dispatch.swift in Sources */,
 				5BAF17A81C624D9100D33026 /* ExtensionMessage.swift in Sources */,
 				5BAF17AC1C624E1000D33026 /* NSDate+Formatting.swift in Sources */,
 			);

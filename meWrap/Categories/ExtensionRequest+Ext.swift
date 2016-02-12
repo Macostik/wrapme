@@ -140,6 +140,7 @@ extension Wrap {
         wrap.uid = uid ?? ""
         wrap.name = self.name
         wrap.lastCandy = self.asset?.small
+        wrap.updatedAt = self.updatedAt.timeAgoStringAtAMPM()
         return wrap
     }
 }

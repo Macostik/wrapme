@@ -17,9 +17,28 @@ class ShareWrapCell : UITableViewCell {
     
     @IBOutlet weak var timeLabel: UILabel!
     
-    func setup() {
-        pictureView = 
-        
+    var setup: ExtensionWrap! {
+        willSet {
+            guard let extensionWrap = newValue else { return }
+            wrapNameLabel.text = extensionWrap.name
+            timeLabel.text = extensionWrap.updatedAt
+            if let url = extensionWrap.lastCandy where !url.isEmpty  {
+                if let image = InMemoryImageCache.instance[url] {
+                    pictureView.image = image
+                } else {
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                        guard let _url = NSURL(string: url) else { return }
+                        guard let data = NSData(contentsOfURL: _url) else { return }
+                        guard let image = UIImage(data: data) else { return }
+                        dispatch_async(dispatch_get_main_queue(), { [weak self] () -> Void in
+                            InMemoryImageCache.instance[url] = image
+                            self?.pictureView.image = image
+                            })
+                    })
+                }
+            }
+            
+        }
     }
 }
 
@@ -59,6 +78,9 @@ extension ShareViewController: UITableViewDataSource {
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("wrapCell", forIndexPath: indexPath) as! ShareWrapCell
+        if let wrap = wraps?[indexPath.row] as? [String : AnyObject] {
+            cell.setup = ExtensionWrap.fromDictionary(wrap)
+        }
         return cell
     }
 }

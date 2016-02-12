@@ -71,7 +71,8 @@
     }];
     
     __block NSMutableArray *wraps = [NSMutableArray array];
-    [[[User currentUser] wraps] enumerateObjectsUsingBlock:^(Wrap * _Nonnull wrap, BOOL * _Nonnull stop) {
+    NSArray *sortWrap = [[[User currentUser] wraps] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]]];
+    [sortWrap enumerateObjectsUsingBlock:^(Wrap *wrap, NSUInteger idx, BOOL * _Nonnull stop) {
          [wraps addObject:[[wrap extensionWrap] toDictionary]];
     }];
     [[NSUserDefaults sharedUserDefaults] setObject:wraps forKey:@"allWraps"];

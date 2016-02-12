@@ -61,15 +61,18 @@ class ExtensionContribution: ExtensionEntry {
 class ExtensionWrap: ExtensionEntry {
     var name: String?
     var lastCandy: String?
+    var updatedAt: String?
     override func fromDictionary(dictionary: [String : AnyObject]) {
         super.fromDictionary(dictionary)
         name = dictionary["name"] as? String
         lastCandy = dictionary["lastCandy"] as? String
+        updatedAt = dictionary["updatedAt"] as? String
     }
     override func toDictionary() -> [String : AnyObject] {
         var dictionary = super.toDictionary()
         dictionary["name"] = name ?? ""
         dictionary["lastCandy"] = lastCandy ?? ""
+        dictionary["updatedAt"] = updatedAt ?? ""
         return dictionary
     }
 }

@@ -99,26 +99,26 @@ extension Candy {
 extension Message {
     
     override func viewController() -> UIViewController? {
-        let controller = wrap?.viewController() as? WLWrapViewController
+        let controller = wrap?.viewController() as? WrapViewController
         controller?.segment = .Chat
         return controller
     }
     
     override func isValidViewController(controller: UIViewController) -> Bool {
-        return (controller as? WLWrapViewController)?.wrap == wrap
+        return (controller as? WrapViewController)?.wrap == wrap
     }
 }
 
 extension Wrap {
     
     override func viewController() -> UIViewController? {
-        let controller = UIStoryboard.main()["WLWrapViewController"] as? WLWrapViewController
+        let controller = UIStoryboard.main()["wrap"] as? WrapViewController
         controller?.wrap = self
         return controller
     }
     
     override func isValidViewController(controller: UIViewController) -> Bool {
-        return (controller as? WLWrapViewController)?.wrap == self
+        return (controller as? WrapViewController)?.wrap == self
     }
 }
 

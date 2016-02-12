@@ -15,7 +15,7 @@ class CaptureViewController: UINavigationController, CameraViewControllerDelegat
     
     var friendsInvited = false
     
-    class func captureMediaViewController(wrap: Wrap) -> CaptureMediaViewController {
+    class func captureMediaViewController(wrap: Wrap?) -> CaptureMediaViewController {
         let controller = UIStoryboard.camera()["captureMedia"] as! CaptureMediaViewController
         controller.wrap = wrap
         return controller

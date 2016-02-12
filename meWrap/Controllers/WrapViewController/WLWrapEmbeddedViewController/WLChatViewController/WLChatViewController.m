@@ -7,7 +7,6 @@
 //
 
 #import "WLChatViewController.h"
-#import "WLWrapViewController.h"
 
 @interface WLChatViewController () <StreamViewDelegate, ComposeBarDelegate, KeyboardNotifying, EntryNotifying, ChatNotifying>
 

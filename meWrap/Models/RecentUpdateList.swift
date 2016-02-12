@@ -53,8 +53,6 @@ class RecentUpdateList: Notifier {
     private var updatesPredicate = "wrap IN %@ AND editedAt >= %@ AND editor != nil AND editor != %@"
     private var commentPredicate = "candy.wrap IN %@ AND createdAt >= %@ AND contributor != nil AND contributor != %@"
     
-    private var wrapCounters = [String:Int]()
-    
     override init() {
         super.init()
         Comment.notifier().addReceiver(self)
@@ -75,15 +73,17 @@ class RecentUpdateList: Notifier {
             Candy.fetch().query(self.candyPredicate, uids, date, user).execute({ (result) -> Void in
                 contributions.appendContentsOf(result)
                 Candy.fetch().query(self.updatesPredicate, uids, date, user).execute({ (result) -> Void in
-                    self.handleContributions(contributions, updates: result)
+                    self.handleContributions(user, contributions: contributions, updates: result)
                     success?()
                 })
             })
         }
     }
     
-    func handleContributions(contributions: [AnyObject], updates: [AnyObject]) {
-        var wrapCounters = [String:Int]()
+    func handleContributions(user: User, contributions: [AnyObject], updates: [AnyObject]) {
+        for wrap in user.wraps {
+            wrap.numberOfUnreadCandies = 0
+        }
         var unreadCount = 0
         var events = [RecentUpdate]()
         for contribution in contributions {
@@ -92,11 +92,7 @@ class RecentUpdateList: Notifier {
                 if contribution.unread {
                     unreadCount++
                     if let candy = contribution as? Candy, let wrap = candy.wrap {
-                        if let count = wrapCounters[wrap.uid] {
-                            wrapCounters[wrap.uid] = count + 1
-                        } else {
-                            wrapCounters[wrap.uid] = 1
-                        }
+                        wrap.numberOfUnreadCandies += 1
                     }
                 }
             }
@@ -111,18 +107,11 @@ class RecentUpdateList: Notifier {
             }
         }
         self.unreadCount = unreadCount
-        self.wrapCounters = wrapCounters
         self.updates = events.sort({ $0.date > $1.date })
     }
     
     func refreshCount(success: (Int -> Void)?, failure: FailureBlock?) {
-        update({ () -> Void in
-            success?(self.unreadCount)
-            }, failure: failure)
-    }
-    
-    func unreadCandiesCountForWrap(wrap: Wrap) -> Int {
-        return wrapCounters[wrap.uid] ?? 0
+        update({ success?(self.unreadCount) }, failure: failure)
     }
 }
 

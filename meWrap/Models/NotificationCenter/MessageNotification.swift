@@ -48,7 +48,7 @@ class MessageAddNotification: Notification {
     override func presentWithIdentifier(identifier: String?) {
         super.presentWithIdentifier(identifier)
         if let nc = UINavigationController.main() where identifier == "reply" {
-            let controller = message?.viewControllerWithNavigationController(nc) as? WLWrapViewController
+            let controller = message?.viewControllerWithNavigationController(nc) as? WrapViewController
             controller?.showKeyboard = true
         }
     }

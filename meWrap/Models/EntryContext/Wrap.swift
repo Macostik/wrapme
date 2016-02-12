@@ -189,4 +189,6 @@ class Wrap: Contribution {
             _numberOfUnreadMessages = newValue
         }
     }
+    
+    var numberOfUnreadCandies = 0
 }

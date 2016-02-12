@@ -11,7 +11,6 @@
 #import "iVersion.h"
 #import "GAI.h"
 #import <NewRelicAgent/NewRelic.h>
-#import "WLWrapViewController.h"
 #import "CocoaLumberjack.h"
 #import <AWSCore/AWSCore.h>
 #import "MMWormhole.h"

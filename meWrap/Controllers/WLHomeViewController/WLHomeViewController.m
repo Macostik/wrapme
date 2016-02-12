@@ -8,7 +8,6 @@
 
 #import "WLCandyViewController.h"
 #import "WLHomeViewController.h"
-#import "WLWrapViewController.h"
 
 @interface WLHomeViewController () <WrapCellDelegate, RecentUpdateListNotifying, CaptureMediaViewControllerDelegate>
 
@@ -210,10 +209,10 @@
 
 - (void)wrapCell:(WrapCell *)cell presentChatViewControllerForWrap:(Wrap *)wrap {
     self.streamView.userInteractionEnabled = YES;
-    WLWrapViewController *wrapViewController = (id)self.storyboard[@"WLWrapViewController"];
+    WrapViewController *wrapViewController = (id)self.storyboard[@"wrap"];
     if (wrapViewController && wrap.valid) {
         wrapViewController.wrap = wrap;
-        wrapViewController.segment = WLWrapSegmentChat;
+        wrapViewController.segment = WrapSegmentChat;
         [self.navigationController pushViewController:wrapViewController animated:YES];
     }
 }
@@ -336,9 +335,9 @@
     [self dismissViewControllerAnimated:NO completion:nil];
     Wrap* wrap = controller.wrap;
     if (wrap) {
-        WLWrapViewController *controller = (WLWrapViewController*)[wrap viewControllerWithNavigationController:self.navigationController];
+        WrapViewController *controller = (WrapViewController*)[wrap viewControllerWithNavigationController:self.navigationController];
         if (controller) {
-            controller.segment = WLWrapSegmentMedia;
+            controller.segment = WrapSegmentMedia;
             self.navigationController.viewControllers = @[self, controller];
         }
         

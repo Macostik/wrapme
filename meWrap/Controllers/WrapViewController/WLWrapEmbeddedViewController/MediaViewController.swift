@@ -325,7 +325,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
             candy.markAsUnread(false)
         }
         RecentUpdateList.sharedList.refreshCount({ [weak self] (_) -> Void in
-            self?.badge?.value = RecentUpdateList.sharedList.unreadCandiesCountForWrap(wrap)
+            self?.badge?.value = wrap.numberOfUnreadCandies
             }) { (_) -> Void in
         }
         dataSource.items = history

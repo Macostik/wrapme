@@ -57,7 +57,7 @@ class AddressBookRecordCell: StreamReusableView {
         super.awakeFromNib()
         if let streamView = streamView {
             dataSource = StreamDataSource(streamView: streamView)
-            dataSource?.addMetrics(StreamMetrics(identifier: "AddressBookPhoneNumberCell", initializer: { metrics in
+            dataSource?.addMetrics(StreamMetrics(loader: LayoutStreamLoader<AddressBookPhoneNumberCell>()).change({ metrics in
                 metrics.size = 50.0
                 metrics.selectable = true
                 metrics.finalizeAppearing = { [weak self] item, view in

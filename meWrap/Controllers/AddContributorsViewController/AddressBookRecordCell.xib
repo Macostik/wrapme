@@ -30,7 +30,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
-                <button contentMode="scaleToFill" horizontalHuggingPriority="251" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u72-YA-MnU" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                <button contentMode="scaleToFill" horizontalHuggingPriority="251" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u72-YA-MnU" customClass="Button" customModule="meWrap" customModuleProvider="target">
                     <rect key="frame" x="282" y="17" width="30" height="38"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>

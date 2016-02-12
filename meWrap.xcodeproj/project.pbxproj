@@ -18,7 +18,6 @@
 		5B2FB96C1C5B71C8001C4385 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96B1C5B71C8001C4385 /* TextField.swift */; };
 		5B2FB96E1C5B8513001C4385 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96D1C5B8513001C4385 /* TextView.swift */; };
 		5B2FB9701C5BA958001C4385 /* ComposeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96F1C5BA958001C4385 /* ComposeBar.swift */; };
-		5B312E791C64E24A0060F8A3 /* AddressBookRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B312E781C64E24A0060F8A3 /* AddressBookRecordCell.swift */; };
 		5B31A7871C56620D002E1A2A /* ChangeProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */; };
 		5B37C75E1C5A06E30068E693 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37C75D1C5A06E30068E693 /* Button.swift */; };
 		5B37C7601C5A3C9F0068E693 /* HintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37C75F1C5A3C9F0068E693 /* HintView.swift */; };
@@ -228,8 +227,6 @@
 		C59CEBD31BFB20B500C3E686 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59CEBD21BFB20B500C3E686 /* EntryView.swift */; };
 		C5A406FE1C200A71007D1D0E /* CandyEnlargingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A406FD1C200A71007D1D0E /* CandyEnlargingPresenter.swift */; };
 		C5A407001C202198007D1D0E /* StoryboardTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A406FF1C202198007D1D0E /* StoryboardTransition.swift */; };
-		C5A6150B1B9DC5C8009B92EF /* AddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A615091B9DC5C8009B92EF /* AddressBookRecordCell.xib */; };
-		C5A6150E1B9DC5EA009B92EF /* MultipleAddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A6150C1B9DC5EA009B92EF /* MultipleAddressBookRecordCell.xib */; };
 		C5A877CB1B985E8B006C5226 /* StreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A877C91B985E8B006C5226 /* StreamLayout.swift */; };
 		C5A9CC8F1B9482C30084D0F5 /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC8D1B9482C30084D0F5 /* MessageCell.xib */; };
 		C5A9CC921B9482D20084D0F5 /* MyMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC901B9482D20084D0F5 /* MyMessageCell.xib */; };
@@ -274,8 +271,9 @@
 		C5CCDEC11BF2323200D9B3BB /* UIView+Shorthand.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CCDEC01BF2323200D9B3BB /* UIView+Shorthand.swift */; };
 		C5D99E741C2B2BC10022D18B /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D99E731C2B2BC10022D18B /* Keyboard.swift */; };
 		C5DA2FD41C2C0B0500038352 /* AddressBookGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DA2FD31C2C0B0500038352 /* AddressBookGroupView.swift */; };
-		C5DA2FD71C2C0C7D00038352 /* AddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5DA2FD51C2C0C7D00038352 /* AddressBookGroupView.xib */; };
-		C5DA2FD81C2C0C7D00038352 /* AddressBookPhoneNumberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5DA2FD61C2C0C7D00038352 /* AddressBookPhoneNumberCell.xib */; };
+		C5E092D61C6CED2600510AA1 /* AddressBookRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E092D31C6CED2600510AA1 /* AddressBookRecordCell.swift */; };
+		C5E092D71C6CED2600510AA1 /* AddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E092D41C6CED2600510AA1 /* AddressBookRecordCell.xib */; };
+		C5E092D81C6CED2600510AA1 /* MultipleAddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E092D51C6CED2600510AA1 /* MultipleAddressBookRecordCell.xib */; };
 		C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
 		C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
 		C5E4FD071BF7629E00575DA4 /* RecentCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E4FD051BF7629E00575DA4 /* RecentCommentCell.xib */; };
@@ -335,7 +333,6 @@
 		C5F44FED1C5CB9780049215D /* UploadSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F44FE61C5CB9780049215D /* UploadSummaryViewController.swift */; };
 		C5F44FEE1C5CB9780049215D /* EditAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5F44FE81C5CB9780049215D /* EditAssetCell.xib */; };
 		C5F44FEF1C5CB9780049215D /* EditAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F44FE91C5CB9780049215D /* EditAssetViewController.swift */; };
-		C5F44FF01C5CB9780049215D /* WrapPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5F44FEA1C5CB9780049215D /* WrapPickerCell.xib */; };
 		C5F44FF41C5CBC680049215D /* WrapPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F44FF31C5CBC680049215D /* WrapPickerViewController.swift */; };
 		C5F4E70D1C07489E00D2FC16 /* EditSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4E70C1C07489E00D2FC16 /* EditSession.swift */; };
 		C5F4E70F1C07687A00D2FC16 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4E70E1C07687A00D2FC16 /* UIColor+Ext.swift */; };
@@ -456,7 +453,6 @@
 		5B2FB96B1C5B71C8001C4385 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		5B2FB96D1C5B8513001C4385 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		5B2FB96F1C5BA958001C4385 /* ComposeBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBar.swift; sourceTree = "<group>"; };
-		5B312E781C64E24A0060F8A3 /* AddressBookRecordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddressBookRecordCell.swift; path = ../AddressBookRecordCell/AddressBookRecordCell.swift; sourceTree = "<group>"; };
 		5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeProfileViewController.swift; sourceTree = "<group>"; };
 		5B37C75D1C5A06E30068E693 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		5B37C75F1C5A3C9F0068E693 /* HintView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HintView.swift; path = meWrap/Views/HintView/HintView.swift; sourceTree = SOURCE_ROOT; };
@@ -675,8 +671,6 @@
 		C5A278CB1B9598DF00D5C969 /* meWrapWatchExt-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "meWrapWatchExt-Info.plist"; sourceTree = "<group>"; };
 		C5A406FD1C200A71007D1D0E /* CandyEnlargingPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyEnlargingPresenter.swift; sourceTree = "<group>"; };
 		C5A406FF1C202198007D1D0E /* StoryboardTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardTransition.swift; sourceTree = "<group>"; };
-		C5A615091B9DC5C8009B92EF /* AddressBookRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddressBookRecordCell.xib; path = ../AddressBookRecordCell/AddressBookRecordCell.xib; sourceTree = "<group>"; };
-		C5A6150C1B9DC5EA009B92EF /* MultipleAddressBookRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MultipleAddressBookRecordCell.xib; path = ../AddressBookRecordCell/MultipleAddressBookRecordCell.xib; sourceTree = "<group>"; };
 		C5A877C91B985E8B006C5226 /* StreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamLayout.swift; sourceTree = "<group>"; };
 		C5A9CC7C1B9432920084D0F5 /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
 		C5A9CC8D1B9482C30084D0F5 /* MessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
@@ -750,8 +744,9 @@
 		C5CCDEC01BF2323200D9B3BB /* UIView+Shorthand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Shorthand.swift"; sourceTree = "<group>"; };
 		C5D99E731C2B2BC10022D18B /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		C5DA2FD31C2C0B0500038352 /* AddressBookGroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookGroupView.swift; sourceTree = "<group>"; };
-		C5DA2FD51C2C0C7D00038352 /* AddressBookGroupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressBookGroupView.xib; sourceTree = "<group>"; };
-		C5DA2FD61C2C0C7D00038352 /* AddressBookPhoneNumberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressBookPhoneNumberCell.xib; sourceTree = "<group>"; };
+		C5E092D31C6CED2600510AA1 /* AddressBookRecordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookRecordCell.swift; sourceTree = "<group>"; };
+		C5E092D41C6CED2600510AA1 /* AddressBookRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressBookRecordCell.xib; sourceTree = "<group>"; };
+		C5E092D51C6CED2600510AA1 /* MultipleAddressBookRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultipleAddressBookRecordCell.xib; sourceTree = "<group>"; };
 		C5E4FD051BF7629E00575DA4 /* RecentCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecentCommentCell.xib; sourceTree = "<group>"; };
 		C5E4FD061BF7629E00575DA4 /* RecentCandyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecentCandyCell.xib; sourceTree = "<group>"; };
 		C5E4FD0C1BF7AF7100575DA4 /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeView.swift; sourceTree = "<group>"; };
@@ -806,7 +801,6 @@
 		C5F44FE61C5CB9780049215D /* UploadSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadSummaryViewController.swift; sourceTree = "<group>"; };
 		C5F44FE81C5CB9780049215D /* EditAssetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAssetCell.xib; sourceTree = "<group>"; };
 		C5F44FE91C5CB9780049215D /* EditAssetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAssetViewController.swift; sourceTree = "<group>"; };
-		C5F44FEA1C5CB9780049215D /* WrapPickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WrapPickerCell.xib; sourceTree = "<group>"; };
 		C5F44FF31C5CBC680049215D /* WrapPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapPickerViewController.swift; sourceTree = "<group>"; };
 		C5F4A1651BF36DD300EFC8FA /* StreamDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamDataSource.swift; sourceTree = "<group>"; };
 		C5F4E70C1C07489E00D2FC16 /* EditSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSession.swift; sourceTree = "<group>"; };
@@ -1308,22 +1302,12 @@
 			isa = PBXGroup;
 			children = (
 				C5DA2FD31C2C0B0500038352 /* AddressBookGroupView.swift */,
-				C5DA2FD51C2C0C7D00038352 /* AddressBookGroupView.xib */,
-				C5DA2FD61C2C0C7D00038352 /* AddressBookPhoneNumberCell.xib */,
-				C504177C19B9EE15000E55F3 /* AddressBookRecordCell */,
+				C5E092D31C6CED2600510AA1 /* AddressBookRecordCell.swift */,
+				C5E092D41C6CED2600510AA1 /* AddressBookRecordCell.xib */,
+				C5E092D51C6CED2600510AA1 /* MultipleAddressBookRecordCell.xib */,
 				5BA83EEB1C6B4E3400FC5A9F /* AddContributorsViewController.swift */,
 			);
 			path = AddContributorsViewController;
-			sourceTree = "<group>";
-		};
-		C504177C19B9EE15000E55F3 /* AddressBookRecordCell */ = {
-			isa = PBXGroup;
-			children = (
-				5B312E781C64E24A0060F8A3 /* AddressBookRecordCell.swift */,
-				C5A615091B9DC5C8009B92EF /* AddressBookRecordCell.xib */,
-				C5A6150C1B9DC5EA009B92EF /* MultipleAddressBookRecordCell.xib */,
-			);
-			path = AddressBookRecordCell;
 			sourceTree = "<group>";
 		};
 		C50541551BD6545400AE6F2C /* ImageEditor */ = {
@@ -1418,7 +1402,6 @@
 				C5F44FE91C5CB9780049215D /* EditAssetViewController.swift */,
 				C5F44FE61C5CB9780049215D /* UploadSummaryViewController.swift */,
 				C5F44FF31C5CBC680049215D /* WrapPickerViewController.swift */,
-				C5F44FEA1C5CB9780049215D /* WrapPickerCell.xib */,
 				C5F9A49D1C4B8A1700A7D83B /* CaptureMediaViewController.swift */,
 				C55E533C1C4FB4DB006ACF8F /* CaptureMediaCameraViewController.swift */,
 			);
@@ -1927,15 +1910,13 @@
 				C54AF72619B8C491006F7EDB /* cars.plist in Resources */,
 				C54AF72719B8C491006F7EDB /* flowers.plist in Resources */,
 				C5BEC3941B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */,
-				C5F44FF01C5CB9780049215D /* WrapPickerCell.xib in Resources */,
+				C5E092D81C6CED2600510AA1 /* MultipleAddressBookRecordCell.xib in Resources */,
 				C54D12CD1C4526B7009014FB /* LiveBroadcastViewerCell.xib in Resources */,
-				C5DA2FD71C2C0C7D00038352 /* AddressBookGroupView.xib in Resources */,
 				5BE7CD651C0D8781009A7617 /* EditingConfirmView.xib in Resources */,
 				5B66B5B91C24696800451113 /* WrapCell.xib in Resources */,
 				C5C3FEA81B8F311500F177EC /* Default-736h@3x.png in Resources */,
 				5BA4F8821A1CA08A00DB1A25 /* s01.wav in Resources */,
 				C532F4EB1C2D8353004585E0 /* Placeholders.storyboard in Resources */,
-				C5A6150E1B9DC5EA009B92EF /* MultipleAddressBookRecordCell.xib in Resources */,
 				5B211FB21C087137000EC3DB /* (null) in Resources */,
 				C5F11E551C64A21C001C2486 /* TestUserCell.xib in Resources */,
 				C5BEC38D1B8F129100499EEA /* logo_and_caption_orange@3x.png in Resources */,
@@ -1958,7 +1939,6 @@
 				C5C3FEAC1B8F311500F177EC /* Default-Portrait.png in Resources */,
 				C5C3FEAA1B8F311500F177EC /* Default@2x.png in Resources */,
 				C5BEC3A51B8F16E800499EEA /* logo_and_caption_orange@2x.png in Resources */,
-				C5A6150B1B9DC5C8009B92EF /* AddressBookRecordCell.xib in Resources */,
 				C53937671C3BD82600EEEC0A /* Toast.xib in Resources */,
 				C5C1273A1C10A46E002FD9AB /* LiveBroadcastEventViews.xib in Resources */,
 				C54731C61B9086DB00B583FD /* CommentCell.xib in Resources */,
@@ -1967,8 +1947,8 @@
 				5BA6AA451A66779E00493582 /* Localizable.strings in Resources */,
 				C5BEC3A91B8F16E800499EEA /* logo_and_caption_white@2x.png in Resources */,
 				C560B1721AE6A19B0010B2EC /* AdobeCreativeSDKCoreResources.bundle in Resources */,
+				C5E092D71C6CED2600510AA1 /* AddressBookRecordCell.xib in Resources */,
 				C5C3FEAE1B8F311500F177EC /* Default-Portrait@2x.png in Resources */,
-				C5DA2FD81C2C0C7D00038352 /* AddressBookPhoneNumberCell.xib in Resources */,
 				C5E4FD081BF7629E00575DA4 /* RecentCandyCell.xib in Resources */,
 				C57F7AF11C1ECD5F00FFB465 /* country-codes.json in Resources */,
 				C5B91A481BB412A0000E08E7 /* WLUnreadMessagesView.xib in Resources */,
@@ -2210,6 +2190,7 @@
 				C55871101C4910B500F09E58 /* DownloadingView.swift in Sources */,
 				5B2C97CB1C46610E00FAED6A /* VolumeChangeObserver.swift in Sources */,
 				C53BC48E1C05FE620009B0B9 /* SegmentedControl.swift in Sources */,
+				C5E092D61C6CED2600510AA1 /* AddressBookRecordCell.swift in Sources */,
 				C53012791BF4968200098F9C /* StreamDataSource.swift in Sources */,
 				5B03F90C1C5A65A60085BA51 /* Label.swift in Sources */,
 				C5F11E501C64A21C001C2486 /* ActivationViewController.swift in Sources */,
@@ -2231,7 +2212,6 @@
 				C558710E1C48F63500F09E58 /* NotificationSubscription.swift in Sources */,
 				C53012931BF4E3EA00098F9C /* EmojiCell.swift in Sources */,
 				C58CC6EF1C5E515B0086B7C1 /* HistoryViewController.swift in Sources */,
-				5B312E791C64E24A0060F8A3 /* AddressBookRecordCell.swift in Sources */,
 				C521E18C1BC7AE1B00505432 /* VideoPlayerView.swift in Sources */,
 				C502B3131C47F2EC00F66EAE /* CandyNotification.swift in Sources */,
 				C540C0F31B988BFD00F880C9 /* StreamItem.swift in Sources */,

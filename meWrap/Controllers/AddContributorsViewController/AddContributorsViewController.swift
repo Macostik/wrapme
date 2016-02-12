@@ -24,7 +24,7 @@ class AddContributorsViewController: WLBaseViewController, AddressBookRecordCell
     
     lazy var openedRows = [StreamPosition]()
     lazy var addressBook = ArrangedAddressBook()
-   
+    
     var filteredAddressBook: ArrangedAddressBook?
     var singleMetrics: StreamMetrics!
     var multipleMetrics: StreamMetrics!
@@ -80,21 +80,21 @@ class AddContributorsViewController: WLBaseViewController, AddressBookRecordCell
                 let record = item.entry as? AddressBookRecord
                 cell?.opened = record?.phoneNumbers.count > 1 && self?.openedPosition(item.position) != nil
             }
-        })
+            })
         
-        sectionHeaderMetrics = StreamMetrics(identifier: "AddressBookGroupView", initializer: { [weak self] (metrics) -> Void in
+        sectionHeaderMetrics = StreamMetrics(loader: LayoutStreamLoader<AddressBookGroupView>()).change({ [weak self] (metrics) -> Void in
             metrics.size = 32.0
             metrics.hiddenAt = { [weak self] (item) in
                 if let group = self?.filteredAddressBook?.groups[safe: item.position.section] {
-                     return group.title?.isEmpty != true && group.records.isEmpty
+                    return group.title?.isEmpty != true && group.records.isEmpty
                 }
-               return true
+                return true
             }
             metrics.finalizeAppearing = { [weak self] (item, view) in
                 let groupView = view as? AddressBookGroupView
                 groupView?.group = self?.filteredAddressBook?.groups[safe: item.position.section]
             }
-        })
+            })
         
         placeholderMetrics = StreamMetrics(loader: PlaceholderLoader(identifier: "search"))
         placeholderMetrics?.selectable = false
@@ -133,14 +133,14 @@ class AddContributorsViewController: WLBaseViewController, AddressBookRecordCell
         if oldAddressBook.groups.count != 0 {
             for phoneNumber in oldAddressBook.selectedPhoneNumbers {
                 if let phoneNumber = self.addressBook.phoneNumberEqualTo(phoneNumber) {
-                     self.addressBook.selectedPhoneNumbers.insert(phoneNumber)
+                    self.addressBook.selectedPhoneNumbers.insert(phoneNumber)
                 }
             }
         }
         filterContacts()
     }
     
-    //MARK: Actions 
+    //MARK: Actions
     
     @IBAction func next(sender: AnyObject) {
         if addressBook.selectedPhoneNumbers.count == 0 {
@@ -151,7 +151,7 @@ class AddContributorsViewController: WLBaseViewController, AddressBookRecordCell
                 return
             }
             APIRequest.addContributors(addressBook.selectedPhoneNumbers, wrap: wrap, message: nil)?.send({ [weak self] _ in
-                    self?.completionHandler?(true)
+                self?.completionHandler?(true)
                 }, failure: { (error) -> Void in
                     error?.show()
             })

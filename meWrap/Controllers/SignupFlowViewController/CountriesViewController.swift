@@ -17,10 +17,7 @@ class CountryCell: StreamReusableView {
         let countryNameLabel = Label(preset: FontPreset.Normal, weight: UIFontWeightRegular, textColor: Color.grayDark)
         addSubview(countryNameLabel)
         self.countryNameLabel = countryNameLabel
-        let separator = SeparatorView()
-        separator.backgroundColor = UIColor.clearColor()
-        separator.contentMode = .Bottom
-        separator.color = Color.grayLightest
+        let separator = SeparatorView(color: Color.grayLightest)
         addSubview(separator)
         countryNameLabel.snp_makeConstraints { (make) -> Void in
             make.left.right.equalTo(self).offset(10)

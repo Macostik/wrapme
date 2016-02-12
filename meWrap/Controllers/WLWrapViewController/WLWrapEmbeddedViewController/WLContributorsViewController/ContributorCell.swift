@@ -134,7 +134,7 @@ class ContributorCell: StreamReusableView {
         pandingLabel.text = canBeInvited ? "sign_up_pending".ls : ""
         phoneLabel.text = user.securePhones
         let url = user.avatar?.small
-        if !canBeInvited && url?.isEmpty ?? false {
+        if !canBeInvited && url?.isEmpty ?? true {
             avatarView.defaultBackgroundColor = Color.orange
         } else {
             avatarView.defaultBackgroundColor = Color.grayLighter

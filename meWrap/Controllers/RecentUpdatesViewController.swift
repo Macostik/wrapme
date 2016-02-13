@@ -8,10 +8,6 @@
 
 import UIKit
 
-let WhatsUpCommentHorizontalSpacing: CGFloat = 144.0
-let PaddingCell: CGFloat = 24.0
-let HeightCell: CGFloat = Constants.screenWidth / 2.5 + 96.0
-
 class RecentUpdateCell: StreamReusableView {
     
     @IBOutlet var pictureView: ImageView!
@@ -33,6 +29,8 @@ class RecentUpdateCell: StreamReusableView {
 }
 
 class RecentCommentCell: RecentUpdateCell {
+    
+    static let DefaultHeight: CGFloat = Constants.screenWidth / 3 + 96.0
 
     override func setup(entry: AnyObject?) {
         if let comment = (entry as? RecentUpdate)?.contribution as? Comment {
@@ -47,6 +45,8 @@ class RecentCommentCell: RecentUpdateCell {
 }
 
 class RecentCandyCell: RecentUpdateCell {
+    
+    static let DefaultHeight: CGFloat = Constants.screenWidth / 2.5 + 96.0
     
     override func setup(entry: AnyObject?) {
         if let update = entry as? RecentUpdate, let candy = update.contribution as? Candy {
@@ -84,12 +84,12 @@ class RecentUpdatesViewController: WLBaseViewController {
         let candyMetrics = dataSource.addMetrics(StreamMetrics(identifier: "RecentCandyCell"))
         let commentMetrics = dataSource.addMetrics(StreamMetrics(identifier: "RecentCommentCell"))
         
-        candyMetrics.size = HeightCell
+        candyMetrics.size = RecentCandyCell.DefaultHeight
         candyMetrics.insetsAt = { item -> CGRect in
             return CGRect.zero.offsetBy(dx: 0, dy: item.position.index == 0 ? 0 : Constants.pixelSize)
         }
         
-        commentMetrics.size = HeightCell
+        commentMetrics.size = RecentCommentCell.DefaultHeight
         commentMetrics.insetsAt = { item -> CGRect in
             return CGRect.zero.offsetBy(dx: 0, dy: item.position.index == 0 ? 0 : Constants.pixelSize)
         }

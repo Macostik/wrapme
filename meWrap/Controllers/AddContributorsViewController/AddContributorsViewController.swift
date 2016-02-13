@@ -164,10 +164,11 @@ class AddContributorsViewController: WLBaseViewController, AddressBookRecordCell
             return
         }
         let performRequestBlock = { [weak self] (message: AnyObject?) in
-            if let selectedPhoneNumbers = self?.addressBook.selectedPhoneNumbers, let wrap = self?.wrap, let message = message as? String {
+            let message = message as? String
+            if let selectedPhoneNumbers = self?.addressBook.selectedPhoneNumbers, let wrap = self?.wrap {
                 APIRequest.addContributors(selectedPhoneNumbers, wrap: wrap, message: message)?.send({ _ in
                     self?.navigationController?.popViewControllerAnimated(false)
-                    if message.isEmpty {
+                    if message?.isEmpty ?? true {
                         Toast.show("isn't_using_invite".ls)
                     } else {
                         Toast.show("is_using_invite".ls)
@@ -182,7 +183,7 @@ class AddContributorsViewController: WLBaseViewController, AddressBookRecordCell
             navigationController?.popViewControllerAnimated(false)
         } else if containUnregisterAddresBookGroupRecord() {
             let content = String(format: "send_message_to_friends_content".ls, User.currentUser?.name ?? "", wrap?.name ?? "")
-            EditingConfirmView.showInView(view, content: content, success: performRequestBlock, cancel: nil)
+            ConfirmInvitationView.instance().showInView(view, content: content, success: performRequestBlock, cancel: nil)
         } else {
             performRequestBlock(nil)
         }

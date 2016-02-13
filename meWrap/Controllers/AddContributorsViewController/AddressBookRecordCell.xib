@@ -69,7 +69,7 @@
                     </state>
                     <state key="disabled" title="INVITED"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="NO"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="5"/>
                         </userDefinedRuntimeAttribute>

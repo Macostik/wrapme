@@ -90,7 +90,7 @@ final class PhoneViewController: SignupStepViewController {
     }
     
     private func confirmAuthorization(authorization: Authorization, success: ObjectBlock) {
-        ConfirmView.showInView(view, authorization: authorization, success: success) { [weak self] _ in
+        ConfirmAuthorizationView.instance().showInView(view, authorization: authorization, success: success) { [weak self] _ in
             self?.setStatus(.Cancel, animated: false)
         }
     }

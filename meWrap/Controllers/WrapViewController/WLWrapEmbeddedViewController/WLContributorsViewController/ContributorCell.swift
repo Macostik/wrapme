@@ -109,16 +109,14 @@ class ContributorCell: StreamReusableView {
     }
     
     override func setup(entry: AnyObject?) {
-        guard let user = entry as? User else { return }
+        guard let user = entry as? User, let currentUser = User.currentUser else { return }
+        
         var deletable = false
-        if delegate?.contributorCell(self, isCreator: user) == true {
+        if delegate?.contributorCell(self, isCreator: currentUser) == true {
             deletable = !user.current
-        } else {
-            deletable = false
         }
-        if deletable {
-            removeMetrics.hidden = false
-        }
+        removeMetrics.hidden = !deletable
+        
         let canBeInvited = user.isInvited
         if canBeInvited {
             let invited = delegate?.contributorCell(self, isInvitedContributor: user)
@@ -128,9 +126,9 @@ class ContributorCell: StreamReusableView {
         layoutIfNeeded()
         dataSource.layoutOffset = width
         dataSource.items = [user]
-        let isCreator = delegate?.contributorCell(self, isCreator: user)
-        let userNameText = user.current ? "you".ls : user.name
-        nameLabel.text = isCreator ?? false ? String(format: "formatted_owner".ls, userNameText ?? "") : userNameText
+        let isCreator = delegate?.contributorCell(self, isCreator: user) ?? false
+        let name = user.current ? "you".ls : user.name
+        nameLabel.text = isCreator ? String(format: "formatted_owner".ls, name ?? "") : name
         pandingLabel.text = canBeInvited ? "sign_up_pending".ls : ""
         phoneLabel.text = user.securePhones
         let url = user.avatar?.small
@@ -142,8 +140,8 @@ class ContributorCell: StreamReusableView {
         avatarView.url = url
         inviteLabel.text = ContributorCell.invitationHintText(user)
         slideMenuButton.hidden = !deletable && !canBeInvited
-        let showMenu = delegate?.contributorCell(self, showMenu: user)
-        setMenuHidden(showMenu != true, animated: false)
+        let showMenu = delegate?.contributorCell(self, showMenu: user) ?? false
+        setMenuHidden(!showMenu, animated: false)
     }
     
     func setMenuHidden(hidden: Bool, animated: Bool) {

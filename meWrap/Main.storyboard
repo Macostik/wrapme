@@ -3425,6 +3425,7 @@ QWRkEEZyaWVuZFZpZXc
                     <navigationItem key="navigationItem" id="eIg-JY-jsf"/>
                     <connections>
                         <outlet property="addFriendView" destination="dW2-yZ-nvK" id="83H-Z9-P0v"/>
+                        <outlet property="navigationBar" destination="lwb-Ww-Se0" id="zRT-QT-UZJ"/>
                         <outlet property="restrictedInvitePrioritizer" destination="N09-Ii-tK7" id="zjP-H2-x6C"/>
                         <outlet property="streamView" destination="EqA-Dj-Zuu" id="VAG-qp-qNT"/>
                     </connections>

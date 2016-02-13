@@ -10,27 +10,15 @@ import Foundation
 
 class ConfirmView: UIView {
     
-    @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var contentView: UIView!
     
-    var success: ObjectBlock?
-    var cancel: Block?
+    internal var successBlock: (AnyObject? -> Void)?
+    internal var cancelBlock: Block?
     
-    var authorization: Authorization? {
-        willSet {
-            emailLabel?.text = newValue?.email ?? ""
-            phoneLabel?.text = newValue?.fullPhoneNumber
-        }
-    }
-    
-    class func showInView(view: UIView, authorization: Authorization, success: ObjectBlock?, cancel: Block?) {
-        ConfirmView.loadFromNib("ConfirmView")?.showInView(view, authorization: authorization, success: success, cancel: cancel)
-    }
-    
-    func showInView(view: UIView, authorization: Authorization?, success: ObjectBlock?, cancel: Block?) {
+    func showInView(view: UIView, success: (AnyObject? -> Void)?, cancel: Block?) {
+        self.successBlock = success
+        self.cancelBlock = cancel
         frame = view.frame
-        self.authorization = authorization
         view.addSubview(self)
         backgroundColor = UIColor.clearColor()
         contentView.transform = CGAffineTransformMakeScale(0.5, 0.5)
@@ -42,12 +30,7 @@ class ConfirmView: UIView {
             self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.75)
             self.contentView.alpha = 1.0
             }, completion: nil)
-        confirmationSuccess(success, cancel: cancel)
-    }
-    
-    func confirmationSuccess(success: ObjectBlock?, cancel: Block?) {
-        self.success = success
-        self.cancel = cancel
+        
     }
     
     func hide() {
@@ -61,36 +44,70 @@ class ConfirmView: UIView {
     }
     
     @IBAction func cancel(sender: AnyObject) {
-        cancel?()
-        hide()
+        cancel()
     }
     
     @IBAction func confirm(sender: AnyObject) {
-        success?(authorization)
+        confirm()
+    }
+    
+    internal func cancel() {
+        cancelBlock?()
+        hide()
+    }
+    
+    internal func confirm() {
         hide()
     }
 }
 
-final class EditingConfirmView: ConfirmView, KeyboardNotifying, UITextViewDelegate {
+final class ConfirmAuthorizationView: ConfirmView {
+    
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var phoneLabel: UILabel!
+    
+    var authorization: Authorization? {
+        willSet {
+            emailLabel?.text = newValue?.email ?? ""
+            phoneLabel?.text = newValue?.fullPhoneNumber
+        }
+    }
+    
+    class func instance() -> Self {
+        return loadFromNib("ConfirmAuthorizationView")!
+    }
+    
+    func showInView(view: UIView, authorization: Authorization?, success: ObjectBlock?, cancel: Block?) {
+        self.authorization = authorization
+        showInView(view, success: success, cancel: cancel)
+    }
+    
+    override func confirm() {
+        successBlock?(authorization)
+        hide()
+    }
+}
+
+final class ConfirmInvitationView: ConfirmView, KeyboardNotifying, UITextViewDelegate {
+    
     @IBOutlet weak var titleLabel: Label!
     @IBOutlet weak var bodyLabel: Label!
     @IBOutlet weak var contentTextView: TextView!
     @IBOutlet weak var keyboardPrioritizer: NSLayoutConstraint!
     
-    class func showInView(view: UIView, content: String, success: ObjectBlock?, cancel: Block?) {
-       EditingConfirmView.loadFromNib("EditingConfirmView")?.showInView(view, content: content, success: success, cancel: cancel)
-        
+    class func instance() -> Self {
+        return loadFromNib("ConfirmInvitationView")!
     }
     
-    func showInView(view: UIView, content: String, success: ObjectBlock?, cancel: Block?) {
+    func showInView(view: UIView, content: String, success: AnyObject? -> Void, cancel: Block?) {
         Keyboard.keyboard.addReceiver(self)
-        contentTextView.determineHyperLink(content)
+        contentTextView.text = content
         contentTextView.delegate = self
-        super.showInView(view, authorization: nil, success: success, cancel: cancel)
+        self.showInView(view, success: success, cancel: cancel)
     }
     
-    @IBAction override func confirm(sender: AnyObject) {
-        success?(contentTextView.text)
+    override func confirm() {
+        successBlock?(contentTextView.text)
     }
     
     func keyboardWillShow(keyboard: Keyboard) {

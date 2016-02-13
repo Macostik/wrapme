@@ -35,7 +35,7 @@
 		5BCC41911C4E40FC0047E7C2 /* WrapSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCC41901C4E40FC0047E7C2 /* WrapSettingsViewController.swift */; };
 		5BD529491BDA796000527077 /* SmartLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD529481BDA796000527077 /* SmartLabel.swift */; };
 		5BDA617A1C6DEEDF0098A1E9 /* WLHomeSwipeTransitionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BDA61791C6DEEDF0098A1E9 /* WLHomeSwipeTransitionView.xib */; };
-		5BE7CD651C0D8781009A7617 /* EditingConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE7CD641C0D8781009A7617 /* EditingConfirmView.xib */; };
+		5BE7CD651C0D8781009A7617 /* ConfirmInvitationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE7CD641C0D8781009A7617 /* ConfirmInvitationView.xib */; };
 		5BF85BB01B8C774C000215C9 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BF85BAE1B8C774C000215C9 /* icons.ttf */; };
 		5BF9F9AB1C5F70670075402C /* HomeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF9F9AA1C5F70670075402C /* HomeDataSource.swift */; };
 		C502B3131C47F2EC00F66EAE /* CandyNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502B30B1C47F2EC00F66EAE /* CandyNotification.swift */; };
@@ -252,7 +252,7 @@
 		C5B91A3E1BB40D88000E08E7 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A3C1BB40D88000E08E7 /* Camera.storyboard */; };
 		C5B91A421BB4101A000E08E7 /* Introduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A401BB4101A000E08E7 /* Introduction.storyboard */; };
 		C5B91A4B1BB41343000E08E7 /* DownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A491BB41343000E08E7 /* DownloadingView.xib */; };
-		C5B91A601BB4177B000E08E7 /* ConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A5E1BB4177B000E08E7 /* ConfirmView.xib */; };
+		C5B91A601BB4177B000E08E7 /* ConfirmAuthorizationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A5E1BB4177B000E08E7 /* ConfirmAuthorizationView.xib */; };
 		C5BD85421C2E999800EE5558 /* UploaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BD85411C2E999800EE5558 /* UploaderView.swift */; };
 		C5BEC38D1B8F129100499EEA /* logo_and_caption_orange@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5BEC38F1B8F129100499EEA /* logo_and_caption_orange@3x.png */; };
 		C5BEC3941B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5BEC3961B8F129B00499EEA /* logo_and_caption_white@3x.png */; };
@@ -488,7 +488,7 @@
 		5BCC41901C4E40FC0047E7C2 /* WrapSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapSettingsViewController.swift; sourceTree = "<group>"; };
 		5BD529481BDA796000527077 /* SmartLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartLabel.swift; sourceTree = "<group>"; };
 		5BDA61791C6DEEDF0098A1E9 /* WLHomeSwipeTransitionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLHomeSwipeTransitionView.xib; sourceTree = "<group>"; };
-		5BE7CD641C0D8781009A7617 /* EditingConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditingConfirmView.xib; sourceTree = "<group>"; };
+		5BE7CD641C0D8781009A7617 /* ConfirmInvitationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmInvitationView.xib; sourceTree = "<group>"; };
 		5BF1B2481A49A683000BB2C1 /* meWrapToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = meWrapToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF85BAE1B8C774C000215C9 /* icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icons.ttf; sourceTree = "<group>"; };
 		5BF9F9AA1C5F70670075402C /* HomeDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDataSource.swift; sourceTree = "<group>"; };
@@ -708,7 +708,7 @@
 		C5B91A3C1BB40D88000E08E7 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		C5B91A401BB4101A000E08E7 /* Introduction.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Introduction.storyboard; sourceTree = "<group>"; };
 		C5B91A491BB41343000E08E7 /* DownloadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DownloadingView.xib; path = DownloadingView/DownloadingView.xib; sourceTree = "<group>"; };
-		C5B91A5E1BB4177B000E08E7 /* ConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmView.xib; sourceTree = "<group>"; };
+		C5B91A5E1BB4177B000E08E7 /* ConfirmAuthorizationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmAuthorizationView.xib; sourceTree = "<group>"; };
 		C5B993C31B302E73002BCC8C /* chat_presets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = chat_presets.plist; sourceTree = "<group>"; };
 		C5B993C41B302E73002BCC8C /* comment_presets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = comment_presets.plist; sourceTree = "<group>"; };
 		C5BD85411C2E999800EE5558 /* UploaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderView.swift; sourceTree = "<group>"; };
@@ -1194,8 +1194,8 @@
 			isa = PBXGroup;
 			children = (
 				5B1061331C610A1900496647 /* ConfirmView.swift */,
-				C5B91A5E1BB4177B000E08E7 /* ConfirmView.xib */,
-				5BE7CD641C0D8781009A7617 /* EditingConfirmView.xib */,
+				C5B91A5E1BB4177B000E08E7 /* ConfirmAuthorizationView.xib */,
+				5BE7CD641C0D8781009A7617 /* ConfirmInvitationView.xib */,
 			);
 			path = ConfirmView;
 			sourceTree = "<group>";
@@ -1911,7 +1911,7 @@
 				C5BEC3941B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */,
 				C5E092D81C6CED2600510AA1 /* MultipleAddressBookRecordCell.xib in Resources */,
 				C54D12CD1C4526B7009014FB /* LiveBroadcastViewerCell.xib in Resources */,
-				5BE7CD651C0D8781009A7617 /* EditingConfirmView.xib in Resources */,
+				5BE7CD651C0D8781009A7617 /* ConfirmInvitationView.xib in Resources */,
 				5B66B5B91C24696800451113 /* WrapCell.xib in Resources */,
 				C5C3FEA81B8F311500F177EC /* Default-736h@3x.png in Resources */,
 				C553DB441C6DF7BA001B13C7 /* MessageCell.xib in Resources */,
@@ -1926,7 +1926,7 @@
 				C51B4BEA1C3AA3B8009F1566 /* terms_and_conditions.rtf in Resources */,
 				C57F7AEF1C1ECD5F00FFB465 /* test-users.plist in Resources */,
 				C54AF73719B8C491006F7EDB /* rings.plist in Resources */,
-				C5B91A601BB4177B000E08E7 /* ConfirmView.xib in Resources */,
+				C5B91A601BB4177B000E08E7 /* ConfirmAuthorizationView.xib in Resources */,
 				C54AF73819B8C491006F7EDB /* smiles.plist in Resources */,
 				C5C3FEA41B8F311500F177EC /* Default-568h@2x.png in Resources */,
 				C5BEC3A71B8F16E800499EEA /* logo_and_caption_white.png in Resources */,

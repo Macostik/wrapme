@@ -12,7 +12,9 @@ private let VerticalIndent: CGFloat = 48.0
 private let HorizontalIndent: CGFloat = 96.0
 private let MinHeight: CGFloat = 72.0
 
-final class ContributorsViewController: WLWrapEmbeddedViewController {
+final class ContributorsViewController: WLBaseViewController {
+    
+    weak var wrap: Wrap?
     
     @IBOutlet weak var streamView: StreamView!
     

@@ -22,7 +22,7 @@ class RecentUpdateCell: StreamReusableView {
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet weak var videoIndicator: UILabel!
 
-    override func setup(entry: AnyObject) {
+    override func setup(entry: AnyObject?) {
         if let update = entry as? RecentUpdate {
             let contribution = update.contribution
             contribution.markAsUnread(false)
@@ -34,7 +34,7 @@ class RecentUpdateCell: StreamReusableView {
 
 class RecentCommentCell: RecentUpdateCell {
 
-    override func setup(entry: AnyObject) {
+    override func setup(entry: AnyObject?) {
         if let comment = (entry as? RecentUpdate)?.contribution as? Comment {
             super.setup(entry)
             pictureView.url = comment.contributor?.avatar?.small
@@ -48,7 +48,7 @@ class RecentCommentCell: RecentUpdateCell {
 
 class RecentCandyCell: RecentUpdateCell {
     
-    override func setup(entry: AnyObject) {
+    override func setup(entry: AnyObject?) {
         if let update = entry as? RecentUpdate, let candy = update.contribution as? Candy {
             super.setup(entry)
             if update.event == .Update {

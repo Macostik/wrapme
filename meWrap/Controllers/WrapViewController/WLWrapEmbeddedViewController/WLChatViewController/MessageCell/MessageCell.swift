@@ -25,7 +25,7 @@ final class MessageDateView: StreamReusableView {
         label.snp_makeConstraints(closure: { $0.center.equalTo(self) })
     }
     
-    override func setup(entry: AnyObject) {
+    override func setup(entry: AnyObject?) {
         guard let message = entry as? Message else { return }
         dateLabel.text = message.createdAt.stringWithDateStyle(.MediumStyle)
     }
@@ -78,7 +78,7 @@ final class MessageCell: StreamReusableView {
         }
     }
     
-    override func setup(entry: AnyObject) {
+    override func setup(entry: AnyObject?) {
         guard let message = entry as? Message else { return }
         if nameLabel != nil {
             avatarView?.url = message.contributor?.avatar?.small

@@ -11,6 +11,13 @@ import SnapKit
 
 class ImageView: UIImageView {
     
+    convenience init(backgroundColor: UIColor) {
+        self.init()
+        self.backgroundColor = backgroundColor
+        contentMode = .ScaleAspectFill
+        clipsToBounds = true
+    }
+    
     lazy var defaultIconView: UILabel = {
         let iconView = UILabel()
         iconView.translatesAutoresizingMaskIntoConstraints = false

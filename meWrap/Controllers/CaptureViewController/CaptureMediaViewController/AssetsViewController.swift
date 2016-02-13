@@ -18,17 +18,11 @@ class AssetCell: StreamReusableView {
     private var requestID: PHImageRequestID?
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
-        let imageView = ImageView()
-        imageView.backgroundColor = UIColor.clearColor()
-        imageView.contentMode = .ScaleAspectFill
-        imageView.clipsToBounds = true
+        let imageView = ImageView(backgroundColor: UIColor.clearColor())
         addSubview(imageView)
         self.imageView = imageView
         
-        let videoIndicator = UILabel()
-        videoIndicator.font = UIFont(name: "icons", size: 20)
-        videoIndicator.textColor = UIColor.whiteColor()
-        videoIndicator.text = "+"
+        let videoIndicator = Label(icon: "+", size: 20)
         addSubview(videoIndicator)
         self.videoIndicator = videoIndicator
         
@@ -73,7 +67,7 @@ class AssetCell: StreamReusableView {
         return options
     }()
     
-    override func setup(entry: AnyObject) {
+    override func setup(entry: AnyObject?) {
         if let asset = entry as? PHAsset {
             let scale = UIScreen.mainScreen().scale
             let thumbnail = CGSize(width: bounds.width * scale, height: bounds.height * scale)

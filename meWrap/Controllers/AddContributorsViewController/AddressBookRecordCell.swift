@@ -76,7 +76,7 @@ class AddressBookRecordCell: StreamReusableView {
         }
     }
     
-    override func setup(entry: AnyObject) {
+    override func setup(entry: AnyObject?) {
         guard let record = entry as? AddressBookRecord else { return }
         guard let phoneNumber = record.phoneNumbers.last else { return }
         nameLabel.text = phoneNumber.name

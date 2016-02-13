@@ -108,7 +108,7 @@ class ContributorCell: StreamReusableView {
         resendDoneMetrics.hidden =      true
     }
     
-    override func setup(entry: AnyObject) {
+    override func setup(entry: AnyObject?) {
         guard let user = entry as? User else { return }
         var deletable = false
         if delegate?.contributorCell(self, isCreator: user) == true {
@@ -134,7 +134,7 @@ class ContributorCell: StreamReusableView {
         pandingLabel.text = canBeInvited ? "sign_up_pending".ls : ""
         phoneLabel.text = user.securePhones
         let url = user.avatar?.small
-        if !canBeInvited && url?.isEmpty ?? true {
+        if !canBeInvited && (url?.isEmpty ?? true) {
             avatarView.defaultBackgroundColor = Color.orange
         } else {
             avatarView.defaultBackgroundColor = Color.grayLighter

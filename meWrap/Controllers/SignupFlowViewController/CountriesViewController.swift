@@ -29,7 +29,7 @@ class CountryCell: StreamReusableView {
         }
     }
     
-    override func setup(entry: AnyObject) {
+    override func setup(entry: AnyObject?) {
         if let country = entry as? Country {
             countryNameLabel.text = country.name
         }

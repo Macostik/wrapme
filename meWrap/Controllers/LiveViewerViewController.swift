@@ -123,11 +123,8 @@ class LiveViewerViewController: LiveViewController {
         view.insertSubview(coverView, belowSubview: spinner)
         self.coverView = coverView
         
-        let coverImageView = ImageView()
+        let coverImageView = ImageView(backgroundColor: UIColor.blackColor())
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
-        coverImageView.backgroundColor = UIColor.blackColor()
-        coverImageView.contentMode = .ScaleAspectFill
-        coverImageView.clipsToBounds = true
         coverView.addSubview(coverImageView)
         
         let blurEffect = UIBlurEffect(style: .Light)

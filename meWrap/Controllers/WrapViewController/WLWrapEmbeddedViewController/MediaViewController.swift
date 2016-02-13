@@ -70,23 +70,20 @@ class HistoryItemCell: StreamReusableView {
         self.dateLabel = dateLabel
         dateView.highlightings.append(dateLabel)
         
-        let arrow = Label()
-        arrow.font = UIFont(name: "icons", size: 15)
-        arrow.text = "x"
+        let arrow = Label(icon: "x", size: 15, textColor: Color.orange)
         arrow.highlightedTextColor = UIColor.whiteColor()
         arrow.textAlignment = .Left
-        arrow.textColor = Color.orange
         dateView.addSubview(arrow)
         dateView.highlightings.append(arrow)
         
         streamView.snp_makeConstraints(closure: {
-            $0.top.equalTo(self).offset(40)
+            $0.top.equalTo(self).offset(32)
             $0.leading.trailing.bottom.equalTo(self)
         })
         
         dateView.snp_makeConstraints(closure: {
-            $0.leading.equalTo(self).offset(12)
-            $0.centerY.equalTo(streamView.snp_top)
+            $0.leading.top.equalTo(self).offset(12)
+            $0.height.equalTo(40)
         })
         
         dateLabel.snp_makeConstraints(closure: {
@@ -118,7 +115,7 @@ class HistoryItemCell: StreamReusableView {
         }
     }
     
-    override func setup(entry: AnyObject) {
+    override func setup(entry: AnyObject?) {
         streamView.layoutIfNeeded()
         if let item = entry as? HistoryItem {
             dateLabel.text = item.date.stringWithFormat("EEE MMM d, yyyy")
@@ -148,9 +145,7 @@ class LiveBroadcastMediaView: StreamReusableView {
     @IBOutlet weak var titleLabel: Label!
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
-        let imageView = ImageView()
-        imageView.contentMode = .ScaleAspectFill
-        imageView.clipsToBounds = true
+        let imageView = ImageView(backgroundColor: UIColor.whiteColor())
         imageView.cornerRadius = 24
         imageView.defaultBackgroundColor = Color.grayLighter
         imageView.defaultIconColor = UIColor.whiteColor()
@@ -199,7 +194,7 @@ class LiveBroadcastMediaView: StreamReusableView {
         })
     }
     
-    override func setup(entry: AnyObject) {
+    override func setup(entry: AnyObject?) {
         if let broadcast = entry as? LiveBroadcast {
             nameLabel.text = "\(broadcast.broadcaster?.name ?? "") \("is_live_streaming".ls)"
             titleLabel?.text = broadcast.displayTitle()
@@ -258,7 +253,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
         candyMetrics.prepareAppearing = { item, view in
             (view as? HistoryItemCell)?.delegate = self
         }
-        candyMetrics.size = round(view.width / 2.5) + 40
+        candyMetrics.size = round(view.width / 2.5) + 32
         candyMetrics.selectable = false
         candyMetrics.selection = { [weak self] (item, entry) -> Void in
             CandyEnlargingPresenter.handleCandySelection(item, entry: entry, historyItem: self?.history.itemWithCandy(entry as? Candy), dismissingView: { (presenter, candy) -> UIView? in

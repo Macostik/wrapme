@@ -18,19 +18,13 @@ class CandyCell: StreamReusableView {
     weak var videoIndicatorView: UIView!
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
-        let imageView = ImageView()
-        imageView.backgroundColor = UIColor.whiteColor()
+        let imageView = ImageView(backgroundColor: UIColor.whiteColor())
         imageView.defaultIconSize = 56
         imageView.defaultIconText = "t"
         imageView.defaultIconColor = Color.grayLighter
-        imageView.contentMode = .ScaleAspectFill
-        imageView.clipsToBounds = true
         addSubview(imageView)
         self.imageView = imageView
-        let videoIndicatorView = UILabel()
-        videoIndicatorView.font = UIFont(name: "icons", size: 24)
-        videoIndicatorView.textColor = UIColor.whiteColor()
-        videoIndicatorView.text = "+"
+        let videoIndicatorView = Label(icon: "+", size: 24)
         addSubview(videoIndicatorView)
         self.videoIndicatorView = videoIndicatorView
         let gradientView = GradientView()
@@ -122,7 +116,7 @@ class CandyCell: StreamReusableView {
         imageView.image = nil
     }
     
-    override func setup(entry: AnyObject) {
+    override func setup(entry: AnyObject?) {
         
         userInteractionEnabled = true
         

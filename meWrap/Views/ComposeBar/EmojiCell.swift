@@ -11,7 +11,7 @@ import Foundation
 class EmojiCell: StreamReusableView {
     @IBOutlet weak var emojiLabel: UILabel?
     
-    override func setup(entry: AnyObject) {
+    override func setup(entry: AnyObject?) {
         if let emoji = entry as? String {
             emojiLabel?.text = emoji
         }

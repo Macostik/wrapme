@@ -13,15 +13,116 @@ import SnapKit
     case Inbox, Media, Chat
 }
 
-class WrapViewController: WLBaseViewController {
+final class FriendView: StreamReusableView {
+    
+    private var avatarView = ImageView(backgroundColor: UIColor.whiteColor())
+    
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        avatarView.cornerRadius = 16
+        avatarView.defaultBackgroundColor = Color.grayLighter
+        avatarView.defaultIconColor = UIColor.whiteColor()
+        avatarView.defaultIconText = "&"
+        addSubview(avatarView)
+        avatarView.snp_makeConstraints(closure: {
+            $0.width.height.equalTo(32)
+            $0.centerY.equalTo(self)
+            $0.trailing.equalTo(self)
+        })
+    }
+    
+    override func setup(entry: AnyObject?) {
+        if let friend = entry as? User {
+            let url = friend.avatar?.small
+            if !friend.isInvited && url?.isEmpty ?? true {
+                avatarView.defaultBackgroundColor = Color.orange
+            } else {
+                avatarView.defaultBackgroundColor = Color.grayLighter
+            }
+            avatarView.url = url
+        }
+    }
+}
+
+final class WrapSegmentButton: SegmentButton {
+    
+    @IBInspectable var icon: String? {
+        willSet {
+            iconLabel.text = newValue
+        }
+    }
+    
+    @IBInspectable var text: String? {
+        willSet {
+            textLabel.text = newValue?.ls
+        }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        badge.clipsToBounds = true
+        badge.textAlignment = .Center
+        badge.backgroundColor = Color.dangerRed
+        badge.hidden = true
+        selectionView.hidden = true
+        selectionView.backgroundColor = Color.orange
+        iconLabel.highlightedTextColor = Color.orange
+        textLabel.highlightedTextColor = Color.orange
+        let view = UIView()
+        view.userInteractionEnabled = false
+        addSubview(view)
+        view.addSubview(iconLabel)
+        view.addSubview(textLabel)
+        addSubview(selectionView)
+        addSubview(badge)
+        view.snp_makeConstraints { $0.center.equalTo(self) }
+        iconLabel.snp_makeConstraints { $0.leading.top.bottom.equalTo(view) }
+        textLabel.snp_makeConstraints {
+            $0.leading.equalTo(iconLabel.snp_trailing).offset(5)
+            $0.trailing.centerY.equalTo(view)
+        }
+        badge.snp_makeConstraints(closure: {
+            $0.bottom.equalTo(view.snp_centerY).offset(-1)
+            $0.leading.equalTo(iconLabel.snp_trailing).inset(10)
+            $0.width.greaterThanOrEqualTo(badge.snp_height)
+        })
+        selectionView.snp_makeConstraints {
+            $0.leading.trailing.bottom.equalTo(self)
+            $0.height.equalTo(4)
+        }
+        badge.circled = true
+    }
+    
+    var badge = BadgeLabel(preset: .Smaller, weight: UIFontWeightRegular, textColor: UIColor.whiteColor())
+    
+    private var selectionView = UIView()
+    
+    private var iconLabel = Label(icon: "", size: 24, textColor: Color.grayLighter)
+    
+    private var textLabel = Label(preset: .Normal, weight: UIFontWeightRegular, textColor: Color.grayLighter)
+    
+    override var selected: Bool {
+        willSet {
+            selectionView.hidden = !newValue
+            iconLabel.highlighted = newValue
+            textLabel.highlighted = newValue
+        }
+    }
+}
+
+final class WrapViewController: WLBaseViewController {
     
     weak var wrap: Wrap?
     
     var segment: WrapSegment = .Media
     
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var messageCountLabel: BadgeLabel!
-    @IBOutlet weak var candyCountLabel: BadgeLabel!
+    
+    @IBOutlet weak var inboxSegmentButton: WrapSegmentButton!
+    
+    @IBOutlet weak var mediaSegmentButton: WrapSegmentButton!
+    
+    @IBOutlet weak var chatSegmentButton: WrapSegmentButton!
+    
     @IBOutlet weak var segmentedControl: SegmentedControl!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var followButton: UIButton!
@@ -32,13 +133,16 @@ class WrapViewController: WLBaseViewController {
     @IBOutlet weak var creatorName: UILabel!
     @IBOutlet weak var publicWrapNameLabel: UILabel!
     @IBOutlet weak var ownerDescriptionLabel: UILabel!
-    @IBOutlet weak var typingLabel: Label!
+    @IBOutlet weak var friendsStreamView: StreamView!
     
     @IBOutlet var publicWrapPrioritizer: LayoutPrioritizer!
-    @IBOutlet var titleViewPrioritizer: LayoutPrioritizer!
     
     private var wrapNotifyReceiver: EntryNotifyReceiver?
     private var candyNotifyReceiver: EntryNotifyReceiver?
+    
+    private lazy var friendsDataSource: StreamDataSource = StreamDataSource(streamView: self.friendsStreamView)
+    
+    @IBOutlet weak var moreFriendsLabel: UILabel!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -48,9 +152,13 @@ class WrapViewController: WLBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        friendsStreamView.horizontal = true
+        let size = (view.width - moreFriendsLabel.width) / ((view.width - moreFriendsLabel.width) / friendsStreamView.height)
+        friendsDataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<FriendView>(), size: size))
+        
         guard let wrap = wrap where wrap.valid else { return }
         
-        let chatViewController = controllerNamed("chat", badge: messageCountLabel)
+        let chatViewController = controllerForSegment(.Chat)
         if !chatViewController.isViewLoaded() {
             let _ = chatViewController.view
         }
@@ -82,20 +190,22 @@ class WrapViewController: WLBaseViewController {
         if segment != .Media {
             changeSegment(.Media)
         }
-        let controller = controllerNamed("media", badge:self.candyCountLabel) as? MediaViewController
+        let controller = controllerForSegment(.Media) as? MediaViewController
         controller?.presentLiveBroadcast(broadcast)
     }
     
     private func changeSegment(segment: WrapSegment) {
         self.segment = segment
-        if segment == .Media {
-            viewController = controllerNamed("media", badge:self.candyCountLabel)
-        } else if (segment == .Chat) {
-            viewController = controllerNamed("chat", badge:self.messageCountLabel)
-        } else {
-            viewController = controllerNamed("friends", badge:nil)
-        }
+        viewController = controllerForSegment(segment)
         updateCandyCounter()
+    }
+    
+    private func controllerForSegment(segment: WrapSegment) -> WLWrapEmbeddedViewController {
+        switch segment {
+        case .Inbox: return WLWrapEmbeddedViewController()
+        case .Media: return controllerNamed("media", badge:self.mediaSegmentButton.badge)
+        case .Chat: return controllerNamed("chat", badge:self.chatSegmentButton.badge)
+        }
     }
     
     private func addNotifyReceivers() {
@@ -105,7 +215,7 @@ class WrapViewController: WLBaseViewController {
             receiver.didUpdate = { entry, event in
                 if event == .NumberOfUnreadMessagesChanged {
                     if self.segment != .Chat {
-                        self.messageCountLabel.value = self.wrap?.numberOfUnreadMessages ?? 0
+                        self.chatSegmentButton.badge.value = self.wrap?.numberOfUnreadMessages ?? 0
                     }
                 } else {
                     self.updateWrapData()
@@ -154,6 +264,19 @@ class WrapViewController: WLBaseViewController {
             publicWrapView.hidden = true
             publicWrapPrioritizer.defaultState = false
         }
+        
+        let maxFriendsCount = Int((view.width - moreFriendsLabel.width) / friendsStreamView.height)
+        let contributors = wrap.contributors.sort {
+            if $0.current {
+                return false
+            } else if $1.current {
+                return true
+            } else {
+                return $0.name < $1.name
+            }
+            }.prefix(maxFriendsCount)
+        moreFriendsLabel.hidden = wrap.contributors.count <= maxFriendsCount
+        friendsDataSource.items = Array(contributors)
     }
     
     private func followingStateForWrap(wrap: Wrap) {
@@ -162,11 +285,11 @@ class WrapViewController: WLBaseViewController {
     }
     
     private func updateMessageCouter() {
-        messageCountLabel.value = wrap?.numberOfUnreadMessages ?? 0
+        chatSegmentButton.badge.value = wrap?.numberOfUnreadMessages ?? 0
     }
     
     private func updateCandyCounter() {
-        candyCountLabel.value = wrap?.numberOfUnreadCandies ?? 0
+        mediaSegmentButton.badge.value = wrap?.numberOfUnreadCandies ?? 0
     }
     
     var showKeyboard = false {
@@ -253,6 +376,12 @@ extension WrapViewController {
                     finish()
             })
         }
+    }
+    
+    @IBAction func showFriends(sender: AnyObject) {
+        let controller = Storyboard.Friends.instantiate()
+        controller.wrap = wrap
+        navigationController?.pushViewController(controller, animated: false)
     }
 }
 

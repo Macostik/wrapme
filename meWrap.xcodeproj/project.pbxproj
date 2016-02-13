@@ -982,6 +982,7 @@
 				C52500571C1F1F8200CF8F9D /* HistoryItemViewController.swift */,
 				5BF9F9AA1C5F70670075402C /* HomeDataSource.swift */,
 				C52500591C1F1FCB00CF8F9D /* FollowingViewController.swift */,
+				5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */,
 				C525005B1C1F1FD500CF8F9D /* SettingsViewController.swift */,
 				5B40D6B11C2EBB1C009EF38C /* UploadWizardViewController.swift */,
 				C51B4BE71C3AA2D6009F1566 /* WelcomeViewController.swift */,
@@ -1688,7 +1689,6 @@
 		C5F814251C455B4000B478C2 /* LiveBroadcastViewController */ = {
 			isa = PBXGroup;
 			children = (
-				5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */,
 				C5861A6B1BFA3C9400C64663 /* LiveViewController.swift */,
 				C517FD791C4D070D00A7EE55 /* LiveViewerViewController.swift */,
 				C517FD7B1C4D07E100A7EE55 /* LiveBroadcasterViewController.swift */,

@@ -113,7 +113,7 @@ class StreamDataSource: NSObject, GridLayoutDelegate, StreamLayoutDelegate {
         }
     }
     
-    var numberOfItems: NSNumber?
+    var numberOfItems: Int?
     
     @IBInspectable var layoutOffset: CGFloat = 0
     
@@ -162,11 +162,7 @@ extension StreamDataSource {
     // MARK: - StreamViewDelegate
     
     func streamView(streamView: StreamView, numberOfItemsInSection section: Int) -> Int {
-        if let numberOfItems = numberOfItems {
-            return numberOfItems.integerValue
-        } else {
-            return items?.count ?? 0
-        }
+        return numberOfItems ?? items?.count ?? 0
     }
     
     func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetrics] {

@@ -75,7 +75,7 @@ class WrapPickerCell: StreamReusableView {
         })
     }
     
-    override func setup(entry: AnyObject) {
+    override func setup(entry: AnyObject?) {
         if let wrap = entry as? Wrap {
             if let coverView = coverView {
                 coverView.url = wrap.asset?.small

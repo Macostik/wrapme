@@ -46,7 +46,7 @@ class CommentCell: StreamReusableView {
         }
     }
     
-    override func setup(entry: AnyObject) {
+    override func setup(entry: AnyObject?) {
         guard let comment = entry as? Comment else { return }
         userInteractionEnabled = true
         comment.markAsUnread(false)
@@ -54,6 +54,6 @@ class CommentCell: StreamReusableView {
         authorImageView.url = comment.contributor?.avatar?.small
         dateLabel.text = comment.createdAt.timeAgoString()
         indicator.updateStatusIndicator(comment)
-        commentTextView.text = entry.text
+        commentTextView.text = comment.text
     }
 }

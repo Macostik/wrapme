@@ -104,10 +104,8 @@
 		C530127D1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530127C1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift */; };
 		C530127F1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530127E1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift */; };
 		C53012871BF4C0AD00098F9C /* (null) in Sources */ = {isa = PBXBuildFile; };
-		C53012901BF4E3EA00098F9C /* EmojiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C530128C1BF4E3EA00098F9C /* EmojiCell.xib */; };
 		C53012911BF4E3EA00098F9C /* EmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530128D1BF4E3EA00098F9C /* EmojiView.swift */; };
 		C53012921BF4E3EA00098F9C /* EmojiView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C530128E1BF4E3EA00098F9C /* EmojiView.xib */; };
-		C53012931BF4E3EA00098F9C /* EmojiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530128F1BF4E3EA00098F9C /* EmojiCell.swift */; };
 		C53012941BF4E4BF00098F9C /* Refresher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530127A1BF49AD600098F9C /* Refresher.swift */; };
 		C5326F0C1C159279007A8BEF /* RunQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5326F0B1C159279007A8BEF /* RunQueue.swift */; };
 		C532F4E91C2D5F02004585E0 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532F4E81C2D5F02004585E0 /* ProgressBar.swift */; };
@@ -567,10 +565,8 @@
 		C530127A1BF49AD600098F9C /* Refresher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Refresher.swift; sourceTree = "<group>"; };
 		C530127C1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedStreamDataSource.swift; sourceTree = "<group>"; };
 		C530127E1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginatedStreamDataSource.swift; sourceTree = "<group>"; };
-		C530128C1BF4E3EA00098F9C /* EmojiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmojiCell.xib; sourceTree = "<group>"; };
 		C530128D1BF4E3EA00098F9C /* EmojiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiView.swift; sourceTree = "<group>"; };
 		C530128E1BF4E3EA00098F9C /* EmojiView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmojiView.xib; sourceTree = "<group>"; };
-		C530128F1BF4E3EA00098F9C /* EmojiCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiCell.swift; sourceTree = "<group>"; };
 		C5326F0B1C159279007A8BEF /* RunQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunQueue.swift; sourceTree = "<group>"; };
 		C532F4E81C2D5F02004585E0 /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		C532F4EA1C2D8353004585E0 /* Placeholders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Placeholders.storyboard; sourceTree = "<group>"; };
@@ -1172,8 +1168,6 @@
 			children = (
 				C530128D1BF4E3EA00098F9C /* EmojiView.swift */,
 				C530128E1BF4E3EA00098F9C /* EmojiView.xib */,
-				C530128F1BF4E3EA00098F9C /* EmojiCell.swift */,
-				C530128C1BF4E3EA00098F9C /* EmojiCell.xib */,
 				5B2FB96F1C5BA958001C4385 /* ComposeBar.swift */,
 			);
 			path = ComposeBar;
@@ -1900,7 +1894,6 @@
 				C5B91A361BB3F812000E08E7 /* Main.storyboard in Resources */,
 				5BA4F8831A1CA08A00DB1A25 /* s02.wav in Resources */,
 				C54AF72219B8C491006F7EDB /* Images.xcassets in Resources */,
-				C53012901BF4E3EA00098F9C /* EmojiCell.xib in Resources */,
 				C552A8401BFE2BF600A7FFAD /* RecentCandiesView.xib in Resources */,
 				C553DB481C6DF7BA001B13C7 /* WLUnreadMessagesView.xib in Resources */,
 				C5B91A3B1BB40423000E08E7 /* SignUp.storyboard in Resources */,
@@ -2205,7 +2198,6 @@
 				C55BE8C31C03062C006B04FC /* NSObject+Ext.swift in Sources */,
 				C502B3241C47F30400F66EAE /* APIRequest.swift in Sources */,
 				C558710E1C48F63500F09E58 /* NotificationSubscription.swift in Sources */,
-				C53012931BF4E3EA00098F9C /* EmojiCell.swift in Sources */,
 				C58CC6EF1C5E515B0086B7C1 /* HistoryViewController.swift in Sources */,
 				C521E18C1BC7AE1B00505432 /* VideoPlayerView.swift in Sources */,
 				C502B3131C47F2EC00F66EAE /* CandyNotification.swift in Sources */,

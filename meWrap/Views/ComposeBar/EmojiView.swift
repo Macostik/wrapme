@@ -7,8 +7,24 @@
 //
 
 import UIKit
+import SnapKit
 
 private var MaxRecentEmojisCount = 21
+
+class EmojiCell: StreamReusableView {
+    
+    private var emojiLabel: UILabel = UILabel()
+    
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        emojiLabel.font = UIFont.systemFontOfSize(34)
+        addSubview(emojiLabel)
+        emojiLabel.snp_makeConstraints { $0.center.equalTo(self) }
+    }
+    
+    override func setup(entry: AnyObject?) {
+        emojiLabel.text = entry as? String
+    }
+}
 
 private enum Emoji: Int {
     
@@ -26,31 +42,23 @@ private enum Emoji: Int {
         var recentEmojis = NSUserDefaults.standardUserDefaults().recentEmojis ?? [String]()
         if let index = recentEmojis.indexOf(emoji) {
             recentEmojis.removeAtIndex(index)
-            recentEmojis.insert(emoji, atIndex: 0)
-        } else {
-            recentEmojis.insert(emoji, atIndex: 0)
-            if recentEmojis.count > MaxRecentEmojisCount {
-                recentEmojis.removeLast()
-            }
+        }
+        recentEmojis.insert(emoji, atIndex: 0)
+        if recentEmojis.count > MaxRecentEmojisCount {
+            recentEmojis.removeLast()
         }
         NSUserDefaults.standardUserDefaults().recentEmojis = recentEmojis
     }
     
     func stringValue() -> String {
         switch self {
-        case Smiles:
-            return "smiles"
-        case Flowers:
-            return "flowers"
-        case Rings:
-            return "rings"
-        case Cars:
-            return "cars"
-        case Numbers:
-            return "numbers"
+        case Smiles: return "smiles"
+        case Flowers: return "flowers"
+        case Rings: return "rings"
+        case Cars: return "cars"
+        case Numbers: return "numbers"
         }
     }
-    
 }
 
 class EmojiView: UIView {
@@ -64,26 +72,23 @@ class EmojiView: UIView {
     var dataSource: StreamDataSource!
     
     private var emojis: [String]? {
-        didSet {
-            dataSource.items = emojis
+        willSet {
+            dataSource.items = newValue
         }
     }
     
-    class func emojiViewWithTextView(textView: UITextView) -> EmojiView? {
-        if let emojiView = NSBundle.mainBundle().loadNibNamed("EmojiView", owner: nil, options: nil).first as? EmojiView {
-            emojiView.textView = textView
-            return emojiView
-        } else {
-            return nil
-        }
+    class func emojiViewWithTextView(textView: UITextView) -> EmojiView {
+        let emojiView = EmojiView.loadFromNib("EmojiView")!
+        emojiView.textView = textView
+        return emojiView
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         streamView.layout = GridLayout(horizontal: true)
         dataSource = StreamDataSource(streamView: streamView)
-        let metrics = StreamMetrics(identifier: "EmojiCell")
-        metrics.ratioAt = {[unowned self] _ -> CGFloat in
+        let metrics = StreamMetrics(loader: LayoutStreamLoader<EmojiCell>())
+        metrics.ratioAt = { [unowned self] _ -> CGFloat in
             return (self.streamView.height/3) / (self.streamView.width/7)
         }
         metrics.selection = {[unowned self] (item, emoji) -> Void in
@@ -98,16 +103,14 @@ class EmojiView: UIView {
         if let recentEmojis = Emoji.recentEmojis() where recentEmojis.count > 0 {
             emojis = recentEmojis
         } else {
-            segmentedControl.selectedSegment = 1;
+            segmentedControl.selectedSegment = 1
             emojis = Emoji.emojiStrings(.Smiles)
         }
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        UIView.performWithoutAnimation { () -> Void in
-            self.streamView.reload()
-        }
+        UIView.performWithoutAnimation { self.streamView.reload() }
     }
     
     @IBAction func returnClicked(sender: UIButton) {

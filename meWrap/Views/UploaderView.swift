@@ -24,7 +24,7 @@ class UploaderView: UIView {
     private var animation: CABasicAnimation = {
         let animation = CABasicAnimation(keyPath: "transform")
         animation.fromValue = NSValue(CATransform3D:CATransform3DMakeTranslation(0, -3, 0))
-        animation.fromValue = NSValue(CATransform3D:CATransform3DMakeTranslation(0, -7, 0))
+        animation.toValue = NSValue(CATransform3D:CATransform3DMakeTranslation(0, -7, 0))
         animation.duration = 1.0
         animation.repeatCount = FLT_MAX
         return animation

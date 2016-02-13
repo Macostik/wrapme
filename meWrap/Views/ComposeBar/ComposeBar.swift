@@ -18,7 +18,7 @@ import Foundation
     optional func composeBarDidShouldResignOnFinish(composeBar: ComposeBar) -> Bool
 }
 
-class ComposeBar: UIControl, UITextViewDelegate, UICollectionViewDelegate {
+class ComposeBar: UIControl, UITextViewDelegate {
     
     @IBOutlet weak var delegate: ComposeBarDelegate?
     @IBOutlet weak var textView: TextView!
@@ -27,9 +27,9 @@ class ComposeBar: UIControl, UITextViewDelegate, UICollectionViewDelegate {
     
     @IBInspectable var maxLines: CGFloat = 0
     
-    lazy var emojiView: EmojiView? = {
+    lazy var emojiView: EmojiView = {
         let emojiView = EmojiView.emojiViewWithTextView(self.textView)
-        emojiView?.backgroundColor = self.backgroundColor
+        emojiView.backgroundColor = self.backgroundColor
         return emojiView
     }()
     

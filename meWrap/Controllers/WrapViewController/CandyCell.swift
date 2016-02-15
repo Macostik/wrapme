@@ -11,35 +11,29 @@ import SnapKit
 
 class CandyCell: StreamReusableView {
     
-    weak var imageView: ImageView!
+    var imageView = ImageView(backgroundColor: UIColor.whiteColor())
     
-    weak var commentLabel: UILabel!
+    var commentLabel = Label(preset: FontPreset.Smaller, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
     
-    weak var videoIndicatorView: UIView!
+    var videoIndicator = Label(icon: "+", size: 24)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
-        let imageView = ImageView(backgroundColor: UIColor.whiteColor())
         imageView.defaultIconSize = 56
         imageView.defaultIconText = "t"
         imageView.defaultIconColor = Color.grayLighter
         addSubview(imageView)
-        self.imageView = imageView
-        let videoIndicatorView = Label(icon: "+", size: 24)
-        addSubview(videoIndicatorView)
-        self.videoIndicatorView = videoIndicatorView
+        addSubview(videoIndicator)
         let gradientView = GradientView()
         gradientView.startColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
         gradientView.contentMode = .Bottom
         addSubview(gradientView)
-        let commentLabel = Label(preset: FontPreset.Smaller, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
         commentLabel.textAlignment = .Center
         commentLabel.numberOfLines = 2
         gradientView.addSubview(commentLabel)
-        self.commentLabel = commentLabel
         
         imageView.snp_makeConstraints(closure: { $0.edges.equalTo(self) })
         
-        videoIndicatorView.snp_makeConstraints {
+        videoIndicator.snp_makeConstraints {
             $0.top.equalTo(self).offset(2)
             $0.right.equalTo(self).offset(-2)
         }
@@ -121,13 +115,13 @@ class CandyCell: StreamReusableView {
         userInteractionEnabled = true
         
         guard let candy = entry as? Candy else {
-            videoIndicatorView.hidden = true
+            videoIndicator.hidden = true
             imageView.url = nil
             commentLabel.superview?.hidden = true
             return
         }
         
-        videoIndicatorView.hidden = candy.mediaType != .Video;
+        videoIndicator.hidden = candy.mediaType != .Video
         commentLabel.text = candy.latestComment?.text
         commentLabel.superview?.hidden = commentLabel.text?.isEmpty ?? true
         

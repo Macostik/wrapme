@@ -28,6 +28,8 @@ class SquareGridLayout: StreamLayout {
             } else {
                 size = (sv.frame.width - spacing * (num + (isEdgeSeporator ? 1 : -1))) / num
             }
+            
+            offset = delegate.streamView?(sv, layout: self, offsetForColumn: 0) ?? 0
         }
     }
     
@@ -51,17 +53,17 @@ class SquareGridLayout: StreamLayout {
     override func verticalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
         let metrics = item.metrics
         if metrics.isSeparator {
-            var y = spacing
+            var y = offset + spacing
             if let previous = item.previous {
                 y = previous.frame.maxY + spacing
             }
             return CGRect(x: 0, y: y, width: streamView.width, height: metrics.sizeAt(item))
         } else {
             var x = CGFloat(isEdgeSeporator) * spacing
-            var y = spacing
+            var y = offset + spacing
             var column: Int = 0
             if let previous = item.previous {
-                if metrics.isSeparator {
+                if metrics.isSeparator || previous.metrics.isSeparator {
                     y = previous.frame.maxY + spacing
                 } else {
                     if previous.column < numberOfColumns - 1 {

@@ -133,7 +133,7 @@ class StreamDataSource: NSObject, GridLayoutDelegate, StreamLayoutDelegate {
     
     var didLayoutBlock: (Void -> Void)?
     
-    func entryForItem(item: StreamItem) -> AnyObject? {
+    private func entryForItem(item: StreamItem) -> AnyObject? {
         return items?.tryAt(item.position.index)
     }
     

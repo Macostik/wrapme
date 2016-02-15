@@ -1,3 +1,3 @@
 dSYM archive upload attempt #1 (of 3)
-curl --write-out %{http_code} --silent --output /dev/null -F dsym=@"/tmp/meWrap.app.dSYM-1454518661.zip" -F buildId="4f9c5eb3d3f535cc99b346f85320d053,dc0bde4aa1e031f5971dc0c5bcb26d2b" -F appName="meWrap" -H "X-APP-LICENSE-KEY: AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c" "https://mobile-symbol-upload.newrelic.com/symbol"
+curl --write-out %{http_code} --silent --output /dev/null -F dsym=@"/tmp/meWrap.app.dSYM-1455534485.zip" -F buildId="67ef5e8ef13b398988a8a071939a4dc7,b7acc808d2fc3614b9be8db7a1f7a619" -F appName="meWrap" -H "X-APP-LICENSE-KEY: AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c" "https://mobile-symbol-upload.newrelic.com/symbol"
 New Relic: Successfully uploaded debug symbols

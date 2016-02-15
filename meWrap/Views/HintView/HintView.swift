@@ -12,17 +12,18 @@ final class HintView: UIView {
     
     class func show(nibName: String, inView view: UIView = UIWindow.mainWindow.rootViewController?.view ?? UIWindow.mainWindow) {
         var shownHints = NSUserDefaults.standardUserDefaults().shownHints
-        guard shownHints[nibName] == false else { return }
-        shownHints[nibName] = true
-        NSUserDefaults.standardUserDefaults().shownHints = shownHints
-        guard let hintView: HintView = loadFromNib(nibName) else { return }
-        hintView.frame = view.frame
-        view.addSubview(hintView)
-        hintView.setFullFlexible()
-        hintView.alpha = 0.0
-        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .CurveEaseIn , animations: {
-            hintView.alpha = 1.0
-            }, completion: nil)
+        if shownHints[nibName] == nil {
+            shownHints[nibName] = true
+            NSUserDefaults.standardUserDefaults().shownHints = shownHints
+            guard let hintView: HintView = loadFromNib(nibName) else { return }
+            hintView.frame = view.frame
+            view.addSubview(hintView)
+            hintView.setFullFlexible()
+            hintView.alpha = 0.0
+            UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .CurveEaseIn , animations: {
+                hintView.alpha = 1.0
+                }, completion: nil)
+        }
     }
     
     @IBAction func hide(sender: AnyObject) {

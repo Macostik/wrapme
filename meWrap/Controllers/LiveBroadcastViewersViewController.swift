@@ -12,9 +12,29 @@ class LiveBroadcastViewerCell: StreamReusableView {
     
     static let DefaultHeight: CGFloat = 56
     
-    @IBOutlet weak var avatarView: ImageView!
+    var avatarView = ImageView(backgroundColor: UIColor.whiteColor())
+    var nameLabel = Label(preset: FontPreset.Small, weight: UIFontWeightLight, textColor: Color.grayDarker)
     
-    @IBOutlet weak var nameLabel: UILabel!
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        avatarView.cornerRadius = 24
+        avatarView.defaultBackgroundColor = Color.grayLighter
+        avatarView.defaultIconColor = UIColor.whiteColor()
+        avatarView.defaultIconText = "&"
+        addSubview(avatarView)
+        addSubview(nameLabel)
+        
+        avatarView.snp_makeConstraints(closure: {
+            $0.leading.equalTo(self).offset(12)
+            $0.centerY.equalTo(self)
+            $0.size.equalTo(48)
+        })
+        
+        nameLabel.snp_makeConstraints(closure: {
+            $0.leading.equalTo(avatarView.snp_trailing).offset(12)
+            $0.trailing.greaterThanOrEqualTo(self).offset(12)
+            $0.centerY.equalTo(self)
+        })
+    }
     
     override func setup(entry: AnyObject?) {
         if let user = entry as? User {

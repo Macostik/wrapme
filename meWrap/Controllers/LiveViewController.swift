@@ -12,12 +12,6 @@ import AVFoundation
 
 class LiveBroadcastEventView: StreamReusableView {
     
-    @IBOutlet weak var avatarView: ImageView?
-    
-    @IBOutlet weak var nameLabel: UILabel?
-    
-    @IBOutlet weak var textLabel: UILabel!
-    
     static let queue: RunQueue = RunQueue(limit: 1)
     
     override func setup(entry: AnyObject?) {
@@ -29,12 +23,6 @@ class LiveBroadcastEventView: StreamReusableView {
                     finish()
                 })
             })
-            
-            if event.kind == .Message {
-                nameLabel?.text = event.user?.name
-            }
-            avatarView?.url = event.user?.avatar?.small
-            textLabel.text = event.text
             hidden = false
             event.disappearingBlock = { [weak self] () -> Void in
                 self?.hidden = true
@@ -43,9 +31,112 @@ class LiveBroadcastEventView: StreamReusableView {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        super.layoutWithMetrics(metrics)
         layer.geometryFlipped = true
+    }
+}
+
+class LiveBroadcastEventWithAvatarView: LiveBroadcastEventView {
+    
+    internal var avatarView = ImageView(backgroundColor: UIColor.whiteColor())
+    
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        super.layoutWithMetrics(metrics)
+        backgroundColor = UIColor.whiteColor()
+        avatarView.cornerRadius = 20
+        avatarView.defaultBackgroundColor = Color.grayLighter
+        avatarView.defaultIconColor = UIColor.whiteColor()
+        avatarView.defaultIconText = "&"
+        addSubview(avatarView)
+        avatarView.snp_makeConstraints(closure: {
+            $0.leading.top.equalTo(self).offset(12)
+            $0.size.equalTo(40)
+        })
+    }
+}
+
+class LiveBroadcastMessageEventView: LiveBroadcastEventWithAvatarView {
+    
+    private var nameLabel = Label(preset: FontPreset.Smaller, weight: UIFontWeightRegular, textColor: Color.grayDarker)
+    
+    private var textLabel = Label(preset: FontPreset.Normal, weight: UIFontWeightRegular, textColor: Color.grayDarker)
+    
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        super.layoutWithMetrics(metrics)
+        textLabel.numberOfLines = 0
+        addSubview(nameLabel)
+        addSubview(textLabel)
+        
+        nameLabel.snp_makeConstraints(closure: {
+            $0.top.equalTo(avatarView.snp_top)
+            $0.leading.equalTo(avatarView.snp_trailing).offset(12)
+            $0.trailing.greaterThanOrEqualTo(self).offset(12)
+        })
+        
+        textLabel.snp_makeConstraints(closure: {
+            $0.top.equalTo(nameLabel.snp_bottom)
+            $0.leading.equalTo(avatarView.snp_trailing).offset(12)
+            $0.trailing.equalTo(self).inset(12)
+            $0.bottom.equalTo(self).inset(12)
+        })
+    }
+    
+    override func setup(entry: AnyObject?) {
+        super.setup(entry)
+        if let event = entry as? LiveBroadcast.Event {
+            nameLabel.text = event.user?.name
+            avatarView.url = event.user?.avatar?.small
+            textLabel.text = event.text
+        }
+    }
+}
+
+class LiveBroadcastJoinEventView: LiveBroadcastEventWithAvatarView {
+    
+    private var textLabel = Label(preset: FontPreset.Normal, weight: UIFontWeightRegular, textColor: Color.grayDarker)
+    
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        super.layoutWithMetrics(metrics)
+        textLabel.numberOfLines = 0
+        addSubview(textLabel)
+        textLabel.snp_makeConstraints(closure: {
+            $0.top.equalTo(avatarView)
+            $0.leading.equalTo(avatarView.snp_trailing).offset(12)
+            $0.trailing.equalTo(self).offset(12)
+            $0.bottom.equalTo(self).inset(12)
+        })
+    }
+    
+    override func setup(entry: AnyObject?) {
+        super.setup(entry)
+        if let event = entry as? LiveBroadcast.Event {
+            avatarView.url = event.user?.avatar?.small
+            textLabel.text = event.text
+        }
+    }
+}
+
+class LiveBroadcastInfoEventView: LiveBroadcastEventView {
+    
+    private var textLabel = Label(preset: FontPreset.Small, weight: UIFontWeightRegular, textColor: UIColor.whiteColor())
+    
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        super.layoutWithMetrics(metrics)
+        textLabel.numberOfLines = 0
+        backgroundColor = Color.orange
+        addSubview(textLabel)
+        textLabel.snp_makeConstraints(closure: {
+            $0.top.bottom.equalTo(self).inset(7)
+            $0.leading.trailing.equalTo(self).offset(12)
+        })
+    }
+    
+    override func setup(entry: AnyObject?) {
+        super.setup(entry)
+        if let event = entry as? LiveBroadcast.Event {
+            textLabel.text = event.text
+        }
     }
 }
 
@@ -82,10 +173,8 @@ class LiveViewController: WLBaseViewController {
         titleLabel?.text = broadcast.displayTitle()
     }
     
-    private let loader = IndexedStreamLoader(identifier: "LiveBroadcastEventViews", index: 0)
-    
-    private func metricsForEventOfKind(kind: LiveBroadcast.Event.Kind, minSize: CGFloat) -> StreamMetrics {
-        let metrics = StreamMetrics(loader: loader.loader(kind.rawValue))
+    private func metricsForType<T: LiveBroadcastEventView>(type: T.Type, kind: LiveBroadcast.Event.Kind, minSize: CGFloat) -> StreamMetrics {
+        let metrics = StreamMetrics(loader: LayoutStreamLoader<T>())
         return metrics.change { [weak self] (metrics) -> Void in
             metrics.sizeAt = { self?.chatStreamView.dynamicSizeForMetrics(metrics, item: $0, minSize: minSize) ?? minSize }
             metrics.hiddenAt = { ($0.entry as! LiveBroadcast.Event).kind != kind }
@@ -105,9 +194,10 @@ class LiveViewController: WLBaseViewController {
         streamView.layer.geometryFlipped = true
         
         chatDataSource = StreamDataSource(streamView: streamView)
-        chatDataSource.addMetrics(metricsForEventOfKind(.Message, minSize: 64))
-        chatDataSource.addMetrics(metricsForEventOfKind(.Join, minSize: 64))
-        chatDataSource.addMetrics(metricsForEventOfKind(.Info, minSize: 32))
+        
+        chatDataSource.addMetrics(metricsForType(LiveBroadcastMessageEventView.self, kind: .Message, minSize: 64))
+        chatDataSource.addMetrics(metricsForType(LiveBroadcastJoinEventView.self, kind: .Join, minSize: 64))
+        chatDataSource.addMetrics(metricsForType(LiveBroadcastInfoEventView.self, kind: .Info, minSize: 32))
         
         wrapNameLabel?.text = wrap?.name
         

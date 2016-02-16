@@ -64,8 +64,6 @@
         [self.wormhole passMessageObject:[Contribution recentUpdates:6] identifier:@"recentUpdatesResponse"];
     }];
     
-    application.applicationIconBadgeNumber = 0;
-    
 	return YES;
 }
 
@@ -171,9 +169,6 @@
         if (completion) {
             completion(UIBackgroundFetchResultNewData);
             completion = nil;
-        }
-        if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
-            [UIApplication sharedApplication].applicationIconBadgeNumber = 11;
         }
     } failure:^(NSError *error) {
         if (completion) {

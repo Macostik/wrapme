@@ -173,7 +173,6 @@
 		C54CEF9B1BCFAFA800128CBE /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54CEF9A1BCFAFA800128CBE /* UIButton+Ext.swift */; };
 		C54CEF9D1BCFB09100128CBE /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54CEF9C1BCFB09100128CBE /* UIViewController+Ext.swift */; };
 		C54D12CB1C4524D3009014FB /* LiveBroadcastViewersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D12CA1C4524D3009014FB /* LiveBroadcastViewersViewController.swift */; };
-		C54D12CD1C4526B7009014FB /* LiveBroadcastViewerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54D12CC1C4526B7009014FB /* LiveBroadcastViewerCell.xib */; };
 		C55141A41C2EFB090080E731 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55141A31C2EFB090080E731 /* DeviceManager.swift */; };
 		C5528A0F1B3425C500AF1311 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		C552A8321BFDD37B00A7FFAD /* FlowerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA6D9A1BFCC8270029970A /* FlowerMenu.swift */; };
@@ -257,7 +256,6 @@
 		C5BEC3A51B8F16E800499EEA /* logo_and_caption_orange@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5BEC39C1B8F16E800499EEA /* logo_and_caption_orange@2x.png */; };
 		C5BEC3A71B8F16E800499EEA /* logo_and_caption_white.png in Resources */ = {isa = PBXBuildFile; fileRef = C5BEC39E1B8F16E800499EEA /* logo_and_caption_white.png */; };
 		C5BEC3A91B8F16E800499EEA /* logo_and_caption_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5BEC3A01B8F16E800499EEA /* logo_and_caption_white@2x.png */; };
-		C5C1273A1C10A46E002FD9AB /* LiveBroadcastEventViews.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5C127391C10A46E002FD9AB /* LiveBroadcastEventViews.xib */; };
 		C5C3FEA41B8F311500F177EC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE951B8F311500F177EC /* Default-568h@2x.png */; };
 		C5C3FEA81B8F311500F177EC /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE991B8F311500F177EC /* Default-736h@3x.png */; };
 		C5C3FEAA1B8F311500F177EC /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE9B1B8F311500F177EC /* Default@2x.png */; };
@@ -597,7 +595,6 @@
 		C54CEF9A1BCFAFA800128CBE /* UIButton+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
 		C54CEF9C1BCFB09100128CBE /* UIViewController+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		C54D12CA1C4524D3009014FB /* LiveBroadcastViewersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveBroadcastViewersViewController.swift; sourceTree = "<group>"; };
-		C54D12CC1C4526B7009014FB /* LiveBroadcastViewerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveBroadcastViewerCell.xib; sourceTree = "<group>"; };
 		C55141A31C2EFB090080E731 /* DeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
 		C552A83D1BFE293300A7FFAD /* RecentCandiesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentCandiesView.swift; path = WLHomeViewController/RecentCandiesView.swift; sourceTree = "<group>"; };
 		C552A83F1BFE2BF600A7FFAD /* RecentCandiesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RecentCandiesView.xib; path = WLHomeViewController/RecentCandiesView.xib; sourceTree = "<group>"; };
@@ -719,7 +716,6 @@
 		C5BEC3B21B8F170700499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_white.png"; sourceTree = "<group>"; };
 		C5BEC3B51B8F170D00499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_white@2x.png"; sourceTree = "<group>"; };
 		C5BEC4171B8F1E9800499EEA /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
-		C5C127391C10A46E002FD9AB /* LiveBroadcastEventViews.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveBroadcastEventViews.xib; sourceTree = "<group>"; };
 		C5C3FE961B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
 		C5C3FE9A1B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-736h@3x.png"; sourceTree = "<group>"; };
 		C5C3FE9C1B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default@2x.png"; sourceTree = "<group>"; };
@@ -1676,8 +1672,6 @@
 				C517FD791C4D070D00A7EE55 /* LiveViewerViewController.swift */,
 				C517FD7B1C4D07E100A7EE55 /* LiveBroadcasterViewController.swift */,
 				C54D12CA1C4524D3009014FB /* LiveBroadcastViewersViewController.swift */,
-				C5C127391C10A46E002FD9AB /* LiveBroadcastEventViews.xib */,
-				C54D12CC1C4526B7009014FB /* LiveBroadcastViewerCell.xib */,
 			);
 			name = LiveBroadcastViewController;
 			sourceTree = "<group>";
@@ -1891,7 +1885,6 @@
 				C54AF72719B8C491006F7EDB /* flowers.plist in Resources */,
 				C5BEC3941B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */,
 				C5E092D81C6CED2600510AA1 /* MultipleAddressBookRecordCell.xib in Resources */,
-				C54D12CD1C4526B7009014FB /* LiveBroadcastViewerCell.xib in Resources */,
 				5BE7CD651C0D8781009A7617 /* ConfirmInvitationView.xib in Resources */,
 				5B66B5B91C24696800451113 /* WrapCell.xib in Resources */,
 				C5C3FEA81B8F311500F177EC /* Default-736h@3x.png in Resources */,
@@ -1919,7 +1912,6 @@
 				C5C3FEAA1B8F311500F177EC /* Default@2x.png in Resources */,
 				C5BEC3A51B8F16E800499EEA /* logo_and_caption_orange@2x.png in Resources */,
 				C53937671C3BD82600EEEC0A /* Toast.xib in Resources */,
-				C5C1273A1C10A46E002FD9AB /* LiveBroadcastEventViews.xib in Resources */,
 				C54731C61B9086DB00B583FD /* CommentCell.xib in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,
 				C5C3FEB01B8F311500F177EC /* Default.png in Resources */,

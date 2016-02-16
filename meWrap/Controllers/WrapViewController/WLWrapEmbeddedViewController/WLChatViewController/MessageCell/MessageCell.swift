@@ -84,7 +84,7 @@ final class MessageCell: StreamReusableView {
             avatarView?.url = message.contributor?.avatar?.small
             nameLabel?.text = message.contributor?.name
         }
-        timeLabel.text = message.createdAt.stringWithDateStyle(.ShortStyle)
+        timeLabel.text = message.createdAt.stringWithTimeStyle(.ShortStyle)
         textView.text = message.text
         indicator?.updateStatusIndicator(message)
         FlowerMenu.sharedMenu().hide()

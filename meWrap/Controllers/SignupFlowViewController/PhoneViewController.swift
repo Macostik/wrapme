@@ -45,12 +45,8 @@ class PhoneTextField: TextField {
     }
     
     func numberTextDidChange() {
-        let selectedRange = self.selectedTextRange
         let numbersOnly = phoneNumberUtility.normalizePhoneNumber(text)
         text = phoneNumberFormatter.inputStringAndRememberPosition(numbersOnly)
-        if let range = selectedRange where comparePosition(range.end, toPosition: self.endOfDocument) != .OrderedDescending {
-            self.selectedTextRange = range
-        }
     }
 }
 

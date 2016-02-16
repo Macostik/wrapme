@@ -168,6 +168,10 @@ final class WrapViewController: WLBaseViewController {
         settingsButton.exclusiveTouch = true
         followButton.exclusiveTouch = true
         unfollowButton.exclusiveTouch = true
+        
+        APIRequest.contributors(wrap).send({ [weak self] _ in
+            self?.updateFriendsBar(wrap)
+            }, failure: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -265,6 +269,10 @@ final class WrapViewController: WLBaseViewController {
             publicWrapPrioritizer.defaultState = false
         }
         
+        updateFriendsBar(wrap)
+    }
+    
+    private func updateFriendsBar(wrap: Wrap) {
         let maxFriendsCount = Int((view.width - moreFriendsLabel.width) / friendsStreamView.height)
         let contributors = wrap.contributors.sort {
             if $0.current {

@@ -34,8 +34,6 @@ struct Keys {
     static let CandyType = "candy_type"
     static let Comments = "comments"
     static let MediaURLs = "media_urls"
-    static let ImageURLs = "image_urls"
-    static let VideoURLs = "video_urls"
     static let AvatarURLs = "avatar_urls"
     static let User = "user"
     static let Wrap = "wrap"

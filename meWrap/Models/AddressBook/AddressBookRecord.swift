@@ -28,7 +28,6 @@ class AddressBookRecord: NSObject {
                     }
                     let avatar = Asset()
                     avatar.large = path
-                    avatar.medium = path
                     avatar.small = path
                     _avatar = avatar
                 }

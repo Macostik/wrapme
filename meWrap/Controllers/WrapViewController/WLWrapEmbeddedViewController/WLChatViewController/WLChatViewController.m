@@ -352,6 +352,11 @@
     self.typing = composeBar.text.nonempty;
 }
 
+- (void)composeBarDidChangeHeight:(ComposeBar *)composeBar {
+    [self updateInsets];
+    [self.streamView setContentOffset:self.streamView.maximumContentOffset animated:YES];
+}
+
 // MARK: - StreamViewDelegate
 
 - (NSInteger)streamView:(StreamView*)streamView numberOfItemsInSection:(NSInteger)section {

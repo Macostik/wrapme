@@ -275,9 +275,9 @@ final class WrapViewController: WLBaseViewController {
     private func updateFriendsBar(wrap: Wrap) {
         let maxFriendsCount = Int((view.width - moreFriendsLabel.width) / friendsStreamView.height)
         let contributors = wrap.contributors.sort {
-            if $0.current {
+            if $0.current || ($0.avatar?.small?.isEmpty ?? true) {
                 return false
-            } else if $1.current {
+            } else if $1.current || ($1.avatar?.small?.isEmpty ?? true) {
                 return true
             } else {
                 return $0.name < $1.name

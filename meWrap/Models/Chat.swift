@@ -40,7 +40,8 @@ class Chat: PaginatedList {
     static var LeadingBubbleIndentWithAvatar: CGFloat = 64.0
     static var BubbleIndent: CGFloat = 16.0
     static var MessageGroupSpacing: CGFloat = 6.0
-    static var NameVerticalInset: CGFloat = 4.0
+    static var MessageSpacing: CGFloat = 2.0
+    static var NameVerticalInset: CGFloat = 6.0
     
     private var subscription: NotificationSubscription?
     
@@ -246,10 +247,10 @@ extension Chat: FontPresetting {
         } else {
             guard let text = message.text else { return 0 }
             let containsName = message.chatMetadata.containsName
-            let calculateWight = (message.contributor?.current ?? false) ? Chat.MaxWidth : Chat.MinWidth
+            let calculateWight = (message.contributor?.current ?? false) ? Chat.MinWidth : Chat.MaxWidth
             var commentHeight = text.heightWithFont(messageFont, width: calculateWight) ?? 0
             let topInset = containsName ? nameFont.lineHeight + Chat.NameVerticalInset : 0
-            let bottomInset = nameFont.lineHeight + Chat.MessageVerticalInset
+            let bottomInset = nameFont.lineHeight + Chat.MessageVerticalInset + Chat.MessageSpacing
             commentHeight += topInset + bottomInset
             commentHeight = max(containsName ? Chat.MessageWithNameMinimumCellHeight : Chat.MessageWithoutNameMinimumCellHeight, commentHeight)
             cachedMessageHeights[message] = commentHeight

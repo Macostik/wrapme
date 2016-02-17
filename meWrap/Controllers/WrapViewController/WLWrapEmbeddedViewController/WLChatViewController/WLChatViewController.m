@@ -119,7 +119,7 @@
     
     self.messageWithNameMetrics.insetsAt = self.messageMetrics.insetsAt = self.myMessageMetrics.insetsAt = ^CGRect(StreamItem *item) {
         Message *message = item.entry;
-        return CGRectMake(0, message.chatMetadata.containsDate ? 0 : message.chatMetadata.isGroup ? Chat.MessageGroupSpacing : 2, 0, 0);
+        return CGRectMake(0, message.chatMetadata.containsDate ? 0 : message.chatMetadata.isGroup ? Chat.MessageGroupSpacing : Chat.MessageSpacing, 0, 0);
     };
 	
     self.chat = [[Chat alloc] initWithWrap:self.wrap];

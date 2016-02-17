@@ -82,7 +82,6 @@ class AssetMetrics: NSObject {
         metrics.uri = NSUserDefaults.standardUserDefaults().avatarURI ?? Environment.currentEnvironment.defaultAvatarURI
         metrics.originalKey = Keys.URL.Large
         metrics.largeKey = Keys.URL.Large
-        metrics.mediumKey = Keys.URL.Medium
         metrics.smallKey = Keys.URL.Small
         return metrics
         }()
@@ -91,21 +90,11 @@ class AssetMetrics: NSObject {
 extension Asset {
     
     func editCandyAsset(dictionary: [String : AnyObject], mediaType: MediaType) -> Asset {
+        guard let urls = dictionary[Keys.MediaURLs] as? [String : String] else { return self }
         switch mediaType {
-        case .Photo:
-            if let urls = dictionary[Keys.MediaURLs] as? [String : String] {
-                return edit(urls, metrics: AssetMetrics.imageMetrics)
-            } else if let urls = dictionary[Keys.ImageURLs] as? [String : String] {
-                return edit(urls, metrics: AssetMetrics.imageMetrics)
-            }
-        case .Video:
-            if let urls = dictionary[Keys.MediaURLs] as? [String : String] {
-                return edit(urls, metrics: AssetMetrics.videoMetrics)
-            } else if let urls = dictionary[Keys.VideoURLs] as? [String : String] {
-                return edit(urls, metrics: AssetMetrics.videoMetrics)
-            }
+        case .Photo: return edit(urls, metrics: AssetMetrics.imageMetrics)
+        case .Video: return edit(urls, metrics: AssetMetrics.videoMetrics)
         }
-        return self
     }
     
     func edit(dictionary: [String : String], metrics: AssetMetrics) -> Asset {
@@ -207,12 +196,12 @@ extension Asset {
             var fetched = 0
             for url in urls {
                 BlockImageFetching.enqueue(url, success: { (image) -> Void in
-                    fetched++;
+                    fetched++
                     if urls.count == fetched {
                         completionHandler()
                     }
                     }, failure: { (error) -> Void in
-                        fetched++;
+                        fetched++
                         if urls.count == fetched {
                             completionHandler()
                         }

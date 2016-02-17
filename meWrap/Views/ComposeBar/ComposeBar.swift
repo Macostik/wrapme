@@ -78,7 +78,7 @@ class ComposeBar: UIControl, UITextViewDelegate {
     }
     
     func finish() {
-        if let _ = (delegate?.composeBarDidShouldResignOnFinish?(self))  {
+        if (delegate?.composeBarDidShouldResignOnFinish?(self)) == true {
             textView.resignFirstResponder()
         }
 

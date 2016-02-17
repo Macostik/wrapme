@@ -141,6 +141,12 @@ final class ChangeProfileViewController: WLBaseViewController, EditSessionDelega
         }
     }
     
+    @IBAction func createImage(sender: AnyObject) {
+        let cameraNavigation = CaptureViewController.captureAvatarViewController()
+        cameraNavigation.captureDelegate = self
+        presentViewController(cameraNavigation, animated: false, completion: nil)
+    }
+    
     //MARK: UITextFieldDelegate
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

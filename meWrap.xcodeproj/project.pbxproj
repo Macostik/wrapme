@@ -145,6 +145,7 @@
 		C54743421C09CD8A00BECB25 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C547433F1C09CD8A00BECB25 /* ImageCache.swift */; };
 		C54743441C09CD8A00BECB25 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54743411C09CD8A00BECB25 /* ImageFetcher.swift */; };
 		C54743461C09CE3700BECB25 /* CATransition+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54743451C09CE3700BECB25 /* CATransition+Ext.swift */; };
+		C54809541C7491E700C1AF34 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C55A45251BAC189C0055AEC2 /* Localizable.strings */; };
 		C54AF67C19B8C491006F7EDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
 		C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104819067095007DB4AC /* WLCandyViewController.m */; };
 		C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */; };
@@ -1845,6 +1846,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C54604FD1C08C71700FB2303 /* Interface.storyboard in Resources */,
+				C54809541C7491E700C1AF34 /* Localizable.strings in Resources */,
 				C54604FE1C08C71700FB2303 /* WatchImages.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

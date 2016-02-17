@@ -107,6 +107,7 @@ final class HistoryItemViewController: WLBaseViewController {
         
         let metrics = dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<CandyCell>()))
         metrics.selection = { [weak self] (item, entry) -> Void in
+            self?.streamView.lock()
             CandyEnlargingPresenter.handleCandySelection(item, entry: entry, historyItem: self?.item, dismissingView: { (presenter, candy) -> UIView? in
                 guard let streamCandyItem = self?.streamView.itemPassingTest({ ($0.entry as? Candy) == candy}) else { return nil }
                 self?.streamView.scrollRectToVisible(streamCandyItem.frame, animated: true)
@@ -140,6 +141,12 @@ final class HistoryItemViewController: WLBaseViewController {
             setCoverCandy(item?.candies.first, animated: animated)
         }
         Dispatch.mainQueue.after(4) { [weak self] _ in self?.recursivelyUpdateCover(true) }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        streamView.unlock()
+        streamView.reload()
     }
 }
 

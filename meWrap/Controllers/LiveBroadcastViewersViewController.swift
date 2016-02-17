@@ -12,8 +12,8 @@ class LiveBroadcastViewerCell: StreamReusableView {
     
     static let DefaultHeight: CGFloat = 56
     
-    var avatarView = ImageView(backgroundColor: UIColor.whiteColor())
-    var nameLabel = Label(preset: FontPreset.Small, weight: UIFontWeightLight, textColor: Color.grayDarker)
+    private var avatarView = ImageView(backgroundColor: UIColor.whiteColor())
+    private var nameLabel = Label(preset: FontPreset.Small, weight: UIFontWeightLight, textColor: Color.grayDarker)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         avatarView.cornerRadius = 24
@@ -63,7 +63,7 @@ class LiveBroadcastViewersViewController: UIViewController {
         
         slideTransition.delegate = self
         
-        let metrics = StreamMetrics(identifier: "LiveBroadcastViewerCell")
+        let metrics = StreamMetrics(loader: LayoutStreamLoader<LiveBroadcastViewerCell>())
         metrics.size = LiveBroadcastViewerCell.DefaultHeight
         dataSource.addMetrics(metrics)
         update()

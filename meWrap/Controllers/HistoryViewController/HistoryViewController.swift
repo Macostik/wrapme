@@ -66,8 +66,6 @@ class HistoryViewController: SwipeViewController {
         
         setCandy(candy, direction: .Forward, animated: false)
         
-        UIView.performWithoutAnimation { UIViewController.attemptRotationToDeviceOrientation() }
-        
         if (self.showCommentViewController) {
             showCommentView()
         }

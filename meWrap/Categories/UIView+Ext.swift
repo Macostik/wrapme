@@ -95,9 +95,7 @@ extension UIView {
     
     @IBInspectable var cornerRadius: CGFloat {
         set {
-            Dispatch.mainQueue.async { [weak self] _ in
-                self?.layer.cornerRadius = newValue
-            }
+            layer.cornerRadius = newValue
         }
         get {
             return layer.cornerRadius
@@ -106,7 +104,10 @@ extension UIView {
     
     @IBInspectable var circled: Bool {
         set {
-            cornerRadius = newValue ? (bounds.size.height ?? 0)/2.0 : 0
+            cornerRadius = newValue ? bounds.height/2.0 : 0
+            Dispatch.mainQueue.async {
+                self.cornerRadius = newValue ? self.bounds.height/2.0 : 0
+            }
         }
         get {
             return cornerRadius == bounds.height/2.0
@@ -121,7 +122,7 @@ extension UIView {
             guard let color = layer.shadowColor else {
                 return nil
             }
-            return UIColor(CGColor: color);
+            return UIColor(CGColor: color)
         }
     }
     

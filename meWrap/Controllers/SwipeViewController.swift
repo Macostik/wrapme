@@ -53,7 +53,9 @@ class SwipeViewController: WLBaseViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     
-    private var scrollWidth: CGFloat = 0
+    private var scrollWidth: CGFloat {
+        return scrollView.width
+    }
     
     private var _position: SwipePosition = .Center
     private var position: SwipePosition {
@@ -79,7 +81,7 @@ class SwipeViewController: WLBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        scrollWidth = scrollView.width
+        scrollView.width = scrollView.width
         scrollView.contentSize = scrollView.size
         scrollView.alwaysBounceHorizontal = true
         scrollView.alwaysBounceVertical = false
@@ -202,11 +204,11 @@ class SwipeViewController: WLBaseViewController {
     }
     
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        viewController?.view.frame = CGRectMake(0, 0, scrollWidth, scrollView.height)
+        viewController?.view.frame.size = scrollView.size
     }
     
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        viewController?.view.frame = CGRectMake(0, 0, scrollWidth, scrollView.height)
+        viewController?.view.frame.size = scrollView.size
     }
 }
 

@@ -133,7 +133,6 @@ extension Comment {
                     controller.showCommentViewController = true
                 }
             }
-            
         }
     }
 }

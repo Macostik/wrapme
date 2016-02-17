@@ -47,9 +47,12 @@ class MessageAddNotification: Notification {
     
     override func presentWithIdentifier(identifier: String?) {
         super.presentWithIdentifier(identifier)
-        if let nc = UINavigationController.main() where identifier == "reply" {
+        if let nc = UINavigationController.main() {
             let controller = message?.viewControllerWithNavigationController(nc) as? WrapViewController
-            controller?.showKeyboard = true
+            controller?.segment = .Chat
+            if identifier == "reply" {
+                controller?.showKeyboard = true
+            }
         }
     }
 }

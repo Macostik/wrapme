@@ -113,7 +113,13 @@ final class WrapViewController: WLBaseViewController {
     
     weak var wrap: Wrap?
     
-    var segment: WrapSegment = .Media
+    var segment: WrapSegment = .Media {
+        didSet {
+            if isViewLoaded() && segment != oldValue {
+                updateSegment()
+            }
+        }
+    }
     
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -185,23 +191,20 @@ final class WrapViewController: WLBaseViewController {
     
     private func updateSegmentIfNeeded() {
         if segment.rawValue != segmentedControl.selectedSegment {
-            segmentedControl.selectedSegment = segment.rawValue
-            segmentChanged(segmentedControl)
+            updateSegment()
         }
+    }
+    
+    private func updateSegment() {
+        segmentedControl.selectedSegment = segment.rawValue
+        viewController = controllerForSegment(segment)
+        updateCandyCounter()
     }
     
     func presentLiveProadcast(broadcast: LiveBroadcast) {
-        if segment != .Media {
-            changeSegment(.Media)
-        }
+        segment = .Media
         let controller = controllerForSegment(.Media) as? MediaViewController
         controller?.presentLiveBroadcast(broadcast)
-    }
-    
-    private func changeSegment(segment: WrapSegment) {
-        self.segment = segment
-        viewController = controllerForSegment(segment)
-        updateCandyCounter()
     }
     
     private func controllerForSegment(segment: WrapSegment) -> WLWrapEmbeddedViewController {
@@ -348,7 +351,7 @@ final class WrapViewController: WLBaseViewController {
 extension WrapViewController {
     
     @IBAction func segmentChanged(sender: SegmentedControl) {
-        changeSegment(WrapSegment(rawValue: sender.selectedSegment)!)
+        segment = WrapSegment(rawValue: sender.selectedSegment)!
     }
     
     @IBAction func follow(sender: Button) {

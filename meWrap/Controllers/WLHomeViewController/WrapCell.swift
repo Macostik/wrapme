@@ -8,14 +8,43 @@
 
 import UIKit
 
-@objc
-protocol WrapCellDelegate: NSObjectProtocol {
+class RecentCandiesView: StreamReusableView {
+    
+    var streamView: StreamView = StreamView()
+    
+    lazy var dataSource: StreamDataSource = StreamDataSource(streamView: self.streamView)
+    
+    class func layoutMetrics() -> StreamMetrics {
+        return StreamMetrics(loader: LayoutStreamLoader<RecentCandiesView>())
+    }
+    
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        dataSource.numberOfGridColumns = 3
+        streamView.layout = SquareGridLayout(horizontal: false)
+        dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<CandyCell>())).disableMenu = true
+        dataSource.layoutSpacing = Constants.pixelSize
+        backgroundColor = Color.orange
+        streamView.backgroundColor = UIColor.whiteColor()
+        addSubview(streamView)
+        streamView.snp_makeConstraints { (make) -> Void in
+            make.leading.top.trailing.equalTo(self)
+            make.bottom.equalTo(self).inset(5)
+        }
+    }
+    
+    override func setup(entry: AnyObject?) {
+        guard let wrap = entry as? Wrap, let recentCandies = wrap.recentCandies else { return }
+        layoutIfNeeded()
+        dataSource.numberOfItems = (recentCandies.count > Constants.recentCandiesLimit_2) ? Constants.recentCandiesLimit : Constants.recentCandiesLimit_2
+        dataSource.items = recentCandies
+    }
+}
 
+@objc protocol WrapCellDelegate: NSObjectProtocol {
     func wrapCellDidBeginPanning(cell: WrapCell)
     func wrapCellDidEndPanning(cell: WrapCell, performedAction:Bool)
     func wrapCell(cell: WrapCell, presentChatViewControllerForWrap wrap: Wrap)
     func wrapCell(cell: WrapCell, presentCameraViewControllerForWrap wrap: Wrap)
-
 }
 
 class WrapCell: StreamReusableView {
@@ -45,13 +74,13 @@ class WrapCell: StreamReusableView {
         }
         let swipeAction = SwipeAction(view: self)
         
-        swipeAction.shouldBeginPanning = { [weak self] (action) -> Bool in
-            guard let wrap = self?.entry as? Wrap else {
+        swipeAction.shouldBeginPanning = { [unowned self] (action) -> Bool in
+            guard let wrap = self.entry as? Wrap else {
                 return false
             }
             if wrap.isPublic {
                 if wrap.isContributing {
-                    return self?.swipeAction?.direction == .Left
+                    return action.direction == .Left
                 } else {
                     return false
                 }
@@ -60,24 +89,20 @@ class WrapCell: StreamReusableView {
             }
         }
         
-        swipeAction.didBeginPanning = { [weak self] (action) -> Void in
-            if let cell = self {
-                cell.delegate?.wrapCellDidBeginPanning(cell)
-            }
+        swipeAction.didBeginPanning = { [unowned self] (action) -> Void in
+            self.delegate?.wrapCellDidBeginPanning(self)
         }
         
-        swipeAction.didEndPanning = { [weak self] (action, performedAction) -> Void in
-            if let cell = self {
-                cell.delegate?.wrapCellDidEndPanning(cell, performedAction: performedAction)
-            }
+        swipeAction.didEndPanning = { [unowned self] (action, performedAction) -> Void in
+            self.delegate?.wrapCellDidEndPanning(self, performedAction: performedAction)
         }
         
-        swipeAction.didPerformAction = { [weak self] (action, direction) -> Void in
-            if let cell = self, let wrap = cell.entry as? Wrap {
+        swipeAction.didPerformAction = { [unowned self] (action, direction) -> Void in
+            if let wrap = self.entry as? Wrap {
                 if action.direction == .Right {
-                    cell.delegate?.wrapCell(cell, presentChatViewControllerForWrap: wrap)
+                    self.delegate?.wrapCell(self, presentChatViewControllerForWrap: wrap)
                 } else if action.direction == .Left {
-                    cell.delegate?.wrapCell(cell, presentCameraViewControllerForWrap: wrap)
+                    self.delegate?.wrapCell(self, presentCameraViewControllerForWrap: wrap)
                 }
             }
         }

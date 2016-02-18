@@ -177,8 +177,6 @@
 		C55141A41C2EFB090080E731 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55141A31C2EFB090080E731 /* DeviceManager.swift */; };
 		C5528A0F1B3425C500AF1311 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		C552A8321BFDD37B00A7FFAD /* FlowerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA6D9A1BFCC8270029970A /* FlowerMenu.swift */; };
-		C552A83E1BFE293300A7FFAD /* RecentCandiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C552A83D1BFE293300A7FFAD /* RecentCandiesView.swift */; };
-		C552A8401BFE2BF600A7FFAD /* RecentCandiesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C552A83F1BFE2BF600A7FFAD /* RecentCandiesView.xib */; };
 		C553B1901BF9F75600E50219 /* EntryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C553B18F1BF9F75600E50219 /* EntryPresenter.swift */; };
 		C553DB401C6DF7BA001B13C7 /* WrapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C553DB291C6DF7BA001B13C7 /* WrapViewController.swift */; };
 		C553DB411C6DF7BA001B13C7 /* CandyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C553DB2A1C6DF7BA001B13C7 /* CandyCell.swift */; };
@@ -302,8 +300,6 @@
 		C5E6DD9F1C0DD11A004992E4 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6DD9E1C0DD11A004992E4 /* Keys.swift */; };
 		C5E6DDA01C0DD30C004992E4 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6DD9E1C0DD11A004992E4 /* Keys.swift */; };
 		C5E6DDA11C0DD314004992E4 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6DD9E1C0DD11A004992E4 /* Keys.swift */; };
-		C5E6F0211BFF38C200FA3D4F /* LeftSwipeActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E6F01D1BFF38C200FA3D4F /* LeftSwipeActionView.xib */; };
-		C5E6F0221BFF38C200FA3D4F /* RightSwipeActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E6F01E1BFF38C200FA3D4F /* RightSwipeActionView.xib */; };
 		C5E6F0231BFF38C200FA3D4F /* SwipeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6F01F1BFF38C200FA3D4F /* SwipeAction.swift */; };
 		C5E6F0281BFF558000FA3D4F /* MediaDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6F0271BFF558000FA3D4F /* MediaDataSource.swift */; };
 		C5E6F02E1BFF710900FA3D4F /* FontPresetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6F02D1BFF710900FA3D4F /* FontPresetter.swift */; };
@@ -597,8 +593,6 @@
 		C54CEF9C1BCFB09100128CBE /* UIViewController+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		C54D12CA1C4524D3009014FB /* LiveBroadcastViewersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveBroadcastViewersViewController.swift; sourceTree = "<group>"; };
 		C55141A31C2EFB090080E731 /* DeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
-		C552A83D1BFE293300A7FFAD /* RecentCandiesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentCandiesView.swift; path = WLHomeViewController/RecentCandiesView.swift; sourceTree = "<group>"; };
-		C552A83F1BFE2BF600A7FFAD /* RecentCandiesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RecentCandiesView.xib; path = WLHomeViewController/RecentCandiesView.xib; sourceTree = "<group>"; };
 		C553B18F1BF9F75600E50219 /* EntryPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryPresenter.swift; sourceTree = "<group>"; };
 		C553DB291C6DF7BA001B13C7 /* WrapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapViewController.swift; sourceTree = "<group>"; };
 		C553DB2A1C6DF7BA001B13C7 /* CandyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyCell.swift; sourceTree = "<group>"; };
@@ -764,8 +758,6 @@
 		C5E6E8321BBAC3EC007FFA66 /* DefinedBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefinedBlocks.h; sourceTree = "<group>"; };
 		C5E6E8341BBAC3EC007FFA66 /* GeometryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometryHelper.h; sourceTree = "<group>"; };
 		C5E6E8361BBAC3EC007FFA66 /* Timecost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timecost.h; sourceTree = "<group>"; };
-		C5E6F01D1BFF38C200FA3D4F /* LeftSwipeActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LeftSwipeActionView.xib; path = WLHomeViewController/LeftSwipeActionView.xib; sourceTree = "<group>"; };
-		C5E6F01E1BFF38C200FA3D4F /* RightSwipeActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RightSwipeActionView.xib; path = WLHomeViewController/RightSwipeActionView.xib; sourceTree = "<group>"; };
 		C5E6F01F1BFF38C200FA3D4F /* SwipeAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwipeAction.swift; path = WLHomeViewController/SwipeAction.swift; sourceTree = "<group>"; };
 		C5E6F0271BFF558000FA3D4F /* MediaDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaDataSource.swift; sourceTree = "<group>"; };
 		C5E6F02D1BFF710900FA3D4F /* FontPresetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontPresetter.swift; sourceTree = "<group>"; };
@@ -1075,12 +1067,8 @@
 			isa = PBXGroup;
 			children = (
 				5B66B5B81C24696800451113 /* WrapCell.xib */,
-				C552A83D1BFE293300A7FFAD /* RecentCandiesView.swift */,
-				C552A83F1BFE2BF600A7FFAD /* RecentCandiesView.xib */,
 				C52BA62B1BFF314600D58D75 /* WrapCell.swift */,
 				C5E6F01F1BFF38C200FA3D4F /* SwipeAction.swift */,
-				C5E6F01D1BFF38C200FA3D4F /* LeftSwipeActionView.xib */,
-				C5E6F01E1BFF38C200FA3D4F /* RightSwipeActionView.xib */,
 				12A7A74318DA180C008FF6F0 /* WLHomeViewController.h */,
 				12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */,
 			);
@@ -1870,7 +1858,6 @@
 				C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */,
 				C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */,
 				C53012921BF4E3EA00098F9C /* EmojiView.xib in Resources */,
-				C5E6F0221BFF38C200FA3D4F /* RightSwipeActionView.xib in Resources */,
 				C553DB451C6DF7BA001B13C7 /* MessageWithNameCell.xib in Resources */,
 				C5F44FEE1C5CB9780049215D /* EditAssetCell.xib in Resources */,
 				C5B8F7201B82172D00A5E541 /* WLDrawingViewController.xib in Resources */,
@@ -1878,7 +1865,6 @@
 				C5B91A361BB3F812000E08E7 /* Main.storyboard in Resources */,
 				5BA4F8831A1CA08A00DB1A25 /* s02.wav in Resources */,
 				C54AF72219B8C491006F7EDB /* Images.xcassets in Resources */,
-				C552A8401BFE2BF600A7FFAD /* RecentCandiesView.xib in Resources */,
 				C553DB481C6DF7BA001B13C7 /* WLUnreadMessagesView.xib in Resources */,
 				C5B91A3B1BB40423000E08E7 /* SignUp.storyboard in Resources */,
 				C5E4FD071BF7629E00575DA4 /* RecentCommentCell.xib in Resources */,
@@ -1909,7 +1895,6 @@
 				C54AF73A19B8C491006F7EDB /* numbers.plist in Resources */,
 				C5B91A3E1BB40D88000E08E7 /* Camera.storyboard in Resources */,
 				C509E2BA1B96F46A003F6C21 /* Default-667h@2x.png in Resources */,
-				C5E6F0211BFF38C200FA3D4F /* LeftSwipeActionView.xib in Resources */,
 				C5C3FEAC1B8F311500F177EC /* Default-Portrait.png in Resources */,
 				C5C3FEAA1B8F311500F177EC /* Default@2x.png in Resources */,
 				C5BEC3A51B8F16E800499EEA /* logo_and_caption_orange@2x.png in Resources */,
@@ -2205,7 +2190,6 @@
 				C54C42631BDE8AEC003E644D /* Authorization.swift in Sources */,
 				C553DB4B1C6DF7BA001B13C7 /* ContributorsViewController.swift in Sources */,
 				C5F11E591C64A21C001C2486 /* SignupStepViewController.swift in Sources */,
-				C552A83E1BFE293300A7FFAD /* RecentCandiesView.swift in Sources */,
 				C564C8161C4A47EE001C6460 /* CaptureAvatarViewController.swift in Sources */,
 				C5AEE42F1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */,
 				C54AF6E019B8C491006F7EDB /* WLAppDelegate.m in Sources */,

@@ -70,7 +70,7 @@
         }];
     }];
     
-    [homeDataSource addMetrics:[[StreamMetrics alloc] initWithIdentifier:@"RecentCandiesView" initializer:^(StreamMetrics *metrics) {
+    [homeDataSource addMetrics:[[RecentCandiesView layoutMetrics] change:^(StreamMetrics *metrics) {
         [metrics setSizeAt:^CGFloat(StreamItem *item) {
             int size = (streamView.width - 2.0f)/3.0f;
             return ([homeDataSource.wrap.candies count] > [Constants recentCandiesLimit_2] ? 2*size : size) + 5;

@@ -113,19 +113,22 @@ class AddressBook: Notifier {
         if let addressBook = ABAddressBook {
             success(addressBook)
         } else {
-            let addressBook = ABAddressBookCreateWithOptions(nil, nil).takeUnretainedValue()
-            ABAddressBookRequestAccessWithCompletion(addressBook, { (granted, error) -> Void in
-                Dispatch.mainQueue.async { () -> Void in
-                    if let error = error as NSError? {
-                        failure?(error)
-                    } else if granted {
-                        self.ABAddressBook = addressBook
-                        success(addressBook)
-                    } else {
-                        failure?(NSError(message: "no_access_to_contacts".ls))
+            if let addressBook = ABAddressBookCreateWithOptions(nil, nil)?.takeUnretainedValue() {
+                ABAddressBookRequestAccessWithCompletion(addressBook, { (granted, error) -> Void in
+                    Dispatch.mainQueue.async { () -> Void in
+                        if let error = error as NSError? {
+                            failure?(error)
+                        } else if granted {
+                            self.ABAddressBook = addressBook
+                            success(addressBook)
+                        } else {
+                            failure?(NSError(message: "no_access_to_contacts".ls))
+                        }
                     }
-                }
-            })
+                })
+            } else {
+                failure?(NSError(message: "no_access_to_contacts".ls))
+            }
         }
     }
     

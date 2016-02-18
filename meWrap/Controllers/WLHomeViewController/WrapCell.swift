@@ -19,6 +19,7 @@ class RecentCandiesView: StreamReusableView {
     }
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
+        streamView.scrollEnabled = false
         dataSource.numberOfGridColumns = 3
         streamView.layout = SquareGridLayout(horizontal: false)
         dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<CandyCell>())).disableMenu = true

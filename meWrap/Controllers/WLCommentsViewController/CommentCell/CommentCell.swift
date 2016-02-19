@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MobileCoreServices
 
 class CommentCell: StreamReusableView {
     
@@ -40,7 +41,7 @@ class CommentCell: StreamReusableView {
             }
             menu.addCopyAction({ (comment) -> Void in
                 if let comment = comment as? Comment, let text = comment.text where !text.isEmpty {
-                    UIPasteboard.generalPasteboard().setValue(text, forPasteboardType: "kUTTypeText")
+                    UIPasteboard.generalPasteboard().setValue(text, forPasteboardType: kUTTypeText as String)
                 }
             })
             menu.entry = comment

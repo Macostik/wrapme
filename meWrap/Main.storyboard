@@ -3863,7 +3863,6 @@ QWRkEEZyaWVuZFZpZXc
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="done:" destination="TDj-ND-asZ" eventType="touchUpInside" id="O8D-I0-b7d"/>
                                             <action selector="finishTitleInput:" destination="Ubc-jI-W0F" eventType="touchUpInside" id="Mzn-D4-fMK"/>
                                         </connections>
                                     </button>

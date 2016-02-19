@@ -355,6 +355,33 @@ final class LiveBroadcasterViewController: LiveViewController {
     }
     
     private var startEventIsAlreadyPresented = false
+    
+    //MARK: WLBaseViewController 
+    
+    override func constantForKeyboardAdjustmentBottomConstraint(constraint: NSLayoutConstraint!, defaultConstant: CGFloat, keyboardHeight: CGFloat) -> CGFloat {
+        if let identifier = constraint.identifier {
+            if UIApplication.sharedApplication().statusBarOrientation.isPortrait == true {
+                switch identifier {
+                case "trailing_landscape":
+                    return 12.0
+                case "bottom_landscape":
+                    return keyboardHeight + 68.0
+                default:
+                    return super.constantForKeyboardAdjustmentBottomConstraint(constraint, defaultConstant: defaultConstant, keyboardHeight: keyboardHeight)
+                }
+            } else {
+                switch identifier {
+                case "trailing_landscape":
+                    return 68.0
+                case "bottom_landscape":
+                    return keyboardHeight + 68.0
+                default:
+                    return super.constantForKeyboardAdjustmentBottomConstraint(constraint, defaultConstant: defaultConstant, keyboardHeight: keyboardHeight)
+                }
+            }
+        }
+        return super.constantForKeyboardAdjustmentBottomConstraint(constraint, defaultConstant: defaultConstant, keyboardHeight: keyboardHeight)
+    }
 }
 
 extension LiveBroadcasterViewController: StreamerListener {

@@ -36,13 +36,14 @@ class CommentCell: StreamReusableView {
                             error?.show()
                             self?.userInteractionEnabled = false
                     })
-                    menu.addCopyAction({ (comment) -> Void in
-                        if let comment = comment as? Comment, let text = comment.text where !text.isEmpty {
-                            UIPasteboard.generalPasteboard().setValue(text, forPasteboardType: "kUTTypeText")
-                        }
-                    })
                     })
             }
+            menu.addCopyAction({ (comment) -> Void in
+                if let comment = comment as? Comment, let text = comment.text where !text.isEmpty {
+                    UIPasteboard.generalPasteboard().setValue(text, forPasteboardType: "kUTTypeText")
+                }
+            })
+            menu.entry = comment
         }
     }
     

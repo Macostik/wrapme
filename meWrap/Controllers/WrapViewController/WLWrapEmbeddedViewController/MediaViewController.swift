@@ -256,7 +256,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
         candyMetrics.size = round(view.width / 2.5) + 32
         candyMetrics.selectable = false
         candyMetrics.selection = { [weak self] (item, entry) -> Void in
-            CandyEnlargingPresenter.handleCandySelection(item, entry: entry, historyItem: self?.history.itemWithCandy(entry as? Candy), dismissingView: { (presenter, candy) -> UIView? in
+            CandyEnlargingPresenter.handleCandySelection(item, entry: entry, historyItem: self?.history.itemWithCandy(entry as? Candy), isPreseningView: true, dismissingView: { (presenter, candy) -> UIView? in
                 return self?.enlargingPresenterDismissingView(candy)
             })
         }

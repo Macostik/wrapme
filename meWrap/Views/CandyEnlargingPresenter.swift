@@ -11,10 +11,12 @@ import UIKit
 class CandyEnlargingPresenter: UIView {
     
     class func handleCandySelection(item: StreamItem?, entry: AnyObject?, dismissingView: ((presenter: CandyEnlargingPresenter, candy: Candy) -> UIView?)) -> Void {
-        handleCandySelection(item, entry: entry, historyItem: nil, dismissingView: dismissingView)
+        handleCandySelection(item, entry: entry, historyItem: nil, isPreseningView: false, dismissingView: dismissingView)
     }
     
-    class func handleCandySelection(item: StreamItem?, entry: AnyObject?,  historyItem: HistoryItem?, dismissingView: ((presenter: CandyEnlargingPresenter, candy: Candy) -> UIView?)) -> Void {
+    private var candy: Candy?
+    
+    class func handleCandySelection(item: StreamItem?, entry: AnyObject?,  historyItem: HistoryItem?, isPreseningView: Bool = false, dismissingView: ((presenter: CandyEnlargingPresenter, candy: Candy) -> UIView?)) -> Void {
         guard let cell = item?.view as? CandyCell, let candy = entry as? Candy else {
             return
         }
@@ -23,6 +25,8 @@ class CandyEnlargingPresenter: UIView {
                 historyViewController.history = historyItem?.history
                 let presenter = CandyEnlargingPresenter()
                 historyViewController.presenter = presenter
+                historyViewController.presentingView = isPreseningView ? dismissingView(presenter: presenter, candy: candy) : nil
+                presenter.candy = candy
                 let presented = presenter.present(candy, fromView: cell, completionHandler: { (_) -> Void in
                     UINavigationController.main()?.pushViewController(historyViewController, animated: false)
                 })
@@ -36,6 +40,7 @@ class CandyEnlargingPresenter: UIView {
             ChronologicalEntryPresenter.presentEntry(candy, animated: true)
         }
     }
+    
     
     private var imageView: UIImageView = {
         let imageView = UIImageView()

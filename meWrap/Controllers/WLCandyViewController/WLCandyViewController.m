@@ -44,7 +44,7 @@
     self.videoPlayerView.delegate = self;
     
     [self.candy fetch:nil failure:nil];
-    self.slideInteractiveTransition = [[SlideInteractiveTransition alloc] initWithContentView:self.contentView];
+    self.slideInteractiveTransition = [[SlideInteractiveTransition alloc] initWithContentView:self.contentView imageView:self.imageView];
     self.slideInteractiveTransition.delegate = self;
 }
 
@@ -206,6 +206,11 @@
 
 - (void)slideInteractiveTransitionDidFinish:(SlideInteractiveTransition *)controller {
     [self.historyViewController.navigationController popViewControllerAnimated:NO];
+}
+
+- (UIView *)slideInteractiveTransitionPresentingView:(SlideInteractiveTransition *)controller {
+    self.historyViewController.presentingView.alpha = 0;
+    return self.historyViewController.presentingView;
 }
 
 // MARK: - NetworkNotifying

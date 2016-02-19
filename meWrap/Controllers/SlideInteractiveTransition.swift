@@ -15,6 +15,8 @@ import UIKit
     optional func slideInteractiveTransitionDidFinish(controller: SlideInteractiveTransition)
     
     optional func slideInteractiveTransitionSnapshotView(controller: SlideInteractiveTransition) -> UIView?
+    
+    optional func slideInteractiveTransitionPresentingView(controller: SlideInteractiveTransition) -> UIView?
 }
 
 class SlideInteractiveTransition: NSObject, UIGestureRecognizerDelegate {
@@ -23,10 +25,12 @@ class SlideInteractiveTransition: NSObject, UIGestureRecognizerDelegate {
     
     private weak var screenShotView: UIView?
     private weak var contentView: UIView!
+    private weak var imageView: UIImageView?
     lazy var panGestureRecognizer: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
     
-    required init (contentView: UIView) {
+    required init (contentView: UIView, imageView: UIImageView? = nil) {
         self.contentView = contentView
+        self.imageView = imageView
         super.init()
         panGestureRecognizer.delegate = self
         contentView.addGestureRecognizer(panGestureRecognizer)
@@ -34,28 +38,58 @@ class SlideInteractiveTransition: NSObject, UIGestureRecognizerDelegate {
     
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
         guard let superview = contentView.superview else { return }
-        let translation = gesture.translationInView(superview).y
-        let percentCompleted = abs(translation/superview.height)
+        let translation = gesture.translationInView(superview)
+        let animate = UIApplication.sharedApplication().statusBarOrientation.isPortrait
+        let presentingView = animate ? self.presentingView() : nil
+        let percentCompleted = abs(translation.y/superview.height)
         switch gesture.state {
         case .Began:
+            if let imageView = imageView where animate == true && presentingView != nil {
+                imageView.removeFromSuperview()
+                let _imageView = UIImageView(frame: imageView.frame)
+                _imageView.image = imageView.image
+                _imageView.contentMode = .ScaleAspectFit
+                self.imageView = _imageView
+                superview.addSubview(_imageView)
+                contentView.hidden = true
+            }
             addScreenShotView()
             delegate?.slideInteractiveTransition?(self, hideViews: true)
         case .Changed:
-            contentView.transform = CGAffineTransformMakeTranslation(0, translation)
+            if presentingView != nil  {
+                imageView?.transform = CGAffineTransformMakeTranslation(translation.x, translation.y)
+            } else {
+                contentView.transform = CGAffineTransformMakeTranslation(0, translation.y)
+            }
             screenShotView?.alpha = percentCompleted
         case .Ended, .Cancelled:
             if  (percentCompleted > 0.25 || abs(gesture.velocityInView(superview).y) > 1000) {
                 let endPoint = superview.height
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
                     self.screenShotView?.alpha = 1
-                    self.contentView.transform = CGAffineTransformMakeTranslation(0, translation <= 0 ? -endPoint : endPoint)
+                    if let presentingView = presentingView {
+                        guard let imageView = self.imageView else { return }
+                        imageView.clipsToBounds = true
+                        imageView.contentMode = .ScaleAspectFill
+                       self.imageView?.frame = superview.convertRect(presentingView.bounds, fromCoordinateSpace:presentingView)
+                    } else {
+                        self.contentView.transform = CGAffineTransformMakeTranslation(0, translation.y <= 0 ? -endPoint : endPoint)
+                    }
                     }, completion: { (finished) -> Void in
+                        presentingView?.alpha = 1
+                        self.imageView?.removeFromSuperview()
                         self.delegate?.slideInteractiveTransitionDidFinish?(self)
                 })
             } else {
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
-                     self.contentView.transform = CGAffineTransformIdentity
-                    }, completion: { (finished) -> Void in
+                    if presentingView != nil {
+                        self.imageView?.frame = self.contentView.frame
+                    } else {
+                        self.contentView.transform = CGAffineTransformIdentity
+                    }
+                    }, completion: { _ in
+                        presentingView?.alpha = 1
+                        self.contentView.hidden = false
                         self.screenShotView?.removeFromSuperview()
                         self.delegate?.slideInteractiveTransition?(self, hideViews: false)
                 })
@@ -68,7 +102,11 @@ class SlideInteractiveTransition: NSObject, UIGestureRecognizerDelegate {
         return delegate?.slideInteractiveTransitionSnapshotView?(self)
     }
     
-    private func addScreenShotView () {
+    private func presentingView() -> UIView? {
+        return self.delegate?.slideInteractiveTransitionPresentingView?(self)
+    }
+    
+    func addScreenShotView () {
         if let screenShotView = snapshotView()?.snapshotViewAfterScreenUpdates(true) {
             screenShotView.alpha = 0
             switch DeviceManager.defaultManager.orientation {

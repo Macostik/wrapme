@@ -38,7 +38,7 @@ class ComposeBar: UIControl, UITextViewDelegate {
             textView.text = newValue
             textView.placeholderLabel?.hidden = newValue?.isEmpty ?? false || textView.selectedRange.location != 0
             updateHeight()
-            setDoneButtonHidden(newValue?.isEmpty ?? true)
+            setDoneButtonHidden(newValue?.trim.isEmpty ?? true)
         }
         get {
             return textView.text
@@ -127,18 +127,18 @@ class ComposeBar: UIControl, UITextViewDelegate {
     func textViewDidChange(textView: UITextView) {
         delegate?.composeBarDidChangeText?(self)
         updateHeight()
-        setDoneButtonHidden(textView.text.isEmpty)
+        setDoneButtonHidden(textView.text.trim.isEmpty)
         sendActionsForControlEvents(.EditingChanged)
     }
     
     func textViewDidBeginEditing(textView: UITextView) {
-        setDoneButtonHidden(textView.text.isEmpty)
+        setDoneButtonHidden(textView.text.trim.isEmpty)
         delegate?.composeBarDidBeginEditing?(self)
         sendActionsForControlEvents(.EditingDidBegin)
     }
     
     func textViewDidEndEditing(textView: UITextView) {
-        setDoneButtonHidden(textView.text.isEmpty)
+        setDoneButtonHidden(textView.text.trim.isEmpty)
         delegate?.composeBarDidEndEditing?(self)
         sendActionsForControlEvents(.EditingDidEnd)
         updateHeight()

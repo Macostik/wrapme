@@ -218,10 +218,10 @@ class LiveViewerViewController: LiveViewController {
     }
     
     @IBAction func sendMessage(sender: AnyObject?) {
-        if let text = composeBar.text, let uuid = User.currentUser?.uid where !text.isEmpty {
+        if let text = composeBar.text?.trim where !text.isEmpty {
             chatSubscription?.send([
                 "content" : text,
-                "userUid" : uuid
+                "userUid" : User.currentUser?.uid ?? ""
                 ])
         }
         composeBar.text = nil

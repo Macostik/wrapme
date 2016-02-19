@@ -61,7 +61,7 @@
     self.textView.text = text;
     self.placeholderLabel.hidden = text.nonempty || self.textView.selectedRange.location != 0;
     [self updateHeight];
-    [self setDoneButtonHidden:!text.nonempty];
+    [self setDoneButtonHidden:!text.trim.nonempty];
 }
 
 - (void)setDoneButtonHidden:(BOOL)hidden {
@@ -139,12 +139,12 @@
     }
     self.placeholderLabel.hidden = textView.text.nonempty;
     [self updateHeight];
-    [self setDoneButtonHidden:!textView.text.nonempty];
+    [self setDoneButtonHidden:!textView.text.trim.nonempty];
     [self sendActionsForControlEvents:UIControlEventEditingChanged];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    [self setDoneButtonHidden:!textView.text.nonempty];
+    [self setDoneButtonHidden:!textView.text.trim.nonempty];
 	if ([self.delegate respondsToSelector:@selector(composeBarDidBeginEditing:)]) {
 		[self.delegate composeBarDidBeginEditing:self];
 	}
@@ -152,7 +152,7 @@
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
-    [self setDoneButtonHidden:!textView.text.nonempty];
+    [self setDoneButtonHidden:!textView.text.trim.nonempty];
 	if ([self.delegate respondsToSelector:@selector(composeBarDidEndEditing:)]) {
 		[self.delegate composeBarDidEndEditing:self];
 	}

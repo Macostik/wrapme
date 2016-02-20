@@ -48,6 +48,7 @@ class HistoryItemCell: StreamReusableView {
         let streamView = StreamView()
         streamView.showsHorizontalScrollIndicator = false
         streamView.showsVerticalScrollIndicator = false
+        streamView.alwaysBounceHorizontal = true
         addSubview(streamView)
         self.streamView = streamView
         

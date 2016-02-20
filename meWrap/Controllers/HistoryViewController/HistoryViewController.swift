@@ -42,8 +42,6 @@ class HistoryViewController: SwipeViewController {
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var commentButton: Button!
     
-    private var disableRotation = false
-    private var candyIndex = 0
     private var cachedCandyViewControllers = [Candy : WLCandyViewController]()
     private weak var removedCandy: Candy?
     private var paginationQueue = RunQueue(limit: 1)
@@ -80,8 +78,8 @@ class HistoryViewController: SwipeViewController {
             setBarsHidden(false, animated: animated)
             commentButtonPrioritizer.defaultState = true
         }
-        if let candy = candy where !candy.valid {
-            if let candy = candyAfterDeletingCandy(candy) {
+        if let candy = candy, let index = candies.indexOf(candy) where !candy.valid {
+            if let candy = candyAfterDeletingCandyAt(index) {
                 setCandy(candy, direction: .Forward, animated: false)
             } else {
                 navigationController?.popViewControllerAnimated(false)
@@ -159,9 +157,9 @@ class HistoryViewController: SwipeViewController {
         commentButton.setTitle(title, forState:.Normal)
     }
     
-    private func candyAfterDeletingCandy(candy: Candy?) -> Candy? {
+    private func candyAfterDeletingCandyAt(index: Int) -> Candy? {
         guard wrap?.candies.count > 0 else { return nil }
-        return candies[safe: candyIndex] ?? candies[safe: candyIndex - 1] ?? candies.first
+        return candies[safe: index] ?? candies[safe: index - 1] ?? candies.first
     }
     
     private func downloadCandyOriginal(candy: Candy?, success: UIImage -> Void, failure: FailureBlock) {
@@ -198,7 +196,6 @@ class HistoryViewController: SwipeViewController {
     override func didChangeViewController(viewController: UIViewController!) {
         guard let candy = (viewController as? WLCandyViewController)?.candy else { return }
         self.candy = candy
-        candyIndex = candies.indexOf(candy) ?? 0
         fetchCandiesOlderThen(candy)
     }
     
@@ -207,16 +204,14 @@ class HistoryViewController: SwipeViewController {
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return disableRotation ? super.supportedInterfaceOrientations() : .All
+        return .All
     }
 }
 
 extension HistoryViewController: EntryNotifying {
     
     func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {
-        if let candy = candy {
-            candyIndex = candies.indexOf(candy) ?? 0
-        }
+        candies = wrap?.historyCandies ?? []
     }
     
     func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
@@ -226,19 +221,23 @@ extension HistoryViewController: EntryNotifying {
     }
     
     func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
-        if let candy = candy where candy == entry {
-            
+        
+        guard let candy = entry as? Candy, let index = candies.indexOf(candy) else { return }
+        
+        candies.removeAtIndex(index)
+        
+        if candy == self.candy {
             if navigationController?.presentedViewController != nil {
                 navigationController?.dismissViewControllerAnimated(false, completion: nil)
             }
             if removedCandy == candy {
                 Toast.show((candy.isVideo ? "video_deleted" : "photo_deleted").ls)
-                self.removedCandy = nil;
+                self.removedCandy = nil
             } else {
                 Toast.show((candy.isVideo ? "video_unavailable" : "photo_unavailable").ls)
             }
             
-            if let nextCandy = candyAfterDeletingCandy(candy) {
+            if let nextCandy = candyAfterDeletingCandyAt(index) {
                 setCandy(nextCandy, direction: .Forward, animated: false)
                 setBarsHidden(false, animated: true)
             } else {

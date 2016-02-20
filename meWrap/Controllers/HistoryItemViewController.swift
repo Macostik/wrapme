@@ -13,22 +13,14 @@ final class HistoryItemCoverView: StreamReusableView {
     
     private let imageView = ImageView(backgroundColor: UIColor.clearColor())
     
-    private var videoIndicator = Label(icon: "+", size: 24)
-    
     override func layoutWithMetrics(metrics: StreamMetrics) {
         addSubview(imageView)
-        addSubview(videoIndicator)
         imageView.snp_makeConstraints { $0.edges.equalTo(self) }
-        videoIndicator.snp_makeConstraints {
-            $0.right.equalTo(self).inset(2)
-            $0.top.equalTo(self).inset(22)
-        }
     }
     
     override func setup(entry: AnyObject?) {
         if let candy = entry as? Candy {
             imageView.url = candy.asset?.large
-            videoIndicator.hidden = candy.mediaType != .Video
         }
     }
 }

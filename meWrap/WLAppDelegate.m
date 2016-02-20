@@ -7,7 +7,6 @@
 //
 
 #import "WLAppDelegate.h"
-#import "WLHomeViewController.h"
 #import "iVersion.h"
 #import "GAI.h"
 #import <NewRelicAgent/NewRelic.h>

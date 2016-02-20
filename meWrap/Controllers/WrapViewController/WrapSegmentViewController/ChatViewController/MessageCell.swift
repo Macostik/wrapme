@@ -11,10 +11,6 @@ import MobileCoreServices
 
 final class MessageDateView: StreamReusableView {
     
-    class func layoutMetrics() -> StreamMetrics {
-        return StreamMetrics(loader: LayoutStreamLoader<MessageDateView>(), size: 33)
-    }
-    
     weak var dateLabel: Label!
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
@@ -88,6 +84,7 @@ final class MessageCell: StreamReusableView {
         textView.text = message.text
         indicator?.updateStatusIndicator(message)
         FlowerMenu.sharedMenu().hide()
+        tailView?.hidden = !message.chatMetadata.isGroup
     }
 }
 

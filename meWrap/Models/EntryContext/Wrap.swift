@@ -173,22 +173,24 @@ class Wrap: Contribution {
         notifyOnUpdate(.LiveBroadcastsChanged)
     }
     
-    private var _numberOfUnreadMessages: Int?
-    var numberOfUnreadMessages: Int {
-        get {
-            if let number = _numberOfUnreadMessages {
-                return number
-            } else {
-                let dayAgo = NSDate.dayAgo()
-                let number = messages.filter({ $0.unread && $0.createdAt > dayAgo }).count ?? 0
-                _numberOfUnreadMessages = number
-                return number
+    lazy var numberOfUnreadMessages: Int = {
+        let dayAgo = NSDate.dayAgo()
+        return self.messages.filter({ $0.unread && $0.createdAt > dayAgo }).count
+    }()
+    
+    lazy var numberOfUnreadInboxItems: Int = {
+        let dayAgo = NSDate.dayAgo()
+        var count = 0
+        for candy in self.candies where candy.updatedAt > dayAgo {
+            if candy.unread && (candy.createdAt > dayAgo || candy.editedAt > dayAgo) {
+                count++
+            }
+            for comment in candy.comments where comment.unread && comment.createdAt > dayAgo {
+                if candy.involvedToConversation() {
+                    count++
+                }
             }
         }
-        set {
-            _numberOfUnreadMessages = newValue
-        }
-    }
-    
-    var numberOfUnreadCandies = 0
+        return count
+    }()
 }

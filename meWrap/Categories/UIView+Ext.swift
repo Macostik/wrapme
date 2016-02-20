@@ -73,33 +73,21 @@ extension UIView {
     // MARK: - QuartzCore
     
     @IBInspectable var borderColor: UIColor? {
-        set {
-            layer.borderColor = newValue?.CGColor
-        }
+        set { layer.borderColor = newValue?.CGColor }
         get {
-            guard let color = layer.borderColor else {
-                return nil
-            }
+            guard let color = layer.borderColor else { return nil }
             return UIColor(CGColor: color);
         }
     }
     
     @IBInspectable var borderWidth: CGFloat {
-        set {
-            layer.borderWidth = newValue
-        }
-        get {
-            return layer.borderWidth
-        }
+        set { layer.borderWidth = newValue }
+        get { return layer.borderWidth }
     }
     
     @IBInspectable var cornerRadius: CGFloat {
-        set {
-            layer.cornerRadius = newValue
-        }
-        get {
-            return layer.cornerRadius
-        }
+        set { layer.cornerRadius = newValue }
+        get { return layer.cornerRadius }
     }
     
     @IBInspectable var circled: Bool {
@@ -115,66 +103,20 @@ extension UIView {
     }
     
     @IBInspectable var shadowColor: UIColor? {
-        set {
-            layer.shadowColor = newValue?.CGColor
-        }
+        set { layer.shadowColor = newValue?.CGColor }
         get {
-            guard let color = layer.shadowColor else {
-                return nil
-            }
+            guard let color = layer.shadowColor else { return nil }
             return UIColor(CGColor: color)
         }
     }
     
     @IBInspectable var shadowOffset: CGSize {
-        set {
-            var verticalVector: CGFloat = 0
-            var horizontalVector: CGFloat = 0
-            switch contentMode {
-            case .Top:
-                verticalVector = 1
-                break
-            case .Bottom:
-                verticalVector = -1
-                break
-            case .Left:
-                horizontalVector = -1
-                break
-            case .Right:
-                horizontalVector = 1
-                break
-            case .TopLeft:
-                verticalVector = 1
-                horizontalVector = -1
-                break
-            case .TopRight:
-                verticalVector = 1
-                horizontalVector = 1
-                break
-            case .BottomLeft:
-                verticalVector = -1
-                horizontalVector = -1
-                break
-            case .BottomRight:
-                verticalVector = -1
-                horizontalVector = 1
-                break
-            default:
-                break
-            }
-            layer.shadowOffset = CGSizeMake(horizontalVector * shadowOffset.width, verticalVector * shadowOffset.height)
-        }
-        get {
-            return layer.shadowOffset
-        }
+        set { layer.shadowOffset = newValue }
+        get { return layer.shadowOffset }
     }
     
     @IBInspectable var shadowOpacity: Float {
-        set {
-            layer.shadowOpacity = newValue
-        }
-        get {
-            return layer.opacity
-        }
+        set { layer.shadowOpacity = newValue }
+        get { return layer.opacity }
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 @objc enum EntryUpdateEvent: Int {
-    case Default, ContentAdded, ContentChanged, ContentDeleted, ContributorsChanged, PreferencesChanged, LiveBroadcastsChanged, NumberOfUnreadMessagesChanged
+    case Default, ContentAdded, ContentChanged, ContentDeleted, ContributorsChanged, PreferencesChanged, LiveBroadcastsChanged, NumberOfUnreadMessagesChanged, InboxChanged
 }
 
 @objc protocol EntryNotifying: OrderedNotifierReceiver {

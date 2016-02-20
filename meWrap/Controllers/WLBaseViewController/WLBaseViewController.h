@@ -11,30 +11,26 @@
 
 @protocol KeyboardNotifying;
 
-@interface WLBaseViewController : GAITrackedViewController <KeyboardNotifying>
+@interface WLBaseViewController : GAITrackedViewController
 
 @property (nonatomic) CGRect preferredViewFrame;
 
 @property (weak, nonatomic) IBOutlet UIView* navigationBar;
 
-@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *keyboardAdjustmentLayoutViews;
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray * __nullable keyboardAdjustmentLayoutViews;
 
 @property (nonatomic) BOOL keyboardAdjustmentAnimated;
 
 @property (nonatomic) BOOL viewAppeared;
 
-@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *keyboardAdjustmentBottomConstraints;
+@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * __nullable keyboardAdjustmentBottomConstraints;
 
-@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *keyboardAdjustmentTopConstraints;
+@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * __nullable keyboardAdjustmentTopConstraints;
 
-+ (NSString*)lastAppearedScreenName;
+@property (strong, nonatomic) NSMapTable* __nullable keyboardAdjustmentDefaultConstants;
+
++ (NSString* __nullable)lastAppearedScreenName;
 
 - (BOOL)shouldUsePreferredViewFrame;
-
-- (CGFloat)constantForKeyboardAdjustmentBottomConstraint:(NSLayoutConstraint*)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight;
-
-- (CGFloat)constantForKeyboardAdjustmentTopConstraint:(NSLayoutConstraint*)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight;
-
-- (CGFloat)keyboardAdjustmentForConstraint:(NSLayoutConstraint*)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight;
 
 @end

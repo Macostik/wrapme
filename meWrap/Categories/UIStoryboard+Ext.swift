@@ -24,6 +24,7 @@ struct StoryboardObject<T: UIViewController> {
 struct Storyboard {
     static let AddFriends = StoryboardObject<AddContributorsViewController>(identifier: "addFriends", storyboard: UIStoryboard.main())
     static let Friends = StoryboardObject<ContributorsViewController>(identifier: "friends", storyboard: UIStoryboard.main())
+    static let UploadWizard = StoryboardObject<UploadWizardViewController>(identifier: "uploadWizard", storyboard: UIStoryboard.main())
     static let UploadWizardEnd = StoryboardObject<UploadWizardEndViewController>(identifier: "uploadWizardEnd", storyboard: UIStoryboard.main())
     static let LiveBroadcaster = StoryboardObject<LiveBroadcasterViewController>(identifier: "liveBroadcaster", storyboard: UIStoryboard.main())
     static let UploadSummary = StoryboardObject<UploadSummaryViewController>(identifier: "uploadSummary", storyboard: UIStoryboard.camera())
@@ -33,6 +34,7 @@ struct Storyboard {
     static let History = StoryboardObject<HistoryViewController>(identifier: "history", storyboard: UIStoryboard.main())
     static let HistoryItem = StoryboardObject<HistoryItemViewController>(identifier: "historyItem", storyboard: UIStoryboard.main())
     static let Countries = StoryboardObject<CountriesViewController>(identifier: "countries", storyboard: UIStoryboard.signUp())
+    static let Wrap = StoryboardObject<WrapViewController>(identifier: "wrap", storyboard: UIStoryboard.main())
 }
 
 extension UIStoryboard {

@@ -143,7 +143,7 @@ class UploadSummaryViewController: SwipeViewController, CaptureWrapContainer {
         }
     }
     
-    override func constantForKeyboardAdjustmentBottomConstraint(constraint: NSLayoutConstraint!, defaultConstant: CGFloat, keyboardHeight: CGFloat) -> CGFloat {
+    override func constantForKeyboardAdjustmentBottomConstraint(constraint: NSLayoutConstraint, defaultConstant: CGFloat, keyboardHeight: CGFloat) -> CGFloat {
         return (keyboardHeight - bottomView.height)
     }
     

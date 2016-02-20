@@ -13,6 +13,12 @@ import SnapKit
     case Inbox, Media, Chat
 }
 
+class WrapSegmentViewController: WLBaseViewController {
+    weak var delegate: AnyObject?
+    weak var wrap: Wrap!
+    weak var badge: BadgeLabel?
+}
+
 final class FriendView: StreamReusableView {
     
     private var avatarView = ImageView(backgroundColor: UIColor.whiteColor())
@@ -144,7 +150,6 @@ final class WrapViewController: WLBaseViewController {
     @IBOutlet var publicWrapPrioritizer: LayoutPrioritizer!
     
     private var wrapNotifyReceiver: EntryNotifyReceiver?
-    private var candyNotifyReceiver: EntryNotifyReceiver?
     
     private lazy var friendsDataSource: StreamDataSource = StreamDataSource(streamView: self.friendsStreamView)
     
@@ -198,7 +203,7 @@ final class WrapViewController: WLBaseViewController {
     private func updateSegment() {
         segmentedControl.selectedSegment = segment.rawValue
         viewController = controllerForSegment(segment)
-        updateCandyCounter()
+        updateInboxCounter()
     }
     
     func presentLiveProadcast(broadcast: LiveBroadcast) {
@@ -207,9 +212,9 @@ final class WrapViewController: WLBaseViewController {
         controller?.presentLiveBroadcast(broadcast)
     }
     
-    private func controllerForSegment(segment: WrapSegment) -> WLWrapEmbeddedViewController {
+    private func controllerForSegment(segment: WrapSegment) -> WrapSegmentViewController {
         switch segment {
-        case .Inbox: return WLWrapEmbeddedViewController()
+        case .Inbox: return controllerNamed("inbox", badge:self.inboxSegmentButton.badge)
         case .Media: return controllerNamed("media", badge:self.mediaSegmentButton.badge)
         case .Chat: return controllerNamed("chat", badge:self.chatSegmentButton.badge)
         }
@@ -224,6 +229,9 @@ final class WrapViewController: WLBaseViewController {
                     if self.segment != .Chat {
                         self.chatSegmentButton.badge.value = self.wrap?.numberOfUnreadMessages ?? 0
                     }
+                } else if event == .InboxChanged {
+                    self.updateInboxCounter()
+                    self.updateMessageCouter()
                 } else {
                     self.updateWrapData()
                 }
@@ -235,17 +243,6 @@ final class WrapViewController: WLBaseViewController {
                 }
             }
             })
-        
-        candyNotifyReceiver = Candy.notifyReceiver().setup({ [unowned self] (receiver) -> Void in
-            receiver.container = { self.wrap }
-            receiver.didAdd = { entry in
-                if self.isViewLoaded() && self.segment == .Media {
-                    entry.markAsUnread(false)
-                }
-            }
-            })
-        
-        RecentUpdateList.sharedList.addReceiver(self)
     }
     
     private func updateWrapData() {
@@ -299,13 +296,13 @@ final class WrapViewController: WLBaseViewController {
         chatSegmentButton.badge.value = wrap?.numberOfUnreadMessages ?? 0
     }
     
-    private func updateCandyCounter() {
-        mediaSegmentButton.badge.value = wrap?.numberOfUnreadCandies ?? 0
+    private func updateInboxCounter() {
+        inboxSegmentButton.badge.value = wrap?.numberOfUnreadInboxItems ?? 0
     }
     
     var showKeyboard = false {
         didSet {
-            if let controller = viewController as? WLChatViewController where showKeyboard {
+            if let controller = viewController as? ChatViewController where showKeyboard {
                 controller.showKeyboard = showKeyboard
                 if controller.isViewLoaded() {
                     showKeyboard = false
@@ -319,7 +316,7 @@ final class WrapViewController: WLBaseViewController {
             oldValue?.view.removeFromSuperview()
             if let controller = viewController {
                 if segment == .Chat {
-                    (controller as? WLChatViewController)?.showKeyboard = showKeyboard
+                    (controller as? ChatViewController)?.showKeyboard = showKeyboard
                     showKeyboard = false
                 }
                 
@@ -333,10 +330,10 @@ final class WrapViewController: WLBaseViewController {
         }
     }
     
-    private func controllerNamed(name: String, badge: BadgeLabel?) -> WLWrapEmbeddedViewController {
-        var controller: WLWrapEmbeddedViewController! = childViewControllers.filter { $0.restorationIdentifier == name }.first as? WLWrapEmbeddedViewController
+    private func controllerNamed(name: String, badge: BadgeLabel?) -> WrapSegmentViewController {
+        var controller: WrapSegmentViewController! = childViewControllers.filter { $0.restorationIdentifier == name }.first as? WrapSegmentViewController
         if controller == nil {
-            controller = storyboard?[name] as! WLWrapEmbeddedViewController
+            controller = storyboard?[name] as! WrapSegmentViewController
             controller.preferredViewFrame = containerView.bounds
             controller.wrap = wrap
             controller.delegate = self
@@ -403,7 +400,7 @@ extension WrapViewController: CaptureMediaViewControllerDelegate {
         if self.wrap != wrap {
             self.view = nil
             self.viewController = nil
-            for controller in childViewControllers where controller is WLWrapEmbeddedViewController {
+            for controller in childViewControllers where controller is WrapSegmentViewController {
                 controller.removeFromParentViewController()
             }
             self.wrap = wrap
@@ -428,13 +425,5 @@ extension WrapViewController: MediaViewControllerDelegate {
         let captureViewController = CaptureViewController.captureMediaViewController(wrap)
         captureViewController.captureDelegate = self
         presentViewController(captureViewController, animated: false, completion: nil)
-    }
-}
-
-extension WrapViewController: RecentUpdateListNotifying {
-    
-    func recentUpdateListUpdated(list: RecentUpdateList) {
-        updateCandyCounter()
-        updateMessageCouter()
     }
 }

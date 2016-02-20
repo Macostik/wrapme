@@ -57,22 +57,15 @@ class WrapCell: StreamReusableView {
     @IBOutlet weak var dateLabel: UILabel?
     
     @IBOutlet weak var wrapNotificationLabel: BadgeLabel?
-    @IBOutlet weak var chatNotificationLabel: BadgeLabel?
-    @IBOutlet weak var chatButton: UIButton?
-    
-    @IBOutlet var chatPrioritizer: LayoutPrioritizer?
     
     @IBOutlet weak var liveBroadcastIndicator: UILabel?
     @IBOutlet var nameLeadingPrioritizer: LayoutPrioritizer?
     
-    var swipeAction: SwipeAction?
+    private var swipeAction: SwipeAction?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        guard let _ = dateLabel else {
-            return
-        }
         let swipeAction = SwipeAction(view: self)
         
         swipeAction.shouldBeginPanning = { [unowned self] (action) -> Bool in
@@ -123,46 +116,23 @@ class WrapCell: StreamReusableView {
         
         nameLabel.text = wrap.name
         coverView.url = wrap.asset?.small
-        wrapNotificationLabel?.value = wrap.numberOfUnreadCandies
+        wrapNotificationLabel?.value = wrap.numberOfUnreadInboxItems
         if (wrap.isPublic) {
             dateLabel?.text = "\(wrap.contributor?.name ?? "") \(wrap.updatedAt.timeAgoStringAtAMPM())"
-            chatNotificationLabel?.value = 0
-            chatButton?.hidden = true
-            chatPrioritizer?.defaultState = false
             coverView.isFollowed = wrap.isContributing
             coverView.isOwner = wrap.contributor?.current ?? false
         } else {
             dateLabel?.text = wrap.updatedAt.timeAgoStringAtAMPM()
-            updateChatNotifyCounter(wrap)
             coverView.isFollowed = false
         }
+        updateBadgeNumber()
         liveBroadcastIndicator?.hidden = wrap.liveBroadcasts.isEmpty
         nameLeadingPrioritizer?.defaultState = !wrap.liveBroadcasts.isEmpty
     }
     
-    func updateCandyNotifyCounter() {
+    func updateBadgeNumber() {
         if let wrap = entry as? Wrap {
-            wrapNotificationLabel?.value = wrap.numberOfUnreadCandies
-        }
-    }
-    
-    func updateChatNotifyCounter() {
-        if let wrap = entry as? Wrap where !wrap.isPublic {
-            updateChatNotifyCounter(wrap)
-        }
-    }
-    
-    private func updateChatNotifyCounter(wrap: Wrap) {
-        let messageConter = wrap.numberOfUnreadMessages
-        let hasUnreadMessages = messageConter > 0
-        chatNotificationLabel?.value = messageConter
-        chatButton?.hidden = !hasUnreadMessages
-        chatPrioritizer?.defaultState = hasUnreadMessages
-    }
-    
-    @IBAction func notifyChatClick(sender: AnyObject) {
-        if let wrap = entry as? Wrap {
-            delegate?.wrapCell(self, presentChatViewControllerForWrap: wrap)
+            wrapNotificationLabel?.value = wrap.numberOfUnreadInboxItems + wrap.numberOfUnreadMessages
         }
     }
 }

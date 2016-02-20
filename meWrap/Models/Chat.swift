@@ -21,7 +21,6 @@ class Chat: PaginatedList {
     var typingNames: String?
     
     lazy var unreadMessages = [Message]()
-    lazy var readMessages = [Message]()
     lazy var typingUsers = [User]()
     
     lazy var cachedMessageHeights = [Message : CGFloat]()
@@ -91,16 +90,10 @@ class Chat: PaginatedList {
     }
     
     func markAsRead() {
-        for message in readMessages {
+        for message in unreadMessages {
             message.markAsUnread(false)
-            if let index = unreadMessages.indexOf(message) {
-                unreadMessages.removeAtIndex(index)
-            }
         }
-    }
-    
-    func addReadMessage(message: Message) {
-        readMessages.append(message)
+        unreadMessages.removeAll()
     }
     
     override func didChange() {

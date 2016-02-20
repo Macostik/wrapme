@@ -64,6 +64,7 @@ class HistoryFooterView: GradientView {
         didSet {
             if comment != oldValue {
                 if let comment = comment, let text = comment.text {
+                    comment.markAsUnread(false)
                     avatarImageView.hidden = false
                     commentLabel.hidden = false
                     commentIndicator.hidden = false

@@ -31,9 +31,7 @@ extension Entry {
         }
     }
     
-    func willBecomeUnread(unread: Bool) {
-        
-    }
+    func willBecomeUnread(unread: Bool) { }
     
     func remove() {
         let context = EntryContext.sharedContext

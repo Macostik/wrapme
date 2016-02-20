@@ -11,8 +11,6 @@
 #import "VideoConfig.h"
 #import "WLCandyViewController.h"
 #import "GeometryHelper.h"
-#import "WLWrapEmbeddedViewController.h"
 #import "WLDrawingViewController.h"
 #import "ImageEditor.h"
 #import "WLCommentsViewController.h"
-#import "WLChatViewController.h"

@@ -203,13 +203,11 @@ class LiveBroadcastMediaView: StreamReusableView {
     }
 }
 
-@objc protocol MediaViewControllerDelegate: WLWrapEmbeddedViewControllerDelegate {
-    
-    optional func mediaViewControllerDidAddPhoto(controller: MediaViewController)
-    
+protocol MediaViewControllerDelegate {
+    func mediaViewControllerDidAddPhoto(controller: MediaViewController)
 }
 
-class MediaViewController: WLWrapEmbeddedViewController {
+class MediaViewController: WrapSegmentViewController {
     
     lazy var dataSource: MediaDataSource = MediaDataSource(streamView: self.streamView)
     @IBOutlet  weak var streamView: StreamView!
@@ -316,13 +314,6 @@ class MediaViewController: WLWrapEmbeddedViewController {
             return
         }
         
-        for candy in wrap.candies where candy.valid {
-            candy.markAsUnread(false)
-        }
-        RecentUpdateList.sharedList.refreshCount({ [weak self] (_) -> Void in
-            self?.badge?.value = wrap.numberOfUnreadCandies
-            }) { (_) -> Void in
-        }
         dataSource.items = history
         uploadingView.update()
         streamView.unlock()
@@ -351,7 +342,7 @@ class MediaViewController: WLWrapEmbeddedViewController {
         }
         FollowingViewController.followWrapIfNeeded(wrap) { [weak self] () -> Void in
             if let controller = self {
-                (controller.delegate as? MediaViewControllerDelegate)?.mediaViewControllerDidAddPhoto?(controller)
+                (controller.delegate as? MediaViewControllerDelegate)?.mediaViewControllerDidAddPhoto(controller)
             }
         }
     }

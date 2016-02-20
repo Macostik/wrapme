@@ -30,7 +30,7 @@ class SignupStepViewController: WLBaseViewController {
         emailLabel?.text = Authorization.current.email
     }
     
-    override func keyboardAdjustmentForConstraint(constraint: NSLayoutConstraint!, defaultConstant: CGFloat, keyboardHeight: CGFloat) -> CGFloat {
+    override func keyboardAdjustmentForConstraint(constraint: NSLayoutConstraint, defaultConstant: CGFloat, keyboardHeight: CGFloat) -> CGFloat {
         if let responder = view.findFirstResponder() {
             let responderCenterY = responder.center.y + 64
             let centerYOfVisibleSpace = (view.height - keyboardHeight - 64)/2 + 64

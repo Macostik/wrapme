@@ -40,18 +40,11 @@ class CommentAddNotification: CommentNotification {
         
         if comment?.contributor == currentUser {
             return false
+        } else if candy.contributor == currentUser {
+            return true
         } else {
-            if candy.contributor == currentUser {
-                return true
-            } else {
-                for comment in candy.sortedComments() {
-                    if (comment.contributor == currentUser) {
-                        return true
-                    }
-                }
-            }
+            return candy.involvedToConversation()
         }
-        return false
     }
     override func soundType() -> Sound { return .s02 }
     

@@ -96,7 +96,7 @@ class AddContributorsViewController: WLBaseViewController, AddressBookRecordCell
             }
             })
         
-        placeholderMetrics = StreamMetrics(loader: PlaceholderLoader(identifier: "search"))
+        placeholderMetrics = StreamMetrics(loader: PlaceholderView.searchPlaceholderLoader())
         placeholderMetrics?.selectable = false
         
         let cached = AddressBook.sharedAddressBook.cachedRecords({ [weak self] (array) in

@@ -301,3 +301,4 @@
 "loading..." = "Loading...";
 "broadcast_end" = "The live broadcast has ended.";
 "inbox" = "Inbox";
+"inbox_placeholder" = "No messages yet. Please enjoy your day.";

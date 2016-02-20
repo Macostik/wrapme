@@ -358,7 +358,7 @@ final class LiveBroadcasterViewController: LiveViewController {
     
     //MARK: WLBaseViewController 
     
-    override func constantForKeyboardAdjustmentBottomConstraint(constraint: NSLayoutConstraint!, defaultConstant: CGFloat, keyboardHeight: CGFloat) -> CGFloat {
+    override func constantForKeyboardAdjustmentBottomConstraint(constraint: NSLayoutConstraint, defaultConstant: CGFloat, keyboardHeight: CGFloat) -> CGFloat {
         if let identifier = constraint.identifier {
             if UIApplication.sharedApplication().statusBarOrientation.isPortrait == true {
                 switch identifier {

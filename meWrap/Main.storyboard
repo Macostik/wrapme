@@ -96,17 +96,26 @@
                             <constraint firstItem="S5x-tu-0ui" firstAttribute="top" secondItem="qHu-Pi-cQf" secondAttribute="bottom" constant="4" id="FfX-am-bFx"/>
                             <constraint firstAttribute="trailing" secondItem="EPP-Rc-U0e" secondAttribute="trailing" id="Mwf-ZN-Y4g"/>
                             <constraint firstAttribute="trailing" secondItem="S5x-tu-0ui" secondAttribute="trailing" constant="12" id="YCR-a2-p7D"/>
-                            <constraint firstItem="EPP-Rc-U0e" firstAttribute="top" secondItem="S5x-tu-0ui" secondAttribute="bottom" constant="4" id="awh-p5-WJA"/>
+                            <constraint firstItem="EPP-Rc-U0e" firstAttribute="top" secondItem="S5x-tu-0ui" secondAttribute="bottom" priority="750" constant="4" id="awh-p5-WJA"/>
                             <constraint firstItem="EPP-Rc-U0e" firstAttribute="leading" secondItem="2aD-Yd-wbR" secondAttribute="leading" id="qUC-B8-a8Q"/>
+                            <constraint firstItem="EPP-Rc-U0e" firstAttribute="top" secondItem="qHu-Pi-cQf" secondAttribute="bottom" priority="250" id="syh-ze-3rV"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ne0-WG-fcl"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="clearButton" destination="S5x-tu-0ui" id="J4t-yM-f3X"/>
+                        <outlet property="clearLayoutPrioritizer" destination="CLS-S6-cE3" id="6Hp-96-DjO"/>
                         <outlet property="streamView" destination="EPP-Rc-U0e" id="tU3-35-AKK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OhS-gD-GxO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="CLS-S6-cE3" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
+                    <connections>
+                        <outletCollection property="defaultConstraints" destination="awh-p5-WJA" collectionClass="NSMutableArray" id="CKj-Rd-b2o"/>
+                        <outletCollection property="alternativeConstraints" destination="syh-ze-3rV" collectionClass="NSMutableArray" id="ufV-TW-DqO"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="1087" y="789"/>
         </scene>
@@ -1037,7 +1046,6 @@
                 <customObject id="fHn-3G-fGW" customClass="HomeDataSource" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WrapCell"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="placeholderIdentifier" value="home"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="itemNibOwner" destination="L91-fZ-J9O" id="Amb-WH-e6g"/>
@@ -1050,7 +1058,6 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="itemSize">
                             <real key="value" value="60"/>
                         </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="string" keyPath="placeholderIdentifier" value="hottest"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="layoutOffset">
                             <real key="value" value="88"/>
                         </userDefinedRuntimeAttribute>
@@ -1058,15 +1065,6 @@
                     <connections>
                         <outlet property="itemNibOwner" destination="L91-fZ-J9O" id="4tU-gt-4zl"/>
                         <outlet property="scrollDirectionLayoutPrioritizer" destination="GFV-Ya-rff" id="stk-tG-m3y"/>
-                    </connections>
-                </customObject>
-                <customObject id="Qns-CC-AwC" userLabel="Notifications Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="recentUpdates"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="sourceViewController" destination="L91-fZ-J9O" id="fTC-aN-kwc"/>
                     </connections>
                 </customObject>
                 <customObject id="7ui-hh-L3e" userLabel="Settings Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
@@ -2798,7 +2796,6 @@
                 <customObject id="RbC-xy-dkj" customClass="StreamDataSource" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="CommentCell"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="placeholderIdentifier" value="comments"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="streamView" destination="WYU-Tj-StJ" id="zzM-id-Y3t"/>

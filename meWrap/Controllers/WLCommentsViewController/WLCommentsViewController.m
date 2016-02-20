@@ -54,6 +54,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
         CGFloat textHeight = [comment.text heightWithFont:font width:streamView.width - WLNotificationCommentHorizontalSpacing];
         return MAX(72, textHeight + nameFont.lineHeight + timeFont.lineHeight + WLNotificationCommentVerticalSpacing);
     }];
+    self.dataSource.placeholderMetrics = [PlaceholderView commentsPlaceholderMetrics];
  
     [self.dataSource setDidLayoutBlock:^{
         [weakSelf.dataSource.streamView setMaximumContentOffsetAnimated:NO];

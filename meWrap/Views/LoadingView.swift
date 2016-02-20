@@ -9,7 +9,7 @@
 import Foundation
 import SnapKit
 
-class LoadingView: StreamReusableView {
+final class LoadingView: StreamReusableView {
     
     static var DefaultSize: CGFloat = 66.0
     
@@ -18,15 +18,13 @@ class LoadingView: StreamReusableView {
     }
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
-        let spinner = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         spinner.color = Color.orange
         spinner.hidesWhenStopped = true
         addSubview(spinner)
-        self.spinner = spinner
         spinner.snp_makeConstraints { $0.center.equalTo(self) }
     }
     
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    private var spinner = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     
     var animating: Bool {
         get {

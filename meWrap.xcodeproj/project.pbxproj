@@ -112,8 +112,6 @@
 		C53012941BF4E4BF00098F9C /* Refresher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530127A1BF49AD600098F9C /* Refresher.swift */; };
 		C5326F0C1C159279007A8BEF /* RunQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5326F0B1C159279007A8BEF /* RunQueue.swift */; };
 		C532F4E91C2D5F02004585E0 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532F4E81C2D5F02004585E0 /* ProgressBar.swift */; };
-		C532F4EB1C2D8353004585E0 /* Placeholders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C532F4EA1C2D8353004585E0 /* Placeholders.storyboard */; };
-		C532F4ED1C2D8513004585E0 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532F4EC1C2D8513004585E0 /* PlaceholderView.swift */; };
 		C532F4EF1C2DA4D8004585E0 /* Uploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532F4EE1C2DA4D8004585E0 /* Uploader.swift */; };
 		C5347E261C75EB510080074C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5347E251C75EB510080074C /* HomeViewController.swift */; };
 		C5347E281C7625AC0080074C /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5347E271C7625AC0080074C /* ChatViewController.swift */; };
@@ -330,6 +328,7 @@
 		C5F5EAE91BDEA79F00DF1DA5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50647681ABD889100CB4BE3 /* CoreData.framework */; };
 		C5F5F0BE1C687B1B002F74C9 /* UserActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F5F0BD1C687B1B002F74C9 /* UserActivity.swift */; };
 		C5F5F0C01C690BD6002F74C9 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F5F0BF1C690BD6002F74C9 /* LoadingView.swift */; };
+		C5F7C5E81C78CA31004C2E68 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7C5E71C78CA31004C2E68 /* PlaceholderView.swift */; };
 		C5F9A49E1C4B8A1700A7D83B /* CaptureMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F9A49D1C4B8A1700A7D83B /* CaptureMediaViewController.swift */; };
 		C5FAC9021BE2B35F0060FEDB /* NSUserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FAC9011BE2B35F0060FEDB /* NSUserDefaults+Ext.swift */; };
 /* End PBXBuildFile section */
@@ -561,8 +560,6 @@
 		C530128E1BF4E3EA00098F9C /* EmojiView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmojiView.xib; sourceTree = "<group>"; };
 		C5326F0B1C159279007A8BEF /* RunQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunQueue.swift; sourceTree = "<group>"; };
 		C532F4E81C2D5F02004585E0 /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
-		C532F4EA1C2D8353004585E0 /* Placeholders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Placeholders.storyboard; sourceTree = "<group>"; };
-		C532F4EC1C2D8513004585E0 /* PlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		C532F4EE1C2DA4D8004585E0 /* Uploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uploader.swift; sourceTree = "<group>"; };
 		C5347E251C75EB510080074C /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C5347E271C7625AC0080074C /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -782,6 +779,7 @@
 		C5F4E70E1C07687A00D2FC16 /* UIColor+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		C5F5F0BD1C687B1B002F74C9 /* UserActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivity.swift; sourceTree = "<group>"; };
 		C5F5F0BF1C690BD6002F74C9 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		C5F7C5E71C78CA31004C2E68 /* PlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		C5F9A49D1C4B8A1700A7D83B /* CaptureMediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureMediaViewController.swift; sourceTree = "<group>"; };
 		C5FAC9011BE2B35F0060FEDB /* NSUserDefaults+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+Ext.swift"; sourceTree = "<group>"; };
 		D2F89869A3934855EF0732E8 /* Pods-meWrap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meWrap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-meWrap/Pods-meWrap.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1041,11 +1039,11 @@
 				C532F4E81C2D5F02004585E0 /* ProgressBar.swift */,
 				C5BD85411C2E999800EE5558 /* UploaderView.swift */,
 				C5F5F0BF1C690BD6002F74C9 /* LoadingView.swift */,
+				C5F7C5E71C78CA31004C2E68 /* PlaceholderView.swift */,
 				C53937631C3BD82600EEEC0A /* Toast */,
 				C5978BE31B396FA500D5043E /* WLDrawingSession */,
 				5BD121571B0250E000FF5FBF /* DownloadingView */,
 				C52E1FC71A41947D00A2C370 /* Text Views */,
-				C54FC76E1A16549700623FC1 /* Placeholder Views */,
 				12E8FF1C18E9883700BF1B96 /* ComposeBar */,
 				12E8FF0718E960E000BF1B96 /* StreamView */,
 				5BA432AE1A3F3F5200B53BC7 /* ConfirmView */,
@@ -1381,15 +1379,6 @@
 				C55E533C1C4FB4DB006ACF8F /* CaptureMediaCameraViewController.swift */,
 			);
 			path = CaptureMediaViewController;
-			sourceTree = "<group>";
-		};
-		C54FC76E1A16549700623FC1 /* Placeholder Views */ = {
-			isa = PBXGroup;
-			children = (
-				C532F4EA1C2D8353004585E0 /* Placeholders.storyboard */,
-				C532F4EC1C2D8513004585E0 /* PlaceholderView.swift */,
-			);
-			path = "Placeholder Views";
 			sourceTree = "<group>";
 		};
 		C553DB2B1C6DF7BA001B13C7 /* WrapSegmentViewController */ = {
@@ -1845,7 +1834,6 @@
 				5B66B5B91C24696800451113 /* WrapCell.xib in Resources */,
 				C5C3FEA81B8F311500F177EC /* Default-736h@3x.png in Resources */,
 				5BA4F8821A1CA08A00DB1A25 /* s01.wav in Resources */,
-				C532F4EB1C2D8353004585E0 /* Placeholders.storyboard in Resources */,
 				5B211FB21C087137000EC3DB /* (null) in Resources */,
 				C5F11E551C64A21C001C2486 /* TestUserCell.xib in Resources */,
 				C5BEC38D1B8F129100499EEA /* logo_and_caption_orange@3x.png in Resources */,
@@ -2064,7 +2052,6 @@
 				C509F7471C5E3C4800E6BFF0 /* CameraViewController.swift in Sources */,
 				5B1D045B1BFCE16C00263102 /* SlideInteractiveTransition.swift in Sources */,
 				C5B4E5681BF60E0300A4B223 /* PHPhotoLibrary+Ext.swift in Sources */,
-				C532F4ED1C2D8513004585E0 /* PlaceholderView.swift in Sources */,
 				C5294E781C0B6242001CE272 /* ExtensionEntry.swift in Sources */,
 				C53A02321C0D8961003B3D1F /* InMemoryImageCache.swift in Sources */,
 				C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */,
@@ -2105,6 +2092,7 @@
 				C51B4BE81C3AA2D6009F1566 /* WelcomeViewController.swift in Sources */,
 				C502B3161C47F2EC00F66EAE /* Notification.swift in Sources */,
 				C502B32A1C47F30400F66EAE /* Environment.swift in Sources */,
+				C5F7C5E81C78CA31004C2E68 /* PlaceholderView.swift in Sources */,
 				C5F11E531C64A21C001C2486 /* CountriesViewController.swift in Sources */,
 				5B40D6B21C2EBB1C009EF38C /* UploadWizardViewController.swift in Sources */,
 				C55871101C4910B500F09E58 /* DownloadingView.swift in Sources */,

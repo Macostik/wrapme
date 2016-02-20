@@ -54,34 +54,34 @@ class CandyCell: StreamReusableView {
             return
         }
         
-        FlowerMenu.sharedMenu().registerView(self, constructor: { [weak self] menu -> Void in
+        FlowerMenu.sharedMenu.registerView(self, constructor: { [weak self] menu -> Void in
             guard let candy = self?.entry as? Candy where !(candy.wrap?.requiresFollowing ?? true) else {
                 return
             }
             
             if candy.updateError() == nil && !candy.isVideo {
                 
-                menu.addEditPhotoAction({ (_) -> Void in
+                menu.addEditPhotoAction({
                     DownloadingView.downloadCandy(candy, success: { (image) -> Void in
                         ImageEditor.editImage(image) { candy.editWithImage($0) }
                         }, failure: { $0?.show() })
                 })
                 
-                menu.addDrawPhotoAction({ (_) -> Void in
+                menu.addDrawPhotoAction({
                     DownloadingView.downloadCandy(candy, success: { (image) -> Void in
                         WLDrawingViewController.draw(image) { candy.editWithImage($0) }
                         }, failure: { $0?.show() })
                 })
             }
             
-            menu.addDownloadAction({ (_) -> Void in
+            menu.addDownloadAction({
                 candy.download({ () -> Void in
                     Toast.showDownloadingMediaMessageForCandy(candy)
                     }, failure: { $0?.show() })
             })
             
-            if (candy.deletable) {
-                menu.addDeleteAction({ (_) -> Void in
+            if candy.deletable {
+                menu.addDeleteAction({
                     UIAlertController.confirmCandyDeleting(candy, success: { (_) -> Void in
                         self?.userInteractionEnabled = false
                         candy.delete({ (_) -> Void in
@@ -93,15 +93,13 @@ class CandyCell: StreamReusableView {
                         }, failure: nil)
                 })
             } else {
-                menu.addReportAction({ (_) -> Void in
+                menu.addReportAction({
                     if let controller = UIStoryboard.main()["report"] as? ReportViewController {
                         controller.candy = candy
                         UIWindow.mainWindow.rootViewController?.presentViewController(controller, animated: false, completion: nil)
                     }
                 })
             }
-            
-            menu.entry = candy
             })
     }
     

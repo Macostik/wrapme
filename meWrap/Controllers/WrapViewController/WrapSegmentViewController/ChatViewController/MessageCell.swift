@@ -38,13 +38,10 @@ final class MessageCell: StreamReusableView {
     
     override func awakeFromNib () {
         super.awakeFromNib()
-        FlowerMenu.sharedMenu().registerView(self, constructor: { [weak self] (menu) in
-            menu.addCopyAction({ (message) -> Void in
-                if let message = message as? Message, let text = message.text where !text.isEmpty {
-                    UIPasteboard.generalPasteboard().setValue(text, forPasteboardType: kUTTypeText as String)
-                }
-            })
-            menu.entry = self?.entry
+        FlowerMenu.sharedMenu.registerView(self, constructor: { [weak self] (menu) in
+            if let message = self?.entry as? Message {
+                menu.addCopyAction({ UIPasteboard.generalPasteboard().string = message.text })
+            }
             })
         if let tailView = tailView, let color = textView.superview?.backgroundColor {
             tailView.image = MessageCell.tailImageWithColor(color, size: tailView.size, drawing: { size in
@@ -83,7 +80,7 @@ final class MessageCell: StreamReusableView {
         timeLabel.text = message.createdAt.stringWithTimeStyle(.ShortStyle)
         textView.text = message.text
         indicator?.updateStatusIndicator(message)
-        FlowerMenu.sharedMenu().hide()
+        FlowerMenu.sharedMenu.hide()
         tailView?.hidden = !message.chatMetadata.isGroup
     }
 }

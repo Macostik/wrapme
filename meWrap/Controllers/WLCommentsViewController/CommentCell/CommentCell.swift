@@ -25,26 +25,20 @@ class CommentCell: StreamReusableView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        FlowerMenu.sharedMenu().registerView(self) { [weak self] (menu) -> Void in
+        FlowerMenu.sharedMenu.registerView(self) { [weak self] (menu) -> Void in
             guard let comment = self?.entry as? Comment else { return }
             if comment.deletable {
-                menu.addDeleteAction({ [weak self] (comment) -> Void in
+                menu.addDeleteAction({ [weak self] _ in
                     self?.userInteractionEnabled = false
-                    let _comment = self?.entry as? Comment
-                    _comment?.delete ({ (_) -> Void in
+                    comment.delete ({ (_) -> Void in
                         self?.userInteractionEnabled = true
                         }, failure: { (error) in
                             error?.show()
-                            self?.userInteractionEnabled = false
+                            self?.userInteractionEnabled = true
                     })
                     })
             }
-            menu.addCopyAction({ (comment) -> Void in
-                if let comment = comment as? Comment, let text = comment.text where !text.isEmpty {
-                    UIPasteboard.generalPasteboard().setValue(text, forPasteboardType: kUTTypeText as String)
-                }
-            })
-            menu.entry = comment
+            menu.addCopyAction({ UIPasteboard.generalPasteboard().string = comment.text })
         }
     }
     

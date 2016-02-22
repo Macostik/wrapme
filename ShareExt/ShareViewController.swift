@@ -8,6 +8,7 @@
 
 import UIKit
 import Social
+import MobileCoreServices
 
 class ShareWrapCell : UITableViewCell {
     
@@ -55,6 +56,10 @@ class ShareViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let content = extensionContext!.inputItems[0] as? NSExtensionItem
+        let contentType = kUTTypeImage as String
+        
         wraps = NSUserDefaults.sharedUserDefaults?["allWraps"] as? [NSDictionary]
         tableView.addObserver(self, forKeyPath: "contentSize", options: .New, context: nil)
         

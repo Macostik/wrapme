@@ -65,6 +65,7 @@ final class WrapSegmentButton: SegmentButton {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        badge.intrinsicContentSizeInsets = CGSize(width: 5, height: 5)
         badge.clipsToBounds = true
         badge.textAlignment = .Center
         badge.backgroundColor = Color.dangerRed

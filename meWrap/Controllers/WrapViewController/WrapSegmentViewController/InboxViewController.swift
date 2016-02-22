@@ -214,24 +214,28 @@ class InboxViewController: WrapSegmentViewController {
     
     private func fetchUpdates() {
         guard let wrap = wrap else { return }
+        var containsUnread = false
         var updates = [RecentUpdate]()
         let dayAgo = NSDate.dayAgo()
         for candy in wrap.candies where candy.updatedAt > dayAgo {
             if candy.createdAt > dayAgo {
+                if candy.unread { containsUnread = true }
                 updates.append(RecentUpdate(event: .Add, contribution: candy))
             }
             if candy.editedAt > dayAgo {
+                if candy.unread { containsUnread = true }
                 updates.append(RecentUpdate(event: .Update, contribution: candy))
             }
             if candy.involvedToConversation() {
                 for comment in candy.comments where comment.createdAt > dayAgo {
+                    if comment.unread { containsUnread = true }
                     updates.append(RecentUpdate(event: .Add, contribution: comment))
                 }
             }
         }
         self.updates = updates.sort({ $0.date > $1.date })
-        clearLayoutPrioritizer.defaultState = updates.count > 0
-        clearButton.hidden = updates.count == 0
+        clearLayoutPrioritizer.defaultState = containsUnread
+        clearButton.hidden = !containsUnread
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -243,6 +247,8 @@ class InboxViewController: WrapSegmentViewController {
         for update in updates {
             update.contribution.markAsUnread(false)
         }
+        clearLayoutPrioritizer.defaultState = false
+        clearButton.hidden = true
         dataSource.reload()
     }
 }

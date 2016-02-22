@@ -302,3 +302,4 @@
 "broadcast_end" = "The live broadcast has ended.";
 "inbox" = "Inbox";
 "inbox_placeholder" = "No messages yet. Please enjoy your day.";
+"mark_all_as_read" = "Mark all as read";

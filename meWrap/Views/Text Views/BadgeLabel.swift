@@ -38,7 +38,7 @@ class BadgeLabel: Label {
     override func intrinsicContentSize() -> CGSize {
         let insets = intrinsicContentSizeInsets
         var size = super.intrinsicContentSize()
-        size = CGSizeMake(size.width + insets.width, size.height + insets.height);
+        size = CGSizeMake(size.width + insets.width, size.height + insets.height)
         layer.cornerRadius = size.height/2
         return size
     }

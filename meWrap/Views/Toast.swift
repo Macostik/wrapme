@@ -7,35 +7,74 @@
 //
 
 import UIKit
+import SnapKit
 
-class Toast: UIView {
+final class Toast: UIView {
     
     static let DismissalDelay: NSTimeInterval = 4.0
-
-    private static let toast: Toast = Toast.loadFromNib("Toast")!
+    
+    private static let toast = Toast()
     
     private static let defaultAppearance = Appearance()
     
     struct Appearance {
         var isIconHidden = false
-        var backgroundColor = UIColor(hex: 0xcb5309, alpha: 1)
+        var backgroundColor = UIColor.clearColor()
         var textColor = UIColor.whiteColor()
     }
     
     private let runQueue = RunQueue(limit: 1)
     
-    @IBOutlet weak var messageLabel: UILabel!
+    private let messageLabel = Label(preset: .Small, weight: UIFontWeightRegular, textColor: UIColor.whiteColor())
     
-    @IBOutlet weak var iconView: UIView!
+    private let leftIconView = Label(icon: "Z", size: 21)
     
-    @IBOutlet weak var topMessageInset: NSLayoutConstraint!
+    private let rightIconView = Label(icon: "!", size: 17)
+    
+    private var topMessageInset: Constraint!
     
     private var dismissBlock: Block?
     
     private var queuedMessages = Set<String>()
     
+    required init() {
+        super.init(frame: CGRect.zero)
+        leftIconView.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        rightIconView.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        messageLabel.numberOfLines = 2
+        let blurEffect = UIBlurEffect(style: .Dark)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        let vibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(forBlurEffect: UIBlurEffect(style: .Dark)))
+        addSubview(blurView)
+        blurView.contentView.addSubview(vibrancyView)
+        vibrancyView.contentView.addSubview(leftIconView)
+        vibrancyView.contentView.addSubview(messageLabel)
+        vibrancyView.contentView.addSubview(rightIconView)
+        blurView.snp_makeConstraints { $0.edges.equalTo(self) }
+        vibrancyView.snp_makeConstraints { $0.edges.equalTo(self) }
+        leftIconView.snp_makeConstraints {
+            $0.leading.equalTo(self).offset(12)
+            $0.trailing.equalTo(messageLabel.snp_leading).offset(-12)
+            $0.centerY.equalTo(messageLabel)
+        }
+        messageLabel.snp_makeConstraints {
+            topMessageInset = $0.top.equalTo(self).inset(10).constraint
+            $0.bottom.equalTo(self).inset(10)
+            $0.trailing.lessThanOrEqualTo(rightIconView.snp_leading).offset(-12)
+            $0.height.greaterThanOrEqualTo(21)
+        }
+        rightIconView.snp_makeConstraints {
+            $0.trailing.equalTo(self).inset(12)
+            $0.centerY.equalTo(messageLabel)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func applyAppearance(appearance: Appearance) {
-        iconView.hidden = appearance.isIconHidden
+        leftIconView.hidden = appearance.isIconHidden
         backgroundColor = appearance.backgroundColor
         messageLabel.textColor = appearance.textColor
     }
@@ -45,7 +84,7 @@ class Toast: UIView {
     }
     
     func show(message: String, inViewController viewController: UIViewController?, appearance: Appearance?) {
-    
+        
         if message.isEmpty || (superview != nil && messageLabel.text == message) { return }
         
         queuedMessages.insert(message)
@@ -53,7 +92,7 @@ class Toast: UIView {
         weak var viewController = viewController ?? UIViewController.toastAppearanceViewController(self)
         
         let appearance = appearance ?? Toast.defaultAppearance
-
+        
         runQueue.run { [unowned self] (finish) -> Void in
             guard let viewController = viewController else {
                 self.queuedMessages.remove(message)
@@ -69,7 +108,6 @@ class Toast: UIView {
             
             if self.superview != view {
                 self.removeFromSuperview()
-                self.translatesAutoresizingMaskIntoConstraints = false
                 view.addSubview(self)
                 self.addConstraints(view, referenceView: referenceView)
                 self.layoutIfNeeded()
@@ -86,26 +124,23 @@ class Toast: UIView {
     }
     
     private func addConstraints(view: UIView, referenceView: UIView) {
-        view.addConstraint(constraintToItem(referenceView, equal: .Width))
-        view.addConstraint(constraintToItem(referenceView, equal: .CenterX))
-        if referenceView == view {
-            let topViewConstraint = constraintToItem(referenceView, equal: .Top)
-            view.addConstraint(topViewConstraint)
-            topMessageInset.constant = UIApplication.sharedApplication().statusBarHidden ? 10 : 30
-        } else {
-            let topViewConstraint = constraintForAttrbute(.Top, toItem: referenceView, equalToAttribute: .Bottom)
-            view.addConstraint(topViewConstraint)
-            topMessageInset.constant = 10
+        snp_remakeConstraints {
+            $0.width.centerX.equalTo(referenceView)
+            if referenceView == view {
+                $0.top.equalTo(referenceView)
+                topMessageInset.updateOffset(UIApplication.sharedApplication().statusBarHidden ? 10 : 30)
+            } else {
+                $0.top.equalTo(referenceView.snp_bottom)
+                topMessageInset.updateOffset(10)
+            }
         }
     }
     
     func dismiss() {
         NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: "dismiss", object: nil)
-        UIView.animateWithDuration(0.25, animations: { () -> Void in
-            self.alpha = 0
-            }, completion: { (_) -> Void in
-                self.removeFromSuperview()
-                self.dismissBlock?()
+        UIView.animateWithDuration(0.25, animations: { self.alpha = 0 }, completion: { (_) -> Void in
+            self.removeFromSuperview()
+            self.dismissBlock?()
         })
     }
     
@@ -116,7 +151,7 @@ class Toast: UIView {
 }
 
 extension UIViewController {
-
+    
     class func toastAppearanceViewController(toast: Toast) -> UIViewController? {
         var visibleViewController = UIWindow.mainWindow.rootViewController
         var presentedViewController = visibleViewController?.presentedViewController
@@ -137,11 +172,11 @@ extension UIViewController {
     func definesToastAppearance() -> Bool {
         return true
     }
-        
+    
     func toastAppearanceViewController(toast: Toast) -> UIViewController {
         return self
     }
-            
+    
     func toastAppearanceReferenceView(toast: Toast) -> UIView {
         if respondsToSelector("navigationBar") {
             return performSelector("navigationBar")?.takeUnretainedValue() as? UIView ?? view
@@ -149,7 +184,7 @@ extension UIViewController {
             return view
         }
     }
-
+    
 }
 
 extension UIAlertController {

@@ -80,7 +80,11 @@ final class HomeViewController: WLBaseViewController {
         
         homeDataSource.placeholderMetrics = StreamMetrics(loader: HomePlaceholderView.homePlaceholderLoader({ [unowned self] () -> Void in
             self.navigationController?.pushViewController(Storyboard.UploadWizard.instantiate(), animated:false)
-        }))
+        })).change({ (metrics) -> Void in
+            metrics.finalizeAppearing = { [weak self] item, view in
+                self?.photoButton.hidden = true
+            }
+        })
         
         publicDataSource.loadingMetrics.sizeAt = { [unowned self] _ in
             return streamView.height - self.publicWrapsHeaderView.height - 48

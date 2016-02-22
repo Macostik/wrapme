@@ -54,7 +54,7 @@ class SlideInteractiveTransition: NSObject, UIGestureRecognizerDelegate {
                 superview.addSubview(_imageView)
                 contentView.hidden = true
             }
-            addScreenShotView()
+            addScreenShotView(animate)
             delegate?.slideInteractiveTransition?(self, hideViews: true)
         case .Changed:
             if presentingView != nil  {
@@ -108,17 +108,19 @@ class SlideInteractiveTransition: NSObject, UIGestureRecognizerDelegate {
         return self.delegate?.slideInteractiveTransitionPresentingView?(self)
     }
     
-    func addScreenShotView () {
+    func addScreenShotView(isPortrait: Bool) {
         if let screenShotView = snapshotView()?.snapshotViewAfterScreenUpdates(true) {
             screenShotView.alpha = 0
-            switch DeviceManager.defaultManager.orientation {
-            case .LandscapeLeft:
-                screenShotView.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2));
-                break
-            case .LandscapeRight:
-                screenShotView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2));
-                break
-            default: break
+            if isPortrait != true {
+                switch DeviceManager.defaultManager.orientation {
+                case .LandscapeLeft:
+                    screenShotView.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2));
+                    break
+                case .LandscapeRight:
+                    screenShotView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2));
+                    break
+                default: break
+                }
             }
             screenShotView.frame = UIScreen.mainScreen().bounds
             contentView.superview?.insertSubview(screenShotView, belowSubview: contentView)

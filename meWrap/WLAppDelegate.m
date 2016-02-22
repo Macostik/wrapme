@@ -233,6 +233,7 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    application.applicationIconBadgeNumber = 0;
     [[Dispatch mainQueue] async:^{
         [[Uploader wrapUploader] start];
     }];

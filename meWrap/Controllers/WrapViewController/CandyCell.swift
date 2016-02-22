@@ -111,6 +111,7 @@ class CandyCell: StreamReusableView {
     override func setup(entry: AnyObject?) {
         
         userInteractionEnabled = true
+        exclusiveTouch = true
         
         guard let candy = entry as? Candy else {
             videoIndicator.hidden = true

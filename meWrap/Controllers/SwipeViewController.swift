@@ -146,7 +146,7 @@ class SwipeViewController: WLBaseViewController {
     }
     
     private func layoutViewControllers(direction: SwipeDirection, animated: Bool) {
-        scrollView.contentSize.width = scrollWidth * 2
+        scrollView.contentSize = CGSizeMake(scrollWidth * 2, scrollView.height)
         let secondX: CGFloat = direction == .Forward ? 0 : scrollWidth
         let x: CGFloat = direction == .Forward ? scrollWidth : 0
         _secondViewController?.view.frame.origin.x = secondX

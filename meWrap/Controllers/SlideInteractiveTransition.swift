@@ -49,6 +49,7 @@ class SlideInteractiveTransition: NSObject, UIGestureRecognizerDelegate {
                 let _imageView = UIImageView(frame: imageView.frame)
                 _imageView.image = imageView.image
                 _imageView.contentMode = .ScaleAspectFit
+                _imageView.center = superview.center
                 self.imageView = _imageView
                 superview.addSubview(_imageView)
                 contentView.hidden = true
@@ -57,6 +58,7 @@ class SlideInteractiveTransition: NSObject, UIGestureRecognizerDelegate {
             delegate?.slideInteractiveTransition?(self, hideViews: true)
         case .Changed:
             if presentingView != nil  {
+                
                 imageView?.transform = CGAffineTransformMakeTranslation(translation.x, translation.y)
             } else {
                 contentView.transform = CGAffineTransformMakeTranslation(0, translation.y)

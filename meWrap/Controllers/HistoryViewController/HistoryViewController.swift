@@ -25,7 +25,7 @@ class HistoryViewController: SwipeViewController {
     var showCommentViewController = false
     var presenter: CandyEnlargingPresenter?
     var commentPressed: Block?
-    weak var presentingView: UIView?
+    var dismissingView: ((presenter: CandyEnlargingPresenter?, candy: Candy) -> UIView?)?
     
     @IBOutlet weak var contentView: UIView!
     @IBOutlet var commentButtonPrioritizer: LayoutPrioritizer!

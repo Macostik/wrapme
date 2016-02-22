@@ -209,8 +209,9 @@
 }
 
 - (UIView *)slideInteractiveTransitionPresentingView:(SlideInteractiveTransition *)controller {
-    self.historyViewController.presentingView.alpha = 0;
-    return self.historyViewController.presentingView;
+    UIView *dismissingView = self.historyViewController.dismissingView(nil, self.candy);
+    dismissingView.alpha = 0;
+    return dismissingView;
 }
 
 // MARK: - NetworkNotifying

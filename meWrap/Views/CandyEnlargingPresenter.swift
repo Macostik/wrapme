@@ -10,13 +10,13 @@ import UIKit
 
 class CandyEnlargingPresenter: UIView {
     
-    class func handleCandySelection(item: StreamItem?, entry: AnyObject?, dismissingView: ((presenter: CandyEnlargingPresenter, candy: Candy) -> UIView?)) -> Void {
-        handleCandySelection(item, entry: entry, historyItem: nil, isPreseningView: false, dismissingView: dismissingView)
+    class func handleCandySelection(item: StreamItem?, entry: AnyObject?, dismissingView: ((presenter: CandyEnlargingPresenter?, candy: Candy) -> UIView?)) -> Void {
+        handleCandySelection(item, entry: entry, historyItem: nil, dismissingView: dismissingView)
     }
     
     private var candy: Candy?
     
-    class func handleCandySelection(item: StreamItem?, entry: AnyObject?,  historyItem: HistoryItem?, isPreseningView: Bool = false, dismissingView: ((presenter: CandyEnlargingPresenter, candy: Candy) -> UIView?)) -> Void {
+    class func handleCandySelection(item: StreamItem?, entry: AnyObject?,  historyItem: HistoryItem?, dismissingView: ((presenter: CandyEnlargingPresenter?, candy: Candy) -> UIView?)) -> Void {
         guard let cell = item?.view as? CandyCell, let candy = entry as? Candy else {
             return
         }
@@ -25,7 +25,7 @@ class CandyEnlargingPresenter: UIView {
                 historyViewController.history = historyItem?.history
                 let presenter = CandyEnlargingPresenter()
                 historyViewController.presenter = presenter
-                historyViewController.presentingView = isPreseningView ? dismissingView(presenter: presenter, candy: candy) : nil
+                historyViewController.dismissingView = dismissingView
                 presenter.candy = candy
                 let presented = presenter.present(candy, fromView: cell, completionHandler: { (_) -> Void in
                     UINavigationController.main()?.pushViewController(historyViewController, animated: false)
@@ -34,6 +34,9 @@ class CandyEnlargingPresenter: UIView {
                     presenter.dismissingView = dismissingView
                 } else {
                     ChronologicalEntryPresenter.presentEntry(candy, animated: true)
+                    if let historyViewController = UINavigationController.main()?.viewControllers.last as? HistoryViewController{
+                        historyViewController.dismissingView = dismissingView
+                    }
                 }
             }
         } else {
@@ -49,7 +52,7 @@ class CandyEnlargingPresenter: UIView {
         return imageView
     }()
     
-    var dismissingView: ((presenter: CandyEnlargingPresenter, candy: Candy) -> UIView?)?
+    var dismissingView: ((presenter: CandyEnlargingPresenter?, candy: Candy) -> UIView?)?
     
     func present(candy: Candy, fromView: UIView, completionHandler: (CandyEnlargingPresenter -> Void)?) -> Bool {
         guard let url = candy.asset?.large else { return false }

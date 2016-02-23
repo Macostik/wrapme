@@ -84,6 +84,17 @@ class PaginatedStreamDataSource: StreamDataSource {
             }
         }
     }
+    
+    override func streamViewDidLayout(streamView: StreamView) {
+        super.streamViewDidLayout(streamView)
+        Dispatch.mainQueue.async { () -> Void in
+            self.appendItemsIfNeededWithTargetContentOffset(streamView.contentOffset)
+        }
+    }
+    
+    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        appendItemsIfNeededWithTargetContentOffset(targetContentOffset.memory)
+    }
 }
 
 extension PaginatedStreamDataSource: PaginatedListNotifying {
@@ -95,16 +106,6 @@ extension PaginatedStreamDataSource: PaginatedListNotifying {
     }
     func paginatedListDidFinishLoading(set: PaginatedList) {
         setLoading(false)
-    }
-    override func streamViewDidLayout(streamView: StreamView) {
-        super.streamViewDidLayout(streamView)
-        Dispatch.mainQueue.async { () -> Void in
-            self.appendItemsIfNeededWithTargetContentOffset(streamView.contentOffset)
-        }
-    }
-    
-    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        appendItemsIfNeededWithTargetContentOffset(targetContentOffset.memory)
     }
 }
 

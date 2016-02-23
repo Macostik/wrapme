@@ -216,18 +216,14 @@ class InboxViewController: WrapSegmentViewController {
         guard let wrap = wrap else { return }
         var containsUnread = false
         var updates = [RecentUpdate]()
-        let dayAgo = NSDate.dayAgo()
-        for candy in wrap.candies where candy.updatedAt > dayAgo {
-            if candy.createdAt > dayAgo {
-                if candy.unread { containsUnread = true }
-                updates.append(RecentUpdate(event: .Add, contribution: candy))
-            }
-            if candy.editedAt > dayAgo {
-                if candy.unread { containsUnread = true }
+        for candy in wrap.candies {
+            if candy.unread { containsUnread = true }
+            updates.append(RecentUpdate(event: .Add, contribution: candy))
+            if candy.editor != nil {
                 updates.append(RecentUpdate(event: .Update, contribution: candy))
             }
             if candy.involvedToConversation() {
-                for comment in candy.comments where comment.createdAt > dayAgo {
+                for comment in candy.comments {
                     if comment.unread { containsUnread = true }
                     updates.append(RecentUpdate(event: .Add, contribution: comment))
                 }

@@ -62,7 +62,7 @@ class TextField: UITextField {
         super.drawRect(rect)
         if !disableSeparator {
             let path = UIBezierPath()
-            path.lineWidth =  Constants.pixelSize
+            path.lineWidth =  Constants.pixelSize/2.0
             let y = bounds.height - path.lineWidth/2.0
             path.move(0, y).line(bounds.width, y)
             var placeholderColor = UIColor.clearColor()

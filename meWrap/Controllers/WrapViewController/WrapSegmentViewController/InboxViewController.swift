@@ -186,7 +186,7 @@ class InboxViewController: WrapSegmentViewController {
         let commentMetrics = dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<InboxCommentCell>()))
         
         candyMetrics.size = InboxCandyCell.DefaultHeight
-        candyMetrics.insetsAt = { CGRect.zero.offsetBy(dx: 0, dy: $0.position.index == 0 ? 0 : Constants.pixelSize) }
+        candyMetrics.insetsAt = { CGRect.zero.offsetBy(dx: 0, dy: $0.position.index == 0 ? 0 : Constants.pixelSize/2.0) }
         
         commentMetrics.size = InboxCommentCell.DefaultHeight
         commentMetrics.insetsAt = candyMetrics.insetsAt

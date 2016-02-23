@@ -36,7 +36,7 @@ class UserView: EntryView {
         super.awakeFromNib()
         User.notifier().addReceiver(self)
         if let avatarView = avatarView {
-            avatarView.borderWidth = Constants.pixelSize * 2.0
+            avatarView.borderWidth = Constants.pixelSize
             avatarView.borderColor = UIColor.whiteColor()
             avatarView.circled = true
         }

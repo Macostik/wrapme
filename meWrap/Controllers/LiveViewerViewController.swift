@@ -45,7 +45,7 @@ class LiveViewerViewController: LiveViewController {
         guard let url = "http://live.mewrap.me:1935/live/\(broadcast.streamName)/playlist.m3u8".URL else { return }
         
         let layer = AVPlayerLayer()
-        layer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        layer.videoGravity = AVLayerVideoGravityResizeAspect
         layer.frame = view.bounds
         view.layer.insertSublayer(layer, atIndex: 0)
         playerLayer = layer

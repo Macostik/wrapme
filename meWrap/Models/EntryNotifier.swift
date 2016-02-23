@@ -81,14 +81,19 @@ class EntryNotifier: OrderedNotifier {
     }
 }
 
-class EntryNotifyReceiver: NSObject, EntryNotifying {
-    var entry: (Void -> Entry?)?
+final class EntryNotifyReceiver<T: Entry>: NSObject, EntryNotifying {
+    var entry: (Void -> T?)?
     var container: (Void -> Entry?)?
-    var shouldNotify: (Entry -> Bool)?
-    var didAdd: (Entry -> Void)?
-    var didUpdate: ((Entry, EntryUpdateEvent) -> Void)?
-    var willDelete: (Entry -> Void)?
+    var shouldNotify: (T -> Bool)?
+    var didAdd: (T -> Void)?
+    var didUpdate: ((T, EntryUpdateEvent) -> Void)?
+    var willDelete: (T -> Void)?
     var willDeleteContainer: (Entry -> Void)?
+    
+    override init() {
+        super.init()
+        T.notifier().addReceiver(self)
+    }
     
     func setup( @noescape block: EntryNotifyReceiver -> Void) -> Self {
         block(self)
@@ -97,9 +102,9 @@ class EntryNotifyReceiver: NSObject, EntryNotifying {
     
     // MARK: - EntryNotifying
     
-    func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
+    @objc func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
         if let shouldNotify = shouldNotify {
-            return shouldNotify(entry)
+            return shouldNotify(entry as! T)
         } else if let _container = self.container?() where _container != entry.container {
             return false
         } else if let _entry = self.entry?() {
@@ -109,19 +114,19 @@ class EntryNotifyReceiver: NSObject, EntryNotifying {
         }
     }
     
-    func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {
-        didAdd?(entry)
+    @objc func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {
+        didAdd?(entry as! T)
     }
     
-    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
-        didUpdate?(entry, event)
+    @objc func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
+        didUpdate?(entry as! T, event)
     }
     
-    func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
-        willDelete?(entry)
+    @objc func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
+        willDelete?(entry as! T)
     }
     
-    func notifier(notifier: EntryNotifier, shouldNotifyOnContainer container: Entry) -> Bool {
+    @objc func notifier(notifier: EntryNotifier, shouldNotifyOnContainer container: Entry) -> Bool {
         if let _container = self.container?() where _container != container {
             return false
         } else {
@@ -129,7 +134,7 @@ class EntryNotifyReceiver: NSObject, EntryNotifying {
         }
     }
     
-    func notifier(notifier: EntryNotifier, willDeleteContainer container: Entry) {
+    @objc func notifier(notifier: EntryNotifier, willDeleteContainer container: Entry) {
         willDeleteContainer?(container)
     }
 }
@@ -138,12 +143,6 @@ extension Entry {
     
     class func notifier() -> EntryNotifier {
         return EntryNotifier.notifierForName(entityName())
-    }
-    
-    class func notifyReceiver() -> EntryNotifyReceiver {
-        let receiver = EntryNotifyReceiver()
-        notifier().addReceiver(receiver)
-        return receiver
     }
     
     func notifyOnAddition() {

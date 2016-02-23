@@ -344,7 +344,7 @@ extension HistoryViewController {
         FollowingViewController.followWrapIfNeeded(wrap) { [weak self] () -> Void in
             if let controllers = self?.childViewControllers {
                 for controller in controllers {
-                    if controller is WLCommentsViewController {
+                    if controller is CommentsViewController {
                         return
                     }
                 }
@@ -353,7 +353,7 @@ extension HistoryViewController {
             self?.applyScaleToCandyViewController(true)
             Storyboard.Comments.instantiate({ (controller) -> Void in
                 controller.candy = self?.candy
-                controller.presentForController(self, animated: true)
+                controller.presentForController(self)
             })
         }
     }

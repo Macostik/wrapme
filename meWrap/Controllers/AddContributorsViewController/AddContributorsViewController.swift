@@ -231,12 +231,9 @@ class AddContributorsViewController: WLBaseViewController, AddressBookRecordCell
     }
     
     func openedPosition(position: StreamPosition) -> StreamPosition? {
-        for _position in openedRows {
-            if _position.isEqualToPosition(position) {
-                return _position
-            }
+        for _position in openedRows where _position == position {
+            return _position
         }
-        
         return nil
     }
     

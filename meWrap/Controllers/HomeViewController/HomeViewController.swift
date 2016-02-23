@@ -24,8 +24,8 @@ final class HomeViewController: WLBaseViewController {
     weak var candiesView: RecentCandiesView!
     @IBOutlet weak var publicWrapsHeaderView: UIView!
     
-    private var userNotifyReceiver: EntryNotifyReceiver!
-    private var wrapNotifyReceiver: EntryNotifyReceiver!
+    private var userNotifyReceiver: EntryNotifyReceiver<User>!
+    private var wrapNotifyReceiver: EntryNotifyReceiver<Wrap>!
     
     deinit {
         AddressBook.sharedAddressBook.endCaching()
@@ -163,14 +163,13 @@ final class HomeViewController: WLBaseViewController {
     
     private func addNotifyReceivers() {
         
-        wrapNotifyReceiver = Wrap.notifyReceiver().setup { [unowned self] receiver in
+        wrapNotifyReceiver = EntryNotifyReceiver<Wrap>().setup { [unowned self] receiver in
             receiver.didAdd = {
-                let wrap = $0 as! Wrap
-                if wrap.isPublic {
-                    self.publicDataSource.paginatedSet?.sort(wrap)
+                if $0.isPublic {
+                    self.publicDataSource.paginatedSet?.sort($0)
                 }
-                if wrap.isContributing {
-                    self.homeDataSource.paginatedSet?.sort(wrap)
+                if $0.isContributing {
+                    self.homeDataSource.paginatedSet?.sort($0)
                 }
                 self.streamView.contentOffset = CGPointZero
             }
@@ -180,7 +179,7 @@ final class HomeViewController: WLBaseViewController {
                         (item.view as? WrapCell)?.updateBadgeNumber()
                     }
                 } else {
-                    let wrap = entry as! Wrap
+                    let wrap = entry
                     if wrap.isPublic {
                         self.publicDataSource.paginatedSet?.sort(wrap)
                     }
@@ -192,17 +191,16 @@ final class HomeViewController: WLBaseViewController {
                 }
             }
             receiver.willDelete = {
-                let wrap = $0 as! Wrap
-                if wrap.isPublic {
-                    self.publicDataSource.paginatedSet?.remove(wrap)
+                if $0.isPublic {
+                    self.publicDataSource.paginatedSet?.remove($0)
                 }
-                if wrap.isContributing {
-                    self.homeDataSource.paginatedSet?.remove(wrap)
+                if $0.isContributing {
+                    self.homeDataSource.paginatedSet?.remove($0)
                 }
             }
         }
         
-        userNotifyReceiver = User.notifyReceiver().setup {
+        userNotifyReceiver = EntryNotifyReceiver<User>().setup {
             $0.didUpdate = { [unowned self] entry, event in
                 if self.isTopViewController {
                     self.updateEmailConfirmationView(true)

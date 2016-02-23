@@ -13,4 +13,3 @@
 #import "GeometryHelper.h"
 #import "WLDrawingViewController.h"
 #import "ImageEditor.h"
-#import "WLCommentsViewController.h"

@@ -150,7 +150,7 @@ final class WrapViewController: WLBaseViewController {
     
     @IBOutlet var publicWrapPrioritizer: LayoutPrioritizer!
     
-    private var wrapNotifyReceiver: EntryNotifyReceiver?
+    private var wrapNotifyReceiver: EntryNotifyReceiver<Wrap>?
     
     private lazy var friendsDataSource: StreamDataSource = StreamDataSource(streamView: self.friendsStreamView)
     
@@ -223,7 +223,7 @@ final class WrapViewController: WLBaseViewController {
     
     private func addNotifyReceivers() {
         
-        wrapNotifyReceiver = Wrap.notifyReceiver().setup({ [unowned self] (receiver) -> Void in
+        wrapNotifyReceiver = EntryNotifyReceiver<Wrap>().setup({ [unowned self] (receiver) -> Void in
             receiver.entry = { return self.wrap }
             receiver.didUpdate = { entry, event in
                 if event == .NumberOfUnreadMessagesChanged {
@@ -240,7 +240,7 @@ final class WrapViewController: WLBaseViewController {
             receiver.willDelete = { entry in
                 if self.viewAppeared {
                     self.navigationController?.popToRootViewControllerAnimated(false)
-                    Toast.showMessageForUnavailableWrap(entry as? Wrap)
+                    Toast.showMessageForUnavailableWrap(entry)
                 }
             }
             })

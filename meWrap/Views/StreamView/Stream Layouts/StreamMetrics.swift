@@ -120,29 +120,29 @@ class StreamMetrics: NSObject {
     
     var loader = StreamLoader()
     
-    @IBInspectable var identifier: String? {
+    var identifier: String? {
         get { return loader.identifier }
         set { loader.identifier = newValue }
     }
     
-    @IBOutlet weak var nibOwner:AnyObject? {
+    weak var nibOwner:AnyObject? {
         get { return loader.nibOwner }
         set { loader.nibOwner = newValue }
     }
     
-    @IBInspectable var hidden: Bool = false
+    var hidden: Bool = false
     
     var hiddenAt: StreamItem -> Bool = { $0.metrics.hidden }
     
-    @IBInspectable var size: CGFloat = 0
+    var size: CGFloat = 0
     
     var sizeAt: StreamItem -> CGFloat = {  $0.metrics.size }
     
-    @IBInspectable var insets: CGRect = CGRectZero
+    var insets: CGRect = CGRectZero
     
     var insetsAt: StreamItem -> CGRect = { $0.metrics.insets }
     
-    @IBInspectable var ratio: CGFloat = 0
+    var ratio: CGFloat = 0
     
     var isSeparator = false
     

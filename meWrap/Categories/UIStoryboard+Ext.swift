@@ -10,7 +10,7 @@ import UIKit
 
 struct StoryboardObject<T: UIViewController> {
     let identifier: String
-    let storyboard: UIStoryboard
+    var storyboard: UIStoryboard = UIStoryboard.main()
     func instantiate() -> T {
         return storyboard.instantiateViewControllerWithIdentifier(identifier) as! T
     }
@@ -30,7 +30,7 @@ struct Storyboard {
     static let UploadSummary = StoryboardObject<UploadSummaryViewController>(identifier: "uploadSummary", storyboard: UIStoryboard.camera())
     static let WrapPicker = StoryboardObject<WrapPickerViewController>(identifier: "wrapPicker", storyboard: UIStoryboard.camera())
     static let ReportCandy = StoryboardObject<ReportViewController>(identifier: "report", storyboard: UIStoryboard.main())
-    static let Comments = StoryboardObject<WLCommentsViewController>(identifier: "comments", storyboard: UIStoryboard.main())
+    static let Comments = StoryboardObject<CommentsViewController>(identifier: "comments", storyboard: UIStoryboard.main())
     static let History = StoryboardObject<HistoryViewController>(identifier: "history", storyboard: UIStoryboard.main())
     static let HistoryItem = StoryboardObject<HistoryItemViewController>(identifier: "historyItem", storyboard: UIStoryboard.main())
     static let Countries = StoryboardObject<CountriesViewController>(identifier: "countries", storyboard: UIStoryboard.signUp())

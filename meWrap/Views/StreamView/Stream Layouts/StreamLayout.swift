@@ -9,10 +9,12 @@
 import Foundation
 import UIKit
 
-@objc protocol StreamLayoutDelegate: StreamViewDelegate {
+protocol StreamLayoutDelegate: StreamViewDelegate {
+    func streamView(streamView:StreamView, offsetForLayout:StreamLayout) -> CGFloat
+}
 
-    optional func streamView(streamView:StreamView, offsetForLayout:StreamLayout) -> CGFloat
-
+extension StreamLayoutDelegate {
+    func streamView(streamView:StreamView, offsetForLayout:StreamLayout) -> CGFloat { return 0 }
 }
 
 class StreamLayout: NSObject {
@@ -33,7 +35,7 @@ class StreamLayout: NSObject {
     func prepareLayout() {
         finalized = false
         if let streamView = streamView, let delegate = streamView.delegate as? StreamLayoutDelegate {
-            offset = delegate.streamView?(streamView, offsetForLayout: self) ?? 0
+            offset = delegate.streamView(streamView, offsetForLayout: self)
         } else {
             offset = 0
         }

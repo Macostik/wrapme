@@ -18,9 +18,9 @@ class SquareGridLayout: StreamLayout {
     
     override func prepareLayout() {
         if let sv = self.streamView, let delegate = sv.delegate as? GridLayoutDelegate {
-            numberOfColumns = delegate.streamView?(sv, layoutNumberOfColumns: self) ?? 1
+            numberOfColumns = delegate.streamView(sv, layoutNumberOfColumns: self)
             
-            spacing = delegate.streamView?(sv, layoutSpacing: self) ?? 0
+            spacing = delegate.streamView(sv, layoutSpacing: self)
             
             let num = CGFloat(numberOfColumns)
             if horizontal {
@@ -29,7 +29,7 @@ class SquareGridLayout: StreamLayout {
                 size = (sv.frame.width - spacing * (num + (isEdgeSeporator ? 1 : -1))) / num
             }
             
-            offset = delegate.streamView?(sv, layout: self, offsetForColumn: 0) ?? 0
+            offset = delegate.streamView(sv, layout: self, offsetForColumn: 0)
         }
     }
     
@@ -88,13 +88,7 @@ class SquareLayout: StreamLayout {
     
     override func prepareLayout() {
         if let streamView = self.streamView, let delegate = streamView.delegate as? GridLayoutDelegate {
-            
-            if let s = delegate.streamView?(streamView, layoutSpacing: self) {
-                spacing = s
-            } else {
-                spacing = 0
-            }
-            
+            spacing =  delegate.streamView(streamView, layoutSpacing: self)
             if horizontal {
                 size = streamView.frame.size.height - spacing*2
             } else {

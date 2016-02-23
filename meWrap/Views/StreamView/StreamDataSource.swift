@@ -146,20 +146,6 @@ class StreamDataSource: NSObject, GridLayoutDelegate, StreamLayoutDelegate {
             }
         }
     }
-}
-
-extension StreamDataSource {
-    // MARK: - UIScrollViewDelegate
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if scrollView.tracking && (scrollView.contentSize.height > scrollView.height || direction == .Up) {
-            direction = scrollView.panGestureRecognizer.translationInView(scrollView).y > 0 ? .Down : .Up
-        }
-    }
-}
-
-extension StreamDataSource {
-    // MARK: - StreamViewDelegate
     
     func streamView(streamView: StreamView, numberOfItemsInSection section: Int) -> Int {
         return numberOfItems ?? items?.count ?? 0
@@ -213,6 +199,16 @@ extension StreamDataSource {
     
     func streamViewNumberOfSections(streamView: StreamView) -> Int {
         return 1
+    }
+}
+
+extension StreamDataSource {
+    // MARK: - UIScrollViewDelegate
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if scrollView.tracking && (scrollView.contentSize.height > scrollView.height || direction == .Up) {
+            direction = scrollView.panGestureRecognizer.translationInView(scrollView).y > 0 ? .Down : .Up
+        }
     }
 }
 

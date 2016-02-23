@@ -165,9 +165,7 @@ final class WrapViewController: WLBaseViewController {
         super.viewDidLoad()
         
         friendsStreamView.horizontal = true
-        let size = (view.width - moreFriendsLabel.width) / ((view.width - moreFriendsLabel.width) / friendsStreamView.height)
-        friendsDataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<FriendView>(), size: size))
-        
+        friendsDataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<FriendView>(), size: friendsStreamView.height))
         guard let wrap = wrap where wrap.valid else { return }
         
         let chatViewController = controllerForSegment(.Chat)
@@ -274,7 +272,7 @@ final class WrapViewController: WLBaseViewController {
     }
     
     private func updateFriendsBar(wrap: Wrap) {
-        let maxFriendsCount = Int((view.width - moreFriendsLabel.width) / friendsStreamView.height)
+        let maxFriendsCount = Int((Constants.screenWidth - moreFriendsLabel.width) / friendsStreamView.height)
         let contributors = wrap.contributors.sort {
             if $0.current || ($0.avatar?.small?.isEmpty ?? true) {
                 return false

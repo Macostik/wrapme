@@ -20,9 +20,9 @@ final class ChatViewController: WrapSegmentViewController {
     private var myMessageMetrics = StreamMetrics(identifier: "MyMessageCell").change({ $0.selectable = false })
     private var dateMetrics = StreamMetrics(loader: LayoutStreamLoader<MessageDateView>(), size: 33).change({ $0.selectable = false })
     
-    private lazy var placeholderMetrics: StreamMetrics = StreamMetrics(loader: PlaceholderView.chatPlaceholderLoader()).change { [unowned self] metrics -> Void in
+    private lazy var placeholderMetrics: StreamMetrics = StreamMetrics(loader: PlaceholderView.chatPlaceholderLoader()).change { [weak self] metrics -> Void in
         metrics.prepareAppearing = { item, view in
-            (view as! PlaceholderView).textLabel.text = String(format:"no_chat_message".ls, self.wrap?.name ?? "")
+            (view as! PlaceholderView).textLabel.text = String(format:"no_chat_message".ls, self?.wrap?.name ?? "")
         }
         metrics.selectable = false
     }
@@ -303,8 +303,8 @@ extension ChatViewController: StreamViewDelegate {
     }
     
     func streamView(streamView: StreamView, entryBlockForItem item: StreamItem) -> (StreamItem -> AnyObject?)? {
-        return { [unowned self] item in
-            return self.chat.entries[safe: item.position.index]
+        return { [weak self] item in
+            return self?.chat.entries[safe: item.position.index]
         }
     }
     

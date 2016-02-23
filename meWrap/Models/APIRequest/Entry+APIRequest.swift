@@ -104,8 +104,8 @@ extension Wrap {
         let uploading = Uploading.uploading(message)
         message.wrap = self
         message.text = text
-        message.notifyOnAddition()
         Uploader.messageUploader.upload(uploading)
+        message.notifyOnAddition()
     }
     
     func uploadAsset(asset: MutableAsset) {
@@ -116,8 +116,8 @@ extension Wrap {
         if let comment = asset.comment where !comment.isEmpty {
             Comment.comment(comment).candy = candy
         }
-        candy.notifyOnAddition()
         Uploader.candyUploader.upload(uploading)
+        candy.notifyOnAddition()
     }
     
     func uploadAssets(assets: [MutableAsset]) {
@@ -322,11 +322,12 @@ extension Candy {
     
     func uploadComment(text: String) {
         let comment = Comment.comment(text)
-        let uploading = Uploading.uploading(comment)
         commentCount++
         comment.candy = self
-        comment.notifyOnAddition()
-        Dispatch.mainQueue.after(0.3, block: { Uploader.commentUploader.upload(uploading) })
+        Dispatch.mainQueue.after(0.3, block: {
+            Uploader.commentUploader.upload(Uploading.uploading(comment))
+            comment.notifyOnAddition()
+        })
     }
 
     override func add(success: ObjectBlock?, failure: FailureBlock?) {

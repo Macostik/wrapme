@@ -194,8 +194,8 @@
 - (void)slideInteractiveTransition:(SlideInteractiveTransition *)controller hideViews:(BOOL)hideViews {
     VideoPlayerView *videoPlayerView = self.videoPlayerView;
     videoPlayerView.timeView.hidden = videoPlayerView.secondaryPlayButton.hidden = hideViews || !videoPlayerView.playButton.hidden;
-    [videoPlayerView.timeView addAnimation:[CATransition transition:kCATransitionFade]];
-    [videoPlayerView.secondaryPlayButton addAnimation:[CATransition transition:kCATransitionFade]];
+    [videoPlayerView.timeView addAnimation:[CATransition transition:kCATransitionFade subtype:nil duration:0.33]];
+    [videoPlayerView.secondaryPlayButton addAnimation:[CATransition transition:kCATransitionFade subtype:nil duration:0.33]];
     [self.historyViewController hideSecondaryViews:hideViews];
 }
 

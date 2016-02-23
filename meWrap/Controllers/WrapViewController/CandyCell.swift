@@ -127,14 +127,9 @@ class CandyCell: StreamReusableView {
         guard let asset = candy.asset else { return }
         
         if asset.justUploaded {
-            StreamView.lock()
+            asset.justUploaded = false
             alpha = 0.0
-            UIView.animateWithDuration(0.5, animations: {[weak self] () -> Void in
-                self?.alpha = 1
-                }, completion: { (_) -> Void in
-                    asset.justUploaded = false
-                    StreamView.unlock()
-            })
+            UIView.animateWithDuration(0.5, animations: { self.alpha = 1 })
         }
         
         imageView.url = asset.small

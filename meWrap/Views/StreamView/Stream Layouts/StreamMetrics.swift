@@ -170,8 +170,15 @@ class StreamMetrics: NSObject {
         }
     }
     
-    func dequeueView() -> StreamReusableView? {
-        if let view = reusableViews.first {
+    func findView(item: StreamItem) -> StreamReusableView? {
+        for view in reusableViews where view.item?.entry === item.entry {
+            return view
+        }
+        return reusableViews.first
+    }
+    
+    func dequeueView(item: StreamItem) -> StreamReusableView? {
+        if let view = findView(item) {
             reusableViews.remove(view)
             view.didDequeue()
             return view
@@ -180,13 +187,12 @@ class StreamMetrics: NSObject {
     }
     
     func dequeueViewWithItem(item: StreamItem) -> StreamReusableView? {
-        if let view = dequeueView() {
+        if let view = dequeueView(item) {
             view.item = item
             UIView.performWithoutAnimation { view.frame = item.frame }
             item.view = view
-            let entry = item.entry
             prepareAppearing?(item, view)
-            view.entry = entry
+            view.entry = item.entry
             finalizeAppearing?(item, view)
             return view
         }

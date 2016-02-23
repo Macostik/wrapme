@@ -213,7 +213,6 @@ extension WrapPickerViewController {
         
         let wrap = Wrap.wrap()
         wrap.name = name
-        wrap.notifyOnAddition()
         delegate?.wrapPickerViewController(self, didSelectWrap:wrap)
         delegate?.wrapPickerViewController(self, didCreateWrap:wrap)
         delegate?.wrapPickerViewControllerDidFinish(self)
@@ -223,6 +222,7 @@ extension WrapPickerViewController {
                 wrap.remove()
             }
         }
+        wrap.notifyOnAddition()
     }
     
     @IBAction func hide(sender: AnyObject?) {

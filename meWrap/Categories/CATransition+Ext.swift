@@ -9,20 +9,7 @@
 import Foundation
 
 extension CATransition {
-    
-    class func transition(type: String) -> CATransition {
-        return transition(type, subtype: nil, duration: 0.33)
-    }
-    
-    class func transition(type: String, subtype: String?) -> CATransition {
-        return transition(type, subtype: subtype, duration: 0.33)
-    }
-    
-    class func transition(type: String, duration: CFTimeInterval) -> CATransition {
-        return transition(type, subtype: nil, duration: duration)
-    }
-    
-    class func transition(type: String, subtype: String?, duration: CFTimeInterval) -> CATransition {
+    class func transition(type: String, subtype: String? = nil, duration: CFTimeInterval = 0.33) -> CATransition {
         let transition = CATransition()
         transition.type = type
         transition.subtype = subtype

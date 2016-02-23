@@ -38,7 +38,6 @@ class UploadWizardViewController: WLBaseViewController {
             guard let name = text where !name.isEmpty else { return nil }
             let wrap = Wrap.wrap()
             wrap.name = name
-            wrap.notifyOnAddition()
             self.wrap = wrap
             Uploader.wrapUploader.upload(Uploading.uploading(wrap), success: nil, failure: { [weak self] error in
                 if let error = error where !error.isNetworkError {
@@ -48,6 +47,7 @@ class UploadWizardViewController: WLBaseViewController {
                     self?.navigationController?.popViewControllerAnimated(false)
                 }
                 })
+            wrap.notifyOnAddition()
             return wrap
         }
     }

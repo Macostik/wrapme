@@ -69,8 +69,8 @@ final class ChatViewController: WrapSegmentViewController {
             return
         }
         
-        messageWithNameMetrics.sizeAt = { [unowned self] item in
-            return self.chat.heightOfMessageCell((item.entry as! Message))
+        messageWithNameMetrics.sizeAt = { [weak self] item in
+            return self?.chat.heightOfMessageCell((item.entry as! Message)) ?? 0.0
         }
         messageMetrics.sizeAt = messageWithNameMetrics.sizeAt
         myMessageMetrics.sizeAt = messageWithNameMetrics.sizeAt

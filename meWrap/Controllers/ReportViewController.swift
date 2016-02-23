@@ -23,7 +23,7 @@ class ViolationCell : UICollectionViewCell {
             guard let entry = entry else {
                 return
             }
-            textLabel.text = entry.title
+            textLabel.text = entry.title?.ls
             textLabel.textColor = entry.fontColor
             textLabel.font = textLabel.font.fontWithSize(entry.fontSize)
             showArrowLabel.hidden = entry.code == nil

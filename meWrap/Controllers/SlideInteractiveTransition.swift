@@ -26,11 +26,12 @@ class SlideInteractiveTransition: NSObject, UIGestureRecognizerDelegate {
     private weak var screenShotView: UIView?
     private weak var contentView: UIView!
     private weak var imageView: UIImageView?
+    private weak var originImageView: UIImageView?
     lazy var panGestureRecognizer: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
     
     required init (contentView: UIView, imageView: UIImageView? = nil) {
         self.contentView = contentView
-        self.imageView = imageView
+        originImageView = imageView
         super.init()
         panGestureRecognizer.delegate = self
         contentView.addGestureRecognizer(panGestureRecognizer)
@@ -44,8 +45,7 @@ class SlideInteractiveTransition: NSObject, UIGestureRecognizerDelegate {
         let percentCompleted = abs(translation.y/superview.height)
         switch gesture.state {
         case .Began:
-            if let imageView = imageView where animate == true && presentingView != nil {
-                imageView.removeFromSuperview()
+            if let imageView = originImageView where animate == true && presentingView != nil {
                 let _imageView = UIImageView(frame: imageView.frame)
                 _imageView.image = imageView.image
                 _imageView.contentMode = .ScaleAspectFit
@@ -93,6 +93,7 @@ class SlideInteractiveTransition: NSObject, UIGestureRecognizerDelegate {
                         presentingView?.alpha = 1
                         self.contentView.hidden = false
                         self.screenShotView?.removeFromSuperview()
+                        self.imageView?.removeFromSuperview()
                         self.delegate?.slideInteractiveTransition?(self, hideViews: false)
                 })
             }

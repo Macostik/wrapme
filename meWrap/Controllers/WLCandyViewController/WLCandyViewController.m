@@ -209,6 +209,7 @@
 }
 
 - (UIView *)slideInteractiveTransitionPresentingView:(SlideInteractiveTransition *)controller {
+    if (self.historyViewController.dismissingView == nil) return nil;
     UIView *dismissingView = self.historyViewController.dismissingView(nil, self.candy);
     dismissingView.alpha = 0;
     return dismissingView;

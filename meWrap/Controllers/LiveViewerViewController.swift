@@ -111,6 +111,7 @@ class LiveViewerViewController: LiveViewController {
     }
     
     private func showEndBroadcast() {
+        view.endEditing(true)
         showCoverViewWithText("broadcast_end".ls)
     }
     

@@ -141,7 +141,8 @@ final class ChatViewController: WrapSegmentViewController {
         if streamView.contentInset.bottom > composeBar.height + Chat.BubbleIndent {
             return
         }
-        keyboard.performAnimation { streamView.transform = CGAffineTransformMakeTranslation(0, -keyboard.height) }
+        let offset = keyboard.height - (streamView.height - streamView.contentSize.height) + composeBar.height + Chat.BubbleIndent
+        keyboard.performAnimation { streamView.transform = CGAffineTransformMakeTranslation(0, offset < 0 ? 0 : offset < streamView.height ? -offset : -keyboard.height) }
     }
     
     override func keyboardDidShow(keyboard: Keyboard) {

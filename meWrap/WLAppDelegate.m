@@ -27,6 +27,9 @@
 @implementation WLAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    self.window = [UIWindow mainWindow];
+    
     [Logger log:[NSString stringWithFormat:@"API environment: %@", [Environment currentEnvironment]]];
     
     [self registerUserNotificationSettings];

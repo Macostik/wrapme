@@ -63,22 +63,24 @@ class RecentUpdatesController: WKInterfaceController {
     @IBOutlet weak var noUpdatesLabel: WKInterfaceLabel!
     
     var isEmpty = false {
-        didSet {
-            table.setHidden(isEmpty)
-            placeholderGroup.setHidden(!isEmpty)
+        willSet {
+            table.setHidden(newValue)
+            placeholderGroup.setHidden(!newValue)
         }
     }
     
     var updates = [ExtensionUpdate]() {
-        didSet {
-            if updates != oldValue {
-                let rowTypes = updates.map({ $0.type ?? "" })
+        willSet {
+            if updates != newValue {
+                let rowTypes = newValue.map({ $0.type ?? "" })
                 isEmpty = rowTypes.isEmpty
                 table.setRowTypes(rowTypes)
-                for (index, update) in updates.enumerate() {
+                for (index, update) in newValue.enumerate() {
                     let row = table.rowControllerAtIndex(index) as? RecentUpdateRow
                     row?.update = update
                 }
+            } else {
+                isEmpty = newValue.count == 0
             }
         }
     }

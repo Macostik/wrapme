@@ -9,6 +9,14 @@
 import UIKit
 
 class SeparatorView: UIView {
+    
+    convenience init(color: UIColor, contentMode: UIViewContentMode = .Bottom) {
+        self.init()
+        backgroundColor = UIColor.clearColor()
+        self.contentMode = contentMode
+        self.color = color
+    }
+    
     @IBInspectable var color: UIColor?
     
     override func drawRect(rect: CGRect) {

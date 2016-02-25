@@ -10,8 +10,8 @@
 
 @interface ImageEditor : NSObject
 
-+ (void)editImage:(UIImage *)image completion:(ImageBlock)completion cancel:(Block)cancel;
++ (void)editImage:(UIImage* __nonnull)image completion:(void (^ __nonnull) (UIImage * __nonnull image))completion;
 
-+ (UIViewController*)editControllerWithImage:(UIImage*)image completion:(ImageBlock)completion cancel:(Block)cancel;
++ (UIViewController* __nonnull)editControllerWithImage:(UIImage* __nonnull)image completion:(void (^ __nonnull) (UIImage * __nonnull image))completion cancel:(void (^ __nonnull) (void))cancel;
 
 @end

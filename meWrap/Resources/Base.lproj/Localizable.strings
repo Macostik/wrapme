@@ -206,7 +206,7 @@
 "downloading_photo_for_editing" = "Downloading the photo for editing...";
 "invitation_tip" = "Add friends.\nChip in photos.\nStay connected.";
 "got_it" = "Got it";
-"swipe_actions_tip" = "Opening camera & chat just got easier";
+"swipe_actions_tip" = "Opening camera & chat just got easier.";
 "no_upload_yet" = "No upload yet";
 "no_uploads_for_this_day" = "No uploads on this day";
 "no_comments_yet" = "No comments yet";
@@ -268,8 +268,8 @@
 "sign_up_pending" = "Sign up pending";
 "welcome" = "Welcome to meWrap!";
 "let's_get_started" = "Let's get started";
-"your_broadcast_is_live" = "Your broadcast is now live.";
-"formatted_broadcast_notification" = "Your friends in \"%@\" are now receiving notification about your broadcast.";
+"your_broadcast_is_live" = "Your broadcast is LIVE.";
+"formatted_broadcast_notification" = "Friends in \"%@\" notified.";
 "formatted_broadcast_end" = "%@ has ended the broadcast.";
 "easy_create_wrap" = "meWrap makes it surprisingly easy to create a wrap.";
 "live" = "LIVE";
@@ -279,7 +279,7 @@
 "enjoy_and_happy" = "If you invite your friends to wrap. They are receiving the notifications from meWrap now. Enjoy and happy wrapping!";
 "first_wrap" = "%@'s first wrap";
 "introduction_step_1_part_1" = "A collection of albums";
-"introduction_step_1_part_2" = "that only people you allowed...";
+"introduction_step_1_part_2" = "that only people you selected...";
 "introduction_step_2_part_1" = "...can participate in";
 "introduction_step_2_part_2" = "sharing photos, videos and even live broadcast!";
 "skip" = "Skip";
@@ -298,3 +298,8 @@
 "microphone_access_message" = "Please go to Settings > meWrap to allow meWrap access the microphone.";
 "media_access_title" = "No Camera and Microphone Access";
 "media_access_message" = "Please go to Settings > meWrap to allow meWrap access the camera and microphone.";
+"loading..." = "Loading...";
+"broadcast_end" = "The live broadcast has ended.";
+"inbox" = "Inbox";
+"inbox_placeholder" = "No messages yet. Please enjoy your day.";
+"mark_all_as_read" = "Mark all as read";

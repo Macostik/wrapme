@@ -83,7 +83,7 @@ class Keyboard: Notifier {
         tapGestureRecognizer.view?.removeGestureRecognizer(tapGestureRecognizer)
     }
     
-    func performAnimation(animation: Block) {
+    func performAnimation( @noescape animation: Block) {
         UIView.beginAnimations(nil, context:nil)
         UIView.setAnimationBeginsFromCurrentState(true)
         UIView.setAnimationDuration(animationDuration)

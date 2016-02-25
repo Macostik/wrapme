@@ -44,7 +44,7 @@ class Message: Contribution {
     lazy var chatMetadata = ChatMetadata()
 }
 
-class ChatMetadata: NSObject {
+struct ChatMetadata {
     var containsName = false
     var containsDate = false
     var isGroup = false

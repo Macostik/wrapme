@@ -17,7 +17,7 @@ extension PubNub {
         if var pubnub = _sharedInstance {
             if pubnub.currentConfiguration().uuid != User.channelName() {
                 let configuration = defaultConfiguration()
-                pubnub = pubnub.copyWithConfiguration(configuration)
+                pubnub = pubnub.copyWithConfiguration(configuration, completion: nil)
                 _sharedInstance = pubnub
             }
             return pubnub
@@ -36,6 +36,8 @@ extension PubNub {
             configuration = PNConfiguration(publishKey: "pub-c-16ba2a90-9331-4472-b00a-83f01ff32089", subscribeKey: "sub-c-bc5bfa70-d166-11e3-8d06-02ee2ddab7fe")
         }
         configuration.uuid = User.channelName()
+        configuration.presenceHeartbeatInterval = 30
+        configuration.presenceHeartbeatValue = 60
         return configuration
     }
     

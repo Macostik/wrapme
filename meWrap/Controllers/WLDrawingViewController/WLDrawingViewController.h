@@ -13,9 +13,9 @@
 @protocol WLDrawingViewControllerDelegate <NSObject>
 
 @optional
-- (void)drawingViewController:(WLDrawingViewController*)controller didFinishWithImage:(UIImage*)image;
+- (void)drawingViewController:(WLDrawingViewController* __nonnull)controller didFinishWithImage:(UIImage* __nonnull)image;
 
-- (void)drawingViewControllerDidCancel:(WLDrawingViewController*)controller;
+- (void)drawingViewControllerDidCancel:(WLDrawingViewController* __nonnull)controller;
 
 @end
 
@@ -25,10 +25,10 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewHeightConstraint;
 
-@property (strong, nonatomic) UIImage *image;
+@property (strong, nonatomic) UIImage *__nullable image;
 
-+ (instancetype)draw:(UIImage*)image finish:(ImageBlock)finish;
++ (instancetype __nullable)draw:(UIImage*__nonnull)image finish:(void (^__nonnull)(UIImage*__nonnull image))finish;
 
-- (void)setImage:(UIImage*)image done:(ImageBlock)done cancel:(Block)cancel;
+- (void)setImage:(UIImage*__nonnull)image done:(void (^__nonnull)(UIImage*__nonnull image))done cancel:(Block __nonnull)cancel;
 
 @end

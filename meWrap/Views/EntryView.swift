@@ -25,7 +25,7 @@ class UserView: EntryView {
     
     @IBOutlet weak var nameLabel: UILabel?
     
-    override func setup(entry: AnyObject) {
+    override func setup(entry: AnyObject?) {
         if let user = entry as? User {
             avatarView?.url = user.avatar?.small
             nameLabel?.text = user.name
@@ -36,7 +36,7 @@ class UserView: EntryView {
         super.awakeFromNib()
         User.notifier().addReceiver(self)
         if let avatarView = avatarView {
-            avatarView.borderWidth = Constants.pixelSize * 2.0
+            avatarView.borderWidth = Constants.pixelSize
             avatarView.borderColor = UIColor.whiteColor()
             avatarView.circled = true
         }
@@ -50,7 +50,7 @@ class WrapView: EntryView {
     
     @IBOutlet weak var nameLabel: UILabel?
     
-    override func setup(entry: AnyObject) {
+    override func setup(entry: AnyObject?) {
         if let wrap = entry as? Wrap {
             if let coverView = coverView {
                 coverView.url = wrap.asset?.small

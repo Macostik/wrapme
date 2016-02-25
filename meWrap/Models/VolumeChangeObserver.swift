@@ -42,8 +42,8 @@ class VolumeChangeObserver : NSObject {
     private func initVolumeView () {
         volumeView = MPVolumeView(frame: CGRectMake(CGFloat(MAXFLOAT), CGFloat(MAXFLOAT), 0, 0))
         guard let volumeView = volumeView else { return }
-        UIWindow.mainWindow.addSubview(volumeView)
         _ = try? audioSession.setActive(true)
+        UIWindow.mainWindow.addSubview(volumeView)
     }
     
     func unregister() {
@@ -78,7 +78,7 @@ class VolumeChangeObserver : NSObject {
                         }
                     }
                 } else {
-                    Dispatch.mainQueue.after(0.1, block: { _ in
+                    Dispatch.mainQueue.after(1.0, block: { _ in
                         slider.value = 0.5
                     })
                 }

@@ -21,7 +21,6 @@ class Chat: PaginatedList {
     var typingNames: String?
     
     lazy var unreadMessages = [Message]()
-    lazy var readMessages = [Message]()
     lazy var typingUsers = [User]()
     
     lazy var cachedMessageHeights = [Message : CGFloat]()
@@ -40,7 +39,8 @@ class Chat: PaginatedList {
     static var LeadingBubbleIndentWithAvatar: CGFloat = 64.0
     static var BubbleIndent: CGFloat = 16.0
     static var MessageGroupSpacing: CGFloat = 6.0
-    static var NameVerticalInset: CGFloat = 4.0
+    static var MessageSpacing: CGFloat = 2.0
+    static var NameVerticalInset: CGFloat = 6.0
     
     private var subscription: NotificationSubscription?
     
@@ -54,14 +54,11 @@ class Chat: PaginatedList {
             self?.subscription = subscription
             subscription.delegate = self
             subscription.hereNow({ (uuids) -> Void in
-                guard let uuids = uuids else {
-                    return
-                }
+                guard let uuids = uuids else { return }
                 for uuid in uuids {
-                    guard let user = PubNub.userFromUUID(uuid["uuid"] as? String) where !user.current else {
-                        continue
-                    }
-                    if let typing = uuid["state"]?["typing"] as? Bool where typing == true {
+                    guard let activity = UserActivity(uuid: uuid["uuid"] as? String, state: uuid["state"] as? [NSObject:AnyObject]) else { return }
+                    guard activity.type == .Typing else { return }
+                    if let user = activity.user where activity.inProgress {
                         self?.didBeginTyping(user)
                     }
                 }
@@ -93,16 +90,10 @@ class Chat: PaginatedList {
     }
     
     func markAsRead() {
-        for message in readMessages {
+        for message in unreadMessages {
             message.markAsUnread(false)
-            if let index = unreadMessages.indexOf(message) {
-                unreadMessages.removeAtIndex(index)
-            }
         }
-    }
-    
-    func addReadMessage(message: Message) {
-        readMessages.append(message)
+        unreadMessages.removeAll()
     }
     
     override func didChange() {
@@ -209,7 +200,12 @@ extension Chat: NotificationSubscriptionDelegate {
     }
     
     func sendTyping(typing: Bool) {
-        subscription?.changeState(["typing" : typing])
+        subscription?.changeState([
+            "activity" : [
+                "type" : UserActivityType.Typing.rawValue,
+                "in_progress" : typing
+            ]
+            ])
     }
     
     func beginTyping() {
@@ -220,29 +216,18 @@ extension Chat: NotificationSubscriptionDelegate {
         sendTyping(false)
     }
     
-    private func handleClientState(state: [NSObject:AnyObject], user: User) {
-        if let typing = state["typing"] as? Bool {
-            if typing {
-                didBeginTyping(user)
-            } else {
-                didEndTyping(user)
-            }
-        }
-    }
-    
     func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {
-        guard let user = PubNub.userFromUUID(event.data?.presence?.uuid) where !user.current else {
-            return
+        let presence = event.data?.presence
+        guard let activity = UserActivity(uuid: presence?.uuid, state: presence?.state) else { return }
+        guard activity.type == .Typing else { return }
+        guard let user = activity.user where !user.current else { return }
+        if event.data.presenceEvent == "timeout" {
+            activity.inProgress = false
         }
-        
-        switch event.data.presenceEvent {
-        case "state-change":
-            handleClientState(event.data.presence.state, user: user)
-            break
-        case "leave", "timeout" where typingUsers.contains(user):
+        if activity.inProgress && event.data.presenceEvent == "state-change" {
+            didBeginTyping(user)
+        } else {
             didEndTyping(user)
-            break
-        default: break
         }
     }
 }
@@ -255,10 +240,10 @@ extension Chat: FontPresetting {
         } else {
             guard let text = message.text else { return 0 }
             let containsName = message.chatMetadata.containsName
-            let calculateWight = (message.contributor?.current ?? false) ? Chat.MaxWidth : Chat.MinWidth
+            let calculateWight = (message.contributor?.current ?? false) ? Chat.MinWidth : Chat.MaxWidth
             var commentHeight = text.heightWithFont(messageFont, width: calculateWight) ?? 0
             let topInset = containsName ? nameFont.lineHeight + Chat.NameVerticalInset : 0
-            let bottomInset = nameFont.lineHeight + Chat.MessageVerticalInset
+            let bottomInset = nameFont.lineHeight + Chat.MessageVerticalInset + Chat.MessageSpacing
             commentHeight += topInset + bottomInset
             commentHeight = max(containsName ? Chat.MessageWithNameMinimumCellHeight : Chat.MessageWithoutNameMinimumCellHeight, commentHeight)
             cachedMessageHeights[message] = commentHeight

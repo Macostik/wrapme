@@ -10,6 +10,20 @@ import Foundation
 
 class Label: UILabel {
     
+    convenience init(icon: String, size: CGFloat, textColor: UIColor = UIColor.whiteColor()) {
+        self.init()
+        font = UIFont(name: "icons", size: size)
+        text = icon
+        self.textColor = textColor
+    }
+    
+    convenience init(preset: FontPreset, weight: CGFloat, textColor: UIColor = Color.grayDarker) {
+        self.init()
+        font = UIFont.fontWithPreset(preset, weight: weight)
+        self.preset = preset.rawValue
+        self.textColor = textColor
+    }
+    
     @IBInspectable var preset: String? {
         willSet {
             if let preset = newValue where !preset.isEmpty {

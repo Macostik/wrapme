@@ -1,0 +1,269 @@
+//
+//  InboxViewController.swift
+//  meWrap
+//
+//  Created by Sergey Maximenko on 11/13/15.
+//  Copyright © 2015 Ravenpod. All rights reserved.
+//
+
+import UIKit
+import SnapKit
+
+class RecentUpdate {
+    
+    var event: Event
+    
+    var contribution: Contribution
+    
+    var date: NSDate
+    
+    init(event: Event, contribution: Contribution) {
+        self.event = event
+        self.contribution = contribution
+        date = event == .Update ? contribution.editedAt : contribution.createdAt
+    }
+}
+
+class InboxCell: StreamReusableView {
+    
+    internal var containerView = UIView()
+    internal var headerView = UIView()
+    internal var avatarView = ImageView(backgroundColor: UIColor.clearColor())
+    internal var userNameLabel = Label(preset: .Small, weight: UIFontWeightRegular, textColor: Color.grayLight)
+    internal var timeLabel = Label(preset: .Small, weight: UIFontWeightRegular, textColor: Color.grayLight)
+    internal var wrapLabel = Label(preset: .Small, weight: UIFontWeightRegular, textColor: Color.grayLight)
+    internal var imageView = ImageView(backgroundColor: UIColor.clearColor())
+    internal var videoIndicator = Label(icon: "+", size: 24)
+    
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        addSubview(containerView)
+        avatarView.cornerRadius = 15
+        containerView.addSubview(headerView)
+        containerView.backgroundColor = UIColor.whiteColor()
+        containerView.shadowColor = Color.grayLightest
+        containerView.shadowOpacity = 1
+        containerView.shadowOffset = CGSize(width: 1, height: -1)
+        timeLabel.setContentCompressionResistancePriority(751, forAxis: .Horizontal)
+        timeLabel.setContentHuggingPriority(251, forAxis: .Horizontal)
+        headerView.addSubview(avatarView)
+        headerView.addSubview(userNameLabel)
+        headerView.addSubview(timeLabel)
+        containerView.addSubview(imageView)
+        containerView.addSubview(videoIndicator)
+        containerView.addSubview(wrapLabel)
+        containerView.snp_makeConstraints {
+            $0.top.equalTo(self)
+            $0.leading.trailing.equalTo(self).inset(8)
+        }
+        headerView.snp_makeConstraints {
+            $0.bottom.equalTo(imageView.snp_top)
+            $0.leading.top.trailing.equalTo(containerView)
+            $0.height.equalTo(54)
+        }
+        avatarView.snp_makeConstraints {
+            $0.leading.top.equalTo(headerView).offset(12)
+            $0.size.equalTo(30)
+        }
+        userNameLabel.snp_makeConstraints {
+            $0.leading.equalTo(avatarView.snp_trailing).offset(12)
+            $0.centerY.equalTo(avatarView)
+        }
+        timeLabel.snp_makeConstraints {
+            $0.leading.equalTo(userNameLabel.snp_trailing)
+            $0.centerY.equalTo(userNameLabel)
+            $0.trailing.equalTo(headerView).inset(12)
+        }
+        videoIndicator.snp_makeConstraints { $0.trailing.top.equalTo(imageView).inset(12) }
+        wrapLabel.snp_makeConstraints {
+            $0.trailing.bottom.equalTo(containerView).inset(12)
+            $0.top.equalTo(imageView.snp_bottom).offset(12)
+            $0.leading.greaterThanOrEqualTo(containerView).inset(12)
+        }
+    }
+
+    override func setup(entry: AnyObject?) {
+        if let update = entry as? RecentUpdate {
+            let contribution = update.contribution
+            timeLabel.text =  update.date.isToday() ? update.date.stringWithTimeStyle(.ShortStyle) : "yesterday".ls
+            imageView.url = contribution.asset?.medium
+            if contribution.unread == true {
+                userNameLabel.textColor = Color.grayDark
+                timeLabel.textColor = Color.orange
+                wrapLabel.textColor = Color.orange
+            } else {
+                userNameLabel.textColor = Color.grayLighter
+                timeLabel.textColor = Color.grayLighter
+                wrapLabel.textColor = Color.grayLighter
+            }
+        }
+    }
+}
+
+class InboxCommentCell: InboxCell {
+    
+    private var textView = Label(preset: .Small, weight: UIFontWeightRegular, textColor: Color.grayLighter)
+    
+    static let DefaultHeight: CGFloat = Constants.screenWidth / 3 + 106.0
+    
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        super.layoutWithMetrics(metrics)
+        containerView.addSubview(textView)
+        imageView.snp_makeConstraints {
+            $0.trailing.equalTo(containerView)
+            $0.top.equalTo(headerView.snp_bottom)
+            $0.width.height.equalTo(self.snp_width).dividedBy(3)
+        }
+        textView.snp_makeConstraints {
+            $0.leading.equalTo(containerView).inset(12)
+            $0.trailing.equalTo(imageView.snp_leading).inset(-5)
+            $0.top.equalTo(headerView.snp_bottom).inset(-5)
+            $0.height.lessThanOrEqualTo(imageView.snp_height).inset(5)
+        }
+    }
+
+    override func setup(entry: AnyObject?) {
+        if let comment = (entry as? RecentUpdate)?.contribution as? Comment {
+            super.setup(entry)
+            avatarView.url = comment.contributor?.avatar?.small
+            userNameLabel.text = "\(comment.contributor?.name ?? ""):"
+            wrapLabel.text = comment.candy?.wrap?.name
+            textView.text = comment.text
+            videoIndicator.hidden = comment.candy?.mediaType != .Video
+            textView.textColor = comment.unread ? Color.grayDark : Color.grayLighter
+        }
+    }
+}
+
+class InboxCandyCell: InboxCell {
+    
+    static let DefaultHeight: CGFloat = Constants.screenWidth / 2.5 + 106.0
+    
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        super.layoutWithMetrics(metrics)
+        imageView.snp_makeConstraints {
+            $0.leading.trailing.equalTo(containerView)
+            $0.top.equalTo(headerView.snp_bottom)
+            $0.height.equalTo(self.snp_width).dividedBy(2.5)
+        }
+    }
+    
+    override func setup(entry: AnyObject?) {
+        if let update = entry as? RecentUpdate, let candy = update.contribution as? Candy {
+            super.setup(entry)
+            if update.event == .Update {
+                avatarView.url = candy.editor?.avatar?.small
+                userNameLabel.text = String(format: "formatted_edited_by".ls, candy.editor?.name ?? "")
+            } else {
+                avatarView.url = candy.contributor?.avatar?.small
+                userNameLabel.text = "\(candy.contributor?.name ?? "") \((candy.isVideo ? "posted_new_video" : "posted_new_photo").ls)"
+            }
+            wrapLabel.text = candy.wrap?.name
+            videoIndicator.hidden = candy.mediaType != .Video
+        }
+    }
+}
+
+class InboxViewController: WrapSegmentViewController {
+
+    lazy var dataSource: StreamDataSource = StreamDataSource(streamView: self.streamView)
+    
+    @IBOutlet weak var streamView: StreamView!
+    @IBOutlet weak var clearButton: UIButton!
+    @IBOutlet var clearLayoutPrioritizer: LayoutPrioritizer!
+    
+    var updates: [RecentUpdate] = [] {
+        willSet {
+            dataSource.items = newValue
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        dataSource.placeholderMetrics = StreamMetrics(loader: PlaceholderView.inboxPlaceholderLoader())
+        streamView.contentInset = streamView.scrollIndicatorInsets;
+        let candyMetrics = dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<InboxCandyCell>()))
+        let commentMetrics = dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<InboxCommentCell>()))
+        
+        candyMetrics.size = InboxCandyCell.DefaultHeight
+        candyMetrics.insetsAt = { CGRect.zero.offsetBy(dx: 0, dy: $0.position.index == 0 ? 0 : Constants.pixelSize/2.0) }
+        
+        commentMetrics.size = InboxCommentCell.DefaultHeight
+        commentMetrics.insetsAt = candyMetrics.insetsAt
+        
+        candyMetrics.hiddenAt = { item -> Bool in
+            let event = item.entry as? RecentUpdate
+            return !(event?.contribution is Candy)
+        }
+        
+        commentMetrics.hiddenAt = { item -> Bool in
+            let event = item.entry as? RecentUpdate
+            return !(event?.contribution is Comment)
+        }
+        
+        candyMetrics.selection = { item, entry in
+            if let event = entry as? RecentUpdate {
+                ChronologicalEntryPresenter.presentEntry(event.contribution, animated: true)
+            }
+        }
+        commentMetrics.selection = candyMetrics.selection
+        
+        Comment.notifier().addReceiver(self)
+        Candy.notifier().addReceiver(self)
+    }
+    
+    private func fetchUpdates() {
+        guard let wrap = wrap else { return }
+        var containsUnread = false
+        var updates = [RecentUpdate]()
+        for candy in wrap.candies {
+            if candy.unread { containsUnread = true }
+            updates.append(RecentUpdate(event: .Add, contribution: candy))
+            if candy.editor != nil {
+                updates.append(RecentUpdate(event: .Update, contribution: candy))
+            }
+            if candy.involvedToConversation() {
+                for comment in candy.comments {
+                    if comment.unread { containsUnread = true }
+                    updates.append(RecentUpdate(event: .Add, contribution: comment))
+                }
+            }
+        }
+        self.updates = updates.sort({ $0.date > $1.date })
+        clearLayoutPrioritizer.defaultState = containsUnread
+        clearButton.hidden = !containsUnread
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchUpdates()
+    }
+    
+    @IBAction func clearAll(sender: AnyObject) {
+        for update in updates {
+            update.contribution.markAsUnread(false)
+        }
+        clearLayoutPrioritizer.defaultState = false
+        clearButton.hidden = true
+        dataSource.reload()
+    }
+}
+
+extension InboxViewController: EntryNotifying {
+    
+    func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {
+        guard let contributor = (entry as? Contribution)?.contributor where !contributor.current else { return }
+        fetchUpdates()
+    }
+    
+    func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
+        guard let contributor = (entry as? Contribution)?.contributor where !contributor.current else { return }
+        Dispatch.mainQueue.async { [weak self] _ in
+            self?.fetchUpdates()
+        }
+    }
+    
+    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
+        fetchUpdates()
+    }
+}

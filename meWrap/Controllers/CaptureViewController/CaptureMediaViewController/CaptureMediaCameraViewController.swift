@@ -56,6 +56,7 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
         super.viewDidLoad()
         setupWrapView(wrap)
         let recognizer = UILongPressGestureRecognizer(target:self, action:"startVideoRecording:")
+        recognizer.allowableMovement = takePhotoButton.width
         recognizer.delegate = self
         takePhotoButton.addGestureRecognizer(recognizer)
     }

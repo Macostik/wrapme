@@ -31,9 +31,7 @@ extension Entry {
         }
     }
     
-    func willBecomeUnread(unread: Bool) {
-        
-    }
+    func willBecomeUnread(unread: Bool) { }
     
     func remove() {
         let context = EntryContext.sharedContext
@@ -63,7 +61,7 @@ extension Entry {
 extension User {
     
     class func channelName() -> String {
-        return "\(User.currentUser?.uid ?? "")-\(Authorization.currentAuthorization.deviceUID ?? "")"
+        return "\(User.currentUser?.uid ?? "")-\(Authorization.current.deviceUID ?? "")"
     }
     
     override func fetched() -> Bool {

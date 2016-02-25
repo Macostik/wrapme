@@ -44,7 +44,7 @@
     self.videoPlayerView.delegate = self;
     
     [self.candy fetch:nil failure:nil];
-    self.slideInteractiveTransition = [[SlideInteractiveTransition alloc] initWithContentView:self.contentView];
+    self.slideInteractiveTransition = [[SlideInteractiveTransition alloc] initWithContentView:self.contentView imageView:self.imageView];
     self.slideInteractiveTransition.delegate = self;
 }
 
@@ -147,7 +147,7 @@
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    return self.imageView;
+    return self.candy.type == MediaTypeVideo ? nil : self.imageView;
 }
 
 // MARK: - VideoPlayerViewDelegate
@@ -194,8 +194,8 @@
 - (void)slideInteractiveTransition:(SlideInteractiveTransition *)controller hideViews:(BOOL)hideViews {
     VideoPlayerView *videoPlayerView = self.videoPlayerView;
     videoPlayerView.timeView.hidden = videoPlayerView.secondaryPlayButton.hidden = hideViews || !videoPlayerView.playButton.hidden;
-    [videoPlayerView.timeView addAnimation:[CATransition transition:kCATransitionFade]];
-    [videoPlayerView.secondaryPlayButton addAnimation:[CATransition transition:kCATransitionFade]];
+    [videoPlayerView.timeView addAnimation:[CATransition transition:kCATransitionFade subtype:nil duration:0.33]];
+    [videoPlayerView.secondaryPlayButton addAnimation:[CATransition transition:kCATransitionFade subtype:nil duration:0.33]];
     [self.historyViewController hideSecondaryViews:hideViews];
 }
 
@@ -206,6 +206,13 @@
 
 - (void)slideInteractiveTransitionDidFinish:(SlideInteractiveTransition *)controller {
     [self.historyViewController.navigationController popViewControllerAnimated:NO];
+}
+
+- (UIView *)slideInteractiveTransitionPresentingView:(SlideInteractiveTransition *)controller {
+    if (self.historyViewController.dismissingView == nil) return nil;
+    UIView *dismissingView = self.historyViewController.dismissingView(nil, self.candy);
+    dismissingView.alpha = 0;
+    return dismissingView;
 }
 
 // MARK: - NetworkNotifying

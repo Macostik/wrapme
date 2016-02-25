@@ -9,16 +9,18 @@
 import Foundation
 import UIKit
 
-@objc protocol GridLayoutDelegate: StreamViewDelegate {
+protocol GridLayoutDelegate: StreamViewDelegate {
+    func streamView(streamView: StreamView, layoutNumberOfColumns layout: StreamLayout) -> Int
+    func streamView(streamView: StreamView, layout: StreamLayout, offsetForColumn column: Int)  -> CGFloat
+    func streamView(streamView: StreamView, layout: StreamLayout, sizeForColumn column: Int) -> CGFloat
+    func streamView(streamView: StreamView, layoutSpacing layout: StreamLayout)  -> CGFloat
+}
 
-    optional func streamView(streamView: StreamView, layoutNumberOfColumns layout: StreamLayout) -> Int
-
-    optional func streamView(streamView: StreamView, layout: StreamLayout, offsetForColumn column: Int)  -> CGFloat
-
-    optional func streamView(streamView: StreamView, layout: StreamLayout, sizeForColumn column: Int) -> CGFloat
-
-    optional func streamView(streamView: StreamView, layoutSpacing layout: StreamLayout)  -> CGFloat
-
+extension GridLayoutDelegate {
+    func streamView(streamView: StreamView, layoutNumberOfColumns layout: StreamLayout) -> Int { return 1 }
+    func streamView(streamView: StreamView, layout: StreamLayout, offsetForColumn column: Int)  -> CGFloat { return 0 }
+    func streamView(streamView: StreamView, layout: StreamLayout, sizeForColumn column: Int) -> CGFloat { return 1 }
+    func streamView(streamView: StreamView, layoutSpacing layout: StreamLayout)  -> CGFloat { return 0 }
 }
 
 class GridLayout: StreamLayout {
@@ -42,23 +44,18 @@ class GridLayout: StreamLayout {
     
     override func prepareLayout() {
         if let sv = streamView, let delegate = sv.delegate as? GridLayoutDelegate {
-            numberOfColumns = delegate.streamView?(sv, layoutNumberOfColumns: self) ?? 1
+            numberOfColumns = delegate.streamView(sv, layoutNumberOfColumns: self)
             let sizeBase = horizontal ? sv.frame.height : sv.frame.width
             let defaultSize = (sizeBase / CGFloat(numberOfColumns)) / sizeBase
             sizes = Array(count: numberOfColumns, repeatedValue: defaultSize)
             offsets = Array(count: numberOfColumns, repeatedValue: 0)
             
             for column in 0..<numberOfColumns {
-                if let size = delegate.streamView?(sv, layout: self, sizeForColumn: column) {
-                    sizes[column] = size
-                }
-                
-                if let offset = delegate.streamView?(sv, layout: self, offsetForColumn: column) {
-                    offsets[column] = offset
-                }
+                sizes[column] = delegate.streamView(sv, layout: self, sizeForColumn: column)
+                offsets[column] = delegate.streamView(sv, layout: self, offsetForColumn: column)
             }
             
-            spacing = delegate.streamView?(sv, layoutSpacing: self) ?? 0
+            spacing = delegate.streamView(sv, layoutSpacing: self)
         }
     }
     

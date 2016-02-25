@@ -9,7 +9,6 @@
 #import "AWSCancellationToken.h"
 #import "AWSCancellationTokenRegistration.h"
 #import "AWSCancellationTokenSource.h"
-#import "AWSDefines.h"
 #import "AWSExecutor.h"
 #import "AWSTask.h"
 #import "AWSTaskCompletionSource.h"

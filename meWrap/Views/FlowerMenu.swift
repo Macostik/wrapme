@@ -11,9 +11,9 @@ import AudioToolbox
 
 class FlowerMenuAction: UIButton {
     
-    var block: (AnyObject? -> Void)?
+    var block: (Void -> Void)?
     
-    convenience init(action: String, block: AnyObject? -> Void) {
+    convenience init(action: String, block: Void -> Void) {
         self.init(frame: CGRect(x: 0, y: 0, width: 38, height: 38))
         self.block = block
         clipsToBounds = false
@@ -37,10 +37,7 @@ private class FlowerMenuEntry: NSObject {
 
 class FlowerMenu: UIView {
     
-    private static var _sharedMenu = FlowerMenu()
-    class func sharedMenu() -> FlowerMenu {
-        return _sharedMenu
-    }
+    static var sharedMenu = FlowerMenu()
     
     private var entries = Set<FlowerMenuEntry>()
     
@@ -50,23 +47,9 @@ class FlowerMenu: UIView {
     
     private var centerPoint = CGPointZero
     
-    weak var entry: AnyObject?
-    
     var vibrate = true
     
-    init() {
-        super.init(frame: UIScreen.mainScreen().bounds)
-        backgroundColor = UIColor.clearColor()
-        alpha = 0.0
-        setFullFlexible()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
     private func entryForView(view: UIView) -> FlowerMenuEntry? {
-        
         for entry in entries where entry.view == view {
             return entry
         }
@@ -87,16 +70,16 @@ class FlowerMenu: UIView {
     }
     
     func show() {
-        guard let view = currentView, let superview = view.window else {
-            return
-        }
+        guard let superview = currentView?.window else { return }
         frame = superview.bounds
+        backgroundColor = UIColor.clearColor()
+        alpha = 0.0
+        setFullFlexible()
         superview.addSubview(self)
         setNeedsDisplay()
         alpha = 0
         DeviceManager.defaultManager.removeReceiver(self)
-        
-        UIView.animateWithDuration(0.12, delay: 0, options: .CurveEaseIn, animations: { () -> Void in
+        UIView.animateWithDuration(0.12, delay: 0, options: .CurveEaseIn, animations: {
             self.alpha = 1
         }, completion: nil)
         UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .CurveEaseIn, animations: animateShowing, completion: nil)
@@ -131,7 +114,6 @@ class FlowerMenu: UIView {
             return
         }
         DeviceManager.defaultManager.addReceiver(self)
-        entry = nil
         UIView.animateWithDuration(0.12, delay: 0, options: .CurveEaseIn, animations: { () -> Void in
             self.alpha = 0
             self.animateHiding()
@@ -152,7 +134,7 @@ class FlowerMenu: UIView {
         removeFromSuperview()
     }
     
-    func addAction(action: String, block: AnyObject? -> Void) {
+    func addAction(action: String, block: Void -> Void) {
         let action = FlowerMenuAction(action: action, block: block)
         actions.append(action)
         addSubview(action)
@@ -169,16 +151,12 @@ class FlowerMenu: UIView {
     }
     
     func showInView(view: UIView, point: CGPoint) {
-        guard let superview = view.window else {
-            return
-        }
+        guard let superview = view.window else { return }
         
         centerPoint = view.convertPoint(point, toView: superview)
         
         let rect = superview.convertRect(view.bounds, fromView: view)
-        guard rect.contains(centerPoint) else {
-            return
-        }
+        guard rect.contains(centerPoint) else { return }
         
         currentView = view
         for action in actions {
@@ -186,23 +164,13 @@ class FlowerMenu: UIView {
         }
         actions.removeAll()
         
-        guard let entry = entryForView(view) else {
-            return
-        }
-        
-        self.entry = nil
+        guard let constructor = entryForView(view)?.constructor else { return }
         
         vibrate = true
         
-        guard let constructor = entry.constructor else {
-            return
-        }
-        
         constructor(self)
         
-        guard !actions.isEmpty else {
-            return
-        }
+        guard !actions.isEmpty else { return }
 
         if vibrate {
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
@@ -212,23 +180,17 @@ class FlowerMenu: UIView {
     }
     
     func selectedAction(sender: FlowerMenuAction) {
-        if let block = sender.block, let entry = self.entry {
-            block(entry)
-        }
+        sender.block?()
         hide()
     }
     
     override func drawRect(rect: CGRect) {
         if let view = currentView {
             let ctx = UIGraphicsGetCurrentContext()
-            
             let color = UIColor(white: 0, alpha: 0.6)
-            
             CGContextSetFillColorWithColor(ctx, color.CGColor)
             CGContextFillRect (ctx, rect)
-            
             let frame = convertRect(view.bounds, fromView:view)
-            
             CGContextSetShadowWithColor (ctx, CGSizeZero, 15.0, color.CGColor)
             CGContextClearRect(ctx, frame)
         }
@@ -237,7 +199,6 @@ class FlowerMenu: UIView {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         hide()
     }
-    
 }
 
 extension FlowerMenu: DeviceManagerNotifying {
@@ -247,31 +208,31 @@ extension FlowerMenu: DeviceManagerNotifying {
 }
 
 extension FlowerMenu {
-    func addDeleteAction(block: AnyObject? -> Void) {
+    func addDeleteAction(block: Void -> Void) {
         addAction("n", block:block)
     }
     
-    func addLeaveAction(block: AnyObject? -> Void) {
+    func addLeaveAction(block: Void -> Void) {
         addAction("O", block:block)
     }
     
-    func addReportAction(block: AnyObject? -> Void) {
+    func addReportAction(block: Void -> Void) {
         addAction("s", block:block)
     }
     
-    func addDownloadAction(block: AnyObject? -> Void) {
+    func addDownloadAction(block: Void -> Void) {
         addAction("o", block:block)
     }
     
-    func addCopyAction(block: AnyObject? -> Void) {
+    func addCopyAction(block: Void -> Void) {
         addAction("Q", block:block)
     }
     
-    func addEditPhotoAction(block: AnyObject? -> Void) {
+    func addEditPhotoAction(block: Void -> Void) {
         addAction("R", block:block)
     }
     
-    func addDrawPhotoAction(block: AnyObject? -> Void) {
+    func addDrawPhotoAction(block: Void -> Void) {
         addAction("8", block:block)
     }
 }

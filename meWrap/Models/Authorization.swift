@@ -9,7 +9,7 @@
 import UIKit
 import OpenUDID
 
-class Authorization: Archive {
+final class Authorization: Archive {
     
     static var active: Bool = {
         if let cookie = NSUserDefaults.standardUserDefaults().authorizationCookie {
@@ -73,7 +73,7 @@ class Authorization: Archive {
         setCurrent()
     }
     
-    static var currentAuthorization: Authorization {
+    static var current: Authorization {
         get { return NSUserDefaults.standardUserDefaults().authorization ?? Authorization() }
         set { NSUserDefaults.standardUserDefaults().authorization = newValue }
     }
@@ -87,6 +87,6 @@ class Authorization: Archive {
     }
     
     func setCurrent() {
-        Authorization.currentAuthorization = self
+        Authorization.current = self
     }
 }

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="icons.ttf">
+            <string>icons</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="kyD-LE-aDY" customClass="DownloadingView" customModule="meWrap" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="downloading_photo_for_editing" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gb2-6e-1xw" customClass="Label">
+                    <rect key="frame" x="55" y="211" width="211" height="18"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNj-NX-YYf" customClass="ProgressBar" customModule="meWrap" customModuleProvider="target">
+                    <rect key="frame" x="70" y="249" width="180" height="1"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="180" id="4DW-6Q-vVT"/>
+                        <constraint firstAttribute="height" constant="1" id="tfF-c2-oWr"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mgr-yy-6vm">
+                    <rect key="frame" x="130" y="270" width="60" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="2GH-W6-owX"/>
+                        <constraint firstAttribute="height" constant="60" id="Xqo-qP-XaQ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="60"/>
+                    <state key="normal" title="a">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f26-nL-Pe9" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                    <rect key="frame" x="258" y="30" width="50" height="33"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                    <state key="normal" title="cancel">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="size" keyPath="insets">
+                            <size key="value" width="10" height="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="cancel:" destination="kyD-LE-aDY" eventType="touchUpInside" id="hTg-m6-dWV"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstItem="UNj-NX-YYf" firstAttribute="top" secondItem="gb2-6e-1xw" secondAttribute="bottom" constant="20" id="435-Hx-dS3"/>
+                <constraint firstItem="Mgr-yy-6vm" firstAttribute="top" secondItem="UNj-NX-YYf" secondAttribute="bottom" constant="20" id="A1P-B8-q24"/>
+                <constraint firstItem="UNj-NX-YYf" firstAttribute="centerX" secondItem="Mgr-yy-6vm" secondAttribute="centerX" id="Car-Cl-4ml"/>
+                <constraint firstItem="UNj-NX-YYf" firstAttribute="centerX" secondItem="gb2-6e-1xw" secondAttribute="centerX" id="EM6-zB-PXc"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gb2-6e-1xw" secondAttribute="trailing" constant="12" id="IZM-3E-eoq"/>
+                <constraint firstAttribute="trailing" secondItem="f26-nL-Pe9" secondAttribute="trailing" constant="12" id="Yb3-Y5-eZ4"/>
+                <constraint firstAttribute="centerY" secondItem="gb2-6e-1xw" secondAttribute="centerY" constant="64" id="cbE-vV-QaE"/>
+                <constraint firstItem="gb2-6e-1xw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kyD-LE-aDY" secondAttribute="leading" constant="12" id="cd1-Tv-wC3"/>
+                <constraint firstItem="f26-nL-Pe9" firstAttribute="top" secondItem="kyD-LE-aDY" secondAttribute="top" constant="30" id="fmg-qu-2uo"/>
+                <constraint firstAttribute="centerX" secondItem="gb2-6e-1xw" secondAttribute="centerX" id="hIF-UO-XTb"/>
+            </constraints>
+            <connections>
+                <outlet property="downloadingMediaLabel" destination="gb2-6e-1xw" id="umA-0s-ZgB"/>
+                <outlet property="progressBar" destination="UNj-NX-YYf" id="s9Q-1q-mSy"/>
+            </connections>
+            <point key="canvasLocation" x="561" y="345"/>
+        </view>
+    </objects>
+</document>

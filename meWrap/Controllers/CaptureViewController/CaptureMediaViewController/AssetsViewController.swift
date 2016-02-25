@@ -8,14 +8,51 @@
 
 import UIKit
 import Photos
+import SnapKit
 
 class AssetCell: StreamReusableView {
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var acceptView: UIView!
     @IBOutlet weak var videoIndicator: UILabel!
     private var requestID: PHImageRequestID?
     
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        let imageView = ImageView(backgroundColor: UIColor.clearColor())
+        addSubview(imageView)
+        self.imageView = imageView
+        
+        let videoIndicator = Label(icon: "+", size: 20)
+        addSubview(videoIndicator)
+        self.videoIndicator = videoIndicator
+        
+        let acceptView = UILabel()
+        acceptView.textAlignment = .Center
+        acceptView.backgroundColor = UIColor.whiteColor()
+        acceptView.cornerRadius = 10
+        acceptView.borderColor = Color.orange
+        acceptView.borderWidth = 1
+        acceptView.clipsToBounds = true
+        acceptView.font = UIFont(name: "icons", size: 12)
+        acceptView.textColor = Color.orange
+        acceptView.text = "l"
+        addSubview(acceptView)
+        self.acceptView = acceptView
+        
+        imageView.snp_makeConstraints(closure: { $0.edges.equalTo(self) })
+        videoIndicator.snp_makeConstraints(closure: {
+            $0.top.equalTo(self).offset(2)
+            $0.trailing.equalTo(self).offset(-2)
+        })
+        acceptView.snp_makeConstraints(closure: {
+            $0.bottom.equalTo(self).offset(-2)
+            $0.trailing.equalTo(self).offset(-2)
+            $0.width.height.equalTo(20)
+        })
+    }
+    
     override func willEnqueue() {
+        imageView.image = nil
         if let requestID = requestID {
             PHImageManager.defaultManager().cancelImageRequest(requestID)
         }
@@ -25,19 +62,18 @@ class AssetCell: StreamReusableView {
         let options = PHImageRequestOptions()
         options.synchronous = false
         options.networkAccessAllowed = true
-        options.resizeMode = .Exact
-        options.deliveryMode = .HighQualityFormat
+        options.resizeMode = .Fast
+        options.deliveryMode = .Opportunistic
         return options
     }()
     
-    override func setup(entry: AnyObject!) {
+    override func setup(entry: AnyObject?) {
         if let asset = entry as? PHAsset {
             let scale = UIScreen.mainScreen().scale
             let thumbnail = CGSize(width: bounds.width * scale, height: bounds.height * scale)
             let options = AssetCell.requestImageOptions
             requestID = PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: thumbnail, contentMode: .AspectFill, options: options, resultHandler: {[weak self] (image, info) -> Void in
-                if let cell = self, let requestID = (info?[PHImageResultRequestIDKey] as? NSNumber)?.intValue where requestID == cell.requestID {
-                    cell.requestID = nil
+                if let cell = self where (info?[PHImageResultRequestIDKey] as? NSNumber)?.intValue == cell.requestID {
                     cell.imageView.image = image
                 }
                 })
@@ -108,7 +144,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         
         streamView.layout = SquareLayout(horizontal: true)
         let dataSource = StreamDataSource(streamView: streamView)
-        let metrics = StreamMetrics(identifier: "AssetCell")
+        let metrics = StreamMetrics(loader: LayoutStreamLoader<AssetCell>())
         metrics.selection = { [weak self] (item, entry) in
             if let item = item, let asset = entry as? PHAsset {
                 item.selected = self?.selectAsset(asset) ?? false

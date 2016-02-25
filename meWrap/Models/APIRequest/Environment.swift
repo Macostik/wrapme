@@ -110,6 +110,10 @@ class Environment: NSObject {
     case ContentUnavailable = 30
     case NotFoundEntry = 40
     case CredentialNotValid = 50
+    case InvalidOrAlreadyTakenEmail = 60
+    case OperationNotPermitted = 70
+    case ApprovalCodeNotMatched = 80
+    case ApprovalCodeExpired = 90
     case UploadFileNotFound = 100
     case EmailAlreadyConfirmed = 110
 }
@@ -127,8 +131,8 @@ class Response: NSObject {
         if let data = dictionary["data"] as? [String:AnyObject] {
             self.data = data
         }
-        if let returnCode = dictionary["return_code"] as? Int, let code = ResponseCode(rawValue: returnCode) {
-            self.code = code
+        if let returnCode = dictionary["return_code"] as? Int {
+            self.code = ResponseCode(rawValue: returnCode) ?? .Failure
         }
     }
     

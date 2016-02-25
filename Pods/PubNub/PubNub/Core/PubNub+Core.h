@@ -196,8 +196,6 @@
                 callbackQueue:(dispatch_queue_t)callbackQueue
                    completion:(void(^)(PubNub *client))block;
 
-- (instancetype)copyWithConfiguration:(PNConfiguration *)configuration;
-
 #pragma mark -
 
 

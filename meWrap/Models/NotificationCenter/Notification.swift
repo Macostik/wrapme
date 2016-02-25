@@ -114,7 +114,7 @@ class Notification: NSObject {
         if let originator = body["originator"] as? [String:AnyObject] {
             let userID = originator["user_uid"] as? String
             let deviceID = originator["device_uid"] as? String
-            originatedByCurrentUser = userID == User.currentUser?.uid && deviceID == Authorization.currentAuthorization.deviceUID
+            originatedByCurrentUser = userID == User.currentUser?.uid && deviceID == Authorization.current.deviceUID
         }
     }
     

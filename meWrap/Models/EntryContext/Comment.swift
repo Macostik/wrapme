@@ -33,4 +33,24 @@ class Comment: Contribution {
         get { return candy?.asset }
         set { }
     }
+    
+    override func willBecomeUnread(unread: Bool) {
+        if let candy = candy, let wrap = candy.wrap {
+            let dayAgo = NSDate.dayAgo()
+            if unread && createdAt > dayAgo && candy.involvedToConversation() {
+                wrap.numberOfUnreadInboxItems++
+            } else if wrap.numberOfUnreadInboxItems > 0 {
+                wrap.numberOfUnreadInboxItems--
+            }
+            wrap.notifyOnUpdate(.InboxChanged)
+        }
+    }
+    
+    override func remove() {
+        if let wrap = candy?.wrap where unread && wrap.numberOfUnreadInboxItems > 0 {
+            wrap.numberOfUnreadInboxItems--
+            wrap.notifyOnUpdate(.InboxChanged)
+        }
+        super.remove()
+    }
 }

@@ -15,7 +15,7 @@ class TextField: UITextField {
     @IBInspectable var strokeColor: UIColor?
     @IBInspectable var localize: Bool = false {
         willSet {
-            if let text = text where !text.isEmpty {
+            if let text = placeholder where !text.isEmpty {
                 super.placeholder = text.ls
             }
         }
@@ -31,11 +31,8 @@ class TextField: UITextField {
     }
     
     override var text: String? {
-        willSet {
-            if let text = newValue where !text.isEmpty {
-                super.text = text
-                sendActionsForControlEvents(.EditingChanged)
-            }
+        didSet {
+            sendActionsForControlEvents(.EditingChanged)
         }
     }
     
@@ -65,7 +62,7 @@ class TextField: UITextField {
         super.drawRect(rect)
         if !disableSeparator {
             let path = UIBezierPath()
-            path.lineWidth =  Constants.pixelSize
+            path.lineWidth =  Constants.pixelSize/2.0
             let y = bounds.height - path.lineWidth/2.0
             path.move(0, y).line(bounds.width, y)
             var placeholderColor = UIColor.clearColor()

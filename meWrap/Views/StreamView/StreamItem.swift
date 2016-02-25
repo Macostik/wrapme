@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-class StreamItem: NSObject {
+class StreamItem {
     
     var frame = CGRectZero
     
@@ -24,10 +24,9 @@ class StreamItem: NSObject {
     
     var entryBlock: (StreamItem -> AnyObject?)?
     
-    required init(metrics: StreamMetrics, position: StreamPosition) {
+    init(metrics: StreamMetrics, position: StreamPosition) {
         self.metrics = metrics
         self.position = position
-        super.init()
     }
     
     private var _entry: AnyObject?
@@ -54,14 +53,12 @@ class StreamItem: NSObject {
     var next: StreamItem?
 }
 
-class StreamPosition: NSObject {
+func ==(lhs: StreamPosition, rhs: StreamPosition) -> Bool {
+    return lhs.section == rhs.section && lhs.index == rhs.index
+}
+
+struct StreamPosition: Equatable {
     let section: Int
     let index: Int
-    init(section: Int, index: Int) {
-        self.section = section
-        self.index = index
-    }
-    func isEqualToPosition(position: StreamPosition) -> Bool {
-        return self.section == position.section && self.index == position.index
-    }
+    static let zero = StreamPosition(section: 0, index: 0)
 }

@@ -18,7 +18,7 @@ import Foundation
     optional func composeBarDidShouldResignOnFinish(composeBar: ComposeBar) -> Bool
 }
 
-class ComposeBar: UIControl, UITextViewDelegate, UICollectionViewDelegate {
+class ComposeBar: UIControl, UITextViewDelegate {
     
     @IBOutlet weak var delegate: ComposeBarDelegate?
     @IBOutlet weak var textView: TextView!
@@ -27,9 +27,9 @@ class ComposeBar: UIControl, UITextViewDelegate, UICollectionViewDelegate {
     
     @IBInspectable var maxLines: CGFloat = 0
     
-    lazy var emojiView: EmojiView? = {
+    lazy var emojiView: EmojiView = {
         let emojiView = EmojiView.emojiViewWithTextView(self.textView)
-        emojiView?.backgroundColor = self.backgroundColor
+        emojiView.backgroundColor = self.backgroundColor
         return emojiView
     }()
     
@@ -38,7 +38,7 @@ class ComposeBar: UIControl, UITextViewDelegate, UICollectionViewDelegate {
             textView.text = newValue
             textView.placeholderLabel?.hidden = newValue?.isEmpty ?? false || textView.selectedRange.location != 0
             updateHeight()
-            setDoneButtonHidden(newValue?.isEmpty ?? true)
+            setDoneButtonHidden(newValue?.trim.isEmpty ?? true)
         }
         get {
             return textView.text
@@ -78,7 +78,7 @@ class ComposeBar: UIControl, UITextViewDelegate, UICollectionViewDelegate {
     }
     
     func finish() {
-        if let _ = (delegate?.composeBarDidShouldResignOnFinish?(self))  {
+        if (delegate?.composeBarDidShouldResignOnFinish?(self)) == true {
             textView.resignFirstResponder()
         }
 
@@ -127,18 +127,18 @@ class ComposeBar: UIControl, UITextViewDelegate, UICollectionViewDelegate {
     func textViewDidChange(textView: UITextView) {
         delegate?.composeBarDidChangeText?(self)
         updateHeight()
-        setDoneButtonHidden(textView.text.isEmpty)
+        setDoneButtonHidden(textView.text.trim.isEmpty)
         sendActionsForControlEvents(.EditingChanged)
     }
     
     func textViewDidBeginEditing(textView: UITextView) {
-        setDoneButtonHidden(textView.text.isEmpty)
+        setDoneButtonHidden(textView.text.trim.isEmpty)
         delegate?.composeBarDidBeginEditing?(self)
         sendActionsForControlEvents(.EditingDidBegin)
     }
     
     func textViewDidEndEditing(textView: UITextView) {
-        setDoneButtonHidden(textView.text.isEmpty)
+        setDoneButtonHidden(textView.text.trim.isEmpty)
         delegate?.composeBarDidEndEditing?(self)
         sendActionsForControlEvents(.EditingDidEnd)
         updateHeight()

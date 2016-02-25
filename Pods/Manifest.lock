@@ -14,9 +14,9 @@ PODS:
   - AFNetworking/Serialization (3.0.4)
   - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
-  - AWSCore (2.3.3)
-  - AWSS3 (2.3.3):
-    - AWSCore (= 2.3.3)
+  - AWSCore (2.3.4)
+  - AWSS3 (2.3.4):
+    - AWSCore (= 2.3.4)
   - CocoaLumberjack (2.2.0):
     - CocoaLumberjack/Default (= 2.2.0)
     - CocoaLumberjack/Extensions (= 2.2.0)
@@ -25,7 +25,7 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.2.0):
     - CocoaLumberjack/Default
-  - CryptoSwift (0.2.2)
+  - CryptoSwift (0.2.3)
   - Google/Analytics (1.0.7):
     - Google/Core
     - GoogleAnalytics (~> 3.12)
@@ -41,13 +41,14 @@ PODS:
     - GoogleSymbolUtilities (~> 1.0.0)
   - libPhoneNumber-iOS (0.8.10)
   - LogEntries (0.0.1)
-  - NewRelicAgent (5.3.5)
+  - NewRelicAgent (5.3.6)
   - OpenUDID (1.0.0)
-  - PubNub (4.2.4):
+  - PubNub (4.2.7):
     - CocoaLumberjack (= 2.2.0)
-    - PubNub/Core (= 4.2.4)
-  - PubNub/Core (4.2.4):
+    - PubNub/Core (= 4.2.7)
+  - PubNub/Core (4.2.7):
     - CocoaLumberjack (= 2.2.0)
+  - SnapKit (0.15.0)
 
 DEPENDENCIES:
   - AFNetworking
@@ -60,13 +61,14 @@ DEPENDENCIES:
   - NewRelicAgent
   - OpenUDID
   - PubNub (~> 4.0)
+  - SnapKit (~> 0.15.0)
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
-  AWSCore: b12704516e21ed34cfe7547e07ab945b079d1f56
-  AWSS3: 675f59e0c338e61441117f03018187b9deb359c4
+  AWSCore: 926eb781459b58d4319b0fa4f5f3bffb6b28b112
+  AWSS3: f49fde807d6cfc373f1bdb8150c9770d470ca2fd
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
-  CryptoSwift: d382228d6301c09474132417878a741c2a2e68cd
+  CryptoSwift: b2bf37b8e7cc6d682ef3365cb966bc5ae5174aa5
   Google: 875f5a8ade86dd02e36586e4a54814843938c7f6
   GoogleAnalytics: 9be1afdb8deeac4bb5f13ca7f7d3b9db2a1f43dc
   GoogleNetworkingUtilities: 292992ab31b7b4ba32809a0e8b40e324cdfb2c0c
@@ -74,8 +76,9 @@ SPEC CHECKSUMS:
   GoogleUtilities: 8ed9134debe11719097881711464752900668f10
   libPhoneNumber-iOS: 7bfd00f843fdcd82b5182b463e8eb3b27579f41d
   LogEntries: a1f16e3c9edc0d6a52209fe6cd7281ab07fb7657
-  NewRelicAgent: 0e5d8312054fe779237efc12e05f10c314884c47
+  NewRelicAgent: 731c3b39030885531dad40e43cd80b8dbe61647e
   OpenUDID: e7cb6984c7304906ad20f3a36bf087b025896b6b
-  PubNub: 2e5045d9140d289d41673388b8af615739e8660c
+  PubNub: 052a698177f64ab12889c513af425a2195ccaf12
+  SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
 
 COCOAPODS: 0.39.0

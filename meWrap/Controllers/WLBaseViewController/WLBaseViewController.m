@@ -10,7 +10,6 @@
 
 @interface WLBaseViewController ()
 
-@property (strong, nonatomic) NSMapTable* keyboardAdjustmentDefaultConstants;
 @property (nonatomic) IBInspectable BOOL statusBarDefault;
 
 @end
@@ -114,95 +113,11 @@ static NSString *lastAppearedScreenName = nil;
 
 #pragma mark - KeyboardNotifying
 
-- (CGFloat)constantForKeyboardAdjustmentBottomConstraint:(NSLayoutConstraint*)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
-    CGFloat adjustment = [self keyboardAdjustmentForConstraint:constraint defaultConstant:defaultConstant keyboardHeight:keyboardHeight];
-    return defaultConstant + adjustment;
-}
-
-- (CGFloat)constantForKeyboardAdjustmentTopConstraint:(NSLayoutConstraint*)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
-    CGFloat adjustment = [self keyboardAdjustmentForConstraint:constraint defaultConstant:defaultConstant keyboardHeight:keyboardHeight];
-    return defaultConstant - adjustment;
-}
-
-- (CGFloat)keyboardAdjustmentForConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
-    return keyboardHeight;
-}
-
 - (NSArray *)keyboardAdjustmentLayoutViews {
     if (!_keyboardAdjustmentLayoutViews.nonempty) {
         _keyboardAdjustmentLayoutViews = @[self.view];
     }
     return _keyboardAdjustmentLayoutViews;
-}
-
-- (BOOL)updateKeyboardAdjustmentConstraints:(CGFloat)keyboardHeight {
-    BOOL changed = NO;
-    NSMapTable *constants = self.keyboardAdjustmentDefaultConstants;
-    for (NSLayoutConstraint *constraint in self.keyboardAdjustmentTopConstraints) {
-        CGFloat constant = [[constants objectForKey:constraint] floatValue];
-        if (keyboardHeight > 0) {
-            constant = [self constantForKeyboardAdjustmentTopConstraint:constraint defaultConstant:constant keyboardHeight:keyboardHeight];
-        }
-        if (constraint.constant != constant) {
-            constraint.constant = constant;
-            changed = YES;
-        }
-    }
-    for (NSLayoutConstraint *constraint in self.keyboardAdjustmentBottomConstraints) {
-        CGFloat constant = [[constants objectForKey:constraint] floatValue];
-        if (keyboardHeight > 0) {
-            constant = [self constantForKeyboardAdjustmentBottomConstraint:constraint defaultConstant:constant keyboardHeight:keyboardHeight];
-        }
-        if (constraint.constant != constant) {
-            constraint.constant = constant;
-            changed = YES;
-        }
-    }
-    return changed;
-}
-
-- (void)keyboardWillShow:(Keyboard *)keyboard {
-    if (!self.isViewLoaded || (!self.keyboardAdjustmentTopConstraints.nonempty && !self.keyboardAdjustmentBottomConstraints.nonempty)) return;
-    if ([self updateKeyboardAdjustmentConstraints:keyboard.height]) {
-        if (self.keyboardAdjustmentAnimated && self.viewAppeared) {
-            __weak typeof(self)weakSelf = self;
-            [keyboard performAnimation:^{
-                for (UIView *layoutView in weakSelf.keyboardAdjustmentLayoutViews) {
-                    [layoutView layoutIfNeeded];
-                }
-            }];
-        } else {
-            for (UIView *layoutView in self.keyboardAdjustmentLayoutViews) {
-                [layoutView layoutIfNeeded];
-            }
-        }
-    }
-}
-
-- (void)keyboardDidShow:(Keyboard *)keyboard {
-    
-}
-
-- (void)keyboardWillHide:(Keyboard *)keyboard {
-    if (!self.isViewLoaded || (!self.keyboardAdjustmentTopConstraints.nonempty && !self.keyboardAdjustmentBottomConstraints.nonempty)) return;
-    [self updateKeyboardAdjustmentConstraints:0];
-    self.keyboardAdjustmentDefaultConstants = nil;
-    if (self.keyboardAdjustmentAnimated && self.viewAppeared) {
-        __weak typeof(self)weakSelf = self;
-        [keyboard performAnimation:^{
-            for (UIView *layoutView in weakSelf.keyboardAdjustmentLayoutViews) {
-                [layoutView layoutIfNeeded];
-            }
-        }];
-    } else {
-        for (UIView *layoutView in self.keyboardAdjustmentLayoutViews) {
-            [layoutView layoutIfNeeded];
-        }
-    }
-}
-
-- (void)keyboardDidHide:(Keyboard *)keyboard {
-    
 }
 
 @end

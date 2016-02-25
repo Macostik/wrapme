@@ -10,7 +10,7 @@ import Foundation
 
 class BadgeLabel: Label {
     
-    @IBInspectable lazy var intrinsicContentSizeInsets: CGSize = self.intrinsicContentSize()
+    @IBInspectable lazy var intrinsicContentSizeInsets: CGSize = CGSize.zero
     
     var value = 0 {
         willSet {
@@ -21,7 +21,6 @@ class BadgeLabel: Label {
     override var text: String? {
         willSet {
             if let string = newValue where !string.isEmpty {
-                super.text = text
                 hidden = string == "0"
             }
         }
@@ -39,7 +38,7 @@ class BadgeLabel: Label {
     override func intrinsicContentSize() -> CGSize {
         let insets = intrinsicContentSizeInsets
         var size = super.intrinsicContentSize()
-        size = CGSizeMake(size.width + insets.width, size.height + insets.height);
+        size = CGSizeMake(size.width + insets.width, size.height + insets.height)
         layer.cornerRadius = size.height/2
         return size
     }

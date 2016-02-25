@@ -15,14 +15,14 @@ class CaptureViewController: UINavigationController, CameraViewControllerDelegat
     
     var friendsInvited = false
     
-    class func captureMediaViewController(wrap: Wrap) -> CaptureMediaViewController? {
-        let controller = UIStoryboard.camera()["captureMedia"] as? CaptureMediaViewController
-        controller?.wrap = wrap
+    class func captureMediaViewController(wrap: Wrap?) -> CaptureMediaViewController {
+        let controller = UIStoryboard.camera()["captureMedia"] as! CaptureMediaViewController
+        controller.wrap = wrap
         return controller
     }
     
-    class func captureAvatarViewController() -> CaptureAvatarViewController? {
-        return UIStoryboard.camera()["captureAvatar"] as? CaptureAvatarViewController
+    class func captureAvatarViewController() -> CaptureAvatarViewController {
+        return UIStoryboard.camera()["captureAvatar"] as! CaptureAvatarViewController
     }
     
     override func viewDidLoad() {
@@ -57,9 +57,17 @@ class CaptureViewController: UINavigationController, CameraViewControllerDelegat
     
     internal func cropImage(image: UIImage) -> UIImage {
         var resultImage = resizeImage(image)
-        let cropRect = CGRectThatFitsSize(resultImage.size, view.size);
+        let cropRect = CGRectThatFitsSize(resultImage.size, viewFinderSize())
         resultImage = resultImage.crop(cropRect)
         return resultImage
+    }
+    
+    private func viewFinderSize() -> CGSize {
+        if DeviceManager.defaultManager.orientation.isPortrait {
+            return view.size
+        } else {
+            return CGSize(width: view.height, height: view.width)
+        }
     }
     
     internal func resizeImage(image: UIImage) -> UIImage {

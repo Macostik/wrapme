@@ -12,8 +12,8 @@ import PubNub
 private let LiveBroadcastUsername = "ravenpod"
 private let LiveBroadcastPassword = "34f82ab09fb501330b3910ddb1e38026"
 
-class LiveBroadcasterViewController: LiveViewController {
-
+final class LiveBroadcasterViewController: LiveViewController {
+    
     var cameraPosition: Int32 = 1
     
     let streamer: Streamer = Streamer.instance() as! Streamer
@@ -28,9 +28,7 @@ class LiveBroadcasterViewController: LiveViewController {
     
     weak var previewLayer: AVCaptureVideoPreviewLayer? {
         didSet {
-            if let layer = oldValue {
-                layer.removeFromSuperlayer()
-            }
+            oldValue?.removeFromSuperlayer()
             if let layer = previewLayer {
                 layer.frame = view.bounds
                 layer.videoGravity = AVLayerVideoGravityResizeAspectFill
@@ -39,10 +37,9 @@ class LiveBroadcasterViewController: LiveViewController {
         }
     }
     
-    var userState = [NSObject:AnyObject]() {
+    private var userState = [NSObject:AnyObject]() {
         didSet {
-            if let channel = wrap?.uid, let uuid = User.currentUser?.uid {
-                userState["userUid"] = uuid
+            if let channel = wrap?.uid {
                 NotificationCenter.defaultCenter.userSubscription.changeState(userState, channel: channel)
             }
         }
@@ -69,7 +66,7 @@ class LiveBroadcasterViewController: LiveViewController {
         startCapture(cameraPosition)
         UIAlertController.showNoMediaAccess(true)
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         UIView.performWithoutAnimation { [unowned self] () -> Void in
@@ -91,7 +88,7 @@ class LiveBroadcasterViewController: LiveViewController {
         default: return .Portrait
         }
     }
-
+    
     func applicationWillTerminate(notification: NSNotification) {
         stopBroadcast()
     }
@@ -119,12 +116,13 @@ class LiveBroadcasterViewController: LiveViewController {
         let videoConfig = VideoConfig()
         
         let videoSizes: [CGSize] = (cameraInfo.videoSizes as? [NSValue])?.map({ $0.CGSizeValue() }) ?? []
-        let preferedSize = videoSizes.filter({ $0.width == 352 && $0.height == 288 }).first
-        videoConfig.videoSize = preferedSize ?? videoSizes[0]
-        videoConfig.bitrate = 2000000
-        videoConfig.fps = 30
+        let preferedSize = videoSizes.filter({ $0.width == 640 && $0.height == 480 }).first
+        videoConfig.videoSize = preferedSize ?? videoSizes[3]
+        videoConfig.bitrate = 280000
+        videoConfig.fps = 15
         videoConfig.keyFrameInterval = 2
-        videoConfig.profileLevel = VideoConfig.getSupportedProfiles().first as! String
+        let profiles = VideoConfig.getSupportedProfiles() as! [String]
+        videoConfig.profileLevel = profiles[0]
         
         let orientation: AVCaptureVideoOrientation = orientationForVideoConnection()
         if let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self) {
@@ -147,7 +145,9 @@ class LiveBroadcasterViewController: LiveViewController {
     
     private func startAudioCapture() {
         let audioConfig = AudioConfig()
-        audioConfig.sampleRate = (AudioConfig.getSupportedSampleRates().first as! NSNumber).floatValue
+        audioConfig.bitrate = 32000
+        audioConfig.channelCount = 1
+        audioConfig.sampleRate = 44100
         streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
     }
     
@@ -160,7 +160,7 @@ class LiveBroadcasterViewController: LiveViewController {
         
         guard let wrap = wrap else { return }
         guard let user = User.currentUser else { return }
-        let deviceUID = Authorization.currentAuthorization.deviceUID
+        let deviceUID = Authorization.current.deviceUID
         
         titleLabel?.text = composeBar.text
         titleLabel?.superview?.hidden = false
@@ -170,6 +170,9 @@ class LiveBroadcasterViewController: LiveViewController {
         broadcast.broadcaster = user
         broadcast.streamName = "\(wrap.uid)-\(user.uid)-\(deviceUID)"
         broadcast.wrap = wrap
+        
+        stopCapture()
+        startCapture(cameraPosition)
         
         createConnection()
         
@@ -191,7 +194,7 @@ class LiveBroadcasterViewController: LiveViewController {
     }
     
     func stopBroadcast() {
-        userState = [NSObject : AnyObject]()
+        userState = ["activity" : ["type":UserActivityType.Streaming.rawValue,"in_progress":false]]
         releaseConnection()
         stopCapture()
     }
@@ -217,12 +220,14 @@ class LiveBroadcasterViewController: LiveViewController {
             
             let broadcast = _self.broadcast
             
-            var state = [NSObject:AnyObject]()
-            state["streamName"] = broadcast.streamName
-            if let title = broadcast.title {
-                state["title"] = title
-            }
-            _self.userState = state
+            _self.userState = [
+                "activity" : [
+                    "type" : UserActivityType.Streaming.rawValue,
+                    "in_progress" : true,
+                    "streamName" : broadcast.streamName,
+                    "title" : broadcast.title ?? ""
+                ]
+            ]
             
             let message: [NSObject : AnyObject] = [
                 "pn_apns" : [
@@ -238,7 +243,7 @@ class LiveBroadcasterViewController: LiveViewController {
                     "stream_info" : [
                         "wrap_uid" : wrap.uid,
                         "user_uid" : user.uid,
-                        "device_uid" : Authorization.currentAuthorization.deviceUID,
+                        "device_uid" : Authorization.current.deviceUID,
                         "title" : broadcast.title ?? ""
                     ],
                     "msg_type" : NotificationType.LiveBroadcast.rawValue
@@ -350,6 +355,33 @@ class LiveBroadcasterViewController: LiveViewController {
     }
     
     private var startEventIsAlreadyPresented = false
+    
+    //MARK: WLBaseViewController 
+    
+    override func constantForKeyboardAdjustmentBottomConstraint(constraint: NSLayoutConstraint, defaultConstant: CGFloat, keyboardHeight: CGFloat) -> CGFloat {
+        if let identifier = constraint.identifier {
+            if UIApplication.sharedApplication().statusBarOrientation.isPortrait == true {
+                switch identifier {
+                case "trailing_landscape":
+                    return 12.0
+                case "bottom_landscape":
+                    return keyboardHeight + 68.0
+                default:
+                    return super.constantForKeyboardAdjustmentBottomConstraint(constraint, defaultConstant: defaultConstant, keyboardHeight: keyboardHeight)
+                }
+            } else {
+                switch identifier {
+                case "trailing_landscape":
+                    return 68.0
+                case "bottom_landscape":
+                    return keyboardHeight + 68.0
+                default:
+                    return super.constantForKeyboardAdjustmentBottomConstraint(constraint, defaultConstant: defaultConstant, keyboardHeight: keyboardHeight)
+                }
+            }
+        }
+        return super.constantForKeyboardAdjustmentBottomConstraint(constraint, defaultConstant: defaultConstant, keyboardHeight: keyboardHeight)
+    }
 }
 
 extension LiveBroadcasterViewController: StreamerListener {

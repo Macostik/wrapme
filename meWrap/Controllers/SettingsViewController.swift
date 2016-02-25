@@ -27,7 +27,6 @@ class SettingsViewController: WLBaseViewController {
             NotificationCenter.defaultCenter.clear()
             NSUserDefaults.standardUserDefaults().clear()
             UIStoryboard.signUp().present(true)
-            RecentUpdateList.sharedList.updates = nil
         }).show()
     }
     

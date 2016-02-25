@@ -28,7 +28,7 @@ class CaptureAvatarViewController: CaptureViewController {
     }
     
     private func finish(avatar: MutableAsset) {
-        (delegate as? CaptureAvatarViewControllerDelegate)?.captureViewController(self, didFinishWithAvatar: avatar)
+        captureDelegate?.captureViewController(self, didFinishWithAvatar: avatar)
     }
     
     private func handleImage(image: UIImage, saveToAlbum: Bool) {
@@ -111,6 +111,7 @@ class EditAvatarViewController: WLBaseViewController {
     }
     
     @IBAction func edit(sender: AnyObject) {
+        guard let image = image else { return }
         let controller = ImageEditor.editControllerWithImage(image, completion: { [weak self] (image) -> Void in
             self?.image = image
             self?.imageView.image = image

@@ -20,13 +20,20 @@ class CandyNotification: Notification {
     
     internal override func createEntry(descriptor: EntryDescriptor) {
         candy = getEntry(Candy.self, descriptor: descriptor, mapper: { (candy, data) in
-            let oldPicture = candy.asset?.copy() as? Asset
-            candy.map(data)
-            if let newAsset = candy.asset {
-                oldPicture?.cacheForAsset(newAsset)
-            }
-            if candy.sortedComments().contains({ $0.uploading != nil }) {
-                Uploader.wrapUploader.start()
+            if type != .CandyDelete {
+                
+                if originatedByCurrentUser && candy.status == .Ready {
+                    candy.uploading = nil
+                }
+                
+                let oldPicture = candy.asset?.copy() as? Asset
+                candy.map(data)
+                if let newAsset = candy.asset where originatedByCurrentUser {
+                    oldPicture?.cacheForAsset(newAsset)
+                }
+                if candy.sortedComments().contains({ $0.uploading != nil }) {
+                    Uploader.wrapUploader.start()
+                }
             }
         })
     }

@@ -7,12 +7,9 @@
 //
 
 #import "WLAppDelegate.h"
-#import "WLHomeViewController.h"
 #import "iVersion.h"
-#import "WLSignupFlowViewController.h"
 #import "GAI.h"
 #import <NewRelicAgent/NewRelic.h>
-#import "WLWrapViewController.h"
 #import "CocoaLumberjack.h"
 #import <AWSCore/AWSCore.h>
 #import "MMWormhole.h"
@@ -30,6 +27,9 @@
 @implementation WLAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    self.window = [UIWindow mainWindow];
+    
     [Logger log:[NSString stringWithFormat:@"API environment: %@", [Environment currentEnvironment]]];
     
     [self registerUserNotificationSettings];
@@ -125,14 +125,14 @@
         } else {
             [Logger log:[NSString stringWithFormat:@"INITIAL SIGN IN - sign up is not completed, redirecting to profile step"]];
             UINavigationController *navigation = [[UIStoryboard signUp] instantiateInitialViewController];
-            WLSignupFlowViewController *signupFlowViewController = (id)navigation.storyboard [@"WLSignupFlowViewController"];
+            SignupFlowViewController *signupFlowViewController = (id)navigation.storyboard [@"signupFlow"];
             signupFlowViewController.registrationNotCompleted = YES;
             navigation.viewControllers = @[signupFlowViewController];
             [UIWindow mainWindow].rootViewController = navigation;
         }
     };
 
-    Authorization* authorization = [Authorization currentAuthorization];
+    Authorization* authorization = [Authorization current];
     if ([authorization canAuthorize]) {
         if (!self.versionChanged && ![Authorization requiresSignIn]) {
             User *currentUser = [User currentUser];
@@ -169,12 +169,12 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
-    __block void (^completion)(UIBackgroundFetchResult) = completionHandler;
-    
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
     if (state == UIApplicationStateActive) {
+        completionHandler(UIBackgroundFetchResultNoData);
         return;
     }
+    __block void (^completion)(UIBackgroundFetchResult) = completionHandler;
     BOOL presentable = state == UIApplicationStateInactive;
     [[NotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(Notification *notification) {
         if (presentable) {
@@ -248,6 +248,7 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    application.applicationIconBadgeNumber = 0;
     [[Dispatch mainQueue] async:^{
         [[Uploader wrapUploader] start];
     }];
@@ -298,8 +299,8 @@
     if (network.reachable) {
         if ([Authorization active]) {
             [[Uploader wrapUploader] start];
-        } else if ([[Authorization currentAuthorization] canAuthorize]) {
-            [[[Authorization currentAuthorization] signIn] send];
+        } else if ([[Authorization current] canAuthorize]) {
+            [[[Authorization current] signIn] send];
         }
     }
 }

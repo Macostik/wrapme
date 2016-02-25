@@ -53,11 +53,15 @@ extension UIFont {
         UIContentSizeCategoryExtraExtraExtraLarge:3]
     
     private class func regularFontWithPreset(preset: FontPreset) -> UIFont {
-        return  UIFont.systemFontOfSize(UIFont.sizeWithPreset(preset), weight: UIFontWeightRegular)
+        return fontWithPreset(preset, weight: UIFontWeightRegular)
     }
     
     private class func lightFontWithPreset(preset: FontPreset) -> UIFont {
-        return UIFont.systemFontOfSize(UIFont.sizeWithPreset(preset), weight: UIFontWeightLight)
+        return fontWithPreset(preset, weight: UIFontWeightLight)
+    }
+    
+    class func fontWithPreset(preset: FontPreset, weight: CGFloat) -> UIFont {
+        return UIFont.systemFontOfSize(UIFont.sizeWithPreset(preset), weight: weight)
     }
     
     func fontWithPreset(preset: String) -> UIFont? {

@@ -25,7 +25,7 @@ class StreamLoader: NSObject {
     
     weak var nibOwner:AnyObject?
     
-    func loadView() -> StreamReusableView? {
+    func loadView(metrics: StreamMetrics) -> StreamReusableView? {
         if let nib = nib {
             for object in nib.instantiateWithOwner(nibOwner, options: nil) {
                 if let reusing = object as? StreamReusableView {
@@ -51,12 +51,29 @@ class IndexedStreamLoader: StreamLoader {
         self.index = index
     }
     
-    override func loadView() -> StreamReusableView? {
+    override func loadView(metrics: StreamMetrics) -> StreamReusableView? {
         return nib?.instantiateWithOwner(nibOwner, options: nil)[index] as? StreamReusableView
     }
     
     func loader(index: Int) -> IndexedStreamLoader {
         return IndexedStreamLoader(identifier: identifier, index: index)
+    }
+}
+
+class LayoutStreamLoader<T: StreamReusableView>: StreamLoader {
+    
+    var layoutBlock: (T -> Void)?
+    
+    convenience init(layoutBlock: (T -> Void)?) {
+        self.init()
+        self.layoutBlock = layoutBlock
+    }
+    
+    override func loadView(metrics: StreamMetrics) -> StreamReusableView? {
+        let view = T()
+        layoutBlock?(view)
+        view.layoutWithMetrics(metrics)
+        return view
     }
 }
 
@@ -103,33 +120,29 @@ class StreamMetrics: NSObject {
     
     var loader = StreamLoader()
     
-    @IBInspectable var identifier: String? {
+    var identifier: String? {
         get { return loader.identifier }
         set { loader.identifier = newValue }
     }
     
-    @IBOutlet weak var nibOwner:AnyObject? {
-        get {
-            return loader.nibOwner
-        }
-        set {
-            loader.nibOwner = newValue
-        }
+    weak var nibOwner:AnyObject? {
+        get { return loader.nibOwner }
+        set { loader.nibOwner = newValue }
     }
     
-    @IBInspectable var hidden: Bool = false
+    var hidden: Bool = false
     
     var hiddenAt: StreamItem -> Bool = { $0.metrics.hidden }
     
-    @IBInspectable var size: CGFloat = 0
+    var size: CGFloat = 0
     
     var sizeAt: StreamItem -> CGFloat = {  $0.metrics.size }
     
-    @IBInspectable var insets: CGRect = CGRectZero
+    var insets: CGRect = CGRectZero
     
     var insetsAt: StreamItem -> CGRect = { $0.metrics.insets }
     
-    @IBInspectable var ratio: CGFloat = 0
+    var ratio: CGFloat = 0
     
     var isSeparator = false
     
@@ -148,7 +161,7 @@ class StreamMetrics: NSObject {
     var disableMenu = false
     
     func loadView () -> StreamReusableView? {
-        if let reusing = loader.loadView() {
+        if let reusing = loader.loadView(self) {
             reusing.metrics = self
             reusing.loadedWithMetrics(self)
             return reusing
@@ -157,8 +170,15 @@ class StreamMetrics: NSObject {
         }
     }
     
-    func dequeueView() -> StreamReusableView? {
-        if let view = reusableViews.first {
+    func findView(item: StreamItem) -> StreamReusableView? {
+        for view in reusableViews where view.item?.entry === item.entry {
+            return view
+        }
+        return reusableViews.first
+    }
+    
+    func dequeueView(item: StreamItem) -> StreamReusableView? {
+        if let view = findView(item) {
             reusableViews.remove(view)
             view.didDequeue()
             return view
@@ -167,15 +187,12 @@ class StreamMetrics: NSObject {
     }
     
     func dequeueViewWithItem(item: StreamItem) -> StreamReusableView? {
-        if let view = dequeueView() {
+        if let view = dequeueView(item) {
             view.item = item
-            UIView.performWithoutAnimation({ () -> Void in
-                view.frame = item.frame
-            })
+            UIView.performWithoutAnimation { view.frame = item.frame }
             item.view = view
-            let entry = item.entry
             prepareAppearing?(item, view)
-            view.entry = entry
+            view.entry = item.entry
             finalizeAppearing?(item, view)
             return view
         }

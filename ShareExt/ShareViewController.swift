@@ -10,105 +10,50 @@ import UIKit
 import Social
 import MobileCoreServices
 
-class ShareWrapCell : UITableViewCell {
-    
-    @IBOutlet weak var pictureView: UIImageView!
-    
-    @IBOutlet weak var wrapNameLabel: UILabel!
-    
-    @IBOutlet weak var timeLabel: UILabel!
-    
-    var setup: ExtensionWrap! {
-        willSet {
-            guard let extensionWrap = newValue else { return }
-            wrapNameLabel.text = extensionWrap.name
-            timeLabel.text = extensionWrap.updatedAt
-            if let url = extensionWrap.lastCandy where !url.isEmpty  {
-                if let image = InMemoryImageCache.instance[url] {
-                    pictureView.image = image
-                } else {
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-                        guard let _url = NSURL(string: url) else { return }
-                        guard let data = NSData(contentsOfURL: _url) else { return }
-                        guard let image = UIImage(data: data) else { return }
-                        dispatch_async(dispatch_get_main_queue(), { [weak self] () -> Void in
-                            InMemoryImageCache.instance[url] = image
-                            self?.pictureView.image = image
-                            })
-                    })
-                }
-            }
-            
-        }
-    }
-}
-
 class ShareViewController: UIViewController {
     
-    var wormhole = MMWormhole(applicationGroupIdentifier: "group.com.ravenpod.wraplive", optionalDirectory: "wormhole")
+    var urlSession: NSURLSession?
     
-    @IBOutlet weak var tableView: UITableView!
-    var wraps: [NSDictionary]?
-    
-    deinit {
-        tableView.removeObserver(self, forKeyPath: "contentSize", context: nil)
-    }
+    var imageToShare: UIImage?
+    var textToShare: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let content = extensionContext!.inputItems[0] as? NSExtensionItem
-        let contentType = kUTTypeImage as String
+        let items = extensionContext?.inputItems
+        var itemProvider: NSItemProvider?
         
-        wraps = NSUserDefaults.sharedUserDefaults?["allWraps"] as? [NSDictionary]
-        tableView.addObserver(self, forKeyPath: "contentSize", options: .New, context: nil)
+        if let items = items where !items.isEmpty {
+            guard let item = items[0] as? NSExtensionItem else { return }
+            if let attachments = item.attachments {
+                if !attachments.isEmpty {
+                    itemProvider = attachments[0] as? NSItemProvider
+                }
+            }
+        }
         
-        wormhole.listenForMessageWithIdentifier("allWrapsResponse", listener: {(messageObject) -> Void in
-            print (">>self - \(messageObject)<<")
-            })
-        wormhole.messageWithIdentifier("allWrapsResponse")
-        wormhole.passMessageObject(nil, identifier: "allWrapsRequest")
-    }
-    
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if keyPath == "contentSize" {
-            preferredContentSize = CGSize(width: 0.0, height: max(65, tableView.contentSize.height))
+        let imageType = kUTTypeImage as String
+        let urlType = kUTTypeURL as String
+        let textType = kUTTypePlainText as String
+        
+        if itemProvider?.hasItemConformingToTypeIdentifier(imageType) == true {
+            itemProvider?.loadItemForTypeIdentifier(imageType, options: nil) { [weak self] (item, error) -> Void in
+                if error == nil {
+                    if let url = item as? NSURL {
+                        if let imageData = NSData(contentsOfURL: url) {
+                            self?.imageToShare = UIImage(data: imageData)
+                        }
+                    } else if let data = item as? NSData {
+                        self?.imageToShare = UIImage(data: data)
+                    }
+                }
+            }
+        } else if itemProvider?.hasItemConformingToTypeIdentifier(textType) == true || itemProvider?.hasItemConformingToTypeIdentifier(urlType) == true {
+            itemProvider?.loadItemForTypeIdentifier(textType, options: nil) { [weak self] (item, error) -> Void in
+                if error == nil {
+                    self?.textToShare = String(item)
+                }
+            }
         }
     }
-}
-
-extension ShareViewController: UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return wraps?.count ?? 0
-    }
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("wrapCell", forIndexPath: indexPath) as! ShareWrapCell
-        if let wrap = wraps?[indexPath.row] as? [String : AnyObject] {
-            cell.setup = ExtensionWrap.fromDictionary(wrap)
-        }
-        return cell
-    }
-}
-
-extension ShareViewController: UITableViewDelegate {
-    //    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    //        if update.type == "comment" {
-    //            guard let comment = update.comment else {
-    //                return
-    //            }
-    //            let request = ExtensionRequest(action: "presentComment", parameters: ["uid":comment.uid])
-    //            if let url = request.serializedURL() {
-    //                extensionContext?.openURL(url, completionHandler: nil)
-    //            }
-    //        } else {
-    //            guard let candy = update.candy else {
-    //                return
-    //            }
-    //            let request = ExtensionRequest(action: "presentCandy", parameters: ["uid":candy.uid])
-    //            if let url = request.serializedURL() {
-    //                extensionContext?.openURL(url, completionHandler: nil)
-    //            }
-    //        }
-    //        
-    //    }
 }

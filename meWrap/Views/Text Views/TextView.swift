@@ -10,8 +10,8 @@ import Foundation
 
 class TextView: UITextView {
     
-    
     @IBInspectable var trim: Bool = false
+    
     @IBInspectable var preset: String? {
         willSet {
             if let font = font, let preset = newValue where !preset.isEmpty {
@@ -42,8 +42,14 @@ class TextView: UITextView {
         }
     }
     
+    override var text: String! {
+        didSet {
+            textDidChange()
+        }
+    }
+    
     final func textDidChange() {
-        placeholderLabel?.hidden = text.characters.count != 0
+        placeholderLabel?.hidden = !text.isEmpty
     }
     
     var placeholder: String? {
@@ -84,6 +90,6 @@ class TextView: UITextView {
                 return insideFlag
             }
         }
-         return false
+        return false
     }
 }

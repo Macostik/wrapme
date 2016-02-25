@@ -36,7 +36,7 @@ class ComposeBar: UIControl, UITextViewDelegate {
     var text: String? {
         set {
             textView.text = newValue
-            textView.placeholderLabel?.hidden = newValue?.isEmpty ?? false || textView.selectedRange.location != 0
+            textView.placeholderLabel?.hidden = !(newValue?.isEmpty ?? true) || textView.selectedRange.location != 0
             updateHeight()
             setDoneButtonHidden(newValue?.trim.isEmpty ?? true)
         }

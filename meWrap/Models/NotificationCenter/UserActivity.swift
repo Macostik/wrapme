@@ -10,32 +10,30 @@ import UIKit
 import PubNub
 
 enum UserActivityType: Int {
-    case Typing = 1, Streaming
+    case None = 0, Typing, Streaming
 }
 
-class UserActivity: NSObject {
+struct UserActivity {
     
     var inProgress = false
     
     weak var user: User?
     
-    let type: UserActivityType
+    var type: UserActivityType = .None
     
-    let info: [String:AnyObject]
+    var info = [String:AnyObject]()
     
-    required init(type: UserActivityType, info: [String:AnyObject], user: User) {
+    init(user: User) {
         self.user = user
-        self.type = type
-        self.info = info
-        super.init()
-        self.inProgress = info["in_progress"] as? Bool ?? false
     }
     
-    convenience init?(uuid: String?, state: [NSObject:AnyObject]?) {
-        guard let user = PubNub.userFromUUID(uuid) else { return nil }
-        guard let info = state?["activity"] as? [String:AnyObject] else { return nil }
-        guard let type = info["type"] as? Int else { return nil }
-        guard let activityType = UserActivityType(rawValue: type) else { return nil }
-        self.init(type: activityType, info: info, user: user)
+    mutating func handleState(state: [NSObject:AnyObject]?) {
+        if let info = state?["activity"] as? [String:AnyObject] {
+            self.info = info
+            if let type = info["type"] as? Int, let activityType = UserActivityType(rawValue: type) {
+                self.type = activityType
+                self.inProgress = info["in_progress"] as? Bool ?? false
+            }
+        }
     }
 }

@@ -57,23 +57,23 @@ class CaptureViewController: UINavigationController, CameraViewControllerDelegat
     
     internal func cropImage(image: UIImage) -> UIImage {
         var resultImage = resizeImage(image)
-        let cropRect = CGRectThatFitsSize(resultImage.size, viewFinderSize())
+        let cropRect = resultImage.size.fit(viewFinderSize()).rectCenteredInSize(resultImage.size)
         resultImage = resultImage.crop(cropRect)
         return resultImage
     }
     
     private func viewFinderSize() -> CGSize {
-        if DeviceManager.defaultManager.orientation.isPortrait {
-            return view.size
-        } else {
+        if DeviceManager.defaultManager.orientation.isLandscape {
             return CGSize(width: view.height, height: view.width)
+        } else {
+            return view.size
         }
     }
     
     internal func resizeImage(image: UIImage) -> UIImage {
         let resultWidth = resizeImageWidth()
-        let fitSize = CGSizeThatFitsSize(image.size, view.size);
-        if (image.size.width > image.size.height) {
+        let fitSize = image.size.fit(view.size)
+        if image.size.width > image.size.height {
             let scale = image.size.height / fitSize.height
             return image.resize(CGSizeMake(1, resultWidth * scale), aspectFill:true)
         } else {

@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class SettingsViewController: WLBaseViewController {
+class SettingsViewController: BaseViewController {
     
     @IBAction func about(sender: UIButton) {
         let bundle = NSBundle.mainBundle()

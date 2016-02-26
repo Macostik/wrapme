@@ -140,7 +140,7 @@ class LiveBroadcastInfoEventView: LiveBroadcastEventView {
     }
 }
 
-class LiveViewController: WLBaseViewController {
+class LiveViewController: BaseViewController {
         
     @IBOutlet weak var joinsCountView: UIView!
     
@@ -160,7 +160,11 @@ class LiveViewController: WLBaseViewController {
     
     lazy var broadcast: LiveBroadcast = LiveBroadcast()
     
-    var chatSubscription: NotificationSubscription?
+    lazy var chatSubscription: NotificationSubscription = {
+        let chatSubscription = NotificationSubscription(name: "ch-\(self.broadcast.streamName)", isGroup: false, observePresence: true)
+        chatSubscription.delegate = self
+        return chatSubscription
+    }()
     
     var allowAutorotate = true
     
@@ -202,13 +206,6 @@ class LiveViewController: WLBaseViewController {
         wrapNameLabel?.text = wrap?.name
         
         Wrap.notifier().addReceiver(self)
-    }
-    
-    internal func subscribe(broadcast: LiveBroadcast) {
-        let chatSubscription = NotificationSubscription(name: "ch-\(broadcast.streamName)", isGroup: false, observePresence: true)
-        chatSubscription.delegate = self
-        chatSubscription.subscribe()
-        self.chatSubscription = chatSubscription
     }
     
     internal func close() {

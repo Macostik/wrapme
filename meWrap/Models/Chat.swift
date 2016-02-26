@@ -9,11 +9,6 @@
 import UIKit
 import PubNub
 
-@objc protocol ChatNotifying: PaginatedListNotifying {
-    optional func chat(chat: Chat, didBeginTyping user: User)
-    optional func chat(chat: Chat, didEndTyping user: User)
-}
-
 class Chat: PaginatedList {
     
     let wrap: Wrap
@@ -21,7 +16,6 @@ class Chat: PaginatedList {
     var typingNames: String?
     
     lazy var unreadMessages = [Message]()
-    lazy var typingUsers = [User]()
     
     lazy var cachedMessageHeights = [Message : CGFloat]()
     
@@ -49,21 +43,6 @@ class Chat: PaginatedList {
         super.init()
         request = PaginatedRequest.messages(wrap)
         resetMessages()
-        Dispatch.mainQueue.async { [weak self] () -> Void in
-            let subscription = NotificationSubscription(name: wrap.uid, isGroup: false, observePresence: true)
-            self?.subscription = subscription
-            subscription.delegate = self
-            subscription.hereNow({ (uuids) -> Void in
-                guard let uuids = uuids else { return }
-                for uuid in uuids {
-                    guard let activity = UserActivity(uuid: uuid["uuid"] as? String, state: uuid["state"] as? [NSObject:AnyObject]) else { return }
-                    guard activity.type == .Typing else { return }
-                    if let user = activity.user where activity.inProgress {
-                        self?.didBeginTyping(user)
-                    }
-                }
-            })
-        }
     }
     
     func resetMessages() {
@@ -72,13 +51,6 @@ class Chat: PaginatedList {
     
     override func sort() {
         entries = entries.sort({ $0.listSortDate() < $1.listSortDate() })
-    }
-    
-    override func add(entry: ListEntry) {
-        if let user = (entry as? Message)?.contributor, let index = typingUsers.indexOf(user) {
-            typingUsers.removeAtIndex(index)
-        }
-        super.add(entry)
     }
     
     internal override func newerPaginationDate() -> NSDate? {
@@ -148,20 +120,6 @@ class Chat: PaginatedList {
 
 extension Chat: NotificationSubscriptionDelegate {
     
-    private func addTypingUser(user: User) {
-        if !typingUsers.contains(user) {
-            typingUsers.append(user)
-            typingNames = namesOfUsers(typingUsers)
-        }
-    }
-    
-    private func removeTypingUser(user: User) {
-        if let index = typingUsers.indexOf(user) {
-            typingUsers.removeAtIndex(index)
-            typingNames = namesOfUsers(typingUsers)
-        }
-    }
-    
     private func namesOfUsers(users: [User]) -> String? {
         if users.isEmpty {
             return nil
@@ -177,35 +135,14 @@ extension Chat: NotificationSubscriptionDelegate {
         }
     }
     
-    private func didBeginTyping(user: User) {
-        user.fetchIfNeeded({ [weak self] (_) -> Void in
-            guard let chat = self else {
-                return
-            }
-            if !chat.wrap.contributors.contains(user) {
-                chat.wrap.contributors.insert(user)
-            }
-            chat.addTypingUser(user)
-            chat.notify({ $0.chat?(chat, didBeginTyping: user) })
-            }) { (error) -> Void in
-                error?.showNonNetworkError()
-        }
-        
-        notify({ $0.chat?(self, didBeginTyping: user) })
-    }
-    
-    private func didEndTyping(user: User) {
-        removeTypingUser(user)
-        notify({ $0.chat?(self, didEndTyping: user) })
-    }
-    
     func sendTyping(typing: Bool) {
-        subscription?.changeState([
+        let state = [
             "activity" : [
                 "type" : UserActivityType.Typing.rawValue,
                 "in_progress" : typing
             ]
-            ])
+        ]
+        PubNub.sharedInstance.setState(state, forUUID: User.channelName(), onChannel: wrap.uid, withCompletion: nil)
     }
     
     func beginTyping() {
@@ -214,21 +151,6 @@ extension Chat: NotificationSubscriptionDelegate {
     
     func endTyping() {
         sendTyping(false)
-    }
-    
-    func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {
-        let presence = event.data?.presence
-        guard let activity = UserActivity(uuid: presence?.uuid, state: presence?.state) else { return }
-        guard activity.type == .Typing else { return }
-        guard let user = activity.user where !user.current else { return }
-        if event.data.presenceEvent == "timeout" {
-            activity.inProgress = false
-        }
-        if activity.inProgress && event.data.presenceEvent == "state-change" {
-            didBeginTyping(user)
-        } else {
-            didEndTyping(user)
-        }
     }
 }
 

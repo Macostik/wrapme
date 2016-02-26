@@ -36,6 +36,8 @@ struct Storyboard {
     static let Countries = StoryboardObject<CountriesViewController>(identifier: "countries", storyboard: UIStoryboard.signUp())
     static let Wrap = StoryboardObject<WrapViewController>(identifier: "wrap", storyboard: UIStoryboard.main())
     static let WrapList = StoryboardObject<WrapListViewController>(identifier: "wrapList", storyboard: UIStoryboard.main())
+    static let Candy = StoryboardObject<CandyViewController>(identifier: "candy", storyboard: UIStoryboard.main())
+    static let SignupFlow = StoryboardObject<SignupFlowViewController>(identifier: "signupFlow", storyboard: UIStoryboard.signUp())
 }
 
 extension UIStoryboard {

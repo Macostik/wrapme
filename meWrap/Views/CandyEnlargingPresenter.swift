@@ -64,7 +64,7 @@ class CandyEnlargingPresenter: UIView {
             fromView.hidden = true
             backgroundColor = UIColor(white: 0, alpha: 0)
             UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseIn, animations: { () -> Void in
-                self.imageView.frame = CGRectThatFitsSize(self.size, image.size)
+                self.imageView.frame = self.size.fit(image.size).rectCenteredInSize(self.size)
                 self.backgroundColor = UIColor(white: 0, alpha: 1)
                 }, completion: { (_) -> Void in
                     completionHandler?(self)
@@ -84,7 +84,7 @@ class CandyEnlargingPresenter: UIView {
         guard let image = InMemoryImageCache.instance[url] ?? ImageCache.defaultCache.imageWithURL(url) else { return }
         if let superview = addToSuperview() {
             imageView.image = image
-            imageView.frame = CGRectThatFitsSize(self.size, image.size)
+            imageView.frame = self.size.fit(image.size).rectCenteredInSize(self.size)
             StreamView.lock()
             view.hidden = true
             backgroundColor = UIColor(white: 0, alpha: 1)

@@ -18,7 +18,7 @@ class MediaDataSource: PaginatedStreamDataSource {
     }
     
     override func streamViewNumberOfSections(streamView: StreamView) -> Int {
-        return 2;
+        return 2
     }
     
     override func streamView(streamView: StreamView, numberOfItemsInSection section: Int) -> Int {
@@ -41,11 +41,10 @@ class MediaDataSource: PaginatedStreamDataSource {
         let position = item.position
         if position.section == 0 {
             return { [weak self] _ in
-                return self?.wrap?.liveBroadcasts[position.index]
+                return self?.wrap?.liveBroadcasts[safe: position.index]
             }
         } else {
             return super.streamView(streamView, entryBlockForItem: item)
         }
     }
-    
 }

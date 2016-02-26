@@ -9,11 +9,11 @@
 import UIKit
 import MobileCoreServices
 
+func GUID() -> String {
+    return NSUUID().UUIDString
+}
+
 extension NSString {
-    
-    class func GUID() -> String {
-        return NSUUID().UUIDString
-    }
     
     var URL: NSURL? {
         return NSURL(string: self as String)
@@ -33,10 +33,6 @@ extension NSString {
             return false
         }
         return NSFileManager.defaultManager().fileExistsAtPath(self as String)
-    }
-    
-    var nonempty: Bool {
-        return length > 0
     }
     
     var trim: String {

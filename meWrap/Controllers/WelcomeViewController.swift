@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WelcomeViewController: WLBaseViewController {
+class WelcomeViewController: BaseViewController {
     
     @IBOutlet weak var licenseButton: UIButton!
     @IBOutlet weak var termsAndConditionsTextView: UITextView!

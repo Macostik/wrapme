@@ -8,7 +8,7 @@
 
 import Foundation
 
-class WrapListViewController: WLBaseViewController {
+class WrapListViewController: BaseViewController {
     
     var sharePath: String? = nil
     

@@ -13,7 +13,7 @@ import SnapKit
     case Inbox, Media, Chat
 }
 
-class WrapSegmentViewController: WLBaseViewController {
+class WrapSegmentViewController: BaseViewController {
     weak var delegate: AnyObject?
     weak var wrap: Wrap!
     weak var badge: BadgeLabel?
@@ -116,7 +116,7 @@ final class WrapSegmentButton: SegmentButton {
     }
 }
 
-final class WrapViewController: WLBaseViewController {
+final class WrapViewController: BaseViewController {
     
     weak var wrap: Wrap?
     
@@ -152,6 +152,8 @@ final class WrapViewController: WLBaseViewController {
     
     private var wrapNotifyReceiver: EntryNotifyReceiver<Wrap>?
     
+    private var userNotifyReceiver: EntryNotifyReceiver<User>?
+    
     private lazy var friendsDataSource: StreamDataSource = StreamDataSource(streamView: self.friendsStreamView)
     
     @IBOutlet weak var moreFriendsLabel: UILabel!
@@ -167,11 +169,6 @@ final class WrapViewController: WLBaseViewController {
         friendsStreamView.horizontal = true
         friendsDataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<FriendView>(), size: friendsStreamView.height))
         guard let wrap = wrap where wrap.valid else { return }
-        
-        let chatViewController = controllerForSegment(.Chat)
-        if !chatViewController.isViewLoaded() {
-            let _ = chatViewController.view
-        }
         
         segmentedControl.deselect()
         
@@ -221,24 +218,37 @@ final class WrapViewController: WLBaseViewController {
     
     private func addNotifyReceivers() {
         
-        wrapNotifyReceiver = EntryNotifyReceiver<Wrap>().setup({ [unowned self] (receiver) -> Void in
-            receiver.entry = { return self.wrap }
+        wrapNotifyReceiver = EntryNotifyReceiver<Wrap>().setup({ [weak self] (receiver) -> Void in
+            receiver.entry = { return self?.wrap }
             receiver.didUpdate = { entry, event in
                 if event == .NumberOfUnreadMessagesChanged {
-                    if self.segment != .Chat {
-                        self.chatSegmentButton.badge.value = self.wrap?.numberOfUnreadMessages ?? 0
+                    if self?.segment != .Chat {
+                        self?.chatSegmentButton.badge.value = self?.wrap?.numberOfUnreadMessages ?? 0
                     }
                 } else if event == .InboxChanged {
-                    self.updateInboxCounter()
-                    self.updateMessageCouter()
+                    self?.updateInboxCounter()
+                    self?.updateMessageCouter()
                 } else {
-                    self.updateWrapData()
+                    self?.updateWrapData()
                 }
             }
             receiver.willDelete = { entry in
-                if self.viewAppeared {
-                    self.navigationController?.popToRootViewControllerAnimated(false)
+                if self?.viewAppeared == true {
+                    self?.navigationController?.popToRootViewControllerAnimated(false)
                     Toast.showMessageForUnavailableWrap(entry)
+                }
+            }
+            })
+        
+        userNotifyReceiver = EntryNotifyReceiver<User>().setup({ [unowned self] (receiver) -> Void in
+            receiver.shouldNotify = { [weak self] user in
+                return self?.wrap?.contributors.contains(user) ?? false
+            }
+            receiver.didUpdate = { [weak self] entry, event in
+                if event == .UserStatus {
+                    if let wrap = self?.wrap {
+                        self?.updateFriendsBar(wrap)
+                    }
                 }
             }
             })
@@ -274,9 +284,9 @@ final class WrapViewController: WLBaseViewController {
     private func updateFriendsBar(wrap: Wrap) {
         let maxFriendsCount = Int((Constants.screenWidth - moreFriendsLabel.width) / friendsStreamView.height)
         let contributors = wrap.contributors.sort {
-            if $0.current || ($0.avatar?.small?.isEmpty ?? true) {
+            if $0.current || ($0.avatar?.small?.isEmpty ?? true) || !$0.isActive {
                 return false
-            } else if $1.current || ($1.avatar?.small?.isEmpty ?? true) {
+            } else if $1.current || ($1.avatar?.small?.isEmpty ?? true) || !$1.isActive {
                 return true
             } else {
                 return $0.name < $1.name

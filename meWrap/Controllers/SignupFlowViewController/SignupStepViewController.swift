@@ -16,7 +16,7 @@ private struct SignupStepHandler {
     let block: Void -> SignupStepViewController?
 }
 
-class SignupStepViewController: WLBaseViewController {
+class SignupStepViewController: BaseViewController {
     
     private var handlers = [SignupStepStatus : SignupStepHandler]()
     

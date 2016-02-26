@@ -42,7 +42,7 @@ class HistoryViewController: SwipeViewController {
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var commentButton: Button!
     
-    private var cachedCandyViewControllers = [Candy : WLCandyViewController]()
+    private var cachedCandyViewControllers = [Candy : CandyViewController]()
     private weak var removedCandy: Candy?
     private var paginationQueue = RunQueue(limit: 1)
     
@@ -121,17 +121,16 @@ class HistoryViewController: SwipeViewController {
         }
     }
     
-    private func candyViewController(candy: Candy?) -> WLCandyViewController? {
+    private func candyViewController(candy: Candy?) -> CandyViewController? {
         guard let candy = candy else { return nil }
         if let controller = cachedCandyViewControllers[candy] {
             return controller
-        } else if let controller = storyboard?["WLCandyViewController"] as? WLCandyViewController {
+        } else {
+            let controller = Storyboard.Candy.instantiate()
             controller.candy = candy
             controller.historyViewController = self
             cachedCandyViewControllers[candy] = controller
             return controller
-        } else {
-            return nil
         }
     }
     
@@ -180,7 +179,7 @@ class HistoryViewController: SwipeViewController {
     }
     
     override func viewControllerNextTo(viewController: UIViewController?, direction: SwipeDirection) -> UIViewController? {
-        guard let candy = (viewController as? WLCandyViewController)?.candy else { return nil }
+        guard let candy = (viewController as? CandyViewController)?.candy else { return nil }
         guard let index = candies.indexOf(candy) else { return nil }
         
         let isForward = direction == .Forward
@@ -194,7 +193,7 @@ class HistoryViewController: SwipeViewController {
     }
     
     override func didChangeViewController(viewController: UIViewController!) {
-        guard let candy = (viewController as? WLCandyViewController)?.candy else { return }
+        guard let candy = (viewController as? CandyViewController)?.candy else { return }
         self.candy = candy
         fetchCandiesOlderThen(candy)
     }
@@ -330,7 +329,7 @@ extension HistoryViewController {
         sender.userInteractionEnabled = false
         FollowingViewController.followWrapIfNeeded(wrap) { [weak self] () -> Void in
             self?.downloadCandyOriginal(self?.candy, success: { (image) -> Void in
-                WLDrawingViewController.draw(image) { self?.candy?.editWithImage($0) }
+                DrawingViewController.draw(image) { self?.candy?.editWithImage($0) }
                 sender.userInteractionEnabled = true
                 }, failure: { (error) -> Void in
                     error?.show()

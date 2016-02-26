@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FollowingViewController: WLBaseViewController {
+class FollowingViewController: BaseViewController {
     
     weak var wrap: Wrap?
     

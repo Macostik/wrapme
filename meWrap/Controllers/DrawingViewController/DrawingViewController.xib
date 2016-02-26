@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="icons.ttf">
@@ -12,9 +12,8 @@
         </mutableArray>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLDrawingViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DrawingViewController" customModule="meWrap" customModuleProvider="target">
             <connections>
-                <outlet property="bottomViewHeightConstraint" destination="w2e-7n-nND" id="TfD-GC-r2o"/>
                 <outlet property="brushCanvas" destination="ret-el-mpM" id="VbZ-gZ-u8d"/>
                 <outlet property="canvas" destination="9pK-3r-psr" id="dIV-OL-NMG"/>
                 <outlet property="colorsView" destination="mX0-E7-r6V" id="5O6-J5-7Cw"/>
@@ -29,15 +28,15 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ieX-bU-Fjh">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="537"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sXP-dm-KOf">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="537"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <gestureRecognizers/>
                         </imageView>
-                        <view opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9pK-3r-psr" customClass="WLDrawingCanvas">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
+                        <view opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9pK-3r-psr" customClass="DrawingCanvas" customModule="meWrap" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="537"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <gestureRecognizers/>
                         </view>
@@ -61,17 +60,17 @@
                     </connections>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6eM-Ol-jum">
-                    <rect key="frame" x="0.0" y="500" width="375" height="167"/>
+                    <rect key="frame" x="0.0" y="537" width="375" height="130"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oFY-Co-6Gc">
-                            <rect key="frame" x="0.0" y="42" width="375" height="125"/>
+                            <rect key="frame" x="0.0" y="42" width="375" height="88"/>
                             <subviews>
-                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ret-el-mpM" customClass="WLDrawingCanvas">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="125"/>
+                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ret-el-mpM" customClass="DrawingCanvas" customModule="meWrap" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h3q-lF-82h" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                    <rect key="frame" x="129" y="44" width="30" height="38"/>
+                                    <rect key="frame" x="129" y="25" width="30" height="38"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="21"/>
                                     <state key="normal" title="-">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -81,7 +80,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5w3-E0-ng2" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                    <rect key="frame" x="217" y="44" width="30" height="38"/>
+                                    <rect key="frame" x="217" y="25" width="30" height="38"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="21"/>
                                     <state key="normal" title="+">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -91,7 +90,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="auy-ty-v4b" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                    <rect key="frame" x="10" y="39" width="36" height="48"/>
+                                    <rect key="frame" x="10" y="20" width="36" height="48"/>
                                     <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
                                     <state key="normal" title="L">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -101,7 +100,7 @@
                                     </connections>
                                 </button>
                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15e-Mn-MyZ" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                    <rect key="frame" x="281" y="39" width="36" height="48"/>
+                                    <rect key="frame" x="281" y="20" width="36" height="48"/>
                                     <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
                                     <state key="normal" title="B">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -111,7 +110,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pN6-mR-8qR" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                    <rect key="frame" x="327" y="38" width="38" height="50"/>
+                                    <rect key="frame" x="327" y="19" width="38" height="50"/>
                                     <fontDescription key="fontDescription" name="icons" family="icons" pointSize="38"/>
                                     <state key="normal" title="N">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -139,15 +138,12 @@
                                 <constraint firstItem="ret-el-mpM" firstAttribute="leading" secondItem="oFY-Co-6Gc" secondAttribute="leading" id="yG1-Xe-BL9"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mX0-E7-r6V" customClass="WLColorPicker">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mX0-E7-r6V" customClass="ColorPicker" customModule="meWrap" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="a3q-MG-Ocn"/>
                             </constraints>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="CC6-L8-r5X"/>
-                            </connections>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -158,7 +154,7 @@
                         <constraint firstAttribute="bottom" secondItem="oFY-Co-6Gc" secondAttribute="bottom" id="jVg-Mc-DjK"/>
                         <constraint firstItem="oFY-Co-6Gc" firstAttribute="top" secondItem="mX0-E7-r6V" secondAttribute="bottom" constant="-2" id="nnP-5L-wqL"/>
                         <constraint firstItem="mX0-E7-r6V" firstAttribute="top" secondItem="6eM-Ol-jum" secondAttribute="top" id="qrb-wG-GNJ"/>
-                        <constraint firstAttribute="height" constant="167" id="w2e-7n-nND"/>
+                        <constraint firstAttribute="height" constant="130" id="w2e-7n-nND"/>
                         <constraint firstItem="mX0-E7-r6V" firstAttribute="leading" secondItem="6eM-Ol-jum" secondAttribute="leading" id="ycp-wU-syq"/>
                     </constraints>
                 </view>

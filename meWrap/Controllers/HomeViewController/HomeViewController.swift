@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class HomeViewController: WLBaseViewController {
+final class HomeViewController: BaseViewController {
     
     @IBOutlet var dataSource: SegmentedStreamDataSource!
     @IBOutlet var publicDataSource: PaginatedStreamDataSource!

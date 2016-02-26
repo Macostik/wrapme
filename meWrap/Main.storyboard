@@ -785,10 +785,10 @@
                         <outlet property="navigationBar" destination="ant-6l-Vag" id="7N9-H3-ABr"/>
                         <outlet property="resendButton" destination="gpG-be-cvC" id="fQ9-oJ-SwG"/>
                         <outlet property="verificationEmailTextView" destination="VXa-Dq-6e9" id="hUh-Z4-Apx"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="dqa-OK-Z7G" id="slP-9b-HaW"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="xPd-PQ-LCt" id="wVL-n7-ylr"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="1N0-Ju-AIq" id="Gey-vy-fpK"/>
-                        <outletCollection property="keyboardAdjustmentTopConstraints" destination="MT6-Jj-Nhe" id="96B-W3-Zjl"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="dqa-OK-Z7G" collectionClass="NSMutableArray" id="slP-9b-HaW"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="xPd-PQ-LCt" collectionClass="NSMutableArray" id="wVL-n7-ylr"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="1N0-Ju-AIq" collectionClass="NSMutableArray" id="Gey-vy-fpK"/>
+                        <outletCollection property="keyboardAdjustmentTopConstraints" destination="MT6-Jj-Nhe" collectionClass="NSMutableArray" id="96B-W3-Zjl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j3e-xO-oCt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2384,7 +2384,7 @@
         <!--Candy View Controller-->
         <scene sceneID="wTf-7H-gTO">
             <objects>
-                <viewController storyboardIdentifier="WLCandyViewController" id="nz6-sC-pRK" customClass="WLCandyViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="candy" id="nz6-sC-pRK" customClass="CandyViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="o3R-CS-f0u"/>
                         <viewControllerLayoutGuide type="bottom" id="pBs-sO-txr"/>
@@ -2810,7 +2810,7 @@
                         <outlet property="composeBarBottomPrioritizer" destination="Ft7-q6-54y" id="Po8-lZ-rRB"/>
                         <outlet property="contentView" destination="vTd-en-UyT" id="0ye-XQ-bSi"/>
                         <outlet property="streamView" destination="WYU-Tj-StJ" id="VgU-Rt-ZzQ"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="Hjh-Il-IB8" id="x3H-7q-22f"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="Hjh-Il-IB8" collectionClass="NSMutableArray" id="x3H-7q-22f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kjg-TD-Vmm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3176,8 +3176,8 @@
                     <connections>
                         <outlet property="composeBar" destination="dQp-Lx-kpC" id="cly-mG-GSx"/>
                         <outlet property="streamView" destination="Q8b-PD-zug" id="rWf-Td-0mg"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="RiC-ww-QNg" id="Agn-Oe-QGL"/>
-                        <outletCollection property="keyboardAdjustmentLayoutViews" destination="dQp-Lx-kpC" id="htF-Hq-pZA"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="RiC-ww-QNg" collectionClass="NSMutableArray" id="Agn-Oe-QGL"/>
+                        <outletCollection property="keyboardAdjustmentLayoutViews" destination="dQp-Lx-kpC" collectionClass="NSMutableArray" id="htF-Hq-pZA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nVG-1G-xkC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3992,9 +3992,9 @@ QWRkEEZyaWVuZFZpZXc
                         <outlet property="titleLabel" destination="JKm-rj-U2W" id="uLx-6o-Jjy"/>
                         <outlet property="toggleCameraButton" destination="l6r-AU-Age" id="yAg-yz-pNf"/>
                         <outlet property="wrapNameLabel" destination="ejQ-zw-H7R" id="aLC-I6-NdZ"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="DHQ-C8-dip" id="ovN-65-h6S"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="5KJ-qu-pkL" id="UP6-ql-rzA"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="pNQ-N0-dMy" id="YF7-Fe-UkN"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="DHQ-C8-dip" collectionClass="NSMutableArray" id="ovN-65-h6S"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="5KJ-qu-pkL" collectionClass="NSMutableArray" id="UP6-ql-rzA"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="pNQ-N0-dMy" collectionClass="NSMutableArray" id="YF7-Fe-UkN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5H4-ji-Fm2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4309,7 +4309,7 @@ QWRkEEZyaWVuZFZpZXc
                         <outlet property="spinner" destination="TNP-Tj-SnO" id="QEB-FQ-BEi"/>
                         <outlet property="titleLabel" destination="reu-XV-mzP" id="thH-Yn-Bf3"/>
                         <outlet property="wrapNameLabel" destination="Utt-DA-1Lo" id="frq-ld-kma"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="fJc-VB-I0I" id="3c5-B1-fRT"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="fJc-VB-I0I" collectionClass="NSMutableArray" id="3c5-B1-fRT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fvj-hK-27b" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4337,6 +4337,9 @@ QWRkEEZyaWVuZFZpZXc
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2kP-h9-ZMO" customClass="StreamView" customModule="meWrap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            </scrollView>
                             <button opaque="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OHf-zN-126" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="12" y="20" width="32" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -4352,9 +4355,6 @@ QWRkEEZyaWVuZFZpZXc
                                     <action selector="back:" destination="jav-qj-dCh" eventType="touchUpInside" id="0Uy-1C-cvb"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2kP-h9-ZMO" customClass="StreamView" customModule="meWrap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -4515,7 +4515,7 @@ QWRkEEZyaWVuZFZpZXc
                         <outlet property="searchField" destination="ioj-5w-MTU" id="sjR-Qi-tJa"/>
                         <outlet property="streamView" destination="hAd-Xu-7DN" id="vOk-qe-pad"/>
                         <outlet property="wrapListDataSource" destination="suG-Cv-vyl" id="ylC-3e-JFW"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="TcF-xr-7sR" id="kND-no-A0y"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="TcF-xr-7sR" collectionClass="NSMutableArray" id="kND-no-A0y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f8s-m3-KPX" userLabel="First Responder" sceneMemberID="firstResponder"/>

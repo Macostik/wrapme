@@ -52,7 +52,7 @@ class ArrangedAddressBookGroup: NSObject {
     }
     
     func filter(text: String) -> ArrangedAddressBookGroup {
-        if text.nonempty {
+        if !text.isEmpty {
             let group = ArrangedAddressBookGroup(title: title, registered: registered)
             group.records = records.filter({ $0.phoneNumbers.last?.name?.rangeOfString(text, options: .CaseInsensitiveSearch, range: nil, locale: nil) != nil })
             return group
@@ -139,7 +139,7 @@ class ArrangedAddressBook: NSObject {
     }
     
     func filter(text: String) -> ArrangedAddressBook {
-        if (text.nonempty) {
+        if !text.isEmpty {
             let addressBook = ArrangedAddressBook()
             addressBook.groups = groups.map({ $0.filter(text) })
             return addressBook

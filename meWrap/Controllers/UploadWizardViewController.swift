@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UploadWizardViewController: WLBaseViewController {
+class UploadWizardViewController: BaseViewController {
     
     static var isActive = false
     
@@ -177,7 +177,7 @@ extension UploadWizardViewController: CaptureMediaViewControllerDelegate {
     }
 }
 
-class UploadWizardEndViewController: WLBaseViewController {
+class UploadWizardEndViewController: BaseViewController {
     
     var friendsInvited = false
     

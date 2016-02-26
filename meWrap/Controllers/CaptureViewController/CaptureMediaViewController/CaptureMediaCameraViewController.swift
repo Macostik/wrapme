@@ -129,7 +129,7 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
                 device.activeFormat = format
             }
             
-            device.videoZoomFactor = Smoothstep(1, min(8, device.activeFormat.videoMaxZoomFactor), zoomScale)
+            device.videoZoomFactor = smoothstep(1, min(8, device.activeFormat.videoMaxZoomFactor), zoomScale)
             device.setSupportedFocusMode(.ContinuousAutoFocus)
             if device.hasTorch && device.torchAvailable && device.isTorchModeSupported(torchMode) {
                 device.torchMode = torchMode
@@ -150,7 +150,7 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
                     session.tryAddOutput(output)
                     }, completion: {
                         self.videoInput?.device.lock({ (device) -> Void in
-                            device.videoZoomFactor = Smoothstep(1, min(8, device.activeFormat.videoMaxZoomFactor), self.zoomScale)
+                            device.videoZoomFactor = smoothstep(1, min(8, device.activeFormat.videoMaxZoomFactor), self.zoomScale)
                             device.setSupportedFocusMode(.AutoFocus)
                             if device.isTorchModeSupported(.Off) {
                                 device.torchMode = .Off

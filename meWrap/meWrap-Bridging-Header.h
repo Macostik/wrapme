@@ -3,13 +3,13 @@
 //
 
 #import <OpenUDID/OpenUDID.h>
-#import "DefinedBlocks.h"
-#import "WLBaseViewController.h"
+#import "GAI.h"
+#import <AdobeCreativeSDKCore/AdobeCreativeSDKCore.h>
+#import <AdobeCreativeSDKImage/AdobeCreativeSDKImage.h>
 #import "CameraInfo.h"
 #import "AudioConfig.h"
 #import "Streamer.h"
 #import "VideoConfig.h"
-#import "WLCandyViewController.h"
-#import "GeometryHelper.h"
-#import "WLDrawingViewController.h"
-#import "ImageEditor.h"
+#import "MMWormhole.h"
+#import <NewRelicAgent/NewRelic.h>
+#import "iVersion.h"

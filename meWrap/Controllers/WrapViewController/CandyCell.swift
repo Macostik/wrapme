@@ -69,7 +69,7 @@ class CandyCell: StreamReusableView {
                 
                 menu.addDrawPhotoAction({
                     DownloadingView.downloadCandy(candy, success: { (image) -> Void in
-                        WLDrawingViewController.draw(image) { candy.editWithImage($0) }
+                        DrawingViewController.draw(image) { candy.editWithImage($0) }
                         }, failure: { $0?.show() })
                 })
             }

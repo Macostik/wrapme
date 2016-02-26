@@ -127,7 +127,7 @@ class ProfileEditSession: CompoundEditSession {
         nameSession = EditSession(originalValue: user.name ?? "", setter: { user.name = $0 })
         nameSession.validator = { return !$0.isEmpty }
         emailSession = EditSession(originalValue: Authorization.current.priorityEmail ?? "", setter: nil)
-        emailSession.validator = { return $0.nonempty && $0.isValidEmail }
+        emailSession.validator = { return !$0.isEmpty && $0.isValidEmail }
         avatarSession = EditSession(originalValue: user.avatar?.large ?? "", setter: { user.avatar?.large = $0 })
         avatarSession.validator = { return !$0.isEmpty }
         super.init()

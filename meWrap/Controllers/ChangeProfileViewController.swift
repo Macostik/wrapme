@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class ChangeProfileViewController: WLBaseViewController, EditSessionDelegate, UITextFieldDelegate, CaptureAvatarViewControllerDelegate, EntryNotifying, FontPresetting {
+final class ChangeProfileViewController: BaseViewController, EditSessionDelegate, UITextFieldDelegate, CaptureAvatarViewControllerDelegate, EntryNotifying, FontPresetting {
     
     @IBOutlet weak var cancelButton: Button!
     @IBOutlet weak var doneButton: Button!

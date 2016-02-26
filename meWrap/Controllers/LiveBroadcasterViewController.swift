@@ -176,7 +176,7 @@ final class LiveBroadcasterViewController: LiveViewController {
         
         createConnection()
         
-        subscribe(broadcast)
+        chatSubscription.subscribe()
         updateBroadcastInfo()
     }
     
@@ -356,7 +356,7 @@ final class LiveBroadcasterViewController: LiveViewController {
     
     private var startEventIsAlreadyPresented = false
     
-    //MARK: WLBaseViewController 
+    //MARK: BaseViewController 
     
     override func constantForKeyboardAdjustmentBottomConstraint(constraint: NSLayoutConstraint, defaultConstant: CGFloat, keyboardHeight: CGFloat) -> CGFloat {
         if let identifier = constraint.identifier {

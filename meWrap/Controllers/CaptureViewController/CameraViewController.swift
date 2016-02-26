@@ -34,7 +34,7 @@ class CameraView: UIView {
     optional func cameraViewControllerCanCaptureMedia(controller: CameraViewController) -> Bool
 }
 
-class CameraViewController: WLBaseViewController {
+class CameraViewController: BaseViewController {
     
     @IBOutlet weak var takePhotoButton: UIButton!
     
@@ -316,14 +316,14 @@ class CameraViewController: WLBaseViewController {
     }
     
     private func fetchSampleImage(result: UIImage -> Void, failure: FailureBlock) {
-        Dispatch.defaultQueue.fetch({ () -> AnyObject? in
+        Dispatch.defaultQueue.fetch({ () -> UIImage? in
             let width = UIScreen.mainScreen().bounds.size.width
             let size = CGSizeMake(width, width / 0.75)
             let url = "http://placeimg.com/\(Int(size.width))/\(Int(size.height))/any"
             guard let data = NSData(contentsOfURL:url.URL!) else { return nil }
             return UIImage(data: data)
             }) { (object) -> Void in
-                if let image = object as? UIImage {
+                if let image = object {
                     result(image)
                 } else {
                     failure(nil)
@@ -379,7 +379,7 @@ extension CameraViewController { // MARK: - Actions
         let constraint = self.assetsHeightConstraint
         if (sender.state == .Changed) {
             let translation = sender.translationInView(sender.view)
-            constraint.constant = Smoothstep(minHeight, maxHeight, constraint.constant - translation.y / 2)
+            constraint.constant = smoothstep(minHeight, maxHeight, constraint.constant - translation.y / 2)
             assetsArrow.layer.transform = CATransform3DMakeRotation(CGFloat(M_PI) * constraint.constant / minHeight, 1, 0, 0)
             view.layoutIfNeeded()
             sender.setTranslation(CGPointZero, inView: sender.view)
@@ -456,7 +456,7 @@ extension CameraViewController { // MARK: - Actions
     @IBAction func zooming(sender: UIPinchGestureRecognizer) {
         if sender.state == .Changed {
             let device = self.videoInput?.device
-            zoomScale = Smoothstep(1, min(8, device?.activeFormat?.videoMaxZoomFactor ?? 1), zoomScale * sender.scale)
+            zoomScale = smoothstep(1, min(8, device?.activeFormat?.videoMaxZoomFactor ?? 1), zoomScale * sender.scale)
             sender.scale = 1
         }
     }

@@ -30,21 +30,22 @@ class InboxCell: StreamReusableView {
     internal var headerView = UIView()
     internal var avatarView = ImageView(backgroundColor: UIColor.clearColor())
     internal var userNameLabel = Label(preset: .Small, weight: UIFontWeightRegular, textColor: Color.grayLight)
-    internal var timeLabel = Label(preset: .Small, weight: UIFontWeightRegular, textColor: Color.grayLight)
+    internal var timeLabel = Label(preset: .Smaller, weight: UIFontWeightRegular, textColor: Color.grayLight)
     internal var wrapLabel = Label(preset: .Small, weight: UIFontWeightRegular, textColor: Color.grayLight)
     internal var imageView = ImageView(backgroundColor: UIColor.clearColor())
     internal var videoIndicator = Label(icon: "+", size: 24)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         addSubview(containerView)
-        avatarView.cornerRadius = 15
+        avatarView.cornerRadius = 18
+        avatarView.defaultBackgroundColor = Color.grayLighter
+        avatarView.defaultIconColor = UIColor.whiteColor()
+        avatarView.defaultIconText = "&"
         containerView.addSubview(headerView)
         containerView.backgroundColor = UIColor.whiteColor()
         containerView.shadowColor = Color.grayLightest
         containerView.shadowOpacity = 1
         containerView.shadowOffset = CGSize(width: 1, height: -1)
-        timeLabel.setContentCompressionResistancePriority(751, forAxis: .Horizontal)
-        timeLabel.setContentHuggingPriority(251, forAxis: .Horizontal)
         headerView.addSubview(avatarView)
         headerView.addSubview(userNameLabel)
         headerView.addSubview(timeLabel)
@@ -62,15 +63,16 @@ class InboxCell: StreamReusableView {
         }
         avatarView.snp_makeConstraints {
             $0.leading.top.equalTo(headerView).offset(12)
-            $0.size.equalTo(30)
+            $0.size.equalTo(36)
         }
         userNameLabel.snp_makeConstraints {
             $0.leading.equalTo(avatarView.snp_trailing).offset(12)
-            $0.centerY.equalTo(avatarView)
+            $0.bottom.equalTo(avatarView.snp_centerY)
+            $0.trailing.equalTo(headerView).inset(12)
         }
         timeLabel.snp_makeConstraints {
-            $0.leading.equalTo(userNameLabel.snp_trailing)
-            $0.centerY.equalTo(userNameLabel)
+            $0.leading.equalTo(avatarView.snp_trailing).offset(12)
+            $0.top.equalTo(avatarView.snp_centerY)
             $0.trailing.equalTo(headerView).inset(12)
         }
         videoIndicator.snp_makeConstraints { $0.trailing.top.equalTo(imageView).inset(12) }
@@ -84,7 +86,7 @@ class InboxCell: StreamReusableView {
     override func setup(entry: AnyObject?) {
         if let update = entry as? RecentUpdate {
             let contribution = update.contribution
-            timeLabel.text =  update.date.isToday() ? update.date.stringWithTimeStyle(.ShortStyle) : "yesterday".ls
+            timeLabel.text = update.date.timeAgoStringAtAMPM()
             imageView.url = contribution.asset?.medium
             if contribution.unread == true {
                 userNameLabel.textColor = Color.grayDark

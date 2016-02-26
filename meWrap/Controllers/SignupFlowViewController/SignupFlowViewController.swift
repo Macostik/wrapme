@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignupFlowViewController: WLBaseViewController {
+class SignupFlowViewController: BaseViewController {
     
     @IBOutlet weak var headerView: UIView!
     

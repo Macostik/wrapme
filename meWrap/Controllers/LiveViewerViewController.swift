@@ -57,7 +57,7 @@ class LiveViewerViewController: LiveViewController {
         layer.player = player
         self.playerItem = playerItem
         
-        subscribe(broadcast)
+        chatSubscription.subscribe()
         
         updateBroadcastInfo()
         
@@ -220,7 +220,7 @@ class LiveViewerViewController: LiveViewController {
     
     @IBAction func sendMessage(sender: AnyObject?) {
         if let text = composeBar.text?.trim where !text.isEmpty {
-            chatSubscription?.send([
+            chatSubscription.send([
                 "content" : text,
                 "userUid" : User.currentUser?.uid ?? ""
                 ])

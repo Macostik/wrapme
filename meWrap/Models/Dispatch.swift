@@ -42,12 +42,10 @@ class Dispatch: NSObject {
         }
     }
     
-    func fetch(block: (Void -> AnyObject?)?, completion: (AnyObject? -> Void)?) {
-        async { () -> Void in
-            let object = block?()
-            Dispatch.mainQueue.async({ () -> Void in
-                completion?(object)
-            })
+    func fetch<T>(block: (Void -> T), completion: (T -> Void)) {
+        async {
+            let object = block()
+            Dispatch.mainQueue.async({ completion(object) })
         }
     }
 }

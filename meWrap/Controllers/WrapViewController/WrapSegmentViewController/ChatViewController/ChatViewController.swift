@@ -41,6 +41,15 @@ final class ChatViewController: WrapSegmentViewController {
         }
     }
     
+    var presentedText: String? {
+        willSet {
+            if let newValue = newValue where !newValue.isEmpty {
+                composeBar.text = newValue
+            }
+        }
+    }
+    
+    
     deinit {
         streamView.delegate = nil
         NSNotificationCenter.defaultCenter().removeObserver(self)

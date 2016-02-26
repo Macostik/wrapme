@@ -41,6 +41,9 @@ extension ExtensionRequest {
         case "getCandy":
             getCandy(success, failure: failure)
             break
+        case "presentShareContent":
+            presentShareContent(success, failure: failure)
+            break
         default:
             failure(ExtensionError(message: "Unknown action."))
             break
@@ -113,6 +116,19 @@ extension ExtensionRequest {
             success(ExtensionReply(reply: candy.extensionCandy(includeComments: true).toDictionary()))
         } else {
             failure(ExtensionError(message: "no candy"))
+        }
+    }
+    
+    func presentShareContent(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
+        if let path = parameters?["path"] as? String {
+            Storyboard.WrapList.instantiate({
+                $0.sharePath = path
+                UINavigationController.main()?.pushViewController($0, animated: false)
+            })
+            
+            success(ExtensionReply())
+        } else {
+            failure(ExtensionError(message: "No entry."))
         }
     }
 }

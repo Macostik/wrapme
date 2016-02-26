@@ -35,6 +35,7 @@ struct Storyboard {
     static let HistoryItem = StoryboardObject<HistoryItemViewController>(identifier: "historyItem", storyboard: UIStoryboard.main())
     static let Countries = StoryboardObject<CountriesViewController>(identifier: "countries", storyboard: UIStoryboard.signUp())
     static let Wrap = StoryboardObject<WrapViewController>(identifier: "wrap", storyboard: UIStoryboard.main())
+    static let WrapList = StoryboardObject<WrapListViewController>(identifier: "wrapList", storyboard: UIStoryboard.main())
 }
 
 extension UIStoryboard {

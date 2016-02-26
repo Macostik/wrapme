@@ -304,18 +304,24 @@ final class WrapViewController: WLBaseViewController {
             if let controller = viewController as? ChatViewController where showKeyboard {
                 controller.showKeyboard = showKeyboard
                 if controller.isViewLoaded() {
+                    controller.presentedText = self.presentedText
                     showKeyboard = false
                 }
             }
         }
     }
     
+    var presentedText: String?
+    
     private var viewController: UIViewController? {
         didSet {
             oldValue?.view.removeFromSuperview()
             if let controller = viewController {
                 if segment == .Chat {
-                    (controller as? ChatViewController)?.showKeyboard = showKeyboard
+                    if let chatViewController = controller as? ChatViewController {
+                        chatViewController.presentedText = self.presentedText
+                        chatViewController.showKeyboard = showKeyboard
+                    }
                     showKeyboard = false
                 }
                 
@@ -389,6 +395,13 @@ extension WrapViewController {
         let controller = Storyboard.Friends.instantiate()
         controller.wrap = wrap
         navigationController?.pushViewController(controller, animated: false)
+    }
+    
+    @IBAction override func back(sender: UIButton) {
+        if presentedText != nil {
+            navigationController?.popToRootViewControllerAnimated(false)
+        }
+        navigationController?.popViewControllerAnimated(false)
     }
 }
 

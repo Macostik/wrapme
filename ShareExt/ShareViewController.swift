@@ -32,28 +32,85 @@ class ShareViewController: UIViewController {
             }
         }
         
-        let imageType = kUTTypeImage as String
-        let urlType = kUTTypeURL as String
-        let textType = kUTTypePlainText as String
-        
-        if itemProvider?.hasItemConformingToTypeIdentifier(imageType) == true {
-            itemProvider?.loadItemForTypeIdentifier(imageType, options: nil) { [weak self] (item, error) -> Void in
+        itemProvider?.loadItemForTypeIdentifier({ [weak self] in
+            guard let path = self?.writeData($0, type: $1) else { return }
+            let request = ExtensionRequest(action: "presentShareContent", parameters: ["path":path])
+            if let url = request.serializedURL() {
+                self?.openURL(url)
+            }
+            })
+    }
+    
+    func writeData(data: NSData, type: String) -> String? {
+        var outputPath = NSHomeDirectory() + "/Documents/ShareExtension/"
+        let manager = NSFileManager.defaultManager()
+        _ = try? manager.removeItemAtPath(outputPath)
+        _ = try? manager.createDirectoryAtPath(outputPath, withIntermediateDirectories: true, attributes: nil)
+        outputPath = outputPath + ("\(NSProcessInfo.processInfo().globallyUniqueString)\(type)")
+        guard data.writeToFile(outputPath, atomically: true) else { return nil }
+        return outputPath
+    }
+}
+
+extension NSItemProvider {
+    func loadItemForTypeIdentifier(shareDataBlock: (NSData, String) -> Void) {
+        if hasItemConformingToTypeIdentifier(String(kUTTypeImage)) == true {
+            loadItemForTypeIdentifier(String(kUTTypeImage), options: nil) { (item, error) -> Void in
+                var shareData = NSData()
                 if error == nil {
                     if let url = item as? NSURL {
                         if let imageData = NSData(contentsOfURL: url) {
-                            self?.imageToShare = UIImage(data: imageData)
+                            shareData = imageData
                         }
-                    } else if let data = item as? NSData {
-                        self?.imageToShare = UIImage(data: data)
+                    } else if let imageData = item as? NSData {
+                        shareData = imageData
+                    }
+                    shareDataBlock(shareData, "image")
+                }
+            }
+        } else if hasItemConformingToTypeIdentifier(String(kUTTypeURL)) == true {
+            loadItemForTypeIdentifier(String(kUTTypeURL), options: nil) { (item, error) -> Void in
+                if error == nil {
+                    if let item = item as? String {
+                        if let shareData = item.dataUsingEncoding(NSUTF8StringEncoding) {
+                            shareDataBlock(shareData, "text")
+                        }
                     }
                 }
             }
-        } else if itemProvider?.hasItemConformingToTypeIdentifier(textType) == true || itemProvider?.hasItemConformingToTypeIdentifier(urlType) == true {
-            itemProvider?.loadItemForTypeIdentifier(textType, options: nil) { [weak self] (item, error) -> Void in
+        } else if hasItemConformingToTypeIdentifier(String(kUTTypePlainText)) == true {
+            loadItemForTypeIdentifier(String(kUTTypePlainText), options: nil) { (item, error) -> Void in
                 if error == nil {
-                    self?.textToShare = String(item)
+                    if let item = item as? String {
+                        if let shareData = item.dataUsingEncoding(NSUTF8StringEncoding) {
+                            shareDataBlock(shareData, "text")
+                        }
+                    }
                 }
             }
         }
+    }
+}
+
+extension ShareViewController {
+    func openURL(url: NSURL) -> Bool {
+        do {
+            let application = try self.sharedApplication()
+            return application.performSelector("openURL:", withObject: url) != nil
+        }
+        catch {
+            return false
+        }
+    }
+    
+    func sharedApplication() throws -> UIApplication {
+        var responder: UIResponder? = self
+        while responder != nil {
+            if let application = responder as? UIApplication {
+                return application
+            }
+            responder = responder?.nextResponder()
+        }
+        throw NSError(domain: "ShareExtension", code: 1, userInfo: nil)
     }
 }

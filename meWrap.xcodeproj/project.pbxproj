@@ -39,6 +39,7 @@
 		5B7F14031C7F29B30035CC81 /* WrapListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7F14021C7F29B30035CC81 /* WrapListViewController.swift */; };
 		5BA4F8821A1CA08A00DB1A25 /* s01.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEE1A10E51B004AD41C /* s01.wav */; };
 		5BA4F8831A1CA08A00DB1A25 /* s02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* s02.wav */; };
+		5BA60E241C805D2E00DBE9D4 /* ExtensionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C424E1BDE77BB003E644D /* ExtensionRequest.swift */; };
 		5BA6AA451A66779E00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
 		5BA83EEC1C6B4E3400FC5A9F /* AddContributorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA83EEB1C6B4E3400FC5A9F /* AddContributorsViewController.swift */; };
 		5BAF17A71C624D5F00D33026 /* ExtensionEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E771C0B6241001CE272 /* ExtensionEntry.swift */; };
@@ -2001,6 +2002,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BA60E241C805D2E00DBE9D4 /* ExtensionRequest.swift in Sources */,
 				5BAF17AD1C624E1E00D33026 /* String+Ext.swift in Sources */,
 				5B35CDB41C6CE2E300616AFA /* UIView+Ext.swift in Sources */,
 				5B2BB79A1C620CB1005045FF /* NSUserDefaults+SharedGroup.swift in Sources */,

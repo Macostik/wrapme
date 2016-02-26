@@ -262,14 +262,21 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
     }
     
     func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {
-        guard let data = event.data else { return }
+        guard let data = event.data, let event = data.presenceEvent else { return }
         guard let uuid = data.presence?.uuid where uuid != User.channelName() else { return }
         guard let user = PubNub.userFromUUID(uuid) else { return }
-        guard let state = data.presence?.state else { return }
-        user.activity.handleState(state)
+        
+        if event == "timeout" || event == "leave" {
+            user.isActive = false
+        } else if event == "join" {
+            user.isActive = true
+        }
+        
+        user.activity.handleState(data.presence?.state)
+        
         guard user.activity.type == .Streaming else { return }
         guard let wrap = Wrap.entry(data.actualChannel) else { return }
-        if data.presenceEvent == "state-change" {
+        if event == "state-change" {
             user.fetchIfNeeded({ _ in
                 if user.activity.inProgress {
                     let broadcast = LiveBroadcast()
@@ -285,9 +292,8 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
                     }
                 }
                 }, failure: nil)
-        } else if data.presenceEvent == "timeout" || data.presenceEvent == "leave" {
+        } else if event == "timeout" || event == "leave" {
             user.activity.inProgress = false
-            user.isActive = false
             for broadcast in wrap.liveBroadcasts where broadcast.broadcaster == user {
                 wrap.removeBroadcast(broadcast)
                 break

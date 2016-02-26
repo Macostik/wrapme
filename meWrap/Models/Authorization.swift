@@ -79,7 +79,7 @@ final class Authorization: Archive {
     }
     
     var priorityEmail: String? {
-        if let unconfirmed_email = unconfirmed_email where unconfirmed_email.nonempty {
+        if let unconfirmed_email = unconfirmed_email where !unconfirmed_email.isEmpty {
             return unconfirmed_email
         } else {
             return email

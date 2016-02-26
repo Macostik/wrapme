@@ -27,7 +27,13 @@ class User: Entry {
         return !current && devices.count > 0 && !devices.contains({ $0.activated })
     }
     
-    var isActive: Bool = false
+    var isActive: Bool = false {
+        didSet {
+            if isActive != oldValue {
+                self.notifyOnUpdate(.UserStatus)
+            }
+        }
+    }
     
     lazy var activity: UserActivity = UserActivity(user: self)
     

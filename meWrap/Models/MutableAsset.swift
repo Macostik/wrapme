@@ -123,7 +123,7 @@ class MutableAsset: Asset {
     func setVideoFromRecordAtPath(path: String) {
         let asset = AVAsset(URL: NSURL(fileURLWithPath: path))
         if let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetMediumQuality) {
-            let name = NSString.GUID()
+            let name = GUID()
             let outputPath = "\(NSHomeDirectory())/Documents/Videos/\(name).mp4"
             exportSession.outputURL = NSURL(fileURLWithPath: outputPath)
             exportSession.outputFileType = AVFileTypeMPEG4

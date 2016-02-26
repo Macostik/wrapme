@@ -18,7 +18,7 @@ extension Entry {
     
     class func entry<T: Entry>(type: T.Type) -> T {
         let entry = NSEntityDescription.insertNewObjectForEntityForName(entityName(), inManagedObjectContext: EntryContext.sharedContext) as! T
-        entry.uid = NSString.GUID()
+        entry.uid = GUID()
         entry.createdAt = NSDate.now()
         entry.updatedAt = entry.createdAt
         return entry
@@ -145,7 +145,7 @@ extension Candy {
                             Dispatch.mainQueue.async({ failure?(error) })
                         } else {
                             if let location = location {
-                                let url = NSURL(fileURLWithPath: "Documents/\(NSString.GUID()).mp4")
+                                let url = NSURL(fileURLWithPath: "Documents/\(GUID()).mp4")
                                 let manager = NSFileManager.defaultManager()
                                 _ = try? manager.moveItemAtURL(location, toURL: url)
                                 if url.checkResourceIsReachableAndReturnError(nil) {

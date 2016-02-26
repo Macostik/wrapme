@@ -58,7 +58,7 @@ class CommentCell: StreamReusableView {
 private let CommentHorizontalSpacing: CGFloat = 84.0
 private let CommentVerticalSpacing: CGFloat = 24.0
 
-class CommentsViewController: WLBaseViewController {
+class CommentsViewController: BaseViewController {
     
     weak var candy: Candy?
     
@@ -75,7 +75,7 @@ class CommentsViewController: WLBaseViewController {
     private var commentNotifyReceiver: EntryNotifyReceiver<Comment>?
     
     deinit {
-        contentView.delegate = nil
+        contentView?.delegate = nil
     }
     
     override func viewDidLoad() {

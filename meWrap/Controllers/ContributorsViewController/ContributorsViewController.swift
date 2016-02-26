@@ -12,7 +12,7 @@ private let VerticalIndent: CGFloat = 48.0
 private let HorizontalIndent: CGFloat = 96.0
 private let MinHeight: CGFloat = 72.0
 
-final class ContributorsViewController: WLBaseViewController {
+final class ContributorsViewController: BaseViewController {
     
     weak var wrap: Wrap?
     

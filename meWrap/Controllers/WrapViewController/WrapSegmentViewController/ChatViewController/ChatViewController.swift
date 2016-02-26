@@ -42,7 +42,7 @@ final class ChatViewController: WrapSegmentViewController {
     }
     
     deinit {
-        streamView.delegate = nil
+        streamView?.delegate = nil
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
@@ -197,7 +197,7 @@ final class ChatViewController: WrapSegmentViewController {
                         _self.scrollToLastUnreadMessage()
                     } else {
                         streamView.reload()
-                        streamView.contentOffset = CGPointOffset(streamView.maximumContentOffset, 0, -_self.chat.heightOfMessageCell(message))
+                        streamView.contentOffset = streamView.maximumContentOffset.offset(0, y: -_self.chat.heightOfMessageCell(message))
                         streamView.setMaximumContentOffsetAnimated(true)
                     }
                     Dispatch.mainQueue.after(0.5, block:finish)
@@ -217,18 +217,10 @@ final class ChatViewController: WrapSegmentViewController {
     }
 }
 
-extension ChatViewController: ChatNotifying {
+extension ChatViewController: ListNotifying {
     
     func listChanged(list: List) {
         streamView.reload()
-    }
-    
-    func chat(chat: Chat, didBeginTyping user: User) {
-        
-    }
-    
-    func chat(chat: Chat, didEndTyping user: User) {
-        
     }
 }
 

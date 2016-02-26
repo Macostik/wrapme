@@ -46,7 +46,7 @@ class ComposeBar: UIControl, UITextViewDelegate {
     }
     
     deinit {
-        textView.delegate = nil
+        textView?.delegate = nil
     }
     
     override func awakeFromNib() {
@@ -68,7 +68,7 @@ class ComposeBar: UIControl, UITextViewDelegate {
             let spacing = textView.y * 2
             var height = textView.sizeThatFits(CGSizeMake(textView.width, CGFloat(MAXFLOAT))).height + spacing
             let maxLines = self.maxLines > 0 ? self.maxLines : 5
-            height = Smoothstep(36, maxLines * CGFloat(lineHeight) + spacing, height)
+            height = smoothstep(36, maxLines * CGFloat(lineHeight) + spacing, height)
             if heightConstraint.constant != height {
                 heightConstraint.constant = height
                 layoutIfNeeded()

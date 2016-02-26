@@ -8,7 +8,7 @@
 
 import Foundation
 
-class WrapSettingsViewController: WLBaseViewController, EntryNotifying {
+class WrapSettingsViewController: BaseViewController, EntryNotifying {
     
     @IBOutlet weak var wrapNameTextField: UITextField!
     @IBOutlet weak var editButton: UIButton!

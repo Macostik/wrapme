@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AddContributorsViewController: WLBaseViewController, AddressBookRecordCellDelegate, UITextFieldDelegate, FontPresetting, AddressBookNoifying {
+class AddContributorsViewController: BaseViewController, AddressBookRecordCellDelegate, UITextFieldDelegate, FontPresetting, AddressBookNoifying {
     
     var wrap: Wrap!
     var isBroadcasting: Bool = false

@@ -12,7 +12,7 @@ import Foundation
     case Add, Update, Delete
 }
 
-@objc enum ContributionStatus: Int {
+enum ContributionStatus: Int {
     case Ready, InProgress, Finished
 }
 

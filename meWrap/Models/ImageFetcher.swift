@@ -68,9 +68,9 @@ class ImageFetcher: Notifier {
         if let image = InMemoryImageCache.instance[uid] {
             result(image, true)
         } else if ImageCache.defaultCache.contains(uid) {
-            Dispatch.defaultQueue.fetch({ ImageCache.defaultCache[uid] }, completion: { result($0 as? UIImage, false) })
+            Dispatch.defaultQueue.fetch({ ImageCache.defaultCache[uid] }, completion: { result($0, false) })
         } else if ImageCache.uploadingCache.contains(uid) {
-            Dispatch.defaultQueue.fetch({ ImageCache.uploadingCache[uid] }, completion: { result($0 as? UIImage, false) })
+            Dispatch.defaultQueue.fetch({ ImageCache.uploadingCache[uid] }, completion: { result($0, false) })
         } else if let image = InMemoryImageCache.instance[path] {
             result(image, true)
         } else {
@@ -78,7 +78,7 @@ class ImageFetcher: Notifier {
                 guard let data = NSData(contentsOfFile: path), let image = UIImage(data: data) else { return nil }
                 InMemoryImageCache.instance[path] = image
                 return image
-                }, completion: { result($0 as? UIImage, false) })
+                }, completion: { result($0, false) })
         }
     }
     
@@ -87,16 +87,16 @@ class ImageFetcher: Notifier {
         if let image = InMemoryImageCache.instance[uid] {
             result(image, true)
         } else if ImageCache.defaultCache.contains(uid) {
-            Dispatch.defaultQueue.fetch({ ImageCache.defaultCache[uid] }, completion: { result($0 as? UIImage, false) })
+            Dispatch.defaultQueue.fetch({ ImageCache.defaultCache[uid] }, completion: { result($0, false) })
         } else {
-            Dispatch.defaultQueue.fetch({ () -> AnyObject? in
+            Dispatch.defaultQueue.fetch({ () -> UIImage? in
                 if let _url = url.URL, let data = NSData(contentsOfURL: _url), let image = UIImage(data: data) {
                     ImageCache.defaultCache.write(image, uid: uid)
                     return image
                 } else {
                     return nil
                 }
-                }, completion: { result($0 as? UIImage, false) })
+                }, completion: { result($0, false) })
         }
     }
 }

@@ -25,7 +25,7 @@ final class HistoryItemCoverView: StreamReusableView {
     }
 }
 
-final class HistoryItemViewController: WLBaseViewController {
+final class HistoryItemViewController: BaseViewController {
     
     private let nameLabel = Label(preset: .Normal, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
     

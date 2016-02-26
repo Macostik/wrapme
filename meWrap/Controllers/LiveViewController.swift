@@ -140,7 +140,7 @@ class LiveBroadcastInfoEventView: LiveBroadcastEventView {
     }
 }
 
-class LiveViewController: WLBaseViewController {
+class LiveViewController: BaseViewController {
         
     @IBOutlet weak var joinsCountView: UIView!
     

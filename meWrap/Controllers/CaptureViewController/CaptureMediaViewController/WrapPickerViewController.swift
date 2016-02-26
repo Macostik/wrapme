@@ -87,7 +87,7 @@ class WrapPickerCell: StreamReusableView {
     }
 }
 
-class WrapPickerViewController: WLBaseViewController {
+class WrapPickerViewController: BaseViewController {
 
     weak var delegate: WrapPickerViewControllerDelegate?
     

@@ -10,7 +10,7 @@
         <!--Source View Controller-->
         <scene sceneID="2xe-lO-Cav">
             <objects>
-                <viewController storyboardIdentifier="SkiViewController" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" id="1ip-WU-dPb" customClass="WLBaseViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SkiViewController" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" id="1ip-WU-dPb" customClass="BaseViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DQ3-ra-9NH"/>
                         <viewControllerLayoutGuide type="bottom" id="6pc-QQ-fzI"/>
@@ -265,7 +265,7 @@
         <!--Source View Controller-->
         <scene sceneID="QPa-Qc-8WJ">
             <objects>
-                <viewController storyboardIdentifier="WeddingViewController" id="MLb-Ey-woc" customClass="WLBaseViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WeddingViewController" id="MLb-Ey-woc" customClass="BaseViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GkD-0X-V0M"/>
                         <viewControllerLayoutGuide type="bottom" id="Cd0-vC-juX"/>

@@ -13,7 +13,7 @@ import SnapKit
     case Inbox, Media, Chat
 }
 
-class WrapSegmentViewController: WLBaseViewController {
+class WrapSegmentViewController: BaseViewController {
     weak var delegate: AnyObject?
     weak var wrap: Wrap!
     weak var badge: BadgeLabel?
@@ -116,7 +116,7 @@ final class WrapSegmentButton: SegmentButton {
     }
 }
 
-final class WrapViewController: WLBaseViewController {
+final class WrapViewController: BaseViewController {
     
     weak var wrap: Wrap?
     
@@ -274,9 +274,9 @@ final class WrapViewController: WLBaseViewController {
     private func updateFriendsBar(wrap: Wrap) {
         let maxFriendsCount = Int((Constants.screenWidth - moreFriendsLabel.width) / friendsStreamView.height)
         let contributors = wrap.contributors.sort {
-            if $0.current || ($0.avatar?.small?.isEmpty ?? true) {
+            if $0.current || ($0.avatar?.small?.isEmpty ?? true) || !$0.isActive {
                 return false
-            } else if $1.current || ($1.avatar?.small?.isEmpty ?? true) {
+            } else if $1.current || ($1.avatar?.small?.isEmpty ?? true) || !$1.isActive {
                 return true
             } else {
                 return $0.name < $1.name

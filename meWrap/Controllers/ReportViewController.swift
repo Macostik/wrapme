@@ -99,7 +99,7 @@ struct Violation {
     }
 }
 
-class ReportViewController : WLBaseViewController {
+class ReportViewController : BaseViewController {
     
     weak var candy: Candy?
     

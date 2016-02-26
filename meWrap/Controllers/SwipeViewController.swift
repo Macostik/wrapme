@@ -16,7 +16,7 @@ private enum SwipePosition {
     case Center, Left, Right
 }
 
-class SwipeViewController: WLBaseViewController {
+class SwipeViewController: BaseViewController {
     
     deinit {
         scrollView?.delegate = nil

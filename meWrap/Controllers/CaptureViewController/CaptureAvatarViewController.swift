@@ -88,7 +88,7 @@ extension CaptureAvatarViewController {
     }
 }
 
-class EditAvatarViewController: WLBaseViewController {
+class EditAvatarViewController: BaseViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var editButton: UIButton!

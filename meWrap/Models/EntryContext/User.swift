@@ -14,94 +14,41 @@ class User: Entry {
 
     override class func entityName() -> String { return "User" }
     
-    private static var _currentUser: User?
-    static var currentUser: User? {
-        get {
-            if _currentUser == nil {
-                if let user = User.fetch().query("current == true").execute().first as? User {
-                    _currentUser = user
-                }
-            }
-            return _currentUser
-        }
-        set {
-            _currentUser?.current = false
-            _currentUser = newValue
-            newValue?.current = true
+    static var currentUser: User? = User.fetch().query("current == true").execute().first as? User {
+        didSet {
+            oldValue?.current = false
+            currentUser?.current = true
         }
     }
     
     var isSignupCompleted: Bool { return name != nil }
     
     var isInvited: Bool {
-        if !current {
-            if devices.count > 0 {
-                for device in devices where device.activated {
-                    return false
-                }
-                return true
-            }
-        }
-        return false
+        return !current && devices.count > 0 && !devices.contains({ $0.activated })
     }
     
-    private func formatPhones(secure: Bool) -> String? {
-		var phones = ""
-        for device in devices {
-            guard let phone = device.phone else {
-                continue
-            }
-            if !phones.isEmpty {
-                phones += "\n"
-            }
-            if !current && secure && phone.characters.count > 4 {
-                var _phone = ""
-				for (index, character) in phone.characters.enumerate() {
-                    if index >= phone.characters.count - 4 {
-                        _phone = "\(_phone)\(character)"
-                    } else {
-                        _phone = "\(_phone)*"
-                    }
-				}
-                phones += _phone
+    var isActive: Bool = false
+    
+    lazy var activity: UserActivity = UserActivity(user: self)
+    
+    private func formatPhones(secure: Bool) -> String {
+        let hiddenCharacter: Character = "*"
+        let phones = devices.reduce("", combine: { (phones, device) -> String in
+            guard let phone = device.phone else { return phones }
+            let count = phone.characters.count
+            if !current && secure && count > 4 {
+                let hiddenPart = String(count: count - 4, repeatedValue: hiddenCharacter)
+                return phones + (phones.isEmpty ? "" : "\n") + hiddenPart + phone.substringFromIndex(phone.endIndex.advancedBy(-4))
             } else {
-                phones += phone
+                return phones + (phones.isEmpty ? "" : "\n") + phone
             }
-        }
-        return phones
+        })
+        return phones.isEmpty ? "no_devices".ls : phones
     }
 	
-	private var _phones: String?
-	var phones: String? {
-        get {
-            if _phones == nil {
-                if let phones = formatPhones(false) {
-                    _phones = phones
-                } else {
-                    _phones = "no_devices".ls
-                }
-            }
-            return _phones
-        }
-        set { _phones = newValue }
-    }
+	lazy var phones: String? = self.formatPhones(false)
     
-    private var _securePhones: String?
-    var securePhones: String? {
-        get {
-            if _securePhones == nil {
-                if let phones = formatPhones(true) {
-                    _securePhones = phones
-                } else {
-                    _securePhones = "no_devices".ls
-                }
-            }
-            return _securePhones
-        }
-        set {
-            _securePhones = newValue
-        }
-    }
+    lazy var securePhones: String? = self.formatPhones(true)
         
     var sortedWraps: [Wrap]? {
         return wraps.sort({ $0.updatedAt > $1.updatedAt })
@@ -128,5 +75,4 @@ class Device: Entry {
             }
         }
     }
-    
 }

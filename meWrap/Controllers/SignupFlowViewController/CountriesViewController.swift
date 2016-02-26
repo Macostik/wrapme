@@ -42,7 +42,7 @@ class CountryCell: StreamReusableView {
     }
 }
 
-class CountriesViewController: WLBaseViewController {
+class CountriesViewController: BaseViewController {
     
     var selectedCountry: Country?
     
@@ -69,7 +69,7 @@ class CountriesViewController: WLBaseViewController {
         }
         
         Dispatch.defaultQueue.fetch({ return Country.allCountries }) { [weak self] (object) -> Void in
-                self?.dataSource.items = object as? [Country]
+                self?.dataSource.items = object
                 self?.dataSource.streamView?.scrollToItem(self?.dataSource.streamView?.selectedItem, animated: false)
         }
     }

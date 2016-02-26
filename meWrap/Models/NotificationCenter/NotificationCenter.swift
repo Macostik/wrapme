@@ -263,51 +263,66 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
     
     func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {
         guard let data = event.data else { return }
-        guard let uuid = data.presence?.uuid else { return }
-        guard uuid != User.channelName() else { return }
-        guard let wrap = Wrap.entry(data.actualChannel) else { return }
+        guard let uuid = data.presence?.uuid where uuid != User.channelName() else { return }
+        guard let user = PubNub.userFromUUID(uuid) else { return }
         guard let state = data.presence?.state else { return }
-        guard let activity = UserActivity(uuid: uuid, state: state) where activity.type == .Streaming else { return }
+        user.activity.handleState(state)
+        guard user.activity.type == .Streaming else { return }
+        guard let wrap = Wrap.entry(data.actualChannel) else { return }
         if data.presenceEvent == "state-change" {
-            
-            activity.user?.fetchIfNeeded({ _ in
-                if activity.inProgress {
+            user.fetchIfNeeded({ _ in
+                if user.activity.inProgress {
                     let broadcast = LiveBroadcast()
-                    broadcast.broadcaster = activity.user
+                    broadcast.broadcaster = user
                     broadcast.wrap = wrap
-                    broadcast.title = activity.info["title"] as? String
-                    broadcast.streamName = activity.info["streamName"] as? String ?? ""
+                    broadcast.title = user.activity.info["title"] as? String
+                    broadcast.streamName = user.activity.info["streamName"] as? String ?? ""
                     wrap.addBroadcast(broadcast)
                 } else {
-                    for broadcast in wrap.liveBroadcasts where broadcast.broadcaster == activity.user {
+                    for broadcast in wrap.liveBroadcasts where broadcast.broadcaster == user {
                         wrap.removeBroadcast(broadcast)
                         break
                     }
                 }
                 }, failure: nil)
-        } else if data.presenceEvent == "timeout" {
-            activity.inProgress = false
-            for broadcast in wrap.liveBroadcasts where broadcast.broadcaster == activity.user {
+        } else if data.presenceEvent == "timeout" || data.presenceEvent == "leave" {
+            user.activity.inProgress = false
+            user.isActive = false
+            for broadcast in wrap.liveBroadcasts where broadcast.broadcaster == user {
                 wrap.removeBroadcast(broadcast)
                 break
             }
         }
     }
     
-    private func liveBroadcastsFromUUIDs(uuids: [[String:AnyObject]], wrap: Wrap) -> [LiveBroadcast] {
-        var broadcasts = [LiveBroadcast]()
+    private func activeUsers(uuids: [[String:AnyObject]]) -> [User] {
+        var users = [User]()
         for uuid in uuids {
             guard let uid = uuid["uuid"] as? String where uid != User.channelName() else { continue }
-            guard let state = uuid["state"] as? [String:AnyObject] else { continue }
-            guard let activity = UserActivity(uuid: uid, state: state) else { continue }
-            guard activity.inProgress && activity.type == .Streaming else { continue }
-            let broadcast = LiveBroadcast()
-            broadcast.broadcaster = activity.user
-            broadcast.wrap = wrap
-            broadcast.title = activity.info["title"] as? String
-            broadcast.streamName = activity.info["streamName"] as? String ?? ""
-            broadcasts.append(broadcast)
-            activity.user?.fetchIfNeeded(nil, failure: nil)
+            guard let user = PubNub.userFromUUID(uid) else { continue }
+            user.isActive = true
+            if let state = uuid["state"] as? [String:AnyObject] {
+                user.activity.handleState(state)
+            }
+            users.append(user)
+            user.fetchIfNeeded(nil, failure: nil)
+        }
+        return users
+    }
+    
+    private func liveBroadcasts(uuids: [[String:AnyObject]], wrap: Wrap) -> [LiveBroadcast] {
+        var broadcasts = [LiveBroadcast]()
+        let users = activeUsers(uuids)
+        for user in users {
+            let activity = user.activity
+            if activity.inProgress && activity.type == .Streaming {
+                let broadcast = LiveBroadcast()
+                broadcast.broadcaster = user
+                broadcast.wrap = wrap
+                broadcast.title = activity.info["title"] as? String
+                broadcast.streamName = activity.info["streamName"] as? String ?? ""
+                broadcasts.append(broadcast)
+            }
         }
         return broadcasts
     }
@@ -315,10 +330,10 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
     func fetchLiveBroadcasts(completionHandler: Void -> Void) {
         PubNub.sharedInstance.hereNowForChannelGroup(userSubscription.name) { (result, status) -> Void in
             if let channels = result?.data?.channels as? [String:[String:AnyObject]] {
-                for (channel, data) in channels {
-                    guard let wrap = Wrap.entry(channel) else { continue }
+                for (channel, data) in channels where channel != "public" {
                     guard let uuids = data["uuids"] as? [[String:AnyObject]] else { continue }
-                    wrap.liveBroadcasts = self.liveBroadcastsFromUUIDs(uuids, wrap: wrap)
+                    guard let wrap = Wrap.entry(channel) else { continue }
+                    wrap.liveBroadcasts = self.liveBroadcasts(uuids, wrap: wrap)
                 }
             }
             completionHandler()
@@ -328,7 +343,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
     func fetchLiveBroadcastsForWrap(wrap: Wrap, completionHandler: [LiveBroadcast] -> Void) {
         PubNub.sharedInstance.hereNowForChannel(wrap.uid, withVerbosity: .State) { (result, status) -> Void in
             if let uuids = result?.data?.uuids as? [[String:AnyObject]] {
-                completionHandler(self.liveBroadcastsFromUUIDs(uuids, wrap: wrap))
+                completionHandler(self.liveBroadcasts(uuids, wrap: wrap))
             } else {
                 completionHandler([])
             }

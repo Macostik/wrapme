@@ -63,10 +63,10 @@ class CaptureViewController: UINavigationController, CameraViewControllerDelegat
     }
     
     private func viewFinderSize() -> CGSize {
-        if DeviceManager.defaultManager.orientation.isPortrait {
-            return view.size
-        } else {
+        if DeviceManager.defaultManager.orientation.isLandscape {
             return CGSize(width: view.height, height: view.width)
+        } else {
+            return view.size
         }
     }
     

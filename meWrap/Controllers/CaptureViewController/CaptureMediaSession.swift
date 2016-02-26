@@ -164,13 +164,13 @@ extension AVCaptureOutput {
 extension AVCaptureConnection {
     func applyDeviceOrientation(orientation: UIDeviceOrientation) {
         if (orientation == .LandscapeLeft) {
-            videoOrientation = .LandscapeRight;
+            videoOrientation = .LandscapeRight
         } else if (orientation == .LandscapeRight) {
             videoOrientation = .LandscapeLeft;
-        } else if (orientation == .Portrait) {
-            videoOrientation = .Portrait;
         } else if (orientation == .PortraitUpsideDown) {
-            videoOrientation = .PortraitUpsideDown;
+            videoOrientation = .PortraitUpsideDown
+        } else {
+            videoOrientation = .Portrait
         }
     }
 }

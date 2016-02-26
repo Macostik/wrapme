@@ -176,7 +176,7 @@ final class LiveBroadcasterViewController: LiveViewController {
         
         createConnection()
         
-        subscribe(broadcast)
+        chatSubscription.subscribe()
         updateBroadcastInfo()
     }
     

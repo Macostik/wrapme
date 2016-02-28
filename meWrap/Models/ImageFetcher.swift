@@ -7,27 +7,31 @@
 //
 
 import Foundation
+import AFNetworking
 
-@objc protocol ImageFetching {
-    
-    optional func fetcherTargetUrl(fetcher: ImageFetcher) -> String?
-    
-    optional func fetcher(fetcher: ImageFetcher, didFinishWithImage image: UIImage, cached: Bool)
-    
-    optional func fetcher(fetcher: ImageFetcher, didFailWithError error: NSError)
+protocol ImageFetching: class {
+    func fetcherTargetUrl(fetcher: ImageFetcher) -> String?
+    func fetcher(fetcher: ImageFetcher, didFinishWithImage image: UIImage, cached: Bool)
+    func fetcher(fetcher: ImageFetcher, didFailWithError error: NSError)
 }
 
-class ImageFetcher: Notifier {
+final class ImageFetcher: Notifier {
+    
+    private static let downloader: AFImageDownloader = {
+        let downloader = AFImageDownloader()
+        downloader.downloadPrioritizaton = .LIFO
+        return downloader
+    }()
     
     private var urls = Set<String>()
     
     static var defaultFetcher = ImageFetcher()
     
-    private func notify(url: String, @noescape block: AnyObject -> Void) {
+    private func notify(url: String, @noescape block: ImageFetching -> Void) {
         urls.remove(url)
         for wrapper in receivers {
             if let receiver = wrapper.receiver as? ImageFetching {
-                if let targetURL = receiver.fetcherTargetUrl?(self) where targetURL == url {
+                if let targetURL = receiver.fetcherTargetUrl(self) where targetURL == url {
                     block(receiver)
                     receivers.remove(wrapper)
                 }
@@ -47,10 +51,10 @@ class ImageFetcher: Notifier {
         
         imageAtURL(url) { (image, cached) -> Void in
             if let image = image {
-                self.notify(url, block: { $0.fetcher?(self, didFinishWithImage: image, cached: cached) })
+                self.notify(url, block: { $0.fetcher(self, didFinishWithImage: image, cached: cached) })
             } else {
                 let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
-                self.notify(url, block: { $0.fetcher?(self, didFailWithError: error) })
+                self.notify(url, block: { $0.fetcher(self, didFailWithError: error) })
             }
         }
     }
@@ -89,14 +93,17 @@ class ImageFetcher: Notifier {
         } else if ImageCache.defaultCache.contains(uid) {
             Dispatch.defaultQueue.fetch({ ImageCache.defaultCache[uid] }, completion: { result($0, false) })
         } else {
-            Dispatch.defaultQueue.fetch({ () -> UIImage? in
-                if let _url = url.URL, let data = NSData(contentsOfURL: _url), let image = UIImage(data: data) {
+            if let _url = url.URL {
+                let request = NSURLRequest(URL: _url)
+                ImageFetcher.downloader.downloadImageForURLRequest(request, success: { (_, _, image) -> Void in
                     ImageCache.defaultCache.write(image, uid: uid)
-                    return image
-                } else {
-                    return nil
-                }
-                }, completion: { result($0, false) })
+                    result(image, false)
+                    }, failure: { (_, _, error) -> Void in
+                        result(nil, false)
+                })
+            } else {
+                result(nil, false)
+            }
         }
     }
 }

@@ -109,6 +109,9 @@ final class ChatViewController: WrapSegmentViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"applicationWillResignActive", name:UIApplicationWillResignActiveNotification, object:nil)
         if showKeyboard {
             composeBar.becomeFirstResponder()
+            if presentedText != nil {
+                composeBar.text = presentedText
+            }
         }
     }
     

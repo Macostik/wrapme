@@ -1165,8 +1165,7 @@
 				5B2960561C60F5B9008D121A /* ShareViewController.swift */,
 				5B2960581C60F5B9008D121A /* Share.storyboard */,
 			);
-			name = ShareExt;
-			path = ../ShareExt;
+			path = ShareExt;
 			sourceTree = "<group>";
 		};
 		5BA432AE1A3F3F5200B53BC7 /* ConfirmView */ = {

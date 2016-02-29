@@ -79,6 +79,10 @@ extension PlaceholderView {
     class func searchPlaceholderLoader() -> LayoutStreamLoader<PlaceholderView> {
         return placeholderLoader(":", message: "no_contacts_with_phone_number".ls)
     }
+    
+    class func sharePlaceholderLoader() -> LayoutStreamLoader<PlaceholderView> {
+        return placeholderLoader("C", message: "select_wrap_to_share".ls)
+    }
 }
 
 final class HomePlaceholderView: PlaceholderView {

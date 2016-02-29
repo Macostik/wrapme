@@ -32,6 +32,8 @@
 		<dict>
 			<key>NSExtensionActivationRule</key>
 			<string>TRUEPREDICATE</string>
+            <key>RequestsOpenAccess</key>
+            <true/>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>
 		<string>Share</string>

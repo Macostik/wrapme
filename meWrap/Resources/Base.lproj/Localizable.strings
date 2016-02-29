@@ -303,3 +303,4 @@
 "inbox" = "Inbox";
 "inbox_placeholder" = "No messages yet. Please enjoy your day.";
 "mark_all_as_read" = "Mark all as read";
+"select_wrap_to_share" = "Select Wrap To Share";

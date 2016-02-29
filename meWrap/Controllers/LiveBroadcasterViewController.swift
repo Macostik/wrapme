@@ -144,6 +144,8 @@ final class LiveBroadcasterViewController: LiveViewController {
     }
     
     private func startAudioCapture() {
+        _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
+        _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeVideoRecording)
         let audioConfig = AudioConfig()
         audioConfig.bitrate = 32000
         audioConfig.channelCount = 1

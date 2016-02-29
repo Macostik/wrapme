@@ -38,6 +38,7 @@ class LiveViewerViewController: LiveViewController {
         super.viewDidLoad()
         
         _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeMoviePlayback)
         _ = try? AVAudioSession.sharedInstance().setActive(true)
         
         let broadcast = self.broadcast

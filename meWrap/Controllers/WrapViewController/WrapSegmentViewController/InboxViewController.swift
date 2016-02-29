@@ -43,9 +43,8 @@ class InboxCell: StreamReusableView {
         avatarView.defaultIconText = "&"
         containerView.addSubview(headerView)
         containerView.backgroundColor = UIColor.whiteColor()
-        containerView.shadowColor = Color.grayLightest
         containerView.shadowOpacity = 1
-        containerView.shadowOffset = CGSize(width: 1, height: -1)
+        containerView.shadowOffset = CGSize(width: 1, height: 1)
         headerView.addSubview(avatarView)
         headerView.addSubview(userNameLabel)
         headerView.addSubview(timeLabel)
@@ -92,7 +91,9 @@ class InboxCell: StreamReusableView {
                 userNameLabel.textColor = Color.grayDark
                 timeLabel.textColor = Color.orange
                 wrapLabel.textColor = Color.orange
+                containerView.shadowColor = Color.orangeLighter
             } else {
+                containerView.shadowColor = Color.grayLightest
                 userNameLabel.textColor = Color.grayLighter
                 timeLabel.textColor = Color.grayLighter
                 wrapLabel.textColor = Color.grayLighter

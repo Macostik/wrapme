@@ -284,9 +284,17 @@ final class WrapViewController: BaseViewController {
     private func updateFriendsBar(wrap: Wrap) {
         let maxFriendsCount = Int((Constants.screenWidth - moreFriendsLabel.width) / friendsStreamView.height)
         let contributors = wrap.contributors.sort {
-            if $0.current || ($0.avatar?.small?.isEmpty ?? true) || !$0.isActive {
+            if $0.current {
                 return false
-            } else if $1.current || ($1.avatar?.small?.isEmpty ?? true) || !$1.isActive {
+            } else if $1.current {
+                return true
+            } else if !$0.isActive && $1.isActive {
+                return false
+            } else if !$1.isActive && $0.isActive {
+                return true
+            } else if ($0.avatar?.small?.isEmpty ?? true) && !($1.avatar?.small?.isEmpty ?? true) {
+                return false
+            } else if ($1.avatar?.small?.isEmpty ?? true) && !($0.avatar?.small?.isEmpty ?? true) {
                 return true
             } else {
                 return $0.name < $1.name

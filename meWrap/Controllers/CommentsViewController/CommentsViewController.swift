@@ -164,11 +164,13 @@ class CommentsViewController: BaseViewController {
     }
     
     private func sendMessageWithText(text: String) {
+        onClose(nil)
         if let candy = candy?.validEntry() {
-            SoundPlayer.player.play(.s04)
-            candy.uploadComment(text.trim)
+            Dispatch.mainQueue.async {
+                SoundPlayer.player.play(.s04)
+                candy.uploadComment(text.trim)
+            }
         }
-        Dispatch.mainQueue.async { self.onClose(nil) }
     }
     
     func presentForController(controller: UIViewController?) {

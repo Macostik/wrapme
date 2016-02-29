@@ -324,10 +324,8 @@ extension Candy {
         let comment = Comment.comment(text)
         commentCount++
         comment.candy = self
-        Dispatch.mainQueue.after(0.3, block: {
-            Uploader.commentUploader.upload(Uploading.uploading(comment))
-            comment.notifyOnAddition()
-        })
+        Uploader.commentUploader.upload(Uploading.uploading(comment))
+        comment.notifyOnAddition()
     }
 
     override func add(success: ObjectBlock?, failure: FailureBlock?) {

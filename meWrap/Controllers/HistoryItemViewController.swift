@@ -102,7 +102,7 @@ final class HistoryItemViewController: BaseViewController {
             self?.streamView.lock()
             CandyEnlargingPresenter.handleCandySelection(item, entry: entry, historyItem: self?.item, dismissingView: { (presenter, candy) -> UIView? in
                 guard let streamCandyItem = self?.streamView.itemPassingTest({ ($0.entry as? Candy) == candy}) else { return nil }
-                self?.streamView.scrollRectToVisible(streamCandyItem.frame, animated: true)
+                self?.streamView.scrollRectToVisible(streamCandyItem.frame, animated: false)
                 return streamCandyItem.view
             })
         }

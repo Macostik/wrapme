@@ -311,14 +311,14 @@ extension HomeViewController: WrapCellDelegate {
             let wrapViewController = Storyboard.Wrap.instantiate()
             wrapViewController.wrap = wrap
             wrapViewController.segment = .Chat
-            navigationController?.pushViewController(wrapViewController, animated:true)
+            navigationController?.pushViewController(wrapViewController, animated:false)
         }
     }
     
     func wrapCell(cell: WrapCell, presentCameraViewControllerForWrap wrap: Wrap) {
         streamView.userInteractionEnabled = true
         if (wrap.valid) {
-            openCameraForWrap(wrap, animated: true)
+            openCameraForWrap(wrap, animated: false)
         }
     }
 }

@@ -73,7 +73,7 @@ class UploadWizardViewController: BaseViewController {
             let controller = CaptureViewController.captureMediaViewController(wrap)
             controller.createdWraps = [wrap]
             controller.captureDelegate = self
-            presentViewController(controller, animated: true, completion: nil)
+            presentViewController(controller, animated: false, completion: nil)
         }
         
     }

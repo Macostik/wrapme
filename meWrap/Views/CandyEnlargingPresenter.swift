@@ -33,14 +33,14 @@ class CandyEnlargingPresenter: UIView {
                 if presented {
                     presenter.dismissingView = dismissingView
                 } else {
-                    ChronologicalEntryPresenter.presentEntry(candy, animated: true)
+                    ChronologicalEntryPresenter.presentEntry(candy, animated: false)
                     if let historyViewController = UINavigationController.main()?.viewControllers.last as? HistoryViewController{
                         historyViewController.dismissingView = dismissingView
                     }
                 }
             }
         } else {
-            ChronologicalEntryPresenter.presentEntry(candy, animated: true)
+            ChronologicalEntryPresenter.presentEntry(candy, animated: false)
         }
     }
     

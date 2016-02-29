@@ -206,7 +206,7 @@ class InboxViewController: WrapSegmentViewController {
         
         candyMetrics.selection = { item, entry in
             if let event = entry as? RecentUpdate {
-                ChronologicalEntryPresenter.presentEntry(event.contribution, animated: true)
+                ChronologicalEntryPresenter.presentEntry(event.contribution, animated: false)
             }
         }
         commentMetrics.selection = candyMetrics.selection

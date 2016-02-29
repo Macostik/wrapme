@@ -53,7 +53,7 @@ class WelcomeViewController: BaseViewController {
 
     @IBAction func agreeAndContinue(sender: AnyObject) {
         if let introduction = UIStoryboard.introduction().instantiateInitialViewController() {
-            navigationController?.setViewControllers([introduction], animated: true)
+            navigationController?.setViewControllers([introduction], animated: false)
         }
     }
 }

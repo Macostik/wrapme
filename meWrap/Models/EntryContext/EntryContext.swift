@@ -97,28 +97,20 @@ class EntryContext: NSManagedObjectContext {
         return NSEntityDescription.insertNewObjectForEntityForName(name, inManagedObjectContext: self) as? Entry
     }
     
-    func entry(name: String, uid: String?) -> Entry? {
-        return entry(name, uid: uid, locuid: nil)
-    }
-    
-    func entry(name: String, uid: String?, locuid: String?) -> Entry? {
-        return entry(name, uid: uid, locuid: locuid, allowInsert: true)
-    }
-    
-    func entry(name: String, uid: String?, locuid: String?, allowInsert: Bool) -> Entry? {
+    func entry(name: String, uid: String?, locuid: String? = nil, allowInsert: Bool = true) -> Entry? {
         guard let uid = uid else {
             return nil
         }
         if let entry = cachedEntry(uid) {
             return entry
         } else {
-            var request = NSFetchRequest.fetch(name)
+            var request = FetchRequest<Entry>(name: name)
             if let locuid = locuid {
                 request = request.query("uid == %@ OR locuid == %@", uid, locuid)
             } else {
                 request = request.query("uid == %@", uid)
             }
-            if let entry = request.execute().last as? Entry {
+            if let entry = request.execute().last {
                 return entry
             } else if allowInsert {
                 if let entry = insertEntry(name) {
@@ -133,11 +125,7 @@ class EntryContext: NSManagedObjectContext {
         }
     }
     
-    func entry<T: Entry>(type: T.Type, uid: String?, locuid: String?, allowInsert: Bool) -> T? {
-        return entry(type.entityName(), uid: uid, locuid: locuid, allowInsert: allowInsert) as? T
-    }
-    
-    func entry<T: Entry>(type: T.Type, name: String, uid: String?, locuid: String?, allowInsert: Bool) -> T? {
+    func entry<T: Entry>(type: T.Type, name: String = T.entityName(), uid: String?, locuid: String? = nil, allowInsert: Bool = true) -> T? {
         return entry(name, uid: uid, locuid: locuid, allowInsert: allowInsert) as? T
     }
     
@@ -148,11 +136,11 @@ class EntryContext: NSManagedObjectContext {
         if cachedEntries.objectForKey(uid) != nil {
             return true
         }
-        return NSFetchRequest.fetch(name).query("uid == %@", uid).count() > 0
+        return FetchRequest<Entry>(name: name, query: "uid == %@", uid).count() > 0
     }
     
-    func execute(request: NSFetchRequest) -> [AnyObject] {
-        return (try? executeFetchRequest(request)) ?? []
+    func execute<T>(request: FetchRequest<T>) -> [T] {
+        return (try? executeFetchRequest(request)) as? [T] ?? []
     }
     
     func enqueueSave() {
@@ -163,42 +151,35 @@ class EntryContext: NSManagedObjectContext {
         }
     }
     
-    func execute(request: NSFetchRequest, completion: [AnyObject] -> Void) {
+    func execute<T>(request: FetchRequest<T>, completion: [T] -> Void) {
         performBlock { () -> Void in
             _ = try? self.executeRequest(NSAsynchronousFetchRequest(fetchRequest: request) { (result) -> Void in
-                completion(result.finalResult ?? [])
+                completion(result.finalResult as? [T] ?? [])
                 })
         }
     }
 }
 
-extension NSFetchRequest {
+class FetchRequest<T: Entry>: NSFetchRequest {
     
-    class func fetch(name: String) -> NSFetchRequest {
-        let request = NSFetchRequest()
-        request.entity = NSEntityDescription.entityForName(name, inManagedObjectContext: EntryContext.sharedContext)
-        return request
+    init(name: String = T.entityName(), query: String? = nil, _ args: CVarArgType...) {
+        super.init()
+        entity = NSEntityDescription.entityForName(name, inManagedObjectContext: EntryContext.sharedContext)
+        if let query = query {
+            predicate = NSPredicate(format: query, arguments: getVaList(args))
+        }
     }
     
-    func queryString(format: String) -> NSFetchRequest {
-        predicate = NSPredicate(format: format)
+    func query(format: String, _ args: CVarArgType...) -> Self {
+        predicate = NSPredicate(format: format, arguments: getVaList(args))
         return self
     }
     
-    private func query(format: String, arguments: CVaListPointer) -> NSFetchRequest {
-        predicate = NSPredicate(format: format, arguments: arguments)
-        return self
-    }
-    
-    func query(format: String, _ args: CVarArgType...) -> NSFetchRequest {
-        return query(format, arguments: getVaList(args))
-    }
-    
-    func execute() -> [AnyObject] {
+    func execute() -> [T] {
         return EntryContext.sharedContext.execute(self)
     }
     
-    func execute(completion: [AnyObject] -> Void) {
+    func execute(completion: [T] -> Void) {
         EntryContext.sharedContext.execute(self, completion: completion)
     }
     
@@ -206,16 +187,16 @@ extension NSFetchRequest {
         return EntryContext.sharedContext.countForFetchRequest(self, error: nil)
     }
     
-    func limit(limit: Int) -> NSFetchRequest {
+    func limit(limit: Int) -> Self {
         fetchLimit = limit
         return self
     }
     
-    func sort(key: String) -> NSFetchRequest {
+    func sort(key: String) -> Self {
         return sort(key, asc: false)
     }
     
-    func sort(key: String, asc: Bool) -> NSFetchRequest {
+    func sort(key: String, asc: Bool) -> Self {
         let descriptor = NSSortDescriptor(key: key, ascending: asc)
         var descriptors: [NSSortDescriptor] = sortDescriptors ?? []
         descriptors.append(descriptor)

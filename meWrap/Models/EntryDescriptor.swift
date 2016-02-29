@@ -10,14 +10,13 @@ import UIKit
 import CoreData
 
 class EntryDescriptor: NSObject {
-    var name: String = ""
-    var uid: String = ""
+    var name: String
+    var uid: String
     var locuid: String?
     var container: String?
     var data: [String:AnyObject]?
     
-    convenience init(name: String, uid: String, locuid: String?) {
-        self.init()
+    init(name: String, uid: String, locuid: String?) {
         self.name = name
         self.uid = uid
         self.locuid = locuid
@@ -38,6 +37,63 @@ class EntryDescriptor: NSObject {
     override var description: String { return "\(name): \(uid), upload_uid = \(locuid ?? "")" }
 }
 
+extension Entry {
+    
+    class func prefetchArray(array: [[String : AnyObject]]) -> [[String : AnyObject]] {
+        let descriptors = NSMutableDictionary()
+        prefetchDescriptors(descriptors, inArray:array)
+        EntryContext.sharedContext.fetchEntries(descriptors.allValues as! [EntryDescriptor])
+        return array
+    }
+    
+    class func prefetchDictionary(dictionary: [String : AnyObject]) -> [String : AnyObject] {
+        let descriptors = NSMutableDictionary()
+        prefetchDescriptors(descriptors, inDictionary: dictionary)
+        EntryContext.sharedContext.fetchEntries(descriptors.allValues as! [EntryDescriptor])
+        return dictionary
+    }
+    
+    class func prefetchDescriptors(descriptors: NSMutableDictionary, inArray array: [[String : AnyObject]]?) {
+        guard let array = array else { return }
+        for dictionary in array {
+            prefetchDescriptors(descriptors, inDictionary: dictionary)
+        }
+    }
+    
+    class func prefetchDescriptors(descriptors: NSMutableDictionary, inDictionary dictionary: [String : AnyObject]?) {
+        if let dictionary = dictionary, let uid = self.uid(dictionary) where descriptors[uid] == nil {
+            descriptors[uid] = EntryDescriptor(name: entityName(), uid: uid, locuid: self.locuid(dictionary))
+        }
+    }
+}
+
+extension Contribution {
+    
+    override class func prefetchDescriptors(descriptors: NSMutableDictionary, inDictionary dictionary: [String : AnyObject]?) {
+        super.prefetchDescriptors(descriptors, inDictionary: dictionary)
+        User.prefetchDescriptors(descriptors, inDictionary: dictionary?["contributor"] as? [String:AnyObject])
+    }
+}
+
+extension Wrap {
+    
+    override class func prefetchDescriptors(descriptors: NSMutableDictionary, inDictionary dictionary: [String : AnyObject]?) {
+        super.prefetchDescriptors(descriptors, inDictionary: dictionary)
+        User.prefetchDescriptors(descriptors, inArray: dictionary?["contributors"] as? [[String:AnyObject]])
+        User.prefetchDescriptors(descriptors, inDictionary: dictionary?["creator"] as? [String:AnyObject])
+        Candy.prefetchDescriptors(descriptors, inArray: dictionary?["candies"] as? [[String:AnyObject]])
+    }
+}
+
+extension Candy {
+    
+    override class func prefetchDescriptors(descriptors: NSMutableDictionary, inDictionary dictionary: [String : AnyObject]?) {
+        super.prefetchDescriptors(descriptors, inDictionary: dictionary)
+        User.prefetchDescriptors(descriptors, inDictionary: dictionary?["editor"] as? [String:AnyObject])
+        Comment.prefetchDescriptors(descriptors, inArray: dictionary?["comments"] as? [[String:AnyObject]])
+    }
+}
+
 extension EntryContext {
     
     func deleteEntry(entry: Entry) {
@@ -47,10 +103,10 @@ extension EntryContext {
     }
     
     func clear() {
-        for wrap in Wrap.entries() {
+        for wrap in FetchRequest<Wrap>().execute() {
             deleteObject(wrap)
         }
-        for user in User.entries() {
+        for user in FetchRequest<User>().execute() {
             deleteObject(user)
         }
         _ = try? save()
@@ -78,15 +134,13 @@ extension EntryContext {
             return
         }
         
-        if let entries = Entry.fetch().query("uid IN %@ OR locuid IN %@", uids, uids).execute() as? [Entry] {
-            for entry in entries {
-                for (index, descriptor) in descriptors.enumerate() {
-                    if descriptor.belongsToEntry(entry) {
-                        entry.uid = descriptor.uid
-                        cachedEntries.setObject(entry, forKey: descriptor.uid)
-                        descriptors.removeAtIndex(index)
-                        break
-                    }
+        for entry in FetchRequest<Entry>(query: "uid IN %@ OR locuid IN %@", uids, uids).execute() {
+            for (index, descriptor) in descriptors.enumerate() {
+                if descriptor.belongsToEntry(entry) {
+                    entry.uid = descriptor.uid
+                    cachedEntries.setObject(entry, forKey: descriptor.uid)
+                    descriptors.removeAtIndex(index)
+                    break
                 }
             }
         }

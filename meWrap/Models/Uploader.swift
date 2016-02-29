@@ -74,11 +74,8 @@ class Uploader: Notifier {
     }
     
     private func prepare() {
-        if let contributions = NSFetchRequest.fetch(entityName).query("uploading != nil").sort("createdAt", asc:true).execute() as? [Contribution] {
-            uploadings = contributions.map({ (contribution) -> Uploading in
-                return contribution.uploading!
-            })
-        }
+        let contributions = FetchRequest<Contribution>(name: entityName, query: "uploading != nil").sort("createdAt", asc:true).execute()
+        uploadings = contributions.map({ $0.uploading! })
         for uploader in subuploaders {
             uploader.prepare()
         }

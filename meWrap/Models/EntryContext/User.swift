@@ -14,7 +14,7 @@ class User: Entry {
 
     override class func entityName() -> String { return "User" }
     
-    static var currentUser: User? = User.fetch().query("current == true").execute().first as? User {
+    static var currentUser: User? = FetchRequest<User>("current == true").execute().first {
         didSet {
             oldValue?.current = false
             currentUser?.current = true

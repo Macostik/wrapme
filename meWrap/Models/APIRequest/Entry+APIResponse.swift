@@ -34,33 +34,6 @@ func <!= <T: Entry>(inout left: T?, right: T?) {
 
 extension Entry {
     
-    class func prefetchArray(array: [[String : AnyObject]]) -> [[String : AnyObject]] {
-        let descriptors = NSMutableDictionary()
-        prefetchDescriptors(descriptors, inArray:array)
-        EntryContext.sharedContext.fetchEntries(descriptors.allValues as! [EntryDescriptor])
-        return array
-    }
-    
-    class func prefetchDictionary(dictionary: [String : AnyObject]) -> [String : AnyObject] {
-        let descriptors = NSMutableDictionary()
-        prefetchDescriptors(descriptors, inDictionary: dictionary)
-        EntryContext.sharedContext.fetchEntries(descriptors.allValues as! [EntryDescriptor])
-        return dictionary
-    }
-    
-    class func prefetchDescriptors(descriptors: NSMutableDictionary, inArray array: [[String : AnyObject]]?) {
-        guard let array = array else { return }
-        for dictionary in array {
-            prefetchDescriptors(descriptors, inDictionary: dictionary)
-        }
-    }
-    
-    class func prefetchDescriptors(descriptors: NSMutableDictionary, inDictionary dictionary: [String : AnyObject]?) {
-        if let dictionary = dictionary, let uid = self.uid(dictionary) where descriptors[uid] == nil {
-            descriptors[uid] = EntryDescriptor(name: entityName(), uid: uid, locuid: self.locuid(dictionary))
-        }
-    }
-    
     class func mappedEntries(array: [[String:AnyObject]]?) -> [Entry] {
         return mappedEntries(array, container: nil)
     }
@@ -154,11 +127,6 @@ extension Device {
 
 extension Contribution {
     
-    override class func prefetchDescriptors(descriptors: NSMutableDictionary, inDictionary dictionary: [String : AnyObject]?) {
-        super.prefetchDescriptors(descriptors, inDictionary: dictionary)
-        User.prefetchDescriptors(descriptors, inDictionary: dictionary?["contributor"] as? [String:AnyObject])
-    }
-    
     override class func locuid(dictionary: [String:AnyObject]) -> String? {
         return dictionary[Keys.UID.Upload] as? String
     }
@@ -174,13 +142,6 @@ extension Contribution {
 }
 
 extension Wrap {
-    
-    override class func prefetchDescriptors(descriptors: NSMutableDictionary, inDictionary dictionary: [String : AnyObject]?) {
-        super.prefetchDescriptors(descriptors, inDictionary: dictionary)
-        User.prefetchDescriptors(descriptors, inArray: dictionary?["contributors"] as? [[String:AnyObject]])
-        User.prefetchDescriptors(descriptors, inDictionary: dictionary?["creator"] as? [String:AnyObject])
-        Candy.prefetchDescriptors(descriptors, inArray: dictionary?["candies"] as? [[String:AnyObject]])
-    }
     
     override class func uid(dictionary: [String:AnyObject]) -> String? {
         return dictionary[Keys.UID.Wrap] as? String
@@ -218,12 +179,6 @@ extension Wrap {
 }
 
 extension Candy {
-    
-    override class func prefetchDescriptors(descriptors: NSMutableDictionary, inDictionary dictionary: [String : AnyObject]?) {
-        super.prefetchDescriptors(descriptors, inDictionary: dictionary)
-        User.prefetchDescriptors(descriptors, inDictionary: dictionary?["editor"] as? [String:AnyObject])
-        Comment.prefetchDescriptors(descriptors, inArray: dictionary?["comments"] as? [[String:AnyObject]])
-    }
     
     override class func uid(dictionary: [String:AnyObject]) -> String? {
         return dictionary[Keys.UID.Candy] as? String

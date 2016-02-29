@@ -22,19 +22,7 @@ class Entry: NSManagedObject {
     
     func compare(entry: Entry) -> NSComparisonResult { return updatedAt.compare(entry.updatedAt) }
     
-    class func entry(uid: String?) -> Self? {
-        return entry(uid, locuid: nil)
-    }
-    
-    class func entry(uid: String?, locuid: String?) -> Self? {
-        return entry(uid, locuid: locuid, allowInsert: true)
-    }
-    
-    class func entry(uid: String?, allowInsert: Bool) -> Self? {
-        return entry(uid, locuid: nil, allowInsert: allowInsert)
-    }
-    
-    class func entry(uid: String?, locuid: String?, allowInsert: Bool) -> Self? {
+    class func entry(uid: String?, locuid: String? = nil, allowInsert: Bool = true) -> Self? {
         return EntryContext.sharedContext.entry(self, uid: uid, locuid: locuid, allowInsert: allowInsert)
     }
     
@@ -42,19 +30,11 @@ class Entry: NSManagedObject {
         return EntryContext.sharedContext.hasEntry(entityName(), uid: uid)
     }
     
-    class func entries() -> [Entry] {
-        return (fetch().execute() as? [Entry]) ?? []
-    }
-    
-    class func fetch() -> NSFetchRequest {
-        return NSFetchRequest.fetch(entityName())
-    }
-    
     class func deserializeReference(reference: [String : String]) -> Self? {
         guard let name = reference["name"], let uid = reference["uid"] else {
             return nil
         }
-        return EntryContext.sharedContext.entry(self, name: name, uid: uid, locuid: nil, allowInsert: false)
+        return EntryContext.sharedContext.entry(self, name: name, uid: uid, allowInsert: false)
     }
     
     func serializeReference() -> [String : String] {

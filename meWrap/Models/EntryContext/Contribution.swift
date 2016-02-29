@@ -25,10 +25,10 @@ class Contribution: Entry {
     class func recentContributions() -> [Contribution] {
         var contributions = [Contribution]()
         let date = NSDate.now().startOfDay()
-        let comments = Comment.fetch().query("createdAt > %@ AND contributor != nil", date).execute()
-        contributions.appendContentsOf(comments as! [Contribution])
-        let candies = Candy.fetch().query("createdAt > %@ AND contributor != nil", date).execute()
-        contributions.appendContentsOf(candies as! [Contribution])
+        let comments: [Contribution] = FetchRequest<Comment>(query: "createdAt > %@ AND contributor != nil", date).execute()
+        contributions.appendContentsOf(comments)
+        let candies: [Contribution] = FetchRequest<Candy>(query: "createdAt > %@ AND contributor != nil", date).execute()
+        contributions.appendContentsOf(candies)
         return contributions.sort({ $0.createdAt > $1.createdAt })
     }
     

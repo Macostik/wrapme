@@ -264,10 +264,7 @@ extension HomeViewController {
     
     @IBAction func hottestWrapsOpened(sender: AnyObject?) {
         self.publicWrapsHeaderView.hidden = false
-        var wraps: [Wrap] = []
-        if !Network.sharedNetwork.reachable {
-            wraps = Wrap.fetch().query("isPublic == YES").execute() as! [Wrap]
-        }
+        let wraps = Network.sharedNetwork.reachable ? [] : FetchRequest<Wrap>("isPublic == YES").execute()
         publicDataSource.items = PaginatedList(entries:wraps, request:PaginatedRequest.wraps("public"))
     }
     

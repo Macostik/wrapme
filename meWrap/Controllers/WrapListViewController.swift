@@ -16,7 +16,7 @@ class WrapListViewController: BaseViewController {
     @IBOutlet weak var streamView: StreamView!
     @IBOutlet weak var searchField: TextField!
     
-    private lazy var wraps = Wrap.fetch().sort("updatedAt").execute() as? [Wrap]
+    private lazy var wraps = FetchRequest<Wrap>().sort("updatedAt").execute()
     
     override func viewDidLoad() {
         super.viewDidLoad()

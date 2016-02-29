@@ -40,11 +40,11 @@ class SettingsViewController: BaseViewController {
         APIRequest.manager.operationQueue.cancelAllOperations()
         let currentUser = User.currentUser
         let context = EntryContext.sharedContext
-        for wrap in Wrap.entries() {
+        for wrap in FetchRequest<Wrap>().execute() {
             context.uncacheEntry(wrap)
             context.deleteObject(wrap)
         }
-        for user in User.entries() where user != currentUser {
+        for user in FetchRequest<User>().execute() where user != currentUser {
             context.uncacheEntry(user)
             context.deleteObject(user)
         }

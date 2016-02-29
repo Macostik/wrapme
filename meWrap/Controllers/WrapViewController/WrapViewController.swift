@@ -23,17 +23,26 @@ final class FriendView: StreamReusableView {
     
     private var avatarView = ImageView(backgroundColor: UIColor.whiteColor())
     
+    private var statusView = UIView()
+    
     override func layoutWithMetrics(metrics: StreamMetrics) {
         avatarView.cornerRadius = 16
         avatarView.defaultBackgroundColor = Color.grayLighter
         avatarView.defaultIconColor = UIColor.whiteColor()
         avatarView.defaultIconText = "&"
+        statusView.clipsToBounds = true
+        statusView.cornerRadius = 6
         addSubview(avatarView)
+        addSubview(statusView)
         avatarView.snp_makeConstraints(closure: {
             $0.width.height.equalTo(32)
             $0.centerY.equalTo(self)
             $0.trailing.equalTo(self)
         })
+        statusView.snp_makeConstraints { (make) -> Void in
+            make.size.equalTo(12)
+            make.trailing.bottom.equalTo(avatarView)
+        }
     }
     
     override func setup(entry: AnyObject?) {
@@ -45,6 +54,7 @@ final class FriendView: StreamReusableView {
                 avatarView.defaultBackgroundColor = Color.grayLighter
             }
             avatarView.url = url
+            statusView.backgroundColor = friend.isActive ? UIColor.greenColor() : UIColor.lightGrayColor()
         }
     }
 }

@@ -115,4 +115,10 @@ class Candy: Contribution {
     }
     
     var isVideo: Bool { return mediaType == .Video }
+    
+    override class func prefetchDescriptors(inout descriptors: Set<EntryDescriptor>, inDictionary dictionary: [String : AnyObject]?) {
+        super.prefetchDescriptors(&descriptors, inDictionary: dictionary)
+        User.prefetchDescriptors(&descriptors, inDictionary: dictionary?["editor"] as? [String:AnyObject])
+        Comment.prefetchDescriptors(&descriptors, inArray: dictionary?["comments"] as? [[String:AnyObject]])
+    }
 }

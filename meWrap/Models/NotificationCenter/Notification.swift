@@ -121,7 +121,7 @@ class Notification: NSObject {
     internal func createDescriptor<T: Entry>(type: T.Type, body: [String:AnyObject], key: String) {
         let entryData = body[key] as? [String:AnyObject]
         if let uid = T.uid(entryData ?? body) {
-            let descriptor = EntryDescriptor(name: T.entityName(), uid: uid, locuid: T.locuid(entryData ?? body))
+            var descriptor = EntryDescriptor(name: T.entityName(), uid: uid, locuid: T.locuid(entryData ?? body))
             descriptor.data = entryData
             self.descriptor = descriptor
         }

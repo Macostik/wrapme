@@ -62,4 +62,11 @@ class Entry: NSManagedObject {
         super.prepareForDeletion()
         EntryContext.sharedContext.uncacheEntry(self)
     }
+    
+    class func prefetchDescriptors(inout descriptors: Set<EntryDescriptor>, inDictionary dictionary: [String : AnyObject]?) {
+        if let dictionary = dictionary, let uid = self.uid(dictionary){
+            let descriptor = EntryDescriptor(name: entityName(), uid: uid, locuid: self.locuid(dictionary))
+            descriptors.insert(descriptor)
+        }
+    }
 }

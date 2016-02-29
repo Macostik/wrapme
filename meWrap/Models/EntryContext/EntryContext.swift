@@ -93,6 +93,23 @@ class EntryContext: NSManagedObjectContext {
         cachedEntries.removeObjectForKey(entry.uid)
     }
     
+    func deleteEntry(entry: Entry) {
+        cachedEntries.removeObjectForKey(entry.uid)
+        deleteObject(entry)
+        _ = try? save()
+    }
+    
+    func clear() {
+        for wrap in FetchRequest<Wrap>().execute() {
+            deleteObject(wrap)
+        }
+        for user in FetchRequest<User>().execute() {
+            deleteObject(user)
+        }
+        _ = try? save()
+        cachedEntries.removeAllObjects()
+    }
+    
     func insertEntry(name: String) -> Entry? {
         return NSEntityDescription.insertNewObjectForEntityForName(name, inManagedObjectContext: self) as? Entry
     }

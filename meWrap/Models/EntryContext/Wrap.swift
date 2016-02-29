@@ -193,4 +193,11 @@ class Wrap: Contribution {
         }
         return count
     }()
+    
+    override class func prefetchDescriptors(inout descriptors: Set<EntryDescriptor>, inDictionary dictionary: [String : AnyObject]?) {
+        super.prefetchDescriptors(&descriptors, inDictionary: dictionary)
+        User.prefetchDescriptors(&descriptors, inArray: dictionary?["contributors"] as? [[String:AnyObject]])
+        User.prefetchDescriptors(&descriptors, inDictionary: dictionary?["creator"] as? [String:AnyObject])
+        Candy.prefetchDescriptors(&descriptors, inArray: dictionary?["candies"] as? [[String:AnyObject]])
+    }
 }

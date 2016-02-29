@@ -72,4 +72,9 @@ class Contribution: Entry {
     var deletable: Bool { return contributor?.current ?? false }
     
     var canBeUploaded: Bool { return true }
+    
+    override class func prefetchDescriptors(inout descriptors: Set<EntryDescriptor>, inDictionary dictionary: [String : AnyObject]?) {
+        super.prefetchDescriptors(&descriptors, inDictionary: dictionary)
+        User.prefetchDescriptors(&descriptors, inDictionary: dictionary?["contributor"] as? [String:AnyObject])
+    }
 }

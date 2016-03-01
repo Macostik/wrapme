@@ -49,6 +49,8 @@ final class ChatViewController: WrapSegmentViewController {
         }
     }
     
+    var composeBarHeight: CGFloat = 48.0
+    
     
     deinit {
         streamView?.delegate = nil
@@ -71,7 +73,6 @@ final class ChatViewController: WrapSegmentViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateInsets()
         
         if wrap == nil {
             Dispatch.mainQueue.after(0.5) { self.navigationController?.popViewControllerAnimated(false) }
@@ -131,11 +132,6 @@ final class ChatViewController: WrapSegmentViewController {
         streamView.scrollToItemPassingTest({ $0.metrics == unreadMessagesMetrics }, animated:false)
     }
     
-    func updateInsets() {
-        streamView.contentInset.bottom = composeBar.height + Keyboard.keyboard.height + Chat.BubbleIndent
-        streamView.scrollIndicatorInsets = streamView.contentInset
-    }
-    
     var typing = false {
         didSet {
             if typing != oldValue {
@@ -150,35 +146,25 @@ final class ChatViewController: WrapSegmentViewController {
     
     override func keyboardWillShow(keyboard: Keyboard) {
         super.keyboardWillShow(keyboard)
-        if streamView.contentInset.bottom > composeBar.height + Chat.BubbleIndent {
-            return
-        }
-        let offset = keyboard.height - (streamView.height - streamView.contentSize.height) + composeBar.height + Chat.BubbleIndent
-        keyboard.performAnimation { streamView.transform = CGAffineTransformMakeTranslation(0, offset < 0 ? 0 : offset < streamView.height ? -offset : -keyboard.height) }
-    }
-    
-    override func keyboardDidShow(keyboard: Keyboard) {
-        super.keyboardDidShow(keyboard)
-        UIView.performWithoutAnimation {
-            self.streamView.transform = CGAffineTransformIdentity
-            self.updateInsets()
-            self.streamView.contentOffset = CGPointMake(0, min(self.streamView.maximumContentOffset.y, self.streamView.contentOffset.y + keyboard.height))
+        keyboard.performAnimation {
+            streamView.contentInset = UIEdgeInsetsMake(0, 0, keyboard.height, 0)
+            composeBar.transform = CGAffineTransformMakeTranslation(0, -keyboard.height)
+            var offset = keyboard.height - (streamView.height - streamView.contentSize.height)
+            offset = offset < 0 ? 0 : streamView.height - keyboard.height > offset || offset < streamView.height
+                ? offset : streamView.contentOffset.y + keyboard.height
+            streamView.setContentOffset(CGPointMake(0, offset), animated: false)
         }
     }
     
     override func keyboardWillHide(keyboard: Keyboard) {
         super.keyboardWillHide(keyboard)
-        UIView.performWithoutAnimation {
-            let height = max(0, self.streamView.contentOffset.y - keyboard.height)
-            self.streamView.transform = CGAffineTransformMakeTranslation(0, height - self.streamView.contentOffset.y)
-            self.streamView.trySetContentOffset(CGPointMake(0, height))
+        keyboard.performAnimation {
+            streamView.contentInset = UIEdgeInsetsZero
+            composeBar.transform = CGAffineTransformIdentity
+            let yOffset = abs(streamView.maximumContentOffset.y - streamView.contentOffset.y) < Chat.MessageSpacing ?
+            self.streamView.maximumContentOffset.y : self.streamView.contentOffset.y - keyboard.height
+            streamView.setContentOffset(CGPointMake(0, yOffset), animated: false)
         }
-        keyboard.performAnimation { streamView.transform = CGAffineTransformIdentity }
-    }
-    
-    override func keyboardDidHide(keyboard: Keyboard) {
-        super.keyboardDidHide(keyboard)
-        UIView.performWithoutAnimation { self.updateInsets() }
     }
     
     func insertMessage(message: Message) {
@@ -285,8 +271,8 @@ extension ChatViewController: ComposeBarDelegate {
     }
     
     func composeBarDidChangeHeight(composeBar: ComposeBar) {
-        updateInsets()
-        streamView.setContentOffset(streamView.maximumContentOffset, animated:true)
+        streamView.setContentOffset(CGPointMake(0, streamView.contentOffset.y + composeBar.height - composeBarHeight), animated: false)
+        composeBarHeight = composeBar.height
     }
 }
 

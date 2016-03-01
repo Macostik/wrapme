@@ -69,7 +69,7 @@ class ComposeBar: UIControl, UITextViewDelegate {
             var height = textView.sizeThatFits(CGSizeMake(textView.width, CGFloat(MAXFLOAT))).height + spacing
             let maxLines = self.maxLines > 0 ? self.maxLines : 5
             height = smoothstep(36, maxLines * CGFloat(lineHeight) + spacing, height)
-            if heightConstraint.constant != height {
+            if Int(heightConstraint.constant) != Int(height) {
                 heightConstraint.constant = height
                 layoutIfNeeded()
                 delegate?.composeBarDidChangeHeight?(self)

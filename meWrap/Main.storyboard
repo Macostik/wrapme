@@ -3026,7 +3026,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q8b-PD-zug" customClass="StreamView" customModule="meWrap">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="552"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="delegate" destination="ef1-h7-yay" id="DUf-p4-jBl"/>
@@ -3163,11 +3163,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Q8b-PD-zug" secondAttribute="trailing" id="0jT-Aw-zKN"/>
+                            <constraint firstItem="dQp-Lx-kpC" firstAttribute="top" secondItem="Q8b-PD-zug" secondAttribute="bottom" id="9qq-Xs-A9b"/>
                             <constraint firstAttribute="trailing" secondItem="dQp-Lx-kpC" secondAttribute="trailing" id="GbZ-k6-ly2"/>
                             <constraint firstItem="Q8b-PD-zug" firstAttribute="top" secondItem="gG3-lt-ayC" secondAttribute="bottom" id="LNA-tn-NYM"/>
                             <constraint firstItem="nir-Cb-3ne" firstAttribute="top" secondItem="dQp-Lx-kpC" secondAttribute="bottom" id="RiC-ww-QNg"/>
                             <constraint firstItem="Q8b-PD-zug" firstAttribute="leading" secondItem="hIQ-pE-cV8" secondAttribute="leading" id="rr3-bZ-6tM"/>
-                            <constraint firstItem="nir-Cb-3ne" firstAttribute="top" secondItem="Q8b-PD-zug" secondAttribute="bottom" id="whp-qj-TMc"/>
                             <constraint firstItem="dQp-Lx-kpC" firstAttribute="leading" secondItem="hIQ-pE-cV8" secondAttribute="leading" id="yTy-Zs-906"/>
                         </constraints>
                     </view>
@@ -3176,7 +3176,6 @@
                     <connections>
                         <outlet property="composeBar" destination="dQp-Lx-kpC" id="cly-mG-GSx"/>
                         <outlet property="streamView" destination="Q8b-PD-zug" id="rWf-Td-0mg"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="RiC-ww-QNg" collectionClass="NSMutableArray" id="Agn-Oe-QGL"/>
                         <outletCollection property="keyboardAdjustmentLayoutViews" destination="dQp-Lx-kpC" collectionClass="NSMutableArray" id="htF-Hq-pZA"/>
                     </connections>
                 </viewController>

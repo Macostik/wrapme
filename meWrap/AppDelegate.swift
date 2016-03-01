@@ -196,8 +196,19 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    private var retryResetBadge = false
+    
+    private func resetBadge() {
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+        APIRequest.resetBadge().send({ _ in }) { (error) -> Void in
+            if error?.isNetworkError == true {
+                self.retryResetBadge = true
+            }
+        }
+    }
+    
     func applicationDidBecomeActive(application: UIApplication) {
-        application.applicationIconBadgeNumber = 0
+        resetBadge()
         if Authorization.active {
             Dispatch.mainQueue.async { Uploader.wrapUploader.start() }
         }
@@ -229,6 +240,10 @@ extension AppDelegate: NetworkNotifying {
     
     func networkDidChangeReachability(network: Network) {
         if network.reachable {
+            if retryResetBadge {
+                retryResetBadge = false
+                resetBadge()
+            }
             if Authorization.active {
                 Uploader.wrapUploader.start()
             } else if Authorization.current.canAuthorize {

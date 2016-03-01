@@ -73,6 +73,7 @@ class NotificationCenter: NSObject {
                 UIApplication.sharedApplication().registerForRemoteNotifications()
             }
         }
+        PubNub.sharedInstance.subscribeToChannels([User.channelName()], withPresence: false)
         userSubscription.subscribe()
     }
     

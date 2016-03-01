@@ -364,4 +364,8 @@ extension APIRequest {
             }
         })
     }
+    
+    class func resetBadge() -> Self {
+        return PUT().path("devices/reset_badge")
+    }
 }

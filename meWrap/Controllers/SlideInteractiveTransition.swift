@@ -58,8 +58,8 @@ class SlideInteractiveTransition: NSObject, UIGestureRecognizerDelegate {
             delegate?.slideInteractiveTransition?(self, hideViews: true)
         case .Changed:
             if presentingView != nil  {
-                
                 imageView?.transform = CGAffineTransformMakeTranslation(translation.x, translation.y)
+           
             } else {
                 contentView.transform = CGAffineTransformMakeTranslation(0, translation.y)
             }
@@ -73,7 +73,7 @@ class SlideInteractiveTransition: NSObject, UIGestureRecognizerDelegate {
                         guard let imageView = self.imageView else { return }
                         imageView.clipsToBounds = true
                         imageView.contentMode = .ScaleAspectFill
-                       self.imageView?.frame = superview.convertRect(presentingView.bounds, fromCoordinateSpace:presentingView)
+                        self.imageView?.frame = presentingView.convertRect(presentingView.bounds, toCoordinateSpace:self.snapshotView() ?? superview)
                     } else {
                         self.contentView.transform = CGAffineTransformMakeTranslation(0, translation.y <= 0 ? -endPoint : endPoint)
                     }

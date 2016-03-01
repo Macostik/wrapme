@@ -109,12 +109,7 @@ final class HistoryItemViewController: BaseViewController {
         dataSource.items = item?.candies
         item?.history.addReceiver(self)
         
-        if streamView.itemPassingTest({ !$0.visible }) != nil {
-            recursivelyUpdateCover(false)
-        } else {
-            coverDataSource.items = item?.candies
-            setCoverCandy(item?.candies.first, animated: false)
-        }
+        recursivelyUpdateCover(false)
     }
     
     private var coverCandy: Candy?

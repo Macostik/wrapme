@@ -36,17 +36,7 @@ class Label: UILabel {
     @IBInspectable var localize: Bool = false {
         willSet {
             if newValue {
-                if let text = text where !text.isEmpty {
-                    super.text = text.ls
-                }
-            }
-        }
-    }
-    
-    override var text: String? {
-        willSet {
-            if let text = newValue where !text.isEmpty {
-                super.text = localize ? text.ls : text
+                text = text?.ls
             }
         }
     }

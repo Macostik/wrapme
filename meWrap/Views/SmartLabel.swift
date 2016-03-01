@@ -11,16 +11,11 @@ import MessageUI
 import SafariServices
 
 struct CheckingType {
-    let link: String!
-    let result: NSTextCheckingResult!
-    
-    init (link: String, result: NSTextCheckingResult) {
-        self.link = link
-        self.result = result
-    }
+    let link: String
+    let result: NSTextCheckingResult
 }
 
-extension CheckingType: Hashable, Equatable {
+extension CheckingType: Hashable {
     var hashValue: Int {
         return link.hashValue
     }
@@ -32,37 +27,65 @@ func ==(lhs: CheckingType, rhs: CheckingType) -> Bool {
 
 let kPadding: CGFloat = 5.0
 
-class SmartLabel: Label, UIGestureRecognizerDelegate,  MFMailComposeViewControllerDelegate {
+final class SmartLabel: Label, UIGestureRecognizerDelegate,  MFMailComposeViewControllerDelegate {
   
-    lazy var linkContainer = Set<CheckingType>()
-    var bufferAttributedString: NSAttributedString?
-    var _textColor: UIColor?
-    var selectedLink: CheckingType?
-    var tapGesture: UITapGestureRecognizer?
-    var longPress: UILongPressGestureRecognizer?
+    private lazy var links = [NSTextCheckingResult]()
+    private var bufferAttributedString: NSAttributedString?
+    private var _textColor: UIColor?
+    private var selectedLink: NSTextCheckingResult?
+    private var tapGesture: UITapGestureRecognizer?
+    private var longPress: UILongPressGestureRecognizer?
+    
+    private static let linkDetector = try! NSDataDetector(types: NSTextCheckingType.Link.rawValue)
+    
+    private static var cachedLinks: [String:[NSTextCheckingResult]] = {
+        let cachedLinks = [String:[NSTextCheckingResult]]()
+        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidReceiveMemoryWarningNotification, object: nil, queue: nil, usingBlock: { (_) -> Void in
+            SmartLabel.cachedLinks.removeAll()
+        })
+        return cachedLinks
+    }()
+    
+    private func cachedLinks(text: String) -> [NSTextCheckingResult] {
+        if let links = SmartLabel.cachedLinks[text] {
+            return links
+        } else {
+            let links = SmartLabel.linkDetector.matchesInString(text, options: [], range: NSMakeRange(0, text.characters.count))
+            SmartLabel.cachedLinks[text] = links
+            return links
+        }
+    }
     
     override var text: String? {
-        get { return super.text }
+        get {
+            return super.text
+        }
         set {
-            if let newValue: String = newValue {
-                let wordRange = NSMakeRange(0, newValue.characters.count)
-                let attributedText = NSMutableAttributedString(string: newValue)
-                attributedText.addAttribute(NSForegroundColorAttributeName , value: _textColor!, range:wordRange)
-                attributedText.addAttribute(NSFontAttributeName , value: self.font, range:wordRange)
-                
-                self.attributedText = attributedText
-                checkingType()
+            if let text = newValue {
+                links = cachedLinks(text)
+                if !links.isEmpty {
+                    let attributedText = NSMutableAttributedString(string: text, attributes: [NSForegroundColorAttributeName : _textColor!, NSFontAttributeName : font])
+                    bufferAttributedString = attributedText
+                    for result in links {
+                        attributedText.addAttributes([NSForegroundColorAttributeName : tintColor], range: result.range)
+                    }
+                    self.attributedText = attributedText
+                } else {
+                    attributedText = nil
+                    super.text = text
+                }
+            } else {
+                if attributedText != nil {
+                    attributedText = nil
+                }
+                super.text = nil
             }
         }
     }
     
     override var textColor: UIColor! {
-        get { return super.textColor }
-        set {
-            if let newValue: UIColor = newValue {
-                _textColor = newValue
-                self.layoutIfNeeded()
-            }
+        willSet {
+            _textColor = newValue
         }
     }
     
@@ -93,32 +116,11 @@ class SmartLabel: Label, UIGestureRecognizerDelegate,  MFMailComposeViewControll
         addGestureRecognizer(longPress)
     }
     
-    func checkingType() {
-        let detector = try! NSDataDetector(types: NSTextCheckingType.Link.rawValue)
-        let results = detector.matchesInString(self.text!, options: .ReportProgress, range: NSMakeRange(0, self.text!.characters.count))
-        guard let _results: [NSTextCheckingResult] = results else {
-            return
-        }
-        linkContainer.removeAll()
-        for result in _results {
-            if let link: String = (self.text! as NSString).substringWithRange(result.range) {
-                let checkingType = CheckingType(link: link, result: result)
-                linkContainer.insert(checkingType)
-            }
-        }
-        let mutableText = NSMutableAttributedString(attributedString: self.attributedText!)
-        for result in _results {
-            mutableText.addAttributes([NSForegroundColorAttributeName : self.tintColor], range: result.range)
-        }
-        bufferAttributedString = self.attributedText
-        self.attributedText = mutableText
-    }
-    
     //MARK: UIGestureRecognizerDelegate
     
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if (gestureRecognizer == tapGesture || gestureRecognizer == longPress) {
-            if  (self.linkContainer.isEmpty) { return false }
+        if gestureRecognizer == tapGesture || gestureRecognizer == longPress {
+            if links.isEmpty { return false }
             selectedLink = nil
             let point = gestureRecognizer.locationInView(self)
             return isLinkedPoint(point)
@@ -128,7 +130,7 @@ class SmartLabel: Label, UIGestureRecognizerDelegate,  MFMailComposeViewControll
     
     func isLinkedPoint(point: CGPoint) -> Bool  {
         let frameSetter = CTFramesetterCreateWithAttributedString(self.bufferAttributedString!)
-        var drawRect = self.bounds
+        var drawRect = bounds
         drawRect.size.height += kPadding
         let drawingPath = CGPathCreateWithRect(drawRect, nil)
         guard let count = self.attributedText?.string.characters.count else { return false }
@@ -143,20 +145,18 @@ class SmartLabel: Label, UIGestureRecognizerDelegate,  MFMailComposeViewControll
             let _finalRuns = unsafeBitCast(finalRun, CTRun.self)
             let runRange = CTRunGetStringRange(_finalRuns)
             let _runRange = NSMakeRange(runRange.location, runRange.length)
-            for checkingResult in self.linkContainer {
-                let compareRange = NSIntersectionRange(_runRange, checkingResult.result.range)
+            for link in links {
+                let compareRange = NSIntersectionRange(_runRange, link.range)
                 if  (compareRange.length > 0)  {
-                    let originX = CTLineGetOffsetForStringIndex(evaluateLine, checkingResult.result.range.location, nil)
-                    let offsetX = CTLineGetOffsetForStringIndex(evaluateLine, checkingResult.result.range.location + checkingResult.result.range.length, nil)
+                    let originX = CTLineGetOffsetForStringIndex(evaluateLine, link.range.location, nil)
+                    let offsetX = CTLineGetOffsetForStringIndex(evaluateLine, link.range.location + link.range.length, nil)
                     let finalLine = CFArrayGetValueAtIndex(lines, CFIndex(counter))
                     let _finalLine = unsafeBitCast(finalLine, CTLineRef.self)
                     let lineBounds = CTLineGetBoundsWithOptions(_finalLine, [.IncludeLanguageExtents])
                     let finalRect = CGRectMake(originX, CGFloat(counter) * lineBounds.height, offsetX, lineBounds.height)
                     if (CGRectContainsPoint(finalRect, point)) {
-                        if let checkingResult: CheckingType = checkingResult {
-                            selectedLink = checkingResult
-                            return true
-                        }
+                        selectedLink = link
+                        return true
                     }
                 }
             }
@@ -165,40 +165,38 @@ class SmartLabel: Label, UIGestureRecognizerDelegate,  MFMailComposeViewControll
     }
     
     func tapLink(sender: UITapGestureRecognizer) {
-        if  (selectedLink?.result.resultType == .Link) {
-            if let link = selectedLink?.link {
-                if (link.isValidEmail) {
-                   sendMessage(link)
-                } else if let url = validUrl(link) {
-                    UIApplication.sharedApplication().openURL(url)
-                }
+        if let link = selectedLink, let text = text {
+            let link = (text as NSString).substringWithRange(link.range)
+            if link.isValidEmail {
+                sendMessage(link)
+            } else if let url = validUrl(link) {
+                UIApplication.sharedApplication().openURL(url)
             }
         }
     }
     
     func longPress(sender: UILongPressGestureRecognizer) {
         if (sender.state == .Began) {
-            guard let link = selectedLink?.link else { return }
-            guard let url = validUrl(link) else { return }
+            guard let link = selectedLink, let text = text else { return }
+            let _link = (text as NSString).substringWithRange(link.range)
+            guard let url = validUrl(_link) else { return }
             
-            let actionSheet = UIAlertController.actionSheet(link)
+            let actionSheet = UIAlertController.actionSheet(_link)
             actionSheet.action("cancel".ls, style: .Cancel)
             actionSheet.action("copy".ls, handler: { (action) -> Void in
-                UIPasteboard.generalPasteboard().string = link
+                UIPasteboard.generalPasteboard().string = _link
             })
             
             let urlHandler: UIAlertAction -> Void = { (action) -> Void in
                 UIApplication.sharedApplication().openURL(url)
             }
             
-            if link.isValidEmail {
+            if _link.isValidEmail {
                 actionSheet.action("send_message".ls, handler: urlHandler)
             } else {
                 actionSheet.action("url_open_in_safari".ls, handler: urlHandler)
                 actionSheet.action("url_add_to_reading_list".ls, handler: { (action) -> Void in
-                    do {
-                        try SSReadingList.defaultReadingList()?.addReadingListItemWithURL(url, title: nil, previewText: nil)
-                    } catch _ {}
+                    _ = try? SSReadingList.defaultReadingList()?.addReadingListItemWithURL(url, title: nil, previewText: nil)
                 })
             }
             actionSheet.show(self)
@@ -206,7 +204,7 @@ class SmartLabel: Label, UIGestureRecognizerDelegate,  MFMailComposeViewControll
     }
     
     func sendMessage(link: String) {
-        if (MFMailComposeViewController.canSendMail()) {
+        if MFMailComposeViewController.canSendMail() {
             let mailComposeVC = MFMailComposeViewController()
             mailComposeVC.mailComposeDelegate = self
             mailComposeVC.setToRecipients([link])
@@ -215,8 +213,7 @@ class SmartLabel: Label, UIGestureRecognizerDelegate,  MFMailComposeViewControll
     }
     
     func validUrl(var link: String) -> NSURL? {
-        let schema = link.rangeOfString("http(s)?://", options: [.RegularExpressionSearch, .CaseInsensitiveSearch])
-        if ((schema?.endIndex.predecessor()) == nil) {
+        if link.rangeOfString("http(s)?://", options: [.RegularExpressionSearch, .CaseInsensitiveSearch]) == nil {
             link = "http://" + link
         }
         return NSURL(string: link)

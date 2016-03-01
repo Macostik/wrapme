@@ -19,6 +19,8 @@ struct UserActivity {
     
     weak var user: User?
     
+    weak var wrap: Wrap?
+    
     var type: UserActivityType = .None
     
     var info = [String:AnyObject]()
@@ -27,12 +29,15 @@ struct UserActivity {
         self.user = user
     }
     
-    mutating func handleState(state: [NSObject:AnyObject]?) {
+    mutating func handleState(state: [NSObject:AnyObject]?, wrap: Wrap?) {
         if let info = state?["activity"] as? [String:AnyObject] {
             self.info = info
             if let type = info["type"] as? Int, let activityType = UserActivityType(rawValue: type) {
                 self.type = activityType
-                self.inProgress = info["in_progress"] as? Bool ?? false
+                inProgress = info["in_progress"] as? Bool ?? false
+                if inProgress {
+                    self.wrap = wrap
+                }
             }
         }
     }

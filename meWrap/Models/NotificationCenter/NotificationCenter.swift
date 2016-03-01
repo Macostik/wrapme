@@ -273,10 +273,12 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
             user.isActive = true
         }
         
-        user.activity.handleState(data.presence?.state)
+        guard let wrap = Wrap.entry(data.actualChannel) else { return }
+        
+        user.activity.handleState(data.presence?.state, wrap: wrap)
         
         guard user.activity.type == .Streaming else { return }
-        guard let wrap = Wrap.entry(data.actualChannel) else { return }
+        
         if event == "state-change" {
             user.fetchIfNeeded({ _ in
                 if user.activity.inProgress {
@@ -302,14 +304,14 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
         }
     }
     
-    private func activeUsers(uuids: [[String:AnyObject]]) -> [User] {
+    private func activeUsers(uuids: [[String:AnyObject]], wrap: Wrap) -> [User] {
         var users = [User]()
         for uuid in uuids {
             guard let uid = uuid["uuid"] as? String where uid != User.channelName() else { continue }
             guard let user = PubNub.userFromUUID(uid) else { continue }
             user.isActive = true
             if let state = uuid["state"] as? [String:AnyObject] {
-                user.activity.handleState(state)
+                user.activity.handleState(state, wrap: wrap)
             }
             users.append(user)
             user.fetchIfNeeded(nil, failure: nil)
@@ -319,10 +321,10 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
     
     private func liveBroadcasts(uuids: [[String:AnyObject]], wrap: Wrap) -> [LiveBroadcast] {
         var broadcasts = [LiveBroadcast]()
-        let users = activeUsers(uuids)
+        let users = activeUsers(uuids, wrap: wrap)
         for user in users {
             let activity = user.activity
-            if activity.inProgress && activity.type == .Streaming {
+            if activity.inProgress && activity.type == .Streaming && activity.wrap == wrap {
                 let broadcast = LiveBroadcast()
                 broadcast.broadcaster = user
                 broadcast.wrap = wrap
@@ -337,6 +339,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
     func fetchLiveBroadcasts(completionHandler: Void -> Void) {
         PubNub.sharedInstance.hereNowForChannelGroup(userSubscription.name) { (result, status) -> Void in
             if let channels = result?.data?.channels as? [String:[String:AnyObject]] {
+                print(channels)
                 for (channel, data) in channels where channel != "public" {
                     guard let uuids = data["uuids"] as? [[String:AnyObject]] else { continue }
                     guard let wrap = Wrap.entry(channel) else { continue }

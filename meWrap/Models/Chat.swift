@@ -17,8 +17,6 @@ class Chat: PaginatedList {
     
     lazy var unreadMessages = [Message]()
     
-    lazy var cachedMessageHeights = [Message : CGFloat]()
-    
     var messageFont = UIFont.fontNormal()
     
     var nameFont = UIFont.lightFontSmaller()
@@ -71,7 +69,6 @@ class Chat: PaginatedList {
     override func didChange() {
         unreadMessages.removeAll()
         if let messages = entries as? [Message] {
-            var nameStateChanged = false
             for (index, message) in messages.enumerate() {
                 
                 if message.unread {
@@ -80,11 +77,11 @@ class Chat: PaginatedList {
                 
                 let previousMessage: Message? = index == 0 ? nil : messages[index - 1]
                 
-                var containsDate = false
-                if let previousMessage = previousMessage {
-                    containsDate = !previousMessage.createdAt.isSameDay(message.createdAt)
-                } else {
-                    containsDate = true
+                var containsDate = true
+                if message.chatMetadata.containsDate == false {
+                    if let previousMessage = previousMessage {
+                        containsDate = !previousMessage.createdAt.isSameDay(message.createdAt)
+                    }
                 }
                 
                 var containsName = false
@@ -104,13 +101,9 @@ class Chat: PaginatedList {
                 
                 message.chatMetadata.isGroup = isGroup
                 if message.chatMetadata.containsName != containsName {
-                    nameStateChanged = true
+                    message.chatMetadata.height = nil
                     message.chatMetadata.containsName = containsName
                 }
-            }
-            
-            if nameStateChanged {
-                cachedMessageHeights.removeAll()
             }
         }
         
@@ -157,7 +150,7 @@ extension Chat: NotificationSubscriptionDelegate {
 extension Chat: FontPresetting {
     
     func heightOfMessageCell(message: Message) -> CGFloat {
-        if let cachedHeight = cachedMessageHeights[message] {
+        if let cachedHeight = message.chatMetadata.height {
             return cachedHeight
         } else {
             guard let text = message.text else { return 0 }
@@ -168,13 +161,15 @@ extension Chat: FontPresetting {
             let bottomInset = nameFont.lineHeight + Chat.MessageVerticalInset + Chat.MessageSpacing
             commentHeight += topInset + bottomInset
             commentHeight = max(containsName ? Chat.MessageWithNameMinimumCellHeight : Chat.MessageWithoutNameMinimumCellHeight, commentHeight)
-            cachedMessageHeights[message] = commentHeight
+            message.chatMetadata.height = commentHeight
             return commentHeight
         }
     }
     
     func presetterDidChangeContentSizeCategory(presetter: FontPresetter) {
-        cachedMessageHeights.removeAll()
+        for message in wrap.messages {
+            message.chatMetadata.height = nil
+        }
         messageFont = UIFont.fontNormal()
         nameFont = UIFont.lightFontSmaller()
         super.didChange()

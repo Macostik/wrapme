@@ -45,10 +45,12 @@ class Chat: PaginatedList {
     
     func resetMessages() {
         entries = wrap.messages.sort({ $0.createdAt < $1.createdAt })
+        didChange()
     }
     
     override func sort() {
         entries = entries.sort({ $0.listSortDate() < $1.listSortDate() })
+        didChange()
     }
     
     internal override func newerPaginationDate() -> NSDate? {

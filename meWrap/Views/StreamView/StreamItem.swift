@@ -9,48 +9,41 @@
 import Foundation
 import UIKit
 
-
-class StreamItem {
+final class StreamItem {
     
     var frame = CGRectZero
-    
     var visible = false
-    
     var position: StreamPosition
-    
     var metrics: StreamMetrics
-    
-    var column: Int = 0
-    
     var entryBlock: (StreamItem -> AnyObject?)?
     
     init(metrics: StreamMetrics, position: StreamPosition) {
         self.metrics = metrics
         self.position = position
+        hidden = metrics.hidden
+        size = metrics.size
+        insets = metrics.insets
+        ratio = metrics.ratio
     }
     
-    private var _entry: AnyObject?
-    var entry: AnyObject? {
-        set { _entry = newValue }
-        get {
-            if _entry == nil {
-                _entry = entryBlock?(self)
-            }
-            return _entry
-        }
-    }
+    lazy var entry: AnyObject? = self.entryBlock?(self)
     
     weak var view: StreamReusableView? {
-        didSet { view?.selected = selected }
+        willSet { newValue?.selected = selected }
     }
     
     var selected: Bool = false {
-        didSet { view?.selected = selected }
+        willSet { view?.selected = newValue }
     }
     
     weak var previous: StreamItem?
-    
     var next: StreamItem?
+    
+    var column: Int = 0
+    var hidden: Bool = false
+    var size: CGFloat = 0
+    var insets: CGRect = CGRectZero
+    var ratio: CGFloat = 0
 }
 
 func ==(lhs: StreamPosition, rhs: StreamPosition) -> Bool {

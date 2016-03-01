@@ -44,9 +44,9 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
             }
         }
         singleMetrics = StreamMetrics(identifier: "AddressBookRecordCell", initializer: { [weak self] (metrics) -> Void in
-            metrics.sizeAt = {(item) in
+            metrics.modifyItem = { item in
                 let record = item.entry as? AddressBookRecord
-                guard let phoneNumber = record?.phoneNumbers.last else { return 0.0 }
+                guard let phoneNumber = record?.phoneNumbers.last else { return }
                 let user = phoneNumber.user
                 let inviteString = user != nil ? "invite_status".ls : "invite_me_to_meWrap".ls
                 let infoString = phoneNumber.activated ? "singup_status".ls : inviteString
@@ -61,19 +61,19 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
                 let inviteHeight = infoString.heightWithFont(UIFont.fontSmall(), width: (self?.streamView.width ?? 0.0) - CGFloat(leftIdent))
                 let phoneHeight = record?.phoneStrings?.heightWithFont(UIFont.fontSmall(), width: (self?.streamView.width ?? 0.0) - CGFloat(leftIdent)) ?? 0.0
                 
-                return nameHeight + pandingHeight + inviteHeight + phoneHeight  + 24.0
+                item.size = nameHeight + pandingHeight + inviteHeight + phoneHeight  + 24.0
             }
             })
         singleMetrics?.selectable = false
         
         multipleMetrics = StreamMetrics(identifier: "MultipleAddressBookRecordCell", initializer: { [weak self] (metrics) -> Void in
             metrics.selectable = false
-            metrics.sizeAt = { (item) in
+            metrics.modifyItem = { (item) in
                 let record = item.entry as? AddressBookRecord
                 let nameHeight = record?.name?.heightWithFont(UIFont.fontNormal(), width: (self?.streamView.width ?? 0.0) - 142.0) ?? 0.0
                 let inviteHeight = "invite_me_to_meWrap".heightWithFont(UIFont.fontSmall(), width: (self?.streamView.width ?? 0.0) - 142.0) ?? 0.0
                 let heightCell = max(nameHeight + inviteHeight + 16.0, 72.0)
-                return self?.openedPosition(item.position) != nil ? heightCell + CGFloat(((record?.phoneNumbers.count ?? 0) * 50)) : heightCell
+                item.size = self?.openedPosition(item.position) != nil ? heightCell + CGFloat(((record?.phoneNumbers.count ?? 0) * 50)) : heightCell
             }
             metrics.finalizeAppearing = { (item, view) in
                 let cell = view as? AddressBookRecordCell
@@ -84,11 +84,12 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         
         sectionHeaderMetrics = StreamMetrics(loader: LayoutStreamLoader<AddressBookGroupView>()).change({ [weak self] (metrics) -> Void in
             metrics.size = 32.0
-            metrics.hiddenAt = { [weak self] (item) in
+            metrics.modifyItem = { [weak self] (item) in
                 if let group = self?.filteredAddressBook?.groups[safe: item.position.section] {
-                    return group.title?.isEmpty != true && group.records.isEmpty
+                    item.hidden = group.title?.isEmpty != true && group.records.isEmpty
+                } else {
+                    item.hidden = true
                 }
-                return true
             }
             metrics.finalizeAppearing = { [weak self] (item, view) in
                 let groupView = view as? AddressBookGroupView

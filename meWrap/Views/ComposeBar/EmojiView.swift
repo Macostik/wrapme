@@ -85,11 +85,11 @@ class EmojiView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        streamView.layout = GridLayout(horizontal: true)
+        streamView.layout = GridLayout(streamView: streamView, horizontal: true)
         dataSource = StreamDataSource(streamView: streamView)
         let metrics = StreamMetrics(loader: LayoutStreamLoader<EmojiCell>())
-        metrics.ratioAt = { [unowned self] _ -> CGFloat in
-            return (self.streamView.height/3) / (self.streamView.width/7)
+        metrics.modifyItem = { [unowned self] item in
+            item.ratio = (self.streamView.height/3) / (self.streamView.width/7)
         }
         metrics.selection = {[unowned self] (item, emoji) -> Void in
             let emoji = emoji as! String

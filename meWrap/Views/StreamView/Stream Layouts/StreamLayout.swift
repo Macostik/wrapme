@@ -17,14 +17,14 @@ extension StreamLayoutDelegate {
     func streamView(streamView:StreamView, offsetForLayout:StreamLayout) -> CGFloat { return 0 }
 }
 
-class StreamLayout: NSObject {
+class StreamLayout {
     
     weak var streamView: StreamView?
     
-    @IBInspectable var horizontal: Bool = false
+    var horizontal: Bool
     
-    convenience init(horizontal: Bool) {
-        self.init()
+    init(streamView: StreamView, horizontal: Bool = false) {
+        self.streamView = streamView
         self.horizontal = horizontal
     }
     
@@ -74,9 +74,8 @@ class StreamLayout: NSObject {
     }
     
     func horizontalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
-        let metrics = item.metrics
-        let size = metrics.sizeAt(item)
-        let insets = metrics.insetsAt(item)
+        let size = item.size
+        let insets = item.insets
         var offset = self.offset
         if let previous = item.previous {
             offset = previous.frame.maxX
@@ -85,9 +84,8 @@ class StreamLayout: NSObject {
     }
     
     func verticalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
-        let metrics = item.metrics
-        let size = metrics.sizeAt(item)
-        let insets = metrics.insetsAt(item)
+        let size = item.size
+        let insets = item.insets
         var offset = self.offset
         if let previous = item.previous {
             offset = previous.frame.maxY

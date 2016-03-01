@@ -57,7 +57,7 @@ class SquareGridLayout: StreamLayout {
             if let previous = item.previous {
                 y = previous.frame.maxY + spacing
             }
-            return CGRect(x: 0, y: y, width: streamView.width, height: metrics.sizeAt(item))
+            return CGRect(x: 0, y: y, width: streamView.width, height: item.size)
         } else {
             var x = CGFloat(isEdgeSeporator) * spacing
             var y = offset + spacing

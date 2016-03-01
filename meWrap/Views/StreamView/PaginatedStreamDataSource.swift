@@ -14,9 +14,10 @@ class PaginatedStreamDataSource: StreamDataSource {
     
     lazy var loadingMetrics: StreamMetrics = {
         let metrics = self.addFooterMetrics(LoadingView.metrics())
-        metrics.sizeAt = { [weak self] _ -> CGFloat in
-            guard let sv = self?.streamView else { return 0 }
-            return sv.horizontal ? sv.fittingContentWidth : sv.fittingContentHeight
+        metrics.modifyItem = { [weak self] item in
+            if let sv = self?.streamView {
+                item.size = sv.horizontal ? sv.fittingContentWidth : sv.fittingContentHeight
+            }
         }
         metrics.hidden = true
         return metrics

@@ -79,18 +79,13 @@ final class ChatViewController: WrapSegmentViewController {
             return
         }
         
-        messageWithNameMetrics.sizeAt = { [weak self] item in
-            return self?.chat.heightOfMessageCell((item.entry as! Message)) ?? 0.0
+        messageWithNameMetrics.modifyItem = { [weak self] item in
+            guard let message = item.entry as? Message else { return }
+            item.size = self?.chat.heightOfMessageCell(message) ?? 0.0
+            item.insets = CGRectMake(0, message.chatMetadata.containsDate ? 0 : message.chatMetadata.isGroup ? Chat.MessageGroupSpacing : Chat.MessageSpacing, 0, 0)
         }
-        messageMetrics.sizeAt = messageWithNameMetrics.sizeAt
-        myMessageMetrics.sizeAt = messageWithNameMetrics.sizeAt
-        
-        messageWithNameMetrics.insetsAt = { item in
-            let message = item.entry as! Message
-            return CGRectMake(0, message.chatMetadata.containsDate ? 0 : message.chatMetadata.isGroup ? Chat.MessageGroupSpacing : Chat.MessageSpacing, 0, 0);
-        };
-        messageMetrics.insetsAt = messageWithNameMetrics.insetsAt
-        myMessageMetrics.insetsAt = messageWithNameMetrics.insetsAt
+        messageMetrics.modifyItem = messageWithNameMetrics.modifyItem
+        myMessageMetrics.modifyItem = messageWithNameMetrics.modifyItem
         
         chat.addReceiver(self)
         
@@ -129,7 +124,7 @@ final class ChatViewController: WrapSegmentViewController {
     }
     
     func scrollToLastUnreadMessage() {
-        streamView.scrollToItemPassingTest({ $0.metrics == unreadMessagesMetrics }, animated:false)
+        streamView.scrollToItemPassingTest({ $0.metrics === unreadMessagesMetrics }, animated:false)
     }
     
     var typing = false {

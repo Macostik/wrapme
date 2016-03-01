@@ -42,24 +42,6 @@ class StreamLoader: NSObject {
     }
 }
 
-class IndexedStreamLoader: StreamLoader {
-    
-    var index: Int = 0
-    
-    convenience init(identifier: String?, index: Int) {
-        self.init(identifier: identifier)
-        self.index = index
-    }
-    
-    override func loadView(metrics: StreamMetrics) -> StreamReusableView? {
-        return nib?.instantiateWithOwner(nibOwner, options: nil)[index] as? StreamReusableView
-    }
-    
-    func loader(index: Int) -> IndexedStreamLoader {
-        return IndexedStreamLoader(identifier: identifier, index: index)
-    }
-}
-
 class LayoutStreamLoader<T: StreamReusableView>: StreamLoader {
     
     var layoutBlock: (T -> Void)?
@@ -77,7 +59,7 @@ class LayoutStreamLoader<T: StreamReusableView>: StreamLoader {
     }
 }
 
-class StreamMetrics: NSObject {
+final class StreamMetrics {
     
     convenience init(loader: StreamLoader, size: CGFloat) {
         self.init(loader: loader)
@@ -94,7 +76,7 @@ class StreamMetrics: NSObject {
         self.change(initializer)
     }
     
-    convenience init(identifier: String) {
+    convenience init(identifier: String?) {
         self.init(loader: StreamLoader(identifier: identifier))
     }
     
@@ -130,23 +112,14 @@ class StreamMetrics: NSObject {
         set { loader.nibOwner = newValue }
     }
     
+    var modifyItem: (StreamItem -> Void)?
+    
     var hidden: Bool = false
-    
-    var hiddenAt: StreamItem -> Bool = { $0.metrics.hidden }
-    
     var size: CGFloat = 0
-    
-    var sizeAt: StreamItem -> CGFloat = {  $0.metrics.size }
-    
     var insets: CGRect = CGRectZero
-    
-    var insetsAt: StreamItem -> CGRect = { $0.metrics.insets }
-    
     var ratio: CGFloat = 0
     
     var isSeparator = false
-    
-    var ratioAt: StreamItem -> CGFloat = { $0.metrics.ratio }
     
     var selectable = true
     

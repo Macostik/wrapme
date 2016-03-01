@@ -106,7 +106,7 @@ class HistoryItemCell: StreamReusableView {
     
     override func loadedWithMetrics(metrics: StreamMetrics) {
         super.loadedWithMetrics(metrics)
-        streamView.layout = SquareLayout(horizontal: true)
+        streamView.layout = SquareLayout(streamView: streamView, horizontal: true)
         dataSource = HistoryItemDataSource(streamView: streamView)
         candyMetrics = dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<CandyCell>()))
         candyMetrics.selection = metrics.selection
@@ -300,7 +300,7 @@ class MediaViewController: WrapSegmentViewController {
     func enlargingPresenterDismissingView(candy: Candy) -> UIView? {
         guard let historyItems = history.entries as? [HistoryItem] else { return nil }
         guard let historyItem = historyItems.filter({ $0.candies.contains(candy) ?? false }).last else { return nil }
-        guard let streamHistoryItem = streamView.itemPassingTest({ $0.entry === historyItem && $0.metrics == candyMetrics}) else { return nil }
+        guard let streamHistoryItem = streamView.itemPassingTest({ $0.entry === historyItem && $0.metrics === candyMetrics}) else { return nil }
         streamView.scrollRectToVisible(streamHistoryItem.frame, animated: false)
         guard let cell = streamHistoryItem.view as? HistoryItemCell else { return nil }
         guard let streamCandyItem = cell.streamView.itemPassingTest({ ($0.entry as? Candy) == candy}) else { return nil }

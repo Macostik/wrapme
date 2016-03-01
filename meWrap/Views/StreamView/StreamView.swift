@@ -41,24 +41,9 @@ extension StreamViewDelegate {
     func streamViewNumberOfSections(streamView: StreamView) -> Int { return 1 }
 }
 
-class StreamView: UIScrollView {
+final class StreamView: UIScrollView {
     
-    private var _layout: StreamLayout?
-    @IBOutlet var layout: StreamLayout! {
-        get {
-            if let layout = _layout {
-                return layout
-            } else {
-                let layout = StreamLayout()
-                self.layout = layout
-                return layout
-            }
-        }
-        set {
-            newValue?.streamView = self
-            _layout = newValue
-        }
-    }
+    lazy var layout: StreamLayout = StreamLayout(streamView: self)
     
     @IBInspectable var horizontal: Bool {
         get { return layout.horizontal }
@@ -99,7 +84,7 @@ class StreamView: UIScrollView {
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if let layout = layout where layout.finalized {
+        if layout.finalized {
             updateVisibility()
         }
     }
@@ -166,9 +151,7 @@ class StreamView: UIScrollView {
         
         clear()
         
-        guard let layout = self.layout, let delegate = self.delegate as? StreamViewDelegate else {
-            return
-        }
+        guard let delegate = self.delegate as? StreamViewDelegate else { return }
         
         numberOfSections = delegate.streamViewNumberOfSections(self)
         
@@ -244,7 +227,8 @@ class StreamView: UIScrollView {
     private func addItem(delegate: StreamViewDelegate? = nil, metrics: StreamMetrics, position: StreamPosition) -> StreamItem? {
         let item = StreamItem(metrics: metrics, position: position)
         item.entryBlock = delegate?.streamView(self, entryBlockForItem: item)
-        guard !metrics.hiddenAt(item) else { return nil }
+        metrics.modifyItem?(item)
+        guard !item.hidden else { return nil }
         if let currentItem = currentLayoutItem {
             item.previous = currentItem
             currentItem.next = item

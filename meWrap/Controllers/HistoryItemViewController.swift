@@ -90,7 +90,7 @@ final class HistoryItemViewController: BaseViewController {
         coverStreamView.horizontal = true
         coverDataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<HistoryItemCoverView>(), size: view.width))
         
-        streamView.layout = SquareGridLayout(horizontal: false)
+        streamView.layout = SquareGridLayout(streamView: streamView, horizontal: false)
         dataSource.offsetForGridColumns = view.width * 0.6
         dataSource.placeholderMetrics = StreamMetrics(loader: PlaceholderView.singleDayPlaceholderLoader())
         dataSource.placeholderMetrics?.isSeparator = true

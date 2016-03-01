@@ -20,11 +20,7 @@ import UIKit
 
 class List: Notifier {
     
-    var entries = [ListEntry]() {
-        didSet {
-            didChange()
-        }
-    }
+    var entries = [ListEntry]()
     
     internal func _add(entry: ListEntry) -> Bool {
         if !entries.contains({ $0.listEntryEqual(entry) }) {
@@ -53,6 +49,7 @@ class List: Notifier {
     
     func sort() {
         entries = entries.sort({ $0.listSort($1) })
+        didChange()
     }
     
     func sort(entry: ListEntry) {

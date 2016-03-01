@@ -142,7 +142,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        streamView.layout = SquareLayout(horizontal: true)
+        streamView.layout = SquareLayout(streamView: streamView, horizontal: true)
         let dataSource = StreamDataSource(streamView: streamView)
         let metrics = StreamMetrics(loader: LayoutStreamLoader<AssetCell>())
         metrics.selection = { [weak self] (item, entry) in

@@ -179,11 +179,12 @@ class LiveViewController: BaseViewController {
     
     private func metricsForType<T: LiveBroadcastEventView>(type: T.Type, kind: LiveBroadcast.Event.Kind, minSize: CGFloat) -> StreamMetrics {
         let metrics = StreamMetrics(loader: LayoutStreamLoader<T>())
-        return metrics.change { [weak self] (metrics) -> Void in
-            metrics.sizeAt = { self?.chatStreamView.dynamicSizeForMetrics(metrics, item: $0, minSize: minSize) ?? minSize }
-            metrics.hiddenAt = { ($0.entry as! LiveBroadcast.Event).kind != kind }
-            metrics.insetsAt = { CGRect(x: 0, y: $0.position.index == 0 ? 0 : 6, width: 0, height: 0) }
+        metrics.modifyItem = { [weak self] item in
+            item.size = self?.chatStreamView.dynamicSizeForMetrics(metrics, item: item, minSize: minSize) ?? minSize
+            item.hidden = (item.entry as! LiveBroadcast.Event).kind != kind
+            item.insets.origin.y = item.position.index == 0 ? 0 : 6
         }
+        return metrics
     }
     
     override func viewDidLoad() {

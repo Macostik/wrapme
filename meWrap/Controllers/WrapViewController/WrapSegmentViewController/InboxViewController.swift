@@ -110,6 +110,7 @@ class InboxCommentCell: InboxCell {
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         super.layoutWithMetrics(metrics)
+        textView.numberOfLines = 0
         containerView.addSubview(textView)
         imageView.snp_makeConstraints {
             $0.trailing.equalTo(containerView)

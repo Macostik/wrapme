@@ -239,7 +239,7 @@ final class LiveBroadcasterViewController: LiveViewController {
                             "loc-key" : "APNS_MSG08",
                             "loc-args" : [user.name ?? "", broadcast.displayTitle(), wrap.name ?? ""]
                         ],
-                        "sound" : "s01.wav",
+                        "sound" : "default",
                         "content-available" : 1
                     ],
                     "stream_info" : [

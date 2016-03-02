@@ -122,7 +122,7 @@ extension ExtensionRequest {
     func presentShareContent(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
         if let path = parameters?["path"] as? String {
             if Authorization.requiresSignIn() {
-               UIStoryboard.signUp().present(true)
+               UIStoryboard.signUp.present(true)
             } else {
                 Storyboard.WrapList.instantiate({
                     $0.sharePath = path

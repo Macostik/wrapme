@@ -20,7 +20,7 @@ final class HistoryItemCoverView: StreamReusableView {
     
     override func setup(entry: AnyObject?) {
         if let candy = entry as? Candy {
-            imageView.url = candy.asset?.large
+            imageView.url = candy.asset?.medium
         }
     }
 }

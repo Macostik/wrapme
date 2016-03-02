@@ -22,7 +22,6 @@ class ShareViewController: UIViewController {
         
         let items = extensionContext?.inputItems
         var itemProvider: NSItemProvider?
-        
         if let items = items where !items.isEmpty {
             guard let item = items[0] as? NSExtensionItem else { return }
             if let attachments = item.attachments {
@@ -37,6 +36,7 @@ class ShareViewController: UIViewController {
             let request = ExtensionRequest(action: "presentShareContent", parameters: ["path":path])
             if let url = request.serializedURL() {
                 self?.openURL(url)
+                self?.extensionContext?.completeRequestReturningItems([], completionHandler: nil)
             }
             })
     }

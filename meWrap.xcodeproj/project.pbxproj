@@ -456,7 +456,6 @@
 		5B2960541C60F5B9008D121A /* ShareExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B2960561C60F5B9008D121A /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		5B2960591C60F5B9008D121A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Share.storyboard; sourceTree = "<group>"; };
-		5B2960631C60F5F6008D121A /* Share_Bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Share_Bridge.h; path = Extensions/ShareExt/Share_Bridge.h; sourceTree = SOURCE_ROOT; };
 		5B2960661C6103BE008D121A /* meWrapShareExt-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "meWrapShareExt-Info.plist"; sourceTree = "<group>"; };
 		5B2C97CA1C46610E00FAED6A /* VolumeChangeObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeChangeObserver.swift; sourceTree = "<group>"; };
 		5B2FB9691C5B501A001C4385 /* BadgeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeLabel.swift; sourceTree = "<group>"; };
@@ -1181,7 +1180,6 @@
 		5B2960551C60F5B9008D121A /* ShareExt */ = {
 			isa = PBXGroup;
 			children = (
-				5B2960631C60F5F6008D121A /* Share_Bridge.h */,
 				5B2960561C60F5B9008D121A /* ShareViewController.swift */,
 				5B2960581C60F5B9008D121A /* Share.storyboard */,
 			);
@@ -2566,7 +2564,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.ShareExt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = Extensions/ShareExt/Share_Bridge.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -2595,7 +2593,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.ShareExt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = Extensions/ShareExt/Share_Bridge.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
 		};
@@ -2623,7 +2621,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.ShareExt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = Extensions/ShareExt/Share_Bridge.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = AdHoc;
 		};

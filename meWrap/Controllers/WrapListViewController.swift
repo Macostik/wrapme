@@ -17,7 +17,10 @@ class WrapListViewController: BaseViewController {
     @IBOutlet var wrapListDataSource: PaginatedStreamDataSource!
     @IBOutlet weak var streamView: StreamView!
     @IBOutlet weak var searchField: TextField!
-
+    
+    deinit {
+        WrapListViewController.isWrapListPresented = false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

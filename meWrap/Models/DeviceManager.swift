@@ -53,7 +53,7 @@ class DeviceManager: Notifier {
     
     func accelerationHandler(accelerometerData: CMAccelerometerData?, error: NSError?) {
         guard let acceleration = accelerometerData?.acceleration else { return }
-        var orientation: UIDeviceOrientation?
+        var orientation: UIDeviceOrientation = .Portrait
         if (acceleration.x >= 0.75) {
             orientation = .LandscapeRight;
         } else if (acceleration.x <= -0.75) {
@@ -63,7 +63,7 @@ class DeviceManager: Notifier {
         } else if (acceleration.y >= 0.75) {
             orientation = .PortraitUpsideDown
         }
-        if let orientation = orientation where orientationFromAccelerometer != orientation {
+        if orientationFromAccelerometer != orientation {
             orientationFromAccelerometer = orientation
             Dispatch.mainQueue.async { _ in
                 self.notify { $0.manager?(self, didChangeOrientation: orientation) }

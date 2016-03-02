@@ -32,7 +32,7 @@ class ShareViewController: UIViewController {
         }
         
         itemProvider?.loadItemForTypeIdentifier({ [weak self] in
-            guard let path = self?.writeData($0, type: $1) else { return }
+            guard let path = self?.writeData($0, extensionType: $1) else { return }
             let request = ExtensionRequest(action: "presentShareContent", parameters: ["path":path])
             if let url = request.serializedURL() {
                 self?.openURL(url)
@@ -41,10 +41,10 @@ class ShareViewController: UIViewController {
             })
     }
     
-    func writeData(data: NSData, type: String) -> String? {
+    func writeData(data: NSData, extensionType: String) -> String? {
         let manager = NSFileManager.defaultManager()
         if var url = manager.containerURLForSecurityApplicationGroupIdentifier("group.com.ravenpod.wraplive") {
-            let path = ("\(NSProcessInfo.processInfo().globallyUniqueString)\(type)")
+            let path = ("\(NSProcessInfo.processInfo().globallyUniqueString)\(extensionType)")
             url = url.URLByAppendingPathComponent("ShareExtension/")
             _ = try? manager.createDirectoryAtURL(url, withIntermediateDirectories: true, attributes: nil)
             url = url.URLByAppendingPathComponent(path)
@@ -60,6 +60,7 @@ class ShareViewController: UIViewController {
 
 extension NSItemProvider {
     func loadItemForTypeIdentifier(shareDataBlock: (NSData, String) -> Void) {
+        kUTTypeVideo
         if hasItemConformingToTypeIdentifier(String(kUTTypeImage)) == true {
             loadItemForTypeIdentifier(String(kUTTypeImage), options: nil) { (item, error) -> Void in
                 var shareData = NSData()
@@ -71,24 +72,36 @@ extension NSItemProvider {
                     } else if let imageData = item as? NSData {
                         shareData = imageData
                     }
-                    shareDataBlock(shareData, "image")
+                    shareDataBlock(shareData, ".jpeg")
                 }
             }
+        } else if hasItemConformingToTypeIdentifier(String(kUTTypeMovie)) == true {
+                loadItemForTypeIdentifier(String(kUTTypeMovie), options: nil) { (item, error) -> Void in
+                    var shareData = NSData()
+                    if error == nil {
+                        if let url = item as? NSURL {
+                            if let imageData = NSData(contentsOfURL: url) {
+                                shareData = imageData
+                            }
+                        } else if let imageData = item as? NSData {
+                            shareData = imageData
+                        }
+                        shareDataBlock(shareData, ".mp4")
+                    }
+                }
         } else if hasItemConformingToTypeIdentifier(String(kUTTypeURL)) == true {
             loadItemForTypeIdentifier(String(kUTTypeURL), options: nil) { (item, error) -> Void in
-                if error == nil {
+                if error == nil, let item = item {
                     if let shareData = String(item).dataUsingEncoding(NSUTF8StringEncoding) {
-                        shareDataBlock(shareData, "text")
+                        shareDataBlock(shareData, ".txt")
                     }
                 }
             }
         } else if hasItemConformingToTypeIdentifier(String(kUTTypePlainText)) == true {
             loadItemForTypeIdentifier(String(kUTTypePlainText), options: nil) { (item, error) -> Void in
-                if error == nil {
-                    if let item = item as? String {
-                        if let shareData = item.dataUsingEncoding(NSUTF8StringEncoding) {
-                            shareDataBlock(shareData, "text")
-                        }
+                if error == nil, let item = item {
+                    if let shareData = String(item).dataUsingEncoding(NSUTF8StringEncoding) {
+                        shareDataBlock(shareData, ".txt")
                     }
                 }
             }

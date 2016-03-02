@@ -42,7 +42,7 @@ class WrapListViewController: BaseViewController {
         wrapListDataSource.items = PaginatedList(entries:User.currentUser?.sortedWraps ?? [], request:PaginatedRequest.wraps(nil))
     }
     
-    @IBAction func cancel(sender: AnyObject) {
+    @IBAction func cancel(sender: AnyObject?) {
         self.navigationController?.popViewControllerAnimated(false)
     }
     
@@ -59,7 +59,7 @@ class WrapListViewController: BaseViewController {
         url = url.URLByAppendingPathComponent("ShareExtension/" + sharePath)
         if manager.fileExistsAtPath(url.path!) {
             guard let data = manager.contentsAtPath(url.path!) else { return }
-            if sharePath.hasSuffix("text") {
+            if sharePath.hasSuffix("txt") {
                 guard let text = String(data: data, encoding: NSUTF8StringEncoding) else { return }
                 let message = Message.entry()
                 message.wrap = wrap
@@ -67,11 +67,27 @@ class WrapListViewController: BaseViewController {
                 wrapViewController.presentedText = text
                 wrapViewController.showKeyboard = true
                 self.navigationController?.pushViewController(wrapViewController, animated: false)
-            } else if sharePath.hasSuffix("image") {
+            } else if sharePath.hasSuffix("jpeg") {
                 guard let image = UIImage(data: data) else { return}
                 Storyboard.UploadSummary.instantiate({
                     let asset = MutableAsset()
                     asset.setImage(image)
+                    $0.assets = [asset]
+                    $0.delegate = self
+                    $0.wrap = wrap
+                    self.navigationController?.pushViewController($0, animated: false)
+                })
+            } else if sharePath.hasSuffix("mp4") {
+                if case let asset = AVAsset(URL: NSURL(fileURLWithPath: url.path!))
+                    where asset.duration >= CMTimeMakeWithSeconds(Constants.maxVideoRecordedDuration + 1, 1) {
+                        cancel(nil)
+                        Toast.show(String(format:"formatted_upload_video_duration_limit".ls, Constants.maxVideoRecordedDuration))
+                        return
+                }
+                Storyboard.UploadSummary.instantiate({
+                    let asset = MutableAsset()
+                    asset.type = .Video
+                    asset.setVideoAtPath(url.path!)
                     $0.assets = [asset]
                     $0.delegate = self
                     $0.wrap = wrap

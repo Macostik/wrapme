@@ -205,8 +205,8 @@ final class HomeViewController: BaseViewController {
             }
         }
         
-        userNotifyReceiver = EntryNotifyReceiver<User>().setup {
-            $0.didUpdate = { [unowned self] entry, event in
+        userNotifyReceiver = EntryNotifyReceiver<User>().setup { [unowned self] receiver in
+            receiver.didUpdate = { entry, event in
                 if self.isTopViewController {
                     self.updateEmailConfirmationView(true)
                 }

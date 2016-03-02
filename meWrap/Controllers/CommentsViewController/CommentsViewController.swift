@@ -157,6 +157,20 @@ class CommentsViewController: BaseViewController {
         }
     }
     
+    var typing = false {
+        didSet {
+            if typing != oldValue {
+                enqueueSelector("sendTypingStateChange", delay: 1)
+            }
+        }
+    }
+    
+    func sendTypingStateChange() {
+        if let wrap = candy?.wrap {
+            NotificationCenter.defaultCenter.sendTyping(typing, wrap: wrap)
+        }
+    }
+    
     private static let ContstraintOffset: CGFloat = 44
     
     override func keyboardAdjustmentForConstraint(constraint: NSLayoutConstraint, defaultConstant: CGFloat, keyboardHeight: CGFloat) -> CGFloat {
@@ -183,6 +197,7 @@ class CommentsViewController: BaseViewController {
     }
     
     @IBAction func onClose(sender: AnyObject?) {
+        typing = false
         view.endEditing(true)
         removeFromContainerAnimated(true)
         historyViewController?.viewWillAppear(true)
@@ -202,7 +217,17 @@ class CommentsViewController: BaseViewController {
 extension CommentsViewController: ComposeBarDelegate {
     
     func composeBar(composeBar: ComposeBar, didFinishWithText text: String) {
+        typing = false
         sendMessageWithText(text)
+    }
+    
+    func composeBarDidChangeText(composeBar: ComposeBar) {
+        typing = composeBar.text?.isEmpty == false
+        enqueueSelector("typingIdled", argument: nil, delay: 3)
+    }
+    
+    func typingIdled() {
+        typing = false
     }
     
     func composeBarDidShouldResignOnFinish(composeBar: ComposeBar) -> Bool {
@@ -231,6 +256,7 @@ extension CommentsViewController: UIScrollViewDelegate {
             let snapshot = contentView.snapshotViewAfterScreenUpdates(false)
             snapshot.frame = CGRectMake(0, self.contentView.y, self.view.width, self.contentView.height)
             view.window?.addSubview(snapshot)
+            typing = false
             removeFromContainerAnimated(true)
             UIView.animateWithDuration(0.5, animations: {
                 let offsetY = offset > 0 ? self.view.y - self.view.height : self.view.height

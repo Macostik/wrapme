@@ -15,7 +15,13 @@ enum UserActivityType: Int {
 
 struct UserActivity {
     
-    var inProgress = false
+    var inProgress = false {
+        didSet {
+            if inProgress != oldValue {
+                Dispatch.mainQueue.async({ self.user?.notifyOnUpdate(.UserStatus) })
+            }
+        }
+    }
     
     weak var user: User?
     

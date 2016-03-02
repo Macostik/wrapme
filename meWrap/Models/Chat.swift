@@ -12,9 +12,7 @@ import PubNub
 class Chat: PaginatedList {
     
     let wrap: Wrap
-    
-    var typingNames: String?
-    
+        
     lazy var unreadMessages = [Message]()
     
     var messageFont = UIFont.fontNormal()
@@ -110,39 +108,6 @@ class Chat: PaginatedList {
         }
         
         super.didChange()
-    }
-    
-    private func namesOfUsers(users: [User]) -> String? {
-        if users.isEmpty {
-            return nil
-        } else {
-            if users.count == 1 {
-                return String(format:"formatted_is_typing".ls, users.last?.name ?? "")
-            } else if users.count == 2 {
-                return String(format:"formatted_and_are_typing".ls, users[0].name ?? "", users[1].name ?? "")
-            } else {
-                let names = users.prefix(users.count - 1).map({ $0.name ?? "" }).joinWithSeparator(", ")
-                return String(format:"formatted_and_are_typing".ls, names, users.last?.name ?? "")
-            }
-        }
-    }
-    
-    func sendTyping(typing: Bool) {
-        let state = [
-            "activity" : [
-                "type" : UserActivityType.Typing.rawValue,
-                "in_progress" : typing
-            ]
-        ]
-        PubNub.sharedInstance.setState(state, forUUID: User.channelName(), onChannel: wrap.uid, withCompletion: nil)
-    }
-    
-    func beginTyping() {
-        sendTyping(true)
-    }
-    
-    func endTyping() {
-        sendTyping(false)
     }
 }
 

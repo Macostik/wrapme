@@ -136,7 +136,9 @@ final class ChatViewController: WrapSegmentViewController {
     }
     
     func sendTypingStateChange() {
-        chat.sendTyping(typing)
+        if let wrap = wrap {
+            NotificationCenter.defaultCenter.sendTyping(typing, wrap: wrap)
+        }
     }
     
     override func keyboardWillShow(keyboard: Keyboard) {
@@ -263,6 +265,11 @@ extension ChatViewController: ComposeBarDelegate {
     
     func composeBarDidChangeText(composeBar: ComposeBar) {
         typing = composeBar.text?.isEmpty == false
+        enqueueSelector("typingIdled", argument: nil, delay: 3)
+    }
+    
+    func typingIdled() {
+        typing = false
     }
     
     func composeBarDidChangeHeight(composeBar: ComposeBar) {

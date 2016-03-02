@@ -218,6 +218,16 @@ class NotificationCenter: NSObject {
         enqueuedMessages.removeAll()
         handleNotifications(notifications)
     }
+    
+    func sendTyping(typing: Bool, wrap: Wrap) {
+        let state = [
+            "activity" : [
+                "type" : UserActivityType.Typing.rawValue,
+                "in_progress" : typing
+            ]
+        ]
+        PubNub.sharedInstance.setState(state, forUUID: User.channelName(), onChannel: wrap.uid, withCompletion: nil)
+    }
 }
 
 extension NotificationCenter: PNObjectEventListener {
@@ -275,31 +285,34 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
         
         guard let wrap = Wrap.entry(data.actualChannel) else { return }
         
-        user.activity.handleState(data.presence?.state, wrap: wrap)
-        
-        guard user.activity.type == .Streaming else { return }
-        
         if event == "state-change" {
-            user.fetchIfNeeded({ _ in
+            user.activity.handleState(data.presence?.state, wrap: wrap)
+            if user.activity.type == .Streaming {
                 if user.activity.inProgress {
-                    let broadcast = LiveBroadcast()
-                    broadcast.broadcaster = user
-                    broadcast.wrap = wrap
-                    broadcast.title = user.activity.info["title"] as? String
-                    broadcast.streamName = user.activity.info["streamName"] as? String ?? ""
-                    wrap.addBroadcast(broadcast)
+                    user.fetchIfNeeded({ _ in
+                        let broadcast = LiveBroadcast()
+                        broadcast.broadcaster = user
+                        broadcast.wrap = wrap
+                        broadcast.title = user.activity.info["title"] as? String
+                        broadcast.streamName = user.activity.info["streamName"] as? String ?? ""
+                        wrap.addBroadcast(broadcast)
+                        }, failure: nil)
                 } else {
                     for broadcast in wrap.liveBroadcasts where broadcast.broadcaster == user {
                         wrap.removeBroadcast(broadcast)
                         break
                     }
                 }
-                }, failure: nil)
+            }
         } else if event == "timeout" || event == "leave" {
-            user.activity.inProgress = false
-            for broadcast in wrap.liveBroadcasts where broadcast.broadcaster == user {
-                wrap.removeBroadcast(broadcast)
-                break
+            if user.activity.inProgress && user.activity.wrap == wrap {
+                user.activity.inProgress = false
+                if user.activity.type == .Streaming {
+                    for broadcast in wrap.liveBroadcasts where broadcast.broadcaster == user {
+                        wrap.removeBroadcast(broadcast)
+                        break
+                    }
+                }
             }
         }
     }

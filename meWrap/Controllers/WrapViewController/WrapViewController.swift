@@ -298,6 +298,10 @@ final class WrapViewController: BaseViewController {
                 return false
             } else if $1.current {
                 return true
+            } else if $0.isActiveInWrap(wrap) && !$1.isActiveInWrap(wrap) {
+                return true
+            } else if $1.isActiveInWrap(wrap) && !$0.isActiveInWrap(wrap) {
+                return false
             } else if !$0.isActive && $1.isActive {
                 return false
             } else if !$1.isActive && $0.isActive {

@@ -197,6 +197,9 @@ extension UploadSummaryViewController { // MARK actions
     }
     
     @IBAction func deletePicture(sender: AnyObject?) {
+        if WrapListViewController.isWrapListPresented {
+            self.navigationController?.popToRootViewControllerAnimated(false)
+        }
         guard let asset = asset else { return }
         guard let index = assets.indexOf(asset) else { return }
         assets.removeAtIndex(index)

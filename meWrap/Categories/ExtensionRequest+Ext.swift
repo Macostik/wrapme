@@ -120,16 +120,8 @@ extension ExtensionRequest {
     }
     
     func presentShareContent(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
-        if let path = parameters?["path"] as? String {
-            if Authorization.requiresSignIn() {
-               UIStoryboard.signUp.present(true)
-            } else {
-                Storyboard.WrapList.instantiate({
-                    $0.sharePath = path
-                    UINavigationController.main()?.pushViewController($0, animated: false)
-                })
-            }
-            
+        if let shareExtension = parameters as? [String : String] {
+            EventualEntryPresenter.sharedPresenter.presentExtension(shareExtension)
             success(ExtensionReply())
         } else {
             failure(ExtensionError(message: "No entry."))

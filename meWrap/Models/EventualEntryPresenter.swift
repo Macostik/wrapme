@@ -10,12 +10,23 @@ import Foundation
 
 class EventualEntryPresenter: NSObject {
     
-    var entryReference: [String:String]?
+    typealias EntryReference = [String:String]
+    
+    var entryReference: EntryReference?
+    
+    var presetingExtensionBlock: (EntryReference -> Void) = { reference in
+        Storyboard.WrapList.instantiate({
+            $0.sharePath = reference["path"]
+            UINavigationController.main()?.pushViewController($0, animated: false)
+        })
+    }
     
     var isLoaded = false {
         didSet {
             if let entryReference = entryReference where oldValue != isLoaded && isLoaded == true {
-                presentEntry(entryReference)
+                if !presentEntry(entryReference) {
+                    presetingExtensionBlock(entryReference)
+                }
                 self.entryReference = nil
             }
         }
@@ -31,6 +42,16 @@ class EventualEntryPresenter: NSObject {
             } else {
                 return false
             }
+        } else {
+            self.entryReference = entryReference
+            return false
+        }
+    }
+    
+    func presentExtension(entryReference: [String:String]) -> Bool {
+        if isLoaded {
+            presetingExtensionBlock(entryReference)
+            return true
         } else {
             self.entryReference = entryReference
             return false

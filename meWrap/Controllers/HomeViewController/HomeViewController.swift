@@ -91,8 +91,8 @@ final class HomeViewController: BaseViewController {
             }
         })
         
-        publicDataSource.loadingMetrics.modifyItem = {
-            $0.size = streamView.height - self.publicWrapsHeaderView.height - 48
+        publicDataSource.loadingMetrics.modifyItem = { [weak self] (item) in
+            item.size = streamView.height - (self?.publicWrapsHeaderView.height ?? 0.0) - 48
         }
         
         dataSource.setRefreshableWithStyle(.Orange)

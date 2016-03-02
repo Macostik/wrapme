@@ -126,7 +126,7 @@ class CandyViewController: BaseViewController {
         }
     }
     
-    private func hideAllViews() {
+    func hideAllViews() {
         videoPlayerView.hiddenCenterViews(true)
         videoPlayerView.hiddenBottomViews(true)
         historyViewController?.hideSecondaryViews(true)

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import LogEntries
 
 extension UIApplicationState {
     func displayName() -> String {

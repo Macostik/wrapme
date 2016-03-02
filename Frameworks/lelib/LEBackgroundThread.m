@@ -3,7 +3,7 @@
 //  lelib
 //
 //  Created by Petr on 25/11/13.
-//  Copyright (c) 2013 JLizard. All rights reserved.
+//  Copyright (c) 2013,2014 Logentries. All rights reserved.
 //
 
 #import "LEBackgroundThread.h"
@@ -13,8 +13,12 @@
 #import "LeNetworkStatus.h"
 
 #define LOGENTRIES_HOST         @"data.logentries.com"
-#define LOGENTRIES_PORT         10000
 #define LOGENTRIES_USE_TLS      0
+#if LOGENTRIES_USE_TLS
+#define LOGENTRIES_PORT         443
+#else
+#define LOGENTRIES_PORT         80
+#endif
 
 #define RETRY_TIMEOUT           60.0
 #define KEEPALIVE_INTERVAL      3600.0
@@ -85,23 +89,23 @@
     }
 }
 
-- (void)retryTimerFired:(NSTimer*)timer
+- (void)retryTimerFired:(NSTimer* __attribute__((unused)))timer
 {
     LE_DEBUG(@"Retry timer fired");
     [self checkConnection];
 }
 
-- (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode
+- (void)stream:(NSStream * __attribute__((unused)))aStream handleEvent:(NSStreamEvent)eventCode
 {
     if (eventCode & NSStreamEventOpenCompleted) {
         LE_DEBUG(@"Socket event NSStreamEventOpenCompleted");
-        eventCode &= ~NSStreamEventOpenCompleted;
+        eventCode = (NSStreamEvent)(eventCode & ~NSStreamEventOpenCompleted);
         self.logentryCompleted = YES;
     }
     
     if (eventCode & NSStreamEventErrorOccurred) {
         LE_DEBUG(@"Socket event NSStreamEventErrorOccurred, scheduling retry timer");
-        eventCode &= ~NSStreamEventErrorOccurred;
+        eventCode = (NSStreamEvent)(eventCode & ~NSStreamEventErrorOccurred);
         [self.outputSocketStream close];
         self.outputSocketStream = nil;
         
@@ -114,7 +118,7 @@
     if (eventCode & NSStreamEventHasSpaceAvailable) {
         
         LE_DEBUG(@"Socket event NSStreamEventHasSpaceAvailable");
-        eventCode &= ~NSStreamEventHasSpaceAvailable;
+        eventCode = (NSStreamEvent)(eventCode & ~NSStreamEventHasSpaceAvailable);
         
         [self check];
     }
@@ -297,7 +301,7 @@
  */
     
     if (written > 0) {
-        self.logentryCompleted = output_buffer[output_buffer_position + written - 1] == '\n';
+        self.logentryCompleted = output_buffer[output_buffer_position + (NSUInteger)written - 1] == '\n';
     };
     
     if (self.logentryCompleted && [self shouldSkipToAnotherFile]) {
@@ -308,7 +312,7 @@
     // search for checkpoints
     NSInteger searchIndex = written - 1;
     while (searchIndex >= 0) {
-        char c = output_buffer[output_buffer_position + searchIndex];
+        uint8_t c = output_buffer[output_buffer_position + (NSUInteger)searchIndex];
         if (c == '\n') {
             [self.currentLogFile markPosition:file_position + searchIndex + 1];
             break;
@@ -318,7 +322,7 @@
     
     file_position += written;
     
-    output_buffer_position += written;
+    output_buffer_position += (NSUInteger)written;
     if (output_buffer_position >= output_buffer_length) {
         output_buffer_length = 0;
         output_buffer_position = 0;
@@ -329,7 +333,7 @@
     }
 }
 
-- (void)keepaliveTimer:(NSTimer*)timer
+- (void)keepaliveTimer:(NSTimer* __attribute__((unused)))timer
 {
     // does nothing, just keeps runloop running
 }
@@ -346,7 +350,7 @@
     return opened;
 }
 
-- (void)initialize:(NSTimer*)timer
+- (void)initialize:(NSTimer* __attribute__((unused)))timer
 {
     [self.initialized lock];
     [self.initialized broadcast];
@@ -373,12 +377,6 @@
 
         [runLoop run];
     }
-}
-
-- (void)start
-{
-    self.initialized = [NSCondition new];
-    [super start];
 }
 
 

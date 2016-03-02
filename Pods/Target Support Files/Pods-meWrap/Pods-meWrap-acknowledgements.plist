@@ -767,18 +767,6 @@ Permission is granted to anyone to use this software for any purpose,including c
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>lelib
-
-Created by Petr on 01.12.13.
-Copyright (c) 2013 JLizard. All rights reserved.
-</string>
-			<key>Title</key>
-			<string>LogEntries</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
 			<string>----------------------------------------------------------------
 
 This product includes 'Apple Reachability' (https://developer.apple.com/library/ios/samplecode/reachability/listings/Reachability_Reachability_h.html), which is released under the following license(s):

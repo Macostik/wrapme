@@ -40,7 +40,6 @@ PODS:
   - GoogleUtilities (1.1.0):
     - GoogleSymbolUtilities (~> 1.0.0)
   - libPhoneNumber-iOS (0.8.10)
-  - LogEntries (0.0.1)
   - NewRelicAgent (5.3.6)
   - OpenUDID (1.0.0)
   - PubNub (4.2.7):
@@ -57,7 +56,6 @@ DEPENDENCIES:
   - CryptoSwift
   - Google/Analytics (~> 1.0.0)
   - libPhoneNumber-iOS (~> 0.8)
-  - LogEntries
   - NewRelicAgent
   - OpenUDID
   - PubNub (~> 4.0)
@@ -75,7 +73,6 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 82ad9f93d3615244b3f4ce440f5ab2515e8b4f56
   GoogleUtilities: 8ed9134debe11719097881711464752900668f10
   libPhoneNumber-iOS: 7bfd00f843fdcd82b5182b463e8eb3b27579f41d
-  LogEntries: a1f16e3c9edc0d6a52209fe6cd7281ab07fb7657
   NewRelicAgent: 731c3b39030885531dad40e43cd80b8dbe61647e
   OpenUDID: e7cb6984c7304906ad20f3a36bf087b025896b6b
   PubNub: 052a698177f64ab12889c513af425a2195ccaf12

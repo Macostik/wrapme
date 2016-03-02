@@ -3,7 +3,7 @@
 //  lelib
 //
 //  Created by Petr on 25/11/13.
-//  Copyright (c) 2013 JLizard. All rights reserved.
+//  Copyright (c) 2013,2014 Logentries. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -15,9 +15,6 @@
 
 
 extern LEBackgroundThread* backgroundThread;
-
-void le_write_string(NSString* string);
-void le_poke();
 
 extern dispatch_queue_t le_write_queue;
 extern char* le_token;

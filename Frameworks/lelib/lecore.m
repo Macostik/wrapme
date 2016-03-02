@@ -3,7 +3,7 @@
 //  lelib
 //
 //  Created by Petr on 06.01.14.
-//  Copyright (c) 2014 JLizard. All rights reserved.
+//  Copyright (c) 2014 Logentries. All rights reserved.
 //
 
 
@@ -19,10 +19,12 @@ dispatch_queue_t le_write_queue;
 char* le_token;
 
 static int logfile_descriptor;
-static int logfile_size;
+static off_t logfile_size;
 static int file_order_number;
 
 static char buffer[MAXIMUM_LOGENTRY_SIZE];
+
+static void (*saved_le_exception_handler)(NSException *exception);
 
 /*
  Sets logfile_descriptor to -1 when fails, this means that all subsequent write attempts will fail
@@ -40,7 +42,7 @@ static int open_file(const char* path)
         return 1;
     }
     
-    logfile_size = (int)lseek(logfile_descriptor, 0, SEEK_END);
+    logfile_size = lseek(logfile_descriptor, 0, SEEK_END);
     if (logfile_size < 0) {
         LE_DEBUG(@"Unable to seek at end of file.");
         return 1;
@@ -50,16 +52,17 @@ static int open_file(const char* path)
     return 0;
 }
 
-void le_poke()
+void le_poke(void)
 {
     if (!backgroundThread) {
         backgroundThread = [LEBackgroundThread new];
-        [backgroundThread start];
-        
-        // if this is nil, initialization was already proceeded
-        NSCondition* initialized = backgroundThread.initialized;
+        backgroundThread.name = @"Logentries";
+                
+        NSCondition* initialized = [NSCondition new];
+        backgroundThread.initialized = initialized;
         
         [initialized lock];
+        [backgroundThread start];
         [initialized wait];
         [initialized unlock];
     }
@@ -73,9 +76,13 @@ static void le_exception_handler(NSException *exception)
     LE_DEBUG(@"%@", message);
     message = [message stringByReplacingOccurrencesOfString:@"\n" withString:@"\u2028"];
     le_log([message cStringUsingEncoding:NSUTF8StringEncoding]);
+    
+    if (saved_le_exception_handler) {
+        saved_le_exception_handler(exception);
+    }
 }
 
-int le_init()
+int le_init(void)
 {
     static dispatch_once_t once;
     
@@ -112,7 +119,10 @@ int le_init()
         
         r = 0;
         
+        /*
+        saved_le_exception_handler = NSGetUncaughtExceptionHandler();
         NSSetUncaughtExceptionHandler(&le_exception_handler);
+        */
         
         return;
     });
@@ -125,7 +135,7 @@ int le_init()
  */
 static void write_buffer(size_t used_length)
 {
-    if (logfile_size + used_length > MAXIMUM_LOGFILE_SIZE) {
+    if ((size_t)logfile_size + used_length > MAXIMUM_LOGFILE_SIZE) {
         
         close(logfile_descriptor);
         file_order_number++;
@@ -137,8 +147,8 @@ static void write_buffer(size_t used_length)
         open_file(path);
     }
     
-    size_t written = write(logfile_descriptor, buffer, used_length);
-    if (written < used_length) {
+    ssize_t written = write(logfile_descriptor, buffer, (size_t)used_length);
+    if (written < (ssize_t)used_length) {
         LE_DEBUG(@"Could not write to log, no space left?");
         return;
     }
@@ -216,15 +226,15 @@ void le_set_token(const char* token)
         return;
     }
     
-    char* buffer = malloc(strlen(token) + 1);
-    if (!buffer) {
+    char* local_buffer = malloc(length + 1);
+    if (!local_buffer) {
         LE_DEBUG(@"Can't allocate token buffer.");
         return;
     }
     
-    strcpy(buffer, token);
+    strlcpy(local_buffer, token, length + 1);
     
     dispatch_sync(le_write_queue, ^{
-        le_token = buffer;
+        le_token = local_buffer;
     });
 }

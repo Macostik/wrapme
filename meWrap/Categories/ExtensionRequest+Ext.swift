@@ -121,10 +121,14 @@ extension ExtensionRequest {
     
     func presentShareContent(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
         if let path = parameters?["path"] as? String {
-            Storyboard.WrapList.instantiate({
-                $0.sharePath = path
-                UINavigationController.main()?.pushViewController($0, animated: false)
-            })
+            if Authorization.requiresSignIn() {
+               UIStoryboard.signUp().present(true)
+            } else {
+                Storyboard.WrapList.instantiate({
+                    $0.sharePath = path
+                    UINavigationController.main()?.pushViewController($0, animated: false)
+                })
+            }
             
             success(ExtensionReply())
         } else {

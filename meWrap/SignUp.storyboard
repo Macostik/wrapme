@@ -535,7 +535,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="emailField" destination="HvP-Ka-9z4" id="URT-lL-iQK"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="fNr-FB-Pjx" id="imn-WU-eY2"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="fNr-FB-Pjx" collectionClass="NSMutableArray" id="imn-WU-eY2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vE7-3A-mp8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -702,7 +702,7 @@
                         <outlet property="phoneNumberTextField" destination="2Sj-7d-nda" id="Nhj-cn-haC"/>
                         <outlet property="selectCountryButton" destination="tHE-KW-9HQ" id="qNm-XP-axU"/>
                         <outlet property="validation" destination="o7l-KU-NBa" id="WM2-GA-pqB"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="1aW-XX-GNc" id="SoA-sS-Kd0"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="1aW-XX-GNc" collectionClass="NSMutableArray" id="SoA-sS-Kd0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sT3-pE-ROT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -932,7 +932,7 @@
                         <outlet property="activationTextField" destination="lc0-Sk-CJb" id="XYK-pN-Dbv"/>
                         <outlet property="phoneNumberLabel" destination="s7C-hv-ivf" id="Tjp-Pa-M3N"/>
                         <outlet property="progressBar" destination="CpJ-kC-doC" id="aMA-Go-SNJ"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="QTR-Lh-Uds" id="HQt-iC-KPp"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="QTR-Lh-Uds" collectionClass="NSMutableArray" id="HQt-iC-KPp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u1T-QI-tAn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1055,7 +1055,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="passcodeField" destination="YRq-AS-iKU" id="xEk-u6-TDQ"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="drC-f9-HAu" id="7c9-Sf-zlA"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="drC-f9-HAu" collectionClass="NSMutableArray" id="7c9-Sf-zlA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R5a-k7-OpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1734,7 +1734,7 @@
                         <outlet property="createImageButton" destination="trg-qA-KZr" id="1OX-V4-y4S"/>
                         <outlet property="nameTextField" destination="7e9-qT-sff" id="vSb-fC-lIo"/>
                         <outlet property="profileImageView" destination="7KX-2Q-61m" id="eef-Ds-0K7"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="C6J-kD-Q81" id="2ve-yZ-JTs"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="C6J-kD-Q81" collectionClass="NSMutableArray" id="2ve-yZ-JTs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Udc-2D-xji" userLabel="First Responder" sceneMemberID="firstResponder"/>

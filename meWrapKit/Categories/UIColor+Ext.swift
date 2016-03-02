@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Color: NSObject {
+struct Color {
     static var grayDarker = UIColor(hex: 0x222222, alpha: 1)
     static var grayDark = UIColor(hex: 0x333333, alpha: 1)
     static var gray = UIColor(hex: 0x555555, alpha: 1)

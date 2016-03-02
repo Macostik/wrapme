@@ -18,27 +18,11 @@ extension UIAlertController {
         return UIAlertController(title: title, message: message, preferredStyle: .Alert)
     }
     
-    class func actionSheet(title: String?) -> UIAlertController {
-        return UIAlertController(title: title, message: nil, preferredStyle: .ActionSheet)
-    }
-    
-    class func actionSheet(title: String?, message: String?) -> UIAlertController {
+    class func actionSheet(title: String?, message: String? = nil) -> UIAlertController {
         return UIAlertController(title: title, message: message, preferredStyle: .ActionSheet)
     }
     
-    func action(title: String?) -> UIAlertController {
-        return action(title, handler: nil)
-    }
-    
-    func action(title: String?, style: UIAlertActionStyle) -> UIAlertController {
-        return action(title, style: style, handler: nil)
-    }
-    
-    func action(title: String?, handler: (UIAlertAction -> Void)?) -> UIAlertController {
-        return action(title, style: .Default, handler: handler)
-    }
-    
-    func action(title: String?, style: UIAlertActionStyle, handler: (UIAlertAction -> Void)?) -> UIAlertController {
+    func action(title: String?, style: UIAlertActionStyle = .Default, handler: (UIAlertAction -> Void)? = nil) -> UIAlertController {
         let action = UIAlertAction(title: title, style: style, handler: handler)
         addAction(action)
         return self

@@ -9,6 +9,11 @@
 import Foundation
 import PubNub
 
+protocol NotificationSubscriptionDelegate: class {
+    func notificationSubscription(subscription: NotificationSubscription, didReceiveMessage message: PNMessageResult)
+    func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult)
+}
+
 class NotificationSubscription: NSObject {
     weak var delegate: NotificationSubscriptionDelegate?
     
@@ -114,11 +119,11 @@ class NotificationSubscription: NSObject {
 extension NotificationSubscription: PNObjectEventListener {
     
     func didReceiveMessage(message: PNMessageResult) {
-        delegate?.notificationSubscription?(self, didReceiveMessage: message)
+        delegate?.notificationSubscription(self, didReceiveMessage: message)
     }
     
     func didReceivePresenceEvent(event: PNPresenceEventResult) {
-        delegate?.notificationSubscription?(self, didReceivePresenceEvent: event)
+        delegate?.notificationSubscription(self, didReceivePresenceEvent: event)
     }
     
     func client(client: PubNub!, didReceiveMessage message: PNMessageResult!) {

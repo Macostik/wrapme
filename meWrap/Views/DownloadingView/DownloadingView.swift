@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import SnapKit
 
 class DownloadingView: UIView {
     
@@ -53,7 +54,7 @@ class DownloadingView: UIView {
         frame = view.frame
         self.candy = candy
         view.addSubview(self)
-        setFullFlexible()
+        snp_makeConstraints(closure: { $0.edges.equalTo(view) })
         backgroundColor = UIColor(white:0, alpha:0.8)
         alpha = 0.0
         UIView.animateWithDuration(0.5) {

@@ -26,7 +26,7 @@ class SettingsViewController: BaseViewController {
             APIRequest.manager.operationQueue.cancelAllOperations()
             NotificationCenter.defaultCenter.clear()
             NSUserDefaults.standardUserDefaults().clear()
-            UIStoryboard.signUp().present(true)
+            UIStoryboard.signUp.present(true)
         }).show()
     }
     
@@ -54,7 +54,7 @@ class SettingsViewController: BaseViewController {
         ImageCache.defaultCache.clear()
         ImageCache.uploadingCache.clear()
         InMemoryImageCache.instance.removeAllObjects()
-        UIStoryboard.main().present(true)
+        UIStoryboard.main.present(true)
     }
     
     func addDemoImageWithCount(count: Int) {

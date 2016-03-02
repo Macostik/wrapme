@@ -10,6 +10,35 @@ import UIKit
 
 extension UIView {
     
+    var x: CGFloat {
+        set { frame.origin.x = newValue }
+        get { return frame.origin.x }
+    }
+    
+    var y: CGFloat {
+        set { frame.origin.y = newValue }
+        get { return frame.origin.y }
+    }
+    
+    var width: CGFloat {
+        set { frame.size.width = newValue }
+        get { return frame.size.width }
+    }
+    
+    var height: CGFloat {
+        set { frame.size.height = newValue }
+        get { return frame.size.height }
+    }
+    
+    var size: CGSize {
+        set { frame.size = newValue }
+        get { return frame.size }
+    }
+    
+    var centerBoundary: CGPoint {
+        return CGPoint(x: bounds.midX, y: bounds.midY)
+    }
+    
     // MARK: - Regular Animation
     
     class func performAnimated( animated: Bool, @noescape animation: Void -> Void) {
@@ -24,21 +53,15 @@ extension UIView {
     }
     
     func setAlpha(alpha: CGFloat, animated: Bool) {
-        UIView.performAnimated(animated) {[unowned self] () -> (Void) in
-            self.alpha = alpha
-        }
+        UIView.performAnimated(animated) { self.alpha = alpha }
     }
     
     func setTransform(transform: CGAffineTransform, animated: Bool) {
-        UIView.performAnimated(animated) {[unowned self] () -> (Void) in
-            self.transform = transform
-        }
+        UIView.performAnimated(animated) { self.transform = transform }
     }
     
     func setBackgroundColor(backgroundColor: UIColor, animated: Bool) {
-        UIView.performAnimated(animated) {[unowned self] () -> (Void) in
-            self.backgroundColor = backgroundColor
-        }
+        UIView.performAnimated(animated) { self.backgroundColor = backgroundColor }
     }
     
     func findFirstResponder() -> UIView? {
@@ -51,23 +74,6 @@ extension UIView {
             }
         }
         return nil
-    }
-    
-    // MARK: - Constraints
-    
-    func makeResizibleSubview(view: UIView) {
-        addConstraint(view.constraintToItem(self, equal:.CenterX))
-        addConstraint(view.constraintToItem(self, equal:.CenterY))
-        addConstraint(view.constraintToItem(self, equal:.Width))
-        addConstraint(view.constraintToItem(self, equal:.Height))
-    }
-    
-    func constraintToItem(item: AnyObject, equal attribute: NSLayoutAttribute) -> NSLayoutConstraint {
-        return constraintForAttrbute(attribute, toItem: item, equalToAttribute: attribute)
-    }
-    
-    func constraintForAttrbute(attribute1: NSLayoutAttribute, toItem item: AnyObject, equalToAttribute attribute2: NSLayoutAttribute) -> NSLayoutConstraint {
-        return NSLayoutConstraint(item: self, attribute: attribute1, relatedBy: .Equal, toItem: item, attribute: attribute2, multiplier: 1, constant: 0)
     }
     
     // MARK: - QuartzCore
@@ -118,5 +124,18 @@ extension UIView {
     @IBInspectable var shadowOpacity: Float {
         set { layer.shadowOpacity = newValue }
         get { return layer.opacity }
+    }
+}
+
+extension UIButton {
+    
+    var active: Bool {
+        set { setActive(newValue, animated: false) }
+        get { return alpha > 0.5 && userInteractionEnabled }
+    }
+    
+    func setActive(active: Bool, animated: Bool) {
+        setAlpha(active ? 1.0 : 0.5, animated: animated)
+        userInteractionEnabled = active
     }
 }

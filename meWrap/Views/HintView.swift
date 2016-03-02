@@ -16,7 +16,7 @@ final class HintView: GradientView {
             endColor = UIColor.blackColor()
             frame = view.frame
             view.addSubview(self)
-            setFullFlexible()
+            snp_makeConstraints(closure: { $0.edges.equalTo(view) })
             alpha = 0.0
             snp_makeConstraints(closure: { $0.edges.equalTo(view) })
             

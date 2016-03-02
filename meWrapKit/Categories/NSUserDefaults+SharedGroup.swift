@@ -8,8 +8,7 @@
 
 import Foundation
 
-var _difference : NSTimeInterval = 0
-var _token: dispatch_once_t = 0
+var _difference : NSTimeInterval = (NSUserDefaults.sharedUserDefaults?["server_time_difference"] as? NSTimeInterval) ?? 0
 
 extension NSUserDefaults {
     
@@ -37,12 +36,9 @@ extension NSUserDefaults {
             if (_difference != newValue) {
                 _difference = newValue
             }
-            self["WLServerTimeDifference"] = newValue
+            self["server_time_difference"] = newValue
         }
         get {
-            dispatch_once(&_token) {
-                _difference = (self["WLServerTimeDifference"] as? NSTimeInterval) ?? 0
-            }
             return _difference
         }
     }

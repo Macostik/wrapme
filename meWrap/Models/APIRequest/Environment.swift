@@ -232,7 +232,7 @@ extension NSError {
         return domain == Environment.ErrorDomain && self.code == code.rawValue
     }
     
-    var responseData: NSDictionary? {
-        return userInfo[Environment.ErrorResponseDataKey] as? NSDictionary
+    var responseData: [String:AnyObject]? {
+        return userInfo[Environment.ErrorResponseDataKey] as? [String:AnyObject]
     }
 }

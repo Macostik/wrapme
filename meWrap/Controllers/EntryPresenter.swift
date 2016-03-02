@@ -112,7 +112,7 @@ extension Message {
 extension Wrap {
     
     override func viewController() -> UIViewController? {
-        let controller = UIStoryboard.main()["wrap"] as? WrapViewController
+        let controller = UIStoryboard.main["wrap"] as? WrapViewController
         controller?.wrap = self
         return controller
     }

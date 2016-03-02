@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc enum PaginatedRequestType: Int {
+enum PaginatedRequestType: Int {
     case Fresh, Newer, Older
 }
 

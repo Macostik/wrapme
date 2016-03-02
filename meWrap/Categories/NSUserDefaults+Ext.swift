@@ -107,11 +107,7 @@ extension NSUserDefaults {
     
     var shownHints: [String:Bool] {
         get {
-            if let shownHints = self["HintView_shownHints"] as? [String:Bool] {
-                return shownHints
-            } else {
-                return [String:Bool]()
-            }
+            return self["HintView_shownHints"] as? [String:Bool] ?? [String:Bool]()
         }
         set {
             self["HintView_shownHints"] = newValue

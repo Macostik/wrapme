@@ -164,10 +164,10 @@ class NotificationCenter: NSObject {
             for notification in notifications {
                 RunQueue.fetchQueue.run { finish in
                     notification.fetch({ _ in
-                        if !playedSoundTypes.contains(notification.soundType()) {
+                        if let sound = notification.soundType() where !playedSoundTypes.contains(sound) {
                             SoundPlayer.player.playForNotification(notification)
+                            playedSoundTypes.insert(sound)
                         }
-                        playedSoundTypes.insert(notification.soundType())
                         finish()
                         }, failure: { _ in
                             finish()

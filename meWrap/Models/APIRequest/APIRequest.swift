@@ -238,7 +238,7 @@ class APIRequest: NSObject {
     
     private func reauthorizeFailed(error: NSError?) {
         Logger.log("UNAUTHORIZED_ERROR: \(error)")
-        let storyboard = UIStoryboard.signUp()
+        let storyboard = UIStoryboard.signUp
         let window = UIWindow.mainWindow
         if window.rootViewController?.storyboard != storyboard {
             let topView = (window.rootViewController?.presentedViewController ?? window.rootViewController)?.view

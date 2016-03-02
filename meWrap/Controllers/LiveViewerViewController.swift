@@ -8,6 +8,7 @@
 
 import UIKit
 import PubNub
+import SnapKit
 
 class LiveViewerViewController: LiveViewController {
     
@@ -121,45 +122,29 @@ class LiveViewerViewController: LiveViewController {
         self.coverView?.removeFromSuperview()
         
         let coverView = UIView()
-        coverView.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(coverView, belowSubview: spinner)
         self.coverView = coverView
         
         let coverImageView = ImageView(backgroundColor: UIColor.blackColor())
-        coverImageView.translatesAutoresizingMaskIntoConstraints = false
         coverView.addSubview(coverImageView)
         
         let blurEffect = UIBlurEffect(style: .Light)
         let blurView = UIVisualEffectView(effect: blurEffect)
-        blurView.translatesAutoresizingMaskIntoConstraints = false
         coverView.addSubview(blurView)
         
-        let wrapNameLabel = Label()
-        wrapNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        wrapNameLabel.font = UIFont.fontXLarge()
-        wrapNameLabel.preset = FontPreset.XLarge.rawValue
-        wrapNameLabel.textColor = UIColor.whiteColor()
+        let wrapNameLabel = Label(preset: .XLarge, weight: UIFontWeightRegular, textColor: UIColor.whiteColor())
         wrapNameLabel.text = wrap?.name
         coverView.addSubview(wrapNameLabel)
         
-        let titleLabel = Label()
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = UIFont.lightFontLarger()
-        titleLabel.preset = FontPreset.Larger.rawValue
-        titleLabel.textColor = UIColor.whiteColor()
+        let titleLabel = Label(preset: .Larger, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
         titleLabel.text = broadcast.displayTitle()
         coverView.addSubview(titleLabel)
         
-        let messageLabel = Label()
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
-        messageLabel.font = UIFont.lightFontNormal()
-        messageLabel.preset = FontPreset.Normal.rawValue
-        messageLabel.textColor = UIColor.whiteColor()
+        let messageLabel = Label(preset: .Normal, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
         messageLabel.text = text
         coverView.addSubview(messageLabel)
         
         let backButton = Button()
-        backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.titleLabel?.font = UIFont(name: "icons", size: 36)
         backButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         backButton.setTitleColor(UIColor.whiteColor().darkerColor(), forState: .Normal)
@@ -167,21 +152,26 @@ class LiveViewerViewController: LiveViewController {
         backButton.addTarget(self, action: "close:", forControlEvents: .TouchUpInside)
         coverView.addSubview(backButton)
         
-        view.makeResizibleSubview(coverView)
-        coverView.makeResizibleSubview(coverImageView)
-        coverView.makeResizibleSubview(blurView)
+        coverView.snp_makeConstraints(closure: { $0.edges.equalTo(view) })
+        coverImageView.snp_makeConstraints(closure: { $0.edges.equalTo(coverView) })
+        blurView.snp_makeConstraints(closure: { $0.edges.equalTo(coverView) })
         
-        coverView.addConstraint(NSLayoutConstraint(item: wrapNameLabel, attribute: .CenterY, relatedBy: .Equal, toItem: coverView, attribute: .CenterY, multiplier: 1, constant: -100))
-        coverView.addConstraint(NSLayoutConstraint(item: wrapNameLabel, attribute: .CenterX, relatedBy: .Equal, toItem: coverView, attribute: .CenterX, multiplier: 1, constant: 0))
+        wrapNameLabel.snp_makeConstraints { (make) -> Void in
+            make.centerY.equalTo(coverView).inset(-100)
+            make.centerX.equalTo(coverView)
+        }
         
-        coverView.addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: wrapNameLabel, attribute: .Bottom, multiplier: 1, constant: 0))
-        coverView.addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .CenterX, relatedBy: .Equal, toItem: coverView, attribute: .CenterX, multiplier: 1, constant: 0))
+        titleLabel.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(wrapNameLabel.snp_bottom)
+            make.centerX.equalTo(coverView)
+        }
         
-        coverView.addConstraint(NSLayoutConstraint(item: messageLabel, attribute: .CenterY, relatedBy: .Equal, toItem: coverView, attribute: .CenterY, multiplier: 1, constant: 80))
-        coverView.addConstraint(NSLayoutConstraint(item: messageLabel, attribute: .CenterX, relatedBy: .Equal, toItem: coverView, attribute: .CenterX, multiplier: 1, constant: 0))
+        messageLabel.snp_makeConstraints { (make) -> Void in
+            make.centerY.equalTo(coverView).inset(80)
+            make.centerX.equalTo(coverView)
+        }
         
-        coverView.addConstraint(NSLayoutConstraint(item: backButton, attribute: .Leading, relatedBy: .Equal, toItem: coverView, attribute: .Leading, multiplier: 1, constant: 12))
-        coverView.addConstraint(NSLayoutConstraint(item: backButton, attribute: .Top, relatedBy: .Equal, toItem: coverView, attribute: .Top, multiplier: 1, constant: 12))
+        backButton.snp_makeConstraints { $0.leading.top.equalTo(coverView).inset(12) }
         
         if let user = broadcast.broadcaster {
             if let url = user.avatar?.large where !url.isEmpty {
@@ -192,7 +182,6 @@ class LiveViewerViewController: LiveViewController {
                     }, failure: nil)
             }
         }
-        
         
         self.coverView = coverView
     }

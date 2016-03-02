@@ -10,7 +10,11 @@ import UIKit
 
 struct StoryboardObject<T: UIViewController> {
     let identifier: String
-    var storyboard: UIStoryboard = UIStoryboard.main()
+    var storyboard: UIStoryboard
+    init(_ identifier: String, _ storyboard: UIStoryboard = UIStoryboard.main) {
+        self.identifier = identifier
+        self.storyboard = storyboard
+    }
     func instantiate() -> T {
         return storyboard.instantiateViewControllerWithIdentifier(identifier) as! T
     }
@@ -22,41 +26,30 @@ struct StoryboardObject<T: UIViewController> {
 }
 
 struct Storyboard {
-    static let AddFriends = StoryboardObject<AddContributorsViewController>(identifier: "addFriends", storyboard: UIStoryboard.main())
-    static let Friends = StoryboardObject<ContributorsViewController>(identifier: "friends", storyboard: UIStoryboard.main())
-    static let UploadWizard = StoryboardObject<UploadWizardViewController>(identifier: "uploadWizard", storyboard: UIStoryboard.main())
-    static let UploadWizardEnd = StoryboardObject<UploadWizardEndViewController>(identifier: "uploadWizardEnd", storyboard: UIStoryboard.main())
-    static let LiveBroadcaster = StoryboardObject<LiveBroadcasterViewController>(identifier: "liveBroadcaster", storyboard: UIStoryboard.main())
-    static let UploadSummary = StoryboardObject<UploadSummaryViewController>(identifier: "uploadSummary", storyboard: UIStoryboard.camera())
-    static let WrapPicker = StoryboardObject<WrapPickerViewController>(identifier: "wrapPicker", storyboard: UIStoryboard.camera())
-    static let ReportCandy = StoryboardObject<ReportViewController>(identifier: "report", storyboard: UIStoryboard.main())
-    static let Comments = StoryboardObject<CommentsViewController>(identifier: "comments", storyboard: UIStoryboard.main())
-    static let History = StoryboardObject<HistoryViewController>(identifier: "history", storyboard: UIStoryboard.main())
-    static let HistoryItem = StoryboardObject<HistoryItemViewController>(identifier: "historyItem", storyboard: UIStoryboard.main())
-    static let Countries = StoryboardObject<CountriesViewController>(identifier: "countries", storyboard: UIStoryboard.signUp())
-    static let Wrap = StoryboardObject<WrapViewController>(identifier: "wrap", storyboard: UIStoryboard.main())
-    static let WrapList = StoryboardObject<WrapListViewController>(identifier: "wrapList", storyboard: UIStoryboard.main())
-    static let Candy = StoryboardObject<CandyViewController>(identifier: "candy", storyboard: UIStoryboard.main())
-    static let SignupFlow = StoryboardObject<SignupFlowViewController>(identifier: "signupFlow", storyboard: UIStoryboard.signUp())
+    static let AddFriends = StoryboardObject<AddContributorsViewController>("addFriends")
+    static let Friends = StoryboardObject<ContributorsViewController>("friends")
+    static let UploadWizard = StoryboardObject<UploadWizardViewController>("uploadWizard")
+    static let UploadWizardEnd = StoryboardObject<UploadWizardEndViewController>("uploadWizardEnd")
+    static let LiveBroadcaster = StoryboardObject<LiveBroadcasterViewController>("liveBroadcaster")
+    static let UploadSummary = StoryboardObject<UploadSummaryViewController>("uploadSummary", UIStoryboard.camera)
+    static let WrapPicker = StoryboardObject<WrapPickerViewController>("wrapPicker", UIStoryboard.camera)
+    static let ReportCandy = StoryboardObject<ReportViewController>("report")
+    static let Comments = StoryboardObject<CommentsViewController>("comments")
+    static let History = StoryboardObject<HistoryViewController>("history")
+    static let HistoryItem = StoryboardObject<HistoryItemViewController>("historyItem")
+    static let Countries = StoryboardObject<CountriesViewController>("countries", UIStoryboard.signUp)
+    static let Wrap = StoryboardObject<WrapViewController>("wrap")
+    static let WrapList = StoryboardObject<WrapListViewController>("wrapList")
+    static let Candy = StoryboardObject<CandyViewController>("candy")
+    static let SignupFlow = StoryboardObject<SignupFlowViewController>("signupFlow", UIStoryboard.signUp)
 }
 
 extension UIStoryboard {
     
-    @nonobjc private static var _main = UIStoryboard(name: "Main", bundle: nil)
-    
-    class func main() -> UIStoryboard { return _main }
-    
-    @nonobjc private static var _signUp = UIStoryboard(name: "SignUp", bundle: nil)
-    
-    class func signUp() -> UIStoryboard { return _signUp }
-    
-    @nonobjc private static var _camera = UIStoryboard(name: "Camera", bundle: nil)
-    
-    class func camera() -> UIStoryboard { return _camera }
-    
-    @nonobjc private static var _introduction = UIStoryboard(name: "Introduction", bundle: nil)
-    
-    class func introduction() -> UIStoryboard { return _introduction }
+    @nonobjc static var main = UIStoryboard(name: "Main", bundle: nil)
+    @nonobjc static var signUp = UIStoryboard(name: "SignUp", bundle: nil)
+    @nonobjc static var camera = UIStoryboard(name: "Camera", bundle: nil)
+    @nonobjc static var introduction = UIStoryboard(name: "Introduction", bundle: nil)
     
     func present(animated: Bool) {
         UIWindow.mainWindow.rootViewController = instantiateInitialViewController()
@@ -68,8 +61,7 @@ extension UIStoryboard {
 }
 
 extension UIWindow {
-    @nonobjc private static var _mainWindow = UIWindow(frame: UIScreen.mainScreen().bounds)
-    static var mainWindow: UIWindow { return _mainWindow }
+    @nonobjc static var mainWindow = UIWindow(frame: UIScreen.mainScreen().bounds)
 }
 
 extension UINavigationController {
@@ -79,15 +71,10 @@ extension UINavigationController {
     }
     
     public override func shouldAutorotate() -> Bool {
-        guard let topViewController = topViewController else {
-            return super.shouldAutorotate()
-        }
-        return topViewController.shouldAutorotate()
+        return topViewController?.shouldAutorotate() ?? super.shouldAutorotate()
     }
+    
     public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        guard let topViewController = topViewController else {
-            return super.supportedInterfaceOrientations()
-        }
-        return topViewController.supportedInterfaceOrientations()
+        return topViewController?.supportedInterfaceOrientations() ?? super.supportedInterfaceOrientations()
     }
 }

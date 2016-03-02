@@ -94,7 +94,7 @@ class CandyCell: StreamReusableView {
                 })
             } else {
                 menu.addReportAction({
-                    if let controller = UIStoryboard.main()["report"] as? ReportViewController {
+                    if let controller = UIStoryboard.main["report"] as? ReportViewController {
                         controller.candy = candy
                         UIWindow.mainWindow.rootViewController?.presentViewController(controller, animated: false, completion: nil)
                     }

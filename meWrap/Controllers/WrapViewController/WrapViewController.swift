@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-@objc enum WrapSegment: Int {
+enum WrapSegment: Int {
     case Inbox, Media, Chat
 }
 

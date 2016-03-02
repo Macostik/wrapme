@@ -104,10 +104,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     func presentInitialViewController() {
         let successBlock: User -> Void = { user in
             if user.isSignupCompleted {
-                UIStoryboard.main().present(true)
+                UIStoryboard.main.present(true)
             } else {
                 Logger.log("INITIAL SIGN IN - sign up is not completed, redirecting to profile step")
-                let navigation = UIStoryboard.signUp().instantiateInitialViewController() as? UINavigationController
+                let navigation = UIStoryboard.signUp.instantiateInitialViewController() as? UINavigationController
                 let signupFlowViewController = Storyboard.SignupFlow.instantiate()
                 signupFlowViewController.registrationNotCompleted = true
                 navigation?.viewControllers = [signupFlowViewController]
@@ -124,7 +124,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                     return;
                 }
             }
-            UIWindow.mainWindow.rootViewController = UIStoryboard.introduction()["launchScreen"]
+            UIWindow.mainWindow.rootViewController = UIStoryboard.introduction["launchScreen"]
             authorization.signIn().send({ _ in
                 successBlock(User.currentUser!)
                 }, failure: { error in
@@ -134,7 +134,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                     } else {
                         UIAlertController.confirmReauthorization({ _ in
                             Logger.log("INITIAL SIGN IN ERROR - couldn't sign in, so redirecting to welcome screen")
-                            UIStoryboard.signUp().present(true)
+                            UIStoryboard.signUp.present(true)
                             }, tryAgain: { [weak self] _ in
                                 self?.presentInitialViewController()
                             })
@@ -142,7 +142,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         } else {
             Logger.log("INITIAL SIGN IN - no data for signing in")
-            UIStoryboard.signUp().present(true)
+            UIStoryboard.signUp.present(true)
         }
     }
     

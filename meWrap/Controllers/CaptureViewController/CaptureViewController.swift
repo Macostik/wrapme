@@ -16,13 +16,13 @@ class CaptureViewController: UINavigationController, CameraViewControllerDelegat
     var friendsInvited = false
     
     class func captureMediaViewController(wrap: Wrap?) -> CaptureMediaViewController {
-        let controller = UIStoryboard.camera()["captureMedia"] as! CaptureMediaViewController
+        let controller = UIStoryboard.camera["captureMedia"] as! CaptureMediaViewController
         controller.wrap = wrap
         return controller
     }
     
     class func captureAvatarViewController() -> CaptureAvatarViewController {
-        return UIStoryboard.camera()["captureAvatar"] as! CaptureAvatarViewController
+        return UIStoryboard.camera["captureAvatar"] as! CaptureAvatarViewController
     }
     
     override func viewDidLoad() {

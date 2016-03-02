@@ -9,7 +9,7 @@
 import UIKit
 import PubNub
 
-@objc enum NotificationType: Int {
+enum NotificationType: Int {
     
     case ContributorAdd        = 100
     case ContributorDelete     = 200
@@ -59,7 +59,7 @@ class Notification: NSObject {
         return entry != nil && body?["pn_apns"] != nil && notifiable()
     }
     
-    func soundType() -> Sound { return .Off }
+    func soundType() -> Sound? { return nil }
     
     func notifiable() -> Bool { return false }
     

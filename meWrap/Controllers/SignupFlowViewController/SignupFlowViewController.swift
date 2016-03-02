@@ -43,7 +43,7 @@ class SignupFlowViewController: BaseViewController {
     private func completeSignup() {
         let profileStep = stepViewController("editProfile") as! EditProfileViewController
         profileStep[.Success] = {
-            UIStoryboard.main().present(true)
+            UIStoryboard.main.present(true)
             return nil
         }
         flowNavigationController.viewControllers = [profileStep]
@@ -66,7 +66,7 @@ class SignupFlowViewController: BaseViewController {
         // final completion block
         
         let completeSignUp = { () -> SignupStepViewController? in
-            let storyboard = UIStoryboard.main()
+            let storyboard = UIStoryboard.main
             if User.currentUser!.firstTimeUse {
                 let navigation = storyboard.instantiateInitialViewController() as! UINavigationController
                 let viewController: UIViewController! = storyboard["uploadWizard"]

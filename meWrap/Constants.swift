@@ -25,3 +25,8 @@ class Constants: NSObject {
     static let encryptedAuthorization = "encrypted_authorization"
     static let groupIdentifier = "group.com.ravenpod.wraplive"
 }
+
+typealias Block = Void -> Void
+typealias ObjectBlock = AnyObject? -> Void
+typealias FailureBlock = NSError? -> Void
+typealias BooleanBlock = Bool -> Void

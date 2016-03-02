@@ -111,9 +111,6 @@ class Chat: PaginatedList {
         
         super.didChange()
     }
-}
-
-extension Chat: NotificationSubscriptionDelegate {
     
     private func namesOfUsers(users: [User]) -> String? {
         if users.isEmpty {

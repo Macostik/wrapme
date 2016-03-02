@@ -59,8 +59,3 @@ extension NSDate {
         self.init(timeIntervalSince1970:timetoken.doubleValue / 10000000)
     }
 }
-
-@objc protocol NotificationSubscriptionDelegate {
-    optional func notificationSubscription(subscription: NotificationSubscription, didReceiveMessage message: PNMessageResult)
-    optional func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult)
-}

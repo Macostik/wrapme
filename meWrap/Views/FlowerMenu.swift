@@ -8,6 +8,7 @@
 
 import UIKit
 import AudioToolbox
+import SnapKit
 
 class FlowerMenuAction: UIButton {
     
@@ -74,8 +75,8 @@ class FlowerMenu: UIView {
         frame = superview.bounds
         backgroundColor = UIColor.clearColor()
         alpha = 0.0
-        setFullFlexible()
         superview.addSubview(self)
+        snp_makeConstraints(closure: { $0.edges.equalTo(superview) })
         setNeedsDisplay()
         alpha = 0
         DeviceManager.defaultManager.removeReceiver(self)

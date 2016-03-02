@@ -54,7 +54,7 @@ class WrapSettingsViewController: BaseViewController, EntryNotifying {
         chatNotifyTrigger.userInteractionEnabled = false
         
         APIRequest.preferences(wrap).send({[weak self] wrap -> Void in
-            if let wrap = wrap {
+            if let wrap = wrap as? Wrap {
                 self?.candyNotifyTrigger.on = wrap.isCandyNotifiable
                 self?.chatNotifyTrigger.on = wrap.isChatNotifiable
                 self?.candyNotifyTrigger.userInteractionEnabled = true

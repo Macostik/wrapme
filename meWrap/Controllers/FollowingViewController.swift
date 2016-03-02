@@ -27,7 +27,7 @@ class FollowingViewController: BaseViewController {
     class func followWrapIfNeeded(wrap: Wrap?, performAction action: Block) {
         guard let wrap = wrap?.validEntry() else { return }
         if (wrap.requiresFollowing) {
-            if let controller = UIStoryboard.main()["FollowingViewController"] as? FollowingViewController {
+            if let controller = UIStoryboard.main["FollowingViewController"] as? FollowingViewController {
                 controller.wrap = wrap
                 controller.actionBlock = action
                 let window = UIWindow(frame:UIScreen.mainScreen().bounds)

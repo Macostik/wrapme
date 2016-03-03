@@ -273,7 +273,8 @@ extension ChatViewController: ComposeBarDelegate {
     }
     
     func composeBarDidChangeHeight(composeBar: ComposeBar) {
-        streamView.setContentOffset(CGPointMake(0, streamView.contentOffset.y + composeBar.height - composeBarHeight), animated: false)
+        let offset = composeBar.text?.isEmpty == true ? streamView.maximumContentOffset.y : streamView.contentOffset.y
+        streamView.setContentOffset(CGPointMake(0, offset + composeBar.height - composeBarHeight), animated: composeBar.text?.isEmpty == true)
         composeBarHeight = composeBar.height
     }
 }

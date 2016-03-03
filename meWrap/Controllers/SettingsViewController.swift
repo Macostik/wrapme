@@ -31,7 +31,7 @@ class SettingsViewController: BaseViewController {
     }
     
     @IBAction func addDemoImages(sender: UIButton) {
-        addDemoImageWithCount(5)
+        addDemoImageWithCount(30000)
         Toast.show("5 demo images will be added to Photos")
     }
     
@@ -58,14 +58,20 @@ class SettingsViewController: BaseViewController {
     }
     
     func addDemoImageWithCount(count: Int) {
-        if (count == 0) {
-            return
-        }
         
-        if let url = NSURL(string: "https://placeimg.com/\(count % 2 == 0 ? "640/1136" : "1136/640")/any") {
-            PHPhotoLibrary.addImageAtFileUrl(url, success: { () -> Void in
-                self.addDemoImageWithCount(count - 1)
-                }, failure: nil)
+        for _ in 0...count {
+            RunQueue.entryFetchQueue.run { (finish) -> Void in
+                Dispatch.defaultQueue.async({ () -> Void in
+                    guard
+                        let url = NSURL(string: "https://placeimg.com/\(count % 2 == 0 ? "640/1136" : "1136/640")/any"),
+                        let data = NSData(contentsOfURL: url),
+                        let image = UIImage(data: data) else {
+                        finish()
+                        return
+                    }
+                    PHPhotoLibrary.addImage(image, success: finish, failure: { _ in finish() })
+                })
+            }
         }
     }
     

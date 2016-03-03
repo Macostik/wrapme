@@ -12,33 +12,21 @@ import SnapKit
 
 class AssetCell: StreamReusableView {
     
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var acceptView: UIView!
-    @IBOutlet weak var videoIndicator: UILabel!
+    var imageView = ImageView(backgroundColor: UIColor.clearColor())
+    var acceptView = Label(icon: "l", size: 12, textColor: Color.orange)
+    var videoIndicator = Label(icon: "+", size: 20)
     private var requestID: PHImageRequestID?
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
-        let imageView = ImageView(backgroundColor: UIColor.clearColor())
         addSubview(imageView)
-        self.imageView = imageView
-        
-        let videoIndicator = Label(icon: "+", size: 20)
         addSubview(videoIndicator)
-        self.videoIndicator = videoIndicator
-        
-        let acceptView = UILabel()
         acceptView.textAlignment = .Center
         acceptView.backgroundColor = UIColor.whiteColor()
         acceptView.cornerRadius = 10
         acceptView.borderColor = Color.orange
         acceptView.borderWidth = 1
         acceptView.clipsToBounds = true
-        acceptView.font = UIFont(name: "icons", size: 12)
-        acceptView.textColor = Color.orange
-        acceptView.text = "l"
         addSubview(acceptView)
-        self.acceptView = acceptView
-        
         imageView.snp_makeConstraints(closure: { $0.edges.equalTo(self) })
         videoIndicator.snp_makeConstraints(closure: {
             $0.top.equalTo(self).offset(2)
@@ -121,7 +109,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
             } else {
                 assets = PHAsset.fetchAssetsWithOptions(options)
             }
-            dataSource?.items = assets
+            dataSource.items = assets
         }
     }
     
@@ -130,7 +118,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
     var assets: PHFetchResult?
     var selectedAssets = Set<String>()
     
-    var dataSource: StreamDataSource?
+    lazy var dataSource: StreamDataSource = StreamDataSource(streamView: self.streamView)
     @IBOutlet weak var streamView: StreamView!
     @IBOutlet weak var accessErrorLabel: UILabel!
     var assetsHidingHandler: (Void -> Void)?
@@ -143,23 +131,19 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         super.viewDidLoad()
         
         streamView.layout = SquareLayout(streamView: streamView, horizontal: true)
-        let dataSource = StreamDataSource(streamView: streamView)
-        let metrics = StreamMetrics(loader: LayoutStreamLoader<AssetCell>())
-        metrics.selection = { [weak self] (item, entry) in
-            if let item = item, let asset = entry as? PHAsset {
-                item.selected = self?.selectAsset(asset) ?? false
+        dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<AssetCell>()).change({ [weak self] metrics in
+            metrics.selection = { (item, entry) in
+                if let item = item, let asset = entry as? PHAsset {
+                    item.selected = self?.selectAsset(asset) ?? false
+                }
             }
-        }
-        metrics.prepareAppearing = { [weak self] (item, view) in
-            if let asset = item.entry as? PHAsset {
-                item.selected = self?.selectedAssets.contains(asset.localIdentifier) ?? false
-                view.exclusiveTouch = self?.isAvatar ?? true
+            metrics.prepareAppearing = { (item, view) in
+                if let asset = item.entry as? PHAsset {
+                    item.selected = self?.selectedAssets.contains(asset.localIdentifier) ?? false
+                    view.exclusiveTouch = self?.isAvatar ?? true
+                }
             }
-        }
-        
-        dataSource.addMetrics(metrics)
-        
-        self.dataSource = dataSource
+        }))
         
         self.streamView.panGestureRecognizer.addTarget(self, action: "scrollAssets")
         
@@ -175,7 +159,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             if let currentAssets = self.assets, let assets = changeInstance.changeDetailsForFetchResult(currentAssets)?.fetchResultAfterChanges {
                 self.assets = assets
-                self.dataSource?.items = assets
+                self.dataSource.items = assets
             }
         }
     }

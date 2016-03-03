@@ -32,6 +32,7 @@ final class FriendView: StreamReusableView {
         avatarView.defaultIconText = "&"
         statusView.clipsToBounds = true
         statusView.cornerRadius = 6
+        statusView.backgroundColor = UIColor.greenColor()
         addSubview(avatarView)
         addSubview(statusView)
         avatarView.snp_makeConstraints(closure: {
@@ -54,7 +55,7 @@ final class FriendView: StreamReusableView {
                 avatarView.defaultBackgroundColor = Color.grayLighter
             }
             avatarView.url = url
-            statusView.backgroundColor = friend.isActive ? UIColor.greenColor() : UIColor.lightGrayColor()
+            statusView.hidden = !friend.isActive
         }
     }
 }

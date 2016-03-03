@@ -95,7 +95,10 @@ final class HomeViewController: BaseViewController {
             item.size = streamView.height - (self?.publicWrapsHeaderView.height ?? 0.0) - 48
         }
         
-        dataSource.setRefreshableWithStyle(.Orange)
+        let refresher = Refresher(scrollView: streamView)
+        refresher.style = .Orange
+        refresher.addTarget(dataSource, action: "refresh:", forControlEvents: .ValueChanged)
+        refresher.addTarget(self, action: "refreshUserActivities", forControlEvents: .ValueChanged)
         
         super.viewDidLoad()
         
@@ -124,6 +127,12 @@ final class HomeViewController: BaseViewController {
                     finish();
                 })
             })
+        }
+    }
+    
+    func refreshUserActivities() {
+        NotificationCenter.defaultCenter.refreshUserActivities { [weak self] () -> Void in
+            self?.homeDataSource.paginatedSet?.sort()
         }
     }
     

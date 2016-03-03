@@ -283,18 +283,13 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
             user.isActive = true
         }
         
-        guard let wrap = Wrap.entry(data.actualChannel) else { return }
-        
         if event == "state-change" {
+            guard let wrap = Wrap.entry(data.actualChannel) else { return }
             user.activity.handleState(data.presence?.state, wrap: wrap)
             if user.activity.type == .Streaming {
                 if user.activity.inProgress {
                     user.fetchIfNeeded({ _ in
-                        let broadcast = LiveBroadcast()
-                        broadcast.broadcaster = user
-                        broadcast.wrap = wrap
-                        broadcast.title = user.activity.info["title"] as? String
-                        broadcast.streamName = user.activity.info["streamName"] as? String ?? ""
+                        let broadcast = user.activity.generateLiveBroadcast()
                         wrap.addBroadcast(broadcast)
                         }, failure: nil)
                 } else {
@@ -305,6 +300,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
                 }
             }
         } else if event == "timeout" || event == "leave" {
+            guard let wrap = Wrap.entry(data.actualChannel, allowInsert: false) else { return }
             if user.activity.inProgress && user.activity.wrap == wrap {
                 user.activity.inProgress = false
                 if user.activity.type == .Streaming {
@@ -338,11 +334,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
         for user in users {
             let activity = user.activity
             if activity.inProgress && activity.type == .Streaming && activity.wrap == wrap {
-                let broadcast = LiveBroadcast()
-                broadcast.broadcaster = user
-                broadcast.wrap = wrap
-                broadcast.title = activity.info["title"] as? String
-                broadcast.streamName = activity.info["streamName"] as? String ?? ""
+                let broadcast = activity.generateLiveBroadcast()
                 broadcasts.append(broadcast)
             }
         }
@@ -352,8 +344,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
     func fetchLiveBroadcasts(completionHandler: Void -> Void) {
         PubNub.sharedInstance.hereNowForChannelGroup(userSubscription.name) { (result, status) -> Void in
             if let channels = result?.data?.channels as? [String:[String:AnyObject]] {
-                print(channels)
-                for (channel, data) in channels where channel != "public" {
+                for (channel, data) in channels {
                     guard let uuids = data["uuids"] as? [[String:AnyObject]] else { continue }
                     guard let wrap = Wrap.entry(channel) else { continue }
                     wrap.liveBroadcasts = self.liveBroadcasts(uuids, wrap: wrap)
@@ -370,6 +361,90 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
             } else {
                 completionHandler([])
             }
+        }
+    }
+    
+    private func channelActivities(uuids: [[String:AnyObject]]) -> (activities: [String:[String:AnyObject]], users: Set<String>) {
+        var activities = [String:[String:AnyObject]]()
+        var users = Set<String>()
+        for uuid in uuids {
+            guard let uid = uuid["uuid"] as? String,
+                let userUid = PubNub.userUIDFromUUID(uid) where uid != User.channelName() else { continue }
+            users.insert(userUid)
+            if let state = uuid["state"] as? [String:AnyObject] {
+                if let activity = state["activity"] as? [String:AnyObject] where activity["in_progress"] as? Bool == true {
+                    activities[userUid] = activity
+                }
+            }
+        }
+        return (activities, users)
+    }
+    
+    func refreshUserActivities(completionHandler: (Void -> Void)?) {
+        PubNub.sharedInstance.hereNowForChannelGroup(userSubscription.name) { (result, status) -> Void in
+            if let channels = result?.data?.channels as? [String:[String:AnyObject]] {
+                
+                var users = Set<String>()
+                var activities = [String:[String:[String:AnyObject]]]()
+                
+                for (channel, data) in channels {
+                    guard let uuids = data["uuids"] as? [[String:AnyObject]] else { continue }
+                    let result = self.channelActivities(uuids)
+                    users = users.union(result.users)
+                    if !result.activities.isEmpty {
+                        activities[channel] = result.activities
+                    }
+                }
+                
+                usersLoop: for userUid in users {
+                    guard let user = User.entry(userUid) else { continue usersLoop }
+                    activitiesLoop: for (channel, _activities) in activities {
+                        if let activity = _activities[userUid] {
+                            user.activity.handleActivity(activity)
+                            let wrap = Wrap.entry(channel)
+                            user.activity.wrap = wrap
+                            if user.activity.inProgress && user.activity.type == .Streaming {
+                                let broadcast = user.activity.generateLiveBroadcast()
+                                wrap?.addBroadcastIfNeeded(broadcast)
+                            }
+                            continue usersLoop
+                        }
+                    }
+                    if user.activity.inProgress {
+                        user.activity.wrap?.removeBroadcastFrom(user)
+                        user.activity.clear()
+                    }
+                }
+            }
+            completionHandler?()
+        }
+    }
+    
+    func refreshUserActivities(wrap: Wrap, completionHandler: (Void -> Void)?) {
+        PubNub.sharedInstance.hereNowForChannel(wrap.uid, withVerbosity: .State) { (result, status) -> Void in
+            
+            if let uuids = result?.data?.uuids as? [[String:AnyObject]] {
+                
+                let result = self.channelActivities(uuids)
+                
+                for userUid in result.users {
+                    guard let user = User.entry(userUid) else { continue }
+                    if let activity = result.activities[userUid] {
+                        user.activity.handleActivity(activity)
+                        user.activity.wrap = wrap
+                        if user.activity.inProgress && user.activity.type == .Streaming {
+                            let broadcast = user.activity.generateLiveBroadcast()
+                            wrap.addBroadcastIfNeeded(broadcast)
+                        }
+                        continue
+                    }
+                    if user.activity.inProgress && user.activity.wrap == wrap {
+                        wrap.removeBroadcastFrom(user)
+                        user.activity.clear()
+                    }
+                }
+            }
+            completionHandler?()
         }
     }
 }

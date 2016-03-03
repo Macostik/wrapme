@@ -152,6 +152,12 @@ class Wrap: Contribution {
     
     var liveBroadcasts = [LiveBroadcast]()
     
+    func addBroadcastIfNeeded(broadcast: LiveBroadcast) {
+        if !liveBroadcasts.contains({ $0.streamName == broadcast.streamName }) {
+            liveBroadcasts.append(broadcast)
+        }
+    }
+    
     func addBroadcast(broadcast: LiveBroadcast) -> LiveBroadcast {
         if let index = liveBroadcasts.indexOf({ $0.streamName == broadcast.streamName }) {
             let _broadcast = liveBroadcasts[index]
@@ -167,10 +173,18 @@ class Wrap: Contribution {
     }
     
     func removeBroadcast(broadcast: LiveBroadcast) {
-        if let index = liveBroadcasts.indexOf({ $0.streamName == broadcast.streamName }) {
+        removeBroadcastWhere({ $0.streamName == broadcast.streamName })
+        notifyOnUpdate(.LiveBroadcastsChanged)
+    }
+    
+    func removeBroadcastWhere(block: LiveBroadcast -> Bool) {
+        if let index = liveBroadcasts.indexOf(block) {
             liveBroadcasts.removeAtIndex(index)
         }
-        notifyOnUpdate(.LiveBroadcastsChanged)
+    }
+    
+    func removeBroadcastFrom(user: User) {
+        removeBroadcastWhere({ $0.broadcaster == user })
     }
     
     lazy var numberOfUnreadMessages: Int = {

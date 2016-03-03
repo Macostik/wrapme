@@ -263,13 +263,12 @@ extension HistoryViewController: EntryNotifying {
 extension HistoryViewController {
     
     override func back(sender: UIButton) {
-        let animate = UIApplication.sharedApplication().statusBarOrientation.isPortrait
         if let candy = candy?.validEntry() {
-            if let presenter = presenter where animate {
+            if let presenter = presenter where UIApplication.sharedApplication().statusBarOrientation.isPortrait {
                 navigationController?.popViewControllerAnimated(false)
                 presenter.dismiss(candy)
             } else {
-                navigationController?.popViewControllerAnimated(animate)
+                navigationController?.popViewControllerAnimated(false)
             }
         } else {
             navigationController?.popToRootViewControllerAnimated(false)

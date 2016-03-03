@@ -37,14 +37,33 @@ struct UserActivity {
     
     mutating func handleState(state: [NSObject:AnyObject]?, wrap: Wrap?) {
         if let info = state?["activity"] as? [String:AnyObject] {
-            self.info = info
-            if let type = info["type"] as? Int, let activityType = UserActivityType(rawValue: type) {
-                self.type = activityType
-                inProgress = info["in_progress"] as? Bool ?? false
-                if inProgress {
-                    self.wrap = wrap
-                }
+            handleActivity(info)
+            if inProgress {
+                self.wrap = wrap
             }
         }
+    }
+    
+    mutating func handleActivity(info: [String:AnyObject]) {
+        self.info = info
+        if let type = info["type"] as? Int, let activityType = UserActivityType(rawValue: type) {
+            self.type = activityType
+            inProgress = info["in_progress"] as? Bool ?? false
+        }
+    }
+    
+    mutating func clear() {
+        inProgress = false
+        info = [String:AnyObject]()
+        wrap = nil
+    }
+    
+    func generateLiveBroadcast() -> LiveBroadcast {
+        let broadcast = LiveBroadcast()
+        broadcast.broadcaster = user
+        broadcast.wrap = wrap
+        broadcast.title = info["title"] as? String
+        broadcast.streamName = info["streamName"] as? String ?? ""
+        return broadcast
     }
 }

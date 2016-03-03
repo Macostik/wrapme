@@ -266,7 +266,10 @@ class MediaViewController: WrapSegmentViewController {
         
         history = History(wrap: wrap)
         
-        dataSource.setRefreshableWithStyle(.Orange)
+        let refresher = Refresher(scrollView: streamView)
+        refresher.style = .Orange
+        refresher.addTarget(dataSource, action: "refresh:", forControlEvents: .ValueChanged)
+        refresher.addTarget(self, action: "refreshUserActivities", forControlEvents: .ValueChanged)
         
         uploadingView.uploader = Uploader.candyUploader
         
@@ -277,6 +280,14 @@ class MediaViewController: WrapSegmentViewController {
             dropDownCollectionView()
         }
         Wrap.notifier().addReceiver(self)
+    }
+    
+    func refreshUserActivities() {
+        if let wrap = wrap {
+            NotificationCenter.defaultCenter.refreshUserActivities(wrap, completionHandler: { [weak self] () -> Void in
+                self?.dataSource.reload()
+            })
+        }
     }
     
     func presentLiveBroadcast(broadcast: LiveBroadcast) {

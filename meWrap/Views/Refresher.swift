@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum RefresherStyle: Int {
+enum RefresherStyle {
     case White, Orange
 }
 

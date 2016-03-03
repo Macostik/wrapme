@@ -59,20 +59,19 @@ class SettingsViewController: BaseViewController {
     
     func addDemoImageWithCount(count: Int) {
         
-        for _ in 0...count {
-            RunQueue.entryFetchQueue.run { (finish) -> Void in
-                Dispatch.defaultQueue.async({ () -> Void in
-                    guard
-                        let url = NSURL(string: "https://placeimg.com/\(count % 2 == 0 ? "640/1136" : "1136/640")/any"),
-                        let data = NSData(contentsOfURL: url),
-                        let image = UIImage(data: data) else {
-                        finish()
-                        return
-                    }
+        Dispatch.defaultQueue.async({ () -> Void in
+            guard
+                let url = NSURL(string: "https://placeimg.com/\(count % 2 == 0 ? "640/1136" : "1136/640")/any"),
+                let data = NSData(contentsOfURL: url),
+                let image = UIImage(data: data) else { return }
+            for _ in 0...count {
+                RunQueue.entryFetchQueue.run { (finish) -> Void in
                     PHPhotoLibrary.addImage(image, success: finish, failure: { _ in finish() })
-                })
+                }
             }
-        }
+        })
+        
+        
     }
     
 }

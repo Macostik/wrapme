@@ -100,6 +100,7 @@ class WrapListViewController: BaseViewController {
                     $0.assets = [mutableAsset]
                     $0.delegate = self
                     $0.wrap = wrap
+                    $0.changeWrap = { [weak self] _ in self?.navigationController?.popViewControllerAnimated(false) }
                     self.navigationController?.pushViewController($0, animated: false)
                 })
             }

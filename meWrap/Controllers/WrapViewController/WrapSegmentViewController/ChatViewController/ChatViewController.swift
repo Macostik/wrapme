@@ -144,7 +144,8 @@ final class ChatViewController: WrapSegmentViewController {
     override func keyboardWillShow(keyboard: Keyboard) {
         super.keyboardWillShow(keyboard)
         keyboard.performAnimation {
-            streamView.contentInset = UIEdgeInsetsMake(0, 0, keyboard.height, 0)
+            streamView.contentInset.bottom = 0
+            streamView.contentInset.bottom = keyboard.height
             composeBar.transform = CGAffineTransformMakeTranslation(0, -keyboard.height)
             var offset = keyboard.height - (streamView.height - streamView.contentSize.height)
             offset = offset < 0 ? 0 : streamView.height - keyboard.height > offset || offset < streamView.height
@@ -273,8 +274,10 @@ extension ChatViewController: ComposeBarDelegate {
     }
     
     func composeBarDidChangeHeight(composeBar: ComposeBar) {
-        let offset = composeBar.text?.isEmpty == true ? streamView.maximumContentOffset.y : streamView.contentOffset.y
-        streamView.setContentOffset(CGPointMake(0, offset + composeBar.height - composeBarHeight), animated: composeBar.text?.isEmpty == true)
+        if composeBar.text?.isEmpty == true {
+            return
+        }
+        streamView.setContentOffset(CGPointMake(0, streamView.contentOffset.y + composeBar.height - composeBarHeight), animated: false)
         composeBarHeight = composeBar.height
     }
 }

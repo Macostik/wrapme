@@ -14,6 +14,28 @@ class WrapListViewController: BaseViewController {
     
     var sharePath: String? = nil
     
+    private lazy var url: NSURL = {
+        guard var url = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(Constants.groupIdentifier) else { return NSURL(fileURLWithPath: "") }
+        return url.URLByAppendingPathComponent("ShareExtension/" + (self.sharePath ?? ""))
+    }()
+    
+    private lazy var mutableAsset: MutableAsset? = {
+        let asset = MutableAsset()
+        guard let sharePath = self.sharePath else { return nil }
+        if sharePath.hasSuffix("jpeg") {
+            guard let image = UIImage(data: self.shareData) else { return nil }
+            asset.setImage(image)
+        } else {
+            asset.setVideoAtPath(self.url.path!)
+        }
+        return asset
+    }()
+    
+    private lazy var shareData: NSData = {
+        return NSFileManager.defaultManager().contentsAtPath(self.url.path!) ?? NSData()
+    }()
+    
+    
     @IBOutlet var wrapListDataSource: PaginatedStreamDataSource!
     @IBOutlet weak var streamView: StreamView!
     @IBOutlet weak var searchField: TextField!
@@ -55,29 +77,18 @@ class WrapListViewController: BaseViewController {
     func shareContent(wrap: Wrap) {
         guard let sharePath = sharePath else { return }
         let manager = NSFileManager.defaultManager()
-        guard var url = manager.containerURLForSecurityApplicationGroupIdentifier(Constants.groupIdentifier) else { return }
-        url = url.URLByAppendingPathComponent("ShareExtension/" + sharePath)
-        if manager.fileExistsAtPath(url.path!) {
-            guard let data = manager.contentsAtPath(url.path!) else { return }
+        guard let path = url.path else { return }
+        if manager.fileExistsAtPath(path) {
             if sharePath.hasSuffix("txt") {
-                guard let text = String(data: data, encoding: NSUTF8StringEncoding) else { return }
-                let message = Message.entry()
-                message.wrap = wrap
-                guard let wrapViewController = message.viewController() as? WrapViewController else { return }
-                wrapViewController.presentedText = text
-                wrapViewController.showKeyboard = true
-                self.navigationController?.pushViewController(wrapViewController, animated: false)
-            } else if sharePath.hasSuffix("jpeg") {
-                guard let image = UIImage(data: data) else { return}
-                Storyboard.UploadSummary.instantiate({
-                    let asset = MutableAsset()
-                    asset.setImage(image)
-                    $0.assets = [asset]
-                    $0.delegate = self
+                guard let text = String(data: shareData, encoding: NSUTF8StringEncoding) else { return }
+                Storyboard.Wrap.instantiate({
+                    $0.segment = .Chat
                     $0.wrap = wrap
+                    $0.presentedText = text
+                    $0.showKeyboard = true
                     self.navigationController?.pushViewController($0, animated: false)
                 })
-            } else if sharePath.hasSuffix("mp4") {
+            } else if sharePath.hasSuffix("jpeg") || sharePath.hasSuffix("mp4") {
                 if case let asset = AVAsset(URL: NSURL(fileURLWithPath: url.path!))
                     where asset.duration >= CMTimeMakeWithSeconds(Constants.maxVideoRecordedDuration + 1, 1) {
                         cancel(nil)
@@ -85,10 +96,8 @@ class WrapListViewController: BaseViewController {
                         return
                 }
                 Storyboard.UploadSummary.instantiate({
-                    let asset = MutableAsset()
-                    asset.type = .Video
-                    asset.setVideoAtPath(url.path!)
-                    $0.assets = [asset]
+                    guard let mutableAsset = mutableAsset else { return }
+                    $0.assets = [mutableAsset]
                     $0.delegate = self
                     $0.wrap = wrap
                     self.navigationController?.pushViewController($0, animated: false)

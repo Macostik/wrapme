@@ -101,7 +101,7 @@
 "APNS_TT06" = "A new version of meWrap is available";
 "APNS_MSG06" = "meWrap has a new update! Download it now!";
 "APNS_TT07" = "New video";
-"APNS_MSG07" = "%@ just send you a new video in \"%@\".";
+"APNS_MSG07" = "%@ just sent you a new video in \"%@\".";
 "APNS_TT08" = "Live Event";
 "APNS_MSG08" = "%@ is live: %@ (%@)";
 "reply" = "Reply";

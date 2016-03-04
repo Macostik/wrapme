@@ -45,6 +45,14 @@ class User: Entry {
         return activityForWrap(wrap)?.inProgress == true
     }
     
+    func isActiveInWrap(wrap: Wrap, type: UserActivityType) -> Bool {
+        if let activity = activityForWrap(wrap) {
+            return activity.type == type && activity.inProgress
+        } else {
+            return false
+        }
+    }
+    
     private func formatPhones(secure: Bool) -> String {
         let hiddenCharacter: Character = "*"
         let phones = devices.reduce("", combine: { (phones, device) -> String in

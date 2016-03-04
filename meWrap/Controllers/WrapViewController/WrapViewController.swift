@@ -258,9 +258,13 @@ final class WrapViewController: BaseViewController {
                 return false
             } else if $1.current {
                 return true
-            } else if $0.isActiveInWrap(wrap) && !$1.isActiveInWrap(wrap) {
+            } else if $0.isActiveInWrap(wrap, type: .Photo) && !$1.isActiveInWrap(wrap, type: .Photo) {
                 return true
-            } else if $1.isActiveInWrap(wrap) && !$0.isActiveInWrap(wrap) {
+            } else if $1.isActiveInWrap(wrap, type: .Photo) && !$0.isActiveInWrap(wrap, type: .Photo) {
+                return false
+            } else if $0.isActiveInWrap(wrap, type: .Typing) && !$1.isActiveInWrap(wrap, type: .Typing) {
+                return true
+            } else if $1.isActiveInWrap(wrap, type: .Typing) && !$0.isActiveInWrap(wrap, type: .Typing) {
                 return false
             } else if !$0.isActive && $1.isActive {
                 return false

@@ -60,7 +60,6 @@ class ShareViewController: UIViewController {
 
 extension NSItemProvider {
     func loadItemForTypeIdentifier(shareDataBlock: (NSData, String) -> Void) {
-        kUTTypeVideo
         if hasItemConformingToTypeIdentifier(String(kUTTypeImage)) == true {
             loadItemForTypeIdentifier(String(kUTTypeImage), options: nil) { (item, error) -> Void in
                 var shareData = NSData()
@@ -75,20 +74,28 @@ extension NSItemProvider {
                     shareDataBlock(shareData, ".jpeg")
                 }
             }
-        } else if hasItemConformingToTypeIdentifier(String(kUTTypeMovie)) == true {
-                loadItemForTypeIdentifier(String(kUTTypeMovie), options: nil) { (item, error) -> Void in
-                    var shareData = NSData()
-                    if error == nil {
-                        if let url = item as? NSURL {
-                            if let imageData = NSData(contentsOfURL: url) {
-                                shareData = imageData
-                            }
-                        } else if let imageData = item as? NSData {
-                            shareData = imageData
-                        }
-                        shareDataBlock(shareData, ".mp4")
+        } else if hasItemConformingToTypeIdentifier(String(kUTTypeQuickTimeMovie)) == true {
+            loadItemForTypeIdentifier(String(kUTTypeQuickTimeMovie), options: nil) { (item, error) -> Void in
+                if error == nil, let item = item as? NSURL {
+                    if let shareData = item.path!.dataUsingEncoding(NSUTF8StringEncoding) {
+                        shareDataBlock(shareData, ".asset")
                     }
                 }
+            }
+        } else if hasItemConformingToTypeIdentifier(String(kUTTypeMovie)) == true {
+            loadItemForTypeIdentifier(String(kUTTypeMovie), options: nil) { (item, error) -> Void in
+                var shareData = NSData()
+                if error == nil {
+                    if let url = item as? NSURL {
+                        if let imageData = NSData(contentsOfURL: url) {
+                            shareData = imageData
+                        }
+                    } else if let imageData = item as? NSData {
+                        shareData = imageData
+                    }
+                    shareDataBlock(shareData, ".mp4")
+                }
+            }
         } else if hasItemConformingToTypeIdentifier(String(kUTTypeURL)) == true {
             loadItemForTypeIdentifier(String(kUTTypeURL), options: nil) { (item, error) -> Void in
                 if error == nil, let item = item {

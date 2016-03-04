@@ -25,6 +25,11 @@ class WrapListViewController: BaseViewController {
         if sharePath.hasSuffix("jpeg") {
             guard let image = UIImage(data: self.shareData) else { return nil }
             asset.setImage(image)
+        } else if sharePath.hasSuffix("asset") {
+            guard let path = String(data: self.shareData, encoding: NSUTF8StringEncoding) else { return nil }
+            asset.type = .Video
+            asset.date = NSDate.now()
+            asset.setVideoAtPath(path)
         } else {
             asset.setVideoAtPath(self.url.path!)
         }
@@ -88,12 +93,12 @@ class WrapListViewController: BaseViewController {
                     $0.showKeyboard = true
                     self.navigationController?.pushViewController($0, animated: false)
                 })
-            } else if sharePath.hasSuffix("jpeg") || sharePath.hasSuffix("mp4") {
+            } else if sharePath.hasSuffix("jpeg") || sharePath.hasSuffix("mp4") || sharePath.hasSuffix("asset") {
                 if case let asset = AVAsset(URL: NSURL(fileURLWithPath: url.path!))
-                    where asset.duration >= CMTimeMakeWithSeconds(Constants.maxVideoRecordedDuration + 1, 1) {
-                        cancel(nil)
-                        Toast.show(String(format:"formatted_upload_video_duration_limit".ls, Constants.maxVideoRecordedDuration))
-                        return
+                    where CMTimeGetSeconds(asset.duration) >= Constants.maxVideoRecordedDuration + 1 {
+                    cancel(nil)
+                    Toast.show(String(format:"formatted_upload_video_duration_limit".ls, Constants.maxVideoRecordedDuration))
+                    return
                 }
                 Storyboard.UploadSummary.instantiate({
                     guard let mutableAsset = mutableAsset else { return }

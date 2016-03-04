@@ -185,13 +185,18 @@ class FlowerMenu: UIView {
         hide()
     }
     
+    let headerHeight: CGFloat = 50.0 + 50.0 + 64.0
+    
     override func drawRect(rect: CGRect) {
         if let view = currentView {
             let ctx = UIGraphicsGetCurrentContext()
             let color = UIColor(white: 0, alpha: 0.6)
             CGContextSetFillColorWithColor(ctx, color.CGColor)
             CGContextFillRect (ctx, rect)
-            let frame = convertRect(view.bounds, fromView:view)
+            var frame = convertRect(view.bounds, fromView:view)
+            let origin = frame.origin
+            frame = CGRectMake(origin.x, origin.y > headerHeight ? origin.y : origin.y + (headerHeight - origin.y),
+                               frame.width, origin.y > headerHeight ? frame.height : frame.height - (headerHeight - origin.y))
             CGContextSetShadowWithColor (ctx, CGSizeZero, 15.0, color.CGColor)
             CGContextClearRect(ctx, frame)
         }

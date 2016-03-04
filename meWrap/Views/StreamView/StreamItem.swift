@@ -37,7 +37,7 @@ final class StreamItem {
     }
     
     weak var previous: StreamItem?
-    var next: StreamItem?
+    weak var next: StreamItem?
     
     var column: Int = 0
     var hidden: Bool = false

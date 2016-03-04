@@ -58,11 +58,13 @@ final class StreamView: UIScrollView {
     
     static var locks: Int = 0
     
-    private var currentLayoutItem: StreamItem?
+    private weak var currentLayoutItem: StreamItem?
     
-    private var rootItem: StreamItem?
+    private weak var rootItem: StreamItem?
     
-    private var latestVisibleItem: StreamItem?
+    private weak var latestVisibleItem: StreamItem?
+    
+    private var items = [StreamItem]()
     
     deinit {
         delegate = nil
@@ -108,6 +110,7 @@ final class StreamView: UIScrollView {
             }
             item = next.next
         }
+        items.removeAll()
         rootItem = nil
         currentLayoutItem = nil
         latestVisibleItem = nil
@@ -238,6 +241,7 @@ final class StreamView: UIScrollView {
         if rootItem == nil {
             rootItem = item
         }
+        items.append(item)
         return item
     }
     

@@ -310,6 +310,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
             guard let wrap = Wrap.entry(data.actualChannel, allowInsert: false) else { return }
             if user.activity.inProgress && user.activity.wrap == wrap {
                 user.activity.inProgress = false
+                user.activity.notifyIfNeeded()
                 if user.activity.type == .Live {
                     for broadcast in wrap.liveBroadcasts where broadcast.broadcaster == user {
                         wrap.removeBroadcast(broadcast)

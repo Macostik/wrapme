@@ -15,11 +15,20 @@ enum UserActivityType: Int {
 
 struct UserActivity {
     
+    private var needsNotify = false
+    
     var inProgress = false {
         didSet {
             if inProgress != oldValue {
-                Dispatch.mainQueue.async({ self.user?.notifyOnUpdate(.UserStatus) })
+                needsNotify = true
             }
+        }
+    }
+    
+    mutating func notifyIfNeeded() {
+        if needsNotify {
+            needsNotify = false
+            Dispatch.mainQueue.async({ self.user?.notifyOnUpdate(.UserStatus) })
         }
     }
     
@@ -27,7 +36,13 @@ struct UserActivity {
     
     weak var wrap: Wrap?
     
-    var type: UserActivityType = .None
+    var type: UserActivityType = .None {
+        didSet {
+            if type != oldValue {
+                needsNotify = true
+            }
+        }
+    }
     
     var info = [String:AnyObject]()
     
@@ -50,12 +65,14 @@ struct UserActivity {
             self.type = activityType
             inProgress = info["in_progress"] as? Bool ?? false
         }
+        notifyIfNeeded()
     }
     
     mutating func clear() {
         inProgress = false
         info = [String:AnyObject]()
         wrap = nil
+        notifyIfNeeded()
     }
     
     func generateLiveBroadcast() -> LiveBroadcast {

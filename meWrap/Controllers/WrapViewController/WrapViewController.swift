@@ -258,6 +258,10 @@ final class WrapViewController: BaseViewController {
                 return false
             } else if $1.current {
                 return true
+            } else if $0.isActiveInWrap(wrap, type: .Video) && !$1.isActiveInWrap(wrap, type: .Video) {
+                return true
+            } else if $1.isActiveInWrap(wrap, type: .Video) && !$0.isActiveInWrap(wrap, type: .Video) {
+                return false
             } else if $0.isActiveInWrap(wrap, type: .Photo) && !$1.isActiveInWrap(wrap, type: .Photo) {
                 return true
             } else if $1.isActiveInWrap(wrap, type: .Photo) && !$0.isActiveInWrap(wrap, type: .Photo) {

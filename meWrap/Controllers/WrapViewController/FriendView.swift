@@ -18,8 +18,16 @@ final class FriendView: StreamReusableView {
         }
         
         func layout() {
+            cornerRadius = 10
             clipsToBounds = true
             backgroundColor = Color.dangerRed
+        }
+        
+        func layoutInFriendView(friendView: FriendView) {
+            snp_makeConstraints { (make) -> Void in
+                make.size.equalTo(20)
+                make.center.equalTo(friendView.statusView)
+            }
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -34,9 +42,7 @@ final class FriendView: StreamReusableView {
         override func layout() {
             super.layout()
             addSubview(iconView)
-            iconView.snp_makeConstraints { (make) -> Void in
-                make.center.equalTo(self)
-            }
+            iconView.snp_makeConstraints { $0.center.equalTo(self) }
             let animationGroup = CAAnimationGroup()
             
             let transformAnimation = CABasicAnimation(keyPath: "transform")
@@ -57,6 +63,34 @@ final class FriendView: StreamReusableView {
         }
     }
     
+    class VideoActivityAnimationView: ActivityAnimationView {
+        
+        private let cameraLayer1 = CAShapeLayer()
+        
+        private let cameraLayer2 = CAShapeLayer()
+        
+        override func layout() {
+            super.layout()
+            cameraLayer1.frame = CGRectMake(4, 6, 8, 8)
+            let path1 = UIBezierPath(roundedRect: CGRectMake(0, 0, 8, 8), cornerRadius: 1)
+            cameraLayer1.path = path1.CGPath
+            cameraLayer1.fillColor = UIColor.whiteColor().CGColor
+            cameraLayer2.frame = CGRectMake(13, 7, 3, 6)
+            let path2 = UIBezierPath().move(3, 0).line(3, 6).line(0, 5).line(0, 1).line(3, 0)
+            cameraLayer2.path = path2.CGPath
+            cameraLayer2.fillColor = UIColor.whiteColor().CGColor
+            layer.addSublayer(cameraLayer1)
+            layer.addSublayer(cameraLayer2)
+            let opacityAnimation = CABasicAnimation(keyPath: "opacity")
+            opacityAnimation.toValue = 0
+            opacityAnimation.duration = 0.6
+            opacityAnimation.autoreverses = true
+            opacityAnimation.removedOnCompletion = false
+            opacityAnimation.repeatCount = FLT_MAX
+            cameraLayer2.addAnimation(opacityAnimation, forKey: nil)
+        }
+    }
+    
     private let avatarView = ImageView(backgroundColor: UIColor.whiteColor())
     
     private let statusView = UIView()
@@ -65,12 +99,8 @@ final class FriendView: StreamReusableView {
         didSet {
             oldValue?.removeFromSuperview()
             if let view = activityAnimationView {
-                view.cornerRadius = 10
                 addSubview(view)
-                view.snp_makeConstraints { (make) -> Void in
-                    make.size.equalTo(20)
-                    make.center.equalTo(statusView)
-                }
+                view.layoutInFriendView(self)
             }
         }
     }
@@ -109,6 +139,9 @@ final class FriendView: StreamReusableView {
             if friend.activity.inProgress {
                 if friend.activity.type == .Photo {
                     activityAnimationView = PhotoActivityAnimationView()
+                    statusView.hidden = true
+                } else if friend.activity.type == .Video {
+                    activityAnimationView = VideoActivityAnimationView()
                     statusView.hidden = true
                 } else {
                     activityAnimationView = nil

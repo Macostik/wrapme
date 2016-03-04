@@ -91,7 +91,7 @@ class LiveViewerViewController: LiveViewController {
                 if let uuids = result?.data?.uuids as? [[String:AnyObject]] {
                     for uuid in uuids {
                         guard let activity = uuid["state"]?["activity"] as? [String:AnyObject] else { continue }
-                        guard activity["type"] as? Int == UserActivityType.Streaming.rawValue else { continue }
+                        guard activity["type"] as? Int == UserActivityType.Live.rawValue else { continue }
                         guard let streamName = activity["streamName"] as? String else { continue }
                         if streamName == broadcast.streamName {
                             self?.broadcastExists = true

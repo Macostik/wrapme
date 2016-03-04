@@ -38,8 +38,16 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     
     weak var wrap: Wrap? {
         didSet {
+            if viewAppeared {
+                NotificationCenter.defaultCenter.setActivity(oldValue, type: .Photo, inProgress: false)
+            }
+            
             if isViewLoaded() {
                 setupWrapView(wrap)
+            }
+            
+            if viewAppeared {
+                NotificationCenter.defaultCenter.setActivity(wrap, type: .Photo, inProgress: true)
             }
         }
     }
@@ -59,6 +67,16 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
         recognizer.allowableMovement = takePhotoButton.width
         recognizer.delegate = self
         takePhotoButton.addGestureRecognizer(recognizer)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        NotificationCenter.defaultCenter.setActivity(wrap, type: .Photo, inProgress: true)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.defaultCenter.setActivity(wrap, type: .Photo, inProgress: false)
     }
     
     internal func updateVideoRecordingViews(recording: Bool) {
@@ -97,6 +115,7 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     }
     
     private func prepareSessionForVideoRecording(preparingCompletion: Block) {
+        NotificationCenter.defaultCenter.setActivity(wrap, type: .Video, inProgress: true)
         VolumeChangeObserver.sharedObserver.unregister()
         if !session.containsOutput(movieFileOutput) {
             blurCamera({ (completion) -> Void in
@@ -138,6 +157,7 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     }
     
     private func prepareSessionForPhotoTaking() {
+        NotificationCenter.defaultCenter.setActivity(wrap, type: .Photo, inProgress: true)
         registerOnVolumeChange()
         let output = stillImageOutput
         if !session.containsOutput(output) {

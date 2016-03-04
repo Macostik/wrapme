@@ -220,12 +220,15 @@ class NotificationCenter: NSObject {
     }
     
     func sendTyping(typing: Bool, wrap: Wrap) {
-        let state = [
-            "activity" : [
-                "type" : UserActivityType.Typing.rawValue,
-                "in_progress" : typing
-            ]
-        ]
+        setActivity(wrap, type: .Typing, inProgress: typing)
+    }
+    
+    func setActivity(wrap: Wrap?, type: UserActivityType, inProgress: Bool, info: [String:AnyObject]? = nil) {
+        guard let wrap = wrap else { return }
+        var _info = info ?? [String:AnyObject]()
+        _info["type"] = type.rawValue
+        _info["in_progress"] = inProgress
+        let state = [ "activity" : _info ]
         PubNub.sharedInstance.setState(state, forUUID: User.channelName(), onChannel: wrap.uid, withCompletion: nil)
     }
 }
@@ -239,11 +242,15 @@ extension NotificationCenter: PNObjectEventListener {
     }
     
     func client(client: PubNub!, didReceivePresenceEvent event: PNPresenceEventResult!) {
-        print("PUBNUB - did receive presence event: \(event.data.presenceEvent)")
+        #if DEBUG
+            print("PUBNUB - did receive presence event: \(event.data.presenceEvent)")
+        #endif
     }
     
     func client(client: PubNub!, didReceiveStatus status: PNStatus!) {
-        print("PUBNUB - subscribtion status: \(status.debugDescription)")
+        #if DEBUG
+            print("PUBNUB - subscribtion status: \(status.debugDescription)")
+        #endif
         if status?.category == .PNConnectedCategory {
             if let status = status as? PNSubscribeStatus where status.subscribedChannelGroups?.count > 0 {
                 requestHistory()
@@ -286,7 +293,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
         if event == "state-change" {
             guard let wrap = Wrap.entry(data.actualChannel) else { return }
             user.activity.handleState(data.presence?.state, wrap: wrap)
-            if user.activity.type == .Streaming {
+            if user.activity.type == .Live {
                 if user.activity.inProgress {
                     user.fetchIfNeeded({ _ in
                         let broadcast = user.activity.generateLiveBroadcast()
@@ -303,7 +310,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
             guard let wrap = Wrap.entry(data.actualChannel, allowInsert: false) else { return }
             if user.activity.inProgress && user.activity.wrap == wrap {
                 user.activity.inProgress = false
-                if user.activity.type == .Streaming {
+                if user.activity.type == .Live {
                     for broadcast in wrap.liveBroadcasts where broadcast.broadcaster == user {
                         wrap.removeBroadcast(broadcast)
                         break
@@ -333,7 +340,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
         let users = activeUsers(uuids, wrap: wrap)
         for user in users {
             let activity = user.activity
-            if activity.inProgress && activity.type == .Streaming && activity.wrap == wrap {
+            if activity.inProgress && activity.type == .Live && activity.wrap == wrap {
                 let broadcast = activity.generateLiveBroadcast()
                 broadcasts.append(broadcast)
             }
@@ -403,7 +410,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
                             user.activity.handleActivity(activity)
                             let wrap = Wrap.entry(channel)
                             user.activity.wrap = wrap
-                            if user.activity.inProgress && user.activity.type == .Streaming {
+                            if user.activity.inProgress && user.activity.type == .Live {
                                 let broadcast = user.activity.generateLiveBroadcast()
                                 wrap?.addBroadcastIfNeeded(broadcast)
                             }
@@ -432,7 +439,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
                     if let activity = result.activities[userUid] {
                         user.activity.handleActivity(activity)
                         user.activity.wrap = wrap
-                        if user.activity.inProgress && user.activity.type == .Streaming {
+                        if user.activity.inProgress && user.activity.type == .Live {
                             let broadcast = user.activity.generateLiveBroadcast()
                             wrap.addBroadcastIfNeeded(broadcast)
                         }

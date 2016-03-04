@@ -10,7 +10,7 @@ import UIKit
 import PubNub
 
 enum UserActivityType: Int {
-    case None = 0, Typing, Streaming
+    case None = 0, Typing, Live, Photo, Video
 }
 
 struct UserActivity {

@@ -139,6 +139,7 @@
 		C535D6991C045476002BCE34 /* OverlayImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C535D6981C045476002BCE34 /* OverlayImageView.swift */; };
 		C535D69B1C045B56002BCE34 /* WrapCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C535D69A1C045B56002BCE34 /* WrapCoverView.swift */; };
 		C53644681C6213920002232C /* SwipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53644671C6213920002232C /* SwipeViewController.swift */; };
+		C538EA141C8996EB0011767B /* FriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C538EA131C8996EB0011767B /* FriendView.swift */; };
 		C53A02321C0D8961003B3D1F /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */; };
 		C53A02331C0D8961003B3D1F /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */; };
 		C53A02341C0D8961003B3D1F /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */; };
@@ -588,6 +589,7 @@
 		C535D6981C045476002BCE34 /* OverlayImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayImageView.swift; sourceTree = "<group>"; };
 		C535D69A1C045B56002BCE34 /* WrapCoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapCoverView.swift; sourceTree = "<group>"; };
 		C53644671C6213920002232C /* SwipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeViewController.swift; sourceTree = "<group>"; };
+		C538EA131C8996EB0011767B /* FriendView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendView.swift; sourceTree = "<group>"; };
 		C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryImageCache.swift; sourceTree = "<group>"; };
 		C53BC4851C05B32C0009B0B9 /* AssetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsViewController.swift; sourceTree = "<group>"; };
 		C53BC48D1C05FE620009B0B9 /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
@@ -1089,6 +1091,7 @@
 			children = (
 				C553DB2A1C6DF7BA001B13C7 /* CandyCell.swift */,
 				C553DB291C6DF7BA001B13C7 /* WrapViewController.swift */,
+				C538EA131C8996EB0011767B /* FriendView.swift */,
 				C553DB2B1C6DF7BA001B13C7 /* WrapSegmentViewController */,
 			);
 			path = WrapViewController;
@@ -2089,6 +2092,7 @@
 				C53644681C6213920002232C /* SwipeViewController.swift in Sources */,
 				C54743441C09CD8A00BECB25 /* ImageFetcher.swift in Sources */,
 				5BCC41911C4E40FC0047E7C2 /* WrapSettingsViewController.swift in Sources */,
+				C538EA141C8996EB0011767B /* FriendView.swift in Sources */,
 				C57E1CCB1B98930900E2303B /* StreamView.swift in Sources */,
 				C5F11E521C64A21C001C2486 /* PhoneViewController.swift in Sources */,
 				C517FD7C1C4D07E100A7EE55 /* LiveBroadcasterViewController.swift in Sources */,

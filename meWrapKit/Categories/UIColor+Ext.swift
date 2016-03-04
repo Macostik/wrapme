@@ -9,20 +9,21 @@
 import UIKit
 
 struct Color {
-    static var grayDarker = UIColor(hex: 0x222222, alpha: 1)
-    static var grayDark = UIColor(hex: 0x333333, alpha: 1)
-    static var gray = UIColor(hex: 0x555555, alpha: 1)
-    static var grayLight = UIColor(hex: 0x777777, alpha: 1)
-    static var grayLighter = UIColor(hex: 0x999999, alpha: 1)
-    static var grayLightest = UIColor(hex: 0xeeeeee, alpha: 1)
-    static var orangeDarker = UIColor(hex: 0xa13e00, alpha: 1)
-    static var orangeDark = UIColor(hex: 0xcb5309, alpha: 1)
-    static var orange = UIColor(hex: 0xf37526, alpha: 1)
-    static var orangeLight = UIColor(hex: 0xff9350, alpha: 1)
-    static var orangeLighter = UIColor(hex: 0xffac79, alpha: 1)
-    static var orangeLightest = UIColor(hex: 0xfbd5bd, alpha: 1)
-    static var dangerRed = UIColor(hex: 0xd9534f, alpha: 1)
-    static var green = UIColor(hex: 0x5cb85c, alpha: 1)
+    static let grayDarker = UIColor(hex: 0x222222)
+    static let grayDark = UIColor(hex: 0x333333)
+    static let gray = UIColor(hex: 0x555555)
+    static let grayLight = UIColor(hex: 0x777777)
+    static let grayLighter = UIColor(hex: 0x999999)
+    static let grayLightest = UIColor(hex: 0xeeeeee)
+    static let orangeDarker = UIColor(hex: 0xa13e00)
+    static let orangeDark = UIColor(hex: 0xcb5309)
+    static let orange = UIColor(hex: 0xf37526)
+    static let orangeLight = UIColor(hex: 0xff9350)
+    static let orangeLighter = UIColor(hex: 0xffac79)
+    static let orangeLightest = UIColor(hex: 0xfbd5bd)
+    static let dangerRed = UIColor(hex: 0xd9534f)
+    static let green = UIColor(hex: 0x5cb85c)
+    static let greenOnline = UIColor(hex: 0x66d17a)
 }
 
 extension UIColor {

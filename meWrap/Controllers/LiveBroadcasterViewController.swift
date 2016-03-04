@@ -37,14 +37,6 @@ final class LiveBroadcasterViewController: LiveViewController {
         }
     }
     
-    private var userState = [NSObject:AnyObject]() {
-        didSet {
-            if let channel = wrap?.uid {
-                NotificationCenter.defaultCenter.userSubscription.changeState(userState, channel: channel)
-            }
-        }
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         let center = NSNotificationCenter.defaultCenter()
@@ -196,7 +188,7 @@ final class LiveBroadcasterViewController: LiveViewController {
     }
     
     func stopBroadcast() {
-        userState = ["activity" : ["type":UserActivityType.Streaming.rawValue,"in_progress":false]]
+        NotificationCenter.defaultCenter.setActivity(wrap, type: .Live, inProgress: false)
         releaseConnection()
         stopCapture()
     }
@@ -222,14 +214,10 @@ final class LiveBroadcasterViewController: LiveViewController {
             
             let broadcast = _self.broadcast
             
-            _self.userState = [
-                "activity" : [
-                    "type" : UserActivityType.Streaming.rawValue,
-                    "in_progress" : true,
-                    "streamName" : broadcast.streamName,
-                    "title" : broadcast.title ?? ""
-                ]
-            ]
+            NotificationCenter.defaultCenter.setActivity(wrap, type: .Live, inProgress: true, info: [
+                "streamName" : broadcast.streamName,
+                "title" : broadcast.title ?? ""
+                ])
             
             let message: [NSObject : AnyObject] = [
                 "pn_apns" : [
@@ -280,18 +268,14 @@ final class LiveBroadcasterViewController: LiveViewController {
     }
     
     func focusing(sender: UITapGestureRecognizer) {
-        guard let layer = previewLayer, let session = layer.session where session.running else {
-            return
-        }
+        guard let layer = previewLayer, let session = layer.session where session.running else { return }
         
         self.focusView?.removeFromSuperview()
         
         let point = sender.locationInView(view)
         let pointOfInterest = layer.captureDevicePointOfInterestForPoint(point)
         
-        guard let device = videoCamera() else {
-            return
-        }
+        guard let device = videoCamera() else { return }
         
         do {
             try device.lockForConfiguration()
@@ -314,9 +298,7 @@ final class LiveBroadcasterViewController: LiveViewController {
             self.focusView = focusView
             UIView.animateWithDuration(0.33, delay: 1.0, options: .CurveEaseInOut, animations: { () -> Void in
                 focusView.alpha = 0.0
-                }) { (_) -> Void in
-                    focusView.removeFromSuperview()
-            }
+                }) { _ in focusView.removeFromSuperview() }
         } catch { }
     }
     

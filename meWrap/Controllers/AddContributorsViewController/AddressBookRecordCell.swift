@@ -18,29 +18,29 @@ import Foundation
     func recordCellDidToggle(cell: AddressBookRecordCell)
 }
 
-class AddressBookRecordCell: StreamReusableView {
+final class AddressBookRecordCell: StreamReusableView {
     
     @IBOutlet weak var delegate: AddressBookRecordCellDelegate!
     
-    @IBOutlet weak var selectButton: UIButton!
-    @IBOutlet weak var streamView: StreamView!
+    @IBOutlet weak var selectButton: UIButton?
+    @IBOutlet weak var streamView: StreamView?
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var avatarView: ImageView!
-    @IBOutlet weak var openView: UIButton!
+    @IBOutlet weak var openView: UIButton?
     @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var pandingLabel: UILabel!
-    @IBOutlet weak var statusButton: UIButton!
-    @IBOutlet weak var phoneLabel: UILabel!
-    @IBOutlet weak var statusPrioritizer: LayoutPrioritizer!
-    var dataSource: StreamDataSource?
+    @IBOutlet weak var pandingLabel: UILabel?
+    @IBOutlet weak var statusButton: UIButton?
+    @IBOutlet weak var phoneLabel: UILabel?
+    @IBOutlet weak var statusPrioritizer: LayoutPrioritizer?
+    private var dataSource: StreamDataSource?
     
     var state: AddressBookPhoneNumberState = .Default {
         willSet {
             if newValue == .Added {
-                selectButton.enabled = false
+                selectButton?.enabled = false
             } else {
-                selectButton.enabled = true
-                selectButton.selected = newValue == .Selected
+                selectButton?.enabled = true
+                selectButton?.selected = newValue == .Selected
             }
         }
     }
@@ -48,26 +48,28 @@ class AddressBookRecordCell: StreamReusableView {
     var opened: Bool = false {
         willSet {
             UIView.beginAnimations(nil, context: nil)
-            openView.selected = newValue
+            openView?.selected = newValue
             UIView.commitAnimations()
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        statusButton?.borderColor = Color.greenOnline
+        statusButton?.setTitleColor(Color.greenOnline, forState: .Normal)
         if let streamView = streamView {
             dataSource = StreamDataSource(streamView: streamView)
-            dataSource?.addMetrics(StreamMetrics(loader: LayoutStreamLoader<AddressBookPhoneNumberCell>()).change({ metrics in
+            dataSource?.addMetrics(StreamMetrics(loader: LayoutStreamLoader<AddressBookPhoneNumberCell>()).change({ [weak self] metrics in
                 metrics.size = 50.0
                 metrics.selectable = true
-                metrics.finalizeAppearing = { [weak self] item, view in
+                metrics.finalizeAppearing = { item, view in
                     let cell = view as? AddressBookPhoneNumberCell
                     let phoneNumber = item.entry as? AddressBookPhoneNumber
                     if let weakSelf = self, let phoneNumber = phoneNumber {
                         cell?.checked = weakSelf.delegate.recordCell(weakSelf, phoneNumberState: phoneNumber) != .Default
                     }
                 }
-                metrics.selection = { [weak self] item, phoneNumber in
+                metrics.selection = { item, phoneNumber in
                     if let weakSelf = self, let phoneNumber = phoneNumber as? AddressBookPhoneNumber {
                         weakSelf.delegate.recordCell(weakSelf, didSelectPhoneNumber: phoneNumber)
                     }
@@ -88,15 +90,14 @@ class AddressBookRecordCell: StreamReusableView {
         }
         avatarView.url = url
         
-
         if streamView != nil {
             layoutIfNeeded()
             dataSource?.items = record.phoneNumbers
             statusLabel.text = "invite_me_to_meWrap".ls
         } else {
             let user = phoneNumber.user
-            phoneLabel.text = record.phoneStrings
-            pandingLabel.text = user?.isInvited ?? false ? "sign_up_pending".ls : ""
+            phoneLabel?.text = record.phoneStrings
+            pandingLabel?.text = user?.isInvited ?? false ? "sign_up_pending".ls : ""
             if phoneNumber.activated {
                 statusLabel.text = "signup_status".ls
             } else if (user != nil) {

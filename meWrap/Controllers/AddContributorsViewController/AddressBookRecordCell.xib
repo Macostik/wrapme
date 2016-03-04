@@ -56,7 +56,7 @@
                         <action selector="_select:" destination="Jar-VG-l4q" eventType="touchUpInside" id="REA-g3-yfo"/>
                     </connections>
                 </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bV4-an-v8O" userLabel="Status Button" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bV4-an-v8O" userLabel="Status Button" customClass="Button" customModule="meWrap" customModuleProvider="target">
                     <rect key="frame" x="233" y="24" width="76" height="23"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -69,7 +69,6 @@
                     </state>
                     <state key="disabled" title="INVITED"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="NO"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="5"/>
                         </userDefinedRuntimeAttribute>
@@ -100,7 +99,6 @@
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SH-Wi-uR7" userLabel="Status Label" customClass="Label" customModule="meWrap" customModuleProvider="target">
@@ -111,7 +109,6 @@
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="+380955522220" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUV-8d-GXp" userLabel="Phone Label" customClass="Label" customModule="meWrap" customModuleProvider="target">

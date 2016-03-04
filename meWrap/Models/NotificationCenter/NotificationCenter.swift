@@ -243,7 +243,7 @@ extension NotificationCenter: PNObjectEventListener {
     
     func client(client: PubNub!, didReceivePresenceEvent event: PNPresenceEventResult!) {
         #if DEBUG
-            print("PUBNUB - did receive presence event: \(event.data.presenceEvent)")
+            print("PUBNUB - did receive presence event: \(event.data)")
         #endif
     }
     

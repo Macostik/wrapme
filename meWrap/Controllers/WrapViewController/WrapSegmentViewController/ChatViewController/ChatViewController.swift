@@ -160,7 +160,7 @@ final class ChatViewController: WrapSegmentViewController {
             streamView.contentInset = UIEdgeInsetsZero
             composeBar.transform = CGAffineTransformIdentity
             let yOffset = abs(streamView.maximumContentOffset.y - streamView.contentOffset.y) < Chat.MessageSpacing ?
-            self.streamView.maximumContentOffset.y : self.streamView.contentOffset.y - keyboard.height
+                self.streamView.maximumContentOffset.y : self.streamView.contentOffset.y - keyboard.height
             streamView.setContentOffset(CGPointMake(0, yOffset), animated: false)
         }
     }
@@ -172,20 +172,20 @@ final class ChatViewController: WrapSegmentViewController {
         }
         
         runQueue.run { [weak self] (finish) -> Void in
-            
             guard let _self = self else {
                 finish()
                 return
             }
-            
             let streamView = _self.streamView
-            
             if _self.chat.entries.contains({ $0 === message }) {
                 finish()
             } else {
                 _self.chat.add(message)
                 let offset = streamView.contentOffset
                 let maximumOffset = streamView.maximumContentOffset
+                if let user = message.contributor where user != User.currentUser {
+                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                }
                 if !streamView.scrollable || offset.y < maximumOffset.y {
                     finish()
                 } else {

@@ -38,19 +38,15 @@ class User: Entry {
     lazy var activity: UserActivity = UserActivity(user: self)
     
     func activityForWrap(wrap: Wrap) -> UserActivity? {
-        return activity.wrap == wrap ? activity : nil
+        return (activity.wrap == wrap && activity.inProgress) ? activity : nil
     }
     
     func isActiveInWrap(wrap: Wrap) -> Bool {
-        return activityForWrap(wrap)?.inProgress == true
+        return activityForWrap(wrap) != nil
     }
     
     func isActiveInWrap(wrap: Wrap, type: UserActivityType) -> Bool {
-        if let activity = activityForWrap(wrap) {
-            return activity.type == type && activity.inProgress
-        } else {
-            return false
-        }
+        return activityForWrap(wrap)?.type == type
     }
     
     private func formatPhones(secure: Bool) -> String {

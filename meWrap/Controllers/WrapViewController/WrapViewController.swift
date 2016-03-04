@@ -254,33 +254,43 @@ final class WrapViewController: BaseViewController {
     private func updateFriendsBar(wrap: Wrap) {
         let maxFriendsCount = Int((Constants.screenWidth - moreFriendsLabel.width) / friendsStreamView.height)
         let contributors = wrap.contributors.sort {
+            
             if $0.current {
                 return false
             } else if $1.current {
                 return true
-            } else if $0.isActiveInWrap(wrap, type: .Video) && !$1.isActiveInWrap(wrap, type: .Video) {
-                return true
-            } else if $1.isActiveInWrap(wrap, type: .Video) && !$0.isActiveInWrap(wrap, type: .Video) {
-                return false
-            } else if $0.isActiveInWrap(wrap, type: .Photo) && !$1.isActiveInWrap(wrap, type: .Photo) {
-                return true
-            } else if $1.isActiveInWrap(wrap, type: .Photo) && !$0.isActiveInWrap(wrap, type: .Photo) {
-                return false
-            } else if $0.isActiveInWrap(wrap, type: .Typing) && !$1.isActiveInWrap(wrap, type: .Typing) {
-                return true
-            } else if $1.isActiveInWrap(wrap, type: .Typing) && !$0.isActiveInWrap(wrap, type: .Typing) {
-                return false
-            } else if !$0.isActive && $1.isActive {
-                return false
-            } else if !$1.isActive && $0.isActive {
-                return true
-            } else if ($0.avatar?.small?.isEmpty ?? true) && !($1.avatar?.small?.isEmpty ?? true) {
-                return false
-            } else if ($1.avatar?.small?.isEmpty ?? true) && !($0.avatar?.small?.isEmpty ?? true) {
-                return true
-            } else {
-                return $0.name < $1.name
             }
+            
+            let activity0 = $0.activityForWrap(wrap)
+            let activity1 = $1.activityForWrap(wrap)
+            if activity0?.type != activity1?.type {
+                if activity0?.type == .Video {
+                    return true
+                } else if activity1?.type == .Video {
+                    return false
+                } else if activity0?.type == .Photo {
+                    return true
+                } else if activity1?.type == .Photo {
+                    return false
+                } else if activity0?.type == .Typing{
+                    return true
+                } else if activity1?.type == .Typing {
+                    return false
+                }
+            }
+            
+            if $0.isActive != $1.isActive {
+                return $0.isActive
+            }
+            
+            let noAvatar0 = ($0.avatar?.small?.isEmpty ?? true)
+            let noAvatar1 = ($1.avatar?.small?.isEmpty ?? true)
+            
+            if noAvatar0 != noAvatar1 {
+                return noAvatar1
+            }
+            
+            return $0.name < $1.name
             }.prefix(maxFriendsCount)
         moreFriendsLabel.hidden = wrap.contributors.count <= maxFriendsCount
         friendsDataSource.items = Array(contributors)

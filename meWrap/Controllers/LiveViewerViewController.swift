@@ -65,7 +65,7 @@ class LiveViewerViewController: LiveViewController {
         
         Dispatch.mainQueue.after(0.5) { [weak self] () -> Void in
             PubNub.sharedInstance.hereNowForChannel("ch-\(broadcast.streamName)", withVerbosity: .UUID) { (result, status) -> Void in
-                if let uuids = result?.data?.uuids as? [String] {
+                if let uuids = result?.data.uuids as? [String] {
                     var viewers = Set<User>()
                     for uuid in uuids {
                         guard let user = PubNub.userFromUUID(uuid) else { return }
@@ -88,7 +88,7 @@ class LiveViewerViewController: LiveViewController {
         if let wrap = wrap {
             PubNub.sharedInstance.hereNowForChannel(wrap.uid, withVerbosity: .State, completion: { [weak self] (result, status) -> Void in
                 guard let broadcast = self?.broadcast else { return }
-                if let uuids = result?.data?.uuids as? [[String:AnyObject]] {
+                if let uuids = result?.data.uuids as? [[String:AnyObject]] {
                     for uuid in uuids {
                         guard let activity = uuid["state"]?["activity"] as? [String:AnyObject] else { continue }
                         guard activity["type"] as? Int == UserActivityType.Live.rawValue else { continue }

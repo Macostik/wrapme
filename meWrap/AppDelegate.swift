@@ -52,7 +52,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func initializeCrashlyticsAndLogging() {
-        #if DEBUG
+        #if !DEBUG
             NewRelicAgent.enableCrashReporting(true)
             if Environment.currentEnvironment.isProduction {
                 NewRelicAgent.startWithApplicationToken("AAd46869ec0b3558fb5890343d895b3acdd40ebaa8")

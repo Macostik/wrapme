@@ -99,7 +99,8 @@ See sample test code from
 
 #### with Swift
 ##### Case (1) with Framework
-```import libPhoneNumber
+```
+import libPhoneNumber
 ```
 
 ##### Case (2) with Bridging-Header
@@ -129,7 +130,7 @@ override func viewDidLoad() {
 
     do {
         let phoneNumber: NBPhoneNumber = try phoneUtil.parse("01065431234", defaultRegion: "KR")
-        let formattedString: String = try phoneUtil.format(phoneNumber, numberFormat: NBEPhoneNumberFormatE164)
+        let formattedString: String = try phoneUtil.format(phoneNumber, numberFormat: .E164)
 
         NSLog("[%@]", formattedString)
     }

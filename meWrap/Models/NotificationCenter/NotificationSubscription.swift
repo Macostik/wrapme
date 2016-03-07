@@ -55,23 +55,22 @@ class NotificationSubscription: NSObject {
         }
     }
     
-    func send(message: [NSObject : AnyObject]?) {
+    func send(message: [NSObject : AnyObject]) {
         PubNub.sharedInstance.publish(message, toChannel: name, withCompletion: nil)
     }
     
-    func changeState(state: [NSObject : AnyObject]?, channel: String) {
-        if let uuid = PubNub.sharedInstance.currentConfiguration()?.uuid {
-            PubNub.sharedInstance.setState(state, forUUID: uuid, onChannel: channel, withCompletion: nil)
-        }
+    func changeState(state: [String : AnyObject], channel: String) {
+        let uuid = PubNub.sharedInstance.currentConfiguration().uuid
+        PubNub.sharedInstance.setState(state, forUUID: uuid, onChannel: channel, withCompletion: nil)
     }
     
-    func changeState(state: [NSObject : AnyObject]?) {
+    func changeState(state: [String : AnyObject]) {
         changeState(state, channel: name)
     }
     
     func hereNow(completion: [[NSObject : AnyObject]]? -> Void) {
         PubNub.sharedInstance.hereNowForChannel(name, withVerbosity: .State) { (result, status) -> Void in
-            completion(result?.data?.uuids as? [[NSObject : AnyObject]])
+            completion(result?.data.uuids as? [[NSObject : AnyObject]])
         }
     }
     
@@ -81,16 +80,17 @@ class NotificationSubscription: NSObject {
         let pubnub = PubNub.sharedInstance
         if isGroup {
             pubnub.channelsForGroup(name, withCompletion: { (result, status) -> Void in
-                if status?.error ?? false {
-                    failure(nil)
-                } else {
-                    if let channels = result?.data?.channels as? [String] where !channels.isEmpty {
+                if let result = result {
+                    let channels = result.data.channels
+                    if channels.isEmpty {
+                        success([])
+                    } else {
                         var fetchedChannels = 0
                         let messages = NSMutableArray()
                         for channel in channels {
                             pubnub.historyForChannel(channel, start: startDate, end: endDate, includeTimeToken: true, withCompletion: { (result, status) -> Void in
                                 fetchedChannels++
-                                if let _messages = result?.data?.messages {
+                                if let _messages = result?.data.messages {
                                     messages.addObjectsFromArray(_messages)
                                 }
                                 if fetchedChannels == channels.count {
@@ -99,9 +99,9 @@ class NotificationSubscription: NSObject {
                                 }
                             })
                         }
-                    } else {
-                        success([])
                     }
+                } else {
+                    failure(nil)
                 }
             })
         } else {
@@ -109,7 +109,7 @@ class NotificationSubscription: NSObject {
                 if status?.error ?? false {
                     failure(nil)
                 } else {
-                    success(result?.data?.messages as? [[NSObject:AnyObject]] ?? [])
+                    success(result?.data.messages as? [[NSObject:AnyObject]] ?? [])
                 }
             })
         }
@@ -126,13 +126,13 @@ extension NotificationSubscription: PNObjectEventListener {
         delegate?.notificationSubscription(self, didReceivePresenceEvent: event)
     }
     
-    func client(client: PubNub!, didReceiveMessage message: PNMessageResult!) {
-        if message?.data?.actualChannel == name || message?.data?.subscribedChannel == name {
+    func client(client: PubNub, didReceiveMessage message: PNMessageResult) {
+        if message.data.actualChannel == name || message.data.subscribedChannel == name {
             didReceiveMessage(message)
         }
     }
-    func client(client: PubNub!, didReceivePresenceEvent event: PNPresenceEventResult!) {
-        if event?.data?.actualChannel == name || event?.data?.subscribedChannel == name {
+    func client(client: PubNub, didReceivePresenceEvent event: PNPresenceEventResult) {
+        if event.data.actualChannel == name || event.data.subscribedChannel == name {
             didReceivePresenceEvent(event)
         }
     }

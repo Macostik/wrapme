@@ -14,9 +14,9 @@ PODS:
   - AFNetworking/Serialization (3.0.4)
   - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
-  - AWSCore (2.3.4)
-  - AWSS3 (2.3.4):
-    - AWSCore (= 2.3.4)
+  - AWSCore (2.3.5)
+  - AWSS3 (2.3.5):
+    - AWSCore (= 2.3.5)
   - CocoaLumberjack (2.2.0):
     - CocoaLumberjack/Default (= 2.2.0)
     - CocoaLumberjack/Extensions (= 2.2.0)
@@ -39,13 +39,13 @@ PODS:
   - GoogleSymbolUtilities (1.0.3)
   - GoogleUtilities (1.1.0):
     - GoogleSymbolUtilities (~> 1.0.0)
-  - libPhoneNumber-iOS (0.8.10)
-  - NewRelicAgent (5.3.6)
+  - libPhoneNumber-iOS (0.8.11)
+  - NewRelicAgent (5.4.0)
   - OpenUDID (1.0.0)
-  - PubNub (4.2.7):
+  - PubNub (4.3.0):
     - CocoaLumberjack (= 2.2.0)
-    - PubNub/Core (= 4.2.7)
-  - PubNub/Core (4.2.7):
+    - PubNub/Core (= 4.3.0)
+  - PubNub/Core (4.3.0):
     - CocoaLumberjack (= 2.2.0)
   - SnapKit (0.15.0)
 
@@ -63,8 +63,8 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
-  AWSCore: 926eb781459b58d4319b0fa4f5f3bffb6b28b112
-  AWSS3: f49fde807d6cfc373f1bdb8150c9770d470ca2fd
+  AWSCore: 8022eda5778fd7b87c9182709d8a27388e1a31fb
+  AWSS3: 967f4ad3c91f1ed2c9dca09a9dcf905111232a87
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
   CryptoSwift: b2bf37b8e7cc6d682ef3365cb966bc5ae5174aa5
   Google: 875f5a8ade86dd02e36586e4a54814843938c7f6
@@ -72,10 +72,10 @@ SPEC CHECKSUMS:
   GoogleNetworkingUtilities: 292992ab31b7b4ba32809a0e8b40e324cdfb2c0c
   GoogleSymbolUtilities: 82ad9f93d3615244b3f4ce440f5ab2515e8b4f56
   GoogleUtilities: 8ed9134debe11719097881711464752900668f10
-  libPhoneNumber-iOS: 7bfd00f843fdcd82b5182b463e8eb3b27579f41d
-  NewRelicAgent: 731c3b39030885531dad40e43cd80b8dbe61647e
+  libPhoneNumber-iOS: ded33fab2c51ee847979556aa504c9e70f32d703
+  NewRelicAgent: 62f9ee2b5cffc497c7adb927ae1cb111d6294817
   OpenUDID: e7cb6984c7304906ad20f3a36bf087b025896b6b
-  PubNub: 052a698177f64ab12889c513af425a2195ccaf12
+  PubNub: a05f2a2c6cc1f637a0c473f236c4671c0b8c09b1
   SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
 
 COCOAPODS: 0.39.0

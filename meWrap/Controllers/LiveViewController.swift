@@ -260,7 +260,7 @@ extension LiveViewController: EntryNotifying {
 
 extension LiveViewController: NotificationSubscriptionDelegate {
     func notificationSubscription(subscription: NotificationSubscription, didReceiveMessage message: PNMessageResult) {
-        guard let message = message.data?.message as? [String : AnyObject],
+        guard let message = message.data.message as? [String : AnyObject],
             let user = User.entry(message["userUid"] as? String),
             let text = message["content"] as? String else { return }
         user.fetchIfNeeded({ [weak self] (_) -> Void in
@@ -273,7 +273,7 @@ extension LiveViewController: NotificationSubscriptionDelegate {
     }
     
     func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {
-        guard let uuid = event.data?.presence?.uuid else { return }
+        guard let uuid = event.data.presence.uuid else { return }
         guard let user = PubNub.userFromUUID(uuid) where user != broadcast.broadcaster else { return }
         user.fetchIfNeeded({ [weak self] (_) -> Void in
             guard let controller = self else { return }

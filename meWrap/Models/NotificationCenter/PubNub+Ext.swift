@@ -17,7 +17,7 @@ extension PubNub {
         if var pubnub = _sharedInstance {
             if pubnub.currentConfiguration().uuid != User.channelName() {
                 let configuration = defaultConfiguration()
-                pubnub = pubnub.copyWithConfiguration(configuration, completion: nil)
+                pubnub = pubnub.copyWithConfiguration(configuration, completion: { _ in })
                 _sharedInstance = pubnub
             }
             return pubnub

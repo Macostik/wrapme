@@ -194,9 +194,11 @@ class FlowerMenu: UIView {
             CGContextSetFillColorWithColor(ctx, color.CGColor)
             CGContextFillRect (ctx, rect)
             var frame = convertRect(view.bounds, fromView:view)
-            let origin = frame.origin
-            frame = CGRectMake(origin.x, origin.y > headerHeight ? origin.y : origin.y + (headerHeight - origin.y),
-                               frame.width, origin.y > headerHeight ? frame.height : frame.height - (headerHeight - origin.y))
+            if let cell = view as? CandyCell, let metrics = cell.metrics where metrics.isRenderingHighlight {
+                let origin = frame.origin
+                frame = CGRectMake(origin.x, origin.y > headerHeight ? origin.y : origin.y + (headerHeight - origin.y),
+                    frame.width, origin.y > headerHeight ? frame.height : frame.height - (headerHeight - origin.y))
+            }
             CGContextSetShadowWithColor (ctx, CGSizeZero, 15.0, color.CGColor)
             CGContextClearRect(ctx, frame)
         }

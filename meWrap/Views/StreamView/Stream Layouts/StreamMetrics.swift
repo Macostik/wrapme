@@ -133,6 +133,8 @@ final class StreamMetrics {
     
     var disableMenu = false
     
+    var isRenderingHighlight = false
+    
     func loadView () -> StreamReusableView? {
         if let reusing = loader.loadView(self) {
             reusing.metrics = self

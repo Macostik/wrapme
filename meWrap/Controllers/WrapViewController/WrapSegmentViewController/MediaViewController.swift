@@ -109,6 +109,7 @@ class HistoryItemCell: StreamReusableView {
         streamView.layout = SquareLayout(streamView: streamView, horizontal: true)
         dataSource = HistoryItemDataSource(streamView: streamView)
         candyMetrics = dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<CandyCell>()))
+        candyMetrics.isRenderingHighlight = true
         candyMetrics.selection = metrics.selection
         dataSource.layoutSpacing = Constants.pixelSize
         candyMetrics.prepareAppearing = { [weak self] item, _ in

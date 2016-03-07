@@ -81,7 +81,7 @@ extension PlaceholderView {
     }
     
     class func sharePlaceholderLoader() -> LayoutStreamLoader<PlaceholderView> {
-        return placeholderLoader("C", message: "select_wrap_to_share".ls)
+        return placeholderLoader("C", message: "easy_create_wrap".ls)
     }
 }
 

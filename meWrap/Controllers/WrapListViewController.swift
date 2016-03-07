@@ -94,12 +94,6 @@ class WrapListViewController: BaseViewController {
                     self.navigationController?.pushViewController($0, animated: false)
                 })
             } else if sharePath.hasSuffix("jpeg") || sharePath.hasSuffix("mp4") || sharePath.hasSuffix("asset") {
-                if case let asset = AVAsset(URL: NSURL(fileURLWithPath: url.path!))
-                    where CMTimeGetSeconds(asset.duration) >= Constants.maxVideoRecordedDuration + 1 {
-                    cancel(nil)
-                    Toast.show(String(format:"formatted_upload_video_duration_limit".ls, Constants.maxVideoRecordedDuration))
-                    return
-                }
                 Storyboard.UploadSummary.instantiate({
                     guard let mutableAsset = mutableAsset else { return }
                     $0.assets = [mutableAsset]

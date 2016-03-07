@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  meWrap
+
+  Created by Yura Granchenko on 07/03/16.
+  Copyright © 2016 Ravenpod. All rights reserved.
+*/
+
+"formatted_upload_video_duration_limit" = "This video is too long, duration is limited up to %i seconds.";
+"share_video" = "Share video";
+"ok" = "OK";

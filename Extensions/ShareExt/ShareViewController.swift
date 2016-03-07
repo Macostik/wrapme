@@ -9,6 +9,7 @@
 import UIKit
 import Social
 import MobileCoreServices
+import AVFoundation
 
 class ShareViewController: UIViewController {
     
@@ -38,6 +39,17 @@ class ShareViewController: UIViewController {
                 self?.openURL(url)
                 self?.extensionContext?.completeRequestReturningItems([], completionHandler: nil)
             }
+            },
+            failure: { [weak self] errorDescription in
+                let message = String(format:errorDescription, 60)
+                Dispatch.mainQueue.after(1.0, block: { _ in
+                    let alert = UIAlertController(title: "share_video".ls, message: message, preferredStyle: .Alert)
+                    let okAction = UIAlertAction(title: "ok".ls, style: .Default, handler: { _ in
+                        self?.extensionContext?.completeRequestReturningItems([], completionHandler: nil)
+                    })
+                    alert.addAction(okAction)
+                    self?.presentViewController(alert, animated: true, completion: nil)
+                })
             })
     }
     
@@ -59,7 +71,7 @@ class ShareViewController: UIViewController {
 }
 
 extension NSItemProvider {
-    func loadItemForTypeIdentifier(shareDataBlock: (NSData, String) -> Void) {
+    func loadItemForTypeIdentifier(shareDataBlock: (NSData, String) -> Void, failure: String -> Void) {
         if hasItemConformingToTypeIdentifier(String(kUTTypeImage)) == true {
             loadItemForTypeIdentifier(String(kUTTypeImage), options: nil) { (item, error) -> Void in
                 var shareData = NSData()
@@ -78,7 +90,12 @@ extension NSItemProvider {
             loadItemForTypeIdentifier(String(kUTTypeQuickTimeMovie), options: nil) { (item, error) -> Void in
                 if error == nil, let item = item as? NSURL {
                     if let shareData = item.path!.dataUsingEncoding(NSUTF8StringEncoding) {
-                        shareDataBlock(shareData, ".asset")
+                        let asset = AVAsset(URL: NSURL(fileURLWithPath: item.path!))
+                        if CMTimeGetSeconds(asset.duration) >= 60.0 + 1 {
+                            failure("formatted_upload_video_duration_limit".ls)
+                        } else {
+                            shareDataBlock(shareData, ".asset")
+                        }
                     }
                 }
             }
@@ -89,11 +106,14 @@ extension NSItemProvider {
                     if let url = item as? NSURL {
                         if let imageData = NSData(contentsOfURL: url) {
                             shareData = imageData
+                            let asset = AVAsset(URL: url)
+                            if CMTimeGetSeconds(asset.duration) >= 60.0 + 1 {
+                                failure("formatted_upload_video_duration_limit")
+                            }
+                        } else {
+                            shareDataBlock(shareData, ".mp4")
                         }
-                    } else if let imageData = item as? NSData {
-                        shareData = imageData
                     }
-                    shareDataBlock(shareData, ".mp4")
                 }
             }
         } else if hasItemConformingToTypeIdentifier(String(kUTTypeURL)) == true {

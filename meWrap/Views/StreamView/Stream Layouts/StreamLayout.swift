@@ -76,20 +76,14 @@ class StreamLayout {
     func horizontalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
         let size = item.size
         let insets = item.insets
-        var offset = self.offset
-        if let previous = item.previous {
-            offset = previous.frame.maxX
-        }
+        let offset = item.previous?.frame.maxX ?? self.offset
         return CGRectMake(offset + insets.origin.x, insets.origin.y, size + insets.width, streamView.frame.height - insets.origin.y - insets.height)
     }
     
     func verticalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
         let size = item.size
         let insets = item.insets
-        var offset = self.offset
-        if let previous = item.previous {
-            offset = previous.frame.maxY
-        }
+        let offset = item.previous?.frame.maxY ?? self.offset
         return CGRectMake(insets.origin.x, offset + insets.origin.y, streamView.frame.width - insets.origin.x - insets.width, size + insets.height)
     }
     

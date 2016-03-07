@@ -199,17 +199,19 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     private var retryResetBadge = false
     
     private func resetBadge() {
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-        APIRequest.resetBadge().send({ _ in }) { (error) -> Void in
-            if error?.isNetworkError == true {
-                self.retryResetBadge = true
+        if UIApplication.sharedApplication().applicationIconBadgeNumber > 0 {
+            UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+            APIRequest.resetBadge().send({ _ in }) { (error) -> Void in
+                if error?.isNetworkError == true {
+                    self.retryResetBadge = true
+                }
             }
         }
     }
     
     func applicationDidBecomeActive(application: UIApplication) {
-        resetBadge()
         if Authorization.active {
+            resetBadge()
             Dispatch.mainQueue.async { Uploader.wrapUploader.start() }
         }
     }

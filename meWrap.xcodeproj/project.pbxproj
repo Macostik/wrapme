@@ -279,7 +279,7 @@
 		C5D99E741C2B2BC10022D18B /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D99E731C2B2BC10022D18B /* Keyboard.swift */; };
 		C5DA2FD41C2C0B0500038352 /* AddressBookGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DA2FD31C2C0B0500038352 /* AddressBookGroupView.swift */; };
 		C5E092D61C6CED2600510AA1 /* AddressBookRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E092D31C6CED2600510AA1 /* AddressBookRecordCell.swift */; };
-		C5E092D71C6CED2600510AA1 /* AddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E092D41C6CED2600510AA1 /* AddressBookRecordCell.xib */; };
+		C5E092D71C6CED2600510AA1 /* SingleAddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E092D41C6CED2600510AA1 /* SingleAddressBookRecordCell.xib */; };
 		C5E092D81C6CED2600510AA1 /* MultipleAddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E092D51C6CED2600510AA1 /* MultipleAddressBookRecordCell.xib */; };
 		C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
 		C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
@@ -741,7 +741,7 @@
 		C5D99E731C2B2BC10022D18B /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		C5DA2FD31C2C0B0500038352 /* AddressBookGroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookGroupView.swift; sourceTree = "<group>"; };
 		C5E092D31C6CED2600510AA1 /* AddressBookRecordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookRecordCell.swift; sourceTree = "<group>"; };
-		C5E092D41C6CED2600510AA1 /* AddressBookRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressBookRecordCell.xib; sourceTree = "<group>"; };
+		C5E092D41C6CED2600510AA1 /* SingleAddressBookRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SingleAddressBookRecordCell.xib; sourceTree = "<group>"; };
 		C5E092D51C6CED2600510AA1 /* MultipleAddressBookRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultipleAddressBookRecordCell.xib; sourceTree = "<group>"; };
 		C5E4FD0C1BF7AF7100575DA4 /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeView.swift; sourceTree = "<group>"; };
 		C5E6DD5C1C0DB7FE004992E4 /* TodayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -1281,11 +1281,11 @@
 		C504177919B9EE15000E55F3 /* AddContributorsViewController */ = {
 			isa = PBXGroup;
 			children = (
+				5BA83EEB1C6B4E3400FC5A9F /* AddContributorsViewController.swift */,
 				C5DA2FD31C2C0B0500038352 /* AddressBookGroupView.swift */,
 				C5E092D31C6CED2600510AA1 /* AddressBookRecordCell.swift */,
-				C5E092D41C6CED2600510AA1 /* AddressBookRecordCell.xib */,
+				C5E092D41C6CED2600510AA1 /* SingleAddressBookRecordCell.xib */,
 				C5E092D51C6CED2600510AA1 /* MultipleAddressBookRecordCell.xib */,
-				5BA83EEB1C6B4E3400FC5A9F /* AddContributorsViewController.swift */,
 			);
 			path = AddContributorsViewController;
 			sourceTree = "<group>";
@@ -1896,7 +1896,7 @@
 				5BA6AA451A66779E00493582 /* Localizable.strings in Resources */,
 				C5BEC3A91B8F16E800499EEA /* logo_and_caption_white@2x.png in Resources */,
 				C560B1721AE6A19B0010B2EC /* AdobeCreativeSDKCoreResources.bundle in Resources */,
-				C5E092D71C6CED2600510AA1 /* AddressBookRecordCell.xib in Resources */,
+				C5E092D71C6CED2600510AA1 /* SingleAddressBookRecordCell.xib in Resources */,
 				C5C3FEAE1B8F311500F177EC /* Default-Portrait@2x.png in Resources */,
 				5B2960671C6103BE008D121A /* meWrapShareExt-Info.plist in Resources */,
 				C57F7AF11C1ECD5F00FFB465 /* country-codes.json in Resources */,

@@ -12,8 +12,10 @@ extension Array {
     subscript (safe index: Int) -> Element? {
         return indices ~= index ? self[index] : nil
     }
-    
-    subscript (@noescape includeElement: Element -> Bool) -> Element? {
+}
+
+extension CollectionType {
+    subscript (@noescape includeElement: Generator.Element -> Bool) -> Generator.Element? {
         for element in self where includeElement(element) == true {
             return element
         }

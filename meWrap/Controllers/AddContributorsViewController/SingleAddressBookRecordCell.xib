@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddContributorsViewController" customModule="meWrap" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="Jar-VG-l4q" customClass="AddressBookRecordCell" customModule="meWrap" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="Jar-VG-l4q" customClass="SingleAddressBookRecordCell" customModule="meWrap" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -82,39 +82,19 @@
                     </userDefinedRuntimeAttributes>
                 </button>
                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="John Williams Brown" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cam-yd-Fom" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                    <rect key="frame" x="72" y="12" width="210" height="18"/>
+                    <rect key="frame" x="72" y="12" width="210" height="21"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cd1-3S-5bf" userLabel="Panding Label" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                    <rect key="frame" x="72" y="30" width="210" height="0.0"/>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cd1-3S-5bf" customClass="Label" customModule="meWrap" customModuleProvider="target">
+                    <rect key="frame" x="72" y="33" width="210" height="0.0"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
-                    <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                    </userDefinedRuntimeAttributes>
-                </label>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SH-Wi-uR7" userLabel="Status Label" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                    <rect key="frame" x="72" y="30" width="210" height="0.0"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
-                    <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                    </userDefinedRuntimeAttributes>
-                </label>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="+380955522220" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUV-8d-GXp" userLabel="Phone Label" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                    <rect key="frame" x="72" y="30" width="210" height="16"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                     <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
@@ -126,21 +106,15 @@
                 <constraint firstItem="bV4-an-v8O" firstAttribute="leading" secondItem="Cam-yd-Fom" secondAttribute="trailing" priority="250" id="0ka-hF-5Xt"/>
                 <constraint firstAttribute="trailing" secondItem="bV4-an-v8O" secondAttribute="trailing" constant="11" id="7xy-lB-mWJ"/>
                 <constraint firstAttribute="centerY" secondItem="u72-YA-MnU" secondAttribute="centerY" constant="0.5" id="8Yc-7i-0Xu"/>
-                <constraint firstItem="vUV-8d-GXp" firstAttribute="trailing" secondItem="0SH-Wi-uR7" secondAttribute="trailing" id="9UW-L9-a4H"/>
                 <constraint firstItem="Cd1-3S-5bf" firstAttribute="trailing" secondItem="Cam-yd-Fom" secondAttribute="trailing" id="D4T-vc-fn8"/>
                 <constraint firstItem="SxH-V1-frC" firstAttribute="top" secondItem="Cam-yd-Fom" secondAttribute="top" id="DPa-gN-5BA"/>
-                <constraint firstItem="vUV-8d-GXp" firstAttribute="top" secondItem="0SH-Wi-uR7" secondAttribute="bottom" id="GeF-US-kr7"/>
                 <constraint firstItem="bV4-an-v8O" firstAttribute="centerY" secondItem="u72-YA-MnU" secondAttribute="centerY" id="I3I-X3-MBI"/>
                 <constraint firstItem="Cd1-3S-5bf" firstAttribute="leading" secondItem="Jar-VG-l4q" secondAttribute="leading" constant="72" id="KV6-Fe-RQR"/>
-                <constraint firstItem="vUV-8d-GXp" firstAttribute="leading" secondItem="Jar-VG-l4q" secondAttribute="leading" constant="72" id="OQl-1c-pJI"/>
-                <constraint firstItem="0SH-Wi-uR7" firstAttribute="trailing" secondItem="Cd1-3S-5bf" secondAttribute="trailing" id="POV-XC-w1y"/>
-                <constraint firstItem="0SH-Wi-uR7" firstAttribute="leading" secondItem="Jar-VG-l4q" secondAttribute="leading" constant="72" id="WLi-lD-Ugr"/>
                 <constraint firstAttribute="trailing" secondItem="u72-YA-MnU" secondAttribute="trailing" constant="8" id="apl-NW-8Fc"/>
                 <constraint firstItem="Cam-yd-Fom" firstAttribute="leading" secondItem="Jar-VG-l4q" secondAttribute="leading" constant="72" id="cg2-lE-kn6"/>
                 <constraint firstItem="u72-YA-MnU" firstAttribute="leading" secondItem="Cam-yd-Fom" secondAttribute="trailing" priority="750" id="kdG-0l-bpV"/>
                 <constraint firstItem="SxH-V1-frC" firstAttribute="leading" secondItem="Jar-VG-l4q" secondAttribute="leading" constant="12" id="pmv-gN-YyM"/>
                 <constraint firstItem="SxH-V1-frC" firstAttribute="top" secondItem="Jar-VG-l4q" secondAttribute="top" constant="12" id="pza-q5-fuH"/>
-                <constraint firstItem="Cd1-3S-5bf" firstAttribute="bottom" secondItem="0SH-Wi-uR7" secondAttribute="top" id="rrQ-zk-98O"/>
                 <constraint firstItem="Cam-yd-Fom" firstAttribute="bottom" secondItem="Cd1-3S-5bf" secondAttribute="top" id="zk8-2X-Z9V"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -148,12 +122,10 @@
             <connections>
                 <outlet property="avatarView" destination="SxH-V1-frC" id="UgZ-zk-Fwj"/>
                 <outlet property="delegate" destination="-1" id="gVx-mR-jk6"/>
+                <outlet property="infoLabel" destination="Cd1-3S-5bf" id="KDh-fi-ghl"/>
                 <outlet property="nameLabel" destination="Cam-yd-Fom" id="gCw-nd-WSZ"/>
-                <outlet property="pandingLabel" destination="Cd1-3S-5bf" id="Q5T-aG-9pI"/>
-                <outlet property="phoneLabel" destination="vUV-8d-GXp" id="2d1-LR-Trr"/>
                 <outlet property="selectButton" destination="u72-YA-MnU" id="S1O-oF-1jT"/>
                 <outlet property="statusButton" destination="bV4-an-v8O" id="GIZ-F7-KyG"/>
-                <outlet property="statusLabel" destination="0SH-Wi-uR7" id="dE8-Pp-nEx"/>
                 <outlet property="statusPrioritizer" destination="zsd-xr-u7v" id="Wkw-w8-83P"/>
             </connections>
             <point key="canvasLocation" x="403" y="445"/>

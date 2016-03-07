@@ -1521,7 +1521,7 @@
                         <outlet property="uploadButtonXConstraint" destination="47G-gf-htm" id="qqm-yL-CmA"/>
                         <outlet property="videoPlayerView" destination="h5t-N3-cw5" id="HLF-FV-6pp"/>
                         <outlet property="wrapView" destination="JfN-vq-FkG" id="CCE-sT-AcV"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="kJD-sK-cdk" id="hSw-7b-6xa"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="kJD-sK-cdk" collectionClass="NSMutableArray" id="hSw-7b-6xa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ATF-e2-Nit" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1704,7 +1704,7 @@
                         <outlet property="editingPrioritizer" destination="9tn-uH-4kd" id="Vgj-2J-sUA"/>
                         <outlet property="streamView" destination="ILu-Xn-X2e" id="h7R-4A-SgA"/>
                         <outlet property="wrapNameTextField" destination="Caa-Xm-Qlw" id="jMV-YT-Ixg"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="yUW-OR-QOp" id="2hS-5z-STp"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="yUW-OR-QOp" collectionClass="NSMutableArray" id="2hS-5z-STp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E26-2U-hXn" userLabel="First Responder" sceneMemberID="firstResponder"/>

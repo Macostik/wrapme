@@ -11,7 +11,7 @@ import SnapKit
 
 class AddressBookGroupView: StreamReusableView {
 
-    @IBOutlet weak var titleLabel: UILabel!
+    private var titleLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.orangeDark)
     
     var group: ArrangedAddressBookGroup? {
         didSet {
@@ -21,10 +21,8 @@ class AddressBookGroupView: StreamReusableView {
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         backgroundColor = Color.orangeLight
-        let titleLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.orangeDark)
         titleLabel.textAlignment = .Left
         addSubview(titleLabel)
-        self.titleLabel = titleLabel
         titleLabel.snp_makeConstraints { (make) -> Void in
             make.leading.trailing.equalTo(self).inset(5)
             make.centerY.equalTo(self)
@@ -34,22 +32,15 @@ class AddressBookGroupView: StreamReusableView {
 
 class AddressBookPhoneNumberCell: StreamReusableView {
     
-    @IBOutlet weak var selectionView: UIButton!
-    @IBOutlet weak var typeLabel: UILabel!
-    @IBOutlet weak var phoneLabel: UILabel!
+    private var selectionView = UIButton(type: .Custom)
+    private var typeLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLight)
+    private var phoneLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLight)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
-        let typeLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLight)
         typeLabel.textAlignment = .Right
         addSubview(typeLabel)
-        self.typeLabel = typeLabel
-        
-        let phoneLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLight)
         phoneLabel.textAlignment = .Left
         addSubview(phoneLabel)
-        self.phoneLabel = phoneLabel
-        
-        let selectionView = UIButton(type: .Custom)
         selectionView.userInteractionEnabled = false
         selectionView.titleLabel?.font = UIFont(name: "icons", size: 26)
         selectionView.setTitle("G", forState: .Normal)
@@ -57,7 +48,6 @@ class AddressBookPhoneNumberCell: StreamReusableView {
         selectionView.setTitleColor(Color.grayLight, forState: .Normal)
         selectionView.setTitleColor(Color.orange, forState: .Selected)
         addSubview(selectionView)
-        self.selectionView = selectionView
         
         typeLabel.snp_makeConstraints { (make) -> Void in
             make.width.equalTo(100)

@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddContributorsViewController" customModule="meWrap" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="66a-3B-7b6" customClass="AddressBookRecordCell" customModule="meWrap" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="66a-3B-7b6" customClass="MultipleAddressBookRecordCell" customModule="meWrap" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -52,27 +52,19 @@
                     </userDefinedRuntimeAttributes>
                 </imageView>
                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="194" translatesAutoresizingMaskIntoConstraints="NO" id="1nX-4L-BpM" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                    <rect key="frame" x="72" y="12" width="178" height="18"/>
+                    <rect key="frame" x="72" y="12" width="204" height="21"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="J1g-BD-rp3"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                     </userDefinedRuntimeAttributes>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="J1g-BD-rp3"/>
-                        </mask>
-                    </variation>
                 </label>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMO-JW-GAP" userLabel="Status Label" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                    <rect key="frame" x="72" y="30" width="178" height="0.0"/>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="invite_me_to_meWrap" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMO-JW-GAP" userLabel="Status Label" customClass="Label" customModule="meWrap" customModuleProvider="target">
+                    <rect key="frame" x="72" y="33" width="204" height="18"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                     <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
@@ -95,7 +87,7 @@
                 <constraint firstAttribute="trailing" secondItem="6qD-8b-ogn" secondAttribute="trailing" id="k27-d4-mrJ"/>
                 <constraint firstItem="rMO-JW-GAP" firstAttribute="top" secondItem="1nX-4L-BpM" secondAttribute="bottom" id="kgb-lo-9T5"/>
                 <constraint firstItem="vf3-KZ-LGm" firstAttribute="top" secondItem="66a-3B-7b6" secondAttribute="top" constant="12" id="lga-Ee-Uns"/>
-                <constraint firstAttribute="trailing" secondItem="1nX-4L-BpM" secondAttribute="trailing" constant="70" id="q6W-tj-eA9"/>
+                <constraint firstAttribute="trailing" secondItem="1nX-4L-BpM" secondAttribute="trailing" constant="44" id="q6W-tj-eA9"/>
                 <constraint firstItem="rMO-JW-GAP" firstAttribute="trailing" secondItem="1nX-4L-BpM" secondAttribute="trailing" id="sdY-7E-yKK"/>
                 <constraint firstAttribute="trailing" secondItem="R1S-VP-mtA" secondAttribute="trailing" id="ukK-GW-RZs"/>
             </constraints>
@@ -106,7 +98,6 @@
                 <outlet property="delegate" destination="-1" id="42m-eL-X8o"/>
                 <outlet property="nameLabel" destination="1nX-4L-BpM" id="kmM-sm-NM5"/>
                 <outlet property="openView" destination="R1S-VP-mtA" id="k1Q-iN-QF4"/>
-                <outlet property="statusLabel" destination="rMO-JW-GAP" id="1FN-Vi-OBj"/>
                 <outlet property="streamView" destination="6qD-8b-ogn" id="0NS-hA-RPv"/>
             </connections>
         </view>

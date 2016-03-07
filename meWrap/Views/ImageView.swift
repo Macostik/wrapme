@@ -25,7 +25,7 @@ class ImageView: UIImageView {
         iconView.font = UIFont(name:"icons", size:self.defaultIconSize)
         iconView.textAlignment = .Center
         iconView.textColor = self.defaultIconColor
-        iconView.backgroundColor = self.defaultBackgroundColor
+        iconView.backgroundColor = self.defaultBackgroundColor ?? self.backgroundColor
         iconView.text = self.defaultIconText
         self.insertSubview(iconView, atIndex: 0)
         iconView.snp_makeConstraints(closure: { $0.left.right.top.bottom.equalTo(self) })
@@ -38,7 +38,11 @@ class ImageView: UIImageView {
     
     @IBInspectable var defaultIconColor = UIColor.whiteColor()
     
-    @IBInspectable lazy var defaultBackgroundColor: UIColor? = self.backgroundColor
+    @IBInspectable var defaultBackgroundColor: UIColor? {
+        willSet {
+            defaultIconView.backgroundColor = newValue
+        }
+    }
     
     var url: String? {
         didSet {

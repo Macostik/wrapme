@@ -43,25 +43,17 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
                 nextButton.setTitle("skip".ls, forState: .Normal)
             }
         }
-        singleMetrics = StreamMetrics(identifier: "AddressBookRecordCell", initializer: { [weak self] (metrics) -> Void in
+        singleMetrics = StreamMetrics(identifier: "SingleAddressBookRecordCell", initializer: { [weak self] (metrics) -> Void in
             metrics.modifyItem = { item in
-                let record = item.entry as? AddressBookRecord
-                guard let phoneNumber = record?.phoneNumbers.last else { return }
+                guard let record = item.entry as? AddressBookRecord, let phoneNumber = record.phoneNumbers.last else { return }
                 let user = phoneNumber.user
-                let inviteString = user != nil ? "invite_status".ls : "invite_me_to_meWrap".ls
-                let infoString = phoneNumber.activated ? "singup_status".ls : inviteString
-                var leftIdent = 114.0
-                if let user = user {
-                    if self?.wrap.contributors.contains(user) != nil {
-                        leftIdent = 160.0
-                    }
+                var leftIdent: CGFloat = 114.0
+                if let user = user where self?.wrap.contributors.contains(user) ?? false {
+                    leftIdent = 160.0
                 }
-                let nameHeight = phoneNumber.name?.heightWithFont(UIFont.fontNormal(), width: (self?.streamView.width ?? 0.0) - CGFloat(leftIdent)) ?? 0.0
-                let pandingHeight = user?.isInvited == true ? "sign_up_pending".ls.heightWithFont(UIFont.fontSmall(), width: (self?.streamView.width ?? 0.0) - CGFloat(leftIdent)) : 0.0
-                let inviteHeight = infoString.heightWithFont(UIFont.fontSmall(), width: (self?.streamView.width ?? 0.0) - CGFloat(leftIdent))
-                let phoneHeight = record?.phoneStrings?.heightWithFont(UIFont.fontSmall(), width: (self?.streamView.width ?? 0.0) - CGFloat(leftIdent)) ?? 0.0
-                
-                item.size = nameHeight + pandingHeight + inviteHeight + phoneHeight  + 24.0
+                let nameHeight = phoneNumber.name?.heightWithFont(UIFont.fontNormal(), width: (self?.streamView.width ?? 0.0) - leftIdent) ?? 0.0
+                let inviteHeight = record.infoString?.heightWithFont(UIFont.lightFontSmall(), width: (self?.streamView.width ?? 0.0) - leftIdent) ?? 0
+                item.size = max(nameHeight + inviteHeight + 24.0, 72.0)
             }
             })
         singleMetrics?.selectable = false
@@ -69,14 +61,14 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         multipleMetrics = StreamMetrics(identifier: "MultipleAddressBookRecordCell", initializer: { [weak self] (metrics) -> Void in
             metrics.selectable = false
             metrics.modifyItem = { (item) in
-                let record = item.entry as? AddressBookRecord
-                let nameHeight = record?.name?.heightWithFont(UIFont.fontNormal(), width: (self?.streamView.width ?? 0.0) - 142.0) ?? 0.0
-                let inviteHeight = "invite_me_to_meWrap".heightWithFont(UIFont.fontSmall(), width: (self?.streamView.width ?? 0.0) - 142.0) ?? 0.0
+                guard let record = item.entry as? AddressBookRecord else { return }
+                let nameHeight = record.name?.heightWithFont(UIFont.fontNormal(), width: (self?.streamView.width ?? 0.0) - 142.0) ?? 0.0
+                let inviteHeight = "invite_me_to_meWrap".ls.heightWithFont(UIFont.lightFontSmall(), width: (self?.streamView.width ?? 0.0) - 142.0) ?? 0.0
                 let heightCell = max(nameHeight + inviteHeight + 16.0, 72.0)
-                item.size = self?.openedPosition(item.position) != nil ? heightCell + CGFloat(((record?.phoneNumbers.count ?? 0) * 50)) : heightCell
+                item.size = self?.openedPosition(item.position) != nil ? heightCell + CGFloat(record.phoneNumbers.count * 50) : heightCell
             }
             metrics.finalizeAppearing = { (item, view) in
-                let cell = view as? AddressBookRecordCell
+                let cell = view as? MultipleAddressBookRecordCell
                 let record = item.entry as? AddressBookRecord
                 cell?.opened = record?.phoneNumbers.count > 1 && self?.openedPosition(item.position) != nil
             }
@@ -198,7 +190,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     
     //MARK: AddressBookRecordCellDelegate
     
-    func recordCell(cell: AddressBookRecordCell, phoneNumberState phoneNumber: AddressBookPhoneNumber) -> AddressBookPhoneNumberState {
+    func recordCell(cell: StreamReusableView, phoneNumberState phoneNumber: AddressBookPhoneNumber) -> AddressBookPhoneNumberState {
         if let user = phoneNumber.user where wrap.contributors.contains(user) {
             return .Added
         }
@@ -214,7 +206,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         return false
     }
     
-    func recordCell(cell: AddressBookRecordCell, didSelectPhoneNumber person: AddressBookPhoneNumber) {
+    func recordCell(cell: StreamReusableView, didSelectPhoneNumber person: AddressBookPhoneNumber) {
         addressBook.selectPhoneNumber(person)
         let isEmpty = addressBook.selectedPhoneNumbers.count == 0
         if isWrapCreation {
@@ -232,18 +224,13 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     }
     
     func openedPosition(position: StreamPosition) -> StreamPosition? {
-        for _position in openedRows where _position == position {
-            return _position
-        }
-        return nil
+        return openedRows[{ $0 == position }]
     }
     
-    func recordCellDidToggle(cell: AddressBookRecordCell) {
+    func recordCellDidToggle(cell: MultipleAddressBookRecordCell) {
         if let position = cell.item?.position {
-            if let _position = openedPosition(position) {
-                if let index = openedRows.indexOf(_position) {
-                    openedRows.removeAtIndex(index)
-                }
+            if let index = openedRows.indexOf({ $0 == position }) {
+                openedRows.removeAtIndex(index)
             } else {
                 openedRows.append(position)
             }

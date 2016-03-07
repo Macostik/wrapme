@@ -13,36 +13,108 @@ import Foundation
 }
 
 @objc protocol AddressBookRecordCellDelegate {
-    func recordCell(cell: AddressBookRecordCell, didSelectPhoneNumber person: AddressBookPhoneNumber)
-    func recordCell(cell: AddressBookRecordCell, phoneNumberState phoneNumber: AddressBookPhoneNumber) -> AddressBookPhoneNumberState
-    func recordCellDidToggle(cell: AddressBookRecordCell)
+    func recordCell(cell: StreamReusableView, didSelectPhoneNumber person: AddressBookPhoneNumber)
+    func recordCell(cell: StreamReusableView, phoneNumberState phoneNumber: AddressBookPhoneNumber) -> AddressBookPhoneNumberState
+    func recordCellDidToggle(cell: MultipleAddressBookRecordCell)
 }
 
-final class AddressBookRecordCell: StreamReusableView {
+class AddressBookRecordCell: StreamReusableView {
     
     @IBOutlet weak var delegate: AddressBookRecordCellDelegate!
     
-    @IBOutlet weak var selectButton: UIButton?
-    @IBOutlet weak var streamView: StreamView?
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var avatarView: ImageView!
-    @IBOutlet weak var openView: UIButton?
-    @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var pandingLabel: UILabel?
-    @IBOutlet weak var statusButton: UIButton?
-    @IBOutlet weak var phoneLabel: UILabel?
-    @IBOutlet weak var statusPrioritizer: LayoutPrioritizer?
-    private var dataSource: StreamDataSource?
+    
+    internal func selectPhoneNumber(phoneNumber: AddressBookPhoneNumber?) {
+        if let phoneNumber = phoneNumber {
+            delegate.recordCell(self, didSelectPhoneNumber: phoneNumber)
+        }
+    }
+}
+
+final class SingleAddressBookRecordCell: AddressBookRecordCell {
+    
+    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var selectButton: UIButton!
+    @IBOutlet weak var statusButton: UIButton!
+    @IBOutlet var statusPrioritizer: LayoutPrioritizer!
     
     var state: AddressBookPhoneNumberState = .Default {
         willSet {
             if newValue == .Added {
-                selectButton?.enabled = false
+                selectButton.enabled = false
             } else {
-                selectButton?.enabled = true
-                selectButton?.selected = newValue == .Selected
+                selectButton.enabled = true
+                selectButton.selected = newValue == .Selected
             }
         }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        statusButton?.borderColor = Color.greenOnline
+        statusButton?.setTitleColor(Color.greenOnline, forState: .Normal)
+    }
+    
+    override func setup(entry: AnyObject?) {
+        guard let record = entry as? AddressBookRecord else { return }
+        guard let phoneNumber = record.phoneNumbers.last else { return }
+        nameLabel.text = phoneNumber.name
+        let url = phoneNumber.avatar?.small
+        if url?.isEmpty ?? true && phoneNumber.user != nil {
+            avatarView.defaultBackgroundColor = Color.orange
+        } else {
+            avatarView.defaultBackgroundColor = Color.grayLighter
+        }
+        avatarView.url = url
+        
+        let user = phoneNumber.user
+        infoLabel.text = record.infoString
+        state = delegate?.recordCell(self, phoneNumberState: phoneNumber) ?? .Default
+        let notInvited = !(user != nil && state == .Added)
+        statusButton.hidden = notInvited
+        statusPrioritizer.defaultState = notInvited
+    }
+    
+    //MARK: Actions
+    
+    @IBAction func _select(sender: AnyObject) {
+        selectPhoneNumber((entry as? AddressBookRecord)?.phoneNumbers.last)
+    }
+}
+
+final class MultipleAddressBookRecordCell: AddressBookRecordCell {
+    
+    @IBOutlet weak var streamView: StreamView!
+    private var dataSource: StreamDataSource!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        avatarView.defaultBackgroundColor = Color.grayLighter
+        dataSource = StreamDataSource(streamView: streamView)
+        dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<AddressBookPhoneNumberCell>()).change({ [weak self] metrics in
+            metrics.size = 50.0
+            metrics.selectable = true
+            metrics.finalizeAppearing = { item, view in
+                let cell = view as? AddressBookPhoneNumberCell
+                let phoneNumber = item.entry as? AddressBookPhoneNumber
+                if let weakSelf = self, let phoneNumber = phoneNumber {
+                    cell?.checked = weakSelf.delegate.recordCell(weakSelf, phoneNumberState: phoneNumber) != .Default
+                }
+            }
+            metrics.selection = { item, phoneNumber in
+                self?.selectPhoneNumber(phoneNumber as? AddressBookPhoneNumber)
+            }
+            }))
+    }
+    
+    override func setup(entry: AnyObject?) {
+        guard let record = entry as? AddressBookRecord else { return }
+        guard let phoneNumber = record.phoneNumbers.last else { return }
+        nameLabel.text = phoneNumber.name
+        avatarView.url = phoneNumber.avatar?.small
+        layoutIfNeeded()
+        dataSource.items = record.phoneNumbers
     }
     
     var opened: Bool = false {
@@ -53,73 +125,7 @@ final class AddressBookRecordCell: StreamReusableView {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        statusButton?.borderColor = Color.greenOnline
-        statusButton?.setTitleColor(Color.greenOnline, forState: .Normal)
-        if let streamView = streamView {
-            dataSource = StreamDataSource(streamView: streamView)
-            dataSource?.addMetrics(StreamMetrics(loader: LayoutStreamLoader<AddressBookPhoneNumberCell>()).change({ [weak self] metrics in
-                metrics.size = 50.0
-                metrics.selectable = true
-                metrics.finalizeAppearing = { item, view in
-                    let cell = view as? AddressBookPhoneNumberCell
-                    let phoneNumber = item.entry as? AddressBookPhoneNumber
-                    if let weakSelf = self, let phoneNumber = phoneNumber {
-                        cell?.checked = weakSelf.delegate.recordCell(weakSelf, phoneNumberState: phoneNumber) != .Default
-                    }
-                }
-                metrics.selection = { item, phoneNumber in
-                    if let weakSelf = self, let phoneNumber = phoneNumber as? AddressBookPhoneNumber {
-                        weakSelf.delegate.recordCell(weakSelf, didSelectPhoneNumber: phoneNumber)
-                    }
-                }
-            }))
-        }
-    }
-    
-    override func setup(entry: AnyObject?) {
-        guard let record = entry as? AddressBookRecord else { return }
-        guard let phoneNumber = record.phoneNumbers.last else { return }
-        nameLabel.text = phoneNumber.name
-        let url = phoneNumber.avatar?.small
-        if url?.isEmpty == true && phoneNumber.user != nil {
-            avatarView.defaultBackgroundColor = Color.orange
-        } else {
-            avatarView.defaultBackgroundColor = Color.grayLighter
-        }
-        avatarView.url = url
-        
-        if streamView != nil {
-            layoutIfNeeded()
-            dataSource?.items = record.phoneNumbers
-            statusLabel.text = "invite_me_to_meWrap".ls
-        } else {
-            let user = phoneNumber.user
-            phoneLabel?.text = record.phoneStrings
-            pandingLabel?.text = user?.isInvited ?? false ? "sign_up_pending".ls : ""
-            if phoneNumber.activated {
-                statusLabel.text = "signup_status".ls
-            } else if (user != nil) {
-                statusLabel.text = String(format:"invite_status".ls, user?.invitedAt.stringWithDateStyle(.ShortStyle) ?? "")
-            } else {
-                statusLabel.text = "invite_me_to_meWrap".ls
-            }
-            state = delegate?.recordCell(self, phoneNumberState: phoneNumber) ?? .Default
-            let notInvited = !(user != nil && state == .Added)
-            statusButton?.hidden = notInvited
-            statusPrioritizer?.defaultState = notInvited
-        }
-    }
-    
-    //MARK: Actions
-    
-     @IBAction func _select(sender: AnyObject) {
-        let record = entry as? AddressBookRecord
-        if let person = record?.phoneNumbers.last {
-            delegate?.recordCell(self, didSelectPhoneNumber: person)
-        }
-    }
+    @IBOutlet weak var openView: UIButton?
     
     @IBAction func open(sender: AnyObject) {
         opened = !opened

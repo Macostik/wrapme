@@ -25,12 +25,15 @@ class WrapListViewController: BaseViewController {
         if sharePath.hasSuffix("jpeg") {
             guard let image = UIImage(data: self.shareData) else { return nil }
             asset.setImage(image)
-        } else if sharePath.hasSuffix("asset") {
-            guard let path = String(data: self.shareData, encoding: NSUTF8StringEncoding) else { return nil }
+        } else if sharePath.hasSuffix("asset")  {
+            if let path = String(data: self.shareData, encoding: NSUTF8StringEncoding) {
+                asset.type = .Video
+                asset.date = NSDate.now()
+                asset.setVideoFromRecordAtPath(path)
+            }
+        } else if sharePath.hasSuffix("mp4") {
             asset.type = .Video
             asset.date = NSDate.now()
-            asset.setVideoAtPath(path)
-        } else {
             asset.setVideoAtPath(self.url.path!)
         }
         return asset

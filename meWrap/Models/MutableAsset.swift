@@ -124,6 +124,8 @@ class MutableAsset: Asset {
         let asset = AVAsset(URL: NSURL(fileURLWithPath: path))
         if let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetMediumQuality) {
             let name = GUID()
+            let videosDirectoryPath = NSHomeDirectory() + "/Documents/Videos"
+            _ = try? NSFileManager.defaultManager().createDirectoryAtPath(videosDirectoryPath, withIntermediateDirectories:true, attributes:nil)
             let outputPath = "\(NSHomeDirectory())/Documents/Videos/\(name).mp4"
             exportSession.outputURL = NSURL(fileURLWithPath: outputPath)
             exportSession.outputFileType = AVFileTypeMPEG4

@@ -109,9 +109,9 @@ extension NSItemProvider {
                             let asset = AVAsset(URL: url)
                             if CMTimeGetSeconds(asset.duration) >= 60.0 + 1 {
                                 failure("formatted_upload_video_duration_limit")
+                            } else {
+                                shareDataBlock(shareData, ".mp4")
                             }
-                        } else {
-                            shareDataBlock(shareData, ".mp4")
                         }
                     }
                 }

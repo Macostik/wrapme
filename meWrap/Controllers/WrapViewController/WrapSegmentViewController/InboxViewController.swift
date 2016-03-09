@@ -23,7 +23,7 @@ class RecentUpdate {
         self.event = event
         self.contribution = contribution
         date = event == .Update ? contribution.editedAt : contribution.createdAt
-        self.unread = unread && contribution.unread
+        self.unread = unread
     }
 }
 
@@ -90,7 +90,7 @@ class InboxCell: StreamReusableView {
             let contribution = update.contribution
             timeLabel.text = update.date.timeAgoStringAtAMPM()
             imageView.url = contribution.asset?.medium
-            if update.unread {
+            if contribution.unread && update.unread {
                 userNameLabel.textColor = Color.grayDark
                 timeLabel.textColor = Color.orange
                 wrapLabel.textColor = Color.orange

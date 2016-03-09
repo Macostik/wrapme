@@ -18,7 +18,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yi0-iY-o3U" customClass="SegmentedControl" customModule="meWrap" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="162" width="320" height="54"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNS-ti-Qad" customClass="SegmentButton" customModule="meWrap" customModuleProvider="target">
+                        <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNS-ti-Qad" customClass="SegmentButton" customModule="meWrap" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="46" height="54"/>
                             <state key="normal" image="ic_emoji_clock">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -60,7 +60,7 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w1A-RE-78X" customClass="SegmentButton" customModule="meWrap" customModuleProvider="target">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w1A-RE-78X" customClass="SegmentButton" customModule="meWrap" customModuleProvider="target">
                             <rect key="frame" x="138" y="0.0" width="45" height="54"/>
                             <state key="normal" image="ic_emoji_ring">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>

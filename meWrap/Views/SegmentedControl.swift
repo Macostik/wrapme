@@ -15,7 +15,9 @@ import UIKit
 
 final class SegmentedControl: UIControl {
     
-    private lazy var controls: [UIControl] = {
+    private var controls = [UIControl]()
+    
+    private func getControls() -> [UIControl] {
         var controls = [UIControl]()
         for view in self.subviews {
             if let control = view as? UIControl {
@@ -24,7 +26,12 @@ final class SegmentedControl: UIControl {
             }
         }
         return controls
-    }()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        controls = getControls()
+    }
     
     var selectedSegment: Int {
         get { return controls.indexOf({ $0.selected }) ?? NSNotFound }

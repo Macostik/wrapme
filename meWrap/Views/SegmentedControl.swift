@@ -15,22 +15,21 @@ import UIKit
 
 final class SegmentedControl: UIControl {
     
-    private var controls = [UIControl]()
-    
-    private func getControls() -> [UIControl] {
+    private lazy var controls: [UIControl] = {
         var controls = [UIControl]()
         for view in self.subviews {
             if let control = view as? UIControl {
-                control.addTarget(self, action: "selectSegmentTap:", forControlEvents: .TouchDown)
                 controls.append(control)
             }
         }
         return controls
-    }
+    }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        controls = getControls()
+        for control in controls {
+            control.addTarget(self, action: "selectSegmentTap:", forControlEvents: .TouchDown)
+        }
     }
     
     var selectedSegment: Int {

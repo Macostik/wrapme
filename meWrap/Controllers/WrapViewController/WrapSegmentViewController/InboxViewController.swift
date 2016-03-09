@@ -214,6 +214,7 @@ class InboxViewController: WrapSegmentViewController {
         
         Comment.notifier().addReceiver(self)
         Candy.notifier().addReceiver(self)
+        streamView.layoutIfNeeded()
     }
     
     private func fetchUpdates() {

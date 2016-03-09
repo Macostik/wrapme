@@ -128,16 +128,17 @@ final class WrapViewController: BaseViewController {
     
     @IBOutlet weak var moreFriendsLabel: UILabel!
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        addNotifyReceivers()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addNotifyReceivers()
+        
         friendsStreamView.horizontal = true
-        friendsDataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<FriendView>(), size: friendsStreamView.height))
+        let friendMetrics = StreamMetrics(loader: LayoutStreamLoader<FriendView>(), size: friendsStreamView.height)
+        friendMetrics.prepareAppearing = { [weak self] item, view in
+            (view as? FriendView)?.wrap = self?.wrap
+        }
+        friendsDataSource.addMetrics(friendMetrics)
         guard let wrap = wrap where wrap.valid else { return }
         
         segmentedControl.deselect()
@@ -272,7 +273,7 @@ final class WrapViewController: BaseViewController {
                     return true
                 } else if activity1?.type == .Photo {
                     return false
-                } else if activity0?.type == .Typing{
+                } else if activity0?.type == .Typing {
                     return true
                 } else if activity1?.type == .Typing {
                     return false

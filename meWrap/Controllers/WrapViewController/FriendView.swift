@@ -12,6 +12,15 @@ final class FriendView: StreamReusableView {
     
     class ActivityAnimationView: UIView {
         
+        class func animationView(type: UserActivityType) -> ActivityAnimationView? {
+            switch type {
+            case .Typing: return TypingActivityAnimationView()
+            case .Photo: return PhotoActivityAnimationView()
+            case .Video: return VideoActivityAnimationView()
+            default: return nil
+            }
+        }
+        
         init() {
             super.init(frame: CGRect.zero)
             layout()
@@ -32,6 +41,79 @@ final class FriendView: StreamReusableView {
         
         required init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
+        }
+    }
+    
+    class TypingActivityAnimationView: ActivityAnimationView {
+        
+        private let pencil = Label(icon: "<", size: 10, textColor: UIColor.whiteColor())
+        
+        private let stroke = CAShapeLayer()
+        
+        override func layout() {
+            super.layout()
+            addSubview(pencil)
+            stroke.fillColor = UIColor.clearColor().CGColor
+            stroke.strokeColor = UIColor.whiteColor().CGColor
+            stroke.strokeStart = 0
+            stroke.strokeEnd = 0
+            stroke.frame = CGRectMake(3, 13, 7, 2)
+            stroke.path = UIBezierPath().move(0, 1).line(7, 1).CGPath
+            stroke.lineDashPattern = [3, 1, 3]
+            stroke.lineWidth = 1
+            layer.addSublayer(stroke)
+            
+            pencil.snp_makeConstraints {
+                $0.centerX.equalTo(self).inset(-3)
+                $0.centerY.equalTo(self)
+            }
+            
+            let pencilAnimationGroup = CAAnimationGroup()
+            
+            let pencilAnimation1 = CABasicAnimation(keyPath: "position.y")
+            pencilAnimation1.fromValue = 10
+            pencilAnimation1.toValue = 9
+            pencilAnimation1.duration = 0.15
+            pencilAnimation1.repeatCount = 10
+            pencilAnimation1.autoreverses = true
+            
+            let pencilAnimation2 = CABasicAnimation(keyPath: "position.x")
+            pencilAnimation2.fromValue = 7
+            pencilAnimation2.toValue = 14
+            pencilAnimation2.duration = 1.6
+            pencilAnimation2.fillMode = kCAFillModeForwards
+            
+            let pencilAnimation3 = CAKeyframeAnimation(keyPath: "position")
+            pencilAnimation3.beginTime = 1.6
+            pencilAnimation3.path = UIBezierPath().move(14, 10).quadCurve(7, 10, controlX: 10.5, controlY: 4).CGPath
+            pencilAnimation3.duration = 0.4
+            
+            pencilAnimationGroup.removedOnCompletion = false
+            pencilAnimationGroup.duration = 2
+            pencilAnimationGroup.repeatCount = FLT_MAX
+            pencilAnimationGroup.animations = [pencilAnimation1, pencilAnimation2, pencilAnimation3]
+            pencil.addAnimation(pencilAnimationGroup)
+            
+            let strokeAnimationGroup = CAAnimationGroup()
+            
+            let strokeAnimation1 = CABasicAnimation(keyPath: "strokeEnd")
+            strokeAnimation1.fromValue = 0
+            strokeAnimation1.toValue = 1
+            strokeAnimation1.duration = 1.6
+            strokeAnimation1.fillMode = kCAFillModeForwards
+            
+            let strokeAnimation2 = CABasicAnimation(keyPath: "strokeEnd")
+            strokeAnimation2.beginTime = 1.6
+            strokeAnimation2.fromValue = 1
+            strokeAnimation2.toValue = 0
+            strokeAnimation2.duration = 0.2
+            strokeAnimation2.fillMode = kCAFillModeForwards
+            
+            strokeAnimationGroup.removedOnCompletion = false
+            strokeAnimationGroup.duration = 2
+            strokeAnimationGroup.repeatCount = FLT_MAX
+            strokeAnimationGroup.animations = [strokeAnimation1, strokeAnimation2]
+            stroke.addAnimation(strokeAnimationGroup, forKey: nil)
         }
     }
     
@@ -126,6 +208,8 @@ final class FriendView: StreamReusableView {
         }
     }
     
+    weak var wrap: Wrap?
+    
     override func setup(entry: AnyObject?) {
         if let friend = entry as? User {
             let url = friend.avatar?.small
@@ -136,12 +220,9 @@ final class FriendView: StreamReusableView {
             }
             avatarView.url = url
             
-            if friend.activity.inProgress {
-                if friend.activity.type == .Photo {
-                    activityAnimationView = PhotoActivityAnimationView()
-                    statusView.hidden = true
-                } else if friend.activity.type == .Video {
-                    activityAnimationView = VideoActivityAnimationView()
+            if friend.activity.wrap == wrap && friend.activity.inProgress {
+                if let animationView = ActivityAnimationView.animationView(friend.activity.type) {
+                    activityAnimationView = animationView
                     statusView.hidden = true
                 } else {
                     activityAnimationView = nil

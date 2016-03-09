@@ -193,7 +193,7 @@ extension CaptureMediaViewController {
     
     func assetsViewController(controller: AssetsViewController, shouldSelectAsset asset: PHAsset) -> Bool {
         if asset.mediaType == .Video && asset.duration >= Constants.maxVideoRecordedDuration + 1 {
-            Toast.show(String(format:"formatted_upload_video_duration_limit".ls, Constants.maxVideoRecordedDuration))
+            Toast.show(String(format:"formatted_upload_video_duration_limit".ls, Int(Constants.maxVideoRecordedDuration)))
             return false
         } else {
             return shouldAddAsset({}, failure: { $0?.show() })

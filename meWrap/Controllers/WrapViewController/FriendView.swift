@@ -145,11 +145,11 @@ final class FriendView: StreamReusableView {
                     statusView.hidden = true
                 } else {
                     activityAnimationView = nil
-                    statusView.hidden = !friend.isActive
+                    statusView.hidden = !(friend.current || friend.isActive)
                 }
             } else {
                 activityAnimationView = nil
-                statusView.hidden = !friend.isActive
+                statusView.hidden = !(friend.current || friend.isActive)
             }
         }
     }

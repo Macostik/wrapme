@@ -127,7 +127,13 @@ class NotificationCenter: NSObject {
     func requestHistory() {
         RunQueue.fetchQueue.run { [unowned self] finish in
             
-            guard Network.sharedNetwork.reachable && !self.userSubscription.name.isEmpty else {
+            guard !self.userSubscription.name.isEmpty else {
+                finish()
+                return
+            }
+            
+            guard Network.sharedNetwork.reachable else {
+                Network.sharedNetwork.addReceiver(self)
                 finish()
                 return
             }
@@ -230,6 +236,15 @@ class NotificationCenter: NSObject {
         _info["in_progress"] = inProgress
         let state = [ "activity" : _info ]
         PubNub.sharedInstance.setState(state, forUUID: User.channelName(), onChannel: wrap.uid, withCompletion: nil)
+    }
+}
+
+extension NotificationCenter: NetworkNotifying {
+    func networkDidChangeReachability(network: Network) {
+        if network.reachable {
+            network.removeReceiver(self)
+            requestHistory()
+        }
     }
 }
 

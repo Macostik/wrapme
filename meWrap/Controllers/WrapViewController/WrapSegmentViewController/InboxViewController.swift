@@ -13,14 +13,17 @@ class RecentUpdate {
     
     var event: Event
     
+    var unread: Bool
+    
     var contribution: Contribution
     
     var date: NSDate
-    
-    init(event: Event, contribution: Contribution) {
+
+    init(event: Event, contribution: Contribution, unread: Bool = true) {
         self.event = event
         self.contribution = contribution
         date = event == .Update ? contribution.editedAt : contribution.createdAt
+        self.unread = unread && contribution.unread
     }
 }
 
@@ -87,7 +90,7 @@ class InboxCell: StreamReusableView {
             let contribution = update.contribution
             timeLabel.text = update.date.timeAgoStringAtAMPM()
             imageView.url = contribution.asset?.medium
-            if contribution.unread == true {
+            if update.unread {
                 userNameLabel.textColor = Color.grayDark
                 timeLabel.textColor = Color.orange
                 wrapLabel.textColor = Color.orange
@@ -221,6 +224,7 @@ class InboxViewController: WrapSegmentViewController {
             if candy.unread { containsUnread = true }
             updates.append(RecentUpdate(event: .Add, contribution: candy))
             if candy.editor != nil {
+                updates.last?.unread = false
                 updates.append(RecentUpdate(event: .Update, contribution: candy))
             }
             if candy.involvedToConversation() {

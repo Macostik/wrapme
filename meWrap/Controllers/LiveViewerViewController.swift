@@ -14,7 +14,7 @@ class LiveViewerViewController: LiveViewController {
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
-    private weak var playerLayer: AVPlayerLayer?
+    private var playerLayer = AVPlayerLayer()
     
     private var playerItem: AVPlayerItem?
     
@@ -46,17 +46,15 @@ class LiveViewerViewController: LiveViewController {
         
         guard let url = "http://live.mewrap.me:1935/live/\(broadcast.streamName)/playlist.m3u8".URL else { return }
         
-        let layer = AVPlayerLayer()
-        layer.videoGravity = AVLayerVideoGravityResizeAspect
-        layer.frame = view.bounds
-        view.layer.insertSublayer(layer, atIndex: 0)
-        playerLayer = layer
+        playerLayer.videoGravity = AVLayerVideoGravityResizeAspect
+        playerLayer.frame = view.bounds
+        view.layer.insertSublayer(playerLayer, atIndex: 0)
         
         let playerItem = AVPlayerItem(URL: url)
         playerItem.addObserver(self, forKeyPath: "status", options: .New, context: nil)
         playerItem.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .New, context: nil)
         let player = AVPlayer(playerItem: playerItem)
-        layer.player = player
+        playerLayer.player = player
         self.playerItem = playerItem
         
         chatSubscription.subscribe()
@@ -188,9 +186,7 @@ class LiveViewerViewController: LiveViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        UIView.performWithoutAnimation { [unowned self] () -> Void in
-            self.playerLayer?.frame = self.view.bounds
-        }
+        UIView.performWithoutAnimation { self.playerLayer.frame = self.view.bounds }
     }
 
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -203,7 +199,7 @@ class LiveViewerViewController: LiveViewController {
         }
         switch keyPath {
         case "status" where item.status == .ReadyToPlay, "playbackLikelyToKeepUp" where item.playbackLikelyToKeepUp == true:
-            playerLayer?.player?.play()
+            playerLayer.player?.play()
         default: break
         }
     }
@@ -221,7 +217,7 @@ class LiveViewerViewController: LiveViewController {
     override func wrapLiveBroadcastsUpdated() {
         if let wrap = wrap where !wrap.liveBroadcasts.contains(broadcast) {
             unsubscribeObserving()
-            playerLayer?.player?.pause()
+            playerLayer.player?.pause()
             spinner.stopAnimating()
             showEndBroadcast()
         }

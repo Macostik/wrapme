@@ -112,7 +112,7 @@ extension Wrap {
         let candy = Candy.candy(asset.type)
         let uploading = Uploading.uploading(candy)
         candy.wrap = self
-        candy.asset = asset.uploadablePicture(true)
+        candy.asset = asset.uploadableAsset(true)
         if let comment = asset.comment where !comment.isEmpty {
             Comment.comment(comment).candy = candy
         }
@@ -315,7 +315,7 @@ extension Candy {
         if valid {
             let asset = MutableAsset()
             asset.setImage(image)
-            editAsset(asset.uploadablePicture(false))
+            editAsset(asset.uploadableAsset(false))
             enqueueUpdate()?.show()
         }
     }

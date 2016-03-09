@@ -32,16 +32,20 @@ class ImageView: UIImageView {
         return iconView
     }()
     
-    @IBInspectable var defaultIconSize: CGFloat = 24
+    @IBInspectable var defaultIconSize: CGFloat = 24 {
+        willSet { defaultIconView.font = UIFont(name:"icons", size:newValue) }
+    }
     
-    @IBInspectable var defaultIconText: String?
+    @IBInspectable var defaultIconText: String? {
+        willSet { defaultIconView.text = newValue }
+    }
     
-    @IBInspectable var defaultIconColor = UIColor.whiteColor()
+    @IBInspectable var defaultIconColor = UIColor.whiteColor() {
+        willSet { defaultIconView.textColor = newValue }
+    }
     
     @IBInspectable var defaultBackgroundColor: UIColor? {
-        willSet {
-            defaultIconView.backgroundColor = newValue
-        }
+        willSet { defaultIconView.backgroundColor = newValue }
     }
     
     var url: String? {

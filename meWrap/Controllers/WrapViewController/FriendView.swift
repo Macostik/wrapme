@@ -192,6 +192,7 @@ final class FriendView: StreamReusableView {
         avatarView.defaultBackgroundColor = Color.grayLighter
         avatarView.defaultIconColor = UIColor.whiteColor()
         avatarView.defaultIconText = "&"
+        avatarView.defaultIconSize = 16
         statusView.clipsToBounds = true
         statusView.cornerRadius = 6
         statusView.backgroundColor = Color.greenOnline

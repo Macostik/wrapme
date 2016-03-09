@@ -69,7 +69,7 @@ extension EditProfileViewController: CaptureAvatarViewControllerDelegate {
     }
     
     func captureViewController(controller: CaptureAvatarViewController, didFinishWithAvatar avatar: MutableAsset) {
-        profileImageView.url = avatar.large
+        profileImageView.url = avatar.uploadableAsset(false).large
         editSession.avatarSession.changedValue = avatar.large ?? ""
         addPhotoLabel.hidden = true
         controller.presentingViewController?.dismissViewControllerAnimated(false, completion: nil)

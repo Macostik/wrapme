@@ -179,7 +179,7 @@ class MutableAsset: Asset {
         }
     }
     
-    func uploadablePicture(justUploaded: Bool) -> Asset {
+    func uploadableAsset(justUploaded: Bool) -> Asset {
         uploaded = true
         let asset = Asset()
         asset.type = type

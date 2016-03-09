@@ -88,13 +88,15 @@ class EmojiView: UIView {
         streamView.layout = GridLayout(streamView: streamView, horizontal: true)
         dataSource = StreamDataSource(streamView: streamView)
         let metrics = StreamMetrics(loader: LayoutStreamLoader<EmojiCell>())
-        metrics.modifyItem = { [unowned self] item in
-            item.ratio = (self.streamView.height/3) / (self.streamView.width/7)
+        metrics.modifyItem = { [weak self] item in
+            if let streamView = self?.streamView {
+                item.ratio = (streamView.height/3) / (streamView.width/7)
+            }
         }
-        metrics.selection = {[unowned self] (item, emoji) -> Void in
+        metrics.selection = { [weak self] (item, emoji) -> Void in
             let emoji = emoji as! String
             Emoji.saveRecent(emoji)
-            self.textView.insertText(emoji)
+            self?.textView.insertText(emoji)
         }
         dataSource.addMetrics(metrics)
         dataSource.numberOfGridColumns = 3

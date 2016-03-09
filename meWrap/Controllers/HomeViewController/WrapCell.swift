@@ -68,8 +68,8 @@ class WrapCell: StreamReusableView {
         
         let swipeAction = SwipeAction(view: self)
         
-        swipeAction.shouldBeginPanning = { [unowned self] (action) -> Bool in
-            guard let wrap = self.entry as? Wrap else {
+        swipeAction.shouldBeginPanning = { [weak self] (action) -> Bool in
+            guard let wrap = self?.entry as? Wrap else {
                 return false
             }
             if wrap.isPublic {
@@ -83,20 +83,26 @@ class WrapCell: StreamReusableView {
             }
         }
         
-        swipeAction.didBeginPanning = { [unowned self] (action) -> Void in
-            self.delegate?.wrapCellDidBeginPanning(self)
+        swipeAction.didBeginPanning = { [weak self] (action) -> Void in
+            if let weakSelf = self {
+                weakSelf.delegate?.wrapCellDidBeginPanning(weakSelf)
+            }
         }
         
-        swipeAction.didEndPanning = { [unowned self] (action, performedAction) -> Void in
-            self.delegate?.wrapCellDidEndPanning(self, performedAction: performedAction)
+        swipeAction.didEndPanning = { [weak self] (action, performedAction) -> Void in
+            if let weakSelf = self {
+                weakSelf.delegate?.wrapCellDidEndPanning(weakSelf, performedAction: performedAction)
+            }
         }
         
-        swipeAction.didPerformAction = { [unowned self] (action, direction) -> Void in
-            if let wrap = self.entry as? Wrap {
-                if action.direction == .Right {
-                    self.delegate?.wrapCell(self, presentChatViewControllerForWrap: wrap)
-                } else if action.direction == .Left {
-                    self.delegate?.wrapCell(self, presentCameraViewControllerForWrap: wrap)
+        swipeAction.didPerformAction = { [weak self] (action, direction) -> Void in
+            if let weakSelf = self {
+                if let wrap = weakSelf.entry as? Wrap {
+                    if action.direction == .Right {
+                        weakSelf.delegate?.wrapCell(weakSelf, presentChatViewControllerForWrap: wrap)
+                    } else if action.direction == .Left {
+                        weakSelf.delegate?.wrapCell(weakSelf, presentCameraViewControllerForWrap: wrap)
+                    }
                 }
             }
         }

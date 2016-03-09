@@ -162,8 +162,8 @@ class EntryContext: NSManagedObjectContext {
     
     func enqueueSave() {
         if hasChanges && persistentStoreCoordinator?.persistentStores.count > 0 {
-            performBlockAndWait({[unowned self] () -> Void in
-                _ = try? self.save()
+            performBlockAndWait({ [weak self] () -> Void in
+                _ = try? self?.save()
             })
         }
     }

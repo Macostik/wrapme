@@ -161,16 +161,18 @@ class CaptureMediaViewController: CaptureViewController {
     private func showUploadSummary(completionHandler: (Void -> Void)?) {
         let queue = runQueue
         
-        let completionBlock: Block = { [unowned self] _ in
+        let completionBlock: Block = { [weak self] _ in
             queue.didFinish = nil
-            Storyboard.UploadSummary.instantiate({ (controller) -> Void in
-                controller.assets = self.assets.sort { $0.date < $1.date }
-                controller.delegate = self
-                controller.changeWrap = { self.showWrapPicker() }
-                controller.wrap = self.wrap
-                self.pushViewController(controller, animated: false)
-                completionHandler?()
-            })
+            if let weakSelf = self {
+                Storyboard.UploadSummary.instantiate({ (controller) -> Void in
+                    controller.assets = weakSelf.assets.sort { $0.date < $1.date }
+                    controller.delegate = weakSelf
+                    controller.changeWrap = { weakSelf.showWrapPicker() }
+                    controller.wrap = weakSelf.wrap
+                    weakSelf.pushViewController(controller, animated: false)
+                    completionHandler?()
+                })
+            }
         }
         
         if queue.isExecuting {

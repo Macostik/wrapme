@@ -61,11 +61,11 @@ final class LiveBroadcasterViewController: LiveViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        UIView.performWithoutAnimation { [unowned self] () -> Void in
-            if let layer = self.previewLayer {
-                layer.frame = self.view.bounds
-                if self.allowAutorotate {
-                    layer.connection?.videoOrientation = self.orientationForVideoConnection()
+        UIView.performWithoutAnimation { [weak self] () -> Void in
+            if let weakSelf = self, let layer = weakSelf.previewLayer {
+                layer.frame = weakSelf.view.bounds
+                if weakSelf.allowAutorotate {
+                    layer.connection?.videoOrientation = weakSelf.orientationForVideoConnection()
                 }
             }
         }

@@ -32,13 +32,13 @@ class CaptureAvatarViewController: CaptureViewController {
     }
     
     private func handleImage(image: UIImage, saveToAlbum: Bool) {
-        editImage(image) { [unowned self] (image) -> Void in
+        editImage(image) { [weak self] (image) -> Void in
             let asset = MutableAsset(isAvatar: true)
             asset.setImage(image)
             if saveToAlbum {
                 asset.saveToAssets()
             }
-            self.finish(asset)
+            self?.finish(asset)
         }
     }
     

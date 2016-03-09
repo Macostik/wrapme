@@ -175,8 +175,10 @@ class CameraViewController: BaseViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         enqueueSelector("setAssetsViewControllerHidden", delay: 3.0)
-        self.assetsViewController.assetsHidingHandler = { [unowned self] _ in
-            NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: "setAssetsViewControllerHidden", object: nil)
+        self.assetsViewController.assetsHidingHandler = { [weak self] _ in
+            if let controller = self {
+                NSObject.cancelPreviousPerformRequestsWithTarget(controller, selector: "setAssetsViewControllerHidden", object: nil)
+            }
         }
         registerOnVolumeChange()
     }
@@ -190,11 +192,11 @@ class CameraViewController: BaseViewController {
     internal func registerOnVolumeChange() {
         let observer = VolumeChangeObserver.sharedObserver
         observer.locked = false
-        observer.registerWithBlock { [unowned self] _ in
-            if self.canCaptureMedia() {
+        observer.registerWithBlock { [weak self] _ in
+            if let controller = self where controller.canCaptureMedia() == true {
                 observer.locked = true
-                self.captureImage({ () -> Void in
-                    if !self.isAvatar {
+                controller.captureImage({ () -> Void in
+                    if !controller.isAvatar {
                         Dispatch.mainQueue.after(0.5) { observer.locked = false }
                     }
                 })

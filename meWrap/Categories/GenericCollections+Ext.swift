@@ -15,6 +15,13 @@ extension Array {
 }
 
 extension CollectionType {
+    
+    func all(@noescape enumerator: Generator.Element -> Void) {
+        for element in self {
+            enumerator(element)
+        }
+    }
+    
     subscript (@noescape includeElement: Generator.Element -> Bool) -> Generator.Element? {
         for element in self where includeElement(element) == true {
             return element

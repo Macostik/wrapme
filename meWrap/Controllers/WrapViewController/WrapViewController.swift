@@ -211,11 +211,11 @@ final class WrapViewController: BaseViewController {
             }
             })
         
-        userNotifyReceiver = EntryNotifyReceiver<User>().setup({ [unowned self] (receiver) -> Void in
-            receiver.shouldNotify = { [weak self] user in
+        userNotifyReceiver = EntryNotifyReceiver<User>().setup({ [weak self] (receiver) -> Void in
+            receiver.shouldNotify = { user in
                 return self?.wrap?.contributors.contains(user) ?? false
             }
-            receiver.didUpdate = { [weak self] entry, event in
+            receiver.didUpdate = { entry, event in
                 if event == .UserStatus {
                     if let wrap = self?.wrap {
                         self?.updateFriendsBar(wrap)

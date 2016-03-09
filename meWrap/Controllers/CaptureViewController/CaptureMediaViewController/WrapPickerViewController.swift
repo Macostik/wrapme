@@ -127,12 +127,14 @@ class WrapPickerViewController: BaseViewController {
         streamView.scrollIndicatorInsets = streamView.contentInset
         
         let metrics = dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<WrapPickerCell>(), size: ItemHeight))
-        metrics.selection = { [unowned self] item, entry in
-            if let index = item?.position.index where self.streamView.contentOffset.y != CGFloat(index) * CGFloat(ItemHeight) {
-                self.streamView.setContentOffset(CGPoint(x: 0, y: CGFloat(index) * CGFloat(ItemHeight)), animated: true)
-            } else {
-                Dispatch.mainQueue.async {
-                    self.delegate?.wrapPickerViewControllerDidFinish(self)
+        metrics.selection = { [weak self] item, entry in
+            if let weakSelf = self {
+                if let index = item?.position.index where weakSelf.streamView.contentOffset.y != CGFloat(index) * CGFloat(ItemHeight) {
+                    weakSelf.streamView.setContentOffset(CGPoint(x: 0, y: CGFloat(index) * CGFloat(ItemHeight)), animated: true)
+                } else {
+                    Dispatch.mainQueue.async {
+                        weakSelf.delegate?.wrapPickerViewControllerDidFinish(weakSelf)
+                    }
                 }
             }
         }

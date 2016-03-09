@@ -116,7 +116,7 @@ class ComposeBar: UIControl, UITextViewDelegate {
         if sender.selected {
             textView.inputView = emojiView
         }
-        if isFirstResponder() {
+        if !isFirstResponder() {
             becomeFirstResponder()
         }
         textView.reloadInputViews()

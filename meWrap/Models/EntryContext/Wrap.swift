@@ -200,9 +200,7 @@ class Wrap: Contribution {
                 count++
             }
             for comment in candy.comments where comment.unread && comment.createdAt > dayAgo {
-                if candy.involvedToConversation() {
-                    count++
-                }
+                count++
             }
         }
         return count

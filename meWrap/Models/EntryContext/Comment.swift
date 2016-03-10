@@ -36,9 +36,10 @@ class Comment: Contribution {
     
     override func willBecomeUnread(unread: Bool) {
         if let candy = candy, let wrap = candy.wrap {
-            let dayAgo = NSDate.dayAgo()
-            if unread && createdAt > dayAgo && candy.involvedToConversation() {
-                wrap.numberOfUnreadInboxItems++
+            if unread {
+                if createdAt > NSDate.dayAgo() {
+                    wrap.numberOfUnreadInboxItems++
+                }
             } else if wrap.numberOfUnreadInboxItems > 0 {
                 wrap.numberOfUnreadInboxItems--
             }

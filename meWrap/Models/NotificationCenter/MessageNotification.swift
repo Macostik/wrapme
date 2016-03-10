@@ -12,7 +12,8 @@ class MessageAddNotification: Notification {
     
     var message: Message?
     
-    override func notifiable() -> Bool {
+    override func playSound() -> Bool {
+        guard super.playSound() else { return false }
         return message?.contributor != User.currentUser
     }
     
@@ -39,7 +40,7 @@ class MessageAddNotification: Notification {
     
     override func submit() {
         guard let message = message else { return }
-        if inserted && notifiable() {
+        if inserted && message.contributor != User.currentUser {
             message.markAsUnread(true)
         }
         message.notifyOnAddition()

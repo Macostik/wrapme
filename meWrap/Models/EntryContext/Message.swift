@@ -32,8 +32,10 @@ class Message: Contribution {
     
     override func willBecomeUnread(unread: Bool) {
         if let wrap = wrap {
-            if unread && createdAt > NSDate.dayAgo() {
-                wrap.numberOfUnreadMessages++
+            if unread {
+                if createdAt > NSDate.dayAgo() {
+                    wrap.numberOfUnreadMessages++
+                }
             } else if wrap.numberOfUnreadMessages > 0 {
                 wrap.numberOfUnreadMessages--
             }

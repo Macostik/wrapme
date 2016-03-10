@@ -60,6 +60,7 @@
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
+            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -4564,7 +4565,6 @@ QWRkEEZyaWVuZFZpZXc
                                         <color key="onTintColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="changeSwichValue:" destination="TKE-mx-bkQ" eventType="valueChanged" id="mXP-hT-OKV"/>
-                                            <action selector="handleFriendsInvite:" destination="TKE-mx-bkQ" eventType="valueChanged" id="T25-GI-D70"/>
                                         </connections>
                                     </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="allow_friends_to_add_people" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hr9-nr-ikq" customClass="Label" customModule="meWrap" customModuleProvider="target">
@@ -4618,11 +4618,28 @@ QWRkEEZyaWVuZFZpZXc
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
+                                    <button tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lfz-4b-D8t" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                        <rect key="frame" x="556" y="20" width="32" height="44"/>
+                                        <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="32"/>
+                                        <state key="normal" title="9">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected">
+                                            <color key="titleColor" red="0.91664922240000002" green="0.91662174460000001" blue="0.91663730139999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="save:" destination="TKE-mx-bkQ" eventType="touchUpInside" id="bUo-0h-CRG"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="Lfz-4b-D8t" firstAttribute="centerY" secondItem="GMA-8i-bdS" secondAttribute="centerY" constant="10" id="9WQ-hS-4Se"/>
                                     <constraint firstAttribute="centerX" secondItem="ZL1-Bm-SmI" secondAttribute="centerX" id="AN7-p9-NCr"/>
                                     <constraint firstAttribute="height" constant="64" id="bXo-mQ-lI9"/>
+                                    <constraint firstAttribute="trailing" secondItem="Lfz-4b-D8t" secondAttribute="trailing" constant="12" id="nnP-a5-1Dz"/>
                                     <constraint firstAttribute="centerY" secondItem="X0X-J5-pFk" secondAttribute="centerY" constant="-10" id="rUW-61-z41"/>
                                     <constraint firstItem="X0X-J5-pFk" firstAttribute="leading" secondItem="GMA-8i-bdS" secondAttribute="leading" constant="12" id="sep-ye-8Sg"/>
                                     <constraint firstItem="ZL1-Bm-SmI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="X0X-J5-pFk" secondAttribute="trailing" id="uVl-o8-pdD"/>
@@ -4698,7 +4715,7 @@ QWRkEEZyaWVuZFZpZXc
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zYA-26-DXt" userLabel="ChatView">
-                                <rect key="frame" x="0.0" y="272" width="600" height="43"/>
+                                <rect key="frame" x="0.0" y="315" width="600" height="43"/>
                                 <subviews>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7VE-Kd-SiX">
                                         <rect key="frame" x="539" y="6" width="51" height="31"/>
@@ -4728,8 +4745,39 @@ QWRkEEZyaWVuZFZpZXc
                                     <constraint firstItem="7VE-Kd-SiX" firstAttribute="leading" secondItem="cUR-VV-aaK" secondAttribute="trailing" constant="12" id="l7g-8y-DB5"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BqH-ce-T3k" userLabel="CommentView">
+                                <rect key="frame" x="0.0" y="272" width="600" height="43"/>
+                                <subviews>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3cm-EK-yhh">
+                                        <rect key="frame" x="539" y="6" width="51" height="31"/>
+                                        <color key="onTintColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="changeSwichValue:" destination="TKE-mx-bkQ" eventType="valueChanged" id="Fpf-lV-qWu"/>
+                                        </connections>
+                                    </switch>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="notify_about_new_comment" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnJ-Ws-37C" customClass="Label" customModule="meWrap" customModuleProvider="target">
+                                        <rect key="frame" x="12" y="12" width="515" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="0.1505631506" green="0.1505586505" blue="0.15056121350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="3cm-EK-yhh" secondAttribute="trailing" constant="12" id="Ays-ql-221"/>
+                                    <constraint firstItem="3cm-EK-yhh" firstAttribute="leading" secondItem="bnJ-Ws-37C" secondAttribute="trailing" constant="12" id="FkD-sf-avM"/>
+                                    <constraint firstAttribute="bottom" secondItem="bnJ-Ws-37C" secondAttribute="bottom" constant="13" id="Ftf-gl-gyh"/>
+                                    <constraint firstItem="bnJ-Ws-37C" firstAttribute="leading" secondItem="BqH-ce-T3k" secondAttribute="leading" constant="12" id="JiA-sF-tLO"/>
+                                    <constraint firstItem="bnJ-Ws-37C" firstAttribute="top" secondItem="BqH-ce-T3k" secondAttribute="top" constant="12" id="Kdw-vp-EQY"/>
+                                    <constraint firstItem="3cm-EK-yhh" firstAttribute="centerY" secondItem="bnJ-Ws-37C" secondAttribute="centerY" id="qOR-5L-2mV"/>
+                                </constraints>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBK-OX-573" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                <rect key="frame" x="12" y="335" width="576" height="30"/>
+                                <rect key="frame" x="12" y="378" width="576" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="ipo-OD-8dx"/>
                                 </constraints>
@@ -4813,31 +4861,36 @@ QWRkEEZyaWVuZFZpZXc
                             <constraint firstItem="GMA-8i-bdS" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" id="8ae-ZE-bU7"/>
                             <constraint firstAttribute="trailing" secondItem="zYA-26-DXt" secondAttribute="trailing" id="BEw-qS-Waq"/>
                             <constraint firstItem="NbD-y4-9Ou" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" id="C2z-GJ-NoN"/>
-                            <constraint firstItem="fdR-Oj-q4N" firstAttribute="bottom" secondItem="zYA-26-DXt" secondAttribute="top" priority="750" id="EzZ-4T-m9D"/>
+                            <constraint firstItem="zYA-26-DXt" firstAttribute="bottom" secondItem="BqH-ce-T3k" secondAttribute="bottom" priority="250" id="Fow-lC-98d"/>
                             <constraint firstItem="zYA-26-DXt" firstAttribute="bottom" secondItem="zBK-OX-573" secondAttribute="top" constant="-20" id="MNL-sJ-su2"/>
                             <constraint firstItem="GMA-8i-bdS" firstAttribute="top" secondItem="gRX-BZ-QRM" secondAttribute="bottom" constant="-20" id="SS9-B6-bXb"/>
                             <constraint firstItem="zBK-OX-573" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" constant="12" id="SlH-Wj-xsc"/>
+                            <constraint firstItem="BqH-ce-T3k" firstAttribute="top" secondItem="fdR-Oj-q4N" secondAttribute="bottom" id="UzI-ub-XNr"/>
                             <constraint firstAttribute="trailing" secondItem="GMA-8i-bdS" secondAttribute="trailing" id="WgA-VG-IsV"/>
                             <constraint firstItem="zYA-26-DXt" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" id="Znh-yW-hus"/>
                             <constraint firstItem="fdR-Oj-q4N" firstAttribute="top" secondItem="WUw-53-Yq6" secondAttribute="bottom" id="agv-Zv-IZ4"/>
                             <constraint firstItem="NbD-y4-9Ou" firstAttribute="top" secondItem="GMA-8i-bdS" secondAttribute="bottom" id="ejy-12-frM"/>
                             <constraint firstAttribute="trailing" secondItem="WUw-53-Yq6" secondAttribute="trailing" id="itK-bI-ECP"/>
+                            <constraint firstItem="BqH-ce-T3k" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" id="kzN-qX-fMg"/>
                             <constraint firstAttribute="trailing" secondItem="zBK-OX-573" secondAttribute="trailing" constant="12" id="pDQ-i2-HGG"/>
                             <constraint firstItem="WUw-53-Yq6" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" id="qJN-HA-4yn"/>
                             <constraint firstItem="NbD-y4-9Ou" firstAttribute="bottom" secondItem="WUw-53-Yq6" secondAttribute="top" id="tgH-6b-vF6"/>
+                            <constraint firstAttribute="trailing" secondItem="BqH-ce-T3k" secondAttribute="trailing" id="uWs-XP-cxJ"/>
+                            <constraint firstItem="zYA-26-DXt" firstAttribute="top" secondItem="BqH-ce-T3k" secondAttribute="bottom" priority="750" id="wlJ-zs-HMO"/>
                             <constraint firstItem="fdR-Oj-q4N" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" id="xYj-GO-7JX"/>
-                            <constraint firstItem="zYA-26-DXt" firstAttribute="bottom" secondItem="fdR-Oj-q4N" secondAttribute="bottom" priority="250" id="xfs-B5-TbF"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="actionButton" destination="zBK-OX-573" id="X6v-wJ-diD"/>
                         <outlet property="adminLabel" destination="hr9-nr-ikq" id="HEY-gd-INb"/>
                         <outlet property="candyNotifyTrigger" destination="R1I-Cl-5SX" id="3u9-S3-WZv"/>
-                        <outlet property="chatNotifyTrigger" destination="7VE-Kd-SiX" id="Mhz-BY-Ri7"/>
+                        <outlet property="chatNotifyTrigger" destination="7VE-Kd-SiX" id="aoe-ym-tWS"/>
                         <outlet property="chatPrioritizer" destination="0bc-8G-SJK" id="SKf-X9-x0w"/>
+                        <outlet property="commentNotifyTrigger" destination="3cm-EK-yhh" id="KSK-uY-zJF"/>
                         <outlet property="editButton" destination="EbT-vV-AiD" id="HS8-7x-q20"/>
                         <outlet property="navigationBar" destination="GMA-8i-bdS" id="99Z-Cx-GMM"/>
                         <outlet property="restrictedInviteTrigger" destination="KAL-gI-aRC" id="uVh-lV-LM9"/>
+                        <outlet property="saveButton" destination="Lfz-4b-D8t" id="mJA-mL-fob"/>
                         <outlet property="wrapNameTextField" destination="dOb-uE-FSR" id="aVm-EK-wPl"/>
                     </connections>
                 </viewController>
@@ -4845,8 +4898,8 @@ QWRkEEZyaWVuZFZpZXc
                 <customObject id="0bc-8G-SJK" userLabel="Chat Prioritizer" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <connections>
                         <outletCollection property="parentViews" destination="LGQ-2s-xPN" collectionClass="NSMutableArray" id="8o5-JV-E0B"/>
-                        <outletCollection property="defaultConstraints" destination="EzZ-4T-m9D" collectionClass="NSMutableArray" id="pVc-ie-Xo2"/>
-                        <outletCollection property="alternativeConstraints" destination="xfs-B5-TbF" collectionClass="NSMutableArray" id="E1d-7I-QAL"/>
+                        <outletCollection property="defaultConstraints" destination="wlJ-zs-HMO" collectionClass="NSMutableArray" id="a82-iD-t5Q"/>
+                        <outletCollection property="alternativeConstraints" destination="Fow-lC-98d" collectionClass="NSMutableArray" id="NBC-U5-Uxi"/>
                     </connections>
                 </customObject>
             </objects>

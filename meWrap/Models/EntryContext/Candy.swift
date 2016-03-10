@@ -42,9 +42,11 @@ class Candy: Contribution {
     
     override func willBecomeUnread(unread: Bool) {
         if let wrap = wrap {
-            let dayAgo = NSDate.dayAgo()
-            if unread && (createdAt > dayAgo || editedAt > dayAgo) {
-                wrap.numberOfUnreadInboxItems++
+            if unread {
+                let dayAgo = NSDate.dayAgo()
+                if createdAt > dayAgo || editedAt > dayAgo {
+                    wrap.numberOfUnreadInboxItems++
+                }
             } else if wrap.numberOfUnreadInboxItems > 0 {
                 wrap.numberOfUnreadInboxItems--
             }
@@ -58,10 +60,6 @@ class Candy: Contribution {
             wrap.notifyOnUpdate(.InboxChanged)
         }
         super.remove()
-    }
-    
-    func involvedToConversation() -> Bool {
-        return contributor?.current == true || comments.contains({ $0.contributor?.current == true })
     }
     
     private var obsering = false

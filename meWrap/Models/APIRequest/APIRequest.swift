@@ -138,7 +138,7 @@ class APIRequest: NSObject {
     
     weak var task: NSURLSessionDataTask?
     
-    func send(success: ObjectBlock?, failure: FailureBlock?) -> NSURLSessionDataTask? {
+    func send(success: ObjectBlock?, failure: FailureBlock? = nil) -> NSURLSessionDataTask? {
         successBlock = success
         failureBlock = failure
         return send()

@@ -152,6 +152,7 @@
 "add_friend..." = "Add friends...";
 "media" = "Media";
 "notify_about_new_chat" = "Notify me when new chat is posted.";
+"notify_about_new_comment" = "Notify me when new comment is added.";
 "account" = "Account";
 "photos" = "Photos";
 "allow_friends_to_add_people" = "Allow friends to add people to the wrap.";

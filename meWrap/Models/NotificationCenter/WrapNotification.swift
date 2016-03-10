@@ -24,7 +24,8 @@ class WrapNotification: Notification {
 
 class ContributorAddNotification: WrapNotification {
     
-    override func notifiable() -> Bool {
+    override func playSound() -> Bool {
+        guard super.playSound() else { return false }
         guard let contributor = wrap?.contributor else { return false }
         guard let currentUser = User.currentUser else { return false }
         return !contributor.current && user == currentUser && inviter != currentUser

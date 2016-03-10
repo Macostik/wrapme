@@ -152,6 +152,7 @@
 "add_friend..." = "新增成員...";
 "media" = "多媒體";
 "notify_about_new_chat" = "當有新對話時通知我";
+"notify_about_new_comment" = "Notify me when new comment is added.";
 "account" = "個人資料";
 "photos" = "相片";
 "allow_friends_to_add_people" = "允許成員添加其他成員";

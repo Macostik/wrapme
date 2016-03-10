@@ -56,13 +56,15 @@ class Notification: NSObject {
     var uid: String?
     
     func playSound() -> Bool {
-        return entry != nil && body?["pn_apns"] != nil && notifiable()
+        if let alert = body?["pn_apns"]?["aps"]?["alert"] {
+            return entry != nil && alert != nil
+        } else {
+            return false
+        }
     }
     
     func soundType() -> Sound? { return nil }
-    
-    func notifiable() -> Bool { return false }
-    
+        
     var publishedAt: NSDate
     var body: [String:AnyObject]?
     var descriptor: EntryDescriptor?

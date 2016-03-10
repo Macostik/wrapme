@@ -33,19 +33,12 @@ class CommentNotification: Notification {
 }
 
 class CommentAddNotification: CommentNotification {
-    override func notifiable() -> Bool {
-        guard let currentUser = User.currentUser, let candy = comment?.candy else {
-            return false
-        }
-        
-        if comment?.contributor == currentUser {
-            return false
-        } else if candy.contributor == currentUser {
-            return true
-        } else {
-            return candy.involvedToConversation()
-        }
+    
+    override func playSound() -> Bool {
+        guard super.playSound() else { return false }
+        return comment?.contributor != User.currentUser
     }
+    
     override func soundType() -> Sound { return .s02 }
     
     override func submit() {
@@ -54,7 +47,7 @@ class CommentAddNotification: CommentNotification {
         if candy.valid {
             candy.commentCount = Int16(candy.comments.count)
         }
-        if inserted && notifiable() {
+        if inserted && comment.contributor != User.currentUser {
             comment.markAsUnread(true)
         }
         comment.notifyOnAddition()

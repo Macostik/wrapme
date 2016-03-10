@@ -28,11 +28,15 @@ class EditSession<T: Equatable>: EditSessionProtocol {
     
     var validator: (T -> Bool)?
     
-    var originalValue: T
+    var originalValue: T {
+        didSet {
+            hasChanges = originalValue != changedValue
+        }
+    }
     
     var changedValue: T {
         didSet {
-            hasChanges = !(changedValue == originalValue)
+            hasChanges = changedValue != originalValue
         }
     }
     
@@ -61,11 +65,7 @@ class EditSession<T: Equatable>: EditSessionProtocol {
         hasChanges = false
     }
     
-    convenience init(originalValue: T, setter: (T -> Void)?) {
-        self.init(originalValue: originalValue, setter: setter, validator: nil)
-    }
-    
-    init(originalValue: T, setter: (T -> Void)?, validator: (T -> Bool)?) {
+    init(originalValue: T, setter: (T -> Void)?, validator: (T -> Bool)? = nil) {
         self.setter = setter
         self.validator = validator
         self.originalValue = originalValue
@@ -93,25 +93,20 @@ class CompoundEditSession: EditSessionProtocol {
     }
     
     func apply() {
-        for session in sessions {
-            session.apply()
-        }
+        sessions.all({ $0.apply() })
     }
     
     func reset() {
-        for session in sessions {
-            session.reset()
-        }
+        sessions.all({ $0.reset() })
     }
     
     func clean() {
-        for session in sessions {
-            session.clean()
-        }
+        sessions.all({ $0.clean() })
     }
 }
 
 extension CompoundEditSession: EditSessionDelegate {
+    
     func editSession(session: EditSessionProtocol, hasChanges: Bool) {
         self.hasChanges = hasChanges || sessions.contains({ $0.hasChanges })
     }

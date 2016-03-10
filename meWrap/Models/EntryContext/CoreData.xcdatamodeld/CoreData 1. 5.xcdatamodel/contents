@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="1.4" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="1.4" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Automatic">
     <entity name="Candy" representedClassName="Candy" parentEntity="Contribution" syncable="YES">
         <attribute name="commentCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0.0" syncable="YES"/>
@@ -56,6 +56,7 @@
         <attribute name="candiesPaginationDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="isCandyNotifiable" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="isChatNotifiable" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <attribute name="isCommentNotifiable" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="isPublic" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="isRestrictedInvite" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -73,6 +74,6 @@
         <element name="Message" positionX="18" positionY="72" width="128" height="75"/>
         <element name="Uploading" positionX="0" positionY="0" width="128" height="75"/>
         <element name="User" positionX="0" positionY="0" width="128" height="180"/>
-        <element name="Wrap" positionX="0" positionY="0" width="128" height="180"/>
+        <element name="Wrap" positionX="0" positionY="0" width="128" height="195"/>
     </elements>
 </model>

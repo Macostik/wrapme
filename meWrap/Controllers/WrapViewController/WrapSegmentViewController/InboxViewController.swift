@@ -228,11 +228,9 @@ class InboxViewController: WrapSegmentViewController {
                 updates.last?.unread = false
                 updates.append(RecentUpdate(event: .Update, contribution: candy))
             }
-            if candy.involvedToConversation() {
-                for comment in candy.comments {
-                    if comment.unread { containsUnread = true }
-                    updates.append(RecentUpdate(event: .Add, contribution: comment))
-                }
+            for comment in candy.comments {
+                if comment.unread { containsUnread = true }
+                updates.append(RecentUpdate(event: .Add, contribution: comment))
             }
         }
         self.updates = updates.sort({ $0.date > $1.date })

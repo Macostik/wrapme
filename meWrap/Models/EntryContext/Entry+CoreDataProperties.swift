@@ -64,6 +64,7 @@ extension Contribution {
 extension Wrap {
     
     @NSManaged var isCandyNotifiable: Bool
+    @NSManaged var isCommentNotifiable: Bool
     @NSManaged var isChatNotifiable: Bool
     @NSManaged var isPublic: Bool
     @NSManaged var isRestrictedInvite: Bool

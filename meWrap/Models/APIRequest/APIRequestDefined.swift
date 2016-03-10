@@ -164,6 +164,7 @@ extension APIRequest {
                 if let preference = response.dictionary("wrap_preference") {
                     _wrap.isCandyNotifiable = preference["notify_when_image_candy_addition"] as? Bool ?? false
                     _wrap.isChatNotifiable = preference["notify_when_chat_addition"] as? Bool ?? false
+                    _wrap.isCommentNotifiable = preference["notify_when_comment_addition"] as? Bool ?? false
                     _wrap.notifyOnUpdate(.PreferencesChanged)
                 }
                 return _wrap
@@ -177,6 +178,7 @@ extension APIRequest {
         return PUT().path("wraps/\(wrap.uid)/preferences").parametrize({
             $0["notify_when_image_candy_addition"] = wrap.isCandyNotifiable
             $0["notify_when_chat_addition"] = wrap.isChatNotifiable
+            $0["notify_when_comment_addition"] = wrap.isCommentNotifiable
         }).parse({ (_) -> AnyObject? in
             return wrap.validEntry()
         }).contributionUnavailable(wrap)

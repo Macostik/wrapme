@@ -60,7 +60,7 @@ extension Entry {
 
 extension User {
     
-    class func channelName() -> String {
+    class func uuid() -> String {
         return "\(User.currentUser?.uid ?? "")-\(Authorization.current.deviceUID)"
     }
     

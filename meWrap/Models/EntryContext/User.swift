@@ -35,10 +35,17 @@ class User: Entry {
         }
     }
     
-    lazy var activity: UserActivity = UserActivity(user: self)
+    var numberOfActiveDevices: Int = 0 {
+        didSet {
+            if numberOfActiveDevices != oldValue {
+                isActive = numberOfActiveDevices > 0
+            }
+        }
+    }
     
     func activityForWrap(wrap: Wrap) -> UserActivity? {
-        return (activity.wrap == wrap && activity.inProgress) ? activity : nil
+        let device = devices.sort({ $0.activeAt > $1.activeAt })[{ $0.activity.wrap == wrap && $0.activity.inProgress }]
+        return device?.activity
     }
     
     func isActiveInWrap(wrap: Wrap) -> Bool {
@@ -82,6 +89,34 @@ class User: Entry {
 
 @objc(Device)
 class Device: Entry {
+    
+    var activeAt: NSDate = NSDate(timeIntervalSince1970: 0)
+    
+    var isActive: Bool = false {
+        didSet {
+            if isActive != oldValue {
+                if isActive {
+                    owner?.numberOfActiveDevices++
+                } else {
+                    owner?.numberOfActiveDevices--
+                }
+            }
+        }
+    }
+    
+    lazy var activity: UserActivity = UserActivity(user: self.owner)
+    
+    func activityForWrap(wrap: Wrap) -> UserActivity? {
+        return (activity.wrap == wrap && activity.inProgress) ? activity : nil
+    }
+    
+    func isActiveInWrap(wrap: Wrap) -> Bool {
+        return activityForWrap(wrap) != nil
+    }
+    
+    func isActiveInWrap(wrap: Wrap, type: UserActivityType) -> Bool {
+        return activityForWrap(wrap)?.type == type
+    }
     
     override class func entityName() -> String { return "Device" }
     

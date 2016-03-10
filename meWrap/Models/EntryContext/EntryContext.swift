@@ -169,9 +169,9 @@ class EntryContext: NSManagedObjectContext {
     }
     
     func execute<T>(request: FetchRequest<T>, completion: [T] -> Void) {
-        performBlock { () -> Void in
-            _ = try? self.executeRequest(NSAsynchronousFetchRequest(fetchRequest: request) { (result) -> Void in
-                completion(result.finalResult as? [T] ?? [])
+        performBlock {
+            _ = try? self.executeRequest(NSAsynchronousFetchRequest(fetchRequest: request) {
+                completion($0.finalResult as? [T] ?? [])
                 })
         }
     }

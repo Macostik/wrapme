@@ -221,8 +221,8 @@ final class FriendView: StreamReusableView {
             }
             avatarView.url = url
             
-            if friend.activity.wrap == wrap && friend.activity.inProgress {
-                if let animationView = ActivityAnimationView.animationView(friend.activity.type) {
+            if let wrap = wrap, let activity = friend.activityForWrap(wrap) {
+                if let animationView = ActivityAnimationView.animationView(activity.type) {
                     activityAnimationView = animationView
                     statusView.hidden = true
                 } else {

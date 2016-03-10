@@ -46,7 +46,7 @@ struct UserActivity {
     
     var info = [String:AnyObject]()
     
-    init(user: User) {
+    init(user: User?) {
         self.user = user
     }
     

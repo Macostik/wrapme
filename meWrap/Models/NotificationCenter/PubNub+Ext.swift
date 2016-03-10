@@ -15,7 +15,7 @@ extension PubNub {
     
     static var sharedInstance: PubNub {
         if var pubnub = _sharedInstance {
-            if pubnub.currentConfiguration().uuid != User.channelName() {
+            if pubnub.currentConfiguration().uuid != User.uuid() {
                 let configuration = defaultConfiguration()
                 pubnub = pubnub.copyWithConfiguration(configuration, completion: { _ in })
                 _sharedInstance = pubnub
@@ -35,7 +35,8 @@ extension PubNub {
         } else {
             configuration = PNConfiguration(publishKey: "pub-c-16ba2a90-9331-4472-b00a-83f01ff32089", subscribeKey: "sub-c-bc5bfa70-d166-11e3-8d06-02ee2ddab7fe")
         }
-        configuration.uuid = User.channelName()
+        configuration.uuid = User.uuid()
+        configuration.presenceHeartbeatInterval = 30
         configuration.presenceHeartbeatValue = 60
         return configuration
     }
@@ -54,6 +55,18 @@ extension PubNub {
     
     class func userFromUUID(uuid: String?) -> User? {
         return User.entry(userUIDFromUUID(uuid))
+    }
+    
+    class func parseUUID(uuid: String?) -> (user: User, device: Device)? {
+        guard let uuid = uuid where uuid.containsString("-") else { return nil }
+        let uids = uuid.componentsSeparatedByString("-")
+        guard uids.count >= 2 else { return nil }
+        guard let user = User.entry(uids[0]) else { return nil }
+        guard let device = Device.entry(uids[1]) else { return nil }
+        if !user.devices.contains(device) {
+            user.devices.insert(device)
+        }
+        return (user, device)
     }
 }
 

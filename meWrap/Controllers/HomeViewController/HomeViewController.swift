@@ -116,13 +116,13 @@ final class HomeViewController: BaseViewController {
         NSUserDefaults.standardUserDefaults().numberOfLaunches++
         
         Dispatch.mainQueue.async { [weak self] _ in
-            RunQueue.fetchQueue.run({ (finish) -> Void in
-                NotificationCenter.defaultCenter.fetchLiveBroadcasts({
+            RunQueue.fetchQueue.run { finish in
+                NotificationCenter.defaultCenter.refreshUserActivities {
                     self?.homeDataSource.paginatedSet?.sort()
                     self?.publicDataSource.paginatedSet?.sort()
                     finish()
-                })
-            })
+                }
+            }
         }
     }
     

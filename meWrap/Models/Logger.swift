@@ -53,7 +53,7 @@ class Logger: NSObject {
             if remoteLogging {
                 let appState = UIApplication.sharedApplication().applicationState.displayName()
                 let screenName = BaseViewController.lastAppearedScreenName ?? ""
-                leLog.log("\(User.channelName()) (app is \(appState), last visited screen is \(screenName))\n \(string)")
+                leLog.log("\(User.uuid()) (app is \(appState), last visited screen is \(screenName))\n \(string)")
             }
         #endif
     }

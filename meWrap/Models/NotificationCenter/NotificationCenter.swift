@@ -73,7 +73,7 @@ class NotificationCenter: NSObject {
                 UIApplication.sharedApplication().registerForRemoteNotifications()
             }
         }
-        PubNub.sharedInstance.subscribeToChannels([User.channelName()], withPresence: false)
+        PubNub.sharedInstance.subscribeToChannels([User.uuid()], withPresence: false)
         userSubscription.subscribe()
     }
     
@@ -235,7 +235,7 @@ class NotificationCenter: NSObject {
         _info["type"] = type.rawValue
         _info["in_progress"] = inProgress
         let state = [ "activity" : _info ]
-        PubNub.sharedInstance.setState(state, forUUID: User.channelName(), onChannel: wrap.uid, withCompletion: nil)
+        PubNub.sharedInstance.setState(state, forUUID: User.uuid(), onChannel: wrap.uid, withCompletion: nil)
     }
 }
 
@@ -297,8 +297,10 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
     func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {
         let data = event.data
         let event = data.presenceEvent
-        guard let uuid = data.presence.uuid where uuid != User.channelName() else { return }
-        guard let user = PubNub.userFromUUID(uuid) else { return }
+        guard let uuid = data.presence.uuid where uuid != User.uuid() else { return }
+        guard let result = PubNub.parseUUID(uuid) else { return }
+        let user = result.user
+        let device = result.device
         
         if event == "timeout" || event == "leave" {
             user.isActive = false
@@ -308,11 +310,11 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
         
         if event == "state-change" {
             guard let wrap = Wrap.entry(data.actualChannel) else { return }
-            user.activity.handleState(data.presence.state, wrap: wrap)
-            if user.activity.type == .Live {
-                if user.activity.inProgress {
+            device.activity.handleState(data.presence.state, wrap: wrap)
+            if device.activity.type == .Live {
+                if device.activity.inProgress {
                     user.fetchIfNeeded({ _ in
-                        let broadcast = user.activity.generateLiveBroadcast()
+                        let broadcast = device.activity.generateLiveBroadcast()
                         wrap.addBroadcast(broadcast)
                         }, failure: nil)
                 } else {
@@ -324,10 +326,10 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
             }
         } else if event == "timeout" || event == "leave" {
             guard let wrap = Wrap.entry(data.actualChannel, allowInsert: false) else { return }
-            if user.activity.inProgress && user.activity.wrap == wrap {
-                user.activity.inProgress = false
-                user.activity.notifyIfNeeded()
-                if user.activity.type == .Live {
+            if device.activity.inProgress && device.activity.wrap == wrap {
+                device.activity.inProgress = false
+                device.activity.notifyIfNeeded()
+                if device.activity.type == .Live {
                     for broadcast in wrap.liveBroadcasts where broadcast.broadcaster == user {
                         wrap.removeBroadcast(broadcast)
                         break
@@ -337,67 +339,15 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
         }
     }
     
-    private func activeUsers(uuids: [[String:AnyObject]], wrap: Wrap) -> [User] {
-        var users = [User]()
-        for uuid in uuids {
-            guard let uid = uuid["uuid"] as? String where uid != User.channelName() else { continue }
-            guard let user = PubNub.userFromUUID(uid) else { continue }
-            user.isActive = true
-            if let state = uuid["state"] as? [String:AnyObject] {
-                user.activity.handleState(state, wrap: wrap)
-            }
-            users.append(user)
-            user.fetchIfNeeded(nil, failure: nil)
-        }
-        return users
-    }
-    
-    private func liveBroadcasts(uuids: [[String:AnyObject]], wrap: Wrap) -> [LiveBroadcast] {
-        var broadcasts = [LiveBroadcast]()
-        let users = activeUsers(uuids, wrap: wrap)
-        for user in users {
-            let activity = user.activity
-            if activity.inProgress && activity.type == .Live && activity.wrap == wrap {
-                let broadcast = activity.generateLiveBroadcast()
-                broadcasts.append(broadcast)
-            }
-        }
-        return broadcasts
-    }
-    
-    func fetchLiveBroadcasts(completionHandler: Void -> Void) {
-        PubNub.sharedInstance.hereNowForChannelGroup(userSubscription.name) { (result, status) -> Void in
-            if let channels = result?.data.channels {
-                for (channel, data) in channels {
-                    guard let uuids = data["uuids"] as? [[String:AnyObject]] else { continue }
-                    guard let wrap = Wrap.entry(channel) else { continue }
-                    wrap.liveBroadcasts = self.liveBroadcasts(uuids, wrap: wrap)
-                }
-            }
-            completionHandler()
-        }
-    }
-    
-    func fetchLiveBroadcastsForWrap(wrap: Wrap, completionHandler: [LiveBroadcast] -> Void) {
-        PubNub.sharedInstance.hereNowForChannel(wrap.uid, withVerbosity: .State) { (result, status) -> Void in
-            if let uuids = result?.data.uuids as? [[String:AnyObject]] {
-                completionHandler(self.liveBroadcasts(uuids, wrap: wrap))
-            } else {
-                completionHandler([])
-            }
-        }
-    }
-    
     private func channelActivities(uuids: [[String:AnyObject]]) -> (activities: [String:[String:AnyObject]], users: Set<String>) {
         var activities = [String:[String:AnyObject]]()
         var users = Set<String>()
         for uuid in uuids {
-            guard let uid = uuid["uuid"] as? String,
-                let userUid = PubNub.userUIDFromUUID(uid) where uid != User.channelName() else { continue }
-            users.insert(userUid)
+            guard let uid = uuid["uuid"] as? String where uid != User.uuid() else { continue }
+            users.insert(uid)
             if let state = uuid["state"] as? [String:AnyObject] {
                 if let activity = state["activity"] as? [String:AnyObject] where activity["in_progress"] as? Bool == true {
-                    activities[userUid] = activity
+                    activities[uid] = activity
                 }
             }
         }
@@ -420,23 +370,26 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
                     }
                 }
                 
-                usersLoop: for userUid in users {
-                    guard let user = User.entry(userUid) else { continue usersLoop }
+                usersLoop: for uuid in users {
+                    guard let result = PubNub.parseUUID(uuid) else { continue usersLoop }
+                    let user = result.user
+                    let device = result.device
+                    device.isActive = true
                     activitiesLoop: for (channel, _activities) in activities {
-                        if let activity = _activities[userUid] {
-                            user.activity.handleActivity(activity)
+                        if let activity = _activities[uuid] {
+                            device.activity.handleActivity(activity)
                             let wrap = Wrap.entry(channel)
-                            user.activity.wrap = wrap
-                            if user.activity.inProgress && user.activity.type == .Live {
-                                let broadcast = user.activity.generateLiveBroadcast()
+                            device.activity.wrap = wrap
+                            if device.activity.inProgress && device.activity.type == .Live {
+                                let broadcast = device.activity.generateLiveBroadcast()
                                 wrap?.addBroadcastIfNeeded(broadcast)
                             }
                             continue usersLoop
                         }
                     }
-                    if user.activity.inProgress {
-                        user.activity.wrap?.removeBroadcastFrom(user)
-                        user.activity.clear()
+                    if device.activity.inProgress {
+                        device.activity.wrap?.removeBroadcastFrom(user)
+                        device.activity.clear()
                     }
                 }
             }
@@ -451,20 +404,23 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
                 
                 let result = self.channelActivities(uuids)
                 
-                for userUid in result.users {
-                    guard let user = User.entry(userUid) else { continue }
-                    if let activity = result.activities[userUid] {
-                        user.activity.handleActivity(activity)
-                        user.activity.wrap = wrap
-                        if user.activity.inProgress && user.activity.type == .Live {
-                            let broadcast = user.activity.generateLiveBroadcast()
+                for uuid in result.users {
+                    guard let uuidResult = PubNub.parseUUID(uuid) else { continue }
+                    let user = uuidResult.user
+                    let device = uuidResult.device
+                    device.isActive = true
+                    if let activity = result.activities[uuid] {
+                        device.activity.handleActivity(activity)
+                        device.activity.wrap = wrap
+                        if device.activity.inProgress && device.activity.type == .Live {
+                            let broadcast = device.activity.generateLiveBroadcast()
                             wrap.addBroadcastIfNeeded(broadcast)
                         }
                         continue
                     }
-                    if user.activity.inProgress && user.activity.wrap == wrap {
+                    if device.activity.inProgress && device.activity.wrap == wrap {
                         wrap.removeBroadcastFrom(user)
-                        user.activity.clear()
+                        device.activity.clear()
                     }
                 }
             }

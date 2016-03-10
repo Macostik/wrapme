@@ -149,11 +149,7 @@ class Uploader: Notifier {
         }
     }
     
-    func upload(uploading: Uploading) {
-        upload(uploading, success: nil, failure: nil)
-    }
-    
-    func upload(uploading: Uploading, success: ObjectBlock?, failure: FailureBlock?) {
+    func upload(uploading: Uploading, success: ObjectBlock? = nil, failure: FailureBlock? = nil) {
         add(uploading)
         enqueue(uploading, success: success, failure: failure)
     }

@@ -20,6 +20,9 @@ struct UserActivity {
     var inProgress = false {
         didSet {
             if inProgress != oldValue {
+                if inProgress {
+                    device?.activeAt = NSDate.now()
+                }
                 needsNotify = true
             }
         }
@@ -28,11 +31,11 @@ struct UserActivity {
     mutating func notifyIfNeeded() {
         if needsNotify {
             needsNotify = false
-            Dispatch.mainQueue.async({ self.user?.notifyOnUpdate(.UserStatus) })
+            Dispatch.mainQueue.async({ self.device?.owner?.notifyOnUpdate(.UserStatus) })
         }
     }
     
-    weak var user: User?
+    weak var device: Device?
     
     weak var wrap: Wrap?
     
@@ -46,8 +49,8 @@ struct UserActivity {
     
     var info = [String:AnyObject]()
     
-    init(user: User?) {
-        self.user = user
+    init(device: Device) {
+        self.device = device
     }
     
     mutating func handleState(state: [NSObject:AnyObject]?, wrap: Wrap?) {
@@ -77,7 +80,7 @@ struct UserActivity {
     
     func generateLiveBroadcast() -> LiveBroadcast {
         let broadcast = LiveBroadcast()
-        broadcast.broadcaster = user
+        broadcast.broadcaster = device?.owner
         broadcast.wrap = wrap
         broadcast.title = info["title"] as? String
         broadcast.streamName = info["streamName"] as? String ?? ""

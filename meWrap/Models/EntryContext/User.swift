@@ -104,7 +104,7 @@ class Device: Entry {
         }
     }
     
-    lazy var activity: UserActivity = UserActivity(user: self.owner)
+    lazy var activity: UserActivity = UserActivity(device: self)
     
     func activityForWrap(wrap: Wrap) -> UserActivity? {
         return (activity.wrap == wrap && activity.inProgress) ? activity : nil

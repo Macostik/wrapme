@@ -27,7 +27,7 @@ final class MessageDateView: StreamReusableView {
     }
 }
 
-final class MessageCell: StreamReusableView {
+final class MessageCell: StreamReusableView, FlowerMenuConstructor {
     
     @IBOutlet weak var tailView: UIImageView?
     @IBOutlet weak var avatarView: ImageView?
@@ -38,11 +38,7 @@ final class MessageCell: StreamReusableView {
     
     override func awakeFromNib () {
         super.awakeFromNib()
-        FlowerMenu.sharedMenu.registerView(self, constructor: { [weak self] (menu) in
-            if let message = self?.entry as? Message {
-                menu.addCopyAction({ UIPasteboard.generalPasteboard().string = message.text })
-            }
-            })
+        FlowerMenu.sharedMenu.registerView(self)
         if let tailView = tailView, let color = textView.superview?.backgroundColor {
             tailView.image = MessageCell.tailImageWithColor(color, size: tailView.size, drawing: { size in
                 let path = UIBezierPath()
@@ -56,6 +52,12 @@ final class MessageCell: StreamReusableView {
                 color.setFill()
                 path.fill()
                 })
+        }
+    }
+    
+    func constructFlowerMenu(menu: FlowerMenu) {
+        if let message = entry as? Message {
+            menu.addCopyAction({ UIPasteboard.generalPasteboard().string = message.text })
         }
     }
     

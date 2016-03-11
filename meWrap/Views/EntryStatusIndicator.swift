@@ -8,20 +8,13 @@
 
 import Foundation
 
-let WLIndicatorWidth:CGFloat = 16.0
+private let IndicatorWidth: CGFloat = 16.0
 
-class EntryStatusIndicator: UILabel, EntryNotifying {
+final class EntryStatusIndicator: UILabel, EntryNotifying {
     
-    @IBOutlet weak  var widthConstraint : NSLayoutConstraint?;
+    @IBOutlet weak var widthConstraint: NSLayoutConstraint?
+    
     var contribution : Contribution?
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
     
     func identityByContributorStatus(contribution: Contribution!) -> String! {
         if let container = contribution.container as? Contribution where container.status != .Finished {
@@ -29,7 +22,7 @@ class EntryStatusIndicator: UILabel, EntryNotifying {
         }
         
         switch contribution.status {
-        case .Ready:return "D"
+        case .Ready: return "D"
         case .InProgress: return "E"
         case .Finished: return "F"
         }
@@ -39,28 +32,24 @@ class EntryStatusIndicator: UILabel, EntryNotifying {
         self.hidden = !contribution.valid || !(contribution.contributor?.current ?? false)
         if let widthConstraint = widthConstraint {
             UIView.performWithoutAnimation({ () -> Void in
-                widthConstraint.constant = self.hidden ? 0.0 : WLIndicatorWidth;
+                widthConstraint.constant = self.hidden ? 0.0 : IndicatorWidth
                 self.layoutIfNeeded()
             })
         }
         if self.contribution != contribution {
-            self.contribution = contribution;
+            self.contribution = contribution
             contribution.dynamicType.notifier().addReceiver(self)
             if let container = contribution.container as? Contribution {
                 if container.status != .Finished {
                     container.dynamicType.notifier().addReceiver(self)
                 }
             }
-            self.setIconNameByCotribution(contribution)
+            self.text = self.identityByContributorStatus(contribution)
         }
     }
     
-    func setIconNameByCotribution(contribution : Contribution) {
-       self.text = self.identityByContributorStatus(contribution);
-    }
-    
     func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
-        self.setIconNameByCotribution(contribution!);
+        self.text = self.identityByContributorStatus(contribution!)
     }
     
     func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {

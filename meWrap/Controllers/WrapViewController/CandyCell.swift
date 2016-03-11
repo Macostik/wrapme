@@ -9,7 +9,7 @@
 import Foundation
 import SnapKit
 
-class CandyCell: StreamReusableView {
+class CandyCell: StreamReusableView, FlowerMenuConstructor {
     
     var imageView = ImageView(backgroundColor: UIColor.whiteColor())
     
@@ -50,57 +50,57 @@ class CandyCell: StreamReusableView {
     
     override func loadedWithMetrics(metrics: StreamMetrics) {
         super.loadedWithMetrics(metrics)
-        guard !metrics.disableMenu else {
+        if !metrics.disableMenu {
+            FlowerMenu.sharedMenu.registerView(self)
+        }
+    }
+    
+    func constructFlowerMenu(menu: FlowerMenu) {
+        guard let candy = entry as? Candy where !(candy.wrap?.requiresFollowing ?? true) else {
             return
         }
         
-        FlowerMenu.sharedMenu.registerView(self, constructor: { [weak self] menu -> Void in
-            guard let candy = self?.entry as? Candy where !(candy.wrap?.requiresFollowing ?? true) else {
-                return
-            }
+        if candy.updateError() == nil && !candy.isVideo {
             
-            if candy.updateError() == nil && !candy.isVideo {
-                
-                menu.addEditPhotoAction({
-                    DownloadingView.downloadCandy(candy, success: { (image) -> Void in
-                        ImageEditor.editImage(image) { candy.editWithImage($0) }
-                        }, failure: { $0?.show() })
-                })
-                
-                menu.addDrawPhotoAction({
-                    DownloadingView.downloadCandy(candy, success: { (image) -> Void in
-                        DrawingViewController.draw(image) { candy.editWithImage($0) }
-                        }, failure: { $0?.show() })
-                })
-            }
-            
-            menu.addDownloadAction({
-                candy.download({ () -> Void in
-                    Toast.showDownloadingMediaMessageForCandy(candy)
+            menu.addEditPhotoAction({
+                DownloadingView.downloadCandy(candy, success: { (image) -> Void in
+                    ImageEditor.editImage(image) { candy.editWithImage($0) }
                     }, failure: { $0?.show() })
             })
             
-            if candy.deletable {
-                menu.addDeleteAction({
-                    UIAlertController.confirmCandyDeleting(candy, success: { (_) -> Void in
-                        self?.userInteractionEnabled = false
-                        candy.delete({ (_) -> Void in
-                            self?.userInteractionEnabled = true
-                            }, failure: { (error) -> Void in
-                                error?.show()
-                                self?.userInteractionEnabled = true
-                        })
-                        }, failure: nil)
-                })
-            } else {
-                menu.addReportAction({
-                    if let controller = UIStoryboard.main["report"] as? ReportViewController {
-                        controller.candy = candy
-                        UIWindow.mainWindow.rootViewController?.presentViewController(controller, animated: false, completion: nil)
-                    }
-                })
-            }
+            menu.addDrawPhotoAction({
+                DownloadingView.downloadCandy(candy, success: { (image) -> Void in
+                    DrawingViewController.draw(image) { candy.editWithImage($0) }
+                    }, failure: { $0?.show() })
             })
+        }
+        
+        menu.addDownloadAction({
+            candy.download({ () -> Void in
+                Toast.showDownloadingMediaMessageForCandy(candy)
+                }, failure: { $0?.show() })
+        })
+        
+        if candy.deletable {
+            menu.addDeleteAction({ [weak self] in
+                UIAlertController.confirmCandyDeleting(candy, success: { (_) -> Void in
+                    self?.userInteractionEnabled = false
+                    candy.delete({ (_) -> Void in
+                        self?.userInteractionEnabled = true
+                        }, failure: { (error) -> Void in
+                            error?.show()
+                            self?.userInteractionEnabled = true
+                    })
+                    }, failure: nil)
+            })
+        } else {
+            menu.addReportAction({
+                if let controller = UIStoryboard.main["report"] as? ReportViewController {
+                    controller.candy = candy
+                    UIWindow.mainWindow.rootViewController?.presentViewController(controller, animated: false, completion: nil)
+                }
+            })
+        }
     }
     
     override func didDequeue() {

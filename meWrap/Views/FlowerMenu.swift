@@ -27,20 +27,13 @@ class FlowerMenuAction: UIButton {
     }
 }
 
-private class FlowerMenuEntry: NSObject {
-    weak var view: UIView?
-    var constructor: (FlowerMenu -> Void)?
-    init (view: UIView, constructor: (FlowerMenu -> Void)) {
-        self.view = view
-        self.constructor = constructor
-    }
+protocol FlowerMenuConstructor {
+    func constructFlowerMenu(menu: FlowerMenu)
 }
 
 class FlowerMenu: UIView {
     
     static var sharedMenu = FlowerMenu()
-    
-    private var entries = Set<FlowerMenuEntry>()
     
     private var actions = [FlowerMenuAction]()
     
@@ -50,24 +43,8 @@ class FlowerMenu: UIView {
     
     var vibrate = true
     
-    private func entryForView(view: UIView) -> FlowerMenuEntry? {
-        for entry in entries where entry.view == view {
-            return entry
-        }
-        return nil
-    }
-    
-    func registerView(view: UIView, constructor: (FlowerMenu -> Void)) {
-        if let entry = entryForView(view) {
-            entry.constructor = constructor
-        } else {
-            let entry = FlowerMenuEntry(view: view, constructor: constructor)
-            entries.insert(entry)
-            view.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: "present:"))
-            while let index = entries.indexOf({ $0.view == nil }) {
-                entries.removeAtIndex(index)
-            }
-        }
+    func registerView<T: UIView where T: FlowerMenuConstructor>(view: T) {
+        view.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: "present:"))
     }
     
     func show() {
@@ -122,15 +99,11 @@ class FlowerMenu: UIView {
     }
     
     func animateHiding() {
-        for action in actions {
-            action.center = centerPoint
-        }
+        actions.all({ $0.center = centerPoint })
     }
     
     func completeHiding(flag: Bool) {
-        for action in actions {
-            action.removeFromSuperview()
-        }
+        actions.all({ $0.removeFromSuperview() })
         actions.removeAll()
         removeFromSuperview()
     }
@@ -140,14 +113,12 @@ class FlowerMenu: UIView {
         actions.append(action)
         addSubview(action)
         action.addTarget(self, action: "selectedAction:", forControlEvents: .TouchUpInside)
-        action.center = centerPoint;
+        action.center = centerPoint
     }
     
     func present(sender: UILongPressGestureRecognizer) {
-        if sender.state == .Began {
-            if let view = sender.view {
-                showInView(view, point:sender.locationInView(view))
-            }
+        if let view = sender.view where sender.state == .Began {
+            showInView(view, point:sender.locationInView(view))
         }
     }
     
@@ -160,16 +131,14 @@ class FlowerMenu: UIView {
         guard rect.contains(centerPoint) else { return }
         
         currentView = view
-        for action in actions {
-            action.removeFromSuperview()
-        }
+        actions.all({ $0.removeFromSuperview() })
         actions.removeAll()
         
-        guard let constructor = entryForView(view)?.constructor else { return }
+        guard let constructor = view as? FlowerMenuConstructor else { return }
         
         vibrate = true
         
-        constructor(self)
+        constructor.constructFlowerMenu(self)
         
         guard !actions.isEmpty else { return }
 
@@ -185,23 +154,30 @@ class FlowerMenu: UIView {
         hide()
     }
     
-    let headerHeight: CGFloat = 50.0 + 50.0 + 64.0
-    
     override func drawRect(rect: CGRect) {
         if let view = currentView {
             let ctx = UIGraphicsGetCurrentContext()
             let color = UIColor(white: 0, alpha: 0.6)
             CGContextSetFillColorWithColor(ctx, color.CGColor)
             CGContextFillRect (ctx, rect)
-            var frame = convertRect(view.bounds, fromView:view)
-            if let cell = view as? CandyCell, let metrics = cell.metrics where metrics.isRenderingHighlight {
-                let origin = frame.origin
-                frame = CGRectMake(origin.x, origin.y > headerHeight ? origin.y : origin.y + (headerHeight - origin.y),
-                    frame.width, origin.y > headerHeight ? frame.height : frame.height - (headerHeight - origin.y))
-            }
             CGContextSetShadowWithColor (ctx, CGSizeZero, 15.0, color.CGColor)
-            CGContextClearRect(ctx, frame)
+            CGContextClearRect(ctx, targetRect(view))
         }
+    }
+    
+    private func targetRect(view: UIView) -> CGRect {
+        var viewFrame = view.frame
+        var superview: UIView? = view.superview
+        while let _superview = superview {
+            let visibleRect = _superview.layer.bounds.intersect(viewFrame)
+            if let sv = _superview.superview {
+                viewFrame = sv.convertRect(visibleRect, fromView:_superview)
+                superview = _superview.superview
+            } else {
+                return viewFrame
+            }
+        }
+        return convertRect(view.bounds, fromView:view)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -216,6 +192,7 @@ extension FlowerMenu: DeviceManagerNotifying {
 }
 
 extension FlowerMenu {
+    
     func addDeleteAction(block: Void -> Void) {
         addAction("n", block:block)
     }

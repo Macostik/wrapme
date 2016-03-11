@@ -10,7 +10,7 @@ import UIKit
 
 import MobileCoreServices
 
-class CommentCell: StreamReusableView {
+class CommentCell: StreamReusableView, FlowerMenuConstructor {
     
     static let CommentLabelLenght = 250
     static let AuthorLabelHeight = 20
@@ -26,21 +26,23 @@ class CommentCell: StreamReusableView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        FlowerMenu.sharedMenu.registerView(self) { [weak self] (menu) -> Void in
-            guard let comment = self?.entry as? Comment else { return }
-            if comment.deletable {
-                menu.addDeleteAction({ [weak self] _ in
-                    self?.userInteractionEnabled = false
-                    comment.delete ({ (_) -> Void in
+        FlowerMenu.sharedMenu.registerView(self)
+    }
+    
+    func constructFlowerMenu(menu: FlowerMenu) {
+        guard let comment = entry as? Comment else { return }
+        if comment.deletable {
+            menu.addDeleteAction({ [weak self] _ in
+                self?.userInteractionEnabled = false
+                comment.delete ({ (_) -> Void in
+                    self?.userInteractionEnabled = true
+                    }, failure: { (error) in
+                        error?.show()
                         self?.userInteractionEnabled = true
-                        }, failure: { (error) in
-                            error?.show()
-                            self?.userInteractionEnabled = true
-                    })
-                    })
-            }
-            menu.addCopyAction({ UIPasteboard.generalPasteboard().string = comment.text })
+                })
+                })
         }
+        menu.addCopyAction({ UIPasteboard.generalPasteboard().string = comment.text })
     }
     
     override func setup(entry: AnyObject?) {

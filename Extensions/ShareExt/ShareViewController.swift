@@ -82,8 +82,10 @@ extension NSItemProvider {
             switch typeIdentifier {
             case String(kUTTypeJPEG):
                 if let url = item as? NSURL {
+                    let date = url.resource(NSURLContentModificationDateKey) as? NSDate ?? NSDate()
+                    let timeIntervalSince1970 = Int(date.timeIntervalSince1970)
                     if let imageData = NSData(contentsOfURL: url) {
-                        data = (".jpeg", imageData)
+                        data = ("_\(timeIntervalSince1970).jpeg", imageData)
                     }
                 } else if let imageData = item as? NSData {
                     data = (".jpeg", imageData)
@@ -91,12 +93,14 @@ extension NSItemProvider {
                 break
             case String(kUTTypeQuickTimeMovie), String(kUTTypeMPEG4):
                 guard let url = item as? NSURL else { return }
+                let date = url.resource(NSURLCreationDateKey) as? NSDate ?? NSDate()
+                let timeIntervalSince1970 = Int(date.timeIntervalSince1970)
                 let isMov = typeIdentifier == String(kUTTypeQuickTimeMovie)
                 let asset = isMov ? AVAsset(URL: NSURL(fileURLWithPath: url.path!)) : AVAsset(URL: url)
                 if CMTimeGetSeconds(asset.duration) >= Constants.maxVideoRecordedDuration + 1.0 {
                     data = ("formatted_upload_video_duration_limit".ls, nil)
                 } else if let shareData = NSData(contentsOfURL: url)  {
-                    data = (isMov ? ".mov" : ".mp4", shareData)
+                    data = (isMov ? "_\(timeIntervalSince1970).mov" : "_\(timeIntervalSince1970).mp4", shareData)
                 }
                 break
             case String(kUTTypeURL), String(kUTTypePlainText):
@@ -135,5 +139,11 @@ extension ShareViewController {
             responder = responder?.nextResponder()
         }
         throw NSError(domain: "ShareExtension", code: 1, userInfo: nil)
+    }
+}
+
+extension NSURL {
+    func resource(key: String) -> AnyObject? {
+        return (try? resourceValuesForKeys([key]))?[key]
     }
 }

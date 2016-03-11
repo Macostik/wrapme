@@ -60,9 +60,13 @@ class WrapListViewController: BaseViewController {
         let manager = NSFileManager.defaultManager()
         if manager.fileExistsAtPath(url.path!) {
             guard let files = try? manager.contentsOfDirectoryAtPath(url.path!) else { return }
+            var map = [String: String]()
             for file in files {
-                content.append(file)
+                let timeInterval = file.subString("_", secondCharacter: ".") ?? ""
+                map[timeInterval] = file
             }
+            let sortedKeys = map.keys.sort()
+            content = sortedKeys.map({ map[$0]!})
         }
         if content.first?.hasSuffix("txt") != true {
             if content.count < 10 {
@@ -168,6 +172,17 @@ extension WrapListViewController: UploadSummaryViewControllerDelegate {
         self.navigationController?.popToRootViewControllerAnimated(false)
         SoundPlayer.player.play(.s04)
         controller.wrap?.uploadAssets(assets)
+    }
+}
+
+extension String {
+    func subString(firstCharacter: String, secondCharacter: String, options mask: NSStringCompareOptions = .CaseInsensitiveSearch) -> String? {
+        if let startIndex = self.rangeOfString(firstCharacter, options: mask, range: nil, locale: nil)?.endIndex {
+            if let endIndex = self.rangeOfString(secondCharacter, options: mask, range: nil, locale: nil)?.startIndex where endIndex > startIndex {
+                return self[Range(start: startIndex, end: endIndex)]
+            }
+        }
+        return nil
     }
 }
 

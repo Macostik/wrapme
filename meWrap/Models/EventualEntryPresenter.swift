@@ -16,7 +16,6 @@ class EventualEntryPresenter: NSObject {
     
     var presetingExtensionBlock: (EntryReference -> Void) = { reference in
         Storyboard.WrapList.instantiate({
-            $0.sharePath = reference["path"]
             UINavigationController.main()?.pushViewController($0, animated: false)
         })
     }

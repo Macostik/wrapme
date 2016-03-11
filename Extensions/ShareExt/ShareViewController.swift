@@ -7,132 +7,111 @@
 //
 
 import UIKit
-import Social
 import MobileCoreServices
 import AVFoundation
 
 class ShareViewController: UIViewController {
     
-    var urlSession: NSURLSession?
+    lazy var manager = NSFileManager.defaultManager()
     
-    var imageToShare: UIImage?
-    var textToShare: String?
+    lazy var url: NSURL = {
+        if var url = self.manager.containerURLForSecurityApplicationGroupIdentifier("group.com.ravenpod.wraplive") {
+            url = url.URLByAppendingPathComponent("ShareExtension/")
+            return url
+        }
+        return NSURL()
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        _ = try? manager.removeItemAtURL(url)
+        _ = try? manager.createDirectoryAtURL(url, withIntermediateDirectories: true, attributes: nil)
+        
         let items = extensionContext?.inputItems
-        var itemProvider: NSItemProvider?
         if let items = items where !items.isEmpty {
             guard let item = items[0] as? NSExtensionItem else { return }
             if let attachments = item.attachments {
                 if !attachments.isEmpty {
-                    itemProvider = attachments[0] as? NSItemProvider
+                    Dispatch.defaultQueue.async({ [weak self]_ in
+                        for attachment in attachments {
+                            if let itemProvider = attachment as? NSItemProvider {
+                                if let item = itemProvider.loadItemForTypeIdentifier() {
+                                    guard let data = item.data else {
+                                        Dispatch.mainQueue.async({ _ in
+                                            let message = String(format:item.type, Constants.maxVideoRecordedDuration)
+                                            let alert = UIAlertController(title: "share_video".ls, message: message, preferredStyle: .Alert)
+                                            let okAction = UIAlertAction(title: "ok".ls, style: .Default, handler: { _ in
+                                                self?.extensionContext?.completeRequestReturningItems([], completionHandler: nil)
+                                            })
+                                            alert.addAction(okAction)
+                                            self?.presentViewController(alert, animated: true, completion: nil)
+                                        })
+                                        return
+                                    }
+                                   self?.writeData(data, extensionType: item.type)
+                                }
+                            }
+                        }
+                        Dispatch.mainQueue.async({ _ in
+                            let request = ExtensionRequest(action: "presentShareContent", parameters: [:])
+                            if let url = request.serializedURL() {
+                                self?.openURL(url)
+                                self?.extensionContext?.completeRequestReturningItems([], completionHandler: nil)
+                            }
+                        })
+                        })
                 }
             }
         }
-        
-        itemProvider?.loadItemForTypeIdentifier({ [weak self] in
-            guard let path = self?.writeData($0, extensionType: $1) else { return }
-            let request = ExtensionRequest(action: "presentShareContent", parameters: ["path":path])
-            if let url = request.serializedURL() {
-                self?.openURL(url)
-                self?.extensionContext?.completeRequestReturningItems([], completionHandler: nil)
-            }
-            },
-            failure: { [weak self] errorDescription in
-                let message = String(format:errorDescription, 60)
-                Dispatch.mainQueue.after(1.0, block: { _ in
-                    let alert = UIAlertController(title: "share_video".ls, message: message, preferredStyle: .Alert)
-                    let okAction = UIAlertAction(title: "ok".ls, style: .Default, handler: { _ in
-                        self?.extensionContext?.completeRequestReturningItems([], completionHandler: nil)
-                    })
-                    alert.addAction(okAction)
-                    self?.presentViewController(alert, animated: true, completion: nil)
-                })
-            })
     }
     
-    func writeData(data: NSData, extensionType: String) -> String? {
-        let manager = NSFileManager.defaultManager()
-        if var url = manager.containerURLForSecurityApplicationGroupIdentifier("group.com.ravenpod.wraplive") {
-            let path = ("\(NSProcessInfo.processInfo().globallyUniqueString)\(extensionType)")
-            url = url.URLByAppendingPathComponent("ShareExtension/")
-            _ = try? manager.createDirectoryAtURL(url, withIntermediateDirectories: true, attributes: nil)
-            url = url.URLByAppendingPathComponent(path)
-            guard data.writeToURL(url, atomically: true) else {
-                return nil
-            }
-            return path
-        }
-        
-        return nil
+    func writeData(data: NSData, extensionType: String) -> Bool? {
+        let path = ("\(NSProcessInfo.processInfo().globallyUniqueString)\(extensionType)")
+        let url = self.url.URLByAppendingPathComponent(path)
+        return data.writeToURL(url, atomically: true)
     }
 }
 
 extension NSItemProvider {
-    func loadItemForTypeIdentifier(shareDataBlock: (NSData, String) -> Void, failure: String -> Void) {
-        if hasItemConformingToTypeIdentifier(String(kUTTypeImage)) == true {
-            loadItemForTypeIdentifier(String(kUTTypeImage), options: nil) { (item, error) -> Void in
-                var shareData = NSData()
-                if error == nil {
-                    if let url = item as? NSURL {
-                        if let imageData = NSData(contentsOfURL: url) {
-                            shareData = imageData
-                        }
-                    } else if let imageData = item as? NSData {
-                        shareData = imageData
+    func loadItemForTypeIdentifier() -> (type: String, data: NSData?)? {
+        var data: (String, NSData?)?
+        let semaphore = dispatch_semaphore_create(0)
+        guard let typeIdentifier = registeredTypeIdentifiers.first as? String else { return nil }
+        loadItemForTypeIdentifier(typeIdentifier, options: nil) { item, _ in
+            switch typeIdentifier {
+            case String(kUTTypeJPEG):
+                if let url = item as? NSURL {
+                    if let imageData = NSData(contentsOfURL: url) {
+                        data = (".jpeg", imageData)
                     }
-                    shareDataBlock(shareData, ".jpeg")
+                } else if let imageData = item as? NSData {
+                    data = (".jpeg", imageData)
                 }
-            }
-        } else if hasItemConformingToTypeIdentifier(String(kUTTypeQuickTimeMovie)) == true {
-            loadItemForTypeIdentifier(String(kUTTypeQuickTimeMovie), options: nil) { (item, error) -> Void in
-                if error == nil, let item = item as? NSURL {
-                    if let shareData = item.path!.dataUsingEncoding(NSUTF8StringEncoding) {
-                        let asset = AVAsset(URL: NSURL(fileURLWithPath: item.path!))
-                        if CMTimeGetSeconds(asset.duration) >= 60.0 + 1 {
-                            failure("formatted_upload_video_duration_limit".ls)
-                        } else {
-                            shareDataBlock(shareData, ".asset")
-                        }
-                    }
+                break
+            case String(kUTTypeQuickTimeMovie), String(kUTTypeMPEG4):
+                guard let url = item as? NSURL else { return }
+                let isMov = typeIdentifier == String(kUTTypeQuickTimeMovie)
+                let asset = isMov ? AVAsset(URL: NSURL(fileURLWithPath: url.path!)) : AVAsset(URL: url)
+                if CMTimeGetSeconds(asset.duration) >= Constants.maxVideoRecordedDuration + 1.0 {
+                    data = ("formatted_upload_video_duration_limit".ls, nil)
+                } else if let shareData = NSData(contentsOfURL: url)  {
+                    data = (isMov ? ".mov" : ".mp4", shareData)
                 }
-            }
-        } else if hasItemConformingToTypeIdentifier(String(kUTTypeMovie)) == true {
-            loadItemForTypeIdentifier(String(kUTTypeMovie), options: nil) { (item, error) -> Void in
-                var shareData = NSData()
-                if error == nil {
-                    if let url = item as? NSURL {
-                        if let imageData = NSData(contentsOfURL: url) {
-                            shareData = imageData
-                            let asset = AVAsset(URL: url)
-                            if CMTimeGetSeconds(asset.duration) >= 60.0 + 1 {
-                                failure("formatted_upload_video_duration_limit")
-                            } else {
-                                shareDataBlock(shareData, ".mp4")
-                            }
-                        }
-                    }
+                break
+            case String(kUTTypeURL), String(kUTTypePlainText):
+                guard let item = item else { return }
+                if let shareData = String(item).dataUsingEncoding(NSUTF8StringEncoding) {
+                    data = (".txt", shareData)
+                    break
                 }
+            default:
+                break
             }
-        } else if hasItemConformingToTypeIdentifier(String(kUTTypeURL)) == true {
-            loadItemForTypeIdentifier(String(kUTTypeURL), options: nil) { (item, error) -> Void in
-                if error == nil, let item = item {
-                    if let shareData = String(item).dataUsingEncoding(NSUTF8StringEncoding) {
-                        shareDataBlock(shareData, ".txt")
-                    }
-                }
-            }
-        } else if hasItemConformingToTypeIdentifier(String(kUTTypePlainText)) == true {
-            loadItemForTypeIdentifier(String(kUTTypePlainText), options: nil) { (item, error) -> Void in
-                if error == nil, let item = item {
-                    if let shareData = String(item).dataUsingEncoding(NSUTF8StringEncoding) {
-                        shareDataBlock(shareData, ".txt")
-                    }
-                }
-            }
+            dispatch_semaphore_signal(semaphore)
         }
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+        return data
     }
 }
 

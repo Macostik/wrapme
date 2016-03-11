@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Constants: NSObject {
     static let pixelSize: CGFloat = 1.0

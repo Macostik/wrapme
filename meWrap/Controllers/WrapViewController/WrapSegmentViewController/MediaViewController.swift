@@ -192,7 +192,7 @@ class LiveBroadcastMediaView: StreamReusableView {
         titleLabel.snp_makeConstraints(closure: {
             $0.top.equalTo(imageView.snp_centerY)
             $0.leading.equalTo(imageView.snp_trailing).offset(12)
-            $0.trailing.greaterThanOrEqualTo(self).offset(12)
+            $0.trailing.equalTo(self).inset(12)
         })
     }
     

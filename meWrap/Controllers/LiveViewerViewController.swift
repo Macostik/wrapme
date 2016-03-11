@@ -136,6 +136,8 @@ class LiveViewerViewController: LiveViewController {
         
         let titleLabel = Label(preset: .Larger, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
         titleLabel.text = broadcast.displayTitle()
+        titleLabel.numberOfLines = 0
+        titleLabel.textAlignment = .Center
         coverView.addSubview(titleLabel)
         
         let messageLabel = Label(preset: .Normal, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
@@ -161,7 +163,7 @@ class LiveViewerViewController: LiveViewController {
         
         titleLabel.snp_makeConstraints { (make) -> Void in
             make.top.equalTo(wrapNameLabel.snp_bottom)
-            make.centerX.equalTo(coverView)
+            make.leading.trailing.equalTo(coverView).inset(12)
         }
         
         messageLabel.snp_makeConstraints { (make) -> Void in

@@ -39,7 +39,7 @@ class ShareViewController: UIViewController {
                                 if let item = itemProvider.loadItemForTypeIdentifier() {
                                     guard let data = item.data else {
                                         Dispatch.mainQueue.async({ _ in
-                                            let message = String(format:item.type, Constants.maxVideoRecordedDuration)
+                                            let message = String(format:item.type, Int(Constants.maxVideoRecordedDuration))
                                             let alert = UIAlertController(title: "share_video".ls, message: message, preferredStyle: .Alert)
                                             let okAction = UIAlertAction(title: "ok".ls, style: .Default, handler: { _ in
                                                 self?.extensionContext?.completeRequestReturningItems([], completionHandler: nil)

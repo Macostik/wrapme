@@ -96,7 +96,7 @@ extension ExtensionRequest {
             return
         }
         
-        NotificationCenter.defaultCenter.handleRemoteNotification(notification, success: { (notification) -> Void in
+        NotificationCenter.handleRemoteNotification(notification, success: { (notification) -> Void in
             if let url = (notification.entry as? Contribution)?.asset?.small {
                 success(ExtensionReply(reply: ["url":url]))
             } else {

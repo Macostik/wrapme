@@ -21,7 +21,7 @@ extension NSData {
     }
 }
 
-class NotificationCenter: NSObject {
+final class NotificationCenter: NSObject {
     
     static let defaultCenter = NotificationCenter()
     
@@ -43,6 +43,7 @@ class NotificationCenter: NSObject {
     func configure() {
         PubNub.sharedInstance.addListener(self)
         User.notifier().addReceiver(self)
+        subscribe()
     }
     
     func handleDeviceToken(deviceToken: NSData) {
@@ -70,7 +71,9 @@ class NotificationCenter: NSObject {
                     APIRequest.updateDevice().send()
                 }
             } else {
-                UIApplication.sharedApplication().registerForRemoteNotifications()
+                #if !DEBUG
+                    UIApplication.sharedApplication().registerForRemoteNotifications()
+                #endif
             }
         }
         PubNub.sharedInstance.subscribeToChannels([User.uuid()], withPresence: false)
@@ -83,7 +86,7 @@ class NotificationCenter: NSObject {
         NSUserDefaults.standardUserDefaults().historyDate = nil
     }
     
-    func addHandledNotifications(notifications: [Notification]) {
+    class func addHandledNotifications(notifications: [Notification]) {
         
         var handledNotifications = NSUserDefaults.standardUserDefaults().handledNotifications
         if handledNotifications.count > 100 {
@@ -98,7 +101,7 @@ class NotificationCenter: NSObject {
         NSUserDefaults.standardUserDefaults().handledNotifications = handledNotifications
     }
     
-    func canSkipNotification(notification: Notification) -> Bool {
+    class func canSkipNotification(notification: Notification) -> Bool {
         if let uid = notification.uid {
             return NSUserDefaults.standardUserDefaults().handledNotifications.contains(uid) ?? false
         } else {
@@ -113,13 +116,13 @@ class NotificationCenter: NSObject {
         
         for message in messages {
             guard let n = Notification.notificationWithMessage(message) else { continue }
-            guard n.canBeHandled() && !canSkipNotification(n) else { continue }
+            guard n.canBeHandled() && !NotificationCenter.canSkipNotification(n) else { continue }
             notifications.append(n)
         }
         
         if notifications.isEmpty { return notifications }
         
-        addHandledNotifications(notifications)
+        NotificationCenter.addHandledNotifications(notifications)
         
         return notifications.sort({ $0.publishedAt < $1.publishedAt })
     }
@@ -191,7 +194,7 @@ class NotificationCenter: NSObject {
         }
     }
     
-    func handleRemoteNotification(data: [String:AnyObject]?, success: Notification -> Void, failure: FailureBlock?) {
+    class func handleRemoteNotification(data: [String:AnyObject]?, success: Notification -> Void, failure: FailureBlock?) {
         guard let data = data else  {
             failure?(nil)
             return
@@ -205,7 +208,7 @@ class NotificationCenter: NSObject {
                 RunQueue.fetchQueue.run { finish in
                     _ = try? EntryContext.sharedContext.save()
                     notification.handle({ () -> Void in
-                        self.addHandledNotifications([notification])
+                        addHandledNotifications([notification])
                         success(notification)
                         finish()
                         }, failure: { (error) -> Void in
@@ -266,7 +269,7 @@ extension NotificationCenter: PNObjectEventListener {
         #if DEBUG
             print("PUBNUB - subscribtion status: \(status.debugDescription)")
         #endif
-        if status.category == .PNConnectedCategory {
+        if UIApplication.sharedApplication().applicationState == .Active && status.category == .PNConnectedCategory {
             if let status = status as? PNSubscribeStatus where status.subscribedChannelGroups.count > 0 {
                 requestHistory()
             }

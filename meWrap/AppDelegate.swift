@@ -24,7 +24,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         
         registerUserNotificationSettings()
         initializeCrashlyticsAndLogging()
-        NotificationCenter.defaultCenter.configure()
+        
         createWindow()
         presentInitialViewController()
         initializeVersionTool()
@@ -32,7 +32,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         Network.sharedNetwork.addReceiver(self)
         
         if let notification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? [String:AnyObject] {
-            NotificationCenter.defaultCenter.handleRemoteNotification(notification, success: { $0.presentWithIdentifier(nil) }, failure: { $0?.show() })
+            NotificationCenter.handleRemoteNotification(notification, success: { $0.presentWithIdentifier(nil) }, failure: { $0?.show() })
         }
         
         application.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
@@ -119,8 +119,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         if authorization.canAuthorize {
             if !versionChanged && !Authorization.requiresSignIn() {
                 if let currentUser = User.currentUser {
-                    successBlock(currentUser);
-                    currentUser.notifyOnAddition()
+                    successBlock(currentUser)
                     return;
                 }
             }
@@ -157,7 +156,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
         let presentable = state == .Inactive
-        NotificationCenter.defaultCenter.handleRemoteNotification(userInfo as? [String:AnyObject], success: { notification in
+        NotificationCenter.handleRemoteNotification(userInfo as? [String:AnyObject], success: { notification in
             if (presentable) {
                 notification.presentWithIdentifier(nil)
             }
@@ -168,7 +167,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
-        NotificationCenter.defaultCenter.handleRemoteNotification(userInfo as? [String:AnyObject], success: { notification in
+        NotificationCenter.handleRemoteNotification(userInfo as? [String:AnyObject], success: { notification in
             notification.presentWithIdentifier(nil)
             completionHandler()
             }, failure: { error in
@@ -209,10 +208,16 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    private var activationToken: dispatch_once_t = 0
+    
     func applicationDidBecomeActive(application: UIApplication) {
         if Authorization.active {
             resetBadge()
             Dispatch.mainQueue.async { Uploader.wrapUploader.start() }
+        }
+        
+        dispatch_once(&activationToken) {
+            NotificationCenter.defaultCenter.configure()
         }
     }
 }

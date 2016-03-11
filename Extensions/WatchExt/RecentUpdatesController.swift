@@ -102,7 +102,6 @@ class RecentUpdatesController: WKInterfaceController {
     func update() {
         WCSession.defaultSession().recentUpdates({ [weak self] (updates) -> Void in
             self?.updates = updates ?? []
-            }) { (error) -> Void in
-        }
+            })
     }
 }

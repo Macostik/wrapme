@@ -52,8 +52,7 @@ class CandyController: WKInterfaceController {
         WCSession.defaultSession().getCandy(candy, success: { [weak self] (candy) -> Void in
             self?.candy = candy
             self?.setup()
-            }) { (error) -> Void in
-        }
+            })
     }
     
     private func setup() {

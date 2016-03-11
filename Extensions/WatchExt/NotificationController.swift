@@ -10,66 +10,59 @@ import Foundation
 import WatchKit
 import WatchConnectivity
 
-class NotificationController: WKUserNotificationInterfaceController {
+class NotificationController: WKUserNotificationInterfaceController, WCSessionDelegate {
     
     @IBOutlet weak var image: WKInterfaceImage!
     @IBOutlet weak var alertLabel: WKInterfaceLabel!
     @IBOutlet weak var titleLabel: WKInterfaceLabel!
     
     override func didReceiveRemoteNotification(remoteNotification: [NSObject : AnyObject], withCompletion completionHandler: (WKUserNotificationInterfaceType) -> Void) {
-        alertLabel.setText(alertMessageFromNotification(remoteNotification))
-        titleLabel.setText(titleMessageFromNotification(remoteNotification))
+        let alert = alertFromNotification(remoteNotification)
+        alertLabel.setText(alert.message)
+        titleLabel.setText(alert.title)
         if let notification = remoteNotification as? [String : AnyObject] {
+            if WCSession.isSupported() {
+                let session = WCSession.defaultSession()
+                session.delegate = self
+                session.activateSession()
+            }
             WCSession.defaultSession().handleNotification(notification, success: { [weak self] (reply) -> Void in
-                        if let url = reply?["url"] as? String {
-                            self?.image.setURL(url)
-                        } else {
-                            self?.image.setHidden(true)
-                        }
-                }, failure: nil)
-        }
-        completionHandler(.Custom)
-    }
-    
-    private func alertMessageFromNotification(notification: [NSObject : AnyObject]) -> String {
-        let alert = notification["aps"]?["alert"]
-        if let alert = alert as? String {
-            return alert
-        } else if let alert = alert as? [String : AnyObject] {
-            guard let localizedAlert = alert["loc-key"] as? String else { return "" }
-            guard let args = alert["loc-args"] as? [String] else { return "" }
-            if args.isEmpty {
-                return localizedAlert.ls
-            } else if args.count == 1 {
-                return String(format: localizedAlert.ls, args[0])
-            } else if args.count == 2 {
-                return String(format: localizedAlert.ls, args[0], args[1])
-            } else {
-                return String(format: localizedAlert.ls, args[0], args[1], args[2])
-            }
+                if let url = reply?["url"] as? String {
+                    self?.image.setURL(url)
+                } else {
+                    self?.image.setHidden(true)
+                }
+                completionHandler(.Custom)
+                })
         } else {
-            return ""
+            completionHandler(.Custom)
         }
     }
     
-    private func titleMessageFromNotification(notification: [NSObject : AnyObject]) -> String {
+    private func localizedString(localizedAlert: String?, args: [String]?) -> String {
+        guard let localizedAlert = localizedAlert else { return "" }
+        guard let args = args else { return "" }
+        if args.isEmpty {
+            return localizedAlert.ls
+        } else if args.count == 1 {
+            return String(format: localizedAlert.ls, args[0])
+        } else if args.count == 2 {
+            return String(format: localizedAlert.ls, args[0], args[1])
+        } else {
+            return String(format: localizedAlert.ls, args[0], args[1], args[2])
+        }
+    }
+    
+    private func alertFromNotification(notification: [NSObject : AnyObject]) -> (message: String, title: String) {
         let alert = notification["aps"]?["alert"]
         if let alert = alert as? String {
-            return alert
+            return (alert, alert)
         } else if let alert = alert as? [String : AnyObject] {
-            guard let localizedAlert = alert["title-loc-key"] as? String else { return "" }
-            guard let args = alert["title-loc-args"] as? [String] else { return "" }
-            if args.isEmpty {
-                return localizedAlert.ls
-            } else if args.count == 1 {
-                return String(format: localizedAlert.ls, args[0])
-            } else if args.count == 2 {
-                return String(format: localizedAlert.ls, args[0], args[1])
-            } else {
-                return String(format: localizedAlert.ls, args[0], args[1], args[2])
-            }
+            let message = localizedString(alert["loc-key"] as? String, args: alert["loc-args"] as? [String])
+            let title = localizedString(alert["title-loc-key"] as? String, args: alert["title-loc-args"] as? [String])
+            return (message,title)
         } else {
-            return ""
+            return ("","")
         }
     }
 }

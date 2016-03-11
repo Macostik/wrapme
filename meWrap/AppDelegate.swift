@@ -48,6 +48,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         wormhole.listenForMessageWithIdentifier("recentUpdatesRequest", listener: { [weak self] _ in
             self?.wormhole.passMessageObject(Contribution.recentUpdates(6), identifier:"recentUpdatesResponse")
         })
+        
         return true
     }
     

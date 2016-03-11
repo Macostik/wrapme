@@ -145,7 +145,7 @@ class TodayViewController: UIViewController {
     }
     
     @IBAction func singUpClick(sender: UIButton) {
-        let request = ExtensionRequest(action: "authorize", parameters: nil)
+        let request = ExtensionRequest(action: .Authorize, parameters: nil)
         if let url = request.serializedURL() {
             extensionContext?.openURL(url, completionHandler: nil)
         }
@@ -180,7 +180,7 @@ extension TodayViewController: UITableViewDelegate {
             guard let comment = update.comment else {
                 return
             }
-            let request = ExtensionRequest(action: "presentComment", parameters: ["uid":comment.uid])
+            let request = ExtensionRequest(action: .PresentComment, parameters: ["uid":comment.uid])
             if let url = request.serializedURL() {
                 extensionContext?.openURL(url, completionHandler: nil)
             }
@@ -188,7 +188,7 @@ extension TodayViewController: UITableViewDelegate {
             guard let candy = update.candy else {
                 return
             }
-            let request = ExtensionRequest(action: "presentCandy", parameters: ["uid":candy.uid])
+            let request = ExtensionRequest(action: .PresentCandy, parameters: ["uid":candy.uid])
             if let url = request.serializedURL() {
                 extensionContext?.openURL(url, completionHandler: nil)
             }

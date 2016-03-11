@@ -17,62 +17,41 @@ extension ExtensionRequest {
             return
         }
         switch action {
-        case "authorize":
-            authorize(success, failure: failure)
-            break
-        case "presentCandy":
-            presentCandy(success, failure: failure)
-            break
-        case "presentComment":
-            presentComment(success, failure: failure)
-            break
-        case "postComment":
-            postComment(success, failure: failure)
-            break
-        case "postMessage":
-            postMessage(success, failure: failure)
-            break
-        case "handleNotification":
-            handleNotification(success, failure: failure)
-            break
-        case "recentUpdates":
-            recentUpdates(success, failure: failure)
-            break
-        case "getCandy":
-            getCandy(success, failure: failure)
-            break
-        case "presentShareContent":
-            presentShareContent(success, failure: failure)
-            break
-        default:
-            failure(ExtensionError(message: "Unknown action."))
-            break
+        case .Authorize: authorize(success, failure: failure)
+        case .PresentCandy: presentCandy(success, failure: failure)
+        case .PresentComment: presentComment(success, failure: failure)
+        case .PostComment: postComment(success, failure: failure)
+        case .PostMessage: postMessage(success, failure: failure)
+        case .HandleNotification: handleNotification(success, failure: failure)
+        case .RecentUpdates: recentUpdates(success, failure: failure)
+        case .GetCandy: getCandy(success, failure: failure)
+        case .PresentShareContent: presentShareContent(success, failure: failure)
         }
     }
     
-    func authorize(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
+    private func authorize(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
         success(ExtensionReply())
     }
     
-    func presentCandy(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
+    private func presentCandy(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
         if let uid = parameters?["uid"] as? String, let candy = Candy.entry(uid, allowInsert: false) {
-            EventualEntryPresenter.sharedPresenter.presentEntry(candy.serializeReference())
+            AuthorizedExecutor.presentEntry(candy.serializeReference())
             success(ExtensionReply())
         } else {
             failure(ExtensionError(message: "No entry."))
         }
     }
     
-    func presentComment(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
+    private func presentComment(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
         if let uid = parameters?["uid"] as? String, let comment = Comment.entry(uid, allowInsert: false) {
-            EventualEntryPresenter.sharedPresenter.presentEntry(comment.serializeReference())
+            AuthorizedExecutor.presentEntry(comment.serializeReference())
             success(ExtensionReply())
         } else {
             failure(ExtensionError(message: "No entry."))
         }
     }
     
-    func postComment(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
+    private func postComment(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
         guard let parameters = parameters else { failure(ExtensionError(message: "Invalid data")); return }
         guard let uid = parameters[Keys.UID.Candy] as? String else { failure(ExtensionError(message: "No candy uid")); return }
         guard let candy = Candy.entry(uid, allowInsert: false) else { failure(ExtensionError(message: "Photo isn't available.")); return }
@@ -81,7 +60,7 @@ extension ExtensionRequest {
         success(ExtensionReply())
     }
     
-    func postMessage(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
+    private func postMessage(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
         guard let parameters = parameters else { failure(ExtensionError(message: "Invalid data")); return }
         guard let uid = parameters[Keys.UID.Wrap] as? String else { failure(ExtensionError(message: "No wrap uid")); return }
         guard let wrap = Wrap.entry(uid, allowInsert: false) else { failure(ExtensionError(message: "Wrap isn't available.")); return }
@@ -90,28 +69,25 @@ extension ExtensionRequest {
         success(ExtensionReply())
     }
     
-    func handleNotification(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
-        success(ExtensionReply())
+    private func handleNotification(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
         guard let notification = parameters else {
+            failure(ExtensionError(message: "No data"))
             return
         }
-        
         NotificationCenter.handleRemoteNotification(notification, success: { (notification) -> Void in
             if let url = (notification.entry as? Contribution)?.asset?.small {
                 success(ExtensionReply(reply: ["url":url]))
             } else {
                 failure(ExtensionError(message: "No data"))
             }
-            }) { (error) -> Void in
-                failure(ExtensionError(message: error?.localizedDescription ?? ""))
-        }
+            }) { failure(ExtensionError(message: $0?.localizedDescription ?? "")) }
     }
     
-    func recentUpdates(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
+    private func recentUpdates(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
         success(ExtensionReply(reply: ["updates":Contribution.recentUpdates(10)]))
     }
     
-    func getCandy(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
+    private func getCandy(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
         if let uid = parameters?["uid"] as? String, let candy = Candy.entry(uid, allowInsert: false) {
             success(ExtensionReply(reply: candy.extensionCandy(includeComments: true).toDictionary()))
         } else {
@@ -119,13 +95,9 @@ extension ExtensionRequest {
         }
     }
     
-    func presentShareContent(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
-        if let shareExtension = parameters as? [String : String] {
-            EventualEntryPresenter.sharedPresenter.presentExtension(shareExtension)
-            success(ExtensionReply())
-        } else {
-            failure(ExtensionError(message: "No entry."))
-        }
+    private func presentShareContent(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
+        AuthorizedExecutor.shareContent()
+        success(ExtensionReply())
     }
 }
 

@@ -29,7 +29,7 @@ final class HomeViewController: BaseViewController {
     
     deinit {
         AddressBook.sharedAddressBook.endCaching()
-        EventualEntryPresenter.sharedPresenter.isLoaded = false
+        AuthorizedExecutor.authorized = false
         NSNotificationCenter.defaultCenter().removeObserver(self, name:UIApplicationWillEnterForegroundNotification, object:nil)
     }
     
@@ -136,7 +136,7 @@ final class HomeViewController: BaseViewController {
         super.viewWillAppear(animated)
         dataSource.reload()
         updateEmailConfirmationView(false)
-        EventualEntryPresenter.sharedPresenter.isLoaded = true
+        AuthorizedExecutor.authorized = true
         uploadingView.update()
         if NSUserDefaults.standardUserDefaults().numberOfLaunches >= 3 && User.currentUser?.wraps.count >= 3 {
             HintView.showHomeSwipeTransitionHintView()

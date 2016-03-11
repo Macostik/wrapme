@@ -66,9 +66,9 @@ class LiveViewerViewController: LiveViewController {
                 if let uuids = result?.data.uuids as? [String] {
                     var viewers = Set<User>()
                     for uuid in uuids {
-                        guard let user = PubNub.userFromUUID(uuid) else { return }
-                        user.fetchIfNeeded(nil, failure: nil)
-                        if user != broadcast.broadcaster {
+                        if uuid != User.uuid() {
+                            guard let user = PubNub.userFromUUID(uuid) else { return }
+                            user.fetchIfNeeded(nil, failure: nil)
                             viewers.insert(user)
                         }
                     }

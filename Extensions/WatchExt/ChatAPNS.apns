@@ -1,0 +1,36 @@
+{
+    "aps": {
+        "alert": {
+            "loc-args": ["Ofelia Mayert DDS", "Gdfgfgf", "unfollow"],
+            "loc-key": "APNS_MSG04",
+            "title-loc-key": "APNS_TT04"
+        },
+        "badge": 2,
+        "category": "chat",
+        "content-available": 1,
+        "sound": "default"
+    },
+    "chat": {
+        "chat_uid": "CT9faa8710c9c6013359630a4a9577530b",
+        "content": "Gdfgfgf",
+        "contributed_at_in_epoch": "1457707873.170485",
+        "contributor": {
+            "avatar_urls": {
+                "large": "/19282cda6b08268bb6d4ae8d80aabe14eb2c14ef/large.jpg",
+                "small": "/3160229f451b3eabd8c6662c768624a410451894/small.jpg"
+            },
+            "name": "Ofelia Mayert DDS",
+            "user_uid": "UR4c0d8f50eea70132958b0a17bdb65fbb"
+        },
+        "upload_uid": "34637F0B-7D95-4714-9140-752EAD3EFC0C",
+        "wrap_uid": "WPc5bd1950392c01333a470a17bdb65fbb"
+    },
+    "chat_uid": "CT9faa8710c9c6013359630a4a9577530b",
+    "msg_type": 700,
+    "msg_uid": "a099a4c0c9c6013359660a4a9577530b",
+    "originator": {
+        "device_uid": "4c0cd130eea70132958a0a17bdb65fbb",
+        "user_uid": "UR4c0d8f50eea70132958b0a17bdb65fbb"
+    },
+    "upload_uid": "34637F0B-7D95-4714-9140-752EAD3EFC0C"
+}

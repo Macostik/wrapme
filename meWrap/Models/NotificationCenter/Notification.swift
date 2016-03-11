@@ -185,8 +185,7 @@ class Notification: NSObject {
     
     func presentWithIdentifier(identifier: String?) {
         if let entry = entry {
-            let entryReference = entry.serializeReference()
-            EventualEntryPresenter.sharedPresenter.presentEntry(entryReference)
+            AuthorizedExecutor.presentEntry(entry.serializeReference())
         }
     }
 }

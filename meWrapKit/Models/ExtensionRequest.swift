@@ -8,13 +8,25 @@
 
 import UIKit
 
+enum ExtensionRequestAction: String {
+    case Authorize = "authorize"
+    case PresentCandy = "presentCandy"
+    case PresentComment = "presentComment"
+    case PostComment = "postComment"
+    case PostMessage = "postMessage"
+    case HandleNotification = "handleNotification"
+    case RecentUpdates = "recentUpdates"
+    case GetCandy = "getCandy"
+    case PresentShareContent = "presentShareContent"
+}
+
 class ExtensionRequest: ExtensionMessage {
     
-    var action: String?
+    var action: ExtensionRequestAction?
     
     var parameters: [String : AnyObject]?
     
-    convenience init(action: String, parameters: [String : AnyObject]?) {
+    convenience init(action: ExtensionRequestAction, parameters: [String : AnyObject]?) {
         self.init()
         self.action = action
         self.parameters = parameters
@@ -22,14 +34,16 @@ class ExtensionRequest: ExtensionMessage {
     
     override func fromDictionary(dictionary: [String : AnyObject]) {
         super.fromDictionary(dictionary);
-        action = dictionary["action"] as? String
+        if let action = dictionary["action"] as? String {
+            self.action = ExtensionRequestAction(rawValue: action)
+        }
         parameters = dictionary["parameters"] as? [String : AnyObject]
     }
     
     override func toDictionary() -> [String : AnyObject] {
         var dictionary = super.toDictionary()
         if let action = action {
-            dictionary["action"] = action
+            dictionary["action"] = action.rawValue
         }
         if let parameters = parameters {
             dictionary["parameters"] = parameters

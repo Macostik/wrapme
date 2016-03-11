@@ -31,3 +31,5 @@
 "APNS_MSG07" = "%@为\"%@\"添加了新影片。";
 "APNS_TT08" = "现场直播";
 "APNS_MSG08" = "%@正在直播中: %@ (%@)";
+"APNS_TT09" = "Critical Update";
+"APNS_MSG09" = "meWrap critical update available. Please update from App Store immediately.";

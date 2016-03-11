@@ -54,7 +54,7 @@ class ShareViewController: UIViewController {
                             }
                         }
                         Dispatch.mainQueue.async({ _ in
-                            let request = ExtensionRequest(action: "presentShareContent", parameters: [:])
+                            let request = ExtensionRequest(action: .PresentShareContent, parameters: [:])
                             if let url = request.serializedURL() {
                                 self?.openURL(url)
                                 self?.extensionContext?.completeRequestReturningItems([], completionHandler: nil)

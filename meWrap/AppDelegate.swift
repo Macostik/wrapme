@@ -159,6 +159,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.handleRemoteNotification(userInfo as? [String:AnyObject], success: { notification in
             if (presentable) {
                 notification.presentWithIdentifier(nil)
+            } else {
+                _ = try? EntryContext.sharedContext.save()
             }
             completionHandler(.NewData)
             }, failure: { error in

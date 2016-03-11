@@ -24,6 +24,7 @@ enum NotificationType: Int {
     case UpdateAvailable       = 1100
     case CandyUpdate           = 1200
     case LiveBroadcast         = 1300
+    case CriticalUpdate        = 1400
     
     func typeValue() -> Notification.Type {
         switch self {
@@ -38,7 +39,7 @@ enum NotificationType: Int {
         case .CommentAdd: return CommentAddNotification.self
         case .CommentDelete: return CommentDeleteNotification.self
         case .UserUpdate: return UserUpdateNotification.self
-        case .UpdateAvailable: return UpdateAvailableNotification.self
+        case .UpdateAvailable, .CriticalUpdate: return UpdateAvailableNotification.self
         case .LiveBroadcast: return LiveBroadcastNotification.self
         }
     }

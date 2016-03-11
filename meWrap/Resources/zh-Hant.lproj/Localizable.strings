@@ -104,6 +104,8 @@
 "APNS_MSG07" = "%@為\"%@\"添加了新影片。";
 "APNS_TT08" = "現場直播";
 "APNS_MSG08" = "%@正在直播中: %@ (%@)";
+"APNS_TT09" = "Critical Update";
+"APNS_MSG09" = "meWrap critical update available. Please update from App Store immediately.";
 "reply" = "回複";
 "no_chat_message" = "跟\"%@\"成員在此聊天。";
 "no_photos_to_upload" = "請拍攝新相片或從圖庫中選擇相片上傳。";

@@ -104,6 +104,8 @@
 "APNS_MSG07" = "%@ just sent you a new video in \"%@\".";
 "APNS_TT08" = "Live Event";
 "APNS_MSG08" = "%@ is live: %@ (%@)";
+"APNS_TT09" = "Critical Update";
+"APNS_MSG09" = "meWrap critical update available. Please update from App Store immediately.";
 "reply" = "Reply";
 "no_chat_message" = "Friends in \"%@\" will see your chat messages instantly.";
 "no_photos_to_upload" = "No photos or video to be uploaded.";

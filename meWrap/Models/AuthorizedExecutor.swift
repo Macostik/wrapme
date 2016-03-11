@@ -10,15 +10,13 @@ import Foundation
 
 struct AuthorizedExecutor {
     
-    private struct Execution { var block: Void -> Void }
-    
-    private static var executions = [Execution]()
+    private static var block: (Void -> Void)?
     
     static var authorized = false {
         willSet {
-            if newValue && !executions.isEmpty {
-                executions.all { $0.block() }
-                executions.removeAll()
+            if let block = block where newValue {
+                block()
+                AuthorizedExecutor.block = nil
             }
         }
     }
@@ -27,7 +25,7 @@ struct AuthorizedExecutor {
         if authorized {
             block()
         } else {
-            executions.append(Execution(block: block))
+            AuthorizedExecutor.block = block
         }
     }
 }

@@ -177,7 +177,19 @@ class CommentsViewController: BaseViewController {
     private static let ContstraintOffset: CGFloat = 44
     
     override func keyboardAdjustmentForConstraint(constraint: NSLayoutConstraint, defaultConstant: CGFloat, keyboardHeight: CGFloat) -> CGFloat {
+        let offset = CGPointMake(0, keyboardHeight + streamView.contentOffset.y > 0 ?
+            view.height - streamView.height + streamView.contentOffset.y - 25.0 : streamView.contentOffset.y)
+        streamView.setContentOffset(offset, animated: false)
         return keyboardHeight - CommentsViewController.ContstraintOffset
+    }
+    
+    override func keyboardWillHide(keyboard: Keyboard) {
+        super.keyboardWillHide(keyboard)
+        keyboard.performAnimation {
+            let offset = streamView.contentOffset.y >= streamView.maximumContentOffset.y ?
+                streamView.maximumContentOffset.y + 25.0 : streamView.contentOffset.y - view.height + streamView.height
+            streamView.setContentOffset(CGPointMake(0, offset), animated: false)
+        }
     }
     
     private func sendMessageWithText(text: String) {

@@ -1,17 +1,17 @@
 
 final class HintView: GradientView {
     
-    class func show(casheKey: String) {
+    class func show(casheKey: String, inView view: UIView = UIWindow.mainWindow.rootViewController?.view ?? UIWindow.mainWindow) {
         let hintView = HintView()
-        hintView.show(casheKey)
+        hintView.show(casheKey, inView: view)
     }
     
-    func show(casheKey: String, inView view: UIView = UIWindow.mainWindow.rootViewController?.view ?? UIWindow.mainWindow) {
+    func show(casheKey: String, inView view: UIView) {
         var shownHints = NSUserDefaults.standardUserDefaults().shownHints
         if shownHints[casheKey] == nil {
             shownHints[casheKey] = true
             NSUserDefaults.standardUserDefaults().shownHints = shownHints
-            
+        
             startColor = UIColor.blackColor().colorWithAlphaComponent(0.85)
             endColor = UIColor.blackColor()
             frame = view.frame
@@ -81,7 +81,7 @@ final class HintView: GradientView {
 }
 
 extension HintView {
-    class func showHomeSwipeTransitionHintView() {
-        show("HomeSwipeTransitionView")
+    class func showHomeSwipeTransitionHintView(view: UIView) {
+        show("HomeSwipeTransitionView", inView: view)
     }
 }

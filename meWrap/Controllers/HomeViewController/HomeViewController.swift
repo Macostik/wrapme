@@ -139,7 +139,7 @@ final class HomeViewController: BaseViewController {
         AuthorizedExecutor.authorized = true
         uploadingView.update()
         if NSUserDefaults.standardUserDefaults().numberOfLaunches >= 3 && User.currentUser?.wraps.count >= 3 {
-            HintView.showHomeSwipeTransitionHintView()
+            HintView.showHomeSwipeTransitionHintView(view)
         }
         streamView.unlock()
     }

@@ -31,13 +31,10 @@ class SignupFlowViewController: BaseViewController {
         }
     }
     
-    private func stepViewController(identifier: String) -> SignupStepViewController? {
-        if let controller = storyboard?[identifier] as? SignupStepViewController {
-            stepViewControllers.append(controller)
-            return controller
-        } else {
-            return nil
-        }
+    private func stepViewController(identifier: String) -> SignupStepViewController {
+        let controller = storyboard?[identifier] as! SignupStepViewController
+        stepViewControllers.append(controller)
+        return controller
     }
     
     private func completeSignup() {
@@ -51,16 +48,16 @@ class SignupFlowViewController: BaseViewController {
     
     func configureSignupFlow() {
         
-        unowned let email = stepViewController("email") as! EmailViewController
-        unowned let phone = stepViewController("phone") as! PhoneViewController
+        unowned let email = stepViewController("email")
+        unowned let phone = stepViewController("phone")
         unowned let verification = stepViewController("activation") as! ActivationViewController
         unowned let linkDevice = stepViewController("linkDevice") as! LinkDeviceViewController
-        unowned let confirmEmail = stepViewController("confirmEmail") as! ConfirmEmailViewController
-        unowned let verificationSuccess = stepViewController("verificationSuccess")!
-        unowned let verificationFailure = stepViewController("verificationFailure")!
-        unowned let linkDeviceSuccess = stepViewController("linkDeviceSuccess")!
-        unowned let confirmEmailSuccess = stepViewController("emailConfirmationSuccess")!
-        unowned let editProfile = stepViewController("editProfile") as! EditProfileViewController
+        unowned let confirmEmail = stepViewController("confirmEmail")
+        unowned let verificationSuccess = stepViewController("verificationSuccess")
+        unowned let verificationFailure = stepViewController("verificationFailure")
+        unowned let linkDeviceSuccess = stepViewController("linkDeviceSuccess")
+        unowned let confirmEmailSuccess = stepViewController("emailConfirmationSuccess")
+        unowned let editProfile = stepViewController("editProfile")
         
         flowNavigationController.viewControllers = [email]
         // final completion block

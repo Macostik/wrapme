@@ -58,7 +58,7 @@ extension APIRequest {
                 Uploader.wrapUploader.start()
             }
             
-            let environment = Environment.currentEnvironment
+            let environment = Environment.current
             let userDefaults = NSUserDefaults.standardUserDefaults()
             
             if let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies {

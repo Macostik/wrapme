@@ -198,22 +198,32 @@ class PressButton: Button {
     }
 }
 
-class QAButton: Button {
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        #if DEBUG
-            hidden = false
-        #else
-            hidden = Environment.currentEnvironment.isProduction
+class DebugButton: Button {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        hideIfNeeded()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        hideIfNeeded()
+    }
+    
+    func hideIfNeeded() {
+        #if !DEBUG
+            hidden = true
         #endif
     }
 }
 
-class DebugButton: Button {
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        #if !DEBUG
-            hidden = true
+class QAButton: DebugButton {
+    
+    override func hideIfNeeded() {
+        #if DEBUG
+            hidden = false
+        #else
+            hidden = Environment.isProduction
         #endif
     }
 }

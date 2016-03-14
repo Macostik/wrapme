@@ -51,7 +51,7 @@ final class TestUserPicker: UIView {
     
     private var dataSource: StreamDataSource!
     
-    private lazy var authorizations = Environment.currentEnvironment.testUsers()
+    private lazy var authorizations = Environment.current.testUsers()
 
     class func showInView(view: UIView, selection: Authorization -> Void) {
         TestUserPicker(frame: view.bounds).showInView(view, selection: selection)

@@ -20,7 +20,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         
-        Logger.log("API environment: \(Environment.currentEnvironment)")
+        Logger.log("API environment: \(Environment.current)")
         
         registerUserNotificationSettings()
         initializeCrashlyticsAndLogging()
@@ -55,11 +55,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     private func initializeCrashlyticsAndLogging() {
         #if !DEBUG
             NewRelicAgent.enableCrashReporting(true)
-            if Environment.currentEnvironment.isProduction {
-                NewRelicAgent.startWithApplicationToken("AAd46869ec0b3558fb5890343d895b3acdd40ebaa8")
-                GAI.sharedInstance().trackerWithTrackingId("UA-60538241-1")
-            } else {
-                NewRelicAgent.startWithApplicationToken("AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c")
+            NewRelicAgent.startWithApplicationToken(Environment.current.newRelicToken)
+            if let trackerId = Environment.current.GAITrackingId {
+                GAI.sharedInstance().trackerWithTrackingId(trackerId)
             }
         #endif
     }

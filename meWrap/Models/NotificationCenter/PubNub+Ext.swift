@@ -29,12 +29,8 @@ extension PubNub {
     }
     
     class func defaultConfiguration() -> PNConfiguration {
-        let configuration: PNConfiguration!
-        if Environment.currentEnvironment.isProduction {
-            configuration = PNConfiguration(publishKey: "pub-c-87bbbc30-fc43-4f6b-b1f4-cedd5f30d5e8", subscribeKey: "sub-c-6562fe64-4270-11e4-aed8-02ee2ddab7fe")
-        } else {
-            configuration = PNConfiguration(publishKey: "pub-c-16ba2a90-9331-4472-b00a-83f01ff32089", subscribeKey: "sub-c-bc5bfa70-d166-11e3-8d06-02ee2ddab7fe")
-        }
+        let keys = Environment.current.pubnub
+        let configuration = PNConfiguration(publishKey: keys.publishKey, subscribeKey: keys.subscribeKey)
         configuration.uuid = User.uuid()
         configuration.presenceHeartbeatValue = 60
         return configuration

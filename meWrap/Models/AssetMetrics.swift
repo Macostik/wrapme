@@ -39,7 +39,7 @@ class AssetMetrics: NSObject {
     
     static var imageMetricsForPhone: AssetMetrics = {
         var metrics = AssetMetrics()
-        metrics.uri = NSUserDefaults.standardUserDefaults().imageURI ?? Environment.currentEnvironment.defaultImageURI
+        metrics.uri = NSUserDefaults.standardUserDefaults().imageURI ?? Environment.current.defaultImageURI
         metrics.originalKey = Keys.URL.Original
         metrics.largeKey = Keys.URL.Large
         metrics.mediumKey = Keys.URL.MediumSQ
@@ -49,7 +49,7 @@ class AssetMetrics: NSObject {
     
     static var imageMetricsForPad: AssetMetrics = {
         var metrics = AssetMetrics()
-        metrics.uri = NSUserDefaults.standardUserDefaults().imageURI ?? Environment.currentEnvironment.defaultImageURI
+        metrics.uri = NSUserDefaults.standardUserDefaults().imageURI ?? Environment.current.defaultImageURI
         metrics.originalKey = Keys.URL.Original
         metrics.largeKey = Keys.URL.XLarge
         metrics.mediumKey = Keys.URL.Large
@@ -59,7 +59,7 @@ class AssetMetrics: NSObject {
     
     static var videoMetricsForPhone: AssetMetrics = {
         var metrics = AssetMetrics()
-        metrics.uri = NSUserDefaults.standardUserDefaults().videoURI ?? Environment.currentEnvironment.defaultVideoURI
+        metrics.uri = NSUserDefaults.standardUserDefaults().videoURI ?? Environment.current.defaultVideoURI
         metrics.originalKey = Keys.URL.Original
         metrics.largeKey = Keys.URL.Large
         metrics.mediumKey = Keys.URL.MediumSQ
@@ -69,7 +69,7 @@ class AssetMetrics: NSObject {
     
     static var videoMetricsForPad: AssetMetrics = {
         var metrics = AssetMetrics()
-        metrics.uri = NSUserDefaults.standardUserDefaults().videoURI ?? Environment.currentEnvironment.defaultVideoURI
+        metrics.uri = NSUserDefaults.standardUserDefaults().videoURI ?? Environment.current.defaultVideoURI
         metrics.originalKey = Keys.URL.Original
         metrics.largeKey = Keys.URL.XLarge
         metrics.mediumKey = Keys.URL.Large
@@ -79,7 +79,7 @@ class AssetMetrics: NSObject {
     
     static var avatarMetrics: AssetMetrics = {
         var metrics = AssetMetrics()
-        metrics.uri = NSUserDefaults.standardUserDefaults().avatarURI ?? Environment.currentEnvironment.defaultAvatarURI
+        metrics.uri = NSUserDefaults.standardUserDefaults().avatarURI ?? Environment.current.defaultAvatarURI
         metrics.originalKey = Keys.URL.Large
         metrics.largeKey = Keys.URL.Large
         metrics.smallKey = Keys.URL.Small

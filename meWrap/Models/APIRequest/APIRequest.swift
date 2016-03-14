@@ -23,7 +23,7 @@ private struct APIRequestContainer<T> {
 class APIRequest: NSObject {
 
     static let manager: AFHTTPSessionManager = {
-        let environment = Environment.currentEnvironment
+        let environment = Environment.current
         let manager = AFHTTPSessionManager(baseURL: environment.endpoint.URL)
         let acceptHeader = "application/vnd.ravenpod+json;version=\(environment.version)"
         manager.requestSerializer.setValue(acceptHeader, forHTTPHeaderField: "Accept")

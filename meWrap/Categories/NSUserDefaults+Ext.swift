@@ -66,6 +66,11 @@ extension NSUserDefaults {
         }
     }
     
+    var environment: String? {
+        get { return self["environment"] as? String }
+        set { self["environment"] = newValue }
+    }
+    
     var confirmationDate: NSDate? {
         get {
             if _confirmationDate == nil {

@@ -9,99 +9,94 @@
 import UIKit
 import AFNetworking
 
-class Environment: NSObject {
+struct Environment: CustomStringConvertible {
     
     static var ErrorDomain = "com.mewrap.error"
-    
     static var ErrorResponseDataKey = "\(Environment.ErrorDomain).response.data"
     
     static var Local = "local"
     static var QA = "qa"
     static var Production = "production"
     
-    var endpoint: String
+    static let names = [QA, Production]
     
-    var version: String
+    static let isProduction = ENV == Production
     
-    var defaultImageURI: String
+    let name: String
+    let endpoint: String
+    let version: String
+    let pubnub: (publishKey: String, subscribeKey: String)
+    let defaultImageURI: String
+    let defaultVideoURI: String
+    let defaultAvatarURI: String
+    let s3Bucket: String
+    let newRelicToken: String
+    let GAITrackingId: String?
     
-    var defaultVideoURI: String
+    static let current = Environment.environmentNamed(NSUserDefaults.standardUserDefaults().environment ?? ENV)
     
-    var defaultAvatarURI: String
-    
-    var s3Bucket: String
-    
-    var isProduction: Bool { return self == Environment.productionEnvironment }
-    
-    static let currentEnvironment = Environment.environments[ENV] ?? productionEnvironment
-    
-    static let productionEnvironment = Environment(
-        endpoint: "https://prd-api.mewrap.me/api",
-        version: "8",
-        default_image_uri: "https://dhtwvi2qvu3d7.cloudfront.net/candies/image_attachments",
-        default_avatar_uri: "https://dhtwvi2qvu3d7.cloudfront.net/users/avatars",
-        default_video_uri: "https://dhtwvi2qvu3d7.cloudfront.net/candies/video_attachments",
-        s3_bucket: "wraplive-production-upload-placeholder"
-    )
-    
-    private static var environments = [
-        Environment.Local : Environment(
+    static func environmentNamed(name: String) -> Environment {
+        switch name {
+        case Environment.Local: return Environment(
+            name: name,
             endpoint: "http://0.0.0.0:3000/api",
             version: "8",
-            default_image_uri: "https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments",
-            default_avatar_uri: "https://d2rojtzyvje8rl.cloudfront.net/users/avatars",
-            default_video_uri: "https://d2rojtzyvje8rl.cloudfront.net/candies/video_attachments",
-            s3_bucket: "wraplive-qa-upload-placeholder"
-        ), Environment.QA : Environment(
+            pubnub: ("pub-c-16ba2a90-9331-4472-b00a-83f01ff32089", "sub-c-bc5bfa70-d166-11e3-8d06-02ee2ddab7fe"),
+            defaultImageURI: "https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments",
+            defaultVideoURI: "https://d2rojtzyvje8rl.cloudfront.net/candies/video_attachments",
+            defaultAvatarURI: "https://d2rojtzyvje8rl.cloudfront.net/users/avatars",
+            s3Bucket: "wraplive-qa-upload-placeholder",
+            newRelicToken: "AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c",
+            GAITrackingId: nil
+            )
+        case Environment.QA: return Environment(
+            name: name,
             endpoint: "https://qa-api.mewrap.me/api",
             version: "8",
-            default_image_uri: "https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments",
-            default_avatar_uri: "https://d2rojtzyvje8rl.cloudfront.net/users/avatars",
-            default_video_uri: "https://d2rojtzyvje8rl.cloudfront.net/candies/video_attachments",
-            s3_bucket: "wraplive-qa-upload-placeholder"
-        ), Environment.Production : productionEnvironment
-    ]
-    
-    init(endpoint: String, version: String, default_image_uri: String, default_avatar_uri: String, default_video_uri: String, s3_bucket: String) {
-        self.endpoint = endpoint
-        self.version = version
-        self.defaultImageURI = default_image_uri
-        self.defaultAvatarURI = default_avatar_uri
-        self.defaultVideoURI = default_video_uri
-        self.s3Bucket = s3_bucket
-    }
-    
-    override var description: String {
-        return "environment \(name() ?? ""):\nendpoint=\(endpoint)\nversion=\(version)\ndefault_image_uri=\(defaultImageURI)\ndefault_avatar_uri=\(defaultVideoURI)\ndefault_video_uri=\(defaultAvatarURI)\ns3_bucket=\(s3Bucket)"
-    }
-    
-    private func name() -> String? {
-        let environments = Environment.environments
-        for (name, _) in environments where environments[name] == self {
-            return name
+            pubnub: ("pub-c-16ba2a90-9331-4472-b00a-83f01ff32089", "sub-c-bc5bfa70-d166-11e3-8d06-02ee2ddab7fe"),
+            defaultImageURI: "https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments",
+            defaultVideoURI: "https://d2rojtzyvje8rl.cloudfront.net/candies/video_attachments",
+            defaultAvatarURI: "https://d2rojtzyvje8rl.cloudfront.net/users/avatars",
+            s3Bucket: "wraplive-qa-upload-placeholder",
+            newRelicToken: "AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c",
+            GAITrackingId: nil
+            )
+        default: return Environment(
+            name: name,
+            endpoint: "https://prd-api.mewrap.me/api",
+            version: "8",
+            pubnub: ("pub-c-87bbbc30-fc43-4f6b-b1f4-cedd5f30d5e8", "sub-c-6562fe64-4270-11e4-aed8-02ee2ddab7fe"),
+            defaultImageURI: "https://dhtwvi2qvu3d7.cloudfront.net/candies/image_attachments",
+            defaultVideoURI: "https://dhtwvi2qvu3d7.cloudfront.net/candies/video_attachments",
+            defaultAvatarURI: "https://dhtwvi2qvu3d7.cloudfront.net/users/avatars",
+            s3Bucket: "wraplive-production-upload-placeholder",
+            newRelicToken: "AAd46869ec0b3558fb5890343d895b3acdd40ebaa8",
+            GAITrackingId: "UA-60538241-1"
+            )
         }
-        return nil
+    }
+    
+    var description: String {
+        return "environment \(name):\nendpoint=\(endpoint)\nversion=\(version)\ndefault_image_uri=\(defaultImageURI)\ndefault_avatar_uri=\(defaultVideoURI)\ndefault_video_uri=\(defaultAvatarURI)\ns3_bucket=\(s3Bucket)"
     }
     
     func testUsers() -> [Authorization] {
         var authorizations = [Authorization]()
-        if let name = name(), let users = NSDictionary.plist("test-users")?[name] as? [[String:String]] {
-            for user in users {
-                let authorization = Authorization()
-                authorization.deviceUID = user["deviceUID"] ?? ""
-                authorization.countryCode = user["countryCode"]
-                authorization.phone = user["phone"]
-                authorization.email = user["email"]
-                authorization.activationCode = user["activationCode"]
-                authorization.password = user["password"]
-                authorizations.append(authorization)
-            }
-        }
+        (NSDictionary.plist("test-users")?[name] as? [[String:String]])?.all({
+            let authorization = Authorization()
+            authorization.deviceUID = $0["deviceUID"] ?? ""
+            authorization.countryCode = $0["countryCode"]
+            authorization.phone = $0["phone"]
+            authorization.email = $0["email"]
+            authorization.activationCode = $0["activationCode"]
+            authorization.password = $0["password"]
+            authorizations.append(authorization)
+        })
         return authorizations
     }
 }
 
-@objc enum ResponseCode: Int {
+enum ResponseCode: Int {
     case Default = 1
     case Success = 0
     case Failure = -1
@@ -118,13 +113,12 @@ class Environment: NSObject {
     case EmailAlreadyConfirmed = 110
 }
 
-class Response: NSObject {
+class Response {
     var data = [String:AnyObject]()
     var code: ResponseCode = .Success
     var message = ""
     
-    required init(dictionary: [String:AnyObject]) {
-        super.init()
+    init(dictionary: [String:AnyObject]) {
         if let message = dictionary["message"] as? String {
             self.message = message
         }

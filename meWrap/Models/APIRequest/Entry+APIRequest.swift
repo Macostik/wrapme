@@ -331,7 +331,7 @@ extension Candy {
     override func add(success: ObjectBlock?, failure: FailureBlock?) {
 
         var metadata = [
-            "Accept" : "application/vnd.ravenpod+json;version=\(Environment.currentEnvironment.version)",
+            "Accept" : "application/vnd.ravenpod+json;version=\(Environment.current.version)",
             Keys.UID.Device : Authorization.current.deviceUID ?? "",
             Keys.UID.User : contributor?.uid ?? "",
             Keys.UID.Wrap : wrap?.uid ?? "",
@@ -356,7 +356,7 @@ extension Candy {
     override func update(success: ObjectBlock?, failure: FailureBlock?) {
         
         let metadata = [
-            "Accept" : "application/vnd.ravenpod+json;version=\(Environment.currentEnvironment.version)",
+            "Accept" : "application/vnd.ravenpod+json;version=\(Environment.current.version)",
             Keys.UID.Device : Authorization.current.deviceUID ?? "",
             Keys.UID.User : User.currentUser?.uid ?? "",
             Keys.UID.Wrap : wrap?.uid ?? "",
@@ -393,7 +393,7 @@ extension Candy {
         }
         
         let uploadRequest = AWSS3TransferManagerUploadRequest()
-        uploadRequest.bucket = Environment.currentEnvironment.s3Bucket
+        uploadRequest.bucket = Environment.current.s3Bucket
         uploadRequest.key = path.lastPathComponent
         uploadRequest.metadata = metadata
         if mediaType == .Video {

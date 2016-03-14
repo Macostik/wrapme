@@ -15,6 +15,20 @@ class WelcomeViewController: BaseViewController {
     @IBOutlet var transparentView: UIView!
     @IBOutlet var placeholderView: UIView!
     
+    override func loadView() {
+        super.loadView()
+        
+        if !Environment.isProduction {
+            let environmentButton = UIButton(type: .Custom)
+            environmentButton.setTitle("Environment: \(Environment.current.name)", forState: .Normal)
+            environmentButton.addTarget(self, action: "changeEnvironment:", forControlEvents: .TouchUpInside)
+            view.addSubview(environmentButton)
+            environmentButton.snp_makeConstraints(closure: { (make) -> Void in
+                make.centerX.equalTo(view)
+                make.top.equalTo(view).offset(42)
+            })
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +69,18 @@ class WelcomeViewController: BaseViewController {
         if let introduction = UIStoryboard.introduction.instantiateInitialViewController() {
             navigationController?.setViewControllers([introduction], animated: false)
         }
+    }
+    
+    @IBAction func changeEnvironment(sender: AnyObject) {
+        let actioSheet = UIAlertController.actionSheet("Change environment")
+        for name in Environment.names {
+            actioSheet.action(name, handler: { _ in
+                NSUserDefaults.standardUserDefaults().environment = name
+                fatalError()
+            })
+        }
+        actioSheet.action("Cancel", style: .Cancel)
+        actioSheet.show()
     }
 }
 

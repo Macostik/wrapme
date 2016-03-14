@@ -20,23 +20,21 @@ class NotificationController: WKUserNotificationInterfaceController, WCSessionDe
         let alert = alertFromNotification(remoteNotification)
         alertLabel.setText(alert.message)
         titleLabel.setText(alert.title)
+        if WCSession.isSupported() {
+            let session = WCSession.defaultSession()
+            session.delegate = self
+            session.activateSession()
+        }
         if let notification = remoteNotification as? [String : AnyObject] {
-            if WCSession.isSupported() {
-                let session = WCSession.defaultSession()
-                session.delegate = self
-                session.activateSession()
-            }
             WCSession.defaultSession().handleNotification(notification, success: { [weak self] (reply) -> Void in
                 if let url = reply?["url"] as? String {
                     self?.image.setURL(url)
                 } else {
                     self?.image.setHidden(true)
                 }
-                completionHandler(.Custom)
                 })
-        } else {
-            completionHandler(.Custom)
         }
+        completionHandler(.Custom)
     }
     
     private func localizedString(localizedAlert: String?, args: [String]?) -> String {

@@ -76,7 +76,7 @@ class WelcomeViewController: BaseViewController {
         for name in Environment.names {
             actioSheet.action(name, handler: { _ in
                 NSUserDefaults.standardUserDefaults().environment = name
-                fatalError()
+                abort()
             })
         }
         actioSheet.action("Cancel", style: .Cancel)

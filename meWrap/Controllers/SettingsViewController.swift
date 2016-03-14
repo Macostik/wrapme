@@ -31,7 +31,7 @@ class SettingsViewController: BaseViewController {
     }
     
     @IBAction func addTestUser(sender: AnyObject) {
-        Environment.addTestUser(Authorization.current, completion: { error in
+        TestUser.add(completion: { error in
             if let error = error {
                 Toast.show(error)
             } else {
@@ -68,7 +68,6 @@ class SettingsViewController: BaseViewController {
     }
     
     func addDemoImageWithCount(count: Int) {
-        
         Dispatch.defaultQueue.async({ () -> Void in
             guard
                 let url = NSURL(string: "https://placeimg.com/\(count % 2 == 0 ? "640/1136" : "1136/640")/any"),
@@ -80,8 +79,5 @@ class SettingsViewController: BaseViewController {
                 }
             }
         })
-        
-        
     }
-    
 }

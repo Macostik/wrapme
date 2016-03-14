@@ -348,6 +348,7 @@
 		C5FBAD261C7F9E9500D64969 /* ImageEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FBAD251C7F9E9500D64969 /* ImageEditor.swift */; };
 		C5FBAD281C7FA12300D64969 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FBAD271C7FA12300D64969 /* AppDelegate.swift */; };
 		C5FEEEFF1C7E0B02007B6A79 /* UIBezierPath+Interpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FEEEFE1C7E0B02007B6A79 /* UIBezierPath+Interpolation.swift */; };
+		C5FF6B8F1C96C9B8006462EC /* ChatAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C52CEC3F1C93130F004A1A3F /* ChatAPNS.apns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1843,6 +1844,7 @@
 				C54605091C08C74400FB2303 /* chat_presets.plist in Resources */,
 				C546050B1C08C74800FB2303 /* Localizable.strings in Resources */,
 				C546050A1C08C74400FB2303 /* comment_presets.plist in Resources */,
+				C5FF6B8F1C96C9B8006462EC /* ChatAPNS.apns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

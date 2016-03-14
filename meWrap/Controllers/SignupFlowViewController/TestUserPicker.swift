@@ -9,6 +9,121 @@
 import UIKit
 import SnapKit
 
+struct TestUser {
+    
+    static func testUser(info: [String:String]) -> Authorization {
+        let authorization = Authorization()
+        authorization.deviceUID = info["deviceUID"] ?? ""
+        authorization.countryCode = info["countryCode"]
+        authorization.phone = info["phone"]
+        authorization.email = info["email"]
+        authorization.password = info["password"]
+        return authorization
+    }
+    
+    private static let separator = ","
+    
+    static func deserializeTestUser(string: String) -> Authorization? {
+        let components = string.componentsSeparatedByString(separator)
+        guard components.count == 5 else { return nil }
+        let authorization = Authorization()
+        authorization.deviceUID = components[0]
+        authorization.countryCode = components[1].isEmpty ? nil : components[1]
+        authorization.phone = components[2].isEmpty ? nil : components[2]
+        authorization.email = components[3]
+        authorization.password = components[4]
+        return authorization
+    }
+    
+    static func serializeTestUser(user: Authorization) -> String? {
+        guard let email = user.email, let password = user.password else { return nil }
+        return "\(user.deviceUID)\(separator)\(user.countryCode ?? "")\(separator)\(user.phone ?? "")\(separator)\(email ?? "")\(separator)\(password ?? "")"
+    }
+    
+    static func add(authorization: Authorization = Authorization.current, completion: (String? -> Void)? = nil) {
+        
+        guard let user = serializeTestUser(authorization) else {
+            completion?(nil)
+            return
+        }
+        
+        get {
+            var users = $0
+            if !users.contains(user) {
+                users.insert(user, atIndex: 0)
+                put(users, completion: { completion?($0?.localizedDescription) })
+            } else {
+                Dispatch.mainQueue.async({
+                    completion?(nil)
+                })
+            }
+        }
+    }
+    
+    static func remove(authorization: Authorization, completion: (Void -> Void)? = nil) {
+        guard let user = serializeTestUser(authorization) else {
+            completion?()
+            return
+        }
+        
+        get {
+            var users = $0
+            if let index = users.indexOf(user) {
+                users.removeAtIndex(index)
+                put(users, completion: { (error) -> Void in
+                    completion?()
+                })
+            } else {
+                Dispatch.mainQueue.async({ completion?() })
+            }
+        }
+    }
+    
+    private static func remoteRequest(method: String) -> NSMutableURLRequest {
+        let request = NSMutableURLRequest(URL: NSURL(string: "http://jsonblob.com/api/jsonBlob/56e699ade4b01190df54cac3")!)
+        request.HTTPMethod = method
+        return request
+    }
+    
+    private static func put(users: [String], completion: NSError? -> Void) {
+        let request = remoteRequest("PUT")
+        request.HTTPBody = try? NSJSONSerialization.dataWithJSONObject(users, options: [])
+        let putTask = NSURLSession.sharedSession().dataTaskWithRequest(request) { (_, _, error) -> Void in
+            Dispatch.mainQueue.async({ completion(error) })
+        }
+        putTask.resume()
+    }
+    
+    private static func get(completion: [String] -> Void) {
+        let request = remoteRequest("GET")
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, _, _) -> Void in
+            Dispatch.mainQueue.async({
+                if let data = data, let users = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [String] {
+                    completion(users)
+                } else {
+                    completion([])
+                }
+            })
+        }
+        task.resume()
+    }
+    
+    static func testUsers(completion: [Authorization] -> Void) {
+        get {
+            var users = [Authorization]()
+            $0.all({
+                if let user = deserializeTestUser($0) {
+                    users.append(user)
+                }
+            })
+            (NSDictionary.plist("test-users")?[Environment.current.name] as? [[String:String]])?.all({
+                users.append(testUser($0))
+            })
+            completion(users)
+        }
+    }
+}
+
 class TestUserCell: StreamReusableView, FlowerMenuConstructor {
     
     @IBOutlet weak var phone: UILabel!
@@ -24,8 +139,8 @@ class TestUserCell: StreamReusableView, FlowerMenuConstructor {
     func constructFlowerMenu(menu: FlowerMenu) {
         menu.addDeleteAction { [weak self] () -> Void in
             if let authorization = self?.entry as? Authorization {
-                Environment.removeTestUser(authorization, completion: {
-                    Environment.current.testUsers { [weak self] authorizations in
+                TestUser.remove(authorization, completion: {
+                    TestUser.testUsers { [weak self] authorizations in
                         (self?.superview?.superview as? TestUserPicker)?.dataSource.items = authorizations
                     }
                 })
@@ -99,7 +214,7 @@ final class TestUserPicker: UIView {
         layoutIfNeeded()
         closeButton.addTarget(self, action: "removeFromSuperview", forControlEvents: .TouchUpInside)
         
-        Environment.current.testUsers { [weak self] authorizations in
+        TestUser.testUsers { [weak self] authorizations in
             self?.dataSource.items = authorizations
         }
     }

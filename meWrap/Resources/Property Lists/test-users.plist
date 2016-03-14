@@ -45,18 +45,6 @@
 		</dict>
 		<dict>
 			<key>countryCode</key>
-			<string>380</string>
-			<key>deviceUID</key>
-			<string>aa6498ceefa9410b30199a401adb5dad4ba5273f</string>
-			<key>email</key>
-			<string>s.maximenko@mobidev.biz</string>
-			<key>password</key>
-			<string>b421754345</string>
-			<key>phone</key>
-			<string>951383026</string>
-		</dict>
-		<dict>
-			<key>countryCode</key>
 			<string>1</string>
 			<key>deviceUID</key>
 			<string>472f48f0eea7013295780a17bdb65fbb</string>
@@ -210,14 +198,6 @@
 			<string>ae0fb8a5ae</string>
 			<key>phone</key>
 			<string>666680745</string>
-		</dict>
-		<dict>
-			<key>deviceUID</key>
-			<string>d06bc0532a4cd3aa7a8b0e372d249643a18f5544</string>
-			<key>email</key>
-			<string>s.maximenko@mobidev.biz</string>
-			<key>password</key>
-			<string>50e7c309e8</string>
 		</dict>
 	</array>
 </dict>

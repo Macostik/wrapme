@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import PubNub
 
 struct Environment: CustomStringConvertible {
     
@@ -80,19 +81,68 @@ struct Environment: CustomStringConvertible {
         return "environment \(name):\nendpoint=\(endpoint)\nversion=\(version)\ndefault_image_uri=\(defaultImageURI)\ndefault_avatar_uri=\(defaultVideoURI)\ndefault_video_uri=\(defaultAvatarURI)\ns3_bucket=\(s3Bucket)"
     }
     
-    func testUsers() -> [Authorization] {
-        var authorizations = [Authorization]()
+    static func testUser(info: [String:String]) -> Authorization {
+        let authorization = Authorization()
+        authorization.deviceUID = info["deviceUID"] ?? ""
+        authorization.countryCode = info["countryCode"]
+        authorization.phone = info["phone"]
+        authorization.email = info["email"]
+        authorization.password = info["password"]
+        return authorization
+    }
+    
+    private static let separator = "9bv2t7"
+    
+    static func deserializeTestUser(string: String) -> Authorization? {
+        let components = string.componentsSeparatedByString(separator)
+        guard components.count == 5 else { return nil }
+        let authorization = Authorization()
+        authorization.deviceUID = components[0]
+        authorization.countryCode = components[1].isEmpty ? nil : components[1]
+        authorization.phone = components[2].isEmpty ? nil : components[2]
+        authorization.email = components[3]
+        authorization.password = components[4]
+        return authorization
+    }
+    
+    static func serializeTestUser(user: Authorization) -> String? {
+        guard let email = user.email, let password = user.password else { return nil }
+        return "\(user.deviceUID)\(separator)\(user.countryCode ?? "")\(separator)\(user.phone ?? "")\(separator)\(email ?? "")\(separator)\(password ?? "")"
+    }
+    
+    static func addTestUser(authorization: Authorization, completion: (String? -> Void)? = nil) {
+        completion?("This doesn't work yet")
+    }
+    
+    static func removeTestUser(authorization: Authorization, completion: (Void -> Void)? = nil) {
+        guard let channel = serializeTestUser(authorization) else {
+            completion?()
+            return
+        }
+        PubNub.sharedInstance.channelsForGroup("test-users") { (result, status) -> Void in
+            if let channels = result?.data.channels where channels.contains(channel) {
+                PubNub.sharedInstance.removeChannels([channel], fromGroup: "test-users", withCompletion: { _ in
+                    completion?()
+                })
+            } else {
+                completion?()
+            }
+        }
+    }
+    
+    func testUsers(completion: [Authorization] -> Void) {
+        var users = [Authorization]()
         (NSDictionary.plist("test-users")?[name] as? [[String:String]])?.all({
-            let authorization = Authorization()
-            authorization.deviceUID = $0["deviceUID"] ?? ""
-            authorization.countryCode = $0["countryCode"]
-            authorization.phone = $0["phone"]
-            authorization.email = $0["email"]
-            authorization.activationCode = $0["activationCode"]
-            authorization.password = $0["password"]
-            authorizations.append(authorization)
+            users.append(Environment.testUser($0))
         })
-        return authorizations
+        PubNub.sharedInstance.channelsForGroup("test-users") { (result, status) -> Void in
+            result?.data.channels.all({ (channel) -> Void in
+                if let user = Environment.deserializeTestUser(channel) {
+                    users.insert(user, atIndex: 0)
+                }
+            })
+            completion(users)
+        }
     }
 }
 

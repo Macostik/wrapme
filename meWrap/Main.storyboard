@@ -377,6 +377,27 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button hidden="YES" opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uR2-Qh-pPA" customClass="QAButton" customModule="meWrap" customModuleProvider="target">
+                                <rect key="frame" x="12" y="443" width="576" height="44"/>
+                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="KGm-OX-rSJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Add Test User">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="addTestUser:" destination="zBt-TT-rM7" eventType="touchUpInside" id="ii2-ni-2jc"/>
+                                </connections>
+                            </button>
                             <button hidden="YES" opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNJ-iN-ANg" customClass="QAButton" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="12" y="492" width="576" height="44"/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -428,6 +449,7 @@
                             <constraint firstAttribute="trailing" secondItem="qU7-Ez-lna" secondAttribute="trailing" id="4mb-xu-6fX"/>
                             <constraint firstItem="R6h-Ul-Nr0" firstAttribute="centerY" secondItem="co2-D4-XAH" secondAttribute="centerY" id="5H8-ey-WLX"/>
                             <constraint firstItem="qU7-Ez-lna" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="75y-ff-xZ5"/>
+                            <constraint firstItem="hNJ-iN-ANg" firstAttribute="top" secondItem="uR2-Qh-pPA" secondAttribute="bottom" constant="5" id="9yY-vZ-8pW"/>
                             <constraint firstItem="mQC-gK-lfD" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="AiZ-Aa-HJA"/>
                             <constraint firstItem="co2-D4-XAH" firstAttribute="top" secondItem="wsP-zc-2NJ" secondAttribute="bottom" constant="44" id="AlN-iI-BoV"/>
                             <constraint firstItem="hNJ-iN-ANg" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="DqZ-ak-FZI"/>
@@ -435,6 +457,7 @@
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="leading" secondItem="7Ok-gy-eVo" secondAttribute="leading" id="ENs-zQ-ALk"/>
                             <constraint firstItem="co2-D4-XAH" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="G9j-4K-lq1"/>
                             <constraint firstItem="MDJ-Nd-sbY" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="HA9-f5-7Ud"/>
+                            <constraint firstItem="uR2-Qh-pPA" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="HVL-qt-JkQ"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="HdV-Pv-jgs"/>
                             <constraint firstAttribute="trailing" secondItem="fos-MI-VJD" secondAttribute="trailing" constant="12" id="J03-jl-mne"/>
                             <constraint firstAttribute="trailing" secondItem="7C1-yc-O8X" secondAttribute="trailing" constant="12" id="JbV-JO-tQh"/>
@@ -451,6 +474,7 @@
                             <constraint firstItem="7C1-yc-O8X" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="fG0-Qk-cC5"/>
                             <constraint firstAttribute="trailing" secondItem="MDJ-Nd-sbY" secondAttribute="trailing" id="kWI-un-S07"/>
                             <constraint firstItem="7C1-yc-O8X" firstAttribute="top" secondItem="xod-QW-gum" secondAttribute="bottom" id="mGh-n5-swI"/>
+                            <constraint firstAttribute="trailing" secondItem="uR2-Qh-pPA" secondAttribute="trailing" constant="12" id="rdv-hD-4tN"/>
                             <constraint firstItem="bUo-1c-0rp" firstAttribute="leading" secondItem="7C1-yc-O8X" secondAttribute="leading" id="uzc-80-NYg"/>
                             <constraint firstAttribute="trailing" secondItem="xod-QW-gum" secondAttribute="trailing" id="xeE-i5-YAU"/>
                             <constraint firstAttribute="trailing" secondItem="mQC-gK-lfD" secondAttribute="trailing" id="xuQ-Yo-tyX"/>

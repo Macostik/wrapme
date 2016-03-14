@@ -30,6 +30,16 @@ class SettingsViewController: BaseViewController {
         }).show()
     }
     
+    @IBAction func addTestUser(sender: AnyObject) {
+        Environment.addTestUser(Authorization.current, completion: { error in
+            if let error = error {
+                Toast.show(error)
+            } else {
+                Toast.show("Current user is added to the list of test users")
+            }
+        })
+    }
+    
     @IBAction func addDemoImages(sender: UIButton) {
         addDemoImageWithCount(30000)
         Toast.show("5 demo images will be added to Photos")

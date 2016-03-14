@@ -42,6 +42,7 @@ extension AuthorizedExecutor {
     
     static func shareContent() {
         AuthorizedExecutor.execute {
+            UINavigationController.main()?.dismissViewControllerAnimated(false, completion: nil)
             UINavigationController.main()?.pushViewController(Storyboard.WrapList.instantiate(), animated: false)
         }
     }

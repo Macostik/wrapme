@@ -69,7 +69,7 @@ class WrapListViewController: BaseViewController {
             content = sortedKeys.map({ map[$0]!})
         }
         if content.first?.hasSuffix("txt") != true {
-            if content.count < 10 {
+            if content.count <= 10 {
                 handleAssets()
             } else {
                 Toast.show("upload_photos_limit_error".ls)

@@ -33,13 +33,20 @@
 	</dict>
 	<key>NSExtension</key>
 	<dict>
-		<key>NSExtensionAttributes</key>
-		<dict>
-			<key>NSExtensionActivationRule</key>
-			<string>TRUEPREDICATE</string>
-			<key>RequestsOpenAccess</key>
-			<true/>
-		</dict>
+        <key>NSExtensionAttributes</key>
+        <dict>
+            <key>NSExtensionActivationRule</key>
+            <dict>
+                <key>NSExtensionActivationSupportsImageWithMaxCount</key>
+                <integer>1000</integer>
+                <key>NSExtensionActivationSupportsMovieWithMaxCount</key>
+                <integer>1000</integer>
+                <key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
+                <integer>1</integer>
+                <key>NSExtensionActivationSupportsText</key>
+                <integer>1</integer>
+            </dict>
+        </dict>
 		<key>NSExtensionMainStoryboard</key>
 		<string>Share</string>
 		<key>NSExtensionPointIdentifier</key>

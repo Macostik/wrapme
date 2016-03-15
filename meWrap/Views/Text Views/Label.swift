@@ -37,6 +37,7 @@ class Label: UILabel {
         willSet {
             if newValue {
                 text = text?.ls
+                layoutIfNeeded()
             }
         }
     }

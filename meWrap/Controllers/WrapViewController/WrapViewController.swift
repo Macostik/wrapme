@@ -79,6 +79,7 @@ final class WrapSegmentButton: SegmentButton {
     
     override var selected: Bool {
         willSet {
+            backgroundColor = Color.grayLightest
             selectionView.hidden = !newValue
             iconLabel.highlighted = newValue
             textLabel.highlighted = newValue

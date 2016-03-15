@@ -39,7 +39,7 @@ class BaseViewController: GAITrackedViewController {
     
     deinit {
         #if DEBUG
-            NSLog("%@ dealloc", NSStringFromClass(self.dynamicType))
+            Logger.debugLog("\(NSStringFromClass(self.dynamicType)) deinit", color: .Blue)
         #endif
     }
     

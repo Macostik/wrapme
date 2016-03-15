@@ -27,7 +27,7 @@ class ImageEditor {
         
         dispatch_once(&token) {
             AdobeImageEditorCustomization.setSupportedIpadOrientations([UIInterfaceOrientation.Portrait.rawValue, UIInterfaceOrientation.PortraitUpsideDown.rawValue, UIInterfaceOrientation.LandscapeLeft.rawValue, UIInterfaceOrientation.PortraitUpsideDown.rawValue, UIInterfaceOrientation.LandscapeRight.rawValue])
-            AdobeUXAuthManager.sharedManager().setAuthenticationParametersWithClientID("a7929bf566694d579acb507eae697db1", clientSecret: "b6fa1e1c-4f8c-4001-88a9-0251a099f890", enableSignUp: false)
+            AdobeUXAuthManager.sharedManager().setAuthenticationParametersWithClientID("a7929bf566694d579acb507eae697db1", withClientSecret: "b6fa1e1c-4f8c-4001-88a9-0251a099f890")
         }
         let controller = AdobeUXImageEditorViewController(image:image)
         controller.enqueueHighResolutionRenderWithImage(image) { (result, error) -> Void in

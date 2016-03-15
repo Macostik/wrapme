@@ -18,17 +18,13 @@ class ImageView: UIImageView {
         clipsToBounds = true
     }
     
-    lazy var defaultIconView: UILabel = {
-        let iconView = UILabel()
-        iconView.translatesAutoresizingMaskIntoConstraints = false
+    lazy var defaultIconView: Label = {
+        let iconView = Label(icon: self.defaultIconText ?? "", size: self.defaultIconSize, textColor: self.defaultIconColor)
         iconView.hidden = true
-        iconView.font = UIFont(name:"icons", size:self.defaultIconSize)
         iconView.textAlignment = .Center
-        iconView.textColor = self.defaultIconColor
         iconView.backgroundColor = self.defaultBackgroundColor ?? self.backgroundColor
-        iconView.text = self.defaultIconText
         self.insertSubview(iconView, atIndex: 0)
-        iconView.snp_makeConstraints(closure: { $0.left.right.top.bottom.equalTo(self) })
+        iconView.snp_makeConstraints(closure: { $0.edges.equalTo(self) })
         return iconView
     }()
     

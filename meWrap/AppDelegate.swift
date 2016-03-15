@@ -20,6 +20,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         
+        Logger.configure()
         Logger.log("API environment: \(Environment.current)")
         
         registerUserNotificationSettings()

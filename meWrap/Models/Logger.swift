@@ -18,15 +18,11 @@ extension UIApplicationState {
     }
 }
 
-class Logger: NSObject {
-    private static let leLog: LELog = {
-        #if DEBUG
-            setenv("XcodeColors", "YES", 0)
-        #endif
-        let log = LELog.sharedInstance()
-        log.token = "e9e259b1-98e6-41b5-b530-d89d1f5af01d"
-        return log
-    }()
+struct Logger {
+    
+    static func configure() {
+        Slim.addLogDestination(SlimLogglyDestination())
+    }
     
     static var remoteLogging: Bool = NSUserDefaults.standardUserDefaults().remoteLogging ?? false
     
@@ -40,25 +36,24 @@ class Logger: NSObject {
     
     private static let Escape = "\u{001b}["
     
-    class func debugLog(string: String, color: LogColor) {
+    static func debugLog(string: String, color: LogColor = .Default, filename: String = __FILE__, line: Int = __LINE__) {
         #if DEBUG
-            print("\(Escape)\(color.rawValue)\n\n\(string)\n\(Escape);")
+            Slim.debug("\(Escape)\(color.rawValue)\n\n\(string)\n\(Escape);", filename: filename, line: line)
         #endif
     }
     
-    class func log(string: String, color: LogColor) {
+    static func log(string: String, color: LogColor = .Default, filename: String = __FILE__, line: Int = __LINE__) {
         #if DEBUG
-            print("\(Escape)\(color.rawValue)\n\n\(string)\n\(Escape);")
+            Slim.debug("\(Escape)\(color.rawValue)\n\n\(string)\n\(Escape);", filename: filename, line: line)
         #else
             if remoteLogging {
                 let appState = UIApplication.sharedApplication().applicationState.displayName()
                 let screenName = BaseViewController.lastAppearedScreenName ?? ""
-                leLog.log("\(User.uuid()) (app is \(appState), last visited screen is \(screenName))\n \(string)")
+                let log = "{\"uuid\":\(User.uuid()),\"app_state\":\(appState),\"last_visited_screen\":\(screenName),\"message\":\(string)}"
+                Slim.info(log)
             }
         #endif
     }
-    
-    class func log(string: String) {
-        log(string, color: .Default)
-    }
 }
+
+

@@ -226,12 +226,6 @@
 		C564C8161C4A47EE001C6460 /* CaptureAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C564C8151C4A47EE001C6460 /* CaptureAvatarViewController.swift */; };
 		C565ED6D1B9F2567002352C8 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B787D9C1A27876F004AE459 /* NotificationCenter.framework */; };
 		C566BD9E1C4E6B50000E80BA /* UIBezierPath+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566BD9D1C4E6B50000E80BA /* UIBezierPath+Ext.swift */; };
-		C56D1F841C86DE1800A2BE74 /* LEBackgroundThread.m in Sources */ = {isa = PBXBuildFile; fileRef = C56D1F781C86DE1800A2BE74 /* LEBackgroundThread.m */; };
-		C56D1F851C86DE1800A2BE74 /* lecore.m in Sources */ = {isa = PBXBuildFile; fileRef = C56D1F7A1C86DE1800A2BE74 /* lecore.m */; };
-		C56D1F861C86DE1800A2BE74 /* LELog.m in Sources */ = {isa = PBXBuildFile; fileRef = C56D1F7D1C86DE1800A2BE74 /* LELog.m */; };
-		C56D1F871C86DE1800A2BE74 /* LeNetworkStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = C56D1F7F1C86DE1800A2BE74 /* LeNetworkStatus.m */; };
-		C56D1F881C86DE1800A2BE74 /* LogFile.m in Sources */ = {isa = PBXBuildFile; fileRef = C56D1F811C86DE1800A2BE74 /* LogFile.m */; };
-		C56D1F891C86DE1800A2BE74 /* LogFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = C56D1F831C86DE1800A2BE74 /* LogFiles.m */; };
 		C56D4E4F1C0B54D300B20566 /* meWrapWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C54604D71C08C6DF00FB2303 /* meWrapWatchApp.app */; };
 		C577C2661A4C427100ECC7E5 /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C577C2621A4C427100ECC7E5 /* iVersion.m */; };
 		C57CB2A91BAAE50D0050FBF7 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB2A31BAAE4ED0050FBF7 /* libc++.tbd */; };
@@ -277,6 +271,10 @@
 		C5C694D51BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C694D41BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift */; };
 		C5C991131B9845CF0006F534 /* StreamMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C991111B9845CF0006F534 /* StreamMetrics.swift */; };
 		C5CBA7C81BA9556B0008EAAE /* SquareGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CBA7C61BA9556B0008EAAE /* SquareGridLayout.swift */; };
+		C5D1B6971C981E8700C2C5A7 /* SlimLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D1B6931C981E8700C2C5A7 /* SlimLogger.swift */; };
+		C5D1B6981C981E8700C2C5A7 /* SlimLoggerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D1B6941C981E8700C2C5A7 /* SlimLoggerConfig.swift */; };
+		C5D1B6991C981E8700C2C5A7 /* SlimLogglyDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D1B6951C981E8700C2C5A7 /* SlimLogglyDestination.swift */; };
+		C5D1B69A1C981E8700C2C5A7 /* SlimLogglyDestinationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D1B6961C981E8700C2C5A7 /* SlimLogglyDestinationConfig.swift */; };
 		C5D99E741C2B2BC10022D18B /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D99E731C2B2BC10022D18B /* Keyboard.swift */; };
 		C5DA2FD41C2C0B0500038352 /* AddressBookGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DA2FD31C2C0B0500038352 /* AddressBookGroupView.swift */; };
 		C5E092D61C6CED2600510AA1 /* AddressBookRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E092D31C6CED2600510AA1 /* AddressBookRecordCell.swift */; };
@@ -654,19 +652,6 @@
 		C562D1071BDF65F60033EDC8 /* WatchExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchExtensionDelegate.swift; sourceTree = "<group>"; };
 		C564C8151C4A47EE001C6460 /* CaptureAvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureAvatarViewController.swift; sourceTree = "<group>"; };
 		C566BD9D1C4E6B50000E80BA /* UIBezierPath+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Ext.swift"; sourceTree = "<group>"; };
-		C56D1F771C86DE1800A2BE74 /* LEBackgroundThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEBackgroundThread.h; sourceTree = "<group>"; };
-		C56D1F781C86DE1800A2BE74 /* LEBackgroundThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEBackgroundThread.m; sourceTree = "<group>"; };
-		C56D1F791C86DE1800A2BE74 /* lecore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lecore.h; sourceTree = "<group>"; };
-		C56D1F7A1C86DE1800A2BE74 /* lecore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = lecore.m; sourceTree = "<group>"; };
-		C56D1F7B1C86DE1800A2BE74 /* lelib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lelib.h; sourceTree = "<group>"; };
-		C56D1F7C1C86DE1800A2BE74 /* LELog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LELog.h; sourceTree = "<group>"; };
-		C56D1F7D1C86DE1800A2BE74 /* LELog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LELog.m; sourceTree = "<group>"; };
-		C56D1F7E1C86DE1800A2BE74 /* LeNetworkStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeNetworkStatus.h; sourceTree = "<group>"; };
-		C56D1F7F1C86DE1800A2BE74 /* LeNetworkStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeNetworkStatus.m; sourceTree = "<group>"; };
-		C56D1F801C86DE1800A2BE74 /* LogFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogFile.h; sourceTree = "<group>"; };
-		C56D1F811C86DE1800A2BE74 /* LogFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogFile.m; sourceTree = "<group>"; };
-		C56D1F821C86DE1800A2BE74 /* LogFiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogFiles.h; sourceTree = "<group>"; };
-		C56D1F831C86DE1800A2BE74 /* LogFiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogFiles.m; sourceTree = "<group>"; };
 		C577C2611A4C427100ECC7E5 /* iVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iVersion.h; sourceTree = "<group>"; };
 		C577C2621A4C427100ECC7E5 /* iVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iVersion.m; sourceTree = "<group>"; };
 		C57CB2A31BAAE4ED0050FBF7 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -741,6 +726,10 @@
 		C5C991111B9845CF0006F534 /* StreamMetrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamMetrics.swift; sourceTree = "<group>"; };
 		C5C991141B9846110006F534 /* meWrap-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "meWrap-Bridging-Header.h"; sourceTree = "<group>"; };
 		C5CBA7C61BA9556B0008EAAE /* SquareGridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareGridLayout.swift; sourceTree = "<group>"; };
+		C5D1B6931C981E8700C2C5A7 /* SlimLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlimLogger.swift; sourceTree = "<group>"; };
+		C5D1B6941C981E8700C2C5A7 /* SlimLoggerConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlimLoggerConfig.swift; sourceTree = "<group>"; };
+		C5D1B6951C981E8700C2C5A7 /* SlimLogglyDestination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlimLogglyDestination.swift; sourceTree = "<group>"; };
+		C5D1B6961C981E8700C2C5A7 /* SlimLogglyDestinationConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlimLogglyDestinationConfig.swift; sourceTree = "<group>"; };
 		C5D99E731C2B2BC10022D18B /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		C5DA2FD31C2C0B0500038352 /* AddressBookGroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookGroupView.swift; sourceTree = "<group>"; };
 		C5E092D31C6CED2600510AA1 /* AddressBookRecordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookRecordCell.swift; sourceTree = "<group>"; };
@@ -922,7 +911,7 @@
 			children = (
 				5B47920C1C1B2BDF0090FDD2 /* MMWormhole.h */,
 				5B4792091C1B2B110090FDD2 /* libmmwormhole.a */,
-				C56D1F761C86DE1800A2BE74 /* lelib */,
+				C5D1B6921C981E8700C2C5A7 /* SlimLogger */,
 				C5861A581BFA079F00C64663 /* MBL */,
 				C57CB2A71BAAE5040050FBF7 /* libsqlite3.0.tbd */,
 				C57CB2A51BAAE4F60050FBF7 /* libz.tbd */,
@@ -1456,27 +1445,6 @@
 			path = meWrapKit;
 			sourceTree = "<group>";
 		};
-		C56D1F761C86DE1800A2BE74 /* lelib */ = {
-			isa = PBXGroup;
-			children = (
-				C56D1F771C86DE1800A2BE74 /* LEBackgroundThread.h */,
-				C56D1F781C86DE1800A2BE74 /* LEBackgroundThread.m */,
-				C56D1F791C86DE1800A2BE74 /* lecore.h */,
-				C56D1F7A1C86DE1800A2BE74 /* lecore.m */,
-				C56D1F7B1C86DE1800A2BE74 /* lelib.h */,
-				C56D1F7C1C86DE1800A2BE74 /* LELog.h */,
-				C56D1F7D1C86DE1800A2BE74 /* LELog.m */,
-				C56D1F7E1C86DE1800A2BE74 /* LeNetworkStatus.h */,
-				C56D1F7F1C86DE1800A2BE74 /* LeNetworkStatus.m */,
-				C56D1F801C86DE1800A2BE74 /* LogFile.h */,
-				C56D1F811C86DE1800A2BE74 /* LogFile.m */,
-				C56D1F821C86DE1800A2BE74 /* LogFiles.h */,
-				C56D1F831C86DE1800A2BE74 /* LogFiles.m */,
-			);
-			name = lelib;
-			path = Frameworks/lelib;
-			sourceTree = "<group>";
-		};
 		C577C2601A4C426300ECC7E5 /* iVersion */ = {
 			isa = PBXGroup;
 			children = (
@@ -1558,6 +1526,18 @@
 				C5F11E4E1C64A21C001C2486 /* LinkDeviceViewController.swift */,
 			);
 			path = SignupFlowViewController;
+			sourceTree = "<group>";
+		};
+		C5D1B6921C981E8700C2C5A7 /* SlimLogger */ = {
+			isa = PBXGroup;
+			children = (
+				C5D1B6931C981E8700C2C5A7 /* SlimLogger.swift */,
+				C5D1B6941C981E8700C2C5A7 /* SlimLoggerConfig.swift */,
+				C5D1B6951C981E8700C2C5A7 /* SlimLogglyDestination.swift */,
+				C5D1B6961C981E8700C2C5A7 /* SlimLogglyDestinationConfig.swift */,
+			);
+			name = SlimLogger;
+			path = Frameworks/SlimLogger;
 			sourceTree = "<group>";
 		};
 		C5E6DD741C0DC84A004992E4 /* EntryContext */ = {
@@ -2069,7 +2049,6 @@
 				C502B3301C47F33100F66EAE /* AddressBook.swift in Sources */,
 				C54E28191C771B1C000B7682 /* BaseViewController.swift in Sources */,
 				C54C42501BDE77BB003E644D /* ExtensionMessage.swift in Sources */,
-				C56D1F891C86DE1800A2BE74 /* LogFiles.m in Sources */,
 				C5861A6C1BFA3C9400C64663 /* LiveViewController.swift in Sources */,
 				C5E6DD9F1C0DD11A004992E4 /* Keys.swift in Sources */,
 				C55BE8C71C031BA6006B04FC /* ExtensionRequest+Ext.swift in Sources */,
@@ -2085,18 +2064,17 @@
 				C55E53431C4FCD3B006ACF8F /* CaptureViewController.swift in Sources */,
 				C5E6F0231BFF38C200FA3D4F /* SwipeAction.swift in Sources */,
 				C530127D1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift in Sources */,
-				C56D1F861C86DE1800A2BE74 /* LELog.m in Sources */,
 				5B1061341C610A1900496647 /* ConfirmView.swift in Sources */,
 				C502B3141C47F2EC00F66EAE /* CommentNotification.swift in Sources */,
 				C5AA71D61BE3D39D00EA106A /* MutableAsset.swift in Sources */,
 				C5F5F0BE1C687B1B002F74C9 /* UserActivity.swift in Sources */,
+				C5D1B6971C981E8700C2C5A7 /* SlimLogger.swift in Sources */,
 				C502B3191C47F2EC00F66EAE /* UserNotification.swift in Sources */,
 				C577C2661A4C427100ECC7E5 /* iVersion.m in Sources */,
 				C5E7AB7A1BCD47D4007E314B /* UIView+Ext.swift in Sources */,
 				C502B3281C47F30400F66EAE /* Entry+APIResponse.swift in Sources */,
 				C532F4EF1C2DA4D8004585E0 /* Uploader.swift in Sources */,
 				5B3C792A1C7318B700EAB05D /* HintView.swift in Sources */,
-				C56D1F841C86DE1800A2BE74 /* LEBackgroundThread.m in Sources */,
 				C5E7AB781BCD3A79007E314B /* UIScrollView+Ext.swift in Sources */,
 				C54CEF9D1BCFB09100128CBE /* UIViewController+Ext.swift in Sources */,
 				C53012911BF4E3EA00098F9C /* EmojiView.swift in Sources */,
@@ -2116,8 +2094,10 @@
 				C53A02321C0D8961003B3D1F /* InMemoryImageCache.swift in Sources */,
 				C5D99E741C2B2BC10022D18B /* Keyboard.swift in Sources */,
 				C553B1901BF9F75600E50219 /* EntryPresenter.swift in Sources */,
+				C5D1B6981C981E8700C2C5A7 /* SlimLoggerConfig.swift in Sources */,
 				C5E6DD921C0DC84A004992E4 /* User.swift in Sources */,
 				C54D12CB1C4524D3009014FB /* LiveBroadcastViewersViewController.swift in Sources */,
+				C5D1B69A1C981E8700C2C5A7 /* SlimLogglyDestinationConfig.swift in Sources */,
 				C509F7481C5E3C4800E6BFF0 /* CaptureMediaSession.swift in Sources */,
 				C5C694D51BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift in Sources */,
 				C5B51FE21BFB504D005A1CF6 /* UIAlertController+Ext.swift in Sources */,
@@ -2141,6 +2121,7 @@
 				5B7F14031C7F29B30035CC81 /* WrapListViewController.swift in Sources */,
 				C51E34EC1BD8ECC300C6F678 /* GradientView.swift in Sources */,
 				C5092CCE1C1206BE006C9414 /* History.swift in Sources */,
+				C5D1B6991C981E8700C2C5A7 /* SlimLogglyDestination.swift in Sources */,
 				5BF9F9AB1C5F70670075402C /* HomeDataSource.swift in Sources */,
 				C5FBAD281C7FA12300D64969 /* AppDelegate.swift in Sources */,
 				C5053E821BC7F7280040613A /* ReportViewController.swift in Sources */,
@@ -2181,7 +2162,6 @@
 				C558710E1C48F63500F09E58 /* NotificationSubscription.swift in Sources */,
 				C58CC6EF1C5E515B0086B7C1 /* HistoryViewController.swift in Sources */,
 				C521E18C1BC7AE1B00505432 /* VideoPlayerView.swift in Sources */,
-				C56D1F851C86DE1800A2BE74 /* lecore.m in Sources */,
 				C502B3131C47F2EC00F66EAE /* CandyNotification.swift in Sources */,
 				C540C0F31B988BFD00F880C9 /* StreamItem.swift in Sources */,
 				C5E6DD891C0DC84A004992E4 /* Asset.swift in Sources */,
@@ -2212,7 +2192,6 @@
 				C5E6DD901C0DC84A004992E4 /* EntryContext.swift in Sources */,
 				C5F5F0C01C690BD6002F74C9 /* LoadingView.swift in Sources */,
 				C51A06AB1C778E7600719826 /* InboxViewController.swift in Sources */,
-				C56D1F871C86DE1800A2BE74 /* LeNetworkStatus.m in Sources */,
 				C54E281E1C773435000B7682 /* MessageCell.swift in Sources */,
 				C5E6DD8B1C0DC84A004992E4 /* Comment.swift in Sources */,
 				C5E8C7BC1C806A860092351D /* GeometryHelper.swift in Sources */,
@@ -2225,7 +2204,6 @@
 				C557B6DE1C22F5980067631E /* Logger.swift in Sources */,
 				C59CEBD31BFB20B500C3E686 /* EntryView.swift in Sources */,
 				C502B32B1C47F30400F66EAE /* PaginatedRequest.swift in Sources */,
-				C56D1F881C86DE1800A2BE74 /* LogFile.m in Sources */,
 				C535D69B1C045B56002BCE34 /* WrapCoverView.swift in Sources */,
 				C5EAE4CB1C18335900DA19C9 /* Chat.swift in Sources */,
 				C5E6DD8C1C0DC84A004992E4 /* Contribution.swift in Sources */,

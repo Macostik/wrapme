@@ -263,20 +263,24 @@ final class WrapViewController: BaseViewController {
                 return true
             }
             
-            let activity0 = $0.activityForWrap(wrap)
-            let activity1 = $1.activityForWrap(wrap)
-            if activity0?.type != activity1?.type {
-                if activity0?.type == .Video {
+            let activity0 = $0.activityForWrap(wrap)?.type
+            let activity1 = $1.activityForWrap(wrap)?.type
+            if activity0 != activity1 {
+                if activity0 == .Live {
                     return true
-                } else if activity1?.type == .Video {
+                } else if activity1 == .Live {
                     return false
-                } else if activity0?.type == .Photo {
+                } else if activity0 == .Video {
                     return true
-                } else if activity1?.type == .Photo {
+                } else if activity1 == .Video {
                     return false
-                } else if activity0?.type == .Typing {
+                } else if activity0 == .Photo {
                     return true
-                } else if activity1?.type == .Typing {
+                } else if activity1 == .Photo {
+                    return false
+                } else if activity0 == .Typing {
+                    return true
+                } else if activity1 == .Typing {
                     return false
                 }
             }

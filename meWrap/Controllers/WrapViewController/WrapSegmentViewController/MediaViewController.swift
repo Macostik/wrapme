@@ -142,26 +142,18 @@ class HistoryItemCell: StreamReusableView {
 
 class LiveBroadcastMediaView: StreamReusableView {
     
-    @IBOutlet weak var imageView: ImageView!
-    @IBOutlet weak var nameLabel: Label!
-    @IBOutlet weak var titleLabel: Label!
+    private let imageView = ImageView(backgroundColor: UIColor.whiteColor())
+    private let nameLabel = Label(preset: FontPreset.Small, weight: UIFontWeightLight)
+    private let titleLabel = Label(preset: FontPreset.Smaller, weight: UIFontWeightLight, textColor: Color.grayLighter)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
-        let imageView = ImageView(backgroundColor: UIColor.whiteColor())
         imageView.cornerRadius = 24
         imageView.defaultBackgroundColor = Color.grayLighter
         imageView.defaultIconColor = UIColor.whiteColor()
         imageView.defaultIconText = "&"
         addSubview(imageView)
-        self.imageView = imageView
-        
-        let nameLabel = Label(preset: FontPreset.Small, weight: UIFontWeightLight)
         addSubview(nameLabel)
-        self.nameLabel = nameLabel
-        
-        let titleLabel = Label(preset: FontPreset.Smaller, weight: UIFontWeightLight, textColor: Color.grayLighter)
         addSubview(titleLabel)
-        self.titleLabel = titleLabel
         
         let liveBadge = Label(preset: FontPreset.XSmall, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
         liveBadge.textAlignment = .Center
@@ -199,7 +191,7 @@ class LiveBroadcastMediaView: StreamReusableView {
     override func setup(entry: AnyObject?) {
         if let broadcast = entry as? LiveBroadcast {
             nameLabel.text = "\(broadcast.broadcaster?.name ?? "") \("is_live_streaming".ls)"
-            titleLabel?.text = broadcast.displayTitle()
+            titleLabel.text = broadcast.displayTitle()
             imageView.url = broadcast.broadcaster?.avatar?.small
         }
     }

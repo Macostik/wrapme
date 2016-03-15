@@ -60,6 +60,22 @@ final class StreamView: UIScrollView {
     
     private var items = [StreamItem]()
     
+   override var contentInset: UIEdgeInsets  {
+        didSet {
+            if oldValue != contentInset && items.count == 1 {
+                reload()
+            }
+        }
+    }
+    
+    override var frame: CGRect {
+        didSet {
+            if !CGSizeEqualToSize(oldValue.size, frame.size) {
+                reload()
+            }
+        }
+    }
+
     deinit {
         delegate = nil
         unsubscribeFromOffsetChange()

@@ -181,7 +181,7 @@ class CommentsViewController: BaseViewController {
         if !iskeyboardShown {
             iskeyboardShown = Keyboard.keyboard.isShown
             if dataSource.items?.count == 0 {
-                streamView.size = CGSizeMake(streamView.width, streamView.height - keyboardHeight + CommentsViewController.ContstraintOffset)
+                streamView.height -= keyboardHeight + CommentsViewController.ContstraintOffset
             }
             let offset = CGPointMake(0, keyboardHeight + streamView.contentOffset.y > 0 ?
                 view.height - streamView.height + streamView.contentOffset.y - 25.0 : streamView.contentOffset.y)

@@ -49,6 +49,7 @@ class HistoryItemCell: StreamReusableView {
         streamView.showsHorizontalScrollIndicator = false
         streamView.showsVerticalScrollIndicator = false
         streamView.alwaysBounceHorizontal = true
+        streamView.delaysContentTouches = false
         addSubview(streamView)
         self.streamView = streamView
         

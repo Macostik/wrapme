@@ -17,12 +17,18 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
     
     var videoIndicator = Label(icon: "+", size: 24)
     
+    var pressedStateButton = Button(type: .Custom)
+    
     override func layoutWithMetrics(metrics: StreamMetrics) {
         imageView.defaultIconSize = 56
         imageView.defaultIconText = "t"
         imageView.defaultIconColor = Color.grayLighter
+        pressedStateButton.addTarget(self, action: "select", forControlEvents: .TouchUpInside)
+        pressedStateButton.highlightedColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
+        pressedStateButton.normalColor = UIColor.clearColor()
         addSubview(imageView)
         addSubview(videoIndicator)
+        addSubview(pressedStateButton)
         let gradientView = GradientView()
         gradientView.startColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
         gradientView.contentMode = .Bottom
@@ -45,6 +51,10 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
 
         commentLabel.snp_makeConstraints { make in
             make.edges.equalTo(gradientView).inset(UIEdgeInsetsMake(4, 4, 4, 4))
+        }
+        
+        pressedStateButton.snp_makeConstraints { make in
+            make.edges.equalTo(self)
         }
     }
     

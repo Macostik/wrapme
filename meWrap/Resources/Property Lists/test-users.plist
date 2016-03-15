@@ -179,18 +179,6 @@
 			<key>countryCode</key>
 			<string>380</string>
 			<key>deviceUID</key>
-			<string>d0cfc2688926cf12e85e9936714c60d891adc4e1</string>
-			<key>email</key>
-			<string>y.granchenko@mobidev.biz</string>
-			<key>password</key>
-			<string>254163429e</string>
-			<key>phone</key>
-			<string>957115540</string>
-		</dict>
-		<dict>
-			<key>countryCode</key>
-			<string>380</string>
-			<key>deviceUID</key>
 			<string>42cdc5e475e6abce4d198fb2b52d9a7838e86d1c</string>
 			<key>email</key>
 			<string>yura-granchenko@yandex.ru</string>

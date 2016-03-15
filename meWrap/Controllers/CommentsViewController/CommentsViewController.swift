@@ -180,6 +180,9 @@ class CommentsViewController: BaseViewController {
     override func keyboardAdjustmentForConstraint(constraint: NSLayoutConstraint, defaultConstant: CGFloat, keyboardHeight: CGFloat) -> CGFloat {
         if !iskeyboardShown {
             iskeyboardShown = Keyboard.keyboard.isShown
+            if dataSource.items?.count == 0 {
+                streamView.size = CGSizeMake(streamView.width, streamView.height - keyboardHeight + CommentsViewController.ContstraintOffset)
+            }
             let offset = CGPointMake(0, keyboardHeight + streamView.contentOffset.y > 0 ?
                 view.height - streamView.height + streamView.contentOffset.y - 25.0 : streamView.contentOffset.y)
             streamView.setContentOffset(offset, animated: false)

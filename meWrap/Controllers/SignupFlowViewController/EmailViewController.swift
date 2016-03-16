@@ -90,7 +90,6 @@ extension ConfirmEmailViewController: EntryNotifying {
     
     func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
         if (Authorization.current.unconfirmed_email?.isEmpty ?? true) && isTopViewController {
-            SoundPlayer.player.play(.s01)
             setSuccessStatusAnimated(false)
         }
     }

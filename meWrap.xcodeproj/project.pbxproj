@@ -39,8 +39,6 @@
 		5B7198D81C8DE6A9004AC6CE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EE45A51C01D350008DE8D6 /* Constants.swift */; };
 		5B7F14031C7F29B30035CC81 /* WrapListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7F14021C7F29B30035CC81 /* WrapListViewController.swift */; };
 		5B8B317E1C8D856600D8A463 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B31801C8D856600D8A463 /* Localizable.strings */; };
-		5BA4F8821A1CA08A00DB1A25 /* s01.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEE1A10E51B004AD41C /* s01.wav */; };
-		5BA4F8831A1CA08A00DB1A25 /* s02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* s02.wav */; };
 		5BA60E241C805D2E00DBE9D4 /* ExtensionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C424E1BDE77BB003E644D /* ExtensionRequest.swift */; };
 		5BA6AA451A66779E00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
 		5BA83EEC1C6B4E3400FC5A9F /* AddContributorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA83EEB1C6B4E3400FC5A9F /* AddContributorsViewController.swift */; };
@@ -280,7 +278,6 @@
 		C5E092D61C6CED2600510AA1 /* AddressBookRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E092D31C6CED2600510AA1 /* AddressBookRecordCell.swift */; };
 		C5E092D71C6CED2600510AA1 /* SingleAddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E092D41C6CED2600510AA1 /* SingleAddressBookRecordCell.xib */; };
 		C5E092D81C6CED2600510AA1 /* MultipleAddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E092D51C6CED2600510AA1 /* MultipleAddressBookRecordCell.xib */; };
-		C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
 		C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
 		C5E4FD0D1BF7AF7100575DA4 /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E4FD0C1BF7AF7100575DA4 /* ShapeView.swift */; };
 		C5E6DD5E1C0DB801004992E4 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6DD5C1C0DB7FE004992E4 /* TodayViewController.swift */; };
@@ -490,9 +487,6 @@
 		5B8B317F1C8D856600D8A463 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5B8B31811C8D856900D8A463 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5B8B31821C8D856A00D8A463 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		5BA6CAEE1A10E51B004AD41C /* s01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s01.wav; path = Sounds/s01.wav; sourceTree = "<group>"; };
-		5BA6CAEF1A10E51B004AD41C /* s02.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s02.wav; path = Sounds/s02.wav; sourceTree = "<group>"; };
-		5BA6CAF01A10E51B004AD41C /* s03.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s03.wav; path = Sounds/s03.wav; sourceTree = "<group>"; };
 		5BA6CAF11A10E51B004AD41C /* s04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s04.wav; path = Sounds/s04.wav; sourceTree = "<group>"; };
 		5BA83EEB1C6B4E3400FC5A9F /* AddContributorsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContributorsViewController.swift; sourceTree = "<group>"; };
 		5BCC41901C4E40FC0047E7C2 /* WrapSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapSettingsViewController.swift; sourceTree = "<group>"; };
@@ -1158,9 +1152,6 @@
 		14AE4FEE19700B23002EEF3F /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				5BA6CAEE1A10E51B004AD41C /* s01.wav */,
-				5BA6CAEF1A10E51B004AD41C /* s02.wav */,
-				5BA6CAF01A10E51B004AD41C /* s03.wav */,
 				5BA6CAF11A10E51B004AD41C /* s04.wav */,
 			);
 			name = Sounds;
@@ -1835,14 +1826,12 @@
 				C5B91A421BB4101A000E08E7 /* Introduction.storyboard in Resources */,
 				C560B16C1AE6A0580010B2EC /* AdobeCreativeSDKImageResources.bundle in Resources */,
 				C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */,
-				C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */,
 				C53012921BF4E3EA00098F9C /* EmojiView.xib in Resources */,
 				C5F44FEE1C5CB9780049215D /* EditAssetCell.xib in Resources */,
 				C51A06B11C778E9400719826 /* ContributorCell.xib in Resources */,
 				C5B8F7201B82172D00A5E541 /* DrawingViewController.xib in Resources */,
 				C5B91A4B1BB41343000E08E7 /* DownloadingView.xib in Resources */,
 				C5B91A361BB3F812000E08E7 /* Main.storyboard in Resources */,
-				5BA4F8831A1CA08A00DB1A25 /* s02.wav in Resources */,
 				C54AF72219B8C491006F7EDB /* Images.xcassets in Resources */,
 				C553DB481C6DF7BA001B13C7 /* WLUnreadMessagesView.xib in Resources */,
 				C5B91A3B1BB40423000E08E7 /* SignUp.storyboard in Resources */,
@@ -1854,7 +1843,6 @@
 				5BE7CD651C0D8781009A7617 /* ConfirmInvitationView.xib in Resources */,
 				5B66B5B91C24696800451113 /* WrapCell.xib in Resources */,
 				C5C3FEA81B8F311500F177EC /* Default-736h@3x.png in Resources */,
-				5BA4F8821A1CA08A00DB1A25 /* s01.wav in Resources */,
 				5B211FB21C087137000EC3DB /* (null) in Resources */,
 				C5F11E551C64A21C001C2486 /* TestUserCell.xib in Resources */,
 				C5BEC38D1B8F129100499EEA /* logo_and_caption_orange@3x.png in Resources */,

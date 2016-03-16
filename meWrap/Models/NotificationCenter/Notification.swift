@@ -55,16 +55,6 @@ class UpdateAvailableNotification: Notification {
 
 class Notification: NSObject {
     var uid: String?
-    
-    func playSound() -> Bool {
-        if let alert = body?["pn_apns"]?["aps"]?["alert"] {
-            return entry != nil && alert != nil
-        } else {
-            return false
-        }
-    }
-    
-    func soundType() -> Sound? { return nil }
         
     var publishedAt: NSDate
     var body: [String:AnyObject]?

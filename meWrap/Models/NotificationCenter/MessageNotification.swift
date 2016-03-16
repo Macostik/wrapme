@@ -12,13 +12,6 @@ class MessageAddNotification: Notification {
     
     var message: Message?
     
-    override func playSound() -> Bool {
-        guard super.playSound() else { return false }
-        return message?.contributor != User.currentUser
-    }
-    
-    override func soundType() -> Sound { return .s03 }
-    
     internal override func setup(body: [String:AnyObject]) {
         super.setup(body)
         createDescriptor(Message.self, body: body, key: "chat")

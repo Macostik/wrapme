@@ -11,7 +11,7 @@ import AudioToolbox
 
 enum Sound: String {
     
-    case s01 = "s01.wav", s02 = "s02.wav", s03 = "s03.wav", s04 = "s04.wav"
+    case s04 = "s04.wav"
     
     private static var IDs = [Sound : SystemSoundID]()
     
@@ -52,12 +52,8 @@ class SoundPlayer: NSObject {
             })
         }
     }
-}
-
-extension SoundPlayer {
-    func playForNotification(notification: Notification) {
-        if let sound = notification.soundType() where notification.playSound() {
-            play(sound)
-        }
+    
+    class func playSend() {
+        player.play(.s04)
     }
 }

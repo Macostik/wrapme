@@ -31,7 +31,6 @@ final class LinkDeviceViewController: SignupStepViewController {
     @IBAction func next(sender: Button) {
         sender.loading = true
         linkDevice({ [weak self] _ in
-            SoundPlayer.player.play(.s01)
             sender.loading = false
             self?.setSuccessStatusAnimated(false)
             }) { (error) -> Void in

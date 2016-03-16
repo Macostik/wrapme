@@ -34,13 +34,6 @@ class CommentNotification: Notification {
 
 class CommentAddNotification: CommentNotification {
     
-    override func playSound() -> Bool {
-        guard super.playSound() else { return false }
-        return comment?.contributor != User.currentUser
-    }
-    
-    override func soundType() -> Sound { return .s02 }
-    
     override func submit() {
         guard let comment = comment else { return }
         guard let candy = comment.candy else { return }

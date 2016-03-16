@@ -248,7 +248,7 @@ extension ChatViewController: ComposeBarDelegate {
         if wrap.valid {
             streamView.contentOffset = streamView.maximumContentOffset
             wrap.uploadMessage(text)
-            SoundPlayer.player.play(.s04)
+            SoundPlayer.playSend()
             chat.markAsRead()
         } else {
             navigationController?.popToRootViewControllerAnimated(false)

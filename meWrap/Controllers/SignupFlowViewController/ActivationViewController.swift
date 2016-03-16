@@ -64,7 +64,6 @@ final class ActivationViewController: SignupStepViewController {
         sender.loading = true
         activate({ [weak self] (_) -> Void in
             sender.loading = false
-            SoundPlayer.player.play(.s01)
             self?.setSuccessStatusAnimated(false)
             }) { [weak self] (error) -> Void in
                 sender.loading = false

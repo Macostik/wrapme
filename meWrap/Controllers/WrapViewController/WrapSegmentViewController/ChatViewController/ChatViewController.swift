@@ -95,6 +95,7 @@ final class ChatViewController: WrapSegmentViewController {
         
         Message.notifier().addReceiver(self)
         FontPresetter.defaultPresetter.addReceiver(self)
+        streamView.layoutIfNeeded()
     }
     
     override func viewWillAppear(animated: Bool) {

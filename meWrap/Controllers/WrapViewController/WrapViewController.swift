@@ -19,7 +19,7 @@ class WrapSegmentViewController: BaseViewController {
     weak var badge: BadgeLabel?
 }
 
-final class WrapSegmentButton: SegmentButton {
+final class WrapSegmentButton: Button {
     
     @IBInspectable var icon: String? {
         willSet {
@@ -79,7 +79,6 @@ final class WrapSegmentButton: SegmentButton {
     
     override var selected: Bool {
         willSet {
-            backgroundColor = Color.grayLightest
             selectionView.hidden = !newValue
             iconLabel.highlighted = newValue
             textLabel.highlighted = newValue

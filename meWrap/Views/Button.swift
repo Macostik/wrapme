@@ -131,6 +131,10 @@ class Button : UIButton {
     }
     
     func update() {
+        let normalColor = self.normalColor
+        let selectedColor = self.selectedColor
+        let highlightedColor = self.highlightedColor
+        let disabledColor = self.disabledColor
         var backgroundColor: UIColor?
         if enabled {
             if highlighted {

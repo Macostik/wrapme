@@ -144,7 +144,7 @@ class CameraViewController: BaseViewController {
         cropAreaView.borderWidth = 1
         cropAreaView.borderColor = UIColor(white:1, alpha:0.25)
         
-        authorize({ () -> Void in
+        AVCaptureDevice.authorize({ _ in
             if self.isAvatar {
                 self.position = .Front
                 self.flashMode = .Off
@@ -155,7 +155,7 @@ class CameraViewController: BaseViewController {
             self.flashModeControl.mode = self.flashMode
             self.cameraView.layer.session = self.session
             self.session.start()
-            }) { (_) -> Void in
+            }) { _ in
                 self.unauthorizedStatusView.hidden = false
                 self.takePhotoButton.active = false
         }
@@ -231,25 +231,6 @@ class CameraViewController: BaseViewController {
     
     internal func canCaptureMedia() -> Bool {
         return delegate?.cameraViewControllerCanCaptureMedia?(self) ?? true
-    }
-    
-    func authorize(success: Block, failure: FailureBlock) {
-        let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
-        if status == .Authorized {
-            success()
-        } else if (status == .Denied || status == .Restricted) {
-            failure(nil)
-        } else {
-            AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo, completionHandler: { (granted) -> Void in
-                Dispatch.mainQueue.async({ _ in
-                    if (granted) {
-                        success()
-                    } else {
-                        failure(nil)
-                    }
-                })
-            })
-        }
     }
     
     func setAssetsViewControllerHidden() {
@@ -483,5 +464,26 @@ extension CameraViewController: UIGestureRecognizerDelegate {
 extension CameraViewController: DeviceManagerNotifying {
     func manager(manager: DeviceManager, didChangeOrientation orientation: UIDeviceOrientation) {
         applyDeviceOrientation(orientation)
+    }
+}
+
+extension AVCaptureDevice {
+    class func authorize( success: Block, failure: FailureBlock) {
+        let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
+        if status == .Authorized {
+            success()
+        } else if status.denied {
+            failure(nil)
+        } else {
+            AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo, completionHandler: { (granted) -> Void in
+                Dispatch.mainQueue.async({ _ in
+                    if (granted) {
+                        success()
+                    } else {
+                        failure(nil)
+                    }
+                })
+            })
+        }
     }
 }

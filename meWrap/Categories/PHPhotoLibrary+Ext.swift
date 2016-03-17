@@ -58,4 +58,29 @@ extension PHPhotoLibrary {
                 })
         }
     }
+    
+    class func authorize( success: Block, failure: FailureBlock) {
+        let status = PHPhotoLibrary.authorizationStatus()
+        if status == .Authorized {
+            success()
+        } else if status.denied {
+            failure(nil)
+        } else {
+            PHPhotoLibrary.requestAuthorization({ (status) -> Void in
+                Dispatch.mainQueue.async({ _ in
+                    if (status == .Authorized) {
+                        success()
+                    } else {
+                        failure(nil)
+                    }
+                })
+            })
+        }
+    }
+}
+
+extension PHAuthorizationStatus {
+    var denied: Bool {
+        return self == .Denied || self == .Restricted
+    }
 }

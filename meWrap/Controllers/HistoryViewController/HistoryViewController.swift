@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Photos
 
 class HistoryViewController: SwipeViewController {
     
@@ -34,7 +35,7 @@ class HistoryViewController: SwipeViewController {
     @IBOutlet weak var primaryConstraint: LayoutPrioritizer!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var deleteButton: UIButton!
-    @IBOutlet weak var downloadButton: UIButton!
+    @IBOutlet weak var downloadButton: Button!
     @IBOutlet weak var drawButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var reportButton: UIButton!
@@ -73,6 +74,7 @@ class HistoryViewController: SwipeViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         bottomView.comment = nil
+        downloadButton.active = !PHPhotoLibrary.authorizationStatus().denied
         updateOwnerData()
         if !showCommentViewController {
             setBarsHidden(false, animated: animated)
@@ -276,19 +278,23 @@ extension HistoryViewController {
     }
     
     @IBAction func downloadCandy(sender: Button) {
-        FollowingViewController.followWrapIfNeeded(wrap) { [weak self] () -> Void in
-            sender.loading = true
-            self?.candy?.download({ () -> Void in
-                sender.loading = false
-                Toast.showDownloadingMediaMessageForCandy(self?.candy)
-                }, failure: { (error) -> Void in
-                    if let error = error where error.isNetworkError {
-                        Toast.show("downloading_internet_connection_error".ls)
-                    } else {
-                        error?.show()
-                    }
+        PHPhotoLibrary.authorize({ [weak self] in
+            FollowingViewController.followWrapIfNeeded(self?.wrap) { _ in
+                sender.loading = true
+                self?.candy?.download({ () -> Void in
                     sender.loading = false
-            })
+                    Toast.showDownloadingMediaMessageForCandy(self?.candy)
+                    }, failure: { (error) -> Void in
+                        if let error = error where error.isNetworkError {
+                            Toast.show("downloading_internet_connection_error".ls)
+                        } else {
+                            error?.show()
+                        }
+                        sender.loading = false
+                })
+            }
+            }) { (_) -> Void in
+                sender.active = false
         }
     }
     

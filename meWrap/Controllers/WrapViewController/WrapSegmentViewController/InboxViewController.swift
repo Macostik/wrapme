@@ -32,9 +32,9 @@ class InboxCell: StreamReusableView {
     internal var containerView = UIView()
     internal var headerView = UIView()
     internal var avatarView = ImageView(backgroundColor: UIColor.clearColor())
-    internal var userNameLabel = Label(preset: .Small, weight: UIFontWeightRegular, textColor: Color.grayLight)
-    internal var timeLabel = Label(preset: .Smaller, weight: UIFontWeightRegular, textColor: Color.grayLight)
-    internal var wrapLabel = Label(preset: .Small, weight: UIFontWeightRegular, textColor: Color.grayLight)
+    internal var userNameLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLighter)
+    internal var timeLabel = Label(preset: .Smaller, weight: UIFontWeightLight, textColor: Color.grayLighter)
+    internal var wrapLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLighter)
     internal var imageView = ImageView(backgroundColor: UIColor.clearColor())
     internal var videoIndicator = Label(icon: "+", size: 24)
     
@@ -92,11 +92,11 @@ class InboxCell: StreamReusableView {
             imageView.url = contribution.asset?.medium
             if contribution.unread && update.unread {
                 userNameLabel.textColor = Color.grayDark
-                timeLabel.textColor = Color.orange
-                wrapLabel.textColor = Color.orange
-                containerView.shadowColor = Color.orangeLighter
+                timeLabel.textColor = Color.grayDark
+                wrapLabel.textColor = Color.grayDark
+                containerView.shadowColor = Color.orange
             } else {
-                containerView.shadowColor = Color.grayLightest
+                containerView.shadowColor = Color.grayLighter
                 userNameLabel.textColor = Color.grayLighter
                 timeLabel.textColor = Color.grayLighter
                 wrapLabel.textColor = Color.grayLighter
@@ -107,7 +107,7 @@ class InboxCell: StreamReusableView {
 
 class InboxCommentCell: InboxCell {
     
-    private var textView = Label(preset: .Small, weight: UIFontWeightRegular, textColor: Color.grayLighter)
+    private var textView = Label(preset: .Normal, weight: UIFontWeightRegular, textColor: Color.grayLighter)
     
     static let DefaultHeight: CGFloat = Constants.screenWidth / 3 + 106.0
     

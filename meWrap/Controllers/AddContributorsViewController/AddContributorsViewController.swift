@@ -43,8 +43,8 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
                 nextButton.setTitle("skip".ls, forState: .Normal)
             }
         }
-        singleMetrics = StreamMetrics(identifier: "SingleAddressBookRecordCell", initializer: { [weak self] (metrics) -> Void in
-            metrics.modifyItem = { item in
+        singleMetrics = specify(StreamMetrics(loader: LayoutStreamLoader<SingleAddressBookRecordCell>()), {
+            $0.modifyItem = { [weak self] item in
                 guard let record = item.entry as? AddressBookRecord, let phoneNumber = record.phoneNumbers.last else { return }
                 let user = phoneNumber.user
                 var leftIdent: CGFloat = 114.0
@@ -55,10 +55,15 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
                 let inviteHeight = record.infoString?.heightWithFont(UIFont.lightFontSmall(), width: (self?.streamView.width ?? 0.0) - leftIdent) ?? 0
                 item.size = max(nameHeight + inviteHeight + 24.0, 72.0)
             }
+            $0.prepareAppearing = { [weak self] (item, view) in
+                let cell = view as? SingleAddressBookRecordCell
+                cell?.wrap = self?.wrap
+                cell?.delegate = self
+            }
+            $0.selectable = false
             })
-        singleMetrics?.selectable = false
         
-        multipleMetrics = StreamMetrics(identifier: "MultipleAddressBookRecordCell", initializer: { [weak self] (metrics) -> Void in
+        multipleMetrics = specify(StreamMetrics(loader: LayoutStreamLoader<MultipleAddressBookRecordCell>()), { [weak self] (metrics) -> Void in
             metrics.selectable = false
             metrics.modifyItem = { (item) in
                 guard let record = item.entry as? AddressBookRecord else { return }
@@ -69,6 +74,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
             }
             metrics.finalizeAppearing = { (item, view) in
                 let cell = view as? MultipleAddressBookRecordCell
+                cell?.delegate = self
                 let record = item.entry as? AddressBookRecord
                 cell?.opened = record?.phoneNumbers.count > 1 && self?.openedPosition(item.position) != nil
             }
@@ -282,7 +288,6 @@ extension AddContributorsViewController: StreamViewDelegate {
         let group = filteredAddressBook?.groups[safe: position.section]
         let record = group?.records[safe: position.index]
         let metrics = record?.phoneNumbers.count > 1 ? multipleMetrics : singleMetrics
-        metrics.nibOwner = self
         return [metrics]
     }
     

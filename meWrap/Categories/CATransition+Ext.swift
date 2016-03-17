@@ -8,19 +8,15 @@
 
 import Foundation
 
-func specifyObject<T>(object: T, @noescape _ specify: T -> Void) -> T {
+func specify<T>(object: T, @noescape _ specify: T -> Void) -> T {
     specify(object)
     return object
-}
-
-func specifyAnimation<T: CAAnimation>(animation: T, @noescape _ specify: T -> Void) -> T {
-    return specifyObject(animation, specify)
 }
 
 extension CATransition {
     
     class func transition(type: String, subtype: String? = nil, duration: CFTimeInterval = 0.33) -> CATransition {
-        return specifyAnimation(CATransition(), {
+        return specify(CATransition(), {
             $0.type = type
             $0.subtype = subtype
             $0.duration = duration
@@ -36,14 +32,14 @@ extension UIView {
         layer.addAnimation(animation, forKey: key)
     }
     
-    func addAnimation<T: CAAnimation>(animation: T, @noescape specify: T -> Void) {
-        layer.addAnimation(animation, specify: specify)
+    func addAnimation<T: CAAnimation>(animation: T, @noescape _ specify: T -> Void) {
+        layer.addAnimation(animation, specify)
     }
 }
 
 extension CALayer {
     
-    func addAnimation<T: CAAnimation>(animation: T, @noescape specify: T -> Void) {
-        addAnimation(specifyAnimation(animation, specify), forKey: nil)
+    func addAnimation<T: CAAnimation>(animation: T, @noescape _ _specify: T -> Void) {
+        addAnimation(specify(animation, _specify), forKey: nil)
     }
 }

@@ -46,9 +46,7 @@ class Button : UIButton {
     @IBInspectable var localize: Bool = false {
         willSet {
             if newValue == true {
-                if let text = titleLabel?.text where !text.isEmpty {
-                    super.setTitle(text.ls, forState: .Normal)
-                }
+                titleLabel?.text = titleLabel?.text?.ls
             }
         }
     }
@@ -147,15 +145,6 @@ class Button : UIButton {
         }
         if !CGColorEqualToColor(backgroundColor?.CGColor, self.backgroundColor?.CGColor) {
             setBackgroundColor(backgroundColor!, animated: animated)
-        }
-    }
-    
-    override func setTitle(title: String?, forState state: UIControlState) {
-        guard let title = title else { return }
-        if localize == true {
-            super.setTitle(title.ls, forState: state)
-        } else {
-            super.setTitle(title, forState: state)
         }
     }
     

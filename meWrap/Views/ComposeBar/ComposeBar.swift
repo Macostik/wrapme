@@ -10,7 +10,7 @@ import Foundation
 
 @objc protocol ComposeBarDelegate {
     optional func composeBar(composeBar: ComposeBar, didFinishWithText text: String)
-    optional func composeBarDidChangeHeight(composeBar: ComposeBar)
+    optional func composeBar(composeBar: ComposeBar, didChangeHeight oldHeight: CGFloat)
     optional func composeBarDidChangeText(composeBar: ComposeBar)
     optional func composeBarDidBeginEditing(composeBar: ComposeBar)
     optional func composeBarDidEndEditing(composeBar: ComposeBar)
@@ -70,9 +70,10 @@ class ComposeBar: UIControl, UITextViewDelegate {
             let maxLines = self.maxLines > 0 ? self.maxLines : 5
             height = smoothstep(36, maxLines * CGFloat(lineHeight) + spacing, height)
             if Int(heightConstraint.constant) != Int(height) {
+                let oldHeight = heightConstraint.constant
                 heightConstraint.constant = height
                 layoutIfNeeded()
-                delegate?.composeBarDidChangeHeight?(self)
+                delegate?.composeBar?(self, didChangeHeight: oldHeight)
             }
         }
     }

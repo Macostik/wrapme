@@ -16,6 +16,12 @@ final class EntryStatusIndicator: UILabel, EntryNotifying {
     
     var contribution : Contribution?
     
+    convenience init(color: UIColor) {
+        self.init(frame: CGRect.zero)
+        font = UIFont(name: "icons", size: 13)
+        textColor = color
+    }
+    
     func identityByContributorStatus(contribution: Contribution!) -> String! {
         if let container = contribution.container as? Contribution where container.status != .Finished {
             return "D"

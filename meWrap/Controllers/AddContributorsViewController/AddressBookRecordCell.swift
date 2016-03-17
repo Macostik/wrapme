@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import SnapKit
 
-@objc enum AddressBookPhoneNumberState: Int {
+enum AddressBookPhoneNumberState {
     case Default, Selected, Added
 }
 
-@objc protocol AddressBookRecordCellDelegate {
+protocol AddressBookRecordCellDelegate: class {
     func recordCell(cell: StreamReusableView, didSelectPhoneNumber person: AddressBookPhoneNumber)
     func recordCell(cell: StreamReusableView, phoneNumberState phoneNumber: AddressBookPhoneNumber) -> AddressBookPhoneNumberState
     func recordCellDidToggle(cell: MultipleAddressBookRecordCell)
@@ -20,60 +21,103 @@ import Foundation
 
 class AddressBookRecordCell: StreamReusableView {
     
-    @IBOutlet weak var delegate: AddressBookRecordCellDelegate!
+    weak var delegate: AddressBookRecordCellDelegate?
     
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var avatarView: ImageView!
+    internal let nameLabel = Label(preset: .Normal, weight: UIFontWeightLight, textColor: Color.grayDark)
     
     internal func selectPhoneNumber(phoneNumber: AddressBookPhoneNumber?) {
         if let phoneNumber = phoneNumber {
-            delegate.recordCell(self, didSelectPhoneNumber: phoneNumber)
+            delegate?.recordCell(self, didSelectPhoneNumber: phoneNumber)
         }
-    }
-}
-
-final class SingleAddressBookRecordCell: AddressBookRecordCell {
-    
-    @IBOutlet weak var infoLabel: UILabel!
-    @IBOutlet weak var selectButton: UIButton!
-    @IBOutlet weak var statusButton: UIButton!
-    @IBOutlet var statusPrioritizer: LayoutPrioritizer!
-    
-    var state: AddressBookPhoneNumberState = .Default {
-        willSet {
-            if newValue == .Added {
-                selectButton.enabled = false
-            } else {
-                selectButton.enabled = true
-                selectButton.selected = newValue == .Selected
-            }
-        }
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        statusButton?.borderColor = Color.greenOnline
-        statusButton?.setTitleColor(Color.greenOnline, forState: .Normal)
     }
     
     override func setup(entry: AnyObject?) {
         guard let record = entry as? AddressBookRecord else { return }
         guard let phoneNumber = record.phoneNumbers.last else { return }
-        nameLabel.text = phoneNumber.name
-        let url = phoneNumber.avatar?.small
-        if url?.isEmpty ?? true && phoneNumber.user != nil {
-            avatarView.defaultBackgroundColor = Color.orange
-        } else {
-            avatarView.defaultBackgroundColor = Color.grayLighter
+        setup(record, phoneNumber: phoneNumber)
+    }
+    
+    internal func setup(record: AddressBookRecord, phoneNumber: AddressBookPhoneNumber) { }
+}
+
+final class SingleAddressBookRecordCell: AddressBookRecordCell {
+    
+    private let infoLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLight)
+    private let selectButton = specify(Button(type: .Custom)) {
+        $0.titleLabel?.font = UIFont(name: "icons", size: 26)
+        $0.setTitle("G", forState: .Normal)
+        $0.setTitle("H", forState: .Selected)
+        $0.setTitleColor(Color.grayLighter, forState: .Normal)
+        $0.setTitleColor(Color.orange, forState: .Selected)
+    }
+    private let statusButton = specify(Button(type: .Custom)) {
+        $0.titleLabel?.font = UIFont.systemFontOfSize(11)
+        $0.cornerRadius = 5
+        $0.borderColor = Color.greenOnline
+        $0.borderWidth = 1
+        $0.userInteractionEnabled = false
+        $0.setTitleColor(Color.greenOnline, forState: .Normal)
+        $0.clipsToBounds = true
+        $0.insets = CGSize(width: 10, height: 0)
+    }
+    private let avatarView = specify(StatusUserAvatarView()) {
+        $0.startReceivingStatusUpdates()
+        $0.defaultIconSize = 24
+        $0.cornerRadius = 24
+    }
+    
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        infoLabel.numberOfLines = 0
+        selectButton.addTarget(self, action: "_select:", forControlEvents: .TouchUpInside)
+        addSubview(avatarView)
+        addSubview(nameLabel)
+        addSubview(infoLabel)
+        addSubview(selectButton)
+        addSubview(statusButton)
+        avatarView.snp_makeConstraints { (make) -> Void in
+            make.leading.top.equalTo(self).inset(12)
+            make.size.equalTo(48)
         }
-        avatarView.url = url
-        
-        let user = phoneNumber.user
+        nameLabel.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(avatarView)
+            make.leading.equalTo(avatarView.snp_trailing).offset(12)
+            make.trailing.lessThanOrEqualTo(statusButton.snp_leading)
+            make.trailing.lessThanOrEqualTo(selectButton.snp_leading)
+        }
+        infoLabel.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(nameLabel.snp_bottom)
+            make.leading.equalTo(avatarView.snp_trailing).offset(12)
+            make.trailing.lessThanOrEqualTo(statusButton.snp_leading)
+            make.trailing.lessThanOrEqualTo(selectButton.snp_leading)
+        }
+        selectButton.snp_makeConstraints { (make) -> Void in
+            make.trailing.equalTo(self).inset(8)
+            make.centerY.equalTo(self)
+            make.width.equalTo(30)
+        }
+        statusButton.snp_makeConstraints { (make) -> Void in
+            make.trailing.equalTo(self).inset(11)
+            make.centerY.equalTo(self)
+        }
+    }
+    
+    weak var wrap: Wrap?
+    
+    override func setup(record: AddressBookRecord, phoneNumber: AddressBookPhoneNumber) {
+        nameLabel.text = phoneNumber.name
+        if let user = phoneNumber.user {
+            avatarView.wrap = wrap
+            avatarView.user = user
+        } else {
+            avatarView.user = nil
+            avatarView.url = phoneNumber.avatar?.small
+        }
         infoLabel.text = record.infoString
-        state = delegate?.recordCell(self, phoneNumberState: phoneNumber) ?? .Default
-        let notInvited = !(user != nil && state == .Added)
-        statusButton.hidden = notInvited
-        statusPrioritizer.defaultState = notInvited
+        let state = delegate?.recordCell(self, phoneNumberState: phoneNumber) ?? .Default
+        selectButton.hidden = state == .Added
+        selectButton.selected = state == .Selected
+        statusButton.hidden = !selectButton.hidden
+        statusButton.setTitle(statusButton.hidden ? "" : "already_in".ls, forState: .Normal)
     }
     
     //MARK: Actions
@@ -85,11 +129,20 @@ final class SingleAddressBookRecordCell: AddressBookRecordCell {
 
 final class MultipleAddressBookRecordCell: AddressBookRecordCell {
     
-    @IBOutlet weak var streamView: StreamView!
+    private let streamView = StreamView()
     private var dataSource: StreamDataSource!
+    private let avatarView = ImageView(backgroundColor: UIColor.whiteColor())
+    private let openView = specify(UIButton(type: .Custom)) {
+        $0.titleLabel?.font = UIFont(name: "icons", size: 18)
+        $0.setTitle("y", forState: .Normal)
+        $0.setTitle("z", forState: .Selected)
+        $0.setTitleColor(Color.grayLighter, forState: .Normal)
+        $0.contentHorizontalAlignment = .Right
+        $0.titleEdgeInsets.right = 13
+    }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        avatarView.defaultIconText = "&"
         avatarView.defaultBackgroundColor = Color.grayLighter
         dataSource = StreamDataSource(streamView: streamView)
         dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<AddressBookPhoneNumberCell>()).change({ [weak self] metrics in
@@ -99,18 +152,47 @@ final class MultipleAddressBookRecordCell: AddressBookRecordCell {
                 let cell = view as? AddressBookPhoneNumberCell
                 let phoneNumber = item.entry as? AddressBookPhoneNumber
                 if let weakSelf = self, let phoneNumber = phoneNumber {
-                    cell?.checked = weakSelf.delegate.recordCell(weakSelf, phoneNumberState: phoneNumber) != .Default
+                    cell?.checked = weakSelf.delegate?.recordCell(weakSelf, phoneNumberState: phoneNumber) != .Default
                 }
             }
             metrics.selection = { item, phoneNumber in
                 self?.selectPhoneNumber(phoneNumber as? AddressBookPhoneNumber)
             }
             }))
+        openView.addTarget(self, action: "open:", forControlEvents: .TouchUpInside)
+        avatarView.cornerRadius = 24
+        let infoLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLight)
+        infoLabel.text = "invite_me_to_meWrap".ls
+        addSubview(streamView)
+        addSubview(openView)
+        addSubview(avatarView)
+        addSubview(nameLabel)
+        addSubview(infoLabel)
+        streamView.snp_makeConstraints { (make) -> Void in
+            make.leading.trailing.bottom.equalTo(self)
+            make.top.equalTo(avatarView.snp_bottom)
+        }
+        openView.snp_makeConstraints { (make) -> Void in
+            make.leading.trailing.top.equalTo(self)
+            make.bottom.equalTo(avatarView)
+        }
+        avatarView.snp_makeConstraints { (make) -> Void in
+            make.leading.top.equalTo(self).inset(12)
+            make.size.equalTo(48)
+        }
+        nameLabel.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(avatarView)
+            make.leading.equalTo(avatarView.snp_trailing).offset(12)
+            make.trailing.lessThanOrEqualTo(self).inset(44)
+        }
+        infoLabel.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(nameLabel.snp_bottom)
+            make.leading.equalTo(avatarView.snp_trailing).offset(12)
+            make.trailing.lessThanOrEqualTo(self).inset(44)
+        }
     }
     
-    override func setup(entry: AnyObject?) {
-        guard let record = entry as? AddressBookRecord else { return }
-        guard let phoneNumber = record.phoneNumbers.last else { return }
+    override func setup(record: AddressBookRecord, phoneNumber: AddressBookPhoneNumber) {
         nameLabel.text = phoneNumber.name
         avatarView.url = phoneNumber.avatar?.small
         layoutIfNeeded()
@@ -120,12 +202,10 @@ final class MultipleAddressBookRecordCell: AddressBookRecordCell {
     var opened: Bool = false {
         willSet {
             UIView.beginAnimations(nil, context: nil)
-            openView?.selected = newValue
+            openView.selected = newValue
             UIView.commitAnimations()
         }
     }
-    
-    @IBOutlet weak var openView: UIButton?
     
     @IBAction func open(sender: AnyObject) {
         opened = !opened

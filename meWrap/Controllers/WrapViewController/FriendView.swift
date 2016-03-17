@@ -7,8 +7,34 @@
 //
 
 import Foundation
+import SnapKit
 
 final class FriendView: StreamReusableView {
+    
+    private let avatarView = StatusUserAvatarView()
+    
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        avatarView.backgroundColor = UIColor.whiteColor()
+        avatarView.cornerRadius = 16
+        addSubview(avatarView)
+        avatarView.snp_makeConstraints(closure: {
+            $0.width.height.equalTo(32)
+            $0.centerY.equalTo(self)
+            $0.trailing.equalTo(self)
+        })
+    }
+    
+    weak var wrap: Wrap?
+    
+    override func setup(entry: AnyObject?) {
+        if let friend = entry as? User {
+            avatarView.wrap = wrap
+            avatarView.user = friend
+        }
+    }
+}
+
+final class StatusUserAvatarView: ImageView, EntryNotifying {
     
     class ActivityAnimationView: UIView {
         
@@ -29,13 +55,13 @@ final class FriendView: StreamReusableView {
         
         func layout() { }
         
-        func layoutInFriendView(friendView: FriendView) {
+        func layoutInView(avatarView: StatusUserAvatarView) {
             backgroundColor = Color.dangerRed
             clipsToBounds = true
             cornerRadius = 10
-            snp_makeConstraints { (make) -> Void in
-                make.size.equalTo(20)
-                make.center.equalTo(friendView.statusView)
+            snp_makeConstraints {
+                $0.size.equalTo(20)
+                $0.center.equalTo(avatarView.statusView)
             }
         }
         
@@ -44,7 +70,7 @@ final class FriendView: StreamReusableView {
         }
     }
     
-    class TypingActivityAnimationView: ActivityAnimationView {
+    final class TypingActivityAnimationView: ActivityAnimationView {
         
         override func layout() {
             let pencil = Label(icon: "<", size: 10, textColor: UIColor.whiteColor())
@@ -67,18 +93,18 @@ final class FriendView: StreamReusableView {
                 $0.removedOnCompletion = false
                 $0.duration = 2
                 $0.repeatCount = FLT_MAX
-                $0.animations = [specifyAnimation(CABasicAnimation(keyPath: "position.y"), {
+                $0.animations = [specify(CABasicAnimation(keyPath: "position.y"), {
                     $0.fromValue = 10
                     $0.toValue = 9
                     $0.duration = 0.15
                     $0.repeatCount = 10
                     $0.autoreverses = true
-                }), specifyAnimation(CABasicAnimation(keyPath: "position.x"), {
+                }), specify(CABasicAnimation(keyPath: "position.x"), {
                     $0.fromValue = 7
                     $0.toValue = 14
                     $0.duration = 1.6
                     $0.fillMode = kCAFillModeForwards
-                }), specifyAnimation(CAKeyframeAnimation(keyPath: "position"), {
+                }), specify(CAKeyframeAnimation(keyPath: "position"), {
                     $0.beginTime = 1.6
                     $0.path = UIBezierPath().move(14, 10).quadCurve(7, 10, controlX: 10.5, controlY: 4).CGPath
                     $0.duration = 0.4
@@ -88,12 +114,12 @@ final class FriendView: StreamReusableView {
                 $0.removedOnCompletion = false
                 $0.duration = 2
                 $0.repeatCount = FLT_MAX
-                $0.animations = [specifyAnimation(CABasicAnimation(keyPath: "strokeEnd"), {
+                $0.animations = [specify(CABasicAnimation(keyPath: "strokeEnd"), {
                     $0.fromValue = 0
                     $0.toValue = 1
                     $0.duration = 1.6
                     $0.fillMode = kCAFillModeForwards
-                }), specifyAnimation(CABasicAnimation(keyPath: "strokeEnd"), {
+                }), specify(CABasicAnimation(keyPath: "strokeEnd"), {
                     $0.beginTime = 1.6
                     $0.fromValue = 1
                     $0.toValue = 0
@@ -104,7 +130,7 @@ final class FriendView: StreamReusableView {
         }
     }
     
-    class PhotoActivityAnimationView: ActivityAnimationView {
+    final class PhotoActivityAnimationView: ActivityAnimationView {
         
         override func layout() {
             let iconView = Label(icon: "u", size: 12, textColor: UIColor.whiteColor())
@@ -114,11 +140,11 @@ final class FriendView: StreamReusableView {
                 $0.removedOnCompletion = false
                 $0.duration = 0.9
                 $0.repeatCount = FLT_MAX
-                $0.animations = [specifyAnimation(CABasicAnimation(keyPath: "transform"), {
+                $0.animations = [specify(CABasicAnimation(keyPath: "transform"), {
                     $0.toValue = NSValue(CATransform3D: CATransform3DScale(CATransform3DMakeRotation(CGFloat(M_PI_4), 0, 0, 1), 1.2, 1.2, 1))
                     $0.duration = 0.3
                     $0.autoreverses = true
-                }), specifyAnimation(CABasicAnimation(keyPath: "opacity"), {
+                }), specify(CABasicAnimation(keyPath: "opacity"), {
                     $0.toValue = 0.75
                     $0.duration = 0.3
                     $0.autoreverses = true
@@ -127,16 +153,16 @@ final class FriendView: StreamReusableView {
         }
     }
     
-    class VideoActivityAnimationView: ActivityAnimationView {
+    final class VideoActivityAnimationView: ActivityAnimationView {
         
         override func layout() {
-            specifyObject(CAShapeLayer()) {
+            specify(CAShapeLayer()) {
                 $0.frame = CGRectMake(4, 6, 8, 8)
                 $0.path = UIBezierPath(roundedRect: CGRectMake(0, 0, 8, 8), cornerRadius: 1).CGPath
                 $0.fillColor = UIColor.whiteColor().CGColor
                 layer.addSublayer($0)
             }
-            specifyObject(CAShapeLayer()) {
+            specify(CAShapeLayer()) {
                 $0.frame = CGRectMake(13, 7, 3, 6)
                 $0.path = UIBezierPath().move(3, 0).line(3, 6).line(0, 5).line(0, 1).line(3, 0).CGPath
                 $0.fillColor = UIColor.whiteColor().CGColor
@@ -152,7 +178,7 @@ final class FriendView: StreamReusableView {
         }
     }
     
-    class LiveActivityAnimationView: ActivityAnimationView {
+    final class LiveActivityAnimationView: ActivityAnimationView {
         
         override func layout() {
             let liveBadge = UILabel()
@@ -170,69 +196,94 @@ final class FriendView: StreamReusableView {
             }
         }
         
-        override func layoutInFriendView(friendView: FriendView) {
+        override func layoutInView(avatarView: StatusUserAvatarView) {
             backgroundColor = Color.dangerRed
             clipsToBounds = true
             cornerRadius = 3
-            snp_makeConstraints { $0.bottom.trailing.equalTo(friendView.avatarView) }
+            snp_makeConstraints { $0.bottom.trailing.equalTo(avatarView) }
         }
     }
     
-    private let avatarView = ImageView(backgroundColor: UIColor.whiteColor())
-    
-    private let statusView = UIView()
+    private lazy var statusView: UIView = {
+        let statusView = UIView()
+        statusView.clipsToBounds = true
+        statusView.cornerRadius = 6
+        statusView.backgroundColor = Color.greenOnline
+        self.superview?.addSubview(statusView)
+        statusView.snp_makeConstraints { (make) -> Void in
+            make.size.equalTo(12)
+            make.centerY.equalTo(self.snp_bottom).multipliedBy(0.853)
+            make.centerX.equalTo(self.snp_trailing).multipliedBy(0.853)
+        }
+        return statusView
+    }()
     
     private var activityAnimationView: ActivityAnimationView? {
         didSet {
             oldValue?.removeFromSuperview()
             if let view = activityAnimationView {
-                addSubview(view)
-                view.layoutInFriendView(self)
+                superview?.addSubview(view)
+                view.layoutInView(self)
             }
         }
     }
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
-        avatarView.cornerRadius = 16
-        avatarView.defaultBackgroundColor = Color.grayLighter
-        avatarView.defaultIconColor = UIColor.whiteColor()
-        avatarView.defaultIconText = "&"
-        avatarView.defaultIconSize = 16
-        statusView.clipsToBounds = true
-        statusView.cornerRadius = 6
-        statusView.backgroundColor = Color.greenOnline
-        addSubview(avatarView)
-        addSubview(statusView)
-        avatarView.snp_makeConstraints(closure: {
-            $0.width.height.equalTo(32)
-            $0.centerY.equalTo(self)
-            $0.trailing.equalTo(self)
-        })
-        statusView.snp_makeConstraints { (make) -> Void in
-            make.size.equalTo(12)
-            make.trailing.bottom.equalTo(avatarView)
-        }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    init() {
+        super.init(frame: CGRect.zero)
+        contentMode = .ScaleAspectFill
+        clipsToBounds = true
+        defaultIconSize = 16
+        defaultIconText = "&"
+        defaultIconColor = UIColor.whiteColor()
+        defaultBackgroundColor = Color.grayLighter
     }
     
     weak var wrap: Wrap?
     
-    private func activityAnimationView(friend: User) -> ActivityAnimationView? {
-        guard let wrap = wrap, let activity = friend.activityForWrap(wrap) else { return nil }
+    private func activityAnimationView(user: User) -> ActivityAnimationView? {
+        guard let wrap = wrap, let activity = user.activityForWrap(wrap) else { return nil }
         return ActivityAnimationView.animationView(activity.type)
     }
     
-    override func setup(entry: AnyObject?) {
-        if let friend = entry as? User {
-            let url = friend.avatar?.small
-            if !friend.isInvited && url?.isEmpty ?? true {
-                avatarView.defaultBackgroundColor = Color.orange
+    weak var user: User? {
+        willSet {
+            if let user = newValue {
+                update(user)
             } else {
-                avatarView.defaultBackgroundColor = Color.grayLighter
+                activityAnimationView = nil
+                statusView.hidden = true
+                url = nil
             }
-            avatarView.url = url
-            
-            activityAnimationView = activityAnimationView(friend)
-            statusView.hidden = (activityAnimationView != nil) || !(friend.current || friend.isActive)
+        }
+    }
+    
+    private func update(user: User) {
+        let url = user.avatar?.small
+        if !user.isInvited && url?.isEmpty ?? true {
+            defaultBackgroundColor = Color.orange
+        } else {
+            defaultBackgroundColor = Color.grayLighter
+        }
+        self.url = url
+        activityAnimationView = activityAnimationView(user)
+        statusView.hidden = (activityAnimationView != nil) || !(user.current || user.isActive)
+    }
+    
+    func startReceivingStatusUpdates() {
+        User.notifier().addReceiver(self)
+    }
+    
+    func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
+        return entry == user
+    }
+    
+    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
+        if let user = entry as? User where event == .UserStatus {
+            update(user)
         }
     }
 }

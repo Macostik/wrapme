@@ -13,22 +13,74 @@ protocol ContributorCellDelegate: class {
     func contributorCell(cell: ContributorCell, didRemoveContributor contributor: User)
     func contributorCell(cell: ContributorCell, didInviteContributor contributor: User, completionHandler: Bool -> Void)
     func contributorCell(cell: ContributorCell, isInvitedContributor contributor: User) -> Bool
-    func contributorCell(cell: ContributorCell, isCreator contributor: User) -> Bool
     func contributorCell(cell: ContributorCell, didToggleMenu contributor: User)
     func contributorCell(cell: ContributorCell, showMenu contributor: User) -> Bool
 }
 
-class ContributorCell: StreamReusableView {
+final class ContributorCell: StreamReusableView {
     
     weak var delegate: ContributorCellDelegate?
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var avatarView: ImageView!
-    @IBOutlet weak var phoneLabel: UILabel!
-    @IBOutlet weak var slideMenuButton: Button!
-    @IBOutlet weak var inviteLabel: UILabel!
-    @IBOutlet weak var pandingLabel: UILabel!
-    @IBOutlet weak var streamView: StreamView!
+    private let nameLabel = Label(preset: .Normal, weight: UIFontWeightRegular, textColor: Color.grayDark)
+    private let avatarView = StatusUserAvatarView()
+    private let slideMenuButton = UIButton(type: .Custom)
+    private let infoLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLight)
+    
+    private let streamView = StreamView()
     lazy var dataSource: StreamDataSource = StreamDataSource(streamView: self.streamView)
+    
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        avatarView.startReceivingStatusUpdates()
+        streamView.horizontal = true
+        streamView.showsHorizontalScrollIndicator = false
+        streamView.pagingEnabled = true
+        streamView.bounces = false
+        avatarView.defaultIconSize = 24
+        infoLabel.numberOfLines = 0
+        slideMenuButton.addTarget(self, action: "toggleSlideMenu:", forControlEvents: .TouchUpInside)
+        avatarView.cornerRadius = 24
+        slideMenuButton.titleLabel?.font = UIFont(name: "icons", size: 24)
+        slideMenuButton.setTitle("p", forState: .Normal)
+        slideMenuButton.setTitleColor(Color.grayLightest, forState: .Normal)
+        slideMenuButton.contentHorizontalAlignment = .Right
+        slideMenuButton.contentVerticalAlignment = .Center
+        slideMenuButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 12)
+        addSubview(streamView)
+        let contentView = UIView()
+        streamView.addSubview(contentView)
+        contentView.addSubview(avatarView)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(infoLabel)
+        contentView.addSubview(slideMenuButton)
+        streamView.snp_makeConstraints { $0.edges.equalTo(self) }
+        contentView.snp_makeConstraints {
+            $0.leading.top.equalTo(streamView)
+            $0.size.equalTo(streamView)
+        }
+        avatarView.snp_makeConstraints {
+            $0.leading.top.equalTo(contentView).inset(12)
+            $0.size.equalTo(48)
+        }
+        nameLabel.snp_makeConstraints {
+            $0.top.equalTo(avatarView)
+            $0.leading.equalTo(avatarView.snp_trailing).offset(12)
+            $0.trailing.lessThanOrEqualTo(contentView).inset(24)
+        }
+        infoLabel.snp_makeConstraints {
+            $0.top.equalTo(nameLabel.snp_bottom)
+            $0.leading.equalTo(avatarView.snp_trailing).offset(12)
+            $0.trailing.lessThanOrEqualTo(contentView).inset(24)
+        }
+        slideMenuButton.snp_makeConstraints {
+            $0.edges.equalTo(contentView)
+        }
+        
+        let separator = SeparatorView(color: Color.grayLightest, contentMode: .Bottom)
+        addSubview(separator)
+        separator.snp_makeConstraints { (make) -> Void in
+            make.leading.trailing.bottom.equalTo(self)
+            make.height.equalTo(1)
+        }
+    }
     
     lazy var removeMetrics: StreamMetrics = {
         let loader = LayoutStreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
@@ -86,18 +138,9 @@ class ContributorCell: StreamReusableView {
         return self.addMetrics(StreamMetrics(loader: loader, size: 76))
     }()
     
-    class func invitationHintText(user: User) -> String {
-        let invitedAt = user.invitedAt
-        if user.isInvited {
-            return String(format: "invite_status_swipe_to".ls, invitedAt.stringWithDateStyle(.ShortStyle))
-        } else {
-            return "signup_status".ls
-        }
-    }
-    
     private func addMetrics(metrics: StreamMetrics) -> StreamMetrics {
         metrics.hidden = true
-        return self.dataSource.addMetrics(metrics)
+        return self.dataSource.addHeaderMetrics(metrics)
     }
     
     override func didDequeue() {
@@ -108,54 +151,46 @@ class ContributorCell: StreamReusableView {
         resendDoneMetrics.hidden =      true
     }
     
+    weak var wrap: Wrap?
+    
     override func setup(entry: AnyObject?) {
         guard let user = entry as? User, let currentUser = User.currentUser else { return }
         
-        var deletable = false
-        if delegate?.contributorCell(self, isCreator: currentUser) == true {
-            deletable = !user.current
-        }
+        let deletable = wrap?.contributor == currentUser && !user.current
         removeMetrics.hidden = !deletable
         
-        let canBeInvited = user.isInvited
-        if canBeInvited {
-            let invited = delegate?.contributorCell(self, isInvitedContributor: user)
-            resendDoneMetrics.hidden = invited != true
-            resendMetrics.hidden = invited == true
+        let isInvited = user.isInvited
+        if isInvited {
+            let inviteResent = delegate?.contributorCell(self, isInvitedContributor: user) ?? false
+            resendDoneMetrics.hidden = !inviteResent
+            resendMetrics.hidden = inviteResent
         }
-        layoutIfNeeded()
+        streamView.layoutIfNeeded()
         dataSource.layoutOffset = width
-        dataSource.items = [user]
-        let isCreator = delegate?.contributorCell(self, isCreator: user) ?? false
+        dataSource.reload()
+        let isCreator = wrap?.contributor == user ?? false
         let name = user.current ? "you".ls : user.name
         nameLabel.text = isCreator ? String(format: "formatted_owner".ls, name ?? "") : name
-        pandingLabel.text = canBeInvited ? "sign_up_pending".ls : ""
-        phoneLabel.text = user.securePhones
-        let url = user.avatar?.small
-        if !canBeInvited && (url?.isEmpty ?? true) {
-            avatarView.defaultBackgroundColor = Color.orange
-        } else {
-            avatarView.defaultBackgroundColor = Color.grayLighter
-        }
-        avatarView.url = url
-        inviteLabel.text = ContributorCell.invitationHintText(user)
-        slideMenuButton.hidden = !deletable && !canBeInvited
+        infoLabel.text = user.contributorInfo()
+        avatarView.wrap = wrap
+        avatarView.user = user
+        slideMenuButton.hidden = !deletable && !isInvited
         let showMenu = delegate?.contributorCell(self, showMenu: user) ?? false
         setMenuHidden(!showMenu, animated: false)
     }
     
     func setMenuHidden(hidden: Bool, animated: Bool) {
         if hidden {
-            dataSource.streamView?.setMinimumContentOffsetAnimated(animated)
+            streamView.setMinimumContentOffsetAnimated(animated)
         } else {
-            dataSource.streamView?.setMaximumContentOffsetAnimated(animated)
+            streamView.setMaximumContentOffsetAnimated(animated)
         }
     }
     
     //MARK: Action
     
     @IBAction func toggleSlideMenu(sender: AnyObject) {
-        setMenuHidden(dataSource.streamView?.contentOffset.x != 0, animated: true)
+        setMenuHidden(streamView.contentOffset.x != 0, animated: true)
         if let user = entry as? User {
             delegate?.contributorCell(self, didToggleMenu: user)
         }
@@ -181,5 +216,4 @@ class ContributorCell: StreamReusableView {
             self?.dataSource.reload()
         })
     }
-    
 }

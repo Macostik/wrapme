@@ -169,6 +169,8 @@ final class StreamView: UIScrollView {
         
         if let item = items.first {
             layout.layoutItem(item)
+        } else {
+            contentSize = CGSize.zero
         }
         
         layout.finalizeLayout()

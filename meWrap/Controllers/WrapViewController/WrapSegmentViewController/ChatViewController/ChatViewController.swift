@@ -15,9 +15,9 @@ final class ChatViewController: WrapSegmentViewController {
     
     lazy var chat: Chat = Chat(wrap: self.wrap)
     
-    private var messageMetrics = StreamMetrics(identifier: "MessageCell").change({ $0.selectable = false })
-    private var messageWithNameMetrics = StreamMetrics(identifier: "MessageWithNameCell").change({ $0.selectable = false })
-    private var myMessageMetrics = StreamMetrics(identifier: "MyMessageCell").change({ $0.selectable = false })
+    private var messageMetrics = StreamMetrics(loader: LayoutStreamLoader<MessageCell>()).change({ $0.selectable = false })
+    private var messageWithNameMetrics = StreamMetrics(loader: LayoutStreamLoader<MessageWithNameCell>()).change({ $0.selectable = false })
+    private var myMessageMetrics = StreamMetrics(loader: LayoutStreamLoader<MyMessageCell>()).change({ $0.selectable = false })
     private var dateMetrics = StreamMetrics(loader: LayoutStreamLoader<MessageDateView>(), size: 33).change({ $0.selectable = false })
     
     private lazy var placeholderMetrics: StreamMetrics = StreamMetrics(loader: PlaceholderView.chatPlaceholderLoader()).change { [weak self] metrics -> Void in
@@ -27,7 +27,17 @@ final class ChatViewController: WrapSegmentViewController {
         metrics.selectable = false
     }
     
-    private var unreadMessagesMetrics = StreamMetrics(identifier: "WLUnreadMessagesView", size: 46).change({ $0.selectable = false })
+    private var unreadMessagesMetrics = StreamMetrics(loader: LayoutStreamLoader<StreamReusableView>(layoutBlock: { view in
+        let label = Label(preset: .Normal, weight: UIFontWeightRegular, textColor: Color.orange)
+        label.text = "unread_messages".ls
+        label.textAlignment = .Center
+        label.backgroundColor = Color.orangeLightest
+        view.addSubview(label)
+        label.snp_makeConstraints(closure: { (make) -> Void in
+            make.leading.trailing.equalTo(view)
+            make.top.bottom.equalTo(view).inset(6)
+        })
+    }), size: 46).change({ $0.selectable = false })
     
     private var dragged = false
     
@@ -48,9 +58,6 @@ final class ChatViewController: WrapSegmentViewController {
             }
         }
     }
-    
-    var composeBarHeight: CGFloat = 48.0
-    
     
     deinit {
         streamView?.delegate = nil
@@ -274,12 +281,9 @@ extension ChatViewController: ComposeBarDelegate {
         typing = false
     }
     
-    func composeBarDidChangeHeight(composeBar: ComposeBar) {
-        if composeBar.text?.isEmpty == true {
-            return
-        }
-        streamView.setContentOffset(CGPointMake(0, streamView.contentOffset.y + composeBar.height - composeBarHeight), animated: false)
-        composeBarHeight = composeBar.height
+    func composeBar(composeBar: ComposeBar, didChangeHeight oldHeight: CGFloat) {
+        if composeBar.text?.isEmpty == true { return }
+        streamView.setContentOffset(CGPointMake(0, streamView.contentOffset.y + (composeBar.height - oldHeight)), animated: false)
     }
 }
 

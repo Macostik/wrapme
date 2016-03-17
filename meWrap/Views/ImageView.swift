@@ -18,7 +18,7 @@ class ImageView: UIImageView {
         clipsToBounds = true
     }
     
-    lazy var defaultIconView: Label = {
+    private lazy var defaultIconView: Label = {
         let iconView = Label(icon: self.defaultIconText ?? "", size: self.defaultIconSize, textColor: self.defaultIconColor)
         iconView.hidden = true
         iconView.textAlignment = .Center

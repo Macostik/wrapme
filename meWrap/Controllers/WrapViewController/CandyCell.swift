@@ -11,18 +11,15 @@ import SnapKit
 
 class CandyCell: StreamReusableView, FlowerMenuConstructor {
     
-    var imageView = ImageView(backgroundColor: UIColor.whiteColor())
-    
-    var commentLabel = Label(preset: FontPreset.Smaller, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
-    
-    var videoIndicator = Label(icon: "+", size: 24)
-    
-    var pressedStateButton = Button(type: .Custom)
+    let imageView = ImageView(backgroundColor: UIColor.whiteColor())
+    let commentLabel = Label(preset: FontPreset.Smaller, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
+    let videoIndicator = Label(icon: "+", size: 24)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         imageView.defaultIconSize = 56
         imageView.defaultIconText = "t"
         imageView.defaultIconColor = Color.grayLighter
+        let pressedStateButton = Button(type: .Custom)
         pressedStateButton.addTarget(self, action: "select", forControlEvents: .TouchUpInside)
         pressedStateButton.highlightedColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
         pressedStateButton.normalColor = UIColor.clearColor()

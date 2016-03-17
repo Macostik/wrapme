@@ -85,6 +85,18 @@ class User: Entry {
             avatar = Asset()
         }
     }
+    
+    func contributorInfo() -> String {
+        let isInvited = self.isInvited
+        var infoString = isInvited ? "sign_up_pending".ls : ""
+        if isInvited {
+            infoString = infoString + "\n" + String(format: "invite_status_swipe_to".ls, invitedAt.stringWithDateStyle(.ShortStyle))
+        } else {
+            infoString = infoString + "\n" + "signup_status".ls
+        }
+        infoString = infoString + "\n" + (securePhones ?? "")
+        return infoString.trim
+    }
 }
 
 @objc(Device)

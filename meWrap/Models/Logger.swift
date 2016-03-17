@@ -20,8 +20,10 @@ extension UIApplicationState {
 
 struct Logger {
     
+    static let logglyDestination = SlimLogglyDestination()
+    
     static func configure() {
-        Slim.addLogDestination(SlimLogglyDestination())
+        Slim.addLogDestination(logglyDestination)
     }
     
     static var remoteLogging: Bool = NSUserDefaults.standardUserDefaults().remoteLogging ?? false

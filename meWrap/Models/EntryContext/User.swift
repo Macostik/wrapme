@@ -35,25 +35,15 @@ class User: Entry {
         }
     }
     
-    var numberOfActiveDevices: Int = 0 {
+    var activeDevices = Set<Device>() {
         didSet {
-            if numberOfActiveDevices != oldValue {
-                isActive = numberOfActiveDevices > 0
-            }
+            isActive = activeDevices.count > 0
         }
     }
     
     func activityForWrap(wrap: Wrap) -> UserActivity? {
-        let device = devices.sort({ $0.activeAt > $1.activeAt })[{ $0.activity.wrap == wrap && $0.activity.inProgress }]
-        return device?.activity
-    }
-    
-    func isActiveInWrap(wrap: Wrap) -> Bool {
-        return activityForWrap(wrap) != nil
-    }
-    
-    func isActiveInWrap(wrap: Wrap, type: UserActivityType) -> Bool {
-        return activityForWrap(wrap)?.type == type
+        guard !activeDevices.isEmpty else { return nil }
+        return activeDevices.sort({ $0.activeAt > $1.activeAt })[{ $0.activity.wrap == wrap && $0.activity.inProgress }]?.activity
     }
     
     private func formatPhones(secure: Bool) -> String {
@@ -108,9 +98,9 @@ class Device: Entry {
         didSet {
             if isActive != oldValue {
                 if isActive {
-                    owner?.numberOfActiveDevices++
+                    owner?.activeDevices.insert(self)
                 } else {
-                    owner?.numberOfActiveDevices--
+                    owner?.activeDevices.remove(self)
                 }
             }
         }
@@ -120,14 +110,6 @@ class Device: Entry {
     
     func activityForWrap(wrap: Wrap) -> UserActivity? {
         return (activity.wrap == wrap && activity.inProgress) ? activity : nil
-    }
-    
-    func isActiveInWrap(wrap: Wrap) -> Bool {
-        return activityForWrap(wrap) != nil
-    }
-    
-    func isActiveInWrap(wrap: Wrap, type: UserActivityType) -> Bool {
-        return activityForWrap(wrap)?.type == type
     }
     
     override class func entityName() -> String { return "Device" }

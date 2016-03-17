@@ -46,7 +46,7 @@ class Button : UIButton {
     @IBInspectable var localize: Bool = false {
         willSet {
             if newValue == true {
-                titleLabel?.text = titleLabel?.text?.ls
+                setTitle(titleForState(.Normal)?.ls, forState: .Normal)
             }
         }
     }

@@ -78,6 +78,7 @@ final class NotificationCenter: NSObject {
         }
         PubNub.sharedInstance.subscribeToChannels([User.uuid()], withPresence: false)
         userSubscription.subscribe()
+        Logger.logglyDestination.userid = User.uuid()
     }
     
     func clear() {

@@ -20,11 +20,9 @@ final class HintView: GradientView {
             alpha = 0.0
             snp_makeConstraints(closure: { $0.edges.equalTo(view) })
             
-            let label = Label()
-            label.textColor = Color.orange
+            let label = Label(preset: .XLarge, weight: UIFontWeightRegular, textColor: Color.orange)
             label.text = "swipe_actions_tip".ls
             label.numberOfLines = 2
-            label.preset = FontPreset.XLarge.rawValue
             label.textAlignment = .Center
             addSubview(label)
             label.snp_makeConstraints(closure: {

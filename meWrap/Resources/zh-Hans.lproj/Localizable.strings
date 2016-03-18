@@ -106,6 +106,8 @@
 "APNS_MSG08" = "%@正在直播中: %@ (%@)";
 "APNS_TT09" = "Critical Update";
 "APNS_MSG09" = "meWrap critical update available. Please update from App Store immediately.";
+"APNS_TT10" = "Invite Accepted";
+"APNS_MSG10" = "%@ is now on meWrap.";
 "reply" = "回复";
 "no_chat_message" = "跟\"%@\"成员在此聊天。";
 "no_photos_to_upload" = "请拍摄新相片或从图库中选择相片上传。";

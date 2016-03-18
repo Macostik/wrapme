@@ -9,20 +9,15 @@
 import UIKit
 import SnapKit
 
-class RecentUpdate {
-    
-    var event: Event
-    
-    var unread: Bool
-    
-    var contribution: Contribution
-    
-    var date: NSDate
-
-    init(event: Event, contribution: Contribution, unread: Bool = true) {
+class InboxItem {
+    let event: Event
+    let unread: Bool
+    let contribution: Contribution
+    let date: NSDate
+    init(event: Event, contribution: Contribution, date: NSDate, unread: Bool) {
         self.event = event
         self.contribution = contribution
-        date = event == .Update ? contribution.editedAt : contribution.createdAt
+        self.date = date
         self.unread = unread
     }
 }
@@ -86,11 +81,11 @@ class InboxCell: StreamReusableView {
     }
 
     override func setup(entry: AnyObject?) {
-        if let update = entry as? RecentUpdate {
+        if let update = entry as? InboxItem {
             let contribution = update.contribution
             timeLabel.text = update.date.timeAgoStringAtAMPM()
             imageView.url = contribution.asset?.medium
-            if contribution.unread && update.unread {
+            if update.unread {
                 userNameLabel.textColor = Color.grayDark
                 timeLabel.textColor = Color.grayDark
                 wrapLabel.textColor = Color.grayDark
@@ -129,14 +124,14 @@ class InboxCommentCell: InboxCell {
     }
 
     override func setup(entry: AnyObject?) {
-        if let comment = (entry as? RecentUpdate)?.contribution as? Comment {
+        if let update = entry as? InboxItem, let comment = update.contribution as? Comment {
             super.setup(entry)
             avatarView.url = comment.contributor?.avatar?.small
             userNameLabel.text = "\(comment.contributor?.name ?? ""):"
             wrapLabel.text = comment.candy?.wrap?.name
             textView.text = comment.text
             videoIndicator.hidden = comment.candy?.mediaType != .Video
-            textView.textColor = comment.unread ? Color.grayDark : Color.grayLighter
+            textView.textColor = update.unread ? Color.grayDark : Color.grayLighter
         }
     }
 }
@@ -155,7 +150,7 @@ class InboxCandyCell: InboxCell {
     }
     
     override func setup(entry: AnyObject?) {
-        if let update = entry as? RecentUpdate, let candy = update.contribution as? Candy {
+        if let update = entry as? InboxItem, let candy = update.contribution as? Candy {
             super.setup(entry)
             if update.event == .Update {
                 avatarView.url = candy.editor?.avatar?.small
@@ -178,7 +173,7 @@ class InboxViewController: WrapSegmentViewController {
     @IBOutlet weak var clearButton: UIButton!
     @IBOutlet var clearLayoutPrioritizer: LayoutPrioritizer!
     
-    var updates: [RecentUpdate] = [] {
+    var updates: [InboxItem] = [] {
         willSet {
             dataSource.items = newValue
         }
@@ -196,17 +191,17 @@ class InboxViewController: WrapSegmentViewController {
         commentMetrics.size = InboxCommentCell.DefaultHeight
         candyMetrics.modifyItem = {
             $0.insets.origin.y = $0.position.index == 0 ? 0 : Constants.pixelSize
-            let event = $0.entry as? RecentUpdate
+            let event = $0.entry as? InboxItem
             $0.hidden = !(event?.contribution is Candy)
         }
         commentMetrics.modifyItem = {
             $0.insets.origin.y = $0.position.index == 0 ? 0 : Constants.pixelSize
-            let event = $0.entry as? RecentUpdate
+            let event = $0.entry as? InboxItem
             $0.hidden = !(event?.contribution is Comment)
         }
         
         candyMetrics.selection = { item, entry in
-            if let event = entry as? RecentUpdate {
+            if let event = entry as? InboxItem {
                 ChronologicalEntryPresenter.presentEntry(event.contribution, animated: false)
             }
         }
@@ -220,17 +215,18 @@ class InboxViewController: WrapSegmentViewController {
     private func fetchUpdates() {
         guard let wrap = wrap else { return }
         var containsUnread = false
-        var updates = [RecentUpdate]()
+        var updates = [InboxItem]()
         for candy in wrap.candies {
             if candy.unread { containsUnread = true }
-            updates.append(RecentUpdate(event: .Add, contribution: candy))
             if candy.editor != nil {
-                updates.last?.unread = false
-                updates.append(RecentUpdate(event: .Update, contribution: candy))
+                updates.append(InboxItem(event: .Add, contribution: candy, date: candy.createdAt, unread: false))
+                updates.append(InboxItem(event: .Update, contribution: candy, date: candy.editedAt, unread: candy.unread))
+            } else {
+                updates.append(InboxItem(event: .Add, contribution: candy, date: candy.createdAt, unread: candy.unread))
             }
             for comment in candy.comments {
                 if comment.unread { containsUnread = true }
-                updates.append(RecentUpdate(event: .Add, contribution: comment))
+                updates.append(InboxItem(event: .Add, contribution: comment, date: comment.createdAt, unread: comment.unread))
             }
         }
         self.updates = updates.sort({ $0.date > $1.date })
@@ -244,9 +240,7 @@ class InboxViewController: WrapSegmentViewController {
     }
     
     @IBAction func clearAll(sender: AnyObject) {
-        for update in updates {
-            update.contribution.markAsUnread(false)
-        }
+        updates.all({ $0.contribution.markAsUnread(false) })
         clearLayoutPrioritizer.defaultState = false
         clearButton.hidden = true
         dataSource.reload()

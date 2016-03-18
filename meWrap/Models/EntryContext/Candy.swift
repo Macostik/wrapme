@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 @objc(Candy)
-class Candy: Contribution {
+final class Candy: Contribution {
 
     override class func entityName() -> String { return "Candy" }
     
@@ -27,18 +27,7 @@ class Candy: Contribution {
         }
     }
     
-    private var _latestComment: Comment?
-    var latestComment: Comment? {
-        get {
-            if _latestComment == nil {
-                _latestComment = comments.sort({ $0.createdAt.later($1.createdAt) }).first
-            }
-            return _latestComment
-        }
-        set {
-            _latestComment = newValue
-        }
-    }
+    lazy var latestComment: Comment? = self.comments.sort({ $0.createdAt.later($1.createdAt) }).first
     
     override func willBecomeUnread(unread: Bool) {
         if let wrap = wrap {
@@ -90,7 +79,7 @@ class Candy: Contribution {
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == "comments" {
-            _latestComment = nil
+            latestComment = nil
         } else if keyPath == "updatedAt" {
             wrap?.recentCandies = nil
             wrap?.historyCandies = nil

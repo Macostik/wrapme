@@ -66,7 +66,7 @@ class LiveBroadcast: NSObject {
 }
 
 @objc(Wrap)
-class Wrap: Contribution {
+final class Wrap: Contribution {
     
    static var ContentTypeRecent = "recent_candies"
     
@@ -74,39 +74,9 @@ class Wrap: Contribution {
     
     override class func contentTypes() -> [Entry.Type]? { return [Candy.self, Message.self] }
     
-    private var _historyCandies: [Candy]?
-    var historyCandies: [Candy]? {
-        get {
-            if _historyCandies == nil {
-                _historyCandies = candies.sort({ $0.createdAt < $1.createdAt })
-            }
-            return _historyCandies
-        }
-        set {
-            _historyCandies = newValue
-        }
-    }
-    
-    private var _recentCandies: [Candy]?
-    var recentCandies: [Candy]? {
-        get {
-            if _recentCandies == nil {
-                _recentCandies = candies.sort({ $0.updatedAt > $1.updatedAt })
-            }
-            return _recentCandies
-        }
-        set {
-            _recentCandies = newValue
-        }
-    }
-    
-    private var _cover: Candy?
-    var cover: Candy? {
-        if _cover == nil {
-            _cover = recentCandies?.first
-        }
-        return _cover
-    }
+    lazy var historyCandies: [Candy]? = self.candies.sort({ $0.createdAt < $1.createdAt })
+    lazy var recentCandies: [Candy]? = self.candies.sort({ $0.updatedAt > $1.updatedAt })
+    lazy var cover: Candy? = self.recentCandies?.first
     
     private var obsering = false
     
@@ -130,9 +100,9 @@ class Wrap: Contribution {
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == "candies" {
-            _recentCandies = nil
-            _historyCandies = nil
-            _cover = nil
+            recentCandies = nil
+            historyCandies = nil
+            cover = nil
         }
     }
     

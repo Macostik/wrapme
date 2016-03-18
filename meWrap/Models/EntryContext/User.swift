@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 @objc(User)
-class User: Entry {
+final class User: Entry {
 
     override class func entityName() -> String { return "User" }
     
@@ -90,7 +90,7 @@ class User: Entry {
 }
 
 @objc(Device)
-class Device: Entry {
+final class Device: Entry {
     
     var activeAt: NSDate = NSDate(timeIntervalSince1970: 0)
     

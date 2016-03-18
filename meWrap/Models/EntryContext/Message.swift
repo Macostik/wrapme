@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 @objc(Message)
-class Message: Contribution {
+final class Message: Contribution {
 
     override class func entityName() -> String { return "Message" }
     

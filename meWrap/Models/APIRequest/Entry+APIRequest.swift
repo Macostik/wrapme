@@ -89,14 +89,6 @@ extension User {
     }
 }
 
-extension Device {
-    
-}
-
-extension Contribution {
-    
-}
-
 extension Wrap {
     
     func uploadMessage(text: String) {
@@ -235,14 +227,9 @@ extension Uploading {
     func sendTypedRequest(success: ObjectBlock?, failure: FailureBlock?) {
         if let type = Event(rawValue: self.type) {
             switch type {
-            case .Add:
-                add(success, failure: failure)
-                break
-            case .Update:
-                update(success, failure: failure)
-                break
-            case .Delete:
-                break
+            case .Add: add(success, failure: failure)
+            case .Update: update(success, failure: failure)
+            case .Delete: break
             }
         }
     }

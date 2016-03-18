@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 @objc(Uploading)
-class Uploading: Entry {
+final class Uploading: Entry {
     
     override class func entityName() -> String { return "Uploading" }
     

@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 @objc(Comment)
-class Comment: Contribution {
+final class Comment: Contribution {
 
     override class func entityName() -> String { return "Comment" }
     
@@ -35,7 +35,7 @@ class Comment: Contribution {
     }
     
     override func willBecomeUnread(unread: Bool) {
-        if let candy = candy, let wrap = candy.wrap {
+        if let wrap = candy?.wrap {
             if unread {
                 if createdAt > NSDate.dayAgo() {
                     wrap.numberOfUnreadInboxItems++

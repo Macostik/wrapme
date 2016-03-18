@@ -28,7 +28,7 @@ class EmojiCell: StreamReusableView {
 
 private enum Emoji: Int {
     
-    case Smiles, Flowers, Rings, Cars, Numbers
+    case PeopleAndSmiles, Nature, FoodAndDrinks, Activity, TravelAndPlaces, Objects, Symbols, Flags
     
     static func recentEmojis() -> [String]? {
         return NSUserDefaults.standardUserDefaults().recentEmojis
@@ -52,11 +52,14 @@ private enum Emoji: Int {
     
     func stringValue() -> String {
         switch self {
-        case Smiles: return "smiles"
-        case Flowers: return "flowers"
-        case Rings: return "rings"
-        case Cars: return "cars"
-        case Numbers: return "numbers"
+        case PeopleAndSmiles: return "peopleAndSmiles"
+        case Nature: return "nature"
+        case FoodAndDrinks: return "foodAndDrinks"
+        case Activity: return "activity"
+        case TravelAndPlaces: return "travelAndPlaces"
+        case Objects: return "objects"
+        case Symbols: return "symbols"
+        case Flags: return "flags"
         }
     }
 }
@@ -90,7 +93,7 @@ class EmojiView: UIView {
         let metrics = StreamMetrics(loader: LayoutStreamLoader<EmojiCell>())
         metrics.modifyItem = { [weak self] item in
             if let streamView = self?.streamView {
-                item.ratio = (streamView.height/3) / (streamView.width/7)
+                item.ratio = (streamView.height/5) / (streamView.width/8)
             }
         }
         metrics.selection = { [weak self] (item, emoji) -> Void in
@@ -99,14 +102,13 @@ class EmojiView: UIView {
             self?.textView.insertText(emoji)
         }
         dataSource.addMetrics(metrics)
-        dataSource.numberOfGridColumns = 3
-        dataSource.sizeForGridColumns = 0.3333
-        
+        dataSource.numberOfGridColumns = 5
+        dataSource.sizeForGridColumns = 0.2
         if let recentEmojis = Emoji.recentEmojis() where recentEmojis.count > 0 {
             emojis = recentEmojis
         } else {
             segmentedControl.selectedSegment = 1
-            emojis = Emoji.emojiStrings(.Smiles)
+            emojis = Emoji.emojiStrings(.PeopleAndSmiles)
         }
     }
     
@@ -117,6 +119,14 @@ class EmojiView: UIView {
     
     @IBAction func returnClicked(sender: UIButton) {
         textView.deleteBackward()
+    }
+    
+    @IBAction func returnKeyboard(sender: UIButton) {
+        textView.inputView = nil
+        if !isFirstResponder() {
+            becomeFirstResponder()
+        }
+        textView.reloadInputViews()
     }
 }
 

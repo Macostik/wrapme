@@ -52,7 +52,7 @@ private enum Emoji: Int {
     
     func stringValue() -> String {
         switch self {
-        case PeopleAndSmiles: if #available(iOS 9.0, *) {  "peopleAndSmiles_iOS_9" } else { return "peopleAndSmiles_iOS_8" }
+        case PeopleAndSmiles: if #available(iOS 9.0, *) { return "peopleAndSmiles_iOS_9" } else { return "peopleAndSmiles_iOS_8" }
         case Nature: if #available(iOS 9.0, *) { return "nature_iOS_9" } else { return "nature_iOS_8" }
         case FoodAndDrinks: if #available(iOS 9.0, *) { return "foodAndDrinks_iOS_9" } else { return "foodAndDrinks_iOS_8" }
         case Activity: if #available(iOS 9.0, *) { return "activity_iOS_9" } else { return "activity_iOS_8" }
@@ -61,7 +61,6 @@ private enum Emoji: Int {
         case Symbols: if #available(iOS 9.0, *) { return "symbols_iOS_9" } else { return "symbols_iOS_8" }
         case Flags: if #available(iOS 9.0, *) { return "flags_iOS_9" } else { return "flags_iOS_8" }
         }
-        return ""
     }
 }
 

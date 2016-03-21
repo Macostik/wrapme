@@ -153,18 +153,15 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acO-Zn-Gz0">
-                                        <rect key="frame" x="149" y="-3" width="24" height="24"/>
+                                        <rect key="frame" x="149" y="-3" width="24" height="25"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ory-OK-auU">
+                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ory-OK-auU">
                                         <rect key="frame" x="0.0" y="16" width="320" height="80"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <segue destination="1l0-OI-cKp" kind="embed" id="l1z-eb-ReB"/>
-                                        </connections>
-                                    </containerView>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
@@ -280,7 +277,9 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="assetsArrow" destination="acO-Zn-Gz0" id="wKJ-ZR-dE3"/>
+                        <outlet property="assetsContentView" destination="Ory-OK-auU" id="6HE-Ch-F4Y"/>
                         <outlet property="assetsHeightConstraint" destination="1pH-xz-Rfe" id="Hyl-2z-aK9"/>
+                        <outlet property="assetsView" destination="Fe5-n5-5fh" id="rmG-MC-7lx"/>
                         <outlet property="backButton" destination="X3H-5w-amr" id="pCg-3c-RTR"/>
                         <outlet property="bottomView" destination="oqD-Jp-Gr1" id="hri-Wv-Xvz"/>
                         <outlet property="cameraView" destination="QJU-xo-V0A" id="sRC-HM-yjt"/>
@@ -453,18 +452,15 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t2i-cM-gaQ">
-                                        <rect key="frame" x="148" y="-4" width="24" height="24"/>
+                                        <rect key="frame" x="148" y="-4" width="24" height="25"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gDn-lO-TJD">
+                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gDn-lO-TJD">
                                         <rect key="frame" x="0.0" y="16" width="320" height="80"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <segue destination="1l0-OI-cKp" kind="embed" id="Eot-wR-oeG"/>
-                                        </connections>
-                                    </containerView>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
@@ -499,7 +495,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ITP-VR-CiW" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="41" width="36" height="48"/>
+                                                <rect key="frame" x="10" y="41" width="36" height="49"/>
                                                 <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
                                                 <state key="normal" title="L">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -781,6 +777,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="assetsArrow" destination="t2i-cM-gaQ" id="ON0-OZ-y0L"/>
+                        <outlet property="assetsContentView" destination="gDn-lO-TJD" id="RaS-26-bUq"/>
                         <outlet property="assetsHeightConstraint" destination="GDz-tY-xMk" id="c8I-IL-x4D"/>
                         <outlet property="assetsView" destination="11F-0m-rSj" id="vSP-H0-mJL"/>
                         <outlet property="backButton" destination="ITP-VR-CiW" id="vKq-el-2ef"/>
@@ -1001,55 +998,6 @@
             </objects>
             <point key="canvasLocation" x="2349.375" y="-253.52112676056336"/>
         </scene>
-        <!--Assets View Controller-->
-        <scene sceneID="Axa-aS-Z8I">
-            <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="1l0-OI-cKp" customClass="AssetsViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="zmz-og-Lo7"/>
-                        <viewControllerLayoutGuide type="bottom" id="qHl-jz-TGP"/>
-                    </layoutGuides>
-                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="H7K-QU-9D7">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ji-7u-lXU" customClass="StreamView" customModule="meWrap">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </scrollView>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please go to Settings &gt; meWrap to allow meWrap access the photos." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uud-iT-GCw" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="9ji-7u-lXU" firstAttribute="leading" secondItem="H7K-QU-9D7" secondAttribute="leading" id="35i-Rc-fGn"/>
-                            <constraint firstItem="uud-iT-GCw" firstAttribute="top" secondItem="zmz-og-Lo7" secondAttribute="bottom" id="73t-cF-i2d"/>
-                            <constraint firstItem="qHl-jz-TGP" firstAttribute="top" secondItem="uud-iT-GCw" secondAttribute="bottom" id="FOk-jK-r4y"/>
-                            <constraint firstAttribute="trailing" secondItem="9ji-7u-lXU" secondAttribute="trailing" id="QFF-EX-ba8"/>
-                            <constraint firstItem="qHl-jz-TGP" firstAttribute="top" secondItem="9ji-7u-lXU" secondAttribute="bottom" id="Y4T-eL-PN9"/>
-                            <constraint firstItem="9ji-7u-lXU" firstAttribute="top" secondItem="zmz-og-Lo7" secondAttribute="bottom" id="tvd-GV-UZk"/>
-                            <constraint firstItem="uud-iT-GCw" firstAttribute="leading" secondItem="H7K-QU-9D7" secondAttribute="leading" id="v5x-sG-dNs"/>
-                            <constraint firstAttribute="trailing" secondItem="uud-iT-GCw" secondAttribute="trailing" id="yua-F5-OSt"/>
-                        </constraints>
-                    </view>
-                    <toolbarItems/>
-                    <connections>
-                        <outlet property="accessErrorLabel" destination="uud-iT-GCw" id="vz7-ry-YkE"/>
-                        <outlet property="streamView" destination="9ji-7u-lXU" id="OhO-wB-JQu"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0r0-gn-lm6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3540" y="-254"/>
-        </scene>
         <!--Delegate-->
         <scene sceneID="WkN-uv-Mwe">
             <objects>
@@ -1071,7 +1019,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h5t-N3-cw5" customClass="VideoPlayerView" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="438"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1xn-ct-1bD" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1xn-ct-1bD" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="12" y="286" width="30" height="36"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                         <state key="normal" title=","/>
@@ -1256,7 +1204,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <button tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ovp-Nk-uxq" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                    <button tag="5" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ovp-Nk-uxq" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="320" y="6" width="45" height="36"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1407,7 +1355,7 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceHorizontal="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OZr-dY-Xul" customClass="StreamView" customModule="meWrap">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8l4-7n-9vU" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8l4-7n-9vU" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="12" y="41" width="36" height="48"/>
                                                 <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
                                                 <state key="normal" title="L">
@@ -1430,7 +1378,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="horizontal" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </scrollView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taU-aO-Oxc" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taU-aO-Oxc" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="272" y="41" width="36" height="48"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
                                         <state key="normal" title=")">
@@ -1727,7 +1675,4 @@
         <image name="camera_btn" width="84" height="84"/>
         <image name="switch_to_front_cam" width="23" height="18"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="Eot-wR-oeG"/>
-    </inferredMetricsTieBreakers>
 </document>

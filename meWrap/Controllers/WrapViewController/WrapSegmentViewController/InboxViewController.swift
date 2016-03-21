@@ -11,7 +11,7 @@ import SnapKit
 
 class InboxItem {
     let event: Event
-    let unread: Bool
+    var unread: Bool
     let contribution: Contribution
     let date: NSDate
     init(event: Event, contribution: Contribution, date: NSDate, unread: Bool) {
@@ -240,7 +240,10 @@ class InboxViewController: WrapSegmentViewController {
     }
     
     @IBAction func clearAll(sender: AnyObject) {
-        updates.all({ $0.contribution.markAsUnread(false) })
+        updates.all({
+            $0.unread = false
+            $0.contribution.markAsUnread(false)
+        })
         clearLayoutPrioritizer.defaultState = false
         clearButton.hidden = true
         dataSource.reload()

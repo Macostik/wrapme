@@ -62,7 +62,7 @@ final class StreamView: UIScrollView {
     
    override var contentInset: UIEdgeInsets  {
         didSet {
-            if oldValue != contentInset && items.count == 1 {
+            if oldValue != contentInset && items.count == 1 && layout.finalized {
                 reload()
             }
         }
@@ -70,7 +70,7 @@ final class StreamView: UIScrollView {
     
     override var frame: CGRect {
         didSet {
-            if !CGSizeEqualToSize(oldValue.size, frame.size) {
+            if oldValue.size != frame.size && layout.finalized {
                 reload()
             }
         }

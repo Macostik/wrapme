@@ -46,14 +46,12 @@ class AssetCell: StreamReusableView {
         }
     }
     
-    private static var requestImageOptions: PHImageRequestOptions = {
-        let options = PHImageRequestOptions()
-        options.synchronous = false
-        options.networkAccessAllowed = true
-        options.resizeMode = .Fast
-        options.deliveryMode = .Opportunistic
-        return options
-    }()
+    private static let requestImageOptions = specify(PHImageRequestOptions(), {
+        $0.synchronous = false
+        $0.networkAccessAllowed = true
+        $0.resizeMode = .Fast
+        $0.deliveryMode = .Opportunistic
+    })
     
     override func setup(entry: AnyObject?) {
         if let asset = entry as? PHAsset {
@@ -89,29 +87,14 @@ extension PHFetchResult: BaseOrderedContainer {
 }
 
 @objc protocol AssetsViewControllerDelegate {
-    
     optional func assetsViewController(controller: AssetsViewController, shouldSelectAsset asset: PHAsset) -> Bool
-    
     optional func assetsViewController(controller: AssetsViewController, didSelectAsset asset: PHAsset)
-    
     optional func assetsViewController(controller: AssetsViewController, didDeselectAsset asset: PHAsset)
-    
 }
 
 class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
     
-    var isAvatar: Bool = false {
-        didSet {
-            let options = PHFetchOptions()
-            options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-            if isAvatar {
-                assets = PHAsset.fetchAssetsWithMediaType(.Image, options:options)
-            } else {
-                assets = PHAsset.fetchAssetsWithOptions(options)
-            }
-            dataSource.items = assets
-        }
-    }
+    var isAvatar: Bool = false
     
     weak var delegate: AssetsViewControllerDelegate?
     
@@ -119,17 +102,22 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
     var selectedAssets = Set<String>()
     
     lazy var dataSource: StreamDataSource = StreamDataSource(streamView: self.streamView)
-    @IBOutlet weak var streamView: StreamView!
-    @IBOutlet weak var accessErrorLabel: UILabel!
+    let streamView = StreamView()
     var assetsHidingHandler: (Void -> Void)?
     
     deinit {
         PHPhotoLibrary.sharedPhotoLibrary().unregisterChangeObserver(self)
     }
     
+    override func loadView() {
+        super.loadView()
+        view.addSubview(streamView)
+        streamView.snp_makeConstraints { $0.edges.equalTo(view) }
+        streamView.alwaysBounceHorizontal = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         streamView.layout = SquareLayout(streamView: streamView, horizontal: true)
         dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<AssetCell>()).change({ [weak self] metrics in
             metrics.selection = { (item, entry) in
@@ -143,16 +131,21 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
                     view.exclusiveTouch = self?.isAvatar ?? true
                 }
             }
-        }))
+            }))
         
-        self.streamView.panGestureRecognizer.addTarget(self, action: "scrollAssets")
+        streamView.panGestureRecognizer.addTarget(self, action: "hideAssetsViewController")
         
         PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        token = 0;
+        
+        Dispatch.mainQueue.async {
+            let options = specify(PHFetchOptions(), { $0.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)] })
+            if self.isAvatar {
+                self.assets = PHAsset.fetchAssetsWithMediaType(.Image, options:options)
+            } else {
+                self.assets = PHAsset.fetchAssetsWithOptions(options)
+            }
+            self.dataSource.items = self.assets
+        }
     }
     
     func photoLibraryDidChange(changeInstance: PHChange) {
@@ -180,15 +173,8 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         return false
     }
     
-    private var token: dispatch_once_t = 0
-    
     func hideAssetsViewController() {
-        dispatch_once(&token) { [weak self] in
-            self!.assetsHidingHandler?()
-        }
-    }
-    
-    func scrollAssets() {
-        hideAssetsViewController()
+        assetsHidingHandler?()
+        assetsHidingHandler = nil
     }
 }

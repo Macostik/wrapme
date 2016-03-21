@@ -115,10 +115,16 @@ class CameraViewController: BaseViewController {
     @IBOutlet weak var assetsHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var assetsArrow: UILabel!
     @IBOutlet weak var assetsView: UIView!
+    @IBOutlet weak var assetsContentView: UIView!
     
-    weak var assetsViewController: AssetsViewController!
+    internal var assetsViewController = AssetsViewController()
     
-    weak var focusView: UIView?
+    private lazy var focusView: UIView = specify(UIView(frame:CGRectMake(0, 0, 67, 67))) {
+        $0.userInteractionEnabled = true
+        $0.backgroundColor = UIColor.clearColor()
+        $0.borderColor = Color.orange.colorWithAlphaComponent(0.5)
+        $0.borderWidth = 1
+    }
     
     func showZoomLabel() {
         self.zoomLabel.text = "\(Int(zoomScale))"
@@ -160,14 +166,9 @@ class CameraViewController: BaseViewController {
                 self.takePhotoButton.active = false
         }
         
-        for controller in self.childViewControllers {
-            if let controller = controller as? AssetsViewController {
-                assetsViewController = controller
-                assetsViewController.delegate = delegate
-                assetsViewController.isAvatar = isAvatar
-                break
-            }
-        }
+        assetsViewController.delegate = delegate
+        assetsViewController.isAvatar = isAvatar
+        addContainedViewController(assetsViewController, toView: assetsContentView, animated: false)
         
         UIAlertController.showNoMediaAccess(!isAvatar)
     }
@@ -414,25 +415,15 @@ extension CameraViewController { // MARK: - Actions
     }
     
     @IBAction func focusing(sender: UITapGestureRecognizer) {
-        
         guard session.running else { return }
-        
-        self.focusView?.removeFromSuperview()
-        
         let point = sender.locationInView(cameraView)
         autoFocusAndExposureAtPoint(point)
-        let focusView = UIView(frame:CGRectMake(0, 0, 67, 67))
         focusView.center = point
-        focusView.userInteractionEnabled = true
-        focusView.backgroundColor = UIColor.clearColor()
-        focusView.borderColor = Color.orange.colorWithAlphaComponent(0.5)
-        focusView.borderWidth = 1
         cameraView.addSubview(focusView)
-        self.focusView = focusView
         UIView.animateWithDuration(0.33, delay: 1.0, options: .CurveEaseInOut, animations: {
-            focusView.alpha = 0.0
+            self.focusView.alpha = 0.0
             }) { (_) -> Void in
-                focusView.removeFromSuperview()
+                self.focusView.removeFromSuperview()
         }
     }
     

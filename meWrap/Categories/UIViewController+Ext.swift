@@ -15,7 +15,7 @@ extension UIViewController {
     
     func addContainedViewController(controller: UIViewController, toView view: UIView, animated: Bool) {
         addChildViewController(controller)
-        controller.view.frame = view.bounds;
+        controller.view.frame = view.bounds
         view.addSubview(controller.view)
         controller.didMoveToParentViewController(self)
     }

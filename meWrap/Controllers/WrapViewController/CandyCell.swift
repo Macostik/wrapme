@@ -23,6 +23,7 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
         pressedStateButton.addTarget(self, action: "select", forControlEvents: .TouchUpInside)
         pressedStateButton.highlightedColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
         pressedStateButton.normalColor = UIColor.clearColor()
+        pressedStateButton.exclusiveTouch = true
         addSubview(imageView)
         addSubview(videoIndicator)
         addSubview(pressedStateButton)

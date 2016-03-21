@@ -23,6 +23,7 @@ struct UserActivity {
                 if inProgress {
                     device?.activeAt = NSDate.now()
                 }
+                device?.isActive = inProgress
                 needsNotify = true
             }
         }

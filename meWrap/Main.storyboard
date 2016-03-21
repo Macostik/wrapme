@@ -2760,6 +2760,7 @@
                                                             <action selector="enableAlternativeState:" destination="6yG-IE-KDc" eventType="editingDidEnd" id="2SF-eO-OCY"/>
                                                             <action selector="enableDefaultState:" destination="6yG-IE-KDc" eventType="editingDidBegin" id="Xpf-TV-gfD"/>
                                                             <outlet property="delegate" destination="M8n-42-KAe" id="F2e-Zh-H0Z"/>
+                                                            <outlet property="emojiButton" destination="CUX-Dn-0ih" id="1CP-CD-UTB"/>
                                                             <outlet property="heightConstraint" destination="GQL-cm-nfb" id="PVz-AN-yrU"/>
                                                             <outlet property="textView" destination="gx7-jO-EPe" id="hlu-G6-PKd"/>
                                                             <outlet property="trailingPrioritizer" destination="np4-hr-S7e" id="Svx-1X-UDC"/>
@@ -3197,6 +3198,7 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="delegate" destination="ef1-h7-yay" id="uwe-aK-54k"/>
+                                    <outlet property="emojiButton" destination="W2G-E9-yFD" id="2o7-uy-ChF"/>
                                     <outlet property="heightConstraint" destination="o7B-UN-bDu" id="tlc-m2-MDJ"/>
                                     <outlet property="textView" destination="nbf-xV-IYw" id="bO7-rh-xRL"/>
                                     <outlet property="trailingPrioritizer" destination="6Mj-ZQ-LyI" id="da6-vy-kQZ"/>
@@ -3861,6 +3863,7 @@ QWRkEEZyaWVuZFZpZXc
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="delegate" destination="Ubc-jI-W0F" id="Mvl-to-FM6"/>
+                                    <outlet property="emojiButton" destination="ucQ-tC-vdE" id="apP-5x-OPP"/>
                                     <outlet property="heightConstraint" destination="gDW-Sz-owx" id="lrP-a4-jiL"/>
                                     <outlet property="textView" destination="Tr4-75-HXp" id="0Ba-1r-Xtk"/>
                                     <outlet property="trailingPrioritizer" destination="529-A5-Axn" id="gWi-8v-VCh"/>
@@ -4235,6 +4238,7 @@ QWRkEEZyaWVuZFZpZXc
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="delegate" destination="pQT-cT-yzK" id="1Ep-tU-3jd"/>
+                                    <outlet property="emojiButton" destination="E7D-tf-gvh" id="cIF-IC-fjH"/>
                                     <outlet property="heightConstraint" destination="pu6-gP-oVC" id="apf-KO-aAu"/>
                                     <outlet property="textView" destination="8Nb-Gz-Qb4" id="qh8-4G-g7r"/>
                                     <outlet property="trailingPrioritizer" destination="wSp-6d-TbA" id="6vf-Ff-cWo"/>

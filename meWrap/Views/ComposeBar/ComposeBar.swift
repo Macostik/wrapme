@@ -24,6 +24,7 @@ class ComposeBar: UIControl, UITextViewDelegate {
     @IBOutlet weak var textView: TextView!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var trailingPrioritizer: LayoutPrioritizer!
+    @IBOutlet weak var emojiButton: UIButton!
     
     @IBInspectable var maxLines: CGFloat = 0
     
@@ -59,6 +60,14 @@ class ComposeBar: UIControl, UITextViewDelegate {
         setDoneButtonHidden(true)
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: "becomeFirstResponder"))
         textView.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "becomeFirstResponder"))
+        emojiView.keybaordHandler = {[weak self] in
+            self?.emojiButton.selected = false
+            self?.textView.inputView = nil
+            if self?.isFirstResponder() == false {
+                self?.becomeFirstResponder()
+            }
+            self?.textView.reloadInputViews()
+        }
     }
     
     final func updateHeight() {

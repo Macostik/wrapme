@@ -52,15 +52,16 @@ private enum Emoji: Int {
     
     func stringValue() -> String {
         switch self {
-        case PeopleAndSmiles: return "peopleAndSmiles"
-        case Nature: return "nature"
-        case FoodAndDrinks: return "foodAndDrinks"
-        case Activity: return "activity"
-        case TravelAndPlaces: return "travelAndPlaces"
-        case Objects: return "objects"
-        case Symbols: return "symbols"
-        case Flags: return "flags"
+        case PeopleAndSmiles: if #available(iOS 9.0, *) {  "peopleAndSmiles_iOS_9" } else { return "peopleAndSmiles_iOS_8" }
+        case Nature: if #available(iOS 9.0, *) { return "nature_iOS_9" } else { return "nature_iOS_8" }
+        case FoodAndDrinks: if #available(iOS 9.0, *) { return "foodAndDrinks_iOS_9" } else { return "foodAndDrinks_iOS_8" }
+        case Activity: if #available(iOS 9.0, *) { return "activity_iOS_9" } else { return "activity_iOS_8" }
+        case TravelAndPlaces: if #available(iOS 9.0, *) { return "travelAndPlaces_iOS_9" } else { return "travelAndPlaces_iOS_8" }
+        case Objects: if #available(iOS 9.0, *) { return "objects_iOS_9" } else { return "objects_iOS_8" }
+        case Symbols: if #available(iOS 9.0, *) { return "symbols_iOS_9" } else { return "symbols_iOS_8" }
+        case Flags: if #available(iOS 9.0, *) { return "flags_iOS_9" } else { return "flags_iOS_8" }
         }
+        return ""
     }
 }
 
@@ -73,6 +74,8 @@ class EmojiView: UIView {
     weak var textView: UITextView!
     
     var dataSource: StreamDataSource!
+    
+    var keybaordHandler: Block?
     
     private var emojis: [String]? {
         willSet {
@@ -122,11 +125,7 @@ class EmojiView: UIView {
     }
     
     @IBAction func returnKeyboard(sender: UIButton) {
-        textView.inputView = nil
-        if !isFirstResponder() {
-            becomeFirstResponder()
-        }
-        textView.reloadInputViews()
+        keybaordHandler?()
     }
 }
 

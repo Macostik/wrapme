@@ -30,9 +30,17 @@
 		5B37C75E1C5A06E30068E693 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37C75D1C5A06E30068E693 /* Button.swift */; };
 		5B3C792A1C7318B700EAB05D /* HintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3C79291C7318B700EAB05D /* HintView.swift */; };
 		5B40D6B21C2EBB1C009EF38C /* UploadWizardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40D6B11C2EBB1C009EF38C /* UploadWizardViewController.swift */; };
-		5B44EAFF1C9BF22B00BD6481 /* objects.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B44EAFE1C9BF22B00BD6481 /* objects.plist */; };
-		5B44EB011C9BF27300BD6481 /* symbols.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B44EB001C9BF27300BD6481 /* symbols.plist */; };
-		5B44EB031C9BF2B100BD6481 /* flags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B44EB021C9BF2B100BD6481 /* flags.plist */; };
+		5B436C9D1C9FFC5100635931 /* peopleAndSmiles_iOS_8.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B436C9C1C9FFC5100635931 /* peopleAndSmiles_iOS_8.plist */; };
+		5B436CA51C9FFCAD00635931 /* activity_iOS_8.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B436C9E1C9FFCAD00635931 /* activity_iOS_8.plist */; };
+		5B436CA61C9FFCAD00635931 /* flags_iOS_8.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B436C9F1C9FFCAD00635931 /* flags_iOS_8.plist */; };
+		5B436CA71C9FFCAD00635931 /* foodAndDrinks_iOS_8.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B436CA01C9FFCAD00635931 /* foodAndDrinks_iOS_8.plist */; };
+		5B436CA81C9FFCAD00635931 /* nature_iOS_8.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B436CA11C9FFCAD00635931 /* nature_iOS_8.plist */; };
+		5B436CA91C9FFCAD00635931 /* objects_iOS_8.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B436CA21C9FFCAD00635931 /* objects_iOS_8.plist */; };
+		5B436CAA1C9FFCAD00635931 /* symbols_iOS_8.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B436CA31C9FFCAD00635931 /* symbols_iOS_8.plist */; };
+		5B436CAB1C9FFCAD00635931 /* travelAndPlaces_iOS_8.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B436CA41C9FFCAD00635931 /* travelAndPlaces_iOS_8.plist */; };
+		5B44EAFF1C9BF22B00BD6481 /* objects_iOS_9.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B44EAFE1C9BF22B00BD6481 /* objects_iOS_9.plist */; };
+		5B44EB011C9BF27300BD6481 /* symbols_iOS_9.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B44EB001C9BF27300BD6481 /* symbols_iOS_9.plist */; };
+		5B44EB031C9BF2B100BD6481 /* flags_iOS_9.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B44EB021C9BF2B100BD6481 /* flags_iOS_9.plist */; };
 		5B47920A1C1B2B110090FDD2 /* libmmwormhole.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4792091C1B2B110090FDD2 /* libmmwormhole.a */; };
 		5B47920B1C1B2B280090FDD2 /* libmmwormhole.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4792091C1B2B110090FDD2 /* libmmwormhole.a */; };
 		5B4B59971C87410C0056D96A /* ShareExtImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B4B59951C8740FE0056D96A /* ShareExtImages.xcassets */; };
@@ -175,11 +183,11 @@
 		C54AF71619B8C491006F7EDB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70618DA0945008FF6F0 /* UIKit.framework */; };
 		C54AF71819B8C491006F7EDB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70218DA0945008FF6F0 /* Foundation.framework */; };
 		C54AF72219B8C491006F7EDB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
-		C54AF72619B8C491006F7EDB /* activity.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9171934B45C0001E570 /* activity.plist */; };
-		C54AF72719B8C491006F7EDB /* nature.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9131934B4460001E570 /* nature.plist */; };
-		C54AF73719B8C491006F7EDB /* foodAndDrinks.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9151934B44D0001E570 /* foodAndDrinks.plist */; };
-		C54AF73819B8C491006F7EDB /* peopleAndSmiles.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D90F1934B4350001E570 /* peopleAndSmiles.plist */; };
-		C54AF73A19B8C491006F7EDB /* travelAndPlaces.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9111934B4400001E570 /* travelAndPlaces.plist */; };
+		C54AF72619B8C491006F7EDB /* activity_iOS_9.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9171934B45C0001E570 /* activity_iOS_9.plist */; };
+		C54AF72719B8C491006F7EDB /* nature_iOS_9.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9131934B4460001E570 /* nature_iOS_9.plist */; };
+		C54AF73719B8C491006F7EDB /* foodAndDrinks_iOS_9.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9151934B44D0001E570 /* foodAndDrinks_iOS_9.plist */; };
+		C54AF73819B8C491006F7EDB /* peopleAndSmiles_iOS_9.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D90F1934B4350001E570 /* peopleAndSmiles_iOS_9.plist */; };
+		C54AF73A19B8C491006F7EDB /* travelAndPlaces_iOS_9.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9111934B4400001E570 /* travelAndPlaces_iOS_9.plist */; };
 		C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 12D578C619178C3400586995 /* iTunesArtwork */; };
 		C54C423E1BDE6260003E644D /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C423D1BDE6260003E644D /* Archive.swift */; };
 		C54C423F1BDE6260003E644D /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54C423D1BDE6260003E644D /* Archive.swift */; };
@@ -471,9 +479,17 @@
 		5B3DBD2E1C5243C100A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/logo_and_caption_orange@3x.png"; sourceTree = "<group>"; };
 		5B3DBD2F1C5243C100A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/logo_and_caption_white@3x.png"; sourceTree = "<group>"; };
 		5B40D6B11C2EBB1C009EF38C /* UploadWizardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadWizardViewController.swift; sourceTree = "<group>"; };
-		5B44EAFE1C9BF22B00BD6481 /* objects.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = objects.plist; sourceTree = "<group>"; };
-		5B44EB001C9BF27300BD6481 /* symbols.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = symbols.plist; sourceTree = "<group>"; };
-		5B44EB021C9BF2B100BD6481 /* flags.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = flags.plist; sourceTree = "<group>"; };
+		5B436C9C1C9FFC5100635931 /* peopleAndSmiles_iOS_8.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = peopleAndSmiles_iOS_8.plist; sourceTree = "<group>"; };
+		5B436C9E1C9FFCAD00635931 /* activity_iOS_8.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = activity_iOS_8.plist; sourceTree = "<group>"; };
+		5B436C9F1C9FFCAD00635931 /* flags_iOS_8.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = flags_iOS_8.plist; sourceTree = "<group>"; };
+		5B436CA01C9FFCAD00635931 /* foodAndDrinks_iOS_8.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = foodAndDrinks_iOS_8.plist; sourceTree = "<group>"; };
+		5B436CA11C9FFCAD00635931 /* nature_iOS_8.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = nature_iOS_8.plist; sourceTree = "<group>"; };
+		5B436CA21C9FFCAD00635931 /* objects_iOS_8.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = objects_iOS_8.plist; sourceTree = "<group>"; };
+		5B436CA31C9FFCAD00635931 /* symbols_iOS_8.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = symbols_iOS_8.plist; sourceTree = "<group>"; };
+		5B436CA41C9FFCAD00635931 /* travelAndPlaces_iOS_8.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = travelAndPlaces_iOS_8.plist; sourceTree = "<group>"; };
+		5B44EAFE1C9BF22B00BD6481 /* objects_iOS_9.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = objects_iOS_9.plist; sourceTree = "<group>"; };
+		5B44EB001C9BF27300BD6481 /* symbols_iOS_9.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = symbols_iOS_9.plist; sourceTree = "<group>"; };
+		5B44EB021C9BF2B100BD6481 /* flags_iOS_9.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = flags_iOS_9.plist; sourceTree = "<group>"; };
 		5B4792081C1B27060090FDD2 /* Today_Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Today_Bridge.h; sourceTree = "<group>"; };
 		5B4792091C1B2B110090FDD2 /* libmmwormhole.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmmwormhole.a; sourceTree = "<group>"; };
 		5B47920C1C1B2BDF0090FDD2 /* MMWormhole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMWormhole.h; sourceTree = "<group>"; };
@@ -495,11 +511,11 @@
 		5BF9F9AA1C5F70670075402C /* HomeDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDataSource.swift; sourceTree = "<group>"; };
 		8302B2CF78A9F0C0ED319A0E /* Pods_meWrap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meWrap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC1A179C1937694B002B3737 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		ACF8D90F1934B4350001E570 /* peopleAndSmiles.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = peopleAndSmiles.plist; sourceTree = "<group>"; };
-		ACF8D9111934B4400001E570 /* travelAndPlaces.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = travelAndPlaces.plist; sourceTree = "<group>"; };
-		ACF8D9131934B4460001E570 /* nature.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = nature.plist; sourceTree = "<group>"; };
-		ACF8D9151934B44D0001E570 /* foodAndDrinks.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = foodAndDrinks.plist; sourceTree = "<group>"; };
-		ACF8D9171934B45C0001E570 /* activity.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = activity.plist; sourceTree = "<group>"; };
+		ACF8D90F1934B4350001E570 /* peopleAndSmiles_iOS_9.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = peopleAndSmiles_iOS_9.plist; sourceTree = "<group>"; };
+		ACF8D9111934B4400001E570 /* travelAndPlaces_iOS_9.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = travelAndPlaces_iOS_9.plist; sourceTree = "<group>"; };
+		ACF8D9131934B4460001E570 /* nature_iOS_9.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = nature_iOS_9.plist; sourceTree = "<group>"; };
+		ACF8D9151934B44D0001E570 /* foodAndDrinks_iOS_9.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = foodAndDrinks_iOS_9.plist; sourceTree = "<group>"; };
+		ACF8D9171934B45C0001E570 /* activity_iOS_9.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = activity_iOS_9.plist; sourceTree = "<group>"; };
 		C502B30B1C47F2EC00F66EAE /* CandyNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyNotification.swift; sourceTree = "<group>"; };
 		C502B30C1C47F2EC00F66EAE /* CommentNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentNotification.swift; sourceTree = "<group>"; };
 		C502B30D1C47F2EC00F66EAE /* MessageNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageNotification.swift; sourceTree = "<group>"; };
@@ -1422,14 +1438,22 @@
 		C57F7AF21C1ECD6600FFB465 /* emoji */ = {
 			isa = PBXGroup;
 			children = (
-				ACF8D90F1934B4350001E570 /* peopleAndSmiles.plist */,
-				ACF8D9131934B4460001E570 /* nature.plist */,
-				ACF8D9151934B44D0001E570 /* foodAndDrinks.plist */,
-				ACF8D9171934B45C0001E570 /* activity.plist */,
-				ACF8D9111934B4400001E570 /* travelAndPlaces.plist */,
-				5B44EAFE1C9BF22B00BD6481 /* objects.plist */,
-				5B44EB001C9BF27300BD6481 /* symbols.plist */,
-				5B44EB021C9BF2B100BD6481 /* flags.plist */,
+				ACF8D90F1934B4350001E570 /* peopleAndSmiles_iOS_9.plist */,
+				ACF8D9131934B4460001E570 /* nature_iOS_9.plist */,
+				ACF8D9151934B44D0001E570 /* foodAndDrinks_iOS_9.plist */,
+				ACF8D9171934B45C0001E570 /* activity_iOS_9.plist */,
+				ACF8D9111934B4400001E570 /* travelAndPlaces_iOS_9.plist */,
+				5B44EAFE1C9BF22B00BD6481 /* objects_iOS_9.plist */,
+				5B44EB001C9BF27300BD6481 /* symbols_iOS_9.plist */,
+				5B44EB021C9BF2B100BD6481 /* flags_iOS_9.plist */,
+				5B436C9C1C9FFC5100635931 /* peopleAndSmiles_iOS_8.plist */,
+				5B436C9E1C9FFCAD00635931 /* activity_iOS_8.plist */,
+				5B436C9F1C9FFCAD00635931 /* flags_iOS_8.plist */,
+				5B436CA01C9FFCAD00635931 /* foodAndDrinks_iOS_8.plist */,
+				5B436CA11C9FFCAD00635931 /* nature_iOS_8.plist */,
+				5B436CA21C9FFCAD00635931 /* objects_iOS_8.plist */,
+				5B436CA31C9FFCAD00635931 /* symbols_iOS_8.plist */,
+				5B436CA41C9FFCAD00635931 /* travelAndPlaces_iOS_8.plist */,
 			);
 			name = emoji;
 			sourceTree = "<group>";
@@ -1804,44 +1828,52 @@
 				C560B16C1AE6A0580010B2EC /* AdobeCreativeSDKImageResources.bundle in Resources */,
 				C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */,
 				C53012921BF4E3EA00098F9C /* EmojiView.xib in Resources */,
+				5B436CA91C9FFCAD00635931 /* objects_iOS_8.plist in Resources */,
 				C5F44FEE1C5CB9780049215D /* EditAssetCell.xib in Resources */,
 				C5B8F7201B82172D00A5E541 /* DrawingViewController.xib in Resources */,
 				C5B91A4B1BB41343000E08E7 /* DownloadingView.xib in Resources */,
 				C5B91A361BB3F812000E08E7 /* Main.storyboard in Resources */,
 				C54AF72219B8C491006F7EDB /* Images.xcassets in Resources */,
 				C5B91A3B1BB40423000E08E7 /* SignUp.storyboard in Resources */,
-				C54AF72619B8C491006F7EDB /* activity.plist in Resources */,
-				C54AF72719B8C491006F7EDB /* nature.plist in Resources */,
+				C54AF72619B8C491006F7EDB /* activity_iOS_9.plist in Resources */,
+				C54AF72719B8C491006F7EDB /* nature_iOS_9.plist in Resources */,
+				5B436CA51C9FFCAD00635931 /* activity_iOS_8.plist in Resources */,
 				C5BEC3941B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */,
 				5BE7CD651C0D8781009A7617 /* ConfirmInvitationView.xib in Resources */,
 				5B66B5B91C24696800451113 /* WrapCell.xib in Resources */,
 				C5C3FEA81B8F311500F177EC /* Default-736h@3x.png in Resources */,
-				5B44EB011C9BF27300BD6481 /* symbols.plist in Resources */,
+				5B44EB011C9BF27300BD6481 /* symbols_iOS_9.plist in Resources */,
 				5B211FB21C087137000EC3DB /* (null) in Resources */,
-				5B44EAFF1C9BF22B00BD6481 /* objects.plist in Resources */,
+				5B44EAFF1C9BF22B00BD6481 /* objects_iOS_9.plist in Resources */,
 				C5F11E551C64A21C001C2486 /* TestUserCell.xib in Resources */,
 				C5BEC38D1B8F129100499EEA /* logo_and_caption_orange@3x.png in Resources */,
 				C5BEC3A31B8F16E800499EEA /* logo_and_caption_orange.png in Resources */,
-				5B44EB031C9BF2B100BD6481 /* flags.plist in Resources */,
+				5B44EB031C9BF2B100BD6481 /* flags_iOS_9.plist in Resources */,
 				C57F7AF01C1ECD5F00FFB465 /* violations.plist in Resources */,
 				C51B4BEA1C3AA3B8009F1566 /* terms_and_conditions.rtf in Resources */,
+				5B436CA71C9FFCAD00635931 /* foodAndDrinks_iOS_8.plist in Resources */,
+				5B436C9D1C9FFC5100635931 /* peopleAndSmiles_iOS_8.plist in Resources */,
 				C57F7AEF1C1ECD5F00FFB465 /* test-users.plist in Resources */,
-				C54AF73719B8C491006F7EDB /* foodAndDrinks.plist in Resources */,
+				5B436CA81C9FFCAD00635931 /* nature_iOS_8.plist in Resources */,
+				C54AF73719B8C491006F7EDB /* foodAndDrinks_iOS_9.plist in Resources */,
 				C5B91A601BB4177B000E08E7 /* ConfirmAuthorizationView.xib in Resources */,
-				C54AF73819B8C491006F7EDB /* peopleAndSmiles.plist in Resources */,
+				C54AF73819B8C491006F7EDB /* peopleAndSmiles_iOS_9.plist in Resources */,
 				C5C3FEA41B8F311500F177EC /* Default-568h@2x.png in Resources */,
 				C5BEC3A71B8F16E800499EEA /* logo_and_caption_white.png in Resources */,
-				C54AF73A19B8C491006F7EDB /* travelAndPlaces.plist in Resources */,
+				C54AF73A19B8C491006F7EDB /* travelAndPlaces_iOS_9.plist in Resources */,
 				C5B91A3E1BB40D88000E08E7 /* Camera.storyboard in Resources */,
 				C509E2BA1B96F46A003F6C21 /* Default-667h@2x.png in Resources */,
 				C5C3FEAC1B8F311500F177EC /* Default-Portrait.png in Resources */,
 				C5C3FEAA1B8F311500F177EC /* Default@2x.png in Resources */,
+				5B436CAA1C9FFCAD00635931 /* symbols_iOS_8.plist in Resources */,
 				C5BEC3A51B8F16E800499EEA /* logo_and_caption_orange@2x.png in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,
 				C5C3FEB01B8F311500F177EC /* Default.png in Resources */,
 				5BA6AA451A66779E00493582 /* Localizable.strings in Resources */,
 				C5BEC3A91B8F16E800499EEA /* logo_and_caption_white@2x.png in Resources */,
+				5B436CAB1C9FFCAD00635931 /* travelAndPlaces_iOS_8.plist in Resources */,
 				C560B1721AE6A19B0010B2EC /* AdobeCreativeSDKCoreResources.bundle in Resources */,
+				5B436CA61C9FFCAD00635931 /* flags_iOS_8.plist in Resources */,
 				C5C3FEAE1B8F311500F177EC /* Default-Portrait@2x.png in Resources */,
 				5B2960671C6103BE008D121A /* meWrapShareExt-Info.plist in Resources */,
 				C57F7AF11C1ECD5F00FFB465 /* country-codes.json in Resources */,

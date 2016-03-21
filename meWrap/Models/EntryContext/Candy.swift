@@ -27,7 +27,13 @@ final class Candy: Contribution {
         }
     }
     
-    lazy var latestComment: Comment? = self.comments.sort({ $0.createdAt.later($1.createdAt) }).first
+    private var _latestComment: Comment?
+    var latestComment: Comment? {
+        if _latestComment == nil {
+            _latestComment = comments.sort({ $0.createdAt.later($1.createdAt) }).first
+        }
+        return _latestComment
+    }
     
     override func willBecomeUnread(unread: Bool) {
         if let wrap = wrap {
@@ -79,7 +85,7 @@ final class Candy: Contribution {
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == "comments" {
-            latestComment = nil
+            _latestComment = nil
         } else if keyPath == "updatedAt" {
             wrap?.recentCandies = nil
             wrap?.historyCandies = nil

@@ -302,12 +302,13 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
         let device = result.device
         
         if event == "timeout" || event == "leave" {
-            user.isActive = false
+            device.isActive = false
         } else if event == "join" {
-            user.isActive = true
+            device.isActive = true
         }
         
         if event == "state-change" {
+            device.isActive = true
             guard let wrap = Wrap.entry(data.actualChannel) else { return }
             device.activity.handleState(data.presence.state, wrap: wrap)
             if device.activity.type == .Live {

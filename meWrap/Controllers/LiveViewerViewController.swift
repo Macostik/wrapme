@@ -149,7 +149,7 @@ class LiveViewerViewController: LiveViewController {
         backButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         backButton.setTitleColor(UIColor.whiteColor().darkerColor(), forState: .Normal)
         backButton.setTitle("w", forState: .Normal)
-        backButton.addTarget(self, action: "close:", forControlEvents: .TouchUpInside)
+        backButton.addTarget(self, action: #selector(LiveViewController.close(_:)), forControlEvents: .TouchUpInside)
         coverView.addSubview(backButton)
         
         coverView.snp_makeConstraints(closure: { $0.edges.equalTo(view) })

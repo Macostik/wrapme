@@ -17,8 +17,8 @@ class StoryboardTransition: NSObject {
             if let sourceValue = sourceValue {
                 controller.setValue(sourceViewController?.valueForKeyPath(sourceValue), forKeyPath: destinationValue ?? sourceValue)
             }
-            if sourceIsDelegate && controller.respondsToSelector("setDelegate:") {
-                controller.performSelector("setDelegate:", withObject: sourceViewController)
+            if sourceIsDelegate && controller.respondsToSelector(#selector(NSPort.setDelegate(_:))) {
+                controller.performSelector(#selector(NSPort.setDelegate(_:)), withObject: sourceViewController)
             }
             return controller
         } else {

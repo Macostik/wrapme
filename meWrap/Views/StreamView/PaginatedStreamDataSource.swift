@@ -39,14 +39,15 @@ class PaginatedStreamDataSource: StreamDataSource {
         }
     }
     
-    func setLoading(var loading: Bool) {
+    func setLoading(loading: Bool) {
+        var _loading = loading
         if !Network.sharedNetwork.reachable {
-            loading = false
+          _loading = false
         }
         
-        if (placeholderMetrics?.hidden != loading || loadingMetrics.hidden == loading) {
-            placeholderMetrics?.hidden = loading
-            loadingMetrics.hidden = !loading
+        if (placeholderMetrics?.hidden != _loading || loadingMetrics.hidden == _loading) {
+            placeholderMetrics?.hidden = _loading
+            loadingMetrics.hidden = !_loading
             reload()
         }
     }

@@ -55,7 +55,7 @@ final class HintView: GradientView {
             button.cornerRadius = 5
             button.titleLabel?.font = UIFont.fontSmall()
             button.setTitle("got_it".ls , forState: .Normal)
-            button.addTarget(self, action: "hide:", forControlEvents: .TouchUpInside)
+            button.addTarget(self, action: #selector(HintView.hide(_:)), forControlEvents: .TouchUpInside)
             self.addSubview(button)
             button.snp_makeConstraints(closure: {
                 $0.trailing.equalTo(-12)

@@ -11,6 +11,8 @@ import AFNetworking
 
 struct Environment: CustomStringConvertible {
     
+    static let ENV = NSBundle.mainBundle().objectForInfoDictionaryKey("Environment") as! String
+    
     static var ErrorDomain = "com.mewrap.error"
     static var ErrorResponseDataKey = "\(Environment.ErrorDomain).response.data"
     

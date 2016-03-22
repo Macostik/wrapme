@@ -62,7 +62,7 @@ class HistoryItemCell: StreamReusableView {
         dateView.backgroundColor = UIColor.whiteColor()
         dateView.borderWidth = 1
         dateView.borderColor = Color.orange
-        dateView.addTarget(self, action: "openHistoryItem:", forControlEvents: .TouchUpInside)
+        dateView.addTarget(self, action: #selector(HistoryItemCell.openHistoryItem(_:)), forControlEvents: .TouchUpInside)
         addSubview(dateView)
         
         let dateLabel = Label(preset: FontPreset.Normal, weight: UIFontWeightRegular, textColor: Color.orange)
@@ -261,8 +261,8 @@ class MediaViewController: WrapSegmentViewController {
         
         let refresher = Refresher(scrollView: streamView)
         refresher.style = .Orange
-        refresher.addTarget(dataSource, action: "refresh:", forControlEvents: .ValueChanged)
-        refresher.addTarget(self, action: "refreshUserActivities", forControlEvents: .ValueChanged)
+        refresher.addTarget(dataSource, action: #selector(StreamDataSource.refresh(_:)), forControlEvents: .ValueChanged)
+        refresher.addTarget(self, action: #selector(MediaViewController.refreshUserActivities), forControlEvents: .ValueChanged)
         
         uploadingView.uploader = Uploader.candyUploader
         

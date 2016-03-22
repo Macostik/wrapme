@@ -68,7 +68,7 @@ final class SingleAddressBookRecordCell: AddressBookRecordCell {
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         infoLabel.numberOfLines = 0
-        selectButton.addTarget(self, action: "_select:", forControlEvents: .TouchUpInside)
+        selectButton.addTarget(self, action: #selector(AddressBookRecordCell.select(_:)), forControlEvents: .TouchUpInside)
         addSubview(avatarView)
         addSubview(nameLabel)
         addSubview(infoLabel)
@@ -133,7 +133,8 @@ final class MultipleAddressBookRecordCell: AddressBookRecordCell {
     private var dataSource: StreamDataSource!
     private let avatarView = ImageView(backgroundColor: UIColor.whiteColor())
     private let openView = specify(UIButton(type: .Custom)) {
-        $0.titleLabel?.font = UIFont(name: "icons", size: 18)
+        let descriptor =  UIFontDescriptor(name: "icons", size: 18.0)
+        $0.titleLabel?.font = UIFont(descriptor: descriptor, size: 18.0)
         $0.setTitle("y", forState: .Normal)
         $0.setTitle("z", forState: .Selected)
         $0.setTitleColor(Color.grayLighter, forState: .Normal)
@@ -159,7 +160,7 @@ final class MultipleAddressBookRecordCell: AddressBookRecordCell {
                 self?.selectPhoneNumber(phoneNumber as? AddressBookPhoneNumber)
             }
             }))
-        openView.addTarget(self, action: "open:", forControlEvents: .TouchUpInside)
+        openView.addTarget(self, action: #selector(MultipleAddressBookRecordCell.open(_:)), forControlEvents: .TouchUpInside)
         avatarView.cornerRadius = 24
         let infoLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLight)
         infoLabel.text = "invite_me_to_meWrap".ls

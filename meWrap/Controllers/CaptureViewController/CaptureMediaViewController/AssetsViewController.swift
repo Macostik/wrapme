@@ -133,7 +133,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
             }
             }))
         
-        streamView.panGestureRecognizer.addTarget(self, action: "hideAssetsViewController")
+        streamView.panGestureRecognizer.addTarget(self, action: #selector(AssetsViewController.hideAssetsViewController))
         
         PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
         

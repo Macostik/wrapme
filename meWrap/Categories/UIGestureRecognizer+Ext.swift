@@ -38,7 +38,7 @@ extension UIGestureRecognizer {
     
     convenience init(view: UIView, closure: GestureAction) {
         self.init()
-        addTarget(self, action: "action:")
+        addTarget(self, action: #selector(UIGestureRecognizer.action(_:)))
         actionClosure = closure
         view.addGestureRecognizer(self)
     }

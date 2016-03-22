@@ -24,7 +24,7 @@ class Keyboard: Notifier {
     var animationCurve: UIViewAnimationCurve = .Linear
     var isShown = false
     
-    lazy var tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tap:")
+    lazy var tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(Keyboard.tap(_:)))
     
     override init() {
         super.init()

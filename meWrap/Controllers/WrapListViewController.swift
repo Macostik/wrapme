@@ -179,7 +179,7 @@ extension String {
     func subString(firstCharacter: String, secondCharacter: String, options mask: NSStringCompareOptions = .CaseInsensitiveSearch) -> String? {
         if let startIndex = self.rangeOfString(firstCharacter, options: mask, range: nil, locale: nil)?.endIndex {
             if let endIndex = self.rangeOfString(secondCharacter, options: mask, range: nil, locale: nil)?.startIndex where endIndex > startIndex {
-                return self[Range(start: startIndex, end: endIndex)]
+                return self[Range(startIndex ..< endIndex)]
             }
         }
         return nil

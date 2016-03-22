@@ -20,7 +20,7 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
         imageView.defaultIconText = "t"
         imageView.defaultIconColor = Color.grayLighter
         let pressedStateButton = Button(type: .Custom)
-        pressedStateButton.addTarget(self, action: "select", forControlEvents: .TouchUpInside)
+        pressedStateButton.addTarget(self, action: #selector(CandyCell.select), forControlEvents: .TouchUpInside)
         pressedStateButton.highlightedColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
         pressedStateButton.normalColor = UIColor.clearColor()
         pressedStateButton.exclusiveTouch = true

@@ -197,10 +197,10 @@ final class Wrap: Contribution {
         var count = 0
         for candy in self.candies where candy.updatedAt > dayAgo {
             if candy.unread && (candy.createdAt > dayAgo || candy.editedAt > dayAgo) {
-                count++
+                count += 1
             }
             for comment in candy.comments where comment.unread && comment.createdAt > dayAgo {
-                count++
+                count += 1
             }
         }
         return count

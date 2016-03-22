@@ -212,7 +212,7 @@ final class TestUserPicker: UIView {
         }
         
         layoutIfNeeded()
-        closeButton.addTarget(self, action: "removeFromSuperview", forControlEvents: .TouchUpInside)
+        closeButton.addTarget(self, action: #selector(UIView.removeFromSuperview), forControlEvents: .TouchUpInside)
         
         TestUser.testUsers { [weak self] authorizations in
             self?.dataSource.items = authorizations

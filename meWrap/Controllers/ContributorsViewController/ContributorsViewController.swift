@@ -137,7 +137,7 @@ extension ContributorsViewController: ContributorCellDelegate {
         APIRequest.resendInvite(wrap, user: contributor).send({ [weak self] (_) -> Void in
             completionHandler(true)
             self?.invitedContributors.insert(contributor)
-            self?.enqueueSelector("hideMenuForContributor:", argument: contributor, delay: 3.0)
+            self?.enqueueSelector(#selector(ContributorsViewController.hideMenuForContributor(_:)), argument: contributor, delay: 3.0)
             }) { (error) -> Void in
                 error?.show()
                 completionHandler(false)
@@ -150,7 +150,7 @@ extension ContributorsViewController: ContributorCellDelegate {
     
     func contributorCell(cell: ContributorCell, didToggleMenu contributor: User) {
         if let contributor = contributiorWithOpenedMenu {
-            NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:"hideMenuForContributor:", object:contributor)
+            NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:#selector(ContributorsViewController.hideMenuForContributor(_:)), object:contributor)
         }
         
         if contributiorWithOpenedMenu == contributor {

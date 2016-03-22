@@ -109,7 +109,7 @@ final class HomePlaceholderView: PlaceholderView {
         actionButton.titleLabel?.font = UIFont.fontWithPreset(.Normal, weight: UIFontWeightLight)
         actionButton.clipsToBounds = true
         actionButton.cornerRadius = 6
-        actionButton.addTarget(self, action: "action:", forControlEvents: .TouchUpInside)
+        actionButton.addTarget(self, action: #selector(HomePlaceholderView.action(_:)), forControlEvents: .TouchUpInside)
         containerView.addSubview(actionButton)
         containerView.snp_makeConstraints { (make) -> Void in
             make.center.equalTo(self)

@@ -84,7 +84,7 @@ final class StreamView: UIScrollView {
     
     private func setup() {
         subscribeOnOffsetChange()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "locksChanged", name: StreamViewCommonLocksChanged, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(StreamView.locksChanged), name: StreamViewCommonLocksChanged, object: nil)
     }
     
     private func unsubscribeFromOffsetChange() {
@@ -122,12 +122,12 @@ final class StreamView: UIScrollView {
     }
     
     class func lock() {
-        locks++
+        locks += 1
     }
     
     class func unlock() {
         if (locks > 0) {
-            locks--
+            locks -= 1
             NSNotificationCenter.defaultCenter().postNotificationName(StreamViewCommonLocksChanged, object: nil)
         }
     }
@@ -140,12 +140,12 @@ final class StreamView: UIScrollView {
     }
     
     func lock() {
-        locks++
+        locks += 1
     }
     
     func unlock() {
         if (locks > 0) {
-            locks--
+            locks -= 1
             locksChanged()
         }
     }

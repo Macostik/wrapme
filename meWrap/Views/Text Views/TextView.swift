@@ -29,7 +29,7 @@ class TextView: UITextView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "textDidChange", name: UITextViewTextDidChangeNotification, object: self)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TextView.textDidChange), name: UITextViewTextDidChangeNotification, object: self)
         if editable && dataDetectorTypes != .None {
             dataDetectorTypes = .All
         }

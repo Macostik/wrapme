@@ -89,7 +89,7 @@ class NotificationSubscription: NSObject {
                         let messages = NSMutableArray()
                         for channel in channels {
                             pubnub.historyForChannel(channel, start: startDate, end: endDate, includeTimeToken: true, withCompletion: { (result, status) -> Void in
-                                fetchedChannels++
+                                fetchedChannels += 1
                                 if let _messages = result?.data.messages {
                                     messages.addObjectsFromArray(_messages)
                                 }

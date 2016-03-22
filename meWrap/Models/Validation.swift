@@ -48,7 +48,7 @@ class TextFieldValidation: Validation {
     
     override weak var inputView: UITextField! {
         didSet {
-            inputView.addTarget(self, action: "textDidChange", forControlEvents: .EditingChanged)
+            inputView.addTarget(self, action: #selector(TextFieldValidation.textDidChange), forControlEvents: .EditingChanged)
         }
     }
     

@@ -32,8 +32,8 @@ class VolumeChangeObserver : NSObject {
         self.success = success
         defer {
             let center = NSNotificationCenter.defaultCenter()
-            center.addObserver(self, selector: "sessionInterruption:", name: AVAudioSessionInterruptionNotification, object: nil)
-            center.addObserver(self, selector: "activate:", name: UIApplicationDidBecomeActiveNotification, object: nil)
+            center.addObserver(self, selector: #selector(VolumeChangeObserver.sessionInterruption(_:)), name: AVAudioSessionInterruptionNotification, object: nil)
+            center.addObserver(self, selector: #selector(VolumeChangeObserver.activate(_:)), name: UIApplicationDidBecomeActiveNotification, object: nil)
             audioSession.addObserver(self, forKeyPath: "outputVolume", options: [.New, .Old] , context:nil)
             changeVolumeValue(false)
         }

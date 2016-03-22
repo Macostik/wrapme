@@ -200,7 +200,7 @@ class UploadWizardEndViewController: BaseViewController {
             message.appendAttributedString(action)
             descriptionLabel.attributedText = message
             descriptionLabel.userInteractionEnabled = true
-            descriptionLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "addFriends:"))
+            descriptionLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UploadWizardEndViewController.addFriends(_:))))
         }
     }
     

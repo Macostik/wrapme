@@ -309,7 +309,7 @@ extension Candy {
     
     func uploadComment(text: String) {
         let comment = Comment.comment(text)
-        commentCount++
+        commentCount += 1
         comment.candy = self
         Uploader.commentUploader.upload(Uploading.uploading(comment))
         comment.notifyOnAddition()

@@ -102,7 +102,7 @@ class ImageCache: NSObject {
     
     private func enqueueCheckSize() {
         if permitted {
-            enqueueSelector("checkSizeInBackground")
+            enqueueSelector(#selector(ImageCache.checkSizeInBackground))
         }
     }
     

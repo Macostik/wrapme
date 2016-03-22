@@ -109,7 +109,7 @@ class StreamDataSource: NSObject, GridLayoutDelegate, StreamLayoutDelegate {
         if let streamView = streamView {
             let refresher = Refresher(scrollView: streamView)
             refresher.style = style
-            refresher.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
+            refresher.addTarget(self, action: #selector(StreamDataSource.refresh(_:)), forControlEvents: .ValueChanged)
         }
     }
     

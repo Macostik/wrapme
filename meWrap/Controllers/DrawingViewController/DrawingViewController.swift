@@ -98,7 +98,7 @@ class DrawingViewController: BaseViewController {
             self.session.brush.width = size - 0.25
             updateBrushView()
             if sender.tracking && sender.touchInside {
-                performSelector("decreaseBrush:", withObject:sender, afterDelay:0.0)
+                performSelector(#selector(DrawingViewController.decreaseBrush(_:)), withObject:sender, afterDelay:0.0)
             }
         }
     }
@@ -109,7 +109,7 @@ class DrawingViewController: BaseViewController {
             session.brush.width = size + 0.25
             updateBrushView()
             if sender.tracking && sender.touchInside {
-                performSelector("increaseBrush:", withObject:sender, afterDelay:0.0)
+                performSelector(#selector(DrawingViewController.increaseBrush(_:)), withObject:sender, afterDelay:0.0)
             }
         }
     }

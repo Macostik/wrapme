@@ -27,7 +27,7 @@ class SlideInteractiveTransition: NSObject, UIGestureRecognizerDelegate {
     private weak var contentView: UIView!
     private weak var imageView: UIImageView?
     private weak var originImageView: UIImageView?
-    lazy var panGestureRecognizer: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
+    lazy var panGestureRecognizer: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(SlideInteractiveTransition.handlePanGesture(_:)))
     
     required init (contentView: UIView, imageView: UIImageView? = nil) {
         self.contentView = contentView

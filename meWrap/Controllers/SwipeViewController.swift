@@ -90,7 +90,7 @@ class SwipeViewController: BaseViewController {
         scrollView.pagingEnabled = true
         scrollView.delegate = self
         scrollView.decelerationRate = UIScrollViewDecelerationRateFast
-        scrollView.panGestureRecognizer.addTarget(self, action: "panning:")
+        scrollView.panGestureRecognizer.addTarget(self, action: #selector(SwipeViewController.panning(_:)))
     }
     
     func panning(sender: UIPanGestureRecognizer) {

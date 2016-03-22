@@ -188,7 +188,7 @@ class CommentsViewController: BaseViewController {
     var typing = false {
         didSet {
             if typing != oldValue {
-                enqueueSelector("sendTypingStateChange", delay: 1)
+                enqueueSelector(#selector(CommentsViewController.sendTypingStateChange), delay: 1)
             }
         }
     }
@@ -275,7 +275,7 @@ extension CommentsViewController: ComposeBarDelegate {
     
     func composeBarDidChangeText(composeBar: ComposeBar) {
         typing = composeBar.text?.isEmpty == false
-        enqueueSelector("typingIdled", argument: nil, delay: 3)
+        enqueueSelector(#selector(CommentsViewController.typingIdled), argument: nil, delay: 3)
     }
     
     func typingIdled() {

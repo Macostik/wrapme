@@ -196,12 +196,12 @@ extension Asset {
             var fetched = 0
             for url in urls {
                 BlockImageFetching.enqueue(url, success: { (image) -> Void in
-                    fetched++
+                    fetched += 1
                     if urls.count == fetched {
                         completionHandler()
                     }
                     }, failure: { (error) -> Void in
-                        fetched++
+                        fetched += 1
                         if urls.count == fetched {
                             completionHandler()
                         }

@@ -56,7 +56,7 @@ class CommentDeleteNotification: CommentNotification {
     override func submit() {
         guard let comment = comment else { return }
         if let candy = comment.candy {
-            candy.commentCount--
+            candy.commentCount -= 1
         }
         comment.remove()
     }

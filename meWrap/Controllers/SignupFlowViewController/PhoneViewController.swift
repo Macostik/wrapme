@@ -41,7 +41,7 @@ class PhoneTextField: TextField {
     }
     
     private func registerForNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "numberTextDidChange", name: UITextFieldTextDidChangeNotification, object: self)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PhoneTextField.numberTextDidChange), name: UITextFieldTextDidChangeNotification, object: self)
     }
     
     func numberTextDidChange() {

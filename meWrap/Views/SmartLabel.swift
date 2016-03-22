@@ -106,8 +106,8 @@ final class SmartLabel: Label, UIGestureRecognizerDelegate,  MFMailComposeViewCo
     
     func setup () {
         self.userInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: "tapLink:")
-        let longPress = UILongPressGestureRecognizer(target: self, action: "longPress:")
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(SmartLabel.tapLink(_:)))
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(SmartLabel.longPress(_:)))
         self.tapGesture = tapGesture
         self.longPress = longPress
         tapGesture.delegate = self
@@ -137,7 +137,7 @@ final class SmartLabel: Label, UIGestureRecognizerDelegate,  MFMailComposeViewCo
         let textFrame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(0, count), drawingPath, nil)
         let lines = CTFrameGetLines(textFrame)
         let linesCount = CFArrayGetCount(lines)
-        for var counter: Int = 0; counter < linesCount; counter++ {
+        for counter: Int in 0 ..< linesCount {
             let line = CFArrayGetValueAtIndex(lines, counter)
             let evaluateLine = unsafeBitCast(line, CTLineRef.self)
             let runs = CTLineGetGlyphRuns(evaluateLine)
@@ -212,11 +212,12 @@ final class SmartLabel: Label, UIGestureRecognizerDelegate,  MFMailComposeViewCo
         }
     }
     
-    func validUrl(var link: String) -> NSURL? {
-        if link.rangeOfString("http(s)?://", options: [.RegularExpressionSearch, .CaseInsensitiveSearch]) == nil {
-            link = "http://" + link
+    func validUrl(link: String) -> NSURL? {
+        var _link = link
+        if _link.rangeOfString("http(s)?://", options: [.RegularExpressionSearch, .CaseInsensitiveSearch]) == nil {
+            _link = "http://" + _link
         }
-        return NSURL(string: link)
+        return NSURL(string: _link)
     }
     
     //MARK: MFMailComposeViewControllerDelegate

@@ -38,13 +38,13 @@ struct Logger {
     
     private static let Escape = "\u{001b}["
     
-    static func debugLog(string: String, color: LogColor = .Default, filename: String = __FILE__, line: Int = __LINE__) {
+    static func debugLog(string: String, color: LogColor = .Default, filename: String = #file, line: Int = #line) {
         #if DEBUG
             Slim.debug("\(Escape)\(color.rawValue)\n\(string)\n\n\(Escape);", filename: filename, line: line)
         #endif
     }
     
-    static func log(string: String, color: LogColor = .Default, filename: String = __FILE__, line: Int = __LINE__) {
+    static func log(string: String, color: LogColor = .Default, filename: String = #file, line: Int = #line) {
         #if DEBUG
             Slim.debug("\(Escape)\(color.rawValue)\n\(string)\n\n\(Escape);", filename: filename, line: line)
         #else

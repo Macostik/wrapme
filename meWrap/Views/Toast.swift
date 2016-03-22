@@ -119,7 +119,7 @@ final class Toast: UIView {
                 self.queuedMessages.remove(message)
                 finish()
             }
-            self.enqueueSelector("dismiss", delay: Toast.DismissalDelay)
+            self.enqueueSelector(#selector(Toast.dismiss), delay: Toast.DismissalDelay)
         }
     }
     
@@ -137,7 +137,7 @@ final class Toast: UIView {
     }
     
     func dismiss() {
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: "dismiss", object: nil)
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(Toast.dismiss), object: nil)
         UIView.animateWithDuration(0.25, animations: { self.alpha = 0 }, completion: { (_) -> Void in
             self.removeFromSuperview()
             self.dismissBlock?()
@@ -178,8 +178,8 @@ extension UIViewController {
     }
     
     func toastAppearanceReferenceView(toast: Toast) -> UIView {
-        if respondsToSelector("navigationBar") {
-            return performSelector("navigationBar")?.takeUnretainedValue() as? UIView ?? view
+        if respondsToSelector(Selector("navigationBar")) {
+            return performSelector(Selector("navigationBar"))?.takeUnretainedValue() as? UIView ?? view
         } else {
             return view
         }

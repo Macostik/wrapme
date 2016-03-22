@@ -100,7 +100,7 @@ final class SwipeAction: NSObject {
     init(view: UIView) {
         super.init()
         self.view = view
-        let recognizer = UIPanGestureRecognizer(target: self, action: "panning:")
+        let recognizer = UIPanGestureRecognizer(target: self, action: #selector(SwipeAction.panning(_:)))
         recognizer.delegate = self
         view.addGestureRecognizer(recognizer)
         panGestureRecognizer = recognizer
@@ -154,7 +154,7 @@ final class SwipeAction: NSObject {
             }, completion: { (_) -> Void in
                 self.view.backgroundColor = UIColor.whiteColor()
                 self.didPerformAction?(self, self.direction)
-                self.performSelector("reset", withObject: nil, afterDelay: 0.5)
+                self.performSelector(#selector(SwipeAction.reset), withObject: nil, afterDelay: 0.5)
         })
     }
     

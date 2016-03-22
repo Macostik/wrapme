@@ -34,7 +34,7 @@ class Refresher: UIControl {
         scrollView.addSubview(self)
         inset = scrollView.contentInset.top
         contentMode = .Center
-        scrollView.panGestureRecognizer.addTarget(self, action:"dragging:")
+        scrollView.panGestureRecognizer.addTarget(self, action:#selector(Refresher.dragging(_:)))
         spinner.hidesWhenStopped = true
         addSubview(contentView)
         contentView.addSubview(spinner)
@@ -68,7 +68,8 @@ class Refresher: UIControl {
     
     private lazy var candyView: UILabel = {
         let candyView = UILabel(frame: CGRectMake(0, 0, 36, 36))
-        candyView.font = UIFont(name: "icons", size: 24)
+        let descriptior = UIFontDescriptor(name: "icons", size: 24.0)
+        candyView.font = UIFont(descriptor: descriptior, size: 24.0)
         candyView.text = "e"
         candyView.textAlignment = .Center
         candyView.clipsToBounds = true

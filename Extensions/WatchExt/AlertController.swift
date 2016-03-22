@@ -22,6 +22,6 @@ class AlertController: WKInterfaceController {
             errorLabel.setText(text)
         }
         
-        performSelector("popController", withObject: nil, afterDelay: 3)
+        performSelector(#selector(WKInterfaceController.popController), withObject: nil, afterDelay: 3)
     }
 }

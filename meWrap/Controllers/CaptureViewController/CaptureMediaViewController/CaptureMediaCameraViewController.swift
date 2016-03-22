@@ -63,7 +63,7 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     override func viewDidLoad() {
         super.viewDidLoad()
         setupWrapView(wrap)
-        let recognizer = UILongPressGestureRecognizer(target:self, action:"startVideoRecording:")
+        let recognizer = UILongPressGestureRecognizer(target:self, action:#selector(CaptureMediaCameraViewController.startVideoRecording(_:)))
         recognizer.allowableMovement = takePhotoButton.width
         recognizer.delegate = self
         takePhotoButton.addGestureRecognizer(recognizer)
@@ -209,7 +209,7 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
         case .Began:
             updateVideoRecordingViews(true)
             prepareSessionForVideoRecording {
-                self.startVideoRecordingTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "startVideoRecording", userInfo: nil, repeats: false)
+                self.startVideoRecordingTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(CaptureMediaCameraViewController.startVideoRecording as (CaptureMediaCameraViewController) -> () -> ()), userInfo: nil, repeats: false)
             }
         case .Changed:
             let location = sender.locationInView(videoRecordingView)
@@ -273,7 +273,7 @@ extension CaptureMediaCameraViewController: AVCaptureFileOutputRecordingDelegate
         videoRecordingProgressBar.progress = 0;
         videoRecordingView.hidden = false
         videoRecordingTimer?.invalidate()
-        videoRecordingTimer = NSTimer.scheduledTimerWithTimeInterval(videoRecordingTimerInterval, target: self, selector: "recordingTimerChanged:", userInfo: nil, repeats: true)
+        videoRecordingTimer = NSTimer.scheduledTimerWithTimeInterval(videoRecordingTimerInterval, target: self, selector: #selector(CaptureMediaCameraViewController.recordingTimerChanged(_:)), userInfo: nil, repeats: true)
     }
     
     func recordingTimerChanged(timer: NSTimer) {

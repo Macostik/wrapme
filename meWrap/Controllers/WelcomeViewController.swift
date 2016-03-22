@@ -21,7 +21,7 @@ class WelcomeViewController: BaseViewController {
         if !Environment.isProduction {
             let environmentButton = UIButton(type: .Custom)
             environmentButton.setTitle("Environment: \(Environment.current.name)", forState: .Normal)
-            environmentButton.addTarget(self, action: "changeEnvironment:", forControlEvents: .TouchUpInside)
+            environmentButton.addTarget(self, action: #selector(WelcomeViewController.changeEnvironment(_:)), forControlEvents: .TouchUpInside)
             view.addSubview(environmentButton)
             environmentButton.snp_makeConstraints(closure: { (make) -> Void in
                 make.centerX.equalTo(view)

@@ -93,8 +93,8 @@ final class HomeViewController: BaseViewController {
         
         let refresher = Refresher(scrollView: self.streamView)
         refresher.style = .Orange
-        refresher.addTarget(dataSource, action: "refresh:", forControlEvents: .ValueChanged)
-        refresher.addTarget(self, action: "refreshUserActivities", forControlEvents: .ValueChanged)
+        refresher.addTarget(dataSource, action: #selector(StreamDataSource.refresh(_:)), forControlEvents: .ValueChanged)
+        refresher.addTarget(self, action: #selector(HomeViewController.refreshUserActivities), forControlEvents: .ValueChanged)
         
         super.viewDidLoad()
         
@@ -113,7 +113,7 @@ final class HomeViewController: BaseViewController {
         
         uploadingView.uploader = Uploader.candyUploader
         
-        NSUserDefaults.standardUserDefaults().numberOfLaunches++
+        NSUserDefaults.standardUserDefaults().numberOfLaunches += 1
         
         Dispatch.mainQueue.async { [weak self] _ in
             RunQueue.fetchQueue.run { finish in
@@ -165,7 +165,7 @@ final class HomeViewController: BaseViewController {
     
     private func deadlineEmailConfirmationView() {
         NSUserDefaults.standardUserDefaults().confirmationDate = NSDate.now()
-        performSelector("hideConfirmationEmailView", withObject:nil, afterDelay:15.0)
+        performSelector(#selector(HomeViewController.hideConfirmationEmailView), withObject:nil, afterDelay:15.0)
     }
     
     func hideConfirmationEmailView() {

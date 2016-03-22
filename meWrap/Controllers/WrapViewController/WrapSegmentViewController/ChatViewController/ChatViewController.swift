@@ -69,13 +69,13 @@ final class ChatViewController: WrapSegmentViewController {
         chat.resetMessages()
         scrollToLastUnreadMessage()
         NSNotificationCenter.defaultCenter().removeObserver(self, name:UIApplicationDidBecomeActiveNotification, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"applicationWillResignActive", name:UIApplicationWillResignActiveNotification, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ChatViewController.applicationWillResignActive), name:UIApplicationWillResignActiveNotification, object:nil)
     }
     
     func applicationWillResignActive() {
         streamView.lock()
         NSNotificationCenter.defaultCenter().removeObserver(self, name:UIApplicationWillResignActiveNotification, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"applicationDidBecomeActive", name:UIApplicationDidBecomeActiveNotification, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ChatViewController.applicationDidBecomeActive), name:UIApplicationDidBecomeActiveNotification, object:nil)
     }
     
     override func viewDidLoad() {
@@ -110,7 +110,7 @@ final class ChatViewController: WrapSegmentViewController {
         streamView.unlock()
         chat.sort()
         scrollToLastUnreadMessage()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"applicationWillResignActive", name:UIApplicationWillResignActiveNotification, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ChatViewController.applicationWillResignActive), name:UIApplicationWillResignActiveNotification, object:nil)
         if showKeyboard {
             composeBar.becomeFirstResponder()
             if presentedText != nil {
@@ -138,7 +138,7 @@ final class ChatViewController: WrapSegmentViewController {
     var typing = false {
         didSet {
             if typing != oldValue {
-                enqueueSelector("sendTypingStateChange", delay: 1)
+                enqueueSelector(#selector(ChatViewController.sendTypingStateChange), delay: 1)
             }
         }
     }
@@ -274,7 +274,7 @@ extension ChatViewController: ComposeBarDelegate {
     
     func composeBarDidChangeText(composeBar: ComposeBar) {
         typing = composeBar.text?.isEmpty == false
-        enqueueSelector("typingIdled", argument: nil, delay: 3)
+        enqueueSelector(#selector(ChatViewController.typingIdled), argument: nil, delay: 3)
     }
     
     func typingIdled() {

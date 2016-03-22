@@ -71,10 +71,11 @@ class EntryContext: NSManagedObjectContext {
     override init(concurrencyType ct: NSManagedObjectContextConcurrencyType) {
         super.init(concurrencyType: ct)
         let center = NSNotificationCenter.defaultCenter()
-        center.addObserver(self, selector: "enqueueSave", name: UIApplicationWillTerminateNotification, object: nil)
-        center.addObserver(self, selector: "enqueueSave", name: UIApplicationDidEnterBackgroundNotification, object: nil)
-        center.addObserver(self, selector: "enqueueSave", name: UIApplicationWillResignActiveNotification, object: nil)
-        center.addObserver(self, selector: "enqueueSave", name: NSManagedObjectContextObjectsDidChangeNotification, object: self)
+        let selector = #selector(EntryContext.enqueueSave)
+        center.addObserver(self, selector: selector, name: UIApplicationWillTerminateNotification, object: nil)
+        center.addObserver(self, selector: selector, name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        center.addObserver(self, selector: selector, name: UIApplicationWillResignActiveNotification, object: nil)
+        center.addObserver(self, selector: selector, name: NSManagedObjectContextObjectsDidChangeNotification, object: self)
     }
 
     required init?(coder aDecoder: NSCoder) {

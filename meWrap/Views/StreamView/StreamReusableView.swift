@@ -19,7 +19,7 @@ class StreamReusableView: UIView, UIGestureRecognizerDelegate {
     var metrics: StreamMetrics?
     var item: StreamItem?
     var selected: Bool = false
-    lazy var selectTapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "select")
+    lazy var selectTapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(StreamReusableView.select as (StreamReusableView) -> () -> ()))
     
     private weak var _contentView: UIView?
     @IBOutlet weak var contentView: UIView! {

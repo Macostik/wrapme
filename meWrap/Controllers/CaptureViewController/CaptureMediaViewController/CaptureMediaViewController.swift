@@ -234,12 +234,12 @@ extension CaptureMediaViewController {
     }
     
     func cameraViewControllerWillCaptureImage(controller: CameraViewController) {
-        assetsCount++
+        assetsCount += 1
         updateCountLabel()
     }
     
     func cameraViewControllerDidFailImageCapturing(controller: CameraViewController) {
-        assetsCount--
+        assetsCount -= 1
         updateCountLabel()
     }
     

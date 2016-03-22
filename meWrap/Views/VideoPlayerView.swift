@@ -60,7 +60,7 @@ class VideoPlayerView: UIView {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
     }
     
-    private lazy var panGestureRecognizer: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: "pan:")
+    private lazy var panGestureRecognizer: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(VideoPlayerView.pan(_:)))
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -83,10 +83,10 @@ class VideoPlayerView: UIView {
         player.addObserver(self, forKeyPath: "status", options: .New, context: nil)
         startObservingTime(player)
         (layer as? AVPlayerLayer)?.player = player
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tap:"))
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(VideoPlayerView.tap(_:))))
         panGestureRecognizer.delegate = self
         addGestureRecognizer(panGestureRecognizer)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerItemDidPlayToEndTime:", name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(VideoPlayerView.playerItemDidPlayToEndTime(_:)), name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
     }
     
     @IBOutlet weak var delegate: VideoPlayerViewDelegate?

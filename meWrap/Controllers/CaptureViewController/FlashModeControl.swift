@@ -44,10 +44,10 @@ class FlashModeControl: UIControl {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        initializeButton(currentModeButton, action: "changeMode:")
-        initializeButton(onButton, action: "selectMode:")
-        initializeButton(offButton, action: "selectMode:")
-        initializeButton(autoButton, action: "selectMode:")
+        initializeButton(currentModeButton, action: #selector(FlashModeControl.changeMode(_:)))
+        initializeButton(onButton, action: #selector(FlashModeControl.selectMode(_:)))
+        initializeButton(offButton, action: #selector(FlashModeControl.selectMode(_:)))
+        initializeButton(autoButton, action: #selector(FlashModeControl.selectMode(_:)))
         selecting = false
     }
     

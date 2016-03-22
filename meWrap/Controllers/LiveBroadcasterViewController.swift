@@ -40,9 +40,9 @@ final class LiveBroadcasterViewController: LiveViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         let center = NSNotificationCenter.defaultCenter()
-        center.addObserver(self, selector: "applicationWillTerminate:", name: UIApplicationWillTerminateNotification, object: nil)
-        center.addObserver(self, selector: "applicationWillResignActive:", name: UIApplicationWillResignActiveNotification, object: nil)
-        center.addObserver(self, selector: "applicationDidBecomeActive:", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        center.addObserver(self, selector: #selector(UIApplicationDelegate.applicationWillTerminate(_:)), name: UIApplicationWillTerminateNotification, object: nil)
+        center.addObserver(self, selector: #selector(UIApplicationDelegate.applicationWillResignActive(_:)), name: UIApplicationWillResignActiveNotification, object: nil)
+        center.addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidBecomeActive(_:)), name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
     
     deinit {
@@ -203,8 +203,8 @@ final class LiveBroadcasterViewController: LiveViewController {
         toggleCameraButton.hidden = true
         sender.hidden = true
         composeBar.hidden = true
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "focusing:"))
-        view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: "zooming:"))
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(LiveBroadcasterViewController.focusing(_:))))
+        view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(LiveBroadcasterViewController.zooming(_:))))
         
         Dispatch.mainQueue.after(6) { [weak self] _ in
             

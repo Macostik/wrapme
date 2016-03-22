@@ -38,10 +38,10 @@ final class Comment: Contribution {
         if let wrap = candy?.wrap {
             if unread {
                 if createdAt > NSDate.dayAgo() {
-                    wrap.numberOfUnreadInboxItems++
+                    wrap.numberOfUnreadInboxItems += 1
                 }
             } else if wrap.numberOfUnreadInboxItems > 0 {
-                wrap.numberOfUnreadInboxItems--
+                wrap.numberOfUnreadInboxItems -= 1
             }
             wrap.notifyOnUpdate(.InboxChanged)
         }
@@ -49,7 +49,7 @@ final class Comment: Contribution {
     
     override func remove() {
         if let wrap = candy?.wrap where unread && wrap.numberOfUnreadInboxItems > 0 {
-            wrap.numberOfUnreadInboxItems--
+            wrap.numberOfUnreadInboxItems -= 1
             wrap.notifyOnUpdate(.InboxChanged)
         }
         super.remove()

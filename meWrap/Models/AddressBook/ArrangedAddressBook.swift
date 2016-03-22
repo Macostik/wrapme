@@ -83,23 +83,23 @@ class ArrangedAddressBook: NSObject {
         sort()
     }
     
-    func addRecord(var record: AddressBookRecord) {
-    
-        record = AddressBookRecord(record: record)
+    func addRecord(record: AddressBookRecord) {
+        var _record = record
+        _record = AddressBookRecord(record: _record)
         
-        if record.phoneNumbers.count == 0 {
+        if _record.phoneNumbers.count == 0 {
             return;
-        } else if record.phoneNumbers.count == 1 {
-            addRecordToGroup(record)
+        } else if _record.phoneNumbers.count == 1 {
+            addRecordToGroup(_record)
         } else {
             
-            var phoneNumbers = record.phoneNumbers
+            var phoneNumbers = _record.phoneNumbers
             
-            for phoneNumber in record.phoneNumbers {
+            for phoneNumber in _record.phoneNumbers {
                 if let user = phoneNumber.user {
                     let newRecord = AddressBookRecord(phoneNumbers: [phoneNumber])
                     if user.name == nil {
-                        newRecord.name = record.name
+                        newRecord.name = _record.name
                     }
                     addRecordToGroup(newRecord)
                     if let index = phoneNumbers.indexOf(phoneNumber) {
@@ -109,8 +109,8 @@ class ArrangedAddressBook: NSObject {
             }
             
             if phoneNumbers.count != 0 {
-                record.phoneNumbers = phoneNumbers
-                addRecordToGroup(record)
+                _record.phoneNumbers = phoneNumbers
+                addRecordToGroup(_record)
             }
         }
     }

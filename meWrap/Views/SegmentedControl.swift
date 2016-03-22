@@ -28,7 +28,7 @@ final class SegmentedControl: UIControl {
     override func awakeFromNib() {
         super.awakeFromNib()
         for control in controls {
-            control.addTarget(self, action: "selectSegmentTap:", forControlEvents: .TouchUpInside)
+            control.addTarget(self, action: #selector(SegmentedControl.selectSegmentTap(_:)), forControlEvents: .TouchUpInside)
         }
     }
     

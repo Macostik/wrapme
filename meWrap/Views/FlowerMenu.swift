@@ -44,7 +44,7 @@ class FlowerMenu: UIView {
     var vibrate = true
     
     func registerView<T: UIView where T: FlowerMenuConstructor>(view: T) {
-        view.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: "present:"))
+        view.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(FlowerMenu.present(_:))))
     }
     
     func show() {
@@ -112,7 +112,7 @@ class FlowerMenu: UIView {
         let action = FlowerMenuAction(action: action, block: block)
         actions.append(action)
         addSubview(action)
-        action.addTarget(self, action: "selectedAction:", forControlEvents: .TouchUpInside)
+        action.addTarget(self, action: #selector(FlowerMenu.selectedAction(_:)), forControlEvents: .TouchUpInside)
         action.center = centerPoint
     }
     

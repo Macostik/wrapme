@@ -58,8 +58,8 @@ class ComposeBar: UIControl, UITextViewDelegate {
         textView.contentInset = UIEdgeInsetsZero
         textView.textContainerInset = textView.contentInset
         setDoneButtonHidden(true)
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: "becomeFirstResponder"))
-        textView.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "becomeFirstResponder"))
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIResponder.becomeFirstResponder)))
+        textView.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIResponder.becomeFirstResponder)))
         emojiView.keybaordHandler = {[weak self] in
             self?.emojiButton.selected = false
             self?.textView.inputView = nil

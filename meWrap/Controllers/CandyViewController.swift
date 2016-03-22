@@ -155,8 +155,8 @@ extension CandyViewController: VideoPlayerViewDelegate {
         slideInteractiveTransition?.panGestureRecognizer.enabled = false
         historyViewController?.scrollView.panGestureRecognizer.enabled = false
         historyViewController?.setBarsHidden(false, animated:true)
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:"hideAllViews", object:nil)
-        performSelector("hideAllViews", withObject:nil, afterDelay:4)
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:#selector(CandyViewController.hideAllViews), object:nil)
+        performSelector(#selector(CandyViewController.hideAllViews), withObject:nil, afterDelay:4)
     }
     
     func videoPlayerViewDidPause(view: VideoPlayerView) {
@@ -166,20 +166,20 @@ extension CandyViewController: VideoPlayerViewDelegate {
         historyViewController?.hideSecondaryViews(false)
         slideInteractiveTransition?.panGestureRecognizer.enabled = true
         historyViewController?.scrollView.panGestureRecognizer.enabled = true
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:"hideAllViews", object:nil)
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:#selector(CandyViewController.hideAllViews), object:nil)
     }
     
     func videoPlayerViewSeekedToTime(view: VideoPlayerView) {
         if view.playing {
-            NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:"hideAllViews", object:nil)
-            performSelector("hideAllViews", withObject:nil, afterDelay:4)
+            NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:#selector(CandyViewController.hideAllViews), object:nil)
+            performSelector(#selector(CandyViewController.hideAllViews), withObject:nil, afterDelay:4)
         }
     }
     
     func videoPlayerViewDidPlayToEnd(view: VideoPlayerView) {
         historyViewController?.hideSecondaryViews(false)
         slideInteractiveTransition?.panGestureRecognizer.enabled = true
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:"hideAllViews", object:nil)
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:#selector(CandyViewController.hideAllViews), object:nil)
     }
 }
 

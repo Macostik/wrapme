@@ -123,7 +123,7 @@ extension ShareViewController {
     func openURL(url: NSURL) -> Bool {
         do {
             let application = try self.sharedApplication()
-            return application.performSelector("openURL:", withObject: url) != nil
+            return application.performSelector(#selector(ShareViewController.openURL(_:)), withObject: url) != nil
         }
         catch {
             return false

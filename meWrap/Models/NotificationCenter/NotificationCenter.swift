@@ -290,7 +290,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
     
     func notificationSubscription(subscription: NotificationSubscription, didReceiveMessage message: PNMessageResult) {
         enqueuedMessages.append(message.data)
-        enqueueSelector("handleEnqueuedMessages")
+        enqueueSelector(#selector(NotificationCenter.handleEnqueuedMessages))
     }
     
     func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {

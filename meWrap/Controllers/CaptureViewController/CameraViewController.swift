@@ -129,7 +129,7 @@ class CameraViewController: BaseViewController {
     func showZoomLabel() {
         self.zoomLabel.text = "\(Int(zoomScale))"
         zoomLabel.setAlpha(1.0, animated: true)
-        enqueueSelector("hideZoomLabel", delay: 1.0)
+        enqueueSelector(#selector(CameraViewController.hideZoomLabel), delay: 1.0)
     }
     
     func hideZoomLabel() {
@@ -175,10 +175,10 @@ class CameraViewController: BaseViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        enqueueSelector("setAssetsViewControllerHidden", delay: 3.0)
+        enqueueSelector(#selector(CameraViewController.setAssetsViewControllerHidden as (CameraViewController) -> () -> ()), delay: 3.0)
         self.assetsViewController.assetsHidingHandler = { [weak self] _ in
             if let controller = self {
-                NSObject.cancelPreviousPerformRequestsWithTarget(controller, selector: "setAssetsViewControllerHidden", object: nil)
+                NSObject.cancelPreviousPerformRequestsWithTarget(controller, selector: #selector(CameraViewController.setAssetsViewControllerHidden as (CameraViewController) -> () -> ()), object: nil)
             }
         }
         registerOnVolumeChange()
@@ -187,7 +187,7 @@ class CameraViewController: BaseViewController {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         VolumeChangeObserver.sharedObserver.unregister()
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: "setAssetsViewControllerHidden", object: nil)
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(CameraViewController.setAssetsViewControllerHidden as (CameraViewController) -> () -> ()), object: nil)
     }
     
     internal func registerOnVolumeChange() {
@@ -241,7 +241,7 @@ class CameraViewController: BaseViewController {
     func setAssetsViewControllerHidden(hidden: Bool, animated: Bool) {
         let maxHeight: CGFloat = 16
         let minHeight: CGFloat = maxHeight - self.assetsViewController.view.height
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:"setAssetsViewControllerHidden", object:nil)
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:#selector(CameraViewController.setAssetsViewControllerHidden as (CameraViewController) -> () -> ()), object:nil)
         self.assetsHeightConstraint.constant = hidden ? minHeight : maxHeight
         UIView.animateWithDuration(animated ? 0.3 : 0) {
             if (hidden) {

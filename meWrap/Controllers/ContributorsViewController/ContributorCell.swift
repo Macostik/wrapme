@@ -36,7 +36,7 @@ final class ContributorCell: StreamReusableView {
         streamView.bounces = false
         avatarView.defaultIconSize = 24
         infoLabel.numberOfLines = 0
-        slideMenuButton.addTarget(self, action: "toggleSlideMenu:", forControlEvents: .TouchUpInside)
+        slideMenuButton.addTarget(self, action: #selector(ContributorCell.toggleSlideMenu(_:)), forControlEvents: .TouchUpInside)
         avatarView.cornerRadius = 24
         slideMenuButton.titleLabel?.font = UIFont(name: "icons", size: 24)
         slideMenuButton.setTitle("p", forState: .Normal)
@@ -90,7 +90,7 @@ final class ContributorCell: StreamReusableView {
             button.preset = FontPreset.Small.rawValue
             button.titleLabel?.font = UIFont.lightFontSmall()
             button.setTitle("Remove", forState: .Normal)
-            button.addTarget(self, action: "remove:", forControlEvents: .TouchUpInside)
+            button.addTarget(self, action: #selector(ContributorCell.remove(_:)), forControlEvents: .TouchUpInside)
             view.addSubview(button)
             button.snp_makeConstraints(closure: { $0.edges.equalTo(view) })
         })
@@ -107,7 +107,7 @@ final class ContributorCell: StreamReusableView {
             button.titleLabel?.numberOfLines = 2
             button.titleLabel?.textAlignment = .Center
             button.setTitle("Resend invite", forState: .Normal)
-            button.addTarget(self, action: "resendInvite:", forControlEvents: .TouchUpInside)
+            button.addTarget(self, action: #selector(ContributorCell.resendInvite(_:)), forControlEvents: .TouchUpInside)
             view.addSubview(button)
             button.snp_makeConstraints(closure: { $0.edges.equalTo(view) })
         })
@@ -129,7 +129,8 @@ final class ContributorCell: StreamReusableView {
         let loader = LayoutStreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
             view.backgroundColor = Color.orange
             let icon = UILabel()
-            icon.font = UIFont(name: "icons", size: 36)
+            let descriptor = UIFontDescriptor(name: "icons", size: 36.0)
+            icon.font = UIFont(descriptor: descriptor, size: 36.0)
             icon.text = "l"
             icon.textColor = UIColor.whiteColor()
             view.addSubview(icon)

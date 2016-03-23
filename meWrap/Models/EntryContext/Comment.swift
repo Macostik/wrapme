@@ -37,9 +37,7 @@ final class Comment: Contribution {
     override func willBecomeUnread(unread: Bool) {
         if let wrap = candy?.wrap {
             if unread {
-                if createdAt > NSDate.dayAgo() {
-                    wrap.numberOfUnreadInboxItems += 1
-                }
+                wrap.numberOfUnreadInboxItems += 1
             } else if wrap.numberOfUnreadInboxItems > 0 {
                 wrap.numberOfUnreadInboxItems -= 1
             }

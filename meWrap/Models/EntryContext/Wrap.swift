@@ -188,18 +188,16 @@ final class Wrap: Contribution {
     }
     
     lazy var numberOfUnreadMessages: Int = {
-        let dayAgo = NSDate.dayAgo()
-        return self.messages.filter({ $0.unread && $0.createdAt > dayAgo }).count
+        return self.messages.filter({ $0.unread }).count
     }()
     
     lazy var numberOfUnreadInboxItems: Int = {
-        let dayAgo = NSDate.dayAgo()
         var count = 0
-        for candy in self.candies where candy.updatedAt > dayAgo {
-            if candy.unread && (candy.createdAt > dayAgo || candy.editedAt > dayAgo) {
+        for candy in self.candies {
+            if candy.unread {
                 count += 1
             }
-            for comment in candy.comments where comment.unread && comment.createdAt > dayAgo {
+            for comment in candy.comments where comment.unread {
                 count += 1
             }
         }

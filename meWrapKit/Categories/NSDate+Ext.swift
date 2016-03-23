@@ -23,10 +23,6 @@ func <(lhs: NSDate, rhs: NSDate) -> Bool {
 
 extension NSDate {
     
-    class func dayAgo() -> NSDate {
-        return now(-_dayInterval)
-    }
-    
     func startOfDay() -> NSDate {
         return NSCalendar.currentCalendar().startOfDayForDate(self)
     }

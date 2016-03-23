@@ -14,7 +14,11 @@ import AddressBook
 }
 
 func addressBookChanged(addessBook: ABAddressBookRef!, info: CFDictionary!, context: UnsafeMutablePointer<Void>) {
-    AddressBook.sharedAddressBook.ABAddressBook = addessBook
+    if let _addressBook = ABAddressBookCreateWithOptions(nil, nil)?.takeUnretainedValue() {
+        AddressBook.sharedAddressBook.ABAddressBook = _addressBook
+    } else {
+        AddressBook.sharedAddressBook.ABAddressBook = addessBook
+    }
     AddressBook.sharedAddressBook.enqueueSelector(#selector(AddressBook.updateCachedRecords), delay: 0.0)
 }
 

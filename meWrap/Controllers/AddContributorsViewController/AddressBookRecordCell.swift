@@ -68,7 +68,7 @@ final class SingleAddressBookRecordCell: AddressBookRecordCell {
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         infoLabel.numberOfLines = 0
-        selectButton.addTarget(self, action: #selector(AddressBookRecordCell.select(_:)), forControlEvents: .TouchUpInside)
+        selectButton.addTarget(self, action: #selector(SingleAddressBookRecordCell._select(_:)), forControlEvents: .TouchUpInside)
         addSubview(avatarView)
         addSubview(nameLabel)
         addSubview(infoLabel)

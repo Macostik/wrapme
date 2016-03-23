@@ -88,7 +88,7 @@ final class HistoryItemViewController: BaseViewController {
         
         coverStreamView.userInteractionEnabled = false
         coverStreamView.horizontal = true
-        coverDataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<HistoryItemCoverView>(), size: view.width))
+        coverDataSource.addMetrics(StreamMetrics(loader: StreamLoader<HistoryItemCoverView>(), size: view.width))
         
         streamView.layout = SquareGridLayout(streamView: streamView, horizontal: false)
         dataSource.offsetForGridColumns = view.width * 0.6
@@ -97,7 +97,7 @@ final class HistoryItemViewController: BaseViewController {
         dataSource.numberOfGridColumns = 3
         dataSource.layoutSpacing = Constants.pixelSize
         
-        let metrics = dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<CandyCell>()))
+        let metrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<CandyCell>()))
         metrics.selection = { [weak self] (item, entry) -> Void in
             self?.streamView.lock()
             CandyEnlargingPresenter.handleCandySelection(item, entry: entry, historyItem: self?.item, dismissingView: { (presenter, candy) -> UIView? in

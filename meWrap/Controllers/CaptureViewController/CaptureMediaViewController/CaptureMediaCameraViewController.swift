@@ -82,10 +82,11 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     internal func updateVideoRecordingViews(recording: Bool) {
         bottomView.hidden = recording
         assetsView.hidden = recording
+        assetsInteractionView.hidden = recording
         rotateButton.hidden = recording
         cropAreaView.hidden = recording
         flashModeControl.alpha = recording ? 0.0 : 1.0
-        wrapView?.hidden = recording
+        wrapView?.superview?.hidden = recording
     }
     
     func startVideoRecording() {
@@ -259,14 +260,14 @@ extension CaptureMediaCameraViewController: AVCaptureFileOutputRecordingDelegate
     }
     
     func captureOutput(captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAtURL fileURL: NSURL!, fromConnections connections: [AnyObject]!) {
-        let animation = CABasicAnimation(keyPath: "opacity")
-        animation.fromValue = 1
-        animation.toValue = 0
-        animation.autoreverses = true
-        animation.duration = 0.5
-        animation.repeatCount = FLT_MAX
-        animation.removedOnCompletion = false
-        videoRecordingIndicator.layer.addAnimation(animation, forKey: "videoRecording")
+        videoRecordingIndicator.layer.addAnimation(specify(CABasicAnimation(keyPath: "opacity"), {
+            $0.fromValue = 1
+            $0.toValue = 0
+            $0.autoreverses = true
+            $0.duration = 0.5
+            $0.repeatCount = FLT_MAX
+            $0.removedOnCompletion = false
+        }), forKey: "videoRecording")
         cancelVideoRecordingLabel.hidden = false
         videoRecordingTimeLeft = Constants.maxVideoRecordedDuration
         videoRecordingTimeLabel.text = String(Constants.maxVideoRecordedDuration)

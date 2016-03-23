@@ -146,7 +146,7 @@ final class MultipleAddressBookRecordCell: AddressBookRecordCell {
         avatarView.defaultIconText = "&"
         avatarView.defaultBackgroundColor = Color.grayLighter
         dataSource = StreamDataSource(streamView: streamView)
-        dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<AddressBookPhoneNumberCell>()).change({ [weak self] metrics in
+        dataSource.addMetrics(StreamMetrics(loader: StreamLoader<AddressBookPhoneNumberCell>()).change({ [weak self] metrics in
             metrics.size = 50.0
             metrics.selectable = true
             metrics.finalizeAppearing = { item, view in

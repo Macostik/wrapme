@@ -10,7 +10,7 @@ import Foundation
 
 class BadgeLabel: Label {
     
-    @IBInspectable lazy var intrinsicContentSizeInsets: CGSize = CGSize.zero
+    @IBInspectable var intrinsicContentSizeInsets: CGSize = CGSize.zero
     
     var value = 0 {
         willSet {
@@ -20,17 +20,10 @@ class BadgeLabel: Label {
     
     override var text: String? {
         willSet {
-            if let string = newValue where !string.isEmpty {
-                hidden = string == "0"
-            }
-        }
-    }
-    
-    override var attributedText: NSAttributedString? {
-        didSet {
-            super.attributedText = attributedText
-            if let string = attributedText?.string where !string.isEmpty {
-                 hidden = string == "0"
+            if let string = newValue {
+                hidden = string.isEmpty || string == "0"
+            } else {
+                hidden = true
             }
         }
     }

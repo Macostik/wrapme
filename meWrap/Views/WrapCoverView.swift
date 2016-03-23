@@ -30,11 +30,6 @@ class WrapCoverView: OverlayImageView {
         return _statusView
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-    }
-    
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         if let statusView = _statusView {

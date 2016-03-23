@@ -36,22 +36,30 @@ class HistoryItemCell: StreamReusableView {
         }
     }
     
-    weak var streamView: StreamView!
+    let streamView = StreamView()
     
-    weak var dateLabel: UILabel!
+    private let dateLabel = Label(preset: FontPreset.Normal, weight: UIFontWeightRegular, textColor: Color.orange)
     
     private var dataSource: HistoryItemDataSource!
     
     private var candyMetrics: StreamMetrics!
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
-        let streamView = StreamView()
+        
+        streamView.layout = SquareLayout(streamView: streamView, horizontal: true)
+        dataSource = HistoryItemDataSource(streamView: streamView)
+        candyMetrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<CandyCell>()))
+        candyMetrics.selection = metrics.selection
+        dataSource.layoutSpacing = Constants.pixelSize
+        candyMetrics.prepareAppearing = { [weak self] item, _ in
+            item.view?.transform = self?.streamView.transform ?? CGAffineTransformIdentity
+        }
+        
         streamView.showsHorizontalScrollIndicator = false
         streamView.showsVerticalScrollIndicator = false
         streamView.alwaysBounceHorizontal = true
         streamView.delaysContentTouches = false
         addSubview(streamView)
-        self.streamView = streamView
         
         let dateView = Button()
         dateView.exclusiveTouch = true
@@ -65,11 +73,9 @@ class HistoryItemCell: StreamReusableView {
         dateView.addTarget(self, action: #selector(HistoryItemCell.openHistoryItem(_:)), forControlEvents: .TouchUpInside)
         addSubview(dateView)
         
-        let dateLabel = Label(preset: FontPreset.Normal, weight: UIFontWeightRegular, textColor: Color.orange)
         dateLabel.highlightedTextColor = UIColor.whiteColor()
         dateLabel.textAlignment = .Left
         dateView.addSubview(dateLabel)
-        self.dateLabel = dateLabel
         dateView.highlightings.append(dateLabel)
         
         let arrow = Label(icon: "x", size: 15, textColor: Color.orange)
@@ -103,18 +109,6 @@ class HistoryItemCell: StreamReusableView {
     internal override func willEnqueue() {
         super.willEnqueue()
         (entry as? HistoryItem)?.offset = streamView.contentOffset
-    }
-    
-    override func loadedWithMetrics(metrics: StreamMetrics) {
-        super.loadedWithMetrics(metrics)
-        streamView.layout = SquareLayout(streamView: streamView, horizontal: true)
-        dataSource = HistoryItemDataSource(streamView: streamView)
-        candyMetrics = dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<CandyCell>()))
-        candyMetrics.selection = metrics.selection
-        dataSource.layoutSpacing = Constants.pixelSize
-        candyMetrics.prepareAppearing = { [weak self] item, _ in
-            item.view?.transform = self?.streamView.transform ?? CGAffineTransformIdentity
-        }
     }
     
     override func setup(entry: AnyObject?) {
@@ -234,14 +228,13 @@ class MediaViewController: WrapSegmentViewController {
         }
         
         dataSource.wrap = wrap
-        dataSource.liveBroadcastMetrics.loader = LayoutStreamLoader<LiveBroadcastMediaView>()
         dataSource.liveBroadcastMetrics.selection = { [weak self] (item, broadcast) -> Void in
             if let broadcast = broadcast as? LiveBroadcast {
                 self?.presentLiveBroadcast(broadcast)
             }
         }
         
-        candyMetrics = dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<HistoryItemCell>()))
+        candyMetrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<HistoryItemCell>()))
         candyMetrics.prepareAppearing = { item, view in
             (view as? HistoryItemCell)?.delegate = self
         }

@@ -12,10 +12,7 @@ class MediaDataSource: PaginatedStreamDataSource {
     
     weak var wrap: Wrap?
     
-    var liveBroadcastMetrics = StreamMetrics { (metrics) -> Void in
-        metrics.size = 70
-        metrics.isSeparator = true
-    }
+    var liveBroadcastMetrics = StreamMetrics(loader: StreamLoader<LiveBroadcastMediaView>())
     
     override func streamViewNumberOfSections(streamView: StreamView) -> Int {
         return 2

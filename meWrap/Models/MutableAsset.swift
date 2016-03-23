@@ -55,6 +55,7 @@ class MutableAsset: Asset {
         original = largePath
         large = largePath
         small = cache.getPath(cache.setImage(image.thumbnail(thumbnailSize)))
+        medium = small
     }
     
     func setImage(image: UIImage, completion: Void -> Void) {

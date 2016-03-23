@@ -184,8 +184,8 @@ class InboxViewController: WrapSegmentViewController {
 
         dataSource.placeholderMetrics = StreamMetrics(loader: PlaceholderView.inboxPlaceholderLoader())
         streamView.contentInset = streamView.scrollIndicatorInsets;
-        let candyMetrics = dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<InboxCandyCell>()))
-        let commentMetrics = dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<InboxCommentCell>()))
+        let candyMetrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<InboxCandyCell>()))
+        let commentMetrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<InboxCommentCell>()))
         
         candyMetrics.size = InboxCandyCell.DefaultHeight
         commentMetrics.size = InboxCommentCell.DefaultHeight

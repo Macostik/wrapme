@@ -63,7 +63,7 @@ class LiveBroadcastViewersViewController: UIViewController {
         
         slideTransition.delegate = self
         
-        let metrics = StreamMetrics(loader: LayoutStreamLoader<LiveBroadcastViewerCell>())
+        let metrics = StreamMetrics(loader: StreamLoader<LiveBroadcastViewerCell>())
         metrics.size = LiveBroadcastViewerCell.DefaultHeight
         dataSource.addMetrics(metrics)
         update()

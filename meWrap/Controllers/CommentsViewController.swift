@@ -113,7 +113,7 @@ class CommentsViewController: BaseViewController {
         
         candy.comments.all({ $0.markAsUnread(false) })
         
-        dataSource.addMetrics(specify(StreamMetrics(loader: LayoutStreamLoader<CommentCell>()), {
+        dataSource.addMetrics(specify(StreamMetrics(loader: StreamLoader<CommentCell>()), {
             $0.selectable = false
             $0.modifyItem = { item in
                 let comment = item.entry as! Comment

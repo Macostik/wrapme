@@ -14,7 +14,7 @@ final class LoadingView: StreamReusableView {
     static var DefaultSize: CGFloat = 66.0
     
     class func metrics() -> StreamMetrics {
-        return StreamMetrics(loader: LayoutStreamLoader<LoadingView>(), size: DefaultSize)
+        return StreamMetrics(loader: StreamLoader<LoadingView>(), size: DefaultSize)
     }
     
     override func layoutWithMetrics(metrics: StreamMetrics) {

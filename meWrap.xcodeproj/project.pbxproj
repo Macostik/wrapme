@@ -25,7 +25,6 @@
 		5B2FB9701C5BA958001C4385 /* ComposeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96F1C5BA958001C4385 /* ComposeBar.swift */; };
 		5B31A7871C56620D002E1A2A /* ChangeProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */; };
 		5B35CDB31C6CBCBC00616AFA /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */; };
-		5B35CDB41C6CE2E300616AFA /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7AB791BCD47D4007E314B /* UIView+Ext.swift */; };
 		5B35CDB51C6CE30100616AFA /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C507F80D1C218BB1006DA3E5 /* Dispatch.swift */; };
 		5B37C75E1C5A06E30068E693 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37C75D1C5A06E30068E693 /* Button.swift */; };
 		5B3C792A1C7318B700EAB05D /* HintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3C79291C7318B700EAB05D /* HintView.swift */; };
@@ -46,7 +45,6 @@
 		5B4B59971C87410C0056D96A /* ShareExtImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B4B59951C8740FE0056D96A /* ShareExtImages.xcassets */; };
 		5B4B59981C87413E0056D96A /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */; };
 		5B5EE49A1C68FD4D0074D66F /* StreamReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5EE4991C68FD4D0074D66F /* StreamReusableView.swift */; };
-		5B66B5B91C24696800451113 /* WrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B66B5B81C24696800451113 /* WrapCell.xib */; };
 		5B7198D81C8DE6A9004AC6CE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EE45A51C01D350008DE8D6 /* Constants.swift */; };
 		5B7F14031C7F29B30035CC81 /* WrapListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7F14021C7F29B30035CC81 /* WrapListViewController.swift */; };
 		5B8B317E1C8D856600D8A463 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B31801C8D856600D8A463 /* Localizable.strings */; };
@@ -324,7 +322,6 @@
 		C5F11E511C64A21C001C2486 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E471C64A21C001C2486 /* EmailViewController.swift */; };
 		C5F11E521C64A21C001C2486 /* PhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E481C64A21C001C2486 /* PhoneViewController.swift */; };
 		C5F11E531C64A21C001C2486 /* CountriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E491C64A21C001C2486 /* CountriesViewController.swift */; };
-		C5F11E551C64A21C001C2486 /* TestUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5F11E4B1C64A21C001C2486 /* TestUserCell.xib */; };
 		C5F11E561C64A21C001C2486 /* TestUserPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E4C1C64A21C001C2486 /* TestUserPicker.swift */; };
 		C5F11E571C64A21C001C2486 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E4D1C64A21C001C2486 /* EditProfileViewController.swift */; };
 		C5F11E581C64A21C001C2486 /* LinkDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E4E1C64A21C001C2486 /* LinkDeviceViewController.swift */; };
@@ -332,7 +329,6 @@
 		C5F11E5B1C64B8FC001C2486 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F11E5A1C64B8FC001C2486 /* Validation.swift */; };
 		C5F3AC3A1C0335230053EE70 /* EntryDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F0766B1BE2A97900021FAE /* EntryDescriptor.swift */; };
 		C5F44FED1C5CB9780049215D /* UploadSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F44FE61C5CB9780049215D /* UploadSummaryViewController.swift */; };
-		C5F44FEE1C5CB9780049215D /* EditAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5F44FE81C5CB9780049215D /* EditAssetCell.xib */; };
 		C5F44FEF1C5CB9780049215D /* EditAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F44FE91C5CB9780049215D /* EditAssetViewController.swift */; };
 		C5F44FF41C5CBC680049215D /* WrapPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F44FF31C5CBC680049215D /* WrapPickerViewController.swift */; };
 		C5F4E70D1C07489E00D2FC16 /* EditSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4E70C1C07489E00D2FC16 /* EditSession.swift */; };
@@ -495,7 +491,6 @@
 		5B47920C1C1B2BDF0090FDD2 /* MMWormhole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMWormhole.h; sourceTree = "<group>"; };
 		5B4B59951C8740FE0056D96A /* ShareExtImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ShareExtImages.xcassets; sourceTree = "<group>"; };
 		5B5EE4991C68FD4D0074D66F /* StreamReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamReusableView.swift; sourceTree = "<group>"; };
-		5B66B5B81C24696800451113 /* WrapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WrapCell.xib; sourceTree = "<group>"; };
 		5B787D9C1A27876F004AE459 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		5B7F14021C7F29B30035CC81 /* WrapListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapListViewController.swift; sourceTree = "<group>"; };
 		5B8B317F1C8D856600D8A463 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -774,14 +769,12 @@
 		C5F11E471C64A21C001C2486 /* EmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
 		C5F11E481C64A21C001C2486 /* PhoneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneViewController.swift; sourceTree = "<group>"; };
 		C5F11E491C64A21C001C2486 /* CountriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesViewController.swift; sourceTree = "<group>"; };
-		C5F11E4B1C64A21C001C2486 /* TestUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestUserCell.xib; sourceTree = "<group>"; };
 		C5F11E4C1C64A21C001C2486 /* TestUserPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUserPicker.swift; sourceTree = "<group>"; };
 		C5F11E4D1C64A21C001C2486 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		C5F11E4E1C64A21C001C2486 /* LinkDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkDeviceViewController.swift; sourceTree = "<group>"; };
 		C5F11E4F1C64A21C001C2486 /* SignupStepViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupStepViewController.swift; sourceTree = "<group>"; };
 		C5F11E5A1C64B8FC001C2486 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		C5F44FE61C5CB9780049215D /* UploadSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadSummaryViewController.swift; sourceTree = "<group>"; };
-		C5F44FE81C5CB9780049215D /* EditAssetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAssetCell.xib; sourceTree = "<group>"; };
 		C5F44FE91C5CB9780049215D /* EditAssetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAssetViewController.swift; sourceTree = "<group>"; };
 		C5F44FF31C5CBC680049215D /* WrapPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapPickerViewController.swift; sourceTree = "<group>"; };
 		C5F4A1651BF36DD300EFC8FA /* StreamDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamDataSource.swift; sourceTree = "<group>"; };
@@ -1074,7 +1067,6 @@
 		12A7A74218DA17F7008FF6F0 /* HomeViewController */ = {
 			isa = PBXGroup;
 			children = (
-				5B66B5B81C24696800451113 /* WrapCell.xib */,
 				C52BA62B1BFF314600D58D75 /* WrapCell.swift */,
 				C5E6F01F1BFF38C200FA3D4F /* SwipeAction.swift */,
 				C5347E251C75EB510080074C /* HomeViewController.swift */,
@@ -1349,7 +1341,6 @@
 			isa = PBXGroup;
 			children = (
 				C53BC4851C05B32C0009B0B9 /* AssetsViewController.swift */,
-				C5F44FE81C5CB9780049215D /* EditAssetCell.xib */,
 				C5F44FE91C5CB9780049215D /* EditAssetViewController.swift */,
 				C5F44FE61C5CB9780049215D /* UploadSummaryViewController.swift */,
 				C5F44FF31C5CBC680049215D /* WrapPickerViewController.swift */,
@@ -1513,7 +1504,6 @@
 				C5F11E481C64A21C001C2486 /* PhoneViewController.swift */,
 				C5F11E491C64A21C001C2486 /* CountriesViewController.swift */,
 				C5F11E4C1C64A21C001C2486 /* TestUserPicker.swift */,
-				C5F11E4B1C64A21C001C2486 /* TestUserCell.xib */,
 				C5F11E4D1C64A21C001C2486 /* EditProfileViewController.swift */,
 				C5F11E4E1C64A21C001C2486 /* LinkDeviceViewController.swift */,
 			);
@@ -1829,7 +1819,6 @@
 				C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */,
 				C53012921BF4E3EA00098F9C /* EmojiView.xib in Resources */,
 				5B436CA91C9FFCAD00635931 /* objects_iOS_8.plist in Resources */,
-				C5F44FEE1C5CB9780049215D /* EditAssetCell.xib in Resources */,
 				C5B8F7201B82172D00A5E541 /* DrawingViewController.xib in Resources */,
 				C5B91A4B1BB41343000E08E7 /* DownloadingView.xib in Resources */,
 				C5B91A361BB3F812000E08E7 /* Main.storyboard in Resources */,
@@ -1840,12 +1829,10 @@
 				5B436CA51C9FFCAD00635931 /* activity_iOS_8.plist in Resources */,
 				C5BEC3941B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */,
 				5BE7CD651C0D8781009A7617 /* ConfirmInvitationView.xib in Resources */,
-				5B66B5B91C24696800451113 /* WrapCell.xib in Resources */,
 				C5C3FEA81B8F311500F177EC /* Default-736h@3x.png in Resources */,
 				5B44EB011C9BF27300BD6481 /* symbols_iOS_9.plist in Resources */,
 				5B211FB21C087137000EC3DB /* (null) in Resources */,
 				5B44EAFF1C9BF22B00BD6481 /* objects_iOS_9.plist in Resources */,
-				C5F11E551C64A21C001C2486 /* TestUserCell.xib in Resources */,
 				C5BEC38D1B8F129100499EEA /* logo_and_caption_orange@3x.png in Resources */,
 				C5BEC3A31B8F16E800499EEA /* logo_and_caption_orange.png in Resources */,
 				5B44EB031C9BF2B100BD6481 /* flags_iOS_9.plist in Resources */,
@@ -1952,7 +1939,6 @@
 			files = (
 				5BA60E241C805D2E00DBE9D4 /* ExtensionRequest.swift in Sources */,
 				5BAF17AD1C624E1E00D33026 /* String+Ext.swift in Sources */,
-				5B35CDB41C6CE2E300616AFA /* UIView+Ext.swift in Sources */,
 				5B2BB79A1C620CB1005045FF /* NSUserDefaults+SharedGroup.swift in Sources */,
 				5BAF17AA1C624DDE00D33026 /* Dictionary+Ext.swift in Sources */,
 				5BAF17A71C624D5F00D33026 /* ExtensionEntry.swift in Sources */,

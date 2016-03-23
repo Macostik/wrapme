@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class RecentCandiesView: StreamReusableView {
     
@@ -14,15 +15,11 @@ class RecentCandiesView: StreamReusableView {
     
     lazy var dataSource: StreamDataSource = StreamDataSource(streamView: self.streamView)
     
-    class func layoutMetrics() -> StreamMetrics {
-        return StreamMetrics(loader: LayoutStreamLoader<RecentCandiesView>())
-    }
-    
     override func layoutWithMetrics(metrics: StreamMetrics) {
         streamView.scrollEnabled = false
         dataSource.numberOfGridColumns = 3
         streamView.layout = SquareGridLayout(streamView: streamView, horizontal: false)
-        dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<CandyCell>())).disableMenu = true
+        dataSource.addMetrics(StreamMetrics(loader: StreamLoader<CandyCell>())).disableMenu = true
         dataSource.layoutSpacing = Constants.pixelSize
         backgroundColor = Color.orange
         streamView.backgroundColor = UIColor.whiteColor()
@@ -50,53 +47,109 @@ class RecentCandiesView: StreamReusableView {
 
 class WrapCell: StreamReusableView {
     
-    @IBOutlet weak var delegate: WrapCellDelegate?
+    weak var delegate: WrapCellDelegate?
     
-    @IBOutlet weak var coverView: WrapCoverView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel?
+    private let coverView = WrapCoverView()
+    private let nameLabel = Label(preset: .Large, weight: UIFontWeightLight, textColor: Color.grayDarker)
+    private let dateLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLight)
+    private let badgeLabel = BadgeLabel(preset: .Smaller, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
+    private let liveBadge = Label(preset: FontPreset.XSmall, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
     
-    @IBOutlet weak var wrapNotificationLabel: BadgeLabel?
-    
-    @IBOutlet weak var liveBroadcastIndicator: UILabel?
-    @IBOutlet var nameLeadingPrioritizer: LayoutPrioritizer?
+    private var nameBadgeLeading: Constraint!
+    private var nameLiveLeading: Constraint!
     
     private var swipeAction: SwipeAction?
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func layoutWithMetrics(metrics: StreamMetrics) {
         
-        let swipeAction = SwipeAction(view: self)
+        coverView.clipsToBounds = true
+        coverView.cornerRadius = 25
+        coverView.defaultBackgroundColor = Color.grayLighter
+        coverView.defaultIconText = "t"
         
-        swipeAction.shouldBeginPanning = { [weak self] (action) -> Bool in
-            guard let wrap = self?.entry as? Wrap else {
-                return false
-            }
-            if wrap.isPublic {
-                if wrap.isContributing {
-                    return action.direction == .Left
-                } else {
-                    return false
-                }
-            } else {
-                return true
-            }
+        badgeLabel.intrinsicContentSizeInsets = CGSize(width: 4, height: 4)
+        badgeLabel.cornerRadius = 9
+        badgeLabel.textAlignment = .Center
+        badgeLabel.clipsToBounds = true
+        badgeLabel.backgroundColor = Color.dangerRed
+        
+        liveBadge.textAlignment = .Center
+        liveBadge.cornerRadius = 8
+        liveBadge.clipsToBounds = true
+        liveBadge.backgroundColor = Color.dangerRed
+        liveBadge.text = "LIVE"
+        
+        nameLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
+        
+        let button = Button(type: .Custom)
+        button.highlightedColor = Color.grayLightest
+        button.addTarget(self, action: #selector(WrapCell.select as WrapCell -> () -> ()), forControlEvents: .TouchUpInside)
+        addSubview(button)
+        addSubview(coverView)
+        addSubview(badgeLabel)
+        addSubview(nameLabel)
+        addSubview(liveBadge)
+        addSubview(dateLabel)
+        
+        button.snp_makeConstraints { $0.edges.equalTo(self) }
+        
+        coverView.snp_makeConstraints {
+            $0.leading.equalTo(self).inset(10)
+            $0.centerY.equalTo(self)
+            $0.size.equalTo(50)
         }
         
-        swipeAction.didBeginPanning = { [weak self] (action) -> Void in
-            if let weakSelf = self {
+        badgeLabel.snp_makeConstraints {
+            $0.leading.equalTo(coverView.snp_trailing).inset(19)
+            $0.top.equalTo(coverView)
+            $0.width.greaterThanOrEqualTo(badgeLabel.snp_height)
+        }
+        
+        nameLabel.snp_makeConstraints {
+            nameBadgeLeading = $0.leading.equalTo(badgeLabel.snp_trailing).offset(7).priorityLow().constraint
+            nameLiveLeading = $0.leading.equalTo(liveBadge.snp_trailing).offset(7).priorityHigh().constraint
+            $0.bottom.equalTo(coverView.snp_centerY)
+            $0.trailing.lessThanOrEqualTo(self).inset(12)
+        }
+        
+        liveBadge.snp_makeConstraints {
+            $0.leading.equalTo(badgeLabel.snp_trailing).offset(7)
+            $0.centerY.equalTo(nameLabel)
+            $0.width.equalTo(40)
+            $0.height.equalTo(20)
+        }
+        
+        dateLabel.snp_makeConstraints {
+            $0.leading.equalTo(liveBadge)
+            $0.top.equalTo(coverView.snp_centerY)
+        }
+        
+        swipeAction = specify(SwipeAction(view: self), {
+            $0.shouldBeginPanning = { [weak self] (action) -> Bool in
+                guard let wrap = self?.entry as? Wrap else { return false }
+                if wrap.isPublic {
+                    if wrap.isContributing {
+                        return action.direction == .Left
+                    } else {
+                        return false
+                    }
+                } else {
+                    return true
+                }
+            }
+            
+            $0.didBeginPanning = { [weak self] (action) -> Void in
+                guard let weakSelf = self else { return }
                 weakSelf.delegate?.wrapCellDidBeginPanning(weakSelf)
             }
-        }
-        
-        swipeAction.didEndPanning = { [weak self] (action, performedAction) -> Void in
-            if let weakSelf = self {
+            
+            $0.didEndPanning = { [weak self] (action, performedAction) -> Void in
+                guard let weakSelf = self else { return }
                 weakSelf.delegate?.wrapCellDidEndPanning(weakSelf, performedAction: performedAction)
             }
-        }
-        
-        swipeAction.didPerformAction = { [weak self] (action, direction) -> Void in
-            if let weakSelf = self {
+            
+            $0.didPerformAction = { [weak self] (action, direction) -> Void in
+                guard let weakSelf = self else { return }
                 if let wrap = weakSelf.entry as? Wrap {
                     if action.direction == .Right {
                         weakSelf.delegate?.wrapCell(weakSelf, presentChatViewControllerForWrap: wrap)
@@ -105,9 +158,7 @@ class WrapCell: StreamReusableView {
                     }
                 }
             }
-        }
-        
-        self.swipeAction = swipeAction
+        })
     }
     
     override func didDequeue() {
@@ -116,29 +167,31 @@ class WrapCell: StreamReusableView {
     }
     
     override func setup(entry: AnyObject?) {
-        guard let wrap = entry as? Wrap else {
-            return
-        }
-        
+        guard let wrap = entry as? Wrap else { return }
         nameLabel.text = wrap.name
         coverView.url = wrap.asset?.small
-        wrapNotificationLabel?.value = wrap.numberOfUnreadInboxItems
+        badgeLabel.value = wrap.numberOfUnreadInboxItems
         if (wrap.isPublic) {
-            dateLabel?.text = "\(wrap.contributor?.name ?? "") \(wrap.updatedAt.timeAgoStringAtAMPM())"
+            dateLabel.text = "\(wrap.contributor?.name ?? "") \(wrap.updatedAt.timeAgoStringAtAMPM())"
             coverView.isFollowed = wrap.isContributing
             coverView.isOwner = wrap.contributor?.current ?? false
         } else {
-            dateLabel?.text = wrap.updatedAt.timeAgoStringAtAMPM()
+            dateLabel.text = wrap.updatedAt.timeAgoStringAtAMPM()
             coverView.isFollowed = false
         }
         updateBadgeNumber()
-        liveBroadcastIndicator?.hidden = wrap.liveBroadcasts.isEmpty
-        nameLeadingPrioritizer?.defaultState = !wrap.liveBroadcasts.isEmpty
+        liveBadge.hidden = wrap.liveBroadcasts.isEmpty
+        if wrap.liveBroadcasts.isEmpty {
+            nameLiveLeading.updatePriorityLow()
+            nameBadgeLeading.updatePriorityHigh()
+        } else {
+            nameLiveLeading.updatePriorityHigh()
+            nameBadgeLeading.updatePriorityLow()
+        }
     }
     
     func updateBadgeNumber() {
-        if let wrap = entry as? Wrap {
-            wrapNotificationLabel?.value = wrap.numberOfUnreadInboxItems + wrap.numberOfUnreadMessages
-        }
+        guard let wrap = entry as? Wrap else { return }
+        badgeLabel.value = wrap.numberOfUnreadInboxItems + wrap.numberOfUnreadMessages
     }
 }

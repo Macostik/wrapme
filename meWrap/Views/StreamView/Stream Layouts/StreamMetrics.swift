@@ -9,90 +9,30 @@
 import Foundation
 import UIKit
 
-class StreamLoader: NSObject {
-    
-    var identifier: String?
-    
-    private var _nib: UINib?
-    var nib: UINib? {
-        if _nib == nil {
-            if let identifier = identifier {
-                _nib = UINib(nibName: identifier, bundle: nil)
-            }
-        }
-        return _nib
-    }
-    
-    weak var nibOwner:AnyObject?
-    
-    func loadView(metrics: StreamMetrics) -> StreamReusableView? {
-        if let nib = nib {
-            for object in nib.instantiateWithOwner(nibOwner, options: nil) {
-                if let reusing = object as? StreamReusableView {
-                    return reusing
-                }
-            }
-        }
-        return nil
-    }
-    
-    convenience init(identifier: String?) {
-        self.init()
-        self.identifier = identifier
-    }
+protocol StreamLoaderType {
+    func loadView() -> StreamReusableView?
 }
 
-class LayoutStreamLoader<T: StreamReusableView>: StreamLoader {
+struct StreamLoader<T: StreamReusableView>: StreamLoaderType {
     
     var layoutBlock: (T -> Void)?
     
-    convenience init(layoutBlock: (T -> Void)?) {
-        self.init()
+    init(layoutBlock: (T -> Void)? = nil) {
         self.layoutBlock = layoutBlock
     }
     
-    override func loadView(metrics: StreamMetrics) -> StreamReusableView? {
+    func loadView() -> StreamReusableView? {
         let view = T()
         layoutBlock?(view)
-        view.layoutWithMetrics(metrics)
         return view
     }
 }
 
 final class StreamMetrics {
     
-    convenience init(loader: StreamLoader, size: CGFloat) {
-        self.init(loader: loader)
-        self.size = size
-    }
-    
-    convenience init(loader: StreamLoader) {
-        self.init()
+    init(loader: StreamLoaderType, size: CGFloat = 0) {
         self.loader = loader
-    }
-    
-    convenience init(@noescape initializer: (StreamMetrics) -> Void) {
-        self.init()
-        self.change(initializer)
-    }
-    
-    convenience init(identifier: String?) {
-        self.init(loader: StreamLoader(identifier: identifier))
-    }
-    
-    convenience init(identifier: String, @noescape initializer: (StreamMetrics) -> Void) {
-        self.init(identifier: identifier)
-        self.change(initializer)
-    }
-    
-    convenience init(identifier: String, size: CGFloat) {
-        self.init(identifier: identifier)
         self.size = size
-    }
-    
-    convenience init(identifier: String, ratio: CGFloat) {
-        self.init(identifier: identifier)
-        self.ratio = ratio
     }
     
     func change(@noescape initializer: (StreamMetrics) -> Void) -> StreamMetrics {
@@ -100,17 +40,7 @@ final class StreamMetrics {
         return self
     }
     
-    var loader = StreamLoader()
-    
-    var identifier: String? {
-        get { return loader.identifier }
-        set { loader.identifier = newValue }
-    }
-    
-    weak var nibOwner:AnyObject? {
-        get { return loader.nibOwner }
-        set { loader.nibOwner = newValue }
-    }
+    var loader: StreamLoaderType
     
     var modifyItem: (StreamItem -> Void)?
     
@@ -133,10 +63,11 @@ final class StreamMetrics {
     
     var disableMenu = false
     
-    func loadView () -> StreamReusableView? {
-        if let reusing = loader.loadView(self) {
+    func loadView() -> StreamReusableView? {
+        if let reusing = loader.loadView() {
             reusing.metrics = self
-            reusing.loadedWithMetrics(self)
+            reusing.didLoad()
+            reusing.layoutWithMetrics(self)
             return reusing
         } else {
             return nil

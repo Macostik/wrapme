@@ -11,9 +11,7 @@ import Foundation
 class StreamReusableView: UIView, UIGestureRecognizerDelegate {
     
     var entry: AnyObject? {
-        didSet {
-            setup(entry)
-        }
+        didSet { setup(entry) }
     }
     
     var metrics: StreamMetrics?
@@ -21,15 +19,9 @@ class StreamReusableView: UIView, UIGestureRecognizerDelegate {
     var selected: Bool = false
     lazy var selectTapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(StreamReusableView.select as (StreamReusableView) -> () -> ()))
     
-    private weak var _contentView: UIView?
-    @IBOutlet weak var contentView: UIView! {
-        set { _contentView = newValue }
-        get { return _contentView ?? self }
-    }
-    
     func layoutWithMetrics(metrics: StreamMetrics) {}
     
-    func loadedWithMetrics(metrics: StreamMetrics) {
+    func didLoad() {
         selectTapGestureRecognizer.delegate = self
         self.addGestureRecognizer(selectTapGestureRecognizer)
     }

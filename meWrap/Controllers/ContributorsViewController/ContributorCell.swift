@@ -83,7 +83,7 @@ final class ContributorCell: StreamReusableView {
     }
     
     lazy var removeMetrics: StreamMetrics = {
-        let loader = LayoutStreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
+        let loader = StreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
             let button = PressButton(type: .Custom)
             button.backgroundColor = Color.dangerRed
             button.normalColor = Color.dangerRed
@@ -98,7 +98,7 @@ final class ContributorCell: StreamReusableView {
     }()
     
     lazy var resendMetrics: StreamMetrics = {
-        let loader = LayoutStreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
+        let loader = StreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
             let button = PressButton(type: .Custom)
             button.backgroundColor = Color.orange
             button.normalColor = Color.orange
@@ -115,7 +115,7 @@ final class ContributorCell: StreamReusableView {
     }()
     
     lazy var spinnerMetics: StreamMetrics = {
-        let loader = LayoutStreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
+        let loader = StreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
             view.backgroundColor = Color.orange
             let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
             view.addSubview(spinner)
@@ -126,7 +126,7 @@ final class ContributorCell: StreamReusableView {
     }()
     
     lazy var resendDoneMetrics: StreamMetrics = {
-        let loader = LayoutStreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
+        let loader = StreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
             view.backgroundColor = Color.orange
             let icon = UILabel()
             let descriptor = UIFontDescriptor(name: "icons", size: 36.0)

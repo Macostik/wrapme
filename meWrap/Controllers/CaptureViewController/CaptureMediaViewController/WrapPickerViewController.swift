@@ -126,7 +126,7 @@ class WrapPickerViewController: BaseViewController {
         streamView.contentInset = UIEdgeInsetsMake(ItemHeight, 0, ItemHeight, 0)
         streamView.scrollIndicatorInsets = streamView.contentInset
         
-        let metrics = dataSource.addMetrics(StreamMetrics(loader: LayoutStreamLoader<WrapPickerCell>(), size: ItemHeight))
+        let metrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<WrapPickerCell>(), size: ItemHeight))
         metrics.selection = { [weak self] item, entry in
             if let weakSelf = self {
                 if let index = item?.position.index where weakSelf.streamView.contentOffset.y != CGFloat(index) * CGFloat(ItemHeight) {

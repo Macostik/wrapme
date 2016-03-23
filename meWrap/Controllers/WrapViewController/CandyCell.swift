@@ -16,6 +16,11 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
     let videoIndicator = Label(icon: "+", size: 24)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
+        
+        if !metrics.disableMenu {
+            FlowerMenu.sharedMenu.registerView(self)
+        }
+        
         imageView.defaultIconSize = 56
         imageView.defaultIconText = "t"
         imageView.defaultIconColor = Color.grayLighter
@@ -53,13 +58,6 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
         
         pressedStateButton.snp_makeConstraints { make in
             make.edges.equalTo(self)
-        }
-    }
-    
-    override func loadedWithMetrics(metrics: StreamMetrics) {
-        super.loadedWithMetrics(metrics)
-        if !metrics.disableMenu {
-            FlowerMenu.sharedMenu.registerView(self)
         }
     }
     

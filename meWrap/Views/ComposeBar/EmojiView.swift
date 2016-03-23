@@ -92,7 +92,7 @@ class EmojiView: UIView {
         super.awakeFromNib()
         streamView.layout = GridLayout(streamView: streamView, horizontal: true)
         dataSource = StreamDataSource(streamView: streamView)
-        let metrics = StreamMetrics(loader: LayoutStreamLoader<EmojiCell>())
+        let metrics = StreamMetrics(loader: StreamLoader<EmojiCell>())
         metrics.modifyItem = { [weak self] item in
             if let streamView = self?.streamView {
                 item.ratio = (streamView.height/5) / (streamView.width/8)

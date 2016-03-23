@@ -41,7 +41,7 @@ final class ContributorsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dataSource.addMetrics(specify(StreamMetrics(loader: LayoutStreamLoader<ContributorCell>()), {
+        dataSource.addMetrics(specify(StreamMetrics(loader: StreamLoader<ContributorCell>()), {
             $0.modifyItem = { item in
                 let nameFont = UIFont.fontNormal()
                 let infoFont = UIFont.lightFontSmall()

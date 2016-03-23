@@ -11,8 +11,8 @@ import SnapKit
 
 class PlaceholderView: StreamReusableView {
     
-    class func placeholderLoader(iconName: String, message: String) -> LayoutStreamLoader<PlaceholderView> {
-        return LayoutStreamLoader<PlaceholderView>(layoutBlock: { view in
+    class func placeholderLoader(iconName: String, message: String) -> StreamLoader<PlaceholderView> {
+        return StreamLoader<PlaceholderView>(layoutBlock: { view in
             view.textLabel.text = message
             view.iconLabel.text = iconName
         })
@@ -48,7 +48,7 @@ class PlaceholderView: StreamReusableView {
 
 extension PlaceholderView {
     
-    class func chatPlaceholderLoader() -> LayoutStreamLoader<PlaceholderView> {
+    class func chatPlaceholderLoader() -> StreamLoader<PlaceholderView> {
         return placeholderLoader("7", message: "")
     }
     
@@ -56,39 +56,39 @@ extension PlaceholderView {
         return StreamMetrics(loader: commentsPlaceholderLoader())
     }
     
-    class func commentsPlaceholderLoader() -> LayoutStreamLoader<PlaceholderView> {
+    class func commentsPlaceholderLoader() -> StreamLoader<PlaceholderView> {
         return placeholderLoader("q", message: "no_comments_yet".ls)
     }
     
-    class func hottestPlaceholderLoader() -> LayoutStreamLoader<PlaceholderView> {
+    class func hottestPlaceholderLoader() -> StreamLoader<PlaceholderView> {
         return placeholderLoader("C", message: "coming_soon".ls)
     }
     
-    class func inboxPlaceholderLoader() -> LayoutStreamLoader<PlaceholderView> {
+    class func inboxPlaceholderLoader() -> StreamLoader<PlaceholderView> {
         return placeholderLoader("J", message: "inbox_placeholder".ls)
     }
     
-    class func mediaPlaceholderLoader() -> LayoutStreamLoader<PlaceholderView> {
+    class func mediaPlaceholderLoader() -> StreamLoader<PlaceholderView> {
         return placeholderLoader("C", message: "no_upload_yet".ls)
     }
     
-    class func singleDayPlaceholderLoader() -> LayoutStreamLoader<PlaceholderView> {
+    class func singleDayPlaceholderLoader() -> StreamLoader<PlaceholderView> {
         return placeholderLoader("C", message: "no_uploads_for_this_day".ls)
     }
     
-    class func searchPlaceholderLoader() -> LayoutStreamLoader<PlaceholderView> {
+    class func searchPlaceholderLoader() -> StreamLoader<PlaceholderView> {
         return placeholderLoader(":", message: "no_contacts_with_phone_number".ls)
     }
     
-    class func sharePlaceholderLoader() -> LayoutStreamLoader<PlaceholderView> {
+    class func sharePlaceholderLoader() -> StreamLoader<PlaceholderView> {
         return placeholderLoader("C", message: "easy_create_wrap".ls)
     }
 }
 
 final class HomePlaceholderView: PlaceholderView {
     
-    class func homePlaceholderLoader(actionBlock: (Void -> Void)) -> LayoutStreamLoader<HomePlaceholderView> {
-        return LayoutStreamLoader<HomePlaceholderView>(layoutBlock: { $0.actionBlock = actionBlock })
+    class func homePlaceholderLoader(actionBlock: (Void -> Void)) -> StreamLoader<HomePlaceholderView> {
+        return StreamLoader<HomePlaceholderView>(layoutBlock: { $0.actionBlock = actionBlock })
     }
     
     override func layoutWithMetrics(metrics: StreamMetrics) {

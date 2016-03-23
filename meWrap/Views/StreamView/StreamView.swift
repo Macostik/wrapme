@@ -277,7 +277,7 @@ final class StreamView: UIScrollView {
         view.entry = item?.entry
         var fittingSize = UILayoutFittingCompressedSize
         fittingSize.width = width
-        let size = view.contentView!.systemLayoutSizeFittingSize(fittingSize, withHorizontalFittingPriority: 1000, verticalFittingPriority: 250)
+        let size = view.systemLayoutSizeFittingSize(fittingSize, withHorizontalFittingPriority: 1000, verticalFittingPriority: 250)
         return max(minSize, size.height)
     }
     

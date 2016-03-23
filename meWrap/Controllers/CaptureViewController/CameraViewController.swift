@@ -116,6 +116,7 @@ class CameraViewController: BaseViewController {
     @IBOutlet weak var assetsArrow: UILabel!
     @IBOutlet weak var assetsView: UIView!
     @IBOutlet weak var assetsContentView: UIView!
+    @IBOutlet weak var assetsInteractionView: UIView!
     
     internal var assetsViewController = AssetsViewController()
     
@@ -124,6 +125,7 @@ class CameraViewController: BaseViewController {
         $0.backgroundColor = UIColor.clearColor()
         $0.borderColor = Color.orange.colorWithAlphaComponent(0.5)
         $0.borderWidth = 1
+        $0.userInteractionEnabled = false
     }
     
     func showZoomLabel() {
@@ -146,9 +148,6 @@ class CameraViewController: BaseViewController {
         
         DeviceManager.defaultManager.addReceiver(self)
         DeviceManager.defaultManager.beginUsingAccelerometer()
-        
-        cropAreaView.borderWidth = 1
-        cropAreaView.borderColor = UIColor(white:1, alpha:0.25)
         
         AVCaptureDevice.authorize({ _ in
             if self.isAvatar {
@@ -175,10 +174,10 @@ class CameraViewController: BaseViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        enqueueSelector(#selector(CameraViewController.setAssetsViewControllerHidden as (CameraViewController) -> () -> ()), delay: 3.0)
+        enqueueSelector(#selector(CameraViewController.hideAssets), delay: 3.0)
         self.assetsViewController.assetsHidingHandler = { [weak self] _ in
             if let controller = self {
-                NSObject.cancelPreviousPerformRequestsWithTarget(controller, selector: #selector(CameraViewController.setAssetsViewControllerHidden as (CameraViewController) -> () -> ()), object: nil)
+                NSObject.cancelPreviousPerformRequestsWithTarget(controller, selector: #selector(CameraViewController.hideAssets), object: nil)
             }
         }
         registerOnVolumeChange()
@@ -187,7 +186,7 @@ class CameraViewController: BaseViewController {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         VolumeChangeObserver.sharedObserver.unregister()
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(CameraViewController.setAssetsViewControllerHidden as (CameraViewController) -> () -> ()), object: nil)
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(CameraViewController.hideAssets), object: nil)
     }
     
     internal func registerOnVolumeChange() {
@@ -234,15 +233,13 @@ class CameraViewController: BaseViewController {
         return delegate?.cameraViewControllerCanCaptureMedia?(self) ?? true
     }
     
-    func setAssetsViewControllerHidden() {
+    func hideAssets() {
         setAssetsViewControllerHidden(true, animated: true)
     }
     
     func setAssetsViewControllerHidden(hidden: Bool, animated: Bool) {
-        let maxHeight: CGFloat = 16
-        let minHeight: CGFloat = maxHeight - self.assetsViewController.view.height
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:#selector(CameraViewController.setAssetsViewControllerHidden as (CameraViewController) -> () -> ()), object:nil)
-        self.assetsHeightConstraint.constant = hidden ? minHeight : maxHeight
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:#selector(CameraViewController.hideAssets), object:nil)
+        self.assetsHeightConstraint.constant = hidden ? -self.assetsViewController.view.height : 0
         UIView.animateWithDuration(animated ? 0.3 : 0) {
             if (hidden) {
                 self.assetsArrow.layer.transform = CATransform3DMakeRotation(CGFloat(M_PI), 1, 0, 0)
@@ -358,12 +355,11 @@ extension CameraViewController { // MARK: - Actions
     }
     
     @IBAction func panning(sender: UIPanGestureRecognizer) {
-        let maxHeight: CGFloat = 16
-        let minHeight: CGFloat = maxHeight - assetsViewController.view.height
+        let minHeight = -assetsViewController.view.height
         let constraint = self.assetsHeightConstraint
         if (sender.state == .Changed) {
             let translation = sender.translationInView(sender.view)
-            constraint.constant = smoothstep(minHeight, maxHeight, constraint.constant - translation.y / 2)
+            constraint.constant = smoothstep(minHeight, 0, constraint.constant - translation.y / 2)
             assetsArrow.layer.transform = CATransform3DMakeRotation(CGFloat(M_PI) * constraint.constant / minHeight, 1, 0, 0)
             view.layoutIfNeeded()
             sender.setTranslation(CGPointZero, inView: sender.view)
@@ -378,7 +374,7 @@ extension CameraViewController { // MARK: - Actions
     }
     
     @IBAction func toggleQuickAssets(sender: AnyObject?) {
-        setAssetsViewControllerHidden(assetsHeightConstraint.constant == 16, animated: true)
+        setAssetsViewControllerHidden(assetsHeightConstraint.constant == 0, animated: true)
     }
     
     @IBAction func getSamplePhoto(sender: AnyObject?) {
@@ -420,11 +416,10 @@ extension CameraViewController { // MARK: - Actions
         autoFocusAndExposureAtPoint(point)
         focusView.center = point
         cameraView.addSubview(focusView)
+        self.focusView.alpha = 1.0
         UIView.animateWithDuration(0.33, delay: 1.0, options: .CurveEaseInOut, animations: {
             self.focusView.alpha = 0.0
-            }) { (_) -> Void in
-                self.focusView.removeFromSuperview()
-        }
+            }) { _ in }
     }
     
     @IBAction func zooming(sender: UIPinchGestureRecognizer) {

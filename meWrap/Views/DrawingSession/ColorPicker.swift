@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ColorPicker: UIView {
+final class ColorPicker: UIView {
     
     var pickedColor: (UIColor -> Void)?
     
@@ -24,8 +24,10 @@ class ColorPicker: UIView {
         super.awakeFromNib()
         Dispatch.defaultQueue.fetch({ () -> [UIColor] in
             var colors = [UIColor]()
-            for var hue: CGFloat = 0.0; hue < 1.0; hue += 0.001 {
+            var hue: CGFloat = 0
+            while hue < 1 {
                 colors.append(UIColor(hue:hue, saturation:1.0, brightness:1.0, alpha:1.0))
+                hue += 0.001
             }
             return colors
             }) { [weak self] colors in

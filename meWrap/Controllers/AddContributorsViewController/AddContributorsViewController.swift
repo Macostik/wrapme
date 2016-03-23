@@ -43,7 +43,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
                 nextButton.setTitle("skip".ls, forState: .Normal)
             }
         }
-        singleMetrics = specify(StreamMetrics(loader: LayoutStreamLoader<SingleAddressBookRecordCell>()), {
+        singleMetrics = specify(StreamMetrics(loader: StreamLoader<SingleAddressBookRecordCell>()), {
             $0.modifyItem = { [weak self] item in
                 guard let record = item.entry as? AddressBookRecord, let phoneNumber = record.phoneNumbers.last else { return }
                 let user = phoneNumber.user
@@ -63,7 +63,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
             $0.selectable = false
             })
         
-        multipleMetrics = specify(StreamMetrics(loader: LayoutStreamLoader<MultipleAddressBookRecordCell>()), { [weak self] (metrics) -> Void in
+        multipleMetrics = specify(StreamMetrics(loader: StreamLoader<MultipleAddressBookRecordCell>()), { [weak self] (metrics) -> Void in
             metrics.selectable = false
             metrics.modifyItem = { (item) in
                 guard let record = item.entry as? AddressBookRecord else { return }
@@ -80,7 +80,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
             }
             })
         
-        sectionHeaderMetrics = StreamMetrics(loader: LayoutStreamLoader<AddressBookGroupView>()).change({ [weak self] (metrics) -> Void in
+        sectionHeaderMetrics = StreamMetrics(loader: StreamLoader<AddressBookGroupView>()).change({ [weak self] (metrics) -> Void in
             metrics.size = 32.0
             metrics.modifyItem = { [weak self] (item) in
                 if let group = self?.filteredAddressBook?.groups[safe: item.position.section] {

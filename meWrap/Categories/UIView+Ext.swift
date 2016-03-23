@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 extension UIView {
     
@@ -37,6 +38,17 @@ extension UIView {
     
     var centerBoundary: CGPoint {
         return CGPoint(x: bounds.midX, y: bounds.midY)
+    }
+    
+    func add<T: UIView>(subview: T) -> T {
+        addSubview(subview)
+        return subview
+    }
+    
+    func add<T: UIView>(subview: T, @noescape _ layout: (make: ConstraintMaker) -> Void) -> T {
+        addSubview(subview)
+        subview.snp_makeConstraints(closure: layout)
+        return subview
     }
     
     // MARK: - Regular Animation

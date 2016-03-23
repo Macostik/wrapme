@@ -178,7 +178,7 @@ class LiveViewController: BaseViewController {
     }
     
     private func metricsForType<T: LiveBroadcastEventView>(type: T.Type, kind: LiveBroadcast.Event.Kind, minSize: CGFloat) -> StreamMetrics {
-        let metrics = StreamMetrics(loader: LayoutStreamLoader<T>())
+        let metrics = StreamMetrics(loader: StreamLoader<T>())
         metrics.modifyItem = { [weak self] item in
             item.size = self?.chatStreamView.dynamicSizeForMetrics(metrics, item: item, minSize: minSize) ?? minSize
             item.hidden = (item.entry as! LiveBroadcast.Event).kind != kind

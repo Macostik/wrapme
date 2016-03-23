@@ -10,9 +10,15 @@ import UIKit
 
 class EditAssetViewController: UIViewController {
     
-    @IBOutlet weak var imageView: ImageView!
+    let imageView = ImageView(backgroundColor: UIColor.clearColor())
     
     var asset: MutableAsset?
+    
+    override func loadView() {
+        super.loadView()
+        view.addSubview(imageView)
+        imageView.snp_makeConstraints { $0.edges.equalTo(view) }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,16 +28,22 @@ class EditAssetViewController: UIViewController {
 
 class EditAssetCell: StreamReusableView {
     
-    @IBOutlet weak var imageView: ImageView!
-    @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var selectionView: UIView!
-    @IBOutlet weak var videoIndicator: UILabel!
+    private lazy var imageView: ImageView = self.add(specify(ImageView(), { $0.borderColor = UIColor.whiteColor() }), {
+        $0.leading.top.trailing.equalTo(self).inset(1)
+        $0.bottom.equalTo(self).inset(18)
+    })
+    private lazy var statusLabel: Label = self.add(Label(icon: "", size: 12), {
+        $0.top.equalTo(self.imageView.snp_bottom)
+        $0.bottom.equalTo(self)
+        $0.trailing.equalTo(self).inset(2)
+    })
+    private lazy var videoIndicator: Label = self.add(Label(icon: "+", size: 20), { $0.top.trailing.equalTo(self.imageView).inset(2) })
     
     override func setup(entry: AnyObject?) {
         if let asset = entry as? MutableAsset {
             imageView.url = asset.small
             updateStatus()
-            selectionView.hidden = !asset.selected;
+            imageView.borderWidth = asset.selected ? 2 : 0
             videoIndicator.hidden = asset.type != .Video
         }
     }
@@ -45,11 +57,7 @@ class EditAssetCell: StreamReusableView {
             if asset.edited {
                 status += "R"
             }
-            if !status.isEmpty {
-                statusLabel.attributedText = NSAttributedString(string: status, attributes: [NSForegroundColorAttributeName:UIColor.whiteColor(),NSFontAttributeName:statusLabel.font])
-            } else {
-                statusLabel.attributedText = nil
-            }
+            statusLabel.text = status
         }
     }
 }

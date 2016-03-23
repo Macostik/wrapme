@@ -15,10 +15,10 @@ final class ChatViewController: WrapSegmentViewController {
     
     lazy var chat: Chat = Chat(wrap: self.wrap)
     
-    private var messageMetrics = StreamMetrics(loader: LayoutStreamLoader<MessageCell>()).change({ $0.selectable = false })
-    private var messageWithNameMetrics = StreamMetrics(loader: LayoutStreamLoader<MessageWithNameCell>()).change({ $0.selectable = false })
-    private var myMessageMetrics = StreamMetrics(loader: LayoutStreamLoader<MyMessageCell>()).change({ $0.selectable = false })
-    private var dateMetrics = StreamMetrics(loader: LayoutStreamLoader<MessageDateView>(), size: 33).change({ $0.selectable = false })
+    private var messageMetrics = StreamMetrics(loader: StreamLoader<MessageCell>()).change({ $0.selectable = false })
+    private var messageWithNameMetrics = StreamMetrics(loader: StreamLoader<MessageWithNameCell>()).change({ $0.selectable = false })
+    private var myMessageMetrics = StreamMetrics(loader: StreamLoader<MyMessageCell>()).change({ $0.selectable = false })
+    private var dateMetrics = StreamMetrics(loader: StreamLoader<MessageDateView>(), size: 33).change({ $0.selectable = false })
     
     private lazy var placeholderMetrics: StreamMetrics = StreamMetrics(loader: PlaceholderView.chatPlaceholderLoader()).change { [weak self] metrics -> Void in
         metrics.prepareAppearing = { item, view in

@@ -219,6 +219,13 @@ final class LiveBroadcasterViewController: LiveViewController {
                 "title" : broadcast.title ?? ""
                 ])
             
+            let streamInfo = [
+                "wrap_uid" : wrap.uid,
+                "user_uid" : user.uid,
+                "device_uid" : Authorization.current.deviceUID,
+                "title" : broadcast.title ?? ""
+            ]
+            
             let message: [NSObject : AnyObject] = [
                 "pn_apns" : [
                     "aps" : [
@@ -230,13 +237,17 @@ final class LiveBroadcasterViewController: LiveViewController {
                         "sound" : "default",
                         "content-available" : 1
                     ],
-                    "stream_info" : [
-                        "wrap_uid" : wrap.uid,
-                        "user_uid" : user.uid,
-                        "device_uid" : Authorization.current.deviceUID,
-                        "title" : broadcast.title ?? ""
-                    ],
+                    "stream_info" : streamInfo,
                     "msg_type" : NotificationType.LiveBroadcast.rawValue
+                ],
+                "pn_gcm": [
+                    "data": [
+                        "message": [
+                            "msg_uid" : NSProcessInfo.processInfo().globallyUniqueString,
+                            "stream_info" : streamInfo,
+                            "msg_type" : NotificationType.LiveBroadcast.rawValue
+                        ]
+                    ]
                 ],
                 "msg_type" : NotificationType.LiveBroadcast.rawValue
             ]
@@ -298,7 +309,7 @@ final class LiveBroadcasterViewController: LiveViewController {
             self.focusView = focusView
             UIView.animateWithDuration(0.33, delay: 1.0, options: .CurveEaseInOut, animations: { () -> Void in
                 focusView.alpha = 0.0
-                }) { _ in focusView.removeFromSuperview() }
+            }) { _ in focusView.removeFromSuperview() }
         } catch { }
     }
     
@@ -340,7 +351,7 @@ final class LiveBroadcasterViewController: LiveViewController {
     
     private var startEventIsAlreadyPresented = false
     
-    //MARK: BaseViewController 
+    //MARK: BaseViewController
     
     override func constantForKeyboardAdjustmentBottomConstraint(constraint: NSLayoutConstraint, defaultConstant: CGFloat, keyboardHeight: CGFloat) -> CGFloat {
         if let identifier = constraint.identifier {

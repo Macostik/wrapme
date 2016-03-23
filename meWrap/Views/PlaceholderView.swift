@@ -81,7 +81,7 @@ extension PlaceholderView {
     }
     
     class func sharePlaceholderLoader() -> StreamLoader<PlaceholderView> {
-        return placeholderLoader("C", message: "easy_create_wrap".ls)
+        return placeholderLoader("C", message: "no_wraps_yet".ls + "\n\n\n" + "easy_create_wrap".ls)
     }
 }
 
@@ -92,7 +92,7 @@ final class HomePlaceholderView: PlaceholderView {
     }
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
-        textLabel.text = "easy_create_wrap".ls
+        textLabel.text = "no_wraps_yet".ls + "\n\n\n" + "easy_create_wrap".ls
         iconLabel.text = "C"
         addSubview(containerView)
         containerView.addSubview(textLabel)
@@ -116,7 +116,7 @@ final class HomePlaceholderView: PlaceholderView {
         }
         iconLabel.snp_makeConstraints { (make) -> Void in
             make.top.centerX.equalTo(containerView)
-            make.bottom.equalTo(textLabel.snp_top).offset(-100)
+            make.bottom.equalTo(textLabel.snp_top)
         }
         textLabel.snp_makeConstraints { (make) -> Void in
             make.leading.trailing.equalTo(containerView)

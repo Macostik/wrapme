@@ -49,7 +49,7 @@ class WrapCell: StreamReusableView {
     
     weak var delegate: WrapCellDelegate?
     
-    private let coverView = WrapCoverView()
+    private let coverView = WrapCoverView(backgroundColor: UIColor.whiteColor())
     private let nameLabel = Label(preset: .Large, weight: UIFontWeightLight, textColor: Color.grayDarker)
     private let dateLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLight)
     private let badgeLabel = BadgeLabel(preset: .Smaller, weight: UIFontWeightLight, textColor: UIColor.whiteColor())

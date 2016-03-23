@@ -67,7 +67,7 @@ class WrapCell: StreamReusableView {
         coverView.defaultBackgroundColor = Color.grayLighter
         coverView.defaultIconText = "t"
         
-        badgeLabel.intrinsicContentSizeInsets = CGSize(width: 4, height: 4)
+        badgeLabel.intrinsicContentSizeInsets = CGSize(width: 5, height: 5)
         badgeLabel.cornerRadius = 9
         badgeLabel.textAlignment = .Center
         badgeLabel.clipsToBounds = true

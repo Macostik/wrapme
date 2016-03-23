@@ -288,13 +288,15 @@ extension UIViewController {
     }
     
     func toastAppearanceReferenceView(toast: Toast) -> UIView {
-        if respondsToSelector(Selector("navigationBar")) {
-            return performSelector(Selector("navigationBar"))?.takeUnretainedValue() as? UIView ?? view
-        } else {
-            return view
-        }
+        return view
     }
+}
+
+extension BaseViewController {
     
+    override func toastAppearanceReferenceView(toast: Toast) -> UIView {
+        return navigationBar ?? view
+    }
 }
 
 extension UIAlertController {

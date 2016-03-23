@@ -20,9 +20,7 @@ final class User: Entry {
             currentUser?.current = true
         }
     }
-    
-    var isSignupCompleted: Bool { return name != nil }
-    
+        
     var isInvited: Bool {
         return !current && devices.count > 0 && !devices.contains({ $0.activated })
     }

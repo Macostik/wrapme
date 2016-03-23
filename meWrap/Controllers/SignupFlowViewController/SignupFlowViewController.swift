@@ -66,7 +66,7 @@ class SignupFlowViewController: BaseViewController {
             let storyboard = UIStoryboard.main
             if User.currentUser!.firstTimeUse {
                 let navigation = storyboard.instantiateInitialViewController() as! UINavigationController
-                let viewController: UIViewController! = storyboard["uploadWizard"]
+                let viewController = Storyboard.UploadWizard.instantiate()
                 navigation.viewControllers = [navigation.viewControllers.first!, viewController]
                 UIWindow.mainWindow.rootViewController = navigation
             } else {
@@ -78,10 +78,11 @@ class SignupFlowViewController: BaseViewController {
         // profile subflow (will be skipped if is not required)
         
         let profileStepBlock = { () -> SignupStepViewController? in
-            if User.currentUser!.isSignupCompleted {
-                return completeSignUp()
-            } else {
+            let user = User.currentUser!
+            if user.firstTimeUse || user.name == nil {
                 return editProfile.configure { $0[.Success] = completeSignUp }
+            } else {
+                return completeSignUp()
             }
         }
         
@@ -118,7 +119,6 @@ class SignupFlowViewController: BaseViewController {
             return linkDevice
         }
         
-        
         // second device signup subflow (different for phone and wifi device)
         
         let secondDeviceBlock = { () -> SignupStepViewController? in
@@ -152,7 +152,6 @@ class SignupFlowViewController: BaseViewController {
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return flowNavigationController?.topViewController?.preferredStatusBarStyle() ?? .LightContent
     }
-    
 }
 
 extension SignupFlowViewController: UINavigationControllerDelegate {

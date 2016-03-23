@@ -27,6 +27,20 @@ final class ChatViewController: WrapSegmentViewController {
         metrics.selectable = false
     }
     
+    private var unreadMessagesMetrics = StreamMetrics(loader: StreamLoader<StreamReusableView>(layoutBlock: { view in
+        let label = Label(preset: .Normal, weight: .Regular , textColor: Color.orange)
+        label.text = "unread_messages".ls
+        label.textAlignment = .Center
+        label.backgroundColor = Color.orangeLightest
+        view.addSubview(label)
+        label.snp_makeConstraints(closure: { (make) -> Void in
+            make.leading.trailing.equalTo(view)
+            make.top.bottom.equalTo(view).inset(6)
+        })
+    }), size: 46).change({ $0.selectable = false })
+    
+    private var dragged = false
+    
     private var runQueue = RunQueue(limit: 1)
     
     var showKeyboard = false {
@@ -53,6 +67,7 @@ final class ChatViewController: WrapSegmentViewController {
     func applicationDidBecomeActive() {
         streamView.unlock()
         chat.resetMessages()
+        scrollToLastUnreadMessage()
         NSNotificationCenter.defaultCenter().removeObserver(self, name:UIApplicationDidBecomeActiveNotification, object:nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ChatViewController.applicationWillResignActive), name:UIApplicationWillResignActiveNotification, object:nil)
     }
@@ -92,8 +107,10 @@ final class ChatViewController: WrapSegmentViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
         streamView.unlock()
         chat.sort()
+        scrollToLastUnreadMessage()
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ChatViewController.applicationWillResignActive), name:UIApplicationWillResignActiveNotification, object:nil)
         if showKeyboard {
             composeBar.becomeFirstResponder()
@@ -107,7 +124,12 @@ final class ChatViewController: WrapSegmentViewController {
         super.viewWillDisappear(animated)
         streamView.lock()
         chat.markAsRead()
+        Chat.shouldShowUnreadMessages = true
         NSNotificationCenter.defaultCenter().removeObserver(self, name:UIApplicationWillResignActiveNotification, object:nil)
+    }
+    
+    func scrollToLastUnreadMessage() {
+        streamView.scrollToItemPassingTest({ $0.metrics === unreadMessagesMetrics }, animated:false)
     }
     
     var typing = false {
@@ -226,6 +248,7 @@ extension ChatViewController: ComposeBarDelegate {
             wrap.uploadMessage(text)
             SoundPlayer.playSend()
             chat.markAsRead()
+            Chat.shouldShowUnreadMessages = false
         } else {
             navigationController?.popToRootViewControllerAnimated(false)
         }
@@ -280,6 +303,9 @@ extension ChatViewController: StreamViewDelegate {
     func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetrics] {
         var metrics = [StreamMetrics]()
         guard let message = chat.entries[safe: position.index] as? Message else { return metrics }
+        if chat.unreadMessages.first == message && Chat.shouldShowUnreadMessages && badge?.value != 0{
+            metrics.append(unreadMessagesMetrics)
+        }
         if message.chatMetadata.containsDate {
             metrics.append(dateMetrics)
         }

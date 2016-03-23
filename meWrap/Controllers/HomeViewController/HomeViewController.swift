@@ -121,6 +121,7 @@ final class HomeViewController: BaseViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+
         dataSource.reload()
         updateEmailConfirmationView(false)
         AuthorizedExecutor.authorized = true
@@ -235,7 +236,7 @@ extension HomeViewController {
     
     @IBAction func resendConfirmation(sender: AnyObject?) {
         APIRequest.resendConfirmation(nil).send({ _ in
-            Toast.show("confirmation_resend".ls)
+            InfoToast.show("confirmation_resend".ls)
             }, failure: { $0?.show() })
     }
 }

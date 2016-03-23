@@ -62,6 +62,9 @@ class CandyAddNotification: CandyNotification {
             candy.markAsUnread(true)
         }
         candy.notifyOnAddition()
+        if candy.contributor?.current == false {
+             EntryToast(entry: candy).show()
+        }
     }
     
     override func canBeHandled() -> Bool { return Authorization.active }

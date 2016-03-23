@@ -269,7 +269,7 @@ class VideoPlayerView: UIView {
             if let url = url where url.fileURL || Network.sharedNetwork.reachable {
                 toggle()
             } else {
-                Toast.show("no_internet_connection".ls)
+                InfoToast.show("no_internet_connection".ls)
             }
         }
     }

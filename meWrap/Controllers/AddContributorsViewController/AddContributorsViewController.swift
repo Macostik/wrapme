@@ -146,7 +146,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
             completionHandler?(false)
         } else {
             if Network.sharedNetwork.reachable != true {
-                Toast.show("no_internet_connection".ls)
+                InfoToast.show("no_internet_connection".ls)
                 return
             }
             APIRequest.addContributors(addressBook.selectedPhoneNumbers, wrap: wrap, message: nil)?.send({ [weak self] _ in
@@ -159,7 +159,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     
     @IBAction func done(sender: Button) {
         if Network.sharedNetwork.reachable != true {
-            Toast.show("no_internet_connection".ls)
+            InfoToast.show("no_internet_connection".ls)
             return
         }
         let performRequestBlock = { [weak self] (message: AnyObject?) in
@@ -168,9 +168,9 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
                 APIRequest.addContributors(selectedPhoneNumbers, wrap: wrap, message: message)?.send({ _ in
                     self?.navigationController?.popViewControllerAnimated(false)
                     if message?.isEmpty ?? true {
-                        Toast.show("isn't_using_invite".ls)
+                        InfoToast.show("isn't_using_invite".ls)
                     } else {
-                        Toast.show("is_using_invite".ls)
+                        InfoToast.show("is_using_invite".ls)
                     }
                     }, failure: { (error) in
                         error?.show()

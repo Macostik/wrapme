@@ -232,10 +232,10 @@ extension HistoryViewController: EntryNotifying {
                 navigationController?.dismissViewControllerAnimated(false, completion: nil)
             }
             if removedCandy == candy {
-                Toast.show((candy.isVideo ? "video_deleted" : "photo_deleted").ls)
+                InfoToast.show((candy.isVideo ? "video_deleted" : "photo_deleted").ls)
                 self.removedCandy = nil
             } else {
-                Toast.show((candy.isVideo ? "video_unavailable" : "photo_unavailable").ls)
+                InfoToast.show((candy.isVideo ? "video_unavailable" : "photo_unavailable").ls)
             }
             
             if let nextCandy = candyAfterDeletingCandyAt(index) {
@@ -249,7 +249,7 @@ extension HistoryViewController: EntryNotifying {
     }
     
     func notifier(notifier: EntryNotifier, willDeleteContainer container: Entry) {
-        Toast.showMessageForUnavailableWrap(wrap)
+        InfoToast.showMessageForUnavailableWrap(wrap)
         navigationController?.popToRootViewControllerAnimated(false)
     }
     
@@ -283,10 +283,10 @@ extension HistoryViewController {
                 sender.loading = true
                 self?.candy?.download({ () -> Void in
                     sender.loading = false
-                    Toast.showDownloadingMediaMessageForCandy(self?.candy)
+                    InfoToast.showDownloadingMediaMessageForCandy(self?.candy)
                     }, failure: { (error) -> Void in
                         if let error = error where error.isNetworkError {
-                            Toast.show("downloading_internet_connection_error".ls)
+                            InfoToast.show("downloading_internet_connection_error".ls)
                         } else {
                             error?.show()
                         }

@@ -173,7 +173,7 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
     @IBAction func resendEmailConfirmation(sender: UIButton) {
         sender.userInteractionEnabled = false
         APIRequest.resendConfirmation(nil) .send({ _ in
-            Toast.show("confirmation_resend".ls)
+            InfoToast.show("confirmation_resend".ls)
             sender.userInteractionEnabled = true
             }) { _ in
                 sender.userInteractionEnabled = true

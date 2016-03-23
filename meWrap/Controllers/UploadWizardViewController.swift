@@ -124,7 +124,7 @@ class UploadWizardViewController: BaseViewController {
         if !isNewWrap {
             return true
         } else if name?.isEmpty ?? false {
-            Toast.show("please_enter_title".ls)
+            InfoToast.show("please_enter_title".ls)
             return false
         } else if name != wrap?.name {
             let currentName = wrap?.name

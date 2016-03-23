@@ -78,7 +78,7 @@ class CaptureMediaViewController: CaptureViewController {
         }
     }
     
-    override func toastAppearanceViewController(toast: Toast) -> UIViewController {
+    override func toastAppearanceViewController(toast: Toast?) -> UIViewController {
         for controller in self.childViewControllers where controller is WrapPickerViewController {
             return controller
         }
@@ -134,7 +134,7 @@ class CaptureMediaViewController: CaptureViewController {
             success(asset)
             if assets.count == 10 {
                 showUploadSummary {
-                    Toast.show("upload_photos_limit_error".ls)
+                    InfoToast.show("upload_photos_limit_error".ls)
                 }
             }
             }, failure: failure)
@@ -190,7 +190,7 @@ extension CaptureMediaViewController {
     
     func assetsViewController(controller: AssetsViewController, shouldSelectAsset asset: PHAsset) -> Bool {
         if asset.mediaType == .Video && asset.duration >= Constants.maxVideoRecordedDuration + 1 {
-            Toast.show(String(format:"formatted_upload_video_duration_limit".ls, Int(Constants.maxVideoRecordedDuration)))
+            InfoToast.show(String(format:"formatted_upload_video_duration_limit".ls, Int(Constants.maxVideoRecordedDuration)))
             return false
         } else {
             return shouldAddAsset({}, failure: { $0?.show() })

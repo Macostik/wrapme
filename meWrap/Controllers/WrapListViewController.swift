@@ -74,7 +74,7 @@ class WrapListViewController: BaseViewController {
             if content.count <= 10 {
                 handleAssets()
             } else {
-                Toast.show("upload_photos_limit_error".ls)
+                InfoToast.show("upload_photos_limit_error".ls)
                 while content.count > 10 {
                     content.removeLast()
                 }

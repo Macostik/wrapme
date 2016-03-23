@@ -76,7 +76,7 @@ class WelcomeViewController: BaseViewController {
         for name in Environment.names {
             actioSheet.action(name, handler: { _ in
                 NSUserDefaults.standardUserDefaults().environment = name
-                Toast.show("Please, relaunch the app.")
+                InfoToast.show("Please, relaunch the app.")
             })
         }
         actioSheet.action("Cancel", style: .Cancel)

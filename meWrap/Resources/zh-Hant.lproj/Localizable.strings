@@ -309,3 +309,7 @@
 "inbox_placeholder" = "No messages yet. Please enjoy your day.";
 "mark_all_as_read" = "Mark all as read";
 "select_wrap_to_share" = "Select Wrap To Share";
+"tap_to_view" = "TAP TO VIEW";
+"now" = "Now";
+"just_sent_you_a_new_photo" = "%@ just sent you a new photo";
+"someone_commented" = "%@ commented:";

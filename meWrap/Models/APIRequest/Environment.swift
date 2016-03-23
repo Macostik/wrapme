@@ -178,7 +178,7 @@ extension NSError {
     
     func show() {
         if code != NSURLErrorCancelled {
-            Toast.show(errorMessage)
+            InfoToast.show(errorMessage)
         }
     }
     

@@ -27,20 +27,6 @@ final class ChatViewController: WrapSegmentViewController {
         metrics.selectable = false
     }
     
-    private var unreadMessagesMetrics = StreamMetrics(loader: LayoutStreamLoader<StreamReusableView>(layoutBlock: { view in
-        let label = Label(preset: .Normal, weight: UIFontWeightRegular, textColor: Color.orange)
-        label.text = "unread_messages".ls
-        label.textAlignment = .Center
-        label.backgroundColor = Color.orangeLightest
-        view.addSubview(label)
-        label.snp_makeConstraints(closure: { (make) -> Void in
-            make.leading.trailing.equalTo(view)
-            make.top.bottom.equalTo(view).inset(6)
-        })
-    }), size: 46).change({ $0.selectable = false })
-    
-    private var dragged = false
-    
     private var runQueue = RunQueue(limit: 1)
     
     var showKeyboard = false {
@@ -67,7 +53,6 @@ final class ChatViewController: WrapSegmentViewController {
     func applicationDidBecomeActive() {
         streamView.unlock()
         chat.resetMessages()
-        scrollToLastUnreadMessage()
         NSNotificationCenter.defaultCenter().removeObserver(self, name:UIApplicationDidBecomeActiveNotification, object:nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ChatViewController.applicationWillResignActive), name:UIApplicationWillResignActiveNotification, object:nil)
     }
@@ -109,7 +94,6 @@ final class ChatViewController: WrapSegmentViewController {
         super.viewWillAppear(animated)
         streamView.unlock()
         chat.sort()
-        scrollToLastUnreadMessage()
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ChatViewController.applicationWillResignActive), name:UIApplicationWillResignActiveNotification, object:nil)
         if showKeyboard {
             composeBar.becomeFirstResponder()
@@ -123,16 +107,7 @@ final class ChatViewController: WrapSegmentViewController {
         super.viewWillDisappear(animated)
         streamView.lock()
         chat.markAsRead()
-        updateBadge()
         NSNotificationCenter.defaultCenter().removeObserver(self, name:UIApplicationWillResignActiveNotification, object:nil)
-    }
-    
-    func updateBadge() {
-        badge?.value = chat.unreadMessages.count
-    }
-    
-    func scrollToLastUnreadMessage() {
-        streamView.scrollToItemPassingTest({ $0.metrics === unreadMessagesMetrics }, animated:false)
     }
     
     var typing = false {
@@ -197,13 +172,9 @@ final class ChatViewController: WrapSegmentViewController {
                 if !streamView.scrollable || offset.y < maximumOffset.y {
                     finish()
                 } else {
-                    if streamView.height/2 < _self.chat.heightOfMessageCell(message) && _self.chat.unreadMessages.count == 1 {
-                        _self.scrollToLastUnreadMessage()
-                    } else {
-                        streamView.reload()
-                        streamView.contentOffset = streamView.maximumContentOffset.offset(0, y: -_self.chat.heightOfMessageCell(message))
-                        streamView.setMaximumContentOffsetAnimated(true)
-                    }
+                    streamView.reload()
+                    streamView.contentOffset = streamView.maximumContentOffset.offset(0, y: -_self.chat.heightOfMessageCell(message))
+                    streamView.setMaximumContentOffsetAnimated(true)
                     Dispatch.mainQueue.after(0.5, block:finish)
                 }
             }
@@ -240,9 +211,6 @@ extension ChatViewController: EntryNotifying {
     
     func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
         chat.remove(entry)
-        if entry.unread {
-            updateBadge()
-        }
     }
     
     func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
@@ -300,7 +268,6 @@ extension ChatViewController: StreamViewDelegate {
     }
     
     func streamView(streamView: StreamView, numberOfItemsInSection section: Int) -> Int {
-        updateBadge()
         return chat.entries.count
     }
     
@@ -313,9 +280,6 @@ extension ChatViewController: StreamViewDelegate {
     func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetrics] {
         var metrics = [StreamMetrics]()
         guard let message = chat.entries[safe: position.index] as? Message else { return metrics }
-        if chat.unreadMessages.first == message {
-            metrics.append(unreadMessagesMetrics)
-        }
         if message.chatMetadata.containsDate {
             metrics.append(dateMetrics)
         }
@@ -331,22 +295,13 @@ extension ChatViewController: StreamViewDelegate {
     
     func streamViewDidChangeContentSize(streamView: StreamView, oldContentSize: CGSize) {
         if streamView.scrollable {
-            if dragged {
-                let unreadContentOffset = chat.unreadMessages.count == 0 ? unreadMessagesMetrics.size : 0
-                streamView.contentOffset.y += streamView.contentSize.height - oldContentSize.height + unreadContentOffset
-            } else {
-                streamView.contentOffset = streamView.maximumContentOffset
-            }
+            streamView.contentOffset = streamView.maximumContentOffset
         }
         appendItemsIfNeededWithTargetContentOffset(streamView.contentOffset)
     }
     
     func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetrics? {
         return placeholderMetrics
-    }
-    
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        dragged = true
     }
     
     func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

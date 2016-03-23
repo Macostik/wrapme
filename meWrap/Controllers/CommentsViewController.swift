@@ -14,9 +14,9 @@ import MobileCoreServices
 final class CommentCell: StreamReusableView, FlowerMenuConstructor {
     
     private let avatarView = StatusUserAvatarView()
-    private let nameLabel = Label(preset: .Normal, weight: UIFontWeightLight, textColor: Color.grayDark)
-    private let dateLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLight)
-    private let textLabel = SmartLabel(preset: .Normal, weight: UIFontWeightRegular, textColor: UIColor.blackColor())
+    private let nameLabel = Label(preset: .Normal, textColor: Color.grayDark)
+    private let dateLabel = Label(preset: .Small, textColor: Color.grayLight)
+    private let textLabel = SmartLabel(preset: .Normal, weight: .Regular, textColor: UIColor.blackColor())
     private let indicator = EntryStatusIndicator(color: Color.grayLight)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {

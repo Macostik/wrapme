@@ -27,9 +27,9 @@ class InboxCell: StreamReusableView {
     internal var containerView = UIView()
     internal var headerView = UIView()
     internal var avatarView = ImageView(backgroundColor: UIColor.clearColor())
-    internal var userNameLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLighter)
-    internal var timeLabel = Label(preset: .Smaller, weight: UIFontWeightLight, textColor: Color.grayLighter)
-    internal var wrapLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLighter)
+    internal var userNameLabel = Label(preset: .Small, textColor: Color.grayLighter)
+    internal var timeLabel = Label(preset: .Smaller, textColor: Color.grayLighter)
+    internal var wrapLabel = Label(preset: .Small, textColor: Color.grayLighter)
     internal var imageView = ImageView(backgroundColor: UIColor.clearColor())
     internal var videoIndicator = Label(icon: "+", size: 24)
     
@@ -102,7 +102,7 @@ class InboxCell: StreamReusableView {
 
 class InboxCommentCell: InboxCell {
     
-    private var textView = Label(preset: .Normal, weight: UIFontWeightRegular, textColor: Color.grayLighter)
+    private var textView = Label(preset: .Normal, weight: .Regular, textColor: Color.grayLighter)
     
     static let DefaultHeight: CGFloat = Constants.screenWidth / 3 + 106.0
     

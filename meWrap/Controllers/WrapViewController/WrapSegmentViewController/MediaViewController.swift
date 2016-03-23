@@ -38,7 +38,7 @@ class HistoryItemCell: StreamReusableView {
     
     let streamView = StreamView()
     
-    private let dateLabel = Label(preset: FontPreset.Normal, weight: UIFontWeightRegular, textColor: Color.orange)
+    private let dateLabel = Label(preset: FontPreset.Normal, weight: .Regular, textColor: Color.orange)
     
     private var dataSource: HistoryItemDataSource!
     
@@ -137,8 +137,8 @@ class HistoryItemCell: StreamReusableView {
 class LiveBroadcastMediaView: StreamReusableView {
     
     private let imageView = ImageView(backgroundColor: UIColor.whiteColor())
-    private let nameLabel = Label(preset: FontPreset.Small, weight: UIFontWeightLight)
-    private let titleLabel = Label(preset: FontPreset.Smaller, weight: UIFontWeightLight, textColor: Color.grayLighter)
+    private let nameLabel = Label(preset: FontPreset.Small)
+    private let titleLabel = Label(preset: FontPreset.Smaller, textColor: Color.grayLighter)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         imageView.cornerRadius = 24
@@ -149,7 +149,7 @@ class LiveBroadcastMediaView: StreamReusableView {
         addSubview(nameLabel)
         addSubview(titleLabel)
         
-        let liveBadge = Label(preset: FontPreset.XSmall, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
+        let liveBadge = Label(preset: FontPreset.XSmall, textColor: UIColor.whiteColor())
         liveBadge.textAlignment = .Center
         liveBadge.cornerRadius = 8
         liveBadge.clipsToBounds = true

@@ -58,9 +58,9 @@ class LiveBroadcastEventWithAvatarView: LiveBroadcastEventView {
 
 class LiveBroadcastMessageEventView: LiveBroadcastEventWithAvatarView {
     
-    private var nameLabel = Label(preset: FontPreset.Smaller, weight: UIFontWeightRegular, textColor: Color.grayDarker)
+    private var nameLabel = Label(preset: FontPreset.Smaller, weight: .Regular, textColor: Color.grayDarker)
     
-    private var textLabel = Label(preset: FontPreset.Normal, weight: UIFontWeightRegular, textColor: Color.grayDarker)
+    private var textLabel = Label(preset: FontPreset.Normal, weight: .Regular, textColor: Color.grayDarker)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         super.layoutWithMetrics(metrics)
@@ -94,7 +94,7 @@ class LiveBroadcastMessageEventView: LiveBroadcastEventWithAvatarView {
 
 class LiveBroadcastJoinEventView: LiveBroadcastEventWithAvatarView {
     
-    private var textLabel = Label(preset: FontPreset.Normal, weight: UIFontWeightRegular, textColor: Color.grayDarker)
+    private var textLabel = Label(preset: FontPreset.Normal, weight: .Regular, textColor: Color.grayDarker)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         super.layoutWithMetrics(metrics)
@@ -119,7 +119,7 @@ class LiveBroadcastJoinEventView: LiveBroadcastEventWithAvatarView {
 
 class LiveBroadcastInfoEventView: LiveBroadcastEventView {
     
-    private var textLabel = Label(preset: FontPreset.Small, weight: UIFontWeightRegular, textColor: UIColor.whiteColor())
+    private var textLabel = Label(preset: FontPreset.Small, weight: .Regular, textColor: UIColor.whiteColor())
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         super.layoutWithMetrics(metrics)

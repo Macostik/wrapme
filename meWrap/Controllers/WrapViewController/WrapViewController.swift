@@ -69,13 +69,13 @@ final class WrapSegmentButton: Button {
         badge.circled = true
     }
     
-    var badge = BadgeLabel(preset: .Smaller, weight: UIFontWeightRegular, textColor: UIColor.whiteColor())
+    var badge = BadgeLabel(preset: .Smaller, weight: .Regular, textColor: UIColor.whiteColor())
     
     private var selectionView = UIView()
     
     private var iconLabel = Label(icon: "", size: 24, textColor: Color.grayLighter)
     
-    private var textLabel = Label(preset: .Normal, weight: UIFontWeightRegular, textColor: Color.grayLighter)
+    private var textLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.grayLighter)
     
     override var selected: Bool {
         willSet {

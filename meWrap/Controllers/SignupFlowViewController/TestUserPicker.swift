@@ -126,9 +126,9 @@ struct TestUser {
 
 class TestUserCell: StreamReusableView, FlowerMenuConstructor {
     
-    private let phone = Label(preset: .Normal, weight: UIFontWeightLight, textColor: Color.grayDark)
-    private let email = Label(preset: .Normal, weight: UIFontWeightLight, textColor: Color.orange)
-    private let deviceUID = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLight)
+    private let phone = Label(preset: .Normal, textColor: Color.grayDark)
+    private let email = Label(preset: .Normal, textColor: Color.orange)
+    private let deviceUID = Label(preset: .Small, textColor: Color.grayLight)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         FlowerMenu.sharedMenu.registerView(self)

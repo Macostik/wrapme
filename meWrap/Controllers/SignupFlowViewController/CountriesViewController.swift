@@ -11,7 +11,7 @@ import SnapKit
 
 class CountryCell: StreamReusableView {
     
-    private let countryNameLabel = Label(preset: FontPreset.Normal, weight: UIFontWeightRegular, textColor: Color.grayDark)
+    private let countryNameLabel = Label(preset: FontPreset.Normal, weight: .Regular, textColor: Color.grayDark)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         addSubview(countryNameLabel)

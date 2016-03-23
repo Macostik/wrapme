@@ -11,7 +11,7 @@ import SnapKit
 
 class AddressBookGroupView: StreamReusableView {
 
-    private var titleLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.orangeDark)
+    private var titleLabel = Label(preset: .Small, textColor: Color.orangeDark)
     
     var group: ArrangedAddressBookGroup? {
         didSet {
@@ -33,8 +33,8 @@ class AddressBookGroupView: StreamReusableView {
 class AddressBookPhoneNumberCell: StreamReusableView {
     
     private var selectionView = UIButton(type: .Custom)
-    private var typeLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLight)
-    private var phoneLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLight)
+    private var typeLabel = Label(preset: .Small, textColor: Color.grayLight)
+    private var phoneLabel = Label(preset: .Small, textColor: Color.grayLight)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         typeLabel.textAlignment = .Right

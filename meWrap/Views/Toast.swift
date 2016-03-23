@@ -57,7 +57,7 @@ class InfoToast: Toast, DefaultToastAppearance {
     var queuedMessages = Set<String>()
     var leftIconView = Label(icon: "Z", size: 21)
     var rightIconView = Label(icon: "!", size: 17)
-    var messageLabel = Label(preset: .Small, weight: UIFontWeightRegular, textColor: UIColor.whiteColor())
+    var messageLabel = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
     var dismissBlock: Block?
     
     required init() {
@@ -161,11 +161,11 @@ class EntryToast: Toast {
     
     private let avatar = ImageView(backgroundColor: UIColor.clearColor())
     private let imageView = ImageView(backgroundColor: UIColor.clearColor())
-    private var topLabel = Label(preset: .Normal, weight: UIFontWeightBold, textColor: UIColor.whiteColor())
-    private let middleLabel = Label(preset: .Normal, weight: UIFontWeightRegular, textColor: UIColor.whiteColor())
-    private let rightLabel = Label(preset: .Small, weight: UIFontWeightRegular, textColor: Color.orange)
+    private var topLabel = Label(preset: .Normal, weight: .Bold, textColor: UIColor.whiteColor())
+    private let middleLabel = Label(preset: .Normal, weight: .Regular, textColor: UIColor.whiteColor())
+    private let rightLabel = Label(preset: .Small, weight: .Regular, textColor: Color.orange)
     private let bottomView = View()
-    private let bottomLabel = Label(preset: .Normal, weight: UIFontWeightBold, textColor: UIColor.whiteColor())
+    private let bottomLabel = Label(preset: .Normal, weight: .Bold, textColor: UIColor.whiteColor())
     
     required init(entry: Contribution) {
         super.init(frame: CGRectZero)

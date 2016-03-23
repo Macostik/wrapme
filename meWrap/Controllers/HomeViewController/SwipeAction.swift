@@ -25,7 +25,7 @@ private final class SwipeActionView: UIView {
     
     let shape = SwipeActioArrowView()
     let icon = Label(icon: "", size: 24)
-    let label = Label(preset: .Small, weight: UIFontWeightRegular, textColor: UIColor.whiteColor())
+    let label = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
     
     convenience init(isRight: Bool) {
         self.init()

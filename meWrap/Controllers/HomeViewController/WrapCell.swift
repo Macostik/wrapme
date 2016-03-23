@@ -50,10 +50,10 @@ class WrapCell: StreamReusableView {
     weak var delegate: WrapCellDelegate?
     
     private let coverView = WrapCoverView(backgroundColor: UIColor.whiteColor())
-    private let nameLabel = Label(preset: .Large, weight: UIFontWeightLight, textColor: Color.grayDarker)
-    private let dateLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLight)
-    private let badgeLabel = BadgeLabel(preset: .Smaller, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
-    private let liveBadge = Label(preset: FontPreset.XSmall, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
+    private let nameLabel = Label(preset: .Large, textColor: Color.grayDarker)
+    private let dateLabel = Label(preset: .Small, textColor: Color.grayLight)
+    private let badgeLabel = BadgeLabel(preset: .Smaller, textColor: UIColor.whiteColor())
+    private let liveBadge = Label(preset: FontPreset.XSmall, textColor: UIColor.whiteColor())
     
     private var nameBadgeLeading: Constraint!
     private var nameLiveLeading: Constraint!

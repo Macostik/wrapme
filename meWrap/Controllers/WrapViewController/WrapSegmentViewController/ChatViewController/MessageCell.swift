@@ -12,7 +12,7 @@ import SnapKit
 
 final class MessageDateView: StreamReusableView {
     
-    private let dateLabel = specify(Label(preset: FontPreset.Normal, weight: UIFontWeightRegular)) { $0.textAlignment = .Center }
+    private let dateLabel = specify(Label(preset: FontPreset.Normal, weight: .Regular)) { $0.textAlignment = .Center }
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         addSubview(dateLabel)
@@ -43,8 +43,8 @@ class BaseMessageCell: StreamReusableView, FlowerMenuConstructor {
         path.fill()
     })
     
-    internal let timeLabel = Label(preset: .Smaller, weight: UIFontWeightLight, textColor: Color.grayLighter)
-    internal let textView = specify(SmartLabel(preset: .Normal, weight: UIFontWeightRegular, textColor: Color.grayDark)) {
+    internal let timeLabel = Label(preset: .Smaller, textColor: Color.grayLighter)
+    internal let textView = specify(SmartLabel(preset: .Normal, weight: .Regular, textColor: Color.grayDark)) {
         $0.numberOfLines = 0
     }
     internal let bubbleView = specify(UIView(), {
@@ -104,7 +104,7 @@ final class MessageWithNameCell: BaseMessageCell {
     
     private let tailView = UIImageView(image: BaseMessageCell.leftTail)
     private let avatarView = StatusUserAvatarView()
-    private let nameLabel = Label(preset: .Smaller, weight: UIFontWeightLight, textColor: Color.grayLighter)
+    private let nameLabel = Label(preset: .Smaller, textColor: Color.grayLighter)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         super.layoutWithMetrics(metrics)

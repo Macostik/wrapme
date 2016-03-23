@@ -21,7 +21,7 @@ class PlaceholderView: StreamReusableView {
     let containerView = UIView()
     
     let textLabel: Label = {
-        let label = Label(preset: .Larger, weight: UIFontWeightLight, textColor: Color.grayLighter)
+        let label = Label(preset: .Larger, textColor: Color.grayLighter)
         label.numberOfLines = 0
         label.textAlignment = .Center
         return label
@@ -99,14 +99,14 @@ final class HomePlaceholderView: PlaceholderView {
         containerView.addSubview(iconLabel)
         textLabel.textColor = Color.grayDark
         textLabel.preset = FontPreset.Normal.rawValue
-        textLabel.font = UIFont.fontWithPreset(.Normal, weight: UIFontWeightLight)
+        textLabel.font = UIFont.fontWithPreset(.Normal)
         let actionButton = Button(type: .Custom)
         actionButton.setTitle("let's_get_started".ls, forState: .Normal)
         actionButton.backgroundColor = Color.orange
         actionButton.normalColor = Color.orange
         actionButton.highlightedColor = Color.orangeDark
         actionButton.preset = FontPreset.Normal.rawValue
-        actionButton.titleLabel?.font = UIFont.fontWithPreset(.Normal, weight: UIFontWeightLight)
+        actionButton.titleLabel?.font = UIFont.fontWithPreset(.Normal)
         actionButton.clipsToBounds = true
         actionButton.cornerRadius = 6
         actionButton.addTarget(self, action: #selector(HomePlaceholderView.action(_:)), forControlEvents: .TouchUpInside)

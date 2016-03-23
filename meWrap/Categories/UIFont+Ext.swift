@@ -18,6 +18,17 @@ enum FontPreset: String {
     case XLarge = "xlarge"
 }
 
+enum FontWeight {
+    case Light, Regular, Bold
+    func value() -> CGFloat {
+        switch self {
+        case Light: return UIFontWeightLight
+        case Regular: return UIFontWeightRegular
+        case Bold: return UIFontWeightBold
+        }
+    }
+}
+
 extension UIFont {
     private static let sizes: Dictionary<FontPreset, CGFloat> = [
         .XSmall:11,
@@ -52,25 +63,17 @@ extension UIFont {
         UIContentSizeCategoryExtraExtraLarge:2,
         UIContentSizeCategoryExtraExtraExtraLarge:3]
     
-    private class func regularFontWithPreset(preset: FontPreset) -> UIFont {
-        return fontWithPreset(preset, weight: UIFontWeightRegular)
-    }
-    
-    private class func lightFontWithPreset(preset: FontPreset) -> UIFont {
-        return fontWithPreset(preset, weight: UIFontWeightLight)
-    }
-    
-    class func fontWithPreset(preset: FontPreset, weight: CGFloat) -> UIFont {
-        return UIFont.systemFontOfSize(UIFont.sizeWithPreset(preset), weight: weight)
+    class func fontWithPreset(preset: FontPreset, weight: FontWeight = .Light) -> UIFont {
+        return UIFont.systemFontOfSize(UIFont.sizeWithPreset(preset), weight: weight.value())
     }
     
     func fontWithPreset(preset: String) -> UIFont? {
         guard let preset = FontPreset(rawValue: preset) else { return nil }
         switch self.fontName {
         case let fontName where fontName.hasSuffix("Regular"):
-            return UIFont.regularFontWithPreset(preset)
+            return UIFont.fontWithPreset(preset, weight: .Regular)
         case let fontName where fontName.hasSuffix("Light"):
-            return UIFont.lightFontWithPreset(preset)
+            return UIFont.fontWithPreset(preset)
         default:
             return UIFont(name: fontName, size: UIFont.sizeWithPreset(preset))
         }
@@ -78,21 +81,21 @@ extension UIFont {
 }
 
 extension UIFont {
-    class func fontXSmall() -> UIFont { return regularFontWithPreset(.XSmall) }
-    class func fontSmaller() -> UIFont { return regularFontWithPreset(.Smaller) }
-    class func fontSmall() -> UIFont { return regularFontWithPreset(.Small) }
-    class func fontNormal() -> UIFont { return regularFontWithPreset(.Normal) }
-    class func fontLarge() -> UIFont { return regularFontWithPreset(.Large) }
-    class func fontLarger() -> UIFont { return regularFontWithPreset(.Larger) }
-    class func fontXLarge() -> UIFont { return regularFontWithPreset(.XLarge) }
+    class func fontXSmall() -> UIFont { return fontWithPreset(.XSmall, weight: .Regular) }
+    class func fontSmaller() -> UIFont { return fontWithPreset(.Smaller, weight: .Regular) }
+    class func fontSmall() -> UIFont { return fontWithPreset(.Small, weight: .Regular) }
+    class func fontNormal() -> UIFont { return fontWithPreset(.Normal, weight: .Regular) }
+    class func fontLarge() -> UIFont { return fontWithPreset(.Large, weight: .Regular) }
+    class func fontLarger() -> UIFont { return fontWithPreset(.Larger, weight: .Regular) }
+    class func fontXLarge() -> UIFont { return fontWithPreset(.XLarge, weight: .Regular) }
 }
 
 extension UIFont {
-    class func lightFontXSmall() -> UIFont { return lightFontWithPreset(.XSmall) }
-    class func lightFontSmaller() -> UIFont { return lightFontWithPreset(.Smaller) }
-    class func lightFontSmall() -> UIFont { return lightFontWithPreset(.Small) }
-    class func lightFontNormal() -> UIFont { return lightFontWithPreset(.Normal) }
-    class func lightFontLarge() -> UIFont { return lightFontWithPreset(.Large) }
-    class func lightFontLarger() -> UIFont { return lightFontWithPreset(.Larger) }
-    class func lightFontXLarge() -> UIFont { return lightFontWithPreset(.XLarge) }
+    class func lightFontXSmall() -> UIFont { return fontWithPreset(.XSmall) }
+    class func lightFontSmaller() -> UIFont { return fontWithPreset(.Smaller) }
+    class func lightFontSmall() -> UIFont { return fontWithPreset(.Small) }
+    class func lightFontNormal() -> UIFont { return fontWithPreset(.Normal) }
+    class func lightFontLarge() -> UIFont { return fontWithPreset(.Large) }
+    class func lightFontLarger() -> UIFont { return fontWithPreset(.Larger) }
+    class func lightFontXLarge() -> UIFont { return fontWithPreset(.XLarge) }
 }

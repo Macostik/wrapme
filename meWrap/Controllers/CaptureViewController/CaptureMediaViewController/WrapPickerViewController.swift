@@ -50,7 +50,7 @@ class WrapPickerCell: StreamReusableView {
         addSubview(coverView)
         self.coverView = coverView
         
-        let nameLabel = Label(preset: .Normal, weight: UIFontWeightLight, textColor: Color.grayDarker)
+        let nameLabel = Label(preset: .Normal, textColor: Color.grayDarker)
         addSubview(nameLabel)
         self.nameLabel = nameLabel
         

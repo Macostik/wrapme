@@ -27,9 +27,9 @@ final class HistoryItemCoverView: StreamReusableView {
 
 final class HistoryItemViewController: BaseViewController {
     
-    private let nameLabel = Label(preset: .Normal, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
+    private let nameLabel = Label(preset: .Normal, textColor: UIColor.whiteColor())
     
-    private let dateLabel = Label(preset: .Smaller, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
+    private let dateLabel = Label(preset: .Smaller, textColor: UIColor.whiteColor())
     
     private let coverStreamView = StreamView()
     

@@ -23,7 +23,7 @@ class AddressBookRecordCell: StreamReusableView {
     
     weak var delegate: AddressBookRecordCellDelegate?
     
-    internal let nameLabel = Label(preset: .Normal, weight: UIFontWeightLight, textColor: Color.grayDark)
+    internal let nameLabel = Label(preset: .Normal, textColor: Color.grayDark)
     
     internal func selectPhoneNumber(phoneNumber: AddressBookPhoneNumber?) {
         if let phoneNumber = phoneNumber {
@@ -42,7 +42,7 @@ class AddressBookRecordCell: StreamReusableView {
 
 final class SingleAddressBookRecordCell: AddressBookRecordCell {
     
-    private let infoLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLight)
+    private let infoLabel = Label(preset: .Small, textColor: Color.grayLight)
     private let selectButton = specify(Button(type: .Custom)) {
         $0.titleLabel?.font = UIFont(name: "icons", size: 26)
         $0.setTitle("G", forState: .Normal)
@@ -162,7 +162,7 @@ final class MultipleAddressBookRecordCell: AddressBookRecordCell {
             }))
         openView.addTarget(self, action: #selector(MultipleAddressBookRecordCell.open(_:)), forControlEvents: .TouchUpInside)
         avatarView.cornerRadius = 24
-        let infoLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLight)
+        let infoLabel = Label(preset: .Small, textColor: Color.grayLight)
         infoLabel.text = "invite_me_to_meWrap".ls
         addSubview(streamView)
         addSubview(openView)

@@ -20,10 +20,10 @@ protocol ContributorCellDelegate: class {
 final class ContributorCell: StreamReusableView {
     
     weak var delegate: ContributorCellDelegate?
-    private let nameLabel = Label(preset: .Normal, weight: UIFontWeightRegular, textColor: Color.grayDark)
+    private let nameLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.grayDark)
     private let avatarView = StatusUserAvatarView()
     private let slideMenuButton = UIButton(type: .Custom)
-    private let infoLabel = Label(preset: .Small, weight: UIFontWeightLight, textColor: Color.grayLight)
+    private let infoLabel = Label(preset: .Small, textColor: Color.grayLight)
     
     private let streamView = StreamView()
     lazy var dataSource: StreamDataSource = StreamDataSource(streamView: self.streamView)

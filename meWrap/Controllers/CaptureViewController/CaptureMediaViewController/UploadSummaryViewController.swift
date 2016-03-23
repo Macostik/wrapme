@@ -8,6 +8,62 @@
 
 import UIKit
 
+class UploadCompleteAnimationView: UIView {
+    
+    func animate() {
+        backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
+        let circle = CAShapeLayer()
+        circle.fillColor = UIColor.clearColor().CGColor
+        circle.strokeColor = UIColor.whiteColor().CGColor
+        circle.lineWidth = 2
+        circle.frame = CGRectMake(width/2 - 50, height/2 - 50, 100, 100)
+        circle.path = UIBezierPath(ovalInRect: CGRectMake(0, 0, 100, 100)).CGPath
+        circle.backgroundColor = UIColor.clearColor().CGColor
+        layer.addSublayer(circle)
+        circle.addAnimation(CABasicAnimation(keyPath: "strokeStart")) {
+            $0.fromValue = 1
+            $0.toValue = 0
+            $0.duration = 0.8
+            $0.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        }
+        
+        let arrow = CAShapeLayer()
+        arrow.fillColor = UIColor.clearColor().CGColor
+        arrow.strokeColor = UIColor.whiteColor().CGColor
+        arrow.lineWidth = 2
+        arrow.frame = CGRectMake(width/2 - 30, height/2 - 30, 60, 60)
+        arrow.path = UIBezierPath().move(0, 30).line(30, 60).line(60, 10).CGPath
+        arrow.backgroundColor = UIColor.clearColor().CGColor
+        layer.addSublayer(arrow)
+        arrow.addAnimation(CABasicAnimation(keyPath: "strokeEnd")) {
+            $0.fromValue = 0
+            $0.toValue = 1
+            $0.duration = 0.8
+            $0.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        }
+        
+        let label = Label(preset: .Normal, weight: .Bold, textColor: UIColor.whiteColor())
+        label.text = "Uploaded"
+        addSubview(label)
+        label.snp_makeConstraints {
+            $0.centerX.equalTo(self)
+            $0.centerY.equalTo(self).offset(70)
+        }
+        label.addAnimation(CABasicAnimation(keyPath: "opacity")) {
+            $0.fromValue = 0
+            $0.toValue = 1
+            $0.duration = 0.8
+            $0.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        }
+        
+        UIView.animateWithDuration(0.3, delay: 2, options: .CurveEaseIn, animations: {
+            self.alpha = 0
+            }) { _ in
+                self.removeFromSuperview()
+        }
+    }
+}
+
 protocol UploadSummaryViewControllerDelegate: class {
     func uploadSummaryViewController(controller: UploadSummaryViewController, didFinishWithAssets assets: [MutableAsset])
     func uploadSummaryViewController(controller: UploadSummaryViewController, didDeselectAsset asset: MutableAsset)
@@ -142,8 +198,14 @@ extension UploadSummaryViewController { // MARK actions
     }
     
     @IBAction func upload(sender: AnyObject?) {
-        asset?.comment = self.composeBar.text;
+        asset?.comment = self.composeBar.text
         delegate?.uploadSummaryViewController(self, didFinishWithAssets:assets)
+        
+        Dispatch.mainQueue.async {
+            let animationView = UploadCompleteAnimationView(frame: UIWindow.mainWindow.bounds)
+            UIWindow.mainWindow.addSubview(animationView)
+            animationView.animate()
+        }
     }
     
     @IBAction func edit(sender: AnyObject?) {

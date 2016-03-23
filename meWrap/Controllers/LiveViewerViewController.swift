@@ -130,17 +130,17 @@ class LiveViewerViewController: LiveViewController {
         let blurView = UIVisualEffectView(effect: blurEffect)
         coverView.addSubview(blurView)
         
-        let wrapNameLabel = Label(preset: .XLarge, weight: UIFontWeightRegular, textColor: UIColor.whiteColor())
+        let wrapNameLabel = Label(preset: .XLarge, weight: .Regular, textColor: UIColor.whiteColor())
         wrapNameLabel.text = wrap?.name
         coverView.addSubview(wrapNameLabel)
         
-        let titleLabel = Label(preset: .Larger, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
+        let titleLabel = Label(preset: .Larger, textColor: UIColor.whiteColor())
         titleLabel.text = broadcast.displayTitle()
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .Center
         coverView.addSubview(titleLabel)
         
-        let messageLabel = Label(preset: .Normal, weight: UIFontWeightLight, textColor: UIColor.whiteColor())
+        let messageLabel = Label(preset: .Normal, textColor: UIColor.whiteColor())
         messageLabel.text = text
         coverView.addSubview(messageLabel)
         

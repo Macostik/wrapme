@@ -69,6 +69,8 @@ final class SingleAddressBookRecordCell: AddressBookRecordCell {
     override func layoutWithMetrics(metrics: StreamMetrics) {
         infoLabel.numberOfLines = 0
         selectButton.addTarget(self, action: #selector(SingleAddressBookRecordCell._select(_:)), forControlEvents: .TouchUpInside)
+        infoLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
+        nameLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
         addSubview(avatarView)
         addSubview(nameLabel)
         addSubview(infoLabel)
@@ -143,6 +145,7 @@ final class MultipleAddressBookRecordCell: AddressBookRecordCell {
     }
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
+        nameLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
         avatarView.defaultIconText = "&"
         avatarView.defaultBackgroundColor = Color.grayLighter
         dataSource = StreamDataSource(streamView: streamView)

@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Contacts
 
 struct TestUser {
     
@@ -38,6 +39,26 @@ struct TestUser {
     static func serializeTestUser(user: Authorization) -> String? {
         guard let email = user.email, let password = user.password else { return nil }
         return "\(user.deviceUID)\(separator)\(user.countryCode ?? "")\(separator)\(user.phone ?? "")\(separator)\(email ?? "")\(separator)\(password ?? "")"
+    }
+    
+    static func addToContacts(completion: (Void -> Void)? = nil) {
+        testUsers {
+            for user in $0 {
+                if #available(iOS 9.0, *) {
+                    if let phone = user.phone, let code = user.countryCode {
+                        let phone = "+\(code)\(phone)"
+                        let newContact = CNMutableContact()
+                        newContact.givenName = user.email ?? ""
+                        let pn = CNPhoneNumber(stringValue: phone)
+                        newContact.phoneNumbers = [CNLabeledValue(label: CNLabelHome, value: pn)]
+                        let saveRequest = CNSaveRequest()
+                        saveRequest.addContact(newContact, toContainerWithIdentifier: nil)
+                        _ = try? CNContactStore().executeSaveRequest(saveRequest)
+                    }
+                }
+            }
+            completion?()
+        }
     }
     
     static func add(authorization: Authorization = Authorization.current, completion: (String? -> Void)? = nil) {

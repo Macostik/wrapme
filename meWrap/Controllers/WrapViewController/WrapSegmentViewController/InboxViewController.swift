@@ -29,7 +29,6 @@ class InboxCell: StreamReusableView {
     internal var avatarView = ImageView(backgroundColor: UIColor.clearColor())
     internal var userNameLabel = Label(preset: .Small, textColor: Color.grayLighter)
     internal var timeLabel = Label(preset: .Smaller, textColor: Color.grayLighter)
-    internal var wrapLabel = Label(preset: .Small, textColor: Color.grayLighter)
     internal var imageView = ImageView(backgroundColor: UIColor.clearColor())
     internal var videoIndicator = Label(icon: "+", size: 24)
     
@@ -48,7 +47,6 @@ class InboxCell: StreamReusableView {
         headerView.addSubview(timeLabel)
         containerView.addSubview(imageView)
         containerView.addSubview(videoIndicator)
-        containerView.addSubview(wrapLabel)
         containerView.snp_makeConstraints {
             $0.top.equalTo(self)
             $0.leading.trailing.equalTo(self).inset(8)
@@ -59,7 +57,8 @@ class InboxCell: StreamReusableView {
             $0.height.equalTo(54)
         }
         avatarView.snp_makeConstraints {
-            $0.leading.top.equalTo(headerView).offset(12)
+            $0.leading.equalTo(headerView).offset(12)
+            $0.top.equalTo(headerView).offset(9)
             $0.size.equalTo(36)
         }
         userNameLabel.snp_makeConstraints {
@@ -73,11 +72,7 @@ class InboxCell: StreamReusableView {
             $0.trailing.equalTo(headerView).inset(12)
         }
         videoIndicator.snp_makeConstraints { $0.trailing.top.equalTo(imageView).inset(12) }
-        wrapLabel.snp_makeConstraints {
-            $0.trailing.bottom.equalTo(containerView).inset(12)
-            $0.top.equalTo(imageView.snp_bottom).offset(12)
-            $0.leading.greaterThanOrEqualTo(containerView).inset(12)
-        }
+
     }
 
     override func setup(entry: AnyObject?) {
@@ -88,13 +83,11 @@ class InboxCell: StreamReusableView {
             if update.unread {
                 userNameLabel.textColor = Color.grayDark
                 timeLabel.textColor = Color.grayDark
-                wrapLabel.textColor = Color.grayDark
                 containerView.shadowColor = Color.orange
             } else {
                 containerView.shadowColor = Color.grayLighter
                 userNameLabel.textColor = Color.grayLighter
                 timeLabel.textColor = Color.grayLighter
-                wrapLabel.textColor = Color.grayLighter
             }
         }
     }
@@ -104,7 +97,7 @@ class InboxCommentCell: InboxCell {
     
     private var textView = Label(preset: .Normal, weight: .Regular, textColor: Color.grayLighter)
     
-    static let DefaultHeight: CGFloat = Constants.screenWidth / 3 + 106.0
+    static let DefaultHeight: CGFloat = Constants.screenWidth / 3 + 70
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         super.layoutWithMetrics(metrics)
@@ -113,6 +106,7 @@ class InboxCommentCell: InboxCell {
         imageView.snp_makeConstraints {
             $0.trailing.equalTo(containerView)
             $0.top.equalTo(headerView.snp_bottom)
+            $0.bottom.equalTo(containerView)
             $0.width.height.equalTo(self.snp_width).dividedBy(3)
         }
         textView.snp_makeConstraints {
@@ -128,7 +122,6 @@ class InboxCommentCell: InboxCell {
             super.setup(entry)
             avatarView.url = comment.contributor?.avatar?.small
             userNameLabel.text = "\(comment.contributor?.name ?? ""):"
-            wrapLabel.text = comment.candy?.wrap?.name
             textView.text = comment.text
             videoIndicator.hidden = comment.candy?.mediaType != .Video
             textView.textColor = update.unread ? Color.grayDark : Color.grayLighter
@@ -138,13 +131,14 @@ class InboxCommentCell: InboxCell {
 
 class InboxCandyCell: InboxCell {
     
-    static let DefaultHeight: CGFloat = Constants.screenWidth / 2.5 + 106.0
+    static let DefaultHeight: CGFloat = Constants.screenWidth / 2.5 + 70
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         super.layoutWithMetrics(metrics)
         imageView.snp_makeConstraints {
             $0.leading.trailing.equalTo(containerView)
             $0.top.equalTo(headerView.snp_bottom)
+            $0.bottom.equalTo(containerView)
             $0.height.equalTo(self.snp_width).dividedBy(2.5)
         }
     }
@@ -159,7 +153,6 @@ class InboxCandyCell: InboxCell {
                 avatarView.url = candy.contributor?.avatar?.small
                 userNameLabel.text = "\(candy.contributor?.name ?? "") \((candy.isVideo ? "posted_new_video" : "posted_new_photo").ls)"
             }
-            wrapLabel.text = candy.wrap?.name
             videoIndicator.hidden = candy.mediaType != .Video
         }
     }

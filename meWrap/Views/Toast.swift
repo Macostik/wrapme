@@ -166,6 +166,7 @@ class EntryToast: Toast {
     private let rightLabel = Label(preset: .Small, weight: .Regular, textColor: Color.orange)
     private let bottomView = View()
     private let bottomLabel = Label(preset: .Normal, weight: .Bold, textColor: UIColor.whiteColor())
+    private var _window = UIWindow(frame:UIScreen.mainScreen().bounds)
     
     required init(entry: Contribution) {
         super.init(frame: CGRectZero)
@@ -182,8 +183,13 @@ class EntryToast: Toast {
         avatar.url = User.currentUser?.avatar?.small
         topLabel.numberOfLines = 0
         middleLabel.numberOfLines = 2
-        topLabel.text = String(format:entry is Candy ?
-                        "just_sent_you_a_new_photo".ls : "someone_commented".ls, entry.contributor?.name ?? "")
+        if let candy = entry as? Candy {
+            topLabel.text = String(format: candy.isVideo ? "just_sent_you_a_new_video".ls :
+                "just_sent_you_a_new_photo".ls, candy.contributor?.name ?? "")
+        } else {
+            topLabel.text = String(format: "someone_commented".ls, entry.contributor?.name ?? "")
+        }
+    
         if let comment = entry as? Comment {
             middleLabel.text = comment.text
         }
@@ -193,14 +199,14 @@ class EntryToast: Toast {
         bottomView.addSubview(bottomLabel)
         
         avatar.snp_makeConstraints {
-            $0.top.equalTo(self).offset(20)
+            $0.centerY.equalTo(topLabel)
             $0.leading.equalTo(self).offset(12)
             $0.size.equalTo(28)
         }
         
         topLabel.snp_makeConstraints {
             $0.leading.equalTo(avatar.snp_trailing).offset(12)
-            $0.top.equalTo(avatar)
+            $0.top.equalTo(self).offset(10)
             $0.trailing.lessThanOrEqualTo(rightLabel.snp_leading).offset(-12)
         }
         
@@ -211,8 +217,8 @@ class EntryToast: Toast {
         }
         
         rightLabel.snp_makeConstraints {
+            $0.centerY.equalTo(topLabel)
             $0.trailing.equalTo(self).offset(-12)
-            $0.centerY.equalTo(avatar)
         }
         rightLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
         
@@ -237,9 +243,9 @@ class EntryToast: Toast {
     }
     
     func show(inViewController viewController: UIViewController? = nil) {
-        weak var viewController = viewController ?? UIViewController.toastAppearanceViewController(self)
-        guard let _viewController = viewController else { return }
-        let view = _viewController.view
+        _window.makeKeyAndVisible()
+        _window.windowLevel = UIWindowLevelStatusBar
+        let view = _window
         if self.superview != view {
             self.removeFromSuperview()
             view.addSubview(self)
@@ -258,6 +264,7 @@ class EntryToast: Toast {
     
     override func handleTouch() {
         ChronologicalEntryPresenter.presentEntry(entry, animated: false)
+        _window.removeFromSuperview()
         dissmis()
     }
 }

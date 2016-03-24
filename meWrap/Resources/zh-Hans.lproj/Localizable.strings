@@ -312,5 +312,6 @@
 "tap_to_view" = "TAP TO VIEW";
 "now" = "Now";
 "just_sent_you_a_new_photo" = "%@ just sent you a new photo";
+"just_sent_you_a_new_video" = "%@ just sent you a new video";
 "someone_commented" = "%@ commented:";
 "no_wraps_yet" = "No wraps yet";

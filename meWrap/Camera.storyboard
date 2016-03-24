@@ -447,13 +447,6 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cWQ-bj-Mta">
-                                        <rect key="frame" x="0.0" y="23" width="320" height="1"/>
-                                        <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="0bF-3i-o6n"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -462,13 +455,10 @@
                                     <constraint firstAttribute="trailing" secondItem="y5J-CJ-b93" secondAttribute="trailing" id="IK7-pe-7p2"/>
                                     <constraint firstItem="Zy0-6z-jAQ" firstAttribute="centerX" secondItem="dNS-D0-5mP" secondAttribute="centerX" id="TVP-dK-RRK"/>
                                     <constraint firstItem="t2i-cM-gaQ" firstAttribute="top" secondItem="dNS-D0-5mP" secondAttribute="top" constant="2" id="VQV-MK-NbF"/>
-                                    <constraint firstAttribute="trailing" secondItem="cWQ-bj-Mta" secondAttribute="trailing" id="d4x-FR-mr8"/>
                                     <constraint firstItem="y5J-CJ-b93" firstAttribute="top" secondItem="dNS-D0-5mP" secondAttribute="top" id="g2f-KL-5P6"/>
-                                    <constraint firstAttribute="bottom" secondItem="cWQ-bj-Mta" secondAttribute="bottom" id="o2L-06-4GL"/>
                                     <constraint firstAttribute="bottom" secondItem="y5J-CJ-b93" secondAttribute="bottom" id="ozw-gk-5Fl"/>
                                     <constraint firstAttribute="height" constant="24" id="poJ-1P-kaH"/>
                                     <constraint firstItem="y5J-CJ-b93" firstAttribute="leading" secondItem="dNS-D0-5mP" secondAttribute="leading" id="tRd-rn-9Vm"/>
-                                    <constraint firstItem="cWQ-bj-Mta" firstAttribute="leading" secondItem="dNS-D0-5mP" secondAttribute="leading" id="yve-Zb-zri"/>
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="11F-0m-rSj">
@@ -477,6 +467,13 @@
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gDn-lO-TJD">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cWQ-bj-Mta">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                        <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="0bF-3i-o6n"/>
+                                        </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MCb-yl-rPl">
                                         <rect key="frame" x="0.0" y="79" width="320" height="1"/>
@@ -489,11 +486,14 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
+                                    <constraint firstItem="cWQ-bj-Mta" firstAttribute="top" secondItem="11F-0m-rSj" secondAttribute="top" id="Wo1-SO-WQH"/>
                                     <constraint firstAttribute="trailing" secondItem="MCb-yl-rPl" secondAttribute="trailing" id="aXg-VY-apg"/>
                                     <constraint firstAttribute="bottom" secondItem="MCb-yl-rPl" secondAttribute="bottom" id="dVX-Ze-gw6"/>
                                     <constraint firstItem="MCb-yl-rPl" firstAttribute="leading" secondItem="11F-0m-rSj" secondAttribute="leading" id="hIc-e1-m8o"/>
                                     <constraint firstAttribute="trailing" secondItem="gDn-lO-TJD" secondAttribute="trailing" id="mnP-lC-CfI"/>
                                     <constraint firstItem="gDn-lO-TJD" firstAttribute="leading" secondItem="11F-0m-rSj" secondAttribute="leading" id="nGO-mQ-0OZ"/>
+                                    <constraint firstItem="cWQ-bj-Mta" firstAttribute="leading" secondItem="11F-0m-rSj" secondAttribute="leading" id="p9i-JK-HlS"/>
+                                    <constraint firstAttribute="trailing" secondItem="cWQ-bj-Mta" secondAttribute="trailing" id="pZ5-u1-Uoh"/>
                                     <constraint firstItem="gDn-lO-TJD" firstAttribute="top" secondItem="11F-0m-rSj" secondAttribute="top" id="yww-2M-6x3"/>
                                 </constraints>
                             </view>

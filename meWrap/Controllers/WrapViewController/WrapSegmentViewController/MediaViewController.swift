@@ -38,7 +38,7 @@ class HistoryItemCell: StreamReusableView {
     
     let streamView = StreamView()
     
-    private let dateLabel = Label(preset: FontPreset.Normal, weight: .Regular, textColor: Color.orange)
+    private let dateLabel = Label(preset: .Small, weight: .Regular, textColor: Color.orange)
     
     private var dataSource: HistoryItemDataSource!
     
@@ -85,19 +85,19 @@ class HistoryItemCell: StreamReusableView {
         dateView.highlightings.append(arrow)
         
         streamView.snp_makeConstraints(closure: {
-            $0.top.equalTo(self).offset(32)
+            $0.top.equalTo(self).offset(28)
             $0.leading.trailing.bottom.equalTo(self)
         })
         
         dateView.snp_makeConstraints(closure: {
             $0.leading.top.equalTo(self).offset(12)
-            $0.height.equalTo(40)
+            $0.height.equalTo(32)
         })
         
         dateLabel.snp_makeConstraints(closure: {
             $0.leading.equalTo(dateView).offset(8)
             $0.trailing.equalTo(arrow.snp_leading)
-            $0.top.bottom.equalTo(dateView).inset(6)
+            $0.centerY.equalTo(dateView)
         })
         
         arrow.snp_makeConstraints(closure: {
@@ -238,7 +238,7 @@ class MediaViewController: WrapSegmentViewController {
         candyMetrics.prepareAppearing = { item, view in
             (view as? HistoryItemCell)?.delegate = self
         }
-        candyMetrics.size = round(view.width / 2.5) + 32
+        candyMetrics.size = round(view.width / 2.5) + 28
         candyMetrics.selectable = false
         candyMetrics.selection = { [weak self] (item, entry) -> Void in
             CandyEnlargingPresenter.handleCandySelection(item, entry: entry, historyItem: self?.history.itemWithCandy(entry as? Candy), dismissingView: { (presenter, candy) -> UIView? in

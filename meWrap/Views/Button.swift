@@ -98,18 +98,14 @@ class Button : UIButton {
     override var highlighted: Bool {
         didSet {
             update()
-            for highlighting in highlightings {
-                (highlighting as? Highlightable)?.highlighted = highlighted
-            }
+            highlightings.all({ ($0 as? Highlightable)?.highlighted = highlighted })
         }
     }
     
     override var selected: Bool {
         didSet {
             update()
-            for selecting in selectings {
-                (selecting as? Selectable)?.selected = selected
-            }
+            selectings.all({ ($0 as? Selectable)?.selected = selected })
         }
     }
     

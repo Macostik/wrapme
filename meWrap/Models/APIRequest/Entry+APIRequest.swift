@@ -41,7 +41,7 @@ extension Entry {
                     finish()
                     failure?(nil)
                 }
-            })
+                })
         }
     }
     
@@ -92,7 +92,7 @@ extension User {
 extension Wrap {
     
     func uploadMessage(text: String) {
-        let message = Message.contribution()
+        let message: Message = Message.contribution()
         let uploading = Uploading.uploading(message)
         message.wrap = self
         message.text = text
@@ -117,7 +117,7 @@ extension Wrap {
             RunQueue.uploadCandiesQueue.run({ [weak self] (finish) -> Void in
                 self?.uploadAsset(asset)
                 Dispatch.mainQueue.after(0.6, block: finish)
-            })
+                })
         }
     }
     
@@ -140,7 +140,7 @@ extension Wrap {
             break
         case .Finished:
             if deletable {
-                 APIRequest.deleteWrap(self).send(success, failure: failure)
+                APIRequest.deleteWrap(self).send(success, failure: failure)
             } else {
                 APIRequest.leaveWrap(self).send(success, failure: failure)
             }
@@ -212,7 +212,7 @@ extension Uploading {
                             contribution.notifyOnUpdate(.Default)
                             failure?(error)
                         }
-                })
+                    })
                 inProgress = true
                 contribution.notifyOnUpdate(.Default)
             } else {
@@ -223,7 +223,7 @@ extension Uploading {
             failure?(NSError(domain: NSURLErrorDomain, code: NSURLErrorTimedOut, userInfo: nil))
         }
     }
-
+    
     func sendTypedRequest(success: ObjectBlock?, failure: FailureBlock?) {
         if let type = Event(rawValue: self.type) {
             switch type {
@@ -314,9 +314,9 @@ extension Candy {
         Uploader.commentUploader.upload(Uploading.uploading(comment))
         comment.notifyOnAddition()
     }
-
+    
     override func add(success: ObjectBlock?, failure: FailureBlock?) {
-
+        
         var metadata = [
             "Accept" : "application/vnd.ravenpod+json;version=\(Environment.current.version)",
             Keys.UID.Device : Authorization.current.deviceUID ?? "",
@@ -409,7 +409,7 @@ extension Candy {
             break
         case .InProgress:
             failure?(NSError(message: (isVideo ? "video_is_uploading" : "photo_is_uploading").ls))
-          break
+            break
         case .Finished:
             if uid == locuid {
                 failure?(NSError(message: "publishing_in_progress".ls))
@@ -420,7 +420,7 @@ extension Candy {
                     failure?(nil)
                 }
             }
-         break
+            break
         }
     }
     

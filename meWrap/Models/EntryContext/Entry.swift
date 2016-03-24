@@ -23,7 +23,7 @@ class Entry: NSManagedObject {
     func compare(entry: Entry) -> NSComparisonResult { return updatedAt.compare(entry.updatedAt) }
     
     class func entry(uid: String?, locuid: String? = nil, allowInsert: Bool = true) -> Self? {
-        return EntryContext.sharedContext.entry(self, uid: uid, locuid: locuid, allowInsert: allowInsert)
+        return EntryContext.sharedContext.entry(uid: uid, locuid: locuid, allowInsert: allowInsert)
     }
     
     class func entryExists(uid: String?) -> Bool {
@@ -34,7 +34,7 @@ class Entry: NSManagedObject {
         guard let name = reference["name"], let uid = reference["uid"] else {
             return nil
         }
-        return EntryContext.sharedContext.entry(self, name: name, uid: uid, allowInsert: false)
+        return EntryContext.sharedContext.entry(name, uid: uid, allowInsert: false)
     }
     
     func serializeReference() -> [String : String] {

@@ -115,14 +115,14 @@ class EntryContext: NSManagedObjectContext {
         return NSEntityDescription.insertNewObjectForEntityForName(name, inManagedObjectContext: self) as? Entry
     }
     
-    func entry(name: String, uid: String?, locuid: String? = nil, allowInsert: Bool = true) -> Entry? {
+    func entry<T: Entry>(name: String = T.entityName(), uid: String?, locuid: String? = nil, allowInsert: Bool = true) -> T? {
         guard let uid = uid else {
             return nil
         }
         if let entry = cachedEntry(uid) {
-            return entry
+            return entry as? T
         } else {
-            var request = FetchRequest<Entry>(name: name)
+            var request = FetchRequest<T>(name: name)
             if let locuid = locuid {
                 request = request.query("uid == %@ OR locuid == %@", uid, locuid)
             } else {
@@ -131,7 +131,7 @@ class EntryContext: NSManagedObjectContext {
             if let entry = request.execute().last {
                 return entry
             } else if allowInsert {
-                if let entry = insertEntry(name) {
+                if let entry = insertEntry(name) as? T {
                     entry.uid = uid
                     return entry
                 } else {
@@ -141,10 +141,6 @@ class EntryContext: NSManagedObjectContext {
                 return nil
             }
         }
-    }
-    
-    func entry<T: Entry>(type: T.Type, name: String = T.entityName(), uid: String?, locuid: String? = nil, allowInsert: Bool = true) -> T? {
-        return entry(name, uid: uid, locuid: locuid, allowInsert: allowInsert) as? T
     }
     
     func hasEntry(name: String, uid: String?) -> Bool {
@@ -210,11 +206,7 @@ class FetchRequest<T: Entry>: NSFetchRequest {
         return self
     }
     
-    func sort(key: String) -> Self {
-        return sort(key, asc: false)
-    }
-    
-    func sort(key: String, asc: Bool) -> Self {
+    func sort(key: String, asc: Bool = false) -> Self {
         let descriptor = NSSortDescriptor(key: key, ascending: asc)
         var descriptors: [NSSortDescriptor] = sortDescriptors ?? []
         descriptors.append(descriptor)

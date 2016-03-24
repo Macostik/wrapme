@@ -27,22 +27,10 @@ enum NotificationType: Int {
     case CriticalUpdate        = 1400
     case InviteeSignUp         = 1500
     
-    func typeValue() -> Notification.Type {
+    func isDelete() -> Bool {
         switch self {
-        case .ContributorAdd: return ContributorAddNotification.self
-        case .ContributorDelete: return ContributorDeleteNotification.self
-        case .WrapDelete: return WrapDeleteNotification.self
-        case .WrapUpdate: return WrapUpdateNotification.self
-        case .CandyAdd: return CandyAddNotification.self
-        case .CandyDelete: return CandyDeleteNotification.self
-        case .CandyUpdate: return CandyUpdateNotification.self
-        case .MessageAdd: return MessageAddNotification.self
-        case .CommentAdd: return CommentAddNotification.self
-        case .CommentDelete: return CommentDeleteNotification.self
-        case .UserUpdate: return UserUpdateNotification.self
-        case .UpdateAvailable, .CriticalUpdate: return UpdateAvailableNotification.self
-        case .LiveBroadcast: return LiveBroadcastNotification.self
-        case .InviteeSignUp: return Notification.self
+        case .WrapDelete, .CommentDelete, .CandyDelete: return true
+        default: return false
         }
     }
 }
@@ -55,15 +43,12 @@ class UpdateAvailableNotification: Notification {
     }
 }
 
-class Notification: NSObject {
+class Notification: CustomStringConvertible {
     var uid: String?
-        
-    var publishedAt: NSDate
+    var publishedAt = NSDate(timeIntervalSince1970: 0)
     var body: [String:AnyObject]?
-    var descriptor: EntryDescriptor?
-    var inserted = false
     var originatedByCurrentUser = false
-    var type: NotificationType
+    var type: NotificationType = .ContributorAdd
     
     private class func parseMessage(message: AnyObject?) -> (body: [String:AnyObject]?, timetoken: NSNumber?) {
         if let message = message as? PNMessageData {
@@ -82,26 +67,37 @@ class Notification: NSObject {
     
     class func notificationWithMessage(message: AnyObject?) -> Notification? {
         let result = parseMessage(message)
-        guard let body = result.body, let timetoken = result.timetoken else {
-            return nil
-        }
+        guard let body = result.body, let timetoken = result.timetoken else { return nil }
         let publishedAt = NSDate(timetoken:timetoken)
         return notificationWithBody(body, publishedAt: publishedAt)
     }
     
     class func notificationWithBody(body: [String:AnyObject], publishedAt: NSDate?) -> Notification? {
-        guard let type = parseNotificationType(body) else {
-            return nil
+        guard let type = parseNotificationType(body) else { return nil }
+        switch type {
+        case .ContributorAdd: return ContributorAddNotification(type: type, body: body, publishedAt: publishedAt)
+        case .ContributorDelete: return ContributorDeleteNotification(type: type, body: body, publishedAt: publishedAt)
+        case .WrapDelete: return WrapDeleteNotification(type: type, body: body, publishedAt: publishedAt)
+        case .WrapUpdate: return WrapUpdateNotification(type: type, body: body, publishedAt: publishedAt)
+        case .CandyAdd: return CandyAddNotification(type: type, body: body, publishedAt: publishedAt)
+        case .CandyDelete: return CandyDeleteNotification(type: type, body: body, publishedAt: publishedAt)
+        case .CandyUpdate: return CandyUpdateNotification(type: type, body: body, publishedAt: publishedAt)
+        case .MessageAdd: return MessageAddNotification(type: type, body: body, publishedAt: publishedAt)
+        case .CommentAdd: return CommentAddNotification(type: type, body: body, publishedAt: publishedAt)
+        case .CommentDelete: return CommentDeleteNotification(type: type, body: body, publishedAt: publishedAt)
+        case .UserUpdate: return UserUpdateNotification(type: type, body: body, publishedAt: publishedAt)
+        case .UpdateAvailable, .CriticalUpdate: return UpdateAvailableNotification(type: type, body: body, publishedAt: publishedAt)
+        case .LiveBroadcast: return LiveBroadcastNotification(type: type, body: body, publishedAt: publishedAt)
+        case .InviteeSignUp: return Notification(type: type, body: body, publishedAt: publishedAt)
         }
-        return type.typeValue().init(type: type, body: body, publishedAt: publishedAt)
     }
     
-    required init(type: NotificationType, body: [String:AnyObject], publishedAt: NSDate?) {
+    convenience init(type: NotificationType, body: [String:AnyObject], publishedAt: NSDate?) {
+        self.init()
         self.publishedAt = publishedAt ?? NSDate(timeIntervalSince1970: 0)
         self.body = body
         self.uid = body["msg_uid"] as? String
         self.type = type
-        super.init()
         setup(body)
     }
     
@@ -113,52 +109,7 @@ class Notification: NSObject {
         }
     }
     
-    internal func createDescriptor<T: Entry>(type: T.Type, body: [String:AnyObject], key: String) {
-        let entryData = body[key] as? [String:AnyObject]
-        if let uid = T.uid(entryData ?? body) {
-            var descriptor = EntryDescriptor(name: T.entityName(), uid: uid, locuid: T.locuid(entryData ?? body))
-            descriptor.data = entryData
-            self.descriptor = descriptor
-        }
-    }
-    
-    internal func getEntry<T: Entry>(type: T.Type, descriptor: EntryDescriptor, @noescape mapper: ((entry: T, data: [String:AnyObject]) -> Void)) -> T? {
-        guard let entry = T.entry(descriptor.uid, locuid:descriptor.locuid) else { return nil }
-        
-        if let data = descriptor.data {
-            mapper(entry: entry, data: data)
-        }
-        
-        if let containerType = T.containerType() where entry.container == nil {
-            entry.container = containerType.entry(descriptor.container, locuid: nil, allowInsert: false)
-        }
-        _entry = entry
-        return entry
-    }
-    
-    internal var _entry: Entry?
-    var entry: Entry? {
-        createEntryIfNeeded()
-        return _entry
-    }
-    
-    internal func shouldCreateEntry(descriptor: EntryDescriptor) -> Bool { return true }
-    
-    internal func createEntryIfNeeded() {
-        if _entry == nil {
-            if let descriptor = descriptor where shouldCreateEntry(descriptor) {
-                createEntry(descriptor)
-            }
-            inserted = _entry?.inserted ?? false
-        }
-    }
-    
-    internal func createEntry(descriptor: EntryDescriptor) { }
-
-    func fetch(success: Block, failure: FailureBlock) {
-        createEntryIfNeeded()
-        success()
-    }
+    func fetch(success: Block, failure: FailureBlock) { success() }
     
     func submit() { }
     
@@ -169,13 +120,91 @@ class Notification: NSObject {
             }, failure: failure)
     }
     
-    override var description: String {
-        return "\(type.rawValue): \(descriptor?.description ?? "")"
-    }
+    var description: String { return "\(type.rawValue): \(uid ?? "")" }
     
     func canBeHandled() -> Bool { return Authorization.active && !originatedByCurrentUser }
     
-    func presentWithIdentifier(identifier: String?) {
+    func presentWithIdentifier(identifier: String?) { }
+    
+    func getEntry() -> Entry? { return nil }
+}
+
+class EntryNotification<T: Entry>: Notification {
+    internal var entryUid: String?
+    internal var entryLocUid: String?
+    internal var containerUid: String?
+    internal var entryData: [String:AnyObject]?
+    var inserted = false
+    
+    internal func dataKey() -> String { return "" }
+    
+    override func setup(body: [String : AnyObject]) {
+        super.setup(body)
+        setupEntryData(body)
+    }
+    
+    internal func setupEntryData(body: [String : AnyObject]) {
+        entryData = body[dataKey()] as? [String:AnyObject]
+        let parseData = entryData ?? body
+        entryUid = T.uid(parseData)
+        entryLocUid = T.locuid(parseData)
+        containerUid = T.containerType()?.uid(parseData)
+    }
+    
+    internal var _entry: T?
+    var entry: T? {
+        createEntryIfNeeded()
+        return _entry
+    }
+    
+    override func getEntry() -> Entry? {
+        return _entry
+    }
+    
+    internal func shouldCreateEntry() -> Bool {
+        if type.isDelete() {
+            return EntryContext.sharedContext.hasEntry(T.entityName(), uid: entryUid)
+        } else {
+            return true
+        }
+    }
+    
+    internal func createEntryIfNeeded() {
+        if _entry == nil && shouldCreateEntry() {
+            createEntry()
+        }
+    }
+    
+    internal func mapEntry(entry: T, data: [String:AnyObject]) {
+        entry.map(data)
+    }
+    
+    internal func createEntry() {
+        guard let entry = T.entry(entryUid, locuid:entryLocUid) else { return }
+        
+        if let data = entryData {
+            mapEntry(entry, data: data)
+        }
+        
+        if let containerType = T.containerType() where entry.container == nil {
+            entry.container = containerType.entry(containerUid, allowInsert: false)
+        }
+        _entry = entry
+        inserted = entry.inserted
+    }
+    
+    override func fetch(success: Block, failure: FailureBlock) {
+        createEntryIfNeeded()
+        success()
+    }
+    
+    override var description: String {
+        return "\(type.rawValue): \(entryUid ?? "")"
+    }
+    
+    override func canBeHandled() -> Bool { return Authorization.active && !originatedByCurrentUser }
+    
+    override func presentWithIdentifier(identifier: String?) {
         if let entry = entry {
             AuthorizedExecutor.presentEntry(entry.serializeReference())
         }

@@ -12,12 +12,8 @@ import Photos
 
 extension Entry {
     
-    class func entry() -> Self {
-        return entry(self)
-    }
-    
-    class func entry<T: Entry>(type: T.Type) -> T {
-        let entry = NSEntityDescription.insertNewObjectForEntityForName(entityName(), inManagedObjectContext: EntryContext.sharedContext) as! T
+    class func entry<T: Entry>() -> T {
+        let entry = NSEntityDescription.insertNewObjectForEntityForName(T.entityName(), inManagedObjectContext: EntryContext.sharedContext) as! T
         entry.uid = GUID()
         entry.createdAt = NSDate.now()
         entry.updatedAt = entry.createdAt
@@ -75,22 +71,22 @@ extension Device {
 
 extension Contribution {
     
-    class func contribution() -> Self {
-        let contributrion = entry()
-        contributrion.locuid = contributrion.uid
-        contributrion.contributor = User.currentUser
-        return contributrion
+    class func contribution<T: Contribution>() -> T {
+        return specify(entry(), {
+            $0.locuid = $0.uid
+            $0.contributor = User.currentUser
+        })
     }
 }
 
 extension Wrap {
     
     class func wrap() -> Wrap {
-        let wrap = contribution()
-        if let contributor = wrap.contributor {
-            wrap.contributors = [contributor]
-        }
-        return wrap
+        return specify(contribution(), {
+            if let contributor = $0.contributor {
+                $0.contributors = [contributor]
+            }
+        })
     }
     
     override func fetched() -> Bool {
@@ -101,9 +97,7 @@ extension Wrap {
 extension Candy {
     
     class func candy(mediaType: MediaType) -> Candy {
-        let candy = contribution()
-        candy.mediaType = mediaType
-        return candy
+        return specify(contribution(), { $0.mediaType = mediaType })
     }
     
     override func fetched() -> Bool {
@@ -186,9 +180,7 @@ extension Message {
 extension Comment {
     
     class func comment(text: String) -> Comment {
-        let comment = contribution()
-        comment.text = text
-        return comment
+        return specify(contribution(), { $0.text = text })
     }
     
     override func fetched() -> Bool {

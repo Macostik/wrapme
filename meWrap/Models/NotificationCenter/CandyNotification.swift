@@ -8,34 +8,26 @@
 
 import Foundation
 
-class CandyNotification: Notification {
+class CandyNotification: EntryNotification<Candy> {
     
-    var candy: Candy?
+    override func dataKey() -> String { return "candy" }
     
-    internal override func setup(body: [String:AnyObject]) {
-        super.setup(body)
-        createDescriptor(Candy.self, body: body, key: "candy")
-        descriptor?.container = Wrap.uid(body)
-    }
-    
-    internal override func createEntry(descriptor: EntryDescriptor) {
-        candy = getEntry(Candy.self, descriptor: descriptor, mapper: { (candy, data) in
-            if type != .CandyDelete {
-                
-                if originatedByCurrentUser && candy.status == .Ready {
-                    candy.uploading = nil
-                }
-                
-                let oldPicture = candy.asset?.copy() as? Asset
-                candy.map(data)
-                if let newAsset = candy.asset where originatedByCurrentUser {
-                    oldPicture?.cacheForAsset(newAsset)
-                }
-                if candy.sortedComments().contains({ $0.uploading != nil }) {
-                    Uploader.wrapUploader.start()
-                }
+    override func mapEntry(candy: Candy, data: [String : AnyObject]) {
+        if type != .CandyDelete {
+            
+            if originatedByCurrentUser && candy.status == .Ready {
+                candy.uploading = nil
             }
-        })
+            
+            let oldPicture = candy.asset?.copy() as? Asset
+            candy.map(data)
+            if let newAsset = candy.asset where originatedByCurrentUser {
+                oldPicture?.cacheForAsset(newAsset)
+            }
+            if candy.sortedComments().contains({ $0.uploading != nil }) {
+                Uploader.wrapUploader.start()
+            }
+        }
     }
 }
 
@@ -43,7 +35,7 @@ class CandyAddNotification: CandyNotification {
     
     override func fetch(success: Block, failure: FailureBlock) {
         createEntryIfNeeded()
-        if let candy = candy {
+        if let candy = _entry {
             candy.recursivelyFetchIfNeeded({ _ in
                 if let asset = candy.asset {
                     asset.fetch(success)
@@ -57,7 +49,7 @@ class CandyAddNotification: CandyNotification {
     }
     
     override func submit() {
-        guard let candy = candy else { return }
+        guard let candy = _entry else { return }
         if inserted && candy.contributor != User.currentUser {
             candy.markAsUnread(true)
         }
@@ -74,8 +66,8 @@ class CandyUpdateNotification: CandyNotification {
     
     override func fetch(success: Block, failure: FailureBlock) {
         createEntryIfNeeded()
-        if let candy = candy {
-            if descriptor?.data == nil {
+        if let candy = _entry {
+            if entryData == nil {
                 candy.fetch({ (_) -> Void in
                     if let asset = candy.asset {
                         asset.fetch(success)
@@ -96,7 +88,7 @@ class CandyUpdateNotification: CandyNotification {
     }
     
     override func submit() {
-        guard let candy = candy else { return }
+        guard let candy = _entry else { return }
         if candy.editor != User.currentUser {
             candy.markAsUnread(true)
         }
@@ -108,17 +100,11 @@ class CandyUpdateNotification: CandyNotification {
 
 class CandyDeleteNotification: CandyNotification {
     
-    internal override func createEntry(descriptor: EntryDescriptor) {
-        candy = getEntry(Candy.self, descriptor: descriptor, mapper: { _ in })
-    }
-    
-    internal override func shouldCreateEntry(descriptor: EntryDescriptor) -> Bool {
-        return descriptor.entryExists()
-    }
+    override func mapEntry(candy: Candy, data: [String : AnyObject]) { }
     
     override func submit() {
-        candy?.remove()
-        if let wrap = candy?.wrap where wrap.valid && wrap.candies.count < Constants.recentCandiesLimit {
+        _entry?.remove()
+        if let wrap = _entry?.wrap where wrap.valid && wrap.candies.count < Constants.recentCandiesLimit {
             wrap.fetch(Wrap.ContentTypeRecent, success: nil, failure: nil)
         }
     }

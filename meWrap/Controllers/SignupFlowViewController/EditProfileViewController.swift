@@ -26,7 +26,7 @@ final class EditProfileViewController: SignupStepViewController {
         editSession = ProfileEditSession(user: user)
         nameTextField.text = user.name
         profileImageView.url = user.avatar?.large
-        continueButton.active = false
+        continueButton.active = editSession.nameSession.hasValidChanges
     }
     
     private func updateIfNeeded(completion: Void -> Void) {

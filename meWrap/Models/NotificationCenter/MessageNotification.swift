@@ -8,31 +8,21 @@
 
 import Foundation
 
-class MessageAddNotification: Notification {
+class MessageAddNotification: EntryNotification<Message> {
     
-    var message: Message?
-    
-    internal override func setup(body: [String:AnyObject]) {
-        super.setup(body)
-        createDescriptor(Message.self, body: body, key: "chat")
-        descriptor?.container = Wrap.uid(body)
-    }
+    override func dataKey() -> String { return "chat" }
     
     override func fetch(success: Block, failure: FailureBlock) {
         createEntryIfNeeded()
-        if let message = message {
+        if let message = _entry {
             message.recursivelyFetchIfNeeded(success, failure: failure)
         } else {
             success()
         }
     }
     
-    internal override func createEntry(descriptor: EntryDescriptor) {
-        message = getEntry(Message.self, descriptor: descriptor, mapper: { $0.map($1) })
-    }
-    
     override func submit() {
-        guard let message = message else { return }
+        guard let message = _entry else { return }
         if inserted && message.contributor != User.currentUser {
             message.markAsUnread(true)
         }
@@ -42,7 +32,7 @@ class MessageAddNotification: Notification {
     override func presentWithIdentifier(identifier: String?) {
         super.presentWithIdentifier(identifier)
         if let nc = UINavigationController.main() {
-            let controller = message?.viewControllerWithNavigationController(nc) as? WrapViewController
+            let controller = _entry?.viewControllerWithNavigationController(nc) as? WrapViewController
             controller?.segment = .Chat
             if identifier == "reply" {
                 controller?.showKeyboard = true

@@ -75,7 +75,7 @@ extension ExtensionRequest {
             return
         }
         NotificationCenter.handleRemoteNotification(notification, success: { (notification) -> Void in
-            if let url = (notification.entry as? Contribution)?.asset?.small {
+            if let url = (notification.getEntry() as? Contribution)?.asset?.small {
                 success(ExtensionReply(reply: ["url":url]))
             } else {
                 failure(ExtensionError(message: "No data"))

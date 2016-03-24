@@ -8,18 +8,9 @@
 
 import Foundation
 
-class WrapNotification: Notification {
+class WrapNotification: EntryNotification<Wrap> {
     
-    var wrap: Wrap?
-    
-    internal override func setup(body: [String:AnyObject]) {
-        super.setup(body)
-        createDescriptor(Wrap.self, body: body, key: "wrap")
-    }
-    
-    internal override func createEntry(descriptor: EntryDescriptor) {
-        self.wrap = getEntry(Wrap.self, descriptor: descriptor, mapper: { $0.map($1) })
-    }
+    override func dataKey() -> String { return "wrap" }
 }
 
 class ContributorAddNotification: WrapNotification {
@@ -28,8 +19,8 @@ class ContributorAddNotification: WrapNotification {
     
     var inviter: User?
     
-    internal override func createEntry(descriptor: EntryDescriptor) {
-        super.createEntry(descriptor)
+    internal override func createEntry() {
+        super.createEntry()
         guard let body = body else { return }
         let userData = body["user"] as? [String: AnyObject]
         user = userData != nil ? User.mappedEntry(userData!) : User.entry(body["user_uid"] as? String)
@@ -40,7 +31,7 @@ class ContributorAddNotification: WrapNotification {
     
     override func fetch(success: Block, failure: FailureBlock) {
         createEntryIfNeeded()
-        guard let wrap = wrap else {
+        guard let wrap = _entry else {
             success()
             return
         }
@@ -51,7 +42,7 @@ class ContributorAddNotification: WrapNotification {
     }
     
     override func submit() {
-        guard let wrap = wrap else { return }
+        guard let wrap = _entry else { return }
         if wrap.isPublic && !inserted {
             wrap.notifyOnUpdate(.ContributorsChanged)
         } else {
@@ -63,7 +54,7 @@ class ContributorAddNotification: WrapNotification {
 class ContributorDeleteNotification: WrapNotification {
     
     override func submit() {
-        guard let wrap = wrap else { return }
+        guard let wrap = _entry else { return }
         guard let body = body else { return }
         let userData = body["user"] as? [String: AnyObject]
         if let user = userData != nil ? User.mappedEntry(userData!) : User.entry(body["user_uid"] as? String) {
@@ -80,13 +71,13 @@ class ContributorDeleteNotification: WrapNotification {
 class WrapUpdateNotification: WrapNotification {
     
     override func submit() {
-        wrap?.notifyOnUpdate(.Default)
+        _entry?.notifyOnUpdate(.Default)
     }
     
     override func fetch(success: Block, failure: FailureBlock) {
         createEntryIfNeeded()
-        if descriptor?.data == nil {
-            wrap?.fetch({ (_) -> Void in
+        if entryData == nil {
+            _entry?.fetch({ (_) -> Void in
                 success()
                 }, failure: failure)
         } else {
@@ -97,12 +88,8 @@ class WrapUpdateNotification: WrapNotification {
 
 class WrapDeleteNotification: WrapNotification {
     
-    internal override func shouldCreateEntry(descriptor: EntryDescriptor) -> Bool {
-        return descriptor.entryExists()
-    }
-    
     override func submit() {
-        wrap?.remove()
+        _entry?.remove()
     }
 }
 
@@ -114,19 +101,17 @@ class LiveBroadcastNotification: WrapNotification {
     
     var liveBroadcast: LiveBroadcast?
     
-    override func setup(body: [String : AnyObject]) {
-        super.setup(body)
+    override func setupEntryData(body: [String : AnyObject]) {
         if let streamInfo = body["stream_info"] as? [String:String] {
-            createDescriptor(Wrap.self, body: streamInfo, key: Keys.UID.Wrap)
+            super.setupEntryData(streamInfo)
         }
     }
     
-    override func createEntry(descriptor: EntryDescriptor) {
+    override func createEntry() {
         if let body = body, let streamInfo = body["stream_info"] as? [String:String] {
             guard let userUID = streamInfo["user_uid"] else { return }
             guard let deviceUID = streamInfo["device_uid"] else { return }
-            guard let wrap = Wrap.entry(descriptor.uid) else { return }
-            self.wrap = wrap
+            guard let wrap = Wrap.entry(entryUid) else { return }
             _entry = wrap
             let broadcast = LiveBroadcast()
             broadcast.broadcaster = User.entry(userUID)
@@ -140,7 +125,7 @@ class LiveBroadcastNotification: WrapNotification {
     override func presentWithIdentifier(identifier: String?) {
         super.presentWithIdentifier(identifier)
         guard let nc = UINavigationController.main() else { return }
-        weak var controller = wrap?.viewControllerWithNavigationController(nc) as? WrapViewController
+        weak var controller = _entry?.viewControllerWithNavigationController(nc) as? WrapViewController
         guard let liveBroadcast = liveBroadcast else { return }
         Dispatch.mainQueue.after(1.2) { _ in
             controller?.presentLiveProadcast(liveBroadcast)
@@ -148,6 +133,6 @@ class LiveBroadcastNotification: WrapNotification {
     }
     
     override func submit() {
-        wrap?.notifyOnUpdate(.Default)
+        _entry?.notifyOnUpdate(.Default)
     }
 }

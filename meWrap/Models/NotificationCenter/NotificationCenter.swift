@@ -76,7 +76,8 @@ final class NotificationCenter: NSObject {
                 #endif
             }
         }
-        PubNub.sharedInstance.subscribeToChannels([User.uuid()], withPresence: false)
+        let channel = User.uuid()
+        PubNub.sharedInstance.subscribeToChannels([channel], withPresence: false)
         userSubscription.subscribe()
         Logger.logglyDestination.userid = User.uuid()
     }
@@ -251,13 +252,15 @@ extension NotificationCenter: PNObjectEventListener {
     
     func client(client: PubNub, didReceiveMessage message: PNMessageResult) {
         #if DEBUG
-            print("listener didReceiveMessage \(message.data.message)")
+            if let msg = message.data.message {
+                print("listener didReceiveMessage in \(message.data.actualChannel ?? message.data.subscribedChannel)\n \(msg)")
+            }
         #endif
     }
     
     func client(client: PubNub, didReceivePresenceEvent event: PNPresenceEventResult) {
         #if DEBUG
-            print("PUBNUB - did receive presence event: \(event.data)")
+            print("PUBNUB - did receive presence event in \(event.data.actualChannel ?? event.data.subscribedChannel)\n: \(event.data)")
         #endif
     }
     

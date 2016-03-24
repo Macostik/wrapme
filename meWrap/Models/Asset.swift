@@ -69,7 +69,7 @@ class AssetTransformer: NSValueTransformer {
             do {
                 return try Asset(json: data)
             } catch {
-                return Asset.unarchive(data)
+                return data.unarchive()
             }
         } else {
             return nil

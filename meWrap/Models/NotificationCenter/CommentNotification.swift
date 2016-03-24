@@ -8,23 +8,13 @@
 
 import Foundation
 
-class CommentNotification: Notification {
+class CommentNotification: EntryNotification<Comment> {
     
-    var comment: Comment?
-    
-    internal override func setup(body: [String:AnyObject]) {
-        super.setup(body)
-        createDescriptor(Comment.self, body: body, key: "comment")
-        descriptor?.container = Candy.uid(body)
-    }
-    
-    internal override func createEntry(descriptor: EntryDescriptor) {
-        comment = getEntry(Comment.self, descriptor: descriptor, mapper: { $0.map($1) })
-    }
+    override func dataKey() -> String { return "comment" }
     
     override func fetch(success: Block, failure: FailureBlock) {
         createEntryIfNeeded()
-        if let comment = comment {
+        if let comment = _entry {
             comment.recursivelyFetchIfNeeded(success, failure: failure)
         } else {
             success()
@@ -35,7 +25,7 @@ class CommentNotification: Notification {
 class CommentAddNotification: CommentNotification {
     
     override func submit() {
-        guard let comment = comment else { return }
+        guard let comment = _entry else { return }
         guard let candy = comment.candy else { return }
         if candy.valid {
             candy.commentCount = Int16(candy.comments.count)
@@ -52,12 +42,8 @@ class CommentAddNotification: CommentNotification {
 
 class CommentDeleteNotification: CommentNotification {
     
-    internal override func shouldCreateEntry(descriptor: EntryDescriptor) -> Bool {
-        return descriptor.entryExists()
-    }
-    
     override func submit() {
-        guard let comment = comment else { return }
+        guard let comment = _entry else { return }
         if let candy = comment.candy {
             candy.commentCount -= 1
         }

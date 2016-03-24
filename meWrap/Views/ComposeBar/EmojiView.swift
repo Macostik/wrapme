@@ -83,7 +83,7 @@ class EmojiView: UIView {
     }
     
     class func emojiViewWithTextView(textView: UITextView) -> EmojiView {
-        let emojiView = EmojiView.loadFromNib("EmojiView")!
+        let emojiView: EmojiView! = loadFromNib("EmojiView")
         emojiView.textView = textView
         return emojiView
     }

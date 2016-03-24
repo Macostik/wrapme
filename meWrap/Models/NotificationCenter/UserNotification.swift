@@ -8,25 +8,20 @@
 
 import Foundation
 
-class UserUpdateNotification: Notification {
+class UserUpdateNotification: EntryNotification<User> {
     
-    var user: User?
+    override func dataKey() -> String { return "user" }
     
-    internal override func setup(body: [String:AnyObject]) {
-        super.setup(body)
-        createDescriptor(User.self, body: body, key: "user")
-    }
-    
-    internal override func createEntry(descriptor: EntryDescriptor) {
-        user = getEntry(User.self, descriptor: descriptor, mapper: {
-            Authorization.current.updateWithUserData($1)
-            $0.map($1)
-        })
+    override func mapEntry(user: User, data: [String : AnyObject]) {
+        if user.current {
+            Authorization.current.updateWithUserData(data)
+        }
+        user.map(data)
     }
     
     override func fetch(success: Block, failure: FailureBlock) {
         createEntryIfNeeded()
-        if let user = user where Authorization.active {
+        if let user = _entry where Authorization.active {
             user.recursivelyFetchIfNeeded(success, failure: failure)
         } else {
             success()
@@ -34,7 +29,7 @@ class UserUpdateNotification: Notification {
     }
     
     override func submit() {
-        user?.notifyOnUpdate(.Default)
+        _entry?.notifyOnUpdate(.Default)
     }
     
     override func canBeHandled() -> Bool { return !originatedByCurrentUser }

@@ -28,7 +28,8 @@ class DownloadingView: UIView {
         if let cachedImage = cachedImage(url) {
             success(cachedImage)
         } else {
-            DownloadingView.loadFromNib("DownloadingView")?.downloadCandy(candy, success:success, failure:failure)
+            let view: DownloadingView! = loadFromNib("DownloadingView")
+            view.downloadCandy(candy, success:success, failure:failure)
         }
     }
     

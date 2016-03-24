@@ -52,17 +52,10 @@ extension NSObject {
     func archive() -> NSData? {
         return NSKeyedArchiver.archivedDataWithRootObject(self)
     }
-    
-    class func unarchive(data: NSData?) -> Self? {
-        return unarchive(self, data: data)
-    }
-    
-    private class func unarchive<T>(type: T.Type, data: NSData?) -> T? {
-        if let data = data {
-            return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? T
-        } else {
-            return nil
-        }
-    }
+}
 
+extension NSData {
+    func unarchive<T>() -> T? {
+        return NSKeyedUnarchiver.unarchiveObjectWithData(self) as? T
+    }
 }

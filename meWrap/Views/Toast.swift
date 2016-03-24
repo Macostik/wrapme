@@ -41,9 +41,13 @@ class Toast: UIView {
         handleTouch()
     }
     func dissmis() {
+        EntryToast.entryToastContainter.removeAll()
         NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(Toast.handleTouch), object: nil)
-        UIView.animateWithDuration(0.25, animations: { self.alpha = 0 }, completion: { _ in
-            self.removeFromSuperview()
+        UIView.animateWithDuration(0.25, animations: {
+            self.transform = CGAffineTransformIdentity
+            self.alpha = 0
+            }, completion: { _ in
+                self.removeFromSuperview()
         })
     }
 }
@@ -51,7 +55,6 @@ class Toast: UIView {
 class InfoToast: Toast, DefaultToastAppearance {
     
     private static let toast = InfoToast()
-    
     var topMessageInset: Constraint!
     var runQueue = RunQueue(limit: 1)
     var queuedMessages = Set<String>()
@@ -155,7 +158,15 @@ class InfoToast: Toast, DefaultToastAppearance {
     }
 }
 
+
+
 class EntryToast: Toast {
+    
+    static var entryToastContainter = [EntryToast]()
+    
+    deinit {
+        print (">>self - Deinit<<")
+    }
     
     private var entry: Contribution!
     
@@ -189,7 +200,7 @@ class EntryToast: Toast {
         } else {
             topLabel.text = String(format: "someone_commented".ls, entry.contributor?.name ?? "")
         }
-    
+        
         if let comment = entry as? Comment {
             middleLabel.text = comment.text
         }
@@ -197,6 +208,17 @@ class EntryToast: Toast {
         bottomLabel.text = "tap_to_view".ls
         imageView.url = entry.asset?.medium
         bottomView.addSubview(bottomLabel)
+        
+        _window.makeKeyAndVisible()
+        _window.windowLevel = UIWindowLevelStatusBar
+        if self.superview != _window {
+            self.removeFromSuperview()
+            _window.addSubview(self)
+            snp_makeConstraints {
+                $0.width.centerX.equalTo(_window)
+                $0.bottom.equalTo(_window.snp_top)
+            }
+        }
         
         avatar.snp_makeConstraints {
             $0.centerY.equalTo(topLabel)
@@ -236,6 +258,8 @@ class EntryToast: Toast {
         bottomLabel.snp_makeConstraints { make in
             make.edges.equalTo(bottomView).inset(UIEdgeInsetsMake(8, 8, 8, 8))
         }
+        layoutIfNeeded()
+        EntryToast.entryToastContainter.append(self)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -243,29 +267,20 @@ class EntryToast: Toast {
     }
     
     func show(inViewController viewController: UIViewController? = nil) {
-        _window.makeKeyAndVisible()
-        _window.windowLevel = UIWindowLevelStatusBar
-        let view = _window
-        if self.superview != view {
-            self.removeFromSuperview()
-            view.addSubview(self)
-            snp_remakeConstraints {
-                $0.width.centerX.equalTo(view)
-                $0.top.equalTo(view)
-            }
-            self.layoutIfNeeded()
-            self.alpha = 0.0
-            UIView.performAnimated(true) { self.alpha = 1.0 }
-        }
+        UIView.animateWithDuration(0.25, animations: {
+            self.transform = CGAffineTransformMakeTranslation(0, self.height)
+        })
+        
         self.enqueueSelector(#selector(Toast.dissmis), delay: Toast.DismissalDelay)
         SoundPlayer.player.play(.note)
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
     }
     
     override func handleTouch() {
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(Toast.dissmis), object: nil)
+        let _ = EntryToast.entryToastContainter.map{ $0.removeFromSuperview() }
+        EntryToast.entryToastContainter.removeAll()
         ChronologicalEntryPresenter.presentEntry(entry, animated: false)
-        _window.removeFromSuperview()
-        dissmis()
     }
 }
 

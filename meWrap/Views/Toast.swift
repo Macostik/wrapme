@@ -252,6 +252,7 @@ class EntryToast: Toast {
             UIView.performAnimated(true) { self.alpha = 1.0 }
         }
         self.enqueueSelector(#selector(Toast.dissmis), delay: Toast.DismissalDelay)
+        SoundPlayer.player.play(.note)
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
     }
     

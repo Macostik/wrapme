@@ -27,6 +27,7 @@
 		5B35CDB31C6CBCBC00616AFA /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */; };
 		5B35CDB51C6CE30100616AFA /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C507F80D1C218BB1006DA3E5 /* Dispatch.swift */; };
 		5B37C75E1C5A06E30068E693 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37C75D1C5A06E30068E693 /* Button.swift */; };
+		5B383A751CA3E2590097B547 /* note.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5B383A741CA3E2590097B547 /* note.wav */; };
 		5B3C792A1C7318B700EAB05D /* HintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3C79291C7318B700EAB05D /* HintView.swift */; };
 		5B40D6B21C2EBB1C009EF38C /* UploadWizardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40D6B11C2EBB1C009EF38C /* UploadWizardViewController.swift */; };
 		5B436C9D1C9FFC5100635931 /* peopleAndSmiles_iOS_8.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B436C9C1C9FFC5100635931 /* peopleAndSmiles_iOS_8.plist */; };
@@ -457,6 +458,7 @@
 		5B2FB96F1C5BA958001C4385 /* ComposeBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBar.swift; sourceTree = "<group>"; };
 		5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeProfileViewController.swift; sourceTree = "<group>"; };
 		5B37C75D1C5A06E30068E693 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		5B383A741CA3E2590097B547 /* note.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = note.wav; path = Sounds/note.wav; sourceTree = "<group>"; };
 		5B3C79291C7318B700EAB05D /* HintView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HintView.swift; sourceTree = "<group>"; };
 		5B3DBD201C5243C000A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5B3DBD211C5243C000A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -1151,6 +1153,7 @@
 			isa = PBXGroup;
 			children = (
 				5BA6CAF11A10E51B004AD41C /* s04.wav */,
+				5B383A741CA3E2590097B547 /* note.wav */,
 			);
 			name = Sounds;
 			sourceTree = "<group>";
@@ -1832,6 +1835,7 @@
 				C5C3FEA81B8F311500F177EC /* Default-736h@3x.png in Resources */,
 				5B44EB011C9BF27300BD6481 /* symbols_iOS_9.plist in Resources */,
 				5B211FB21C087137000EC3DB /* (null) in Resources */,
+				5B383A751CA3E2590097B547 /* note.wav in Resources */,
 				5B44EAFF1C9BF22B00BD6481 /* objects_iOS_9.plist in Resources */,
 				C5BEC38D1B8F129100499EEA /* logo_and_caption_orange@3x.png in Resources */,
 				C5BEC3A31B8F16E800499EEA /* logo_and_caption_orange.png in Resources */,

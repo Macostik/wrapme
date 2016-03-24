@@ -12,6 +12,7 @@ import AudioToolbox
 enum Sound: String {
     
     case s04 = "s04.wav"
+    case note = "note.wav"
     
     private static var IDs = [Sound : SystemSoundID]()
     

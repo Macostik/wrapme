@@ -49,6 +49,7 @@ class Notification: CustomStringConvertible {
     var body: [String:AnyObject]?
     var originatedByCurrentUser = false
     var type: NotificationType = .ContributorAdd
+    var isHistorycal = true
     
     private class func parseMessage(message: AnyObject?) -> (body: [String:AnyObject]?, timetoken: NSNumber?) {
         if let message = message as? PNMessageData {

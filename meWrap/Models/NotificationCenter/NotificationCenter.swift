@@ -111,7 +111,7 @@ final class NotificationCenter: NSObject {
         }
     }
     
-    func notificationsFromMessages(messages: [AnyObject]?) -> [Notification] {
+    func notificationsFromMessages(messages: [AnyObject]?, isHistorycal: Bool = true) -> [Notification] {
         guard let messages = messages where !messages.isEmpty else { return [] }
         
         var notifications = [Notification]()
@@ -119,6 +119,7 @@ final class NotificationCenter: NSObject {
         for message in messages {
             guard let n = Notification.notificationWithMessage(message) else { continue }
             guard n.canBeHandled() && !NotificationCenter.canSkipNotification(n) else { continue }
+            n.isHistorycal = isHistorycal
             notifications.append(n)
         }
         
@@ -220,7 +221,7 @@ final class NotificationCenter: NSObject {
     }
     
     func handleEnqueuedMessages() {
-        let notifications = notificationsFromMessages(enqueuedMessages)
+        let notifications = notificationsFromMessages(enqueuedMessages, isHistorycal: false)
         enqueuedMessages.removeAll()
         handleNotifications(notifications)
     }

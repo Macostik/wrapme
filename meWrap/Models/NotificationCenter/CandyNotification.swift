@@ -54,7 +54,7 @@ class CandyAddNotification: CandyNotification {
             candy.markAsUnread(true)
         }
         candy.notifyOnAddition()
-        if candy.contributor?.current == false {
+        if candy.contributor?.current == false && !isHistorycal {
              EntryToast(entry: candy).show()
         }
     }

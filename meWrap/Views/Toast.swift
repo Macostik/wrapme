@@ -188,7 +188,7 @@ class EntryToast: Toast {
         addSubview(imageView)
         addSubview(bottomView)
         avatar.circled = true
-        avatar.url = User.currentUser?.avatar?.small
+        avatar.url = entry.contributor?.avatar?.small
         topLabel.numberOfLines = 0
         middleLabel.numberOfLines = 2
         if let candy = entry as? Candy {

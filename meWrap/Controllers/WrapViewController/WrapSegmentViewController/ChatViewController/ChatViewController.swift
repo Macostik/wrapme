@@ -321,13 +321,21 @@ extension ChatViewController: StreamViewDelegate {
     
     func streamViewDidChangeContentSize(streamView: StreamView, oldContentSize: CGSize) {
         if streamView.scrollable {
-            streamView.contentOffset = streamView.maximumContentOffset
+            if dragged {
+                streamView.contentOffset.y += streamView.contentSize.height - oldContentSize.height
+            } else {
+                streamView.contentOffset = streamView.maximumContentOffset
+            }
         }
         appendItemsIfNeededWithTargetContentOffset(streamView.contentOffset)
     }
     
     func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetrics? {
         return placeholderMetrics
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        dragged = true
     }
     
     func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

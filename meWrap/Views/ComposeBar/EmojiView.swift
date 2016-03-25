@@ -90,7 +90,7 @@ class EmojiView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        streamView.layout = GridLayout(streamView: streamView, horizontal: true)
+        streamView.layout = HorizontalGridLayout()
         dataSource = StreamDataSource(streamView: streamView)
         let metrics = StreamMetrics(loader: StreamLoader<EmojiCell>())
         metrics.modifyItem = { [weak self] item in

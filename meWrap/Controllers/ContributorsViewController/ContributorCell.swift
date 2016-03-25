@@ -30,7 +30,7 @@ final class ContributorCell: StreamReusableView {
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         avatarView.startReceivingStatusUpdates()
-        streamView.horizontal = true
+        streamView.layout = HorizontalStreamLayout()
         streamView.showsHorizontalScrollIndicator = false
         streamView.pagingEnabled = true
         streamView.bounces = false

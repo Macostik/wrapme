@@ -16,7 +16,7 @@ class PaginatedStreamDataSource: StreamDataSource {
         let metrics = self.addFooterMetrics(LoadingView.metrics())
         metrics.modifyItem = { [weak self] item in
             if let sv = self?.streamView {
-                item.size = sv.horizontal ? sv.fittingContentWidth : sv.fittingContentHeight
+                item.size = sv.layout.horizontal ? sv.fittingContentWidth : sv.fittingContentHeight
             }
         }
         metrics.hidden = true
@@ -72,7 +72,7 @@ class PaginatedStreamDataSource: StreamDataSource {
         guard let streamView = streamView else { return }
         
         var reachedRequiredOffset = false
-        if streamView.horizontal {
+        if streamView.layout.horizontal {
             reachedRequiredOffset = (streamView.maximumContentOffset.x - targetContentOffset.x) < streamView.fittingContentWidth
         } else {
             reachedRequiredOffset = (streamView.maximumContentOffset.y - targetContentOffset.y) < streamView.fittingContentHeight

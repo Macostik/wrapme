@@ -19,68 +19,42 @@ extension StreamLayoutDelegate {
 
 class StreamLayout {
     
-    weak var streamView: StreamView?
-    
-    var horizontal: Bool
-    
-    init(streamView: StreamView, horizontal: Bool = false) {
-        self.streamView = streamView
-        self.horizontal = horizontal
-    }
+    var horizontal: Bool { return false }
     
     var offset: CGFloat = 0
     
     var finalized = false
     
-    func prepareLayout() {
+    func prepareLayout(streamView: StreamView) {
         finalized = false
-        if let streamView = streamView, let delegate = streamView.delegate as? StreamLayoutDelegate {
+        if let delegate = streamView.delegate as? StreamLayoutDelegate {
             offset = delegate.streamView(streamView, offsetForLayout: self)
         } else {
             offset = 0
         }
     }
     
-    func layoutItem(item: StreamItem) {
-        if let streamView = streamView {
-            if (horizontal) {
-                layoutItemHorizontally(item, streamView: streamView)
-            } else {
-                layoutItemVertically(item, streamView: streamView)
-            }
+    func contentSize(item: StreamItem, streamView: StreamView) -> CGSize {
+        if horizontal {
+            return CGSizeMake(item.frame.maxX, streamView.frame.height)
+        } else {
+            return CGSizeMake(streamView.frame.width, item.frame.maxY)
         }
     }
     
-    func layoutItemHorizontally(item: StreamItem, streamView: StreamView) {
-        var current = item
-        var next: StreamItem? = current
+    func recursivelyLayoutItem(item: StreamItem, streamView: StreamView) {
+        var next: StreamItem? = item
         while let item = next {
-            item.frame = horizontalFrameForItem(item, streamView: streamView)
+            item.frame = frameForItem(item, streamView: streamView)
             next = item.next
-            current = item
         }
-        streamView.changeContentSize(CGSizeMake(current.frame.maxX, streamView.frame.height))
     }
     
-    func layoutItemVertically(item: StreamItem, streamView: StreamView) {
-        var current = item
-        var next: StreamItem? = current
-        while let item = next {
-            item.frame = verticalFrameForItem(item, streamView: streamView)
-            next = item.next
-            current = item
-        }
-        streamView.changeContentSize(CGSizeMake(streamView.frame.width, current.frame.maxY))
+    func layoutItem(item: StreamItem, streamView: StreamView) {
+        item.frame = frameForItem(item, streamView: streamView)
     }
     
-    func horizontalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
-        let size = item.size
-        let insets = item.insets
-        let offset = item.previous?.frame.maxX ?? self.offset
-        return CGRectMake(offset + insets.origin.x, insets.origin.y, size + insets.width, streamView.frame.height - insets.origin.y - insets.height)
-    }
-    
-    func verticalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
+    func frameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
         let size = item.size
         let insets = item.insets
         let offset = item.previous?.frame.maxY ?? self.offset
@@ -92,5 +66,17 @@ class StreamLayout {
     func finalizeLayout() {
         prepareForNextSection()
         finalized = true
+    }
+}
+
+class HorizontalStreamLayout: StreamLayout {
+    
+    override var horizontal: Bool { return true }
+    
+    override func frameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
+        let size = item.size
+        let insets = item.insets
+        let offset = item.previous?.frame.maxX ?? self.offset
+        return CGRectMake(offset + insets.origin.x, insets.origin.y, size + insets.width, streamView.frame.height - insets.origin.y - insets.height)
     }
 }

@@ -130,6 +130,7 @@ class UploadSummaryViewController: SwipeViewController, CaptureWrapContainer {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        streamView.layout = HorizontalStreamLayout()
         view.addGestureRecognizer(self.scrollView!.panGestureRecognizer)
         self.videoPlayerView.delegate = self
         let metrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<EditAssetCell>(), size: 92))

@@ -133,7 +133,7 @@ final class WrapViewController: BaseViewController {
         
         addNotifyReceivers()
         
-        friendsStreamView.horizontal = true
+        friendsStreamView.layout = HorizontalStreamLayout()
         let friendMetrics = StreamMetrics(loader: StreamLoader<FriendView>(), size: friendsStreamView.height)
         friendMetrics.prepareAppearing = { [weak self] item, view in
             (view as? FriendView)?.wrap = self?.wrap

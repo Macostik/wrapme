@@ -1445,9 +1445,6 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OZr-dY-Xul" customClass="StreamView" customModule="meWrap">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="horizontal" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
                                     </scrollView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>

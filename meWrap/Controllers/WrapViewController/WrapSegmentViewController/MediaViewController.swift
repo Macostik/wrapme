@@ -46,7 +46,7 @@ class HistoryItemCell: StreamReusableView {
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         
-        streamView.layout = SquareLayout(streamView: streamView, horizontal: true)
+        streamView.layout = HorizontalSquareLayout()
         dataSource = HistoryItemDataSource(streamView: streamView)
         candyMetrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<CandyCell>()))
         candyMetrics.selection = metrics.selection

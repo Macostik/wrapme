@@ -137,8 +137,8 @@ class HistoryItemCell: StreamReusableView {
 class LiveBroadcastMediaView: StreamReusableView {
     
     private let imageView = ImageView(backgroundColor: UIColor.whiteColor())
-    private let nameLabel = Label(preset: FontPreset.Small)
-    private let titleLabel = Label(preset: FontPreset.Smaller, textColor: Color.grayLighter)
+    private let nameLabel = Label(preset: .Small)
+    private let titleLabel = Label(preset: .Smaller, textColor: Color.grayLighter)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         imageView.cornerRadius = 24
@@ -219,7 +219,7 @@ class MediaViewController: WrapSegmentViewController {
         streamView.contentInset = streamView.scrollIndicatorInsets
         
         dataSource.scrollDirectionLayoutPrioritizer = self.scrollDirectionPrioritizer
-        dataSource.numberOfGridColumns = 3;
+        dataSource.numberOfGridColumns = 3
         dataSource.layoutSpacing = Constants.pixelSize
         dataSource.placeholderMetrics = StreamMetrics(loader: PlaceholderView.mediaPlaceholderLoader())
         

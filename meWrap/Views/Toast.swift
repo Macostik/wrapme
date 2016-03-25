@@ -13,23 +13,12 @@ protocol Appearance {
     var isIconHidden: Bool { get }
     var backgroundColor: UIColor  { get }
     var textColor: UIColor { get }
-    
-    func updateStyle()
 }
 
-protocol DefaultToastAppearance : Appearance {}
-extension DefaultToastAppearance {
+struct DefaultToastAppearance : Appearance {
     var isIconHidden: Bool { return false }
     var backgroundColor: UIColor  { return UIColor.clearColor() }
     var textColor: UIColor { return UIColor.whiteColor() }
-}
-
-extension InfoToast: Appearance {
-    func updateStyle() {
-        leftIconView.hidden = isIconHidden
-        backgroundColor = backgroundColor
-        messageLabel.textColor = textColor
-    }
 }
 
 class Toast: UIView {
@@ -41,18 +30,22 @@ class Toast: UIView {
         handleTouch()
     }
     func dissmis() {
-        EntryToast.entryToastContainter.removeAll()
         NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(Toast.handleTouch), object: nil)
         UIView.animateWithDuration(0.25, animations: {
             self.transform = CGAffineTransformIdentity
             self.alpha = 0
             }, completion: { _ in
                 self.removeFromSuperview()
+                if let etnryToast = self as? EntryToast {
+                    if let index = EntryToast.toastEntries.indexOf(etnryToast) {
+                        EntryToast.toastEntries.removeAtIndex(index)
+                    }
+                }
         })
     }
 }
 
-class InfoToast: Toast, DefaultToastAppearance {
+class InfoToast: Toast {
     
     private static let toast = InfoToast()
     var topMessageInset: Constraint!
@@ -93,7 +86,6 @@ class InfoToast: Toast, DefaultToastAppearance {
             $0.trailing.equalTo(self).inset(12)
             $0.centerY.equalTo(messageLabel)
         }
-        updateStyle()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -104,7 +96,7 @@ class InfoToast: Toast, DefaultToastAppearance {
         toast.show(message)
     }
     
-    func show(message: String, inViewController viewController: UIViewController? = nil) {
+    func show(message: String, inViewController viewController: UIViewController? = nil, appearence: Appearance = DefaultToastAppearance()) {
         if message.isEmpty || (superview != nil && messageLabel.text == message) { return }
         
         queuedMessages.insert(message)
@@ -121,6 +113,9 @@ class InfoToast: Toast, DefaultToastAppearance {
             let referenceView = viewController.toastAppearanceReferenceView(self)
             
             self.messageLabel.text = message
+            self.leftIconView.hidden = appearence.isIconHidden
+            self.backgroundColor = appearence.backgroundColor
+            self.messageLabel.textColor = appearence.textColor
             
             if self.superview != view {
                 self.removeFromSuperview()
@@ -162,10 +157,12 @@ class InfoToast: Toast, DefaultToastAppearance {
 
 class EntryToast: Toast {
     
-    static var entryToastContainter = [EntryToast]()
+    static var toastEntries = [EntryToast]()
     
     deinit {
-        print (">>self - Deinit<<")
+        #if DEBUG
+            Logger.debugLog("\(NSStringFromClass(self.dynamicType)) deinit", color: .Blue)
+        #endif
     }
     
     private var entry: Contribution!
@@ -259,7 +256,7 @@ class EntryToast: Toast {
             make.edges.equalTo(bottomView).inset(UIEdgeInsetsMake(8, 8, 8, 8))
         }
         layoutIfNeeded()
-        EntryToast.entryToastContainter.append(self)
+        EntryToast.toastEntries.append(self)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -278,8 +275,8 @@ class EntryToast: Toast {
     
     override func handleTouch() {
         NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(Toast.dissmis), object: nil)
-        let _ = EntryToast.entryToastContainter.map{ $0.removeFromSuperview() }
-        EntryToast.entryToastContainter.removeAll()
+        let _ = EntryToast.toastEntries.map{ $0.removeFromSuperview() }
+        EntryToast.toastEntries.removeAll()
         ChronologicalEntryPresenter.presentEntry(entry, animated: false)
     }
 }

@@ -46,6 +46,7 @@
 		5B4B59971C87410C0056D96A /* ShareExtImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B4B59951C8740FE0056D96A /* ShareExtImages.xcassets */; };
 		5B4B59981C87413E0056D96A /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */; };
 		5B5EE49A1C68FD4D0074D66F /* StreamReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5EE4991C68FD4D0074D66F /* StreamReusableView.swift */; };
+		5B639B661CA55AB400C0B3D5 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B639B651CA55AB400C0B3D5 /* Contacts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		5B7198D81C8DE6A9004AC6CE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EE45A51C01D350008DE8D6 /* Constants.swift */; };
 		5B7F14031C7F29B30035CC81 /* WrapListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7F14021C7F29B30035CC81 /* WrapListViewController.swift */; };
 		5B8B317E1C8D856600D8A463 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B31801C8D856600D8A463 /* Localizable.strings */; };
@@ -493,6 +494,7 @@
 		5B47920C1C1B2BDF0090FDD2 /* MMWormhole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMWormhole.h; sourceTree = "<group>"; };
 		5B4B59951C8740FE0056D96A /* ShareExtImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ShareExtImages.xcassets; sourceTree = "<group>"; };
 		5B5EE4991C68FD4D0074D66F /* StreamReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamReusableView.swift; sourceTree = "<group>"; };
+		5B639B651CA55AB400C0B3D5 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		5B787D9C1A27876F004AE459 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		5B7F14021C7F29B30035CC81 /* WrapListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapListViewController.swift; sourceTree = "<group>"; };
 		5B8B317F1C8D856600D8A463 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -824,6 +826,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B639B661CA55AB400C0B3D5 /* Contacts.framework in Frameworks */,
 				C57CB2AB1BAAE51E0050FBF7 /* libsqlite3.0.tbd in Frameworks */,
 				C57CB2AA1BAAE5140050FBF7 /* libz.tbd in Frameworks */,
 				C57CB2A91BAAE50D0050FBF7 /* libc++.tbd in Frameworks */,
@@ -904,6 +907,7 @@
 		12A7A70118DA0945008FF6F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5B639B651CA55AB400C0B3D5 /* Contacts.framework */,
 				5B47920C1C1B2BDF0090FDD2 /* MMWormhole.h */,
 				5B4792091C1B2B110090FDD2 /* libmmwormhole.a */,
 				C5D1B6921C981E8700C2C5A7 /* SlimLogger */,

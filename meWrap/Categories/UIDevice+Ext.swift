@@ -10,22 +10,6 @@ import UIKit
 
 extension UIDevice {
     
-    func compareSystemVersion(version: String) -> NSComparisonResult {
-        return systemVersion.compare(version, options: .NumericSearch)
-    }
-    
-    func systemVersionEqualTo(version: String) -> Bool {
-        return (compareSystemVersion(version) == .OrderedSame)
-    }
-    
-    func systemVersionSince(version: String) -> Bool {
-        return (compareSystemVersion(version) != .OrderedAscending)
-    }
-    
-    func systemVersionBefore(version: String) -> Bool {
-        return (compareSystemVersion(version) == .OrderedAscending)
-    }
-    
     func modelName() -> String {
         var systemInfo = utsname()
         uname(&systemInfo)

@@ -7,43 +7,23 @@
 //
 
 import UIKit
-import ObjectiveC
 
-typealias GestureAction = (UIGestureRecognizer) -> ()
-
-private class GestureActionWrapper {
-    var closure: GestureAction?
-    init(_ closure: GestureAction?) {
-        self.closure = closure
-    }
-}
-
-private var identifierAssociationHandle: UInt8 = 0
-private var actionClosureAssociationHandle: UInt8 = 1
-
-extension UIGestureRecognizer {
+final class GestureRecognizer<T: UIGestureRecognizer> {
     
-    private var actionClosure: GestureAction? {
-        get {
-            if let wrapper = objc_getAssociatedObject(self, &actionClosureAssociationHandle) as? GestureActionWrapper {
-                return wrapper.closure
-            }
-            return nil
-        }
-        set {
-            let wrapper = GestureActionWrapper(newValue)
-            objc_setAssociatedObject(self, &actionClosureAssociationHandle, wrapper, .OBJC_ASSOCIATION_RETAIN)
-        }
-    }
+    private var actionClosure: (T -> ())?
     
-    convenience init(view: UIView, closure: GestureAction) {
-        self.init()
-        addTarget(self, action: #selector(UIGestureRecognizer.action(_:)))
+    private var gestureRecognizer: T?
+    
+    init(view: UIView, closure: T -> ()) {
+        let gestureRecognizer = T(target: self, action: #selector(GestureRecognizer.action(_:)))
         actionClosure = closure
-        view.addGestureRecognizer(self)
+        view.addGestureRecognizer(gestureRecognizer)
+        self.gestureRecognizer = gestureRecognizer
     }
     
-    func action(sender: UIGestureRecognizer) {
-        actionClosure?(sender)
+    @objc func action(sender: AnyObject) {
+        if let sender = gestureRecognizer {
+            actionClosure?(sender)
+        }
     }
 }

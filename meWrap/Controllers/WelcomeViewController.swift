@@ -30,10 +30,12 @@ class WelcomeViewController: BaseViewController {
         }
     }
     
+    var tapGestureRecognizer: GestureRecognizer<UITapGestureRecognizer>?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         underlineLicenseButton()
-        UITapGestureRecognizer(view: termsAndConditionsTextView) { [weak self] _ in
+        tapGestureRecognizer = GestureRecognizer(view: termsAndConditionsTextView) { [weak self] _ in
             self?.setTermsAndConditionsHidden(true)
         }
     }

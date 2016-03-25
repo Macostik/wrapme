@@ -191,7 +191,11 @@ class UploadSummaryViewController: SwipeViewController, CaptureWrapContainer {
 extension UploadSummaryViewController { // MARK actions
     
     private func back() {
-        navigationController?.popViewControllerAnimated(UIDevice.currentDevice().systemVersionSince("9"))
+        if #available(iOS 9.0, *) {
+            navigationController?.popViewControllerAnimated(true)
+        } else {
+            navigationController?.popViewControllerAnimated(false)
+        }
     }
     
     override func back(sender: UIButton?) {

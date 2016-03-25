@@ -160,7 +160,7 @@ class LiveBroadcastMediaView: StreamReusableView {
         imageView.snp_makeConstraints(closure: {
             $0.leading.equalTo(self).offset(12)
             $0.centerY.equalTo(self)
-            $0.size.equalTo(CGSizeMake(48, 48))
+            $0.size.equalTo(48)
         })
         
         liveBadge.snp_makeConstraints(closure: {

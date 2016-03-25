@@ -82,12 +82,10 @@ class MutableAsset: Asset {
         } catch { }
     }
     
-    func setVideoAtPath(path: String, completion: MutableAsset? -> Void) {
+    func setVideoAtPath(path: String, completion: Void -> Void) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {[weak self] () -> Void in
             self?.setVideoAtPath(path)
-            dispatch_async(dispatch_get_main_queue(), {[weak self] () -> Void in
-                completion(self)
-                })
+            dispatch_async(dispatch_get_main_queue(), completion)
             })
     }
     
@@ -112,12 +110,10 @@ class MutableAsset: Asset {
         }
     }
     
-    func setVideoFromAsset(asset: PHAsset, completion: MutableAsset? -> Void) {
+    func setVideoFromAsset(asset: PHAsset, completion: Void -> Void) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {[weak self] () -> Void in
             self?.setVideoFromAsset(asset)
-            dispatch_async(dispatch_get_main_queue(), {[weak self] () -> Void in
-                completion(self)
-                })
+            dispatch_async(dispatch_get_main_queue(), completion)
             })
     }
     
@@ -139,12 +135,10 @@ class MutableAsset: Asset {
         }
     }
     
-    func setVideoFromRecordAtPath(path: String, completion: MutableAsset? -> Void) {
+    func setVideoFromRecordAtPath(path: String, completion: Void -> Void) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {[weak self] () -> Void in
             self?.setVideoFromRecordAtPath(path)
-            dispatch_async(dispatch_get_main_queue(), {[weak self] () -> Void in
-                completion(self)
-                })
+            dispatch_async(dispatch_get_main_queue(), completion)
             })
     }
     

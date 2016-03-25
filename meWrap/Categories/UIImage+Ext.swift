@@ -52,16 +52,8 @@ extension UIImage {
     }
     
     func resize(size: CGSize) -> UIImage {
-        var transpose = false
-        
-        switch imageOrientation {
-        case .Left, .LeftMirrored, .Right, .RightMirrored:
-            transpose = true
-            break;
-        default: break
-        }
-        
-        return resize(size, transform: transformForOrientation(size), transpose: transpose)
+        let result = transformForOrientation(size)
+        return resize(size, transform: result.transform, transpose: result.transpose)
     }
     
     func resize(size: CGSize, transform: CGAffineTransform, transpose: Bool) -> UIImage {
@@ -88,52 +80,41 @@ extension UIImage {
         }
     }
     
-    func transformForOrientation(size: CGSize) -> CGAffineTransform {
+    func transformForOrientation(size: CGSize) -> (transform: CGAffineTransform, transpose: Bool) {
         var transform = CGAffineTransformIdentity
-        
+        var transpose = false
         switch imageOrientation {
         case .Down, .DownMirrored:
             transform = CGAffineTransformTranslate(transform, size.width, size.height)
             transform = CGAffineTransformRotate(transform, CGFloat(M_PI))
-            break
-            
         case .Left, .LeftMirrored:
+            transpose = true
             transform = CGAffineTransformTranslate(transform, size.width, 0)
             transform = CGAffineTransformRotate(transform, CGFloat(M_PI_2))
-            break
-            
         case .Right, .RightMirrored:
+            transpose = true
             transform = CGAffineTransformTranslate(transform, 0, size.height)
             transform = CGAffineTransformRotate(transform, CGFloat(-M_PI_2))
-            break
-        default:
-            break
+        default: break
         }
         
         switch imageOrientation {
         case .UpMirrored, .DownMirrored:
             transform = CGAffineTransformTranslate(transform, size.width, 0)
             transform = CGAffineTransformScale(transform, -1, 1)
-            break
-            
         case .LeftMirrored, .RightMirrored:
             transform = CGAffineTransformTranslate(transform, size.height, 0)
             transform = CGAffineTransformScale(transform, -1, 1)
-            break
-        default:
-            break
+        default: break
         }
         
-        return transform
+        return (transform, transpose)
     }
     
     func thumbnail(size: CGFloat) -> UIImage {
-        let image = resize(CGSize(width: size, height: size), aspectFill: true)
-        let bounds = CGRectMake(round((image.size.width - size) / 2),
-            round((image.size.height - size) / 2),
-            size,
-            size)
-        return image.crop(bounds)
+        let resultSize = CGSize(width: size, height: size)
+        let image = resize(resultSize, aspectFill: true)
+        return image.crop(resultSize.rectCenteredInSize(image.size))
     }
     
     func crop(bounds: CGRect) -> UIImage {

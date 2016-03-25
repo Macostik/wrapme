@@ -101,16 +101,12 @@ class WrapListViewController: BaseViewController {
             } else if file.hasSuffix("mov")  {
                 asset.type = .Video
                 runQueue.run({ finish in
-                    asset.setVideoFromRecordAtPath(path, completion: { _ in
-                        finish()
-                    })
+                    asset.setVideoFromRecordAtPath(path, completion: finish)
                 })
             } else if file.hasSuffix("mp4") {
                 asset.type = .Video
                 runQueue.run({ finish in
-                    asset.setVideoAtPath(path, completion: { _ in
-                        finish()
-                    })
+                    asset.setVideoAtPath(path, completion: finish)
                 })
             }
         }

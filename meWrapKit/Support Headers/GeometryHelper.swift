@@ -21,7 +21,7 @@ extension CGSize {
     }
     
     func rectCenteredInSize(size: CGSize) -> CGRect {
-        return CGRect(origin: CGPointMake(size.width/2 - width/2, size.height/2 - height/2), size: self)
+        return CGRect(origin: CGPointMake((size.width - width)/2, (size.height - height)/2), size: self)
     }
 }
 

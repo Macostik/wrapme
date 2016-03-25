@@ -16,13 +16,14 @@ class EditAssetViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
+        imageView.contentMode = .ScaleAspectFit
         view.addSubview(imageView)
         imageView.snp_makeConstraints { $0.edges.equalTo(view) }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.url = asset?.large
+        imageView.url = asset?.original
     }
 }
 

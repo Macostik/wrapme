@@ -87,7 +87,7 @@ class CaptureViewController: UINavigationController, CameraViewControllerDelegat
         let height = CGFloat(asset.pixelHeight)
         let scale = (width > height ? height : width) / resizeImageWidth()
         let size = scale < 0.5 && UIDevice.currentDevice().systemVersionBefore("9") ?
-        CGSizeMake(width * scale, height * scale) : CGSizeMake(width / scale, height / scale);
+            CGSizeMake(width * scale, height * scale) : CGSizeMake(width / scale, height / scale)
         PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: size, contentMode: .AspectFill, options: options) { (image, _) -> Void in
             completion(image)
         }

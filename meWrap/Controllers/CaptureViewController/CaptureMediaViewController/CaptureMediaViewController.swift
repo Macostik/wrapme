@@ -103,9 +103,7 @@ class CaptureMediaViewController: CaptureViewController {
         addAsset(mediaAsset, success: { (_) -> Void in
             runQueue.run { [weak self] (finish) -> Void in
                 if (asset.mediaType == .Video) {
-                    mediaAsset.setVideoFromAsset(asset, completion: { (_) -> Void in
-                        finish()
-                    })
+                    mediaAsset.setVideoFromAsset(asset, completion: finish)
                 } else {
                     let option = PHImageRequestOptions()
                     option.resizeMode = .Exact
@@ -256,7 +254,7 @@ extension CaptureMediaViewController {
         addAsset(asset, success: { (_) -> Void in
             controller.takePhotoButton?.userInteractionEnabled = false
             runQueue.run { (finish) -> Void in
-                asset.setVideoFromRecordAtPath(path, completion: { (_) -> Void in
+                asset.setVideoFromRecordAtPath(path, completion: {
                     finish()
                     controller.takePhotoButton?.userInteractionEnabled = true
                 })

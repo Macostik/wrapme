@@ -44,7 +44,7 @@ class BaseMessageCell: StreamReusableView, FlowerMenuConstructor {
     })
     
     internal let timeLabel = Label(preset: .Smaller, textColor: Color.grayLighter)
-    internal let textView = specify(SmartLabel(preset: .Normal, weight: .Regular, textColor: Color.grayDark)) {
+    internal let textView = specify(SmartLabel(preset: .Normal, weight: .Regular, textColor: UIColor.blackColor())) {
         $0.numberOfLines = 0
     }
     internal let bubbleView = specify(UIView(), {

@@ -63,6 +63,18 @@ extension PubNub {
         }
         return (user, device)
     }
+    
+    func recursiveHistoryFor(channel: String, start: NSNumber?, end: NSNumber?, pageBlock: [AnyObject] -> (), completion: () -> ()) {
+        historyForChannel(channel, start: start, end: end, withCompletion: { (result, status) -> Void in
+            if let result = result where !result.data.messages.isEmpty {
+                print("recursiveHistoryFor \(channel),\n start = \(start),\n end = \(end),\n count = \(result.data.messages.count),\n result.data.end = \(result.data.end)")
+                pageBlock(result.data.messages)
+                self.recursiveHistoryFor(channel, start: result.data.end.doubleValue / 1000000 + 0.01, end: end, pageBlock: pageBlock, completion: completion)
+            } else {
+                completion()
+            }
+        })
+    }
 }
 
 extension NSDate {

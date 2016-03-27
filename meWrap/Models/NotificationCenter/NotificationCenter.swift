@@ -146,7 +146,7 @@ final class NotificationCenter: NSObject {
             
             let userDefaults = NSUserDefaults.standardUserDefaults()
             guard let fromDate = userDefaults.historyDate else {
-                NSUserDefaults.standardUserDefaults().historyDate = NSDate.now()
+                userDefaults.historyDate = NSDate.now()
                 finish()
                 return
             }
@@ -156,15 +156,8 @@ final class NotificationCenter: NSObject {
                 if messages.count > 0 {
                     Logger.log("PUBNUB - received history starting from: \(fromDate) to: \(toDate)")
                     self.handleNotifications(self.notificationsFromMessages(messages))
-                    if let timetoken = messages.last?["timetoken"] as? NSNumber {
-                        userDefaults.historyDate = NSDate(timetoken: timetoken).dateByAddingTimeInterval(0.001)
-                        self.requestHistory()
-                    } else {
-                        userDefaults.historyDate = toDate
-                    }
-                } else {
-                    userDefaults.historyDate = toDate
                 }
+                userDefaults.historyDate = toDate
                 finish()
                 }, failure: { _ in finish() })
         }

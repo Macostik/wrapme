@@ -85,17 +85,13 @@ class NotificationSubscription: NSObject {
                     if channels.isEmpty {
                         success([])
                     } else {
-                        var fetchedChannels = 0
-                        let messages = NSMutableArray()
+                        var fetched = 0
+                        var messages = [AnyObject]()
                         for channel in channels {
-                            pubnub.historyForChannel(channel, start: startDate, end: endDate, includeTimeToken: true, withCompletion: { (result, status) -> Void in
-                                fetchedChannels += 1
-                                if let _messages = result?.data.messages {
-                                    messages.addObjectsFromArray(_messages)
-                                }
-                                if fetchedChannels == channels.count {
-                                    messages.sortUsingDescriptors([NSSortDescriptor(key: "timetoken", ascending: true)])
-                                    success(NSArray(array: messages) as? [[NSObject:AnyObject]] ?? [])
+                            pubnub.recursiveHistoryFor(channel, start: startDate, end: endDate, pageBlock: { messages.appendContentsOf($0) }, completion: {
+                                fetched += 1
+                                if fetched == channels.count {
+                                    success(messages as? [[NSObject:AnyObject]] ?? [])
                                 }
                             })
                         }
@@ -105,12 +101,11 @@ class NotificationSubscription: NSObject {
                 }
             })
         } else {
-            pubnub.historyForChannel(name, start: startDate, end: endDate, includeTimeToken: true, withCompletion: { (result, status) -> Void in
-                if status?.error ?? false {
-                    failure(nil)
-                } else {
-                    success(result?.data.messages as? [[NSObject:AnyObject]] ?? [])
-                }
+            var messages = [AnyObject]()
+            pubnub.recursiveHistoryFor(name, start: startDate, end: endDate, pageBlock: {
+                messages.appendContentsOf($0)
+                }, completion: {
+                    success(messages as? [[NSObject:AnyObject]] ?? [])
             })
         }
     }

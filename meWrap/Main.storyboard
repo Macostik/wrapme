@@ -1809,11 +1809,11 @@
                                     <constraint firstAttribute="bottom" secondItem="wdj-eZ-S3g" secondAttribute="bottom" id="nZo-C7-dgs"/>
                                 </constraints>
                             </view>
-                            <view contentMode="top" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wbg-W9-8Ie" customClass="GradientView" customModule="meWrap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="76"/>
+                            <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="Wbg-W9-8Ie" customClass="GradientView" customModule="meWrap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
-                                    <button opaque="NO" tag="101" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0rM-Ee-8of" userLabel="BackButton" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="12" y="30" width="30" height="36"/>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0rM-Ee-8of" userLabel="BackButton" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                        <rect key="frame" x="12" y="14" width="30" height="37"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                         <state key="normal" title="m"/>
                                         <state key="highlighted">
@@ -1823,11 +1823,11 @@
                                             <action selector="back:" destination="eto-O4-OHy" eventType="touchUpInside" id="aMp-QI-Uwl"/>
                                         </connections>
                                     </button>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="TL4-HZ-bti">
-                                        <rect key="frame" x="410" y="38" width="20" height="20"/>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="TL4-HZ-bti">
+                                        <rect key="frame" x="410" y="23" width="20" height="20"/>
                                     </activityIndicatorView>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U2n-dd-fSG" userLabel="DrawButton" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="440" y="30" width="30" height="36"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U2n-dd-fSG" userLabel="DrawButton" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                        <rect key="frame" x="440" y="14" width="30" height="37"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                         <state key="normal" title="8"/>
                                         <state key="highlighted">
@@ -1842,8 +1842,8 @@
                                             <action selector="draw:" destination="eto-O4-OHy" eventType="touchUpInside" id="vfA-mZ-Ffc"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P4L-uu-XEd" userLabel="EditButton" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="480" y="30" width="30" height="36"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P4L-uu-XEd" userLabel="EditButton" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                        <rect key="frame" x="480" y="14" width="30" height="37"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                         <state key="normal" title="R"/>
                                         <state key="highlighted">
@@ -1858,8 +1858,8 @@
                                             <action selector="editPhoto:" destination="eto-O4-OHy" eventType="touchUpInside" id="SqM-wh-8w4"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPd-Ai-V8F" userLabel="DownloadButton" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="520" y="30" width="30" height="36"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPd-Ai-V8F" userLabel="DownloadButton" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                        <rect key="frame" x="520" y="14" width="30" height="37"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                         <state key="normal" title="o"/>
                                         <state key="highlighted">
@@ -1874,8 +1874,8 @@
                                             <action selector="downloadCandy:" destination="eto-O4-OHy" eventType="touchUpInside" id="aDG-lZ-NnF"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J3S-jS-mvs" userLabel="DeleteButton" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="560" y="30" width="30" height="36"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J3S-jS-mvs" userLabel="DeleteButton" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                        <rect key="frame" x="560" y="14" width="30" height="37"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                         <state key="normal" title="n"/>
                                         <state key="highlighted">
@@ -1890,8 +1890,8 @@
                                             <action selector="deleteCandy:" destination="eto-O4-OHy" eventType="touchUpInside" id="MX4-gh-rQa"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wvQ-dZ-OGQ" userLabel="ReportButton" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="560" y="30" width="30" height="36"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wvQ-dZ-OGQ" userLabel="ReportButton" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                        <rect key="frame" x="560" y="14" width="30" height="37"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                         <state key="normal" title="s"/>
                                         <state key="highlighted">
@@ -1909,7 +1909,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="centerY" secondItem="sPd-Ai-V8F" secondAttribute="centerY" constant="-10" id="0nd-cJ-KtR"/>
+                                    <constraint firstAttribute="centerY" secondItem="sPd-Ai-V8F" secondAttribute="centerY" id="0nd-cJ-KtR"/>
                                     <constraint firstItem="sPd-Ai-V8F" firstAttribute="leading" secondItem="P4L-uu-XEd" secondAttribute="trailing" constant="10" id="43c-hF-BQ1"/>
                                     <constraint firstItem="P4L-uu-XEd" firstAttribute="leading" secondItem="U2n-dd-fSG" secondAttribute="trailing" constant="10" id="FUG-et-Tdl"/>
                                     <constraint firstItem="0rM-Ee-8of" firstAttribute="centerY" secondItem="sPd-Ai-V8F" secondAttribute="centerY" id="Mlp-zH-ksi"/>
@@ -1918,11 +1918,11 @@
                                     <constraint firstItem="J3S-jS-mvs" firstAttribute="centerY" secondItem="TL4-HZ-bti" secondAttribute="centerY" id="Ydf-QF-dGl"/>
                                     <constraint firstItem="J3S-jS-mvs" firstAttribute="centerY" secondItem="wvQ-dZ-OGQ" secondAttribute="centerY" id="ZQa-39-NVH"/>
                                     <constraint firstItem="P4L-uu-XEd" firstAttribute="centerY" secondItem="J3S-jS-mvs" secondAttribute="centerY" id="hMk-bQ-Wwk"/>
-                                    <constraint firstAttribute="height" secondItem="sPd-Ai-V8F" secondAttribute="height" constant="40" id="jJj-ki-Nzl"/>
                                     <constraint firstItem="J3S-jS-mvs" firstAttribute="centerY" secondItem="U2n-dd-fSG" secondAttribute="centerY" id="mQp-6J-3gF"/>
                                     <constraint firstItem="J3S-jS-mvs" firstAttribute="centerX" secondItem="wvQ-dZ-OGQ" secondAttribute="centerX" id="mbC-Ng-I4E"/>
                                     <constraint firstItem="0rM-Ee-8of" firstAttribute="leading" secondItem="Wbg-W9-8Ie" secondAttribute="leading" constant="12" id="rw6-ky-DHO"/>
                                     <constraint firstItem="U2n-dd-fSG" firstAttribute="leading" secondItem="TL4-HZ-bti" secondAttribute="trailing" constant="10" id="vih-pG-FOH"/>
+                                    <constraint firstAttribute="height" constant="64" id="waR-kS-ViD"/>
                                     <constraint firstItem="J3S-jS-mvs" firstAttribute="leading" secondItem="sPd-Ai-V8F" secondAttribute="trailing" constant="10" id="wc4-UG-eZv"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -1946,8 +1946,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dFH-JX-QNB">
                                         <rect key="frame" x="12" y="66" width="30" height="42"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="D" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yS-IZ-1M1" customClass="EntryStatusIndicator" customModule="meWrap" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="5" width="16" height="13"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yS-IZ-1M1" customClass="EntryStatusIndicator" customModule="meWrap" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="5" width="16" height="14"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="16" id="MeQ-nf-zRz"/>
                                                 </constraints>
@@ -2037,8 +2037,8 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="D" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0A-o6-Hed" customClass="EntryStatusIndicator" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="72" y="17" width="16" height="13"/>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0A-o6-Hed" customClass="EntryStatusIndicator" customModule="meWrap" customModuleProvider="target">
+                                        <rect key="frame" x="72" y="17" width="16" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="XZo-Ke-EfN"/>
                                         </constraints>

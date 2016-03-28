@@ -207,6 +207,10 @@ class HistoryViewController: SwipeViewController {
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return .All
     }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
 }
 
 extension HistoryViewController: EntryNotifying {

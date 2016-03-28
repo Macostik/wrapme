@@ -53,6 +53,10 @@ extension UIStoryboard {
     
     func present(animated: Bool) {
         UIWindow.mainWindow.rootViewController = instantiateInitialViewController()
+        if #available(iOS 9.0, *) {} else {
+            UIWindow.mainWindow.frame = UIScreen.mainScreen().bounds
+            UIWindow.mainWindow.rootViewController?.view.frame = UIScreen.mainScreen().bounds
+        }
     }
     
     subscript(key: String) -> UIViewController? {

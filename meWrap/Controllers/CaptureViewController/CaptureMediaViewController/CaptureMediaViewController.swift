@@ -78,7 +78,7 @@ class CaptureMediaViewController: CaptureViewController {
         }
     }
     
-    override func toastAppearanceViewController(toast: Toast?) -> UIViewController {
+    override func toastAppearanceViewController(toast: InfoToast?) -> UIViewController {
         for controller in self.childViewControllers where controller is WrapPickerViewController {
             return controller
         }

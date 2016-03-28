@@ -21,32 +21,8 @@ struct DefaultToastAppearance : Appearance {
     var textColor: UIColor { return UIColor.whiteColor() }
 }
 
-class Toast: UIView {
+class InfoToast: UIView {
     static let DismissalDelay: NSTimeInterval = 4.0
-    
-    func handleTouch() {}
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
-        handleTouch()
-    }
-    func dissmis() {
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(Toast.handleTouch), object: nil)
-        UIView.animateWithDuration(0.25, animations: {
-            self.transform = CGAffineTransformIdentity
-            self.alpha = 0
-            }, completion: { _ in
-                self.removeFromSuperview()
-                if let etnryToast = self as? EntryToast {
-                    if let index = EntryToast.toastEntries.indexOf(etnryToast) {
-                        EntryToast.toastEntries.removeAtIndex(index)
-                    }
-                }
-        })
-    }
-}
-
-class InfoToast: Toast {
-    
     private static let toast = InfoToast()
     var topMessageInset: Constraint!
     var runQueue = RunQueue(limit: 1)
@@ -130,7 +106,7 @@ class InfoToast: Toast {
                 self.queuedMessages.remove(message)
                 finish()
             }
-            self.enqueueSelector(#selector(Toast.handleTouch), delay: Toast.DismissalDelay)
+            self.enqueueSelector(#selector(InfoToast.dismiss), delay: InfoToast.DismissalDelay)
         }
     }
     
@@ -147,16 +123,24 @@ class InfoToast: Toast {
         }
     }
     
-    override func handleTouch() {
-        self.dismissBlock?()
-        dissmis()
+    func dismiss() {
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(InfoToast.dismiss), object: nil)
+        UIView.animateWithDuration(0.25, animations: { self.alpha = 0 }, completion: { (_) -> Void in
+            self.removeFromSuperview()
+            self.dismissBlock?()
+        })
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesBegan(touches, withEvent: event)
+        dismiss()
     }
 }
 
 
 
-class EntryToast: Toast {
-    
+class EntryToast: UIView {
+    static let DismissalDelay: NSTimeInterval = 4.0
     static var toastEntries = [EntryToast]()
     
     deinit {
@@ -264,26 +248,41 @@ class EntryToast: Toast {
     }
     
     func show(inViewController viewController: UIViewController? = nil) {
-        UIView.animateWithDuration(0.25, animations: {
+        UIView.animateWithDuration(0.5, animations: {
             self.transform = CGAffineTransformMakeTranslation(0, self.height)
         })
         
-        self.enqueueSelector(#selector(Toast.dissmis), delay: Toast.DismissalDelay)
+        self.enqueueSelector(#selector(EntryToast.dissmis), delay: EntryToast.DismissalDelay)
         SoundPlayer.player.play(.note)
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
     }
     
-    override func handleTouch() {
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(Toast.dissmis), object: nil)
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesBegan(touches, withEvent: event)
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(EntryToast.dissmis), object: nil)
         let _ = EntryToast.toastEntries.map{ $0.removeFromSuperview() }
         EntryToast.toastEntries.removeAll()
         ChronologicalEntryPresenter.presentEntry(entry, animated: false)
     }
+    
+    func dissmis() {
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(EntryToast.touchesBegan(_:withEvent:)), object: nil)
+        UIView.animateWithDuration(0.5, animations: {
+            self.transform = CGAffineTransformIdentity
+            self.alpha = 0
+            }, completion: { _ in
+                self.removeFromSuperview()
+                if let index = EntryToast.toastEntries.indexOf(self) {
+                    EntryToast.toastEntries.removeAtIndex(index)
+                }
+        })
+    }
+
 }
 
 extension UIViewController {
     
-    class func toastAppearanceViewController(toast: Toast?) -> UIViewController? {
+    class func toastAppearanceViewController(toast: InfoToast?) -> UIViewController? {
         var visibleViewController = UIWindow.mainWindow.rootViewController
         var presentedViewController = visibleViewController?.presentedViewController
         while let _presentedViewController = presentedViewController {
@@ -304,18 +303,18 @@ extension UIViewController {
         return true
     }
     
-    func toastAppearanceViewController(toast: Toast?) -> UIViewController {
+    func toastAppearanceViewController(toast: InfoToast?) -> UIViewController {
         return self
     }
     
-    func toastAppearanceReferenceView(toast: Toast) -> UIView {
+    func toastAppearanceReferenceView(toast: InfoToast) -> UIView {
         return view
     }
 }
 
 extension BaseViewController {
     
-    override func toastAppearanceReferenceView(toast: Toast) -> UIView {
+    override func toastAppearanceReferenceView(toast: InfoToast) -> UIView {
         return navigationBar ?? view
     }
 }

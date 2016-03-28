@@ -38,20 +38,20 @@ struct Logger {
     
     private static let Escape = "\u{001b}["
     
-    static func debugLog(string: String, color: LogColor = .Default, filename: String = #file, line: Int = #line) {
+    static func debugLog(@autoclosure string: () -> String, color: LogColor = .Default, filename: String = #file, line: Int = #line) {
         #if DEBUG
-            Slim.debug("\(Escape)\(color.rawValue)\n\(string)\n\n\(Escape);", filename: filename, line: line)
+            Slim.debug("\(Escape)\(color.rawValue)\n\(string())\n\n\(Escape);", filename: filename, line: line)
         #endif
     }
     
-    static func log(string: String, color: LogColor = .Default, filename: String = #file, line: Int = #line) {
+    static func log(@autoclosure string: () -> String, color: LogColor = .Default, filename: String = #file, line: Int = #line) {
         #if DEBUG
-            Slim.debug("\(Escape)\(color.rawValue)\n\(string)\n\n\(Escape);", filename: filename, line: line)
+            Slim.debug("\(Escape)\(color.rawValue)\n\(string())\n\n\(Escape);", filename: filename, line: line)
         #else
             if remoteLogging {
                 let appState = UIApplication.sharedApplication().applicationState.displayName()
                 let screenName = BaseViewController.lastAppearedScreenName ?? ""
-                let log = "{\"uuid\":\(User.uuid()),\"app_state\":\(appState),\"last_visited_screen\":\(screenName),\"message\":\(string)}"
+                let log = "{\"uuid\":\(User.uuid()),\"app_state\":\(appState),\"last_visited_screen\":\(screenName),\"message\":\(string())}"
                 Slim.info(log)
             }
         #endif

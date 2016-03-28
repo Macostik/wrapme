@@ -30,17 +30,6 @@ final class Message: Contribution {
         set { }
     }
     
-    override func willBecomeUnread(unread: Bool) {
-        if let wrap = wrap {
-            if unread {
-                wrap.numberOfUnreadMessages += 1
-            } else if wrap.numberOfUnreadMessages > 0 {
-                wrap.numberOfUnreadMessages -= 1
-            }
-            wrap.notifyOnUpdate(.NumberOfUnreadMessagesChanged)
-        }
-    }
-    
     lazy var chatMetadata = ChatMetadata()
 }
 

@@ -93,7 +93,7 @@ class CandyUpdateNotification: CandyNotification {
     override func submit() {
         guard let candy = _entry else { return }
         if candy.editor != User.currentUser {
-            candy.markAsUnread(true)
+            candy.markAsUpdateUnread(true)
         }
         candy.notifyOnUpdate(.Default)
     }

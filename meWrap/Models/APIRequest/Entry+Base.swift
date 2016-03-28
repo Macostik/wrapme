@@ -100,6 +100,38 @@ extension Candy {
         return specify(contribution(), { $0.mediaType = mediaType })
     }
     
+    override func markAsUnread(unread: Bool) {
+        if !unread {
+            markAsUpdateUnread(false)
+        }
+        super.markAsUnread(unread)
+    }
+    
+    override func willBecomeUnread(unread: Bool) {
+        if let wrap = wrap {
+            if unread {
+                wrap.numberOfUnreadInboxItems += 1
+            } else if wrap.numberOfUnreadInboxItems > 0 {
+                wrap.numberOfUnreadInboxItems -= 1
+            }
+            wrap.notifyOnUpdate(.InboxChanged)
+        }
+    }
+    
+    func markAsUpdateUnread(unread: Bool) {
+        if valid && self.updateUnread != unread {
+            self.updateUnread = unread
+            if let wrap = wrap {
+                if unread {
+                    wrap.numberOfUnreadInboxItems += 1
+                } else if wrap.numberOfUnreadInboxItems > 0 {
+                    wrap.numberOfUnreadInboxItems -= 1
+                }
+                wrap.notifyOnUpdate(.InboxChanged)
+            }
+        }
+    }
+    
     override func fetched() -> Bool {
         return wrap != nil && !(asset?.original?.isEmpty ?? true)
     }
@@ -175,6 +207,17 @@ extension Message {
     override func fetched() -> Bool {
         return !(text?.isEmpty ?? true) && wrap != nil
     }
+    
+    override func willBecomeUnread(unread: Bool) {
+        if let wrap = wrap {
+            if unread {
+                wrap.numberOfUnreadMessages += 1
+            } else if wrap.numberOfUnreadMessages > 0 {
+                wrap.numberOfUnreadMessages -= 1
+            }
+            wrap.notifyOnUpdate(.NumberOfUnreadMessagesChanged)
+        }
+    }
 }
 
 extension Comment {
@@ -185,5 +228,16 @@ extension Comment {
     
     override func fetched() -> Bool {
         return !(text?.isEmpty ?? true) && candy != nil
+    }
+    
+    override func willBecomeUnread(unread: Bool) {
+        if let wrap = candy?.wrap {
+            if unread {
+                wrap.numberOfUnreadInboxItems += 1
+            } else if wrap.numberOfUnreadInboxItems > 0 {
+                wrap.numberOfUnreadInboxItems -= 1
+            }
+            wrap.notifyOnUpdate(.InboxChanged)
+        }
     }
 }

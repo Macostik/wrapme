@@ -210,12 +210,10 @@ class InboxViewController: WrapSegmentViewController {
         var containsUnread = false
         var updates = [InboxItem]()
         for candy in wrap.candies {
-            if candy.unread { containsUnread = true }
+            if candy.unread || candy.updateUnread { containsUnread = true }
+            updates.append(InboxItem(event: .Add, contribution: candy, date: candy.createdAt, unread: candy.unread))
             if candy.editor != nil {
-                updates.append(InboxItem(event: .Add, contribution: candy, date: candy.createdAt, unread: false))
-                updates.append(InboxItem(event: .Update, contribution: candy, date: candy.editedAt, unread: candy.unread))
-            } else {
-                updates.append(InboxItem(event: .Add, contribution: candy, date: candy.createdAt, unread: candy.unread))
+                updates.append(InboxItem(event: .Update, contribution: candy, date: candy.editedAt, unread: candy.updateUnread))
             }
             for comment in candy.comments {
                 if comment.unread { containsUnread = true }

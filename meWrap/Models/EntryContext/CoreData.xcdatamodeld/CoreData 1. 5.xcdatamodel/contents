@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="1.4" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="1.4" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Automatic">
     <entity name="Candy" representedClassName="Candy" parentEntity="Contribution" syncable="YES">
         <attribute name="commentCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="updateUnread" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Comment" inverseName="candy" inverseEntity="Comment" syncable="YES"/>
         <relationship name="wrap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wrap" inverseName="candies" inverseEntity="Wrap" syncable="YES"/>
     </entity>
@@ -66,7 +67,7 @@
         <userInfo/>
     </entity>
     <elements>
-        <element name="Candy" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="Candy" positionX="0" positionY="0" width="128" height="120"/>
         <element name="Comment" positionX="0" positionY="0" width="128" height="75"/>
         <element name="Contribution" positionX="0" positionY="0" width="128" height="120"/>
         <element name="Device" positionX="9" positionY="63" width="128" height="105"/>

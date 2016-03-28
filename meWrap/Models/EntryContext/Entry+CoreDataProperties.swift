@@ -82,6 +82,7 @@ extension Candy {
     @NSManaged var type: Int16
     @NSManaged var comments: Set<Comment>
     @NSManaged var wrap: Wrap?
+    @NSManaged var updateUnread: Bool
     
 }
 

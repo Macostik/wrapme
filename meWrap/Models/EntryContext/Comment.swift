@@ -34,17 +34,6 @@ final class Comment: Contribution {
         set { }
     }
     
-    override func willBecomeUnread(unread: Bool) {
-        if let wrap = candy?.wrap {
-            if unread {
-                wrap.numberOfUnreadInboxItems += 1
-            } else if wrap.numberOfUnreadInboxItems > 0 {
-                wrap.numberOfUnreadInboxItems -= 1
-            }
-            wrap.notifyOnUpdate(.InboxChanged)
-        }
-    }
-    
     override func remove() {
         if let wrap = candy?.wrap where unread && wrap.numberOfUnreadInboxItems > 0 {
             wrap.numberOfUnreadInboxItems -= 1

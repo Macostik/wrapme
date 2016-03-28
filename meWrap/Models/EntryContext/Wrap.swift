@@ -197,6 +197,9 @@ final class Wrap: Contribution {
             if candy.unread {
                 count += 1
             }
+            if candy.updateUnread {
+                count += 1
+            }
             for comment in candy.comments where comment.unread {
                 count += 1
             }

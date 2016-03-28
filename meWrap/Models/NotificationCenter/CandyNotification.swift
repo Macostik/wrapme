@@ -52,6 +52,9 @@ class CandyAddNotification: CandyNotification {
         guard let candy = _entry else { return }
         if inserted && candy.contributor != User.currentUser {
             candy.markAsUnread(true)
+            for comment in candy.comments {
+                comment.markAsUnread(true)
+            }
         }
         candy.notifyOnAddition()
         if candy.contributor?.current == false && !isHistorycal {

@@ -173,13 +173,13 @@ class EntryToast: Toast {
     private let middleLabel = Label(preset: .Normal, weight: .Regular, textColor: UIColor.whiteColor())
     private let rightLabel = Label(preset: .Small, weight: .Regular, textColor: Color.orange)
     private let bottomView = View()
-    private let bottomLabel = Label(preset: .Normal, weight: .Bold, textColor: UIColor.whiteColor())
+    private let bottomLabel = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
     private var _window = UIWindow(frame:UIScreen.mainScreen().bounds)
     
     required init(entry: Contribution) {
         super.init(frame: CGRectZero)
         self.entry = entry
-        backgroundColor = UIColor.blackColor()
+        backgroundColor = Color.gray
         bottomView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
         addSubview(avatar)
         addSubview(topLabel)
@@ -244,7 +244,7 @@ class EntryToast: Toast {
         imageView.snp_makeConstraints {
             $0.top.equalTo(middleLabel.snp_bottom).offset(12)
             $0.leading.trailing.bottom.equalTo(self)
-            $0.height.equalTo(Constants.screenWidth / 3 * 1.5)
+            $0.height.equalTo(Constants.screenWidth / 3 * 1.25)
         }
         
         bottomView.snp_makeConstraints { make in

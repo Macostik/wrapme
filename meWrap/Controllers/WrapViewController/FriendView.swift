@@ -34,7 +34,34 @@ final class FriendView: StreamReusableView {
     }
 }
 
-final class StatusUserAvatarView: ImageView, EntryNotifying {
+class UserAvatarView: ImageView {
+    
+    weak var user: User? {
+        willSet {
+            if let user = newValue {
+                update(user)
+            } else {
+                clear()
+            }
+        }
+    }
+    
+    internal func update(user: User) {
+        let url = user.avatar?.small
+        if !user.isInvited && url?.isEmpty ?? true {
+            defaultBackgroundColor = Color.orange
+        } else {
+            defaultBackgroundColor = Color.grayLighter
+        }
+        self.url = url
+    }
+    
+    internal func clear() {
+        url = nil
+    }
+}
+
+final class StatusUserAvatarView: UserAvatarView, EntryNotifying {
     
     class ActivityAnimationView: UIView {
         
@@ -249,26 +276,14 @@ final class StatusUserAvatarView: ImageView, EntryNotifying {
         return ActivityAnimationView.animationView(activity.type)
     }
     
-    weak var user: User? {
-        willSet {
-            if let user = newValue {
-                update(user)
-            } else {
-                activityAnimationView = nil
-                statusView.hidden = true
-                url = nil
-            }
-        }
+    override func clear() {
+        activityAnimationView = nil
+        statusView.hidden = true
+        super.clear()
     }
     
-    private func update(user: User) {
-        let url = user.avatar?.small
-        if !user.isInvited && url?.isEmpty ?? true {
-            defaultBackgroundColor = Color.orange
-        } else {
-            defaultBackgroundColor = Color.grayLighter
-        }
-        self.url = url
+    override func update(user: User) {
+        super.update(user)
         activityAnimationView = activityAnimationView(user)
         statusView.hidden = (activityAnimationView != nil) || !(user.current || user.isActive)
     }

@@ -42,7 +42,7 @@ class AddressBookPhoneNumberCell: StreamReusableView {
         phoneLabel.textAlignment = .Left
         addSubview(phoneLabel)
         selectionView.userInteractionEnabled = false
-        selectionView.titleLabel?.font = UIFont(name: "icons", size: 26)
+        selectionView.titleLabel?.font = UIFont.icons(26)
         selectionView.setTitle("G", forState: .Normal)
         selectionView.setTitle("H", forState: .Selected)
         selectionView.setTitleColor(Color.grayLight, forState: .Normal)

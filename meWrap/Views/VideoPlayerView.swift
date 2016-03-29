@@ -66,7 +66,7 @@ class VideoPlayerView: UIView {
         super.awakeFromNib()
         if let playButtonView = placeholderPlayButton {
             let label = UILabel(frame: playButtonView.bounds)
-            label.font = UIFont(name: "icons", size: 65)
+            label.font = UIFont.icons(65)
             label.text = "."
             label.textAlignment = .Center
             if let blurEffect = playButtonView.effect as? UIBlurEffect {

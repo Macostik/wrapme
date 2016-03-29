@@ -28,7 +28,7 @@ class FlashModeButton: UIButton {
     
     class func button(mode: AVCaptureFlashMode) -> FlashModeButton {
         let button = FlashModeButton(type: .Custom)
-        button.titleLabel?.font = UIFont(name: "icons", size:24)
+        button.titleLabel?.font = UIFont.icons(24)
         button.mode = mode
         return button
     }

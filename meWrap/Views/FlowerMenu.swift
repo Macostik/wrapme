@@ -10,18 +10,21 @@ import UIKit
 import AudioToolbox
 import SnapKit
 
-class FlowerMenuAction: UIButton {
+class FlowerMenuAction: Button {
     
     var block: (Void -> Void)?
     
-    convenience init(action: String, block: Void -> Void) {
+    convenience init(action: String, color: UIColor, block: Void -> Void) {
         self.init(frame: CGRect(x: 0, y: 0, width: 38, height: 38))
         self.block = block
-        clipsToBounds = false
-        setBackgroundImage(UIImage(named: "bg_menu_btn"), forState: .Normal)
-        titleLabel?.font = UIFont(name: "icons", size: 21)
+        backgroundColor = color
+        normalColor = color
+        highlightedColor = color.darkerColor()
+        cornerRadius = 19
+        clipsToBounds = true
+        titleLabel?.font = UIFont.icons(21)
         setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        setTitleColor(Color.grayLight, forState: .Highlighted)
+        setTitleColor(Color.grayLighter, forState: .Highlighted)
         layer.cornerRadius = bounds.width/2
         setTitle(action, forState: .Normal)
     }
@@ -108,8 +111,8 @@ class FlowerMenu: UIView {
         removeFromSuperview()
     }
     
-    func addAction(action: String, block: Void -> Void) {
-        let action = FlowerMenuAction(action: action, block: block)
+    func addAction(action: String, color: UIColor, block: Void -> Void) {
+        let action = FlowerMenuAction(action: action, color: color, block: block)
         actions.append(action)
         addSubview(action)
         action.addTarget(self, action: #selector(FlowerMenu.selectedAction(_:)), forControlEvents: .TouchUpInside)
@@ -194,30 +197,26 @@ extension FlowerMenu: DeviceManagerNotifying {
 extension FlowerMenu {
     
     func addDeleteAction(block: Void -> Void) {
-        addAction("n", block:block)
-    }
-    
-    func addLeaveAction(block: Void -> Void) {
-        addAction("O", block:block)
+        addAction("n", color: Color.redOption, block:block)
     }
     
     func addReportAction(block: Void -> Void) {
-        addAction("s", block:block)
+        addAction("s", color: Color.redOption, block:block)
     }
     
     func addDownloadAction(block: Void -> Void) {
-        addAction("o", block:block)
+        addAction("o", color: Color.greenOption, block:block)
     }
     
     func addCopyAction(block: Void -> Void) {
-        addAction("Q", block:block)
+        addAction("Q", color: Color.orange, block:block)
     }
     
     func addEditPhotoAction(block: Void -> Void) {
-        addAction("R", block:block)
+        addAction("R", color: Color.blue, block:block)
     }
     
     func addDrawPhotoAction(block: Void -> Void) {
-        addAction("8", block:block)
+        addAction("8", color: Color.purple, block:block)
     }
 }

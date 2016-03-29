@@ -12,7 +12,7 @@ class Label: UILabel {
     
     convenience init(icon: String, size: CGFloat, textColor: UIColor = UIColor.whiteColor()) {
         self.init()
-        font = UIFont(name: "icons", size: size)
+        font = UIFont.icons(size)
         text = icon
         self.textColor = textColor
     }

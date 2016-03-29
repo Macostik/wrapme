@@ -66,19 +66,16 @@ class Refresher: UIControl {
         return view
     }()
     
-    private lazy var candyView: UILabel = {
-        let candyView = UILabel(frame: CGRectMake(0, 0, 36, 36))
-        let descriptior = UIFontDescriptor(name: "icons", size: 24.0)
-        candyView.font = UIFont(descriptor: descriptior, size: 24.0)
-        candyView.text = "e"
-        candyView.textAlignment = .Center
-        candyView.clipsToBounds = true
-        candyView.layer.cornerRadius = candyView.width/2
-        candyView.layer.borderWidth = 1
-        candyView.alpha = 0.25
-        candyView.hidden = true
-        return candyView
-    }()
+    private lazy var candyView: UILabel = specify(UILabel(frame: CGRectMake(0, 0, 36, 36))) {
+        $0.font = UIFont.icons(24.0)
+        $0.text = "e"
+        $0.textAlignment = .Center
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 18
+        $0.layer.borderWidth = 1
+        $0.alpha = 0.25
+        $0.hidden = true
+    }
     
     private lazy var strokeLayer: CAShapeLayer = {
         let layer = CAShapeLayer()

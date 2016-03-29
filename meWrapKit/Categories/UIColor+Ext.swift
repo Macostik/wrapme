@@ -24,6 +24,10 @@ struct Color {
     static let dangerRed = UIColor(hex: 0xd9534f)
     static let green = UIColor(hex: 0x5cb85c)
     static let greenOnline = UIColor(hex: 0x66d17a)
+    static let purple = UIColor(hex: 0xa354db)
+    static let blue = UIColor(hex: 0x45a3cf)
+    static let greenOption = UIColor(hex: 0x6eb25e)
+    static let redOption = UIColor(hex: 0xe84b4b)
 }
 
 extension UIColor {

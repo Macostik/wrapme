@@ -78,6 +78,10 @@ extension UIFont {
             return UIFont(name: fontName, size: UIFont.sizeWithPreset(preset))
         }
     }
+    
+    class func icons(size: CGFloat) -> UIFont! {
+        return UIFont(name: "icons", size: size)
+    }
 }
 
 extension UIFont {

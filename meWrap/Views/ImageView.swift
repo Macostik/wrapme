@@ -29,7 +29,7 @@ class ImageView: UIImageView {
     }()
     
     @IBInspectable var defaultIconSize: CGFloat = 24 {
-        willSet { defaultIconView.font = UIFont(name:"icons", size:newValue) }
+        willSet { defaultIconView.font = UIFont.icons(newValue) }
     }
     
     @IBInspectable var defaultIconText: String? {

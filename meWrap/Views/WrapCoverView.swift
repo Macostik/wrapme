@@ -43,7 +43,7 @@ class WrapCoverView: OverlayImageView {
         let point = CGPoint(x: center.x + radius*cos(angle), y: center.y + radius*sin(angle))
         let size: CGFloat = max(16, height / 3)
         statusView.frame = CGRect(x: point.x - size/2, y: point.y - size/2, width: size, height: size)
-        statusView.font = UIFont(name: "icons", size: size/2)
+        statusView.font = UIFont.icons(size/2)
         statusView.circled = true
         if let superview = superview where statusView.superview != superview {
             superview.insertSubview(statusView, aboveSubview: self)

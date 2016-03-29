@@ -18,7 +18,7 @@ final class EntryStatusIndicator: UILabel, EntryNotifying {
     
     convenience init(color: UIColor) {
         self.init(frame: CGRect.zero)
-        font = UIFont(name: "icons", size: 13)
+        font = UIFont.icons(13)
         textColor = color
     }
     

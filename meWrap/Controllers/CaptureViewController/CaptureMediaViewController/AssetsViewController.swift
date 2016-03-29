@@ -13,7 +13,7 @@ import SnapKit
 class AssetCell: StreamReusableView {
     
     var imageView = ImageView(backgroundColor: UIColor.clearColor())
-    var acceptView = Label(icon: "l", size: 12, textColor: Color.orange)
+    var acceptView = Label(icon: "E", size: 12, textColor: Color.orange)
     var videoIndicator = Label(icon: "+", size: 20)
     private var requestID: PHImageRequestID?
     

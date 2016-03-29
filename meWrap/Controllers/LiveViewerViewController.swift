@@ -145,7 +145,7 @@ class LiveViewerViewController: LiveViewController {
         coverView.addSubview(messageLabel)
         
         let backButton = Button()
-        backButton.titleLabel?.font = UIFont(name: "icons", size: 36)
+        backButton.titleLabel?.font = UIFont.icons(36)
         backButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         backButton.setTitleColor(UIColor.whiteColor().darkerColor(), forState: .Normal)
         backButton.setTitle("w", forState: .Normal)

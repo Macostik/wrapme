@@ -38,7 +38,7 @@ final class ContributorCell: StreamReusableView {
         infoLabel.numberOfLines = 0
         slideMenuButton.addTarget(self, action: #selector(ContributorCell.toggleSlideMenu(_:)), forControlEvents: .TouchUpInside)
         avatarView.cornerRadius = 24
-        slideMenuButton.titleLabel?.font = UIFont(name: "icons", size: 24)
+        slideMenuButton.titleLabel?.font = UIFont.icons(24)
         slideMenuButton.setTitle("p", forState: .Normal)
         slideMenuButton.setTitleColor(Color.grayLightest, forState: .Normal)
         slideMenuButton.contentHorizontalAlignment = .Right
@@ -128,11 +128,7 @@ final class ContributorCell: StreamReusableView {
     lazy var resendDoneMetrics: StreamMetrics = {
         let loader = StreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
             view.backgroundColor = Color.orange
-            let icon = UILabel()
-            let descriptor = UIFontDescriptor(name: "icons", size: 36.0)
-            icon.font = UIFont(descriptor: descriptor, size: 36.0)
-            icon.text = "l"
-            icon.textColor = UIColor.whiteColor()
+            let icon = Label(icon: "E", size: 36)
             view.addSubview(icon)
             icon.snp_makeConstraints(closure: { $0.center.equalTo(view) })
         })

@@ -44,7 +44,7 @@ final class SingleAddressBookRecordCell: AddressBookRecordCell {
     
     private let infoLabel = Label(preset: .Small, textColor: Color.grayLight)
     private let selectButton = specify(Button(type: .Custom)) {
-        $0.titleLabel?.font = UIFont(name: "icons", size: 26)
+        $0.titleLabel?.font = UIFont.icons(26)
         $0.setTitle("G", forState: .Normal)
         $0.setTitle("H", forState: .Selected)
         $0.setTitleColor(Color.grayLighter, forState: .Normal)
@@ -135,8 +135,7 @@ final class MultipleAddressBookRecordCell: AddressBookRecordCell {
     private var dataSource: StreamDataSource!
     private let avatarView = ImageView(backgroundColor: UIColor.whiteColor())
     private let openView = specify(UIButton(type: .Custom)) {
-        let descriptor =  UIFontDescriptor(name: "icons", size: 18.0)
-        $0.titleLabel?.font = UIFont(descriptor: descriptor, size: 18.0)
+        $0.titleLabel?.font = UIFont.icons(18.0)
         $0.setTitle("y", forState: .Normal)
         $0.setTitle("z", forState: .Selected)
         $0.setTitleColor(Color.grayLighter, forState: .Normal)

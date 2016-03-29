@@ -45,21 +45,10 @@ class UpdateAvailableNotification: Notification {
 
 class Notification: CustomStringConvertible {
     var uid: String?
-    var publishedAt = NSDate(timeIntervalSince1970: 0)
     var body: [String:AnyObject]?
     var originatedByCurrentUser = false
     var type: NotificationType = .ContributorAdd
     var isHistorycal = true
-    
-    private class func parseMessage(message: AnyObject?) -> (body: [String:AnyObject]?, timetoken: NSNumber?) {
-        if let message = message as? PNMessageData {
-            return (message.message as? [String:AnyObject], message.timetoken)
-        } else if let message = message as? [String:AnyObject] {
-            return (message["message"] as? [String:AnyObject], message["timetoken"] as? NSNumber)
-        } else {
-            return (nil, nil)
-        }
-    }
     
     private class func parseNotificationType(data: [String:AnyObject]) -> NotificationType? {
         guard let type = data["msg_type"] as? Int else { return nil }
@@ -67,35 +56,32 @@ class Notification: CustomStringConvertible {
     }
     
     class func notificationWithMessage(message: AnyObject?) -> Notification? {
-        let result = parseMessage(message)
-        guard let body = result.body, let timetoken = result.timetoken else { return nil }
-        let publishedAt = NSDate(timetoken:timetoken)
-        return notificationWithBody(body, publishedAt: publishedAt)
+        guard let body = ((message as? PNMessageData)?.message ?? message) as? [String:AnyObject] else { return nil }
+        return notificationWithBody(body)
     }
     
-    class func notificationWithBody(body: [String:AnyObject], publishedAt: NSDate?) -> Notification? {
+    class func notificationWithBody(body: [String:AnyObject]) -> Notification? {
         guard let type = parseNotificationType(body) else { return nil }
         switch type {
-        case .ContributorAdd: return ContributorAddNotification(type: type, body: body, publishedAt: publishedAt)
-        case .ContributorDelete: return ContributorDeleteNotification(type: type, body: body, publishedAt: publishedAt)
-        case .WrapDelete: return WrapDeleteNotification(type: type, body: body, publishedAt: publishedAt)
-        case .WrapUpdate: return WrapUpdateNotification(type: type, body: body, publishedAt: publishedAt)
-        case .CandyAdd: return CandyAddNotification(type: type, body: body, publishedAt: publishedAt)
-        case .CandyDelete: return CandyDeleteNotification(type: type, body: body, publishedAt: publishedAt)
-        case .CandyUpdate: return CandyUpdateNotification(type: type, body: body, publishedAt: publishedAt)
-        case .MessageAdd: return MessageAddNotification(type: type, body: body, publishedAt: publishedAt)
-        case .CommentAdd: return CommentAddNotification(type: type, body: body, publishedAt: publishedAt)
-        case .CommentDelete: return CommentDeleteNotification(type: type, body: body, publishedAt: publishedAt)
-        case .UserUpdate: return UserUpdateNotification(type: type, body: body, publishedAt: publishedAt)
-        case .UpdateAvailable, .CriticalUpdate: return UpdateAvailableNotification(type: type, body: body, publishedAt: publishedAt)
-        case .LiveBroadcast: return LiveBroadcastNotification(type: type, body: body, publishedAt: publishedAt)
-        case .InviteeSignUp: return Notification(type: type, body: body, publishedAt: publishedAt)
+        case .ContributorAdd: return ContributorAddNotification(type: type, body: body)
+        case .ContributorDelete: return ContributorDeleteNotification(type: type, body: body)
+        case .WrapDelete: return WrapDeleteNotification(type: type, body: body)
+        case .WrapUpdate: return WrapUpdateNotification(type: type, body: body)
+        case .CandyAdd: return CandyAddNotification(type: type, body: body)
+        case .CandyDelete: return CandyDeleteNotification(type: type, body: body)
+        case .CandyUpdate: return CandyUpdateNotification(type: type, body: body)
+        case .MessageAdd: return MessageAddNotification(type: type, body: body)
+        case .CommentAdd: return CommentAddNotification(type: type, body: body)
+        case .CommentDelete: return CommentDeleteNotification(type: type, body: body)
+        case .UserUpdate: return UserUpdateNotification(type: type, body: body)
+        case .UpdateAvailable, .CriticalUpdate: return UpdateAvailableNotification(type: type, body: body)
+        case .LiveBroadcast: return LiveBroadcastNotification(type: type, body: body)
+        case .InviteeSignUp: return Notification(type: type, body: body)
         }
     }
     
-    convenience init(type: NotificationType, body: [String:AnyObject], publishedAt: NSDate?) {
+    convenience init(type: NotificationType, body: [String:AnyObject]) {
         self.init()
-        self.publishedAt = publishedAt ?? NSDate(timeIntervalSince1970: 0)
         self.body = body
         self.uid = body["msg_uid"] as? String
         self.type = type

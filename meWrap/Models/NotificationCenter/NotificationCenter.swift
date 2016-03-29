@@ -127,7 +127,7 @@ final class NotificationCenter: NSObject {
         
         NotificationCenter.addHandledNotifications(notifications)
         
-        return notifications.sort({ $0.publishedAt < $1.publishedAt })
+        return notifications
     }
     
     func requestHistory() {
@@ -184,7 +184,7 @@ final class NotificationCenter: NSObject {
             return
         }
         
-        if let notification = Notification.notificationWithBody(data, publishedAt:nil) {
+        if let notification = Notification.notificationWithBody(data) {
             Logger.log("APNS received: \(notification.description)")
             if canSkipNotification(notification) {
                 success(notification)

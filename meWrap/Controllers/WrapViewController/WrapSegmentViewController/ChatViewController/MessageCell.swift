@@ -103,7 +103,7 @@ final class MessageCell: BaseMessageCell {
 final class MessageWithNameCell: BaseMessageCell {
     
     private let tailView = UIImageView(image: BaseMessageCell.leftTail)
-    private let avatarView = UserAvatarView(backgroundColor: UIColor.whiteColor())
+    private let avatarView = UserAvatarView()
     private let nameLabel = Label(preset: .Smaller, textColor: Color.grayLighter)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {

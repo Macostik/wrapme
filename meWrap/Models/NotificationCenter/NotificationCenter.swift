@@ -144,22 +144,15 @@ final class NotificationCenter: NSObject {
                 return
             }
             
-            let userDefaults = NSUserDefaults.standardUserDefaults()
-            guard let fromDate = userDefaults.historyDate else {
-                userDefaults.historyDate = NSDate.now()
-                finish()
-                return
-            }
-            let toDate = NSDate.now()
-            
-            self.userSubscription.history(fromDate, to: toDate, success: { (messages) -> Void in
-                if messages.count > 0 {
-                    Logger.log("PUBNUB - received history starting from: \(fromDate) to: \(toDate)")
-                    self.handleNotifications(self.notificationsFromMessages(messages))
-                }
-                userDefaults.historyDate = toDate
-                finish()
-                }, failure: { _ in finish() })
+            Dispatch.defaultQueue.async({
+                let messages = self.userSubscription.history()
+                Dispatch.mainQueue.async({
+                    if messages.count > 0 {
+                        self.handleNotifications(self.notificationsFromMessages(messages))
+                    }
+                    finish()
+                })
+            })
         }
     }
     

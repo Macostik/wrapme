@@ -23,7 +23,7 @@ class EditAssetViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.url = asset?.original
+        imageView.url = asset?.large
     }
 }
 

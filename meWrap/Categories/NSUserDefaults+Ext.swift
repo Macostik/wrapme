@@ -12,6 +12,7 @@ import CryptoSwift
 private var _authorization: Authorization?
 private var _confirmationDate: NSDate?
 private var _historyDate: NSDate?
+private var _historyDates: [String:NSNumber]?
 private var _handledNotifications: [String]?
 private var _imageURI: String?
 private var _videoURI: String?
@@ -129,6 +130,22 @@ extension NSUserDefaults {
         set {
             _historyDate = newValue
             self["historyDate"] = newValue
+        }
+    }
+    
+    var historyDates: [String:NSNumber] {
+        get {
+            if let dates = _historyDates {
+                return dates
+            } else {
+                let dates = self["historyDates"] as? [String:NSNumber] ?? [String:NSNumber]()
+                _historyDates = dates
+                return dates
+            }
+        }
+        set {
+            _historyDates = newValue
+            self["historyDates"] = newValue
         }
     }
     

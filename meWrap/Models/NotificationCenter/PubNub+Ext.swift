@@ -64,16 +64,44 @@ extension PubNub {
         return (user, device)
     }
     
-    func recursiveHistoryFor(channel: String, start: NSNumber?, end: NSNumber?, pageBlock: [AnyObject] -> (), completion: () -> ()) {
-        historyForChannel(channel, start: start, end: end, withCompletion: { (result, status) -> Void in
-            if let result = result where !result.data.messages.isEmpty {
-                print("recursiveHistoryFor \(channel),\n start = \(start),\n end = \(end),\n count = \(result.data.messages.count),\n result.data.end = \(result.data.end)")
-                pageBlock(result.data.messages)
-                self.recursiveHistoryFor(channel, start: result.data.end.doubleValue / 1000000 + 0.01, end: end, pageBlock: pageBlock, completion: completion)
-            } else {
-                completion()
+    func allHistoryFor(channel: String) -> [AnyObject] {
+        var messages = [AnyObject]()
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        var historyDates = userDefaults.historyDates
+        let historyDate = historyDates[channel] ?? userDefaults.historyDate?.timeIntervalSince1970
+        let start: NSNumber = NSDate.now().timeIntervalSince1970
+        guard var end: NSNumber = historyDate else {
+            historyDates[channel] = start
+            userDefaults.historyDates = historyDates
+            return messages
+        }
+        
+        var _result = historyFor(channel, start: start, end: end)
+        while let result = _result where !result.data.messages.isEmpty {
+            Logger.log("PUBNUB - received history with range: \(start) - \(end), count: \(result.data.messages.count)")
+            messages.appendContentsOf(result.data.messages)
+            end = result.data.end.doubleValue / 10000000 + 0.01
+            _result = historyFor(channel, start: start, end: end)
+        }
+        if _result != nil {
+            historyDates[channel] = start
+            userDefaults.historyDates = historyDates
+        }
+        return messages
+    }
+    
+    func historyFor(channel: String, start: NSNumber?, end: NSNumber?) -> PNHistoryResult? {
+        return Dispatch.sleep({ (awake) in
+            historyForChannel(channel, start: start, end: end) { (result, _) in
+                awake(result)
             }
         })
+    }
+    
+    func channelsForGroup(group: String) -> [String] {
+        return Dispatch.sleep({ (awake) in
+            channelsForGroup(group) { result, _ in awake(result?.data.channels) }
+        }) ?? []
     }
 }
 

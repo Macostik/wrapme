@@ -189,24 +189,17 @@ class MutableAsset: Asset {
 
 extension AVAssetExportSession {
     func export() -> Bool {
-        let semaphore = dispatch_semaphore_create(0)
-        exportAsynchronouslyWithCompletionHandler { () -> Void in
-            dispatch_semaphore_signal(semaphore)
-        }
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+        Dispatch.sleep({ (awake) in exportAsynchronouslyWithCompletionHandler { awake("") } })
         return error == nil
     }
 }
 
 extension PHImageManager {
     func requestExportSessionForVideo(asset: PHAsset, options: PHVideoRequestOptions, exportPreset: String) -> AVAssetExportSession? {
-        var session: AVAssetExportSession?
-        let semaphore = dispatch_semaphore_create(0)
-        requestExportSessionForVideo(asset, options: options, exportPreset: exportPreset) { (s, info) -> Void in
-            session = s
-            dispatch_semaphore_signal(semaphore)
-        }
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
-        return session
+        return Dispatch.sleep({ (awake) in
+            requestExportSessionForVideo(asset, options: options, exportPreset: exportPreset) { (session, info) -> Void in
+                awake(session)
+            }
+        })
     }
 }

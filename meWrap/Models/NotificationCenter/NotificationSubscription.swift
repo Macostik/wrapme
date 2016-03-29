@@ -74,39 +74,12 @@ class NotificationSubscription: NSObject {
         }
     }
     
-    func history(from: NSDate, to: NSDate, success: [[NSObject:AnyObject]] -> Void, failure: NSError? -> Void) {
-        let startDate = NSNumber(double: from.timestamp)
-        let endDate = NSNumber(double: to.timestamp)
+    func history() -> [AnyObject] {
         let pubnub = PubNub.sharedInstance
         if isGroup {
-            pubnub.channelsForGroup(name, withCompletion: { (result, status) -> Void in
-                if let result = result {
-                    let channels = result.data.channels
-                    if channels.isEmpty {
-                        success([])
-                    } else {
-                        var fetched = 0
-                        var messages = [AnyObject]()
-                        for channel in channels {
-                            pubnub.recursiveHistoryFor(channel, start: startDate, end: endDate, pageBlock: { messages.appendContentsOf($0) }, completion: {
-                                fetched += 1
-                                if fetched == channels.count {
-                                    success(messages as? [[NSObject:AnyObject]] ?? [])
-                                }
-                            })
-                        }
-                    }
-                } else {
-                    failure(nil)
-                }
-            })
+            return pubnub.channelsForGroup(name).reduce([AnyObject](), combine: { $0 + pubnub.allHistoryFor($1) })
         } else {
-            var messages = [AnyObject]()
-            pubnub.recursiveHistoryFor(name, start: startDate, end: endDate, pageBlock: {
-                messages.appendContentsOf($0)
-                }, completion: {
-                    success(messages as? [[NSObject:AnyObject]] ?? [])
-            })
+            return pubnub.allHistoryFor(name)
         }
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Dispatch: NSObject {
+struct Dispatch {
     
     static let mainQueue = Dispatch(queue: dispatch_get_main_queue())
     
@@ -17,10 +17,6 @@ class Dispatch: NSObject {
     static let backgroundQueue = Dispatch(queue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0))
     
     private var queue: dispatch_queue_t
-    
-    required init(queue: dispatch_queue_t) {
-        self.queue = queue
-    }
     
     func sync(block: (Void -> Void)?) {
         if let block = block {
@@ -47,6 +43,17 @@ class Dispatch: NSObject {
             let object = block()
             Dispatch.mainQueue.async({ completion(object) })
         }
+    }
+    
+    static func sleep<T>(@noescape block: (awake: T? -> ()) -> ()) -> T? {
+        let semaphore = dispatch_semaphore_create(0)
+        var value: T?
+        block(awake: {
+            value = $0
+            dispatch_semaphore_signal(semaphore)
+        })
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+        return value
     }
 }
 

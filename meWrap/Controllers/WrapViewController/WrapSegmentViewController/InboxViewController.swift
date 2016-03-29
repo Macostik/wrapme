@@ -112,8 +112,8 @@ class InboxCommentCell: InboxCell {
         textView.snp_makeConstraints {
             $0.leading.equalTo(containerView).inset(12)
             $0.trailing.equalTo(imageView.snp_leading).inset(-5)
-            $0.top.equalTo(headerView.snp_bottom).inset(-5)
-            $0.height.lessThanOrEqualTo(imageView.snp_height).inset(5)
+            $0.top.equalTo(headerView.snp_bottom).inset(8)
+            $0.height.lessThanOrEqualTo(imageView.snp_height).offset(5)
         }
     }
 

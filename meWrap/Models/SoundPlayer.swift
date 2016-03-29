@@ -54,6 +54,15 @@ class SoundPlayer: NSObject {
         }
     }
     
+    func playImmediately(sound: Sound) {
+        guard let soundID = sound.ID() else { return }
+        self.currentSound = sound
+        AudioServicesPlaySystemSound(soundID)
+        Dispatch.mainQueue.after(3, block: { () -> Void in
+            self.currentSound = nil
+        })
+    }
+    
     class func playSend() {
         player.play(.s04)
     }

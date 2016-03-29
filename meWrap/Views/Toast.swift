@@ -22,6 +22,7 @@ struct DefaultToastAppearance : Appearance {
 }
 
 class InfoToast: UIView {
+    
     static let DismissalDelay: NSTimeInterval = 4.0
     private static let toast = InfoToast()
     var topMessageInset: Constraint!
@@ -137,20 +138,11 @@ class InfoToast: UIView {
     }
 }
 
-
-
 class EntryToast: UIView {
+    
     static let DismissalDelay: NSTimeInterval = 4.0
-    static var toastEntries = [EntryToast]()
-    
-    deinit {
-        #if DEBUG
-            Logger.debugLog("\(NSStringFromClass(self.dynamicType)) deinit", color: .Blue)
-        #endif
-    }
-    
-    private var entry: Contribution!
-    
+    static let entryToast = EntryToast()
+    private var entry: Contribution?
     private let avatar = ImageView(backgroundColor: UIColor.clearColor())
     private let imageView = ImageView(backgroundColor: UIColor.clearColor())
     private var topLabel = Label(preset: .Normal, weight: .Bold, textColor: UIColor.whiteColor())
@@ -159,11 +151,17 @@ class EntryToast: UIView {
     private let topView = View()
     private let bottomView = View()
     private let bottomLabel = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
-    private var _window = UIWindow(frame:UIScreen.mainScreen().bounds)
+    weak var _viewController: UIViewController?
     
-    required init(entry: Contribution) {
+    deinit {
+        #if DEBUG
+            Logger.debugLog("\(NSStringFromClass(self.dynamicType)) deinit", color: .Blue)
+        #endif
+    }
+    
+    required init() {
         super.init(frame: CGRectZero)
-        self.entry = entry
+
         topView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
         bottomView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
         addSubview(imageView)
@@ -174,36 +172,6 @@ class EntryToast: UIView {
         topView.addSubview(middleLabel)
         topView.addSubview(rightLabel)
         bottomView.addSubview(bottomLabel)
-        
-        avatar.circled = true
-        avatar.url = entry.contributor?.avatar?.small
-        topLabel.numberOfLines = 0
-        middleLabel.numberOfLines = 2
-        if let candy = entry as? Candy {
-            topLabel.text = String(format: candy.isVideo ? "just_sent_you_a_new_video".ls :
-                "just_sent_you_a_new_photo".ls, candy.contributor?.name ?? "")
-        } else {
-            topLabel.text = String(format: "someone_commented".ls, entry.contributor?.name ?? "")
-        }
-        
-        if let comment = entry as? Comment {
-            middleLabel.text = comment.text
-        }
-        rightLabel.text = "now".ls
-        bottomLabel.text = "tap_to_view".ls
-        imageView.url = entry.asset?.medium
-        
-        
-        _window.makeKeyAndVisible()
-        _window.windowLevel = UIWindowLevelStatusBar
-        if self.superview != _window {
-            self.removeFromSuperview()
-            _window.addSubview(self)
-            snp_makeConstraints {
-                $0.width.centerX.equalTo(_window)
-                $0.bottom.equalTo(_window.snp_top)
-            }
-        }
         
         topView.snp_makeConstraints {
             $0.top.leading.trailing.equalTo(self)
@@ -247,29 +215,62 @@ class EntryToast: UIView {
         bottomLabel.snp_makeConstraints { make in
             make.edges.equalTo(bottomView).inset(UIEdgeInsetsMake(8, 8, 8, 8))
         }
-        layoutIfNeeded()
-        EntryToast.toastEntries.append(self)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setup (entry: Contribution) {
+        self.entry = entry
+        avatar.circled = true
+        avatar.url = entry.contributor?.avatar?.small
+        topLabel.numberOfLines = 0
+        middleLabel.numberOfLines = 2
+        if let candy = entry as? Candy {
+            topLabel.text = String(format: candy.isVideo ? "just_sent_you_a_new_video".ls :
+                "just_sent_you_a_new_photo".ls, candy.contributor?.name ?? "")
+        } else {
+            topLabel.text = String(format: "someone_commented".ls, entry.contributor?.name ?? "")
+        }
+        
+        if let comment = entry as? Comment {
+            middleLabel.text = comment.text
+        }
+        rightLabel.text = "now".ls
+        bottomLabel.text = "tap_to_view".ls
+        imageView.url = entry.asset?.medium
+        
+        SoundPlayer.player.playImmediately(.note)
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+    }
+    
     func show(inViewController viewController: UIViewController? = nil) {
+        _viewController = viewController ?? UIViewController.toastAppearanceViewController(self)
+        let referenceView = _viewController?.toastAppearanceReferenceView(self)
+        if let _window = referenceView?.window {
+            _window.windowLevel = UIWindowLevelStatusBar
+            if self.superview != _window {
+                self.removeFromSuperview()
+                _window.addSubview(self)
+                snp_makeConstraints {
+                    $0.width.centerX.equalTo(_window)
+                    $0.bottom.equalTo(_window.snp_top)
+                }
+            }
+        }
+        layoutIfNeeded()
         UIView.animateWithDuration(0.5, animations: {
             self.transform = CGAffineTransformMakeTranslation(0, self.height)
         })
         
         self.enqueueSelector(#selector(EntryToast.dissmis), delay: EntryToast.DismissalDelay)
-        SoundPlayer.player.play(.note)
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(EntryToast.dissmis), object: nil)
-        let _ = EntryToast.toastEntries.map{ $0.removeFromSuperview() }
-        EntryToast.toastEntries.removeAll()
+        dissmis()
+        guard let entry = entry else { return }
         ChronologicalEntryPresenter.presentEntry(entry, animated: false)
     }
     
@@ -277,20 +278,26 @@ class EntryToast: UIView {
         NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(EntryToast.touchesBegan(_:withEvent:)), object: nil)
         UIView.animateWithDuration(0.5, animations: {
             self.transform = CGAffineTransformIdentity
-            self.alpha = 0
             }, completion: { _ in
                 self.removeFromSuperview()
-                if let index = EntryToast.toastEntries.indexOf(self) {
-                    EntryToast.toastEntries.removeAtIndex(index)
-                }
+                self._viewController?.view.window?.windowLevel = UIWindowLevelNormal
+                self._viewController = nil
         })
     }
 
 }
 
+extension Contribution {
+    func showToast() {
+        let entryToast = EntryToast.entryToast
+        entryToast.setup(self)
+        entryToast.show()
+    }
+}
+
 extension UIViewController {
     
-    class func toastAppearanceViewController(toast: InfoToast?) -> UIViewController? {
+    class func toastAppearanceViewController(toast: UIView?) -> UIViewController? {
         var visibleViewController = UIWindow.mainWindow.rootViewController
         var presentedViewController = visibleViewController?.presentedViewController
         while let _presentedViewController = presentedViewController {
@@ -311,18 +318,18 @@ extension UIViewController {
         return true
     }
     
-    func toastAppearanceViewController(toast: InfoToast?) -> UIViewController {
+    func toastAppearanceViewController(toast: UIView?) -> UIViewController {
         return self
     }
     
-    func toastAppearanceReferenceView(toast: InfoToast) -> UIView {
+    func toastAppearanceReferenceView(toast: UIView) -> UIView {
         return view
     }
 }
 
 extension BaseViewController {
     
-    override func toastAppearanceReferenceView(toast: InfoToast) -> UIView {
+    override func toastAppearanceReferenceView(toast: UIView) -> UIView {
         return navigationBar ?? view
     }
 }

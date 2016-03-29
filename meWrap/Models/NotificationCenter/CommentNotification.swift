@@ -35,7 +35,7 @@ class CommentAddNotification: CommentNotification {
         }
         comment.notifyOnAddition()
         if comment.contributor?.current == false && !isHistorycal {
-             EntryToast(entry: comment).show()
+            comment.showToast()
         }
     }
 }

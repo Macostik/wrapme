@@ -58,7 +58,7 @@ class CandyAddNotification: CandyNotification {
         }
         candy.notifyOnAddition()
         if candy.contributor?.current == false && !isHistorycal {
-             EntryToast(entry: candy).show()
+            candy.showToast()
         }
     }
     

@@ -156,6 +156,7 @@ class EntryToast: UIView {
     private var topLabel = Label(preset: .Normal, weight: .Bold, textColor: UIColor.whiteColor())
     private let middleLabel = Label(preset: .Normal, weight: .Regular, textColor: UIColor.whiteColor())
     private let rightLabel = Label(preset: .Small, weight: .Regular, textColor: Color.orange)
+    private let topView = View()
     private let bottomView = View()
     private let bottomLabel = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
     private var _window = UIWindow(frame:UIScreen.mainScreen().bounds)
@@ -163,14 +164,17 @@ class EntryToast: UIView {
     required init(entry: Contribution) {
         super.init(frame: CGRectZero)
         self.entry = entry
-        backgroundColor = Color.gray
+        topView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
         bottomView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
-        addSubview(avatar)
-        addSubview(topLabel)
-        addSubview(middleLabel)
-        addSubview(rightLabel)
         addSubview(imageView)
+        addSubview(topView)
         addSubview(bottomView)
+        topView.addSubview(avatar)
+        topView.addSubview(topLabel)
+        topView.addSubview(middleLabel)
+        topView.addSubview(rightLabel)
+        bottomView.addSubview(bottomLabel)
+        
         avatar.circled = true
         avatar.url = entry.contributor?.avatar?.small
         topLabel.numberOfLines = 0
@@ -188,7 +192,7 @@ class EntryToast: UIView {
         rightLabel.text = "now".ls
         bottomLabel.text = "tap_to_view".ls
         imageView.url = entry.asset?.medium
-        bottomView.addSubview(bottomLabel)
+        
         
         _window.makeKeyAndVisible()
         _window.windowLevel = UIWindowLevelStatusBar
@@ -201,15 +205,19 @@ class EntryToast: UIView {
             }
         }
         
+        topView.snp_makeConstraints {
+            $0.top.leading.trailing.equalTo(self)
+        }
+        
         avatar.snp_makeConstraints {
             $0.centerY.equalTo(topLabel)
-            $0.leading.equalTo(self).offset(12)
+            $0.leading.equalTo(topView).offset(12)
             $0.size.equalTo(28)
         }
         
         topLabel.snp_makeConstraints {
             $0.leading.equalTo(avatar.snp_trailing).offset(12)
-            $0.top.equalTo(self).offset(10)
+            $0.top.equalTo(topView).offset(10)
             $0.trailing.lessThanOrEqualTo(rightLabel.snp_leading).offset(-12)
         }
         
@@ -217,18 +225,18 @@ class EntryToast: UIView {
             $0.leading.equalTo(avatar.snp_trailing).offset(12)
             $0.top.equalTo(topLabel.snp_bottom)
             $0.trailing.lessThanOrEqualTo(rightLabel.snp_leading).offset(-12)
+            $0.bottom.equalTo(topView).offset(-12)
         }
         
         rightLabel.snp_makeConstraints {
             $0.centerY.equalTo(topLabel)
-            $0.trailing.equalTo(self).offset(-12)
+            $0.trailing.equalTo(topView).offset(-12)
         }
         rightLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
         
         imageView.snp_makeConstraints {
-            $0.top.equalTo(middleLabel.snp_bottom).offset(12)
-            $0.leading.trailing.bottom.equalTo(self)
-            $0.height.equalTo(Constants.screenWidth / 3 * 1.25)
+            $0.edges.equalTo(self)
+            $0.height.equalTo(Constants.screenWidth / 3 * 1.5)
         }
         
         bottomView.snp_makeConstraints { make in

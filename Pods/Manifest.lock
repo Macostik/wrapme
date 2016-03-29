@@ -14,9 +14,9 @@ PODS:
   - AFNetworking/Serialization (3.0.4)
   - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
-  - AWSCore (2.3.5)
-  - AWSS3 (2.3.5):
-    - AWSCore (= 2.3.5)
+  - AWSCore (2.3.6)
+  - AWSS3 (2.3.6):
+    - AWSCore (= 2.3.6)
   - CocoaLumberjack (2.2.0):
     - CocoaLumberjack/Default (= 2.2.0)
     - CocoaLumberjack/Extensions (= 2.2.0)
@@ -25,7 +25,7 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.2.0):
     - CocoaLumberjack/Default
-  - CryptoSwift (0.2.3)
+  - CryptoSwift (0.3)
   - Google/Analytics (1.0.7):
     - Google/Core
     - GoogleAnalytics (~> 3.12)
@@ -34,13 +34,13 @@ PODS:
     - GoogleSymbolUtilities (~> 1.0)
     - GoogleUtilities (~> 1.0)
   - GoogleAnalytics (3.14.0)
-  - GoogleNetworkingUtilities (1.0.0):
+  - GoogleNetworkingUtilities (1.2.0):
     - GoogleSymbolUtilities (~> 1.0)
-  - GoogleSymbolUtilities (1.0.3)
-  - GoogleUtilities (1.1.0):
-    - GoogleSymbolUtilities (~> 1.0.0)
+  - GoogleSymbolUtilities (1.1.0)
+  - GoogleUtilities (1.2.0):
+    - GoogleSymbolUtilities (~> 1.0)
   - libPhoneNumber-iOS (0.8.11)
-  - NewRelicAgent (5.4.0)
+  - NewRelicAgent (5.4.1)
   - OpenUDID (1.0.0)
   - PubNub (4.3.0):
     - CocoaLumberjack (= 2.2.0)
@@ -63,17 +63,17 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
-  AWSCore: 8022eda5778fd7b87c9182709d8a27388e1a31fb
-  AWSS3: 967f4ad3c91f1ed2c9dca09a9dcf905111232a87
+  AWSCore: 917d84b32974136194a905b98c0ae25c9f3350b8
+  AWSS3: 1caaf6b45100503fecf3d418c394519a89409a74
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
-  CryptoSwift: b2bf37b8e7cc6d682ef3365cb966bc5ae5174aa5
+  CryptoSwift: 19d29910d88440fcb132761d9ab57e175f1b0d0e
   Google: 875f5a8ade86dd02e36586e4a54814843938c7f6
   GoogleAnalytics: 9be1afdb8deeac4bb5f13ca7f7d3b9db2a1f43dc
-  GoogleNetworkingUtilities: 292992ab31b7b4ba32809a0e8b40e324cdfb2c0c
-  GoogleSymbolUtilities: 82ad9f93d3615244b3f4ce440f5ab2515e8b4f56
-  GoogleUtilities: 8ed9134debe11719097881711464752900668f10
+  GoogleNetworkingUtilities: ec1e9911aca811eb18b7144394fee6168b607785
+  GoogleSymbolUtilities: eb3965ea12710569c7b80db198a39e39b18613f7
+  GoogleUtilities: 85f8ad6b251544286a97163133d042ec95f889c5
   libPhoneNumber-iOS: ded33fab2c51ee847979556aa504c9e70f32d703
-  NewRelicAgent: 62f9ee2b5cffc497c7adb927ae1cb111d6294817
+  NewRelicAgent: c85f94358d6e02761cae6707364c4402a352a08f
   OpenUDID: e7cb6984c7304906ad20f3a36bf087b025896b6b
   PubNub: a05f2a2c6cc1f637a0c473f236c4671c0b8c09b1
   SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87

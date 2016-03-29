@@ -145,12 +145,12 @@ class EntryToast: UIView {
     private var entry: Contribution?
     private let avatar = ImageView(backgroundColor: UIColor.clearColor())
     private let imageView = ImageView(backgroundColor: UIColor.clearColor())
-    private var topLabel = Label(preset: .Normal, weight: .Bold, textColor: UIColor.whiteColor())
-    private let middleLabel = Label(preset: .Normal, weight: .Regular, textColor: UIColor.whiteColor())
-    private let rightLabel = Label(preset: .Small, weight: .Regular, textColor: Color.orange)
+    private var topLabel = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
+    private let middleLabel = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
+    private let rightLabel = Label(preset: .Smaller, weight: .Regular, textColor: Color.orange)
     private let topView = View()
     private let bottomView = View()
-    private let bottomLabel = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
+    private let bottomLabel = Label(preset: .Smaller, weight: .Regular, textColor: UIColor.whiteColor())
     weak var _viewController: UIViewController?
     
     deinit {

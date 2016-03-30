@@ -27,6 +27,17 @@ class MessageAddNotification: EntryNotification<Message> {
             message.markAsUnread(true)
         }
         message.notifyOnAddition()
+        var allow = true
+        let topViewController = UINavigationController.main()?.topViewController as? WrapViewController
+        if topViewController?.segment == .Chat {
+            let wrap = topViewController?.wrap
+            if wrap == message.wrap {
+                allow = false
+            }
+        }
+        if message.contributor?.current == false && !isHistorycal && allow {
+            message.showToast()
+        }
     }
     
     override func presentWithIdentifier(identifier: String?) {

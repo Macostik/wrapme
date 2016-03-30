@@ -316,4 +316,7 @@
 "someone_commented" = "%@ commented:";
 "no_wraps_yet" = "No wraps yet";
 "send" = "Send";
+"someone_is_live" = "%@ is live";
+"you're_invited" = "你已被邀请！";
+"invited_you_to" = "%@邀请你加入\"%@\"";
 "someone_edited_photo" = "%@添加了相片特效。";

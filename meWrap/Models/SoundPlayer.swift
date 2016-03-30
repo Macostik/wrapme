@@ -41,20 +41,7 @@ class SoundPlayer: NSObject {
     private var runQueue = RunQueue(limit: 1)
     
     func play(sound: Sound) {
-        guard currentSound != sound else { return }
         guard UIApplication.sharedApplication().applicationState == .Active else { return }
-        guard let soundID = sound.ID() else { return }
-        runQueue.run { (finish) -> Void in
-            self.currentSound = sound
-            AudioServicesPlaySystemSound(soundID)
-            Dispatch.mainQueue.after(3, block: { () -> Void in
-                self.currentSound = nil
-                finish()
-            })
-        }
-    }
-    
-    func playImmediately(sound: Sound) {
         guard let soundID = sound.ID() else { return }
         self.currentSound = sound
         AudioServicesPlaySystemSound(soundID)

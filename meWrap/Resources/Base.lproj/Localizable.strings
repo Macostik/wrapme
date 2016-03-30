@@ -317,3 +317,6 @@
 "no_wraps_yet" = "No wraps yet";
 "send" = "Send";
 "someone_edited_photo" = "%@ just edited a photo.";
+"someone_is_live" = "%@ is live";
+"you're_invited" = "You're invited!";
+"invited_you_to" = "%@ invited you to '%@'";

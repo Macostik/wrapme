@@ -60,6 +60,7 @@
 		5BAF17AB1C624DFB00D33026 /* CommonEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6DD961C0DC8F5004992E4 /* CommonEnums.swift */; };
 		5BAF17AC1C624E1000D33026 /* NSDate+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52279651BECCE8A00B1C49C /* NSDate+Formatting.swift */; };
 		5BAF17AD1C624E1E00D33026 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5060D191BEBA7E2007FFD5B /* String+Ext.swift */; };
+		5BB67E891CAAB37200A19DA8 /* EntryToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB67E881CAAB37200A19DA8 /* EntryToast.swift */; };
 		5BCC41911C4E40FC0047E7C2 /* WrapSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCC41901C4E40FC0047E7C2 /* WrapSettingsViewController.swift */; };
 		5BD529491BDA796000527077 /* SmartLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD529481BDA796000527077 /* SmartLabel.swift */; };
 		5BE7CD651C0D8781009A7617 /* ConfirmInvitationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE7CD641C0D8781009A7617 /* ConfirmInvitationView.xib */; };
@@ -208,7 +209,7 @@
 		C553DB401C6DF7BA001B13C7 /* WrapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C553DB291C6DF7BA001B13C7 /* WrapViewController.swift */; };
 		C553DB411C6DF7BA001B13C7 /* CandyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C553DB2A1C6DF7BA001B13C7 /* CandyCell.swift */; };
 		C553DB421C6DF7BA001B13C7 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C553DB2C1C6DF7BA001B13C7 /* MediaViewController.swift */; };
-		C5564CF71C7B50EB0075703A /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5564CF61C7B50EB0075703A /* Toast.swift */; };
+		C5564CF71C7B50EB0075703A /* InfoToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5564CF61C7B50EB0075703A /* InfoToast.swift */; };
 		C55766A51C0C913D00E94E09 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55766A31C0C913D00E94E09 /* ImageView.swift */; };
 		C55766A61C0C913D00E94E09 /* EntryStatusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55766A41C0C913D00E94E09 /* EntryStatusIndicator.swift */; };
 		C557B6D91C22BC610067631E /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557B6D81C22BC610067631E /* Network.swift */; };
@@ -502,6 +503,7 @@
 		5B8B31821C8D856A00D8A463 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5BA6CAF11A10E51B004AD41C /* s04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s04.wav; path = Sounds/s04.wav; sourceTree = "<group>"; };
 		5BA83EEB1C6B4E3400FC5A9F /* AddContributorsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContributorsViewController.swift; sourceTree = "<group>"; };
+		5BB67E881CAAB37200A19DA8 /* EntryToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryToast.swift; sourceTree = "<group>"; };
 		5BCC41901C4E40FC0047E7C2 /* WrapSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapSettingsViewController.swift; sourceTree = "<group>"; };
 		5BD529481BDA796000527077 /* SmartLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartLabel.swift; sourceTree = "<group>"; };
 		5BE7CD641C0D8781009A7617 /* ConfirmInvitationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmInvitationView.xib; sourceTree = "<group>"; };
@@ -626,7 +628,7 @@
 		C553DB291C6DF7BA001B13C7 /* WrapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapViewController.swift; sourceTree = "<group>"; };
 		C553DB2A1C6DF7BA001B13C7 /* CandyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyCell.swift; sourceTree = "<group>"; };
 		C553DB2C1C6DF7BA001B13C7 /* MediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
-		C5564CF61C7B50EB0075703A /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		C5564CF61C7B50EB0075703A /* InfoToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoToast.swift; sourceTree = "<group>"; };
 		C55766A31C0C913D00E94E09 /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		C55766A41C0C913D00E94E09 /* EntryStatusIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryStatusIndicator.swift; sourceTree = "<group>"; };
 		C557B6D81C22BC610067631E /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
@@ -1059,7 +1061,8 @@
 				C5BD85411C2E999800EE5558 /* UploaderView.swift */,
 				C5F5F0BF1C690BD6002F74C9 /* LoadingView.swift */,
 				C5F7C5E71C78CA31004C2E68 /* PlaceholderView.swift */,
-				C5564CF61C7B50EB0075703A /* Toast.swift */,
+				C5564CF61C7B50EB0075703A /* InfoToast.swift */,
+				5BB67E881CAAB37200A19DA8 /* EntryToast.swift */,
 				C5978BE31B396FA500D5043E /* DrawingSession */,
 				5BD121571B0250E000FF5FBF /* DownloadingView */,
 				C52E1FC71A41947D00A2C370 /* Text Views */,
@@ -2027,7 +2030,7 @@
 				5BD529491BDA796000527077 /* SmartLabel.swift in Sources */,
 				C5060D1A1BEBA7E2007FFD5B /* String+Ext.swift in Sources */,
 				C5347E281C7625AC0080074C /* ChatViewController.swift in Sources */,
-				C5564CF71C7B50EB0075703A /* Toast.swift in Sources */,
+				C5564CF71C7B50EB0075703A /* InfoToast.swift in Sources */,
 				5B2FB96C1C5B71C8001C4385 /* TextField.swift in Sources */,
 				C5E6DD8A1C0DC84A004992E4 /* Candy.swift in Sources */,
 				C553DB401C6DF7BA001B13C7 /* WrapViewController.swift in Sources */,
@@ -2195,6 +2198,7 @@
 				C5E6DD8C1C0DC84A004992E4 /* Contribution.swift in Sources */,
 				C5FEEEFF1C7E0B02007B6A79 /* UIBezierPath+Interpolation.swift in Sources */,
 				C5F9A49E1C4B8A1700A7D83B /* CaptureMediaViewController.swift in Sources */,
+				5BB67E891CAAB37200A19DA8 /* EntryToast.swift in Sources */,
 				C5E6DD941C0DC84A004992E4 /* Notifier.swift in Sources */,
 				C5F11E571C64A21C001C2486 /* EditProfileViewController.swift in Sources */,
 				C557B6D91C22BC610067631E /* Network.swift in Sources */,

@@ -28,7 +28,7 @@ final class EntryStatusIndicator: UILabel, EntryNotifying {
         }
         
         switch contribution.status {
-        case .Ready: return "D"
+        case .Ready: return "?"
         case .InProgress: return "E"
         case .Finished: return "F"
         }

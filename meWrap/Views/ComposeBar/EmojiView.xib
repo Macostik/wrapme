@@ -89,7 +89,6 @@
                                 <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNS-ti-Qad" customClass="SegmentButton" customModule="meWrap" customModuleProvider="target">
                                     <rect key="frame" x="2" y="10" width="25" height="25"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="25" id="jAQ-nc-VVp"/>
                                         <constraint firstAttribute="height" constant="25" id="luA-ZV-S73"/>
                                         <constraint firstAttribute="width" constant="25" id="vyz-4l-uwX"/>
                                     </constraints>
@@ -113,11 +112,6 @@
                                             <size key="value" width="0.0" height="44"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="jAQ-nc-VVp"/>
-                                        </mask>
-                                    </variation>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AAQ-K0-1t2" customClass="SegmentButton" customModule="meWrap" customModuleProvider="target">
                                     <rect key="frame" x="30" y="10" width="25" height="25"/>
@@ -384,7 +378,6 @@
                                 <constraint firstItem="AAQ-K0-1t2" firstAttribute="centerY" secondItem="Pl3-Xp-var" secondAttribute="centerY" id="Slz-eI-y9w"/>
                                 <constraint firstItem="Pl3-Xp-var" firstAttribute="width" secondItem="ECL-ku-0ZZ" secondAttribute="width" id="UHx-OC-1s4"/>
                                 <constraint firstItem="hvP-9e-53d" firstAttribute="width" secondItem="nh2-ig-9j0" secondAttribute="width" id="VFg-v1-k0I"/>
-                                <constraint firstItem="MNS-ti-Qad" firstAttribute="baseline" secondItem="gFc-pc-jsV" secondAttribute="baseline" id="WLd-he-4JX"/>
                                 <constraint firstItem="waI-DP-tLO" firstAttribute="top" secondItem="yi0-iY-o3U" secondAttribute="top" id="YN8-ID-h5A"/>
                                 <constraint firstAttribute="bottom" secondItem="8eZ-0t-YkC" secondAttribute="bottom" id="Z4f-tX-cmc"/>
                                 <constraint firstItem="ECL-ku-0ZZ" firstAttribute="top" secondItem="yi0-iY-o3U" secondAttribute="top" id="Zkd-YS-Xjt"/>
@@ -409,16 +402,11 @@
                                 <constraint firstItem="waI-DP-tLO" firstAttribute="width" secondItem="aLT-GV-C06" secondAttribute="width" id="xeC-Jk-AFk"/>
                                 <constraint firstItem="MNS-ti-Qad" firstAttribute="centerX" secondItem="gFc-pc-jsV" secondAttribute="centerX" id="xz2-ao-PB7"/>
                             </constraints>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="WLd-he-4JX"/>
-                                </mask>
-                            </variation>
                             <connections>
                                 <outlet property="delegate" destination="itP-Jq-jRI" id="R3W-Td-Vgp"/>
                             </connections>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t7N-v5-Qi4">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t7N-v5-Qi4">
                             <rect key="frame" x="290" y="206" width="30" height="32"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>

@@ -90,7 +90,6 @@ class UploadSummaryViewController: SwipeViewController, CaptureWrapContainer {
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var uploadButton: UIButton!
-    @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var drawButton: UIButton!
     @IBOutlet weak var videoPlayerView: VideoPlayerView!
     
@@ -146,8 +145,7 @@ class UploadSummaryViewController: SwipeViewController, CaptureWrapContainer {
         super.viewDidAppear(animated)
         dataSource.items = assets
         uploadButton.active = true
-        nextButton.hidden = !UploadWizardViewController.isActive
-        uploadButton.hidden = !nextButton.hidden
+        uploadButton.setTitle((UploadWizardViewController.isActive ? "next" : "send").ls, forState: .Normal)
     }
     
     private func updateAssetData(asset: MutableAsset) {

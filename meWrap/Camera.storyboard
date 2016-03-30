@@ -769,7 +769,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bqh-PE-5fJ" customClass="WrapView" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="50" y="0.0" width="165" height="64"/>
+                                        <rect key="frame" x="50" y="0.0" width="262" height="64"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m7Y-PK-g9k" customClass="WrapCoverView" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="15" width="34" height="34"/>
@@ -789,20 +789,20 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zto-LL-FxR" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                                                <rect key="frame" x="42" y="21" width="98" height="23"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap name name name name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zto-LL-FxR" customClass="Label" customModule="meWrap" customModuleProvider="target">
+                                                <rect key="frame" x="42" y="21" width="195" height="23"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="highlightedColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="|" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WOJ-Wj-8EZ">
-                                                <rect key="frame" x="148" y="23" width="17" height="18"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="|" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WOJ-Wj-8EZ">
+                                                <rect key="frame" x="245" y="23" width="17" height="18"/>
                                                 <fontDescription key="fontDescription" name="icons" family="icons" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zfd-IS-5qk" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="165" height="64"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="262" height="64"/>
                                                 <state key="normal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -841,6 +841,7 @@
                                     <constraint firstAttribute="height" constant="64" id="Iiw-37-WmE"/>
                                     <constraint firstItem="bqh-PE-5fJ" firstAttribute="top" secondItem="SZ8-r8-gtM" secondAttribute="top" id="OAi-R3-VnW"/>
                                     <constraint firstItem="ITP-VR-CiW" firstAttribute="centerY" secondItem="SZ8-r8-gtM" secondAttribute="centerY" id="Qag-2J-Frz"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="bqh-PE-5fJ" secondAttribute="trailing" constant="8" id="Rt8-dn-fcc"/>
                                     <constraint firstItem="ITP-VR-CiW" firstAttribute="leading" secondItem="SZ8-r8-gtM" secondAttribute="leading" constant="8" id="sAN-At-90F"/>
                                     <constraint firstItem="bqh-PE-5fJ" firstAttribute="leading" secondItem="ITP-VR-CiW" secondAttribute="trailing" constant="12" id="sss-WA-DZ9"/>
                                 </constraints>
@@ -1172,7 +1173,7 @@
                             <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="DwH-YS-Lus" customClass="GradientView" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1R8-s3-mcT" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1R8-s3-mcT" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="8" y="12" width="30" height="41"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="28"/>
                                         <state key="normal" title="L">
@@ -1190,7 +1191,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6rG-Gg-XC1" customClass="WrapView" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="50" y="0.0" width="165" height="64"/>
+                                        <rect key="frame" x="50" y="0.0" width="209" height="64"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="acu-5i-nSy" customClass="WrapCoverView" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="15" width="34" height="34"/>
@@ -1210,20 +1211,20 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fpr-Ys-lz0" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                                                <rect key="frame" x="42" y="21" width="98" height="23"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap name name name name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fpr-Ys-lz0" customClass="Label" customModule="meWrap" customModuleProvider="target">
+                                                <rect key="frame" x="42" y="21" width="142" height="23"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="highlightedColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="|" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0nv-Df-nHO">
-                                                <rect key="frame" x="148" y="23" width="17" height="18"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="|" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0nv-Df-nHO">
+                                                <rect key="frame" x="192" y="23" width="17" height="18"/>
                                                 <fontDescription key="fontDescription" name="icons" family="icons" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AKj-pJ-2ED" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="165" height="64"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="209" height="64"/>
                                                 <state key="normal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1255,25 +1256,7 @@
                                             <outlet property="nameLabel" destination="fpr-Ys-lz0" id="9gf-Bc-oVd"/>
                                         </connections>
                                     </view>
-                                    <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dg4-sR-b0I" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="269" y="15" width="43" height="35"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                        <state key="normal" title="Next">
-                                            <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" red="0.74208140369999998" green="0.2443449795" blue="0.04564923421" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="upload:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="DWd-cd-h2l"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taU-aO-Oxc" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taU-aO-Oxc" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="267" y="15" width="45" height="35"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                         <state key="normal" title="send">
@@ -1296,15 +1279,13 @@
                                 <constraints>
                                     <constraint firstItem="6rG-Gg-XC1" firstAttribute="leading" secondItem="1R8-s3-mcT" secondAttribute="trailing" constant="12" id="0Ed-qi-S9N"/>
                                     <constraint firstItem="1R8-s3-mcT" firstAttribute="centerY" secondItem="DwH-YS-Lus" secondAttribute="centerY" id="Eyo-78-4au"/>
-                                    <constraint firstItem="dg4-sR-b0I" firstAttribute="centerY" secondItem="DwH-YS-Lus" secondAttribute="centerY" id="J2L-MF-jJz"/>
-                                    <constraint firstAttribute="trailing" secondItem="dg4-sR-b0I" secondAttribute="trailing" constant="8" id="Wzd-Ks-PeG"/>
                                     <constraint firstItem="1R8-s3-mcT" firstAttribute="leading" secondItem="DwH-YS-Lus" secondAttribute="leading" constant="8" id="Y7F-ZK-lVk"/>
+                                    <constraint firstItem="taU-aO-Oxc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6rG-Gg-XC1" secondAttribute="trailing" constant="8" id="Y9N-tg-lre"/>
                                     <constraint firstAttribute="bottom" secondItem="6rG-Gg-XC1" secondAttribute="bottom" id="ajs-CC-fMT"/>
                                     <constraint firstAttribute="trailing" secondItem="taU-aO-Oxc" secondAttribute="trailing" constant="8" id="egL-KW-G3Y"/>
                                     <constraint firstAttribute="height" constant="64" id="hU8-bl-u8U"/>
                                     <constraint firstItem="6rG-Gg-XC1" firstAttribute="top" secondItem="DwH-YS-Lus" secondAttribute="top" id="jxz-q5-pkE"/>
                                     <constraint firstItem="taU-aO-Oxc" firstAttribute="centerY" secondItem="DwH-YS-Lus" secondAttribute="centerY" id="lTo-Aw-zRs"/>
-                                    <constraint firstItem="dg4-sR-b0I" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6rG-Gg-XC1" secondAttribute="trailing" constant="8" id="ucv-aY-gRQ"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="startColor">
@@ -1575,7 +1556,6 @@
                         <outlet property="deleteButton" destination="oyu-cu-lw1" id="L5Q-Qr-zRM"/>
                         <outlet property="drawButton" destination="ojC-8r-fOh" id="6Zf-Mm-X3s"/>
                         <outlet property="editButton" destination="3yq-a6-Fsm" id="dCV-6Q-CsV"/>
-                        <outlet property="nextButton" destination="dg4-sR-b0I" id="E1E-jb-FPs"/>
                         <outlet property="scrollView" destination="x4C-3O-a96" id="ptX-z4-MSm"/>
                         <outlet property="streamView" destination="OZr-dY-Xul" id="mes-0t-0fB"/>
                         <outlet property="uploadButton" destination="taU-aO-Oxc" id="uo7-dz-nh2"/>

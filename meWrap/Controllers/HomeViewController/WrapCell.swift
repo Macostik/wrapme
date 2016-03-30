@@ -53,7 +53,7 @@ class WrapCell: StreamReusableView {
     private let nameLabel = Label(preset: .Large, textColor: Color.grayDarker)
     private let dateLabel = Label(preset: .Small, textColor: Color.grayLight)
     private let badgeLabel = BadgeLabel(preset: .Smaller, textColor: UIColor.whiteColor())
-    private let liveBadge = Label(preset: FontPreset.XSmall, textColor: UIColor.whiteColor())
+    private let liveBadge = Label(preset: .XSmall, textColor: UIColor.whiteColor())
     
     private var nameBadgeLeading: Constraint!
     private var nameLiveLeading: Constraint!

@@ -118,8 +118,8 @@ final class NotificationCenter: NSObject {
         
         for message in messages {
             guard let n = Notification.notificationWithMessage(message) else { continue }
-            guard n.canBeHandled() && !NotificationCenter.canSkipNotification(n) else { continue }
             n.isHistorycal = isHistorycal
+            guard n.canBeHandled() && !NotificationCenter.canSkipNotification(n) else { continue }
             notifications.append(n)
         }
         
@@ -306,6 +306,9 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
                     user.fetchIfNeeded({ _ in
                         let broadcast = device.activity.generateLiveBroadcast()
                         wrap.addBroadcast(broadcast)
+                        if broadcast.broadcaster?.current == false {
+                            wrap.showToast()
+                        }
                         }, failure: nil)
                 } else {
                     for broadcast in wrap.liveBroadcasts where broadcast.broadcaster == user {

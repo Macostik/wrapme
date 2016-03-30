@@ -38,9 +38,10 @@ class EntryToast: UIView, PresenterStyle {
     private var topLabel = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
     private let middleLabel = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
     private let rightLabel = Label(preset: .Smaller, weight: .Regular, textColor: Color.orange)
+    private let bottomLabel = Label(preset: .Smaller, weight: .Regular, textColor: UIColor.whiteColor())
+    private let liveBadge = Label(preset: .Small, textColor: UIColor.whiteColor())
     private let topView = View()
     private let bottomView = View()
-    private let bottomLabel = Label(preset: .Smaller, weight: .Regular, textColor: UIColor.whiteColor())
     var topViewBottomCostraint: Constraint?
     var imageBottomCostraint: Constraint?
     var imageHeightCostraint: Constraint?
@@ -55,6 +56,7 @@ class EntryToast: UIView, PresenterStyle {
         addSubview(topView)
         addSubview(bottomView)
         topView.addSubview(avatar)
+        topView.addSubview(liveBadge)
         topView.addSubview(topLabel)
         topView.addSubview(middleLabel)
         topView.addSubview(rightLabel)
@@ -72,7 +74,7 @@ class EntryToast: UIView, PresenterStyle {
         }
         
         topLabel.snp_makeConstraints {
-            $0.leading.equalTo(avatar.snp_trailing).offset(12)
+            $0.leading.equalTo(liveBadge.snp_trailing).offset(12)
             $0.top.equalTo(topView).offset(12)
             $0.trailing.lessThanOrEqualTo(rightLabel.snp_leading).offset(-12)
         }
@@ -119,9 +121,29 @@ class EntryToast: UIView, PresenterStyle {
         rightLabel.text = "now".ls
         bottomLabel.text = "tap_to_view".ls
         imageView.url = entry.asset?.medium
+        liveBadge.textAlignment = .Center
+        liveBadge.cornerRadius = 8
+        liveBadge.clipsToBounds = true
+        liveBadge.backgroundColor = Color.dangerRed
+        liveBadge.text = "LIVE"
+        showBadge(false)
         setupContent(entry)
         SoundPlayer.player.play(.note)
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+    }
+    
+    func showBadge(show: Bool) {
+        liveBadge.snp_updateConstraints {
+            $0.centerY.equalTo(topLabel)
+            $0.height.equalTo(20)
+            if show {
+                $0.leading.equalTo(avatar.snp_trailing).offset(12)
+                $0.width.equalTo(40)
+            } else {
+                $0.leading.equalTo(avatar.snp_trailing)
+                $0.width.equalTo(0)
+            }
+        }
     }
     
     private func setupContent(entry: Entry) {
@@ -143,9 +165,10 @@ class EntryToast: UIView, PresenterStyle {
             middleLabel.text = message.text
             shortStyle()
             break
-        case let wrap as Wrap where wrap.liveBroadcasts.isEmpty :
+        case let wrap as Wrap where wrap.liveBroadcasts.isEmpty == false:
             topLabel.text = String(format: "someone_is_live".ls, wrap.contributor?.name ?? "")
-            middleLabel.text = String(format: "\(wrap.name ?? ""):")
+            middleLabel.text = String(format: "\(wrap.name ?? "")")
+            showBadge(true)
             shortStyle()
             break
         case let user as User where user.isInvited:
@@ -154,7 +177,7 @@ class EntryToast: UIView, PresenterStyle {
             fullStyle()
             break
             
-        default: break
+        default:break
         }
     }
     
@@ -182,6 +205,14 @@ class EntryToast: UIView, PresenterStyle {
         dissmis()
         guard let entry = entry else { return }
         ChronologicalEntryPresenter.presentEntry(entry, animated: false)
+        if case let wrap = entry as? Wrap where wrap?.liveBroadcasts.isEmpty == false {
+            guard let nc = UINavigationController.main() else { return }
+            weak var controller = wrap?.viewControllerWithNavigationController(nc) as? WrapViewController
+            guard let liveBroadcast = wrap?.liveBroadcasts.last else { return }
+            Dispatch.mainQueue.after(1.2) { _ in
+                controller?.presentLiveProadcast(liveBroadcast)
+            }
+        } 
     }
     
     func dissmis() {

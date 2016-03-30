@@ -203,7 +203,7 @@ extension UploadSummaryViewController { // MARK actions
     }
     
     @IBAction func upload(sender: AnyObject?) {
-        asset?.comment = self.composeBar.text
+        asset?.comment = self.composeBar.text?.trim
         delegate?.uploadSummaryViewController(self, didFinishWithAssets:assets)
         
         Dispatch.mainQueue.async {
@@ -290,8 +290,8 @@ extension UploadSummaryViewController: ComposeBarDelegate {
     }
     
     func composeBarDidChangeText(composeBar: ComposeBar) {
-        var comment = composeBar.text ?? ""
-        while commentLimitExceeded(comment) {
+        var comment = composeBar.text?.trim ?? ""
+        while comment.utf8.count > InstanceCommentLimit {
             comment = comment.substringToIndex(comment.endIndex.predecessor())
         }
         if comment != composeBar.text {
@@ -303,20 +303,12 @@ extension UploadSummaryViewController: ComposeBarDelegate {
         (item?.view as? EditAssetCell)?.updateStatus()
     }
     
-    private func commentLimitExceeded(text: String) -> Bool {
-        if text.characters.count <= InstanceCommentLimit {
-            return false
-        } else {
-            return text.utf8.count > InstanceCommentLimit
-        }
-    }
-    
     func composeBarDidBeginEditing(composeBar: ComposeBar) {
         scrollView?.userInteractionEnabled = false
     }
     
     func composeBarDidEndEditing(composeBar: ComposeBar) {
-        asset?.comment = composeBar.text
+        asset?.comment = composeBar.text?.trim
         scrollView?.userInteractionEnabled = true
     }
 }

@@ -36,7 +36,7 @@ private final class SwipeActionView: UIView {
         addSubview(icon)
         addSubview(label)
         shape.snp_makeConstraints { $0.edges.equalTo(self) }
-        icon.text = isRight ? "4" : "u"
+        icon.text = isRight ? ";" : "u"
         label.text = isRight ? "slide_to_chat".ls : "slide_to_open_camera".ls
         icon.snp_makeConstraints { (make) -> Void in
             if isRight {

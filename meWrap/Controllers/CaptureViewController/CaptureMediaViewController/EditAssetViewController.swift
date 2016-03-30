@@ -51,14 +51,7 @@ class EditAssetCell: StreamReusableView {
     
     func updateStatus() {
         if let asset = entry as? MutableAsset {
-            var status = ""
-            if let comment = asset.comment?.trim where !comment.isEmpty {
-                status += "4"
-            }
-            if asset.edited {
-                status += "R"
-            }
-            statusLabel.text = status
+            statusLabel.text = "\(asset.comment?.isEmpty == false ? ";" : "") \(asset.edited ? "R" : "")".trim
         }
     }
 }

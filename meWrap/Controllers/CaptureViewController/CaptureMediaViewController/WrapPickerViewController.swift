@@ -167,8 +167,8 @@ class WrapPickerViewController: BaseViewController {
         }
     }
     
-    override func constantForKeyboardAdjustmentBottomConstraint(constraint: NSLayoutConstraint, defaultConstant: CGFloat, keyboardHeight: CGFloat) -> CGFloat {
-        return max(0, keyboardHeight - (view.height - streamView.frame.maxY - 10))
+    override func keyboardAdjustmentConstant(adjustment: KeyboardAdjustment, keyboard: Keyboard) -> CGFloat {
+        return max(0, keyboard.height - (view.height - streamView.frame.maxY - 10))
     }
     
     func showInViewController(controller: UIViewController) {

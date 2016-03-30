@@ -30,13 +30,13 @@ class SignupStepViewController: BaseViewController {
         emailLabel?.text = Authorization.current.email
     }
     
-    override func keyboardAdjustmentForConstraint(constraint: NSLayoutConstraint, defaultConstant: CGFloat, keyboardHeight: CGFloat) -> CGFloat {
+    override func keyboardAdjustmentConstant(adjustment: KeyboardAdjustment, keyboard: Keyboard) -> CGFloat {
         if let responder = view.findFirstResponder() {
             let responderCenterY = responder.center.y + 64
-            let centerYOfVisibleSpace = (view.height - keyboardHeight - 64)/2 + 64
-            return max(0, (responderCenterY - centerYOfVisibleSpace) * constraint.multiplier)
+            let centerYOfVisibleSpace = (view.height - keyboard.height - 64)/2 + 64
+            return adjustment.defaultConstant + max(0, (responderCenterY - centerYOfVisibleSpace) * adjustment.constraint.multiplier)
         }
-        return Constants.isPhone ? keyboardHeight / 2 : 0
+        return adjustment.defaultConstant + (Constants.isPhone ? keyboard.height / 2 : 0)
     }
 
     override func viewDidDisappear(animated: Bool) {

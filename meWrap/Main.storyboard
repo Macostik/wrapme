@@ -3982,7 +3982,6 @@ QWRkEEZyaWVuZFZpZXc
                             <constraint firstItem="6gi-jB-36P" firstAttribute="leading" secondItem="IgI-7Y-zB6" secondAttribute="leading" constant="12" id="KA1-JH-SKc"/>
                             <constraint firstItem="TDj-ND-asZ" firstAttribute="top" secondItem="l6r-AU-Age" secondAttribute="bottom" priority="999" constant="12" id="Q0c-Ne-b7w"/>
                             <constraint firstItem="oVK-cS-Ps7" firstAttribute="leading" secondItem="IgI-7Y-zB6" secondAttribute="leading" constant="12" id="QUd-HR-Fr3"/>
-                            <constraint firstItem="l6r-AU-Age" firstAttribute="top" secondItem="IgI-7Y-zB6" secondAttribute="topMargin" constant="396" id="RT3-Dj-W1i"/>
                             <constraint firstItem="sLm-tZ-lwk" firstAttribute="top" secondItem="cxE-yC-9tL" secondAttribute="bottom" constant="12" id="T1R-kP-7e6"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6gi-jB-36P" secondAttribute="trailing" constant="12" id="Ui9-fq-oFL"/>
                             <constraint firstItem="lcy-Qn-Z2u" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="x6q-A3-oyw" secondAttribute="trailing" constant="12" id="VBC-A6-fsf"/>
@@ -4001,11 +4000,6 @@ QWRkEEZyaWVuZFZpZXc
                             <constraint firstItem="x6q-A3-oyw" firstAttribute="leading" secondItem="IgI-7Y-zB6" secondAttribute="leading" constant="12" id="zJ4-1Q-NGY"/>
                             <constraint firstItem="TDj-ND-asZ" firstAttribute="leading" secondItem="IgI-7Y-zB6" secondAttribute="leading" id="zto-f0-guc"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="RT3-Dj-W1i"/>
-                            </mask>
-                        </variation>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>

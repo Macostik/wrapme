@@ -8,7 +8,18 @@
 
 import Foundation
 
-class BaseViewController: GAITrackedViewController {
+struct KeyboardAdjustment {
+    let isBottom: Bool
+    let defaultConstant: CGFloat
+    let constraint: NSLayoutConstraint
+    init(constraint: NSLayoutConstraint, isBottom: Bool = true) {
+        self.isBottom = isBottom
+        self.constraint = constraint
+        self.defaultConstant = constraint.constant
+    }
+}
+
+class BaseViewController: GAITrackedViewController, KeyboardNotifying {
     
     @IBInspectable var statusBarDefault = false
     
@@ -22,20 +33,14 @@ class BaseViewController: GAITrackedViewController {
     
     var viewAppeared = false
     
-    @IBOutlet var keyboardAdjustmentBottomConstraints: [NSLayoutConstraint] = []
-    
-    @IBOutlet var keyboardAdjustmentTopConstraints: [NSLayoutConstraint] = []
-    
-    private lazy var keyboardAdjustmentDefaultConstants: [NSLayoutConstraint : CGFloat] = {
-        var constants = [NSLayoutConstraint : CGFloat]()
-        for constraint in self.keyboardAdjustmentTopConstraints {
-            constants[constraint] = constraint.constant
-        }
-        for constraint in self.keyboardAdjustmentBottomConstraints {
-            constants[constraint] = constraint.constant
-        }
-        return constants
+    private lazy var keyboardAdjustments: [KeyboardAdjustment] = {
+        var adjustments = self.keyboardAdjustmentBottomConstraints.map({ KeyboardAdjustment(constraint: $0) })
+        adjustments += self.keyboardAdjustmentTopConstraints.map({ KeyboardAdjustment(constraint: $0, isBottom: false) })
+        return adjustments
     }()
+    
+    @IBOutlet var keyboardAdjustmentBottomConstraints: [NSLayoutConstraint] = []
+    @IBOutlet var keyboardAdjustmentTopConstraints: [NSLayoutConstraint] = []
     
     deinit {
         #if DEBUG
@@ -60,7 +65,9 @@ class BaseViewController: GAITrackedViewController {
             view.layoutIfNeeded()
         }
         screenName = NSStringFromClass(self.dynamicType)
-        Keyboard.keyboard.addReceiver(self)
+        if !keyboardAdjustments.isEmpty {
+            Keyboard.keyboard.addReceiver(self)
+        }
     }
     
     func shouldUsePreferredViewFrame() -> Bool {
@@ -87,80 +94,37 @@ class BaseViewController: GAITrackedViewController {
     override func shouldAutorotate() -> Bool {
         return true
     }
-}
-
-extension BaseViewController: KeyboardNotifying {
     
-    func constantForKeyboardAdjustmentBottomConstraint(constraint: NSLayoutConstraint, defaultConstant: CGFloat, keyboardHeight: CGFloat) -> CGFloat {
-        let adjustment = keyboardAdjustmentForConstraint(constraint, defaultConstant:defaultConstant, keyboardHeight:keyboardHeight)
-        return defaultConstant + adjustment
-    }
-    
-    func constantForKeyboardAdjustmentTopConstraint(constraint: NSLayoutConstraint, defaultConstant: CGFloat, keyboardHeight: CGFloat) -> CGFloat {
-        let adjustment = keyboardAdjustmentForConstraint(constraint, defaultConstant:defaultConstant, keyboardHeight:keyboardHeight)
-        return defaultConstant - adjustment
-    }
-    
-    func keyboardAdjustmentForConstraint(constraint: NSLayoutConstraint, defaultConstant: CGFloat, keyboardHeight: CGFloat) -> CGFloat {
-        return keyboardHeight
-    }
-    
-    private func updateKeyboardAdjustmentConstraints(keyboardHeight: CGFloat) -> Bool {
-        var changed = false
-        let constants = keyboardAdjustmentDefaultConstants
-        for constraint in keyboardAdjustmentTopConstraints {
-            let constraint = constraint
-            var constant: CGFloat = constants[constraint] ?? 0
-            if keyboardHeight > 0 {
-                constant = constantForKeyboardAdjustmentTopConstraint(constraint, defaultConstant:constant, keyboardHeight:keyboardHeight)
-            }
-            if constraint.constant != constant {
-                constraint.constant = constant
-                changed = true
-            }
-        }
-        for constraint in keyboardAdjustmentBottomConstraints {
-            let constraint = constraint
-            var constant: CGFloat = constants[constraint] ?? 0
-            if keyboardHeight > 0 {
-                constant = constantForKeyboardAdjustmentBottomConstraint(constraint, defaultConstant:constant, keyboardHeight:keyboardHeight)
-            }
-            if constraint.constant != constant {
-                constraint.constant = constant
-                changed = true
-            }
-        }
-        return changed
-    }
-    
-    private func layoutKeyboardAdjustmentViews() {
-        for layoutView in keyboardAdjustmentLayoutViews ?? [] {
-            layoutView.layoutIfNeeded()
-        }
-    }
-    
-    private func layoutKeyboardAdjustmentView(keyboard: Keyboard) {
-        if keyboardAdjustmentAnimated && viewAppeared {
-            keyboard.performAnimation({ layoutKeyboardAdjustmentViews() })
+    func keyboardAdjustmentConstant(adjustment: KeyboardAdjustment, keyboard: Keyboard) -> CGFloat {
+        if adjustment.isBottom {
+            return adjustment.defaultConstant + keyboard.height
         } else {
-            layoutKeyboardAdjustmentViews()
+            return adjustment.defaultConstant - keyboard.height
+        }
+    }
+    
+    private func adjust(keyboard: Keyboard, willHide: Bool = false) {
+        keyboardAdjustments.all({
+            $0.constraint.constant = willHide ? $0.defaultConstant : keyboardAdjustmentConstant($0, keyboard:keyboard)
+        })
+        if keyboardAdjustmentAnimated && viewAppeared {
+            keyboard.performAnimation({ keyboardAdjustmentLayoutViews.all { $0.layoutIfNeeded() } })
+        } else {
+            keyboardAdjustmentLayoutViews.all { $0.layoutIfNeeded() }
         }
     }
     
     func keyboardWillShow(keyboard: Keyboard) {
-        guard isViewLoaded() && (keyboardAdjustmentTopConstraints.isEmpty == false || keyboardAdjustmentBottomConstraints.isEmpty == false) else { return }
-        if updateKeyboardAdjustmentConstraints(keyboard.height) {
-            layoutKeyboardAdjustmentView(keyboard)
-        }
+        guard isViewLoaded() && !keyboardAdjustments.isEmpty else { return }
+        adjust(keyboard)
     }
     
-    func keyboardDidShow(keyboard: Keyboard) { }
+    func keyboardDidShow(keyboard: Keyboard) {}
     
     func keyboardWillHide(keyboard: Keyboard) {
-        guard isViewLoaded() && (keyboardAdjustmentTopConstraints.isEmpty == false || keyboardAdjustmentBottomConstraints.isEmpty == false) else { return }
-        updateKeyboardAdjustmentConstraints(0)
-        layoutKeyboardAdjustmentView(keyboard)
+        guard isViewLoaded() && !keyboardAdjustments.isEmpty else { return }
+        adjust(keyboard, willHide: true)
     }
     
-    func keyboardDidHide(keyboard: Keyboard) { }
+    func keyboardDidHide(keyboard: Keyboard) {}
 }

@@ -128,6 +128,10 @@ final class WrapViewController: BaseViewController {
     
     @IBOutlet weak var moreFriendsLabel: UILabel!
     
+    lazy var inboxViewController: InboxViewController = self.controllerNamed("inbox", badge:self.inboxSegmentButton.badge)
+    lazy var mediaViewController: MediaViewController = self.controllerNamed("media", badge:self.mediaSegmentButton.badge)
+    lazy var chatViewController: ChatViewController = self.controllerNamed("chat", badge:self.chatSegmentButton.badge)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -181,9 +185,9 @@ final class WrapViewController: BaseViewController {
     
     private func controllerForSegment(segment: WrapSegment) -> WrapSegmentViewController {
         switch segment {
-        case .Inbox: return controllerNamed("inbox", badge:self.inboxSegmentButton.badge)
-        case .Media: return controllerNamed("media", badge:self.mediaSegmentButton.badge)
-        case .Chat: return controllerNamed("chat", badge:self.chatSegmentButton.badge)
+        case .Inbox: return inboxViewController
+        case .Media: return mediaViewController
+        case .Chat: return chatViewController
         }
     }
     
@@ -314,32 +318,10 @@ final class WrapViewController: BaseViewController {
         inboxSegmentButton.badge.value = wrap?.numberOfUnreadInboxItems ?? 0
     }
     
-    var showKeyboard = false {
-        didSet {
-            if let controller = viewController as? ChatViewController where showKeyboard {
-                controller.showKeyboard = showKeyboard
-                if controller.isViewLoaded() {
-                    controller.presentedText = self.presentedText
-                    showKeyboard = false
-                }
-            }
-        }
-    }
-    
-    var presentedText: String?
-    
     private var viewController: UIViewController? {
         didSet {
             oldValue?.view.removeFromSuperview()
             if let controller = viewController {
-                if segment == .Chat {
-                    if let chatViewController = controller as? ChatViewController {
-                        chatViewController.presentedText = self.presentedText
-                        chatViewController.showKeyboard = showKeyboard
-                    }
-                    showKeyboard = false
-                }
-                
                 let view = controller.view
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.frame = self.containerView.bounds
@@ -350,16 +332,13 @@ final class WrapViewController: BaseViewController {
         }
     }
     
-    private func controllerNamed(name: String, badge: BadgeLabel?) -> WrapSegmentViewController {
-        var controller: WrapSegmentViewController! = childViewControllers.filter { $0.restorationIdentifier == name }.first as? WrapSegmentViewController
-        if controller == nil {
-            controller = storyboard?[name] as! WrapSegmentViewController
-            controller.preferredViewFrame = containerView.bounds
-            controller.wrap = wrap
-            controller.delegate = self
-            addChildViewController(controller)
-            controller.didMoveToParentViewController(self)
-        }
+    private func controllerNamed<T: WrapSegmentViewController>(name: String, badge: BadgeLabel?) -> T {
+        let controller = storyboard?[name] as! T
+        controller.preferredViewFrame = containerView.bounds
+        controller.wrap = wrap
+        controller.delegate = self
+        addChildViewController(controller)
+        controller.didMoveToParentViewController(self)
         controller.badge = badge
         return controller
     }
@@ -413,10 +392,7 @@ extension WrapViewController {
     }
     
     @IBAction override func back(sender: UIButton) {
-        if presentedText != nil {
-            navigationController?.popToRootViewControllerAnimated(false)
-        }
-        navigationController?.popViewControllerAnimated(false)
+        navigationController?.popToRootViewControllerAnimated(false)
     }
 }
 

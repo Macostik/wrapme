@@ -23,7 +23,6 @@ class HistoryViewController: SwipeViewController {
     var history: History?
     private var candies = [Candy]()
     
-    var showCommentViewController = false
     var presenter: CandyEnlargingPresenter?
     var commentPressed: Block?
     var dismissingView: ((presenter: CandyEnlargingPresenter?, candy: Candy) -> UIView?)?
@@ -65,10 +64,6 @@ class HistoryViewController: SwipeViewController {
         }
         
         setCandy(candy, direction: .Forward, animated: false)
-        
-        if (self.showCommentViewController) {
-            showCommentView()
-        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -76,10 +71,6 @@ class HistoryViewController: SwipeViewController {
         bottomView.comment = nil
         downloadButton.active = !PHPhotoLibrary.authorizationStatus().denied
         updateOwnerData()
-        if !showCommentViewController {
-            setBarsHidden(false, animated: animated)
-            commentButtonPrioritizer.defaultState = true
-        }
         if let candy = candy, let index = candies.indexOf(candy) where !candy.valid {
             if let candy = candyAfterDeletingCandyAt(index) {
                 setCandy(candy, direction: .Forward, animated: false)
@@ -94,8 +85,12 @@ class HistoryViewController: SwipeViewController {
     }
     
     func showCommentView() {
-        commentButton.sendActionsForControlEvents(.TouchUpInside)
-        showCommentViewController = false
+        if childViewControllers.contains({ $0 is CommentsViewController }) {
+            return
+        }
+        setBarsHidden(true, animated: true)
+        applyScaleToCandyViewController(true)
+        Storyboard.Comments.instantiate({ $0.candy = candy }).presentForController(self)
     }
     
     private func setCandy(candy: Candy?, direction: SwipeDirection, animated: Bool) {
@@ -349,21 +344,7 @@ extension HistoryViewController {
     
     @IBAction func comments(sender: AnyObject) {
         commentPressed?()
-        FollowingViewController.followWrapIfNeeded(wrap) { [weak self] () -> Void in
-            if let controllers = self?.childViewControllers {
-                for controller in controllers {
-                    if controller is CommentsViewController {
-                        return
-                    }
-                }
-            }
-            self?.setBarsHidden(true, animated: true)
-            self?.applyScaleToCandyViewController(true)
-            Storyboard.Comments.instantiate({ (controller) -> Void in
-                controller.candy = self?.candy
-                controller.presentForController(self)
-            })
-        }
+        showCommentView()
     }
     
     @IBAction func hadleTapRecognizer(sender: AnyObject) {

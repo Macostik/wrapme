@@ -63,7 +63,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
             $0.selectable = false
             })
         
-        multipleMetrics = specify(StreamMetrics(loader: StreamLoader<MultipleAddressBookRecordCell>()), { [weak self] (metrics) -> Void in
+        multipleMetrics = specify(StreamMetrics(loader: StreamLoader<MultipleAddressBookRecordCell>()), { [weak self] metrics in
             metrics.selectable = false
             metrics.modifyItem = { (item) in
                 guard let record = item.entry as? AddressBookRecord else { return }
@@ -80,7 +80,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
             }
             })
         
-        sectionHeaderMetrics = StreamMetrics(loader: StreamLoader<AddressBookGroupView>()).change({ [weak self] (metrics) -> Void in
+        sectionHeaderMetrics = StreamMetrics(loader: StreamLoader<AddressBookGroupView>()).change({ [weak self] metrics in
             metrics.size = 32.0
             metrics.modifyItem = { [weak self] (item) in
                 if let group = self?.filteredAddressBook?.groups[safe: item.position.section] {
@@ -151,7 +151,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
             }
             APIRequest.addContributors(addressBook.selectedPhoneNumbers, wrap: wrap, message: nil)?.send({ [weak self] _ in
                 self?.completionHandler?(true)
-                }, failure: { (error) -> Void in
+                }, failure: { error in
                     error?.show()
             })
         }

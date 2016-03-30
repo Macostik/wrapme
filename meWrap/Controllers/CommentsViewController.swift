@@ -249,7 +249,8 @@ class CommentsViewController: BaseViewController {
         typing = false
         view.endEditing(true)
         removeFromContainerAnimated(true)
-        historyViewController?.viewWillAppear(true)
+        historyViewController?.setBarsHidden(false, animated: true)
+        historyViewController?.commentButtonPrioritizer.defaultState = true
         historyViewController?.applyScaleToCandyViewController(false)
     }
     

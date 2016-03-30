@@ -52,7 +52,7 @@ final class ActivationViewController: SignupStepViewController {
         NSUserDefaults.standardUserDefaults().confirmationDate = NSDate.now()
         if let code = self.activationTextField.text where !code.isEmpty {
             Authorization.current.activationCode = code
-            Authorization.current.activation().handleProgress(progressBar).send({ [weak self] (_) -> Void in
+            Authorization.current.activation().handleProgress(progressBar).send({ [weak self] _ in
                 self?.signIn(success, failure: failure)
                 }, failure: failure)
         } else {
@@ -62,10 +62,10 @@ final class ActivationViewController: SignupStepViewController {
     
     @IBAction func next(sender: Button) {
         sender.loading = true
-        activate({ [weak self] (_) -> Void in
+        activate({ [weak self] _ in
             sender.loading = false
             self?.setSuccessStatusAnimated(false)
-            }) { [weak self] (error) -> Void in
+            }) { [weak self] error in
                 sender.loading = false
                 self?.setFailureStatusAnimated(false)
         }
@@ -73,10 +73,10 @@ final class ActivationViewController: SignupStepViewController {
     
     @IBAction func call(sender: UIButton) {
         sender.userInteractionEnabled = false
-        APIRequest.verificationCall().send({ [weak self] (_) -> Void in
+        APIRequest.verificationCall().send({ [weak self] _ in
             sender.userInteractionEnabled = true
             UIAlertController.alert(String(format: "formatted_calling_now".ls, self?.phoneNumberLabel.text ?? "")).show()
-            }) { (error) -> Void in
+            }) { error in
                 sender.userInteractionEnabled = true
                 error?.show()
         }

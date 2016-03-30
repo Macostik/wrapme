@@ -49,21 +49,21 @@ class AddressBook: Notifier {
         }
     }
     
-    func cachedRecords(success: [AddressBookRecord] -> Void, failure: FailureBlock?) -> Bool {
+    func cachedRecords(success: [AddressBookRecord] -> (), failure: FailureBlock?) -> Bool {
         if let records = validCachedRecords() {
             success(records)
             return true
         } else {
             
-            runQueue.run { (finish) -> Void in
+            runQueue.run { finish in
                 
                 let _failure: FailureBlock = { error in
                     failure?(error)
                     finish()
                 }
                 
-                self.addressBook({ (ab) -> Void in
-                    self.records(ab, success: { (records) -> Void in
+                self.addressBook({ ab in
+                    self.records(ab, success: { records in
                         success(records)
                         finish()
                         }, failure: _failure)
@@ -73,12 +73,12 @@ class AddressBook: Notifier {
         }
     }
     
-    private func records(addressBook: ABAddressBookRef, success: [AddressBookRecord] -> Void, failure: FailureBlock?) {
-        Dispatch.defaultQueue.async { () -> Void in
+    private func records(addressBook: ABAddressBookRef, success: [AddressBookRecord] -> (), failure: FailureBlock?) {
+        Dispatch.defaultQueue.async {
             do {
                 let records = try self.contacts(addressBook)
                 Dispatch.mainQueue.async {
-                    APIRequest.contributorsFromRecords(records)?.send({ (object) -> Void in
+                    APIRequest.contributorsFromRecords(records)?.send({ object in
                         if let records = object as? [AddressBookRecord] {
                             self.cachedRecords = records
                             success(records)
@@ -113,13 +113,13 @@ class AddressBook: Notifier {
         }
     }
     
-    private func addressBook(success: ABAddressBookRef -> Void, failure: FailureBlock?) {
+    private func addressBook(success: ABAddressBookRef -> (), failure: FailureBlock?) {
         if let addressBook = ABAddressBook {
             success(addressBook)
         } else {
             if let addressBook = ABAddressBookCreateWithOptions(nil, nil)?.takeUnretainedValue() {
-                ABAddressBookRequestAccessWithCompletion(addressBook, { (granted, error) -> Void in
-                    Dispatch.mainQueue.async { () -> Void in
+                ABAddressBookRequestAccessWithCompletion(addressBook, { granted, error in
+                    Dispatch.mainQueue.async {
                         if let error = error as NSError? {
                             failure?(error)
                         } else if granted {
@@ -141,14 +141,14 @@ class AddressBook: Notifier {
     }
     
     func updateCachedRecords() {
-        runQueue.run { (finish) -> Void in
-            self.addressBook({ (addressBook) -> Void in
-                self.records(addressBook, success: { (_) -> Void in
+        runQueue.run { finish in
+            self.addressBook({ addressBook in
+                self.records(addressBook, success: { _ in
                     finish()
-                    }, failure: { (error) -> Void in
+                    }, failure: { _ in
                         finish()
                 })
-                }) { (error) -> Void in
+                }) { error in
                     if let error = error where error.isNetworkError {
                         Network.sharedNetwork.addReceiver(self)
                     }
@@ -158,26 +158,26 @@ class AddressBook: Notifier {
     }
     
     func beginCaching() {
-        runQueue.run { (finish) -> Void in
-            self.addressBook({ (addressBook) -> Void in
-                self.records(addressBook, success: { (_) -> Void in
+        runQueue.run { finish in
+            self.addressBook({ addressBook in
+                self.records(addressBook, success: { _ in
                     ABAddressBookRegisterExternalChangeCallback(addressBook, addressBookChanged, nil)
                     finish()
-                    }, failure: { (error) -> Void in
+                    }, failure: { _ in
                         finish()
                 })
-                }) { (error) -> Void in
+                }) { _ in
                     finish()
             }
         }
     }
     
     func endCaching() {
-        runQueue.run { (finish) -> Void in
-            self.addressBook({ (addressBook) -> Void in
+        runQueue.run { finish in
+            self.addressBook({ addressBook in
                 ABAddressBookRegisterExternalChangeCallback(addressBook, addressBookChanged, nil)
                 finish()
-                }) { (error) -> Void in
+                }) { _ in
                     finish()
             }
         }

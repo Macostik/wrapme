@@ -43,22 +43,6 @@ final class ChatViewController: WrapSegmentViewController {
     
     private var runQueue = RunQueue(limit: 1)
     
-    var showKeyboard = false {
-        willSet {
-            if isViewLoaded() && newValue {
-                composeBar.becomeFirstResponder()
-            }
-        }
-    }
-    
-    var presentedText: String? {
-        willSet {
-            if let newValue = newValue where !newValue.isEmpty {
-                composeBar?.text = newValue
-            }
-        }
-    }
-    
     deinit {
         streamView?.delegate = nil
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -108,17 +92,10 @@ final class ChatViewController: WrapSegmentViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         streamView.unlock()
         chat.sort()
         scrollToLastUnreadMessage()
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ChatViewController.applicationWillResignActive), name:UIApplicationWillResignActiveNotification, object:nil)
-        if showKeyboard {
-            composeBar.becomeFirstResponder()
-            if presentedText != nil {
-                composeBar.text = presentedText
-            }
-        }
     }
     
     override func viewWillDisappear(animated: Bool) {

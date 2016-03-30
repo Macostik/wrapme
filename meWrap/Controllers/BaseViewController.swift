@@ -19,6 +19,14 @@ struct KeyboardAdjustment {
     }
 }
 
+func performWhenLoaded<T: BaseViewController>(controller: T, block: T -> ()) {
+    controller.whenLoaded { [weak controller] in
+        if let controller = controller {
+            block(controller)
+        }
+    }
+}
+
 class BaseViewController: GAITrackedViewController, KeyboardNotifying {
     
     @IBInspectable var statusBarDefault = false
@@ -67,6 +75,24 @@ class BaseViewController: GAITrackedViewController, KeyboardNotifying {
         screenName = NSStringFromClass(self.dynamicType)
         if !keyboardAdjustments.isEmpty {
             Keyboard.keyboard.addReceiver(self)
+        }
+        if !whenLoadedBlocks.isEmpty {
+            whenLoadedBlocks.all({ $0.block() })
+            whenLoadedBlocks.removeAll()
+        }
+    }
+    
+    private struct WhenLoadedBlock {
+        let block: () -> ()
+    }
+    
+    private var whenLoadedBlocks = [WhenLoadedBlock]()
+    
+    func whenLoaded(block: () -> ()) {
+        if isViewLoaded() {
+            block()
+        } else {
+            whenLoadedBlocks.append(WhenLoadedBlock(block: block))
         }
     }
     

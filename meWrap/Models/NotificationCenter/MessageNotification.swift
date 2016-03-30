@@ -43,11 +43,17 @@ class MessageAddNotification: EntryNotification<Message> {
     override func presentWithIdentifier(identifier: String?) {
         super.presentWithIdentifier(identifier)
         if let nc = UINavigationController.main() {
-            let controller = _entry?.viewControllerWithNavigationController(nc) as? WrapViewController
-            controller?.segment = .Chat
-            if identifier == "reply" {
-                controller?.showKeyboard = true
+            if let controller = _entry?.viewControllerWithNavigationController(nc) as? WrapViewController {
+                controller.segment = .Chat
+                if identifier == "reply" {
+                    performWhenLoaded(controller.chatViewController, block: { controller in
+                        Dispatch.mainQueue.async({
+                            controller.composeBar.becomeFirstResponder()
+                        })
+                    })
+                }
             }
+            
         }
     }
 }

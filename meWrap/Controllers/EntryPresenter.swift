@@ -17,7 +17,7 @@ class EntryPresenter: NSObject {
     }
     
     class func presentEntry(entry: Entry, inNavigationController navigationController: UINavigationController, animated: Bool) {
-    
+        
     }
     
     class func presentEntryRequestingAuthorization(entry: Entry, animated: Bool) {
@@ -125,20 +125,14 @@ extension Wrap {
 extension Comment {
     
     override func configureViewController(controller: UIViewController, fromContainer container: Entry) {
-        if container == candy {
-            if let controller = controller as? HistoryViewController {
-                if controller.isViewLoaded() {
-                    controller.showCommentView()
-                } else {
-                    controller.showCommentViewController = true
-                }
-            }
+        if container == candy, let controller = controller as? HistoryViewController {
+            performWhenLoaded(controller, block: { $0.showCommentView() })
         }
     }
 }
 
 class HierarchicalEntryPresenter: EntryPresenter {
-
+    
     override class func presentEntry(entry: Entry, inNavigationController navigationController: UINavigationController, animated: Bool) {
         var viewControllers = self.viewControllersForEntry(entry, inNavigationController: navigationController)
         if let controller = navigationController.viewControllers.first {
@@ -162,11 +156,11 @@ class HierarchicalEntryPresenter: EntryPresenter {
         
         return viewControllers.reverse()
     }
-
+    
 }
 
 class ChronologicalEntryPresenter: EntryPresenter {
-
+    
     override class func presentEntry(entry: Entry, inNavigationController navigationController: UINavigationController, animated: Bool) {
         if let controller = entry.recursiveViewControllerWithNavigationController(navigationController) {
             if navigationController.viewControllers.contains(controller) {
@@ -181,7 +175,7 @@ class ChronologicalEntryPresenter: EntryPresenter {
 }
 
 class NotificationEntryPresenter: EntryPresenter {
-
+    
     override class func presentEntry(entry: Entry, inNavigationController navigationController: UINavigationController, animated: Bool) {
         var controllers = [UIViewController]()
         
@@ -195,5 +189,5 @@ class NotificationEntryPresenter: EntryPresenter {
         
         navigationController.setViewControllers(controllers, animated:animated)
     }
-
+    
 }

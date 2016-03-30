@@ -126,12 +126,15 @@ class WrapListViewController: BaseViewController {
         if !textFile.absoluteString.isEmpty {
             guard let data = NSFileManager.defaultManager().contentsAtPath(textFile.path!) else { return }
             guard let text = String(data: data, encoding: NSUTF8StringEncoding) else { return }
-            Storyboard.Wrap.instantiate({
-                $0.segment = .Chat
-                $0.wrap = wrap
-                $0.presentedText = text
-                $0.showKeyboard = true
-                self.navigationController?.pushViewController($0, animated: false)
+            let controller = Storyboard.Wrap.instantiate()
+            controller.segment = .Chat
+            controller.wrap = wrap
+            self.navigationController?.pushViewController(controller, animated: false)
+            performWhenLoaded(controller.chatViewController, block: { controller in
+                Dispatch.mainQueue.async({
+                    controller.composeBar.becomeFirstResponder()
+                    controller.composeBar.text = text
+                })
             })
         } else {
             let queue = runQueue

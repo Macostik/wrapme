@@ -96,6 +96,9 @@ class CandyUpdateNotification: CandyNotification {
             candy.markAsUpdateUnread(true)
         }
         candy.notifyOnUpdate(.Default)
+        if candy.contributor?.current == false && !isHistorycal {
+            candy.showToast()
+        }
     }
     
     override func canBeHandled() -> Bool { return Authorization.active }

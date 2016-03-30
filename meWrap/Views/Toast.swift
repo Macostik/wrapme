@@ -228,7 +228,7 @@ class EntryToast: UIView {
         topLabel.numberOfLines = 0
         middleLabel.numberOfLines = 2
         if let candy = entry as? Candy {
-            topLabel.text = String(format: candy.isVideo ? "just_sent_you_a_new_video".ls :
+            topLabel.text = String(format: candy.editor != nil ? "someone_edited_photo".ls : candy.isVideo ? "just_sent_you_a_new_video".ls :
                 "just_sent_you_a_new_photo".ls, candy.contributor?.name ?? "")
         } else {
             topLabel.text = String(format: "someone_commented".ls, entry.contributor?.name ?? "")

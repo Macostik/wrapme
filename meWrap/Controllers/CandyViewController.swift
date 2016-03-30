@@ -223,6 +223,10 @@ extension CandyViewController: DeviceManagerNotifying {
 
 extension CandyViewController: UIScrollViewDelegate {
     
+    func scrollViewDidZoom(scrollView: UIScrollView) {
+        slideInteractiveTransition?.panGestureRecognizer.enabled = scrollView.zoomScale == 1
+    }
+    
     func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
         scrollView.panGestureRecognizer.enabled = scale > scrollView.minimumZoomScale
     }

@@ -47,6 +47,10 @@ class ContributorAddNotification: WrapNotification {
             wrap.notifyOnUpdate(.ContributorsChanged)
         } else {
             wrap.notifyOnAddition()
+            if wrap.contributor?.current == false && !isHistorycal {
+                wrap.inviter = inviter
+                wrap.showToast()
+            }
         }
     }
 }

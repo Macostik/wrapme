@@ -151,6 +151,7 @@ final class Wrap: Contribution {
     }
     
     var liveBroadcasts = [LiveBroadcast]()
+    var inviter: User?
     
     func addBroadcastIfNeeded(broadcast: LiveBroadcast) {
         if !liveBroadcasts.contains({ $0.streamName == broadcast.streamName }) {

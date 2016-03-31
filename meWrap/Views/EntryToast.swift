@@ -9,26 +9,7 @@
 import Foundation
 import SnapKit
 
-protocol PresenterStyle {
-    func shortStyle()
-    func fullStyle()
-}
-
-extension PresenterStyle where Self: EntryToast {
-    func shortStyle() {
-        topViewBottomCostraint?.activate()
-        imageBottomCostraint?.deactivate()
-        imageHeightCostraint?.updateOffset(0)
-    }
-
-    func fullStyle() {
-        topViewBottomCostraint?.deactivate()
-        imageBottomCostraint?.activate()
-        imageHeightCostraint?.updateOffset(imageHeight)
-    }
-}
-
-class EntryToast: UIView, PresenterStyle {
+class EntryToast: UIView {
     static let entryToast = EntryToast()
     static let DismissalDelay: NSTimeInterval = 4.0
     private let imageHeight = Constants.screenWidth / 3 * 1.5
@@ -124,6 +105,9 @@ class EntryToast: UIView, PresenterStyle {
         middleLabel.numberOfLines = 2
         rightLabel.text = "now".ls
         bottomLabel.text = "tap_to_view".ls
+        imageView.defaultIconText = "t"
+        imageView.defaultIconColor = Color.grayLighter
+        imageView.defaultBackgroundColor = UIColor.whiteColor()
         if let _entry = entry as? Contribution {
             imageView.url = _entry.asset?.medium
         }
@@ -136,20 +120,6 @@ class EntryToast: UIView, PresenterStyle {
         setupContent(entry)
         SoundPlayer.player.play(.note)
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-    }
-    
-    func showBadge(show: Bool) {
-        liveBadge.snp_updateConstraints {
-            $0.centerY.equalTo(topLabel)
-            $0.height.equalTo(20)
-            if show {
-                $0.leading.equalTo(avatar.snp_trailing).offset(12)
-                $0.width.equalTo(40)
-            } else {
-                $0.leading.equalTo(avatar.snp_trailing)
-                $0.width.equalTo(0)
-            }
-        }
     }
     
     private func setupContent(entry: Entry) {
@@ -177,9 +147,9 @@ class EntryToast: UIView, PresenterStyle {
             showBadge(true)
             shortStyle()
             break
-        case let user as User where user.isInvited:
+        case let wrap as Wrap where wrap.inviter != nil:
             topLabel.text =  String(format: "you're_invited".ls ?? "")
-            middleLabel.text = String(format: "invited_you_to".ls, user.name ?? "")
+            middleLabel.text = String(format: "invited_you_to".ls, wrap.inviter?.name ?? "", wrap.name ?? "")
             fullStyle()
             break
             
@@ -232,6 +202,32 @@ class EntryToast: UIView, PresenterStyle {
                 self.removeFromSuperview()
                 UIWindow.mainWindow.windowLevel = UIWindowLevelNormal
         })
+    }
+    
+    private func showBadge(show: Bool) {
+        liveBadge.snp_updateConstraints {
+            $0.centerY.equalTo(topLabel)
+            $0.height.equalTo(20)
+            if show {
+                $0.leading.equalTo(avatar.snp_trailing).offset(12)
+                $0.width.equalTo(40)
+            } else {
+                $0.leading.equalTo(avatar.snp_trailing)
+                $0.width.equalTo(0)
+            }
+        }
+    }
+    
+    private func shortStyle() {
+        topViewBottomCostraint?.activate()
+        imageBottomCostraint?.deactivate()
+        imageHeightCostraint?.updateOffset(0)
+    }
+    
+    private func fullStyle() {
+        topViewBottomCostraint?.deactivate()
+        imageBottomCostraint?.activate()
+        imageHeightCostraint?.updateOffset(imageHeight)
     }
 }
 

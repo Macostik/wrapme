@@ -73,6 +73,7 @@ typedef NS_ENUM(int, CaptureState) {
 -(uint64_t)getBytesSent:(int)connectionID;
 -(uint64_t)getBytesRecv:(int)connectionID;
 -(void)releaseConnectionId:(int)id;
+-(bool)changeCamera;
 
 // fps
 -(double)getFps;

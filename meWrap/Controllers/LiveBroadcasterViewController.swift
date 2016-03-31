@@ -200,7 +200,6 @@ final class LiveBroadcasterViewController: LiveViewController {
         startBroadcast()
         joinsCountView.hidden = false
         chatStreamView.hidden = false
-        toggleCameraButton.hidden = true
         sender.hidden = true
         composeBar.hidden = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(LiveBroadcasterViewController.focusing(_:))))
@@ -264,8 +263,12 @@ final class LiveBroadcasterViewController: LiveViewController {
     }
     
     @IBAction func toggleCamera() {
-        stopCapture()
-        startCapture(cameraPosition == 1 ? 2 : 1)
+		if composeBar.hidden {
+			streamer.changeCamera()
+		} else {
+			stopCapture()
+			startCapture(cameraPosition == 1 ? 2 : 1)
+		}
     }
     
     internal override func close() {
@@ -319,9 +322,9 @@ final class LiveBroadcasterViewController: LiveViewController {
                 return input
             }
         }
-        return nil
+		return nil
     }
-    
+	
     private func videoCamera() -> AVCaptureDevice? {
         guard let session = previewLayer?.session else { return nil }
         return videoInput(session)?.device

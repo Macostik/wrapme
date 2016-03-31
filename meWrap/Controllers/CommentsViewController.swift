@@ -159,8 +159,17 @@ class CommentsViewController: BaseViewController {
                 }
                 self?.dataSource.items = comments
             }
-            receiver.didAdd = { _ in
+            receiver.didAdd = { entry in
                 self?.dataSource.items = self?.candy?.sortedComments()
+                let font = UIFont.fontNormal()
+                let nameFont = UIFont.lightFontNormal()
+                let timeFont = UIFont.lightFontSmall()
+                let textHeight = entry.text?.heightWithFont(font, width:Constants.screenWidth - CommentHorizontalSpacing) ?? 0
+                let heightCell = max(72, textHeight + nameFont.lineHeight + timeFont.lineHeight + CommentVerticalSpacing)
+                let offset = (self?.streamView.maximumContentOffset.y ?? 0) - (self?.streamView.contentOffset.y ?? 0) - heightCell
+                if offset <= 5 {
+                    self?.streamView.setMaximumContentOffsetAnimated(true)
+                }
             }
             receiver.didUpdate = { _ in
                 self?.dataSource.items = self?.candy?.sortedComments()

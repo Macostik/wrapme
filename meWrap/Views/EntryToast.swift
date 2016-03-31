@@ -98,8 +98,10 @@ class EntryToast: UIView {
         avatar.circled = true
         if let wrap = entry as? Wrap where wrap.liveBroadcasts.isEmpty == false {
            avatar.url = wrap.liveBroadcasts.last?.broadcaster?.avatar?.small
-        } else if let contributor = entry as? Contribution {
-           avatar.url = contributor.contributor?.avatar?.small
+        } else if let wrap = entry as? Wrap where wrap.inviter != nil {
+            avatar.url = wrap.inviter?.avatar?.small
+        } else if let entry = entry as? Contribution {
+           avatar.url = entry.contributor?.avatar?.small
         }
         topLabel.numberOfLines = 0
         middleLabel.numberOfLines = 2

@@ -32,7 +32,7 @@ class EntryToast: UIView, PresenterStyle {
     static let entryToast = EntryToast()
     static let DismissalDelay: NSTimeInterval = 4.0
     private let imageHeight = Constants.screenWidth / 3 * 1.5
-    private var entry: Contribution?
+    private var entry: Entry?
     private let avatar = ImageView(backgroundColor: UIColor.clearColor())
     private let imageView = ImageView(backgroundColor: UIColor.clearColor())
     private var topLabel = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
@@ -112,15 +112,21 @@ class EntryToast: UIView, PresenterStyle {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(entry: Contribution) {
+    func setup(entry: Entry) {
         self.entry = entry
         avatar.circled = true
-        avatar.url = entry.contributor?.avatar?.small
+        if let wrap = entry as? Wrap where wrap.liveBroadcasts.isEmpty == false {
+           avatar.url = wrap.liveBroadcasts.last?.broadcaster?.avatar?.small
+        } else if let contributor = entry as? Contribution {
+           avatar.url = contributor.contributor?.avatar?.small
+        }
         topLabel.numberOfLines = 0
         middleLabel.numberOfLines = 2
         rightLabel.text = "now".ls
         bottomLabel.text = "tap_to_view".ls
-        imageView.url = entry.asset?.medium
+        if let _entry = entry as? Contribution {
+            imageView.url = _entry.asset?.medium
+        }
         liveBadge.textAlignment = .Center
         liveBadge.cornerRadius = 8
         liveBadge.clipsToBounds = true
@@ -204,11 +210,14 @@ class EntryToast: UIView, PresenterStyle {
         super.touchesBegan(touches, withEvent: event)
         dissmis()
         guard let entry = entry else { return }
+        guard let nc = UINavigationController.main() else { return }
+        if let liveVC = nc.topViewController as? LiveBroadcasterViewController {
+            liveVC.close()
+        }
         ChronologicalEntryPresenter.presentEntry(entry, animated: false)
-        if case let wrap = entry as? Wrap where wrap?.liveBroadcasts.isEmpty == false {
-            guard let nc = UINavigationController.main() else { return }
-            weak var controller = wrap?.viewControllerWithNavigationController(nc) as? WrapViewController
-            guard let liveBroadcast = wrap?.liveBroadcasts.last else { return }
+        if let wrap = entry as? Wrap where wrap.liveBroadcasts.isEmpty == false {
+            weak var controller = wrap.viewControllerWithNavigationController(nc) as? WrapViewController
+            guard let liveBroadcast = wrap.liveBroadcasts.last else { return }
             Dispatch.mainQueue.after(1.2) { _ in
                 controller?.presentLiveProadcast(liveBroadcast)
             }
@@ -224,10 +233,9 @@ class EntryToast: UIView, PresenterStyle {
                 UIWindow.mainWindow.windowLevel = UIWindowLevelNormal
         })
     }
-    
 }
 
-extension Contribution {
+extension Entry {
     func showToast() {
         let entryToast = EntryToast.entryToast
         entryToast.setup(self)

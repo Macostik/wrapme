@@ -192,6 +192,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         addressBook.clearSelection()
         streamView.reload()
         streamView.setNeedsUpdateConstraints()
+        bottomPrioritizer.defaultState = true
     }
     
     //MARK: AddressBookRecordCellDelegate

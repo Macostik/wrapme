@@ -401,15 +401,12 @@ extension WrapViewController: CaptureMediaViewControllerDelegate {
     func captureViewController(controller: CaptureMediaViewController, didFinishWithAssets assets: [MutableAsset]) {
         let wrap = controller.wrap ?? self.wrap
         if self.wrap != wrap {
-            self.view = nil
-            self.viewController = nil
-            for controller in childViewControllers where controller is WrapSegmentViewController {
-                controller.removeFromParentViewController()
+            if let mainViewController = self.navigationController?.viewControllers.first, let wrapViewController = wrap?.viewController() {
+                self.navigationController?.viewControllers = [mainViewController, wrapViewController]
             }
-            self.wrap = wrap
         }
         
-        dismissViewControllerAnimated(false, completion: nil)
+        controller.presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
         
         Dispatch.mainQueue.async {
             FollowingViewController.followWrapIfNeeded(wrap) {

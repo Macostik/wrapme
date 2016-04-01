@@ -1,6 +1,6 @@
 //
 //  User.swift
-//  
+//
 //
 //  Created by Sergey Maximenko on 10/26/15.
 //
@@ -11,7 +11,7 @@ import CoreData
 
 @objc(User)
 final class User: Entry {
-
+    
     override class func entityName() -> String { return "User" }
     
     static var currentUser: User? = FetchRequest<User>("current == true").execute().first {
@@ -20,7 +20,7 @@ final class User: Entry {
             currentUser?.current = true
         }
     }
-        
+    
     var isInvited: Bool {
         return !current && devices.count > 0 && !devices.contains({ $0.activated })
     }
@@ -58,11 +58,11 @@ final class User: Entry {
         })
         return phones.isEmpty ? "no_devices".ls : phones
     }
-	
-	lazy var phones: String? = self.formatPhones(false)
+    
+    lazy var phones: String? = self.formatPhones(false)
     
     lazy var securePhones: String? = self.formatPhones(true)
-        
+    
     var sortedWraps: [Wrap]? {
         return wraps.sort({ $0.updatedAt > $1.updatedAt })
     }
@@ -72,6 +72,13 @@ final class User: Entry {
         if avatar == nil {
             avatar = Asset()
         }
+        #if DEBUG
+            Dispatch.mainQueue.async {
+                if FetchRequest<User>().execute().filter({ $0.uid == User.currentUser?.uid }).count > 1 {
+                    UIAlertController.alert("current user duplicated").show()
+                }
+            }
+        #endif
     }
     
     func contributorInfo() -> String {

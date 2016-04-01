@@ -208,6 +208,8 @@ final class Wrap: Contribution {
         return count
     }()
     
+    var typedMessage: String?
+    
     override class func prefetchDescriptors(inout descriptors: Set<EntryDescriptor>, inDictionary dictionary: [String : AnyObject]?) {
         super.prefetchDescriptors(&descriptors, inDictionary: dictionary)
         User.prefetchDescriptors(&descriptors, inArray: dictionary?["contributors"] as? [[String:AnyObject]])

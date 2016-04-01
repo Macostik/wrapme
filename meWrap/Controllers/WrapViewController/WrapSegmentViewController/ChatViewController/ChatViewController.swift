@@ -88,6 +88,7 @@ final class ChatViewController: WrapSegmentViewController {
         FontPresetter.defaultPresetter.addReceiver(self)
         streamView.layoutIfNeeded()
         Keyboard.keyboard.addReceiver(self)
+        composeBar.text = wrap.typedMessage
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -232,11 +233,13 @@ extension ChatViewController: ComposeBarDelegate {
     
     func composeBar(composeBar: ComposeBar, didFinishWithText text: String) {
         self.typing = false
+        wrap.typedMessage = nil
         composeBar.text = ""
         sendMessageWithText(text)
     }
     
     func composeBarDidChangeText(composeBar: ComposeBar) {
+        wrap.typedMessage = composeBar.text
         typing = composeBar.text?.isEmpty == false
         enqueueSelector(#selector(self.typingIdled), argument: nil, delay: 3)
     }

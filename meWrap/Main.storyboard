@@ -2830,6 +2830,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="composeBar" destination="zd4-Tx-fC0" id="fkx-tF-Qza"/>
                         <outlet property="composeBarBottomPrioritizer" destination="Ft7-q6-54y" id="Po8-lZ-rRB"/>
                         <outlet property="contentView" destination="vTd-en-UyT" id="0ye-XQ-bSi"/>
                         <outlet property="streamView" destination="WYU-Tj-StJ" id="VgU-Rt-ZzQ"/>

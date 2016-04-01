@@ -94,6 +94,8 @@ class CommentsViewController: BaseViewController {
     
     private lazy var dataSource: StreamDataSource = StreamDataSource(streamView: self.streamView)
     
+    @IBOutlet weak var composeBar: ComposeBar!
+    
     @IBOutlet weak var composeBarBottomPrioritizer: LayoutPrioritizer!
     @IBOutlet weak var contentView: InternalScrollView!
     weak var historyViewController: HistoryViewController?
@@ -145,6 +147,8 @@ class CommentsViewController: BaseViewController {
             self?.view.layoutIfNeeded()
             self?.streamView.setMaximumContentOffsetAnimated(true)
         }
+        
+        composeBar.text = candy.typedComment
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -285,10 +289,12 @@ extension CommentsViewController: ComposeBarDelegate {
     
     func composeBar(composeBar: ComposeBar, didFinishWithText text: String) {
         typing = false
+        candy?.typedComment = nil
         sendMessageWithText(text)
     }
     
     func composeBarDidChangeText(composeBar: ComposeBar) {
+        candy?.typedComment = composeBar.text
         typing = composeBar.text?.isEmpty == false
         enqueueSelector(#selector(CommentsViewController.typingIdled), argument: nil, delay: 3)
     }

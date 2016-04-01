@@ -100,4 +100,6 @@ final class Candy: Contribution {
         User.prefetchDescriptors(&descriptors, inDictionary: dictionary?["editor"] as? [String:AnyObject])
         Comment.prefetchDescriptors(&descriptors, inArray: dictionary?["comments"] as? [[String:AnyObject]])
     }
+    
+    var typedComment: String?
 }

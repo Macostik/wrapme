@@ -142,8 +142,15 @@ class CommentsViewController: BaseViewController {
         DeviceManager.defaultManager.addReceiver(self)
         historyViewController = parentViewController as? HistoryViewController
         EntryToast.entryToast.handleTouch = { [weak self] _ in
+            self?.view.layoutIfNeeded()
             self?.streamView.setMaximumContentOffsetAnimated(true)
         }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        streamView.layoutIfNeeded()
+        streamView.setMaximumContentOffsetAnimated(false)
     }
     
     private func addNotifyReceivers() {

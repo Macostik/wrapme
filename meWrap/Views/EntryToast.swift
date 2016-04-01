@@ -182,6 +182,7 @@ class EntryToast: UIView {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
         dissmis()
+        UIWindow.mainWindow.endEditing(true)
         guard let entry = entry else { return }
         guard let nc = UINavigationController.main() else { return }
         if let liveVC = nc.topViewController as? LiveBroadcasterViewController {

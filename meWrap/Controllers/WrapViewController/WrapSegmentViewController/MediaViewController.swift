@@ -65,11 +65,7 @@ class HistoryItemCell: StreamReusableView {
         dateView.exclusiveTouch = true
         dateView.normalColor = UIColor.whiteColor()
         dateView.highlightedColor = Color.orange
-        dateView.cornerRadius = 7
-        dateView.clipsToBounds = true
         dateView.backgroundColor = UIColor.whiteColor()
-        dateView.borderWidth = 1
-        dateView.borderColor = Color.orange
         dateView.addTarget(self, action: #selector(HistoryItemCell.openHistoryItem(_:)), forControlEvents: .TouchUpInside)
         addSubview(dateView)
         
@@ -90,8 +86,8 @@ class HistoryItemCell: StreamReusableView {
         })
         
         dateView.snp_makeConstraints(closure: {
-            $0.leading.top.equalTo(self).offset(12)
-            $0.height.equalTo(32)
+            $0.leading.top.trailing.equalTo(self)
+            $0.height.equalTo(28)
         })
         
         dateLabel.snp_makeConstraints(closure: {

@@ -47,7 +47,7 @@ class ContributorAddNotification: WrapNotification {
             wrap.notifyOnUpdate(.ContributorsChanged)
         } else {
             wrap.notifyOnAddition()
-            if wrap.contributor?.current == false && !isHistorycal {
+            if wrap.contributor?.current == false && user?.current == true && !isHistorycal {
                 wrap.inviter = inviter
                 wrap.showToast()
             }

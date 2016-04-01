@@ -132,6 +132,7 @@ class EntryToast: UIView {
                 "someone_edited_photo".ls : candy.isVideo ?
                 "just_sent_you_a_new_video".ls :
                 "just_sent_you_a_new_photo".ls, candy.contributor?.name ?? "")
+            middleLabel.text = ""
             fullStyle()
             break
         case let comment as Comment:

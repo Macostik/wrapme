@@ -97,7 +97,6 @@ class HistoryItemCell: StreamReusableView {
         })
         
         arrow.snp_makeConstraints(closure: {
-            $0.trailing.equalTo(dateView).inset(8)
             $0.centerY.equalTo(dateLabel)
         })
     }

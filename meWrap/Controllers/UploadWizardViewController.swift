@@ -136,6 +136,10 @@ class UploadWizardViewController: BaseViewController {
         }
         return true
     }
+    
+    override func keyboardAdjustmentConstant(adjustment: KeyboardAdjustment, keyboard: Keyboard) -> CGFloat {
+        return adjustment.defaultConstant - keyboard.height/2
+    }
 }
 
 extension UploadWizardViewController: UITextFieldDelegate {

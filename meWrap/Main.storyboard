@@ -5157,6 +5157,7 @@ QWRkEEZyaWVuZFZpZXc
                         <outlet property="laterButton" destination="xPg-og-ZfU" id="qGR-JA-QN7"/>
                         <outlet property="layoutPrioritizer" destination="CXS-kz-aGd" id="qU8-dW-KGQ"/>
                         <outlet property="nameTextField" destination="4de-CM-PgT" id="vNY-I0-7ps"/>
+                        <outletCollection property="keyboardAdjustmentTopConstraints" destination="S6e-Ff-Ocr" collectionClass="NSMutableArray" id="MQQ-SW-k94"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K18-MB-ifo" userLabel="First Responder" sceneMemberID="firstResponder"/>

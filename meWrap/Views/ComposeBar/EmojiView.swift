@@ -70,11 +70,9 @@ class EmojiView: UIView {
     
     @IBOutlet weak var segmentedControl: SegmentedControl!
     
-    weak var textView: UITextView!
+    weak var composeBar: ComposeBar!
     
     var dataSource: StreamDataSource!
-    
-    var keybaordHandler: Block?
     
     private var emojis: [String]? {
         willSet {
@@ -82,9 +80,10 @@ class EmojiView: UIView {
         }
     }
     
-    class func emojiViewWithTextView(textView: UITextView) -> EmojiView {
+    class func emojiView(composeBar: ComposeBar) -> EmojiView {
         let emojiView: EmojiView! = loadFromNib("EmojiView")
-        emojiView.textView = textView
+        emojiView.composeBar = composeBar
+        emojiView.backgroundColor = composeBar.backgroundColor
         return emojiView
     }
     
@@ -101,7 +100,7 @@ class EmojiView: UIView {
         metrics.selection = { [weak self] (item, emoji) -> Void in
             let emoji = emoji as! String
             Emoji.saveRecent(emoji)
-            self?.textView.insertText(emoji)
+            self?.composeBar.textView.insertText(emoji)
         }
         dataSource.addMetrics(metrics)
         dataSource.numberOfGridColumns = 5
@@ -120,11 +119,11 @@ class EmojiView: UIView {
     }
     
     @IBAction func returnClicked(sender: UIButton) {
-        textView.deleteBackward()
+        composeBar.textView.deleteBackward()
     }
     
     @IBAction func returnKeyboard(sender: UIButton) {
-        keybaordHandler?()
+        composeBar.isEmojiKeyboardActive = false
     }
 }
 

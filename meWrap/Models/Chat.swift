@@ -21,7 +21,6 @@ class Chat: PaginatedList {
     
     static var MaxWidth: CGFloat = Constants.screenWidth - LeadingBubbleIndentWithAvatar - 2*MessageHorizontalInset - BubbleIndent
     static var MinWidth: CGFloat = Constants.screenWidth - 2*BubbleIndent - 2*MessageHorizontalInset
-    static var shouldShowUnreadMessages = true
     
     static var MessageVerticalInset: CGFloat = 6.0
     static var MessageHorizontalInset: CGFloat = 6.0

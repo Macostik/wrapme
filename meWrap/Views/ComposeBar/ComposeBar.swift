@@ -14,11 +14,9 @@ import Foundation
     optional func composeBarDidChangeText(composeBar: ComposeBar)
     optional func composeBarDidBeginEditing(composeBar: ComposeBar)
     optional func composeBarDidEndEditing(composeBar: ComposeBar)
-    optional func composeBarCharactersLimit(composeBar: ComposeBar) -> Int
-    optional func composeBarDidShouldResignOnFinish(composeBar: ComposeBar) -> Bool
 }
 
-class ComposeBar: UIControl, UITextViewDelegate {
+final class ComposeBar: UIControl, UITextViewDelegate {
     
     @IBOutlet weak var delegate: ComposeBarDelegate?
     @IBOutlet weak var textView: TextView!
@@ -28,11 +26,9 @@ class ComposeBar: UIControl, UITextViewDelegate {
     
     @IBInspectable var maxLines: CGFloat = 0
     
-    lazy var emojiView: EmojiView = {
-        let emojiView = EmojiView.emojiViewWithTextView(self.textView)
-        emojiView.backgroundColor = self.backgroundColor
-        return emojiView
-    }()
+    var charactersLimit = Constants.composeBarDefaultCharactersLimit
+    
+    private lazy var emojiView: EmojiView = EmojiView.emojiView(self)
     
     var text: String? {
         set {
@@ -52,7 +48,6 @@ class ComposeBar: UIControl, UITextViewDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         textView.layoutManager.allowsNonContiguousLayout = false
         textView.textContainer.lineFragmentPadding = 0
         textView.contentInset = UIEdgeInsetsZero
@@ -60,14 +55,6 @@ class ComposeBar: UIControl, UITextViewDelegate {
         setDoneButtonHidden(true)
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIResponder.becomeFirstResponder)))
         textView.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIResponder.becomeFirstResponder)))
-        emojiView.keybaordHandler = {[weak self] in
-            self?.emojiButton.selected = false
-            self?.textView.inputView = nil
-            if self?.isFirstResponder() == false {
-                self?.becomeFirstResponder()
-            }
-            self?.textView.reloadInputViews()
-        }
     }
     
     final func updateHeight() {
@@ -87,49 +74,40 @@ class ComposeBar: UIControl, UITextViewDelegate {
         }
     }
     
-    func finish() {
-        if (delegate?.composeBarDidShouldResignOnFinish?(self)) == true {
-            textView.resignFirstResponder()
-        }
-
-        if case let text = self.text, let trimText = text?.trim where !trimText.isEmpty {
-            delegate?.composeBar?(self, didFinishWithText: trimText)
-        }
-        Dispatch.mainQueue.async {[weak self] _ in
-            self?.text = nil
-        }
-    }
-    
-    final func setDoneButtonHidden(hidden: Bool) {
+    func setDoneButtonHidden(hidden: Bool) {
         trailingPrioritizer.defaultState = hidden
     }
     
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-        for subView in subviews {
-            let inside = subView.pointInside(subView.convertPoint(point, fromView: self), withEvent: event)
-            if inside == true {
-                return true
-            }
-        }
-        return false
+        return subviews.contains({ $0.pointInside($0.convertPoint(point, fromView: self), withEvent: event) })
     }
     
     //MARK: Actions
     
     @IBAction func done(sender: AnyObject) {
-        finish()
+        if let text = self.text?.trim where !text.isEmpty {
+            delegate?.composeBar?(self, didFinishWithText: text)
+        }
+    }
+    
+    var isEmojiKeyboardActive = false {
+        willSet {
+            if newValue != isEmojiKeyboardActive {
+                emojiButton.selected = newValue
+                textView.inputView = nil
+                if newValue {
+                    textView.inputView = emojiView
+                }
+                if !isFirstResponder() {
+                    becomeFirstResponder()
+                }
+                textView.reloadInputViews()
+            }
+        }
     }
     
     @IBAction func selectEmoji(sender: UIButton) {
-        sender.selected = !sender.selected
-        textView.inputView = nil
-        if sender.selected {
-            textView.inputView = emojiView
-        }
-        if !isFirstResponder() {
-            becomeFirstResponder()
-        }
-        textView.reloadInputViews()
+        isEmojiKeyboardActive = !isEmojiKeyboardActive
     }
     
     //MARK: UITextViewDelegate
@@ -155,14 +133,8 @@ class ComposeBar: UIControl, UITextViewDelegate {
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        var charactersLimit: Int = 0;
-        if let limit = delegate?.composeBarCharactersLimit?(self) where height > 44.0 {
-            charactersLimit = limit
-        } else {
-            charactersLimit = Int(Constants.composeBarDefaultCharactersLimit)
-        }
-        let resultString: NSString = textView.text
-        resultString.stringByReplacingCharactersInRange(range, withString: text)
+        var resultString: NSString = textView.text
+        resultString = resultString.stringByReplacingCharactersInRange(range, withString: text)
         return resultString.length <= charactersLimit
     }
     

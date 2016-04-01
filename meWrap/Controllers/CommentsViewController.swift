@@ -289,10 +289,6 @@ extension CommentsViewController: ComposeBarDelegate {
     func typingIdled() {
         typing = false
     }
-    
-    func composeBarDidShouldResignOnFinish(composeBar: ComposeBar) -> Bool {
-        return false
-    }
 }
 
 extension CommentsViewController: DeviceManagerNotifying {

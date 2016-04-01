@@ -102,7 +102,6 @@ final class ChatViewController: WrapSegmentViewController {
         super.viewWillDisappear(animated)
         streamView.lock()
         chat.markAsRead()
-        Chat.shouldShowUnreadMessages = true
         NSNotificationCenter.defaultCenter().removeObserver(self, name:UIApplicationWillResignActiveNotification, object:nil)
     }
     
@@ -113,7 +112,7 @@ final class ChatViewController: WrapSegmentViewController {
     var typing = false {
         didSet {
             if typing != oldValue {
-                enqueueSelector(#selector(ChatViewController.sendTypingStateChange), delay: 1)
+                enqueueSelector(#selector(self.sendTypingStateChange), delay: 1)
             }
         }
     }
@@ -163,10 +162,11 @@ final class ChatViewController: WrapSegmentViewController {
             if _self.chat.entries.contains({ $0 === message }) {
                 finish()
             } else {
+                streamView.layoutIfNeeded()
                 _self.chat.add(message)
                 let offset = streamView.contentOffset
                 let maximumOffset = streamView.maximumContentOffset
-                if let user = message.contributor where user != User.currentUser {
+                if message.contributor != User.currentUser {
                     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
                 }
                 if !streamView.scrollable || offset.y < maximumOffset.y {
@@ -225,8 +225,6 @@ extension ChatViewController: ComposeBarDelegate {
             streamView.contentOffset = streamView.maximumContentOffset
             wrap.uploadMessage(text)
             SoundPlayer.playSend()
-            chat.markAsRead()
-            Chat.shouldShowUnreadMessages = false
         } else {
             navigationController?.popToRootViewControllerAnimated(false)
         }
@@ -234,16 +232,21 @@ extension ChatViewController: ComposeBarDelegate {
     
     func composeBar(composeBar: ComposeBar, didFinishWithText text: String) {
         self.typing = false
+        composeBar.text = ""
         sendMessageWithText(text)
-    }
-    
-    func composeBarDidShouldResignOnFinish(composeBar: ComposeBar) -> Bool {
-        return false
     }
     
     func composeBarDidChangeText(composeBar: ComposeBar) {
         typing = composeBar.text?.isEmpty == false
-        enqueueSelector(#selector(ChatViewController.typingIdled), argument: nil, delay: 3)
+        enqueueSelector(#selector(self.typingIdled), argument: nil, delay: 3)
+    }
+    
+    func composeBarDidBeginEditing(composeBar: ComposeBar) {
+        if chat.unreadMessages.count > 0 {
+            chat.markAsRead()
+            badge?.value = 0
+            streamView.reload()
+        }
     }
     
     func typingIdled() {
@@ -252,7 +255,7 @@ extension ChatViewController: ComposeBarDelegate {
     
     func composeBar(composeBar: ComposeBar, didChangeHeight oldHeight: CGFloat) {
         if composeBar.text?.isEmpty == true { return }
-        streamView.setContentOffset(CGPointMake(0, streamView.contentOffset.y + (composeBar.height - oldHeight)), animated: false)
+        streamView.contentOffset.y += (composeBar.height - oldHeight)
     }
 }
 
@@ -281,7 +284,7 @@ extension ChatViewController: StreamViewDelegate {
     func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetrics] {
         var metrics = [StreamMetrics]()
         guard let message = chat.entries[safe: position.index] as? Message else { return metrics }
-        if chat.unreadMessages.first == message && Chat.shouldShowUnreadMessages && badge?.value != 0{
+        if chat.unreadMessages.first == message && badge?.value != 0 {
             metrics.append(unreadMessagesMetrics)
         }
         if message.chatMetadata.containsDate {

@@ -22,7 +22,7 @@ class Constants: NSObject {
     static let wrapNameLimit = 190
     static let recentCandiesLimit = 6
     static let recentCandiesLimit_2 = 3
-    static let composeBarDefaultCharactersLimit: CGFloat = 21000
+    static let composeBarDefaultCharactersLimit: Int = 21000
     static let encryptedAuthorization = "encrypted_authorization"
     static let groupIdentifier = "group.com.ravenpod.wraplive"
 }

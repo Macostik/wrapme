@@ -170,7 +170,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
         NotificationCenter.handleRemoteNotification(userInfo as? [String:AnyObject], success: { notification in
-            notification.presentWithIdentifier(nil)
+            notification.presentWithIdentifier(identifier)
             completionHandler()
             }, failure: { error in
                 completionHandler()

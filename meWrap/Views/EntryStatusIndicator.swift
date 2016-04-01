@@ -24,7 +24,7 @@ final class EntryStatusIndicator: UILabel, EntryNotifying {
     
     func identityByContributorStatus(contribution: Contribution!) -> String! {
         if let container = contribution.container as? Contribution where container.status != .Finished {
-            return "D"
+            return "?"
         }
         
         switch contribution.status {

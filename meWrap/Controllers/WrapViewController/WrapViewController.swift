@@ -417,6 +417,8 @@ extension WrapViewController: CaptureMediaViewControllerDelegate {
                 wrap?.uploadAssets(assets)
             }
         }
+        
+        UploadCompleteAnimationView.show()
     }
     
     func captureViewControllerDidCancel(controller: CaptureMediaViewController) {

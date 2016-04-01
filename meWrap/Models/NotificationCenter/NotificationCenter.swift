@@ -83,7 +83,7 @@ final class NotificationCenter: NSObject {
     }
     
     func clear() {
-        userSubscription.unsubscribe()
+        PubNub.sharedInstance.unsubscribeFromAll()
         NSUserDefaults.standardUserDefaults().clearHandledNotifications()
         NSUserDefaults.standardUserDefaults().historyDate = nil
     }

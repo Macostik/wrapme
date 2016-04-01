@@ -5121,9 +5121,9 @@ QWRkEEZyaWVuZFZpZXc
                                     <constraint firstItem="dFK-sP-mft" firstAttribute="centerX" secondItem="wTp-z0-8av" secondAttribute="centerX" id="vls-mv-ici"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lBx-cg-zuE" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                <rect key="frame" x="12" y="32" width="32" height="44"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lBx-cg-zuE" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                <rect key="frame" x="12" y="32" width="32" height="45"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="icons" family="icons" pointSize="32"/>
                                 <state key="normal" title="L">
                                     <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>

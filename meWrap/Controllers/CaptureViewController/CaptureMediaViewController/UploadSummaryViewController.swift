@@ -10,6 +10,14 @@ import UIKit
 
 class UploadCompleteAnimationView: UIView {
     
+    static func show() {
+        Dispatch.mainQueue.async {
+            let animationView = UploadCompleteAnimationView(frame: UIWindow.mainWindow.bounds)
+            UIWindow.mainWindow.addSubview(animationView)
+            animationView.animate()
+        }
+    }
+    
     func animate() {
         backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
         let circle = CAShapeLayer()
@@ -203,12 +211,6 @@ extension UploadSummaryViewController { // MARK actions
     @IBAction func upload(sender: AnyObject?) {
         asset?.comment = self.composeBar.text?.trim
         delegate?.uploadSummaryViewController(self, didFinishWithAssets:assets)
-        
-        Dispatch.mainQueue.async {
-            let animationView = UploadCompleteAnimationView(frame: UIWindow.mainWindow.bounds)
-            UIWindow.mainWindow.addSubview(animationView)
-            animationView.animate()
-        }
     }
     
     @IBAction func edit(sender: AnyObject?) {

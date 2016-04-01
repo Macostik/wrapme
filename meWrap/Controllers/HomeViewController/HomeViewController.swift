@@ -259,6 +259,8 @@ extension HomeViewController: CaptureMediaViewControllerDelegate {
                 wrap.uploadAssets(assets)
             })
         }
+        
+        UploadCompleteAnimationView.show()
     }
 }
 

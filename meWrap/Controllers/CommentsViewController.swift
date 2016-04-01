@@ -115,13 +115,9 @@ class CommentsViewController: BaseViewController {
         
         dataSource.addMetrics(specify(StreamMetrics(loader: StreamLoader<CommentCell>()), {
             $0.selectable = false
-            $0.modifyItem = { item in
+            $0.modifyItem = { [weak self] item in
                 let comment = item.entry as! Comment
-                let font = UIFont.fontNormal()
-                let nameFont = UIFont.lightFontNormal()
-                let timeFont = UIFont.lightFontSmall()
-                let textHeight = comment.text?.heightWithFont(font, width:Constants.screenWidth - CommentHorizontalSpacing) ?? 0
-                item.size = max(72, textHeight + nameFont.lineHeight + timeFont.lineHeight + CommentVerticalSpacing)
+                item.size = self?.heightCell(comment) ?? 0
             }
         }))
         dataSource.placeholderMetrics = PlaceholderView.commentsPlaceholderMetrics()
@@ -145,10 +141,12 @@ class CommentsViewController: BaseViewController {
         addNotifyReceivers()
         DeviceManager.defaultManager.addReceiver(self)
         historyViewController = parentViewController as? HistoryViewController
+        EntryToast.entryToast.handleTouch = { [weak self] _ in
+            self?.streamView.setMaximumContentOffsetAnimated(true)
+        }
     }
     
     private func addNotifyReceivers() {
-        
         commentNotifyReceiver = EntryNotifyReceiver<Comment>().setup { [weak self] receiver in
             receiver.container = { return self?.candy }
             
@@ -161,12 +159,7 @@ class CommentsViewController: BaseViewController {
             }
             receiver.didAdd = { entry in
                 self?.dataSource.items = self?.candy?.sortedComments()
-                let font = UIFont.fontNormal()
-                let nameFont = UIFont.lightFontNormal()
-                let timeFont = UIFont.lightFontSmall()
-                let textHeight = entry.text?.heightWithFont(font, width:Constants.screenWidth - CommentHorizontalSpacing) ?? 0
-                let heightCell = max(72, textHeight + nameFont.lineHeight + timeFont.lineHeight + CommentVerticalSpacing)
-                let offset = (self?.streamView.maximumContentOffset.y ?? 0) - (self?.streamView.contentOffset.y ?? 0) - heightCell
+                let offset = (self?.streamView.maximumContentOffset.y ?? 0) - (self?.streamView.contentOffset.y ?? 0) - (self?.heightCell(entry) ?? 0)
                 if offset <= 5 {
                     self?.streamView.setMaximumContentOffsetAnimated(true)
                 }
@@ -186,6 +179,14 @@ class CommentsViewController: BaseViewController {
                 self?.onClose(nil)
             }
         }
+    }
+    
+    private func heightCell(comment: Comment) -> CGFloat {
+        let font = UIFont.fontNormal()
+        let nameFont = UIFont.lightFontNormal()
+        let timeFont = UIFont.lightFontSmall()
+        let textHeight = comment.text?.heightWithFont(font, width:Constants.screenWidth - CommentHorizontalSpacing) ?? 0
+        return max(72, textHeight + nameFont.lineHeight + timeFont.lineHeight + CommentVerticalSpacing)
     }
     
     override func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {

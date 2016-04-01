@@ -26,6 +26,7 @@ class EntryToast: UIView {
     var topViewBottomCostraint: Constraint?
     var imageBottomCostraint: Constraint?
     var imageHeightCostraint: Constraint?
+    var handleTouch: ObjectBlock?
     
     required init() {
         super.init(frame: CGRectZero)
@@ -193,7 +194,8 @@ class EntryToast: UIView {
             Dispatch.mainQueue.after(1.2) { _ in
                 controller?.presentLiveProadcast(liveBroadcast)
             }
-        } 
+        }
+        handleTouch?(self)
     }
     
     func dissmis() {

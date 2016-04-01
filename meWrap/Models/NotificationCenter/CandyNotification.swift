@@ -96,7 +96,7 @@ class CandyUpdateNotification: CandyNotification {
             candy.markAsUpdateUnread(true)
         }
         candy.notifyOnUpdate(.Default)
-        if candy.contributor?.current == false && !isHistorycal {
+        if candy.editor?.current == false && !isHistorycal {
             candy.showToast()
         }
     }

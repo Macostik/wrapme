@@ -194,10 +194,9 @@ class EntryToast: UIView {
         }
         ChronologicalEntryPresenter.presentEntry(entry, animated: false)
         if let wrap = entry as? Wrap where wrap.liveBroadcasts.isEmpty == false {
-            weak var controller = wrap.viewControllerWithNavigationController(nc) as? WrapViewController
-            guard let liveBroadcast = wrap.liveBroadcasts.last else { return }
-            Dispatch.mainQueue.after(1.2) { _ in
-                controller?.presentLiveProadcast(liveBroadcast)
+            if let controller = wrap.viewControllerWithNavigationController(nc) as? WrapViewController {
+                guard let liveBroadcast = wrap.liveBroadcasts.last else { return }
+                controller.presentLiveBroadcast(liveBroadcast)
             }
         }
         handleTouch?(self)

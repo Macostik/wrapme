@@ -132,7 +132,7 @@ class LiveBroadcastNotification: WrapNotification {
         weak var controller = _entry?.viewControllerWithNavigationController(nc) as? WrapViewController
         guard let liveBroadcast = liveBroadcast else { return }
         Dispatch.mainQueue.after(1.2) { _ in
-            controller?.presentLiveProadcast(liveBroadcast)
+            controller?.presentLiveBroadcast(liveBroadcast)
         }
     }
     

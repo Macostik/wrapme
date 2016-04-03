@@ -104,6 +104,14 @@ extension Message {
         return controller
     }
     
+    override func viewControllerWithNavigationController(navigationController: UINavigationController) -> UIViewController? {
+        let controller = super.viewControllerWithNavigationController(navigationController)
+        if let controller = controller as? WrapViewController {
+            controller.segment = .Chat
+        }
+        return controller
+    }
+    
     override func isValidViewController(controller: UIViewController) -> Bool {
         return (controller as? WrapViewController)?.wrap == wrap
     }

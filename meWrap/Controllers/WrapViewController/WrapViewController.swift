@@ -177,10 +177,13 @@ final class WrapViewController: BaseViewController {
         updateInboxCounter()
     }
     
-    func presentLiveProadcast(broadcast: LiveBroadcast) {
+    func presentLiveBroadcast(broadcast: LiveBroadcast) {
         segment = .Media
-        let controller = controllerForSegment(.Media) as? MediaViewController
-        controller?.presentLiveBroadcast(broadcast)
+        performWhenLoaded(self) {
+            performWhenLoaded($0.mediaViewController, block: {
+                $0.presentLiveBroadcast(broadcast)
+            })
+        }
     }
     
     private func controllerForSegment(segment: WrapSegment) -> WrapSegmentViewController {

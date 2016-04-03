@@ -258,9 +258,7 @@ extension HomeViewController: CaptureMediaViewControllerDelegate {
                 SoundPlayer.playSend()
                 wrap.uploadAssets(assets)
             })
-        }
-        
-        UploadCompleteAnimationView.show()
+        }        
     }
 }
 

@@ -173,7 +173,6 @@ extension WrapListViewController: UploadSummaryViewControllerDelegate {
         self.navigationController?.popToRootViewControllerAnimated(false)
         SoundPlayer.playSend()
         controller.wrap?.uploadAssets(assets)
-        UploadCompleteAnimationView.show()
     }
 }
 

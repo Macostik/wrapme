@@ -289,7 +289,7 @@
 "introduction_step_2_part_2" = "sharing photos, videos and even live broadcast!";
 "skip" = "Skip";
 "share_with_friends" = "Share With Friends";
-"share_wrap_message" = "Share \"%@\" with friends";
+"share_wrap_message" = "You can share \"%@\" with friends anytime later.";
 "here" = "here";
 "wrap_shared_message" = "\"%@\" shared and friends notified.";
 "live_viewers" = "LIVE viewers";

@@ -198,26 +198,14 @@ class UploadWizardEndViewController: BaseViewController {
         if friendsInvited {
             descriptionLabel.text = String(format: "wrap_shared_message".ls, wrap?.name ?? "")
         } else {
-            let message = NSMutableAttributedString(string: String(format: "share_wrap_message".ls, wrap?.name ?? ""), attributes: [NSFontAttributeName:descriptionLabel.font,NSForegroundColorAttributeName:Color.grayDark])
-            let action = NSAttributedString(string: "here".ls, attributes: [NSFontAttributeName:descriptionLabel.font,NSForegroundColorAttributeName:Color.orange])
-            message.appendAttributedString(NSAttributedString(string: " "))
-            message.appendAttributedString(action)
+            let message = NSAttributedString(string: String(format: "share_wrap_message".ls, wrap?.name ?? ""), attributes: [NSFontAttributeName:descriptionLabel.font,NSForegroundColorAttributeName:Color.grayDark])
             descriptionLabel.attributedText = message
             descriptionLabel.userInteractionEnabled = true
-            descriptionLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UploadWizardEndViewController.addFriends(_:))))
         }
     }
     
     func close() {
         removeFromContainerAnimated(false)
-    }
-    
-    func addFriends(sender: AnyObject?) {
-        Storyboard.AddFriends.instantiate { (controller) -> Void in
-            controller.wrap = wrap
-            navigationController?.pushViewController(controller, animated: false)
-        }
-        close()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {

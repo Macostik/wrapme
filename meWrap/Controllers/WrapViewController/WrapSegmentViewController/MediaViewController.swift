@@ -64,21 +64,17 @@ class HistoryItemCell: StreamReusableView {
         let dateView = Button()
         dateView.exclusiveTouch = true
         dateView.normalColor = UIColor.whiteColor()
-        dateView.highlightedColor = Color.orange
+        dateView.highlightedColor = Color.grayLightest
         dateView.backgroundColor = UIColor.whiteColor()
         dateView.addTarget(self, action: #selector(HistoryItemCell.openHistoryItem(_:)), forControlEvents: .TouchUpInside)
         addSubview(dateView)
         
-        dateLabel.highlightedTextColor = UIColor.whiteColor()
         dateLabel.textAlignment = .Left
         dateView.addSubview(dateLabel)
-        dateView.highlightings.append(dateLabel)
         
         let arrow = Label(icon: "x", size: 15, textColor: Color.orange)
-        arrow.highlightedTextColor = UIColor.whiteColor()
         arrow.textAlignment = .Left
         dateView.addSubview(arrow)
-        dateView.highlightings.append(arrow)
         
         streamView.snp_makeConstraints(closure: {
             $0.top.equalTo(self).offset(28)

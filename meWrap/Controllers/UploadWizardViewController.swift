@@ -167,7 +167,6 @@ extension UploadWizardViewController: CaptureMediaViewControllerDelegate {
         if let wrap = controller.wrap where self.wrap != wrap {
             self.wrap = wrap
         }
-        SoundPlayer.playSend()
         wrap?.uploadAssets(assets)
         let navigationController = self.navigationController
         finish(false)

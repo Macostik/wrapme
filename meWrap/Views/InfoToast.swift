@@ -38,16 +38,12 @@ class InfoToast: UIView {
         leftIconView.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
         rightIconView.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
         messageLabel.numberOfLines = 2
-        let blurEffect = UIBlurEffect(style: .Dark)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        let vibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(forBlurEffect: UIBlurEffect(style: .Dark)))
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
         addSubview(blurView)
-        blurView.contentView.addSubview(vibrancyView)
-        vibrancyView.contentView.addSubview(leftIconView)
-        vibrancyView.contentView.addSubview(messageLabel)
-        vibrancyView.contentView.addSubview(rightIconView)
+        addSubview(leftIconView)
+        addSubview(messageLabel)
+        addSubview(rightIconView)
         blurView.snp_makeConstraints { $0.edges.equalTo(self) }
-        vibrancyView.snp_makeConstraints { $0.edges.equalTo(self) }
         leftIconView.snp_makeConstraints {
             $0.leading.equalTo(self).offset(12)
             $0.trailing.equalTo(messageLabel.snp_leading).offset(-12)

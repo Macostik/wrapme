@@ -294,7 +294,7 @@ extension UploadSummaryViewController: ComposeBarDelegate {
         while comment.utf8.count > InstanceCommentLimit {
             comment = comment.substringToIndex(comment.endIndex.predecessor())
         }
-        if comment != composeBar.text {
+        if comment != composeBar.text?.trim {
             InfoToast.show("comment_limit".ls)
             composeBar.text = comment
         }

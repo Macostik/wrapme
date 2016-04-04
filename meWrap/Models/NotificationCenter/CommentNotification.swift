@@ -34,8 +34,12 @@ class CommentAddNotification: CommentNotification {
             comment.markAsUnread(true)
         }
         comment.notifyOnAddition()
-        if comment.contributor?.current == false && !isHistorycal {
-            comment.showToast()
+        weak var controller = UINavigationController.main()?.topViewController as? HistoryViewController
+        if controller?.candy?.comments.contains(comment) == false {
+            if comment.contributor?.current == false && !isHistorycal {
+                comment.markAsUnread(false)
+                comment.showToast()
+            }
         }
     }
 }

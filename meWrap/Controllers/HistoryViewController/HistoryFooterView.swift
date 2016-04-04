@@ -26,6 +26,7 @@ class HistoryFooterView: GradientView {
         enqueueToggle(false)
     }
     
+    let transition = CATransition.transition(kCATransitionPush, subtype: kCATransitionFromTop, duration: 0.25)
     private var _showsEditor = false
     private var showsEditor: Bool {
         set {
@@ -33,7 +34,6 @@ class HistoryFooterView: GradientView {
                 _showsEditor = newValue
                 if let candy = candy {
                     if setupAction(candy) {
-                        let transition = CATransition.transition(kCATransitionPush, subtype: kCATransitionFromTop, duration: 0.25)
                         postLabel.superview?.addAnimation(transition)
                     }
                 }
@@ -64,6 +64,10 @@ class HistoryFooterView: GradientView {
         didSet {
             if comment != oldValue {
                 if let comment = comment, let text = comment.text {
+                    if comment.contributor?.current == false && comment.unread {
+                        commentLabel.addAnimation(transition)
+                        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                    }
                     comment.markAsUnread(false)
                     avatarImageView.hidden = false
                     commentLabel.hidden = false

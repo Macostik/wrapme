@@ -22,6 +22,7 @@ class Label: UILabel {
         font = UIFont.fontWithPreset(preset, weight: weight)
         self.preset = preset.rawValue
         self.textColor = textColor
+        FontPresetter.defaultPresetter.addReceiver(self)
     }
     
     @IBInspectable var preset: String? {

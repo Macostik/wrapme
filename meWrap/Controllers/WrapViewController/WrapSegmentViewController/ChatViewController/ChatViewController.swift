@@ -85,7 +85,6 @@ final class ChatViewController: WrapSegmentViewController {
         }
         
         Message.notifier().addReceiver(self)
-        FontPresetter.defaultPresetter.addReceiver(self)
         Keyboard.keyboard.addReceiver(self)
         composeBar.text = wrap.typedMessage
     }
@@ -305,7 +304,10 @@ extension ChatViewController: StreamViewDelegate {
     func streamViewDidChangeContentSize(streamView: StreamView, oldContentSize: CGSize) {
         if streamView.scrollable {
             if dragged {
-                streamView.contentOffset.y += streamView.contentSize.height - oldContentSize.height
+                let offset = streamView.contentSize.height - oldContentSize.height
+                if offset > 0 {
+                    streamView.contentOffset.y += offset
+                }
             } else {
                 streamView.contentOffset = streamView.maximumContentOffset
             }

@@ -39,6 +39,7 @@ class Chat: PaginatedList {
         super.init()
         request = PaginatedRequest.messages(wrap)
         resetMessages()
+        FontPresetter.defaultPresetter.addReceiver(self)
     }
     
     func resetMessages() {

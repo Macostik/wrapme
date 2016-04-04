@@ -59,7 +59,6 @@ final class ContributorsViewController: BaseViewController {
         
         streamView.contentInset = UIEdgeInsetsMake(0, 0, 44, 0)
         streamView.scrollIndicatorInsets = streamView.contentInset
-        streamView.layoutIfNeeded()
         
         Wrap.notifier().addReceiver(self)
         

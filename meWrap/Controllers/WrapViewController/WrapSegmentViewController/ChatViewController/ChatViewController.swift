@@ -86,7 +86,6 @@ final class ChatViewController: WrapSegmentViewController {
         
         Message.notifier().addReceiver(self)
         FontPresetter.defaultPresetter.addReceiver(self)
-        streamView.layoutIfNeeded()
         Keyboard.keyboard.addReceiver(self)
         composeBar.text = wrap.typedMessage
     }

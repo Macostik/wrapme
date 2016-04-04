@@ -51,6 +51,11 @@ extension UIView {
         return subview
     }
     
+    func forceLayout() {
+        setNeedsLayout()
+        layoutIfNeeded()
+    }
+    
     // MARK: - Regular Animation
     
     class func performAnimated( animated: Bool, @noescape animation: Void -> Void) {

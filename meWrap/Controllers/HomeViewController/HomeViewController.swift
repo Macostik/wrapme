@@ -110,7 +110,6 @@ final class HomeViewController: BaseViewController {
                 }
             }
         }
-        streamView.layoutIfNeeded()
     }
     
     func refreshUserActivities() {

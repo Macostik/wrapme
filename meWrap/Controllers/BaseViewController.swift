@@ -70,7 +70,7 @@ class BaseViewController: GAITrackedViewController, KeyboardNotifying {
     override func viewDidLoad() {
         super.viewDidLoad()
         if shouldUsePreferredViewFrame() {
-            view.layoutIfNeeded()
+            view.forceLayout()
         }
         screenName = NSStringFromClass(self.dynamicType)
         if !keyboardAdjustments.isEmpty {

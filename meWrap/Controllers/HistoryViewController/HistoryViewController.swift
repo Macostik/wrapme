@@ -123,7 +123,7 @@ class HistoryViewController: SwipeViewController {
         if let controller = cachedCandyViewControllers[candy] {
             return controller
         } else {
-            let controller = Storyboard.Candy.instantiate()
+            let controller = (candy.mediaType == .Video ? Storyboard.VideoCandy : Storyboard.PhotoCandy).instantiate()
             controller.candy = candy
             controller.historyViewController = self
             cachedCandyViewControllers[candy] = controller

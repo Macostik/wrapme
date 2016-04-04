@@ -40,7 +40,8 @@ struct Storyboard {
     static let Countries = StoryboardObject<CountriesViewController>("countries", UIStoryboard.signUp)
     static let Wrap = StoryboardObject<WrapViewController>("wrap")
     static let WrapList = StoryboardObject<WrapListViewController>("wrapList")
-    static let Candy = StoryboardObject<CandyViewController>("candy")
+    static let PhotoCandy = StoryboardObject<CandyViewController>("photoCandy")
+    static let VideoCandy = StoryboardObject<CandyViewController>("videoCandy")
     static let SignupFlow = StoryboardObject<SignupFlowViewController>("signupFlow", UIStoryboard.signUp)
 }
 

@@ -31,6 +31,7 @@ extension PubNub {
     class func defaultConfiguration() -> PNConfiguration {
         let keys = Environment.current.pubnub
         let configuration = PNConfiguration(publishKey: keys.publishKey, subscribeKey: keys.subscribeKey)
+        configuration.catchUpOnSubscriptionRestore = false
         configuration.uuid = User.uuid()
         configuration.presenceHeartbeatValue = 60
         return configuration

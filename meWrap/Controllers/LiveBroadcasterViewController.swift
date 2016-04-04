@@ -200,6 +200,7 @@ final class LiveBroadcasterViewController: LiveViewController {
         startBroadcast()
         joinsCountView.hidden = false
         chatStreamView.hidden = false
+        toggleCameraButton.hidden = true
         sender.hidden = true
         composeBar.hidden = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(LiveBroadcasterViewController.focusing(_:))))

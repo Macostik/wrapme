@@ -304,17 +304,11 @@ class MediaViewController: WrapSegmentViewController {
         
         dataSource.items = history
         uploadingView.update()
-        streamView.unlock()
         if view.width > view.height {
             Dispatch.mainQueue.async { [weak self] _ in
                 self?.dataSource.reload()
             }
         }
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        streamView.lock()
     }
     
     private func dropDownCollectionView() {

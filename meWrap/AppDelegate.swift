@@ -149,7 +149,14 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.defaultCenter.handleDeviceToken(deviceToken)
     }
     
+    private var forceResetBadge = false
+    
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        
+        if userInfo["aps"]?["alert"] != nil {
+            forceResetBadge = true
+        }
+        
         let state = UIApplication.sharedApplication().applicationState
         if state == .Active {
             completionHandler(.NoData)
@@ -200,9 +207,14 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     private var retryResetBadge = false
     
     private func resetBadge() {
-        if UIApplication.sharedApplication().applicationIconBadgeNumber > 0 {
+        if UIApplication.sharedApplication().applicationIconBadgeNumber > 0 || forceResetBadge {
+            forceResetBadge = false
             UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-            APIRequest.resetBadge().send({ _ in }) { (error) -> Void in
+            let task = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
+            APIRequest.resetBadge().send({ _ in
+                UIApplication.sharedApplication().endBackgroundTask(task)
+            }) { (error) -> Void in
+                UIApplication.sharedApplication().endBackgroundTask(task)
                 if error?.isNetworkError == true {
                     self.retryResetBadge = true
                 }
@@ -214,12 +226,17 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidBecomeActive(application: UIApplication) {
         if Authorization.active {
-            resetBadge()
             Dispatch.mainQueue.async { Uploader.wrapUploader.start() }
         }
         
         dispatch_once(&activationToken) {
             NotificationCenter.defaultCenter.configure()
+        }
+    }
+    
+    func applicationWillResignActive(application: UIApplication) {
+        if Authorization.active {
+            resetBadge()
         }
     }
 }

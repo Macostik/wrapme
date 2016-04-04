@@ -158,6 +158,7 @@
 		C53BC48E1C05FE620009B0B9 /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53BC48D1C05FE620009B0B9 /* SegmentedControl.swift */; };
 		C540C0F01B988BF700F880C9 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540C0EE1B988BF700F880C9 /* GridLayout.swift */; };
 		C540C0F31B988BFD00F880C9 /* StreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540C0F11B988BFD00F880C9 /* StreamItem.swift */; };
+		C54220CC1CB2A8830082F519 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54220CB1CB2A8830082F519 /* DebugViewController.swift */; };
 		C54604E41C08C6DF00FB2303 /* meWrapWatchExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C54604E31C08C6DF00FB2303 /* meWrapWatchExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C54604FD1C08C71700FB2303 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC7C1B9432920084D0F5 /* Interface.storyboard */; };
 		C54604FF1C08C73200FB2303 /* WatchExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562D1071BDF65F60033EDC8 /* WatchExtensionDelegate.swift */; };
@@ -608,6 +609,7 @@
 		C53BC48D1C05FE620009B0B9 /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		C540C0EE1B988BF700F880C9 /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		C540C0F11B988BFD00F880C9 /* StreamItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamItem.swift; sourceTree = "<group>"; };
+		C54220CB1CB2A8830082F519 /* DebugViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 		C54604D71C08C6DF00FB2303 /* meWrapWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = meWrapWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54604E31C08C6DF00FB2303 /* meWrapWatchExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = meWrapWatchExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C547433F1C09CD8A00BECB25 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
@@ -984,6 +986,7 @@
 				C53644671C6213920002232C /* SwipeViewController.swift */,
 				C5A604231C7F64A200B41A99 /* CandyViewController.swift */,
 				C522779B1C996985004AEE65 /* CommentsViewController.swift */,
+				C54220CB1CB2A8830082F519 /* DebugViewController.swift */,
 				C51A06AC1C778E9400719826 /* ContributorsViewController */,
 				C5B8F7161B8215FE00A5E541 /* DrawingViewController */,
 				C560D2311AFBB53C006B906E /* HistoryViewController */,
@@ -2165,6 +2168,7 @@
 				C5326F0C1C159279007A8BEF /* RunQueue.swift in Sources */,
 				C5F4E70F1C07687A00D2FC16 /* UIColor+Ext.swift in Sources */,
 				C557B6DB1C22C0B00067631E /* SoundPlayer.swift in Sources */,
+				C54220CC1CB2A8830082F519 /* DebugViewController.swift in Sources */,
 				C5A406FE1C200A71007D1D0E /* CandyEnlargingPresenter.swift in Sources */,
 				C55766A61C0C913D00E94E09 /* EntryStatusIndicator.swift in Sources */,
 				C5053E201BC7CF0F0040613A /* AssetMetrics.swift in Sources */,

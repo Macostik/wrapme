@@ -189,17 +189,8 @@ class PressButton: Button {
 
 class DebugButton: Button {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        hideIfNeeded()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        hideIfNeeded()
-    }
-    
-    func hideIfNeeded() {
+    override func layoutSubviews() {
+        super.layoutSubviews()
         #if !DEBUG
             hidden = true
         #endif
@@ -208,7 +199,8 @@ class DebugButton: Button {
 
 class QAButton: DebugButton {
     
-    override func hideIfNeeded() {
+    override func layoutSubviews() {
+        super.layoutSubviews()
         #if DEBUG
             hidden = false
         #else

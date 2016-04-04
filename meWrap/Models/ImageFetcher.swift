@@ -96,8 +96,12 @@ final class ImageFetcher: Notifier {
             if let _url = url.URL {
                 let request = NSURLRequest(URL: _url)
                 ImageFetcher.downloader.downloadImageForURLRequest(request, success: { (_, _, image) -> Void in
-                    ImageCache.defaultCache.write(image, uid: uid)
-                    result(image, false)
+                    Dispatch.defaultQueue.async({
+                        ImageCache.defaultCache.write(image, uid: uid)
+                        Dispatch.mainQueue.async({
+                            result(image, false)
+                        })
+                    })
                     }, failure: { (_, _, error) -> Void in
                         result(nil, false)
                 })

@@ -50,6 +50,10 @@ class CandyViewController: BaseViewController {
         slideInteractiveTransition?.delegate = self
     }
     
+    override func shouldUsePreferredViewFrame() -> Bool {
+        return false
+    }
+    
     private func setup(candy: Candy) {
         self.spinner.hidden = false
         self.errorLabel.hidden = true

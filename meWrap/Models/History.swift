@@ -16,15 +16,15 @@ class History: PaginatedList {
         super.init()
         Candy.notifier().addReceiver(self)
         self.wrap = wrap
-        fetchCandies()
+        fetchCandies(wrap)
         request = PaginatedRequest.candies(wrap)
     }
     
-    private func fetchCandies() {
+    private var items: [HistoryItem] { return entries as! [HistoryItem] }
+    
+    private func fetchCandies(wrap: Wrap) {
         entries.removeAll()
-        guard let candies = wrap?.historyCandies where !candies.isEmpty else {
-            return
-        }
+        guard let candies = wrap.historyCandies where !candies.isEmpty else { return }
         var _candy: Candy?
         var item: HistoryItem!
         for candy in candies {
@@ -44,21 +44,17 @@ class History: PaginatedList {
     }
     
     override func _add(entry: ListEntry) -> Bool {
-        if let candy = entry as? Candy {
-            return addCandy(candy).added
-        } else {
-            return false
-        }
+        guard let candy = entry as? Candy else { return false }
+        return addCandy(candy).added
     }
     
     private func addCandy(candy: Candy) -> (item: HistoryItem, added: Bool) {
-        if let items = entries as? [HistoryItem] {
-            if let item = items.last where item.date.isSameDay(candy.createdAt) {
+        let items = self.items
+        if let item = items.last where item.date.isSameDay(candy.createdAt) {
+            return (item, item.addCandy(candy))
+        } else {
+            for item in items where item.date.isSameDay(candy.createdAt) {
                 return (item, item.addCandy(candy))
-            } else {
-                for item in items where item.date.isSameDay(candy.createdAt) {
-                    return (item, item.addCandy(candy))
-                }
             }
         }
         let item = HistoryItem(candy: candy, history: self)
@@ -76,16 +72,14 @@ class History: PaginatedList {
     }
     
     override func addEntries(entries: [ListEntry]) {
-        
+        guard let candies = entries as? [Candy] else { return }
         var added = false
         var items = Set<HistoryItem>()
-        if let candies = entries as? [Candy] {
-            for candy in candies {
-                let result = addCandy(candy)
-                if result.added {
-                    items.insert(result.item)
-                    added = true
-                }
+        for candy in candies {
+            let result = addCandy(candy)
+            if result.added {
+                items.insert(result.item)
+                added = true
             }
         }
         for item in items {
@@ -97,47 +91,45 @@ class History: PaginatedList {
     }
     
     override func sort() {
-        if let items = entries as? [HistoryItem] {
-            for item in items {
-                item.sort()
-            }
-        }
+        items.all({ $0.sort() })
         didChange()
     }
     
     override func remove(entry: ListEntry) {
-        if let candy = entry as? Candy, let items = entries as? [HistoryItem] {
-            for (itemIndex, item) in items.enumerate() {
-                if let index = item.candies.indexOf(candy) {
-                    item.candies.removeAtIndex(index)
-                    if item.candies.count == 0 {
-                        entries.removeAtIndex(itemIndex)
-                    }
-                    didChange()
-                    break
+        guard let candy = entry as? Candy else { return }
+        for (itemIndex, item) in items.enumerate() {
+            if let index = item.candies.indexOf(candy) {
+                item.candies.removeAtIndex(index)
+                if item.candies.count == 0 {
+                    entries.removeAtIndex(itemIndex)
                 }
+                didChange()
+                break
             }
         }
     }
     
+    override func sort(entry: ListEntry) {
+        guard let candy = entry as? Candy else { return }
+        if let item = items[{ $0.candies.contains(candy) }] {
+            item.sort()
+        } else {
+            addCandy(candy)
+        }
+    }
+    
     override func add(entry: ListEntry) {
-        if let candy = entry as? Candy {
-            let result = addCandy(candy)
-            result.item.sort()
-            if result.added {
-                didChange()
-            }
+        guard let candy = entry as? Candy else { return }
+        let result = addCandy(candy)
+        result.item.sort()
+        if result.added {
+            didChange()
         }
     }
     
     func itemWithCandy(candy: Candy?) -> HistoryItem? {
         guard let candy = candy else { return nil }
-        if let items = entries as? [HistoryItem] {
-            for item in items where item.candies.contains(candy) {
-                return item
-            }
-        }
-        return nil
+        return items[{ $0.candies.contains(candy) }]
     }
 }
 

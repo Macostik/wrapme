@@ -152,7 +152,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     private var forceResetBadge = false
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        
         if userInfo["aps"]?["alert"] != nil {
             forceResetBadge = true
         }
@@ -225,17 +224,29 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     private var activationToken: dispatch_once_t = 0
     
     func applicationDidBecomeActive(application: UIApplication) {
-        if Authorization.active {
-            Dispatch.mainQueue.async { Uploader.wrapUploader.start() }
-        }
         
         dispatch_once(&activationToken) {
             NotificationCenter.defaultCenter.configure()
         }
+        
+        if Authorization.active {
+            NotificationCenter.defaultCenter.userSubscription.subscribe()
+            Dispatch.mainQueue.async { Uploader.wrapUploader.start() }
+        }
     }
     
     func applicationWillResignActive(application: UIApplication) {
+        
         if Authorization.active {
+            let task = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
+            Dispatch.mainQueue.after(15) {
+                if application.applicationState != .Active {
+                    NotificationCenter.defaultCenter.userSubscription.unsubscribe()
+                }
+                Dispatch.mainQueue.after(1) {
+                    UIApplication.sharedApplication().endBackgroundTask(task)
+                }
+            }
             resetBadge()
         }
     }

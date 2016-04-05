@@ -10,7 +10,9 @@ import UIKit
 
 final class HomeViewController: BaseViewController {
     
-    @IBOutlet var dataSource: HomeDataSource!
+    @IBOutlet var buttonAnimationPrioritizer: LayoutPrioritizer!
+    
+    private lazy var dataSource: HomeDataSource = HomeDataSource(streamView: self.streamView)
     @IBOutlet var emailConfirmationLayoutPrioritizer: LayoutPrioritizer!
     
     @IBOutlet weak var streamView: StreamView!
@@ -34,7 +36,7 @@ final class HomeViewController: BaseViewController {
         super.viewDidLoad()
         
         self.streamView.contentInset = self.streamView.scrollIndicatorInsets
-        
+        dataSource.scrollDirectionLayoutPrioritizer = buttonAnimationPrioritizer
         dataSource.addMetrics(specify(StreamMetrics(loader: StreamLoader<WrapCell>()), {
             $0.modifyItem = {
                 let index = $0.position.index
@@ -80,7 +82,7 @@ final class HomeViewController: BaseViewController {
         
         let refresher = Refresher(scrollView: self.streamView)
         refresher.style = .Orange
-        refresher.addTarget(dataSource, action: #selector(StreamDataSource.refresh(_:)), forControlEvents: .ValueChanged)
+        refresher.addTarget(dataSource, action: #selector(dataSource.refresh(_:)), forControlEvents: .ValueChanged)
         refresher.addTarget(self, action: #selector(HomeViewController.refreshUserActivities), forControlEvents: .ValueChanged)
         
         super.viewDidLoad()
@@ -92,7 +94,7 @@ final class HomeViewController: BaseViewController {
         guard let user = User.currentUser else { return }
         let wraps = user.wraps
         
-        dataSource.items = PaginatedList(entries:Array(wraps), request:PaginatedRequest.wraps(nil))
+        dataSource.items = PaginatedList(entries:Array(wraps), request:API.wraps(nil))
         
         if !wraps.isEmpty {
             dataSource.refresh()
@@ -105,7 +107,7 @@ final class HomeViewController: BaseViewController {
         Dispatch.mainQueue.async { [weak self] _ in
             RunQueue.fetchQueue.run { finish in
                 NotificationCenter.defaultCenter.refreshUserActivities {
-                    self?.dataSource.paginatedSet?.sort()
+                    self?.dataSource.items?.sort()
                     finish()
                 }
             }
@@ -114,7 +116,7 @@ final class HomeViewController: BaseViewController {
     
     func refreshUserActivities() {
         NotificationCenter.defaultCenter.refreshUserActivities { [weak self] () -> Void in
-            self?.dataSource.paginatedSet?.sort()
+            self?.dataSource.items?.sort()
         }
     }
     
@@ -163,7 +165,7 @@ final class HomeViewController: BaseViewController {
         wrapNotifyReceiver = EntryNotifyReceiver<Wrap>().setup { [weak self] receiver in
             receiver.didAdd = {
                 if $0.isContributing {
-                    self?.dataSource.paginatedSet?.sort($0)
+                    self?.dataSource.items?.sort($0)
                 }
                 self?.streamView.contentOffset = CGPointZero
             }
@@ -173,15 +175,15 @@ final class HomeViewController: BaseViewController {
                 } else {
                     let wrap = entry
                     if wrap.isContributing {
-                        self?.dataSource.paginatedSet?.sort(wrap)
+                        self?.dataSource.items?.sort(wrap)
                     } else {
-                        self?.dataSource.paginatedSet?.remove(wrap)
+                        self?.dataSource.items?.remove(wrap)
                     }
                 }
             }
             receiver.willDelete = {
                 if $0.isContributing {
-                    self?.dataSource.paginatedSet?.remove($0)
+                    self?.dataSource.items?.remove($0)
                 }
             }
         }
@@ -234,7 +236,7 @@ extension HomeViewController {
     
     
     @IBAction func resendConfirmation(sender: AnyObject?) {
-        APIRequest.resendConfirmation(nil).send({ _ in
+        API.resendConfirmation(nil).send({ _ in
             InfoToast.show("confirmation_resend".ls)
             }, failure: { $0?.show() })
     }

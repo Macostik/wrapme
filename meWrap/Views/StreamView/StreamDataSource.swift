@@ -12,7 +12,7 @@ enum ScrollDirection {
     case Unknown, Up, Down
 }
 
-class StreamDataSource: NSObject, GridLayoutDelegate, StreamLayoutDelegate {
+class StreamDataSource<T: BaseOrderedContainer>: NSObject, GridLayoutDelegate, StreamLayoutDelegate {
     
     @IBOutlet weak var streamView: StreamView?
     
@@ -32,7 +32,7 @@ class StreamDataSource: NSObject, GridLayoutDelegate, StreamLayoutDelegate {
         }
     }
     
-    var items: BaseOrderedContainer? {
+    var items: T? {
         didSet {
             didSetItems()
         }
@@ -83,34 +83,6 @@ class StreamDataSource: NSObject, GridLayoutDelegate, StreamLayoutDelegate {
         streamView.delegate = self
     }
     
-    func refresh(sender: Refresher) {
-        refresh({ (_) -> Void in
-            sender.setRefreshing(false, animated: true)
-            }) { (error) -> Void in
-                sender.setRefreshing(false, animated: true)
-        }
-    }
-    
-    func refresh() {
-        refresh(nil, failure: nil)
-    }
-    
-    func refresh(success: ObjectBlock?, failure: FailureBlock?) {
-        success?(nil)
-    }
-    
-    func setRefreshable() {
-        setRefreshableWithStyle(.White)
-    }
-    
-    func setRefreshableWithStyle(style: RefresherStyle) {
-        if let streamView = streamView {
-            let refresher = Refresher(scrollView: streamView)
-            refresher.style = style
-            refresher.addTarget(self, action: #selector(StreamDataSource.refresh(_:)), forControlEvents: .ValueChanged)
-        }
-    }
-    
     var numberOfItems: Int?
     
     @IBInspectable var layoutOffset: CGFloat = 0
@@ -132,7 +104,7 @@ class StreamDataSource: NSObject, GridLayoutDelegate, StreamLayoutDelegate {
     var didLayoutBlock: (Void -> Void)?
     
     private func entryForItem(item: StreamItem) -> AnyObject? {
-        return items?.tryAt(item.position.index)
+        return items?[safe: item.position.index]
     }
     
     // MARK: - UIScrollViewDelegate

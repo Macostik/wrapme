@@ -75,7 +75,7 @@ class FollowingViewController: BaseViewController {
     @IBAction func follow(sender: Button) {
         guard let wrap = wrap else { return }
         sender.loading = true
-        APIRequest.followWrap(wrap).send({ [weak self] (_) -> Void in
+        API.followWrap(wrap).send({ [weak self] (_) -> Void in
             self?.updateState()
             sender.loading = false
             }) { (error) -> Void in

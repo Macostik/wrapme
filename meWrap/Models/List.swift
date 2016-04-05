@@ -8,21 +8,21 @@
 
 import UIKit
 
-@objc protocol ListEntry: NSObjectProtocol {
-    func listSort(entry: ListEntry) -> Bool
+protocol ListEntry {
+    func listSort(entry: Self) -> Bool
     func listSortDate() -> NSDate
-    func listEntryEqual(entry: ListEntry) -> Bool
+    func listEntryEqual(entry: Self) -> Bool
 }
 
-@objc protocol ListNotifying {
-    optional func listChanged(list: List)
+protocol ListNotifying {
+    func listChanged<T: ListEntry>(list: List<T>)
 }
 
-class List: Notifier {
+class List<T: ListEntry>: Notifier {
     
-    var entries = [ListEntry]()
+    var entries = [T]()
     
-    internal func _add(entry: ListEntry) -> Bool {
+    internal func _add(entry: T) -> Bool {
         if !entries.contains({ $0.listEntryEqual(entry) }) {
             entries.append(entry)
             return true
@@ -31,13 +31,13 @@ class List: Notifier {
         }
     }
     
-    func add(entry: ListEntry) {
+    func add(entry: T) {
         if _add(entry) {
             sort()
         }
     }
     
-    func addEntries(entries: [ListEntry]) {
+    func addEntries(entries: [T]) {
         let count = self.entries.count
         for entry in entries {
             _add(entry)
@@ -52,63 +52,68 @@ class List: Notifier {
         didChange()
     }
     
-    func sort(entry: ListEntry) {
+    func sort(entry: T) {
         _add(entry)
         sort()
     }
     
-    func remove(entry: ListEntry) {
+    func remove(entry: T) {
         if let index = entries.indexOf({ $0.listEntryEqual(entry) }) {
             entries.removeAtIndex(index)
         }
     }
     
     internal func didChange() {
-        notify { $0.listChanged?(self) }
+        notify { ($0 as? ListNotifying)?.listChanged(self) }
     }
     
-    subscript(index: Int) -> ListEntry? {
+    subscript(index: Int) -> T? {
         return (index >= 0 && index < count) ? entries[index] : nil
     }
 }
 
-@objc protocol BaseOrderedContainer {
+protocol BaseOrderedContainer {
+    associatedtype ElementType
     var count: Int { get }
-    func objectAtIndex(index: Int) -> AnyObject
-    func tryAt(index: Int) -> AnyObject?
+    subscript (safe index: Int) -> ElementType? { get }
 }
 
-extension NSArray: BaseOrderedContainer {
-    func tryAt(index: Int) -> AnyObject? {
-        return (index >= 0 && index < count) ? self[index] : nil
-    }
-}
+extension Array: BaseOrderedContainer {}
 
 extension List: BaseOrderedContainer {
-    var count: Int {
-        return entries.count
-    }
-    func tryAt(index: Int) -> AnyObject? {
-        return (index >= 0 && index < count) ? entries[index] : nil
-    }
-    func objectAtIndex(index: Int) -> AnyObject {
-        return entries[index]
+    var count: Int { return entries.count }
+    subscript (safe index: Int) -> T? {
+        return entries[safe: index]
     }
 }
 
-@objc protocol PaginatedListNotifying: ListNotifying {
-    optional func paginatedListDidStartLoading(list: PaginatedList)
-    optional func paginatedListDidFinishLoading(list: PaginatedList)
+protocol PaginatedListNotifying: ListNotifying {
+    func paginatedListDidStartLoading<T: ListEntry>(list: PaginatedList<T>)
+    func paginatedListDidFinishLoading<T: ListEntry>(list: PaginatedList<T>)
 }
 
-class PaginatedList: List {
+extension PaginatedListNotifying {
+    func paginatedListDidStartLoading<T: ListEntry>(list: PaginatedList<T>) {}
+    func paginatedListDidFinishLoading<T: ListEntry>(list: PaginatedList<T>) {}
+}
+
+protocol PaginatedListProtocol: BaseOrderedContainer {
+    associatedtype PaginatedEntryType
+    func fresh(success: ([PaginatedEntryType] -> ())?, failure: FailureBlock?)
+    func newer(success: ([PaginatedEntryType] -> ())?, failure: FailureBlock?)
+    func older(success: ([PaginatedEntryType] -> ())?, failure: FailureBlock?)
+    var completed: Bool { get set }
+    func addReceiver(receiver: NSObject?)
+}
+
+class PaginatedList<T: ListEntry>: List<T>, PaginatedListProtocol {
     
-    convenience init(request: PaginatedRequest) {
+    convenience init(request: PaginatedRequest<[T]>) {
         self.init()
         self.request = request
     }
     
-    convenience init(entries: [ListEntry], request: PaginatedRequest) {
+    convenience init(entries: [T], request: PaginatedRequest<[T]>) {
         self.init(request: request)
         self.addEntries(entries)
     }
@@ -121,37 +126,37 @@ class PaginatedList: List {
         }
     }
     
-    var request: PaginatedRequest?
+    var request: PaginatedRequest<[T]>?
     
     private var loadingTypes = Set<PaginatedRequestType>()
     
     private func addLoadingType(type: PaginatedRequestType) {
         loadingTypes.insert(type)
         if loadingTypes.count == 1 {
-            notify({ $0.paginatedListDidStartLoading?(self) })
+            notify({ ($0 as? PaginatedListNotifying)?.paginatedListDidStartLoading(self) })
         }
     }
     
     private func removeLoadingType(type: PaginatedRequestType) {
         loadingTypes.remove(type)
         if loadingTypes.count == 0 {
-            notify({ $0.paginatedListDidFinishLoading?(self) })
+            notify({ ($0 as? PaginatedListNotifying)?.paginatedListDidFinishLoading(self) })
         }
     }
     
-    func fresh(success: ObjectBlock?, failure: FailureBlock?) {
+    func fresh(success: ([T] -> ())?, failure: FailureBlock?) {
         send(.Fresh, success: success, failure: failure)
     }
     
-    func newer(success: ObjectBlock?, failure: FailureBlock?) {
+    func newer(success: ([T] -> ())?, failure: FailureBlock?) {
         send(.Newer, success: success, failure: failure)
     }
     
-    func older(success: ObjectBlock?, failure: FailureBlock?) {
+    func older(success: ([T] -> ())?, failure: FailureBlock?) {
         send(.Older, success: success, failure: failure)
     }
     
-    func send(type: PaginatedRequestType, success: ObjectBlock?, failure: FailureBlock?) {
+    func send(type: PaginatedRequestType, success: ([T] -> ())?, failure: FailureBlock?) {
         if let request = request where !loadingTypes.contains(type) {
             addLoadingType(type)
             RunQueue.fetchQueue.run { [weak self] (finish) -> Void in
@@ -170,7 +175,7 @@ class PaginatedList: List {
                     })
                 } else {
                     finish()
-                    success?(nil)
+                    failure?(nil)
                 }
             }
         } else {
@@ -178,17 +183,15 @@ class PaginatedList: List {
         }
     }
     
-    internal func handleResponse(entries: AnyObject?, type: PaginatedRequestType) {
-        if let entries = entries as? [ListEntry] {
-            if entries.isEmpty {
-                if type == .Older {
-                    completed = true
-                } else {
-                    didChange()
-                }
+    internal func handleResponse(entries: [T], type: PaginatedRequestType) {
+        if entries.isEmpty {
+            if type == .Older {
+                completed = true
             } else {
-                addEntries(entries)
+                didChange()
             }
+        } else {
+            addEntries(entries)
         }
     }
     
@@ -202,7 +205,7 @@ class PaginatedList: List {
         return dates.maxElement({ $0 > $1 })
     }
     
-    internal func configureRequest(request: PaginatedRequest) {
+    internal func configureRequest(request: PaginatedRequest<[T]>) {
         if entries.count == 0 {
             request.type = .Fresh
         } else {
@@ -212,42 +215,38 @@ class PaginatedList: List {
     }
 }
 
+extension ListEntry where Self: Wrap {
+    
+    func listSort(wrap: Wrap) -> Bool {
+        if wrap.liveBroadcasts.count > 0 {
+            if liveBroadcasts.count > 0 {
+                return name < wrap.name
+            } else {
+                return false
+            }
+        } else {
+            if liveBroadcasts.count > 0 {
+                return true
+            } else {
+                return updatedAt > wrap.updatedAt
+            }
+        }
+    }
+    
+    func listSortDate() -> NSDate {
+        return updatedAt
+    }
+}
+
 extension Entry: ListEntry {
-    func listSort(entry: ListEntry) -> Bool {
+    func listSort(entry: Entry) -> Bool {
         return listSortDate() > entry.listSortDate()
     }
     func listSortDate() -> NSDate {
         return createdAt
     }
-    func listEntryEqual(entry: ListEntry) -> Bool {
-        return self == (entry as? Entry)
-    }
-}
-
-extension Wrap {
-    
-    override func listSort(entry: ListEntry) -> Bool {
-        if let wrap = entry as? Wrap {
-            if wrap.liveBroadcasts.count > 0 {
-                if liveBroadcasts.count > 0 {
-                    return name < wrap.name
-                } else {
-                    return false
-                }
-            } else {
-                if liveBroadcasts.count > 0 {
-                    return true
-                } else {
-                    return updatedAt > wrap.updatedAt
-                }
-            }
-        } else {
-            return super.listSort(entry)
-        }
-    }
-    
-    override func listSortDate() -> NSDate {
-        return updatedAt
+    func listEntryEqual(entry: Entry) -> Bool {
+        return self == entry
     }
 }
 

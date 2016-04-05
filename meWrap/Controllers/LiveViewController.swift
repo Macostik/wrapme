@@ -148,7 +148,7 @@ class LiveViewController: BaseViewController {
     
     @IBOutlet weak var chatStreamView: StreamView!
         
-    var chatDataSource: StreamDataSource!
+    var chatDataSource: StreamDataSource<[LiveBroadcast.Event]>!
     
     @IBOutlet weak var wrapNameLabel: UILabel!
     

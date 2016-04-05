@@ -10,21 +10,66 @@ import Foundation
 import PubNub
 
 extension APIRequest {
-    
     func contributionUnavailable(contribution: Contribution) -> Self {
-        return beforeFailure {
+        beforeFailure = {
             if contribution.uploaded && ($0?.isResponseError(.ContentUnavailable) ?? false) {
                 contribution.remove()
             }
         }
+        return self
+    }
+}
+
+extension API {
+    
+    static func wraps(scope: String?) -> PaginatedRequest<[Wrap]> {
+        return PaginatedRequest<[Wrap]>(.GET, "wraps", modifier: { $0["scope"] = scope }, parser: { response in
+            if let wraps = response.array("wraps") {
+                return mappedEntries(Wrap.prefetchArray(wraps))
+            } else {
+                return []
+            }
+        })
     }
     
-    class func wrap(wrap: Wrap, contentType: String?) -> Self {
-        return GET().path("wraps/%@", wrap.uid).parametrize({ (request) -> Void in
-            if let contentType = contentType {
-                request["pick"] = contentType
+    static func candies(wrap: Wrap) -> PaginatedRequest<[Candy]> {
+        return PaginatedRequest<[Candy]>(.GET, "wraps/\(wrap.uid)/candies", modifier: { (request) -> Void in
+            if let request = request as? PaginatedRequest {
+                switch request.type {
+                case .Newer:
+                    request["offset_x_in_epoch"] = request.newer?.timestamp
+                case .Older:
+                    request["offset_y_in_epoch"] = wrap.candiesPaginationDate?.timestamp
+                default: break
+                }
             }
-        }).parse({ (response) -> AnyObject! in
+            }, parser: { response in
+                if let candies = response.array("candies") where wrap.valid {
+                    let candies: [Candy] = mappedEntries(Candy.prefetchArray(candies), container: wrap)
+                    if let candiesPaginationDate = candies.last?.createdAt {
+                        wrap.candiesPaginationDate = candiesPaginationDate
+                    }
+                    return candies
+                } else {
+                    return []
+                }
+        }).contributionUnavailable(wrap)
+    }
+    
+    static func messages(wrap: Wrap) -> PaginatedRequest<[Message]> {
+        return PaginatedRequest<[Message]>(.GET, "wraps/\(wrap.uid)/chats", parser: { response in
+            if let chats = response.array("chats") where wrap.valid && !chats.isEmpty {
+                let messages: [Message] = mappedEntries(Message.prefetchArray(chats), container: wrap)
+                wrap.notifyOnUpdate(.ContentAdded)
+                return messages
+            } else {
+                return []
+            }
+        }).contributionUnavailable(wrap)
+    }
+    
+    static func wrap(wrap: Wrap, contentType: String?) -> APIRequest<Wrap?> {
+        return APIRequest<Wrap?>(.GET, "wraps/\(wrap.uid)", modifier: { $0["pick"] = contentType }, parser: { response in
             if let dictionary = response.dictionary("wrap") where wrap.valid {
                 return wrap.update(Wrap.prefetchDictionary(dictionary))
             } else {
@@ -33,14 +78,14 @@ extension APIRequest {
         }).contributionUnavailable(wrap)
     }
     
-    class func candy(candy: Candy) -> Self {
-        var request = GET()
+    static func candy(candy: Candy) -> APIRequest<Candy?> {
+        var path: String!
         if let wrap = candy.wrap {
-            request = request.path("wraps/\(wrap.uid)/candies/\(candy.uid)")
+            path = "wraps/\(wrap.uid)/candies/\(candy.uid)"
         } else {
-            request = request.path("entities/\(candy.uid)")
+            path = "entities/\(candy.uid)"
         }
-        return request.parse({ response in
+        return APIRequest<Candy?>(.GET, path, parser: { response in
             if let dictionary = response.dictionary("candy") {
                 return candy.validEntry()?.update(Candy.prefetchDictionary(dictionary))
             } else {
@@ -49,33 +94,33 @@ extension APIRequest {
         }).contributionUnavailable(candy)
     }
     
-    class func deleteCandy(candy: Candy) -> Self? {
+    static func deleteCandy(candy: Candy) -> APIRequest<AnyObject?>? {
         guard let wrap = candy.wrap else { return nil }
-        return DELETE().path("wraps/\(wrap.uid)/candies/\(candy.uid)").parse { response in
+        return APIRequest<AnyObject?>(.DELETE, "wraps/\(wrap.uid)/candies/\(candy.uid)", parser: { response in
             candy.remove()
             return nil
-            }.contributionUnavailable(candy)
+        }).contributionUnavailable(candy)
     }
     
-    class func deleteComment(comment: Comment) -> Self? {
+    static func deleteComment(comment: Comment) -> APIRequest<AnyObject?>? {
         guard let candy = comment.candy else { return nil }
         guard let wrap = candy.wrap else { return nil }
-        return DELETE().path("wraps/\(wrap.uid)/candies/\(candy.uid)/comments/\(comment.uid)").parse { response in
+        return APIRequest<AnyObject?>(.DELETE, "wraps/\(wrap.uid)/candies/\(candy.uid)/comments/\(comment.uid)", parser: { response in
             comment.remove()
             candy.validEntry()?.commentCount = Int16(response.data["comment_count"] as? Int ?? 0)
             return nil
-            }.contributionUnavailable(candy)
+        }).contributionUnavailable(candy)
     }
     
-    class func deleteWrap(wrap: Wrap) -> Self {
-        return DELETE().path("wraps/\(wrap.uid)").parse { response in
+    static func deleteWrap(wrap: Wrap) -> APIRequest<AnyObject?> {
+        return APIRequest<AnyObject?>(.DELETE, "wraps/\(wrap.uid)", parser: { response in
             wrap.remove()
             return nil
-            }.contributionUnavailable(wrap)
+        }).contributionUnavailable(wrap)
     }
     
-    class func leaveWrap(wrap: Wrap) -> Self {
-        return DELETE().path("wraps/\(wrap.uid)/leave").parse { response in
+    static func leaveWrap(wrap: Wrap) -> APIRequest<AnyObject?> {
+        return APIRequest<AnyObject?>(.DELETE, "wraps/\(wrap.uid)/leave", parser: { response in
             if wrap.isPublic {
                 if let user = User.currentUser {
                     wrap.contributors.remove(user)
@@ -85,11 +130,11 @@ extension APIRequest {
                 wrap.remove()
             }
             return nil
-            }.contributionUnavailable(wrap)
+        }).contributionUnavailable(wrap)
     }
     
-    class func followWrap(wrap: Wrap) -> Self {
-        return POST().path("wraps/\(wrap.uid)/follow").parse { response in
+    static func followWrap(wrap: Wrap) -> APIRequest<Wrap> {
+        return APIRequest<Wrap>(.POST, "wraps/\(wrap.uid)/follow", parser: { response in
             wrap.touch()
             if let user = User.currentUser {
                 wrap.contributors.insert(user)
@@ -101,11 +146,11 @@ extension APIRequest {
                 }
             })
             return wrap
-            }.contributionUnavailable(wrap)
+        }).contributionUnavailable(wrap)
     }
     
-    class func unfollowWrap(wrap: Wrap) -> Self {
-        return DELETE().path("wraps/\(wrap.uid)/unfollow").parse { response in
+    static func unfollowWrap(wrap: Wrap) -> APIRequest<AnyObject?> {
+        return APIRequest<AnyObject?>(.DELETE, "wraps/\(wrap.uid)/unfollow", parser: { response in
             if let user = User.currentUser {
                 wrap.contributors.remove(user)
                 wrap.notifyOnUpdate(.ContributorsChanged)
@@ -115,19 +160,19 @@ extension APIRequest {
                 wrap.notifyOnUpdate(.LiveBroadcastsChanged)
             }
             return nil
-            }.contributionUnavailable(wrap)
+        }).contributionUnavailable(wrap)
     }
     
-    class func postComment(comment: Comment) -> Self? {
+    static func postComment(comment: Comment) -> APIRequest<Comment?>? {
         guard let candy = comment.candy else { return nil }
         guard let wrap = candy.wrap else { return nil }
-        return POST().path("wraps/\(wrap.uid)/candies/\(candy.uid)/comments").parametrize({ (request) -> Void in
-            request["message"] = comment.text
-            request["upload_uid"] = comment.locuid
-            request["contributed_at_in_epoch"] = NSNumber(double: comment.updatedAt.timestamp)
-        }).parse { response in
-            if let dictionary = response.dictionary("comment") where candy.valid {
-                comment.map(dictionary, container: candy)
+        return APIRequest<Comment?>(.POST, "wraps/\(wrap.uid)/candies/\(candy.uid)/comments", modifier: {
+            $0["message"] = comment.text
+            $0["upload_uid"] = comment.locuid
+            $0["contributed_at_in_epoch"] = NSNumber(double: comment.updatedAt.timestamp)
+            }, parser: { response in
+                if let dictionary = response.dictionary("comment") where candy.valid {
+                    comment.map(dictionary, container: candy)
                 candy.touch(comment.createdAt)
                 if let commentCount = response.data["comment_count"] as? Int where candy.commentCount < Int16(commentCount) {
                     candy.commentCount = Int16(commentCount)
@@ -136,19 +181,19 @@ extension APIRequest {
             } else {
                 return nil
             }
-            }.contributionUnavailable(candy)
+            }).contributionUnavailable(candy)
     }
     
-    class func resendConfirmation(email: String?) -> Self {
-        return POST().path("users/resend_confirmation").parametrize({ $0["email"] = email })
+    static func resendConfirmation(email: String?) -> APIRequest<AnyObject?> {
+        return APIRequest<AnyObject?>(.POST, "users/resend_confirmation", modifier: { $0["email"] = email })
     }
     
-    class func resendInvite(wrap: Wrap, user: User) -> Self {
-        return POST().path("wraps/\(wrap.uid)/resend_invitation").parametrize({ $0["user_uid"] = user.uid })
+    static func resendInvite(wrap: Wrap, user: User) -> APIRequest<AnyObject?> {
+        return APIRequest<AnyObject?>(.POST, "wraps/\(wrap.uid)/resend_invitation", modifier: { $0["user_uid"] = user.uid })
     }
     
-    class func user(user: User) -> Self? {
-        return GET().path("users/\(user.uid)").parse({ (response) -> AnyObject? in
+    static func user(user: User) -> APIRequest<User> {
+        return APIRequest<User>(.GET, "users/\(user.uid)", parser: { response in
             if let dictionary = response.dictionary("user") {
                 user.map(dictionary)
                 user.notifyOnUpdate(.Default)
@@ -157,45 +202,41 @@ extension APIRequest {
         })
     }
     
-    class func preferences(wrap: Wrap) -> Self {
-        return GET().path("wraps/\(wrap.uid)/preferences").parse { response in
-            if let _wrap = wrap.validEntry() {
-                if let preference = response.dictionary("wrap_preference") {
-                    _wrap.isCandyNotifiable = preference["notify_when_image_candy_addition"] as? Bool ?? false
-                    _wrap.isChatNotifiable = preference["notify_when_chat_addition"] as? Bool ?? false
-                    _wrap.isCommentNotifiable = preference["notify_when_comment_addition"] as? Bool ?? false
-                    _wrap.notifyOnUpdate(.PreferencesChanged)
-                }
-                return _wrap
-            } else {
-                return nil
+    static func preferences(wrap: Wrap) -> APIRequest<Wrap> {
+        return APIRequest<Wrap>(.GET, "wraps/\(wrap.uid)/preferences", parser: { response in
+            if let preference = response.dictionary("wrap_preference") {
+                wrap.isCandyNotifiable = preference["notify_when_image_candy_addition"] as? Bool ?? false
+                wrap.isChatNotifiable = preference["notify_when_chat_addition"] as? Bool ?? false
+                wrap.isCommentNotifiable = preference["notify_when_comment_addition"] as? Bool ?? false
+                wrap.notifyOnUpdate(.PreferencesChanged)
             }
-            }.contributionUnavailable(wrap)
+            return wrap
+            }).contributionUnavailable(wrap)
     }
     
-    class func changePreferences(wrap: Wrap) -> Self {
-        return PUT().path("wraps/\(wrap.uid)/preferences").parametrize({
+    static func changePreferences(wrap: Wrap) -> APIRequest<Wrap?> {
+        return APIRequest<Wrap?>(.PUT, "wraps/\(wrap.uid)/preferences", modifier: {
             $0["notify_when_image_candy_addition"] = wrap.isCandyNotifiable
             $0["notify_when_chat_addition"] = wrap.isChatNotifiable
             $0["notify_when_comment_addition"] = wrap.isCommentNotifiable
-        }).parse({ (_) -> AnyObject? in
+        }, parser: { _ in
             return wrap.validEntry()
         }).contributionUnavailable(wrap)
     }
     
-    class func verificationCall() -> Self {
-        return POST().path("users/call").parametrize({
+    static func verificationCall() -> APIRequest<AnyObject?> {
+        return APIRequest<AnyObject?>(.POST, "users/call", modifier: {
             $0["email"] = Authorization.current.email
             $0["device_uid"] = Authorization.current.deviceUID
         })
     }
     
-    class func uploadMessage(message: Message) -> Self? {
+    static func uploadMessage(message: Message) -> APIRequest<Message?>? {
         guard let wrap = message.wrap else { return nil }
-        return POST().path("wraps/\(wrap.uid)/chats").parametrize({ (request) -> Void in
+        return APIRequest<Message?>(.POST, "wraps/\(wrap.uid)/chats", modifier: { (request) -> Void in
             request["message"] = message.text
             request["upload_uid"] = message.locuid
-        }).parse { response in
+        }, parser: { response in
             if let dictionary = response.dictionary("chat") where wrap.valid {
                 message.map(dictionary)
                 message.notifyOnUpdate(.ContentAdded)
@@ -203,30 +244,30 @@ extension APIRequest {
             } else {
                 return nil
             }
-            }.contributionUnavailable(wrap)
+            }).contributionUnavailable(wrap)
     }
     
-    private func parseContributors(wrap: Wrap) -> Self {
-        return parse { response in
-            if let _wrap = wrap.validEntry(), let array = response.array("contributors") {
-                let contributors = Set(User.mappedEntries(User.prefetchArray(array))) as! Set<User>
-                if _wrap.contributors != contributors {
-                    _wrap.contributors = contributors
-                    _wrap.notifyOnUpdate(.ContributorsChanged)
-                }
-                return _wrap
-            } else {
-                return nil
+    private static func parseContributors(wrap: Wrap, response: Response) -> Wrap? {
+        if let _wrap = wrap.validEntry(), let array = response.array("contributors") {
+            let contributors = Set<User>(mappedEntries(User.prefetchArray(array)) as [User])
+            if _wrap.contributors != contributors {
+                _wrap.contributors = contributors
+                _wrap.notifyOnUpdate(.ContributorsChanged)
             }
+            return _wrap
+        } else {
+            return nil
         }
     }
     
-    class func contributors(wrap: Wrap) -> Self {
-        return GET().path("wraps/\(wrap.uid)/contributors").parseContributors(wrap).contributionUnavailable(wrap)
+    static func contributors(wrap: Wrap) -> APIRequest<Wrap?> {
+        return APIRequest<Wrap?>(.GET, "wraps/\(wrap.uid)/contributors", parser: { response in
+            return self.parseContributors(wrap, response: response)
+        }).contributionUnavailable(wrap)
     }
     
-    class func addContributors(contributors: Set<AddressBookPhoneNumber>, wrap: Wrap, message: String?) -> Self? {
-        return POST().path("wraps/\(wrap.uid)/add_contributor").parametrize({ (request) -> Void in
+    static func addContributors(contributors: Set<AddressBookPhoneNumber>, wrap: Wrap, message: String?) -> APIRequest<Wrap?> {
+        return APIRequest<Wrap?>(.POST, "wraps/\(wrap.uid)/add_contributor", modifier: { (request) -> Void in
             
             let registeredContributors = contributors.filter({ $0.user != nil })
             request["user_uids"] = registeredContributors.map({ $0.user!.uid })
@@ -249,21 +290,25 @@ extension APIRequest {
             }
             let _invitees: [String] = invitees.map({ String(data: try! NSJSONSerialization.dataWithJSONObject($0, options: []), encoding: NSUTF8StringEncoding) ?? "" })
             request["invitees"] = _invitees
-        }).parseContributors(wrap).contributionUnavailable(wrap)
+            }, parser: { response in
+                return self.parseContributors(wrap, response: response)
+        }).contributionUnavailable(wrap)
     }
     
-    class func removeContributors(contributors: [User], wrap: Wrap) -> Self? {
-        return DELETE().path("wraps/\(wrap.uid)/remove_contributor").parametrize({
+    static func removeContributors(contributors: [User], wrap: Wrap) -> APIRequest<Wrap?> {
+        return APIRequest<Wrap?>(.DELETE, "wraps/\(wrap.uid)/remove_contributor", modifier: {
             $0["user_uids"] = contributors.map({ $0.uid })
-        }).parseContributors(wrap).contributionUnavailable(wrap)
+            }, parser: { response in
+                return self.parseContributors(wrap, response: response)
+        }).contributionUnavailable(wrap)
     }
     
-    class func uploadWrap(wrap: Wrap) -> Self {
-        return POST().path("wraps").parametrize({ (request) -> Void in
+    static func uploadWrap(wrap: Wrap) -> APIRequest<Wrap?> {
+        return APIRequest<Wrap?>(.POST, "wraps", modifier: { (request) -> Void in
             request["name"] = wrap.name
             request["upload_uid"] = wrap.locuid
             request["contributed_at_in_epoch"] = NSNumber(double: wrap.updatedAt.timestamp)
-        }).parse({ (response) -> AnyObject? in
+        }, parser: { response in
             if let wrap = wrap.validEntry() {
                 if let dictionary = response.dictionary("wrap") {
                     wrap.map(dictionary)
@@ -276,11 +321,12 @@ extension APIRequest {
         })
     }
     
-    class func updateUser(user: User, email: String?) -> Self {
-        return PUT().path("users/update").file({ _ in user.avatar?.large }).parametrize({
+    static func updateUser(user: User, email: String?) -> APIRequest<User> {
+        return APIRequest<User>(.PUT, "users/update", modifier: {
             $0["name"] = user.name
             $0["email"] = email
-        }).parse({ (response) -> AnyObject? in
+            $0.file = user.avatar?.large
+        }, parser: { response in
             if let userData = response.dictionary("user") {
                 let authorization = Authorization.current
                 authorization.updateWithUserData(userData)
@@ -292,11 +338,11 @@ extension APIRequest {
         })
     }
     
-    class func updateWrap(wrap: Wrap) -> Self {
-        return PUT().path("wraps/\(wrap.uid)").parametrize({ (request) -> Void in
+    static func updateWrap(wrap: Wrap) -> APIRequest<Wrap?> {
+        return APIRequest<Wrap?>(.PUT, "wraps/\(wrap.uid)", modifier: { (request) -> Void in
             request["name"] = wrap.name
             request["is_restricted_invite"] = wrap.isRestrictedInvite
-        }).parse({ (response) -> AnyObject? in
+        }, parser: { response in
             if let wrap = wrap.validEntry() {
                 if let dictionary = response.dictionary("wrap") {
                     wrap.map(dictionary)
@@ -309,15 +355,15 @@ extension APIRequest {
         })
     }
     
-    class func reportCandy(candy: Candy, violation: Violation) -> Self? {
+    static func reportCandy(candy: Candy, violation: Violation) -> APIRequest<AnyObject?>? {
         guard let wrap = candy.wrap else { return nil }
-        return POST().path("wraps/\(wrap.uid)/candies/\(candy.uid)/violations").parametrize({
+        return APIRequest<AnyObject?>(.POST, "wraps/\(wrap.uid)/candies/\(candy.uid)/violations", modifier: {
             $0["violation_code"] = violation.code
         })
     }
     
-    class func contributorsFromRecords(records: [AddressBookRecord]) -> Self? {
-        return POST().path("users/sign_up_status").parametrize({ request in
+    static func contributorsFromRecords(records: [AddressBookRecord]) -> APIRequest<[AddressBookRecord]> {
+        return APIRequest<[AddressBookRecord]>(.POST, "users/sign_up_status", modifier: { request in
             var phones = [String]()
             for record in records {
                 for phoneNumber in record.phoneNumbers {
@@ -325,7 +371,7 @@ extension APIRequest {
                 }
             }
             request["phone_numbers"] = phones
-        }).parse({ (response) -> AnyObject? in
+        }, parser: { response in
             if let array = response.array("users") {
                 
                 var users = [String : [String : AnyObject]]()
@@ -342,7 +388,7 @@ extension APIRequest {
                     var phoneNumbers = [AddressBookPhoneNumber]()
                     for phoneNumber in record.phoneNumbers {
                         if let userData = users[phoneNumber.phone] {
-                            if let user = User.mappedEntry(userData) {
+                            if let user = mappedEntry(userData) as? User {
                                 if user.current || registeredUsers.contains(user) {
                                     break
                                 }
@@ -366,7 +412,7 @@ extension APIRequest {
         })
     }
     
-    class func resetBadge() -> Self {
-        return PUT().path("devices/reset_badge")
+    static func resetBadge() -> APIRequest<AnyObject?> {
+        return APIRequest<AnyObject?>(.PUT, "devices/reset_badge")
     }
 }

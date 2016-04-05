@@ -17,7 +17,7 @@ class HistoryItemCell: StreamReusableView {
     
     weak var delegate: HistoryItemCellDelegate?
     
-    class HistoryItemDataSource: StreamDataSource {
+    class HistoryItemDataSource: StreamDataSource<[Candy]> {
         func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
             let x = targetContentOffset.memory.x
             let maxX = scrollView.maximumContentOffset.x

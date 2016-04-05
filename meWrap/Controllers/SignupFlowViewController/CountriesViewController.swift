@@ -46,11 +46,12 @@ class CountriesViewController: BaseViewController {
     
     var selectionBlock: (Country -> Void)?
     
-    @IBOutlet var dataSource: StreamDataSource!
+    @IBOutlet weak var streamView: StreamView!
+    
+    private lazy var dataSource: StreamDataSource<[Country]> = StreamDataSource(streamView: self.streamView)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let metrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<CountryCell>(), size: 50))
         metrics.selection = { [weak self] item, entry in
             item?.selected = true

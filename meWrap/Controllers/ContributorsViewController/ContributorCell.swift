@@ -26,7 +26,7 @@ final class ContributorCell: StreamReusableView {
     private let infoLabel = Label(preset: .Small, textColor: Color.grayLight)
     
     private let streamView = StreamView()
-    lazy var dataSource: StreamDataSource = StreamDataSource(streamView: self.streamView)
+    lazy var dataSource: StreamDataSource<[User]> = StreamDataSource(streamView: self.streamView)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         avatarView.startReceivingStatusUpdates()

@@ -22,9 +22,9 @@ class WrapListViewController: BaseViewController {
         return url.URLByAppendingPathComponent("ShareExtension/")
     }()
     
-    @IBOutlet var wrapListDataSource: PaginatedStreamDataSource!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var streamView: StreamView!
+    lazy var wrapListDataSource: PaginatedStreamDataSource<PaginatedList<Wrap>> = PaginatedStreamDataSource(streamView: self.streamView)
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var searchField: TextField!
     
     deinit {
@@ -49,7 +49,7 @@ class WrapListViewController: BaseViewController {
         metrics.selection = { [weak self] item, entry in
             self?.shareContent(entry as! Wrap)
         }
-        wrapListDataSource.items = PaginatedList(entries:User.currentUser?.sortedWraps ?? [], request:PaginatedRequest.wraps(nil))
+        wrapListDataSource.items = PaginatedList(entries:User.currentUser?.sortedWraps ?? [], request:API.wraps(nil))
         extractConent()
     }
     

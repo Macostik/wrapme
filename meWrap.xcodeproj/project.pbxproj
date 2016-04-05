@@ -136,7 +136,6 @@
 		C5294E8F1C0B8C33001CE272 /* WKInterfaceExtended.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E8D1C0B8C33001CE272 /* WKInterfaceExtended.swift */; };
 		C52BA62C1BFF314600D58D75 /* WrapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52BA62B1BFF314600D58D75 /* WrapCell.swift */; };
 		C53012791BF4968200098F9C /* StreamDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4A1651BF36DD300EFC8FA /* StreamDataSource.swift */; };
-		C530127D1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530127C1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift */; };
 		C530127F1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530127E1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift */; };
 		C53012871BF4C0AD00098F9C /* (null) in Sources */ = {isa = PBXBuildFile; };
 		C53012911BF4E3EA00098F9C /* EmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530128D1BF4E3EA00098F9C /* EmojiView.swift */; };
@@ -591,7 +590,6 @@
 		C52BA62B1BFF314600D58D75 /* WrapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapCell.swift; sourceTree = "<group>"; };
 		C52CEC3F1C93130F004A1A3F /* ChatAPNS.apns */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ChatAPNS.apns; sourceTree = "<group>"; };
 		C530127A1BF49AD600098F9C /* Refresher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Refresher.swift; sourceTree = "<group>"; };
-		C530127C1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedStreamDataSource.swift; sourceTree = "<group>"; };
 		C530127E1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginatedStreamDataSource.swift; sourceTree = "<group>"; };
 		C530128D1BF4E3EA00098F9C /* EmojiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiView.swift; sourceTree = "<group>"; };
 		C530128E1BF4E3EA00098F9C /* EmojiView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmojiView.xib; sourceTree = "<group>"; };
@@ -1132,7 +1130,6 @@
 				C540C0F11B988BFD00F880C9 /* StreamItem.swift */,
 				C5F4A1651BF36DD300EFC8FA /* StreamDataSource.swift */,
 				C530127E1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift */,
-				C530127C1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift */,
 				5B5EE4991C68FD4D0074D66F /* StreamReusableView.swift */,
 			);
 			path = StreamView;
@@ -2055,7 +2052,6 @@
 				C5ECD55B1BF649B9005791B1 /* UIStoryboard+Ext.swift in Sources */,
 				C55E53431C4FCD3B006ACF8F /* CaptureViewController.swift in Sources */,
 				C5E6F0231BFF38C200FA3D4F /* SwipeAction.swift in Sources */,
-				C530127D1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift in Sources */,
 				5B1061341C610A1900496647 /* ConfirmView.swift in Sources */,
 				C502B3141C47F2EC00F66EAE /* CommentNotification.swift in Sources */,
 				C5AA71D61BE3D39D00EA106A /* MutableAsset.swift in Sources */,

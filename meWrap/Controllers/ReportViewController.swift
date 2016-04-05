@@ -117,7 +117,7 @@ class ReportViewController : BaseViewController {
             guard let candy = self?.candy else {
                 return
             }
-            if let request = APIRequest.reportCandy(candy, violation: violation) {
+            if let request = API.reportCandy(candy, violation: violation) {
                 request.send({[weak self] (_) -> Void in
                     self?.collectionView.hidden = true
                     self?.doneButton.hidden = false

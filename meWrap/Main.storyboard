@@ -769,9 +769,6 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGg-7M-ebG" customClass="StreamView" customModule="meWrap">
                                 <rect key="frame" x="0.0" y="158" width="600" height="442"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="92"/>
-                                <connections>
-                                    <outlet property="delegate" destination="fHn-3G-fGW" id="0yS-EC-1Va"/>
-                                </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lBJ-p7-MjG" userLabel="Email Confirmation View">
                                 <rect key="frame" x="0.0" y="64" width="600" height="94"/>
@@ -1006,8 +1003,8 @@
                     <navigationItem key="navigationItem" id="kPg-o5-wH3"/>
                     <keyCommands/>
                     <connections>
+                        <outlet property="buttonAnimationPrioritizer" destination="GFV-Ya-rff" id="oNP-VJ-s9t"/>
                         <outlet property="createWrapButton" destination="KxF-7g-Abs" id="DiP-hq-Kq1"/>
-                        <outlet property="dataSource" destination="fHn-3G-fGW" id="Lxf-EY-8I7"/>
                         <outlet property="emailConfirmationLayoutPrioritizer" destination="LSq-pS-yid" id="Bin-aV-yY8"/>
                         <outlet property="emailConfirmationView" destination="lBJ-p7-MjG" id="voU-oV-5wv"/>
                         <outlet property="navigationBar" destination="9Rl-cW-5hv" id="9kd-xs-4J2"/>
@@ -1018,12 +1015,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yfT-C3-6mj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="fHn-3G-fGW" customClass="HomeDataSource" customModule="meWrap" customModuleProvider="target">
-                    <connections>
-                        <outlet property="scrollDirectionLayoutPrioritizer" destination="GFV-Ya-rff" id="2Hs-UY-YJo"/>
-                        <outlet property="streamView" destination="uGg-7M-ebG" id="Kgb-mW-bmm"/>
-                    </connections>
-                </customObject>
                 <customObject id="7ui-hh-L3e" userLabel="Settings Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="settings"/>
@@ -4530,9 +4521,6 @@ QWRkEEZyaWVuZFZpZXc
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAd-Xu-7DN" customClass="StreamView" customModule="meWrap">
                                 <rect key="frame" x="0.0" y="108" width="600" height="492"/>
-                                <connections>
-                                    <outlet property="delegate" destination="suG-Cv-vyl" id="Yk4-vf-4p8"/>
-                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4553,17 +4541,10 @@ QWRkEEZyaWVuZFZpZXc
                         <outlet property="searchField" destination="ioj-5w-MTU" id="sjR-Qi-tJa"/>
                         <outlet property="spinner" destination="FZt-tr-J1N" id="Jc9-c7-XJY"/>
                         <outlet property="streamView" destination="hAd-Xu-7DN" id="vOk-qe-pad"/>
-                        <outlet property="wrapListDataSource" destination="suG-Cv-vyl" id="ylC-3e-JFW"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="TcF-xr-7sR" collectionClass="NSMutableArray" id="kND-no-A0y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f8s-m3-KPX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="suG-Cv-vyl" userLabel="WrapListDataSource" customClass="PaginatedStreamDataSource" customModule="meWrap" customModuleProvider="target">
-                    <connections>
-                        <outlet property="scrollDirectionLayoutPrioritizer" destination="GFV-Ya-rff" id="7c1-1i-jpk"/>
-                        <outlet property="streamView" destination="hAd-Xu-7DN" id="XiW-gQ-cwL"/>
-                    </connections>
-                </customObject>
             </objects>
             <point key="canvasLocation" x="3023" y="1535"/>
         </scene>

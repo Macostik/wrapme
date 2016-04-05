@@ -72,7 +72,7 @@ class EmojiView: UIView {
     
     weak var composeBar: ComposeBar!
     
-    var dataSource: StreamDataSource!
+    var dataSource: StreamDataSource<[String]>!
     
     private var emojis: [String]? {
         willSet {

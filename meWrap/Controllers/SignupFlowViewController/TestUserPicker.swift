@@ -196,7 +196,7 @@ final class TestUserPicker: UIView {
     private let closeButton = UIButton(type: .Custom)
     private let navigationBar = UIView()
     private let streamView = StreamView()
-    private var dataSource: StreamDataSource!
+    private var dataSource: StreamDataSource<[Authorization]>!
     
     class func showInView(view: UIView, selection: Authorization -> Void) {
         TestUserPicker(frame: view.bounds).showInView(view, selection: selection)

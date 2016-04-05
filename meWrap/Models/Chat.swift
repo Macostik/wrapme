@@ -9,7 +9,7 @@
 import UIKit
 import PubNub
 
-class Chat: PaginatedList {
+class Chat: PaginatedList<Message>, FontPresetting {
     
     let wrap: Wrap
         
@@ -37,7 +37,7 @@ class Chat: PaginatedList {
     required init(wrap: Wrap) {
         self.wrap = wrap
         super.init()
-        request = PaginatedRequest.messages(wrap)
+        request = API.messages(wrap)
         resetMessages()
         FontPresetter.defaultPresetter.addReceiver(self)
     }
@@ -69,50 +69,45 @@ class Chat: PaginatedList {
     
     override func didChange() {
         unreadMessages.removeAll()
-        if let messages = entries as? [Message] {
-            for (index, message) in messages.enumerate() {
-                
-                if message.unread {
-                    unreadMessages.append(message)
-                }
-                
-                let previousMessage: Message? = index == 0 ? nil : messages[index - 1]
-                
-                var containsDate = true
-                if message.chatMetadata.containsDate == false {
-                    if let previousMessage = previousMessage {
-                        containsDate = !previousMessage.createdAt.isSameDay(message.createdAt)
-                    }
-                }
-                
-                var containsName = false
-                var isGroup = false
-                
-                message.chatMetadata.containsDate = containsDate
-                
-                if containsDate {
-                    containsName = !(message.contributor?.current ?? true)
-                    message.chatMetadata.isGroup = true
-                } else {
-                    if previousMessage?.contributor != message.contributor {
-                        containsName = !(message.contributor?.current ?? true)
-                        isGroup = true
-                    }
-                }
-                
-                message.chatMetadata.isGroup = isGroup
-                if message.chatMetadata.containsName != containsName {
-                    message.chatMetadata.height = nil
-                    message.chatMetadata.containsName = containsName
+        let messages = entries
+        for (index, message) in messages.enumerate() {
+            
+            if message.unread {
+                unreadMessages.append(message)
+            }
+            
+            let previousMessage: Message? = index == 0 ? nil : messages[index - 1]
+            
+            var containsDate = true
+            if message.chatMetadata.containsDate == false {
+                if let previousMessage = previousMessage {
+                    containsDate = !previousMessage.createdAt.isSameDay(message.createdAt)
                 }
             }
+            
+            var containsName = false
+            var isGroup = false
+            
+            message.chatMetadata.containsDate = containsDate
+            
+            if containsDate {
+                containsName = !(message.contributor?.current ?? true)
+                message.chatMetadata.isGroup = true
+            } else {
+                if previousMessage?.contributor != message.contributor {
+                    containsName = !(message.contributor?.current ?? true)
+                    isGroup = true
+                }
+            }
+            
+            message.chatMetadata.isGroup = isGroup
+            if message.chatMetadata.containsName != containsName {
+                message.chatMetadata.height = nil
+                message.chatMetadata.containsName = containsName
+            }
         }
-        
         super.didChange()
     }
-}
-
-extension Chat: FontPresetting {
     
     func heightOfMessageCell(message: Message) -> CGFloat {
         if let cachedHeight = message.chatMetadata.height {

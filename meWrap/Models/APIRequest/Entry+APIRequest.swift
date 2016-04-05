@@ -64,16 +64,12 @@ extension Entry {
 
 extension User {
     override func fetch(success: ObjectBlock?, failure: FailureBlock?) {
-        if let request = APIRequest.user(self) {
-            request.send(success, failure: failure)
-        } else {
-            failure?(nil)
-        }
+        API.user(self).send(success, failure: failure)
     }
     
     func preloadFirstWraps() {
         RunQueue.fetchQueue.run { (finish) -> Void in
-            PaginatedRequest.wraps(nil).fresh({ [weak self] (wraps) -> Void in
+            API.wraps(nil).fresh({ [weak self] (wraps) -> Void in
                 
                 if let wraps = self?.sortedWraps?.prefix(2) {
                     for wrap in wraps {
@@ -122,11 +118,11 @@ extension Wrap {
     }
     
     override func add(success: ObjectBlock?, failure: FailureBlock?) {
-        APIRequest.uploadWrap(self).send(success, failure: failure)
+        API.uploadWrap(self).send(success, failure: failure)
     }
     
     override func update(success: ObjectBlock?, failure: FailureBlock?) {
-        APIRequest.updateWrap(self).send(success, failure: failure)
+        API.updateWrap(self).send(success, failure: failure)
     }
     
     override func delete(success: ObjectBlock?, failure: FailureBlock?) {
@@ -140,9 +136,9 @@ extension Wrap {
             break
         case .Finished:
             if deletable {
-                APIRequest.deleteWrap(self).send(success, failure: failure)
+                API.deleteWrap(self).send(success, failure: failure)
             } else {
-                APIRequest.leaveWrap(self).send(success, failure: failure)
+                API.leaveWrap(self).send(success, failure: failure)
             }
             break
         }
@@ -154,7 +150,7 @@ extension Wrap {
     
     func fetch(contentType: String?, success: ObjectBlock?, failure: FailureBlock?) {
         if uploaded {
-            APIRequest.wrap(self, contentType: contentType).send(success, failure: failure)
+            API.wrap(self, contentType: contentType).send(success, failure: failure)
         } else {
             success?(self)
         }
@@ -414,7 +410,7 @@ extension Candy {
             if uid == locuid {
                 failure?(NSError(message: "publishing_in_progress".ls))
             } else {
-                if let request = APIRequest.deleteCandy(self) {
+                if let request = API.deleteCandy(self) {
                     request.send(success, failure: failure)
                 } else {
                     failure?(nil)
@@ -426,7 +422,7 @@ extension Candy {
     
     override func fetch(success: ObjectBlock?, failure: FailureBlock?) {
         if uploaded {
-            APIRequest.candy(self).send(success, failure: failure)
+            API.candy(self).send(success, failure: failure)
         } else {
             failure?(NSError(message:(isVideo ? "video_is_uploading" : "photo_is_uploading").ls))
         }
@@ -435,7 +431,7 @@ extension Candy {
 
 extension Message {
     override func add(success: ObjectBlock?, failure: FailureBlock?) {
-        if let request = APIRequest.uploadMessage(self) {
+        if let request = API.uploadMessage(self) {
             request.send(success, failure: failure)
         } else {
             failure?(nil)
@@ -447,7 +443,7 @@ extension Comment {
     
     override func add(success: ObjectBlock?, failure: FailureBlock?) {
         if candy?.uploaded ?? false {
-            if let request = APIRequest.postComment(self) {
+            if let request = API.postComment(self) {
                 request.send(success, failure: failure)
             } else {
                 failure?(nil)
@@ -477,7 +473,7 @@ extension Comment {
                     failure?(NSError(message: (candy.isVideo ? "video_is_uploading" : "photo_is_uploading").ls))
                     break
                 case .Finished:
-                    if let request = APIRequest.deleteComment(self) {
+                    if let request = API.deleteComment(self) {
                         request.send(success, failure: failure)
                     } else {
                         failure?(nil)

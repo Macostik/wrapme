@@ -114,7 +114,7 @@ class DebugViewController: BaseViewController {
     
     @objc private func cleanCache(sender: UIButton) {
         RunQueue.fetchQueue.cancelAll()
-        APIRequest.manager.operationQueue.cancelAllOperations()
+        API.cancelAll()
         let currentUser = User.currentUser
         let context = EntryContext.sharedContext
         for wrap in FetchRequest<Wrap>().execute() {

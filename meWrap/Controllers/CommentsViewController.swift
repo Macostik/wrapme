@@ -92,7 +92,7 @@ class CommentsViewController: BaseViewController {
     
     @IBOutlet weak var streamView: StreamView!
     
-    private lazy var dataSource: StreamDataSource = StreamDataSource(streamView: self.streamView)
+    private lazy var dataSource: StreamDataSource<[Comment]> = StreamDataSource(streamView: self.streamView)
     
     @IBOutlet weak var composeBar: ComposeBar!
     
@@ -162,7 +162,7 @@ class CommentsViewController: BaseViewController {
             receiver.container = { return self?.candy }
             
             receiver.willDelete = { entry in
-                var comments = self?.dataSource.items as? [Comment]
+                var comments = self?.dataSource.items
                 if let index = comments?.indexOf(entry) {
                     comments?.removeAtIndex(index)
                 }

@@ -50,7 +50,7 @@ class LiveBroadcastViewersViewController: UIViewController {
     
     @IBOutlet weak var numberOfViewersLabel: UILabel!
     
-    private lazy var dataSource: StreamDataSource = StreamDataSource(streamView: self.streamView)
+    private lazy var dataSource: StreamDataSource<[User]> = StreamDataSource(streamView: self.streamView)
     
     @IBOutlet weak var contentHeightConstraint: NSLayoutConstraint!
     

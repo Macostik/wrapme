@@ -94,7 +94,7 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
             NSUserDefaults.standardUserDefaults().confirmationDate = nil
         }
         guard let user = User.currentUser else { return }
-        APIRequest.updateUser(user, email: email.isEmpty ? nil : email).send(success, failure: failure)
+        API.updateUser(user, email: email.isEmpty ? nil : email).send(success, failure: failure)
     }
     
     @IBAction func done(sender: Button) {
@@ -172,7 +172,7 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
     
     @IBAction func resendEmailConfirmation(sender: UIButton) {
         sender.userInteractionEnabled = false
-        APIRequest.resendConfirmation(nil) .send({ _ in
+        API.resendConfirmation(nil) .send({ _ in
             InfoToast.show("confirmation_resend".ls)
             sender.userInteractionEnabled = true
             }) { _ in

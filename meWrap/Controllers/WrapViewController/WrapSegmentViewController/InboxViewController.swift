@@ -160,7 +160,7 @@ class InboxCandyCell: InboxCell {
 
 class InboxViewController: WrapSegmentViewController {
 
-    lazy var dataSource: StreamDataSource = StreamDataSource(streamView: self.streamView)
+    lazy var dataSource: StreamDataSource<[InboxItem]> = StreamDataSource(streamView: self.streamView)
     
     @IBOutlet weak var streamView: StreamView!
     @IBOutlet weak var clearButton: UIButton!

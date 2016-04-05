@@ -132,7 +132,7 @@ final class SingleAddressBookRecordCell: AddressBookRecordCell {
 final class MultipleAddressBookRecordCell: AddressBookRecordCell {
     
     private let streamView = StreamView()
-    private var dataSource: StreamDataSource!
+    private var dataSource: StreamDataSource<[AddressBookPhoneNumber]>!
     private let avatarView = ImageView(backgroundColor: UIColor.whiteColor())
     private let openView = specify(UIButton(type: .Custom)) {
         $0.titleLabel?.font = UIFont.icons(18.0)

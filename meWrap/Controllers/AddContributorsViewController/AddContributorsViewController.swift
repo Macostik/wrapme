@@ -149,7 +149,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
                 InfoToast.show("no_internet_connection".ls)
                 return
             }
-            APIRequest.addContributors(addressBook.selectedPhoneNumbers, wrap: wrap, message: nil)?.send({ [weak self] _ in
+            API.addContributors(addressBook.selectedPhoneNumbers, wrap: wrap, message: nil).send({ [weak self] _ in
                 self?.completionHandler?(true)
                 }, failure: { error in
                     error?.show()
@@ -165,7 +165,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         let performRequestBlock = { [weak self] (message: AnyObject?) in
             let message = message as? String
             if let selectedPhoneNumbers = self?.addressBook.selectedPhoneNumbers, let wrap = self?.wrap {
-                APIRequest.addContributors(selectedPhoneNumbers, wrap: wrap, message: message)?.send({ _ in
+                API.addContributors(selectedPhoneNumbers, wrap: wrap, message: message).send({ _ in
                     self?.navigationController?.popViewControllerAnimated(false)
                     if message?.isEmpty ?? true {
                         InfoToast.show("isn't_using_invite".ls)

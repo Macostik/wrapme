@@ -7,51 +7,58 @@
 //
 
 import UIKit
+import Alamofire
 
-extension APIRequest {
+extension API {
     
-    class func APIRequest(method: APIRequestMethod) -> Self {
-        let request = self.init(method)
-        request.skipReauthorizing = true
-        return request
+    static func signUp(authorization: Authorization) -> APIRequest<Authorization> {
+        return APIRequest<Authorization>(.POST, "users", modifier: {
+            $0.skipReauthorizing = true
+            $0["device_uid"] = authorization.deviceUID
+            $0["device_name"] = authorization.deviceName
+            $0["country_calling_code"] = authorization.countryCode
+            $0["phone_number"] = authorization.phone
+            $0["email"] = authorization.email
+            $0["device_token"] = NotificationCenter.defaultCenter.pushToken
+            $0["os"] = "ios"
+        }, parser: { _ in return authorization })
     }
     
-    class func signUp(authorization: Authorization) -> Self {
-        return APIRequest(.POST).path("users").parametrize({ (request) -> Void in
-            request["device_uid"] = authorization.deviceUID
-            request["device_name"] = authorization.deviceName
-            request["country_calling_code"] = authorization.countryCode
-            request["phone_number"] = authorization.phone
-            request["email"] = authorization.email
-            request["device_token"] = NotificationCenter.defaultCenter.pushToken
-            request["os"] = "ios"
-        }).parse({ (_) -> AnyObject? in return authorization })
-    }
-    
-    class func activation(authorization: Authorization) -> Self {
-        return APIRequest(.POST).path("users/activate").parametrize({ (request) -> Void in
-            request["device_uid"] = authorization.deviceUID
-            request["device_name"] = authorization.deviceName
-            request["country_calling_code"] = authorization.countryCode
-            request["phone_number"] = authorization.phone
-            request["email"] = authorization.email
-            request["activation_code"] = authorization.activationCode
-        }).parse { (response) -> AnyObject? in
+    static func activation(authorization: Authorization) -> APIRequest<Authorization> {
+        return APIRequest<Authorization>(.POST, "users/activate", modifier: {
+            $0.skipReauthorizing = true
+            $0["device_uid"] = authorization.deviceUID
+            $0["device_name"] = authorization.deviceName
+            $0["country_calling_code"] = authorization.countryCode
+            $0["phone_number"] = authorization.phone
+            $0["email"] = authorization.email
+            $0["activation_code"] = authorization.activationCode
+        }, parser: { response in
             authorization.password = response.dictionary("device")?["password"] as? String
             authorization.setCurrent()
             return authorization
-        }
+        })
     }
     
-    class func signIn(authorization: Authorization) -> Self {
-        return APIRequest(.POST).path("users/sign_in").parametrize({ (request) -> Void in
-            request["device_uid"] = authorization.deviceUID
-            request["app_version"] = NSBundle.mainBundle().buildVersion
-            request["country_calling_code"] = authorization.countryCode
-            request["phone_number"] = authorization.phone
-            request["password"] = authorization.password
-            request["email"] = authorization.email
-        }).parse({ (response) -> AnyObject? in
+    static func signIn(authorization: Authorization) -> APIRequest<User?> {
+        return APIRequest<User?>(.POST, "users/sign_in", modifier: {
+            $0.skipReauthorizing = true
+            $0["device_uid"] = authorization.deviceUID
+            $0["app_version"] = NSBundle.mainBundle().buildVersion
+            $0["country_calling_code"] = authorization.countryCode
+            $0["phone_number"] = authorization.phone
+            $0["password"] = authorization.password
+            $0["email"] = authorization.email
+            $0.failureValidator = { (request, error) -> Bool in
+                guard let error = error else { return true }
+                guard let unconfirmed_email = authorization.unconfirmed_email where !unconfirmed_email.isEmpty else { return true }
+                guard error.isResponseError(.NotFoundEntry) else { return true }
+                guard (request["email"] as? String) != unconfirmed_email else { return true }
+                request["email"] = unconfirmed_email
+                request.enqueue()
+                return false
+            }
+        }, parser: { response in
             
             if !Authorization.active {
                 Authorization.active = true
@@ -73,7 +80,7 @@ extension APIRequest {
             userDefaults.avatarURI = response["avatar_uri"] as? String ?? environment.defaultAvatarURI
             userDefaults.videoURI = response["video_uri"] as? String ?? environment.defaultVideoURI
             
-            if let userData = response.dictionary("user"), let user = User.mappedEntry(userData) {
+            if let userData = response.dictionary("user"), let user = mappedEntry(userData) as? User {
                 userDefaults.remoteLogging = userData["remote_logging"] as? Bool ?? false
                 authorization.updateWithUserData(userData)
                 User.currentUser = user
@@ -87,32 +94,28 @@ extension APIRequest {
             } else {
                 return nil
             }
-        }).validateFailure({ (request, error) -> Bool in
-            guard let error = error else { return true }
-            guard let unconfirmed_email = authorization.unconfirmed_email where !unconfirmed_email.isEmpty else { return true }
-            guard error.isResponseError(.NotFoundEntry) else { return true }
-            guard (request["email"] as? String) != unconfirmed_email else { return true }
-            request["email"] = unconfirmed_email
-            request.enqueue()
-            return false
         })
     }
     
-    class func updateDevice() -> Self {
-        return APIRequest(.PUT).path("users/device").parametrize({ (request) -> Void in
-            request["device_token"] = NotificationCenter.defaultCenter.pushToken
-            request["os"] = "ios";
-            request["os_version"] = UIDevice.currentDevice().systemVersion
-            request["app_version"] = NSBundle.mainBundle().buildVersion
+    static func updateDevice() -> APIRequest<AnyObject> {
+        return APIRequest<AnyObject>(.PUT, "users/device", modifier: {
+            $0.skipReauthorizing = true
+            $0["device_token"] = NotificationCenter.defaultCenter.pushToken
+            $0["os"] = "ios";
+            $0["os_version"] = UIDevice.currentDevice().systemVersion
+            $0["app_version"] = NSBundle.mainBundle().buildVersion
             let sourceFile = NSBundle.mainBundle().resourceURL?.URLByAppendingPathComponent("iTunesArtwork")
             if let date = sourceFile?.resource(NSURLContentModificationDateKey) as? NSDate {
-                request["installed_at"] = NSNumber(double: date.timestamp)
+                $0["installed_at"] = NSNumber(double: date.timestamp)
             }
         })
     }
     
-    class func whois(email: String) -> Self {
-        return APIRequest(.GET).path("users/whois").parametrize({ $0["email"] = email }).parse({ (response) -> AnyObject? in
+    static func whois(email: String) -> APIRequest<WhoIs> {
+        return APIRequest<WhoIs>(.GET, "users/whois", modifier: {
+            $0.skipReauthorizing = true
+            $0["email"] = email
+            }, parser: { response in
             let whoIs = WhoIs.sharedInstance
             
             if let userInfo = response.dictionary("user") {
@@ -149,12 +152,13 @@ extension APIRequest {
         })
     }
     
-    class func linkDevice(passcode: String) -> Self {
-        return APIRequest(.POST).path("users/link_device").parametrize({ (request) -> Void in
-            request["email"] = Authorization.current.email
-            request["device_uid"] = Authorization.current.deviceUID
-            request["approval_code"] = passcode
-        }).parse({ (response) -> AnyObject? in
+    static func linkDevice(passcode: String) -> APIRequest<Authorization> {
+        return APIRequest<Authorization>(.POST, "users/link_device", modifier: {
+            $0.skipReauthorizing = true
+            $0["email"] = Authorization.current.email
+            $0["device_uid"] = Authorization.current.deviceUID
+            $0["approval_code"] = passcode
+        }, parser: { response in
             let authorization = Authorization.current
             authorization.password = response.dictionary("device")?["password"] as? String
             authorization.setCurrent()
@@ -173,9 +177,9 @@ class WhoIs: NSObject {
 
 extension Authorization {
     
-    func signUp() -> APIRequest { return APIRequest.signUp(self) }
+    func signUp() -> APIRequest<Authorization> { return API.signUp(self) }
     
-    func activation() -> APIRequest { return APIRequest.activation(self) }
+    func activation() -> APIRequest<Authorization> { return API.activation(self) }
     
-    func signIn() -> APIRequest { return APIRequest.signIn(self) }
+    func signIn() -> APIRequest<User?> { return API.signIn(self) }
 }

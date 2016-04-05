@@ -320,7 +320,7 @@
                     <navigationItem key="navigationItem" id="d7K-bB-fdh"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="dataSource" destination="vON-Tw-u2H" id="qHS-FZ-uSk"/>
+                        <outlet property="streamView" destination="LAr-Vi-79j" id="jpe-x4-iDm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1fA-WY-1QF" userLabel="First Responder" sceneMemberID="firstResponder"/>

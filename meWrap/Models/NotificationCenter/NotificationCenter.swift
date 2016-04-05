@@ -49,7 +49,7 @@ final class NotificationCenter: NSObject {
     func handleDeviceToken(deviceToken: NSData) {
         pushToken = deviceToken.serializeDevicePushToken()
         if Authorization.active {
-            APIRequest.updateDevice().send()
+            API.updateDevice().send()
         }
     }
     
@@ -68,7 +68,7 @@ final class NotificationCenter: NSObject {
             userSubscription.delegate = self
             if pushToken != nil {
                 if Authorization.active {
-                    APIRequest.updateDevice().send()
+                    API.updateDevice().send()
                 }
             } else {
                 #if !DEBUG

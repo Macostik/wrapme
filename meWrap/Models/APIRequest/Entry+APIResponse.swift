@@ -32,36 +32,28 @@ func <!= <T: Entry>(inout left: T?, right: T?) {
     }
 }
 
+func mappedEntries<T: Entry>(array: [[String:AnyObject]]?, container: Entry? = nil) -> [T] {
+    guard let array = array where array.count != 0 else { return [] }
+    var entries = [T]()
+    for dictionary in array {
+        if let entry: T = mappedEntry(dictionary, container: container) {
+            entries.append(entry)
+        }
+    }
+    return entries
+}
+
+func mappedEntry<T: Entry>(dictionary: [String:AnyObject]?, container: Entry? = nil) -> T? {
+    guard let dictionary = dictionary else { return nil }
+    if let entry = T.entry(T.uid(dictionary), locuid: T.locuid(dictionary)) {
+        entry.map(dictionary, container: container)
+        return entry
+    } else {
+        return nil
+    }
+}
+
 extension Entry {
-    
-    class func mappedEntries(array: [[String:AnyObject]]?) -> [Entry] {
-        return mappedEntries(array, container: nil)
-    }
-    
-    class func mappedEntries(array: [[String:AnyObject]]?, container: Entry?) -> [Entry] {
-        guard let array = array where array.count != 0 else { return [] }
-        var entries = [Entry]()
-        for dictionary in array {
-            if let entry = self.mappedEntry(dictionary, container: container) {
-                entries.append(entry)
-            }
-        }
-        return entries
-    }
-    
-    class func mappedEntry(dictionary: [String:AnyObject]?) -> Self? {
-        return mappedEntry(dictionary, container: nil)
-    }
-    
-    class func mappedEntry(dictionary: [String:AnyObject]?, container: Entry?) -> Self? {
-        guard let dictionary = dictionary else { return nil }
-        if let entry = self.entry(self.uid(dictionary), locuid: self.locuid(dictionary)) {
-            entry.map(dictionary, container: container)
-            return entry
-        } else {
-            return nil
-        }
-    }
     
     class func uid(dictionary: [String:AnyObject]) -> String? { return nil }
     
@@ -104,7 +96,7 @@ extension User {
         }
         
         invitedAt <!= dictionary.dateForKey("invited_at_in_epoch")
-        Device.mappedEntries(dictionary[Keys.Devices] as? [[String : AnyObject]], container: self)
+        mappedEntries(dictionary[Keys.Devices] as? [[String : AnyObject]], container: self) as [Device]
         
         if let remoteLogging = dictionary["remote_logging"] as? Bool where current {
             NSUserDefaults.standardUserDefaults().remoteLogging = remoteLogging
@@ -137,7 +129,7 @@ extension Contribution {
         if let updatedAt = dictionary.dateForKey(Keys.LastTouchedAt) where updatedAt.later(self.updatedAt) {
             self.updatedAt = updatedAt
         }
-        contributor <!= User.mappedEntry(dictionary[Keys.Contributor] as? [String:AnyObject])
+        contributor <!= mappedEntry(dictionary[Keys.Contributor] as? [String:AnyObject])
     }
 }
 
@@ -154,10 +146,10 @@ extension Wrap {
         isRestrictedInvite <!= dictionary["is_restricted_invite"] as? Bool
         
         if let array = dictionary[Keys.Contributors] as? [[String:AnyObject]] {
-            contributors <!= Set(User.mappedEntries(array)) as? Set<User>
+            contributors <!= Set(mappedEntries(array)) as? Set<User>
         }
         
-        contributor <!= User.mappedEntry(dictionary[Keys.Creator] as? [String:AnyObject])
+        contributor <!= mappedEntry(dictionary[Keys.Creator] as? [String:AnyObject])
         
         if let currentUser = User.currentUser {
             let isContributing = contributors.contains(currentUser)
@@ -174,7 +166,7 @@ extension Wrap {
             }
         }
         
-        Candy.mappedEntries(dictionary[Keys.Candies] as? [[String : AnyObject]], container: self)
+        mappedEntries(dictionary[Keys.Candies] as? [[String : AnyObject]], container: self) as [Candy]
     }
 }
 
@@ -188,14 +180,14 @@ extension Candy {
         
         super.map(dictionary, container: container)
         
-        editor <!= User.mappedEntry(dictionary[Keys.Editor] as? [String:AnyObject])
+        editor <!= mappedEntry(dictionary[Keys.Editor] as? [String:AnyObject])
         editedAt <!= dictionary.dateForKey(Keys.EditedAt)
         
         if let type = dictionary[Keys.CandyType] as? Int {
             self.type <!= Int16(type)
         }
         
-        Comment.mappedEntries(dictionary[Keys.Comments] as? [[String : AnyObject]], container: self)
+        mappedEntries(dictionary[Keys.Comments] as? [[String : AnyObject]], container: self) as [Comment]
         
         let asset = self.asset?.editCandyAsset(dictionary, mediaType: mediaType)
         if asset != self.asset {

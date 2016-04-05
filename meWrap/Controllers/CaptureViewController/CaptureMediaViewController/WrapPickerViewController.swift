@@ -11,7 +11,7 @@ import SnapKit
 
 private let ItemHeight: CGFloat = 55
 
-class WrapPickerDataSource: StreamDataSource {
+class WrapPickerDataSource: StreamDataSource<[Wrap]> {
     
     var didEndScrollingAnimationBlock: (Void -> Void)?
     

@@ -81,7 +81,7 @@ class UploadSummaryViewController: SwipeViewController, CaptureWrapContainer {
     
     @IBOutlet weak var streamView: StreamView!
     
-    lazy var dataSource: StreamDataSource! = StreamDataSource(streamView: self.streamView)
+    lazy var dataSource: StreamDataSource<[MutableAsset]> = StreamDataSource(streamView: self.streamView)
     
     weak var asset: MutableAsset? {
         didSet {

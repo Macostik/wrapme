@@ -84,9 +84,9 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "Pods-meWrap/AFNetworking.framework"
   install_framework "Pods-meWrap/AWSCore.framework"
   install_framework "Pods-meWrap/AWSS3.framework"
+  install_framework "Pods-meWrap/Alamofire.framework"
   install_framework "Pods-meWrap/CocoaLumberjack.framework"
   install_framework "Pods-meWrap/CryptoSwift.framework"
   install_framework "Pods-meWrap/OpenUDID.framework"
@@ -95,9 +95,9 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-meWrap/libPhoneNumber_iOS.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods-meWrap/AFNetworking.framework"
   install_framework "Pods-meWrap/AWSCore.framework"
   install_framework "Pods-meWrap/AWSS3.framework"
+  install_framework "Pods-meWrap/Alamofire.framework"
   install_framework "Pods-meWrap/CocoaLumberjack.framework"
   install_framework "Pods-meWrap/CryptoSwift.framework"
   install_framework "Pods-meWrap/OpenUDID.framework"
@@ -106,9 +106,9 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-meWrap/libPhoneNumber_iOS.framework"
 fi
 if [[ "$CONFIGURATION" == "AdHoc" ]]; then
-  install_framework "Pods-meWrap/AFNetworking.framework"
   install_framework "Pods-meWrap/AWSCore.framework"
   install_framework "Pods-meWrap/AWSS3.framework"
+  install_framework "Pods-meWrap/Alamofire.framework"
   install_framework "Pods-meWrap/CocoaLumberjack.framework"
   install_framework "Pods-meWrap/CryptoSwift.framework"
   install_framework "Pods-meWrap/OpenUDID.framework"

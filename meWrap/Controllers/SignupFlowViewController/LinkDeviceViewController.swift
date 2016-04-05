@@ -23,7 +23,7 @@ final class LinkDeviceViewController: SignupStepViewController {
     }
     
     private func linkDevice(success: ObjectBlock, failure: FailureBlock) {
-        APIRequest.linkDevice(passcodeField.text!).send({ _ in
+        API.linkDevice(passcodeField.text!).send({ _ in
             Authorization.current.signIn().send(success, failure: failure)
             }, failure: failure)
     }

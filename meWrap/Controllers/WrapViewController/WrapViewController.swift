@@ -124,7 +124,7 @@ final class WrapViewController: BaseViewController {
     
     private var userNotifyReceiver: EntryNotifyReceiver<User>?
     
-    private lazy var friendsDataSource: StreamDataSource = StreamDataSource(streamView: self.friendsStreamView)
+    private lazy var friendsDataSource: StreamDataSource<[User]> = StreamDataSource(streamView: self.friendsStreamView)
     
     @IBOutlet weak var moreFriendsLabel: UILabel!
     
@@ -151,7 +151,7 @@ final class WrapViewController: BaseViewController {
         followButton.exclusiveTouch = true
         unfollowButton.exclusiveTouch = true
         
-        APIRequest.contributors(wrap).send({ [weak self] _ in
+        API.contributors(wrap).send({ [weak self] _ in
             self?.updateFriendsBar(wrap)
             }, failure: nil)
     }
@@ -357,7 +357,7 @@ extension WrapViewController {
         guard let wrap = wrap else { return }
         sender.loading = true
         RunQueue.fetchQueue.run { [weak self] (finish) -> Void in
-            APIRequest.followWrap(wrap).send({ (_) -> Void in
+            API.followWrap(wrap).send({ (_) -> Void in
                 self?.followingStateForWrap(wrap)
                 sender.loading = false
                 finish()
@@ -374,7 +374,7 @@ extension WrapViewController {
         self.settingsButton.userInteractionEnabled = false
         sender.loading = true
         RunQueue.fetchQueue.run { [weak self] (finish) -> Void in
-            APIRequest.unfollowWrap(wrap).send({ (_) -> Void in
+            API.unfollowWrap(wrap).send({ (_) -> Void in
                 self?.followingStateForWrap(wrap)
                 sender.loading = false
                 self?.settingsButton.userInteractionEnabled = true

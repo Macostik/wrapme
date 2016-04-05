@@ -8,16 +8,16 @@
 
 import UIKit
 
-class HomeDataSource: PaginatedStreamDataSource {
+class HomeDataSource: PaginatedStreamDataSource<PaginatedList<Wrap>> {
     
     override func didSetItems() {
         super.didSetItems()
         if let items = items where items.count > 0 {
-            wrap = items.tryAt(0) as? Wrap
+            wrap = items.entries.first
         }
     }
     
-    var wrap: Wrap? {
+    weak var wrap: Wrap? {
         didSet {
             if let wrap = wrap where wrap != oldValue {
                 fetchTopWrapIfNeeded(wrap)
@@ -29,7 +29,7 @@ class HomeDataSource: PaginatedStreamDataSource {
         if wrap.candies.count < Constants.recentCandiesLimit {
             RunQueue.fetchQueue.run({ [weak wrap] (finish) -> Void in
                 if let wrap = wrap where wrap.valid {
-                    APIRequest.wrap(wrap, contentType: Wrap.ContentTypeRecent).send({ (candies) -> Void in
+                    API.wrap(wrap, contentType: Wrap.ContentTypeRecent).send({ (candies) -> Void in
                         finish()
                         }, failure: { (error) -> Void in
                             finish()
@@ -42,7 +42,7 @@ class HomeDataSource: PaginatedStreamDataSource {
     }
     
     override func streamView(streamView: StreamView, numberOfItemsInSection section: Int) -> Int {
-        wrap = items?.tryAt(0) as? Wrap
+        wrap = items?.entries.first
         return super.streamView(streamView, numberOfItemsInSection: section)
     }
 }

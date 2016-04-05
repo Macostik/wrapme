@@ -77,9 +77,9 @@ class AssetCell: StreamReusableView {
 }
 
 extension PHFetchResult: BaseOrderedContainer {
-    public func tryAt(index: Int) -> AnyObject? {
+    subscript (safe index: Int) -> PHAsset? {
         if (index >= 0 && index < count) {
-            return objectAtIndex(index)
+            return objectAtIndex(index) as? PHAsset
         } else {
             return nil
         }
@@ -101,7 +101,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
     var assets: PHFetchResult?
     var selectedAssets = Set<String>()
     
-    lazy var dataSource: StreamDataSource = StreamDataSource(streamView: self.streamView)
+    lazy var dataSource: StreamDataSource<[PHAsset]> = StreamDataSource(streamView: self.streamView)
     let streamView = StreamView()
     var assetsHidingHandler: (Void -> Void)?
     

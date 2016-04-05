@@ -13,7 +13,7 @@ class RecentCandiesView: StreamReusableView {
     
     var streamView: StreamView = StreamView()
     
-    lazy var dataSource: StreamDataSource = StreamDataSource(streamView: self.streamView)
+    lazy var dataSource: StreamDataSource<[Candy]> = StreamDataSource(streamView: self.streamView)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         streamView.scrollEnabled = false

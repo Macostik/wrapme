@@ -23,9 +23,9 @@ class ContributorAddNotification: WrapNotification {
         super.createEntry()
         guard let body = body else { return }
         let userData = body["user"] as? [String: AnyObject]
-        user = userData != nil ? User.mappedEntry(userData!) : User.entry(body["user_uid"] as? String)
+        user = userData != nil ? mappedEntry(userData!) : User.entry(body["user_uid"] as? String)
         if let inviter = body["inviter"] as? [String: AnyObject] {
-            self.inviter = User.mappedEntry(inviter)
+            self.inviter = mappedEntry(inviter)
         }
     }
     
@@ -61,7 +61,7 @@ class ContributorDeleteNotification: WrapNotification {
         guard let wrap = _entry else { return }
         guard let body = body else { return }
         let userData = body["user"] as? [String: AnyObject]
-        if let user = userData != nil ? User.mappedEntry(userData!) : User.entry(body["user_uid"] as? String) {
+        if let user: User = userData != nil ? mappedEntry(userData!) : User.entry(body["user_uid"] as? String) {
             if user.current && !wrap.isPublic {
                 wrap.remove()
             } else {

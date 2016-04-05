@@ -73,7 +73,7 @@ final class ActivationViewController: SignupStepViewController {
     
     @IBAction func call(sender: UIButton) {
         sender.userInteractionEnabled = false
-        APIRequest.verificationCall().send({ [weak self] _ in
+        API.verificationCall().send({ [weak self] _ in
             sender.userInteractionEnabled = true
             UIAlertController.alert(String(format: "formatted_calling_now".ls, self?.phoneNumberLabel.text ?? "")).show()
             }) { error in

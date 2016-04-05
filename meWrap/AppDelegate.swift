@@ -210,7 +210,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             forceResetBadge = false
             UIApplication.sharedApplication().applicationIconBadgeNumber = 0
             let task = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
-            APIRequest.resetBadge().send({ _ in
+            API.resetBadge().send({ _ in
                 UIApplication.sharedApplication().endBackgroundTask(task)
             }) { (error) -> Void in
                 UIApplication.sharedApplication().endBackgroundTask(task)

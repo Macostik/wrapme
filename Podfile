@@ -3,7 +3,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'meWrap' do
-    pod 'AFNetworking'
+    pod 'Alamofire', '~> 3.0'
     pod 'PubNub', '~> 4.0'
     pod 'OpenUDID'
     pod 'AWSCore'

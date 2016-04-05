@@ -33,13 +33,13 @@ final class HistoryItemViewController: BaseViewController {
     
     private let coverStreamView = StreamView()
     
-    private lazy var coverDataSource: StreamDataSource = StreamDataSource(streamView: self.coverStreamView)
+    private lazy var coverDataSource: StreamDataSource<[Candy]> = StreamDataSource(streamView: self.coverStreamView)
     
     var item: HistoryItem?
     
     @IBOutlet weak var streamView: StreamView!
     
-    private lazy var dataSource: StreamDataSource = StreamDataSource(streamView: self.streamView)
+    private lazy var dataSource: StreamDataSource<[Candy]> = StreamDataSource(streamView: self.streamView)
     
     override func loadView() {
         super.loadView()

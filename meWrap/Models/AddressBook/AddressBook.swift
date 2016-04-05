@@ -78,13 +78,9 @@ class AddressBook: Notifier {
             do {
                 let records = try self.contacts(addressBook)
                 Dispatch.mainQueue.async {
-                    APIRequest.contributorsFromRecords(records)?.send({ object in
-                        if let records = object as? [AddressBookRecord] {
-                            self.cachedRecords = records
-                            success(records)
-                        } else {
-                            failure?(NSError(message: "no_contacts".ls))
-                        }
+                    API.contributorsFromRecords(records).send({ records in
+                        self.cachedRecords = records
+                        success(records)
                         }, failure: failure)
                 }
             } catch let error as NSError {

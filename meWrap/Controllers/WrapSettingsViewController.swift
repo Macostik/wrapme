@@ -97,7 +97,7 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
         chatNotifyTrigger.on = wrap.isChatNotifiable
         commentNotifyTrigger.on = wrap.isCommentNotifiable
         restrictedInviteTrigger.on = !wrap.isRestrictedInvite
-        APIRequest.preferences(wrap).send({ [weak self] _ in
+        API.preferences(wrap).send({ [weak self] _ in
             self?.candyNotifyTrigger.on = wrap.isCandyNotifiable
             self?.commentNotifyTrigger.on = wrap.isCommentNotifiable
             self?.chatNotifyTrigger.on = wrap.isChatNotifiable
@@ -176,7 +176,7 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
                 }
                 if let editSession = notifyEditSession where editSession.hasChanges == true {
                     editSession.apply()
-                    APIRequest.changePreferences(wrap).send({ _ in }, failure: { error in
+                    API.changePreferences(wrap).send({ _ in }, failure: { error in
                         error?.show()
                         editSession.reset()
                     })

@@ -7,113 +7,51 @@
 //
 
 import UIKit
+import Alamofire
 
-enum PaginatedRequestType: Int {
+enum PaginatedRequestType {
     case Fresh, Newer, Older
 }
 
-class PaginatedRequest: APIRequest {
-
+final class PaginatedRequest<ResponseType>: APIRequest<ResponseType> {
+    
+    override init(_ method: Alamofire.Method, _ path: String = "", modifier: (APIRequest<ResponseType> -> Void)? = nil, parser: (Response -> ResponseType)? = nil) {
+        super.init(method, path, modifier: modifier, parser: parser)
+    }
+    
     var type: PaginatedRequestType = .Fresh
     
     var newer: NSDate?
     
     var older: NSDate?
     
-    required init(_ method: APIRequestMethod) {
-        super.init(method)
-        parametrize { (request) -> Void in
+    func modify() -> Self {
+        return modify { (request) -> Void in
             if let request = request as? PaginatedRequest {
                 switch request.type {
                 case .Newer:
-                    if let newer = request.newer {
-                        request["offset_x_in_epoch"] = newer.timestamp
-                    }
-                    break
+                    request["offset_x_in_epoch"] = request.newer?.timestamp
                 case .Older:
-                    if let newer = request.newer {
-                        request["offset_x_in_epoch"] = newer.timestamp
-                    }
-                    if let older = request.older {
-                        request["offset_y_in_epoch"] = older.timestamp
-                    }
-                    break
+                    request["offset_x_in_epoch"] = request.newer?.timestamp
+                    request["offset_y_in_epoch"] = request.older?.timestamp
                 default: break
                 }
             }
         }
     }
     
-    func fresh(success: ObjectBlock?, failure: FailureBlock?) {
+    func fresh(success: (ResponseType -> Void)?, failure: FailureBlock?) {
         type = .Fresh
         super.send(success, failure: failure)
     }
-
-    func newer(success: ObjectBlock?, failure: FailureBlock?) {
+    
+    func newer(success: (ResponseType -> Void)?, failure: FailureBlock?) {
         type = .Newer
         super.send(success, failure: failure)
     }
     
-    func older(success: ObjectBlock?, failure: FailureBlock?) {
+    func older(success: (ResponseType -> Void)?, failure: FailureBlock?) {
         type = .Older
         super.send(success, failure: failure)
-    }
-}
-
-extension PaginatedRequest {
-    class func wraps(scope: String?) -> Self {
-        return GET().path("wraps").parametrize({ (request) -> Void in
-            if let scope = scope {
-                request["scope"] = scope
-            }
-        }).parse({ (response) -> AnyObject! in
-            if let wraps = response.array("wraps") {
-                return Wrap.mappedEntries(Wrap.prefetchArray(wraps))
-            } else {
-                return []
-            }
-        })
-    }
-    
-    class func candies(wrap: Wrap) -> Self {
-        return GET().path("wraps/%@/candies", wrap.uid).forceParametrize({ (request) -> Void in
-            if let request = request as? PaginatedRequest {
-                switch request.type {
-                case .Newer:
-                    if let newer = request.newer {
-                        request["offset_x_in_epoch"] = newer.timestamp
-                    }
-                    break
-                case .Older:
-                    if let older = wrap.candiesPaginationDate {
-                        request["offset_y_in_epoch"] = older.timestamp
-                    }
-                    break
-                default: break
-                }
-            }
-        }).parse({ (response) -> AnyObject! in
-            if let candies = response.array("candies") where wrap.valid {
-                let candies = Candy.mappedEntries(Candy.prefetchArray(candies), container: wrap)
-                if let candiesPaginationDate = candies.last?.createdAt {
-                    wrap.candiesPaginationDate = candiesPaginationDate
-                }
-                return candies
-            } else {
-                return []
-            }
-        }).contributionUnavailable(wrap)
-    }
-    
-    class func messages(wrap: Wrap) -> Self {
-        return GET().path("wraps/%@/chats", wrap.uid).parse({ (response) -> AnyObject! in
-            if let chats = response.array("chats") where wrap.valid && !chats.isEmpty {
-                let messages = Message.mappedEntries(Message.prefetchArray(chats), container: wrap)
-                wrap.notifyOnUpdate(.ContentAdded)
-                return messages
-            } else {
-                return []
-            }
-        }).contributionUnavailable(wrap)
     }
 }

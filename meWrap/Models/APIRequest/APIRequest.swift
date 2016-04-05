@@ -7,66 +7,78 @@
 //
 
 import UIKit
-import AFNetworking
-
-enum APIRequestMethod: String {
-    case GET = "GET"
-    case POST = "POST"
-    case PUT = "PUT"
-    case DELETE = "DELETE"
-}
+import Alamofire
 
 private struct APIRequestContainer<T> {
     var block: T
 }
 
-class APIRequest: NSObject {
+private var previousDateString: String?
+private var trackServerTimeFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.dateFormat = "EEE',' dd' 'MMM' 'yyyy HH':'mm':'ss zzz"
+    formatter.locale = NSLocale(localeIdentifier: "en_US")
+    return formatter
+}()
 
-    static let manager: AFHTTPSessionManager = {
-        let environment = Environment.current
-        let manager = AFHTTPSessionManager(baseURL: environment.endpoint.URL)
-        let acceptHeader = "application/vnd.ravenpod+json;version=\(environment.version)"
-        manager.requestSerializer.setValue(acceptHeader, forHTTPHeaderField: "Accept")
-        manager.requestSerializer.setValue("gzip", forHTTPHeaderField: "Accept-Encoding")
-        manager.requestSerializer.timeoutInterval = 45
-        manager.securityPolicy.allowInvalidCertificates = true
-        manager.securityPolicy.validatesDomainName = false
-        return manager
-    }()
-    
-    private var method: APIRequestMethod = .GET
-    
-    required init(_ method: APIRequestMethod) {
-        self.method = method
+private func trackServerTime(response: NSHTTPURLResponse?) {
+    if let dateString = response?.allHeaderFields["Date"] as? String {
+        if previousDateString != dateString {
+            if let date = trackServerTimeFormatter.dateFromString(dateString) {
+                NSDate.trackServerTime(date)
+                previousDateString = dateString
+            }
+        }
     }
+}
+
+private var manager = createManager()
+
+struct API {
+    static func cancelAll() {
+        manager = createManager()
+    }
+}
+
+private func createManager() -> Alamofire.Manager {
+    let manager = Alamofire.Manager()
+    manager.startRequestsImmediately = true
+    manager.session.configuration.timeoutIntervalForRequest = 45
+    //        manager.securityPolicy.allowInvalidCertificates = true
+    //        manager.securityPolicy.validatesDomainName = false
+    return manager
+}
+
+private let headers = [
+    "Accept": "application/vnd.ravenpod+json;version=\(Environment.current.version)",
+    "Accept-Encoding": "gzip"
+]
+
+class APIRequest<ResponseType> {
     
-    class func GET() -> Self { return self.init(.GET) }
-    class func POST() -> Self { return self.init(.POST) }
-    class func PUT() -> Self { return self.init(.PUT) }
-    class func DELETE() -> Self { return self.init(.DELETE) }
+    private var method: Alamofire.Method = .GET
+    
+    init(_ method: Alamofire.Method, _ path: String = "", modifier: (APIRequest<ResponseType> -> Void)? = nil, parser: (Response -> ResponseType)? = nil) {
+        self.method = method
+        self.path = path
+        if let modifier = modifier {
+            modifiers.append(APIRequestContainer(block: modifier))
+        }
+        self.parser = parser
+    }
     
     var path = ""
     
-    func path(format: String, _ args: CVarArgType...) -> Self {
-        path = String(format: format, arguments: args)
-        return self
-    }
-    
     private var parameters = [String:AnyObject]()
     
-    func parametrize() {
+    private func parametrize() {
         parameters.removeAll()
-        for parametrizer in parametrizers {
-            parametrizer.block(self)
+        for modifier in modifiers {
+            modifier.block(self)
         }
     }
     
-    var parser: (Response -> AnyObject?)?
-    
-    func parse(parser: Response -> AnyObject?) -> Self {
-        self.parser = parser
-        return self
-    }
+    var parser: (Response -> ResponseType)?
     
     subscript(key: String) -> AnyObject? {
         set {
@@ -79,66 +91,67 @@ class APIRequest: NSObject {
         }
     }
     
-    private var parametrizers = [APIRequestContainer<(APIRequest) -> Void>]()
-    func parametrize(parametrizer: (APIRequest) -> Void) -> Self {
-        parametrizers.append(APIRequestContainer<(APIRequest) -> Void>(block: parametrizer))
+    private var modifiers = [APIRequestContainer<(APIRequest<ResponseType>) -> Void>]()
+    func modify(modifier: (APIRequest) -> Void) -> Self {
+        modifiers.append(APIRequestContainer(block: modifier))
         return self
     }
     
-    var fileBlock: (APIRequest -> String?)?
-    func file(block: APIRequest -> String?) -> Self {
-        self.fileBlock = block
-        return self
-    }
+    var file: String?
     
-    func forceParametrize(parametrizer: (APIRequest) -> Void) -> Self {
-        parametrizers.removeAll()
-        return parametrize(parametrizer)
+    func clear() -> Self {
+        modifiers.removeAll()
+        return self
     }
     
     var beforeFailure: FailureBlock?
-    func beforeFailure(beforeFailure: FailureBlock) -> Self {
-        self.beforeFailure = beforeFailure
-        return self
-    }
     
     var afterFailure: FailureBlock?
-    func afterFailure(afterFailure: FailureBlock) -> Self {
-        self.afterFailure = afterFailure
-        return self
-    }
     
     var failureValidator: ((APIRequest, NSError?) -> Bool)?
-    func validateFailure(validateFailure: (APIRequest, NSError?) -> Bool) -> Self {
-        failureValidator = validateFailure
-        return self
-    }
     
-    private func request() -> NSMutableURLRequest? {
-        guard let url = NSURL(string: path, relativeToURL:APIRequest.manager.baseURL)?.absoluteString else { return nil }
-        let serializer = APIRequest.manager.requestSerializer
-        if let file = fileBlock?(self) {
-            let constructing: AFMultipartFormData -> Void = { (formData) -> Void in
-                guard let url = file.fileURL else { return }
-                guard let fileName = url.lastPathComponent else { return }
-                guard file.isExistingFilePath else { return }
-                _ = try? formData.appendPartWithFileURL(url, name: "qqfile", fileName: fileName, mimeType: "image/jpeg")
-            }
-            return serializer.multipartFormRequestWithMethod(method.rawValue, URLString: url, parameters: parameters, constructingBodyWithBlock: constructing, error: nil)
+    private func createRequest(responseJSON: Alamofire.Response<AnyObject, NSError> -> Void, failure: FailureBlock) {
+        let url = Environment.current.endpoint + "/" + path
+        if let file = file where file.isExistingFilePath {
+            let fileURL = NSURL(fileURLWithPath: file)
+            let fileName = fileURL.lastPathComponent ?? (GUID() + ".jpg")
+            Alamofire.upload(
+                method,
+                url,
+                headers: headers,
+                multipartFormData: {
+                    for (key, value) in self.parameters {
+                        if let data = value as? NSData ?? value.description?.dataUsingEncoding(NSUTF8StringEncoding) {
+                            $0.appendBodyPart(data: data, name: key)
+                        } else if let data = value.description?.dataUsingEncoding(NSUTF8StringEncoding) {
+                            $0.appendBodyPart(data: data, name: key)
+                        }
+                    }
+                    $0.appendBodyPart(fileURL: fileURL, name: "qqfile", fileName: fileName, mimeType: "image/jpeg")
+                },
+                encodingCompletion: { encodingResult in
+                    switch encodingResult {
+                    case .Success(let request, _, _):
+                        request.responseJSON(completionHandler: responseJSON)
+                        self.task = request
+                    case .Failure(let encodingError):
+                        failure(encodingError as NSError)
+                    }
+            })
         } else {
-            return serializer.requestWithMethod(method.rawValue, URLString: url, parameters: parameters, error: nil)
+            task = Alamofire.request(method, url, parameters: parameters, headers: headers).responseJSON(completionHandler: responseJSON)
         }
     }
     
-    var successBlock: ObjectBlock?
+    var successBlock: (ResponseType -> Void)?
     var failureBlock: FailureBlock?
     
     var uploadProgress: (NSProgress -> Void)?
     var downloadProgress: (NSProgress -> Void)?
     
-    weak var task: NSURLSessionDataTask?
+    weak var task: Alamofire.Request?
     
-    func send(success: ObjectBlock?, failure: FailureBlock? = nil) -> NSURLSessionDataTask? {
+    func send(success: (ResponseType -> Void)?, failure: FailureBlock? = nil) -> Request? {
         successBlock = success
         failureBlock = failure
         return send()
@@ -149,61 +162,56 @@ class APIRequest: NSObject {
         parametrize()
     }
     
-    func send() -> NSURLSessionDataTask? {
+    func send() -> Alamofire.Request? {
         prepare()
         return enqueue()
     }
     
-    func enqueue() -> NSURLSessionDataTask? {
-        guard let request = request() else {
-            handleFailure(nil, response: nil)
-            return nil
-        }
+    func enqueue() -> Alamofire.Request? {
         Logger.log("API call \(self.method.rawValue) \(self.path): \(parameters)", color: .Yellow)
         
-        let manager = APIRequest.manager
-        let task = manager.dataTaskWithRequest(request, uploadProgress: uploadProgress, downloadProgress: downloadProgress) { (urlResponse, responseObject, error) -> Void in
-            if let error = error {
-                Logger.log("API error \(self.method.rawValue) \(self.path): \(error)", color: .Red)
-                self.handleFailure(error, response: urlResponse as? NSHTTPURLResponse)
-            } else {
-                let response = Response(dictionary: responseObject as! [String : AnyObject])
-                if response.code == .Success {
-                    Logger.debugLog("RESPONSE - \(self.path): \(response.data)", color: .Green)
-                    if let parser = self.parser {
-                        let parsedObject = parser(response)
-                        if let object = parsedObject {
-                            Logger.log("API response \(self.method.rawValue) \(self.path) Object(s) parsed and saved from the response: \(object)")
-                        }
-                        self.handleSuccess(parsedObject)
-                    } else {
-                        self.handleSuccess(response)
+        createRequest({ (response) -> Void in
+            switch response.result {
+            case .Success(let value):
+                let _response = Response(dictionary: value as! [String : AnyObject])
+                if _response.code == .Success {
+                    Logger.debugLog("RESPONSE - \(self.path): \(_response.data)", color: .Green)
+                    let parsedObject = self.parser?(_response)
+                    if let object = parsedObject {
+                        Logger.log("API response \(self.method.rawValue) \(self.path) Object(s) parsed and saved from the response: \(object)")
                     }
+                    self.handleSuccess(parsedObject)
                 } else {
-                    Logger.log("API internal error \(self.method.rawValue) \(self.path): \(response.code.rawValue) - \(response.message)", color: .Red)
-                    self.handleFailure(NSError(response: response), response: urlResponse as? NSHTTPURLResponse)
+                    Logger.log("API internal error \(self.method.rawValue) \(self.path): \(_response.code.rawValue) - \(_response.message)", color: .Red)
+                    self.handleFailure(NSError(response: _response), response: response.response)
                 }
-                self.trackServerTime(urlResponse as? NSHTTPURLResponse)
+                trackServerTime(response.response)
+            case .Failure(let error):
+                Logger.log("API error \(self.method.rawValue) \(self.path): \(error)", color: .Red)
+                self.handleFailure(error, response: response.response)
             }
+        }) { (error) -> Void in
+            Logger.log("Encoding error \(self.method.rawValue) \(self.path): \(error)", color: .Red)
+            self.handleFailure(error, response: nil)
         }
-        self.task = task
-        task.resume()
-        return task
+        return self.task
     }
     
     func cancel() { task?.cancel() }
     
-    func handleSuccess(object: AnyObject?) {
+    func handleSuccess(object: ResponseType?) {
         let success = successBlock
         failureBlock = nil
         successBlock = nil
-        success?(object)
+        if let object = object {
+            success?(object)
+        }
     }
     
     var skipReauthorizing = false
     
     private func handleFailure(error: NSError?, response: NSHTTPURLResponse?) {
-    
+        
         guard (failureValidator?(self, error) ?? true) else { return }
         
         beforeFailure?(error)
@@ -264,25 +272,6 @@ class APIRequest: NSObject {
             })
         } else {
             self.handleFailure(error, response: nil)
-        }
-    }
-    
-    private static var previousDateString: String?
-    private static var trackServerTimeFormatter: NSDateFormatter = {
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = "EEE',' dd' 'MMM' 'yyyy HH':'mm':'ss zzz"
-        formatter.locale = NSLocale(localeIdentifier: "en_US")
-        return formatter
-    }()
-    
-    private func trackServerTime(response: NSHTTPURLResponse?) {
-        if let dateString = response?.allHeaderFields["Date"] as? String {
-            if APIRequest.previousDateString != dateString {
-                if let date = APIRequest.trackServerTimeFormatter.dateFromString(dateString) {
-                    NSDate.trackServerTime(date)
-                    APIRequest.previousDateString = dateString
-                }
-            }
         }
     }
 }

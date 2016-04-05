@@ -18,7 +18,7 @@ final class ContributorsViewController: BaseViewController {
     
     @IBOutlet weak var streamView: StreamView!
     
-    private lazy var dataSource: StreamDataSource = StreamDataSource(streamView: self.streamView)
+    private lazy var dataSource: StreamDataSource<[User]> = StreamDataSource(streamView: self.streamView)
     
     @IBOutlet weak var addFriendView: UIView!
     
@@ -65,7 +65,7 @@ final class ContributorsViewController: BaseViewController {
         updateContributors()
         
         if let wrap = wrap {
-            APIRequest.contributors(wrap).send({ [weak self] _ in
+            API.contributors(wrap).send({ [weak self] _ in
                 self?.updateContributors()
                 }) { [weak self] (error) -> Void in
                     self?.dataSource.reload()
@@ -106,7 +106,7 @@ extension ContributorsViewController: ContributorCellDelegate {
         
         removedContributors.insert(contributor)
         
-        APIRequest.removeContributors([contributor], wrap: wrap)?.send({ [weak self] (_) -> Void in
+        API.removeContributors([contributor], wrap: wrap).send({ [weak self] (_) -> Void in
             self?.removedContributors.remove(contributor)
             if self?.contributiorWithOpenedMenu == contributor {
                 self?.contributiorWithOpenedMenu = nil
@@ -134,7 +134,7 @@ extension ContributorsViewController: ContributorCellDelegate {
         
         guard let wrap = wrap else { return }
         
-        APIRequest.resendInvite(wrap, user: contributor).send({ [weak self] (_) -> Void in
+        API.resendInvite(wrap, user: contributor).send({ [weak self] (_) -> Void in
             completionHandler(true)
             self?.invitedContributors.insert(contributor)
             self?.enqueueSelector(#selector(ContributorsViewController.hideMenuForContributor(_:)), argument: contributor, delay: 3.0)

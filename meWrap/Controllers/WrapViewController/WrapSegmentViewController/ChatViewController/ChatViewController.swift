@@ -193,7 +193,7 @@ final class ChatViewController: WrapSegmentViewController {
 
 extension ChatViewController: ListNotifying {
     
-    func listChanged(list: List) {
+    func listChanged<T : ListEntry>(list: List<T>) {
         streamView.reload()
     }
 }
@@ -209,7 +209,8 @@ extension ChatViewController: EntryNotifying {
     }
     
     func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
-        chat.remove(entry)
+        guard let message = entry as? Message else { return }
+        chat.remove(message)
     }
     
     func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
@@ -284,7 +285,7 @@ extension ChatViewController: StreamViewDelegate {
     
     func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetrics] {
         var metrics = [StreamMetrics]()
-        guard let message = chat.entries[safe: position.index] as? Message else { return metrics }
+        guard let message = chat.entries[safe: position.index] else { return metrics }
         if chat.unreadMessages.first == message && badge?.value != 0 {
             metrics.append(unreadMessagesMetrics)
         }

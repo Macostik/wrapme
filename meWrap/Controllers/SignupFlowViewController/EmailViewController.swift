@@ -31,7 +31,7 @@ final class EmailViewController: SignupStepViewController {
     @IBAction func next(sender: Button) {
         sender.loading = true
         view.endEditing(true)
-        APIRequest.whois(emailField.text!).send({ [weak self] object -> Void in
+        API.whois(emailField.text!).send({ [weak self] object -> Void in
             sender.loading = false
             if let whoIs = object as? WhoIs {
                 if whoIs.found && whoIs.requiresApproving {
@@ -71,7 +71,7 @@ final class ConfirmEmailViewController: SignupStepViewController {
     }
     
     @IBAction func resend(sender: AnyObject) {
-        APIRequest.resendConfirmation(Authorization.current.email).send({ (_) -> Void in
+        API.resendConfirmation(Authorization.current.email).send({ (_) -> Void in
             UIAlertController.alert("sending_confirming_email".ls).show()
             }) { [weak self] (error) -> Void in
                 if let error = error {

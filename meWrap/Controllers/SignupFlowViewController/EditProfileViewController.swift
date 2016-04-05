@@ -34,7 +34,7 @@ final class EditProfileViewController: SignupStepViewController {
             view.userInteractionEnabled = false
             continueButton.loading = true
             editSession.apply()
-            APIRequest.updateUser(user, email: nil).send({ [weak self] _ in
+            API.updateUser(user, email: nil).send({ [weak self] _ in
                 self?.continueButton.loading = false
                 self?.view.userInteractionEnabled = true
                 completion()

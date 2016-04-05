@@ -31,6 +31,8 @@ final class NotificationCenter: NSObject {
     
     var pushToken: String?
     
+    var pushTokenData: NSData?
+    
     override init() {
         super.init()
         Dispatch.mainQueue.after(0.2, block: { [weak self] _ in
@@ -47,6 +49,7 @@ final class NotificationCenter: NSObject {
     }
     
     func handleDeviceToken(deviceToken: NSData) {
+        pushTokenData = deviceToken
         pushToken = deviceToken.serializeDevicePushToken()
         if Authorization.active {
             APIRequest.updateDevice().send()

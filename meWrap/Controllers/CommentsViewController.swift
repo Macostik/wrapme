@@ -251,7 +251,7 @@ class CommentsViewController: BaseViewController {
         onClose(nil)
         if let candy = candy?.validEntry() {
             Dispatch.mainQueue.async {
-                SoundPlayer.playSend()
+                Sound.play()
                 candy.uploadComment(text.trim)
             }
         }

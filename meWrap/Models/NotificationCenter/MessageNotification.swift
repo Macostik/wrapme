@@ -36,7 +36,7 @@ class MessageAddNotification: EntryNotification<Message> {
             }
         }
         if message.contributor?.current == false && !isHistorycal && allow {
-            message.showToast()
+            EntryToast.showMessageAddition(message)
         }
     }
     

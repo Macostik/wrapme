@@ -28,29 +28,10 @@ enum Sound: String {
             return nil
         }
     }
-}
-
-class SoundPlayer: NSObject {
     
-    static let player = SoundPlayer()
-    
-    private var currentSound: Sound?
-    
-    private var sounds = [Sound : SystemSoundID]()
-    
-    private var runQueue = RunQueue(limit: 1)
-    
-    func play(sound: Sound) {
+    static func play(sound: Sound = .s04) {
         guard UIApplication.sharedApplication().applicationState == .Active else { return }
         guard let soundID = sound.ID() else { return }
-        self.currentSound = sound
         AudioServicesPlaySystemSound(soundID)
-        Dispatch.mainQueue.after(3, block: { () -> Void in
-            self.currentSound = nil
-        })
-    }
-    
-    class func playSend() {
-        player.play(.s04)
     }
 }

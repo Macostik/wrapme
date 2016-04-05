@@ -9,28 +9,43 @@
 import Foundation
 import SnapKit
 
+enum EntryToastStyle {
+    case Full, Short
+}
+
 class EntryToast: UIView {
     static let entryToast = EntryToast()
     static let DismissalDelay: NSTimeInterval = 4.0
     private let imageHeight = Constants.screenWidth / 3 * 1.5
-    private var entry: Entry?
     private let avatar = ImageView(backgroundColor: UIColor.clearColor())
     private let imageView = ImageView(backgroundColor: UIColor.clearColor())
     private var topLabel = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
     private let middleLabel = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
     private let rightLabel = Label(preset: .Smaller, weight: .Regular, textColor: Color.orange)
     private let bottomLabel = Label(preset: .Smaller, weight: .Regular, textColor: UIColor.whiteColor())
-    private let liveBadge = Label(preset: .Small, textColor: UIColor.whiteColor())
+    private lazy var liveBadge = Label(preset: .Small, textColor: UIColor.whiteColor())
     private let topView = View()
     private let bottomView = View()
     var topViewBottomCostraint: Constraint?
     var imageBottomCostraint: Constraint?
     var imageHeightCostraint: Constraint?
-    var handleTouch: ObjectBlock?
+    var handleTouch: (() -> ())?
     
     required init() {
         super.init(frame: CGRectZero)
-        
+        liveBadge.textAlignment = .Center
+        liveBadge.cornerRadius = 8
+        liveBadge.clipsToBounds = true
+        liveBadge.backgroundColor = Color.dangerRed
+        liveBadge.text = "LIVE"
+        topLabel.numberOfLines = 0
+        middleLabel.numberOfLines = 2
+        rightLabel.text = "now".ls
+        bottomLabel.text = "tap_to_view".ls
+        avatar.cornerRadius = 14
+        imageView.defaultIconText = "t"
+        imageView.defaultIconColor = Color.grayLighter
+        imageView.defaultBackgroundColor = UIColor.whiteColor()
         backgroundColor = UIColor.blackColor()
         topView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
         bottomView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
@@ -59,6 +74,13 @@ class EntryToast: UIView {
             $0.leading.equalTo(liveBadge.snp_trailing).offset(12)
             $0.top.equalTo(topView).offset(12)
             $0.trailing.lessThanOrEqualTo(rightLabel.snp_leading).offset(-12)
+        }
+        
+        liveBadge.snp_makeConstraints {
+            $0.centerY.equalTo(topLabel)
+            $0.height.equalTo(20)
+            $0.leading.equalTo(avatar.snp_trailing)
+            $0.width.equalTo(0)
         }
         
         middleLabel.snp_makeConstraints {
@@ -94,81 +116,25 @@ class EntryToast: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(entry: Entry) {
-        self.entry = entry
-        avatar.circled = true
-        if let wrap = entry as? Wrap where wrap.liveBroadcasts.isEmpty == false {
-           avatar.url = wrap.liveBroadcasts.last?.broadcaster?.avatar?.small
-        } else if let wrap = entry as? Wrap where wrap.inviter != nil {
-            avatar.url = wrap.inviter?.avatar?.small
-        } else if let entry = entry as? Contribution {
-           avatar.url = entry.contributor?.avatar?.small
-        }
-        topLabel.numberOfLines = 0
-        middleLabel.numberOfLines = 2
-        rightLabel.text = "now".ls
-        bottomLabel.text = "tap_to_view".ls
-        imageView.defaultIconText = "t"
-        imageView.defaultIconColor = Color.grayLighter
-        imageView.defaultBackgroundColor = UIColor.whiteColor()
-        if let _entry = entry as? Contribution {
-            imageView.url = _entry.asset?.medium
-        }
-        liveBadge.textAlignment = .Center
-        liveBadge.cornerRadius = 8
-        liveBadge.clipsToBounds = true
-        liveBadge.backgroundColor = Color.dangerRed
-        liveBadge.text = "LIVE"
+    func show(style style: EntryToastStyle = .Full, @noescape setup: EntryToast -> (), handleTouch: (() -> ())? = nil) {
+        guard UIApplication.sharedApplication().applicationState == .Active else { return }
         showBadge(false)
-        setupContent(entry)
-        SoundPlayer.player.play(.note)
+        Sound.play(.note)
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-    }
-    
-    private func setupContent(entry: Entry) {
-        switch entry {
-        case let candy as Candy:
-            if candy.editor != nil {
-                topLabel.text = String(format: "someone_edited_photo".ls, candy.editor?.name ?? "")
-            } else {
-                topLabel.text = String(format:  candy.isVideo ?
-                    "just_sent_you_a_new_video".ls :
-                    "just_sent_you_a_new_photo".ls, candy.contributor?.name ?? "")
-            }
-            middleLabel.text = ""
-            fullStyle()
-            break
-        case let comment as Comment:
-            topLabel.text = String(format: "someone_commented".ls, comment.contributor?.name ?? "")
-            middleLabel.text = comment.text
-            fullStyle()
-            break
-        case let message as Message:
-            topLabel.text = String(format: "\(message.contributor?.name ?? ""):")
-            middleLabel.text = message.text
-            shortStyle()
-            break
-        case let wrap as Wrap where wrap.liveBroadcasts.isEmpty == false:
-            topLabel.text = String(format: "someone_is_live".ls, wrap.contributor?.name ?? "")
-            middleLabel.text = String(format: "\(wrap.name ?? "")")
-            showBadge(true)
-            shortStyle()
-            break
-        case let wrap as Wrap where wrap.inviter != nil:
-            topLabel.text =  String(format: "you're_invited".ls ?? "")
-            middleLabel.text = String(format: "invited_you_to".ls, wrap.inviter?.name ?? "", wrap.name ?? "")
-            fullStyle()
-            break
-            
-        default:break
+        setup(self)
+        self.handleTouch = handleTouch
+        if style == .Full {
+            topViewBottomCostraint?.deactivate()
+            imageBottomCostraint?.activate()
+            imageHeightCostraint?.updateOffset(imageHeight)
+        } else {
+            topViewBottomCostraint?.activate()
+            imageBottomCostraint?.deactivate()
+            imageHeightCostraint?.updateOffset(0)
         }
-    }
-    
-    func show(inViewController viewController: UIViewController? = nil) {
         let _window = UIWindow.mainWindow
         _window.windowLevel = UIWindowLevelStatusBar
         if self.superview != _window {
-            self.removeFromSuperview()
             _window.addSubview(self)
             snp_makeConstraints {
                 $0.width.centerX.equalTo(_window)
@@ -180,30 +146,18 @@ class EntryToast: UIView {
             self.transform = CGAffineTransformMakeTranslation(0, self.height)
         })
         
-        self.enqueueSelector(#selector(EntryToast.dissmis), delay: EntryToast.DismissalDelay)
+        self.enqueueSelector(#selector(self.dissmis), delay: EntryToast.DismissalDelay)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
         dissmis()
         UIWindow.mainWindow.endEditing(true)
-        guard let entry = entry else { return }
-        guard let nc = UINavigationController.main() else { return }
-        if let liveVC = nc.topViewController as? LiveBroadcasterViewController {
-            liveVC.close()
-        }
-        ChronologicalEntryPresenter.presentEntry(entry, animated: false)
-        if let wrap = entry as? Wrap where wrap.liveBroadcasts.isEmpty == false {
-            if let controller = wrap.viewControllerWithNavigationController(nc) as? WrapViewController {
-                guard let liveBroadcast = wrap.liveBroadcasts.last else { return }
-                controller.presentLiveBroadcast(liveBroadcast)
-            }
-        }
-        handleTouch?(self)
+        handleTouch?()
     }
     
     func dissmis() {
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(EntryToast.touchesBegan(_:withEvent:)), object: nil)
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(self.dissmis), object: nil)
         UIView.animateWithDuration(0.5, animations: {
             self.transform = CGAffineTransformIdentity
             }, completion: { _ in
@@ -214,37 +168,74 @@ class EntryToast: UIView {
     
     private func showBadge(show: Bool) {
         liveBadge.snp_updateConstraints {
-            $0.centerY.equalTo(topLabel)
-            $0.height.equalTo(20)
-            if show {
-                $0.leading.equalTo(avatar.snp_trailing).offset(12)
-                $0.width.equalTo(40)
-            } else {
-                $0.leading.equalTo(avatar.snp_trailing)
-                $0.width.equalTo(0)
-            }
+            $0.leading.equalTo(avatar.snp_trailing).offset(show ? 12 : 0)
+            $0.width.equalTo(show ? 40 : 0)
         }
-    }
-    
-    private func shortStyle() {
-        topViewBottomCostraint?.activate()
-        imageBottomCostraint?.deactivate()
-        imageHeightCostraint?.updateOffset(0)
-    }
-    
-    private func fullStyle() {
-        topViewBottomCostraint?.deactivate()
-        imageBottomCostraint?.activate()
-        imageHeightCostraint?.updateOffset(imageHeight)
     }
 }
 
-extension Entry {
-    func showToast() {
-        let entryToast = EntryToast.entryToast
-        if UIApplication.sharedApplication().applicationState == .Active {
-            entryToast.setup(self)
-            entryToast.show()
+extension EntryToast {
+    
+    class func showCandyAddition(candy: Candy) {
+        EntryToast.entryToast.show(setup: { (toast) in
+            toast.avatar.url = candy.contributor?.avatar?.small
+            toast.imageView.url = candy.asset?.medium
+            toast.topLabel.text = String(format: (candy.isVideo ? "just_sent_you_a_new_video" : "just_sent_you_a_new_photo").ls, candy.contributor?.name ?? "")
+            toast.middleLabel.text = ""
+            }, handleTouch: { ChronologicalEntryPresenter.presentEntry(candy, animated: false) })
+    }
+    
+    class func showCandyUpdate(candy: Candy) {
+        EntryToast.entryToast.show(setup: { (toast) in
+            toast.avatar.url = candy.contributor?.avatar?.small
+            toast.imageView.url = candy.asset?.medium
+            toast.topLabel.text = String(format: "someone_edited_photo".ls, candy.editor?.name ?? "")
+            toast.middleLabel.text = ""
+            }, handleTouch: { ChronologicalEntryPresenter.presentEntry(candy, animated: false) })
+    }
+    
+    class func showCommentAddition(comment: Comment) {
+        EntryToast.entryToast.show(setup: { (toast) in
+            toast.avatar.url = comment.contributor?.avatar?.small
+            toast.imageView.url = comment.asset?.medium
+            toast.topLabel.text = String(format: "someone_commented".ls, comment.contributor?.name ?? "")
+            toast.middleLabel.text = comment.text
+            }, handleTouch: { ChronologicalEntryPresenter.presentEntry(comment, animated: false) })
+    }
+    
+    class func showMessageAddition(message: Message) {
+        EntryToast.entryToast.show(style: .Short, setup: { (toast) in
+            toast.avatar.url = message.contributor?.avatar?.small
+            toast.imageView.url = message.asset?.medium
+            toast.topLabel.text = String(format: "\(message.contributor?.name ?? ""):")
+            toast.middleLabel.text = message.text
+            }, handleTouch: { ChronologicalEntryPresenter.presentEntry(message, animated: false) })
+    }
+    
+    class func showWrapInvitation(wrap: Wrap, inviter: User?) {
+        EntryToast.entryToast.show(setup: { (toast) in
+            toast.imageView.url = wrap.asset?.medium
+            toast.avatar.url = inviter?.avatar?.small
+            toast.topLabel.text =  String(format: "you're_invited".ls ?? "")
+            toast.middleLabel.text = String(format: "invited_you_to".ls, inviter?.name ?? "", wrap.name ?? "")
+            }, handleTouch: { ChronologicalEntryPresenter.presentEntry(wrap, animated: false) })
+    }
+    
+    class func showLiveBroadcast(liveBroadcast: LiveBroadcast) {
+        guard let wrap = liveBroadcast.wrap else { return }
+        EntryToast.entryToast.show(style: .Short, setup: { (toast) in
+            toast.imageView.url = wrap.asset?.medium
+            toast.avatar.url = liveBroadcast.broadcaster?.avatar?.small
+            toast.topLabel.text = String(format: "someone_is_live".ls, liveBroadcast.broadcaster?.name ?? "")
+            toast.middleLabel.text = String(format: "\(wrap.name ?? "")")
+            toast.showBadge(true)
+        }) {
+            ChronologicalEntryPresenter.presentEntry(wrap, animated: false)
+            guard let nc = UINavigationController.main() else { return }
+            (nc.topViewController as? LiveBroadcasterViewController)?.close()
+            if let controller = wrap.viewControllerWithNavigationController(nc) as? WrapViewController {
+                controller.presentLiveBroadcast(liveBroadcast)
+            }
         }
     }
 }

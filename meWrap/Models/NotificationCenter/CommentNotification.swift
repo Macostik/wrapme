@@ -38,7 +38,7 @@ class CommentAddNotification: CommentNotification {
         if controller == nil || controller?.candy?.comments.contains(comment) == false {
             if comment.contributor?.current == false && !isHistorycal {
                 comment.markAsUnread(false)
-                comment.showToast()
+                EntryToast.showCommentAddition(comment)
             }
         }
     }

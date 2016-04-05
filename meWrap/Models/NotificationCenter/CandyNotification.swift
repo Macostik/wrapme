@@ -58,7 +58,7 @@ class CandyAddNotification: CandyNotification {
         }
         candy.notifyOnAddition()
         if candy.contributor?.current == false && !isHistorycal {
-            candy.showToast()
+            EntryToast.showCandyAddition(candy)
         }
     }
     
@@ -97,7 +97,7 @@ class CandyUpdateNotification: CandyNotification {
         }
         candy.notifyOnUpdate(.Default)
         if candy.editor?.current == false && !isHistorycal {
-            candy.showToast()
+            EntryToast.showCandyUpdate(candy)
         }
     }
     

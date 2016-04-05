@@ -242,8 +242,10 @@ class EntryToast: UIView {
 extension Entry {
     func showToast() {
         let entryToast = EntryToast.entryToast
-        entryToast.setup(self)
-        entryToast.show()
+        if UIApplication.sharedApplication().applicationState == .Active {
+            entryToast.setup(self)
+            entryToast.show()
+        }
     }
 }
 

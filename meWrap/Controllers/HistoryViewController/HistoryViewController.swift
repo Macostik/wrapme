@@ -181,7 +181,7 @@ class HistoryViewController: SwipeViewController {
         
         let isForward = direction == .Forward
         
-        if let candy = candies[safe: (isForward ? index + 1 : index - 1)] {
+        if let candy = candies[safe: (isForward ? index - 1 : index + 1)] {
             return candyViewController(candy)
         } else if isForward {
             fetchCandiesOlderThen(candy)

@@ -75,10 +75,10 @@ final class Wrap: Contribution {
     override class func contentTypes() -> [Entry.Type]? { return [Candy.self, Message.self] }
     
     private var _historyCandies: [Candy]?
-    var historyCandies: [Candy]? {
+    var historyCandies: [Candy]! {
         get {
             if _historyCandies == nil {
-                _historyCandies = candies.sort({ $0.createdAt < $1.createdAt })
+                _historyCandies = candies.sort({ $0.createdAt > $1.createdAt })
             }
             return _historyCandies
         }

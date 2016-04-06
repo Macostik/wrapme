@@ -15,9 +15,13 @@ class History: PaginatedList<HistoryItem> {
     private var historyCandies: PaginatedList<Candy>
     
     required init(wrap: Wrap) {
-        historyCandies = PaginatedList<Candy>(entries: wrap.candies, request: API.candies(wrap), sorter: { $0.createdAt > $1.createdAt })
-        historyCandies.newerThen = { $0.first?.createdAt }
-        historyCandies.olderThen = { $0.last?.createdAt }
+        historyCandies = specify(PaginatedList(), {
+            $0.request = API.candies(wrap)
+            $0.sorter = { $0.createdAt > $1.createdAt }
+            $0.entries = wrap.historyCandies
+            $0.newerThen = { $0.first?.createdAt }
+            $0.olderThen = { $0.last?.createdAt }
+        })
         super.init()
         Candy.notifier().addReceiver(self)
         self.wrap = wrap
@@ -29,16 +33,19 @@ class History: PaginatedList<HistoryItem> {
         set { historyCandies.completed = newValue }
     }
     
-    func send(type: PaginatedRequestType, success: ([Candy]? -> ())?, failure: FailureBlock?) {
+    override func send(type: PaginatedRequestType, success: ([HistoryItem] -> ())?, failure: FailureBlock?) {
         historyCandies.send(type, success: { [weak self] candies in
-            self?.addCandies(candies)
-            success?(candies)
+            if let history = self {
+                history.addCandies(candies)
+                success?(history.entries)
+            }
             }, failure: failure)
     }
     
     private func fetchCandies(wrap: Wrap) {
-        entries.removeAll()
-        guard let candies = wrap.historyCandies where !candies.isEmpty else { return }
+        let candies = historyCandies.entries
+        guard !candies.isEmpty else { return }
+        var items = [HistoryItem]()
         var _candy: Candy?
         var item: HistoryItem!
         for candy in candies {
@@ -46,15 +53,17 @@ class History: PaginatedList<HistoryItem> {
                 if _candy.createdAt.isSameDay(candy.createdAt) {
                     item.entries.append(candy)
                 } else {
-                    entries.insert(item, atIndex: 0)
                     item = HistoryItem(candy: candy, history: self)
+                    items.append(item)
                 }
             } else {
                 item = HistoryItem(candy: candy, history: self)
+                items.append(item)
             }
             _candy = candy
         }
-        entries.insert(item, atIndex: 0)
+        
+        entries = items
     }
     
     private func _addCandy(candy: Candy) -> (item: HistoryItem, added: Bool) {

@@ -157,6 +157,8 @@ class CommentsViewController: BaseViewController {
         streamView.setMaximumContentOffsetAnimated(false)
     }
     
+    var isEndingOfScroll = false
+    
     private func addNotifyReceivers() {
         commentNotifyReceiver = EntryNotifyReceiver<Comment>().setup { [weak self] receiver in
             receiver.container = { return self?.candy }
@@ -169,10 +171,12 @@ class CommentsViewController: BaseViewController {
                 self?.dataSource.items = comments
             }
             receiver.didAdd = { entry in
+                self?.isEndingOfScroll = false
                 self?.dataSource.items = self?.candy?.sortedComments()
                 let offset = (self?.streamView.maximumContentOffset.y ?? 0) - (self?.streamView.contentOffset.y ?? 0) - (self?.heightCell(entry) ?? 0)
                 if offset <= 5 {
                     self?.streamView.setMaximumContentOffsetAnimated(true)
+                    self?.isEndingOfScroll = true
                 }
             }
             receiver.didUpdate = { _ in
@@ -251,7 +255,7 @@ class CommentsViewController: BaseViewController {
         onClose(nil)
         if let candy = candy?.validEntry() {
             Dispatch.mainQueue.async {
-                SoundPlayer.playSend()
+                Sound.play()
                 candy.uploadComment(text.trim)
             }
         }

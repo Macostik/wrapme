@@ -56,10 +56,9 @@ class CaptureViewController: UINavigationController, CameraViewControllerDelegat
     }
     
     internal func cropImage(image: UIImage) -> UIImage {
-        var resultImage = resizeImage(image)
+        let resultImage = resizeImage(image)
         let cropRect = resultImage.size.fit(viewFinderSize()).rectCenteredInSize(resultImage.size)
-        resultImage = resultImage.crop(cropRect)
-        return resultImage
+        return resultImage.crop(cropRect)
     }
     
     private func viewFinderSize() -> CGSize {
@@ -82,12 +81,12 @@ class CaptureViewController: UINavigationController, CameraViewControllerDelegat
         }
     }
     
-    internal func cropAsset(asset: PHAsset, options: PHImageRequestOptions, completion: UIImage? -> Void) {
+    internal func cropAsset(asset: PHAsset, completion: UIImage? -> Void) {
         let width = CGFloat(asset.pixelWidth)
         let height = CGFloat(asset.pixelHeight)
         let scale = (width > height ? height : width) / resizeImageWidth()
         let size = CGSizeMake(width / scale, height / scale)
-        PHImageManager.defaultManager().requestImageDataForAsset(asset, options: options) { (data, _, _, _) in
+        PHImageManager.defaultManager().requestImageDataForAsset(asset, options: nil) { (data, _, _, info) in
             if let data = data, let image = UIImage(data: data) {
                 completion(image.resize(size))
             } else {

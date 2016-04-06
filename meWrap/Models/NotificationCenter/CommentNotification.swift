@@ -35,11 +35,13 @@ class CommentAddNotification: CommentNotification {
         }
         comment.notifyOnAddition()
         weak var controller = UINavigationController.main()?.topViewController as? HistoryViewController
-        if controller?.candy?.comments.contains(comment) == false {
+        let commentViewController = controller?.childViewControllers.filter({ $0 is CommentsViewController}).first as? CommentsViewController
+        if controller == nil || controller?.candy?.comments.contains(comment) == false || commentViewController?.isEndingOfScroll == false {
             if comment.contributor?.current == false && !isHistorycal {
-                comment.markAsUnread(false)
-                comment.showToast()
+                EntryToast.showCommentAddition(comment)
             }
+        } else {
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
         }
     }
 }

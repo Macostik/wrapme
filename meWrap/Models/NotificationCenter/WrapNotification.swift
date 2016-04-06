@@ -48,8 +48,7 @@ class ContributorAddNotification: WrapNotification {
         } else {
             wrap.notifyOnAddition()
             if wrap.contributor?.current == false && user?.current == true && !isHistorycal {
-                wrap.inviter = inviter
-                wrap.showToast()
+                EntryToast.showWrapInvitation(wrap, inviter: inviter)
             }
         }
     }

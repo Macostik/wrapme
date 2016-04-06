@@ -64,9 +64,8 @@ class HistoryFooterView: GradientView {
         didSet {
             if comment != oldValue {
                 if let comment = comment, let text = comment.text {
-                    if comment.contributor?.current == false && comment.unread {
+                    if comment.contributor?.current == false {
                         commentLabel.addAnimation(transition)
-                        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
                     }
                     comment.markAsUnread(false)
                     avatarImageView.hidden = false

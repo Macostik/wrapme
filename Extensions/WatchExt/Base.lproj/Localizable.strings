@@ -33,3 +33,5 @@
 "APNS_MSG08" = "%@ is live: %@ (%@)";
 "APNS_TT09" = "Critical Update";
 "APNS_MSG09" = "meWrap critical update available. Please update from App Store immediately.";
+"APNS_TT10" = "Invite Accepted";
+"APNS_MSG10" = "%@ is now on meWrap.";

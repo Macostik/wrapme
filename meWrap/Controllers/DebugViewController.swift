@@ -51,7 +51,7 @@ class DebugViewController: BaseViewController {
         }
         
         let showChannelsButton = Button(type: .System)
-        showChannelsButton.setTitle("Show Channels", forState: .Normal)
+        showChannelsButton.setTitle("Check channel group", forState: .Normal)
         showChannelsButton.addTarget(self, action: #selector(self.showChannels(_:)), forControlEvents: .TouchUpInside)
         view.addSubview(showChannelsButton)
         showChannelsButton.snp_makeConstraints { (make) in
@@ -67,10 +67,34 @@ class DebugViewController: BaseViewController {
             make.bottom.equalTo(showChannelsButton.snp_top).inset(-20)
             make.centerX.equalTo(view)
         }
+        
+        let checkAPNSButton = Button(type: .System)
+        checkAPNSButton.setTitle("Check APNS", forState: .Normal)
+        checkAPNSButton.addTarget(self, action: #selector(self.checkAPNS(_:)), forControlEvents: .TouchUpInside)
+        view.addSubview(checkAPNSButton)
+        checkAPNSButton.snp_makeConstraints { (make) in
+            make.bottom.equalTo(resubscribeButton.snp_top).inset(-20)
+            make.centerX.equalTo(view)
+        }
     }
     
     @objc private func close(sender: AnyObject) {
         removeFromContainerAnimated(false)
+    }
+    
+    @objc private func checkAPNS(sender: AnyObject) {
+        guard let token = NotificationCenter.defaultCenter.pushTokenData else { return }
+        PubNub.sharedInstance.pushNotificationEnabledChannelsForDeviceWithPushToken(token) { (result, _) in
+            if let channels = result?.data.channels {
+                var missedWraps = [String]()
+                for wrap in User.currentUser?.wraps ?? [] {
+                    if !channels.contains(wrap.uid) {
+                        missedWraps.append("\(wrap.name ?? "") : \(wrap.uid ?? "")")
+                    }
+                }
+                UIAlertController.alert("missed APNS:\n\(missedWraps.joinWithSeparator("\n"))").show()
+            }
+        }
     }
     
     @objc private func resubscribe(sender: AnyObject) {

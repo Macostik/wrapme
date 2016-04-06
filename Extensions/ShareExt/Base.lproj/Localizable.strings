@@ -6,6 +6,6 @@
   Copyright © 2016 Ravenpod. All rights reserved.
 */
 
-"formatted_upload_video_duration_limit" = "This video is too long, duration is limited up to %i seconds.";
+"formatted_upload_video_duration_limit" = "Video can't be more than %i seconds long.";
 "share_video" = "Share video";
 "ok" = "OK";

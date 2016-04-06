@@ -8,7 +8,11 @@
 
 import UIKit
 
-class Asset: Archive {
+func ==(lhs: Asset, rhs: Asset) -> Bool {
+    return lhs.original == rhs.original && lhs.large == rhs.large && lhs.medium == rhs.medium && lhs.small == rhs.small
+}
+
+class Asset: NSObject {
     var original: String?
     var large: String?
     var medium: String?
@@ -16,15 +20,11 @@ class Asset: Archive {
     var justUploaded = false
     var type: MediaType = .Photo
     
-    override class func archivableProperties() -> Set<String> {
-        return ["type","original","large","medium","small"]
-    }
-    
     override var description: String {
         return "urls \noriginal: \(original)\nlarge: \(large)\nmedium: \(medium)\nsmall: \(small)"
     }
     
-    convenience init(json: NSData) throws {
+    convenience init(json: NSData) {
         self.init()
         if let data = (try? NSJSONSerialization.JSONObjectWithData(json, options: .AllowFragments)) as? [String : AnyObject] {
             type = MediaType(rawValue: Int16((data["type"] as? Int) ?? 0)) ?? .Photo
@@ -66,11 +66,7 @@ class AssetTransformer: NSValueTransformer {
     }
     override func reverseTransformedValue(value: AnyObject?) -> AnyObject? {
         if let data = value as? NSData {
-            do {
-                return try Asset(json: data)
-            } catch {
-                return data.unarchive()
-            }
+            return Asset(json: data)
         } else {
             return nil
         }

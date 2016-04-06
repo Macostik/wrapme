@@ -111,9 +111,17 @@ class BlockImageFetching: NSObject {
     private var success: (UIImage -> Void)?
     private var failure: (NSError? -> Void)?
     
-    class func enqueue(url: String, success: (UIImage -> Void)?, failure: (NSError? -> Void)?) {
+    class func enqueue(url: String?, success: (UIImage -> Void)?, failure: (NSError? -> Void)?) {
         let fetching = BlockImageFetching(url: url)
         fetching.enqueue(success, failure: failure)
+    }
+    
+    class func enqueue(url: String?) -> UIImage? {
+        return Dispatch.sleep({ (awake) in
+            Dispatch.mainQueue.async {
+                enqueue(url, success: { image in awake(image) }, failure: { _ in awake(nil) })
+            }
+        })
     }
     
     init(url: String?) {

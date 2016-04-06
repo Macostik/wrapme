@@ -175,10 +175,10 @@ extension NSUserDefaults {
         set { self["recentEmojis"] = newValue }
     }
     
-    var imageURI: String? {
+    var imageURI: String! {
         get {
             if _imageURI == nil {
-                _imageURI = self["imageURI"] as? String
+                _imageURI = self["imageURI"] as? String ?? Environment.current.defaultImageURI
             }
             return _imageURI
         }
@@ -189,10 +189,10 @@ extension NSUserDefaults {
         }
     }
     
-    var videoURI: String? {
+    var videoURI: String! {
         get {
             if _videoURI == nil {
-                _videoURI = self["videoURI"] as? String
+                _videoURI = self["videoURI"] as? String ?? Environment.current.defaultVideoURI
             }
             return _videoURI
         }
@@ -203,10 +203,10 @@ extension NSUserDefaults {
         }
     }
     
-    var avatarURI: String? {
+    var avatarURI: String! {
         get {
             if _avatarURI == nil {
-                _avatarURI = self["avatarURI"] as? String
+                _avatarURI = self["avatarURI"] as? String ?? Environment.current.defaultAvatarURI
             }
             return _avatarURI
         }

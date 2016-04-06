@@ -161,7 +161,7 @@ extension Wrap {
         history.fresh({ (object) -> Void in
             for item in history.entries.prefix(5) {
                 for candy in item.entries.prefix(20) {
-                    candy.asset?.fetch(nil)
+                    candy.asset?.fetch()
                 }
             }
             }, failure: nil)

@@ -24,7 +24,7 @@ extension CaptureWrapContainer {
     }
 }
 
-@objc protocol CaptureMediaViewControllerDelegate {
+protocol CaptureMediaViewControllerDelegate: class {
     func captureViewController(controller: CaptureMediaViewController, didFinishWithAssets assets: [MutableAsset])
     func captureViewControllerDidCancel(controller: CaptureMediaViewController)
 }

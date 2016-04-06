@@ -52,11 +52,7 @@ class CaptureAvatarViewController: CaptureViewController {
     
     func handleAsset(asset: PHAsset) {
         view.userInteractionEnabled = false
-        let option = PHImageRequestOptions()
-        option.resizeMode = .Exact
-        option.deliveryMode = .HighQualityFormat
-        option.networkAccessAllowed = true
-        cropAsset(asset, options:option, completion: { [weak self] (croppedImage) -> Void in
+        cropAsset(asset, completion: { [weak self] (croppedImage) -> Void in
             if let image = croppedImage {
                 self?.handleImage(image, saveToAlbum: false)
             }

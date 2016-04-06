@@ -105,12 +105,11 @@ class CaptureMediaViewController: CaptureViewController {
                 if (asset.mediaType == .Video) {
                     mediaAsset.setVideoFromAsset(asset, completion: finish)
                 } else {
-                    let option = PHImageRequestOptions()
-                    option.resizeMode = .Exact
-                    option.deliveryMode = .HighQualityFormat
-                    self?.cropAsset(asset, options:option, completion: { (croppedImage) -> Void in
+                    self?.cropAsset(asset, completion: { (croppedImage) -> Void in
                         if let image = croppedImage {
                             mediaAsset.setImage(image, completion: finish)
+                        } else {
+                            finish()
                         }
                     })
                 }

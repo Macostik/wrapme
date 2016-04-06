@@ -200,8 +200,8 @@
 "access_to_camera_message" = "Please go to Settings > meWrap to allow meWrap access the camera.";
 "tap_to_change" = "TAP TO CHANGE";
 "access_to_photos_message" = "Please go to Settings > meWrap to allow meWrap access the photos.";
-"wrap_definition" = "A Wrap is an album where you and the people you want can contribute pictures and share memories.";
-"whats_a_wrap" = "What's a Wrap?";
+"wrap_definition" = "Wrap is an album where you and the people you want can contribute pictures and share memories.";
+"whats_a_wrap" = "What's Wrap?";
 "lets_get_started" = "Let's get started!";
 "explore_our" = "EXPLORE OUR";
 "hottest_wraps" = "HOTTEST WRAPS";
@@ -319,4 +319,4 @@
 "someone_edited_photo" = "%@ just edited a photo.";
 "someone_is_live" = "%@ is live";
 "you're_invited" = "You're invited!";
-"invited_you_to" = "%@ invited you to '%@'";
+"invited_you_to" = "%@ invited you to \"%@\"";

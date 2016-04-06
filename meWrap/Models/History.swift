@@ -15,20 +15,18 @@ class History: PaginatedList<HistoryItem> {
     private var historyCandies: PaginatedList<Candy>
     
     required init(wrap: Wrap) {
+        historyCandies = PaginatedList<Candy>(entries: wrap.candies, request: API.candies(wrap), sorter: { $0.createdAt > $1.createdAt })
+        historyCandies.newerThen = { $0.first?.createdAt }
+        historyCandies.olderThen = { $0.last?.createdAt }
         super.init()
         Candy.notifier().addReceiver(self)
         self.wrap = wrap
         fetchCandies(wrap)
-        historyCandies = PaginatedList<Candy>(entries: wrap.historyCandies ?? [], request: API.candies(wrap))
     }
     
     override var completed: Bool {
-        get {
-            return historyCandies.completed
-        }
-        set {
-            historyCandies.completed = newValue
-        }
+        get { return historyCandies.completed }
+        set { historyCandies.completed = newValue }
     }
     
     func send(type: PaginatedRequestType, success: ([Candy]? -> ())?, failure: FailureBlock?) {
@@ -60,7 +58,7 @@ class History: PaginatedList<HistoryItem> {
     }
     
     private func _addCandy(candy: Candy) -> (item: HistoryItem, added: Bool) {
-        let items = entries
+        var items = entries
         if let item = items.last where item.date.isSameDay(candy.createdAt) {
             return (item, item.addCandy(candy))
         } else {
@@ -69,17 +67,10 @@ class History: PaginatedList<HistoryItem> {
             }
         }
         let item = HistoryItem(candy: candy, history: self)
-        entries.append(item)
-        entries.sortInPlace({ $0.listSort($1) })
+        items.append(item)
+        items = items.sort({ $0.date > $1.date })
+        entries = items
         return (item, true)
-    }
-    
-    override func newerPaginationDate() -> NSDate? {
-        return entries.first?.entries.last?.createdAt
-    }
-    
-    override func olderPaginationDate() -> NSDate? {
-        return nil
     }
     
     func addCandies(candies: [Candy]) {
@@ -166,34 +157,24 @@ class History: PaginatedList<HistoryItem> {
     }
 }
 
-class HistoryItem: List<Candy>, ListEntry {
+func ==(lhs: HistoryItem, rhs: HistoryItem) -> Bool {
+    return lhs.date == rhs.date
+}
+
+class HistoryItem: List<Candy> {
     
     unowned var history: History
     
     var offset = CGPoint.zero
     
     var date: NSDate
-    
+        
     init(candy: Candy, history: History) {
         self.history = history
         date = candy.createdAt
+        super.init()
+        sorter = { $0.createdAt < $1.createdAt }
         entries.append(candy)
-    }
-    
-    override func sort() {
-        entries.sortInPlace({ $0.createdAt < $1.createdAt })
-    }
-    
-    func listSort(entry: HistoryItem) -> Bool {
-        return listSortDate() > entry.listSortDate()
-    }
-    
-    func listSortDate() -> NSDate {
-        return date
-    }
-    
-    func listEntryEqual(entry: HistoryItem) -> Bool {
-        return self == entry
     }
     
     func addCandy(candy: Candy) -> Bool {

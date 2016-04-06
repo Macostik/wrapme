@@ -94,7 +94,31 @@ final class HomeViewController: BaseViewController {
         guard let user = User.currentUser else { return }
         let wraps = user.wraps
         
-        dataSource.items = PaginatedList(entries:Array(wraps), request:API.wraps(nil))
+        dataSource.items = specify(PaginatedList(), {
+            $0.request = API.wraps(nil)
+            $0.sorter = {
+                if $1.liveBroadcasts.count > 0 {
+                    if $0.liveBroadcasts.count > 0 {
+                        return $0.name < $1.name
+                    } else {
+                        return false
+                    }
+                } else {
+                    if $0.liveBroadcasts.count > 0 {
+                        return true
+                    } else {
+                        return $0.updatedAt > $1.updatedAt
+                    }
+                }
+            }
+            $0.entries = wraps.sort($0.sorter)
+            $0.newerThen = {
+                return $0.maxElement({ $0.updatedAt < $1.updatedAt })?.updatedAt
+            }
+            $0.olderThen = {
+                return $0.maxElement({ $0.updatedAt > $1.updatedAt })?.updatedAt
+            }
+        })
         
         if !wraps.isEmpty {
             dataSource.refresh()

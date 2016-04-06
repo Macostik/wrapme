@@ -193,7 +193,7 @@ final class ChatViewController: WrapSegmentViewController {
 
 extension ChatViewController: ListNotifying {
     
-    func listChanged<T : ListEntry>(list: List<T>) {
+    func listChanged<T : Equatable>(list: List<T>) {
         streamView.reload()
     }
 }

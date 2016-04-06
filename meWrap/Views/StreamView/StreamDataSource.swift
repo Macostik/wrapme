@@ -104,7 +104,7 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, GridLayoutDelegate, S
     var didLayoutBlock: (Void -> Void)?
     
     private func entryForItem(item: StreamItem) -> AnyObject? {
-        return items?[safe: item.position.index]
+        return items?[safe: item.position.index] as? AnyObject
     }
     
     // MARK: - UIScrollViewDelegate

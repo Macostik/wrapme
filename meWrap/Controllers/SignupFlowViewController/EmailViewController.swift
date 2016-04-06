@@ -31,14 +31,12 @@ final class EmailViewController: SignupStepViewController {
     @IBAction func next(sender: Button) {
         sender.loading = true
         view.endEditing(true)
-        API.whois(emailField.text!).send({ [weak self] object -> Void in
+        API.whois(emailField.text!).send({ [weak self] whoIs -> Void in
             sender.loading = false
-            if let whoIs = object as? WhoIs {
-                if whoIs.found && whoIs.requiresApproving {
-                    self?.setStatus(whoIs.confirmed ? .LinkDevice : .UnconfirmedEmail, animated: false)
-                } else {
-                    self?.setStatus(.Verification, animated: false)
-                }
+            if whoIs.found && whoIs.requiresApproving {
+                self?.setStatus(whoIs.confirmed ? .LinkDevice : .UnconfirmedEmail, animated: false)
+            } else {
+                self?.setStatus(.Verification, animated: false)
             }
             }) { (error) -> Void in
                 sender.loading = false

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AFNetworking
+import Alamofire
 
 struct Environment: CustomStringConvertible {
     
@@ -199,7 +199,7 @@ extension NSError {
                 return "roaming_is_off".ls
             default: break
             }
-        } else if domain == AFURLResponseSerializationErrorDomain {
+        } else if domain == Alamofire.Error.Domain {
             switch code {
             case NSURLErrorCannotDecodeContentData:
                 return "no_internet_connection".ls

@@ -17,6 +17,7 @@ final class PaginatedRequest<ResponseType>: APIRequest<ResponseType> {
     
     override init(_ method: Alamofire.Method, _ path: String = "", modifier: (APIRequest<ResponseType> -> Void)? = nil, parser: (Response -> ResponseType)? = nil) {
         super.init(method, path, modifier: modifier, parser: parser)
+        modify()
     }
     
     var type: PaginatedRequestType = .Fresh

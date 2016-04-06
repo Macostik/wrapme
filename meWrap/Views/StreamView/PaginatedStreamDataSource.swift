@@ -254,13 +254,13 @@ class PaginatedStreamDataSource<T: PaginatedListProtocol>: StreamDataSource<T> {
 }
 
 extension PaginatedStreamDataSource: PaginatedListNotifying {
-    func listChanged<T: ListEntry>(list: List<T>) {
+    func listChanged<T: Equatable>(list: List<T>) {
         reload()
     }
-    func paginatedListDidStartLoading<T: ListEntry>(set: PaginatedList<T>) {
+    func paginatedListDidStartLoading<T: Equatable>(set: PaginatedList<T>) {
         setLoading(set.count == 0 && !set.completed)
     }
-    func paginatedListDidFinishLoading<T: ListEntry>(set: PaginatedList<T>) {
+    func paginatedListDidFinishLoading<T: Equatable>(set: PaginatedList<T>) {
         setLoading(false)
     }
 }

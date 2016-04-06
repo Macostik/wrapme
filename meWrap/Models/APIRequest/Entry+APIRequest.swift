@@ -160,10 +160,8 @@ extension Wrap {
         let history = History(wrap: self)
         history.fresh({ (object) -> Void in
             for item in history.entries.prefix(5) {
-                if let item = item as? HistoryItem {
-                    for candy in item.candies.prefix(20) {
-                        candy.asset?.fetch(nil)
-                    }
+                for candy in item.entries.prefix(20) {
+                    candy.asset?.fetch(nil)
                 }
             }
             }, failure: nil)

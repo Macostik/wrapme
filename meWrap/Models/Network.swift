@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AFNetworking
+import Alamofire
 
 @objc protocol NetworkNotifying {
     optional func networkDidChangeReachability(network: Network)
@@ -17,16 +17,17 @@ class Network: Notifier {
 
     static let sharedNetwork = Network()
     
+    private var reachabilityManager = Alamofire.NetworkReachabilityManager()
+    
     var reachable: Bool {
-        return AFNetworkReachabilityManager.sharedManager().reachable
+        return reachabilityManager?.isReachable ?? false
     }
     
     override init() {
         super.init()
-        let manager = AFNetworkReachabilityManager.sharedManager()
-        manager.startMonitoring()
+        reachabilityManager?.startListening()
         Dispatch.mainQueue.after(0.2) { () -> Void in
-            manager.setReachabilityStatusChangeBlock { [unowned self] (status) -> Void in
+            self.reachabilityManager?.listener = { _ in
                 if self.reachable {
                     Uploader.wrapUploader.start()
                 }

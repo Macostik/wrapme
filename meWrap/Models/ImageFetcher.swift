@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import AFNetworking
+import Alamofire
 
 protocol ImageFetching: class {
     func fetcherTargetUrl(fetcher: ImageFetcher) -> String?
@@ -16,12 +16,6 @@ protocol ImageFetching: class {
 }
 
 final class ImageFetcher: Notifier {
-    
-    private static let downloader: AFImageDownloader = {
-        let downloader = AFImageDownloader()
-        downloader.downloadPrioritizaton = .LIFO
-        return downloader
-    }()
     
     private var urls = Set<String>()
     
@@ -93,21 +87,19 @@ final class ImageFetcher: Notifier {
         } else if ImageCache.defaultCache.contains(uid) {
             Dispatch.defaultQueue.fetch({ ImageCache.defaultCache[uid] }, completion: { result($0, false) })
         } else {
-            if let _url = url.URL {
-                let request = NSURLRequest(URL: _url)
-                ImageFetcher.downloader.downloadImageForURLRequest(request, success: { (_, _, image) -> Void in
+            Alamofire.request(.GET, url).responseData(completionHandler: { response in
+                if let data = response.data, let image = UIImage(data: data) {
                     Dispatch.defaultQueue.async({
-                        ImageCache.defaultCache.write(image, uid: uid)
+                        ImageCache.defaultCache.setImageData(data, uid: uid)
+                        InMemoryImageCache.instance[uid] = image
                         Dispatch.mainQueue.async({
                             result(image, false)
                         })
                     })
-                    }, failure: { (_, _, error) -> Void in
-                        result(nil, false)
-                })
-            } else {
-                result(nil, false)
-            }
+                } else {
+                    result(nil, false)
+                }
+            })
         }
     }
 }

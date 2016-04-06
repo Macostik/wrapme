@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AFNetworking
+import Alamofire
 import SnapKit
 
 class DownloadingView: UIView {
@@ -16,7 +16,7 @@ class DownloadingView: UIView {
     
     @IBOutlet weak var downloadingMediaLabel: UILabel!
     
-    weak var task: NSURLSessionDataTask?
+    weak var task: Alamofire.Request?
     
     weak var candy: Candy?
     
@@ -88,24 +88,15 @@ class DownloadingView: UIView {
             return
         }
         let uid = ImageCache.uidFromURL(url)
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let manager = AFHTTPSessionManager(sessionConfiguration:configuration)
-        manager.responseSerializer = AFImageResponseSerializer()
-        manager.securityPolicy.allowInvalidCertificates = true
-        manager.securityPolicy.validatesDomainName = false
-        task = manager.GET(url, parameters:nil, progress:progressBar.downloadProgress(), success: { [weak self] task, responseObject in
-            if let image = responseObject as? UIImage {
-                ImageCache.defaultCache.write(image, uid:uid)
+        task = Alamofire.request(.GET, url).responseData(completionHandler: { response in
+            if let data = response.data, let image = UIImage(data: data) {
+                ImageCache.defaultCache.setImageData(data, uid: uid)
+                InMemoryImageCache.instance[uid] = image
                 success(image)
             } else {
-                failure?(nil)
+                failure?(response.result.error)
             }
-            self?.dismiss()
-            }, failure: { [weak self] task, error in
-                if (error.code != NSURLErrorCancelled) { failure?(error) }
-                self?.dismiss()
-            })
-        task?.resume()
+        })
     }
 }
 

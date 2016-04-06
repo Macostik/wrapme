@@ -106,7 +106,7 @@ class HistoryItemCell: StreamReusableView {
         streamView.layoutIfNeeded()
         if let item = entry as? HistoryItem {
             dateLabel.text = item.date.stringWithFormat("EEE MMM d, yyyy")
-            let candies = item.candies
+            let candies = item.entries
             if item.date.isToday() && candies.count >= 3 {
                 streamView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
                 dataSource.items = candies.reverse()
@@ -245,15 +245,15 @@ class MediaViewController: WrapSegmentViewController {
         
         let refresher = Refresher(scrollView: streamView)
         refresher.style = .Orange
-        refresher.addTarget(dataSource, action: #selector(StreamDataSource.refresh(_:)), forControlEvents: .ValueChanged)
-        refresher.addTarget(self, action: #selector(MediaViewController.refreshUserActivities), forControlEvents: .ValueChanged)
+        refresher.addTarget(dataSource, action: #selector(dataSource.refresh(_:)), forControlEvents: .ValueChanged)
+        refresher.addTarget(self, action: #selector(self.refreshUserActivities), forControlEvents: .ValueChanged)
         
         uploadingView.uploader = Uploader.candyUploader
         
         Network.sharedNetwork.addReceiver(self)
         
         if wrap.candies.count > 0 {
-            dataSource.paginatedSet?.newer(nil, failure: nil)
+            dataSource.items?.newer(nil, failure: nil)
             dropDownCollectionView()
         }
         Wrap.notifier().addReceiver(self)
@@ -285,8 +285,7 @@ class MediaViewController: WrapSegmentViewController {
     }
     
     func enlargingPresenterDismissingView(candy: Candy) -> UIView? {
-        guard let historyItems = history.entries as? [HistoryItem] else { return nil }
-        guard let historyItem = historyItems.filter({ $0.candies.contains(candy) ?? false }).last else { return nil }
+        guard let historyItem = history.entries[{ $0.entries.contains(candy) }] else { return nil }
         guard let streamHistoryItem = streamView.itemPassingTest({ $0.entry === historyItem && $0.metrics === candyMetrics}) else { return nil }
         streamView.scrollRectToVisible(streamHistoryItem.frame, animated: false)
         guard let cell = streamHistoryItem.view as? HistoryItemCell else { return nil }

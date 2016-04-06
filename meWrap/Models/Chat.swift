@@ -37,27 +37,17 @@ class Chat: PaginatedList<Message>, FontPresetting {
     required init(wrap: Wrap) {
         self.wrap = wrap
         super.init()
+        newerThen = { $0.last?.createdAt }
+        olderThen = { $0.first?.createdAt }
         request = API.messages(wrap)
-        resetMessages()
+        sorter = { $0.createdAt < $1.createdAt }
+        addEntries(wrap.messages)
         FontPresetter.defaultPresetter.addReceiver(self)
     }
     
     func resetMessages() {
         entries = wrap.messages.sort({ $0.createdAt < $1.createdAt })
         didChange()
-    }
-    
-    override func sort() {
-        entries = entries.sort({ $0.listSortDate() < $1.listSortDate() })
-        didChange()
-    }
-    
-    internal override func newerPaginationDate() -> NSDate? {
-        return entries.last?.listSortDate()
-    }
-    
-    internal override func olderPaginationDate() -> NSDate? {
-        return entries.first?.listSortDate()
     }
     
     func markAsRead() {

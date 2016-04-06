@@ -106,7 +106,7 @@ final class HistoryItemViewController: BaseViewController {
                 return streamCandyItem.view
             })
         }
-        dataSource.items = item?.candies
+        dataSource.items = item?.entries
         item?.history.addReceiver(self)
         
         recursivelyUpdateCover(false)
@@ -120,12 +120,12 @@ final class HistoryItemViewController: BaseViewController {
     }
     
     private func recursivelyUpdateCover(animated: Bool) {
-        coverDataSource.items = item?.candies
-        if let currentCandy = coverCandy, let index = item?.candies.indexOf(currentCandy) {
-            let candy = item?.candies[safe: index + 1] ?? item?.candies.first
+        coverDataSource.items = item?.entries
+        if let currentCandy = coverCandy, let index = item?.entries.indexOf(currentCandy) {
+            let candy = item?.entries[safe: index + 1] ?? item?.entries.first
             setCoverCandy(candy, animated: animated)
         } else {
-            setCoverCandy(item?.candies.first, animated: animated)
+            setCoverCandy(item?.entries.first, animated: animated)
         }
         Dispatch.mainQueue.after(4) { [weak self] _ in self?.recursivelyUpdateCover(true) }
     }
@@ -138,19 +138,17 @@ final class HistoryItemViewController: BaseViewController {
 }
 
 extension HistoryItemViewController: ListNotifying {
-    func listChanged(list: List) {
+    
+    func listChanged<T : Equatable>(list: List<T>) {
         guard let item = item else { return }
-        dataSource.items = item.candies
-        if let candy = coverCandy where !item.candies.contains(candy) {
-            coverCandy = item.candies.first
+        dataSource.items = item.entries
+        if let candy = coverCandy where !item.entries.contains(candy) {
+            coverCandy = item.entries.first
         }
-        if item.candies.count == 0 {
-            if let items = item.history.entries as? [HistoryItem] {
-                for _item in items where _item.date.isSameDay(item.date) {
-                    self.item = _item
-                    dataSource.items = _item.candies
-                    
-                }
+        if item.entries.count == 0 {
+            for _item in item.history.entries where _item.date.isSameDay(item.date) {
+                self.item = _item
+                dataSource.items = _item.entries
             }
         }
     }

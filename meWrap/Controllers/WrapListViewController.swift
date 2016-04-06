@@ -49,7 +49,13 @@ class WrapListViewController: BaseViewController {
         metrics.selection = { [weak self] item, entry in
             self?.shareContent(entry as! Wrap)
         }
-        wrapListDataSource.items = PaginatedList(entries:User.currentUser?.sortedWraps ?? [], request:API.wraps(nil))
+        wrapListDataSource.items = specify(PaginatedList<Wrap>()) {
+            $0.request = API.wraps(nil)
+            $0.sorter = { $0.updatedAt > $1.updatedAt }
+            $0.entries = User.currentUser?.sortedWraps ?? []
+            $0.newerThen = { $0.first?.updatedAt }
+            $0.olderThen = { $0.last?.updatedAt }
+        }
         extractConent()
     }
     

@@ -248,7 +248,7 @@
 "no_video_to_upload" = "No video to be uploaded.";
 "notify_about_new_media" = "Notify me when new media is added.";
 "publishing_in_progress" = "Publishing in progress. Please try again later.";
-"formatted_upload_video_duration_limit" = "This video is too long, duration is limited up to %i seconds.";
+"formatted_upload_video_duration_limit" = "Video can't be more than %i seconds long.";
 "link_is_not_valid" = "link is not valid";
 "send_message" = "Send message";
 "start_broadcast" = "Start Broadcast";

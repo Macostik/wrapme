@@ -93,7 +93,7 @@ final class ComposeBar: UIControl, UITextViewDelegate {
     var isEmojiKeyboardActive = false {
         willSet {
             if newValue != isEmojiKeyboardActive {
-                emojiButton.selected = newValue
+                emojiButton?.selected = newValue
                 textView.inputView = nil
                 if newValue {
                     textView.inputView = emojiView

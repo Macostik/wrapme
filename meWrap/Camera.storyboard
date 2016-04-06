@@ -1435,6 +1435,7 @@
                                 </variation>
                                 <connections>
                                     <outlet property="delegate" destination="CvA-oq-Pt1" id="kgd-bp-UKs"/>
+                                    <outlet property="emojiButton" destination="XHr-LD-08v" id="ATg-PA-FRk"/>
                                     <outlet property="heightConstraint" destination="bgi-k4-ZQ1" id="uE4-MT-ueg"/>
                                     <outlet property="textView" destination="HH9-aQ-kkJ" id="6WM-0j-fmc"/>
                                     <outlet property="trailingPrioritizer" destination="h5f-E8-jro" id="eJ1-i0-fbq"/>

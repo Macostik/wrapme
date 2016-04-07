@@ -221,7 +221,6 @@
 		C55BE8C31C03062C006B04FC /* NSObject+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BE8C21C03062C006B04FC /* NSObject+Ext.swift */; };
 		C55BE8C71C031BA6006B04FC /* ExtensionRequest+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BE8C61C031BA6006B04FC /* ExtensionRequest+Ext.swift */; };
 		C55BE8C91C031D54006B04FC /* AuthorizedExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BE8C81C031D54006B04FC /* AuthorizedExecutor.swift */; };
-		C55D04121C203B1B008F87FF /* HistoryFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55D04111C203B1B008F87FF /* HistoryFooterView.swift */; };
 		C55E533D1C4FB4DB006ACF8F /* CaptureMediaCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55E533C1C4FB4DB006ACF8F /* CaptureMediaCameraViewController.swift */; };
 		C55E53431C4FCD3B006ACF8F /* CaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55E53421C4FCD3B006ACF8F /* CaptureViewController.swift */; };
 		C560B1601AE69F7D0010B2EC /* AdobeCreativeSDKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C560B15B1AE69F7C0010B2EC /* AdobeCreativeSDKCore.framework */; };
@@ -646,7 +645,6 @@
 		C55BE8C81C031D54006B04FC /* AuthorizedExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizedExecutor.swift; sourceTree = "<group>"; };
 		C55C36691ACEB7A900C614BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C55C366A1ACEB7A900C614BD /* meWrapKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = meWrapKit.m; sourceTree = "<group>"; };
-		C55D04111C203B1B008F87FF /* HistoryFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryFooterView.swift; sourceTree = "<group>"; };
 		C55E533C1C4FB4DB006ACF8F /* CaptureMediaCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureMediaCameraViewController.swift; sourceTree = "<group>"; };
 		C55E53421C4FCD3B006ACF8F /* CaptureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureViewController.swift; sourceTree = "<group>"; };
 		C560B15B1AE69F7C0010B2EC /* AdobeCreativeSDKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKCore.framework; sourceTree = "<group>"; };
@@ -1412,7 +1410,6 @@
 			isa = PBXGroup;
 			children = (
 				C58CC6EE1C5E515B0086B7C1 /* HistoryViewController.swift */,
-				C55D04111C203B1B008F87FF /* HistoryFooterView.swift */,
 			);
 			path = HistoryViewController;
 			sourceTree = "<group>";
@@ -2097,7 +2094,6 @@
 				C52279621BECCA8600B1C49C /* NSDate+Ext.swift in Sources */,
 				C54C423E1BDE6260003E644D /* Archive.swift in Sources */,
 				C51B82C41C1850C20054726A /* GenericCollections+Ext.swift in Sources */,
-				C55D04121C203B1B008F87FF /* HistoryFooterView.swift in Sources */,
 				C5EE45A41C01C4A2008DE8D6 /* UIImage+Ext.swift in Sources */,
 				5B37C75E1C5A06E30068E693 /* Button.swift in Sources */,
 				C522795E1BECCA6B00B1C49C /* Dictionary+Ext.swift in Sources */,

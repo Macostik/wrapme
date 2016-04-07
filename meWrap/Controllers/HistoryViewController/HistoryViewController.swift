@@ -100,7 +100,7 @@ class ExpendableView: UIView {
 extension Button {
     
     class func candyAction(action: String, color: UIColor) -> Button {
-        let button = Button(icon: action, size: 24)
+        let button = Button(icon: action, size: 20)
         button.cornerRadius = 22
         button.clipsToBounds = true
         button.normalColor = color
@@ -110,11 +110,11 @@ extension Button {
     }
     
     class func expandableCandyAction(action: String) -> Button {
-        let button = Button(icon: action, size: 24)
+        let button = Button(icon: action, size: 20)
         button.setTitleColor(Color.grayLight, forState: .Highlighted)
         button.setTitleColor(Color.grayLight, forState: .Selected)
         button.borderColor = UIColor.whiteColor()
-        button.borderWidth = 2
+        button.borderWidth = 1
         button.clipsToBounds = true
         button.cornerRadius = 22
         return button
@@ -153,18 +153,18 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         view.addSubview(self.expandButton)
         self.drawButton.snp_makeConstraints {
             $0.size.equalTo(44)
-            $0.top.bottom.equalTo(view).inset(12)
-            $0.leading.equalTo(view).offset(12)
+            $0.centerY.equalTo(self.expandButton)
+            $0.leading.equalTo(view).offset(20)
         }
         self.editButton.snp_makeConstraints {
             $0.size.equalTo(44)
-            $0.top.bottom.equalTo(view).inset(12)
-            $0.leading.equalTo(self.drawButton.snp_trailing).offset(12)
+            $0.centerY.equalTo(self.expandButton)
+            $0.leading.equalTo(self.drawButton.snp_trailing).offset(14)
         }
         self.expandButton.snp_makeConstraints {
             $0.size.equalTo(44)
-            $0.top.bottom.equalTo(view).inset(12)
-            $0.trailing.equalTo(view).inset(12)
+            $0.top.bottom.equalTo(view).inset(16)
+            $0.trailing.equalTo(view).inset(20)
         }
     }
     
@@ -175,21 +175,19 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         view.clipsToBounds = true
         self.reportButton.snp_makeConstraints {
             $0.size.equalTo(44)
-            $0.top.equalTo(view).inset(12)
-            $0.bottom.equalTo(view).inset(12).priorityLow()
-            $0.trailing.equalTo(view).inset(12)
+            $0.centerY.equalTo(self.downloadButton)
+            $0.trailing.equalTo(view).inset(20)
         }
         self.deleteButton.snp_makeConstraints {
             $0.size.equalTo(44)
-            $0.top.equalTo(view).inset(12)
-            $0.bottom.equalTo(view).inset(12).priorityLow()
-            $0.trailing.equalTo(view).inset(12)
+            $0.centerY.equalTo(self.downloadButton)
+            $0.trailing.equalTo(view).inset(20)
         }
         self.downloadButton.snp_makeConstraints {
             $0.size.equalTo(44)
-            $0.top.equalTo(view).inset(12)
-            $0.bottom.equalTo(view).inset(12).priorityLow()
-            $0.trailing.equalTo(self.reportButton.snp_leading).inset(-12)
+            $0.top.equalTo(view).inset(16)
+            $0.bottom.equalTo(view).inset(16).priorityLow()
+            $0.trailing.equalTo(self.reportButton.snp_leading).offset(-14)
         }
     }
     
@@ -325,7 +323,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     override func loadView() {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         let scrollView = UIScrollView()
         view.addSubview(scrollView)
         scrollView.snp_makeConstraints {
@@ -375,8 +372,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         self.view = view
         
         expandableToolbar.expanded = false
-        
-        print("\(view.constraints)")
+        commentView.expanded = false
+        editorView.expanded = false
     }
     
     @objc private func toggleActions() {
@@ -418,10 +415,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         }
         
         setCandy(candy, direction: .Forward, animated: false)
-    }
-    
-    override func shouldUsePreferredViewFrame() -> Bool {
-        return false
     }
     
     override func viewWillAppear(animated: Bool) {

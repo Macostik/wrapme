@@ -77,7 +77,7 @@ protocol UploadSummaryViewControllerDelegate: class {
     func uploadSummaryViewController(controller: UploadSummaryViewController, didDeselectAsset asset: MutableAsset)
 }
 
-class UploadSummaryViewController: SwipeViewController, CaptureWrapContainer {
+class UploadSummaryViewController: SwipeViewController<EditAssetViewController>, CaptureWrapContainer, VideoPlayerViewDelegate, ComposeBarDelegate {
     
     @IBOutlet weak var streamView: StreamView!
     
@@ -181,20 +181,17 @@ class UploadSummaryViewController: SwipeViewController, CaptureWrapContainer {
         return (keyboard.height - bottomView.height)
     }
     
-    override func viewControllerNextTo(viewController: UIViewController?, direction: SwipeDirection) -> UIViewController? {
-        guard let asset = (viewController as? EditAssetViewController)?.asset else { return nil }
+    override func viewControllerNextTo(viewController: EditAssetViewController?, direction: SwipeDirection) -> EditAssetViewController? {
+        guard let asset = viewController?.asset else { return nil }
         guard let index = assets.indexOf(asset) else { return nil }
         return editAssetViewControllerForAsset(assets[safe: direction == .Forward ? index + 1 : index - 1])
     }
     
-    override func didChangeViewController(viewController: UIViewController?) {
-        if let asset = (viewController as? EditAssetViewController)?.asset {
+    override func didChangeViewController(viewController: EditAssetViewController?) {
+        if let asset = viewController?.asset {
             self.asset = asset
         }
     }
-}
-
-extension UploadSummaryViewController { // MARK actions
     
     private func back() {
         if #available(iOS 9.0, *) {
@@ -214,7 +211,7 @@ extension UploadSummaryViewController { // MARK actions
     }
     
     @IBAction func edit(sender: AnyObject?) {
-        guard let image = (viewController as? EditAssetViewController)?.imageView.image else { return }
+        guard let image = viewController?.imageView.image else { return }
         let controller = ImageEditor.editControllerWithImage(image, completion: { [weak self] image in
             self?.editCurrentPictureWithImage(image)
             self?.navigationController?.popViewControllerAnimated(false)
@@ -231,7 +228,7 @@ extension UploadSummaryViewController { // MARK actions
             self?.dataSource.reload()
             self?.uploadButton.active = true
             })
-        (viewController as? EditAssetViewController)?.imageView.image = image
+        viewController?.imageView.image = image
     }
     
     @IBAction func deletePicture(sender: AnyObject?) {
@@ -257,19 +254,16 @@ extension UploadSummaryViewController { // MARK actions
     
     @IBAction func draw(sender: AnyObject?) {
         composeBar.resignFirstResponder()
-        guard let image = (viewController as? EditAssetViewController)?.imageView.image else { return }
+        guard let image = viewController?.imageView.image else { return }
         let drawingViewController = DrawingViewController()
         drawingViewController.setImage(image, finish: { [weak self] (image) -> Void in
             self?.editCurrentPictureWithImage(image)
             self?.dismissViewControllerAnimated(false, completion: nil)
-            }) { [weak self] () -> Void in
-                self?.dismissViewControllerAnimated(false, completion: nil)
+        }) { [weak self] () -> Void in
+            self?.dismissViewControllerAnimated(false, completion: nil)
         }
         presentViewController(drawingViewController, animated: false, completion: nil)
     }
-}
-
-extension UploadSummaryViewController: VideoPlayerViewDelegate {
     
     func videoPlayerViewDidPlay(view: VideoPlayerView) {
         scrollView!.panGestureRecognizer.enabled = false
@@ -278,11 +272,6 @@ extension UploadSummaryViewController: VideoPlayerViewDelegate {
     func videoPlayerViewDidPause(view: VideoPlayerView) {
         scrollView!.panGestureRecognizer.enabled = true
     }
-}
-
-private let InstanceCommentLimit = 1500
-
-extension UploadSummaryViewController: ComposeBarDelegate {
     
     @IBAction func composeBarDidFinish(sender: AnyObject) {
         composeBar.resignFirstResponder()
@@ -312,3 +301,5 @@ extension UploadSummaryViewController: ComposeBarDelegate {
         scrollView?.userInteractionEnabled = true
     }
 }
+
+private let InstanceCommentLimit = 1500

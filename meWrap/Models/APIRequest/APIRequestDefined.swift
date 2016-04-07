@@ -388,7 +388,7 @@ extension API {
                     var phoneNumbers = [AddressBookPhoneNumber]()
                     for phoneNumber in record.phoneNumbers {
                         if let userData = users[phoneNumber.phone] {
-                            if let user = mappedEntry(userData) as? User {
+                            if let user: User = mappedEntry(userData) {
                                 if user.current || registeredUsers.contains(user) {
                                     break
                                 }

@@ -88,7 +88,9 @@ class DownloadingView: UIView {
             return
         }
         let uid = ImageCache.uidFromURL(url)
-        task = Alamofire.request(.GET, url).responseData(completionHandler: { response in
+        task = Alamofire.request(.GET, url).progress({ [weak self] (_, sent, total) in
+            self?.progressBar.setProgress(CGFloat(sent / total), animated: true)
+        }).responseData(completionHandler: { [weak self] response in
             if let data = response.data, let image = UIImage(data: data) {
                 ImageCache.defaultCache.setImageData(data, uid: uid)
                 InMemoryImageCache.instance[uid] = image
@@ -96,6 +98,7 @@ class DownloadingView: UIView {
             } else {
                 failure?(response.result.error)
             }
+            self?.dismiss()
         })
     }
 }

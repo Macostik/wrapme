@@ -16,14 +16,18 @@ private enum SwipePosition {
     case Center, Left, Right
 }
 
-class SwipeViewController: BaseViewController {
+class SwipeViewController<T: UIViewController>: BaseViewController, UIScrollViewDelegate {
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
     
     deinit {
         scrollView?.delegate = nil
     }
     
-    private weak var _viewController: UIViewController?
-    weak var viewController: UIViewController? {
+    private weak var _viewController: T?
+    weak var viewController: T? {
         get { return _viewController }
         set {
             if newValue != _viewController {
@@ -37,8 +41,8 @@ class SwipeViewController: BaseViewController {
         }
     }
     
-    private weak var _secondViewController: UIViewController?
-    private weak var secondViewController: UIViewController? {
+    private weak var _secondViewController: T?
+    private weak var secondViewController: T? {
         get { return _secondViewController }
         set {
             if newValue != _secondViewController {
@@ -81,7 +85,6 @@ class SwipeViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        scrollView.width = scrollView.width
         scrollView.contentSize = scrollView.size
         scrollView.alwaysBounceHorizontal = true
         scrollView.alwaysBounceVertical = false
@@ -113,7 +116,7 @@ class SwipeViewController: BaseViewController {
         }
     }
     
-    private func addViewController(viewController: UIViewController?) {
+    private func addViewController(viewController: T?) {
         guard let viewController = viewController else { return }
         addChildViewController(viewController)
         if viewController.view.superview != scrollView {
@@ -122,26 +125,26 @@ class SwipeViewController: BaseViewController {
         }
     }
     
-    private func removeViewController(viewController: UIViewController?) {
+    private func removeViewController(viewController: T?) {
         guard let viewController = viewController else { return }
         viewController.view.removeFromSuperview()
         viewController.removeFromParentViewController()
     }
     
-    func viewControllerNextTo(viewController: UIViewController?, direction: SwipeDirection) -> UIViewController? {
+    func viewControllerNextTo(viewController: T?, direction: SwipeDirection) -> T? {
         return nil
     }
     
-    func didChangeViewController(viewController: UIViewController?) { }
+    func didChangeViewController(viewController: T?) { }
     
-    private func sendDidChangeOffsetForViewController(viewController: UIViewController?) {
+    private func sendDidChangeOffsetForViewController(viewController: T?) {
         if let viewController = viewController {
             let width = visibleWidthOfViewController(viewController)
             didChangeOffsetForViewController(viewController, offset:width / scrollWidth)
         }
     }
     
-    func didChangeOffsetForViewController(viewController: UIViewController, offset: CGFloat) {
+    func didChangeOffsetForViewController(viewController: T, offset: CGFloat) {
         viewController.view.alpha = offset
     }
     
@@ -159,7 +162,7 @@ class SwipeViewController: BaseViewController {
         }
     }
     
-    func setViewController(viewController: UIViewController?, direction: SwipeDirection, animated: Bool) {
+    func setViewController(viewController: T?, direction: SwipeDirection, animated: Bool) {
         if let viewController = viewController where animated {
             secondViewController = self.viewController
             self.viewController = viewController
@@ -175,11 +178,11 @@ class SwipeViewController: BaseViewController {
         }
     }
     
-    private func visibleWidthOfViewController(viewController: UIViewController) -> CGFloat {
+    private func visibleWidthOfViewController(viewController: T) -> CGFloat {
         return scrollView.visibleRectOfRect(viewController.view.frame).width
     }
     
-    private func visibleWidthOfViewController(viewController: UIViewController, offset: CGPoint) -> CGFloat {
+    private func visibleWidthOfViewController(viewController: T, offset: CGPoint) -> CGFloat {
         return scrollView.visibleRectOfRect(viewController.view.frame, offset: offset).size.width
     }
     
@@ -210,9 +213,6 @@ class SwipeViewController: BaseViewController {
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
         viewController?.view.frame.size = scrollView.size
     }
-}
-
-extension SwipeViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         sendDidChangeOffsetForViewController(viewController)
@@ -220,10 +220,10 @@ extension SwipeViewController: UIScrollViewDelegate {
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-       viewController?.view.x = 0
-       secondViewController = nil
-       scrollView.contentSize = scrollView.size
-       scrollView.contentOffset = CGPointZero
+        viewController?.view.x = 0
+        secondViewController = nil
+        scrollView.contentSize = scrollView.size
+        scrollView.contentOffset = CGPointZero
     }
     
     func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

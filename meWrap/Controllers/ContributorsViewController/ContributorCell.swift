@@ -21,7 +21,7 @@ final class ContributorCell: StreamReusableView {
     
     weak var delegate: ContributorCellDelegate?
     private let nameLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.grayDark)
-    private let avatarView = StatusUserAvatarView()
+    private let avatarView = StatusUserAvatarView(cornerRadius: 24)
     private let slideMenuButton = UIButton(type: .Custom)
     private let infoLabel = Label(preset: .Small, textColor: Color.grayLight)
     
@@ -37,7 +37,6 @@ final class ContributorCell: StreamReusableView {
         avatarView.defaultIconSize = 24
         infoLabel.numberOfLines = 0
         slideMenuButton.addTarget(self, action: #selector(ContributorCell.toggleSlideMenu(_:)), forControlEvents: .TouchUpInside)
-        avatarView.cornerRadius = 24
         slideMenuButton.titleLabel?.font = UIFont.icons(24)
         slideMenuButton.setTitle("p", forState: .Normal)
         slideMenuButton.setTitleColor(Color.grayLightest, forState: .Normal)

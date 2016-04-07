@@ -35,7 +35,6 @@ struct Storyboard {
     static let WrapPicker = StoryboardObject<WrapPickerViewController>("wrapPicker", UIStoryboard.camera)
     static let ReportCandy = StoryboardObject<ReportViewController>("report")
     static let Comments = StoryboardObject<CommentsViewController>("comments")
-    static let History = StoryboardObject<HistoryViewController>("history")
     static let HistoryItem = StoryboardObject<HistoryItemViewController>("historyItem")
     static let Countries = StoryboardObject<CountriesViewController>("countries", UIStoryboard.signUp)
     static let Wrap = StoryboardObject<WrapViewController>("wrap")

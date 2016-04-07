@@ -80,7 +80,7 @@ extension API {
             userDefaults.avatarURI = response["avatar_uri"] as? String ?? environment.defaultAvatarURI
             userDefaults.videoURI = response["video_uri"] as? String ?? environment.defaultVideoURI
             
-            if let userData = response.dictionary("user"), let user = mappedEntry(userData) as? User {
+            if let userData = response.dictionary("user"), let user: User = mappedEntry(userData) {
                 userDefaults.remoteLogging = userData["remote_logging"] as? Bool ?? false
                 authorization.updateWithUserData(userData)
                 User.currentUser = user

@@ -8,22 +8,85 @@
 
 import UIKit
 
-final class GestureRecognizer<T: UIGestureRecognizer> {
+protocol Gesture {
+    init(closure: Self -> ())
+    var actionClosure: (Self -> ())? { get set }
+    func addTo(view: UIView) -> Self
+    func remove()
+}
+
+extension UIGestureRecognizer {
     
-    private var actionClosure: (T -> ())?
-    
-    private var gestureRecognizer: T?
-    
-    init(view: UIView, closure: T -> ()) {
-        let gestureRecognizer = T(target: self, action: #selector(GestureRecognizer.action(_:)))
-        actionClosure = closure
-        view.addGestureRecognizer(gestureRecognizer)
-        self.gestureRecognizer = gestureRecognizer
+    func addTo(view: UIView) -> Self {
+        view.addGestureRecognizer(self)
+        return self
     }
     
-    @objc func action(sender: AnyObject) {
-        if let sender = gestureRecognizer {
-            actionClosure?(sender)
-        }
+    func remove() {
+        view?.removeGestureRecognizer(self)
+    }
+}
+
+extension UIView {
+    
+    func tapped(closure: (TapGesture -> ())) -> TapGesture {
+        return recognize(closure)
+    }
+    
+    func panned(closure: (PanGesture -> ())) -> PanGesture {
+        return recognize(closure)
+    }
+    
+    func swiped(closure: (SwipeGesture -> ())) -> SwipeGesture {
+        return recognize(closure)
+    }
+    
+    func recognize<T: Gesture>(closure: T -> ()) -> T {
+        return T(closure: closure).addTo(self)
+    }
+}
+
+final class TapGesture: UITapGestureRecognizer, Gesture {
+    
+    convenience init(closure: TapGesture -> ()) {
+        self.init()
+        addTarget(self, action: #selector(self.action(_:)))
+        actionClosure = closure
+    }
+    
+    var actionClosure: (TapGesture -> ())?
+    
+    func action(sender: TapGesture) {
+        actionClosure?(self)
+    }
+}
+
+final class PanGesture: UIPanGestureRecognizer, Gesture {
+    
+    convenience init(closure: PanGesture -> ()) {
+        self.init()
+        addTarget(self, action: #selector(self.action(_:)))
+        actionClosure = closure
+    }
+    
+    var actionClosure: (PanGesture -> ())?
+    
+    func action(sender: PanGesture) {
+        actionClosure?(sender)
+    }
+}
+
+final class SwipeGesture: UISwipeGestureRecognizer, Gesture {
+    
+    convenience init(closure: SwipeGesture -> ()) {
+        self.init()
+        addTarget(self, action: #selector(self.action(_:)))
+        actionClosure = closure
+    }
+    
+    var actionClosure: (SwipeGesture -> ())?
+    
+    func action(sender: SwipeGesture) {
+        actionClosure?(sender)
     }
 }

@@ -103,12 +103,11 @@ final class MessageCell: BaseMessageCell {
 final class MessageWithNameCell: BaseMessageCell {
     
     private let tailView = UIImageView(image: BaseMessageCell.leftTail)
-    private let avatarView = UserAvatarView()
+    private let avatarView = UserAvatarView(cornerRadius: 20)
     private let nameLabel = Label(preset: .Smaller, textColor: Color.grayLighter)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         super.layoutWithMetrics(metrics)
-        avatarView.cornerRadius = 20
         addSubview(avatarView)
         addSubview(bubbleView)
         bubbleView.addSubview(nameLabel)

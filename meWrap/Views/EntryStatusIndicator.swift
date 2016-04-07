@@ -12,8 +12,6 @@ private let IndicatorWidth: CGFloat = 16.0
 
 final class EntryStatusIndicator: UILabel, EntryNotifying {
     
-    @IBOutlet weak var widthConstraint: NSLayoutConstraint?
-    
     var contribution : Contribution?
     
     convenience init(color: UIColor) {
@@ -36,12 +34,6 @@ final class EntryStatusIndicator: UILabel, EntryNotifying {
     
     func updateStatusIndicator(contribution : Contribution) {
         self.hidden = !contribution.valid || !(contribution.contributor?.current ?? false)
-        if let widthConstraint = widthConstraint {
-            UIView.performWithoutAnimation({ () -> Void in
-                widthConstraint.constant = self.hidden ? 0.0 : IndicatorWidth
-                self.layoutIfNeeded()
-            })
-        }
         if self.contribution != contribution {
             self.contribution = contribution
             contribution.dynamicType.notifier().addReceiver(self)

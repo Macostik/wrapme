@@ -60,10 +60,9 @@ final class SingleAddressBookRecordCell: AddressBookRecordCell {
         $0.clipsToBounds = true
         $0.insets = CGSize(width: 10, height: 0)
     }
-    private let avatarView = specify(StatusUserAvatarView()) {
+    private let avatarView = specify(StatusUserAvatarView(cornerRadius: 24)) {
         $0.startReceivingStatusUpdates()
         $0.defaultIconSize = 24
-        $0.cornerRadius = 24
     }
     
     override func layoutWithMetrics(metrics: StreamMetrics) {

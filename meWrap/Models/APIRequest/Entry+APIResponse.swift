@@ -96,7 +96,7 @@ extension User {
         }
         
         invitedAt <!= dictionary.dateForKey("invited_at_in_epoch")
-        mappedEntries(dictionary[Keys.Devices] as? [[String : AnyObject]], container: self) as [Device]
+        let _: [Device] = mappedEntries(dictionary[Keys.Devices] as? [[String : AnyObject]], container: self)
         
         if let remoteLogging = dictionary["remote_logging"] as? Bool where current {
             NSUserDefaults.standardUserDefaults().remoteLogging = remoteLogging
@@ -166,7 +166,7 @@ extension Wrap {
             }
         }
         
-        mappedEntries(dictionary[Keys.Candies] as? [[String : AnyObject]], container: self) as [Candy]
+        let _: [Candy] = mappedEntries(dictionary[Keys.Candies] as? [[String : AnyObject]], container: self)
     }
 }
 
@@ -187,7 +187,7 @@ extension Candy {
             self.type <!= Int16(type)
         }
         
-        mappedEntries(dictionary[Keys.Comments] as? [[String : AnyObject]], container: self) as [Comment]
+        let _: [Comment] = mappedEntries(dictionary[Keys.Comments] as? [[String : AnyObject]], container: self)
         
         let asset = self.asset?.editCandyAsset(dictionary, mediaType: mediaType)
         if asset != self.asset {

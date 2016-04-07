@@ -8,8 +8,120 @@
 
 import Foundation
 import Photos
+import SnapKit
 
-class HistoryViewController: SwipeViewController {
+final class CommentView: ExpendableView {
+    
+    private let avatar = UserAvatarView(cornerRadius: 24)
+    private let name = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
+    private let date = Label(preset: .Smaller, weight: .Regular, textColor: Color.grayLighter)
+    private let text = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
+    private let indicator = EntryStatusIndicator(color: Color.orange)
+    
+    func layout() {
+        text.numberOfLines = 2
+        avatar.borderColor = UIColor.whiteColor()
+        avatar.borderWidth = 1
+        avatar.defaultIconSize = 24
+        addSubview(avatar)
+        addSubview(name)
+        addSubview(date)
+        addSubview(text)
+        addSubview(indicator)
+        avatar.snp_makeConstraints { (make) -> Void in
+            make.leading.top.equalTo(self).offset(20)
+            make.size.equalTo(48)
+        }
+        text.snp_makeConstraints { (make) -> Void in
+            make.leading.equalTo(avatar.snp_trailing).offset(18)
+            make.top.equalTo(avatar)
+            make.trailing.lessThanOrEqualTo(self).inset(18)
+        }
+        name.snp_makeConstraints { (make) -> Void in
+            make.leading.equalTo(avatar.snp_trailing).offset(18)
+            make.top.equalTo(text.snp_bottom).offset(16)
+            make.trailing.lessThanOrEqualTo(self).inset(18)
+        }
+        
+        date.snp_makeConstraints { (make) -> Void in
+            make.leading.equalTo(avatar.snp_trailing).offset(18)
+            make.top.equalTo(name.snp_bottom).offset(4)
+            make.bottom.equalTo(self).inset(20).priorityLow()
+        }
+        indicator.snp_makeConstraints { (make) -> Void in
+            make.leading.equalTo(date.snp_trailing).offset(12)
+            make.centerY.equalTo(date)
+        }
+    }
+    
+    var comment: Comment? {
+        willSet {
+            if newValue != comment {
+                if let comment = newValue {
+                    comment.markAsUnread(false)
+                    name.text = comment.contributor?.name
+                    avatar.user = comment.contributor
+                    date.text = comment.createdAt.timeAgoString()
+                    indicator.updateStatusIndicator(comment)
+                    text.text = comment.text
+                    expanded = true
+                } else {
+                    expanded = false
+                }
+                layoutIfNeeded()
+            }
+        }
+    }
+}
+
+class ExpendableView: UIView {
+    
+    private lazy var heightConstraint: Constraint = {
+        var heightConstraint: Constraint!
+        self.snp_makeConstraints {
+            heightConstraint = $0.height.equalTo(0).constraint
+        }
+        return heightConstraint
+    }()
+    
+    var expanded = true {
+        willSet {
+            if newValue != expanded {
+                if newValue {
+                    heightConstraint.deactivate()
+                } else {
+                    heightConstraint.activate()
+                }
+            }
+        }
+    }
+}
+
+extension Button {
+    
+    class func candyAction(action: String, color: UIColor) -> Button {
+        let button = Button(icon: action, size: 24)
+        button.cornerRadius = 22
+        button.clipsToBounds = true
+        button.normalColor = color
+        button.highlightedColor = color.darkerColor()
+        button.update()
+        return button
+    }
+    
+    class func expandableCandyAction(action: String) -> Button {
+        let button = Button(icon: action, size: 24)
+        button.setTitleColor(Color.grayLight, forState: .Highlighted)
+        button.setTitleColor(Color.grayLight, forState: .Selected)
+        button.borderColor = UIColor.whiteColor()
+        button.borderWidth = 2
+        button.clipsToBounds = true
+        button.cornerRadius = 22
+        return button
+    }
+}
+
+class HistoryViewController: SwipeViewController<CandyViewController>, EntryNotifying {
     
     weak var candy: Candy? {
         didSet {
@@ -27,29 +139,271 @@ class HistoryViewController: SwipeViewController {
     var commentPressed: Block?
     var dismissingView: ((presenter: CandyEnlargingPresenter?, candy: Candy) -> UIView?)?
     
-    @IBOutlet weak var contentView: UIView!
-    @IBOutlet var commentButtonPrioritizer: LayoutPrioritizer!
+    private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
+    private let drawButton = Button.candyAction("8", color: Color.purple)
+    private let editButton = Button.candyAction("R", color: Color.blue)
+    private let deleteButton = Button.expandableCandyAction("n")
+    private let downloadButton = Button.expandableCandyAction("o")
+    private let reportButton = Button.expandableCandyAction("s")
+    private let expandButton = Button.expandableCandyAction("/")
     
-    @IBOutlet weak var bottomViewHeightPrioritizer: LayoutPrioritizer!
-    @IBOutlet weak var primaryConstraint: LayoutPrioritizer!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
-    @IBOutlet weak var deleteButton: UIButton!
-    @IBOutlet weak var downloadButton: Button!
-    @IBOutlet weak var drawButton: UIButton!
-    @IBOutlet weak var editButton: UIButton!
-    @IBOutlet weak var reportButton: UIButton!
-    @IBOutlet weak var bottomView: HistoryFooterView!
-    @IBOutlet weak var topView: UIView!
-    @IBOutlet weak var commentButton: Button!
+    private lazy var toolbar: UIView = specify(UIView()) { view in
+        view.addSubview(self.drawButton)
+        view.addSubview(self.editButton)
+        view.addSubview(self.expandButton)
+        self.drawButton.snp_makeConstraints {
+            $0.size.equalTo(44)
+            $0.top.bottom.equalTo(view).inset(12)
+            $0.leading.equalTo(view).offset(12)
+        }
+        self.editButton.snp_makeConstraints {
+            $0.size.equalTo(44)
+            $0.top.bottom.equalTo(view).inset(12)
+            $0.leading.equalTo(self.drawButton.snp_trailing).offset(12)
+        }
+        self.expandButton.snp_makeConstraints {
+            $0.size.equalTo(44)
+            $0.top.bottom.equalTo(view).inset(12)
+            $0.trailing.equalTo(view).inset(12)
+        }
+    }
+    
+    private lazy var expandableToolbar: ExpendableView = specify(ExpendableView()) { view in
+        view.addSubview(self.reportButton)
+        view.addSubview(self.deleteButton)
+        view.addSubview(self.downloadButton)
+        view.clipsToBounds = true
+        self.reportButton.snp_makeConstraints {
+            $0.size.equalTo(44)
+            $0.top.equalTo(view).inset(12)
+            $0.bottom.equalTo(view).inset(12).priorityLow()
+            $0.trailing.equalTo(view).inset(12)
+        }
+        self.deleteButton.snp_makeConstraints {
+            $0.size.equalTo(44)
+            $0.top.equalTo(view).inset(12)
+            $0.bottom.equalTo(view).inset(12).priorityLow()
+            $0.trailing.equalTo(view).inset(12)
+        }
+        self.downloadButton.snp_makeConstraints {
+            $0.size.equalTo(44)
+            $0.top.equalTo(view).inset(12)
+            $0.bottom.equalTo(view).inset(12).priorityLow()
+            $0.trailing.equalTo(self.reportButton.snp_leading).inset(-12)
+        }
+    }
+    
+    private lazy var commentView: CommentView = specify(CommentView()) {
+        $0.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
+        $0.layout()
+    }
+    
+    private let contributorAvatar = specify(UserAvatarView(cornerRadius: 24)) {
+        $0.borderColor = UIColor.whiteColor()
+        $0.borderWidth = 1
+    }
+    private let contributorName = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
+    private let contributedAt = Label(preset: .Smaller, weight: .Regular, textColor: Color.grayLighter)
+    
+    private lazy var contributionStatus = EntryStatusIndicator(color: Color.orange)
+    
+    private lazy var editorAvatar = specify(UserAvatarView(cornerRadius: 24)) {
+        $0.borderColor = UIColor.whiteColor()
+        $0.borderWidth = 1
+    }
+    private lazy var editorName = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
+    private lazy var editedAt = Label(preset: .Smaller, weight: .Regular, textColor: Color.grayLighter)
+    
+    private lazy var contributorView: UIView = specify(UIView()) { view in
+        view.addSubview(self.contributorAvatar)
+        view.addSubview(self.contributorName)
+        view.addSubview(self.contributionStatus)
+        view.addSubview(self.contributedAt)
+        self.contributorAvatar.snp_makeConstraints {
+            $0.leading.equalTo(view).inset(20)
+            $0.top.equalTo(view).inset(4)
+            $0.bottom.equalTo(view).inset(4)
+            $0.size.equalTo(48)
+        }
+        self.contributorName.snp_makeConstraints {
+            $0.leading.equalTo(self.contributorAvatar.snp_trailing).inset(-18)
+            $0.bottom.equalTo(self.contributorAvatar.snp_centerY).inset(-2)
+        }
+        self.contributionStatus.snp_makeConstraints {
+            $0.leading.equalTo(self.contributorName.snp_trailing).inset(-11)
+            $0.centerY.equalTo(self.contributorName)
+            $0.trailing.lessThanOrEqualTo(view).inset(20)
+        }
+        self.contributedAt.snp_makeConstraints {
+            $0.leading.equalTo(self.contributorAvatar.snp_trailing).inset(-18)
+            $0.top.equalTo(self.contributorAvatar.snp_centerY).inset(2)
+            $0.trailing.lessThanOrEqualTo(view).inset(20)
+        }
+    }
+    
+    private lazy var editorView: ExpendableView = specify(ExpendableView()) { view in
+        view.clipsToBounds = true
+        view.addSubview(self.editorAvatar)
+        view.addSubview(self.editorName)
+        view.addSubview(self.editedAt)
+        self.editorAvatar.snp_makeConstraints {
+            $0.leading.equalTo(view).inset(20)
+            $0.top.equalTo(view).inset(4)
+            $0.bottom.equalTo(view).inset(4).priorityLow()
+            $0.size.equalTo(48)
+        }
+        self.editorName.snp_makeConstraints {
+            $0.leading.equalTo(self.editorAvatar.snp_trailing).inset(-18)
+            $0.bottom.equalTo(self.editorAvatar.snp_centerY).inset(-2)
+            $0.trailing.lessThanOrEqualTo(view).inset(20)
+        }
+        self.editedAt.snp_makeConstraints {
+            $0.leading.equalTo(self.editorAvatar.snp_trailing).inset(-18)
+            $0.top.equalTo(self.editorAvatar.snp_centerY).inset(2)
+            $0.trailing.lessThanOrEqualTo(view).inset(20)
+        }
+    }
+    
+    private lazy var topView: UIView = specify(UIView()) { view in
+        view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
+        view.addSubview(self.contributorView)
+        view.addSubview(self.editorView)
+        view.addSubview(self.toolbar)
+        view.addSubview(self.expandableToolbar)
+        self.contributorView.snp_makeConstraints {
+            $0.leading.trailing.equalTo(view)
+            $0.top.equalTo(view).inset(12)
+        }
+        self.editorView.snp_makeConstraints {
+            $0.leading.trailing.equalTo(view)
+            $0.top.equalTo(self.contributorView.snp_bottom)
+        }
+        
+        self.toolbar.snp_makeConstraints {
+            $0.leading.trailing.equalTo(view)
+            $0.top.equalTo(self.editorView.snp_bottom).inset(-16)
+        }
+        self.expandableToolbar.snp_makeConstraints {
+            $0.leading.trailing.equalTo(view)
+            $0.top.equalTo(self.toolbar.snp_bottom)
+            $0.bottom.equalTo(view)
+        }
+        
+        let separator = SeparatorView(color: UIColor.whiteColor().colorWithAlphaComponent(0.1), contentMode: .Bottom)
+        view.addSubview(separator)
+        separator.snp_makeConstraints(closure: {
+            $0.leading.trailing.equalTo(view)
+            $0.top.equalTo(self.toolbar)
+            $0.height.equalTo(1)
+        })
+    }
+    
+    private let accessoryLabel = Label(icon: "y", size: 20)
+    
+    private lazy var accessoryView: UIView = specify(UIView()) { view in
+        view.clipsToBounds = true
+        let squareView = UIView()
+        squareView.cornerRadius = 4
+        squareView.clipsToBounds = true
+        squareView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
+        view.addSubview(squareView)
+        squareView.snp_makeConstraints {
+            $0.centerX.equalTo(view)
+            $0.top.equalTo(view).inset(-4)
+            $0.bottom.equalTo(view)
+            $0.width.equalTo(44)
+        }
+        view.addSubview(self.accessoryLabel)
+        self.accessoryLabel.snp_makeConstraints { $0.center.equalTo(view) }
+    }
+    
+    private let commentButton = Button.candyAction("f", color: Color.orange)
     
     private var cachedCandyViewControllers = [Candy : CandyViewController]()
     private weak var removedCandy: Candy?
     private var paginationQueue = RunQueue(limit: 1)
     
+    override func loadView() {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        let scrollView = UIScrollView()
+        view.addSubview(scrollView)
+        scrollView.snp_makeConstraints {
+            $0.center.equalTo(view)
+            $0.size.equalTo(view)
+        }
+        self.scrollView = scrollView
+        view.addSubview(topView)
+        topView.snp_makeConstraints {
+            $0.leading.trailing.equalTo(view)
+            $0.bottom.equalTo(view.snp_top).priorityHigh()
+            $0.top.equalTo(view).priorityLow()
+        }
+        view.addSubview(accessoryView)
+        accessoryView.snp_makeConstraints {
+            $0.leading.trailing.equalTo(view)
+            $0.height.equalTo(32)
+            $0.top.equalTo(topView.snp_bottom)
+        }
+        accessoryView.tapped { [weak self] _ in
+            self?.toggleTopView()
+        }
+        accessoryView.panned { [weak self] gesture in
+            if gesture.state == .Began {
+                self?.toggleTopView()
+            }
+        }
+        
+        view.addSubview(commentView)
+        commentView.snp_makeConstraints {
+            $0.leading.trailing.bottom.equalTo(view)
+        }
+        view.addSubview(commentButton)
+        commentButton.snp_makeConstraints {
+            $0.size.equalTo(44)
+            $0.trailing.bottom.equalTo(view).inset(20)
+        }
+        
+        expandButton.addTarget(self, action: #selector(self.toggleActions), forControlEvents: .TouchUpInside)
+        commentButton.addTarget(self, action: #selector(self.comments(_:)), forControlEvents: .TouchUpInside)
+        drawButton.addTarget(self, action: #selector(self.draw(_:)), forControlEvents: .TouchUpInside)
+        editButton.addTarget(self, action: #selector(self.editPhoto(_:)), forControlEvents: .TouchUpInside)
+        reportButton.addTarget(self, action: #selector(self.report(_:)), forControlEvents: .TouchUpInside)
+        deleteButton.addTarget(self, action: #selector(self.deleteCandy(_:)), forControlEvents: .TouchUpInside)
+        downloadButton.addTarget(self, action: #selector(self.downloadCandy(_:)), forControlEvents: .TouchUpInside)
+        
+        self.view = view
+        
+        expandableToolbar.expanded = false
+        
+        print("\(view.constraints)")
+    }
+    
+    @objc private func toggleActions() {
+        expandableToolbar.expanded = !expandableToolbar.expanded
+        expandButton.selected = expandableToolbar.expanded
+        topView.layoutIfNeeded()
+    }
+    
+    private func toggleTopView() {
+        topView.snp_remakeConstraints(closure: {
+            if topView.y == 0 {
+                accessoryLabel.text = "y"
+                $0.leading.trailing.equalTo(view)
+                $0.bottom.equalTo(view.snp_top).priorityHigh()
+                $0.top.equalTo(view).priorityLow()
+            } else {
+                accessoryLabel.text = "z"
+                $0.leading.trailing.equalTo(view)
+                $0.bottom.equalTo(view.snp_top).priorityLow()
+                $0.top.equalTo(view).priorityHigh()
+            }
+        })
+        topView.layoutIfNeeded()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentView.addGestureRecognizer(scrollView!.panGestureRecognizer)
         
         wrap = candy?.wrap
         
@@ -66,9 +420,13 @@ class HistoryViewController: SwipeViewController {
         setCandy(candy, direction: .Forward, animated: false)
     }
     
+    override func shouldUsePreferredViewFrame() -> Bool {
+        return false
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        bottomView.comment = nil
+        commentView.comment = nil
         downloadButton.active = !PHPhotoLibrary.authorizationStatus().denied
         updateOwnerData()
         if let candy = candy, let index = candies.indexOf(candy) where !candy.valid {
@@ -81,7 +439,7 @@ class HistoryViewController: SwipeViewController {
     }
     
     func setBarsHidden(hidden: Bool, animated: Bool) {
-        primaryConstraint.setDefaultState(!hidden, animated: animated)
+//        primaryConstraint?.setDefaultState(!hidden, animated: animated)
     }
     
     func showCommentView() {
@@ -133,24 +491,28 @@ class HistoryViewController: SwipeViewController {
     
     private func updateOwnerData() {
         if let candy = candy?.validEntry() {
-            bottomView.candy = candy
-            setCommentButtonTitle(candy)
+            
+            contributorAvatar.user = candy.contributor
+            contributorName.text = String(format:(candy.isVideo ? "formatted_video_by" : "formatted_photo_by").ls, candy.contributor?.name ?? "")
+            contributedAt.text = candy.createdAt.timeAgoStringAtAMPM()
+            contributionStatus.updateStatusIndicator(candy)
+            
+            if let editor = candy.editor {
+                editorAvatar.user = editor
+                editorName.text = String(format:"formatted_edited_by".ls, editor.name ?? "")
+                editedAt.text = candy.editedAt.timeAgoStringAtAMPM()
+                editorView.expanded = true
+                topView.layoutIfNeeded()
+            } else {
+                editorView.expanded = false
+                topView.layoutIfNeeded()
+            }
             deleteButton.hidden = !candy.deletable
             reportButton.hidden = !deleteButton.hidden
             drawButton.hidden = candy.isVideo
             editButton.hidden = candy.isVideo
-            bottomViewHeightPrioritizer.defaultState = candy.latestComment?.valid ?? false
+            commentView.comment = candy.latestComment
         }
-    }
-    
-    private func setCommentButtonTitle(candy: Candy) {
-        var title = "comment".ls
-        if candy.commentCount == 1 {
-            title = "one_comment".ls
-        } else if candy.commentCount > 1 {
-            title = String(format: "formatted_comments".ls, Int(candy.commentCount))
-        }
-        commentButton.setTitle(title, forState:.Normal)
     }
     
     private func candyAfterDeletingCandyAt(index: Int) -> Candy? {
@@ -175,8 +537,8 @@ class HistoryViewController: SwipeViewController {
         cachedCandyViewControllers.removeAll()
     }
     
-    override func viewControllerNextTo(viewController: UIViewController?, direction: SwipeDirection) -> UIViewController? {
-        guard let candy = (viewController as? CandyViewController)?.candy else { return nil }
+    override func viewControllerNextTo(viewController: CandyViewController?, direction: SwipeDirection) -> CandyViewController? {
+        guard let candy = viewController?.candy else { return nil }
         guard let index = candies.indexOf(candy) else { return nil }
         
         let isForward = direction == .Forward
@@ -189,13 +551,13 @@ class HistoryViewController: SwipeViewController {
         return nil
     }
     
-    override func didChangeViewController(viewController: UIViewController!) {
-        guard let candy = (viewController as? CandyViewController)?.candy else { return }
+    override func didChangeViewController(viewController: CandyViewController!) {
+        guard let candy = viewController?.candy else { return }
         self.candy = candy
         fetchCandiesOlderThen(candy)
     }
     
-    override func didChangeOffsetForViewController(viewController: UIViewController, offset: CGFloat) {
+    override func didChangeOffsetForViewController(viewController: CandyViewController, offset: CGFloat) {
         viewController.view.alpha = offset
     }
     
@@ -206,9 +568,6 @@ class HistoryViewController: SwipeViewController {
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
-}
-
-extension HistoryViewController: EntryNotifying {
     
     func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {
         candies = wrap?.historyCandies ?? []
@@ -259,22 +618,6 @@ extension HistoryViewController: EntryNotifying {
     func notifier(notifier: EntryNotifier, shouldNotifyOnContainer container: Entry) -> Bool {
         return wrap == container
     }
-}
-
-extension HistoryViewController {
-    
-    override func back(sender: UIButton) {
-        if let candy = candy?.validEntry() {
-            if let presenter = presenter where UIApplication.sharedApplication().statusBarOrientation.isPortrait {
-                navigationController?.popViewControllerAnimated(false)
-                presenter.dismiss(candy)
-            } else {
-                navigationController?.popViewControllerAnimated(false)
-            }
-        } else {
-            navigationController?.popToRootViewControllerAnimated(false)
-        }
-    }
     
     @IBAction func downloadCandy(sender: Button) {
         PHPhotoLibrary.authorize({ [weak self] in
@@ -292,8 +635,8 @@ extension HistoryViewController {
                         sender.loading = false
                 })
             }
-            }) { (_) -> Void in
-                sender.active = false
+        }) { (_) -> Void in
+            sender.active = false
         }
     }
     
@@ -348,8 +691,8 @@ extension HistoryViewController {
     }
     
     @IBAction func hadleTapRecognizer(sender: AnyObject) {
-        setBarsHidden(primaryConstraint.defaultState, animated: true)
-        commentButtonPrioritizer.defaultState = primaryConstraint.defaultState
+//        setBarsHidden(primaryConstraint?.defaultState ?? false, animated: true)
+//        commentButtonPrioritizer?.defaultState = primaryConstraint?.defaultState ?? false
     }
     
     func applyScaleToCandyViewController(apply: Bool) {
@@ -360,11 +703,12 @@ extension HistoryViewController {
     }
     
     func hideSecondaryViews(hide: Bool) {
-        bottomView.hidden = hide
+        commentView.hidden = hide
         topView.hidden = hide
+        accessoryView.hidden = hide
         commentButton.hidden = hide
         if hide {
-            bottomView.addAnimation(CATransition.transition(kCATransitionFade))
+            commentView.addAnimation(CATransition.transition(kCATransitionFade))
             topView.addAnimation(CATransition.transition(kCATransitionFade))
             commentButton.addAnimation(CATransition.transition(kCATransitionFade))
         }

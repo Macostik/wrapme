@@ -11,11 +11,10 @@ import SnapKit
 
 final class FriendView: StreamReusableView {
     
-    private let avatarView = StatusUserAvatarView()
+    private let avatarView = StatusUserAvatarView(cornerRadius: 16)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         avatarView.backgroundColor = UIColor.whiteColor()
-        avatarView.cornerRadius = 16
         addSubview(avatarView)
         avatarView.snp_makeConstraints(closure: {
             $0.width.height.equalTo(32)
@@ -36,14 +35,9 @@ final class FriendView: StreamReusableView {
 
 class UserAvatarView: ImageView {
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    required init() {
-        super.init(frame: CGRect.zero)
-        contentMode = .ScaleAspectFill
-        clipsToBounds = true
+    convenience init(cornerRadius: CGFloat, backgroundColor: UIColor = UIColor.clearColor()) {
+        self.init(backgroundColor: backgroundColor)
+        self.cornerRadius = cornerRadius
         defaultIconSize = 16
         defaultIconText = "&"
         defaultIconColor = UIColor.whiteColor()

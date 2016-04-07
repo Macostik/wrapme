@@ -27,6 +27,13 @@ extension UILabel: Highlightable, Selectable {
 
 class Button : UIButton {
     
+    convenience init(icon: String, size: CGFloat, textColor: UIColor = UIColor.whiteColor()) {
+        self.init()
+        titleLabel?.font = UIFont.icons(size)
+        setTitle(icon, forState: .Normal)
+        setTitleColor(textColor, forState: .Normal)
+    }
+    
     static let minTouchSize: CGFloat = 44.0
     
     var animated: Bool = false

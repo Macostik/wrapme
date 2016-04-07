@@ -88,7 +88,7 @@ extension Entry {
 extension Candy {
     
     override func viewController() -> UIViewController? {
-        return Storyboard.History.instantiate({ $0.candy = self })
+        return specify(HistoryViewController(), { $0.candy = self })
     }
     
     override func isValidViewController(controller: UIViewController) -> Bool {

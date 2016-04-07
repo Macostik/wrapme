@@ -12,7 +12,7 @@ func ==(lhs: Asset, rhs: Asset) -> Bool {
     return lhs.original == rhs.original && lhs.large == rhs.large && lhs.medium == rhs.medium && lhs.small == rhs.small
 }
 
-class Asset: NSObject {
+class Asset: NSObject, NSCopying {
     var original: String?
     var large: String?
     var medium: String?
@@ -51,6 +51,16 @@ class Asset: NSObject {
             dictionary["small"] = small
         }
         return try? NSJSONSerialization.dataWithJSONObject(dictionary, options: [])
+    }
+    
+    func copyWithZone(zone: NSZone) -> AnyObject {
+        let asset = Asset()
+        asset.type = type
+        asset.original = original
+        asset.large = large
+        asset.medium = medium
+        asset.small = small
+        return asset
     }
 }
 

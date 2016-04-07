@@ -13,7 +13,7 @@ import MobileCoreServices
 
 final class CommentCell: StreamReusableView, FlowerMenuConstructor {
     
-    private let avatarView = StatusUserAvatarView()
+    private let avatarView = StatusUserAvatarView(cornerRadius: 24)
     private let nameLabel = Label(preset: .Normal, textColor: Color.grayDark)
     private let dateLabel = Label(preset: .Small, textColor: Color.grayLight)
     private let textLabel = SmartLabel(preset: .Normal, weight: .Regular, textColor: UIColor.blackColor())
@@ -23,7 +23,6 @@ final class CommentCell: StreamReusableView, FlowerMenuConstructor {
         avatarView.startReceivingStatusUpdates()
         FlowerMenu.sharedMenu.registerView(self)
         textLabel.numberOfLines = 0
-        avatarView.cornerRadius = 24
         avatarView.defaultIconSize = 24
         addSubview(avatarView)
         addSubview(nameLabel)
@@ -227,19 +226,19 @@ class CommentsViewController: BaseViewController {
     private static let ContstraintOffset: CGFloat = 44
     var height: CGFloat = 0.0
     
-    override func keyboardAdjustmentConstant(adjustment: KeyboardAdjustment, keyboard: Keyboard) -> CGFloat {
-        if adjustment.constraint.constant == adjustment.defaultConstant {
-            if dataSource.items?.count == 0 {
-                height = streamView.height
-                streamView.height -= keyboard.height + CommentsViewController.ContstraintOffset
-            }
-            let offset = CGPointMake(0, keyboard.height + streamView.contentOffset.y > 0 ?
-                view.height - streamView.height + streamView.contentOffset.y - 25.0 : streamView.contentOffset.y)
-            streamView.setContentOffset(offset, animated: false)
-        }
-        
-        return adjustment.defaultConstant + (keyboard.height - CommentsViewController.ContstraintOffset)
-    }
+//    override func keyboardAdjustmentConstant(adjustment: KeyboardAdjustment, keyboard: Keyboard) -> CGFloat {
+//        if adjustment.constraint.constant == adjustment.defaultConstant {
+//            if dataSource.items?.count == 0 {
+//                height = streamView.height
+//                streamView.height -= keyboard.height + CommentsViewController.ContstraintOffset
+//            }
+//            let offset = CGPointMake(0, keyboard.height + streamView.contentOffset.y > 0 ?
+//                view.height - streamView.height + streamView.contentOffset.y - 25.0 : streamView.contentOffset.y)
+//            streamView.setContentOffset(offset, animated: false)
+//        }
+//        
+//        return adjustment.defaultConstant + (keyboard.height - CommentsViewController.ContstraintOffset)
+//    }
     
     override func keyboardWillHide(keyboard: Keyboard) {
         super.keyboardWillHide(keyboard)
@@ -275,7 +274,7 @@ class CommentsViewController: BaseViewController {
         view.endEditing(true)
         removeFromContainerAnimated(true)
         historyViewController?.setBarsHidden(false, animated: true)
-        historyViewController?.commentButtonPrioritizer.defaultState = true
+//        historyViewController?.commentButtonPrioritizer?.defaultState = true
         historyViewController?.applyScaleToCandyViewController(false)
     }
     

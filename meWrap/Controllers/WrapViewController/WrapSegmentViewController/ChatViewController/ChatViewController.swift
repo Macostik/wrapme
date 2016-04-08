@@ -49,6 +49,7 @@ final class ChatViewController: WrapSegmentViewController {
     }
     
     func applicationDidBecomeActive() {
+        badge?.value = chat.unreadMessages.count
         streamView.unlock()
         chat.resetMessages()
         scrollToLastUnreadMessage()

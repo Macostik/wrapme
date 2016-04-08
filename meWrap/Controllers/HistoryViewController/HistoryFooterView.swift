@@ -51,12 +51,14 @@ class HistoryFooterView: GradientView {
             })
     }
     
+    private weak var _candy: Candy? = nil
     var candy: Candy? {
         didSet {
             if candy != oldValue {
                 setup()
             }
             comment = candy?.latestComment
+            _candy = candy
         }
     }
     
@@ -64,7 +66,7 @@ class HistoryFooterView: GradientView {
         didSet {
             if comment != oldValue {
                 if let comment = comment, let text = comment.text {
-                    if comment.contributor?.current == false {
+                    if comment.contributor?.current == false && _candy == candy && oldValue != nil {
                         commentLabel.addAnimation(transition)
                     }
                     comment.markAsUnread(false)

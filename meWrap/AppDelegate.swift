@@ -82,7 +82,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         version.updateAvailableTitle = "new_version_is_available".ls
         version.downloadButtonLabel = "update".ls
         version.remindButtonLabel = "not_now".ls
-        version.updatePriority = .Medium
+        version.updatePriority = .High
     }
     
     private func createWindow() {

@@ -9,6 +9,14 @@
 import UIKit
 import SnapKit
 
+func animate(duration: NSTimeInterval = 0.3, curve: UIViewAnimationCurve = .EaseInOut, @noescape animations: () -> ()) {
+    UIView.beginAnimations(nil, context: nil)
+    UIView.setAnimationDuration(duration)
+    UIView.setAnimationCurve(curve)
+    animations()
+    UIView.commitAnimations()
+}
+
 extension UIView {
     
     var x: CGFloat {

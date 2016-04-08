@@ -51,7 +51,7 @@ class History: PaginatedList<HistoryItem> {
         for candy in candies {
             if let _candy = _candy {
                 if _candy.createdAt.isSameDay(candy.createdAt) {
-                    item.entries.append(candy)
+                    item.entries.insert(candy, atIndex: 0)
                 } else {
                     item = HistoryItem(candy: candy, history: self)
                     items.append(item)

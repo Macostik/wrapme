@@ -43,11 +43,14 @@ final class CommentView: ExpendableView {
             make.trailing.lessThanOrEqualTo(self).inset(18)
         }
         
-        date.snp_makeConstraints { (make) -> Void in
-            make.leading.equalTo(avatar.snp_trailing).offset(18)
-            make.top.equalTo(name.snp_bottom).offset(4)
-            make.bottom.equalTo(self).inset(20).priorityLow()
+        makeExpandable { (expandingConstraint) in
+            date.snp_makeConstraints { (make) -> Void in
+                make.leading.equalTo(avatar.snp_trailing).offset(18)
+                make.top.equalTo(name.snp_bottom).offset(4)
+                expandingConstraint = make.bottom.equalTo(self).inset(20).constraint
+            }
         }
+
         indicator.snp_makeConstraints { (make) -> Void in
             make.leading.equalTo(date.snp_trailing).offset(12)
             make.centerY.equalTo(date)
@@ -76,24 +79,25 @@ final class CommentView: ExpendableView {
 
 class ExpendableView: UIView {
     
-    private lazy var heightConstraint: Constraint = {
-        var heightConstraint: Constraint!
-        self.snp_makeConstraints {
-            heightConstraint = $0.height.equalTo(0).constraint
-        }
-        return heightConstraint
-    }()
+    var expandingConstraint: Constraint?
     
-    var expanded = true {
+    var expanded = false {
         willSet {
             if newValue != expanded {
                 if newValue {
-                    heightConstraint.deactivate()
+                    expandingConstraint?.activate()
                 } else {
-                    heightConstraint.activate()
+                    expandingConstraint?.deactivate()
                 }
             }
         }
+    }
+    
+    func makeExpandable(@noescape block: (expandingConstraint: inout Constraint?) -> ()) {
+        var constraint: Constraint?
+        block(expandingConstraint: &constraint)
+        expandingConstraint = constraint
+        constraint?.deactivate()
     }
 }
 
@@ -114,7 +118,7 @@ extension Button {
         button.setTitleColor(Color.grayLight, forState: .Highlighted)
         button.setTitleColor(Color.grayLight, forState: .Selected)
         button.borderColor = UIColor.whiteColor()
-        button.borderWidth = 1
+        button.borderWidth = 1.5
         button.clipsToBounds = true
         button.cornerRadius = 22
         return button
@@ -183,11 +187,13 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             $0.centerY.equalTo(self.downloadButton)
             $0.trailing.equalTo(view).inset(20)
         }
-        self.downloadButton.snp_makeConstraints {
-            $0.size.equalTo(44)
-            $0.top.equalTo(view).inset(16)
-            $0.bottom.equalTo(view).inset(16).priorityLow()
-            $0.trailing.equalTo(self.reportButton.snp_leading).offset(-14)
+        view.makeExpandable { expandingConstraint in
+            self.downloadButton.snp_makeConstraints {
+                $0.size.equalTo(44)
+                $0.top.equalTo(view).inset(16)
+                expandingConstraint = $0.bottom.equalTo(view).inset(16).constraint
+                $0.trailing.equalTo(self.reportButton.snp_leading).offset(-14)
+            }
         }
     }
     
@@ -244,12 +250,15 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         view.addSubview(self.editorAvatar)
         view.addSubview(self.editorName)
         view.addSubview(self.editedAt)
-        self.editorAvatar.snp_makeConstraints {
-            $0.leading.equalTo(view).inset(20)
-            $0.top.equalTo(view).inset(4)
-            $0.bottom.equalTo(view).inset(4).priorityLow()
-            $0.size.equalTo(48)
+        view.makeExpandable { expandingConstraint in
+            self.editorAvatar.snp_makeConstraints {
+                $0.leading.equalTo(view).inset(20)
+                $0.top.equalTo(view).inset(4)
+                expandingConstraint = $0.bottom.equalTo(view).inset(4).constraint
+                $0.size.equalTo(48)
+            }
         }
+        
         self.editorName.snp_makeConstraints {
             $0.leading.equalTo(self.editorAvatar.snp_trailing).inset(-18)
             $0.bottom.equalTo(self.editorAvatar.snp_centerY).inset(-2)
@@ -262,16 +271,20 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         }
     }
     
-    private lazy var topView: UIView = specify(UIView()) { view in
+    private lazy var topView: ExpendableView = specify(ExpendableView()) { view in
         view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
         view.addSubview(self.contributorView)
         view.addSubview(self.editorView)
         view.addSubview(self.toolbar)
         view.addSubview(self.expandableToolbar)
-        self.contributorView.snp_makeConstraints {
-            $0.leading.trailing.equalTo(view)
-            $0.top.equalTo(view).inset(12)
+        
+        view.makeExpandable { expandingConstraint in
+            self.contributorView.snp_makeConstraints {
+                $0.leading.trailing.equalTo(view)
+                expandingConstraint = $0.top.equalTo(view).inset(12).constraint
+            }
         }
+        
         self.editorView.snp_makeConstraints {
             $0.leading.trailing.equalTo(view)
             $0.top.equalTo(self.contributorView.snp_bottom)
@@ -296,7 +309,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         })
     }
     
-    private let accessoryLabel = Label(icon: "y", size: 20)
+    private let accessoryLabel = Label(icon: "y", size: 18)
     
     private lazy var accessoryView: UIView = specify(UIView()) { view in
         view.clipsToBounds = true
@@ -322,7 +335,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     private var paginationQueue = RunQueue(limit: 1)
     
     override func loadView() {
-        let view = UIView()
+        let view = UIView(frame: preferredViewFrame)
         let scrollView = UIScrollView()
         view.addSubview(scrollView)
         scrollView.snp_makeConstraints {
@@ -333,22 +346,13 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         view.addSubview(topView)
         topView.snp_makeConstraints {
             $0.leading.trailing.equalTo(view)
-            $0.bottom.equalTo(view.snp_top).priorityHigh()
-            $0.top.equalTo(view).priorityLow()
+            $0.top.equalTo(view)
         }
         view.addSubview(accessoryView)
         accessoryView.snp_makeConstraints {
             $0.leading.trailing.equalTo(view)
             $0.height.equalTo(32)
             $0.top.equalTo(topView.snp_bottom)
-        }
-        accessoryView.tapped { [weak self] _ in
-            self?.toggleTopView()
-        }
-        accessoryView.panned { [weak self] gesture in
-            if gesture.state == .Began {
-                self?.toggleTopView()
-            }
         }
         
         view.addSubview(commentView)
@@ -371,32 +375,41 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         
         self.view = view
         
-        expandableToolbar.expanded = false
-        commentView.expanded = false
-        editorView.expanded = false
+        accessoryView.tapped { [weak self] _ in
+            self?.toggleTopView()
+        }
+        scrollView.swiped(.Down) { [weak self] _ in
+            self?.setTopViewExpanded(true)
+        }
+        scrollView.swiped(.Up) { [weak self] _ in
+            self?.setTopViewExpanded(false)
+        }
+        view.tapped { [weak self] _ in
+            self?.setTopViewExpanded(false)
+        }
     }
     
     @objc private func toggleActions() {
-        expandableToolbar.expanded = !expandableToolbar.expanded
-        expandButton.selected = expandableToolbar.expanded
-        topView.layoutIfNeeded()
+        animate { 
+            expandableToolbar.expanded = !expandableToolbar.expanded
+            expandButton.selected = expandableToolbar.expanded
+            topView.layoutIfNeeded()
+            accessoryView.layoutIfNeeded()
+        }
+    }
+    
+    private func setTopViewExpanded(expanded: Bool) {
+        if topView.expanded != expanded {
+            animate {
+                topView.expanded = expanded
+                topView.layoutIfNeeded()
+                accessoryView.layoutIfNeeded()
+            }
+        }
     }
     
     private func toggleTopView() {
-        topView.snp_remakeConstraints(closure: {
-            if topView.y == 0 {
-                accessoryLabel.text = "y"
-                $0.leading.trailing.equalTo(view)
-                $0.bottom.equalTo(view.snp_top).priorityHigh()
-                $0.top.equalTo(view).priorityLow()
-            } else {
-                accessoryLabel.text = "z"
-                $0.leading.trailing.equalTo(view)
-                $0.bottom.equalTo(view.snp_top).priorityLow()
-                $0.top.equalTo(view).priorityHigh()
-            }
-        })
-        topView.layoutIfNeeded()
+        setTopViewExpanded(!topView.expanded)
     }
     
     override func viewDidLoad() {

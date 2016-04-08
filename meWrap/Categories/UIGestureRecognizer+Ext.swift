@@ -8,13 +8,6 @@
 
 import UIKit
 
-protocol Gesture {
-    init(closure: Self -> ())
-    var actionClosure: (Self -> ())? { get set }
-    func addTo(view: UIView) -> Self
-    func remove()
-}
-
 extension UIGestureRecognizer {
     
     func addTo(view: UIView) -> Self {
@@ -30,23 +23,19 @@ extension UIGestureRecognizer {
 extension UIView {
     
     func tapped(closure: (TapGesture -> ())) -> TapGesture {
-        return recognize(closure)
+        return TapGesture(closure: closure).addTo(self)
     }
     
     func panned(closure: (PanGesture -> ())) -> PanGesture {
-        return recognize(closure)
+        return PanGesture(closure: closure).addTo(self)
     }
     
-    func swiped(closure: (SwipeGesture -> ())) -> SwipeGesture {
-        return recognize(closure)
-    }
-    
-    func recognize<T: Gesture>(closure: T -> ()) -> T {
-        return T(closure: closure).addTo(self)
+    func swiped(direction: UISwipeGestureRecognizerDirection, closure: (SwipeGesture -> ())) -> SwipeGesture {
+        return SwipeGesture(direction: direction, closure: closure).addTo(self)
     }
 }
 
-final class TapGesture: UITapGestureRecognizer, Gesture {
+final class TapGesture: UITapGestureRecognizer {
     
     convenience init(closure: TapGesture -> ()) {
         self.init()
@@ -61,7 +50,7 @@ final class TapGesture: UITapGestureRecognizer, Gesture {
     }
 }
 
-final class PanGesture: UIPanGestureRecognizer, Gesture {
+final class PanGesture: UIPanGestureRecognizer {
     
     convenience init(closure: PanGesture -> ()) {
         self.init()
@@ -76,10 +65,11 @@ final class PanGesture: UIPanGestureRecognizer, Gesture {
     }
 }
 
-final class SwipeGesture: UISwipeGestureRecognizer, Gesture {
+final class SwipeGesture: UISwipeGestureRecognizer {
     
-    convenience init(closure: SwipeGesture -> ()) {
+    convenience init(direction: UISwipeGestureRecognizerDirection, closure: SwipeGesture -> ()) {
         self.init()
+        self.direction = direction
         addTarget(self, action: #selector(self.action(_:)))
         actionClosure = closure
     }

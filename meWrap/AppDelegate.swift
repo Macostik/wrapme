@@ -233,6 +233,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         dispatch_once(&activationToken) {
             NotificationCenter.defaultCenter.configure()
         }
+        NotificationCenter.defaultCenter.subscribe()
     }
     
     func applicationWillResignActive(application: UIApplication) {

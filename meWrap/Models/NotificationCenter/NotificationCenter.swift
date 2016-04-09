@@ -45,7 +45,6 @@ final class NotificationCenter: NSObject {
     func configure() {
         PubNub.sharedInstance.addListener(self)
         User.notifier().addReceiver(self)
-        subscribe()
     }
     
     func handleDeviceToken(deviceToken: NSData) {

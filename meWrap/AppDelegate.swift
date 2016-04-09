@@ -8,6 +8,7 @@
 
 import Foundation
 import WatchConnectivity
+import PubNub
 
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -235,6 +236,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillResignActive(application: UIApplication) {
+        PubNub.releaseSharedInstance()
         if Authorization.active {
             resetBadge()
         }

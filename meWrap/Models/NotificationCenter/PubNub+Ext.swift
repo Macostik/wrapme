@@ -28,6 +28,10 @@ extension PubNub {
         return pubnub
     }
     
+    class func releaseSharedInstance() {
+        _sharedInstance = nil
+    }
+    
     class func defaultConfiguration() -> PNConfiguration {
         let keys = Environment.current.pubnub
         let configuration = PNConfiguration(publishKey: keys.publishKey, subscribeKey: keys.subscribeKey)

@@ -65,7 +65,7 @@ final class PanGesture: UIPanGestureRecognizer {
     }
 }
 
-final class SwipeGesture: UISwipeGestureRecognizer {
+final class SwipeGesture: UISwipeGestureRecognizer, UIGestureRecognizerDelegate {
     
     convenience init(direction: UISwipeGestureRecognizerDirection, closure: SwipeGesture -> ()) {
         self.init()
@@ -78,5 +78,15 @@ final class SwipeGesture: UISwipeGestureRecognizer {
     
     func action(sender: SwipeGesture) {
         actionClosure?(sender)
+    }
+    
+    var shouldBegin: (() -> Bool)? {
+        willSet {
+            self.delegate = self
+        }
+    }
+    
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return shouldBegin?() ?? true
     }
 }

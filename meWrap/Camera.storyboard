@@ -1166,7 +1166,6 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="playButton" destination="1xn-ct-1bD" id="XxP-fg-XGJ"/>
-                                    <outlet property="secondaryPlayButton" destination="1xn-ct-1bD" id="DUz-vd-ajw"/>
                                     <outlet property="timeView" destination="Aal-OA-pP8" id="n4R-oq-C8L"/>
                                 </connections>
                             </view>

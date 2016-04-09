@@ -330,9 +330,17 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     private let commentButton = Button.candyAction("f", color: Color.orange)
     
+    private let volumeButton = specify(Button.expandableCandyAction("l")) {
+        $0.setTitle("m", forState: .Selected)
+        $0.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
+    }
+    
     private var cachedCandyViewControllers = [Candy : CandyViewController]()
     private weak var removedCandy: Candy?
     private var paginationQueue = RunQueue(limit: 1)
+    
+    var swipeDownGesture: SwipeGesture!
+    var swipeUpGesture: SwipeGesture!
     
     override func loadView() {
         let view = UIView(frame: preferredViewFrame)
@@ -364,6 +372,11 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             $0.size.equalTo(44)
             $0.trailing.bottom.equalTo(view).inset(20)
         }
+        view.addSubview(volumeButton)
+        volumeButton.snp_makeConstraints {
+            $0.size.equalTo(44)
+            $0.leading.bottom.equalTo(commentView).inset(20)
+        }
         
         expandButton.addTarget(self, action: #selector(self.toggleActions), forControlEvents: .TouchUpInside)
         commentButton.addTarget(self, action: #selector(self.comments(_:)), forControlEvents: .TouchUpInside)
@@ -372,17 +385,21 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         reportButton.addTarget(self, action: #selector(self.report(_:)), forControlEvents: .TouchUpInside)
         deleteButton.addTarget(self, action: #selector(self.deleteCandy(_:)), forControlEvents: .TouchUpInside)
         downloadButton.addTarget(self, action: #selector(self.downloadCandy(_:)), forControlEvents: .TouchUpInside)
+        volumeButton.addTarget(self, action: #selector(self.toggleVolume(_:)), forControlEvents: .TouchUpInside)
         
         self.view = view
         
         accessoryView.tapped { [weak self] _ in
             self?.toggleTopView()
         }
-        scrollView.swiped(.Down) { [weak self] _ in
+        swipeDownGesture = scrollView.swiped(.Down) { [weak self] _ in
             self?.setTopViewExpanded(true)
         }
-        scrollView.swiped(.Up) { [weak self] _ in
+        swipeUpGesture = scrollView.swiped(.Up) { [weak self] _ in
             self?.setTopViewExpanded(false)
+        }
+        swipeUpGesture.shouldBegin = { [weak self] _ in
+            return self?.topView.expanded == true
         }
         view.tapped { [weak self] _ in
             self?.setTopViewExpanded(false)
@@ -420,8 +437,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         candies = wrap?.historyCandies ?? []
         
         Candy.notifier().addReceiver(self)
-        
-        commentButton.layer.borderColor = UIColor.whiteColor().CGColor
         
         if let wrap = wrap where history == nil {
             history = History(wrap:wrap)
@@ -487,7 +502,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         if let controller = cachedCandyViewControllers[candy] {
             return controller
         } else {
-            let controller = (candy.mediaType == .Video ? Storyboard.VideoCandy : Storyboard.PhotoCandy).instantiate()
+            let controller = candy.mediaType == .Video ? VideoCandyViewController() : PhotoCandyViewController()
             controller.candy = candy
             controller.historyViewController = self
             cachedCandyViewControllers[candy] = controller
@@ -518,6 +533,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             drawButton.hidden = candy.isVideo
             editButton.hidden = candy.isVideo
             commentView.comment = candy.latestComment
+            volumeButton.hidden = !candy.isVideo
         }
     }
     
@@ -696,9 +712,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         showCommentView()
     }
     
-    @IBAction func hadleTapRecognizer(sender: AnyObject) {
-//        setBarsHidden(primaryConstraint?.defaultState ?? false, animated: true)
-//        commentButtonPrioritizer?.defaultState = primaryConstraint?.defaultState ?? false
+    @IBAction func toggleVolume(sender: AnyObject) {
+        
     }
     
     func applyScaleToCandyViewController(apply: Bool) {

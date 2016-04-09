@@ -14,129 +14,64 @@ class CandyViewController: BaseViewController {
     
     weak var historyViewController: HistoryViewController?
     
-    @IBOutlet weak var imageView: ImageView!
-    @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var scrollView: UIScrollView?
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
-    @IBOutlet weak var errorLabel: UILabel!
-    @IBOutlet weak var aspectRatioConstraint: NSLayoutConstraint?
-    @IBOutlet weak var videoPlayerView: VideoPlayerView?
+    internal let contentView = UIView()
+    internal let imageView = ImageView()
+    internal let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
+    internal lazy var errorLabel: Label = specify(Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())) { label in
+        label.numberOfLines = 0
+        label.text = "no_internet_connection".ls
+        self.contentView.addSubview(label)
+        label.snp_makeConstraints {
+            $0.centerX.equalTo(self.contentView)
+            $0.centerY.equalTo(self.contentView).inset(-100)
+            $0.width.equalTo(256)
+        }
+    }
     private var slideInteractiveTransition: SlideInteractiveTransition?
     
-    deinit {
-        scrollView?.delegate = nil
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if let scrollView = scrollView {
-            scrollView.userInteractionEnabled = false
-            scrollView.minimumZoomScale = 1
-            scrollView.maximumZoomScale = 2
-            scrollView.superview?.addGestureRecognizer(scrollView.panGestureRecognizer)
-            if let recognizer = scrollView.pinchGestureRecognizer {
-                scrollView.superview?.addGestureRecognizer(recognizer)
-            }
-            
-            scrollView.panGestureRecognizer.enabled = false
-            
-            DeviceManager.defaultManager.addReceiver(self)
+    override func loadView() {
+        super.loadView()
+        view.addSubview(contentView)
+        contentView.snp_makeConstraints {
+            $0.edges.equalTo(view)
         }
-        
+        contentView.addSubview(spinner)
+        spinner.hidesWhenStopped = true
+        spinner.hidden = true
+        spinner.snp_makeConstraints {
+            $0.center.equalTo(contentView)
+        }
         Candy.notifier().addReceiver(self)
-        
-        videoPlayerView?.delegate = self
-        
         candy?.fetch(nil, failure:nil)
         slideInteractiveTransition = SlideInteractiveTransition(contentView:contentView, imageView:imageView)
         slideInteractiveTransition?.delegate = self
-    }
-    
-    override func shouldUsePreferredViewFrame() -> Bool {
-        return false
-    }
-    
-    private func setup(candy: Candy) {
-        self.spinner.hidden = false
-        self.errorLabel.hidden = true
-        
-        if candy.mediaType == .Video {
-            if let playerView = videoPlayerView {
-                if !playerView.playing {
-                    if let original = candy.asset?.original {
-                        if original.isExistingFilePath {
-                            playerView.url = original.fileURL
-                        } else {
-                            let path = ImageCache.defaultCache.getPath(ImageCache.uidFromURL(original)) + ".mp4"
-                            if path.isExistingFilePath {
-                                playerView.url = path.fileURL
-                            } else {
-                                playerView.url = original.URL
-                            }
-                        }
-                    }
-                }
-            }
+        if let historyViewController = historyViewController {
+            slideInteractiveTransition?.panGestureRecognizer.requireGestureRecognizerToFail(historyViewController.swipeUpGesture)
+            slideInteractiveTransition?.panGestureRecognizer.requireGestureRecognizerToFail(historyViewController.swipeDownGesture)
         }
-        
+    }
+    
+    internal func setup(candy: Candy) {
+        self.spinner.startAnimating()
         imageView.setURL(candy.asset?.large, success: { [weak self] (image, cached) -> Void in
-            if candy.mediaType == .Photo {
-                self?.calculateScaleValues()
-                self?.scrollView?.userInteractionEnabled = true
-            }
-            self?.spinner.hidden = true
-            self?.errorLabel.hidden = true
+            self?.imageLoaded(image)
+            self?.spinner.stopAnimating()
             }) { [weak self] (error) -> Void in
                 if error?.isNetworkError == true {
                     Network.sharedNetwork.addReceiver(self)
                     self?.errorLabel.hidden = false
-                } else {
-                    self?.errorLabel.hidden = true
                 }
-                self?.spinner.hidden = true
+                self?.spinner.stopAnimating()
         }
     }
     
-    private func calculateScaleValues() {
-        if let image = imageView.image, let scrollView = scrollView, let constraint = aspectRatioConstraint {
-            let _constraint = NSLayoutConstraint(item:constraint.firstItem, attribute:constraint.firstAttribute, relatedBy:constraint.relation, toItem:constraint.secondItem, attribute:constraint.secondAttribute, multiplier:image.size.width/image.size.height, constant:0)
-            scrollView.removeConstraint(constraint)
-            scrollView.addConstraint(_constraint)
-            aspectRatioConstraint = _constraint
-            scrollView.layoutIfNeeded()
-            scrollView.zoomScale = 1
-            scrollView.panGestureRecognizer.enabled = false
-        }
-    }
+    internal func imageLoaded(image: UIImage?) {}
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        if let scrollView = scrollView {
-            scrollView.zoomScale = scrollView.minimumZoomScale
-        }
         if let candy = candy {
             setup(candy)
         }
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        if let candy = candy {
-            if let videoPlayerView = videoPlayerView {
-                let shouldBeShow = candy.isVideo && !(videoPlayerView.spinner?.isAnimating() ?? false)
-                videoPlayerView.placeholderPlayButton?.hidden = !shouldBeShow
-                videoPlayerView.playButton?.hidden = !shouldBeShow
-                videoPlayerView.secondaryPlayButton?.hidden = true
-                videoPlayerView.timeView.hidden = true
-                videoPlayerView.timeViewPrioritizer?.defaultState = !(candy.latestComment?.text?.isEmpty ?? true)
-            }
-        }
-    }
-    
-    func hideAllViews() {
-        videoPlayerView?.hiddenCenterViews(true)
-        videoPlayerView?.hiddenBottomViews(true)
-        historyViewController?.hideSecondaryViews(true)
     }
 }
 
@@ -144,7 +79,6 @@ extension CandyViewController: EntryNotifying {
     
     func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
         if let candy = candy {
-            videoPlayerView?.timeViewPrioritizer?.defaultState = !(candy.latestComment?.text?.isEmpty ?? true)
             if event == .Default {
                 setup(candy)
             }
@@ -156,49 +90,9 @@ extension CandyViewController: EntryNotifying {
     }
 }
 
-extension CandyViewController: VideoPlayerViewDelegate {
-    
-    func videoPlayerViewDidPlay(view: VideoPlayerView) {
-        slideInteractiveTransition?.panGestureRecognizer.enabled = false
-        historyViewController?.scrollView.panGestureRecognizer.enabled = false
-        historyViewController?.setBarsHidden(false, animated:true)
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:#selector(CandyViewController.hideAllViews), object:nil)
-        performSelector(#selector(CandyViewController.hideAllViews), withObject:nil, afterDelay:4)
-    }
-    
-    func videoPlayerViewDidPause(view: VideoPlayerView) {
-        historyViewController?.commentPressed = {
-            view.pause()
-        }
-        historyViewController?.hideSecondaryViews(false)
-        slideInteractiveTransition?.panGestureRecognizer.enabled = true
-        historyViewController?.scrollView.panGestureRecognizer.enabled = true
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:#selector(CandyViewController.hideAllViews), object:nil)
-    }
-    
-    func videoPlayerViewSeekedToTime(view: VideoPlayerView) {
-        if view.playing {
-            NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:#selector(CandyViewController.hideAllViews), object:nil)
-            performSelector(#selector(CandyViewController.hideAllViews), withObject:nil, afterDelay:4)
-        }
-    }
-    
-    func videoPlayerViewDidPlayToEnd(view: VideoPlayerView) {
-        historyViewController?.hideSecondaryViews(false)
-        slideInteractiveTransition?.panGestureRecognizer.enabled = true
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:#selector(CandyViewController.hideAllViews), object:nil)
-    }
-}
-
 extension CandyViewController: SlideInteractiveTransitionDelegate {
     
     func slideInteractiveTransition(controller: SlideInteractiveTransition, hideViews: Bool) {
-        if let videoPlayerView = self.videoPlayerView {
-            videoPlayerView.timeView.hidden = hideViews || !(videoPlayerView.playButton?.hidden ?? true)
-            videoPlayerView.secondaryPlayButton?.hidden = videoPlayerView.timeView.hidden
-            videoPlayerView.timeView.addAnimation(CATransition.transition(kCATransitionFade))
-            videoPlayerView.secondaryPlayButton?.addAnimation(CATransition.transition(kCATransitionFade))
-        }
         historyViewController?.hideSecondaryViews(hideViews)
     }
     
@@ -221,15 +115,64 @@ extension CandyViewController: SlideInteractiveTransitionDelegate {
     }
 }
 
-extension CandyViewController: DeviceManagerNotifying {
+extension CandyViewController: NetworkNotifying {
     
-    func manager(manager: DeviceManager, didChangeOrientation orientation: UIDeviceOrientation) {
-        scrollView?.zoomScale = 1
-        scrollView?.panGestureRecognizer.enabled = false
+    func networkDidChangeReachability(network: Network) {
+        if let candy = candy where network.reachable {
+            errorLabel.hidden = true
+            setup(candy)
+            network.removeReceiver(self)
+        }
     }
 }
 
-extension CandyViewController: UIScrollViewDelegate {
+final class PhotoCandyViewController: CandyViewController, DeviceManagerNotifying, UIScrollViewDelegate {
+    
+    private let scrollView = UIScrollView()
+    
+    deinit {
+        scrollView.delegate = nil
+    }
+    
+    override func loadView() {
+        super.loadView()
+        scrollView.delegate = self
+        scrollView.clipsToBounds = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.bounces = false
+        contentView.insertSubview(scrollView, belowSubview: spinner)
+        scrollView.addSubview(imageView)
+        scrollView.minimumZoomScale = 1
+        scrollView.maximumZoomScale = 2
+        contentView.addGestureRecognizer(scrollView.panGestureRecognizer)
+        if let recognizer = scrollView.pinchGestureRecognizer {
+            scrollView.superview?.addGestureRecognizer(recognizer)
+        }
+        
+        scrollView.panGestureRecognizer.enabled = false
+        
+        DeviceManager.defaultManager.addReceiver(self)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        scrollView.zoomScale = scrollView.minimumZoomScale
+        super.viewWillAppear(animated)
+    }
+    
+    override func imageLoaded(image: UIImage?) {
+        if let image = image {
+            scrollView.frame = contentView.size.fit(image.size).rectCenteredInSize(contentView.size)
+            imageView.frame = scrollView.bounds
+            scrollView.zoomScale = 1
+            scrollView.panGestureRecognizer.enabled = false
+        }
+    }
+    
+    func manager(manager: DeviceManager, didChangeOrientation orientation: UIDeviceOrientation) {
+        scrollView.zoomScale = 1
+        scrollView.panGestureRecognizer.enabled = false
+    }
     
     func scrollViewDidZoom(scrollView: UIScrollView) {
         slideInteractiveTransition?.panGestureRecognizer.enabled = scrollView.zoomScale == 1
@@ -240,16 +183,55 @@ extension CandyViewController: UIScrollViewDelegate {
     }
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-        return candy?.mediaType == .Video ? nil : imageView
+        return candy?.mediaType == .Video || imageView.image == nil ? nil : imageView
     }
 }
 
-extension CandyViewController: NetworkNotifying {
+final class VideoCandyViewController: CandyViewController, VideoPlayerViewDelegate {
     
-    func networkDidChangeReachability(network: Network) {
-        if let candy = candy where network.reachable {
-            setup(candy)
-            network.removeReceiver(self)
+    private let playerView = VideoPlayer()
+    
+    override func loadView() {
+        super.loadView()
+        imageView.contentMode = .ScaleAspectFit
+        playerView.playbackLikelyToKeepUp = { [weak self] keepUp in
+            if keepUp {
+                self?.spinner.stopAnimating()
+            } else {
+                self?.spinner.startAnimating()
+            }
+        }
+        playerView.didPlayToEnd = { [weak self] _ in
+            self?.playerView.playing = true
+        }
+        contentView.insertSubview(imageView, belowSubview: spinner)
+        contentView.insertSubview(playerView, belowSubview: spinner)
+        imageView.snp_makeConstraints { $0.edges.equalTo(contentView) }
+        playerView.snp_makeConstraints { $0.edges.equalTo(contentView) }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        playerView.playing = true
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        playerView.playing = false
+    }
+    
+    internal override func setup(candy: Candy) {
+        super.setup(candy)
+        guard let original = candy.asset?.original where !playerView.playing else { return }
+        if original.isExistingFilePath {
+            playerView.url = original.fileURL
+        } else {
+            let path = ImageCache.defaultCache.getPath(ImageCache.uidFromURL(original)) + ".mp4"
+            if path.isExistingFilePath {
+                playerView.url = path.fileURL
+            } else {
+                playerView.url = original.URL
+            }
         }
     }
 }

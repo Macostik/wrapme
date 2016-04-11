@@ -80,7 +80,8 @@ extension NSItemProvider {
         guard let typeIdentifier = registeredTypeIdentifiers.first as? String else { return nil }
         loadItemForTypeIdentifier(typeIdentifier, options: nil) { item, _ in
             switch typeIdentifier {
-            case String(kUTTypeJPEG):
+            case String(kUTTypeImage), String(kUTTypeJPEG), String(kUTTypeTIFF),
+                 String(kUTTypeGIF), String(kUTTypePNG), String(kUTTypeBMP), String(kUTTypeScalableVectorGraphics):
                 if let url = item as? NSURL {
                     let date = url.resource(NSURLContentModificationDateKey) as? NSDate ?? NSDate()
                     let timeIntervalSince1970 = Int(date.timeIntervalSince1970)

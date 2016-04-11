@@ -39,7 +39,10 @@ class CandyAddNotification: CandyNotification {
             candy.recursivelyFetchIfNeeded({ _ in
                 if let asset = candy.asset {
                     if UIApplication.sharedApplication().applicationState == .Background {
-                        asset.fetch(nil)
+                        let task = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
+                        asset.fetch({
+                            UIApplication.sharedApplication().endBackgroundTask(task)
+                        })
                         success()
                     } else {
                         asset.fetch(success)
@@ -79,7 +82,10 @@ class CandyUpdateNotification: CandyNotification {
                 candy.fetch({ (_) -> Void in
                     if let asset = candy.asset {
                         if UIApplication.sharedApplication().applicationState == .Background {
-                            asset.fetch(nil)
+                            let task = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
+                            asset.fetch({
+                                UIApplication.sharedApplication().endBackgroundTask(task)
+                            })
                             success()
                         } else {
                             asset.fetch(success)

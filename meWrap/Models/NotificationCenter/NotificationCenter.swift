@@ -174,17 +174,11 @@ final class NotificationCenter: NSObject {
             if canSkipNotification(notification) {
                 success(notification)
             } else {
-                RunQueue.fetchQueue.run { finish in
-                    _ = try? EntryContext.sharedContext.save()
-                    notification.handle({ () -> Void in
-                        addHandledNotifications([notification])
-                        success(notification)
-                        finish()
-                        }, failure: { (error) -> Void in
-                            failure?(error)
-                            finish()
-                    })
-                }
+                _ = try? EntryContext.sharedContext.save()
+                notification.handle({ () -> Void in
+                    addHandledNotifications([notification])
+                    success(notification)
+                    }, failure: { failure?($0) })
             }
         } else {
             failure?(NSError(message: "Data in remote notification is not valid."))

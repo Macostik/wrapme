@@ -26,17 +26,27 @@ class LiveViewerViewController: LiveViewController {
     
     deinit {
         unsubscribeObserving()
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     private func unsubscribeObserving() {
-        guard let item = playerItem else { return }
-        item.removeObserver(self, forKeyPath: "status")
-        item.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
+        playerItem?.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
         playerItem = nil
+    }
+    
+    func applicationWillResignActive() {
+        playerLayer.player?.pause()
+    }
+    
+    func applicationDidBecomeActive() {
+        playerLayer.player?.play()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.applicationWillResignActive), name: UIApplicationWillResignActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.applicationDidBecomeActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
         
         _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
         _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeMoviePlayback)
@@ -51,10 +61,8 @@ class LiveViewerViewController: LiveViewController {
         view.layer.insertSublayer(playerLayer, atIndex: 0)
         
         let playerItem = AVPlayerItem(URL: url)
-        playerItem.addObserver(self, forKeyPath: "status", options: .New, context: nil)
         playerItem.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .New, context: nil)
-        let player = AVPlayer(playerItem: playerItem)
-        playerLayer.player = player
+        playerLayer.player = AVPlayer(playerItem: playerItem)
         self.playerItem = playerItem
         
         chatSubscription.subscribe()
@@ -192,17 +200,12 @@ class LiveViewerViewController: LiveViewController {
     }
 
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        guard let keyPath = keyPath, let item = playerItem else { return }
-        if item.playbackLikelyToKeepUp {
+        if playerItem?.playbackLikelyToKeepUp == true {
+            playerLayer.player?.play()
             spinner.stopAnimating()
             removeCoverViewIfNeeded()
         } else {
             spinner.startAnimating()
-        }
-        switch keyPath {
-        case "status" where item.status == .ReadyToPlay, "playbackLikelyToKeepUp" where item.playbackLikelyToKeepUp == true:
-            playerLayer.player?.play()
-        default: break
         }
     }
     

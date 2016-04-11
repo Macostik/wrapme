@@ -16,7 +16,6 @@ enum WrapSegment: Int {
 class WrapSegmentViewController: BaseViewController {
     weak var delegate: AnyObject?
     weak var wrap: Wrap!
-    weak var badge: BadgeLabel?
 }
 
 final class WrapSegmentButton: Button {
@@ -128,11 +127,12 @@ final class WrapViewController: BaseViewController {
     
     @IBOutlet weak var moreFriendsLabel: UILabel!
     
-    lazy var inboxViewController: InboxViewController = self.controllerNamed("inbox", badge:self.inboxSegmentButton.badge)
-    lazy var mediaViewController: MediaViewController = self.controllerNamed("media", badge:self.mediaSegmentButton.badge)
-    lazy var chatViewController: ChatViewController = self.controllerNamed("chat", badge:self.chatSegmentButton.badge)
+    lazy var inboxViewController: InboxViewController = self.controllerNamed("inbox")
+    lazy var mediaViewController: MediaViewController = self.controllerNamed("media")
+    lazy var chatViewController: ChatViewController = self.controllerNamed("chat")
     
     override func viewDidLoad() {
+        chatViewController.badge = chatSegmentButton.badge
         super.viewDidLoad()
         
         addNotifyReceivers()
@@ -321,10 +321,11 @@ final class WrapViewController: BaseViewController {
         inboxSegmentButton.badge.value = wrap?.numberOfUnreadInboxItems ?? 0
     }
     
-    private var viewController: UIViewController? {
+    private var viewController: WrapSegmentViewController? {
         didSet {
             oldValue?.view.removeFromSuperview()
             if let controller = viewController {
+                controller.preferredViewFrame = containerView.bounds
                 let view = controller.view
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.frame = self.containerView.bounds
@@ -335,14 +336,12 @@ final class WrapViewController: BaseViewController {
         }
     }
     
-    private func controllerNamed<T: WrapSegmentViewController>(name: String, badge: BadgeLabel?) -> T {
+    private func controllerNamed<T: WrapSegmentViewController>(name: String) -> T {
         let controller = storyboard?[name] as! T
-        controller.preferredViewFrame = containerView.bounds
         controller.wrap = wrap
         controller.delegate = self
         addChildViewController(controller)
         controller.didMoveToParentViewController(self)
-        controller.badge = badge
         return controller
     }
 }

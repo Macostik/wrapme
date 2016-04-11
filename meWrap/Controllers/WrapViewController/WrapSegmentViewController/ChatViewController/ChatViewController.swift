@@ -10,6 +10,8 @@ import UIKit
 
 final class ChatViewController: WrapSegmentViewController {
     
+    weak var badge: BadgeLabel?
+    
     @IBOutlet weak var streamView: StreamView!
     @IBOutlet weak var composeBar: ComposeBar!
     

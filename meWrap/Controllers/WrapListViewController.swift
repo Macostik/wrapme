@@ -130,12 +130,10 @@ class WrapListViewController: BaseViewController {
             controller.segment = .Chat
             controller.wrap = wrap
             self.navigationController?.pushViewController(controller, animated: false)
-            performWhenLoaded(controller, block: { controller in
+            performWhenLoaded(controller.chatViewController, block: { controller in
                 Dispatch.mainQueue.async({
-                    guard case let chatViewController = controller.chatViewController
-                            where chatViewController.isViewLoaded() == true  else { return }
-                    chatViewController.composeBar.becomeFirstResponder()
-                    chatViewController.composeBar.text = text
+                    controller.composeBar.becomeFirstResponder()
+                    controller.composeBar.text = text
                 })
             })
         } else {

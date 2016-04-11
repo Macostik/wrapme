@@ -163,6 +163,7 @@ class LiveViewController: BaseViewController {
     lazy var chatSubscription: NotificationSubscription = {
         let chatSubscription = NotificationSubscription(name: "ch-\(self.broadcast.streamName)", isGroup: false, observePresence: true)
         chatSubscription.delegate = self
+        NotificationCenter.defaultCenter.liveSubscription = chatSubscription
         return chatSubscription
     }()
     

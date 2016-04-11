@@ -11,7 +11,11 @@ import PubNub
 
 extension PubNub {
     
-    private static var _sharedInstance: PubNub?
+    private static var _sharedInstance: PubNub? {
+        willSet {
+            newValue?.addListener(NotificationCenter.defaultCenter)
+        }
+    }
     
     static var sharedInstance: PubNub {
         if var pubnub = _sharedInstance {

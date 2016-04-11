@@ -223,17 +223,11 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    private var activationToken: dispatch_once_t = 0
-    
     func applicationDidBecomeActive(application: UIApplication) {
         if Authorization.active {
             Dispatch.mainQueue.async { Uploader.wrapUploader.start() }
         }
-        
-        dispatch_once(&activationToken) {
-            NotificationCenter.defaultCenter.configure()
-        }
-        NotificationCenter.defaultCenter.subscribe()
+        NotificationCenter.defaultCenter.applicationDidBecomeActive()
     }
     
     func applicationWillResignActive(application: UIApplication) {

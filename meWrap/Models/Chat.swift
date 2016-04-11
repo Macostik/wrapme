@@ -31,9 +31,7 @@ class Chat: PaginatedList {
     static var MessageGroupSpacing: CGFloat = 6.0
     static var MessageSpacing: CGFloat = 2.0
     static var NameVerticalInset: CGFloat = 6.0
-    
-    private var subscription: NotificationSubscription?
-    
+        
     required init(wrap: Wrap) {
         self.wrap = wrap
         super.init()

@@ -30,6 +30,7 @@ final class NotificationCenter: NSObject {
     var pushTokenData: NSData?
     
     func applicationDidBecomeActive() {
+        liveSubscription?.subscribe()
         subscribe()
         Dispatch.mainQueue.after(0.5, block: { self.requestHistory() })
     }

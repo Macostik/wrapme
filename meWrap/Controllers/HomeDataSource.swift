@@ -29,11 +29,7 @@ class HomeDataSource: PaginatedStreamDataSource {
         if wrap.candies.count < Constants.recentCandiesLimit {
             RunQueue.fetchQueue.run({ [weak wrap] (finish) -> Void in
                 if let wrap = wrap where wrap.valid {
-                    APIRequest.wrap(wrap, contentType: Wrap.ContentTypeRecent).send({ (candies) -> Void in
-                        finish()
-                        }, failure: { (error) -> Void in
-                            finish()
-                    })
+                    wrap.fetch({ _ in finish() }, failure: { _ in finish() })
                 } else {
                     finish()
                 }

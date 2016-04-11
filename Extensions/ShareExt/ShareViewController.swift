@@ -12,7 +12,7 @@ import AVFoundation
 
 class ShareViewController: UIViewController {
     
-    lazy var manager = NSFileManager.defaultManager()
+    var manager = NSFileManager.defaultManager()
     
     lazy var url: NSURL = {
         if var url = self.manager.containerURLForSecurityApplicationGroupIdentifier("group.com.ravenpod.wraplive") {
@@ -28,110 +28,91 @@ class ShareViewController: UIViewController {
         _ = try? manager.removeItemAtURL(url)
         _ = try? manager.createDirectoryAtURL(url, withIntermediateDirectories: true, attributes: nil)
         
-        let items = extensionContext?.inputItems
-        if let items = items where !items.isEmpty {
-            guard let item = items[0] as? NSExtensionItem else { return }
-            if let attachments = item.attachments {
-                if !attachments.isEmpty {
-                    Dispatch.defaultQueue.async({ [weak self]_ in
-                        for attachment in attachments {
-                            if let itemProvider = attachment as? NSItemProvider {
-                                if let item = itemProvider.loadItemForTypeIdentifier() {
-                                    guard let data = item.data else {
-                                        Dispatch.mainQueue.async({ _ in
-                                            let message = String(format:item.type, Int(Constants.maxVideoRecordedDuration))
-                                            let alert = UIAlertController(title: "share_video".ls, message: message, preferredStyle: .Alert)
-                                            let okAction = UIAlertAction(title: "ok".ls, style: .Default, handler: { _ in
-                                                self?.extensionContext?.completeRequestReturningItems([], completionHandler: nil)
-                                            })
-                                            alert.addAction(okAction)
-                                            self?.presentViewController(alert, animated: true, completion: nil)
-                                        })
-                                        return
-                                    }
-                                   self?.writeData(data, extensionType: item.type)
-                                }
-                            }
-                        }
-                        Dispatch.mainQueue.async({ _ in
-                            let request = ExtensionRequest(action: .PresentShareContent, parameters: [:])
-                            if let url = request.serializedURL() {
-                                self?.openURL(url)
-                                self?.extensionContext?.completeRequestReturningItems([], completionHandler: nil)
-                            }
-                        })
-                        })
+        guard let item = extensionContext?.inputItems.first as? NSExtensionItem else { return }
+        guard let attachments = item.attachments as? [NSItemProvider] where !attachments.isEmpty else { return }
+        Dispatch.defaultQueue.async({ [weak self]_ in
+            do {
+                for attachment in attachments {
+                    if let item = try attachment.loadItem(), let data = item.data {
+                        self?.writeData(data, extensionType: item.type)
+                    }
                 }
-            }
-        }
+                
+                Dispatch.mainQueue.async {
+                    let request = ExtensionRequest(action: .PresentShareContent, parameters: [:])
+                    if let url = request.serializedURL() {
+                        self?.openURL(url)
+                        self?.extensionContext?.completeRequestReturningItems([], completionHandler: nil)
+                    }
+                }
+            } catch let error as String {
+                Dispatch.mainQueue.async({ _ in
+                    let message = String(format:error, Int(Constants.maxVideoRecordedDuration))
+                    let alert = UIAlertController(title: "share_video".ls, message: message, preferredStyle: .Alert)
+                    alert.addAction(UIAlertAction(title: "ok".ls, style: .Default, handler: { _ in
+                        self?.extensionContext?.completeRequestReturningItems([], completionHandler: nil)
+                    }))
+                    self?.presentViewController(alert, animated: true, completion: nil)
+                })
+            } catch {}
+            })
     }
     
     func writeData(data: NSData, extensionType: String) -> Bool? {
-        let path = ("\(NSProcessInfo.processInfo().globallyUniqueString)\(extensionType)")
+        let path = ("\(NSProcessInfo.processInfo().globallyUniqueString)\(extensionType.lowercaseString)")
         let url = self.url.URLByAppendingPathComponent(path)
         return data.writeToURL(url, atomically: true)
     }
 }
 
 extension NSItemProvider {
-    func loadItemForTypeIdentifier() -> (type: String, data: NSData?)? {
-        var data: (String, NSData?)?
+    
+    func tryLoadItem(typeIdentifier: String) -> NSSecureCoding? {
+        var data: NSSecureCoding?
         let semaphore = dispatch_semaphore_create(0)
-        guard let typeIdentifier = registeredTypeIdentifiers.first as? String else { return nil }
-        loadItemForTypeIdentifier(typeIdentifier, options: nil) { item, _ in
-            switch typeIdentifier {
-            case String(kUTTypeImage), String(kUTTypeJPEG), String(kUTTypeTIFF),
-                 String(kUTTypeGIF), String(kUTTypePNG), String(kUTTypeBMP), String(kUTTypeScalableVectorGraphics):
-                if let url = item as? NSURL {
-                    let date = url.resource(NSURLContentModificationDateKey) as? NSDate ?? NSDate()
-                    let timeIntervalSince1970 = Int(date.timeIntervalSince1970)
-                    if let imageData = NSData(contentsOfURL: url) {
-                        data = ("_\(timeIntervalSince1970).jpeg", imageData)
-                    }
-                } else if let imageData = item as? NSData {
-                    data = (".jpeg", imageData)
-                }
-                break
-            case String(kUTTypeQuickTimeMovie), String(kUTTypeMPEG4):
-                guard let url = item as? NSURL else { return }
-                let date = url.resource(NSURLCreationDateKey) as? NSDate ?? NSDate()
-                let timeIntervalSince1970 = Int(date.timeIntervalSince1970)
-                let isMov = typeIdentifier == String(kUTTypeQuickTimeMovie)
-                let asset = isMov ? AVAsset(URL: NSURL(fileURLWithPath: url.path!)) : AVAsset(URL: url)
-                if CMTimeGetSeconds(asset.duration) >= Constants.maxVideoRecordedDuration + 1.0 {
-                    data = ("formatted_upload_video_duration_limit".ls, nil)
-                } else if let shareData = NSData(contentsOfURL: url)  {
-                    data = (isMov ? "_\(timeIntervalSince1970).mov" : "_\(timeIntervalSince1970).mp4", shareData)
-                }
-                break
-            case String(kUTTypeURL), String(kUTTypePlainText):
-                guard let item = item else { return }
-                if let shareData = String(item).dataUsingEncoding(NSUTF8StringEncoding) {
-                    data = (".txt", shareData)
-                    break
-                }
-            default:
-                break
-            }
+        loadItemForTypeIdentifier(typeIdentifier, options: nil) { item, error in
+            data = item
             dispatch_semaphore_signal(semaphore)
         }
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
         return data
     }
+    
+    func loadItem() throws -> (type: String, data: NSData?)? {
+        
+        if let data = tryLoadItem(kUTTypeImage as String) {
+            if let url = data as? NSURL {
+                let date = url.cteationDate
+                return ("_\(Int(date.timestamp)).jpeg", NSData(contentsOfURL: url))
+            } else {
+                return (".jpeg", data as? NSData)
+            }
+        } else if let data = tryLoadItem(kUTTypeMovie as String) {
+            guard let url = data as? NSURL else { return nil }
+            let date = url.cteationDate
+            let asset = AVURLAsset(URL: url)
+            if CMTimeGetSeconds(asset.duration) >= Constants.maxVideoRecordedDuration + 1.0 {
+                throw "formatted_upload_video_duration_limit".ls
+            } else {
+                return ("_\(Int(date.timestamp)).\(url.pathExtension ?? "")",  NSData(contentsOfURL: url))
+            }
+        } else if let data = tryLoadItem(kUTTypeText as String) {
+            return (".txt", String(data).dataUsingEncoding(NSUTF8StringEncoding))
+        } else if let data = tryLoadItem(kUTTypeURL as String) {
+            return (".txt", String(data).dataUsingEncoding(NSUTF8StringEncoding))
+        } else {
+            return nil
+        }
+    }
 }
 
 extension ShareViewController {
-    func openURL(url: NSURL) -> Bool {
-        do {
-            let application = try self.sharedApplication()
-            return application.performSelector(#selector(ShareViewController.openURL(_:)), withObject: url) != nil
-        }
-        catch {
-            return false
-        }
+    
+    func openURL(url: NSURL) {
+        sharedApplication()?.performSelector(#selector(self.openURL(_:)), withObject: url)
     }
     
-    func sharedApplication() throws -> UIApplication {
+    func sharedApplication() -> UIApplication? {
         var responder: UIResponder? = self
         while responder != nil {
             if let application = responder as? UIApplication {
@@ -139,12 +120,15 @@ extension ShareViewController {
             }
             responder = responder?.nextResponder()
         }
-        throw NSError(domain: "ShareExtension", code: 1, userInfo: nil)
+        return nil
     }
 }
 
+extension String: ErrorType {}
+
 extension NSURL {
-    func resource(key: String) -> AnyObject? {
-        return (try? resourceValuesForKeys([key]))?[key]
+    
+    var cteationDate: NSDate {
+        return (try? resourceValuesForKeys([NSURLCreationDateKey]))?[NSURLCreationDateKey] as? NSDate ?? NSDate()
     }
 }

@@ -189,7 +189,7 @@ final class PhotoCandyViewController: CandyViewController, DeviceManagerNotifyin
 
 final class VideoCandyViewController: CandyViewController, VideoPlayerViewDelegate {
     
-    private let playerView = VideoPlayer()
+    let playerView = VideoPlayer()
     
     override func loadView() {
         super.loadView()

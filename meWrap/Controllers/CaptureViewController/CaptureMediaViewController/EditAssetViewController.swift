@@ -29,7 +29,7 @@ class EditAssetViewController: UIViewController {
 
 class EditAssetCell: StreamReusableView {
     
-    private lazy var imageView: ImageView = self.add(specify(ImageView(), { $0.borderColor = UIColor.whiteColor() }), {
+    private lazy var imageView: ImageView = self.add(specify(ImageView(backgroundColor: UIColor.clearColor()), { $0.borderColor = UIColor.whiteColor() }), {
         $0.leading.top.trailing.equalTo(self).inset(1)
         $0.bottom.equalTo(self).inset(18)
     })

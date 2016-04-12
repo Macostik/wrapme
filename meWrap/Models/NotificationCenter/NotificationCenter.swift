@@ -13,39 +13,27 @@ extension NSData {
     func serializeDevicePushToken() -> String {
         var bytes = [UInt8](count: length, repeatedValue: 0)
         getBytes(&bytes, length: length)
-        var hexString = ""
-        for byte in bytes {
-            hexString += String(format:"%02x", UInt(byte))
-        }
-        return hexString
+        return bytes.reduce("", combine: { $0 + String(format:"%02x", UInt($1)) })
     }
 }
 
 final class NotificationCenter: NSObject {
     
-    static let defaultCenter = NotificationCenter()
+    static let defaultCenter = specify(NotificationCenter()) { User.notifier().addReceiver($0) }
     
     var enqueuedMessages = [AnyObject]()
     
     var userSubscription = NotificationSubscription(name:"", isGroup:true, observePresence:true)
+    weak var liveSubscription: NotificationSubscription?
     
     var pushToken: String?
-    
     var pushTokenData: NSData?
     
-    override init() {
-        super.init()
-        Dispatch.mainQueue.after(0.2, block: { [weak self] _ in
-            NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object:nil, queue:NSOperationQueue.mainQueue(), usingBlock:{ _ in
-                Dispatch.mainQueue.after(0.5, block: { self?.requestHistory() })
-            })
-            })
-    }
-    
-    func configure() {
-        PubNub.sharedInstance.addListener(self)
-        User.notifier().addReceiver(self)
+    func applicationDidBecomeActive() {
+        liveSubscription?.subscribe()
         subscribe()
+        Dispatch.mainQueue.after(0.5, block: { self.requestHistory() })
+        refreshUserActivities(true, completionHandler: nil)
     }
     
     func handleDeviceToken(deviceToken: NSData) {
@@ -56,13 +44,8 @@ final class NotificationCenter: NSObject {
         }
     }
     
-    func subscribe() {
-        if let user = User.currentUser {
-            subscribeWithUser(user)
-        }
-    }
-    
-    func subscribeWithUser(user: User) {
+    func subscribe(user: User? = User.currentUser) {
+        guard let user = user else { return }
         let uuid = user.uid
         if uuid.isEmpty { return }
         let channelName = "cg-\(uuid)"
@@ -192,17 +175,11 @@ final class NotificationCenter: NSObject {
             if canSkipNotification(notification) {
                 success(notification)
             } else {
-                RunQueue.fetchQueue.run { finish in
-                    _ = try? EntryContext.sharedContext.save()
-                    notification.handle({ () -> Void in
-                        addHandledNotifications([notification])
-                        success(notification)
-                        finish()
-                        }, failure: { (error) -> Void in
-                            failure?(error)
-                            finish()
-                    })
-                }
+                _ = try? EntryContext.sharedContext.save()
+                notification.handle({ () -> Void in
+                    addHandledNotifications([notification])
+                    success(notification)
+                    }, failure: { failure?($0) })
             }
         } else {
             failure?(NSError(message: "Data in remote notification is not valid."))
@@ -241,6 +218,8 @@ extension NotificationCenter: NetworkNotifying {
 extension NotificationCenter: PNObjectEventListener {
     
     func client(client: PubNub, didReceiveMessage message: PNMessageResult) {
+        userSubscription.didReceiveMessage(message)
+        liveSubscription?.didReceiveMessage(message)
         #if DEBUG
             if let msg = message.data.message {
                 print("listener didReceiveMessage in \(message.data.actualChannel ?? message.data.subscribedChannel)\n \(msg)")
@@ -249,6 +228,8 @@ extension NotificationCenter: PNObjectEventListener {
     }
     
     func client(client: PubNub, didReceivePresenceEvent event: PNPresenceEventResult) {
+        userSubscription.didReceivePresenceEvent(event)
+        liveSubscription?.didReceivePresenceEvent(event)
         #if DEBUG
             print("PUBNUB - did receive presence event in \(event.data.actualChannel ?? event.data.subscribedChannel)\n: \(event.data)")
         #endif
@@ -269,9 +250,7 @@ extension NotificationCenter: PNObjectEventListener {
 extension NotificationCenter: EntryNotifying {
     
     func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {
-        if let user = entry as? User {
-            subscribeWithUser(user)
-        }
+        subscribe(entry as? User)
     }
     
     func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
@@ -350,7 +329,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
         return (activities, users)
     }
     
-    func refreshUserActivities(completionHandler: (Void -> Void)?) {
+    func refreshUserActivities(notify: Bool = false, completionHandler: (Void -> Void)?) {
         PubNub.sharedInstance.hereNowForChannelGroup(userSubscription.name) { (result, status) -> Void in
             if let channels = result?.data.channels {
                 
@@ -378,13 +357,13 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
                             device.activity.wrap = wrap
                             if device.activity.inProgress && device.activity.type == .Live {
                                 let broadcast = device.activity.generateLiveBroadcast()
-                                wrap?.addBroadcastIfNeeded(broadcast)
+                                wrap?.addBroadcastIfNeeded(broadcast, notify: notify)
                             }
                             continue usersLoop
                         }
                     }
                     if device.activity.inProgress {
-                        device.activity.wrap?.removeBroadcastFrom(user)
+                        device.activity.wrap?.removeBroadcastFrom(user, notify: notify)
                         device.activity.clear()
                     }
                 }
@@ -393,7 +372,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
         }
     }
     
-    func refreshUserActivities(wrap: Wrap, completionHandler: (Void -> Void)?) {
+    func refreshWrapUserActivities(wrap: Wrap, completionHandler: (Void -> Void)?) {
         PubNub.sharedInstance.hereNowForChannel(wrap.uid, withVerbosity: .State) { (result, status) -> Void in
             
             if let uuids = result?.data.uuids as? [[String:AnyObject]] {

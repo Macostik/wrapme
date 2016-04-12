@@ -40,10 +40,10 @@ extension AuthorizedExecutor {
         }
     }
     
-    static func shareContent() {
+    static func shareContent(items: [[String:String]]) {
         AuthorizedExecutor.execute {
             UINavigationController.main()?.dismissViewControllerAnimated(false, completion: nil)
-            UINavigationController.main()?.pushViewController(Storyboard.WrapList.instantiate(), animated: false)
+            UINavigationController.main()?.pushViewController(Storyboard.WrapList.instantiate({ $0.items = items }), animated: false)
         }
     }
 }

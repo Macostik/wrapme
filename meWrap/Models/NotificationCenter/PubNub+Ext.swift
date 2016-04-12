@@ -11,7 +11,11 @@ import PubNub
 
 extension PubNub {
     
-    private static var _sharedInstance: PubNub?
+    private static var _sharedInstance: PubNub? {
+        willSet {
+            newValue?.addListener(NotificationCenter.defaultCenter)
+        }
+    }
     
     static var sharedInstance: PubNub {
         if var pubnub = _sharedInstance {
@@ -28,11 +32,16 @@ extension PubNub {
         return pubnub
     }
     
+    class func releaseSharedInstance() {
+        _sharedInstance = nil
+    }
+    
     class func defaultConfiguration() -> PNConfiguration {
         let keys = Environment.current.pubnub
         let configuration = PNConfiguration(publishKey: keys.publishKey, subscribeKey: keys.subscribeKey)
         configuration.catchUpOnSubscriptionRestore = false
         configuration.uuid = User.uuid()
+        configuration.presenceHeartbeatInterval = 30
         configuration.presenceHeartbeatValue = 60
         return configuration
     }

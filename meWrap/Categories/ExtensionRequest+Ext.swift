@@ -96,8 +96,10 @@ extension ExtensionRequest {
     }
     
     private func presentShareContent(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
-        AuthorizedExecutor.shareContent()
-        success(ExtensionReply())
+        if let items = parameters?["items"] as? [[String:String]] {
+            AuthorizedExecutor.shareContent(items)
+            success(ExtensionReply())
+        }
     }
 }
 

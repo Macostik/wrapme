@@ -14,13 +14,11 @@ protocol NotificationSubscriptionDelegate: class {
     func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult)
 }
 
-class NotificationSubscription: NSObject {
+final class NotificationSubscription {
     weak var delegate: NotificationSubscriptionDelegate?
     
     var name: String
-    
     var isGroup = false
-    
     var observePresence = false
     
     var isSubscribed: Bool {
@@ -35,8 +33,6 @@ class NotificationSubscription: NSObject {
         self.name = name
         self.isGroup = isGroup
         self.observePresence = observePresence
-        super.init()
-        PubNub.sharedInstance.addListener(self)
     }
     
     func subscribe() {
@@ -82,26 +78,16 @@ class NotificationSubscription: NSObject {
             return pubnub.allHistoryFor(name)
         }
     }
-}
-
-extension NotificationSubscription: PNObjectEventListener {
     
     func didReceiveMessage(message: PNMessageResult) {
-        delegate?.notificationSubscription(self, didReceiveMessage: message)
+        if message.data.actualChannel == name || message.data.subscribedChannel == name {
+            delegate?.notificationSubscription(self, didReceiveMessage: message)
+        }
     }
     
     func didReceivePresenceEvent(event: PNPresenceEventResult) {
-        delegate?.notificationSubscription(self, didReceivePresenceEvent: event)
-    }
-    
-    func client(client: PubNub, didReceiveMessage message: PNMessageResult) {
-        if message.data.actualChannel == name || message.data.subscribedChannel == name {
-            didReceiveMessage(message)
-        }
-    }
-    func client(client: PubNub, didReceivePresenceEvent event: PNPresenceEventResult) {
         if event.data.actualChannel == name || event.data.subscribedChannel == name {
-            didReceivePresenceEvent(event)
+            delegate?.notificationSubscription(self, didReceivePresenceEvent: event)
         }
     }
 }

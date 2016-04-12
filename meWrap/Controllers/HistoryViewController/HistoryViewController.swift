@@ -577,6 +577,9 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         guard let candy = viewController?.candy else { return }
         self.candy = candy
         fetchCandiesOlderThen(candy)
+        if let videoViewConroller = viewController as? VideoCandyViewController {
+            volumeButton.selected = !videoViewConroller.playerView.player.muted
+        }
     }
     
     override func didChangeOffsetForViewController(viewController: CandyViewController, offset: CGFloat) {
@@ -713,7 +716,10 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     @IBAction func toggleVolume(sender: AnyObject) {
-        
+        if let videoViewConroller = viewController as? VideoCandyViewController {
+            volumeButton.selected = !volumeButton.selected
+            videoViewConroller.playerView.player.muted = !volumeButton.selected
+        }
     }
     
     func applyScaleToCandyViewController(apply: Bool) {

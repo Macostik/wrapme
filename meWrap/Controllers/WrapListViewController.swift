@@ -10,8 +10,6 @@ import Foundation
 
 class WrapListViewController: BaseViewController {
     
-    static var isWrapListPresented = false
-    
     var items: [[String:String]]?
     
     private var runQueue = RunQueue(limit: 1)
@@ -28,14 +26,9 @@ class WrapListViewController: BaseViewController {
     @IBOutlet weak var streamView: StreamView!
     @IBOutlet weak var searchField: TextField!
     
-    deinit {
-        WrapListViewController.isWrapListPresented = false
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        WrapListViewController.isWrapListPresented = true
         wrapListDataSource.placeholderMetrics = StreamMetrics(loader: PlaceholderView.sharePlaceholderLoader())
         
         let metrics = wrapListDataSource.addMetrics(StreamMetrics(loader: StreamLoader<WrapCell>(), size: 70))
@@ -154,7 +147,14 @@ class WrapListViewController: BaseViewController {
 
 extension WrapListViewController: UploadSummaryViewControllerDelegate {
     
-    func uploadSummaryViewController(controller: UploadSummaryViewController, didDeselectAsset asset: MutableAsset) {}
+    func uploadSummaryViewController(controller: UploadSummaryViewController, didDeselectAsset asset: MutableAsset) {
+        if let index = assets?.indexOf(asset) {
+            assets?.removeAtIndex(index)
+        }
+        if assets?.count == 0 {
+            navigationController?.popToRootViewControllerAnimated(false)
+        }
+    }
     
     func uploadSummaryViewController(controller: UploadSummaryViewController, didFinishWithAssets assets: [MutableAsset]) {
         self.navigationController?.popToRootViewControllerAnimated(false)

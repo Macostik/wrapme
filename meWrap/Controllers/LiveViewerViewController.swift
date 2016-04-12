@@ -26,12 +26,14 @@ class LiveViewerViewController: LiveViewController {
     
     deinit {
         unsubscribeObserving()
-        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     private func unsubscribeObserving() {
-        playerItem?.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
-        playerItem = nil
+        if let item = playerItem {
+            NSNotificationCenter.defaultCenter().removeObserver(self)
+            item.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
+            playerItem = nil
+        }
     }
     
     func applicationWillResignActive() {

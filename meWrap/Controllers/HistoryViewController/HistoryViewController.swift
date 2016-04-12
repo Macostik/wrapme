@@ -103,8 +103,8 @@ class ExpendableView: UIView {
 
 extension Button {
     
-    class func candyAction(action: String, color: UIColor) -> Button {
-        let button = Button(icon: action, size: 20)
+    class func candyAction(action: String, color: UIColor, size: CGFloat = 20) -> Button {
+        let button = Button(icon: action, size: size)
         button.cornerRadius = 22
         button.clipsToBounds = true
         button.normalColor = color
@@ -113,8 +113,8 @@ extension Button {
         return button
     }
     
-    class func expandableCandyAction(action: String) -> Button {
-        let button = Button(icon: action, size: 20)
+    class func expandableCandyAction(action: String, size: CGFloat = 20) -> Button {
+        let button = Button(icon: action, size: size)
         button.setTitleColor(Color.grayLight, forState: .Highlighted)
         button.setTitleColor(Color.grayLight, forState: .Selected)
         button.borderColor = UIColor.whiteColor()
@@ -140,18 +140,21 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     private var candies = [Candy]()
     
     var presenter: CandyEnlargingPresenter?
-    var dismissingView: ((presenter: CandyEnlargingPresenter?, candy: Candy) -> UIView?)?
+    var dismissingView: (Candy -> UIView?)?
     
     private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
-    private let drawButton = Button.candyAction("8", color: Color.purple)
+    private let drawButton = Button.candyAction("8", color: Color.purple, size: 24)
     private let editButton = Button.candyAction("R", color: Color.blue)
+    private let stickersButton = Button.candyAction("i", color: Color.greenOption, size: 24)
     private let deleteButton = Button.expandableCandyAction("n")
     private let downloadButton = Button.expandableCandyAction("o")
     private let reportButton = Button.expandableCandyAction("s")
+    private let shareButton = Button.expandableCandyAction("h")
     private let expandButton = Button.expandableCandyAction("/")
     
     private lazy var toolbar: UIView = specify(UIView()) { view in
         view.addSubview(self.drawButton)
+        view.addSubview(self.stickersButton)
         view.addSubview(self.editButton)
         view.addSubview(self.expandButton)
         self.drawButton.snp_makeConstraints {
@@ -164,6 +167,11 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             $0.centerY.equalTo(self.expandButton)
             $0.leading.equalTo(self.drawButton.snp_trailing).offset(14)
         }
+        self.stickersButton.snp_makeConstraints {
+            $0.size.equalTo(44)
+            $0.centerY.equalTo(self.expandButton)
+            $0.leading.equalTo(self.editButton.snp_trailing).offset(14)
+        }
         self.expandButton.snp_makeConstraints {
             $0.size.equalTo(44)
             $0.top.bottom.equalTo(view).inset(16)
@@ -175,6 +183,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         view.addSubview(self.reportButton)
         view.addSubview(self.deleteButton)
         view.addSubview(self.downloadButton)
+        view.addSubview(self.shareButton)
         view.clipsToBounds = true
         self.reportButton.snp_makeConstraints {
             $0.size.equalTo(44)
@@ -193,6 +202,11 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
                 expandingConstraint = $0.bottom.equalTo(view).inset(16).constraint
                 $0.trailing.equalTo(self.reportButton.snp_leading).offset(-14)
             }
+        }
+        self.shareButton.snp_makeConstraints {
+            $0.size.equalTo(44)
+            $0.centerY.equalTo(self.downloadButton)
+            $0.trailing.equalTo(self.downloadButton.snp_leading).offset(-14)
         }
     }
     
@@ -344,6 +358,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     weak var commentsViewController: CommentsViewController?
     
+    private var shrinkTransition: ShrinkTransition?
+    
     override func loadView() {
         let view = UIView(frame: preferredViewFrame)
         let scrollView = UIScrollView()
@@ -385,9 +401,11 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         commentButton.addTarget(self, action: #selector(self.comments(_:)), forControlEvents: .TouchUpInside)
         drawButton.addTarget(self, action: #selector(self.draw(_:)), forControlEvents: .TouchUpInside)
         editButton.addTarget(self, action: #selector(self.editPhoto(_:)), forControlEvents: .TouchUpInside)
+        stickersButton.addTarget(self, action: #selector(self.stickers(_:)), forControlEvents: .TouchUpInside)
         reportButton.addTarget(self, action: #selector(self.report(_:)), forControlEvents: .TouchUpInside)
         deleteButton.addTarget(self, action: #selector(self.deleteCandy(_:)), forControlEvents: .TouchUpInside)
         downloadButton.addTarget(self, action: #selector(self.downloadCandy(_:)), forControlEvents: .TouchUpInside)
+        shareButton.addTarget(self, action: #selector(self.share(_:)), forControlEvents: .TouchUpInside)
         volumeButton.addTarget(self, action: #selector(self.toggleVolume(_:)), forControlEvents: .TouchUpInside)
         
         self.view = view
@@ -435,6 +453,52 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        shrinkTransition = specify(ShrinkTransition(view: view), {
+            
+            $0.panGestureRecognizer.requireGestureRecognizerToFail(swipeUpGesture)
+            $0.panGestureRecognizer.requireGestureRecognizerToFail(swipeDownGesture)
+            
+            $0.contentView = { [weak self] _ in
+                return self?.viewController?.contentView
+            }
+            
+            $0.dismissingView = { [weak self] _ in
+                guard let candy = self?.candy else { return nil }
+                return self?.dismissingView?(candy)
+            }
+            
+            $0.image = { [weak self] _ in
+                return self?.viewController?.imageView.image
+            }
+            
+            $0.snapshotView = { [weak self] _ in
+                guard let controller = self else { return nil }
+                guard let controllers = controller.navigationController?.viewControllers else { return nil }
+                guard let index = controllers.indexOf(controller) else { return nil }
+                return controllers[safe: index - 1]?.view
+            }
+            
+            $0.shouldStart = { [weak self] _ in
+                if let photoViewController = self?.viewController as? PhotoCandyViewController {
+                    return photoViewController.scrollView.zoomScale == 1
+                } else {
+                    return true
+                }
+            }
+            
+            $0.didStart = { [weak self] _ in
+                self?.setBarsHidden(true, animated: true)
+            }
+            
+            $0.didCancel = { [weak self] _ in
+                self?.setBarsHidden(false, animated: true)
+            }
+            
+            $0.didFinish = { [weak self] _ in
+                self?.navigationController?.popViewControllerAnimated(false)
+            }
+        })
         
         wrap = candy?.wrap
         
@@ -550,6 +614,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             deleteButton.hidden = !candy.deletable
             reportButton.hidden = !deleteButton.hidden
             drawButton.hidden = candy.isVideo
+            stickersButton.hidden = candy.isVideo
             editButton.hidden = candy.isVideo
             commentView.comment = candy.latestComment
             volumeButton.hidden = !candy.isVideo
@@ -727,6 +792,14 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
                     sender.userInteractionEnabled = true
             })
         }
+    }
+    
+    @IBAction func stickers(sender: UIButton) {
+        
+    }
+    
+    @IBAction func share(sender: UIButton) {
+        
     }
     
     @IBAction func comments(sender: AnyObject) {

@@ -225,7 +225,7 @@ final class HomeViewController: BaseViewController {
         let metrics = candiesView.dataSource.metrics.first
         metrics?.selection = { [weak self] item, entry in
             if let candy = entry as? Candy {
-                CandyEnlargingPresenter.handleCandySelection(item, entry: candy, dismissingView: { (presenter, candy) -> UIView? in
+                CandyEnlargingPresenter.handleCandySelection(item, entry: candy, dismissingView: { candy -> UIView? in
                     self?.streamView.scrollRectToVisible(candiesView.frame, animated:false)
                     return candiesView.streamView.itemPassingTest({ $0.entry === candy })?.view
                 })

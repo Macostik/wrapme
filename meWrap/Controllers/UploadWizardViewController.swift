@@ -189,11 +189,13 @@ class UploadWizardEndViewController: BaseViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var contentView: UIView!
     
-    private lazy var slideTransition: SlideInteractiveTransition = SlideInteractiveTransition(contentView: self.contentView)
+    private lazy var slideTransition: SlideTransition = SlideTransition(view: self.contentView)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        slideTransition.delegate = self
+        slideTransition.didFinish = { [weak self] _ in
+            self?.close()
+        }
         if friendsInvited {
             descriptionLabel.text = String(format: "wrap_shared_message".ls, wrap?.name ?? "")
         } else {
@@ -214,11 +216,5 @@ class UploadWizardEndViewController: BaseViewController {
                 close()
             }
         }
-    }
-}
-
-extension UploadWizardEndViewController: SlideInteractiveTransitionDelegate {
-    func slideInteractiveTransitionDidFinish(controller: SlideInteractiveTransition) {
-        close()
     }
 }

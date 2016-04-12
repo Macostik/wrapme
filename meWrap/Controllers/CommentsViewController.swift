@@ -144,7 +144,6 @@ class CommentsViewController: BaseViewController {
         
         addNotifyReceivers()
         DeviceManager.defaultManager.addReceiver(self)
-        historyViewController = parentViewController as? HistoryViewController
         EntryToast.entryToast.handleTouch = { [weak self] _ in
             self?.view.layoutIfNeeded()
             self?.streamView.setMaximumContentOffsetAnimated(true)
@@ -226,31 +225,9 @@ class CommentsViewController: BaseViewController {
         }
     }
     
-    private static let ContstraintOffset: CGFloat = 44
-    var height: CGFloat = 0.0
-    
-    override func keyboardAdjustmentConstant(adjustment: KeyboardAdjustment, keyboard: Keyboard) -> CGFloat {
-        if adjustment.constraint.constant == adjustment.defaultConstant {
-            if dataSource.items?.count == 0 {
-                height = streamView.height
-                streamView.height -= keyboard.height + CommentsViewController.ContstraintOffset
-            }
-            let offset = CGPointMake(0, keyboard.height + streamView.contentOffset.y > 0 ?
-                view.height - streamView.height + streamView.contentOffset.y - 25.0 : streamView.contentOffset.y)
-            streamView.setContentOffset(offset, animated: false)
-        }
-        
-        return adjustment.defaultConstant + (keyboard.height - CommentsViewController.ContstraintOffset)
-    }
-    
-    override func keyboardWillHide(keyboard: Keyboard) {
-        super.keyboardWillHide(keyboard)
-        keyboard.performAnimation {
-            streamView.height = height
-            let offset = streamView.contentOffset.y >= streamView.maximumContentOffset.y ?
-                streamView.maximumContentOffset.y + 25.0 : streamView.contentOffset.y - view.height + streamView.height
-            streamView.setContentOffset(CGPointMake(0, offset), animated: false)
-        }
+    override func keyboardWillShow(keyboard: Keyboard) {
+        super.keyboardWillShow(keyboard)
+        streamView.setMaximumContentOffsetAnimated(true)
     }
     
     private func sendMessageWithText(text: String) {
@@ -263,8 +240,9 @@ class CommentsViewController: BaseViewController {
         }
     }
     
-    func presentForController(controller: UIViewController?) {
-        controller?.addContainedViewController(self, animated:false)
+    func presentForController(controller: HistoryViewController) {
+        historyViewController = controller
+        controller.addContainedViewController(self, animated:false)
     }
     
     @IBAction func onClose(sender: AnyObject?) {
@@ -313,16 +291,17 @@ extension CommentsViewController: UIScrollViewDelegate {
         let offset = scrollView.contentOffset.y
         if abs(offset) > scrollView.height/5 || abs(velocity.y) > 2 {
             let snapshot = contentView.snapshotViewAfterScreenUpdates(false)
-            snapshot.frame = CGRectMake(0, self.contentView.y, self.view.width, self.contentView.height)
-            view.window?.addSubview(snapshot)
+            snapshot.frame = contentView.frame
+            contentView.hidden = true
+            view.addSubview(snapshot)
             typing = false
-            removeFromContainerAnimated(true)
             UIView.animateWithDuration(0.5, animations: {
-                let offsetY = offset > 0 ? self.view.y - self.view.height : self.view.height
-                snapshot.transform = CGAffineTransformMakeTranslation(0, offsetY);
+                let offsetY = offset > 0 ? -self.view.height : self.view.height
+                snapshot.transform = CGAffineTransformMakeTranslation(0, offsetY)
                 self.historyViewController?.setBarsHidden(false, animated: true)
+                self.view.backgroundColor = UIColor.clearColor()
                 }, completion: { _ in
-                    snapshot.removeFromSuperview()
+                    self.removeFromContainerAnimated(true)
             })
         }
     }

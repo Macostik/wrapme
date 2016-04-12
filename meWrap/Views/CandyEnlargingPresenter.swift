@@ -10,55 +10,43 @@ import UIKit
 
 class CandyEnlargingPresenter: UIView {
     
-    class func handleCandySelection(item: StreamItem?, entry: AnyObject?, dismissingView: ((presenter: CandyEnlargingPresenter?, candy: Candy) -> UIView?)) -> Void {
-        handleCandySelection(item, entry: entry, historyItem: nil, dismissingView: dismissingView)
-    }
-    
     private var candy: Candy?
     
-    class func handleCandySelection(item: StreamItem?, entry: AnyObject?,  historyItem: HistoryItem?, dismissingView: ((presenter: CandyEnlargingPresenter?, candy: Candy) -> UIView?)) -> Void {
-        guard let cell = item?.view as? CandyCell, let candy = entry as? Candy else {
-            return
-        }
+    class func handleCandySelection(item: StreamItem?, entry: AnyObject?,  historyItem: HistoryItem? = nil, dismissingView: Candy -> UIView?) -> Void {
+        guard let cell = item?.view as? CandyCell else { return }
+        guard let candy = entry as? Candy else { return }
+        guard let historyViewController = candy.viewController() as? HistoryViewController else { return }
+        historyViewController.history = historyItem?.history
+        historyViewController.dismissingView = dismissingView
         if candy.valid && cell.imageView.image != nil {
-            if let historyViewController = candy.viewController() as? HistoryViewController {
-                historyViewController.history = historyItem?.history
-                let presenter = CandyEnlargingPresenter()
-                historyViewController.presenter = presenter
-                historyViewController.dismissingView = dismissingView
-                presenter.candy = candy
-                let presented = presenter.present(candy, fromView: cell, completionHandler: { (_) -> Void in
-                    UINavigationController.main()?.pushViewController(historyViewController, animated: false)
-                })
-                if presented {
-                    presenter.dismissingView = dismissingView
-                } else {
-                    ChronologicalEntryPresenter.presentEntry(candy, animated: false)
-                    if let historyViewController = UINavigationController.main()?.viewControllers.last as? HistoryViewController{
-                        historyViewController.dismissingView = dismissingView
-                    }
-                }
-            }
+            let presenter = CandyEnlargingPresenter()
+            presenter.candy = candy
+            presenter.dismissingView = dismissingView
+            historyViewController.presenter = presenter
+            presenter.present(candy, fromView: cell, completionHandler: { (_) -> Void in
+                UINavigationController.main()?.pushViewController(historyViewController, animated: false)
+            })
         } else {
-            ChronologicalEntryPresenter.presentEntry(candy, animated: false)
+            UINavigationController.main()?.pushViewController(historyViewController, animated: false)
         }
+        historyViewController.dismissingView = dismissingView
     }
     
     
-    private var imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .ScaleAspectFill
-        imageView.clipsToBounds = true
-        return imageView
-    }()
+    private var imageView = specify(UIImageView()) {
+        $0.contentMode = .ScaleAspectFill
+        $0.clipsToBounds = true
+    }
     
-    var dismissingView: ((presenter: CandyEnlargingPresenter?, candy: Candy) -> UIView?)?
+    var dismissingView: (Candy -> UIView?)?
     
-    func present(candy: Candy, fromView: UIView, completionHandler: (CandyEnlargingPresenter -> Void)?) -> Bool {
-        guard let url = candy.asset?.large else { return false }
-        guard let image = InMemoryImageCache.instance[url] ?? ImageCache.defaultCache.imageWithURL(url) else { return false }
+    func present(candy: Candy, fromView: UIView, completionHandler: (CandyEnlargingPresenter -> Void)) {
+        guard let url = candy.asset?.large, let image = InMemoryImageCache.instance[url] ?? ImageCache.defaultCache.imageWithURL(url) else {
+            completionHandler(self)
+            return
+        }
         if let superview = addToSuperview() {
-            imageView.image = image;
+            imageView.image = image
             StreamView.lock()
             imageView.frame = superview.convertRect(fromView.bounds, fromCoordinateSpace:fromView)
             fromView.hidden = true
@@ -67,19 +55,18 @@ class CandyEnlargingPresenter: UIView {
                 self.imageView.frame = self.size.fit(image.size).rectCenteredInSize(self.size)
                 self.backgroundColor = UIColor(white: 0, alpha: 1)
                 }, completion: { (_) -> Void in
-                    completionHandler?(self)
+                    completionHandler(self)
                     fromView.hidden = false
                     self.removeFromSuperview()
                     StreamView.unlock()
             })
-            return true
         } else {
-            return false
+            completionHandler(self)
         }
     }
     
     func dismiss(candy: Candy) {
-        guard let view = self.dismissingView?(presenter: self, candy: candy) else { return }
+        guard let view = self.dismissingView?(candy) else { return }
         guard let url = candy.asset?.large else { return }
         guard let image = InMemoryImageCache.instance[url] ?? ImageCache.defaultCache.imageWithURL(url) else { return }
         if let superview = addToSuperview() {

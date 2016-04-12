@@ -10,7 +10,7 @@
 		18D7F6737186E5350A00FFEE /* Pods_meWrap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8302B2CF78A9F0C0ED319A0E /* Pods_meWrap.framework */; };
 		5B03F90C1C5A65A60085BA51 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B03F90B1C5A65A60085BA51 /* Label.swift */; };
 		5B1061341C610A1900496647 /* ConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1061331C610A1900496647 /* ConfirmView.swift */; };
-		5B1D045B1BFCE16C00263102 /* SlideInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1D045A1BFCE16C00263102 /* SlideInteractiveTransition.swift */; };
+		5B1D045B1BFCE16C00263102 /* SlideTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1D045A1BFCE16C00263102 /* SlideTransition.swift */; };
 		5B1DD0371BD7B67000D30E1A /* InternalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */; };
 		5B211FB21C087137000EC3DB /* (null) in Resources */ = {isa = PBXBuildFile; };
 		5B2960571C60F5B9008D121A /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2960561C60F5B9008D121A /* ShareViewController.swift */; };
@@ -440,7 +440,7 @@
 		12E8FF2518E9B33E00BF1B96 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5B03F90B1C5A65A60085BA51 /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		5B1061331C610A1900496647 /* ConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmView.swift; sourceTree = "<group>"; };
-		5B1D045A1BFCE16C00263102 /* SlideInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInteractiveTransition.swift; sourceTree = "<group>"; };
+		5B1D045A1BFCE16C00263102 /* SlideTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideTransition.swift; sourceTree = "<group>"; };
 		5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalScrollView.swift; sourceTree = "<group>"; };
 		5B2960541C60F5B9008D121A /* ShareExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B2960561C60F5B9008D121A /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -939,7 +939,7 @@
 			children = (
 				C54E28181C771B1C000B7682 /* BaseViewController.swift */,
 				C5F814251C455B4000B478C2 /* LiveBroadcastViewController */,
-				5B1D045A1BFCE16C00263102 /* SlideInteractiveTransition.swift */,
+				5B1D045A1BFCE16C00263102 /* SlideTransition.swift */,
 				C5053E811BC7F7280040613A /* ReportViewController.swift */,
 				C5E6F0271BFF558000FA3D4F /* MediaDataSource.swift */,
 				C553B18F1BF9F75600E50219 /* EntryPresenter.swift */,
@@ -2032,7 +2032,7 @@
 				C5F11E521C64A21C001C2486 /* PhoneViewController.swift in Sources */,
 				C517FD7C1C4D07E100A7EE55 /* LiveBroadcasterViewController.swift in Sources */,
 				C509F7471C5E3C4800E6BFF0 /* CameraViewController.swift in Sources */,
-				5B1D045B1BFCE16C00263102 /* SlideInteractiveTransition.swift in Sources */,
+				5B1D045B1BFCE16C00263102 /* SlideTransition.swift in Sources */,
 				C5B4E5681BF60E0300A4B223 /* PHPhotoLibrary+Ext.swift in Sources */,
 				C50B5EC21C7F2F0D00435E3F /* DrawingViewController.swift in Sources */,
 				C5294E781C0B6242001CE272 /* ExtensionEntry.swift in Sources */,

@@ -232,7 +232,7 @@ class MediaViewController: WrapSegmentViewController {
         candyMetrics.size = round(view.width / 2.5) + 28
         candyMetrics.selectable = false
         candyMetrics.selection = { [weak self] (item, entry) -> Void in
-            CandyEnlargingPresenter.handleCandySelection(item, entry: entry, historyItem: self?.history.itemWithCandy(entry as? Candy), dismissingView: { (presenter, candy) -> UIView? in
+            CandyEnlargingPresenter.handleCandySelection(item, entry: entry, historyItem: self?.history.itemWithCandy(entry as? Candy), dismissingView: { candy -> UIView? in
                 return self?.enlargingPresenterDismissingView(candy)
             })
         }

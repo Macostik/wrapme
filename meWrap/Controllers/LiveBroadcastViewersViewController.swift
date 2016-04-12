@@ -56,12 +56,14 @@ class LiveBroadcastViewersViewController: UIViewController {
     
     var broadcast: LiveBroadcast?
     
-    private lazy var slideTransition: SlideInteractiveTransition = SlideInteractiveTransition(contentView: self.streamView.superview!)
+    private lazy var slideTransition: SlideTransition = SlideTransition(view: self.streamView.superview!)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        slideTransition.delegate = self
+        slideTransition.didFinish = { [weak self] _ in
+            self?.removeFromContainerAnimated(false)
+        }
         
         let metrics = StreamMetrics(loader: StreamLoader<LiveBroadcastViewerCell>())
         metrics.size = LiveBroadcastViewerCell.DefaultHeight
@@ -86,11 +88,5 @@ class LiveBroadcastViewersViewController: UIViewController {
     
     override func prefersStatusBarHidden() -> Bool {
         return true
-    }
-}
-
-extension LiveBroadcastViewersViewController: SlideInteractiveTransitionDelegate {
-    func slideInteractiveTransitionDidFinish(controller: SlideInteractiveTransition) {
-        removeFromContainerAnimated(false)
     }
 }

@@ -27,7 +27,6 @@ class CandyViewController: BaseViewController {
             $0.width.equalTo(256)
         }
     }
-    private var slideInteractiveTransition: SlideInteractiveTransition?
     
     override func loadView() {
         super.loadView()
@@ -43,12 +42,6 @@ class CandyViewController: BaseViewController {
         }
         Candy.notifier().addReceiver(self)
         candy?.fetch(nil, failure:nil)
-        slideInteractiveTransition = SlideInteractiveTransition(contentView:contentView, imageView:imageView)
-        slideInteractiveTransition?.delegate = self
-        if let historyViewController = historyViewController {
-            slideInteractiveTransition?.panGestureRecognizer.requireGestureRecognizerToFail(historyViewController.swipeUpGesture)
-            slideInteractiveTransition?.panGestureRecognizer.requireGestureRecognizerToFail(historyViewController.swipeDownGesture)
-        }
     }
     
     internal func setup(candy: Candy) {
@@ -90,31 +83,6 @@ extension CandyViewController: EntryNotifying {
     }
 }
 
-extension CandyViewController: SlideInteractiveTransitionDelegate {
-    
-    func slideInteractiveTransition(controller: SlideInteractiveTransition, hideViews: Bool) {
-        historyViewController?.setBarsHidden(hideViews, animated: true)
-    }
-    
-    func slideInteractiveTransitionSnapshotView(controller: SlideInteractiveTransition) -> UIView? {
-        guard let controller = historyViewController else { return nil }
-        guard let controllers = controller.navigationController?.viewControllers else { return nil }
-        guard let index = controllers.indexOf(controller) else { return nil }
-        return controllers[safe: index - 1]?.view
-    }
-    
-    func slideInteractiveTransitionDidFinish(controller: SlideInteractiveTransition) {
-        historyViewController?.navigationController?.popViewControllerAnimated(false)
-    }
-    
-    func slideInteractiveTransitionPresentingView(controller: SlideInteractiveTransition) -> UIView? {
-        guard let candy = candy else { return nil }
-        let dismissingView = historyViewController?.dismissingView?(presenter: nil, candy: candy)
-        dismissingView?.alpha = 0
-        return dismissingView
-    }
-}
-
 extension CandyViewController: NetworkNotifying {
     
     func networkDidChangeReachability(network: Network) {
@@ -128,7 +96,7 @@ extension CandyViewController: NetworkNotifying {
 
 final class PhotoCandyViewController: CandyViewController, DeviceManagerNotifying, UIScrollViewDelegate {
     
-    private let scrollView = UIScrollView()
+    let scrollView = UIScrollView()
     
     deinit {
         scrollView.delegate = nil
@@ -141,9 +109,14 @@ final class PhotoCandyViewController: CandyViewController, DeviceManagerNotifyin
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.bounces = false
+        scrollView.bouncesZoom = false
+        scrollView.frame = view.bounds
+        scrollView.backgroundColor = UIColor.blackColor()
+        imageView.frame = scrollView.bounds
         contentView.insertSubview(scrollView, belowSubview: spinner)
         scrollView.addSubview(imageView)
         scrollView.minimumZoomScale = 1
+        scrollView.zoomScale = 1
         scrollView.maximumZoomScale = 2
         contentView.addGestureRecognizer(scrollView.panGestureRecognizer)
         if let recognizer = scrollView.pinchGestureRecognizer {
@@ -172,10 +145,6 @@ final class PhotoCandyViewController: CandyViewController, DeviceManagerNotifyin
     func manager(manager: DeviceManager, didChangeOrientation orientation: UIDeviceOrientation) {
         scrollView.zoomScale = 1
         scrollView.panGestureRecognizer.enabled = false
-    }
-    
-    func scrollViewDidZoom(scrollView: UIScrollView) {
-        slideInteractiveTransition?.panGestureRecognizer.enabled = scrollView.zoomScale == 1
     }
     
     func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {

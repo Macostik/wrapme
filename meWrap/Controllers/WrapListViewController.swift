@@ -12,10 +12,11 @@ class WrapListViewController: BaseViewController {
     
     static var isWrapListPresented = false
     
+    var items: [[String:String]]?
+    
     private var runQueue = RunQueue(limit: 1)
-    private var content = [String]()
-    private var assets = [MutableAsset]()
-    private var textFile = NSURL()
+    private var assets: [MutableAsset]?
+    private var text: String?
     
     private lazy var url: NSURL = {
         guard var url = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(Constants.groupIdentifier) else { return NSURL(fileURLWithPath: "") }
@@ -50,7 +51,7 @@ class WrapListViewController: BaseViewController {
             self?.shareContent(entry as! Wrap)
         }
         wrapListDataSource.items = PaginatedList(entries:User.currentUser?.sortedWraps ?? [], request:PaginatedRequest.wraps(nil))
-        extractConent()
+        extractContent()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -58,58 +59,47 @@ class WrapListViewController: BaseViewController {
         spinner.hidden = true
     }
     
-    func extractConent() {
-        let manager = NSFileManager.defaultManager()
-        if manager.fileExistsAtPath(url.path!) {
-            guard let files = try? manager.contentsOfDirectoryAtPath(url.path!) else { return }
-            var map = [String: String]()
-            for file in files {
-                let timeInterval = file.subString("_", secondCharacter: ".") ?? ""
-                map[timeInterval] = file
-            }
-            let sortedKeys = map.keys.sort()
-            content = sortedKeys.map({ map[$0]!})
-        }
-        if content.first?.hasSuffix("txt") != true {
-            if content.count <= 10 {
-                handleAssets()
+    func extractContent() {
+        if let items = items?.sort({ $0["createdAt"] < $1["createdAt"] }) {
+            if let text = items.filter({ $0["type"] == "text" }).first {
+                let textFile = url.URLByAppendingPathComponent(text["fileName"] ?? "")
+                guard let data = NSData(contentsOfURL: textFile) else { return }
+                self.text = String(data: data, encoding: NSUTF8StringEncoding)
             } else {
-                InfoToast.show("upload_photos_limit_error".ls)
-                while content.count > 10 {
-                    content.removeLast()
+                if items.count <= 10 {
+                    assets = handleAssets(items)
+                } else {
+                    InfoToast.show("upload_photos_limit_error".ls)
+                    handleAssets(Array(items.prefix(10)))
                 }
-                handleAssets()
             }
-        } else {
-            textFile = url.URLByAppendingPathComponent(content.first ?? "")
         }
     }
     
-    func handleAssets() {
-        for file in content {
-            guard let path = url.URLByAppendingPathComponent(file).path else { break }
-            guard let data = NSFileManager.defaultManager().contentsAtPath(path) else { break }
+    func handleAssets(items: [[String:String]]) -> [MutableAsset] {
+        return items.reduce([], combine: { (assets, file) -> [MutableAsset] in
+            guard let type = file["type"] else { return assets }
+            guard let fileName = file["fileName"] else { return assets }
+            guard let path = url.URLByAppendingPathComponent(fileName).path else { return assets }
             let asset = MutableAsset()
             asset.date = NSDate.now()
-            assets.append(asset)
-            if file.hasSuffix("jpeg") {
-                guard let image = UIImage(data: data) else { return }
+            if type == "photo" {
+                guard let image = UIImage(contentsOfFile: path) else { return assets }
                 asset.type = .Photo
                 runQueue.run({ finish in
                     asset.setImage(image, completion:finish)
                 })
-            } else if file.hasSuffix("mov")  {
+                return assets + [asset]
+            } else if type == "video" {
                 asset.type = .Video
                 runQueue.run({ finish in
                     asset.setVideoFromRecordAtPath(path, completion: finish)
                 })
-            } else if file.hasSuffix("mp4") {
-                asset.type = .Video
-                runQueue.run({ finish in
-                    asset.setVideoAtPath(path, completion: finish)
-                })
+                return assets + [asset]
+            } else {
+                return assets
             }
-        }
+        })
     }
     
     @IBAction func cancel(sender: AnyObject?) {
@@ -123,9 +113,7 @@ class WrapListViewController: BaseViewController {
     }
     
     func shareContent(wrap: Wrap) {
-        if !textFile.absoluteString.isEmpty {
-            guard let data = NSFileManager.defaultManager().contentsAtPath(textFile.path!) else { return }
-            guard let text = String(data: data, encoding: NSUTF8StringEncoding) else { return }
+        if let text = text {
             let controller = Storyboard.Wrap.instantiate()
             controller.segment = .Chat
             controller.wrap = wrap
@@ -136,12 +124,11 @@ class WrapListViewController: BaseViewController {
                     controller.composeBar.text = text
                 })
             })
-        } else {
+        } else if let assets = assets {
             let queue = runQueue
             let completionBlock: Block = { [weak self] _ in
                 queue.didFinish = nil
                 if let weakSelf = self {
-                    guard let assets = self?.assets else { return }
                     Storyboard.UploadSummary.instantiate({
                         $0.assets = assets
                         $0.delegate = weakSelf
@@ -173,17 +160,6 @@ extension WrapListViewController: UploadSummaryViewControllerDelegate {
         self.navigationController?.popToRootViewControllerAnimated(false)
         Sound.play()
         controller.wrap?.uploadAssets(assets)
-    }
-}
-
-extension String {
-    func subString(firstCharacter: String, secondCharacter: String, options mask: NSStringCompareOptions = .CaseInsensitiveSearch) -> String? {
-        if let startIndex = self.rangeOfString(firstCharacter, options: mask, range: nil, locale: nil)?.endIndex {
-            if let endIndex = self.rangeOfString(secondCharacter, options: mask, range: nil, locale: nil)?.startIndex where endIndex > startIndex {
-                return self[Range(startIndex ..< endIndex)]
-            }
-        }
-        return nil
     }
 }
 

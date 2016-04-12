@@ -140,7 +140,7 @@ class LiveBroadcastMediaView: StreamReusableView {
         addSubview(nameLabel)
         addSubview(titleLabel)
         
-        let liveBadge = Label(preset: FontPreset.XSmall, textColor: UIColor.whiteColor())
+        let liveBadge = Label(preset: .XSmall, textColor: UIColor.whiteColor())
         liveBadge.textAlignment = .Center
         liveBadge.cornerRadius = 8
         liveBadge.clipsToBounds = true

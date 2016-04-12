@@ -8,7 +8,23 @@
 
 import UIKit
 
-enum FontPreset: String {
+func +(preset: Font, weight: Font.Weight) -> UIFont {
+    return UIFont.fontWithPreset(preset, weight: weight)
+}
+
+enum Font: String {
+    
+    enum Weight {
+        case Light, Regular, Bold
+        func value() -> CGFloat {
+            switch self {
+            case Light: return UIFontWeightLight
+            case Regular: return UIFontWeightRegular
+            case Bold: return UIFontWeightBold
+            }
+        }
+    }
+    
     case XSmall = "xsmall"
     case Smaller = "smaller"
     case Small = "small"
@@ -18,19 +34,8 @@ enum FontPreset: String {
     case XLarge = "xlarge"
 }
 
-enum FontWeight {
-    case Light, Regular, Bold
-    func value() -> CGFloat {
-        switch self {
-        case Light: return UIFontWeightLight
-        case Regular: return UIFontWeightRegular
-        case Bold: return UIFontWeightBold
-        }
-    }
-}
-
 extension UIFont {
-    private static let sizes: Dictionary<FontPreset, CGFloat> = [
+    private static let sizes: Dictionary<Font, CGFloat> = [
         .XSmall:11,
         .Smaller:13,
         .Small:15,
@@ -39,7 +44,7 @@ extension UIFont {
         .Larger:21,
         .XLarge:23]
     
-    private class func sizeWithPreset(preset: FontPreset) -> CGFloat {
+    private class func sizeWithPreset(preset: Font) -> CGFloat {
         if var size = sizes[preset] {
             let screen = UIScreen.mainScreen()
             if screen.bounds.size.width * screen.scale >= 1080 {
@@ -63,12 +68,12 @@ extension UIFont {
         UIContentSizeCategoryExtraExtraLarge:2,
         UIContentSizeCategoryExtraExtraExtraLarge:3]
     
-    class func fontWithPreset(preset: FontPreset, weight: FontWeight = .Light) -> UIFont {
+    class func fontWithPreset(preset: Font, weight: Font.Weight = .Light) -> UIFont {
         return UIFont.systemFontOfSize(UIFont.sizeWithPreset(preset), weight: weight.value())
     }
     
     func fontWithPreset(preset: String) -> UIFont? {
-        guard let preset = FontPreset(rawValue: preset) else { return nil }
+        guard let preset = Font(rawValue: preset) else { return nil }
         switch self.fontName {
         case let fontName where fontName.hasSuffix("Regular"):
             return UIFont.fontWithPreset(preset, weight: .Regular)

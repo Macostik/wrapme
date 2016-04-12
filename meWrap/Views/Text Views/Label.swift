@@ -17,7 +17,7 @@ class Label: UILabel {
         self.textColor = textColor
     }
     
-    convenience init(preset: FontPreset, weight: FontWeight = .Light, textColor: UIColor = Color.grayDarker) {
+    convenience init(preset: Font, weight: Font.Weight = .Light, textColor: UIColor = Color.grayDarker) {
         self.init()
         font = UIFont.fontWithPreset(preset, weight: weight)
         self.preset = preset.rawValue

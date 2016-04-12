@@ -13,43 +13,46 @@ import MobileCoreServices
 
 final class CommentCell: StreamReusableView, FlowerMenuConstructor {
     
-    private let avatarView = StatusUserAvatarView(cornerRadius: 24)
-    private let nameLabel = Label(preset: .Normal, textColor: Color.grayDark)
-    private let dateLabel = Label(preset: .Small, textColor: Color.grayLight)
-    private let textLabel = SmartLabel(preset: .Normal, weight: .Regular, textColor: UIColor.blackColor())
-    private let indicator = EntryStatusIndicator(color: Color.grayLight)
+    private let avatar = StatusUserAvatarView(cornerRadius: 24)
+    private let name = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
+    private let date = Label(preset: .Smaller, weight: .Regular, textColor: Color.grayLighter)
+    private let text = SmartLabel(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
+    private let indicator = EntryStatusIndicator(color: Color.orange)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
-        avatarView.startReceivingStatusUpdates()
+        avatar.startReceivingStatusUpdates()
         FlowerMenu.sharedMenu.registerView(self)
-        textLabel.numberOfLines = 0
-        avatarView.defaultIconSize = 24
-        addSubview(avatarView)
-        addSubview(nameLabel)
-        addSubview(dateLabel)
-        addSubview(textLabel)
+        text.numberOfLines = 0
+        avatar.defaultIconSize = 24
+        addSubview(avatar)
+        addSubview(name)
+        addSubview(date)
+        addSubview(text)
         addSubview(indicator)
-        avatarView.snp_makeConstraints { (make) -> Void in
-            make.leading.top.equalTo(self).offset(12)
+        
+        avatar.snp_makeConstraints { (make) -> Void in
+            make.leading.top.equalTo(self).offset(20)
             make.size.equalTo(48)
         }
-        nameLabel.snp_makeConstraints { (make) -> Void in
-            make.leading.equalTo(avatarView.snp_trailing).offset(12)
-            make.top.equalTo(avatarView)
-            make.trailing.lessThanOrEqualTo(self).inset(12)
+        text.snp_makeConstraints { (make) -> Void in
+            make.leading.equalTo(avatar.snp_trailing).offset(18)
+            make.top.equalTo(avatar)
+            make.trailing.lessThanOrEqualTo(self).inset(18)
         }
-        textLabel.snp_makeConstraints { (make) -> Void in
-            make.leading.equalTo(avatarView.snp_trailing).offset(12)
-            make.top.equalTo(nameLabel.snp_bottom)
-            make.trailing.lessThanOrEqualTo(self).inset(12)
+        name.snp_makeConstraints { (make) -> Void in
+            make.leading.equalTo(avatar.snp_trailing).offset(18)
+            make.top.equalTo(text.snp_bottom).offset(16)
+            make.trailing.lessThanOrEqualTo(self).inset(18)
         }
-        dateLabel.snp_makeConstraints { (make) -> Void in
-            make.leading.equalTo(avatarView.snp_trailing).offset(12)
-            make.top.equalTo(textLabel.snp_bottom)
+        
+        date.snp_makeConstraints { (make) -> Void in
+            make.leading.equalTo(avatar.snp_trailing).offset(18)
+            make.top.equalTo(name.snp_bottom).offset(4)
         }
+        
         indicator.snp_makeConstraints { (make) -> Void in
-            make.leading.equalTo(dateLabel.snp_trailing).offset(2)
-            make.centerY.equalTo(dateLabel)
+            make.leading.equalTo(date.snp_trailing).offset(12)
+            make.centerY.equalTo(date)
         }
     }
     
@@ -73,17 +76,17 @@ final class CommentCell: StreamReusableView, FlowerMenuConstructor {
         guard let comment = entry as? Comment else { return }
         userInteractionEnabled = true
         comment.markAsUnread(false)
-        nameLabel.text = comment.contributor?.name
-        avatarView.wrap = comment.candy?.wrap
-        avatarView.user = comment.contributor
-        dateLabel.text = comment.createdAt.timeAgoString()
+        name.text = comment.contributor?.name
+        avatar.wrap = comment.candy?.wrap
+        avatar.user = comment.contributor
+        date.text = comment.createdAt.timeAgoString()
         indicator.updateStatusIndicator(comment)
-        textLabel.text = comment.text
+        text.text = comment.text
     }
 }
 
-private let CommentHorizontalSpacing: CGFloat = 84.0
-private let CommentVerticalSpacing: CGFloat = 24.0
+private let CommentEstimateWidth: CGFloat = Constants.screenWidth - 104
+private let CommentVerticalSpacing: CGFloat = 60
 
 class CommentsViewController: BaseViewController {
     
@@ -196,11 +199,11 @@ class CommentsViewController: BaseViewController {
     }
     
     private func heightCell(comment: Comment) -> CGFloat {
-        let font = UIFont.fontNormal()
-        let nameFont = UIFont.lightFontNormal()
-        let timeFont = UIFont.lightFontSmall()
-        let textHeight = comment.text?.heightWithFont(font, width:Constants.screenWidth - CommentHorizontalSpacing) ?? 0
-        return max(72, textHeight + nameFont.lineHeight + timeFont.lineHeight + CommentVerticalSpacing)
+        let font = Font.Small + .Regular
+        let nameFont = Font.Small + .Bold
+        let timeFont = Font.Smaller + .Regular
+        let textHeight = comment.text?.heightWithFont(font, width:CommentEstimateWidth) ?? 0
+        return max(textHeight, font.lineHeight) + nameFont.lineHeight + timeFont.lineHeight + CommentVerticalSpacing
     }
     
     override func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {
@@ -226,19 +229,19 @@ class CommentsViewController: BaseViewController {
     private static let ContstraintOffset: CGFloat = 44
     var height: CGFloat = 0.0
     
-//    override func keyboardAdjustmentConstant(adjustment: KeyboardAdjustment, keyboard: Keyboard) -> CGFloat {
-//        if adjustment.constraint.constant == adjustment.defaultConstant {
-//            if dataSource.items?.count == 0 {
-//                height = streamView.height
-//                streamView.height -= keyboard.height + CommentsViewController.ContstraintOffset
-//            }
-//            let offset = CGPointMake(0, keyboard.height + streamView.contentOffset.y > 0 ?
-//                view.height - streamView.height + streamView.contentOffset.y - 25.0 : streamView.contentOffset.y)
-//            streamView.setContentOffset(offset, animated: false)
-//        }
-//        
-//        return adjustment.defaultConstant + (keyboard.height - CommentsViewController.ContstraintOffset)
-//    }
+    override func keyboardAdjustmentConstant(adjustment: KeyboardAdjustment, keyboard: Keyboard) -> CGFloat {
+        if adjustment.constraint.constant == adjustment.defaultConstant {
+            if dataSource.items?.count == 0 {
+                height = streamView.height
+                streamView.height -= keyboard.height + CommentsViewController.ContstraintOffset
+            }
+            let offset = CGPointMake(0, keyboard.height + streamView.contentOffset.y > 0 ?
+                view.height - streamView.height + streamView.contentOffset.y - 25.0 : streamView.contentOffset.y)
+            streamView.setContentOffset(offset, animated: false)
+        }
+        
+        return adjustment.defaultConstant + (keyboard.height - CommentsViewController.ContstraintOffset)
+    }
     
     override func keyboardWillHide(keyboard: Keyboard) {
         super.keyboardWillHide(keyboard)
@@ -262,11 +265,6 @@ class CommentsViewController: BaseViewController {
     
     func presentForController(controller: UIViewController?) {
         controller?.addContainedViewController(self, animated:false)
-        contentView.transform = CGAffineTransformMakeTranslation(0, view.frame.maxY)
-        UIView.animateWithDuration(0.5, delay:0.0, usingSpringWithDamping:0.7, initialSpringVelocity:1, options:.CurveEaseIn,
-            animations: {
-                self.contentView.transform = CGAffineTransformIdentity
-            }, completion:nil)
     }
     
     @IBAction func onClose(sender: AnyObject?) {
@@ -274,17 +272,6 @@ class CommentsViewController: BaseViewController {
         view.endEditing(true)
         removeFromContainerAnimated(true)
         historyViewController?.setBarsHidden(false, animated: true)
-//        historyViewController?.commentButtonPrioritizer?.defaultState = true
-        historyViewController?.applyScaleToCandyViewController(false)
-    }
-    
-    @IBAction func hide(sender: UITapGestureRecognizer) {
-        let contentView = streamView.superview
-        if contentView?.bounds.contains(sender.locationInView(contentView)) == true {
-            view.endEditing(true)
-        } else {
-            onClose(nil)
-        }
     }
 }
 
@@ -333,7 +320,7 @@ extension CommentsViewController: UIScrollViewDelegate {
             UIView.animateWithDuration(0.5, animations: {
                 let offsetY = offset > 0 ? self.view.y - self.view.height : self.view.height
                 snapshot.transform = CGAffineTransformMakeTranslation(0, offsetY);
-                self.historyViewController?.applyScaleToCandyViewController(false)
+                self.historyViewController?.setBarsHidden(false, animated: true)
                 }, completion: { _ in
                     snapshot.removeFromSuperview()
             })

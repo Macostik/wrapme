@@ -35,7 +35,7 @@ class CommentAddNotification: CommentNotification {
         }
         comment.notifyOnAddition()
         weak var controller = UINavigationController.main()?.topViewController as? HistoryViewController
-        let commentViewController = controller?.childViewControllers.filter({ $0 is CommentsViewController}).first as? CommentsViewController
+        let commentViewController = controller?.commentsViewController
         if controller == nil || controller?.candy?.comments.contains(comment) == false || commentViewController?.isEndingOfScroll == false {
             if comment.contributor?.current == false && !isHistorycal {
                 EntryToast.showCommentAddition(comment)

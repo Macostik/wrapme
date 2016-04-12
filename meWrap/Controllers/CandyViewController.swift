@@ -93,7 +93,7 @@ extension CandyViewController: EntryNotifying {
 extension CandyViewController: SlideInteractiveTransitionDelegate {
     
     func slideInteractiveTransition(controller: SlideInteractiveTransition, hideViews: Bool) {
-        historyViewController?.hideSecondaryViews(hideViews)
+        historyViewController?.setBarsHidden(hideViews, animated: true)
     }
     
     func slideInteractiveTransitionSnapshotView(controller: SlideInteractiveTransition) -> UIView? {
@@ -193,6 +193,7 @@ final class VideoCandyViewController: CandyViewController, VideoPlayerViewDelega
     
     override func loadView() {
         super.loadView()
+        playerView.player.muted = true
         imageView.contentMode = .ScaleAspectFit
         playerView.playbackLikelyToKeepUp = { [weak self] keepUp in
             if keepUp {
@@ -208,6 +209,15 @@ final class VideoCandyViewController: CandyViewController, VideoPlayerViewDelega
         contentView.insertSubview(playerView, belowSubview: spinner)
         imageView.snp_makeConstraints { $0.edges.equalTo(contentView) }
         playerView.snp_makeConstraints { $0.edges.equalTo(contentView) }
+        
+        playerView.tapped { [weak self] _ in
+            self?.toggleVolume()
+        }
+    }
+    
+    func toggleVolume() {
+        playerView.player.muted = !playerView.player.muted
+        historyViewController?.volumeButton.selected = !playerView.player.muted
     }
     
     override func viewDidAppear(animated: Bool) {

@@ -13,7 +13,7 @@ class LiveBroadcastViewerCell: StreamReusableView {
     static let DefaultHeight: CGFloat = 56
     
     private var avatarView = ImageView(backgroundColor: UIColor.whiteColor())
-    private var nameLabel = Label(preset: FontPreset.Small, textColor: Color.grayDarker)
+    private var nameLabel = Label(preset: .Small, textColor: Color.grayDarker)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         avatarView.cornerRadius = 24

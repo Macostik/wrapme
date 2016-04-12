@@ -12,7 +12,7 @@ import SnapKit
 
 final class MessageDateView: StreamReusableView {
     
-    private let dateLabel = specify(Label(preset: FontPreset.Normal, weight: .Regular)) { $0.textAlignment = .Center }
+    private let dateLabel = specify(Label(preset: .Normal, weight: .Regular)) { $0.textAlignment = .Center }
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         addSubview(dateLabel)

@@ -12,7 +12,7 @@ import SnapKit
 class CandyCell: StreamReusableView, FlowerMenuConstructor {
     
     let imageView = ImageView(backgroundColor: UIColor.whiteColor())
-    let commentLabel = Label(preset: FontPreset.Smaller, textColor: UIColor.whiteColor())
+    let commentLabel = Label(preset: .Smaller, textColor: UIColor.whiteColor())
     let videoIndicator = Label(icon: "+", size: 24)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {

@@ -140,7 +140,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     private var candies = [Candy]()
     
     var presenter: CandyEnlargingPresenter?
-    var commentPressed: Block?
     var dismissingView: ((presenter: CandyEnlargingPresenter?, candy: Candy) -> UIView?)?
     
     private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
@@ -198,7 +197,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     private lazy var commentView: CommentView = specify(CommentView()) {
-        $0.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
+        $0.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
         $0.layout()
     }
     
@@ -330,8 +329,9 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     private let commentButton = Button.candyAction("f", color: Color.orange)
     
-    private let volumeButton = specify(Button.expandableCandyAction("l")) {
+    let volumeButton = specify(Button.expandableCandyAction("l")) {
         $0.setTitle("m", forState: .Selected)
+        $0.setTitleColor(UIColor.whiteColor(), forState: .Selected)
         $0.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
     }
     
@@ -341,6 +341,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     var swipeDownGesture: SwipeGesture!
     var swipeUpGesture: SwipeGesture!
+    
+    weak var commentsViewController: CommentsViewController?
     
     override func loadView() {
         let view = UIView(frame: preferredViewFrame)
@@ -375,7 +377,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         view.addSubview(volumeButton)
         volumeButton.snp_makeConstraints {
             $0.size.equalTo(44)
-            $0.leading.bottom.equalTo(commentView).inset(20)
+            $0.leading.equalTo(view).inset(20)
+            $0.bottom.equalTo(commentView.snp_top).offset(-20)
         }
         
         expandButton.addTarget(self, action: #selector(self.toggleActions), forControlEvents: .TouchUpInside)
@@ -417,6 +420,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     private func setTopViewExpanded(expanded: Bool) {
         if topView.expanded != expanded {
+            accessoryLabel.text = expanded ? "z" : "y"
             animate {
                 topView.expanded = expanded
                 topView.layoutIfNeeded()
@@ -460,16 +464,31 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     func setBarsHidden(hidden: Bool, animated: Bool) {
-//        primaryConstraint?.setDefaultState(!hidden, animated: animated)
+        animate(animated, duration: 0.5) {
+            if hidden {
+                topView.transform = CGAffineTransformMakeTranslation(0, -view.height/2)
+                accessoryView.transform = CGAffineTransformMakeTranslation(0, -view.height/2)
+                commentView.transform = CGAffineTransformMakeTranslation(0, view.height/2)
+                commentButton.transform = CGAffineTransformMakeTranslation(0, view.height/2)
+                volumeButton.transform = CGAffineTransformMakeTranslation(0, view.height/2)
+            } else {
+                topView.transform = CGAffineTransformIdentity
+                accessoryView.transform = CGAffineTransformIdentity
+                commentView.transform = CGAffineTransformIdentity
+                commentButton.transform = CGAffineTransformIdentity
+                volumeButton.transform = CGAffineTransformIdentity
+            }
+        }
     }
     
     func showCommentView() {
-        if childViewControllers.contains({ $0 is CommentsViewController }) {
+        if self.commentsViewController != nil {
             return
         }
         setBarsHidden(true, animated: true)
-        applyScaleToCandyViewController(true)
-        Storyboard.Comments.instantiate({ $0.candy = candy }).presentForController(self)
+        let commentsViewController = Storyboard.Comments.instantiate({ $0.candy = candy })
+        commentsViewController.presentForController(self)
+        self.commentsViewController = commentsViewController
     }
     
     private func setCandy(candy: Candy?, direction: SwipeDirection, animated: Bool) {
@@ -711,7 +730,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     @IBAction func comments(sender: AnyObject) {
-        commentPressed?()
         showCommentView()
     }
     
@@ -719,25 +737,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         if let videoViewConroller = viewController as? VideoCandyViewController {
             volumeButton.selected = !volumeButton.selected
             videoViewConroller.playerView.player.muted = !volumeButton.selected
-        }
-    }
-    
-    func applyScaleToCandyViewController(apply: Bool) {
-        let controller = candyViewController(candy)
-        let transform = apply ? CGAffineTransformMakeScale(0.9, 0.9) : CGAffineTransformIdentity
-        UIView.animateWithDuration(0.25) { controller?.view.transform = transform }
-        setBarsHidden(apply, animated: true)
-    }
-    
-    func hideSecondaryViews(hide: Bool) {
-        commentView.hidden = hide
-        topView.hidden = hide
-        accessoryView.hidden = hide
-        commentButton.hidden = hide
-        if hide {
-            commentView.addAnimation(CATransition.transition(kCATransitionFade))
-            topView.addAnimation(CATransition.transition(kCATransitionFade))
-            commentButton.addAnimation(CATransition.transition(kCATransitionFade))
         }
     }
 }

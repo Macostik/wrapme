@@ -50,7 +50,7 @@ final class HintView: GradientView {
             let button = Button(type: .Custom)
             button.backgroundColor = Color.orange
             button.normalColor = UIColor.whiteColor()
-            button.preset = FontPreset.Small.rawValue
+            button.preset = Font.Small.rawValue
             button.backgroundColor = Color.orange
             button.cornerRadius = 5
             button.titleLabel?.font = UIFont.fontSmall()

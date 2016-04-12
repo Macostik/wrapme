@@ -9,12 +9,17 @@
 import UIKit
 import SnapKit
 
-func animate(duration: NSTimeInterval = 0.3, curve: UIViewAnimationCurve = .EaseInOut, @noescape animations: () -> ()) {
-    UIView.beginAnimations(nil, context: nil)
-    UIView.setAnimationDuration(duration)
-    UIView.setAnimationCurve(curve)
+func animate(animated: Bool = true, duration: NSTimeInterval = 0.3, curve: UIViewAnimationCurve = .EaseInOut, @noescape animations: () -> ()) {
+    if animated {
+        UIView.beginAnimations(nil, context: nil)
+        UIView.setAnimationDuration(duration)
+        UIView.setAnimationCurve(curve)
+        UIView.setAnimationBeginsFromCurrentState(true)
+    }
     animations()
-    UIView.commitAnimations()
+    if animated {
+        UIView.commitAnimations()
+    }
 }
 
 extension UIView {

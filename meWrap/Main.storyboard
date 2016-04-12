@@ -2066,18 +2066,6 @@
                                                             <outlet property="trailingPrioritizer" destination="np4-hr-S7e" id="Svx-1X-UDC"/>
                                                         </connections>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yYc-nx-s5E" customClass="SeparatorView" customModule="meWrap" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="552" width="600" height="1"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="1" id="Ihy-m1-XBx"/>
-                                                        </constraints>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                                <color key="value" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
                                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WYU-Tj-StJ" customClass="StreamView" customModule="meWrap">
                                                         <rect key="frame" x="0.0" y="38" width="600" height="514"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2087,16 +2075,13 @@
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="zd4-Tx-fC0" secondAttribute="trailing" id="1e0-Nx-Wv2"/>
                                                     <constraint firstItem="zd4-Tx-fC0" firstAttribute="leading" secondItem="flS-sD-RYF" secondAttribute="leading" id="6MO-WL-wc9"/>
-                                                    <constraint firstItem="yYc-nx-s5E" firstAttribute="leading" secondItem="flS-sD-RYF" secondAttribute="leading" id="ADA-W5-PJW"/>
                                                     <constraint firstAttribute="trailing" secondItem="HRF-S3-bc8" secondAttribute="trailing" id="Acp-H7-LMK"/>
-                                                    <constraint firstAttribute="trailing" secondItem="yYc-nx-s5E" secondAttribute="trailing" id="CTU-SF-fis"/>
                                                     <constraint firstItem="WYU-Tj-StJ" firstAttribute="top" secondItem="HRF-S3-bc8" secondAttribute="bottom" id="SID-hC-6gr"/>
                                                     <constraint firstAttribute="trailing" secondItem="WYU-Tj-StJ" secondAttribute="trailing" id="hfX-3W-fOJ"/>
                                                     <constraint firstItem="HRF-S3-bc8" firstAttribute="top" secondItem="flS-sD-RYF" secondAttribute="top" id="hyL-h1-plg"/>
                                                     <constraint firstItem="zd4-Tx-fC0" firstAttribute="top" secondItem="WYU-Tj-StJ" secondAttribute="bottom" id="lnB-MR-ZL5"/>
                                                     <constraint firstItem="WYU-Tj-StJ" firstAttribute="leading" secondItem="flS-sD-RYF" secondAttribute="leading" id="lvV-kg-hPE"/>
                                                     <constraint firstAttribute="bottom" secondItem="zd4-Tx-fC0" secondAttribute="bottom" priority="750" id="ssR-K8-cdR"/>
-                                                    <constraint firstItem="zd4-Tx-fC0" firstAttribute="top" secondItem="yYc-nx-s5E" secondAttribute="top" id="uee-oJ-CUy"/>
                                                     <constraint firstItem="HRF-S3-bc8" firstAttribute="leading" secondItem="flS-sD-RYF" secondAttribute="leading" id="wWJ-eR-usH"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
@@ -2127,7 +2112,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="bottomMargin" secondItem="GGG-DR-Zue" secondAttribute="bottom" id="3k1-vg-gNi"/>

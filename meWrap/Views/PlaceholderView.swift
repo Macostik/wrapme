@@ -98,14 +98,14 @@ final class HomePlaceholderView: PlaceholderView {
         containerView.addSubview(textLabel)
         containerView.addSubview(iconLabel)
         textLabel.textColor = Color.grayDark
-        textLabel.preset = FontPreset.Normal.rawValue
+        textLabel.preset = Font.Normal.rawValue
         textLabel.font = UIFont.fontWithPreset(.Normal)
         let actionButton = Button(type: .Custom)
         actionButton.setTitle("let's_get_started".ls, forState: .Normal)
         actionButton.backgroundColor = Color.orange
         actionButton.normalColor = Color.orange
         actionButton.highlightedColor = Color.orangeDark
-        actionButton.preset = FontPreset.Normal.rawValue
+        actionButton.preset = Font.Normal.rawValue
         actionButton.titleLabel?.font = UIFont.fontWithPreset(.Normal)
         actionButton.clipsToBounds = true
         actionButton.cornerRadius = 6

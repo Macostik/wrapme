@@ -86,7 +86,7 @@ final class ContributorCell: StreamReusableView {
             let button = PressButton(type: .Custom)
             button.backgroundColor = Color.dangerRed
             button.normalColor = Color.dangerRed
-            button.preset = FontPreset.Small.rawValue
+            button.preset = Font.Small.rawValue
             button.titleLabel?.font = UIFont.lightFontSmall()
             button.setTitle("Remove", forState: .Normal)
             button.addTarget(self, action: #selector(ContributorCell.remove(_:)), forControlEvents: .TouchUpInside)
@@ -101,7 +101,7 @@ final class ContributorCell: StreamReusableView {
             let button = PressButton(type: .Custom)
             button.backgroundColor = Color.orange
             button.normalColor = Color.orange
-            button.preset = FontPreset.Small.rawValue
+            button.preset = Font.Small.rawValue
             button.titleLabel?.font = UIFont.lightFontSmall()
             button.titleLabel?.numberOfLines = 2
             button.titleLabel?.textAlignment = .Center

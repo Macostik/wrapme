@@ -95,7 +95,7 @@ extension APIRequest {
                 wrap.contributors.insert(user)
                 wrap.notifyOnUpdate(.ContributorsChanged)
             }
-            NotificationCenter.defaultCenter.refreshUserActivities(wrap, completionHandler: {
+            NotificationCenter.defaultCenter.refreshWrapUserActivities(wrap, completionHandler: {
                 if wrap.liveBroadcasts.count > 0 {
                     wrap.notifyOnUpdate(.LiveBroadcastsChanged)
                 }

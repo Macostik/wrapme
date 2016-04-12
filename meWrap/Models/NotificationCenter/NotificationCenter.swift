@@ -33,6 +33,7 @@ final class NotificationCenter: NSObject {
         liveSubscription?.subscribe()
         subscribe()
         Dispatch.mainQueue.after(0.5, block: { self.requestHistory() })
+        refreshUserActivities(true, completionHandler: nil)
     }
     
     func handleDeviceToken(deviceToken: NSData) {
@@ -328,7 +329,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
         return (activities, users)
     }
     
-    func refreshUserActivities(completionHandler: (Void -> Void)?) {
+    func refreshUserActivities(notify: Bool = false, completionHandler: (Void -> Void)?) {
         PubNub.sharedInstance.hereNowForChannelGroup(userSubscription.name) { (result, status) -> Void in
             if let channels = result?.data.channels {
                 
@@ -356,13 +357,13 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
                             device.activity.wrap = wrap
                             if device.activity.inProgress && device.activity.type == .Live {
                                 let broadcast = device.activity.generateLiveBroadcast()
-                                wrap?.addBroadcastIfNeeded(broadcast)
+                                wrap?.addBroadcastIfNeeded(broadcast, notify: notify)
                             }
                             continue usersLoop
                         }
                     }
                     if device.activity.inProgress {
-                        device.activity.wrap?.removeBroadcastFrom(user)
+                        device.activity.wrap?.removeBroadcastFrom(user, notify: notify)
                         device.activity.clear()
                     }
                 }
@@ -371,7 +372,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
         }
     }
     
-    func refreshUserActivities(wrap: Wrap, completionHandler: (Void -> Void)?) {
+    func refreshWrapUserActivities(wrap: Wrap, completionHandler: (Void -> Void)?) {
         PubNub.sharedInstance.hereNowForChannel(wrap.uid, withVerbosity: .State) { (result, status) -> Void in
             
             if let uuids = result?.data.uuids as? [[String:AnyObject]] {

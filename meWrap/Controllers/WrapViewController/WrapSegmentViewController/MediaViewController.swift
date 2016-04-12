@@ -261,7 +261,7 @@ class MediaViewController: WrapSegmentViewController {
     
     func refreshUserActivities() {
         if let wrap = wrap {
-            NotificationCenter.defaultCenter.refreshUserActivities(wrap, completionHandler: { [weak self] () -> Void in
+            NotificationCenter.defaultCenter.refreshWrapUserActivities(wrap, completionHandler: { [weak self] () -> Void in
                 self?.dataSource.reload()
             })
         }

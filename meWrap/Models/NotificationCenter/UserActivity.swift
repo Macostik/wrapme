@@ -64,7 +64,7 @@ struct UserActivity {
     
     mutating func handleActivity(info: [String:AnyObject]) {
         self.info = info
-        if let type = info["type"] as? Int, let activityType = UserActivityType(rawValue: type) {
+        if let _type = info["type"], let type = Int("\(_type)"), let activityType = UserActivityType(rawValue: type) {
             self.type = activityType
             inProgress = info["in_progress"] as? Bool ?? false
         }

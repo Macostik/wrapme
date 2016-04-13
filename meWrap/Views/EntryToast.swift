@@ -213,7 +213,7 @@ extension EntryToast {
     }
     
     class func showWrapInvitation(wrap: Wrap, inviter: User?) {
-        EntryToast.entryToast.show(setup: { (toast) in
+        EntryToast.entryToast.show(style: wrap.asset?.medium == nil ? .Short : .Full, setup: { (toast) in
             toast.imageView.url = wrap.asset?.medium
             toast.avatar.url = inviter?.avatar?.small
             toast.topLabel.text =  String(format: "you're_invited".ls ?? "")

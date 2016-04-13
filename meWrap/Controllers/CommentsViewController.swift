@@ -13,14 +13,13 @@ import MobileCoreServices
 
 final class CommentCell: StreamReusableView, FlowerMenuConstructor {
     
-    private let avatarView = StatusUserAvatarView()
+    private let avatarView = UserAvatarView()
     private let nameLabel = Label(preset: .Normal, textColor: Color.grayDark)
     private let dateLabel = Label(preset: .Small, textColor: Color.grayLight)
     private let textLabel = SmartLabel(preset: .Normal, weight: .Regular, textColor: UIColor.blackColor())
     private let indicator = EntryStatusIndicator(color: Color.grayLight)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
-        avatarView.startReceivingStatusUpdates()
         FlowerMenu.sharedMenu.registerView(self)
         textLabel.numberOfLines = 0
         avatarView.cornerRadius = 24
@@ -75,7 +74,6 @@ final class CommentCell: StreamReusableView, FlowerMenuConstructor {
         userInteractionEnabled = true
         comment.markAsUnread(false)
         nameLabel.text = comment.contributor?.name
-        avatarView.wrap = comment.candy?.wrap
         avatarView.user = comment.contributor
         dateLabel.text = comment.createdAt.timeAgoString()
         indicator.updateStatusIndicator(comment)
@@ -91,6 +89,9 @@ class CommentsViewController: BaseViewController {
     weak var candy: Candy?
     
     @IBOutlet weak var streamView: StreamView!
+    @IBOutlet weak var friendsStreamView: StreamView!
+    
+    private lazy var friendsDataSource: StreamDataSource = StreamDataSource(streamView: self.friendsStreamView)
     
     private lazy var dataSource: StreamDataSource = StreamDataSource(streamView: self.streamView)
     
@@ -131,6 +132,13 @@ class CommentsViewController: BaseViewController {
             self?.dataSource.didLayoutBlock = nil
         }
         
+        friendsStreamView.layout = HorizontalStreamLayout()
+        let friendMetrics = StreamMetrics(loader: StreamLoader<FriendView>(), size: friendsStreamView.height)
+        friendMetrics.prepareAppearing = { [weak self] item, view in
+            (view as? FriendView)?.wrap = self?.candy?.wrap
+        }
+        friendsDataSource.addMetrics(friendMetrics)
+        
         if candy.uploaded {
             candy.fetch({ [weak self] _ in
                 self?.dataSource.items = candy.sortedComments()
@@ -139,9 +147,11 @@ class CommentsViewController: BaseViewController {
                     error?.showNonNetworkError()
             })
         }
+        friendsDataSource.items = activeContibutors
         
         addNotifyReceivers()
         DeviceManager.defaultManager.addReceiver(self)
+        User.notifier().addReceiver(self)
         historyViewController = parentViewController as? HistoryViewController
         EntryToast.entryToast.handleTouch = { [weak self] _ in
             self?.view.layoutIfNeeded()
@@ -155,6 +165,14 @@ class CommentsViewController: BaseViewController {
         super.viewWillAppear(animated)
         streamView.layoutIfNeeded()
         streamView.setMaximumContentOffsetAnimated(false)
+    }
+    
+    var activeContibutors: [User] {
+        set {}
+        get {
+            guard let wrap = candy?.wrap else { return [] }
+            return wrap.contributors.filter({$0.activityForWrap(wrap) != nil }).sort({$0.name < $1.name})
+        }
     }
     
     var isEndingOfScroll = false
@@ -270,7 +288,7 @@ class CommentsViewController: BaseViewController {
             }, completion:nil)
     }
     
-    @IBAction func onClose(sender: AnyObject?) {
+    func onClose(sender: AnyObject?) {
         typing = false
         view.endEditing(true)
         removeFromContainerAnimated(true)
@@ -339,5 +357,12 @@ extension CommentsViewController: UIScrollViewDelegate {
                     snapshot.removeFromSuperview()
             })
         }
+    }
+}
+
+extension CommentsViewController: EntryNotifying {
+    
+    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
+        friendsDataSource.items = activeContibutors
     }
 }

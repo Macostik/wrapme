@@ -420,7 +420,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         swipeUpGesture.shouldBegin = { [weak self] _ in
             return self?.topView.expanded == true
         }
-        view.tapped { [weak self] _ in
+        scrollView.tapped { [weak self] _ in
             self?.setTopViewExpanded(false)
         }
     }

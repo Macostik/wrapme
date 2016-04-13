@@ -94,12 +94,14 @@ class CommentsViewController: BaseViewController {
     
     @IBOutlet weak var streamView: StreamView!
     
+    @IBOutlet weak var topView: UIView!
+    
     private lazy var dataSource: StreamDataSource<[Comment]> = StreamDataSource(streamView: self.streamView)
     
     @IBOutlet weak var composeBar: ComposeBar!
     
     @IBOutlet weak var composeBarBottomPrioritizer: LayoutPrioritizer!
-    @IBOutlet weak var contentView: InternalScrollView!
+    @IBOutlet weak var contentView: UIView!
     weak var historyViewController: HistoryViewController?
     
     private var candyNotifyReceiver: EntryNotifyReceiver<Candy>?
@@ -107,11 +109,15 @@ class CommentsViewController: BaseViewController {
     private var commentNotifyReceiver: EntryNotifyReceiver<Comment>?
     
     deinit {
-        contentView?.delegate = nil
+        streamView.layer.removeObserver(self, forKeyPath: "bounds", context: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        streamView.layer.addObserver(self, forKeyPath: "bounds", options: .New, context: nil)
+        view.addGestureRecognizer(streamView.panGestureRecognizer)
+        streamView.panGestureRecognizer.addTarget(self, action: #selector(self.panned(_:)))
         
         guard let candy = candy?.validEntry() else { return }
         
@@ -139,6 +145,59 @@ class CommentsViewController: BaseViewController {
         addNotifyReceivers()
         DeviceManager.defaultManager.addReceiver(self)
         composeBar.text = candy.typedComment
+    }
+    
+    func panned(sender: UIPanGestureRecognizer) {
+        if sender.state == .Ended && scrollingOffset != 0 {
+            let velocity = sender.velocityInView(sender.view)
+            if abs(scrollingOffset) > streamView.height/3 || abs(velocity.y) > 1000 {
+                let snapshot = contentView.snapshotViewAfterScreenUpdates(false)
+                snapshot.frame = contentView.frame
+                contentView.hidden = true
+                view.addSubview(snapshot)
+                typing = false
+                composeBar.resignFirstResponder()
+                self.historyViewController?.setBarsHidden(false, animated: true)
+                UIView.animateWithDuration(0.5, animations: {
+                    let offsetY = self.scrollingOffset > 0 ? -self.view.height : self.view.height
+                    snapshot.transform = CGAffineTransformMakeTranslation(0, offsetY)
+                    self.view.backgroundColor = UIColor.clearColor()
+                    }, completion: { _ in
+                        self.removeFromContainerAnimated(true)
+                })
+            }
+        }
+    }
+    
+    var scrollingOffset: CGFloat = 0
+    
+    private func scrollingOffsetChanged() {
+        if streamView.contentOffset.y < 0 {
+            scrollingOffset = streamView.contentOffset.y
+            let offset = abs(scrollingOffset)
+            topView.transform = CGAffineTransformMakeTranslation(0, offset)
+            composeBar.transform = CGAffineTransformIdentity
+            let value = smoothstep(0, 1, 1 - offset / (contentView.height / 2))
+            view.backgroundColor = UIColor(white: 0, alpha: 0.7 * value)
+        } else if streamView.contentOffset.y > streamView.maximumContentOffset.y {
+            let offset = (streamView.contentOffset.y - streamView.maximumContentOffset.y)
+            topView.transform = CGAffineTransformIdentity
+            composeBar.transform = CGAffineTransformMakeTranslation(0, -offset)
+            let value = smoothstep(0.0, 1.0, 1 - offset / (contentView.height / 2))
+            view.backgroundColor = UIColor(white: 0, alpha: 0.7 * value)
+            scrollingOffset = offset
+        } else {
+            scrollingOffset = 0
+            topView.transform = CGAffineTransformIdentity
+            composeBar.transform = CGAffineTransformIdentity
+            view.backgroundColor = UIColor(white: 0, alpha: 0.7)
+        }
+    }
+    
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if !contentView.hidden {
+            scrollingOffsetChanged()
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -295,32 +354,5 @@ extension CommentsViewController: DeviceManagerNotifying {
     func manager(manager: DeviceManager, didChangeOrientation orientation: UIDeviceOrientation) {
         view.layoutIfNeeded()
         dataSource.reload()
-    }
-}
-
-extension CommentsViewController: UIScrollViewDelegate {
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        let direction = scrollView.panGestureRecognizer.translationInView(scrollView.superview).y < 0
-        composeBarBottomPrioritizer.defaultState = direction
-    }
-    
-    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let offset = scrollView.contentOffset.y
-        if abs(offset) > scrollView.height/5 || abs(velocity.y) > 2 {
-            let snapshot = contentView.snapshotViewAfterScreenUpdates(false)
-            snapshot.frame = contentView.frame
-            contentView.hidden = true
-            view.addSubview(snapshot)
-            typing = false
-            UIView.animateWithDuration(0.5, animations: {
-                let offsetY = offset > 0 ? -self.view.height : self.view.height
-                snapshot.transform = CGAffineTransformMakeTranslation(0, offsetY)
-                self.historyViewController?.setBarsHidden(false, animated: true)
-                self.view.backgroundColor = UIColor.clearColor()
-                }, completion: { _ in
-                    self.removeFromContainerAnimated(true)
-            })
-        }
     }
 }

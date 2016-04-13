@@ -11,7 +11,6 @@
 		5B03F90C1C5A65A60085BA51 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B03F90B1C5A65A60085BA51 /* Label.swift */; };
 		5B1061341C610A1900496647 /* ConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1061331C610A1900496647 /* ConfirmView.swift */; };
 		5B1D045B1BFCE16C00263102 /* SlideTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1D045A1BFCE16C00263102 /* SlideTransition.swift */; };
-		5B1DD0371BD7B67000D30E1A /* InternalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */; };
 		5B211FB21C087137000EC3DB /* (null) in Resources */ = {isa = PBXBuildFile; };
 		5B2960571C60F5B9008D121A /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2960561C60F5B9008D121A /* ShareViewController.swift */; };
 		5B29605A1C60F5B9008D121A /* Share.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B2960581C60F5B9008D121A /* Share.storyboard */; };
@@ -441,7 +440,6 @@
 		5B03F90B1C5A65A60085BA51 /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		5B1061331C610A1900496647 /* ConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmView.swift; sourceTree = "<group>"; };
 		5B1D045A1BFCE16C00263102 /* SlideTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideTransition.swift; sourceTree = "<group>"; };
-		5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalScrollView.swift; sourceTree = "<group>"; };
 		5B2960541C60F5B9008D121A /* ShareExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B2960561C60F5B9008D121A /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		5B2960591C60F5B9008D121A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Share.storyboard; sourceTree = "<group>"; };
@@ -1016,7 +1014,6 @@
 				5B37C75D1C5A06E30068E693 /* Button.swift */,
 				5BD529481BDA796000527077 /* SmartLabel.swift */,
 				C51E34E91BD8EB4100C6F678 /* SeparatorView.swift */,
-				5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */,
 				C521E18B1BC7AE1B00505432 /* VideoPlayerView.swift */,
 				C51E34EB1BD8ECC300C6F678 /* GradientView.swift */,
 				C530127A1BF49AD600098F9C /* Refresher.swift */,
@@ -1981,7 +1978,6 @@
 				C502B3151C47F2EC00F66EAE /* MessageNotification.swift in Sources */,
 				C5F11E561C64A21C001C2486 /* TestUserPicker.swift in Sources */,
 				C502B3311C47F33100F66EAE /* AddressBookRecord.swift in Sources */,
-				5B1DD0371BD7B67000D30E1A /* InternalScrollView.swift in Sources */,
 				C55BE8C91C031D54006B04FC /* AuthorizedExecutor.swift in Sources */,
 				C5F11E5B1C64B8FC001C2486 /* Validation.swift in Sources */,
 				5BD529491BDA796000527077 /* SmartLabel.swift in Sources */,

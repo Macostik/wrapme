@@ -18,7 +18,7 @@ class MutableAsset: Asset {
     var edited = false
     var selected = false
     var uploaded = false
-    var thumbnailSize: CGFloat = 0
+    var thumbnailSize: CGFloat = 240
     weak var videoExportSession: AVAssetExportSession?
     
     deinit {

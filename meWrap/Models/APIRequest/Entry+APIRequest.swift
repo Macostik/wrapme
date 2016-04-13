@@ -294,7 +294,7 @@ extension Candy {
     
     func editWithImage(image: UIImage) {
         if valid {
-            let asset = MutableAsset()
+            let asset = MutableAsset(isAvatar: false)
             asset.setImage(image)
             editAsset(asset.uploadableAsset(false))
             enqueueUpdate()?.show()

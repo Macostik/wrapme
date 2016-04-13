@@ -125,13 +125,7 @@ class CommentsViewController: BaseViewController {
             }
         }))
         dataSource.placeholderMetrics = PlaceholderView.commentsPlaceholderMetrics()
-        dataSource.didLayoutBlock = { [weak self] _ in
-            self?.streamView.setMaximumContentOffsetAnimated(false)
-        }
         dataSource.items = candy.sortedComments()
-        Dispatch.mainQueue.async { [weak self] _ in
-            self?.dataSource.didLayoutBlock = nil
-        }
         
         if candy.uploaded {
             candy.fetch({ [weak self] _ in
@@ -144,21 +138,17 @@ class CommentsViewController: BaseViewController {
         
         addNotifyReceivers()
         DeviceManager.defaultManager.addReceiver(self)
-        EntryToast.entryToast.handleTouch = { [weak self] _ in
-            self?.view.layoutIfNeeded()
-            self?.streamView.setMaximumContentOffsetAnimated(true)
-        }
-        
         composeBar.text = candy.typedComment
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        streamView.layoutIfNeeded()
         streamView.setMaximumContentOffsetAnimated(false)
     }
     
-    var isEndingOfScroll = false
+    var isEndingOfScroll: Bool {
+        return abs(streamView.contentOffset.y - streamView.maximumContentOffset.y) <= 5
+    }
     
     private func addNotifyReceivers() {
         commentNotifyReceiver = EntryNotifyReceiver<Comment>().setup { [weak self] receiver in
@@ -166,18 +156,14 @@ class CommentsViewController: BaseViewController {
             
             receiver.willDelete = { entry in
                 var comments = self?.dataSource.items
-                if let index = comments?.indexOf(entry) {
-                    comments?.removeAtIndex(index)
-                }
+                comments?.remove(entry)
                 self?.dataSource.items = comments
             }
             receiver.didAdd = { entry in
-                self?.isEndingOfScroll = false
+                let isEndingOfScroll = self?.isEndingOfScroll ?? false
                 self?.dataSource.items = self?.candy?.sortedComments()
-                let offset = (self?.streamView.maximumContentOffset.y ?? 0) - (self?.streamView.contentOffset.y ?? 0) - (self?.heightCell(entry) ?? 0)
-                if offset <= 5 {
+                if isEndingOfScroll {
                     self?.streamView.setMaximumContentOffsetAnimated(true)
-                    self?.isEndingOfScroll = true
                 }
             }
             receiver.didUpdate = { _ in
@@ -185,14 +171,14 @@ class CommentsViewController: BaseViewController {
             }
         }
         
-        candyNotifyReceiver = EntryNotifyReceiver<Candy>().setup {  [weak self]receiver in
+        candyNotifyReceiver = EntryNotifyReceiver<Candy>().setup { [weak self] receiver in
             receiver.entry = { return self?.candy }
             receiver.container = { return self?.candy?.wrap }
             receiver.willDelete = { _ in
-                self?.onClose(nil)
+                self?.close()
             }
             receiver.willDeleteContainer = { _ in
-                self?.onClose(nil)
+                self?.close()
             }
         }
     }
@@ -206,9 +192,7 @@ class CommentsViewController: BaseViewController {
     }
     
     override func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {
-        if let comment = entry as? Comment {
-            completion(!(candy?.comments.contains(comment) ?? false))
-        }
+        completion((entry as? Comment)?.candy != candy)
     }
     
     var typing = false {
@@ -225,13 +209,27 @@ class CommentsViewController: BaseViewController {
         }
     }
     
+    private func keepContentOffset(@noescape block: () -> ()) {
+        let height = streamView.height
+        let offset = streamView.contentOffset.y
+        block()
+        streamView.contentOffset.y = smoothstep(0, streamView.maximumContentOffset.y, offset + (height - streamView.height))
+    }
+    
     override func keyboardWillShow(keyboard: Keyboard) {
-        super.keyboardWillShow(keyboard)
-        streamView.setMaximumContentOffsetAnimated(true)
+        keepContentOffset { 
+            super.keyboardWillShow(keyboard)
+        }
+    }
+    
+    override func keyboardWillHide(keyboard: Keyboard) {
+        keepContentOffset {
+            super.keyboardWillHide(keyboard)
+        }
     }
     
     private func sendMessageWithText(text: String) {
-        onClose(nil)
+        close(true)
         if let candy = candy?.validEntry() {
             Dispatch.mainQueue.async {
                 Sound.play()
@@ -243,13 +241,33 @@ class CommentsViewController: BaseViewController {
     func presentForController(controller: HistoryViewController) {
         historyViewController = controller
         controller.addContainedViewController(self, animated:false)
+        let backgroundColor = view.backgroundColor
+        view.backgroundColor = UIColor.clearColor()
+        contentView.transform = CGAffineTransformMakeTranslation(0, view.height)
+        animate {
+            view.backgroundColor = backgroundColor
+            contentView.transform = CGAffineTransformIdentity
+        }
+    }
+    
+    func close(animated: Bool = false) {
+        typing = false
+        view.endEditing(true)
+        if animated {
+            UIView.animateWithDuration(0.2, animations: {
+                self.view.backgroundColor = UIColor.clearColor()
+                self.contentView.transform = CGAffineTransformMakeTranslation(0, self.view.height)
+            }) { (_) in
+                self.removeFromContainerAnimated(true)
+            }
+        } else {
+            removeFromContainerAnimated(true)
+        }
+        historyViewController?.setBarsHidden(false, animated: true)
     }
     
     @IBAction func onClose(sender: AnyObject?) {
-        typing = false
-        view.endEditing(true)
-        removeFromContainerAnimated(true)
-        historyViewController?.setBarsHidden(false, animated: true)
+        close(true)
     }
 }
 

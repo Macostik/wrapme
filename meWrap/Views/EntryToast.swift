@@ -182,7 +182,7 @@ extension EntryToast {
             toast.imageView.url = candy.asset?.medium
             toast.topLabel.text = String(format: (candy.isVideo ? "just_sent_you_a_new_video" : "just_sent_you_a_new_photo").ls, candy.contributor?.name ?? "")
             toast.middleLabel.text = ""
-            }, handleTouch: { ChronologicalEntryPresenter.presentEntry(candy, animated: false) })
+            }, handleTouch: { ChronologicalEntryPresenter.presentEntryRequestingAuthorization(candy, animated: false) })
     }
     
     class func showCandyUpdate(candy: Candy) {
@@ -191,7 +191,7 @@ extension EntryToast {
             toast.imageView.url = candy.asset?.medium
             toast.topLabel.text = String(format: "someone_edited_photo".ls, candy.editor?.name ?? "")
             toast.middleLabel.text = ""
-            }, handleTouch: { ChronologicalEntryPresenter.presentEntry(candy, animated: false) })
+            }, handleTouch: { ChronologicalEntryPresenter.presentEntryRequestingAuthorization(candy, animated: false) })
     }
     
     class func showCommentAddition(comment: Comment) {
@@ -200,7 +200,19 @@ extension EntryToast {
             toast.imageView.url = comment.asset?.medium
             toast.topLabel.text = String(format: "someone_commented".ls, comment.contributor?.name ?? "")
             toast.middleLabel.text = comment.text
-            }, handleTouch: { ChronologicalEntryPresenter.presentEntry(comment, animated: false) })
+            }, handleTouch: {
+                if let controller = UINavigationController.main()?.topViewController as? HistoryViewController {
+                    if controller.candy == comment.candy {
+                        for controller in controller.childViewControllers {
+                            if let controller = controller as? CommentsViewController {
+                                controller.streamView.scrollToItemPassingTest({ $0.entry === comment }, animated: true)
+                                return
+                            }
+                        }
+                    }
+                }
+                ChronologicalEntryPresenter.presentEntryRequestingAuthorization(comment, animated: false)
+        })
     }
     
     class func showMessageAddition(message: Message) {
@@ -209,7 +221,7 @@ extension EntryToast {
             toast.imageView.url = message.asset?.medium
             toast.topLabel.text = String(format: "\(message.contributor?.name ?? ""):")
             toast.middleLabel.text = message.text
-            }, handleTouch: { ChronologicalEntryPresenter.presentEntry(message, animated: false) })
+            }, handleTouch: { ChronologicalEntryPresenter.presentEntryRequestingAuthorization(message, animated: false) })
     }
     
     class func showWrapInvitation(wrap: Wrap, inviter: User?) {
@@ -218,7 +230,7 @@ extension EntryToast {
             toast.avatar.url = inviter?.avatar?.small
             toast.topLabel.text =  String(format: "you're_invited".ls ?? "")
             toast.middleLabel.text = String(format: "invited_you_to".ls, inviter?.name ?? "", wrap.name ?? "")
-            }, handleTouch: { ChronologicalEntryPresenter.presentEntry(wrap, animated: false) })
+            }, handleTouch: { ChronologicalEntryPresenter.presentEntryRequestingAuthorization(wrap, animated: false) })
     }
     
     class func showLiveBroadcast(liveBroadcast: LiveBroadcast) {
@@ -230,12 +242,13 @@ extension EntryToast {
             toast.middleLabel.text = String(format: "\(wrap.name ?? "")")
             toast.showBadge(true)
         }) {
-            ChronologicalEntryPresenter.presentEntry(wrap, animated: false)
-            guard let nc = UINavigationController.main() else { return }
-            (nc.topViewController as? LiveBroadcasterViewController)?.close()
-            if let controller = wrap.viewControllerWithNavigationController(nc) as? WrapViewController {
-                controller.presentLiveBroadcast(liveBroadcast)
-            }
+            ChronologicalEntryPresenter.presentEntryRequestingAuthorization(wrap, animated: false, completionHandler: {
+                guard let nc = UINavigationController.main() else { return }
+                (nc.topViewController as? LiveBroadcasterViewController)?.close()
+                if let controller = wrap.viewControllerWithNavigationController(nc) as? WrapViewController {
+                    controller.presentLiveBroadcast(liveBroadcast)
+                }
+            })
         }
     }
 }

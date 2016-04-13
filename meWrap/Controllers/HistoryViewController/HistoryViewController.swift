@@ -142,7 +142,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     var presenter: CandyEnlargingPresenter?
     var dismissingView: (Candy -> UIView?)?
     
-    private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
     private let drawButton = Button.candyAction("8", color: Color.purple, size: 24)
     private let editButton = Button.candyAction("R", color: Color.blue)
     private let stickersButton = Button.candyAction("i", color: Color.greenOption, size: 24)
@@ -351,7 +350,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     private var cachedCandyViewControllers = [Candy : CandyViewController]()
     private weak var removedCandy: Candy?
-    private var paginationQueue = RunQueue(limit: 1)
     
     var swipeDownGesture: SwipeGesture!
     var swipeUpGesture: SwipeGesture!
@@ -567,17 +565,9 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         guard let history = history where !history.completed else { return }
         guard let index = candies.indexOf(candy) else { return }
         guard candies.count - index < 4 else { return }
-        paginationQueue.run { [weak self] (finish) -> Void in
-            self?.spinner.startAnimating()
-            history.older({ _ in
-                self?.candies = self?.wrap?.historyCandies ?? []
-                self?.spinner.stopAnimating()
-                finish()
-                }, failure: { _ in
-                    self?.spinner.stopAnimating()
-                    finish()
-            })
-        }
+        history.older({ [weak self] _ in
+            self?.candies = self?.wrap?.historyCandies ?? []
+            }, failure: nil)
     }
     
     private func candyViewController(candy: Candy?) -> CandyViewController? {

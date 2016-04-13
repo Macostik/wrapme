@@ -2057,8 +2057,6 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="enableAlternativeState:" destination="6yG-IE-KDc" eventType="editingDidEnd" id="2SF-eO-OCY"/>
-                                                            <action selector="enableDefaultState:" destination="6yG-IE-KDc" eventType="editingDidBegin" id="Xpf-TV-gfD"/>
                                                             <outlet property="delegate" destination="M8n-42-KAe" id="F2e-Zh-H0Z"/>
                                                             <outlet property="emojiButton" destination="CUX-Dn-0ih" id="1CP-CD-UTB"/>
                                                             <outlet property="heightConstraint" destination="GQL-cm-nfb" id="PVz-AN-yrU"/>
@@ -2131,14 +2129,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kjg-TD-Vmm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="6yG-IE-KDc" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outletCollection property="parentViews" destination="Mb1-3b-t3s" collectionClass="NSMutableArray" id="m4n-o5-P2P"/>
-                    </connections>
-                </customObject>
                 <customObject id="np4-hr-S7e" userLabel="ComposeBar Trailing Prioritizer" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>

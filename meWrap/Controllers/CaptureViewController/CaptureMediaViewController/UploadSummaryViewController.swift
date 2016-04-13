@@ -149,6 +149,12 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
         setViewController(editAssetViewControllerForAsset(assets.last), direction: .Forward, animated: false)
     }
     
+    override func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {
+        UIAlertController.alert("unsaved_photo".ls, message: "leave_screen_on_editing".ls).action("cancel".ls, handler: { _ in
+            completion(false)
+        }).action("continue".ls, handler: { _ in completion(true) }).show()
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         dataSource.items = assets

@@ -12,6 +12,16 @@ extension Array {
     subscript (safe index: Int) -> Element? {
         return (index >= 0 && index < count) ? self[index] : nil
     }
+    
+}
+
+extension Array where Element: Equatable {
+    
+    mutating func remove(element: Element) {
+        if let index = indexOf(element) {
+            removeAtIndex(index)
+        }
+    }
 }
 
 extension CollectionType {

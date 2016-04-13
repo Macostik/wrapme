@@ -123,13 +123,7 @@ class CommentsViewController: BaseViewController {
             }
         }))
         dataSource.placeholderMetrics = PlaceholderView.commentsPlaceholderMetrics()
-        dataSource.didLayoutBlock = { [weak self] _ in
-            self?.streamView.setMaximumContentOffsetAnimated(false)
-        }
         dataSource.items = candy.sortedComments()
-        Dispatch.mainQueue.async { [weak self] _ in
-            self?.dataSource.didLayoutBlock = nil
-        }
         
         if candy.uploaded {
             candy.fetch({ [weak self] _ in
@@ -143,21 +137,17 @@ class CommentsViewController: BaseViewController {
         addNotifyReceivers()
         DeviceManager.defaultManager.addReceiver(self)
         historyViewController = parentViewController as? HistoryViewController
-        EntryToast.entryToast.handleTouch = { [weak self] _ in
-            self?.view.layoutIfNeeded()
-            self?.streamView.setMaximumContentOffsetAnimated(true)
-        }
-        
         composeBar.text = candy.typedComment
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        streamView.layoutIfNeeded()
         streamView.setMaximumContentOffsetAnimated(false)
     }
     
-    var isEndingOfScroll = false
+    var isEndingOfScroll: Bool {
+        return abs(streamView.contentOffset.y - streamView.maximumContentOffset.y) <= 5
+    }
     
     private func addNotifyReceivers() {
         commentNotifyReceiver = EntryNotifyReceiver<Comment>().setup { [weak self] receiver in
@@ -165,18 +155,14 @@ class CommentsViewController: BaseViewController {
             
             receiver.willDelete = { entry in
                 var comments = self?.dataSource.items as? [Comment]
-                if let index = comments?.indexOf(entry) {
-                    comments?.removeAtIndex(index)
-                }
+                comments?.remove(entry)
                 self?.dataSource.items = comments
             }
             receiver.didAdd = { entry in
-                self?.isEndingOfScroll = false
+                let isEndingOfScroll = self?.isEndingOfScroll ?? false
                 self?.dataSource.items = self?.candy?.sortedComments()
-                let offset = (self?.streamView.maximumContentOffset.y ?? 0) - (self?.streamView.contentOffset.y ?? 0) - (self?.heightCell(entry) ?? 0)
-                if offset <= 5 {
+                if isEndingOfScroll {
                     self?.streamView.setMaximumContentOffsetAnimated(true)
-                    self?.isEndingOfScroll = true
                 }
             }
             receiver.didUpdate = { _ in
@@ -205,9 +191,7 @@ class CommentsViewController: BaseViewController {
     }
     
     override func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {
-        if let comment = entry as? Comment {
-            completion(!(candy?.comments.contains(comment) ?? false))
-        }
+        completion((entry as? Comment)?.candy != candy)
     }
     
     var typing = false {
@@ -224,30 +208,30 @@ class CommentsViewController: BaseViewController {
         }
     }
     
-    private static let ContstraintOffset: CGFloat = 44
-    var height: CGFloat = 0.0
-    
     override func keyboardAdjustmentConstant(adjustment: KeyboardAdjustment, keyboard: Keyboard) -> CGFloat {
-        if adjustment.constraint.constant == adjustment.defaultConstant {
-            if dataSource.items?.count == 0 {
-                height = streamView.height
-                streamView.height -= keyboard.height + CommentsViewController.ContstraintOffset
-            }
-            let offset = CGPointMake(0, keyboard.height + streamView.contentOffset.y > 0 ?
-                view.height - streamView.height + streamView.contentOffset.y - 25.0 : streamView.contentOffset.y)
-            streamView.setContentOffset(offset, animated: false)
+        if adjustment.isBottom {
+            return adjustment.defaultConstant + (keyboard.height - 44)
+        } else {
+            return adjustment.defaultConstant - 36
         }
-        
-        return adjustment.defaultConstant + (keyboard.height - CommentsViewController.ContstraintOffset)
+    }
+    
+    private func keepContentOffset(@noescape block: () -> ()) {
+        let height = streamView.height
+        let offset = streamView.contentOffset.y
+        block()
+        streamView.contentOffset.y = smoothstep(0, streamView.maximumContentOffset.y, offset + (height - streamView.height))
+    }
+    
+    override func keyboardWillShow(keyboard: Keyboard) {
+        keepContentOffset { 
+            super.keyboardWillShow(keyboard)
+        }
     }
     
     override func keyboardWillHide(keyboard: Keyboard) {
-        super.keyboardWillHide(keyboard)
-        keyboard.performAnimation {
-            streamView.height = height
-            let offset = streamView.contentOffset.y >= streamView.maximumContentOffset.y ?
-                streamView.maximumContentOffset.y + 25.0 : streamView.contentOffset.y - view.height + streamView.height
-            streamView.setContentOffset(CGPointMake(0, offset), animated: false)
+        keepContentOffset {
+            super.keyboardWillHide(keyboard)
         }
     }
     

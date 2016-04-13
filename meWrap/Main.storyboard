@@ -2748,8 +2748,6 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="enableAlternativeState:" destination="6yG-IE-KDc" eventType="editingDidEnd" id="2SF-eO-OCY"/>
-                                                            <action selector="enableDefaultState:" destination="6yG-IE-KDc" eventType="editingDidBegin" id="Xpf-TV-gfD"/>
                                                             <outlet property="delegate" destination="M8n-42-KAe" id="F2e-Zh-H0Z"/>
                                                             <outlet property="emojiButton" destination="CUX-Dn-0ih" id="1CP-CD-UTB"/>
                                                             <outlet property="heightConstraint" destination="GQL-cm-nfb" id="PVz-AN-yrU"/>
@@ -2820,11 +2818,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="vTd-en-UyT" firstAttribute="top" secondItem="BO5-8e-h9D" secondAttribute="top" priority="750" constant="56" id="6Nz-HW-662"/>
+                                    <constraint firstItem="vTd-en-UyT" firstAttribute="top" secondItem="BO5-8e-h9D" secondAttribute="top" constant="56" id="6Nz-HW-662"/>
                                     <constraint firstItem="vTd-en-UyT" firstAttribute="leading" secondItem="BO5-8e-h9D" secondAttribute="leading" id="Ee1-YC-qXu"/>
                                     <constraint firstAttribute="trailing" secondItem="vTd-en-UyT" secondAttribute="trailing" id="eEy-iw-w7a"/>
                                     <constraint firstAttribute="bottom" secondItem="vTd-en-UyT" secondAttribute="bottom" constant="56" id="pAj-zP-twR"/>
-                                    <constraint firstItem="vTd-en-UyT" firstAttribute="top" secondItem="BO5-8e-h9D" secondAttribute="top" priority="250" constant="20" id="x5x-FO-jAf"/>
                                     <constraint firstAttribute="bottom" secondItem="zd4-Tx-fC0" secondAttribute="bottom" priority="250" constant="67" id="xXk-D9-CaZ"/>
                                 </constraints>
                             </view>
@@ -2847,19 +2844,10 @@
                         <outlet property="contentView" destination="vTd-en-UyT" id="0ye-XQ-bSi"/>
                         <outlet property="streamView" destination="WYU-Tj-StJ" id="VgU-Rt-ZzQ"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="Hjh-Il-IB8" collectionClass="NSMutableArray" id="x3H-7q-22f"/>
+                        <outletCollection property="keyboardAdjustmentTopConstraints" destination="6Nz-HW-662" collectionClass="NSMutableArray" id="D3U-Kn-oU7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kjg-TD-Vmm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="6yG-IE-KDc" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outletCollection property="parentViews" destination="Mb1-3b-t3s" collectionClass="NSMutableArray" id="m4n-o5-P2P"/>
-                        <outletCollection property="defaultConstraints" destination="6Nz-HW-662" collectionClass="NSMutableArray" id="f6F-xW-ruA"/>
-                        <outletCollection property="alternativeConstraints" destination="x5x-FO-jAf" collectionClass="NSMutableArray" id="OeQ-Um-p5h"/>
-                    </connections>
-                </customObject>
                 <customObject id="np4-hr-S7e" userLabel="ComposeBar Trailing Prioritizer" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>

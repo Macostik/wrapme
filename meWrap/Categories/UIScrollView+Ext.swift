@@ -23,8 +23,8 @@ extension UIScrollView {
     
     var maximumContentOffset: CGPoint {
         let insets = contentInset
-        let width = contentSize.width - (bounds.width - insets.right)
-        let height = contentSize.height - (bounds.height - insets.bottom)
+        let width = contentSize.width - (frame.width - insets.right)
+        let height = contentSize.height - (frame.height - insets.bottom)
         let x = (width > -insets.left) ? width : -insets.left
         let y = (height > -insets.top) ? height : -insets.top
         return CGPoint(x: round(x), y: round(y))

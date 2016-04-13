@@ -20,23 +20,27 @@ class EntryPresenter: NSObject {
         
     }
     
-    class func presentEntryRequestingAuthorization(entry: Entry, animated: Bool) {
+    class func presentEntryRequestingAuthorization(entry: Entry, animated: Bool, completionHandler: (() -> ())? = nil) {
         if let navigationController = UINavigationController.main() {
-            presentEntryRequestingAuthorization(entry, inNavigationController: navigationController, animated:animated)
+            presentEntryRequestingAuthorization(entry, inNavigationController: navigationController, animated:animated, completionHandler: completionHandler)
         }
     }
     
-    class func presentEntryRequestingAuthorization(entry: Entry, inNavigationController navigationController: UINavigationController, animated: Bool) {
+    class func presentEntryRequestingAuthorization(entry: Entry, inNavigationController navigationController: UINavigationController, animated: Bool, completionHandler: (() -> ())? = nil) {
         if let presentedViewController = navigationController.presentedViewController {
             presentedViewController.requestAuthorizationForPresentingEntry(entry, completion: { (flag) -> Void in
                 if (flag) {
                     navigationController.dismissViewControllerAnimated(false, completion: { () -> Void in
                         self.presentEntry(entry, inNavigationController: navigationController, animated:animated)
+                        completionHandler?()
                     })
+                } else {
+                    completionHandler?()
                 }
             })
         } else {
             self.presentEntry(entry, inNavigationController: navigationController, animated:animated)
+            completionHandler?()
         }
     }
 }

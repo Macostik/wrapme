@@ -10,7 +10,7 @@ import Foundation
 
 class Label: UILabel {
     
-    convenience init(icon: String, size: CGFloat, textColor: UIColor = UIColor.whiteColor()) {
+    convenience init(icon: String, size: CGFloat = UIFont.systemFontSize(), textColor: UIColor = UIColor.whiteColor()) {
         self.init()
         font = UIFont.icons(size)
         text = icon

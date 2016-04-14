@@ -14,6 +14,7 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
     let imageView = ImageView(backgroundColor: UIColor.whiteColor())
     let commentLabel = Label(preset: .Smaller, textColor: UIColor.whiteColor())
     let videoIndicator = Label(icon: "+", size: 24)
+    let gradientView = GradientView()
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
         
@@ -32,7 +33,6 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
         addSubview(imageView)
         addSubview(videoIndicator)
         addSubview(pressedStateButton)
-        let gradientView = GradientView()
         gradientView.startColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
         gradientView.contentMode = .Bottom
         addSubview(gradientView)

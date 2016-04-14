@@ -125,6 +125,8 @@ class ShrinkTransition: SlideTransition {
         guard let superview = contentView.superview else { return }
         let translation = gesture.translationInView(superview)
         let percentCompleted = abs(translation.y/superview.height)
+        let cell: CandyCell? = _dismissingView as? CandyCell
+        cell?.gradientView.alpha = 0
         switch gesture.state {
         case .Began:
             _dismissingView?.alpha = 0
@@ -150,6 +152,7 @@ class ShrinkTransition: SlideTransition {
                         self._dismissingView?.alpha = 1
                         self.imageView?.removeFromSuperview()
                         self.didFinish?()
+                        UIView.animateWithDuration(0.5, animations: { cell?.gradientView.alpha = 1.0 })
                 })
             } else {
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
@@ -161,6 +164,7 @@ class ShrinkTransition: SlideTransition {
                         self._snapshotView?.removeFromSuperview()
                         self.imageView?.removeFromSuperview()
                         self.didCancel?()
+                        UIView.animateWithDuration(0.5, animations: { cell?.gradientView.alpha = 1.0 })
                 })
             }
         default:break

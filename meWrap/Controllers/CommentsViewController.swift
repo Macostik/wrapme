@@ -13,14 +13,13 @@ import MobileCoreServices
 
 final class CommentCell: StreamReusableView, FlowerMenuConstructor {
     
-    private let avatar = StatusUserAvatarView(cornerRadius: 24)
+    private let avatar = UserAvatarView(cornerRadius: 24)
     private let name = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
     private let date = Label(preset: .Smaller, weight: .Regular, textColor: Color.grayLighter)
     private let text = SmartLabel(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
     private let indicator = EntryStatusIndicator(color: Color.orange)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
-        avatar.startReceivingStatusUpdates()
         FlowerMenu.sharedMenu.registerView(self)
         text.numberOfLines = 0
         avatar.defaultIconSize = 24
@@ -77,7 +76,6 @@ final class CommentCell: StreamReusableView, FlowerMenuConstructor {
         userInteractionEnabled = true
         comment.markAsUnread(false)
         name.text = comment.contributor?.name
-        avatar.wrap = comment.candy?.wrap
         avatar.user = comment.contributor
         date.text = comment.createdAt.timeAgoString()
         indicator.updateStatusIndicator(comment)
@@ -93,8 +91,9 @@ class CommentsViewController: BaseViewController {
     weak var candy: Candy?
     
     @IBOutlet weak var streamView: StreamView!
+    @IBOutlet weak var friendsStreamView: StreamView!
     
-    @IBOutlet weak var topView: UIView!
+    private lazy var friendsDataSource: StreamDataSource<[User]> = StreamDataSource(streamView: self.friendsStreamView)
     
     private lazy var dataSource: StreamDataSource<[Comment]> = StreamDataSource(streamView: self.streamView)
     
@@ -107,6 +106,7 @@ class CommentsViewController: BaseViewController {
     private var candyNotifyReceiver: EntryNotifyReceiver<Candy>?
     
     private var commentNotifyReceiver: EntryNotifyReceiver<Comment>?
+    @IBOutlet weak var topView: UIView!
     
     deinit {
         streamView.layer.removeObserver(self, forKeyPath: "bounds", context: nil)
@@ -133,6 +133,13 @@ class CommentsViewController: BaseViewController {
         dataSource.placeholderMetrics = PlaceholderView.commentsPlaceholderMetrics()
         dataSource.items = candy.sortedComments()
         
+        friendsStreamView.layout = HorizontalStreamLayout()
+        let friendMetrics = StreamMetrics(loader: StreamLoader<FriendView>(), size: friendsStreamView.height)
+        friendMetrics.prepareAppearing = { [weak self] item, view in
+            (view as? FriendView)?.wrap = self?.candy?.wrap
+        }
+        friendsDataSource.addMetrics(friendMetrics)
+        
         if candy.uploaded {
             candy.fetch({ [weak self] _ in
                 self?.dataSource.items = candy.sortedComments()
@@ -141,9 +148,11 @@ class CommentsViewController: BaseViewController {
                     error?.showNonNetworkError()
             })
         }
+        friendsDataSource.items = activeContibutors
         
         addNotifyReceivers()
         DeviceManager.defaultManager.addReceiver(self)
+		User.notifier().addReceiver(self)
         composeBar.text = candy.typedComment
     }
     
@@ -207,6 +216,14 @@ class CommentsViewController: BaseViewController {
     
     var isEndingOfScroll: Bool {
         return abs(streamView.contentOffset.y - streamView.maximumContentOffset.y) <= 5
+    }
+
+ 	var activeContibutors: [User] {
+        set {}
+        get {
+            guard let wrap = candy?.wrap else { return [] }
+            return wrap.contributors.filter({$0.activityForWrap(wrap) != nil }).sort({$0.name < $1.name})
+        }
     }
     
     private func addNotifyReceivers() {
@@ -354,5 +371,11 @@ extension CommentsViewController: DeviceManagerNotifying {
     func manager(manager: DeviceManager, didChangeOrientation orientation: UIDeviceOrientation) {
         view.layoutIfNeeded()
         dataSource.reload()
+    }
+}
+extension CommentsViewController: EntryNotifying {
+    
+    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
+        friendsDataSource.items = activeContibutors
     }
 }

@@ -1919,6 +1919,9 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HRF-S3-bc8">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="38"/>
                                         <subviews>
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mkq-sy-ijA" userLabel="Friends Stream View" customClass="StreamView" customModule="meWrap" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="38"/>
+                                            </scrollView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2nE-rT-l31" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="565" y="5" width="30" height="28"/>
                                                 <rect key="contentStretch" x="0.0" y="1" width="1" height="1"/>
@@ -1939,9 +1942,13 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="Mkq-sy-ijA" firstAttribute="leading" secondItem="HRF-S3-bc8" secondAttribute="leading" id="03V-fh-5qa"/>
+                                            <constraint firstItem="Mkq-sy-ijA" firstAttribute="top" secondItem="HRF-S3-bc8" secondAttribute="top" id="7Hr-Cd-Rv4"/>
+                                            <constraint firstAttribute="trailing" secondItem="Mkq-sy-ijA" secondAttribute="trailing" id="8TV-mx-9CS"/>
                                             <constraint firstItem="2nE-rT-l31" firstAttribute="top" secondItem="HRF-S3-bc8" secondAttribute="top" constant="5" id="Lax-p8-Tj4"/>
                                             <constraint firstAttribute="bottom" secondItem="2nE-rT-l31" secondAttribute="bottom" constant="5" id="Xb3-R1-TBh"/>
                                             <constraint firstAttribute="trailing" secondItem="2nE-rT-l31" secondAttribute="trailing" constant="5" id="YhM-bE-R7C"/>
+                                            <constraint firstAttribute="bottom" secondItem="Mkq-sy-ijA" secondAttribute="bottom" id="g13-pP-XUR"/>
                                         </constraints>
                                     </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zd4-Tx-fC0" customClass="ComposeBar" customModule="meWrap" customModuleProvider="target">
@@ -2097,6 +2104,7 @@
                         <outlet property="composeBar" destination="zd4-Tx-fC0" id="fkx-tF-Qza"/>
                         <outlet property="composeBarBottomPrioritizer" destination="Ft7-q6-54y" id="Po8-lZ-rRB"/>
                         <outlet property="contentView" destination="flS-sD-RYF" id="7Kt-bm-9EG"/>
+                        <outlet property="friendsStreamView" destination="Mkq-sy-ijA" id="Wgs-ma-wPo"/>
                         <outlet property="streamView" destination="WYU-Tj-StJ" id="VgU-Rt-ZzQ"/>
                         <outlet property="topView" destination="HRF-S3-bc8" id="y68-F1-53D"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="iYm-B7-hYF" collectionClass="NSMutableArray" id="WfW-nJ-STu"/>

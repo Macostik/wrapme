@@ -345,10 +345,13 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
                     }
                 }
                 
+                var usersOnline = [User]()
+                
                 usersLoop: for uuid in users {
                     guard let result = PubNub.parseUUID(uuid) else { continue usersLoop }
                     let user = result.user
                     let device = result.device
+                    usersOnline.append(user)
                     device.isActive = true
                     activitiesLoop: for (channel, _activities) in activities {
                         if let activity = _activities[uuid] {
@@ -367,6 +370,12 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
                         device.activity.clear()
                     }
                 }
+                
+                User.currentUser?.wraps.all({ (wrap) in
+                    for user in wrap.contributors where !usersOnline.contains(user) {
+                        user.devices.all { $0.isActive = false }
+                    }
+                })
             }
             completionHandler?()
         }
@@ -379,10 +388,13 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
                 
                 let result = self.channelActivities(uuids)
                 
+                var usersOnline = [User]()
+                
                 for uuid in result.users {
                     guard let uuidResult = PubNub.parseUUID(uuid) else { continue }
                     let user = uuidResult.user
                     let device = uuidResult.device
+                    usersOnline.append(user)
                     device.isActive = true
                     if let activity = result.activities[uuid] {
                         device.activity.handleActivity(activity)
@@ -397,6 +409,10 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
                         wrap.removeBroadcastFrom(user)
                         device.activity.clear()
                     }
+                }
+                
+                for user in wrap.contributors where !usersOnline.contains(user) {
+                    user.devices.all { $0.isActive = false }
                 }
             }
             completionHandler?()

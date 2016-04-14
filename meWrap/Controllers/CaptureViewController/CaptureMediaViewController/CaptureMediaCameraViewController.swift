@@ -196,6 +196,7 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
             startVideoRecordingTimer?.invalidate()
             startVideoRecordingTimer = nil
         }
+        prepareSessionForPhotoTaking()
     }
     
     func cancelVideoRecording() {

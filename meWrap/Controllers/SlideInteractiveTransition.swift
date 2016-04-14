@@ -42,6 +42,8 @@ class SlideInteractiveTransition: NSObject, UIGestureRecognizerDelegate {
         let translation = gesture.translationInView(superview)
         let animate = UIApplication.sharedApplication().statusBarOrientation.isPortrait
         let presentingView = animate ? self.presentingView() : nil
+        let cell = presentingView as? CandyCell
+        cell?.gradientView.alpha = 0.0
         let percentCompleted = abs(translation.y/superview.height)
         switch gesture.state {
         case .Began:
@@ -81,6 +83,7 @@ class SlideInteractiveTransition: NSObject, UIGestureRecognizerDelegate {
                         presentingView?.alpha = 1
                         self.imageView?.removeFromSuperview()
                         self.delegate?.slideInteractiveTransitionDidFinish?(self)
+                        UIView.animateWithDuration(0.5, animations: { cell?.gradientView.alpha = 1.0 })
                 })
             } else {
                 UIView.animateWithDuration(0.25, animations: { () -> Void in

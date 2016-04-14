@@ -87,12 +87,15 @@ class CandyEnlargingPresenter: UIView {
             imageView.frame = self.size.fit(image.size).rectCenteredInSize(self.size)
             StreamView.lock()
             view.hidden = true
+            let cell = view as? CandyCell
+            cell?.gradientView.alpha = 0
             backgroundColor = UIColor(white: 0, alpha: 1)
             UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseIn, animations: { () -> Void in
                 self.backgroundColor = UIColor(white: 0, alpha: 0)
                 self.imageView.frame = superview.convertRect(view.bounds, fromCoordinateSpace:view)
                 }, completion: { (_) -> Void in
                     view.hidden = false
+                    UIView.animateWithDuration(0.5, animations: { cell?.gradientView.alpha = 1.0 })
                     self.removeFromSuperview()
                     StreamView.unlock()
             })

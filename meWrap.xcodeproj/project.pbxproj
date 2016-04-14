@@ -13,6 +13,7 @@
 		5B1D045B1BFCE16C00263102 /* SlideInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1D045A1BFCE16C00263102 /* SlideInteractiveTransition.swift */; };
 		5B1DD0371BD7B67000D30E1A /* InternalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */; };
 		5B211FB21C087137000EC3DB /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5B2784FF1CB681B500296CAB /* StickersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2784FE1CB681B400296CAB /* StickersView.swift */; };
 		5B2960571C60F5B9008D121A /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2960561C60F5B9008D121A /* ShareViewController.swift */; };
 		5B29605A1C60F5B9008D121A /* Share.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B2960581C60F5B9008D121A /* Share.storyboard */; };
 		5B29605E1C60F5B9008D121A /* ShareExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B2960541C60F5B9008D121A /* ShareExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -444,6 +445,7 @@
 		5B1061331C610A1900496647 /* ConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmView.swift; sourceTree = "<group>"; };
 		5B1D045A1BFCE16C00263102 /* SlideInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInteractiveTransition.swift; sourceTree = "<group>"; };
 		5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalScrollView.swift; sourceTree = "<group>"; };
+		5B2784FE1CB681B400296CAB /* StickersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StickersView.swift; path = meWrap/Views/StickersView.swift; sourceTree = "<group>"; };
 		5B2960541C60F5B9008D121A /* ShareExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B2960561C60F5B9008D121A /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		5B2960591C60F5B9008D121A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Share.storyboard; sourceTree = "<group>"; };
@@ -854,6 +856,7 @@
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
+				5B2784FE1CB681B400296CAB /* StickersView.swift */,
 				C5B19DA81BC3C0AC00EB5353 /* exportAdhoc.plist */,
 				C5B19DA91BC3C0AC00EB5353 /* exportAppStore.plist */,
 				C5A278C41B9598DF00D5C969 /* Info */,
@@ -2125,6 +2128,7 @@
 				C5F44FF41C5CBC680049215D /* WrapPickerViewController.swift in Sources */,
 				C525005A1C1F1FCB00CF8F9D /* FollowingViewController.swift in Sources */,
 				C523D8CE1BD775AC006FE7AB /* Country.swift in Sources */,
+				5B2784FF1CB681B500296CAB /* StickersView.swift in Sources */,
 				C5326F0C1C159279007A8BEF /* RunQueue.swift in Sources */,
 				C5F4E70F1C07687A00D2FC16 /* UIColor+Ext.swift in Sources */,
 				C557B6DB1C22C0B00067631E /* SoundPlayer.swift in Sources */,

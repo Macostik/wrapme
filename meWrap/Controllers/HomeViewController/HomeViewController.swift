@@ -110,6 +110,8 @@ final class HomeViewController: BaseViewController {
                 }
             }
         }
+        
+        StickersView(view: view, imageUrl: User.currentUser?.wraps.first?.candies.first?.asset?.original ?? "")
     }
     
     func refreshUserActivities() {

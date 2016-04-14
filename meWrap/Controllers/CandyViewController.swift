@@ -253,3 +253,28 @@ extension CandyViewController: NetworkNotifying {
         }
     }
 }
+
+extension CandyViewController {
+    
+    @IBAction func shareButtonClicked(sender: Button) {
+        sender.loading = true
+        let completion: ObjectBlock = {[weak self]  item in
+            let activityVC = UIActivityViewController(activityItems: [item!], applicationActivities: nil)
+            self?.presentViewController(activityVC, animated: true, completion: nil)
+            sender.loading = false
+        }
+        if candy?.isVideo == true {
+            let urlData = NSData(contentsOfURL: NSURL(string: candy?.asset?.original ?? "") ?? NSURL())
+            let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+            let filePath = "\(path)/tmpVideo.mov"
+            urlData?.writeToFile(filePath, atomically: true)
+            let videoLink = NSURL(fileURLWithPath: filePath) 
+            completion(videoLink)
+           
+        } else {
+            BlockImageFetching.enqueue(self.candy?.asset?.original ?? "", success: { (image) -> Void in
+                 completion(image)
+                }, failure: nil)
+        }
+    }
+}

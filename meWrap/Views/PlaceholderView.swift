@@ -11,8 +11,10 @@ import SnapKit
 
 class PlaceholderView: StreamReusableView {
     
-    class func placeholderLoader(iconName: String, message: String) -> StreamLoader<PlaceholderView> {
+    class func placeholderLoader(iconName: String, message: String, color: UIColor = Color.grayLighter) -> StreamLoader<PlaceholderView> {
         return StreamLoader<PlaceholderView>(layoutBlock: { view in
+            view.textLabel.textColor = color
+            view.iconLabel.textColor = color
             view.textLabel.text = message
             view.iconLabel.text = iconName
         })
@@ -20,12 +22,10 @@ class PlaceholderView: StreamReusableView {
     
     let containerView = UIView()
     
-    let textLabel: Label = {
-        let label = Label(preset: .Larger, textColor: Color.grayLighter)
-        label.numberOfLines = 0
-        label.textAlignment = .Center
-        return label
-    }()
+    let textLabel = specify(Label(preset: .Larger, textColor: Color.grayLighter)) {
+        $0.numberOfLines = 0
+        $0.textAlignment = .Center
+    }
     let iconLabel = Label(icon: "", size: 96, textColor: Color.grayLighter)
     
     override func layoutWithMetrics(metrics: StreamMetrics) {
@@ -57,7 +57,7 @@ extension PlaceholderView {
     }
     
     class func commentsPlaceholderLoader() -> StreamLoader<PlaceholderView> {
-        return placeholderLoader("q", message: "no_comments_yet".ls)
+        return placeholderLoader("q", message: "no_comments_yet".ls, color: Color.grayLightest.colorWithAlphaComponent(0.5))
     }
     
     class func hottestPlaceholderLoader() -> StreamLoader<PlaceholderView> {

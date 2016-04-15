@@ -76,6 +76,18 @@ final class DeviceCell: StreamReusableView {
     }
 }
 
+private func sortDevices<T: SequenceType where T.Generator.Element: Device>(devices: T) -> [Device] {
+    return devices.sort {
+        if $0.current {
+            return true
+        }
+        if $1.current {
+            return false
+        }
+        return $0.name < $1.name
+    }
+}
+
 final class ChangeProfileViewController: BaseViewController, EditSessionDelegate, UITextFieldDelegate, CaptureAvatarViewControllerDelegate, EntryNotifying, FontPresetting {
     
     private let streamView = StreamView()
@@ -330,7 +342,7 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
             $0.prepareAppearing = { [weak self] _, view in
                 (view as? DeviceCell)?.deleteDevice = { device in
                     API.deleteDevice(device).send({ devices in
-                        self?.dataSource.items = devices
+                        self?.dataSource.items = sortDevices(devices)
                         }, failure: { (error) in
                             error?.show()
                     })
@@ -346,10 +358,10 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
         updateEmailConfirmationView()
         User.notifier().addReceiver(self)
         FontPresetter.defaultPresetter.addReceiver(self)
-        dataSource.items = Array(User.currentUser?.devices ?? [])
-//        API.devices().send({ [weak self] (devices) in
-//            self?.dataSource.items = Array(devices)
-//            })
+        dataSource.items = sortDevices(User.currentUser?.devices ?? [])
+        API.devices().send({ [weak self] (devices) in
+            self?.dataSource.items = sortDevices(devices)
+            })
     }
     
     func updateEmailConfirmationView() {

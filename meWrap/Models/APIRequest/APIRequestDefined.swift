@@ -416,11 +416,11 @@ extension API {
         return APIRequest(.PUT, "devices/reset_badge", parser: { $0 })
     }
     
-    static func deleteDevice(device: Device) -> APIRequest<[Device]> {
+    static func deleteDevice(device: Device) -> APIRequest<Set<Device>> {
         return APIRequest(.DELETE, "api/devices/\(device.uid)", parser: { _ in
             let user = User.currentUser
             user?.devices.remove(device)
-            return Array(user?.devices ?? [])
+            return user?.devices ?? []
         })
     }
     

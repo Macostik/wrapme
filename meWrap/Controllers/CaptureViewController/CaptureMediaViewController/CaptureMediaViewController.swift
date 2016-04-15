@@ -90,7 +90,10 @@ class CaptureMediaViewController: CaptureViewController {
         asset.canBeSavedToAssets = saveToAlbum
         addAsset(asset, success: { (_) -> Void in
             runQueue.run { (finish) -> Void in
-                asset.setImage(image, completion: finish)
+                asset.setImage(image, completion: {
+                    finish()
+                    self.cameraViewController?.handleImageSetup?()
+                })
             }
             }) { $0?.show() }
     }

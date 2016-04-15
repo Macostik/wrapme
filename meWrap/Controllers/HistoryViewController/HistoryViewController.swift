@@ -411,10 +411,10 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         accessoryView.tapped { [weak self] _ in
             self?.toggleTopView()
         }
-        swipeDownGesture = scrollView.swiped(.Down) { [weak self] _ in
+        swipeDownGesture = view.swiped(.Down) { [weak self] _ in
             self?.setTopViewExpanded(true)
         }
-        swipeUpGesture = scrollView.swiped(.Up) { [weak self] _ in
+        swipeUpGesture = view.swiped(.Up) { [weak self] _ in
             self?.setTopViewExpanded(false)
         }
         swipeUpGesture.shouldBegin = { [weak self] _ in
@@ -543,13 +543,13 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         }
     }
     
-    func showCommentView() {
+    func showCommentView(animated: Bool = true) {
         if self.commentsViewController != nil {
             return
         }
-        setBarsHidden(true, animated: true)
+        setBarsHidden(true, animated: animated)
         let commentsViewController = Storyboard.Comments.instantiate({ $0.candy = candy })
-        commentsViewController.presentForController(self)
+        commentsViewController.presentForController(self, animated: animated)
         self.commentsViewController = commentsViewController
     }
     

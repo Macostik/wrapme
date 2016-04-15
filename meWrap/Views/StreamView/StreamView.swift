@@ -173,7 +173,11 @@ final class StreamView: UIScrollView {
         if let item = items.last {
             changeContentSize(layout.contentSize(item, streamView: self))
         } else {
-            contentSize = CGSize.zero
+            if layout.horizontal {
+                contentSize = CGSizeMake(layout.offset, height)
+            } else {
+                contentSize = CGSizeMake(width, layout.offset)
+            }
         }
                 
         layout.finalizeLayout()

@@ -304,13 +304,13 @@ class CommentsViewController: BaseViewController {
         }
     }
     
-    func presentForController(controller: HistoryViewController) {
+    func presentForController(controller: HistoryViewController, animated: Bool) {
         historyViewController = controller
         controller.addContainedViewController(self, animated:false)
         let backgroundColor = view.backgroundColor
         view.backgroundColor = UIColor.clearColor()
         contentView.transform = CGAffineTransformMakeTranslation(0, view.height)
-        animate {
+        animate(animated) {
             view.backgroundColor = backgroundColor
             contentView.transform = CGAffineTransformIdentity
         }
@@ -325,9 +325,11 @@ class CommentsViewController: BaseViewController {
                 self.contentView.transform = CGAffineTransformMakeTranslation(0, up ? -self.view.height : self.view.height)
             }) { (_) in
                 self.removeFromContainerAnimated(true)
+                self.historyViewController?.commentsViewController = nil
             }
         } else {
             removeFromContainerAnimated(true)
+            self.historyViewController?.commentsViewController = nil
         }
         historyViewController?.setBarsHidden(false, animated: animated)
     }

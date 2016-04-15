@@ -138,7 +138,7 @@ extension Comment {
     
     override func configureViewController(controller: UIViewController, fromContainer container: Entry) {
         if container == candy, let controller = controller as? HistoryViewController {
-            performWhenLoaded(controller, block: { $0.showCommentView() })
+            performWhenLoaded(controller, block: { $0.showCommentView(false) })
         }
     }
 }

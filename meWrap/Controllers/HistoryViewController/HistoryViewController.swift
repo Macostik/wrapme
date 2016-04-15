@@ -50,7 +50,7 @@ final class CommentView: ExpandableView {
                 expandingConstraint = make.bottom.equalTo(self).inset(20).constraint
             }
         }
-
+        
         indicator.snp_makeConstraints { (make) -> Void in
             make.leading.equalTo(date.snp_trailing).offset(12)
             make.centerY.equalTo(date)
@@ -426,7 +426,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     @objc private func toggleActions() {
-        animate { 
+        animate {
             expandableToolbar.expanded = !expandableToolbar.expanded
             expandButton.selected = expandableToolbar.expanded
             topView.layoutIfNeeded()
@@ -785,7 +785,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     @IBAction func stickers(sender: UIButton) {
-           let _ = StickersView(view: view, imageUrl: User.currentUser?.wraps.first?.candies.first?.asset?.original ?? "")
+        let _ = StickersView(view: view, imageUrl: User.currentUser?.wraps.first?.candies.first?.asset?.original ?? "")
     }
     
     @IBAction func share(sender: Button) {

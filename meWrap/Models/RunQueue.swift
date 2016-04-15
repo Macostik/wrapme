@@ -24,9 +24,9 @@ class RunQueue: NSObject {
     
     private var executions = 0 {
         didSet {
-            if executions == 0 {
+            if executions == 0 && oldValue > 0 {
                 didFinish?()
-            } else if executions == 1 {
+            } else if oldValue == 0 && executions > 0 {
                 didStart?()
             }
         }

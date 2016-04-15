@@ -46,7 +46,22 @@ final class DeviceCell: StreamReusableView {
     
     override func setup(entry: AnyObject?) {
         guard let device = entry as? Device else { return }
-        phone.text = device.phone
+        if device.phone?.isEmpty == false {
+            phone.text = device.phone
+            phone.hidden = false
+            name.snp_remakeConstraints { (make) in
+                make.leading.equalTo(self).inset(20)
+                make.bottom.equalTo(self.snp_centerY).inset(-2)
+            }
+        } else {
+            phone.text = nil
+            phone.hidden = true
+            name.snp_remakeConstraints { (make) in
+                make.leading.equalTo(self).inset(20)
+                make.centerY.equalTo(self)
+            }
+        }
+        
         if device.current {
             name.text = "\(device.name ?? "unnamed".ls) (\("current".ls))"
             name.font = Font.Normal + .Bold
@@ -332,9 +347,9 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
         User.notifier().addReceiver(self)
         FontPresetter.defaultPresetter.addReceiver(self)
         dataSource.items = Array(User.currentUser?.devices ?? [])
-        API.devices().send({ [weak self] (devices) in
-            self?.dataSource.items = Array(devices)
-            })
+//        API.devices().send({ [weak self] (devices) in
+//            self?.dataSource.items = Array(devices)
+//            })
     }
     
     func updateEmailConfirmationView() {

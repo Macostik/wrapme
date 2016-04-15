@@ -161,53 +161,41 @@ class CommentsViewController: BaseViewController {
     func panned(sender: UIPanGestureRecognizer) {
         if sender.state == .Ended && scrollingOffset != 0 {
             let velocity = sender.velocityInView(sender.view)
-            if abs(scrollingOffset) > streamView.height/3 || abs(velocity.y) > 1000 {
+            if abs(scrollingOffset) > streamView.height/4 || abs(velocity.y) > 1200 {
                 let snapshot = contentView.snapshotViewAfterScreenUpdates(false)
                 snapshot.frame = contentView.frame
                 contentView.hidden = true
                 view.addSubview(snapshot)
-                typing = false
-                composeBar.resignFirstResponder()
-                self.historyViewController?.setBarsHidden(false, animated: true)
-                UIView.animateWithDuration(0.5, animations: {
-                    let offsetY = self.scrollingOffset > 0 ? -self.view.height : self.view.height
-                    snapshot.transform = CGAffineTransformMakeTranslation(0, offsetY)
-                    self.view.backgroundColor = UIColor.clearColor()
-                    }, completion: { _ in
-                        self.removeFromContainerAnimated(true)
-                })
+                contentView = snapshot
+                close(true, up: self.scrollingOffset > 0)
             }
         }
     }
     
-    var scrollingOffset: CGFloat = 0
-    
-    private func scrollingOffsetChanged() {
-        if streamView.contentOffset.y < 0 {
-            scrollingOffset = streamView.contentOffset.y
-            let offset = abs(scrollingOffset)
-            topView.transform = CGAffineTransformMakeTranslation(0, offset)
-            composeBar.transform = CGAffineTransformIdentity
-            let value = smoothstep(0, 1, 1 - offset / (contentView.height / 2))
-            view.backgroundColor = UIColor(white: 0, alpha: 0.7 * value)
-        } else if streamView.contentOffset.y > streamView.maximumContentOffset.y {
-            let offset = (streamView.contentOffset.y - streamView.maximumContentOffset.y)
-            topView.transform = CGAffineTransformIdentity
-            composeBar.transform = CGAffineTransformMakeTranslation(0, -offset)
-            let value = smoothstep(0.0, 1.0, 1 - offset / (contentView.height / 2))
-            view.backgroundColor = UIColor(white: 0, alpha: 0.7 * value)
-            scrollingOffset = offset
-        } else {
-            scrollingOffset = 0
-            topView.transform = CGAffineTransformIdentity
-            composeBar.transform = CGAffineTransformIdentity
-            view.backgroundColor = UIColor(white: 0, alpha: 0.7)
+    var scrollingOffset: CGFloat = 0 {
+        willSet {
+            guard newValue != scrollingOffset else { return }
+            if newValue == 0 {
+                topView.transform = CGAffineTransformIdentity
+                composeBar.transform = CGAffineTransformIdentity
+                view.backgroundColor = UIColor(white: 0, alpha: 0.7)
+            } else {
+                (newValue < 0 ? topView : composeBar).transform = CGAffineTransformMakeTranslation(0, -newValue)
+                (newValue < 0 ? composeBar : topView).transform = CGAffineTransformIdentity
+                let value = smoothstep(0.0, 1.0, 1 - abs(newValue) / (contentView.height / 2))
+                view.backgroundColor = UIColor(white: 0, alpha: 0.7 * value)
+            }
         }
     }
     
+    private func scrollingOffsetChanged() -> CGFloat {
+        let offset = streamView.contentOffset.y
+        return offset < 0 ? offset : max(0, offset - streamView.maximumContentOffset.y)
+    }
+    
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if !contentView.hidden {
-            scrollingOffsetChanged()
+        if streamView.superview == contentView {
+            scrollingOffset = scrollingOffsetChanged()
         }
     }
     
@@ -328,20 +316,20 @@ class CommentsViewController: BaseViewController {
         }
     }
     
-    func close(animated: Bool = false) {
+    func close(animated: Bool = false, up: Bool = false) {
         typing = false
-        view.endEditing(true)
+        composeBar.resignFirstResponder()
         if animated {
-            UIView.animateWithDuration(0.2, animations: {
+            UIView.animateWithDuration(0.5, animations: {
                 self.view.backgroundColor = UIColor.clearColor()
-                self.contentView.transform = CGAffineTransformMakeTranslation(0, self.view.height)
+                self.contentView.transform = CGAffineTransformMakeTranslation(0, up ? -self.view.height : self.view.height)
             }) { (_) in
                 self.removeFromContainerAnimated(true)
             }
         } else {
             removeFromContainerAnimated(true)
         }
-        historyViewController?.setBarsHidden(false, animated: true)
+        historyViewController?.setBarsHidden(false, animated: animated)
     }
     
     @IBAction func onClose(sender: AnyObject?) {

@@ -152,7 +152,7 @@ class UploadSummaryViewController: SwipeViewController, CaptureWrapContainer {
     override func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {
         UIAlertController.alert("unsaved_photo".ls, message: "leave_screen_on_editing".ls).action("cancel".ls, handler: { _ in
             completion(false)
-        }).action("continue".ls, handler: { _ in completion(true) }).show()
+        }).action("discard_changes".ls, handler: { _ in completion(true) }).show()
     }
     
     override func viewDidAppear(animated: Bool) {

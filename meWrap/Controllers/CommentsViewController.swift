@@ -115,6 +115,8 @@ class CommentsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        streamView.indicatorStyle = .White
+        
         streamView.layer.addObserver(self, forKeyPath: "bounds", options: .New, context: nil)
         view.addGestureRecognizer(streamView.panGestureRecognizer)
         streamView.panGestureRecognizer.addTarget(self, action: #selector(self.panned(_:)))

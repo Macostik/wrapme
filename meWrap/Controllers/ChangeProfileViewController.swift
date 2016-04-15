@@ -8,17 +8,75 @@
 
 import Foundation
 
+final class DeviceCell: StreamReusableView {
+    
+    private let name = Label(preset: .Normal, weight: .Bold, textColor: Color.grayDark)
+    private let phone = Label(preset: .Small, weight: .Bold, textColor: Color.grayDark)
+    private let deleteButton = Button()
+    
+    override func layoutWithMetrics(metrics: StreamMetrics) {
+        addSubview(name)
+        addSubview(phone)
+        addSubview(deleteButton)
+        deleteButton.titleLabel?.font = Font.Small + .Regular
+        deleteButton.setTitle("delete_device".ls, forState: .Normal)
+        deleteButton.setTitleColor(Color.orange, forState: .Normal)
+        deleteButton.addTarget(self, action: #selector(self.deleteDevice(_:)), forControlEvents: .TouchUpInside)
+        name.snp_makeConstraints { (make) in
+            make.leading.equalTo(self).inset(20)
+            make.bottom.equalTo(self.snp_centerY).inset(-2)
+        }
+        phone.snp_makeConstraints { (make) in
+            make.leading.equalTo(self).inset(20)
+            make.trailing.equalTo(deleteButton.snp_leading).inset(20)
+            make.top.equalTo(self.snp_centerY).inset(2)
+        }
+        deleteButton.snp_makeConstraints { (make) in
+            make.centerY.equalTo(self)
+            make.trailing.equalTo(self).inset(20)
+        }
+    }
+    
+    var deleteDevice: (Device -> ())?
+    
+    @objc private func deleteDevice(sender: AnyObject) {
+        guard let device = entry as? Device else { return }
+        deleteDevice?(device)
+    }
+    
+    override func setup(entry: AnyObject?) {
+        guard let device = entry as? Device else { return }
+        phone.text = device.phone
+        if device.current {
+            name.text = "\(device.name ?? "unnamed".ls) (\("current".ls))"
+            name.font = Font.Normal + .Bold
+            phone.font = Font.Small + .Bold
+            deleteButton.hidden = true
+        } else {
+            name.text = device.name ?? "unnamed".ls
+            name.font = Font.Normal + .Regular
+            phone.font = Font.Small + .Regular
+            deleteButton.hidden = false
+        }
+    }
+}
+
 final class ChangeProfileViewController: BaseViewController, EditSessionDelegate, UITextFieldDelegate, CaptureAvatarViewControllerDelegate, EntryNotifying, FontPresetting {
     
-    @IBOutlet weak var cancelButton: Button!
-    @IBOutlet weak var doneButton: Button!
-    @IBOutlet weak var resendButton: Button!
-    @IBOutlet weak var imageView: ImageView!
-    @IBOutlet weak var emailConfirmationView: UIView!
-    @IBOutlet weak var imagePlaceholderView: UIView!
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var verificationEmailTextView: TextView!
+    private let streamView = StreamView()
+    
+    private lazy var dataSource: StreamDataSource<[Device]> = StreamDataSource(streamView: self.streamView)
+    
+    private let cancelButton = Button()
+    private let doneButton = Button()
+    private let resendButton = Button()
+    private let imageView = ImageView(backgroundColor: UIColor.clearColor())
+    private let emailConfirmationView = ExpandableView()
+    private let emailTextField = TextField()
+    private let nameTextField = TextField()
+    private let verificationEmailTextView = TextView()
+    let headerView = UIView()
+    let bottomView = ExpandableView()
     
     private var editSession: ProfileEditSession! {
         didSet {
@@ -43,24 +101,240 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
         return emailVerificationString
     }
     
+    override func loadView() {
+        super.loadView()
+        
+        let navigationBar = UIView()
+        navigationBar.backgroundColor = Color.orange
+        view.addSubview(navigationBar)
+        navigationBar.snp_makeConstraints { (make) in
+            make.leading.top.trailing.equalTo(view)
+            make.height.equalTo(64)
+        }
+        self.navigationBar = navigationBar
+        let backButton = Button(icon: "L", size: 32, textColor: UIColor.whiteColor())
+        backButton.setTitleColor(UIColor.whiteColor().darkerColor(), forState: .Highlighted)
+        backButton.addTarget(self, action: #selector(self.back(_:)), forControlEvents: .TouchUpInside)
+        navigationBar.addSubview(backButton)
+        backButton.snp_makeConstraints { (make) in
+            make.leading.equalTo(navigationBar).inset(12)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        
+        let title = Label(preset: .Large, weight: .Bold, textColor: UIColor.whiteColor())
+        title.text = "edit_profile".ls
+        navigationBar.addSubview(title)
+        title.snp_makeConstraints { (make) in
+            make.centerX.equalTo(navigationBar)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        
+        streamView.delaysContentTouches = false
+        streamView.alwaysBounceVertical = true
+        view.addSubview(streamView)
+        view.addSubview(bottomView)
+        streamView.snp_makeConstraints { (make) in
+            make.leading.trailing.equalTo(view)
+            make.bottom.equalTo(bottomView.snp_top)
+            make.top.equalTo(navigationBar.snp_bottom)
+        }
+        
+        self.keyboardBottomGuideView = bottomView
+        bottomView.snp_makeConstraints { (make) in
+            make.leading.trailing.bottom.equalTo(view)
+        }
+        
+        func setupButton(button: Button, font: Font = .Large, weight: Font.Weight = .Bold, title: String, action: Selector) {
+            button.backgroundColor = Color.orange
+            button.normalColor = Color.orange
+            button.highlightedColor = Color.orangeDark
+            button.titleLabel?.font = font + weight
+            button.preset = font.rawValue
+            button.setTitle(title, forState: .Normal)
+            button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            button.addTarget(self, action: action, forControlEvents: .TouchUpInside)
+        }
+        
+        setupButton(cancelButton, title: "cancel".ls, action: #selector(self.cancel(_:)))
+        setupButton(doneButton, title: "done".ls, action: #selector(self.done(_:)))
+        
+        bottomView.addSubview(cancelButton)
+        bottomView.addSubview(doneButton)
+        bottomView.makeExpandable { (expandingConstraint) in
+            cancelButton.snp_makeConstraints { (make) in
+                make.leading.top.equalTo(bottomView)
+                expandingConstraint = make.bottom.equalTo(bottomView).constraint
+                make.width.equalTo(doneButton)
+                make.trailing.equalTo(doneButton.snp_leading)
+                make.height.equalTo(44)
+            }
+        }
+        
+        doneButton.snp_makeConstraints { (make) in
+            make.trailing.top.equalTo(bottomView)
+            make.height.equalTo(44)
+        }
+        
+        streamView.addSubview(headerView)
+        headerView.snp_makeConstraints { (make) in
+            make.centerX.equalTo(streamView)
+            make.width.equalTo(streamView)
+            make.top.equalTo(streamView)
+        }
+        
+        emailConfirmationView.clipsToBounds = true
+        headerView.addSubview(emailConfirmationView)
+        
+        emailConfirmationView.snp_makeConstraints { (make) in
+            make.leading.top.trailing.equalTo(headerView)
+        }
+        
+        verificationEmailTextView.font = Font.Smaller + .Regular
+        verificationEmailTextView.preset = Font.Smaller.rawValue
+        verificationEmailTextView.textContainerInset = UIEdgeInsetsZero
+        verificationEmailTextView.textContainer.lineFragmentPadding = 0
+        verificationEmailTextView.scrollEnabled = false
+        verificationEmailTextView.textColor = Color.grayDark
+        emailConfirmationView.addSubview(verificationEmailTextView)
+        
+        let resendButton = Button()
+        resendButton.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        resendButton.insets = CGSize(width: 6, height: 0)
+        resendButton.clipsToBounds = true
+        resendButton.cornerRadius = 4
+        setupButton(resendButton, font: .Smaller, weight: .Regular, title: "resend".ls, action: #selector(self.resendEmailConfirmation(_:)))
+        emailConfirmationView.addSubview(resendButton)
+        
+        emailConfirmationView.makeExpandable { (expandingConstraint) in
+            verificationEmailTextView.snp_makeConstraints { (make) in
+                make.leading.equalTo(emailConfirmationView).inset(20)
+                make.bottom.equalTo(emailConfirmationView)
+                expandingConstraint = make.top.equalTo(emailConfirmationView).inset(20).constraint
+                make.trailing.equalTo(resendButton.snp_leading).offset(-20)
+            }
+        }
+        
+        resendButton.snp_makeConstraints { (make) in
+            make.trailing.top.equalTo(emailConfirmationView).inset(20)
+        }
+        
+        imageView.cornerRadius = 78
+        headerView.addSubview(imageView)
+        imageView.snp_makeConstraints {
+            $0.size.equalTo(156)
+            $0.centerX.equalTo(headerView)
+            $0.top.equalTo(emailConfirmationView.snp_bottom).offset(24)
+        }
+        
+        let takeAvatarButton = Button(type: .Custom)
+        takeAvatarButton.clipsToBounds = true
+        takeAvatarButton.cornerRadius = imageView.cornerRadius
+        takeAvatarButton.highlightedColor = UIColor(white: 0, alpha: 0.5)
+        takeAvatarButton.addTarget(self, action: #selector(self.createImage(_:)), forControlEvents: .TouchUpInside)
+        headerView.addSubview(takeAvatarButton)
+        takeAvatarButton.snp_makeConstraints { (make) in
+            make.edges.equalTo(imageView)
+        }
+        let cameraIcon = Button(icon: "u", size: 24, textColor: Color.orange)
+        cameraIcon.clipsToBounds = true
+        cameraIcon.cornerRadius = 22
+        cameraIcon.setTitleColor(Color.orangeDark, forState: .Highlighted)
+        cameraIcon.backgroundColor = UIColor.whiteColor()
+        cameraIcon.normalColor = UIColor.whiteColor()
+        cameraIcon.highlightedColor = Color.grayLightest
+        cameraIcon.borderColor = Color.orange
+        cameraIcon.borderWidth = 1
+        cameraIcon.userInteractionEnabled = false
+        headerView.addSubview(cameraIcon)
+        takeAvatarButton.highlightings = [cameraIcon]
+        cameraIcon.snp_makeConstraints { (make) in
+            make.size.equalTo(44)
+            make.centerY.equalTo(imageView.snp_bottom).multipliedBy(0.853)
+            make.centerX.equalTo(imageView.snp_trailing).multipliedBy(0.853)
+        }
+        
+        let nameLabel = Label(preset: .Smaller, weight: .Bold, textColor: Color.grayLighter)
+        nameLabel.text = "name".ls
+        nameLabel.highlightedTextColor = Color.orange
+        headerView.addSubview(nameLabel)
+        nameLabel.snp_makeConstraints { (make) in
+            make.leading.equalTo(headerView).inset(20)
+            make.top.equalTo(imageView.snp_bottom).offset(42)
+        }
+        
+        func setupTextField(textField: TextField, keyboardType: UIKeyboardType, action: Selector, highlightLabel: UILabel?) {
+            textField.font = Font.Normal + .Regular
+            textField.textColor = Color.grayDark
+            textField.delegate = self
+            textField.rightViewMode = .WhileEditing
+            textField.keyboardType = keyboardType
+            textField.highlighLabel = highlightLabel
+            textField.strokeColor = Color.grayLighter
+            textField.highlightedStrokeColor = Color.orange
+            textField.addTarget(self, action: action, forControlEvents: .EditingChanged)
+        }
+        
+        setupTextField(nameTextField, keyboardType: .NamePhonePad, action: #selector(self.nameTextFieldChanged(_:)), highlightLabel: nameLabel)
+        
+        headerView.addSubview(nameTextField)
+        nameTextField.snp_makeConstraints { (make) in
+            make.leading.trailing.equalTo(headerView).inset(20)
+            make.top.equalTo(nameLabel.snp_bottom)
+            make.height.equalTo(40)
+        }
+        
+        let emailLabel = Label(preset: .Smaller, weight: .Bold, textColor: Color.grayLighter)
+        emailLabel.text = "email".ls
+        emailLabel.highlightedTextColor = Color.orange
+        headerView.addSubview(emailLabel)
+        emailLabel.snp_makeConstraints { (make) in
+            make.leading.equalTo(headerView).inset(20)
+            make.top.equalTo(nameTextField.snp_bottom).offset(18)
+        }
+        
+        setupTextField(emailTextField, keyboardType: .EmailAddress, action: #selector(self.emailTextFieldChanged(_:)), highlightLabel: emailLabel)
+        
+        headerView.addSubview(emailTextField)
+        emailTextField.snp_makeConstraints { (make) in
+            make.leading.trailing.equalTo(headerView).inset(20)
+            make.top.equalTo(emailLabel.snp_bottom)
+            make.height.equalTo(40)
+        }
+        
+        let devicesLabel = Label(preset: .Smaller, weight: .Bold, textColor: Color.grayLighter)
+        devicesLabel.text = "connected_devices".ls
+        headerView.addSubview(devicesLabel)
+        devicesLabel.snp_makeConstraints { (make) in
+            make.leading.equalTo(headerView).inset(20)
+            make.top.equalTo(emailTextField.snp_bottom).offset(28)
+            make.bottom.equalTo(headerView).inset(10)
+        }
+        
+        dataSource.addMetrics(specify(StreamMetrics(loader: StreamLoader<DeviceCell>()), {
+            $0.size = 64
+            $0.prepareAppearing = { [weak self] _, view in
+                (view as? DeviceCell)?.deleteDevice = { device in
+                    API.deleteDevice(device).send({ devices in
+                        self?.dataSource.items = devices
+                        }, failure: { (error) in
+                            error?.show()
+                    })
+                }
+            }
+        }))
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         editSession = ProfileEditSession(user: User.currentUser!)
-        verificationEmailTextView.textContainerInset = UIEdgeInsetsZero
-        verificationEmailTextView.textContainer.lineFragmentPadding = 0;
         setupEditableUserInterface()
         updateEmailConfirmationView()
         User.notifier().addReceiver(self)
         FontPresetter.defaultPresetter.addReceiver(self)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        let rect = emailConfirmationView.convertRect(CGRectInset(resendButton.frame, -5, -5), toView: verificationEmailTextView)
-        let resendButtonExclusionPath = UIBezierPath(rect: rect)
-        let avatarRect = view.convertRect(imagePlaceholderView.frame, toView: verificationEmailTextView)
-        let avatarPath = UIBezierPath(ovalInRect: avatarRect)
-        verificationEmailTextView.textContainer.exclusionPaths = [resendButtonExclusionPath, avatarPath]
+        dataSource.items = Array(User.currentUser?.devices ?? [])
+        API.devices().send({ [weak self] (devices) in
+            self?.dataSource.items = Array(devices)
+            })
     }
     
     func updateEmailConfirmationView() {
@@ -68,7 +342,9 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
         if let email = unconfirmed_Email where !email.isEmpty {
             verificationEmailTextView.attributedText = ChangeProfileViewController.verificationSuggestion(email)
         }
-        emailConfirmationView.hidden = unconfirmed_Email?.isEmpty ?? false
+        emailConfirmationView.expanded = !(unconfirmed_Email?.isEmpty ?? true)
+        headerView.layoutIfNeeded()
+        dataSource.layoutOffset = headerView.height
     }
     
     func setupEditableUserInterface() {
@@ -172,10 +448,11 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
     
     @IBAction func resendEmailConfirmation(sender: UIButton) {
         sender.userInteractionEnabled = false
-        API.resendConfirmation(nil) .send({ _ in
+        API.resendConfirmation(nil).send({ _ in
             InfoToast.show("confirmation_resend".ls)
             sender.userInteractionEnabled = true
-            }) { _ in
+            }) { error in
+                error?.show()
                 sender.userInteractionEnabled = true
         }
     }
@@ -183,15 +460,16 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
     //MARK: EditSessionDelegate
     
     func editSession(session: EditSessionProtocol, hasChanges: Bool) {
-        doneButton.hidden =     !hasChanges
-        cancelButton.hidden =   !hasChanges
-        doneButton.addAnimation(CATransition.transition(kCATransitionFade))
-        cancelButton.addAnimation(CATransition.transition(kCATransitionFade))
+        animate { 
+            bottomView.expanded = hasChanges
+            bottomView.layoutIfNeeded()
+        }
     }
     
     //MARK: CaptureAvatarViewControllerDelegate
     func captureViewControllerDidCancel(controller: CaptureAvatarViewController) {
         updateEmailConfirmationView()
+        dataSource.reload()
         dismissViewControllerAnimated(false, completion: nil)
     }
     
@@ -210,6 +488,7 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
     
     func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
         updateEmailConfirmationView()
+        dataSource.reload()
     }
     
     //MARK: WLFontPresetterReceiver

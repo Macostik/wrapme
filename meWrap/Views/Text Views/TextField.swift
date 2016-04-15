@@ -13,6 +13,8 @@ class TextField: UITextField {
     @IBInspectable var disableSeparator: Bool = false
     @IBInspectable var trim: Bool = false
     @IBInspectable var strokeColor: UIColor?
+    weak var highlighLabel: UILabel?
+    @IBInspectable var highlightedStrokeColor: UIColor?
     @IBInspectable var localize: Bool = false {
         willSet {
             if let text = placeholder where !text.isEmpty {
@@ -41,15 +43,15 @@ class TextField: UITextField {
             self.text = text.trim
         }
         
-        return super.resignFirstResponder()
+        let flag = super.resignFirstResponder()
+        setNeedsDisplay()
+        return flag
     }
     
-    override var placeholder: String? {
-        willSet {
-            if let placeholder = newValue {
-                super.placeholder = localize ? placeholder.ls : placeholder
-            }
-        }
+    override func becomeFirstResponder() -> Bool {
+        let flag = super.becomeFirstResponder()
+        setNeedsDisplay()
+        return flag
     }
     
     func presetterDidChangeContentSizeCategory(presetter: FontPresetter) {
@@ -57,25 +59,32 @@ class TextField: UITextField {
         self.font = font.fontWithPreset(preset)
     }
     
-    #if !TARGET_INTERFACE_BUILDER
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
-        if !disableSeparator {
-            let path = UIBezierPath()
-            path.lineWidth =  Constants.pixelSize/2.0
+        guard !disableSeparator else { return }
+        let path = UIBezierPath()
+        var placeholderColor: UIColor?
+        if isFirstResponder() {
+            path.lineWidth = 2
+            placeholderColor = highlightedStrokeColor ?? attributedPlaceholder?.foregroundColor
+            highlighLabel?.highlighted = true
+        } else {
+            path.lineWidth = 1
+            placeholderColor = strokeColor ?? attributedPlaceholder?.foregroundColor
+            highlighLabel?.highlighted = false
+        }
+        if let color = placeholderColor {
             let y = bounds.height - path.lineWidth/2.0
             path.move(0, y).line(bounds.width, y)
-            var placeholderColor = UIColor.clearColor()
-            if let strokeColor = strokeColor {
-                placeholderColor = strokeColor
-            } else {
-                if let _placeholderColor = attributedPlaceholder?.attribute(NSForegroundColorAttributeName, atIndex: 0, effectiveRange: nil) as? UIColor {
-                    placeholderColor = _placeholderColor
-                }
-            }
-            placeholderColor.setStroke()
+            color.setStroke()
             path.stroke()
         }
     }
-    #endif
+}
+
+extension NSAttributedString {
+    
+    var foregroundColor: UIColor? {
+        return attribute(NSForegroundColorAttributeName, atIndex: 0, effectiveRange: nil) as? UIColor
+    }
 }

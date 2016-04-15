@@ -68,8 +68,8 @@ extension API {
         }).contributionUnavailable(wrap)
     }
     
-    static func wrap(wrap: Wrap, contentType: String?) -> APIRequest<Wrap?> {
-        return APIRequest<Wrap?>(.GET, "wraps/\(wrap.uid)", modifier: { $0["pick"] = contentType }, parser: { response in
+    static func wrap(wrap: Wrap, contentType: String?) -> APIRequest<Wrap> {
+        return APIRequest<Wrap>(.GET, "wraps/\(wrap.uid)", modifier: { $0["pick"] = contentType }, parser: { response in
             if let dictionary = response.dictionary("wrap") where wrap.valid {
                 return wrap.update(Wrap.prefetchDictionary(dictionary))
             } else {
@@ -78,14 +78,14 @@ extension API {
         }).contributionUnavailable(wrap)
     }
     
-    static func candy(candy: Candy) -> APIRequest<Candy?> {
+    static func candy(candy: Candy) -> APIRequest<Candy> {
         var path: String!
         if let wrap = candy.wrap {
             path = "wraps/\(wrap.uid)/candies/\(candy.uid)"
         } else {
             path = "entities/\(candy.uid)"
         }
-        return APIRequest<Candy?>(.GET, path, parser: { response in
+        return APIRequest<Candy>(.GET, path, parser: { response in
             if let dictionary = response.dictionary("candy") {
                 return candy.validEntry()?.update(Candy.prefetchDictionary(dictionary))
             } else {
@@ -94,33 +94,33 @@ extension API {
         }).contributionUnavailable(candy)
     }
     
-    static func deleteCandy(candy: Candy) -> APIRequest<AnyObject?>? {
+    static func deleteCandy(candy: Candy) -> APIRequest<Response>? {
         guard let wrap = candy.wrap else { return nil }
-        return APIRequest<AnyObject?>(.DELETE, "wraps/\(wrap.uid)/candies/\(candy.uid)", parser: { response in
+        return APIRequest(.DELETE, "wraps/\(wrap.uid)/candies/\(candy.uid)", parser: { response in
             candy.remove()
-            return nil
+            return response
         }).contributionUnavailable(candy)
     }
     
-    static func deleteComment(comment: Comment) -> APIRequest<AnyObject?>? {
+    static func deleteComment(comment: Comment) -> APIRequest<Response>? {
         guard let candy = comment.candy else { return nil }
         guard let wrap = candy.wrap else { return nil }
-        return APIRequest<AnyObject?>(.DELETE, "wraps/\(wrap.uid)/candies/\(candy.uid)/comments/\(comment.uid)", parser: { response in
+        return APIRequest(.DELETE, "wraps/\(wrap.uid)/candies/\(candy.uid)/comments/\(comment.uid)", parser: { response in
             comment.remove()
             candy.validEntry()?.commentCount = Int16(response.data["comment_count"] as? Int ?? 0)
-            return nil
+            return response
         }).contributionUnavailable(candy)
     }
     
-    static func deleteWrap(wrap: Wrap) -> APIRequest<AnyObject?> {
-        return APIRequest<AnyObject?>(.DELETE, "wraps/\(wrap.uid)", parser: { response in
+    static func deleteWrap(wrap: Wrap) -> APIRequest<Response> {
+        return APIRequest(.DELETE, "wraps/\(wrap.uid)", parser: { response in
             wrap.remove()
-            return nil
+            return response
         }).contributionUnavailable(wrap)
     }
     
-    static func leaveWrap(wrap: Wrap) -> APIRequest<AnyObject?> {
-        return APIRequest<AnyObject?>(.DELETE, "wraps/\(wrap.uid)/leave", parser: { response in
+    static func leaveWrap(wrap: Wrap) -> APIRequest<Response> {
+        return APIRequest(.DELETE, "wraps/\(wrap.uid)/leave", parser: { response in
             if wrap.isPublic {
                 if let user = User.currentUser {
                     wrap.contributors.remove(user)
@@ -129,7 +129,7 @@ extension API {
             } else {
                 wrap.remove()
             }
-            return nil
+            return response
         }).contributionUnavailable(wrap)
     }
     
@@ -149,8 +149,8 @@ extension API {
         }).contributionUnavailable(wrap)
     }
     
-    static func unfollowWrap(wrap: Wrap) -> APIRequest<AnyObject?> {
-        return APIRequest<AnyObject?>(.DELETE, "wraps/\(wrap.uid)/unfollow", parser: { response in
+    static func unfollowWrap(wrap: Wrap) -> APIRequest<Response> {
+        return APIRequest(.DELETE, "wraps/\(wrap.uid)/unfollow", parser: { response in
             if let user = User.currentUser {
                 wrap.contributors.remove(user)
                 wrap.notifyOnUpdate(.ContributorsChanged)
@@ -159,14 +159,14 @@ extension API {
                 wrap.liveBroadcasts = []
                 wrap.notifyOnUpdate(.LiveBroadcastsChanged)
             }
-            return nil
+            return response
         }).contributionUnavailable(wrap)
     }
     
-    static func postComment(comment: Comment) -> APIRequest<Comment?>? {
+    static func postComment(comment: Comment) -> APIRequest<Comment>? {
         guard let candy = comment.candy else { return nil }
         guard let wrap = candy.wrap else { return nil }
-        return APIRequest<Comment?>(.POST, "wraps/\(wrap.uid)/candies/\(candy.uid)/comments", modifier: {
+        return APIRequest<Comment>(.POST, "wraps/\(wrap.uid)/candies/\(candy.uid)/comments", modifier: {
             $0["message"] = comment.text
             $0["upload_uid"] = comment.locuid
             $0["contributed_at_in_epoch"] = NSNumber(double: comment.updatedAt.timestamp)
@@ -184,12 +184,12 @@ extension API {
             }).contributionUnavailable(candy)
     }
     
-    static func resendConfirmation(email: String?) -> APIRequest<AnyObject?> {
-        return APIRequest<AnyObject?>(.POST, "users/resend_confirmation", modifier: { $0["email"] = email })
+    static func resendConfirmation(email: String?) -> APIRequest<Response> {
+        return APIRequest(.POST, "users/resend_confirmation", modifier: { $0["email"] = email }, parser: { $0 })
     }
     
-    static func resendInvite(wrap: Wrap, user: User) -> APIRequest<AnyObject?> {
-        return APIRequest<AnyObject?>(.POST, "wraps/\(wrap.uid)/resend_invitation", modifier: { $0["user_uid"] = user.uid })
+    static func resendInvite(wrap: Wrap, user: User) -> APIRequest<Response> {
+        return APIRequest(.POST, "wraps/\(wrap.uid)/resend_invitation", modifier: { $0["user_uid"] = user.uid }, parser: { $0 })
     }
     
     static func user(user: User) -> APIRequest<User> {
@@ -214,8 +214,8 @@ extension API {
             }).contributionUnavailable(wrap)
     }
     
-    static func changePreferences(wrap: Wrap) -> APIRequest<Wrap?> {
-        return APIRequest<Wrap?>(.PUT, "wraps/\(wrap.uid)/preferences", modifier: {
+    static func changePreferences(wrap: Wrap) -> APIRequest<Wrap> {
+        return APIRequest<Wrap>(.PUT, "wraps/\(wrap.uid)/preferences", modifier: {
             $0["notify_when_image_candy_addition"] = wrap.isCandyNotifiable
             $0["notify_when_chat_addition"] = wrap.isChatNotifiable
             $0["notify_when_comment_addition"] = wrap.isCommentNotifiable
@@ -224,16 +224,16 @@ extension API {
         }).contributionUnavailable(wrap)
     }
     
-    static func verificationCall() -> APIRequest<AnyObject?> {
-        return APIRequest<AnyObject?>(.POST, "users/call", modifier: {
+    static func verificationCall() -> APIRequest<Response> {
+        return APIRequest(.POST, "users/call", modifier: {
             $0["email"] = Authorization.current.email
             $0["device_uid"] = Authorization.current.deviceUID
-        })
+        }, parser: { $0 })
     }
     
-    static func uploadMessage(message: Message) -> APIRequest<Message?>? {
+    static func uploadMessage(message: Message) -> APIRequest<Message>? {
         guard let wrap = message.wrap else { return nil }
-        return APIRequest<Message?>(.POST, "wraps/\(wrap.uid)/chats", modifier: { (request) -> Void in
+        return APIRequest<Message>(.POST, "wraps/\(wrap.uid)/chats", modifier: { (request) -> Void in
             request["message"] = message.text
             request["upload_uid"] = message.locuid
         }, parser: { response in
@@ -260,14 +260,14 @@ extension API {
         }
     }
     
-    static func contributors(wrap: Wrap) -> APIRequest<Wrap?> {
-        return APIRequest<Wrap?>(.GET, "wraps/\(wrap.uid)/contributors", parser: { response in
+    static func contributors(wrap: Wrap) -> APIRequest<Wrap> {
+        return APIRequest<Wrap>(.GET, "wraps/\(wrap.uid)/contributors", parser: { response in
             return self.parseContributors(wrap, response: response)
         }).contributionUnavailable(wrap)
     }
     
-    static func addContributors(contributors: Set<AddressBookPhoneNumber>, wrap: Wrap, message: String?) -> APIRequest<Wrap?> {
-        return APIRequest<Wrap?>(.POST, "wraps/\(wrap.uid)/add_contributor", modifier: { (request) -> Void in
+    static func addContributors(contributors: Set<AddressBookPhoneNumber>, wrap: Wrap, message: String?) -> APIRequest<Wrap> {
+        return APIRequest<Wrap>(.POST, "wraps/\(wrap.uid)/add_contributor", modifier: { (request) -> Void in
             
             let registeredContributors = contributors.filter({ $0.user != nil })
             request["user_uids"] = registeredContributors.map({ $0.user!.uid })
@@ -295,16 +295,16 @@ extension API {
         }).contributionUnavailable(wrap)
     }
     
-    static func removeContributors(contributors: [User], wrap: Wrap) -> APIRequest<Wrap?> {
-        return APIRequest<Wrap?>(.DELETE, "wraps/\(wrap.uid)/remove_contributor", modifier: {
+    static func removeContributors(contributors: [User], wrap: Wrap) -> APIRequest<Wrap> {
+        return APIRequest<Wrap>(.DELETE, "wraps/\(wrap.uid)/remove_contributor", modifier: {
             $0["user_uids"] = contributors.map({ $0.uid })
             }, parser: { response in
                 return self.parseContributors(wrap, response: response)
         }).contributionUnavailable(wrap)
     }
     
-    static func uploadWrap(wrap: Wrap) -> APIRequest<Wrap?> {
-        return APIRequest<Wrap?>(.POST, "wraps", modifier: { (request) -> Void in
+    static func uploadWrap(wrap: Wrap) -> APIRequest<Wrap> {
+        return APIRequest<Wrap>(.POST, "wraps", modifier: { (request) -> Void in
             request["name"] = wrap.name
             request["upload_uid"] = wrap.locuid
             request["contributed_at_in_epoch"] = NSNumber(double: wrap.updatedAt.timestamp)
@@ -338,8 +338,8 @@ extension API {
         })
     }
     
-    static func updateWrap(wrap: Wrap) -> APIRequest<Wrap?> {
-        return APIRequest<Wrap?>(.PUT, "wraps/\(wrap.uid)", modifier: { (request) -> Void in
+    static func updateWrap(wrap: Wrap) -> APIRequest<Wrap> {
+        return APIRequest<Wrap>(.PUT, "wraps/\(wrap.uid)", modifier: { (request) -> Void in
             request["name"] = wrap.name
             request["is_restricted_invite"] = wrap.isRestrictedInvite
         }, parser: { response in
@@ -355,11 +355,11 @@ extension API {
         })
     }
     
-    static func reportCandy(candy: Candy, violation: Violation) -> APIRequest<AnyObject?>? {
+    static func reportCandy(candy: Candy, violation: Violation) -> APIRequest<Response>? {
         guard let wrap = candy.wrap else { return nil }
-        return APIRequest<AnyObject?>(.POST, "wraps/\(wrap.uid)/candies/\(candy.uid)/violations", modifier: {
+        return APIRequest(.POST, "wraps/\(wrap.uid)/candies/\(candy.uid)/violations", modifier: {
             $0["violation_code"] = violation.code
-        })
+        }, parser: { $0 })
     }
     
     static func contributorsFromRecords(records: [AddressBookRecord]) -> APIRequest<[AddressBookRecord]> {
@@ -412,7 +412,23 @@ extension API {
         })
     }
     
-    static func resetBadge() -> APIRequest<AnyObject?> {
-        return APIRequest<AnyObject?>(.PUT, "devices/reset_badge")
+    static func resetBadge() -> APIRequest<Response> {
+        return APIRequest(.PUT, "devices/reset_badge", parser: { $0 })
+    }
+    
+    static func deleteDevice(device: Device) -> APIRequest<[Device]> {
+        return APIRequest(.DELETE, "api/devices/\(device.uid)", parser: { _ in
+            let user = User.currentUser
+            user?.devices.remove(device)
+            return Array(user?.devices ?? [])
+        })
+    }
+    
+    static func devices() -> APIRequest<[Device]> {
+        return APIRequest(.GET, "api/devices", parser: {
+            let devices: [Device] = mappedEntries($0.array("devices"))
+            User.currentUser?.devices = Set(devices)
+            return devices
+        })
     }
 }

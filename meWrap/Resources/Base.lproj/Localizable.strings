@@ -320,3 +320,7 @@
 "someone_is_live" = "%@ is live";
 "you're_invited" = "You're invited!";
 "invited_you_to" = "%@ invited you to \"%@\"";
+"email" = "Email";
+"edit_profile" = "Edit Profile";
+"connected_devices" = "Connected devices";
+"delete_device" = "delete";

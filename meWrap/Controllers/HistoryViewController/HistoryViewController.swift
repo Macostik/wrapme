@@ -10,7 +10,7 @@ import Foundation
 import Photos
 import SnapKit
 
-final class CommentView: ExpendableView {
+final class CommentView: ExpandableView {
     
     private let avatar = UserAvatarView(cornerRadius: 24)
     private let name = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
@@ -77,7 +77,7 @@ final class CommentView: ExpendableView {
     }
 }
 
-class ExpendableView: UIView {
+class ExpandableView: UIView {
     
     var expandingConstraint: Constraint?
     
@@ -178,7 +178,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         }
     }
     
-    private lazy var expandableToolbar: ExpendableView = specify(ExpendableView()) { view in
+    private lazy var expandableToolbar: ExpandableView = specify(ExpandableView()) { view in
         view.addSubview(self.reportButton)
         view.addSubview(self.deleteButton)
         view.addSubview(self.downloadButton)
@@ -257,7 +257,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         }
     }
     
-    private lazy var editorView: ExpendableView = specify(ExpendableView()) { view in
+    private lazy var editorView: ExpandableView = specify(ExpandableView()) { view in
         view.clipsToBounds = true
         view.addSubview(self.editorAvatar)
         view.addSubview(self.editorName)
@@ -283,7 +283,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         }
     }
     
-    private lazy var topView: ExpendableView = specify(ExpendableView()) { view in
+    private lazy var topView: ExpandableView = specify(ExpandableView()) { view in
         view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
         view.addSubview(self.contributorView)
         view.addSubview(self.editorView)

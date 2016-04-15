@@ -39,6 +39,8 @@ class BaseViewController: GAITrackedViewController, KeyboardNotifying {
     
     var keyboardAdjustmentAnimated = true
     
+    @IBOutlet weak var keyboardBottomGuideView: UIView?
+    
     var viewAppeared = false
     
     private lazy var keyboardAdjustments: [KeyboardAdjustment] = {
@@ -73,7 +75,7 @@ class BaseViewController: GAITrackedViewController, KeyboardNotifying {
             view.forceLayout()
         }
         screenName = NSStringFromClass(self.dynamicType)
-        if !keyboardAdjustments.isEmpty {
+        if keyboardBottomGuideView != nil || !keyboardAdjustments.isEmpty {
             Keyboard.keyboard.addReceiver(self)
         }
         if !whenLoadedBlocks.isEmpty {
@@ -141,15 +143,33 @@ class BaseViewController: GAITrackedViewController, KeyboardNotifying {
     }
     
     func keyboardWillShow(keyboard: Keyboard) {
-        guard isViewLoaded() && !keyboardAdjustments.isEmpty else { return }
-        adjust(keyboard)
+        if let keyboardBottomGuideView = keyboardBottomGuideView {
+            keyboard.performAnimation({ () in
+                keyboardBottomGuideView.snp_updateConstraints(closure: { (make) in
+                    make.bottom.equalTo(view).inset(keyboard.height)
+                })
+                view.layoutIfNeeded()
+            })
+        } else {
+            guard isViewLoaded() && !keyboardAdjustments.isEmpty else { return }
+            adjust(keyboard)
+        }
     }
     
     func keyboardDidShow(keyboard: Keyboard) {}
     
     func keyboardWillHide(keyboard: Keyboard) {
-        guard isViewLoaded() && !keyboardAdjustments.isEmpty else { return }
-        adjust(keyboard, willHide: true)
+        if let keyboardBottomGuideView = keyboardBottomGuideView {
+            keyboard.performAnimation({ () in
+                keyboardBottomGuideView.snp_updateConstraints(closure: { (make) in
+                    make.bottom.equalTo(view)
+                })
+                view.layoutIfNeeded()
+            })
+        } else {
+            guard isViewLoaded() && !keyboardAdjustments.isEmpty else { return }
+            adjust(keyboard, willHide: true)
+        }
     }
     
     func keyboardDidHide(keyboard: Keyboard) {}

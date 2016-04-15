@@ -320,3 +320,7 @@
 "someone_is_live" = "%@正在直播中";
 "you're_invited" = "你已被邀请！";
 "invited_you_to" = "%@邀请你加入\"%@\"";
+"email" = "Email";
+"edit_profile" = "Edit Profile";
+"connected_devices" = "Connected devices";
+"delete_device" = "delete";

@@ -65,8 +65,16 @@ final class StreamView: UIScrollView {
     
     override var frame: CGRect {
         didSet {
-            if oldValue.size != frame.size && layout.finalized {
-                reload()
+            if layout.finalized {
+                if layout.horizontal {
+                    if frame.height != oldValue.height {
+                        reload()
+                    }
+                } else {
+                    if frame.width != oldValue.width {
+                        reload()
+                    }
+                }
             }
         }
     }
@@ -334,9 +342,6 @@ final class StreamView: UIScrollView {
     }
     
     override func touchesShouldCancelInContentView(view: UIView) -> Bool {
-        if view is UIButton {
-            return true
-        }
-        return super.touchesShouldCancelInContentView(view)
+        return true
     }
 }

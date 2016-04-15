@@ -127,4 +127,8 @@ final class Device: Entry {
             }
         }
     }
+    
+    var current: Bool {
+        return uid == Authorization.current.deviceUID
+    }
 }

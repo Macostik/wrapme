@@ -21,7 +21,7 @@
     </entity>
     <entity name="Device" representedClassName="Device" parentEntity="Entry" syncable="YES">
         <attribute name="activated" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" defaultValueString="default" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="devices" inverseEntity="User" syncable="YES"/>
     </entity>

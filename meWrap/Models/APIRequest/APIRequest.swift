@@ -58,7 +58,7 @@ class APIRequest<ResponseType> {
     
     private var method: Alamofire.Method = .GET
     
-    init(_ method: Alamofire.Method, _ path: String = "", modifier: (APIRequest<ResponseType> -> Void)? = nil, parser: (Response -> ResponseType)? = nil) {
+    init(_ method: Alamofire.Method, _ path: String = "", modifier: (APIRequest<ResponseType> -> Void)? = nil, parser: (Response -> ResponseType?)? = nil) {
         self.method = method
         self.path = path
         if let modifier = modifier {
@@ -78,7 +78,7 @@ class APIRequest<ResponseType> {
         }
     }
     
-    var parser: (Response -> ResponseType)?
+    var parser: (Response -> ResponseType?)?
     
     subscript(key: String) -> AnyObject? {
         set {
@@ -200,11 +200,16 @@ class APIRequest<ResponseType> {
     func cancel() { task?.cancel() }
     
     func handleSuccess(object: ResponseType?) {
-        let success = successBlock
-        failureBlock = nil
-        successBlock = nil
         if let object = object {
+            let success = successBlock
+            failureBlock = nil
+            successBlock = nil
             success?(object)
+        } else {
+            let failure = self.failureBlock
+            failureBlock = nil
+            successBlock = nil
+            failure?(NSError(message: "Parsed response object is not valid"))
         }
     }
     

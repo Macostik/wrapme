@@ -489,7 +489,10 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
     func editSession(session: EditSessionProtocol, hasChanges: Bool) {
         animate { 
             bottomView.expanded = hasChanges
-            bottomView.layoutIfNeeded()
+            view.layoutIfNeeded()
+        }
+        if let firstResponder = headerView.findFirstResponder() {
+            streamView.scrollRectToVisible(streamView.convertRect(firstResponder.bounds, fromCoordinateSpace: firstResponder), animated: true)
         }
     }
     

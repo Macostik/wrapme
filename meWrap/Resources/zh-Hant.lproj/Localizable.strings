@@ -15,6 +15,7 @@
 "no_contacts" = "找不到聯絡人。";
 "no_access_to_contacts" = "沒有讀取通訊錄的權限。";
 "leave_screen_on_editing" = "修圖內容尚未存檔，確定要離開嗎？";
+"discard_changes" = "Discard changes";
 "unsaved_photo" = "未存檔相片";
 "continue" = "繼續";
 "cancel" = "取消";

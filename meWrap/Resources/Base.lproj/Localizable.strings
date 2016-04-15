@@ -14,7 +14,8 @@
 "no_contacts_with_phone_number" = "No contacts found.";
 "no_contacts" = "No contacts found.";
 "no_access_to_contacts" = "No permission to access contacts.";
-"leave_screen_on_editing" = "Changes will be lost if you don't save them. Are you sure you want to leave this screen?";
+"leave_screen_on_editing" = "Are you sure you want to leave this screen?";
+"discard_changes" = "Discard changes";
 "unsaved_photo" = "Unsaved photo";
 "continue" = "Continue";
 "cancel" = "Cancel";

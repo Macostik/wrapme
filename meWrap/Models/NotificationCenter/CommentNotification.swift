@@ -36,12 +36,14 @@ class CommentAddNotification: CommentNotification {
         comment.notifyOnAddition()
         weak var controller = UINavigationController.main()?.topViewController as? HistoryViewController
         let commentViewController = controller?.commentsViewController
-        if controller == nil || controller?.candy?.comments.contains(comment) == false || commentViewController?.isEndingOfScroll == false {
+        if controller == nil || controller?.candy?.comments.contains(comment) == false || commentViewController?.isMaxContentOffset == false {
             if comment.contributor?.current == false && !isHistorycal {
                 EntryToast.showCommentAddition(comment)
             }
         } else {
-            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+            if self.isHistorycal == false {
+                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+            }
         }
     }
 }

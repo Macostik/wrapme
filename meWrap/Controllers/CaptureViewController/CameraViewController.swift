@@ -38,6 +38,8 @@ class CameraViewController: BaseViewController {
     
     @IBOutlet weak var takePhotoButton: UIButton!
     
+    var handleImageSetup: Block?
+    
     weak var delegate: CameraViewControllerDelegate?
     
     var isAvatar = false
@@ -197,7 +199,9 @@ class CameraViewController: BaseViewController {
                 observer.locked = true
                 controller.captureImage({ () -> Void in
                     if !controller.isAvatar {
-                        Dispatch.mainQueue.after(0.5) { observer.locked = false }
+                        self?.handleImageSetup = {
+                             observer.locked = false
+                        }
                     }
                 })
             }

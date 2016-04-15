@@ -19,7 +19,10 @@ extension NSData {
 
 final class NotificationCenter: NSObject {
     
-    static let defaultCenter = specify(NotificationCenter()) { User.notifier().addReceiver($0) }
+    static let defaultCenter = specify(NotificationCenter()) {
+        Network.sharedNetwork.addReceiver($0)
+        User.notifier().addReceiver($0)
+    }
     
     var enqueuedMessages = [AnyObject]()
     
@@ -119,13 +122,7 @@ final class NotificationCenter: NSObject {
     func requestHistory() {
         RunQueue.fetchQueue.run { [unowned self] finish in
             
-            guard !self.userSubscription.name.isEmpty else {
-                finish()
-                return
-            }
-            
-            guard Network.sharedNetwork.reachable else {
-                Network.sharedNetwork.addReceiver(self)
+            guard !self.userSubscription.name.isEmpty && Network.sharedNetwork.reachable else {
                 finish()
                 return
             }
@@ -209,8 +206,8 @@ final class NotificationCenter: NSObject {
 extension NotificationCenter: NetworkNotifying {
     func networkDidChangeReachability(network: Network) {
         if network.reachable {
-            network.removeReceiver(self)
             requestHistory()
+            refreshUserActivities(true, completionHandler: nil)
         }
     }
 }

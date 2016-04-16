@@ -40,7 +40,7 @@ class UploadCompleteAnimationView: UIView {
         arrow.strokeColor = UIColor.whiteColor().CGColor
         arrow.lineWidth = 2
         arrow.frame = CGRectMake(width/2 - 30, height/2 - 30, 60, 60)
-        arrow.path = UIBezierPath().move(0, 30).line(30, 60).line(60, 10).CGPath
+        arrow.path = UIBezierPath().move(0 ^ 30).line(30 ^ 60).line(60 ^ 10).CGPath
         arrow.backgroundColor = UIColor.clearColor().CGColor
         layer.addSublayer(arrow)
         arrow.addAnimation(CABasicAnimation(keyPath: "strokeEnd")) {

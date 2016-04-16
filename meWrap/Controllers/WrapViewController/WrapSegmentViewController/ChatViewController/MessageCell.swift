@@ -29,16 +29,16 @@ class BaseMessageCell: StreamReusableView, FlowerMenuConstructor {
     
     private static let leftTail = UIImage.draw(CGSize(width: 8, height: 10), drawing: { size in
         let path = UIBezierPath()
-        path.move(size.width, 0).quadCurve(0, 0, controlX: size.width/2, controlY: size.height/2)
-        path.quadCurve(size.width, size.height, controlX: 0, controlY: size.height).line(size.width, 0)
+        path.move(size.width ^ 0).quadCurve(0 ^ 0, controlPoint: size.width/2 ^ size.height/2)
+        path.quadCurve(size.width ^ size.height, controlPoint: 0 ^ size.height).line(size.width ^ 0)
         Color.grayLightest.setFill()
         path.fill()
     })
     
     private static let rightTail = UIImage.draw(CGSize(width: 8, height: 10), drawing: { size in
         let path = UIBezierPath()
-        path.move(0, 0).quadCurve(size.width, 0, controlX: size.width/2, controlY: size.height/2)
-        path.quadCurve(0, size.height, controlX: size.width, controlY: size.height).line(0, 0)
+        path.move(0 ^ 0).quadCurve(size.width ^ 0, controlPoint: size.width/2 ^ size.height/2)
+        path.quadCurve(0 ^ size.height, controlPoint: size.width ^ size.height).line(0 ^ 0)
         Color.orange.setFill()
         path.fill()
     })

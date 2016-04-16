@@ -75,7 +75,7 @@ class TextField: UITextField {
         }
         if let color = placeholderColor {
             let y = bounds.height - path.lineWidth/2.0
-            path.move(0, y).line(bounds.width, y)
+            path.move(0 ^ y).line(bounds.width ^ y)
             color.setStroke()
             path.stroke()
         }

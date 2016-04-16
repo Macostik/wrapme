@@ -24,13 +24,13 @@ class SeparatorView: UIView {
             let path = UIBezierPath()
             switch contentMode {
             case .Top:
-                path.move(0, 0).line(frame.width, 0)
+                path.move(0 ^ 0).line(frame.width ^ 0)
             case .Left:
-                path.move(0, 0).line(0, frame.height)
+                path.move(0 ^ 0).line(0 ^ frame.height)
             case .Right:
-                path.move(frame.width, 0).line(frame.width, frame.height)
+                path.move(frame.width ^ 0).line(frame.width ^ frame.height)
             default:
-                path.move(0, frame.height).line(frame.width, frame.height)
+                path.move(0 ^ frame.height).line(frame.width ^ frame.height)
             }
             color.setStroke()
             path.lineWidth = 1.0 / max(2, UIScreen.mainScreen().scale)

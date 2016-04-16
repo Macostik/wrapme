@@ -10,105 +10,81 @@ import Foundation
 
 protocol DrawingSessionDelegate: class {
     func drawingSessionDidBeginDrawing(session: DrawingSession)
-    func drawingSession(session: DrawingSession, isAcceptableLine line: DrawingLine) -> Bool
-    func drawingSession(session: DrawingSession, didEndDrawing line: DrawingLine)
+    func drawingSessionDidEndDrawing(session: DrawingSession)
+}
+
+protocol Drawing: class {
+    func render()
 }
 
 class DrawingSession {
     
-    var brush: DrawingBrush = DrawingBrush(width: 1, opacity: 1, color: UIColor.whiteColor())
+    var brush = DrawingBrush(width: 1, opacity: 1, color: UIColor.whiteColor())
     
     weak var delegate: DrawingSessionDelegate?
     
-    private var lines = [DrawingLine]()
-    
-    var line: DrawingLine?
+    private var drawings = [Drawing]()
     
     var empty: Bool {
-        return lines.isEmpty
+        return drawings.isEmpty
     }
     
-    var interpolated = false
-    
-    var drawing = false
+    var drawing: Drawing?
     
     func undo() {
-        lines.removeLast()
+        drawings.removeLast()
     }
     
     func render() {
-        for line in lines {
-            line.render()
+        for drawing in drawings {
+            drawing.render()
         }
     }
     
-    func beginDrawing() -> DrawingLine {
-        let line = DrawingLine()
-        line.brush = brush
-        lines.append(line)
-        self.line = line
+    func beginDrawing(drawing: Drawing) {
+        self.drawing = drawing
         delegate?.drawingSessionDidBeginDrawing(self)
-        drawing = true
-        return line
-    }
-    
-    func addPoint(point: CGPoint) {
-        line?.addPoint(point)
     }
     
     func endDrawing() {
-        drawing = false
-        
-        if let line = line {
-            if delegate?.drawingSession(self, isAcceptableLine:line) ?? true {
-                if interpolated {
-                    line.interpolate()
-                }
-                line.completed = true
-            } else {
-                lines.removeLast()
-            }
-            
-            delegate?.drawingSession(self, didEndDrawing:line)
+        if let drawing = drawing {
+            drawings.append(drawing)
+            delegate?.drawingSessionDidEndDrawing(self)
         }
-        
-        line = nil
+        drawing = nil
+    }
+    
+    func cancelDrawing() {
+        drawing = nil
     }
     
     func erase() {
-        lines.removeAll()
-        line = nil
-        drawing = false
+        drawings.removeAll()
+        drawing = nil
     }
 }
 
 private var pathPoints = [CGPoint]()
 
-class DrawingLine {
+class Line: Drawing {
     
-    var brush: DrawingBrush = DrawingBrush(width: 1, opacity: 1, color: UIColor.whiteColor()) {
+    var brush = DrawingBrush(width: 1, opacity: 1, color: UIColor.whiteColor()) {
         willSet {
             path.lineWidth = newValue.width
         }
     }
     
-    var completed = false
-    
-    var path: UIBezierPath = {
-        let path = UIBezierPath()
-        path.lineCapStyle = .Round
-        path.lineJoinStyle = .Round
-        return path
-    }()
+    var path = specify(UIBezierPath()) {
+        $0.lineCapStyle = .Round
+        $0.lineJoinStyle = .Round
+    }
     
     func addPoint(point: CGPoint) {
-        if !completed {
-            if path.empty {
-                path.moveToPoint(point)
-                path.addLineToPoint(point)
-            } else if path.currentPoint != point {
-                path.addLineToPoint(point)
-            }
+        if path.empty {
+            path.moveToPoint(point)
+            path.addLineToPoint(point)
+        } else if path.currentPoint != point {
+            path.addLineToPoint(point)
         }
     }
     
@@ -157,7 +133,7 @@ class DrawingLine {
     }
     
     func intersectsRect(rect: CGRect) -> Bool {
-        return path.bounds.intersects(rect)
+        return path.bounds.intersects(rect.insetBy(dx: -brush.width/2, dy: -brush.width/2))
     }
 }
 

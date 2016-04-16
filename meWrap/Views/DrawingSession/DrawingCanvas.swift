@@ -18,31 +18,39 @@ class DrawingCanvas: UIView {
     }
     
     private weak var _imageView: UIImageView?
-    private lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
-        self.superview?.insertSubview(imageView, belowSubview: self)
-        imageView.snp_makeConstraints(closure: { $0.edges.equalTo(self) })
-        self._imageView = imageView
-        return imageView
-    }()
+    private lazy var imageView: UIImageView = specify(UIImageView()) {
+        self.superview?.insertSubview($0, belowSubview: self)
+        $0.snp_makeConstraints(closure: { $0.edges.equalTo(self) })
+        self._imageView = $0
+    }
     
     override func drawRect(rect: CGRect) {
-        session.line?.render()
+        session.drawing?.render()
     }
+    
+    private var line: Line?
     
     @IBAction func panning(sender: UIPanGestureRecognizer) {
         
         let state = sender.state
         
-        if !session.drawing {
-            session.beginDrawing()
+        if session.drawing == nil {
+            let line = Line()
+            line.brush = session.brush
+            session.beginDrawing(line)
+            self.line = line
         }
         
-        session.addPoint(sender.locationInView(self))
+        line?.addPoint(sender.locationInView(self))
         
         if (state == .Ended || state == .Cancelled) {
-            session.endDrawing()
-            render()
+            if let line = line where line.intersectsRect(bounds) {
+                line.interpolate()
+                session.endDrawing()
+                render()
+            } else {
+                session.cancelDrawing()
+            }
         }
         
         setNeedsDisplay()

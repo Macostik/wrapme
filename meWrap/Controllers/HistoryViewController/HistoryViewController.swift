@@ -106,7 +106,6 @@ extension Button {
     class func candyAction(action: String, color: UIColor, size: CGFloat = 20) -> Button {
         let button = Button(icon: action, size: size)
         button.cornerRadius = 22
-        button.clipsToBounds = true
         button.normalColor = color
         button.highlightedColor = color.darkerColor()
         button.update()
@@ -118,8 +117,7 @@ extension Button {
         button.setTitleColor(Color.grayLight, forState: .Highlighted)
         button.setTitleColor(Color.grayLight, forState: .Selected)
         button.borderColor = UIColor.whiteColor()
-        button.borderWidth = 1.5
-        button.clipsToBounds = true
+        button.borderWidth = 1
         button.cornerRadius = 22
         return button
     }
@@ -202,6 +200,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
                 $0.trailing.equalTo(self.reportButton.snp_leading).offset(-14)
             }
         }
+        self.shareButton.titleEdgeInsets = UIEdgeInsetsMake(0,0,0,2)
         self.shareButton.snp_makeConstraints {
             $0.size.equalTo(44)
             $0.centerY.equalTo(self.downloadButton)
@@ -383,6 +382,9 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         commentView.snp_makeConstraints {
             $0.leading.trailing.bottom.equalTo(view)
         }
+        commentButton.layer.shadowColor = UIColor.blackColor().CGColor
+        commentButton.layer.shadowOpacity = 0.5
+        commentButton.layer.shadowOffset = CGSize(width: 0, height: 3)
         view.addSubview(commentButton)
         commentButton.snp_makeConstraints {
             $0.size.equalTo(44)

@@ -65,7 +65,6 @@ class DrawingViewController: BaseViewController {
         view.layoutIfNeeded()
         
         session.delegate = self
-        session.interpolated = false
         session.brush = DrawingBrush(width: 10, opacity: 1, color: UIColor.redColor())
         updateBrushView()
     }
@@ -79,8 +78,10 @@ class DrawingViewController: BaseViewController {
         let session = brushCanvas.session
         session.erase()
         session.brush = self.session.brush
-        session.beginDrawing()
-        session.addPoint(brushCanvas.centerBoundary)
+        let line = Line()
+        line.brush = session.brush
+        session.beginDrawing(line)
+        line.addPoint(brushCanvas.centerBoundary)
         session.endDrawing()
         brushCanvas.render()
     }
@@ -145,12 +146,7 @@ extension DrawingViewController: DrawingSessionDelegate {
     
     func drawingSessionDidBeginDrawing(session: DrawingSession) { }
     
-    func drawingSession(session: DrawingSession, isAcceptableLine line: DrawingLine) -> Bool {
-        return line.intersectsRect(CGRectInset(canvas.bounds, -line.brush.width/2, -line.brush.width/2))
-    }
-    
-    func drawingSession(session: DrawingSession, didEndDrawing line: DrawingLine) {
-        line.interpolate()
+    func drawingSessionDidEndDrawing(session: DrawingSession) {
         undoButton.hidden = session.empty
     }
 }

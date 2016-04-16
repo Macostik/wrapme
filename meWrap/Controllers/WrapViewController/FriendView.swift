@@ -117,7 +117,7 @@ final class StatusUserAvatarView: UserAvatarView, EntryNotifying {
             stroke.strokeStart = 0
             stroke.strokeEnd = 0
             stroke.frame = CGRectMake(3, 13, 7, 2)
-            stroke.path = UIBezierPath().move(0, 1).line(7, 1).CGPath
+            stroke.path = UIBezierPath().move(0 ^ 1).line(7 ^ 1).CGPath
             stroke.lineDashPattern = [3, 1, 3]
             stroke.lineWidth = 1
             layer.addSublayer(stroke)
@@ -142,7 +142,7 @@ final class StatusUserAvatarView: UserAvatarView, EntryNotifying {
                     $0.fillMode = kCAFillModeForwards
                 }), specify(CAKeyframeAnimation(keyPath: "position"), {
                     $0.beginTime = 1.6
-                    $0.path = UIBezierPath().move(14, 10).quadCurve(7, 10, controlX: 10.5, controlY: 4).CGPath
+                    $0.path = UIBezierPath().move(14 ^ 10).quadCurve(7 ^ 10, controlPoint: 10.5 ^ 4).CGPath
                     $0.duration = 0.4
                 })]
             }
@@ -207,7 +207,7 @@ final class StatusUserAvatarView: UserAvatarView, EntryNotifying {
             }
             specify(CAShapeLayer()) {
                 $0.frame = CGRectMake(13, 7, 3, 6)
-                $0.path = UIBezierPath().move(3, 0).line(3, 6).line(0, 5).line(0, 1).line(3, 0).CGPath
+                $0.path = UIBezierPath().move(3 ^ 0).line(3 ^ 6).line(0 ^ 5).line(0 ^ 1).line(3 ^ 0).CGPath
                 $0.fillColor = UIColor.whiteColor().CGColor
                 layer.addSublayer($0)
                 $0.addAnimation(CABasicAnimation(keyPath: "opacity")) {

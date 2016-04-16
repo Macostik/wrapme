@@ -14,9 +14,9 @@ private final class SwipeActioArrowView: ShapeView {
         let h = bounds.height
         let w = bounds.width
         if contentMode == .Left {
-            path.move(0, 0).line(0, h).line(w - h/2.0, h).line(w, h/2.0).line(w - h/2.0, 0).line(0, 0)
+            path.move(0 ^ 0).line(0 ^ h).line(w - h/2.0 ^ h).line(w ^ h/2.0).line(w - h/2.0 ^ 0).line(0 ^ 0)
         } else if (contentMode == .Right) {
-            path.move(w, 0).line(h/2.0, 0).line(0, h/2.0).line(h/2.0, h).line(w, h).line(w, 0)
+            path.move(w ^ 0).line(h/2.0 ^ 0).line(0 ^ h/2.0).line(h/2.0 ^ h).line(w ^ h).line(w ^ 0)
         }
     }
 }

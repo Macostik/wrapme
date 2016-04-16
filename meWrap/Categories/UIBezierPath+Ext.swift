@@ -8,20 +8,24 @@
 
 import UIKit
 
+func ^(lhs: CGFloat, rhs: CGFloat) -> CGPoint {
+    return CGPoint(x: lhs, y: rhs)
+}
+
 extension UIBezierPath {
     
-    func move(x: CGFloat, _ y: CGFloat) -> Self {
-        moveToPoint(CGPoint(x: x, y: y))
+    func move(point: CGPoint) -> Self {
+        moveToPoint(point)
         return self
     }
     
-    func line(x: CGFloat, _ y: CGFloat) -> Self {
-        addLineToPoint(CGPoint(x: x, y: y))
+    func line(point: CGPoint) -> Self {
+        addLineToPoint(point)
         return self
     }
     
-    func quadCurve(x: CGFloat, _ y: CGFloat, controlX: CGFloat, controlY: CGFloat) -> Self {
-        addQuadCurveToPoint(CGPoint(x: x, y: y), controlPoint: CGPoint(x: controlX, y: controlY))
+    func quadCurve(point: CGPoint, controlPoint: CGPoint) -> Self {
+        addQuadCurveToPoint(point, controlPoint: controlPoint)
         return self
     }
 }

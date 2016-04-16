@@ -27,16 +27,16 @@ class VideoTimeView: UIView {
         let path = UIBezierPath()
         path.lineWidth = 2
         UIColor.whiteColor().colorWithAlphaComponent(0.5).setStroke()
-        path.move(0, bounds.height / 2).line(bounds.width, bounds.height / 2).stroke()
+        path.move(0 ^ bounds.height / 2).line(bounds.width ^ bounds.height / 2).stroke()
         UIColor.whiteColor().setStroke()
         path.removeAllPoints()
         if time > 0 {
             let position = (bounds.width - path.lineWidth) * CGFloat(time)
-            path.move(0, bounds.height / 2).line(position, bounds.height / 2).stroke()
+            path.move(0 ^ bounds.height / 2).line(position ^ bounds.height / 2).stroke()
             path.removeAllPoints()
-            path.move(position + path.lineWidth/2, 0).line(position + path.lineWidth/2, bounds.height).stroke()
+            path.move(position + path.lineWidth/2 ^ 0).line(position + path.lineWidth/2 ^ bounds.height).stroke()
         } else {
-            path.move(path.lineWidth/2, 0).line(path.lineWidth/2, bounds.height).stroke()
+            path.move(path.lineWidth/2 ^ 0).line(path.lineWidth/2 ^ bounds.height).stroke()
         }
     }
 }

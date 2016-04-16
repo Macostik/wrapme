@@ -417,7 +417,7 @@ extension API {
     }
     
     static func deleteDevice(device: Device) -> APIRequest<Set<Device>> {
-        return APIRequest(.DELETE, "api/devices/\(device.uid)", parser: { _ in
+        return APIRequest(.DELETE, "devices/\(device.uid)", parser: { _ in
             let user = User.currentUser
             user?.devices.remove(device)
             return user?.devices ?? []
@@ -425,7 +425,7 @@ extension API {
     }
     
     static func devices() -> APIRequest<[Device]> {
-        return APIRequest(.GET, "api/devices", parser: {
+        return APIRequest(.GET, "devices", parser: {
             let devices: [Device] = mappedEntries($0.array("devices"))
             User.currentUser?.devices = Set(devices)
             return devices

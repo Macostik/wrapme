@@ -79,6 +79,7 @@ final class StatusUserAvatarView: UserAvatarView, EntryNotifying {
             case .Live: return LiveActivityAnimationView()
             case .Photo: return PhotoActivityAnimationView()
             case .Video: return VideoActivityAnimationView()
+            case .Drawing: return DrawingActivityAnimationView()
             default: return nil
             }
         }
@@ -196,6 +197,13 @@ final class StatusUserAvatarView: UserAvatarView, EntryNotifying {
                 $0.path = UIBezierPath(roundedRect: CGRectMake(0, 0, 8, 8), cornerRadius: 1).CGPath
                 $0.fillColor = UIColor.whiteColor().CGColor
                 layer.addSublayer($0)
+                $0.addAnimation(CABasicAnimation(keyPath: "opacity")) {
+                    $0.toValue = 0
+                    $0.duration = 0.6
+                    $0.autoreverses = true
+                    $0.removedOnCompletion = false
+                    $0.repeatCount = FLT_MAX
+                }
             }
             specify(CAShapeLayer()) {
                 $0.frame = CGRectMake(13, 7, 3, 6)
@@ -236,6 +244,24 @@ final class StatusUserAvatarView: UserAvatarView, EntryNotifying {
             clipsToBounds = true
             cornerRadius = 3
             snp_makeConstraints { $0.bottom.trailing.equalTo(avatarView) }
+        }
+    }
+    
+    final class DrawingActivityAnimationView: ActivityAnimationView {
+        
+        override func layout() {
+            let imageView = UIImageView()
+            imageView.contentMode = .ScaleAspectFill
+            addSubview(imageView)
+            imageView.snp_makeConstraints(closure: { $0.edges.equalTo(self) })
+            var images = [UIImage]()
+            for i in 0...49 {
+                if let image = UIImage(named: "ic_anim_drawing_\(i)") {
+                    images.append(image)
+                }
+            }
+            imageView.animationImages = images
+            imageView.startAnimating()
         }
     }
     

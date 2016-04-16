@@ -775,7 +775,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         sender.userInteractionEnabled = false
         FollowingViewController.followWrapIfNeeded(wrap) { [weak self] () -> Void in
             self?.downloadCandyOriginal(self?.candy, success: { (image) -> Void in
-                DrawingViewController.draw(image) { self?.candy?.editWithImage($0) }
+                DrawingViewController.draw(image, wrap: self?.candy?.wrap) { self?.candy?.editWithImage($0)
+                }
                 sender.userInteractionEnabled = true
                 }, failure: { (error) -> Void in
                     error?.show()

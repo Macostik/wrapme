@@ -76,7 +76,7 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
             
             menu.addDrawPhotoAction({
                 DownloadingView.downloadCandy(candy, success: { (image) -> Void in
-                    DrawingViewController.draw(image) { candy.editWithImage($0) }
+                    DrawingViewController.draw(image, wrap: candy.wrap) { candy.editWithImage($0) }
                     }, failure: { $0?.show() })
             })
         }

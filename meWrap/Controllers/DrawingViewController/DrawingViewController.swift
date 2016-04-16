@@ -23,13 +23,18 @@ class DrawingViewController: BaseViewController {
     @IBOutlet weak var undoButton: UIButton!
     @IBOutlet weak var colorsView: ColorPicker!
     
-    class func draw(image: UIImage, finish: UIImage -> Void) -> DrawingViewController {
+    class func draw(image: UIImage, wrap: Wrap?, finish: UIImage -> Void) -> DrawingViewController {
         let presentingViewController = UIWindow.mainWindow.rootViewController
         let drawingViewController = DrawingViewController()
+        NotificationCenter.defaultCenter.setActivity(wrap, type: .Drawing, inProgress: true)
         drawingViewController.setImage(image, finish: { (image) -> Void in
             finish(image)
+            NotificationCenter.defaultCenter.setActivity(wrap, type: .Drawing, inProgress: false)
             presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
-            }, cancel: { presentingViewController?.dismissViewControllerAnimated(false, completion: nil) })
+            }, cancel: {
+                NotificationCenter.defaultCenter.setActivity(wrap, type: .Drawing, inProgress: false)
+                presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+        })
         presentingViewController?.presentViewController(drawingViewController, animated: false, completion: nil)
         return drawingViewController
     }

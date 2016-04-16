@@ -284,6 +284,10 @@ final class WrapViewController: BaseViewController {
                     return true
                 } else if activity1 == .Photo {
                     return false
+                } else if activity0 == .Drawing {
+                    return true
+                } else if activity1 == .Drawing {
+                    return false
                 } else if activity0 == .Typing {
                     return true
                 } else if activity1 == .Typing {

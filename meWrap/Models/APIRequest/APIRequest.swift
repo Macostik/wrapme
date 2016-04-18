@@ -58,13 +58,8 @@ class APIRequest<ResponseType> {
     
     private var method: Alamofire.Method = .GET
     
-    init(_ method: Alamofire.Method, _ path: String = "", modifier: (APIRequest<ResponseType> -> Void)? = nil, parser: (Response -> ResponseType?)? = nil) {
-        self.method = method
-        self.pathBlock = { path }
-        if let modifier = modifier {
-            modifiers.append(APIRequestContainer(block: modifier))
-        }
-        self.parser = parser
+    convenience init(_ method: Alamofire.Method, _ path: String = "", modifier: (APIRequest<ResponseType> -> Void)? = nil, parser: (Response -> ResponseType?)? = nil) {
+        self.init(method, { path }, modifier: modifier, parser: parser)
     }
     
     init(_ method: Alamofire.Method, _ pathBlock: () -> String, modifier: (APIRequest<ResponseType> -> Void)? = nil, parser: (Response -> ResponseType?)? = nil) {

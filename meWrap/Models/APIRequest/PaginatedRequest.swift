@@ -20,6 +20,11 @@ final class PaginatedRequest<ResponseType>: APIRequest<ResponseType> {
         modify()
     }
     
+    override init(_ method: Alamofire.Method, _ pathBlock: () -> String, modifier: (APIRequest<ResponseType> -> Void)? = nil, parser: (Response -> ResponseType?)? = nil) {
+        super.init(method, pathBlock, modifier: modifier, parser: parser)
+        modify()
+    }
+    
     var type: PaginatedRequestType = .Fresh
     
     var newer: NSDate?

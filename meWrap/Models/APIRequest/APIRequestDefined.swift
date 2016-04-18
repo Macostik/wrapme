@@ -33,7 +33,7 @@ extension API {
     }
     
     static func candies(wrap: Wrap) -> PaginatedRequest<[Candy]> {
-        return PaginatedRequest<[Candy]>(.GET, "wraps/\(wrap.uid)/candies", modifier: { (request) -> Void in
+        return PaginatedRequest<[Candy]>(.GET, { "wraps/\(wrap.uid)/candies" }, modifier: { (request) -> Void in
             if let request = request as? PaginatedRequest {
                 switch request.type {
                 case .Newer:

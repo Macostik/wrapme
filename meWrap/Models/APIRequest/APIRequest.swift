@@ -60,14 +60,25 @@ class APIRequest<ResponseType> {
     
     init(_ method: Alamofire.Method, _ path: String = "", modifier: (APIRequest<ResponseType> -> Void)? = nil, parser: (Response -> ResponseType?)? = nil) {
         self.method = method
-        self.path = path
+        self.pathBlock = { path }
         if let modifier = modifier {
             modifiers.append(APIRequestContainer(block: modifier))
         }
         self.parser = parser
     }
     
-    var path = ""
+    init(_ method: Alamofire.Method, _ pathBlock: () -> String, modifier: (APIRequest<ResponseType> -> Void)? = nil, parser: (Response -> ResponseType?)? = nil) {
+        self.method = method
+        self.pathBlock = pathBlock
+        if let modifier = modifier {
+            modifiers.append(APIRequestContainer(block: modifier))
+        }
+        self.parser = parser
+    }
+    
+    private var path = ""
+    
+    private var pathBlock: (() -> String)?
     
     private var parameters = [String:AnyObject]()
     
@@ -168,6 +179,9 @@ class APIRequest<ResponseType> {
     }
     
     func enqueue() -> Alamofire.Request? {
+        
+        path = pathBlock?() ?? ""
+        
         Logger.log("API call \(self.method.rawValue) \(self.path): \(parameters)", color: .Yellow)
         
         createRequest({ (response) -> Void in

@@ -238,7 +238,11 @@ class MediaViewController: WrapSegmentViewController {
         }
         
         dataSource.appendableBlock = { [weak self] (dataSource) -> Bool in
-            return self?.wrap?.uploaded ?? false
+            if let wrap = self?.wrap {
+                return wrap.uploaded
+            } else {
+                return false
+            }
         }
         
         history = History(wrap: wrap)

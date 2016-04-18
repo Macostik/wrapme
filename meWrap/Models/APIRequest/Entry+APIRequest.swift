@@ -255,6 +255,7 @@ extension Uploading {
     }
     
     override func remove() {
+        super.remove()
         contribution?.uploading = nil
     }
 }

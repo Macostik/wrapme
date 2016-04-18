@@ -45,10 +45,17 @@ class APIRequest: NSObject {
     class func PUT() -> Self { return self.init(.PUT) }
     class func DELETE() -> Self { return self.init(.DELETE) }
     
-    var path = ""
+    private var path = ""
+    
+    lazy var pathBlock: (() -> String) = { self.path }
     
     func path(format: String, _ args: CVarArgType...) -> Self {
-        path = String(format: format, arguments: args)
+        pathBlock = { String(format: format, arguments: args) }
+        return self
+    }
+    
+    func path(block: () -> String) -> Self {
+        pathBlock = block
         return self
     }
     
@@ -155,6 +162,7 @@ class APIRequest: NSObject {
     }
     
     func enqueue() -> NSURLSessionDataTask? {
+        path = pathBlock()
         guard let request = request() else {
             handleFailure(nil, response: nil)
             return nil

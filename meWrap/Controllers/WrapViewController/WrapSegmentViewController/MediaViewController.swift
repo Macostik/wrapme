@@ -238,15 +238,19 @@ class MediaViewController: WrapSegmentViewController {
         }
         
         dataSource.appendableBlock = { [weak self] (dataSource) -> Bool in
-            return self?.wrap?.uploaded ?? false
+            if let wrap = self?.wrap {
+                return wrap.uploaded
+            } else {
+                return false
+            }
         }
         
         history = History(wrap: wrap)
         
         let refresher = Refresher(scrollView: streamView)
         refresher.style = .Orange
-        refresher.addTarget(dataSource, action: #selector(StreamDataSource.refresh(_:)), forControlEvents: .ValueChanged)
-        refresher.addTarget(self, action: #selector(MediaViewController.refreshUserActivities), forControlEvents: .ValueChanged)
+        refresher.addTarget(dataSource, action: #selector(dataSource.refresh(_:)), forControlEvents: .ValueChanged)
+        refresher.addTarget(self, action: #selector(self.refreshUserActivities), forControlEvents: .ValueChanged)
         
         uploadingView.uploader = Uploader.candyUploader
         

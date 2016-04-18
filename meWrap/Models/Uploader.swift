@@ -90,7 +90,7 @@ class Uploader: Notifier {
         if isEmpty {
             finish()
         } else {
-            for uploading in uploadings {
+            for uploading in uploadings where !uploading.inProgress {
                 enqueue(uploading, success: nil, failure: nil)
             }
         }

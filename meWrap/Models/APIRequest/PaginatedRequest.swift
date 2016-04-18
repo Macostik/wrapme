@@ -76,7 +76,7 @@ extension PaginatedRequest {
     }
     
     class func candies(wrap: Wrap) -> Self {
-        return GET().path("wraps/%@/candies", wrap.uid).forceParametrize({ (request) -> Void in
+        return GET().path({ "wraps/\(wrap.uid)/candies" }).forceParametrize({ (request) -> Void in
             if let request = request as? PaginatedRequest {
                 switch request.type {
                 case .Newer:

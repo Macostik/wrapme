@@ -8,6 +8,7 @@
 
 import Foundation
 import PubNub
+import Alamofire
 
 extension APIRequest {
     func contributionUnavailable(contribution: Contribution) -> Self {
@@ -17,6 +18,29 @@ extension APIRequest {
             }
         }
         return self
+    }
+}
+
+struct API {
+    
+    static var manager = API.createManager()
+    
+    static let headers = [
+        "Accept": "application/vnd.ravenpod+json;version=\(Environment.current.version)",
+        "Accept-Encoding": "gzip"
+    ]
+    
+    static func cancelAll() {
+        manager = createManager()
+    }
+    
+    private static func createManager() -> Alamofire.Manager {
+        let manager = Alamofire.Manager()
+        manager.startRequestsImmediately = true
+        manager.session.configuration.timeoutIntervalForRequest = 45
+        //        manager.securityPolicy.allowInvalidCertificates = true
+        //        manager.securityPolicy.validatesDomainName = false
+        return manager
     }
 }
 
@@ -73,7 +97,7 @@ extension API {
             if let dictionary = response.dictionary("wrap") where wrap.valid {
                 return wrap.update(Wrap.prefetchDictionary(dictionary))
             } else {
-                return nil
+                return wrap
             }
         }).contributionUnavailable(wrap)
     }
@@ -89,7 +113,7 @@ extension API {
             if let dictionary = response.dictionary("candy") {
                 return candy.validEntry()?.update(Candy.prefetchDictionary(dictionary))
             } else {
-                return nil
+                return candy
             }
         }).contributionUnavailable(candy)
     }
@@ -173,15 +197,13 @@ extension API {
             }, parser: { response in
                 if let dictionary = response.dictionary("comment") where candy.valid {
                     comment.map(dictionary, container: candy)
-                candy.touch(comment.createdAt)
-                if let commentCount = response.data["comment_count"] as? Int where candy.commentCount < Int16(commentCount) {
-                    candy.commentCount = Int16(commentCount)
+                    candy.touch(comment.createdAt)
+                    if let commentCount = response.data["comment_count"] as? Int where candy.commentCount < Int16(commentCount) {
+                        candy.commentCount = Int16(commentCount)
+                    }
                 }
-                return comment;
-            } else {
-                return nil
-            }
-            }).contributionUnavailable(candy)
+                return comment
+        }).contributionUnavailable(candy)
     }
     
     static func resendConfirmation(email: String?) -> APIRequest<Response> {
@@ -211,7 +233,7 @@ extension API {
                 wrap.notifyOnUpdate(.PreferencesChanged)
             }
             return wrap
-            }).contributionUnavailable(wrap)
+        }).contributionUnavailable(wrap)
     }
     
     static func changePreferences(wrap: Wrap) -> APIRequest<Wrap> {
@@ -219,8 +241,8 @@ extension API {
             $0["notify_when_image_candy_addition"] = wrap.isCandyNotifiable
             $0["notify_when_chat_addition"] = wrap.isChatNotifiable
             $0["notify_when_comment_addition"] = wrap.isCommentNotifiable
-        }, parser: { _ in
-            return wrap.validEntry()
+            }, parser: { _ in
+                return wrap.validEntry()
         }).contributionUnavailable(wrap)
     }
     
@@ -228,7 +250,7 @@ extension API {
         return APIRequest(.POST, "users/call", modifier: {
             $0["email"] = Authorization.current.email
             $0["device_uid"] = Authorization.current.deviceUID
-        }, parser: { $0 })
+            }, parser: { $0 })
     }
     
     static func uploadMessage(message: Message) -> APIRequest<Message>? {
@@ -236,28 +258,25 @@ extension API {
         return APIRequest<Message>(.POST, "wraps/\(wrap.uid)/chats", modifier: { (request) -> Void in
             request["message"] = message.text
             request["upload_uid"] = message.locuid
-        }, parser: { response in
-            if let dictionary = response.dictionary("chat") where wrap.valid {
-                message.map(dictionary)
-                message.notifyOnUpdate(.ContentAdded)
+            }, parser: { response in
+                if let dictionary = response.dictionary("chat") where wrap.valid {
+                    message.map(dictionary)
+                    message.notifyOnUpdate(.ContentAdded)
+                }
                 return message
-            } else {
-                return nil
-            }
-            }).contributionUnavailable(wrap)
+        }).contributionUnavailable(wrap)
     }
     
-    private static func parseContributors(wrap: Wrap, response: Response) -> Wrap? {
-        if let _wrap = wrap.validEntry(), let array = response.array("contributors") {
-            let contributors = Set<User>(mappedEntries(User.prefetchArray(array)) as [User])
-            if _wrap.contributors != contributors {
-                _wrap.contributors = contributors
-                _wrap.notifyOnUpdate(.ContributorsChanged)
+    private static func parseContributors(wrap: Wrap, response: Response) -> Wrap {
+        if wrap.valid, let array = response.array("contributors") {
+            let _contributors: [User] = mappedEntries(User.prefetchArray(array))
+            let contributors = Set<User>(_contributors)
+            if wrap.contributors != contributors {
+                wrap.contributors = contributors
+                wrap.notifyOnUpdate(.ContributorsChanged)
             }
-            return _wrap
-        } else {
-            return nil
         }
+        return wrap
     }
     
     static func contributors(wrap: Wrap) -> APIRequest<Wrap> {
@@ -308,16 +327,14 @@ extension API {
             request["name"] = wrap.name
             request["upload_uid"] = wrap.locuid
             request["contributed_at_in_epoch"] = NSNumber(double: wrap.updatedAt.timestamp)
-        }, parser: { response in
-            if let wrap = wrap.validEntry() {
-                if let dictionary = response.dictionary("wrap") {
-                    wrap.map(dictionary)
-                    wrap.notifyOnAddition()
+            }, parser: { response in
+                if wrap.valid {
+                    if let dictionary = response.dictionary("wrap") {
+                        wrap.map(dictionary)
+                        wrap.notifyOnAddition()
+                    }
                 }
                 return wrap
-            } else {
-                return nil
-            }
         })
     }
     
@@ -326,15 +343,15 @@ extension API {
             $0["name"] = user.name
             $0["email"] = email
             $0.file = user.avatar?.large
-        }, parser: { response in
-            if let userData = response.dictionary("user") {
-                let authorization = Authorization.current
-                authorization.updateWithUserData(userData)
-                user.map(userData)
-                User.currentUser = user
-                user.notifyOnUpdate(.Default)
-            }
-            return user
+            }, parser: { response in
+                if let userData = response.dictionary("user") {
+                    let authorization = Authorization.current
+                    authorization.updateWithUserData(userData)
+                    user.map(userData)
+                    User.currentUser = user
+                    user.notifyOnUpdate(.Default)
+                }
+                return user
         })
     }
     
@@ -342,16 +359,14 @@ extension API {
         return APIRequest<Wrap>(.PUT, "wraps/\(wrap.uid)", modifier: { (request) -> Void in
             request["name"] = wrap.name
             request["is_restricted_invite"] = wrap.isRestrictedInvite
-        }, parser: { response in
-            if let wrap = wrap.validEntry() {
-                if let dictionary = response.dictionary("wrap") {
-                    wrap.map(dictionary)
-                    wrap.notifyOnUpdate(.Default)
+            }, parser: { response in
+                if wrap.valid {
+                    if let dictionary = response.dictionary("wrap") {
+                        wrap.map(dictionary)
+                        wrap.notifyOnUpdate(.Default)
+                    }
                 }
                 return wrap
-            } else {
-                return nil
-            }
         })
     }
     
@@ -359,7 +374,7 @@ extension API {
         guard let wrap = candy.wrap else { return nil }
         return APIRequest(.POST, "wraps/\(wrap.uid)/candies/\(candy.uid)/violations", modifier: {
             $0["violation_code"] = violation.code
-        }, parser: { $0 })
+            }, parser: { $0 })
     }
     
     static func contributorsFromRecords(records: [AddressBookRecord]) -> APIRequest<[AddressBookRecord]> {
@@ -371,44 +386,44 @@ extension API {
                 }
             }
             request["phone_numbers"] = phones
-        }, parser: { response in
-            if let array = response.array("users") {
-                
-                var users = [String : [String : AnyObject]]()
-                for user in array {
-                    if let number = user["address_book_number"] as? String {
-                        users[number] = user
-                    }
-                }
-                
-                var registeredUsers = Set<User>()
-                
-                var contributors = [AddressBookRecord]()
-                for record in records {
-                    var phoneNumbers = [AddressBookPhoneNumber]()
-                    for phoneNumber in record.phoneNumbers {
-                        if let userData = users[phoneNumber.phone] {
-                            if let user: User = mappedEntry(userData) {
-                                if user.current || registeredUsers.contains(user) {
-                                    break
-                                }
-                                registeredUsers.insert(user)
-                                phoneNumber.user = user
-                                phoneNumber.activated = userData["sign_in_count"] as? Int > 0
-                            }
+            }, parser: { response in
+                if let array = response.array("users") {
+                    
+                    var users = [String : [String : AnyObject]]()
+                    for user in array {
+                        if let number = user["address_book_number"] as? String {
+                            users[number] = user
                         }
-                        phoneNumbers.append(phoneNumber)
                     }
                     
-                    if !phoneNumbers.isEmpty {
-                        record.phoneNumbers = phoneNumbers
-                        contributors.append(record)
+                    var registeredUsers = Set<User>()
+                    
+                    var contributors = [AddressBookRecord]()
+                    for record in records {
+                        var phoneNumbers = [AddressBookPhoneNumber]()
+                        for phoneNumber in record.phoneNumbers {
+                            if let userData = users[phoneNumber.phone] {
+                                if let user: User = mappedEntry(userData) {
+                                    if user.current || registeredUsers.contains(user) {
+                                        break
+                                    }
+                                    registeredUsers.insert(user)
+                                    phoneNumber.user = user
+                                    phoneNumber.activated = userData["sign_in_count"] as? Int > 0
+                                }
+                            }
+                            phoneNumbers.append(phoneNumber)
+                        }
+                        
+                        if !phoneNumbers.isEmpty {
+                            record.phoneNumbers = phoneNumbers
+                            contributors.append(record)
+                        }
                     }
+                    return contributors
+                } else {
+                    return records
                 }
-                return contributors
-            } else {
-                return records
-            }
         })
     }
     

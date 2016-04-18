@@ -14,12 +14,10 @@ private struct APIRequestContainer<T> {
 }
 
 private var previousDateString: String?
-private var trackServerTimeFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.dateFormat = "EEE',' dd' 'MMM' 'yyyy HH':'mm':'ss zzz"
-    formatter.locale = NSLocale(localeIdentifier: "en_US")
-    return formatter
-}()
+private var trackServerTimeFormatter = specify(NSDateFormatter()) {
+    $0.dateFormat = "EEE',' dd' 'MMM' 'yyyy HH':'mm':'ss zzz"
+    $0.locale = NSLocale(localeIdentifier: "en_US")
+}
 
 private func trackServerTime(response: NSHTTPURLResponse?) {
     if let dateString = response?.allHeaderFields["Date"] as? String {
@@ -31,28 +29,6 @@ private func trackServerTime(response: NSHTTPURLResponse?) {
         }
     }
 }
-
-private var manager = createManager()
-
-struct API {
-    static func cancelAll() {
-        manager = createManager()
-    }
-}
-
-private func createManager() -> Alamofire.Manager {
-    let manager = Alamofire.Manager()
-    manager.startRequestsImmediately = true
-    manager.session.configuration.timeoutIntervalForRequest = 45
-    //        manager.securityPolicy.allowInvalidCertificates = true
-    //        manager.securityPolicy.validatesDomainName = false
-    return manager
-}
-
-private let headers = [
-    "Accept": "application/vnd.ravenpod+json;version=\(Environment.current.version)",
-    "Accept-Encoding": "gzip"
-]
 
 class APIRequest<ResponseType> {
     
@@ -121,10 +97,10 @@ class APIRequest<ResponseType> {
         if let file = file where file.isExistingFilePath {
             let fileURL = NSURL(fileURLWithPath: file)
             let fileName = fileURL.lastPathComponent ?? (GUID() + ".jpg")
-            Alamofire.upload(
+            API.manager.upload(
                 method,
                 url,
-                headers: headers,
+                headers: API.headers,
                 multipartFormData: {
                     for (key, value) in self.parameters {
                         if let data = value as? NSData ?? value.description?.dataUsingEncoding(NSUTF8StringEncoding) {
@@ -145,7 +121,7 @@ class APIRequest<ResponseType> {
                     }
             })
         } else {
-            task = Alamofire.request(method, url, parameters: parameters, headers: headers).responseJSON(completionHandler: responseJSON)
+            task = API.manager.request(method, url, parameters: parameters, headers: API.headers).responseJSON(completionHandler: responseJSON)
         }
     }
     

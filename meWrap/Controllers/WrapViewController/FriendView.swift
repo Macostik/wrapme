@@ -202,6 +202,13 @@ final class StatusUserAvatarView: UserAvatarView, EntryNotifying {
                 $0.path = UIBezierPath(roundedRect: CGRectMake(0, 0, 8, 8), cornerRadius: 1).CGPath
                 $0.fillColor = UIColor.whiteColor().CGColor
                 layer.addSublayer($0)
+                $0.addAnimation(CABasicAnimation(keyPath: "opacity")) {
+                    $0.toValue = 0
+                    $0.duration = 0.6
+                    $0.autoreverses = true
+                    $0.removedOnCompletion = false
+                    $0.repeatCount = FLT_MAX
+                }
             }
             specify(CAShapeLayer()) {
                 $0.frame = CGRectMake(13, 7, 3, 6)

@@ -201,7 +201,7 @@ class CommentsViewController: BaseViewController {
     var typing = false {
         didSet {
             if typing != oldValue {
-                enqueueSelector(#selector(CommentsViewController.sendTypingStateChange), delay: 1)
+                enqueueSelector(#selector(self.sendTypingStateChange), delay: 1)
             }
         }
     }
@@ -245,6 +245,7 @@ class CommentsViewController: BaseViewController {
             Dispatch.mainQueue.async {
                 Sound.play()
                 candy.uploadComment(text.trim)
+                candy.typedComment = nil
             }
         }
     }
@@ -281,14 +282,13 @@ extension CommentsViewController: ComposeBarDelegate {
     
     func composeBar(composeBar: ComposeBar, didFinishWithText text: String) {
         typing = false
-        candy?.typedComment = nil
         sendMessageWithText(text)
     }
     
     func composeBarDidChangeText(composeBar: ComposeBar) {
         candy?.typedComment = composeBar.text
         typing = composeBar.text?.isEmpty == false
-        enqueueSelector(#selector(CommentsViewController.typingIdled), argument: nil, delay: 3)
+        enqueueSelector(#selector(self.typingIdled), argument: nil, delay: 3)
     }
     
     func typingIdled() {

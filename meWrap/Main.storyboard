@@ -1610,7 +1610,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HRF-S3-bc8">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="38"/>
                                         <subviews>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mkq-sy-ijA" userLabel="Friends Stream View" customClass="StreamView" customModule="meWrap" customModuleProvider="target">
+                                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mkq-sy-ijA" userLabel="Friends Stream View" customClass="StreamView" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="38"/>
                                             </scrollView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2nE-rT-l31" customClass="Button" customModule="meWrap" customModuleProvider="target">

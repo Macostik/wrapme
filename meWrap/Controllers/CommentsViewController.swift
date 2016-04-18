@@ -209,11 +209,8 @@ class CommentsViewController: BaseViewController {
     }
 
  	var activeContibutors: [User] {
-        set {}
-        get {
-            guard let wrap = candy?.wrap else { return [] }
-            return wrap.contributors.filter({$0.activityForWrap(wrap) != nil }).sort({$0.name < $1.name})
-        }
+        guard let wrap = candy?.wrap else { return [] }
+        return wrap.contributors.filter({ $0.activityForWrap(wrap) != nil }).sort({ $0.name < $1.name })
     }
     
     var isMaxContentOffset: Bool = false
@@ -365,6 +362,8 @@ extension CommentsViewController: DeviceManagerNotifying {
 extension CommentsViewController: EntryNotifying {
     
     func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
-        friendsDataSource.items = activeContibutors
+        if event == .UserStatus {
+            friendsDataSource.items = activeContibutors
+        }
     }
 }

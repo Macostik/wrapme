@@ -231,8 +231,16 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillResignActive(application: UIApplication) {
-        PubNub.releaseSharedInstance()
         if Authorization.active {
+            let task = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
+            Dispatch.mainQueue.after(15) {
+                if application.applicationState != .Active {
+                    NotificationCenter.defaultCenter.userSubscription.unsubscribe()
+                }
+                Dispatch.mainQueue.after(1) {
+                    UIApplication.sharedApplication().endBackgroundTask(task)
+                }
+            }
             resetBadge()
         }
     }

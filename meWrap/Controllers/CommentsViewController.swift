@@ -268,7 +268,7 @@ class CommentsViewController: BaseViewController {
     var typing = false {
         didSet {
             if typing != oldValue {
-                enqueueSelector(#selector(CommentsViewController.sendTypingStateChange), delay: 1)
+                enqueueSelector(#selector(self.sendTypingStateChange), delay: 1)
             }
         }
     }
@@ -279,21 +279,14 @@ class CommentsViewController: BaseViewController {
         }
     }
     
-    private func keepContentOffset(@noescape block: () -> ()) {
-        let height = streamView.height
-        let offset = streamView.contentOffset.y
-        block()
-        streamView.contentOffset.y = smoothstep(0, streamView.maximumContentOffset.y, offset + (height - streamView.height))
-    }
-    
     override func keyboardWillShow(keyboard: Keyboard) {
-        keepContentOffset { 
+        streamView.keepContentOffset {
             super.keyboardWillShow(keyboard)
         }
     }
     
     override func keyboardWillHide(keyboard: Keyboard) {
-        keepContentOffset {
+        streamView.keepContentOffset {
             super.keyboardWillHide(keyboard)
         }
     }
@@ -304,6 +297,7 @@ class CommentsViewController: BaseViewController {
             Dispatch.mainQueue.async {
                 Sound.play()
                 candy.uploadComment(text.trim)
+                candy.typedComment = nil
             }
         }
     }
@@ -347,14 +341,13 @@ extension CommentsViewController: ComposeBarDelegate {
     
     func composeBar(composeBar: ComposeBar, didFinishWithText text: String) {
         typing = false
-        candy?.typedComment = nil
         sendMessageWithText(text)
     }
     
     func composeBarDidChangeText(composeBar: ComposeBar) {
         candy?.typedComment = composeBar.text
         typing = composeBar.text?.isEmpty == false
-        enqueueSelector(#selector(CommentsViewController.typingIdled), argument: nil, delay: 3)
+        enqueueSelector(#selector(self.typingIdled), argument: nil, delay: 3)
     }
     
     func typingIdled() {

@@ -126,26 +126,14 @@ final class ChatViewController: WrapSegmentViewController {
     }
     
     override func keyboardWillShow(keyboard: Keyboard) {
-        super.keyboardWillShow(keyboard)
-        keyboard.performAnimation {
-            streamView.contentInset.bottom = 0
-            streamView.contentInset.bottom = keyboard.height
-            composeBar.transform = CGAffineTransformMakeTranslation(0, -keyboard.height)
-            var offset = keyboard.height - (streamView.height - streamView.contentSize.height)
-            offset = offset < 0 ? 0 : streamView.height - keyboard.height > offset || offset < streamView.height
-                ? offset : streamView.contentOffset.y + keyboard.height
-            streamView.setContentOffset(CGPointMake(0, offset), animated: false)
+        streamView.keepContentOffset {
+            super.keyboardWillShow(keyboard)
         }
     }
     
     override func keyboardWillHide(keyboard: Keyboard) {
-        super.keyboardWillHide(keyboard)
-        keyboard.performAnimation {
-            streamView.contentInset = UIEdgeInsetsZero
-            composeBar.transform = CGAffineTransformIdentity
-            let yOffset = abs(streamView.maximumContentOffset.y - streamView.contentOffset.y) < Chat.MessageSpacing ?
-                self.streamView.maximumContentOffset.y : self.streamView.contentOffset.y - keyboard.height
-            streamView.setContentOffset(CGPointMake(0, yOffset), animated: false)
+        streamView.keepContentOffset {
+            super.keyboardWillHide(keyboard)
         }
     }
     

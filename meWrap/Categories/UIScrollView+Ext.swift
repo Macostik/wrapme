@@ -79,4 +79,11 @@ extension UIScrollView {
     func visibleRectOfRect(rect: CGRect, offset: CGPoint) -> CGRect {
         return CGRect(origin: offset, size: bounds.size).intersect(rect)
     }
+    
+    func keepContentOffset(@noescape block: () -> ()) {
+        let height = self.height
+        let offset = self.contentOffset.y
+        block()
+        self.contentOffset.y = smoothstep(0, self.maximumContentOffset.y, offset + (height - self.height))
+    }
 }

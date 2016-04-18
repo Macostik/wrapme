@@ -220,21 +220,14 @@ class CommentsViewController: BaseViewController {
         }
     }
     
-    private func keepContentOffset(@noescape block: () -> ()) {
-        let height = streamView.height
-        let offset = streamView.contentOffset.y
-        block()
-        streamView.contentOffset.y = smoothstep(0, streamView.maximumContentOffset.y, offset + (height - streamView.height))
-    }
-    
     override func keyboardWillShow(keyboard: Keyboard) {
-        keepContentOffset { 
+        streamView.keepContentOffset {
             super.keyboardWillShow(keyboard)
         }
     }
     
     override func keyboardWillHide(keyboard: Keyboard) {
-        keepContentOffset {
+        streamView.keepContentOffset {
             super.keyboardWillHide(keyboard)
         }
     }

@@ -20,16 +20,22 @@ class DownloadingView: UIView {
     
     weak var candy: Candy?
     
-    class func downloadCandy(candy: Candy, success: UIImage -> Void, failure: FailureBlock?) {
-        guard let url = candy.asset?.original else {
-            failure?(nil)
-            return
-        }
-        if let cachedImage = cachedImage(url) {
-            success(cachedImage)
+    class func downloadCandy(candy: Candy?, success: UIImage -> Void, failure: FailureBlock?) {
+        if let candy = candy {
+            if let error = candy.updateError() {
+                failure?(error)
+            } else if let url = candy.asset?.original {
+                if let cachedImage = cachedImage(url) {
+                    success(cachedImage)
+                } else {
+                    let view: DownloadingView! = loadFromNib("DownloadingView")
+                    view.downloadCandy(candy, success:success, failure:failure)
+                }
+            } else {
+                failure?(nil)
+            }
         } else {
-            let view: DownloadingView! = loadFromNib("DownloadingView")
-            view.downloadCandy(candy, success:success, failure:failure)
+            failure?(nil)
         }
     }
     

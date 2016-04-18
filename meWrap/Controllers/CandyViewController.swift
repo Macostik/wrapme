@@ -97,7 +97,7 @@ extension CandyViewController: NetworkNotifying {
 final class PhotoCandyViewController: CandyViewController, DeviceManagerNotifying, UIScrollViewDelegate {
     
     let scrollView = UIScrollView()
-    
+
     deinit {
         scrollView.delegate = nil
     }
@@ -114,7 +114,10 @@ final class PhotoCandyViewController: CandyViewController, DeviceManagerNotifyin
         scrollView.backgroundColor = UIColor.blackColor()
         imageView.frame = scrollView.bounds
         contentView.insertSubview(scrollView, belowSubview: spinner)
-        scrollView.addSubview(imageView)
+        scrollView.add(imageView) {
+            $0.center.equalTo(scrollView)
+            $0.size.equalTo(scrollView)
+        }
         scrollView.minimumZoomScale = 1
         scrollView.zoomScale = 1
         scrollView.maximumZoomScale = 2
@@ -135,8 +138,14 @@ final class PhotoCandyViewController: CandyViewController, DeviceManagerNotifyin
     
     override func imageLoaded(image: UIImage?) {
         if let image = image {
-            scrollView.frame = contentView.size.fit(image.size).rectCenteredInSize(contentView.size)
-            imageView.frame = scrollView.bounds
+            scrollView.snp_remakeConstraints(closure: { (make) in
+                make.center.equalTo(contentView)
+                make.width.equalTo(contentView).priorityHigh()
+                make.width.lessThanOrEqualTo(contentView)
+                make.height.equalTo(contentView).priorityHigh()
+                make.height.lessThanOrEqualTo(contentView)
+                make.width.equalTo(scrollView.snp_height).multipliedBy(image.size.width / image.size.height)
+            })
             scrollView.zoomScale = 1
             scrollView.panGestureRecognizer.enabled = false
         }

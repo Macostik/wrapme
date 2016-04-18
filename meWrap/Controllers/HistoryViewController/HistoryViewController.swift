@@ -23,35 +23,30 @@ final class CommentView: ExpandableView {
         avatar.borderColor = UIColor.whiteColor()
         avatar.borderWidth = 1
         avatar.defaultIconSize = 24
-        addSubview(avatar)
-        addSubview(name)
-        addSubview(date)
-        addSubview(text)
-        addSubview(indicator)
-        avatar.snp_makeConstraints { (make) -> Void in
+        add(avatar) { (make) -> Void in
             make.leading.top.equalTo(self).offset(20)
             make.size.equalTo(48)
         }
-        text.snp_makeConstraints { (make) -> Void in
+        add(text) { (make) -> Void in
             make.leading.equalTo(avatar.snp_trailing).offset(18)
             make.top.equalTo(avatar)
             make.trailing.lessThanOrEqualTo(self).inset(18)
         }
-        name.snp_makeConstraints { (make) -> Void in
+        add(name) { (make) -> Void in
             make.leading.equalTo(avatar.snp_trailing).offset(18)
             make.top.equalTo(text.snp_bottom).offset(16)
             make.trailing.lessThanOrEqualTo(self).inset(18)
         }
         
         makeExpandable { (expandingConstraint) in
-            date.snp_makeConstraints { (make) -> Void in
+            add(date) { (make) -> Void in
                 make.leading.equalTo(avatar.snp_trailing).offset(18)
                 make.top.equalTo(name.snp_bottom).offset(4)
                 expandingConstraint = make.bottom.equalTo(self).inset(20).constraint
             }
         }
         
-        indicator.snp_makeConstraints { (make) -> Void in
+        add(indicator) { (make) -> Void in
             make.leading.equalTo(date.snp_trailing).offset(12)
             make.centerY.equalTo(date)
         }
@@ -74,30 +69,6 @@ final class CommentView: ExpandableView {
                 layoutIfNeeded()
             }
         }
-    }
-}
-
-class ExpandableView: UIView {
-    
-    var expandingConstraint: Constraint?
-    
-    var expanded = false {
-        willSet {
-            if newValue != expanded {
-                if newValue {
-                    expandingConstraint?.activate()
-                } else {
-                    expandingConstraint?.deactivate()
-                }
-            }
-        }
-    }
-    
-    func makeExpandable(@noescape block: (expandingConstraint: inout Constraint?) -> ()) {
-        var constraint: Constraint?
-        block(expandingConstraint: &constraint)
-        expandingConstraint = constraint
-        constraint?.deactivate()
     }
 }
 
@@ -150,60 +121,54 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     private let expandButton = Button.expandableCandyAction("/")
     
     private lazy var toolbar: UIView = specify(UIView()) { view in
-        view.addSubview(self.drawButton)
-        view.addSubview(self.stickersButton)
-        view.addSubview(self.editButton)
-        view.addSubview(self.expandButton)
-        self.drawButton.snp_makeConstraints {
-            $0.size.equalTo(44)
-            $0.centerY.equalTo(self.expandButton)
-            $0.leading.equalTo(view).offset(20)
-        }
-        self.editButton.snp_makeConstraints {
-            $0.size.equalTo(44)
-            $0.centerY.equalTo(self.expandButton)
-            $0.leading.equalTo(self.drawButton.snp_trailing).offset(14)
-        }
-        self.stickersButton.snp_makeConstraints {
-            $0.size.equalTo(44)
-            $0.centerY.equalTo(self.expandButton)
-            $0.leading.equalTo(self.editButton.snp_trailing).offset(14)
-        }
-        self.expandButton.snp_makeConstraints {
+        view.add(self.expandButton) {
             $0.size.equalTo(44)
             $0.top.bottom.equalTo(view).inset(16)
             $0.trailing.equalTo(view).inset(20)
         }
+        
+        view.add(self.drawButton) {
+            $0.size.equalTo(44)
+            $0.centerY.equalTo(self.expandButton)
+            $0.leading.equalTo(view).offset(20)
+        }
+        view.add(self.editButton) {
+            $0.size.equalTo(44)
+            $0.centerY.equalTo(self.expandButton)
+            $0.leading.equalTo(self.drawButton.snp_trailing).offset(14)
+        }
+        view.add(self.stickersButton) {
+            $0.size.equalTo(44)
+            $0.centerY.equalTo(self.expandButton)
+            $0.leading.equalTo(self.editButton.snp_trailing).offset(14)
+        }
     }
     
     private lazy var expandableToolbar: ExpandableView = specify(ExpandableView()) { view in
-        view.addSubview(self.reportButton)
-        view.addSubview(self.deleteButton)
-        view.addSubview(self.downloadButton)
-        view.addSubview(self.shareButton)
         view.clipsToBounds = true
-        self.reportButton.snp_makeConstraints {
-            $0.size.equalTo(44)
-            $0.centerY.equalTo(self.downloadButton)
-            $0.trailing.equalTo(view).inset(20)
-        }
-        self.deleteButton.snp_makeConstraints {
-            $0.size.equalTo(44)
-            $0.centerY.equalTo(self.downloadButton)
-            $0.trailing.equalTo(view).inset(20)
-        }
         view.makeExpandable { expandingConstraint in
-            self.downloadButton.snp_makeConstraints {
+            view.add(self.reportButton) {
                 $0.size.equalTo(44)
                 $0.top.equalTo(view).inset(16)
                 expandingConstraint = $0.bottom.equalTo(view).inset(16).constraint
-                $0.trailing.equalTo(self.reportButton.snp_leading).offset(-14)
+                $0.trailing.equalTo(view).inset(20)
             }
         }
-        self.shareButton.titleEdgeInsets = UIEdgeInsetsMake(0,0,0,2)
-        self.shareButton.snp_makeConstraints {
+        view.add(self.deleteButton) {
             $0.size.equalTo(44)
-            $0.centerY.equalTo(self.downloadButton)
+            $0.centerY.equalTo(self.reportButton)
+            $0.trailing.equalTo(view).inset(20)
+        }
+        view.add(self.downloadButton) {
+            $0.size.equalTo(44)
+            $0.top.equalTo(view).inset(16)
+            $0.centerY.equalTo(self.reportButton)
+            $0.trailing.equalTo(self.reportButton.snp_leading).offset(-14)
+        }
+        self.shareButton.titleEdgeInsets = UIEdgeInsetsMake(0,0,0,2)
+        view.add(self.shareButton) {
+            $0.size.equalTo(44)
+            $0.centerY.equalTo(self.reportButton)
             $0.trailing.equalTo(self.downloadButton.snp_leading).offset(-14)
         }
     }
@@ -230,26 +195,22 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     private lazy var editedAt = Label(preset: .Smaller, weight: .Regular, textColor: Color.grayLighter)
     
     private lazy var contributorView: UIView = specify(UIView()) { view in
-        view.addSubview(self.contributorAvatar)
-        view.addSubview(self.contributorName)
-        view.addSubview(self.contributionStatus)
-        view.addSubview(self.contributedAt)
-        self.contributorAvatar.snp_makeConstraints {
+        view.add(self.contributorAvatar) {
             $0.leading.equalTo(view).inset(20)
             $0.top.equalTo(view).inset(4)
             $0.bottom.equalTo(view).inset(4)
             $0.size.equalTo(48)
         }
-        self.contributorName.snp_makeConstraints {
+        view.add(self.contributorName) {
             $0.leading.equalTo(self.contributorAvatar.snp_trailing).inset(-18)
             $0.bottom.equalTo(self.contributorAvatar.snp_centerY).inset(-2)
         }
-        self.contributionStatus.snp_makeConstraints {
+        view.add(self.contributionStatus) {
             $0.leading.equalTo(self.contributorName.snp_trailing).inset(-11)
             $0.centerY.equalTo(self.contributorName)
             $0.trailing.lessThanOrEqualTo(view).inset(20)
         }
-        self.contributedAt.snp_makeConstraints {
+        view.add(self.contributedAt) {
             $0.leading.equalTo(self.contributorAvatar.snp_trailing).inset(-18)
             $0.top.equalTo(self.contributorAvatar.snp_centerY).inset(2)
             $0.trailing.lessThanOrEqualTo(view).inset(20)
@@ -258,11 +219,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     private lazy var editorView: ExpandableView = specify(ExpandableView()) { view in
         view.clipsToBounds = true
-        view.addSubview(self.editorAvatar)
-        view.addSubview(self.editorName)
-        view.addSubview(self.editedAt)
         view.makeExpandable { expandingConstraint in
-            self.editorAvatar.snp_makeConstraints {
+            view.add(self.editorAvatar) {
                 $0.leading.equalTo(view).inset(20)
                 $0.top.equalTo(view).inset(4)
                 expandingConstraint = $0.bottom.equalTo(view).inset(4).constraint
@@ -270,12 +228,12 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             }
         }
         
-        self.editorName.snp_makeConstraints {
+        view.add(self.editorName) {
             $0.leading.equalTo(self.editorAvatar.snp_trailing).inset(-18)
             $0.bottom.equalTo(self.editorAvatar.snp_centerY).inset(-2)
             $0.trailing.lessThanOrEqualTo(view).inset(20)
         }
-        self.editedAt.snp_makeConstraints {
+        view.add(self.editedAt) {
             $0.leading.equalTo(self.editorAvatar.snp_trailing).inset(-18)
             $0.top.equalTo(self.editorAvatar.snp_centerY).inset(2)
             $0.trailing.lessThanOrEqualTo(view).inset(20)
@@ -284,40 +242,30 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     private lazy var topView: ExpandableView = specify(ExpandableView()) { view in
         view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
-        view.addSubview(self.contributorView)
-        view.addSubview(self.editorView)
-        view.addSubview(self.toolbar)
-        view.addSubview(self.expandableToolbar)
-        
         view.makeExpandable { expandingConstraint in
-            self.contributorView.snp_makeConstraints {
+            view.add(self.contributorView) {
                 $0.leading.trailing.equalTo(view)
                 expandingConstraint = $0.top.equalTo(view).inset(12).constraint
             }
         }
-        
-        self.editorView.snp_makeConstraints {
+        view.add(self.editorView) {
             $0.leading.trailing.equalTo(view)
             $0.top.equalTo(self.contributorView.snp_bottom)
         }
-        
-        self.toolbar.snp_makeConstraints {
+        view.add(self.toolbar) {
             $0.leading.trailing.equalTo(view)
             $0.top.equalTo(self.editorView.snp_bottom).inset(-16)
         }
-        self.expandableToolbar.snp_makeConstraints {
+        view.add(self.expandableToolbar) {
             $0.leading.trailing.equalTo(view)
             $0.top.equalTo(self.toolbar.snp_bottom)
             $0.bottom.equalTo(view)
         }
-        
-        let separator = SeparatorView(color: UIColor.whiteColor().colorWithAlphaComponent(0.1), contentMode: .Bottom)
-        view.addSubview(separator)
-        separator.snp_makeConstraints(closure: {
+        view.add(SeparatorView(color: UIColor.whiteColor().colorWithAlphaComponent(0.1), contentMode: .Bottom)) {
             $0.leading.trailing.equalTo(view)
             $0.top.equalTo(self.toolbar)
             $0.height.equalTo(1)
-        })
+        }
     }
     
     private let accessoryLabel = Label(icon: "y", size: 18)
@@ -328,15 +276,13 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         squareView.cornerRadius = 4
         squareView.clipsToBounds = true
         squareView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
-        view.addSubview(squareView)
-        squareView.snp_makeConstraints {
+        view.add(squareView) {
             $0.centerX.equalTo(view)
             $0.top.equalTo(view).inset(-4)
             $0.bottom.equalTo(view)
             $0.width.equalTo(44)
         }
-        view.addSubview(self.accessoryLabel)
-        self.accessoryLabel.snp_makeConstraints { $0.center.equalTo(view) }
+        view.add(self.accessoryLabel) { $0.center.equalTo(view) }
     }
     
     private let commentButton = Button.candyAction("f", color: Color.orange)
@@ -359,39 +305,31 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     override func loadView() {
         let view = UIView(frame: preferredViewFrame)
-        let scrollView = UIScrollView()
-        view.addSubview(scrollView)
-        scrollView.snp_makeConstraints {
+        self.view = view
+        let scrollView = view.add(UIScrollView(frame: preferredViewFrame)) {
             $0.center.equalTo(view)
             $0.size.equalTo(view)
         }
         self.scrollView = scrollView
-        view.addSubview(topView)
-        topView.snp_makeConstraints {
+        view.add(topView) {
             $0.leading.trailing.equalTo(view)
             $0.top.equalTo(view)
         }
-        view.addSubview(accessoryView)
-        accessoryView.snp_makeConstraints {
+        view.add(accessoryView) {
             $0.leading.trailing.equalTo(view)
             $0.height.equalTo(32)
             $0.top.equalTo(topView.snp_bottom)
         }
         
-        view.addSubview(commentView)
-        commentView.snp_makeConstraints {
-            $0.leading.trailing.bottom.equalTo(view)
-        }
+        view.add(commentView) { $0.leading.trailing.bottom.equalTo(view) }
         commentButton.layer.shadowColor = UIColor.blackColor().CGColor
         commentButton.layer.shadowOpacity = 0.5
         commentButton.layer.shadowOffset = CGSize(width: 0, height: 3)
-        view.addSubview(commentButton)
-        commentButton.snp_makeConstraints {
+        view.add(commentButton) {
             $0.size.equalTo(44)
             $0.trailing.bottom.equalTo(view).inset(20)
         }
-        view.addSubview(volumeButton)
-        volumeButton.snp_makeConstraints {
+        view.add(volumeButton) {
             $0.size.equalTo(44)
             $0.leading.equalTo(view).inset(20)
             $0.bottom.equalTo(commentView.snp_top).offset(-20)
@@ -407,9 +345,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         downloadButton.addTarget(self, action: #selector(self.downloadCandy(_:)), forControlEvents: .TouchUpInside)
         shareButton.addTarget(self, action: #selector(self.share(_:)), forControlEvents: .TouchUpInside)
         volumeButton.addTarget(self, action: #selector(self.toggleVolume(_:)), forControlEvents: .TouchUpInside)
-        
-        self.view = view
-        
+
         accessoryView.tapped { [weak self] _ in
             self?.toggleTopView()
         }
@@ -428,18 +364,24 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     @objc private func toggleActions() {
-        animate {
-            expandableToolbar.expanded = !expandableToolbar.expanded
-            expandButton.selected = expandableToolbar.expanded
-            topView.layoutIfNeeded()
-            accessoryView.layoutIfNeeded()
+        setActionsExpanded(!expandableToolbar.expanded)
+    }
+    
+    private func setActionsExpanded(expanded: Bool, animated: Bool = true) {
+        if expandableToolbar.expanded != expanded {
+            animate(animated) {
+                expandableToolbar.expanded = expanded
+                expandButton.selected = expanded
+                topView.layoutIfNeeded()
+                accessoryView.layoutIfNeeded()
+            }
         }
     }
     
-    private func setTopViewExpanded(expanded: Bool) {
+    private func setTopViewExpanded(expanded: Bool, animated: Bool = true) {
         if topView.expanded != expanded {
             accessoryLabel.text = expanded ? "z" : "y"
-            animate {
+            animate(animated) {
                 topView.expanded = expanded
                 topView.layoutIfNeeded()
                 accessoryView.layoutIfNeeded()
@@ -618,18 +560,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         return candies[safe: index] ?? candies[safe: index - 1] ?? candies.first
     }
     
-    private func downloadCandyOriginal(candy: Candy?, success: UIImage -> Void, failure: FailureBlock) {
-        if let candy = candy {
-            if let error = candy.updateError() {
-                failure(error)
-            } else {
-                DownloadingView.downloadCandy(candy, success: success, failure: failure)
-            }
-        } else {
-            failure(nil)
-        }
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         cachedCandyViewControllers.removeAll()
@@ -656,6 +586,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         if let videoViewConroller = viewController as? VideoCandyViewController {
             volumeButton.selected = !videoViewConroller.playerView.player.muted
         }
+        setActionsExpanded(false, animated: false)
+        setTopViewExpanded(false)
     }
     
     override func didChangeOffsetForViewController(viewController: CandyViewController, offset: CGFloat) {
@@ -722,11 +654,11 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     @IBAction func downloadCandy(sender: Button) {
         PHPhotoLibrary.authorize({ [weak self] in
-            FollowingViewController.followWrapIfNeeded(self?.wrap) { _ in
+            if let candy = self?.candy {
                 sender.loading = true
-                self?.candy?.download({ () -> Void in
+                candy.download({ () -> Void in
                     sender.loading = false
-                    InfoToast.showDownloadingMediaMessageForCandy(self?.candy)
+                    InfoToast.showDownloadingMediaMessageForCandy(candy)
                     }, failure: { (error) -> Void in
                         if let error = error where error.isNetworkError {
                             InfoToast.show("downloading_internet_connection_error".ls)
@@ -742,49 +674,40 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     @IBAction func deleteCandy(sender: Button) {
-        FollowingViewController.followWrapIfNeeded(wrap) { [weak self] () -> Void in
-            guard let candy = self?.candy else { return }
-            UIAlertController.confirmCandyDeleting(candy, success: { _ in
-                self?.removedCandy = candy
-                sender.loading = true
-                candy.delete({ _ in
+        guard let candy = candy else { return }
+        UIAlertController.confirmCandyDeleting(candy, success: { [weak self] _ in
+            self?.removedCandy = candy
+            sender.loading = true
+            candy.delete({ _ in
+                sender.loading = false
+                }, failure: { (error) -> Void in
+                    self?.removedCandy = nil
+                    error?.show()
                     sender.loading = false
-                    }, failure: { (error) -> Void in
-                        self?.removedCandy = nil
-                        error?.show()
-                        sender.loading = false
-                })
-                }, failure: nil)
-        }
+            })
+            }, failure: nil)
     }
     
     @IBAction func report(sender: AnyObject) {
-        Storyboard.ReportCandy.instantiate { (controller) -> Void in
-            controller.candy = candy
-            navigationController?.presentViewController(controller, animated: false, completion: nil)
-        }
+        let controller = Storyboard.ReportCandy.instantiate { $0.candy = candy }
+        navigationController?.presentViewController(controller, animated: false, completion: nil)
     }
     
     @IBAction func editPhoto(sender: AnyObject) {
-        FollowingViewController.followWrapIfNeeded(wrap) { [weak self] () -> Void in
-            self?.downloadCandyOriginal(self?.candy, success: { (image) -> Void in
-                ImageEditor.editImage(image) { self?.candy?.editWithImage($0) }
-                }, failure: { $0?.show() })
-        }
+        DownloadingView.downloadCandy(candy, success: { [weak self] (image) -> Void in
+            ImageEditor.editImage(image) { self?.candy?.editWithImage($0) }
+            }, failure: { $0?.show() })
     }
     
     @IBAction func draw(sender: UIButton) {
         sender.userInteractionEnabled = false
-        FollowingViewController.followWrapIfNeeded(wrap) { [weak self] () -> Void in
-            self?.downloadCandyOriginal(self?.candy, success: { (image) -> Void in
-                DrawingViewController.draw(image, wrap: self?.candy?.wrap) { self?.candy?.editWithImage($0)
-                }
+        DownloadingView.downloadCandy(candy, success: { [weak self] (image) -> Void in
+            DrawingViewController.draw(image, wrap: self?.candy?.wrap) { self?.candy?.editWithImage($0) }
+            sender.userInteractionEnabled = true
+            }, failure: { (error) -> Void in
+                error?.show()
                 sender.userInteractionEnabled = true
-                }, failure: { (error) -> Void in
-                    error?.show()
-                    sender.userInteractionEnabled = true
-            })
-        }
+        })
     }
     
     @IBAction func stickers(sender: UIButton) {

@@ -108,6 +108,7 @@
 		C51B4BE81C3AA2D6009F1566 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B4BE71C3AA2D6009F1566 /* WelcomeViewController.swift */; };
 		C51B4BEA1C3AA3B8009F1566 /* terms_and_conditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C51B4BE91C3AA3B8009F1566 /* terms_and_conditions.rtf */; };
 		C51B82C41C1850C20054726A /* GenericCollections+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B82C31C1850C20054726A /* GenericCollections+Ext.swift */; };
+		C51C4BCF1CC4E99300326331 /* ExpandableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51C4BCE1CC4E99300326331 /* ExpandableView.swift */; };
 		C51E34EA1BD8EB4100C6F678 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51E34E91BD8EB4100C6F678 /* SeparatorView.swift */; };
 		C51E34EC1BD8ECC300C6F678 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51E34EB1BD8ECC300C6F678 /* GradientView.swift */; };
 		C5218E7A1AE55936007E55D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50647681ABD889100CB4BE3 /* CoreData.framework */; };
@@ -548,6 +549,7 @@
 		C51B4BE71C3AA2D6009F1566 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		C51B4BE91C3AA3B8009F1566 /* terms_and_conditions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = terms_and_conditions.rtf; sourceTree = "<group>"; };
 		C51B82C31C1850C20054726A /* GenericCollections+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GenericCollections+Ext.swift"; sourceTree = "<group>"; };
+		C51C4BCE1CC4E99300326331 /* ExpandableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableView.swift; sourceTree = "<group>"; };
 		C51E34E91BD8EB4100C6F678 /* SeparatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		C51E34EB1BD8ECC300C6F678 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		C5218E621AE5547D007E55D0 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -1014,6 +1016,7 @@
 			isa = PBXGroup;
 			children = (
 				5B3C79291C7318B700EAB05D /* HintView.swift */,
+				C51C4BCE1CC4E99300326331 /* ExpandableView.swift */,
 				5B37C75D1C5A06E30068E693 /* Button.swift */,
 				5BD529481BDA796000527077 /* SmartLabel.swift */,
 				C51E34E91BD8EB4100C6F678 /* SeparatorView.swift */,
@@ -2076,6 +2079,7 @@
 				C502B3161C47F2EC00F66EAE /* Notification.swift in Sources */,
 				C502B32A1C47F30400F66EAE /* Environment.swift in Sources */,
 				C5F7C5E81C78CA31004C2E68 /* PlaceholderView.swift in Sources */,
+				C51C4BCF1CC4E99300326331 /* ExpandableView.swift in Sources */,
 				C5F11E531C64A21C001C2486 /* CountriesViewController.swift in Sources */,
 				5B40D6B21C2EBB1C009EF38C /* UploadWizardViewController.swift in Sources */,
 				C55871101C4910B500F09E58 /* DownloadingView.swift in Sources */,

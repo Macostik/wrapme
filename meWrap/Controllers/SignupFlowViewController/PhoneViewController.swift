@@ -110,7 +110,7 @@ final class PhoneViewController: SignupStepViewController {
     }
     
     @IBAction func selectCountry(sender: AnyObject) {
-        let controller = Storyboard.Countries.instantiate()
+        let controller = CountriesViewController()
         controller.selectedCountry = self.country
         controller.selectionBlock = { [weak self] country in
             self?.country = country

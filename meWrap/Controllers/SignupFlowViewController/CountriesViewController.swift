@@ -46,9 +46,33 @@ class CountriesViewController: BaseViewController {
     
     var selectionBlock: (Country -> Void)?
     
-    @IBOutlet weak var streamView: StreamView!
+    private let streamView = StreamView()
     
     private lazy var dataSource: StreamDataSource<[Country]> = StreamDataSource(streamView: self.streamView)
+    
+    override func loadView() {
+        super.loadView()
+        let navigationBar = UIView()
+        navigationBar.backgroundColor = UIColor.whiteColor()
+        self.navigationBar = view.add(navigationBar) { (make) in
+            make.leading.top.trailing.equalTo(view)
+            make.height.equalTo(64)
+        }
+        navigationBar.add(backButton(Color.orange)) { (make) in
+            make.leading.equalTo(navigationBar).inset(12)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        let title = Label(preset: .Large, weight: .Regular, textColor: Color.orange)
+        title.text = "select_your_country".ls
+        navigationBar.add(title) { (make) in
+            make.centerX.equalTo(navigationBar)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        view.add(streamView) { (make) in
+            make.leading.bottom.trailing.equalTo(view)
+            make.top.equalTo(navigationBar.snp_bottom)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -133,25 +133,17 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
         
         let navigationBar = UIView()
         navigationBar.backgroundColor = Color.orange
-        view.addSubview(navigationBar)
-        navigationBar.snp_makeConstraints { (make) in
+        self.navigationBar = view.add(navigationBar) { (make) in
             make.leading.top.trailing.equalTo(view)
             make.height.equalTo(64)
         }
-        self.navigationBar = navigationBar
-        let backButton = Button(icon: "L", size: 32, textColor: UIColor.whiteColor())
-        backButton.setTitleColor(UIColor.whiteColor().darkerColor(), forState: .Highlighted)
-        backButton.addTarget(self, action: #selector(self.back(_:)), forControlEvents: .TouchUpInside)
-        navigationBar.addSubview(backButton)
-        backButton.snp_makeConstraints { (make) in
+        navigationBar.add(backButton(UIColor.whiteColor())) { (make) in
             make.leading.equalTo(navigationBar).inset(12)
             make.centerY.equalTo(navigationBar).offset(10)
         }
-        
         let title = Label(preset: .Large, weight: .Bold, textColor: UIColor.whiteColor())
         title.text = "edit_profile".ls
-        navigationBar.addSubview(title)
-        title.snp_makeConstraints { (make) in
+        navigationBar.add(title) { (make) in
             make.centerX.equalTo(navigationBar)
             make.centerY.equalTo(navigationBar).offset(10)
         }

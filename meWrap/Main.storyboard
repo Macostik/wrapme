@@ -4934,23 +4934,23 @@ QWRkEEZyaWVuZFZpZXc
                         <viewControllerLayoutGuide type="bottom" id="hNG-fn-KWL"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xQd-mp-hca">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pCO-CZ-c8t">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wTp-z0-8av" userLabel="Image's View">
-                                        <rect key="frame" x="75" y="100" width="450" height="296"/>
+                                        <rect key="frame" x="40" y="100" width="240" height="178"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="create_wrap_step_first" translatesAutoresizingMaskIntoConstraints="NO" id="2SQ-iw-5FQ">
-                                                <rect key="frame" x="0.0" y="0.0" width="450" height="253"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="240" height="135"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="2SQ-iw-5FQ" secondAttribute="height" multiplier="1356:763" id="Toc-pg-I7j"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="share_first" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeB-md-7Sx" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="273" width="450" height="23"/>
+                                                <rect key="frame" x="0.0" y="155" width="240" height="23"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -4960,7 +4960,7 @@ QWRkEEZyaWVuZFZpZXc
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="type_new_wrap_name_here" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4de-CM-PgT" customClass="TextField" customModule="meWrap" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="242" width="450" height="44"/>
+                                                <rect key="frame" x="0.0" y="124" width="240" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="0w6-EU-xtr"/>
                                                 </constraints>
@@ -4991,7 +4991,7 @@ QWRkEEZyaWVuZFZpZXc
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dFK-sP-mft" userLabel="Button's View">
-                                        <rect key="frame" x="151" y="416" width="298" height="66"/>
+                                        <rect key="frame" x="11" y="298" width="298" height="66"/>
                                         <subviews>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcd-cQ-lgp" userLabel="Camera Button" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="66" height="66"/>
@@ -5095,7 +5095,7 @@ QWRkEEZyaWVuZFZpZXc
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xPg-og-ZfU" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="495" y="557" width="93" height="33"/>
+                                        <rect key="frame" x="215" y="435" width="93" height="33"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="maybe_later">
                                             <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -5118,7 +5118,8 @@ QWRkEEZyaWVuZFZpZXc
                                     <constraint firstItem="wTp-z0-8av" firstAttribute="top" secondItem="pCO-CZ-c8t" secondAttribute="top" constant="100" id="S6e-Ff-Ocr"/>
                                     <constraint firstItem="wTp-z0-8av" firstAttribute="centerX" secondItem="pCO-CZ-c8t" secondAttribute="centerX" id="hJR-8u-bp1"/>
                                     <constraint firstAttribute="trailing" secondItem="xPg-og-ZfU" secondAttribute="trailing" constant="12" id="htw-Ly-xaH"/>
-                                    <constraint firstItem="xPg-og-ZfU" firstAttribute="top" secondItem="dFK-sP-mft" secondAttribute="bottom" constant="75" id="jlL-TA-0XS"/>
+                                    <constraint firstItem="xPg-og-ZfU" firstAttribute="top" secondItem="dFK-sP-mft" secondAttribute="bottom" priority="750" constant="75" id="jlL-TA-0XS"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xPg-og-ZfU" secondAttribute="bottom" constant="12" id="ovJ-M0-7Lk"/>
                                     <constraint firstItem="dFK-sP-mft" firstAttribute="centerX" secondItem="wTp-z0-8av" secondAttribute="centerX" id="vls-mv-ici"/>
                                 </constraints>
                             </view>
@@ -5149,6 +5150,7 @@ QWRkEEZyaWVuZFZpZXc
                             <constraint firstItem="lBx-cg-zuE" firstAttribute="top" secondItem="ZCB-Xa-54d" secondAttribute="bottom" constant="12" id="xas-xs-agr"/>
                         </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="statusBarDefault" value="YES"/>
                     </userDefinedRuntimeAttributes>

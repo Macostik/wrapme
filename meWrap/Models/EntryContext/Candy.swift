@@ -40,6 +40,9 @@ final class Candy: Contribution {
             wrap.numberOfUnreadInboxItems -= 1
             wrap.notifyOnUpdate(.InboxChanged)
         }
+        for comment in comments where comment.unread {
+            comment.decrementBadgeIfNeeded()
+        }
         super.remove()
     }
     

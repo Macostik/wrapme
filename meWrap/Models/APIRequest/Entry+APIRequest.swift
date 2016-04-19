@@ -190,6 +190,8 @@ extension Uploading {
     func upload(success: ObjectBlock?, failure: FailureBlock?) {
         if Network.sharedNetwork.reachable {
             if let contribution = contribution {
+                inProgress = true
+                contribution.notifyOnUpdate(.Default)
                 sendTypedRequest({ [weak self] (object) -> Void in
                     self?.inProgress = false
                     self?.remove()
@@ -213,8 +215,6 @@ extension Uploading {
                             failure?(error)
                         }
                     })
-                inProgress = true
-                contribution.notifyOnUpdate(.Default)
             } else {
                 remove()
                 failure?(nil)

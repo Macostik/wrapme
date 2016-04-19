@@ -34,11 +34,15 @@ final class Comment: Contribution {
         set { }
     }
     
-    override func remove() {
+    func decrementBadgeIfNeeded() {
         if let wrap = candy?.wrap where unread && wrap.numberOfUnreadInboxItems > 0 {
             wrap.numberOfUnreadInboxItems -= 1
             wrap.notifyOnUpdate(.InboxChanged)
         }
+    }
+    
+    override func remove() {
+        decrementBadgeIfNeeded()
         super.remove()
     }
 }

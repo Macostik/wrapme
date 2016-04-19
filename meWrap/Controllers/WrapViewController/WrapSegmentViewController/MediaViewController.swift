@@ -191,7 +191,6 @@ class MediaViewController: WrapSegmentViewController {
     lazy var dataSource: MediaDataSource = MediaDataSource(streamView: self.streamView)
     @IBOutlet  weak var streamView: StreamView!
     @IBOutlet var primaryConstraint: LayoutPrioritizer!
-    @IBOutlet weak var uploadingView: UploaderView!
     @IBOutlet weak var addPhotoButton: UIButton!
     @IBOutlet weak var liveButton: UIButton?
     
@@ -251,9 +250,7 @@ class MediaViewController: WrapSegmentViewController {
         refresher.style = .Orange
         refresher.addTarget(dataSource, action: #selector(dataSource.refresh(_:)), forControlEvents: .ValueChanged)
         refresher.addTarget(self, action: #selector(self.refreshUserActivities), forControlEvents: .ValueChanged)
-        
-        uploadingView.uploader = Uploader.candyUploader
-        
+                
         Network.sharedNetwork.addReceiver(self)
         
         if wrap.candies.count > 0 {
@@ -306,7 +303,6 @@ class MediaViewController: WrapSegmentViewController {
         }
         
         dataSource.items = history
-        uploadingView.update()
         if view.width > view.height {
             Dispatch.mainQueue.async { [weak self] _ in
                 self?.dataSource.reload()

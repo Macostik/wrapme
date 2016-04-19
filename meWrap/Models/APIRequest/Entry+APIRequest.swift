@@ -96,24 +96,24 @@ extension Wrap {
         message.notifyOnAddition()
     }
     
-    func uploadAsset(asset: MutableAsset) {
+    func uploadAsset(asset: MutableAsset, createdAt: NSDate) {
         let candy = Candy.candy(asset.type)
-        let uploading = Uploading.uploading(candy)
+        candy.createdAt = createdAt
+        candy.updatedAt = createdAt
         candy.wrap = self
-        candy.asset = asset.uploadableAsset(true)
+        candy.asset = asset.uploadableAsset()
         if let comment = asset.comment where !comment.isEmpty {
             Comment.comment(comment).candy = candy
         }
-        Uploader.candyUploader.upload(uploading)
+        Uploader.candyUploader.upload(Uploading.uploading(candy))
         candy.notifyOnAddition()
     }
     
     func uploadAssets(assets: [MutableAsset]) {
+        var date = NSDate.now()
         for asset in assets {
-            RunQueue.uploadCandiesQueue.run({ [weak self] (finish) -> Void in
-                self?.uploadAsset(asset)
-                Dispatch.mainQueue.after(0.6, block: finish)
-                })
+            uploadAsset(asset, createdAt: date)
+            date = date.dateByAddingTimeInterval(0.5)
         }
     }
     
@@ -291,7 +291,7 @@ extension Candy {
         if valid {
             let asset = MutableAsset(isAvatar: false)
             asset.setImage(image)
-            editAsset(asset.uploadableAsset(false))
+            editAsset(asset.uploadableAsset())
             enqueueUpdate()?.show()
         }
     }

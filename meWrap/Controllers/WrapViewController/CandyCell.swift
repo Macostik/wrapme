@@ -114,30 +114,32 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
         imageView.image = nil
     }
     
+    private var uploadingView: UploadingView? {
+        didSet {
+            oldValue?.removeFromSuperview()
+            if let uploadingView = uploadingView {
+                uploadingView.frame = bounds
+                addSubview(uploadingView)
+                uploadingView.update()
+            }
+        }
+    }
+    
     override func setup(entry: AnyObject?) {
         
         userInteractionEnabled = true
         exclusiveTouch = true
         
-        guard let candy = entry as? Candy else {
+        if let candy = entry as? Candy {
+            videoIndicator.hidden = candy.mediaType != .Video
+            commentLabel.text = candy.latestComment?.text
+            commentLabel.superview?.hidden = commentLabel.text?.isEmpty ?? true
+            imageView.url = candy.asset?.small
+            uploadingView = candy.uploading?.uploadingView
+        } else {
             videoIndicator.hidden = true
             imageView.url = nil
             commentLabel.superview?.hidden = true
-            return
         }
-        
-        videoIndicator.hidden = candy.mediaType != .Video
-        commentLabel.text = candy.latestComment?.text
-        commentLabel.superview?.hidden = commentLabel.text?.isEmpty ?? true
-        
-        guard let asset = candy.asset else { return }
-        
-        if asset.justUploaded {
-            asset.justUploaded = false
-            alpha = 0.0
-            UIView.animateWithDuration(0.5, animations: { self.alpha = 1 })
-        }
-        
-        imageView.url = asset.small
     }
 }

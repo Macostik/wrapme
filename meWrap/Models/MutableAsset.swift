@@ -174,7 +174,7 @@ class MutableAsset: Asset {
         }
     }
     
-    func uploadableAsset(justUploaded: Bool) -> Asset {
+    func uploadableAsset() -> Asset {
         uploaded = true
         let asset = Asset()
         asset.type = type
@@ -182,7 +182,6 @@ class MutableAsset: Asset {
         asset.large = large
         asset.medium = medium
         asset.small = small
-        asset.justUploaded = justUploaded
         return asset
     }
 }

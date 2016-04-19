@@ -499,7 +499,7 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
     }
     
     func captureViewController(controller: CaptureAvatarViewController, didFinishWithAvatar avatar: MutableAsset) {
-        let picture = avatar.uploadableAsset(false)
+        let picture = avatar.uploadableAsset()
         imageView.url = picture.large
         editSession.avatarSession.changedValue = picture.large ?? ""
         dismissViewControllerAnimated(false, completion: nil)

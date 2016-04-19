@@ -13,9 +13,7 @@ class RunQueue: NSObject {
     static var entryFetchQueue = RunQueue(limit: 3)
     
     static var fetchQueue = RunQueue(limit: 1)
-        
-    static var uploadCandiesQueue = RunQueue(limit: 1)
-    
+            
     private struct Block {
         var block: (finish: Void -> Void) -> Void
     }

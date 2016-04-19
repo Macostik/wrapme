@@ -210,6 +210,7 @@
 		C553DB401C6DF7BA001B13C7 /* WrapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C553DB291C6DF7BA001B13C7 /* WrapViewController.swift */; };
 		C553DB411C6DF7BA001B13C7 /* CandyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C553DB2A1C6DF7BA001B13C7 /* CandyCell.swift */; };
 		C553DB421C6DF7BA001B13C7 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C553DB2C1C6DF7BA001B13C7 /* MediaViewController.swift */; };
+		C555126A1CC647390079B8FE /* Animations.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C55512691CC647390079B8FE /* Animations.xcassets */; };
 		C5564CF71C7B50EB0075703A /* InfoToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5564CF61C7B50EB0075703A /* InfoToast.swift */; };
 		C55766A51C0C913D00E94E09 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55766A31C0C913D00E94E09 /* ImageView.swift */; };
 		C55766A61C0C913D00E94E09 /* EntryStatusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55766A41C0C913D00E94E09 /* EntryStatusIndicator.swift */; };
@@ -260,7 +261,7 @@
 		C5B91A421BB4101A000E08E7 /* Introduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A401BB4101A000E08E7 /* Introduction.storyboard */; };
 		C5B91A4B1BB41343000E08E7 /* DownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A491BB41343000E08E7 /* DownloadingView.xib */; };
 		C5B91A601BB4177B000E08E7 /* ConfirmAuthorizationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A5E1BB4177B000E08E7 /* ConfirmAuthorizationView.xib */; };
-		C5BD85421C2E999800EE5558 /* UploaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BD85411C2E999800EE5558 /* UploaderView.swift */; };
+		C5BD85421C2E999800EE5558 /* UploadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BD85411C2E999800EE5558 /* UploadingView.swift */; };
 		C5BEC38D1B8F129100499EEA /* logo_and_caption_orange@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5BEC38F1B8F129100499EEA /* logo_and_caption_orange@3x.png */; };
 		C5BEC3941B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5BEC3961B8F129B00499EEA /* logo_and_caption_white@3x.png */; };
 		C5BEC3A31B8F16E800499EEA /* logo_and_caption_orange.png in Resources */ = {isa = PBXBuildFile; fileRef = C5BEC39A1B8F16E800499EEA /* logo_and_caption_orange.png */; };
@@ -616,6 +617,7 @@
 		C553DB291C6DF7BA001B13C7 /* WrapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapViewController.swift; sourceTree = "<group>"; };
 		C553DB2A1C6DF7BA001B13C7 /* CandyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyCell.swift; sourceTree = "<group>"; };
 		C553DB2C1C6DF7BA001B13C7 /* MediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
+		C55512691CC647390079B8FE /* Animations.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Animations.xcassets; sourceTree = "<group>"; };
 		C5564CF61C7B50EB0075703A /* InfoToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoToast.swift; sourceTree = "<group>"; };
 		C55766A31C0C913D00E94E09 /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		C55766A41C0C913D00E94E09 /* EntryStatusIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryStatusIndicator.swift; sourceTree = "<group>"; };
@@ -686,7 +688,7 @@
 		C5B91A5E1BB4177B000E08E7 /* ConfirmAuthorizationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmAuthorizationView.xib; sourceTree = "<group>"; };
 		C5B993C31B302E73002BCC8C /* chat_presets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = chat_presets.plist; sourceTree = "<group>"; };
 		C5B993C41B302E73002BCC8C /* comment_presets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = comment_presets.plist; sourceTree = "<group>"; };
-		C5BD85411C2E999800EE5558 /* UploaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderView.swift; sourceTree = "<group>"; };
+		C5BD85411C2E999800EE5558 /* UploadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadingView.swift; sourceTree = "<group>"; };
 		C5BEC38E1B8F129100499EEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/logo_and_caption_orange@3x.png"; sourceTree = "<group>"; };
 		C5BEC3911B8F129400499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_orange@3x.png"; sourceTree = "<group>"; };
 		C5BEC3951B8F129B00499EEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/logo_and_caption_white@3x.png"; sourceTree = "<group>"; };
@@ -1034,7 +1036,7 @@
 				C53BC48D1C05FE620009B0B9 /* SegmentedControl.swift */,
 				C5A406FD1C200A71007D1D0E /* CandyEnlargingPresenter.swift */,
 				C532F4E81C2D5F02004585E0 /* ProgressBar.swift */,
-				C5BD85411C2E999800EE5558 /* UploaderView.swift */,
+				C5BD85411C2E999800EE5558 /* UploadingView.swift */,
 				C5F5F0BF1C690BD6002F74C9 /* LoadingView.swift */,
 				C5F7C5E71C78CA31004C2E68 /* PlaceholderView.swift */,
 				C5564CF61C7B50EB0075703A /* InfoToast.swift */,
@@ -1087,6 +1089,7 @@
 				12D578C619178C3400586995 /* iTunesArtwork */,
 				121B1B2F18E0749F001F585C /* Property Lists */,
 				12E3DA5018E049C300DBDB79 /* Images.xcassets */,
+				C55512691CC647390079B8FE /* Animations.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1828,6 +1831,7 @@
 				C54AF73819B8C491006F7EDB /* peopleAndSmiles_iOS_9.plist in Resources */,
 				C5BEC3A71B8F16E800499EEA /* logo_and_caption_white.png in Resources */,
 				C54AF73A19B8C491006F7EDB /* travelAndPlaces_iOS_9.plist in Resources */,
+				C555126A1CC647390079B8FE /* Animations.xcassets in Resources */,
 				C5B91A3E1BB40D88000E08E7 /* Camera.storyboard in Resources */,
 				5B436CAA1C9FFCAD00635931 /* symbols_iOS_8.plist in Resources */,
 				C5BEC3A51B8F16E800499EEA /* logo_and_caption_orange@2x.png in Resources */,
@@ -2103,7 +2107,7 @@
 				C5F11E511C64A21C001C2486 /* EmailViewController.swift in Sources */,
 				C55766A51C0C913D00E94E09 /* ImageView.swift in Sources */,
 				C54CEF971BCFA86C00128CBE /* NSBundle+Ext.swift in Sources */,
-				C5BD85421C2E999800EE5558 /* UploaderView.swift in Sources */,
+				C5BD85421C2E999800EE5558 /* UploadingView.swift in Sources */,
 				C540C0F01B988BF700F880C9 /* GridLayout.swift in Sources */,
 				5B2FB96E1C5B8513001C4385 /* TextView.swift in Sources */,
 				C5EE45A61C01D350008DE8D6 /* Constants.swift in Sources */,

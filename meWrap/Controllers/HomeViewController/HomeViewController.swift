@@ -17,7 +17,6 @@ final class HomeViewController: BaseViewController {
     
     @IBOutlet weak var streamView: StreamView!
     @IBOutlet weak var emailConfirmationView: UIView!
-    @IBOutlet weak var uploadingView: UploaderView!
     @IBOutlet weak var createWrapButton: UIButton!
     @IBOutlet weak var verificationEmailLabel: Label!
     @IBOutlet weak var photoButton: UIButton!
@@ -124,8 +123,6 @@ final class HomeViewController: BaseViewController {
             dataSource.refresh()
         }
         
-        uploadingView.uploader = Uploader.candyUploader
-        
         NSUserDefaults.standardUserDefaults().numberOfLaunches += 1
         
         Dispatch.mainQueue.async { [weak self] _ in
@@ -150,7 +147,6 @@ final class HomeViewController: BaseViewController {
         dataSource.reload()
         updateEmailConfirmationView(false)
         AuthorizedExecutor.authorized = true
-        uploadingView.update()
         if NSUserDefaults.standardUserDefaults().numberOfLaunches >= 3 && User.currentUser?.wraps.count >= 3 {
             HintView.showHomeSwipeTransitionHintView(view)
         }

@@ -17,7 +17,6 @@ class Asset: NSObject, NSCopying {
     var large: String?
     var medium: String?
     var small: String?
-    var justUploaded = false
     var type: MediaType = .Photo
     
     override var description: String {

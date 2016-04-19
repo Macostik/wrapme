@@ -30,19 +30,14 @@ class TriangleView: ShapeView {
         switch contentMode {
         case .Top:
             path.move(r.minX ^ r.maxY).line(r.maxX ^ r.maxY).line(r.midX ^ r.minY).line(r.minX ^ r.maxY)
-            break
         case .Left:
             path.move(r.minX ^ r.minY).line(r.minX ^ r.maxY).line(r.maxX ^ r.midY).line(r.minX ^ r.minY)
-            break
         case .Right:
             path.move(r.maxX ^ r.minY).line(r.minX ^ r.midY).line(r.maxX ^ r.maxY).line(r.maxX ^ r.minY)
-            break
         case .Bottom:
             path.move(r.minX ^ r.minY).line(r.maxX ^ r.minY).line(r.midX ^ r.maxY).line(r.minX ^ r.minY)
-            break
         default:
             path.move(r.minX ^ r.maxY).line(r.maxX ^ r.maxY).line(r.midX ^ r.minY).line(r.minX ^ r.maxY)
-            break
         }
     }
 }

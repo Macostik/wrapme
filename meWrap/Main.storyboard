@@ -46,10 +46,6 @@
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
-            <string>icons</string>
-            <string>icons</string>
-            <string>icons</string>
-            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -539,61 +535,6 @@
                                     <constraint firstItem="ZDN-HJ-7Th" firstAttribute="top" secondItem="K8u-Wl-Wu5" secondAttribute="bottom" id="oSy-4b-itj"/>
                                 </constraints>
                             </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IWZ-KR-48g" customClass="UploaderView" customModule="meWrap" customModuleProvider="target">
-                                <rect key="frame" x="556" y="559" width="34" height="37"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zzu-qX-c4N" userLabel="iCloudButton" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="2" y="-5" width="30" height="37"/>
-                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
-                                        <state key="normal" title="j">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1RC-4W-wDl" userLabel="PlaceholderButton" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="34" height="37"/>
-                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="14"/>
-                                        <state key="normal" title="k">
-                                            <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hw2-sP-LBk" userLabel="countLabel" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="3" y="17" width="28" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="ufx-u4-PEc"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xsmall"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="hw2-sP-LBk" firstAttribute="leading" secondItem="IWZ-KR-48g" secondAttribute="leading" constant="3" id="2L9-ac-1xy"/>
-                                    <constraint firstAttribute="width" secondItem="Zzu-qX-c4N" secondAttribute="width" constant="4" id="6Qg-FS-Ant"/>
-                                    <constraint firstAttribute="trailing" secondItem="hw2-sP-LBk" secondAttribute="trailing" constant="3" id="QwG-w2-X10"/>
-                                    <constraint firstAttribute="bottom" secondItem="1RC-4W-wDl" secondAttribute="bottom" id="Uyx-gw-lFq"/>
-                                    <constraint firstAttribute="centerX" secondItem="Zzu-qX-c4N" secondAttribute="centerX" id="aWB-jT-sDl"/>
-                                    <constraint firstItem="1RC-4W-wDl" firstAttribute="leading" secondItem="IWZ-KR-48g" secondAttribute="leading" id="c5C-8p-AqM"/>
-                                    <constraint firstAttribute="bottom" secondItem="Zzu-qX-c4N" secondAttribute="bottom" constant="5" id="mZU-b6-54m"/>
-                                    <constraint firstAttribute="bottom" secondItem="hw2-sP-LBk" secondAttribute="bottom" id="qTw-Jp-TW1"/>
-                                    <constraint firstAttribute="height" secondItem="Zzu-qX-c4N" secondAttribute="height" id="r3t-Tc-3Ib"/>
-                                    <constraint firstAttribute="trailing" secondItem="1RC-4W-wDl" secondAttribute="trailing" id="vpQ-fx-9Oz"/>
-                                    <constraint firstItem="1RC-4W-wDl" firstAttribute="top" secondItem="IWZ-KR-48g" secondAttribute="top" id="zIW-4I-pNb"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="6"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="arrowIcon" destination="1RC-4W-wDl" id="70b-gW-9dJ"/>
-                                    <outlet property="countLabel" destination="hw2-sP-LBk" id="DNE-Ow-uoV"/>
-                                </connections>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Rl-cW-5hv">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
@@ -662,11 +603,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="IWZ-KR-48g" secondAttribute="trailing" constant="10" id="0dG-Xy-kS1"/>
                             <constraint firstItem="lBJ-p7-MjG" firstAttribute="top" secondItem="9Rl-cW-5hv" secondAttribute="bottom" priority="750" id="8Aa-Cz-phe"/>
                             <constraint firstItem="lBJ-p7-MjG" firstAttribute="bottom" secondItem="9Rl-cW-5hv" secondAttribute="bottom" priority="250" id="F0c-eT-pdM"/>
                             <constraint firstItem="uGg-7M-ebG" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="HTc-G6-dUL"/>
-                            <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="IWZ-KR-48g" secondAttribute="bottom" constant="4" id="Nbk-H5-haE"/>
                             <constraint firstAttribute="trailing" secondItem="uGg-7M-ebG" secondAttribute="trailing" id="Oyl-yA-asQ"/>
                             <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="uGg-7M-ebG" secondAttribute="bottom" id="PPm-TK-65j"/>
                             <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="YZO-Vw-o8l" secondAttribute="bottom" priority="750" constant="4" id="UIc-K5-oLM"/>
@@ -690,7 +629,6 @@
                         <outlet property="navigationBar" destination="9Rl-cW-5hv" id="9kd-xs-4J2"/>
                         <outlet property="photoButton" destination="YZO-Vw-o8l" id="2q7-fd-ztx"/>
                         <outlet property="streamView" destination="uGg-7M-ebG" id="DWY-UV-XhD"/>
-                        <outlet property="uploadingView" destination="IWZ-KR-48g" id="KrJ-sE-ftu"/>
                         <outlet property="verificationEmailLabel" destination="ZDN-HJ-7Th" id="HaN-Oo-VCI"/>
                     </connections>
                 </viewController>
@@ -2361,62 +2299,6 @@ QWRkEEZyaWVuZFZpZXc
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="92"/>
                             </scrollView>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7qZ-uD-y8y" customClass="UploaderView" customModule="meWrap" customModuleProvider="target">
-                                <rect key="frame" x="8" y="559" width="34" height="36"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Efs-bl-JlE" userLabel="iCloudButton" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="2" y="-5" width="30" height="36"/>
-                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
-                                        <state key="normal" title="j">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8rs-9Z-OXv" userLabel="PlaceholderButton" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="34" height="36"/>
-                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="14"/>
-                                        <state key="normal" title="k">
-                                            <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="456-IP-xA6" userLabel="countLabel" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="3" y="16" width="28" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="1b1-S2-EkP"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xsmall"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="8rs-9Z-OXv" secondAttribute="bottom" id="2W8-Gk-Oyb"/>
-                                    <constraint firstItem="8rs-9Z-OXv" firstAttribute="top" secondItem="7qZ-uD-y8y" secondAttribute="top" id="8od-fX-fhK"/>
-                                    <constraint firstAttribute="bottom" secondItem="Efs-bl-JlE" secondAttribute="bottom" constant="5" id="Bbq-gX-EVI"/>
-                                    <constraint firstAttribute="bottom" secondItem="456-IP-xA6" secondAttribute="bottom" id="Dr6-Ru-F9O"/>
-                                    <constraint firstAttribute="centerX" secondItem="Efs-bl-JlE" secondAttribute="centerX" id="Hu7-F9-ALg"/>
-                                    <constraint firstAttribute="width" secondItem="Efs-bl-JlE" secondAttribute="width" constant="4" id="deB-Qx-HEb"/>
-                                    <constraint firstItem="8rs-9Z-OXv" firstAttribute="leading" secondItem="7qZ-uD-y8y" secondAttribute="leading" id="efD-Xi-qaO"/>
-                                    <constraint firstItem="456-IP-xA6" firstAttribute="leading" secondItem="7qZ-uD-y8y" secondAttribute="leading" constant="3" id="lL1-pb-iAd"/>
-                                    <constraint firstAttribute="trailing" secondItem="456-IP-xA6" secondAttribute="trailing" constant="3" id="mYs-0p-eQ1"/>
-                                    <constraint firstAttribute="height" secondItem="Efs-bl-JlE" secondAttribute="height" id="qms-Ii-i5v"/>
-                                    <constraint firstAttribute="trailing" secondItem="8rs-9Z-OXv" secondAttribute="trailing" id="uda-BO-NTq"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="6"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="arrowIcon" destination="8rs-9Z-OXv" id="xmK-bF-Vnq"/>
-                                    <outlet property="countLabel" destination="456-IP-xA6" id="GpP-jF-68e"/>
-                                </connections>
-                            </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PNO-TY-VYu">
                                 <rect key="frame" x="258" y="512" width="84" height="84"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2479,8 +2361,6 @@ QWRkEEZyaWVuZFZpZXc
                             <constraint firstItem="riF-U0-7aK" firstAttribute="top" secondItem="zI4-B5-vhI" secondAttribute="bottom" id="dc9-e0-Msn"/>
                             <constraint firstItem="riF-U0-7aK" firstAttribute="top" secondItem="RbZ-zE-qem" secondAttribute="top" priority="250" id="nTX-QR-nik"/>
                             <constraint firstItem="riF-U0-7aK" firstAttribute="top" secondItem="RbZ-zE-qem" secondAttribute="bottom" priority="750" constant="4" id="rJg-0I-PSE"/>
-                            <constraint firstItem="riF-U0-7aK" firstAttribute="top" secondItem="7qZ-uD-y8y" secondAttribute="bottom" constant="5" id="tLc-5B-weP"/>
-                            <constraint firstItem="7qZ-uD-y8y" firstAttribute="leading" secondItem="z88-8Q-V7N" secondAttribute="leading" constant="8" id="zTm-Yq-MJq"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -2491,7 +2371,6 @@ QWRkEEZyaWVuZFZpZXc
                         <outlet property="primaryConstraint" destination="8F6-xd-Raa" id="idQ-bf-VUC"/>
                         <outlet property="scrollDirectionPrioritizer" destination="SFh-vB-Xt1" id="AyH-T7-SLa"/>
                         <outlet property="streamView" destination="zI4-B5-vhI" id="oVx-JM-lqd"/>
-                        <outlet property="uploadingView" destination="7qZ-uD-y8y" id="88j-sP-MSI"/>
                     </connections>
                 </viewController>
                 <customObject id="8F6-xd-Raa" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">

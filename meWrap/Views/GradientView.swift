@@ -11,27 +11,19 @@ import UIKit
 class GradientView: UIView {
 
     @IBInspectable var startColor: UIColor? {
-        didSet {
-            updateColors()
-        }
+        didSet { updateColors() }
     }
     
     @IBInspectable var endColor: UIColor? {
-        didSet {
-            updateColors()
-        }
+        didSet { updateColors() }
     }
     
     @IBInspectable var startLocation: CGFloat = 0 {
-        didSet {
-            updateLocations()
-        }
+        didSet { updateLocations() }
     }
     
     @IBInspectable var endLocation: CGFloat = 1 {
-        didSet {
-            updateLocations()
-        }
+        didSet { updateLocations() }
     }
     
     override class func layerClass() -> AnyClass {
@@ -57,24 +49,9 @@ class GradientView: UIView {
     }
     
     private func updateColors() {
-        guard let startColor = startColor else {
-            return
-        }
-        
+        guard let startColor = startColor else { return }
         let layer = self.layer as! CAGradientLayer
-        
-        var colors = [CGColorRef]()
-        
-        colors.append(startColor.CGColor)
-        
-        if let endColor = endColor {
-            colors.append(endColor.CGColor)
-        } else {
-            let endColor = startColor.colorWithAlphaComponent(0)
-            colors.append(endColor.CGColor)
-            self.endColor = endColor
-        }
-        layer.colors = colors
+        layer.colors = [startColor.CGColor, (endColor ?? startColor.colorWithAlphaComponent(0)).CGColor]
     }
     
     private func updateLocations() {

@@ -77,4 +77,15 @@ class Contribution: Entry {
         super.prefetchDescriptors(&descriptors, inDictionary: dictionary)
         User.prefetchDescriptors(&descriptors, inDictionary: dictionary?["contributor"] as? [String:AnyObject])
     }
+    
+    private var _uploadingView: UploadingView?
+    var uploadingView: UploadingView? {
+        if let uploadingView = _uploadingView {
+            return uploadingView
+        } else {
+            if status != .Finished {
+                _uploadingView = UploadingView(uploading: self)
+            }
+        }
+    }
 }

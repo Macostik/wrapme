@@ -238,6 +238,9 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
         }
         
         imageView.cornerRadius = 78
+        imageView.defaultIconText = "&"
+        imageView.defaultIconColor = Color.grayLighter
+        imageView.defaultBackgroundColor = UIColor.whiteColor()
         headerView.addSubview(imageView)
         imageView.snp_makeConstraints {
             $0.size.equalTo(156)

@@ -327,3 +327,5 @@
 "delete_device" = "delete";
 "quit" = "Quit";
 "cancel_Drawing" = "Are you sure you want to exit and cancel changes?";
+"delete_device_title" = "Delete Device";
+"delete_device_message" = "Are you sure you want to delete the device \"%@\" from your account?";

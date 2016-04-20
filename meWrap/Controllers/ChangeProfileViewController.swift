@@ -336,14 +336,24 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
             $0.size = 64
             $0.prepareAppearing = { [weak self] _, view in
                 (view as? DeviceCell)?.deleteDevice = { device in
-                    API.deleteDevice(device).send({ devices in
-                        self?.dataSource.items = sortDevices(devices)
-                        }, failure: { (error) in
-                            error?.show()
-                    })
+                    self?.deleteDevice(device)
                 }
             }
         }))
+    }
+    
+    private func deleteDevice(device: Device) {
+        let message = String(format: "delete_device_message".ls, device.name ?? "")
+        let alert = UIAlertController.alert("delete_device_title".ls, message: message)
+        alert.action("cancel".ls)
+        alert.action("delete".ls, handler: { [weak self] (_) in
+            API.deleteDevice(device).send({ devices in
+                self?.dataSource.items = sortDevices(devices)
+                }, failure: { (error) in
+                    error?.show()
+            })
+            })
+        alert.show()
     }
     
     override func viewDidLoad() {
@@ -473,16 +483,16 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
         API.resendConfirmation(nil).send({ _ in
             InfoToast.show("confirmation_resend".ls)
             sender.userInteractionEnabled = true
-            }) { error in
-                error?.show()
-                sender.userInteractionEnabled = true
+        }) { error in
+            error?.show()
+            sender.userInteractionEnabled = true
         }
     }
     
     //MARK: EditSessionDelegate
     
     func editSession(session: EditSessionProtocol, hasChanges: Bool) {
-        animate { 
+        animate {
             bottomView.expanded = hasChanges
             view.layoutIfNeeded()
         }

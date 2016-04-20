@@ -268,8 +268,8 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
         takeAvatarButton.highlightings = [cameraIcon]
         cameraIcon.snp_makeConstraints { (make) in
             make.size.equalTo(44)
-            make.centerY.equalTo(imageView.snp_bottom).multipliedBy(0.853)
-            make.centerX.equalTo(imageView.snp_trailing).multipliedBy(0.853)
+            make.bottom.equalTo(imageView.snp_bottom)
+            make.trailing.equalTo(imageView.snp_trailing)
         }
         
         let nameLabel = Label(preset: .Smaller, weight: .Bold, textColor: Color.grayLighter)

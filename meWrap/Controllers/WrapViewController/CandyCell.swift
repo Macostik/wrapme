@@ -135,8 +135,9 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
             commentLabel.text = candy.latestComment?.text
             commentLabel.superview?.hidden = commentLabel.text?.isEmpty ?? true
             imageView.url = candy.asset?.small
-            uploadingView = candy.uploading?.uploadingView
+            uploadingView = candy.uploadingView
         } else {
+            uploadingView = nil
             videoIndicator.hidden = true
             imageView.url = nil
             commentLabel.superview?.hidden = true

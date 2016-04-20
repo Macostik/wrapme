@@ -80,12 +80,14 @@ class Contribution: Entry {
     
     private var _uploadingView: UploadingView?
     var uploadingView: UploadingView? {
-        if let uploadingView = _uploadingView {
-            return uploadingView
-        } else {
-            if status != .Finished {
-                _uploadingView = UploadingView(uploading: self)
+        get {
+            if _uploadingView == nil && status != .Finished {
+                _uploadingView = UploadingView(contribution: self)
             }
+            return _uploadingView
+        }
+        set {
+            _uploadingView = newValue
         }
     }
 }

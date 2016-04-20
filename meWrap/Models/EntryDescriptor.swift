@@ -90,7 +90,7 @@ extension EntryContext {
             return
         }
         
-        let fetchedEntries = FetchRequest<Entry>(query: "uid IN %@ OR locuid IN %@", uids, uids).execute()
+        let fetchedEntries = FetchRequest<Entry>().query("uid IN %@ OR locuid IN %@", uids, uids).execute()
         
         for entry in fetchedEntries {
             for (index, descriptor) in descriptors.enumerate() {

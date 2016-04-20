@@ -388,9 +388,6 @@ extension LiveBroadcasterViewController: StreamerListener {
         }
         
         if state == .Disconnected {
-            #if DEBUG
-                InfoToast.show("Reconnecting...")
-            #endif
             releaseConnection()
             Dispatch.mainQueue.after(status == .UnknownFail ? 1 : 3, block: { [weak self] () -> Void in
                 self?.createConnection()

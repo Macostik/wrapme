@@ -144,13 +144,9 @@ class EntryContext: NSManagedObjectContext {
     }
     
     func hasEntry(name: String, uid: String?) -> Bool {
-        guard let uid = uid else {
-            return false
-        }
-        if cachedEntries.objectForKey(uid) != nil {
-            return true
-        }
-        return FetchRequest<Entry>(name: name, query: "uid == %@", uid).count() > 0
+        guard let uid = uid else { return false }
+        if cachedEntries.objectForKey(uid) != nil { return true }
+        return FetchRequest<Entry>(name: name).query("uid == %@", uid).count() > 0
     }
     
     func execute<T>(request: FetchRequest<T>) -> [T] {
@@ -176,12 +172,9 @@ class EntryContext: NSManagedObjectContext {
 
 class FetchRequest<T: Entry>: NSFetchRequest {
     
-    init(name: String = T.entityName(), query: String? = nil, _ args: CVarArgType...) {
+    init(name: String = T.entityName()) {
         super.init()
         entity = NSEntityDescription.entityForName(name, inManagedObjectContext: EntryContext.sharedContext)
-        if let query = query {
-            predicate = NSPredicate(format: query, arguments: getVaList(args))
-        }
     }
     
     func query(format: String, _ args: CVarArgType...) -> Self {

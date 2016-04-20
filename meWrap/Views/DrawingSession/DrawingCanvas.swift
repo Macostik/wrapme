@@ -20,7 +20,7 @@ class DrawingCanvas: UIView {
     private weak var _imageView: UIImageView?
     private lazy var imageView: UIImageView = specify(UIImageView()) {
         self.superview?.insertSubview($0, belowSubview: self)
-        $0.snp_makeConstraints(closure: { $0.edges.equalTo(self) })
+        $0.snp_makeConstraints { $0.edges.equalTo(self) }
         self._imageView = $0
     }
     

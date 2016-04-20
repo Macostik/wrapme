@@ -64,7 +64,7 @@ private enum Emoji: Int {
     }
 }
 
-class EmojiView: UIView {
+class EmojiView: UIView, SegmentedControlDelegate {
     
     @IBOutlet weak var streamView: StreamView!
     
@@ -89,8 +89,11 @@ class EmojiView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        streamView.layout = HorizontalGridLayout()
-        dataSource = StreamDataSource(streamView: streamView)
+        segmentedControl.delegate = self
+        setup()
+    }
+    
+    func setup() {
         let metrics = StreamMetrics(loader: StreamLoader<EmojiCell>())
         metrics.modifyItem = { [weak self] item in
             if let streamView = self?.streamView {
@@ -125,9 +128,6 @@ class EmojiView: UIView {
     @IBAction func returnKeyboard(sender: UIButton) {
         composeBar.isEmojiKeyboardActive = false
     }
-}
-
-extension EmojiView: SegmentedControlDelegate {
     func segmentedControl(control: SegmentedControl, didSelectSegment segment: Int) {
         streamView.contentOffset = CGPointZero
         if segment == 0 {
@@ -137,3 +137,50 @@ extension EmojiView: SegmentedControlDelegate {
         }
     }
 }
+
+class FullScreenEmojiView: EmojiView {
+    
+    var selectedBlock: ObjectBlock? = nil
+    weak var contentView: UIView?
+    
+    class func show(view: UIView, selectedBlock: ObjectBlock? = nil, close: Block? = nil) -> FullScreenEmojiView? {
+        guard let emojiView: FullScreenEmojiView = loadFromNib("FullScreenEmojiView") else { return nil }
+        view.add(emojiView, {
+            $0.edges.equalTo(view)
+        })
+        emojiView.selectedBlock = selectedBlock
+        emojiView.contentView = view
+        return emojiView
+    }
+    
+    override func setup() {
+        streamView.layout = HorizontalGridLayout()
+        dataSource = StreamDataSource(streamView: streamView)
+        let metrics = StreamMetrics(loader: StreamLoader<EmojiCell>())
+        metrics.modifyItem = { [weak self] item in
+            if let streamView = self?.streamView {
+                item.ratio = (streamView.height/11) / (streamView.width/6)
+            }
+        }
+        metrics.selection = { [weak self] (item, emoji) -> Void in
+            let emoji = emoji as! String
+            Emoji.saveRecent(emoji)
+            self?.selectedBlock?(emoji)
+            self?.removeFromSuperview()
+        }
+        dataSource.addMetrics(metrics)
+        dataSource.numberOfGridColumns = 11
+        dataSource.sizeForGridColumns = 1/11
+        if let recentEmojis = Emoji.recentEmojis() where recentEmojis.count > 0 {
+            emojis = recentEmojis
+        } else {
+            segmentedControl.selectedSegment = 1
+            emojis = Emoji.emojiStrings(.PeopleAndSmiles)
+        }
+    }
+    
+    @IBAction func close(sender: AnyObject) {
+        contentView?.removeFromSuperview()
+    }
+}
+

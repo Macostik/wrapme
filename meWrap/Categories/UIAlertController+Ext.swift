@@ -71,6 +71,13 @@ extension UIAlertController {
         controller.show()
     }
     
+    class func confirmCancelingDrawChanges(success: (UIAlertAction -> Void)?, failure: (UIAlertAction -> Void)?) {
+        let controller = alert("quit".ls, message: "cancel_Drawing".ls)
+        controller.action("cancel".ls, handler: failure)
+        controller.action("ok".ls, handler: success)
+        controller.show()
+    }
+    
     class func confirmCandyDeleting(candy: Candy, success: (UIAlertAction -> Void)?, failure: (UIAlertAction -> Void)?) {
         let controller = alert("delete_photo".ls, message: (candy.isVideo ? "delete_video_confirmation" : "delete_photo_confirmation").ls)
         controller.action("cancel".ls, handler: failure)

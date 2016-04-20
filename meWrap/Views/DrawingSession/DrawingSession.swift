@@ -23,7 +23,7 @@ class DrawingSession {
     
     weak var delegate: DrawingSessionDelegate?
     
-    private var drawings = [Drawing]()
+    var drawings = [Drawing]()
     
     var empty: Bool {
         return drawings.isEmpty

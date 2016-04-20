@@ -18,7 +18,6 @@ class DrawingViewController: BaseViewController {
     
     private lazy var session: DrawingSession = self.canvas.session
     @IBOutlet weak var canvas: DrawingCanvas!
-    @IBOutlet weak var brushCanvas: DrawingCanvas!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var undoButton: UIButton!
     @IBOutlet weak var colorsView: ColorPicker!
@@ -54,7 +53,6 @@ class DrawingViewController: BaseViewController {
         
         colorsView.pickedColor = { [weak self] color in
             self?.session.brush.color = color
-            self?.updateBrushView()
         }
         
         if let image = image {
@@ -66,24 +64,7 @@ class DrawingViewController: BaseViewController {
         
         session.delegate = self
         session.brush = DrawingBrush(width: 10, opacity: 1, color: UIColor.redColor())
-        updateBrushView()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        updateBrushView()
-    }
-    
-    private func updateBrushView() {
-        let session = brushCanvas.session
-        session.erase()
-        session.brush = self.session.brush
-        let line = Line()
-        line.brush = session.brush
-        session.beginDrawing(line)
-        line.addPoint(brushCanvas.centerBoundary)
-        session.endDrawing()
-        brushCanvas.render()
+ 
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -95,28 +76,12 @@ class DrawingViewController: BaseViewController {
     }
     
     @IBAction func cancel(sender: AnyObject) {
-        didCancel?()
-    }
-    
-    @IBAction func decreaseBrush(sender: UIButton) {
-        let size = session.brush.width
-        if size > 3 {
-            self.session.brush.width = size - 0.25
-            updateBrushView()
-            if sender.tracking && sender.touchInside {
-                performSelector(#selector(DrawingViewController.decreaseBrush(_:)), withObject:sender, afterDelay:0.0)
-            }
-        }
-    }
-    
-    @IBAction func increaseBrush(sender: UIButton) {
-        let size = session.brush.width
-        if size < 51 {
-            session.brush.width = size + 0.25
-            updateBrushView()
-            if sender.tracking && sender.touchInside {
-                performSelector(#selector(DrawingViewController.increaseBrush(_:)), withObject:sender, afterDelay:0.0)
-            }
+        if !session.empty {
+            UIAlertController.confirmCancelingDrawChanges({ [weak self] _ in
+                self?.didCancel?()
+                }, failure: { _ in })
+        } else {
+             didCancel?()
         }
     }
     
@@ -126,7 +91,6 @@ class DrawingViewController: BaseViewController {
     }
     
     @IBAction func finish(sender: Button) {
-        
         guard var image = imageView.image where !session.empty else {
             didCancel?()
             return
@@ -139,6 +103,19 @@ class DrawingViewController: BaseViewController {
             session.render()
         })
         didFinish?(image)
+    }
+    
+    @IBAction func stickers(sender: UIButton) {
+        StickersView.show(view, close: { [weak self] sticker in
+            self?.session.drawings.append(sticker)
+            self?.canvas.render()
+            sender.hidden = false
+            self?.colorsView.hidden = false
+            self?.canvas.userInteractionEnabled = true
+        })
+        sender.hidden = true
+        colorsView.hidden = true
+        canvas.userInteractionEnabled = false
     }
 }
 

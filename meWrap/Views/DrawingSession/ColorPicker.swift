@@ -12,6 +12,8 @@ final class ColorPicker: UIView {
     
     var pickedColor: (UIColor -> Void)?
     
+    internal lazy var targetLabel: Label = Label(icon: "A", size: 26)
+    
     private var color: UIColor? {
         willSet {
             if let color = newValue where newValue != self.color {
@@ -30,24 +32,34 @@ final class ColorPicker: UIView {
                 hue += 0.001
             }
             return colors
-            }) { [weak self] colors in
-                if let picker = self {
-                    var x: CGFloat = 0
-                    let height: CGFloat = picker.height
-                    let width: CGFloat = picker.width / CGFloat(colors.count)
-                    for color in colors {
-                        let view = UIView(frame:CGRectMake(x, 0, width, height))
-                        view.backgroundColor = color
-                        picker.addSubview(view)
-                        x += width
-                    }
+        }) { [weak self] colors in
+            if let picker = self {
+                var x: CGFloat = 0
+                let height: CGFloat = picker.height
+                let width: CGFloat = picker.width / CGFloat(colors.count)
+                for color in colors {
+                    let view = UIView(frame:CGRectMake(x, 0, width, height))
+                    view.backgroundColor = color
+                    picker.addSubview(view)
+                    x += width
                 }
+                
+                picker.addSubview(picker.targetLabel)
+                picker.targetLabel.snp_makeConstraints {
+                    $0.centerY.equalTo(picker)
+                    $0.leading.equalTo(picker)
+                }
+            }
         }
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first
         color = touch?.view?.backgroundColor
+        guard let location = touch?.locationInView(self) else { return }
+        targetLabel.snp_updateConstraints {
+            $0.leading.equalTo(location)
+        }
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -55,6 +67,9 @@ final class ColorPicker: UIView {
         for subview in subviews where subview.frame.contains(location) {
             color = subview.backgroundColor
             break
+        }
+        targetLabel.snp_updateConstraints {
+            $0.leading.equalTo(location)
         }
     }
     

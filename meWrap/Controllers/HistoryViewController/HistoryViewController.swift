@@ -113,7 +113,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     private let drawButton = Button.candyAction("8", color: Color.purple, size: 24)
     private let editButton = Button.candyAction("R", color: Color.blue)
-    private let stickersButton = Button.candyAction("i", color: Color.greenOption, size: 24)
     private let deleteButton = Button.expandableCandyAction("n")
     private let downloadButton = Button.expandableCandyAction("o")
     private let reportButton = Button.expandableCandyAction("s")
@@ -121,7 +120,10 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     private let expandButton = Button.expandableCandyAction("/")
     
     private lazy var toolbar: UIView = specify(UIView()) { view in
-        view.add(self.expandButton) {
+        view.addSubview(self.drawButton)
+        view.addSubview(self.editButton)
+        view.addSubview(self.expandButton)
+        self.drawButton.snp_makeConstraints {
             $0.size.equalTo(44)
             $0.top.bottom.equalTo(view).inset(16)
             $0.trailing.equalTo(view).inset(20)
@@ -137,10 +139,10 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             $0.centerY.equalTo(self.expandButton)
             $0.leading.equalTo(self.drawButton.snp_trailing).offset(14)
         }
-        view.add(self.stickersButton) {
+        self.expandButton.snp_makeConstraints {
             $0.size.equalTo(44)
-            $0.centerY.equalTo(self.expandButton)
-            $0.leading.equalTo(self.editButton.snp_trailing).offset(14)
+            $0.top.bottom.equalTo(view).inset(16)
+            $0.trailing.equalTo(view).inset(20)
         }
     }
     
@@ -339,7 +341,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         commentButton.addTarget(self, action: #selector(self.comments(_:)), forControlEvents: .TouchUpInside)
         drawButton.addTarget(self, action: #selector(self.draw(_:)), forControlEvents: .TouchUpInside)
         editButton.addTarget(self, action: #selector(self.editPhoto(_:)), forControlEvents: .TouchUpInside)
-        stickersButton.addTarget(self, action: #selector(self.stickers(_:)), forControlEvents: .TouchUpInside)
         reportButton.addTarget(self, action: #selector(self.report(_:)), forControlEvents: .TouchUpInside)
         deleteButton.addTarget(self, action: #selector(self.deleteCandy(_:)), forControlEvents: .TouchUpInside)
         downloadButton.addTarget(self, action: #selector(self.downloadCandy(_:)), forControlEvents: .TouchUpInside)
@@ -548,7 +549,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             deleteButton.hidden = !candy.deletable
             reportButton.hidden = !deleteButton.hidden
             drawButton.hidden = candy.isVideo
-            stickersButton.hidden = candy.isVideo
             editButton.hidden = candy.isVideo
             commentView.comment = candy.latestComment
             volumeButton.hidden = !candy.isVideo
@@ -708,10 +708,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
                 error?.show()
                 sender.userInteractionEnabled = true
         })
-    }
-    
-    @IBAction func stickers(sender: UIButton) {
-        let _ = StickersView(view: view, imageUrl: User.currentUser?.wraps.first?.candies.first?.asset?.original ?? "")
     }
     
     @IBAction func share(sender: Button) {

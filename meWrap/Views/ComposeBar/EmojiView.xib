@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -116,7 +116,6 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AAQ-K0-1t2" customClass="SegmentButton" customModule="meWrap" customModuleProvider="target">
                                     <rect key="frame" x="30" y="10" width="25" height="25"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="25" id="68n-HM-Eb5"/>
                                         <constraint firstAttribute="width" constant="25" id="ONq-US-XDm"/>
                                         <constraint firstAttribute="height" constant="25" id="WtL-4q-Ofw"/>
                                     </constraints>
@@ -137,17 +136,11 @@
                                             <size key="value" width="0.0" height="44"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="68n-HM-Eb5"/>
-                                        </mask>
-                                    </variation>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sRc-vK-zkj" customClass="SegmentButton" customModule="meWrap" customModuleProvider="target">
                                     <rect key="frame" x="58" y="10" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="25" id="fe0-b3-0xc"/>
-                                        <constraint firstAttribute="width" constant="25" id="gMF-hV-odW"/>
                                         <constraint firstAttribute="height" constant="25" id="odl-dy-a2E"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="icons" family="icons" pointSize="15"/>
@@ -167,16 +160,10 @@
                                             <size key="value" width="0.0" height="44"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="gMF-hV-odW"/>
-                                        </mask>
-                                    </variation>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w1A-RE-78X" customClass="SegmentButton" customModule="meWrap" customModuleProvider="target">
                                     <rect key="frame" x="86" y="10" width="25" height="25"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="25" id="Q5B-UK-hpR"/>
                                         <constraint firstAttribute="height" constant="25" id="Szt-wW-6Zs"/>
                                         <constraint firstAttribute="width" constant="25" id="ufQ-1G-9Yp"/>
                                     </constraints>
@@ -197,11 +184,6 @@
                                             <size key="value" width="0.0" height="44"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="Q5B-UK-hpR"/>
-                                        </mask>
-                                    </variation>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EmJ-qd-8hi" customClass="SegmentButton" customModule="meWrap" customModuleProvider="target">
                                     <rect key="frame" x="113" y="10" width="25" height="25"/>
@@ -230,7 +212,6 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6je-Oo-JZI" customClass="SegmentButton" customModule="meWrap" customModuleProvider="target">
                                     <rect key="frame" x="142" y="10" width="25" height="25"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="25" id="Kin-Gp-HbE"/>
                                         <constraint firstAttribute="width" constant="25" id="Y96-vN-bFf"/>
                                         <constraint firstAttribute="height" constant="25" id="j35-pq-h5S"/>
                                     </constraints>
@@ -250,18 +231,12 @@
                                             <size key="value" width="0.0" height="44"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="Kin-Gp-HbE"/>
-                                        </mask>
-                                    </variation>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OM5-uf-duO" customClass="SegmentButton" customModule="meWrap" customModuleProvider="target">
                                     <rect key="frame" x="170" y="10" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="25" id="3L5-QK-jbv"/>
                                         <constraint firstAttribute="height" constant="25" id="OZC-rD-rxQ"/>
-                                        <constraint firstAttribute="width" constant="25" id="VqV-58-S6I"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="icons" family="icons" pointSize="15"/>
                                     <state key="normal" title="^">
@@ -279,17 +254,11 @@
                                             <size key="value" width="0.0" height="44"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="VqV-58-S6I"/>
-                                        </mask>
-                                    </variation>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NCM-BO-y1B" customClass="SegmentButton" customModule="meWrap" customModuleProvider="target">
                                     <rect key="frame" x="198" y="10" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="25" id="Ow1-ry-rUO"/>
-                                        <constraint firstAttribute="width" constant="25" id="QUy-vJ-C8c"/>
                                         <constraint firstAttribute="width" constant="25" id="TbR-eE-ncr"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="icons" family="icons" pointSize="15"/>
@@ -308,17 +277,11 @@
                                             <size key="value" width="0.0" height="44"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="QUy-vJ-C8c"/>
-                                        </mask>
-                                    </variation>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kZh-P9-EjD" customClass="SegmentButton" customModule="meWrap" customModuleProvider="target">
                                     <rect key="frame" x="226" y="10" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="25" id="EO7-gl-Ku7"/>
-                                        <constraint firstAttribute="width" constant="25" id="jWm-Os-3fA"/>
                                         <constraint firstAttribute="height" constant="25" id="kba-ea-DBd"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="icons" family="icons" pointSize="15"/>
@@ -337,11 +300,6 @@
                                             <size key="value" width="0.0" height="44"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="jWm-Os-3fA"/>
-                                        </mask>
-                                    </variation>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" red="0.93333333730000001" green="0.93333333730000001" blue="0.93333333730000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -402,9 +360,6 @@
                                 <constraint firstItem="waI-DP-tLO" firstAttribute="width" secondItem="aLT-GV-C06" secondAttribute="width" id="xeC-Jk-AFk"/>
                                 <constraint firstItem="MNS-ti-Qad" firstAttribute="centerX" secondItem="gFc-pc-jsV" secondAttribute="centerX" id="xz2-ao-PB7"/>
                             </constraints>
-                            <connections>
-                                <outlet property="delegate" destination="itP-Jq-jRI" id="R3W-Td-Vgp"/>
-                            </connections>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t7N-v5-Qi4">
                             <rect key="frame" x="290" y="206" width="30" height="32"/>
@@ -428,24 +383,14 @@
                         <constraint firstItem="t7N-v5-Qi4" firstAttribute="leading" secondItem="yi0-iY-o3U" secondAttribute="trailing" id="9Uo-JC-tC7"/>
                         <constraint firstItem="yi0-iY-o3U" firstAttribute="leading" secondItem="QO5-iB-AKh" secondAttribute="trailing" id="AS4-sU-9Rf"/>
                         <constraint firstItem="QO5-iB-AKh" firstAttribute="centerY" secondItem="yi0-iY-o3U" secondAttribute="centerY" id="ASS-eV-9Pj"/>
-                        <constraint firstItem="t7N-v5-Qi4" firstAttribute="top" secondItem="ASG-2C-AqW" secondAttribute="top" id="FQe-d3-khs"/>
                         <constraint firstAttribute="trailing" secondItem="t7N-v5-Qi4" secondAttribute="trailing" id="Hy5-W2-uZt"/>
                         <constraint firstItem="t7N-v5-Qi4" firstAttribute="centerY" secondItem="yi0-iY-o3U" secondAttribute="centerY" id="MHh-uw-UsK"/>
-                        <constraint firstAttribute="bottom" secondItem="t7N-v5-Qi4" secondAttribute="bottom" id="ONe-d1-Q3a"/>
                         <constraint firstAttribute="trailing" secondItem="8sM-mk-s3y" secondAttribute="trailing" id="b5q-eJ-2fV"/>
                         <constraint firstItem="8sM-mk-s3y" firstAttribute="leading" secondItem="ASG-2C-AqW" secondAttribute="leading" id="fqD-f0-F4k"/>
                         <constraint firstAttribute="bottom" secondItem="yi0-iY-o3U" secondAttribute="bottom" id="ggL-VP-dhI"/>
                         <constraint firstItem="8sM-mk-s3y" firstAttribute="top" secondItem="ASG-2C-AqW" secondAttribute="top" id="hYy-Qb-QXb"/>
                         <constraint firstItem="QO5-iB-AKh" firstAttribute="leading" secondItem="ASG-2C-AqW" secondAttribute="leading" constant="8" id="sa3-Wq-Chy"/>
-                        <constraint firstItem="yi0-iY-o3U" firstAttribute="centerX" secondItem="ASG-2C-AqW" secondAttribute="centerX" id="wCK-Vx-8wY"/>
                     </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="wCK-Vx-8wY"/>
-                            <exclude reference="FQe-d3-khs"/>
-                            <exclude reference="ONe-d1-Q3a"/>
-                        </mask>
-                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.93333333730697632" green="0.93333333730697632" blue="0.93333333730697632" alpha="1" colorSpace="calibratedRGB"/>

@@ -14,7 +14,7 @@ final class User: Entry {
     
     override class func entityName() -> String { return "User" }
     
-    static var currentUser: User? = FetchRequest<User>("current == true").execute().first {
+    static var currentUser: User? = FetchRequest<User>().query("current == true").execute().first {
         didSet {
             oldValue?.current = false
             currentUser?.current = true
@@ -72,13 +72,6 @@ final class User: Entry {
         if avatar == nil {
             avatar = Asset()
         }
-        #if DEBUG
-            Dispatch.mainQueue.async {
-                if FetchRequest<User>().execute().filter({ $0.uid == User.currentUser?.uid }).count > 1 {
-                    UIAlertController.alert("current user duplicated").show()
-                }
-            }
-        #endif
     }
     
     func contributorInfo() -> String {

@@ -40,6 +40,9 @@ final class Candy: Contribution {
             wrap.numberOfUnreadInboxItems -= 1
             wrap.notifyOnUpdate(.InboxChanged)
         }
+        for comment in comments where comment.unread {
+            comment.decrementBadgeIfNeeded()
+        }
         super.remove()
     }
     
@@ -84,7 +87,7 @@ final class Candy: Contribution {
     
     override var uploaded: Bool { return super.uploaded && uid != locuid }
     
-    override var canBeUploaded: Bool { return wrap?.uploading == nil }
+    override var canBeUploaded: Bool { return wrap?.uploaded == true }
     
     override var deletable: Bool { return super.deletable || (wrap?.deletable ?? false) }
     

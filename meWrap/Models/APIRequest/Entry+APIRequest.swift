@@ -170,11 +170,7 @@ extension Wrap {
 
 extension Uploading {
     
-    class func uploading(contribution: Contribution) -> Uploading {
-        return uploading(contribution, event: .Add)
-    }
-    
-    class func uploading(contribution: Contribution, event: Event) -> Uploading {
+    class func uploading(contribution: Contribution, event: Event = .Add) -> Uploading {
         let uploading = EntryContext.sharedContext.insertEntry(entityName()) as! Uploading
         uploading.type = event.rawValue
         uploading.contribution = contribution
@@ -183,8 +179,10 @@ extension Uploading {
     
     func upload(success: ObjectBlock?, failure: FailureBlock?) {
         if Network.sharedNetwork.reachable {
-            if let contribution = contribution {
-                sendTypedRequest({ [weak self] (object) -> Void in
+            if let contribution = contribution where !inProgress {
+                inProgress = true
+                contribution.notifyOnUpdate(.Default)
+                send(contribution, success: { [weak self] (object) -> Void in
                     self?.inProgress = false
                     self?.remove()
                     success?(object)
@@ -207,8 +205,6 @@ extension Uploading {
                             failure?(error)
                         }
                     })
-                inProgress = true
-                contribution.notifyOnUpdate(.Default)
             } else {
                 remove()
                 failure?(nil)
@@ -218,33 +214,31 @@ extension Uploading {
         }
     }
     
-    func sendTypedRequest(success: ObjectBlock?, failure: FailureBlock?) {
+    private func send(contribution: Contribution, success: ObjectBlock?, failure: FailureBlock?) {
         if let type = Event(rawValue: self.type) {
             switch type {
-            case .Add: add(success, failure: failure)
-            case .Update: update(success, failure: failure)
-            case .Delete: break
+            case .Add: add(contribution, success: success, failure: failure)
+            case .Update: update(contribution, success: success, failure: failure)
+            case .Delete: failure?(nil)
             }
+        } else {
+            failure?(nil)
         }
     }
     
-    override func add(success: ObjectBlock?, failure: FailureBlock?) {
-        if let contribution = contribution {
-            if contribution.canBeUploaded || contribution.status == .Ready {
-                contribution.add(success, failure: failure)
-            } else {
-                failure?(nil)
-            }
+    private func add(contribution: Contribution, success: ObjectBlock?, failure: FailureBlock?) {
+        if contribution.canBeUploaded {
+            contribution.add(success, failure: failure)
+        } else {
+            failure?(nil)
         }
     }
     
-    override func update(success: ObjectBlock?, failure: FailureBlock?) {
-        if let contribution = contribution {
-            if contribution.uploaded && contribution.statusOfUploadingEvent(.Update) == .Ready {
-                contribution.update(success, failure: failure)
-            } else {
-                failure?(nil)
-            }
+    private func update(contribution: Contribution, success: ObjectBlock?, failure: FailureBlock?) {
+        if contribution.uploaded {
+            contribution.update(success, failure: failure)
+        } else {
+            failure?(nil)
         }
     }
     

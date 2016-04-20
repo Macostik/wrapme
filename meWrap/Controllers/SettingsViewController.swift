@@ -42,12 +42,6 @@ class SettingsViewController: BaseViewController {
             NotificationCenter.defaultCenter.clear()
             NSUserDefaults.standardUserDefaults().clear()
             UIStoryboard.signUp.present(true)
-            #if DEBUG
-                let entries = FetchRequest<Entry>().execute()
-                if entries.count > 0 {
-                    UIAlertController.alert("Entries: \(entries)").show()
-                }
-            #endif
         }).show()
     }
 }

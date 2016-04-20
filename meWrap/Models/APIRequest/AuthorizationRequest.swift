@@ -121,7 +121,7 @@ extension API {
             if let userInfo = response.dictionary("user") {
                 whoIs.found = userInfo["found"] as? Bool ?? false
                 whoIs.confirmed = userInfo["confirmed_email"] as? Bool ?? false
-                if let user = User.entry(User.uid(userInfo)) {
+                if let user: User = User.entry(User.uid(userInfo)) {
                     User.currentUser = user
                     user.notifyOnAddition()
                 }

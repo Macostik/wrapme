@@ -67,7 +67,11 @@ final class ActivationViewController: SignupStepViewController {
             self?.setSuccessStatusAnimated(false)
             }) { [weak self] error in
                 sender.loading = false
-                self?.setFailureStatusAnimated(false)
+                if let error = error where error.isNetworkError {
+                    error.show()
+                } else {
+                    self?.setFailureStatusAnimated(false)
+                }
         }
     }
     

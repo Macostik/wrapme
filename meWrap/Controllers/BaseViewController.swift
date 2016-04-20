@@ -53,9 +53,7 @@ class BaseViewController: GAITrackedViewController, KeyboardNotifying {
     @IBOutlet var keyboardAdjustmentTopConstraints: [NSLayoutConstraint] = []
     
     deinit {
-        #if DEBUG
-            Logger.debugLog("\(NSStringFromClass(self.dynamicType)) deinit", color: .Blue)
-        #endif
+        Logger.debugLog("\(NSStringFromClass(self.dynamicType)) deinit", color: .Blue)
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {

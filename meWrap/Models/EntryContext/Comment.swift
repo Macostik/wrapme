@@ -25,7 +25,7 @@ final class Comment: Contribution {
         }
     }
     
-    override var canBeUploaded: Bool { return candy?.uploading == nil }
+    override var canBeUploaded: Bool { return candy?.uploaded == true }
     
     override var deletable: Bool { return super.deletable || (candy?.deletable ?? false) }
     
@@ -34,11 +34,15 @@ final class Comment: Contribution {
         set { }
     }
     
-    override func remove() {
+    func decrementBadgeIfNeeded() {
         if let wrap = candy?.wrap where unread && wrap.numberOfUnreadInboxItems > 0 {
             wrap.numberOfUnreadInboxItems -= 1
             wrap.notifyOnUpdate(.InboxChanged)
         }
+    }
+    
+    override func remove() {
+        decrementBadgeIfNeeded()
         super.remove()
     }
 }

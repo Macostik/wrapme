@@ -182,7 +182,7 @@ extension EntryToast {
             toast.imageView.url = candy.asset?.medium
             toast.topLabel.text = String(format: (candy.isVideo ? "just_sent_you_a_new_video" : "just_sent_you_a_new_photo").ls, candy.contributor?.name ?? "")
             toast.middleLabel.text = ""
-            }, handleTouch: { ChronologicalEntryPresenter.presentEntryRequestingAuthorization(candy, animated: false) })
+            }, handleTouch: { NotificationEntryPresenter.presentEntryRequestingAuthorization(candy, animated: false) })
     }
     
     class func showCandyUpdate(candy: Candy) {
@@ -191,7 +191,7 @@ extension EntryToast {
             toast.imageView.url = candy.asset?.medium
             toast.topLabel.text = String(format: "someone_edited_photo".ls, candy.editor?.name ?? "")
             toast.middleLabel.text = ""
-            }, handleTouch: { ChronologicalEntryPresenter.presentEntryRequestingAuthorization(candy, animated: false) })
+            }, handleTouch: { NotificationEntryPresenter.presentEntryRequestingAuthorization(candy, animated: false) })
     }
     
     class func showCommentAddition(comment: Comment) {
@@ -211,7 +211,7 @@ extension EntryToast {
                         }
                     }
                 }
-                ChronologicalEntryPresenter.presentEntryRequestingAuthorization(comment, animated: false)
+                NotificationEntryPresenter.presentEntryRequestingAuthorization(comment, animated: false)
         })
     }
     
@@ -221,7 +221,7 @@ extension EntryToast {
             toast.imageView.url = message.asset?.medium
             toast.topLabel.text = String(format: "\(message.contributor?.name ?? ""):")
             toast.middleLabel.text = message.text
-            }, handleTouch: { ChronologicalEntryPresenter.presentEntryRequestingAuthorization(message, animated: false) })
+            }, handleTouch: { NotificationEntryPresenter.presentEntryRequestingAuthorization(message, animated: false) })
     }
     
     class func showWrapInvitation(wrap: Wrap, inviter: User?) {
@@ -230,7 +230,7 @@ extension EntryToast {
             toast.avatar.url = inviter?.avatar?.small
             toast.topLabel.text =  String(format: "you're_invited".ls ?? "")
             toast.middleLabel.text = String(format: "invited_you_to".ls, inviter?.name ?? "", wrap.name ?? "")
-            }, handleTouch: { ChronologicalEntryPresenter.presentEntryRequestingAuthorization(wrap, animated: false) })
+            }, handleTouch: { NotificationEntryPresenter.presentEntryRequestingAuthorization(wrap, animated: false) })
     }
     
     class func showLiveBroadcast(liveBroadcast: LiveBroadcast) {
@@ -242,7 +242,7 @@ extension EntryToast {
             toast.middleLabel.text = String(format: "\(wrap.name ?? "")")
             toast.showBadge(true)
         }) {
-            ChronologicalEntryPresenter.presentEntryRequestingAuthorization(wrap, animated: false, completionHandler: {
+            NotificationEntryPresenter.presentEntryRequestingAuthorization(wrap, animated: false, completionHandler: {
                 guard let nc = UINavigationController.main() else { return }
                 (nc.topViewController as? LiveBroadcasterViewController)?.close()
                 if let controller = wrap.viewControllerWithNavigationController(nc) as? WrapViewController {

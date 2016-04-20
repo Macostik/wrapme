@@ -25,7 +25,7 @@ final class Comment: Contribution {
         }
     }
     
-    override var canBeUploaded: Bool { return candy?.uploading == nil }
+    override var canBeUploaded: Bool { return candy?.uploaded == true }
     
     override var deletable: Bool { return super.deletable || (candy?.deletable ?? false) }
     

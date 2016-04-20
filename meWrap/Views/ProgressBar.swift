@@ -69,7 +69,7 @@ class ProgressBar: UIView {
             layer.lineWidth = self.lineWidth > 0 ? self.lineWidth : 4
             path.move(0 ^ size.height/2.0).line(size.width ^ size.height/2.0)
         } else {
-            layer.lineWidth = 2;
+            layer.lineWidth = 2
             path.addArcWithCenter(size.width/2.0 ^ size.height/2.0, radius: size.width/2 - 1, startAngle: -CGFloat(M_PI_2), endAngle: CGFloat(3*M_PI/2), clockwise: true)
         }
         layer.path = path.CGPath

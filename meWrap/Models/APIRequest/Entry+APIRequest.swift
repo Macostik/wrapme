@@ -388,6 +388,12 @@ extension Candy {
             }
             return task
         }
+        uploadRequest.uploadProgress = { [weak self] _, current, total in
+            Dispatch.mainQueue.async({ () in
+                let progress = smoothstep(0, 1, CGFloat(current) / CGFloat(total))
+                self?.updateProgress(progress)
+            })
+        }
     }
     
     override func delete(success: ObjectBlock?, failure: FailureBlock?) {

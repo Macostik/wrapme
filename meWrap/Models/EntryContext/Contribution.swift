@@ -81,7 +81,7 @@ class Contribution: Entry {
     private var _uploadingView: UploadingView?
     var uploadingView: UploadingView? {
         get {
-            if _uploadingView == nil && status != .Finished {
+            if _uploadingView == nil && uploading != nil {
                 _uploadingView = UploadingView(contribution: self)
             }
             return _uploadingView
@@ -89,5 +89,9 @@ class Contribution: Entry {
         set {
             _uploadingView = newValue
         }
+    }
+    
+    func updateProgress(progress: CGFloat) {
+        _uploadingView?.updateProgress(progress)
     }
 }

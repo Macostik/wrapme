@@ -61,6 +61,8 @@ class UploadingView: UIView, NetworkNotifying, EntryNotifying {
         }
     }
     
+    weak var progressBar: ProgressBar?
+    
     var state: UploadingViewState = .None {
         didSet {
             guard state != oldValue else { return }
@@ -80,11 +82,18 @@ class UploadingView: UIView, NetworkNotifying, EntryNotifying {
                 awakeFromOffline(oldValue == .Offline, block: {
                     if self.state == .InProgress {
                         self.contentView.borderColor = UIColor.clearColor()
-                        self.animationImageView = specify(UIImageView(), {
+                        let animationImageView = specify(UIImageView(), {
                             $0.animationImages = UIImage.animatedImageNamed("upload_ic_uploading_", duration: 1)?.images
                             $0.startAnimating()
                         })
+                        self.animationImageView = animationImageView
                         self.contentView.addAnimation(CATransition.transition(kCATransitionFade))
+                        let progressBar = ProgressBar()
+                        animationImageView.addSubview(progressBar)
+                        progressBar.snp_makeConstraints(closure: { (make) in
+                            make.edges.equalTo(animationImageView).inset(1)
+                        })
+                        self.progressBar = progressBar
                     }
                 })
             case .Finished:
@@ -110,6 +119,10 @@ class UploadingView: UIView, NetworkNotifying, EntryNotifying {
                 animationImageView = nil
             }
         }
+    }
+    
+    func updateProgress(progress: CGFloat) {
+        progressBar?.setProgress(progress, animated: true)
     }
     
     func update() {

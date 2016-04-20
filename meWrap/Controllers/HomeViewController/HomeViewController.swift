@@ -254,7 +254,6 @@ extension HomeViewController {
         openCameraForWrap(topWrap(), animated:false)
     }
     
-    
     @IBAction func resendConfirmation(sender: AnyObject?) {
         API.resendConfirmation(nil).send({ _ in
             InfoToast.show("confirmation_resend".ls)

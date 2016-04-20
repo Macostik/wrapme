@@ -120,15 +120,11 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     private let expandButton = Button.expandableCandyAction("/")
     
     private lazy var toolbar: UIView = specify(UIView()) { view in
-        view.addSubview(self.drawButton)
-        view.addSubview(self.editButton)
-        view.addSubview(self.expandButton)
-        self.drawButton.snp_makeConstraints {
+        view.add(self.expandButton) {
             $0.size.equalTo(44)
             $0.top.bottom.equalTo(view).inset(16)
             $0.trailing.equalTo(view).inset(20)
         }
-        
         view.add(self.drawButton) {
             $0.size.equalTo(44)
             $0.centerY.equalTo(self.expandButton)
@@ -138,11 +134,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             $0.size.equalTo(44)
             $0.centerY.equalTo(self.expandButton)
             $0.leading.equalTo(self.drawButton.snp_trailing).offset(14)
-        }
-        self.expandButton.snp_makeConstraints {
-            $0.size.equalTo(44)
-            $0.top.bottom.equalTo(view).inset(16)
-            $0.trailing.equalTo(view).inset(20)
         }
     }
     

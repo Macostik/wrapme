@@ -107,8 +107,10 @@ class DrawingViewController: BaseViewController {
     
     @IBAction func stickers(sender: UIButton) {
         StickersView.show(view, close: { [weak self] sticker in
-            self?.session.drawings.append(sticker)
-            self?.canvas.render()
+            if let sticker = sticker {
+                self?.session.drawings.append(sticker)
+                self?.canvas.render()
+            }
             sender.hidden = false
             self?.colorsView.hidden = false
             self?.canvas.userInteractionEnabled = true

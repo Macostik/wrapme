@@ -38,7 +38,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <gestureRecognizers/>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x8F-s0-1nO">
+                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x8F-s0-1nO">
                             <rect key="frame" x="266" y="18" width="97" height="30"/>
                             <subviews>
                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CwX-d0-aSX">
@@ -81,7 +81,7 @@
                                 <constraint firstItem="CwX-d0-aSX" firstAttribute="leading" secondItem="x8F-s0-1nO" secondAttribute="leading" id="ut1-x9-pmD"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2yQ-8T-8Wo" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                        <button opaque="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2yQ-8T-8Wo" customClass="Button" customModule="meWrap" customModuleProvider="target">
                             <rect key="frame" x="10" y="10" width="32" height="45"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="icons" family="icons" pointSize="32"/>

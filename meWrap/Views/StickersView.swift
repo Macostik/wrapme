@@ -24,7 +24,7 @@ class StickersView: UIView {
         self.add(view, {
             $0.edges.equalTo(self)
         })
-        view.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.6)
+        view.backgroundColor = UIColor.clearColor()
         return view
     }()
     
@@ -40,9 +40,9 @@ class StickersView: UIView {
     var isChangeBounds = false
     var isMove = false
     weak var emojiView: FullScreenEmojiView?
-    var close: (Sticker -> Void)?
+    var close: (Sticker? -> Void)?
     
-    class func show(view: UIView, close: (Sticker -> Void)) {
+    class func show(view: UIView, close: (Sticker? -> Void)) {
         let stickerView = StickersView(view: view)
         view.add(stickerView)
         stickerView.close = close
@@ -53,7 +53,9 @@ class StickersView: UIView {
         emojiView = FullScreenEmojiView.show(self, selectedBlock: { [weak self] emoji in
             self?.contentView.add(self?.transformView ?? UIView())
             self?.transformView.emojiLabel.text = emoji as? String
-            })
+            }, close: { [weak self] in
+                self?.close?(nil)
+        })
     }
     
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
@@ -61,6 +63,7 @@ class StickersView: UIView {
         if emojiView != nil {  return true }
         if (transformView.isContaintPoint(point, view: transformView.trashLabel, stickerView: self)) {
             self.removeFromSuperview()
+            close?(nil)
             return true
         }
         isRotate = transformView.isContaintPoint(point, view: transformView.rotateLabel, stickerView: self)

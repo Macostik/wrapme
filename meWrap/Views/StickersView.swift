@@ -24,7 +24,7 @@ class StickersView: UIView {
         self.add(view, {
             $0.edges.equalTo(self)
         })
-        view.backgroundColor = UIColor.clearColor()
+        view.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.6)
         return view
     }()
     
@@ -210,8 +210,10 @@ class Sticker: Drawing {
             $0.alignment = .Center
         }
         let context = UIGraphicsGetCurrentContext()
-        CGContextConcatCTM(context, transform)
+        CGContextSaveGState(context)
+        CGContextSetTextMatrix(context, transform)
         let attrs = [NSFontAttributeName: UIFont.icons(fontSize), NSParagraphStyleAttributeName: paragraphStyle]
         name.drawWithRect(frame, options: .UsesLineFragmentOrigin, attributes: attrs, context: nil)
+        CGContextRestoreGState(context)
     }
 }

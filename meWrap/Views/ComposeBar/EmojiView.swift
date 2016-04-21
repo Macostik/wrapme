@@ -94,7 +94,10 @@ class EmojiView: UIView, SegmentedControlDelegate {
     }
     
     func setup() {
+        streamView.layout = HorizontalGridLayout()
+        dataSource = StreamDataSource(streamView: streamView)
         let metrics = StreamMetrics(loader: StreamLoader<EmojiCell>())
+        
         metrics.modifyItem = { [weak self] item in
             if let streamView = self?.streamView {
                 item.ratio = (streamView.height/5) / (streamView.width/8)

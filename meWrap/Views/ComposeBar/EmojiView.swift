@@ -145,16 +145,14 @@ class FullScreenEmojiView: EmojiView {
     
     var selectedBlock: ObjectBlock? = nil
     var close: Block? = nil
-    weak var contentView: UIView?
     
-    class func show(view: UIView, selectedBlock: ObjectBlock? = nil, close: Block? = nil) -> FullScreenEmojiView? {
+    class func show(view: UIView = UIWindow.mainWindow, selectedBlock: ObjectBlock? = nil, close: Block? = nil) -> FullScreenEmojiView? {
         guard let emojiView: FullScreenEmojiView = loadFromNib("FullScreenEmojiView") else { return nil }
         view.add(emojiView, {
             $0.edges.equalTo(view)
         })
         emojiView.selectedBlock = selectedBlock
         emojiView.close = close
-        emojiView.contentView = view
         return emojiView
     }
     
@@ -186,7 +184,7 @@ class FullScreenEmojiView: EmojiView {
     
     @IBAction func close(sender: AnyObject) {
         close?()
-        contentView?.removeFromSuperview()
+        self.removeFromSuperview()
     }
 }
 

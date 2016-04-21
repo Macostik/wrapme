@@ -10,21 +10,13 @@ import Foundation
 import SnapKit
 
 class StickersView: UIView {
-
-    init(view: View) {
-        super.init(frame: UIWindow.mainWindow.bounds)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     lazy var contentView: UIView = {
         let view = UIView()
         self.add(view, {
             $0.edges.equalTo(self)
         })
-        view.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.6)
+        view.backgroundColor = UIColor.clearColor()
         return view
     }()
     
@@ -43,17 +35,18 @@ class StickersView: UIView {
     var close: (Sticker? -> Void)?
     
     class func show(view: UIView, close: (Sticker? -> Void)) {
-        let stickerView = StickersView(view: view)
+        let stickerView = StickersView(frame: view.bounds)
         view.add(stickerView)
         stickerView.close = close
         stickerView.setupEmojiView()
     }
     
     func setupEmojiView() {
-        emojiView = FullScreenEmojiView.show(self, selectedBlock: { [weak self] emoji in
+        emojiView = FullScreenEmojiView.show(selectedBlock: { [weak self] emoji in
             self?.contentView.add(self?.transformView ?? UIView())
             self?.transformView.emojiLabel.text = emoji as? String
             }, close: { [weak self] in
+                self?.removeFromSuperview()
                 self?.close?(nil)
         })
     }
@@ -75,14 +68,7 @@ class StickersView: UIView {
         addStickerToCanvas()
         return false
     }
-    
-    private func addStickerToCanvas() {
-        let name = transformView.emojiLabel.text ?? ""
-        let frame = contentView.convertRect(transformView.frame, toView: self)
-        let sticker = Sticker(name: name, fontSize: transformView.emojiLabel.font.pointSize, frame: frame, transform: transformView.transform)
-        close?(sticker)
-        self.removeFromSuperview()
-    }
+
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesMoved(touches, withEvent: event)
@@ -119,6 +105,15 @@ class StickersView: UIView {
             }
         }
     }
+    
+    private func addStickerToCanvas() {
+        let name = transformView.emojiLabel.text ?? ""
+        let frame = contentView.convertRect(transformView.frame, toView: self)
+        let sticker = Sticker(name: name, fontSize: transformView.emojiLabel.font.pointSize, frame: frame, transform: transformView.transform)
+        close?(sticker)
+        self.removeFromSuperview()
+    }
+    
 }
 
 class TransformView: UIView {

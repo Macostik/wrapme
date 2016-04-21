@@ -16,6 +16,8 @@
                 <outlet property="canvas" destination="9pK-3r-psr" id="dIV-OL-NMG"/>
                 <outlet property="colorsView" destination="2pR-aL-LXT" id="Knd-MN-GWD"/>
                 <outlet property="imageView" destination="sXP-dm-KOf" id="Hhe-yD-JoT"/>
+                <outlet property="panGesture" destination="eSh-Wl-2Ih" id="jlh-WF-QdN"/>
+                <outlet property="tapGesture" destination="7td-Ni-oZS" id="7Gf-e4-Zbc"/>
                 <outlet property="undoButton" destination="CwX-d0-aSX" id="EfX-hH-nie"/>
                 <outlet property="view" destination="iN0-l3-epB" id="QYb-53-tqt"/>
             </connections>
@@ -38,7 +40,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <gestureRecognizers/>
                         </view>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x8F-s0-1nO">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x8F-s0-1nO">
                             <rect key="frame" x="266" y="18" width="97" height="30"/>
                             <subviews>
                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CwX-d0-aSX">
@@ -81,7 +83,7 @@
                                 <constraint firstItem="CwX-d0-aSX" firstAttribute="leading" secondItem="x8F-s0-1nO" secondAttribute="leading" id="ut1-x9-pmD"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2yQ-8T-8Wo" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                        <button opaque="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2yQ-8T-8Wo" customClass="Button" customModule="meWrap" customModuleProvider="target">
                             <rect key="frame" x="10" y="10" width="32" height="45"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="icons" family="icons" pointSize="32"/>

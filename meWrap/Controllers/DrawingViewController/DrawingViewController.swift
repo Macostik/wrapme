@@ -21,6 +21,8 @@ class DrawingViewController: BaseViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var undoButton: UIButton!
     @IBOutlet weak var colorsView: ColorPicker!
+    @IBOutlet var panGesture: UIPanGestureRecognizer!
+    @IBOutlet var tapGesture: UITapGestureRecognizer!
     
     class func draw(image: UIImage, wrap: Wrap?, finish: UIImage -> Void) -> DrawingViewController {
         let presentingViewController = UIWindow.mainWindow.rootViewController
@@ -106,18 +108,22 @@ class DrawingViewController: BaseViewController {
     }
     
     @IBAction func stickers(sender: UIButton) {
-        StickersView.show(view, close: { [weak self] sticker in
+        StickersView.show(canvas, close: { [weak self] sticker in
             if let sticker = sticker {
                 self?.session.drawings.append(sticker)
                 self?.canvas.render()
             }
             sender.hidden = false
             self?.colorsView.hidden = false
-            self?.canvas.userInteractionEnabled = true
-        })
+            self?.tapGesture.enabled = true
+            self?.panGesture.enabled = true
+            self?.canvas.userInteractionEnabled = false
+            })
         sender.hidden = true
         colorsView.hidden = true
-        canvas.userInteractionEnabled = false
+        tapGesture.enabled = false
+        panGesture.enabled = false
+        canvas.userInteractionEnabled = true
     }
 }
 

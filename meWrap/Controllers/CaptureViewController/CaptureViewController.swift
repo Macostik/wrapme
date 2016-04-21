@@ -45,7 +45,7 @@ class CaptureViewController: UINavigationController, CameraViewControllerDelegat
     }
     
     func resizeImageWidth() -> CGFloat {
-        return 1200
+        return 1080
     }
         
     internal func cropImage(image: UIImage, completion: UIImage -> Void) {
@@ -71,7 +71,7 @@ class CaptureViewController: UINavigationController, CameraViewControllerDelegat
     
     internal func resizeImage(image: UIImage) -> UIImage {
         let resultWidth = resizeImageWidth()
-        let fitSize = image.size.fit(view.size)
+        let fitSize = image.size.fit(viewFinderSize())
         if image.size.width > image.size.height {
             let scale = image.size.height / fitSize.height
             return image.resize(CGSizeMake(1, resultWidth * scale), aspectFill:true)

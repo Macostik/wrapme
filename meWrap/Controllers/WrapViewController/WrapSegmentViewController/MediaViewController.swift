@@ -225,7 +225,7 @@ class MediaViewController: WrapSegmentViewController {
         }
         
         candyMetrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<HistoryItemCell>()))
-        candyMetrics.prepareAppearing = { item, view in
+        candyMetrics.prepareAppearing = { [weak self] item, view in
             (view as? HistoryItemCell)?.delegate = self
         }
         candyMetrics.size = round(view.width / 2.5) + 28

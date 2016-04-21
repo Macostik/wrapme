@@ -107,17 +107,8 @@ final class WrapViewController: BaseViewController {
     
     @IBOutlet weak var segmentedControl: SegmentedControl!
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var followButton: UIButton!
-    @IBOutlet weak var unfollowButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
-    @IBOutlet weak var publicWrapView: UIView!
-    @IBOutlet weak var publicWrapImageView: WrapCoverView!
-    @IBOutlet weak var creatorName: UILabel!
-    @IBOutlet weak var publicWrapNameLabel: UILabel!
-    @IBOutlet weak var ownerDescriptionLabel: UILabel!
     @IBOutlet weak var friendsStreamView: StreamView!
-    
-    @IBOutlet var publicWrapPrioritizer: LayoutPrioritizer!
     
     private var wrapNotifyReceiver: EntryNotifyReceiver<Wrap>?
     
@@ -148,8 +139,6 @@ final class WrapViewController: BaseViewController {
         segmentedControl.deselect()
         
         settingsButton.exclusiveTouch = true
-        followButton.exclusiveTouch = true
-        unfollowButton.exclusiveTouch = true
         
         API.contributors(wrap).send({ [weak self] _ in
             self?.updateFriendsBar(wrap)
@@ -162,6 +151,15 @@ final class WrapViewController: BaseViewController {
             updateWrapData()
             updateSegmentIfNeeded()
             updateMessageCouter()
+        }
+    }
+    
+    override func keyboardAdjustmentConstant(adjustment: KeyboardAdjustment, keyboard: Keyboard) -> CGFloat {
+        let screenBounds = UIScreen.mainScreen().bounds
+        if screenBounds.width == 320 && screenBounds.height == 480 {
+            return -(segmentedControl.superview?.height ?? 0)
+        } else {
+            return 0
         }
     }
     
@@ -235,27 +233,6 @@ final class WrapViewController: BaseViewController {
     private func updateWrapData() {
         guard let wrap = wrap else { return }
         nameLabel.text = wrap.name
-        if wrap.isPublic {
-            followingStateForWrap(wrap)
-            let contributorIsCurrent = wrap.contributor?.current == true
-            publicWrapImageView.url = wrap.contributor?.avatar?.small
-            publicWrapImageView.isFollowed = wrap.isContributing
-            publicWrapImageView.isOwner = contributorIsCurrent
-            creatorName.text = wrap.contributor?.name
-            let requiresFollowing = wrap.requiresFollowing
-            segmentedControl.hidden = true
-            settingsButton.hidden = requiresFollowing
-            publicWrapView.hidden = false
-            publicWrapPrioritizer.defaultState = true
-            publicWrapNameLabel.text = wrap.name
-            ownerDescriptionLabel.hidden = !contributorIsCurrent
-        } else {
-            segmentedControl.hidden = false
-            settingsButton.hidden = false
-            publicWrapView.hidden = true
-            publicWrapPrioritizer.defaultState = false
-        }
-        
         updateFriendsBar(wrap)
     }
     
@@ -312,11 +289,6 @@ final class WrapViewController: BaseViewController {
         friendsDataSource.items = Array(contributors)
     }
     
-    private func followingStateForWrap(wrap: Wrap) {
-        followButton.hidden = !wrap.requiresFollowing || wrap.contributor?.current == true
-        unfollowButton.hidden = !followButton.hidden
-    }
-    
     private func updateMessageCouter() {
         chatSegmentButton.badge.value = wrap?.numberOfUnreadMessages ?? 0
     }
@@ -354,41 +326,6 @@ extension WrapViewController {
     
     @IBAction func segmentChanged(sender: SegmentedControl) {
         segment = WrapSegment(rawValue: sender.selectedSegment)!
-    }
-    
-    @IBAction func follow(sender: Button) {
-        guard let wrap = wrap else { return }
-        sender.loading = true
-        RunQueue.fetchQueue.run { [weak self] (finish) -> Void in
-            API.followWrap(wrap).send({ (_) -> Void in
-                self?.followingStateForWrap(wrap)
-                sender.loading = false
-                finish()
-                }, failure: { (error) -> Void in
-                    error?.show()
-                    sender.loading = false
-                    finish()
-            })
-        }
-    }
-    
-    @IBAction func unfollow(sender: Button) {
-        guard let wrap = wrap else { return }
-        self.settingsButton.userInteractionEnabled = false
-        sender.loading = true
-        RunQueue.fetchQueue.run { [weak self] (finish) -> Void in
-            API.unfollowWrap(wrap).send({ (_) -> Void in
-                self?.followingStateForWrap(wrap)
-                sender.loading = false
-                self?.settingsButton.userInteractionEnabled = true
-                finish()
-                }, failure: { (error) -> Void in
-                    error?.show()
-                    sender.loading = false
-                    self?.settingsButton.userInteractionEnabled = true
-                    finish()
-            })
-        }
     }
     
     @IBAction func showFriends(sender: AnyObject) {

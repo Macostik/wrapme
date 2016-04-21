@@ -178,6 +178,10 @@ extension Candy {
     
     override func map(dictionary: [String : AnyObject], container: Entry?) {
         
+        if let uploading = uploading where uploading.type == Event.Update.rawValue {
+            return
+        }
+        
         super.map(dictionary, container: container)
         
         editor <!= mappedEntry(dictionary[Keys.Editor] as? [String:AnyObject])

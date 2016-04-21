@@ -300,10 +300,11 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         let view = UIView(frame: preferredViewFrame)
         self.view = view
         let scrollView = view.add(UIScrollView(frame: preferredViewFrame)) {
-            $0.center.equalTo(view)
-            $0.size.equalTo(view)
+            $0.edges.equalTo(view)
         }
+        scrollView.backgroundColor = UIColor.blackColor()
         self.scrollView = scrollView
+
         view.add(topView) {
             $0.leading.trailing.equalTo(view)
             $0.top.equalTo(view)
@@ -337,7 +338,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         downloadButton.addTarget(self, action: #selector(self.downloadCandy(_:)), forControlEvents: .TouchUpInside)
         shareButton.addTarget(self, action: #selector(self.share(_:)), forControlEvents: .TouchUpInside)
         volumeButton.addTarget(self, action: #selector(self.toggleVolume(_:)), forControlEvents: .TouchUpInside)
-
+        
         accessoryView.tapped { [weak self] _ in
             self?.toggleTopView()
         }
@@ -394,7 +395,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             $0.panGestureRecognizer.requireGestureRecognizerToFail(swipeDownGesture)
             
             $0.contentView = { [weak self] _ in
-                return self?.viewController?.contentView
+                return self?.viewController?.view
             }
             
             $0.dismissingView = { [weak self] _ in

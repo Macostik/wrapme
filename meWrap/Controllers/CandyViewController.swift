@@ -14,31 +14,26 @@ class CandyViewController: BaseViewController {
     
     weak var historyViewController: HistoryViewController?
     
-    internal let contentView = UIView()
     internal let imageView = ImageView()
     internal let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
     internal lazy var errorLabel: Label = specify(Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())) { label in
         label.numberOfLines = 0
         label.text = "no_internet_connection".ls
-        self.contentView.addSubview(label)
+        self.view.addSubview(label)
         label.snp_makeConstraints {
-            $0.centerX.equalTo(self.contentView)
-            $0.centerY.equalTo(self.contentView).inset(-100)
+            $0.centerX.equalTo(self.view)
+            $0.centerY.equalTo(self.view).inset(-100)
             $0.width.equalTo(256)
         }
     }
     
     override func loadView() {
         super.loadView()
-        view.addSubview(contentView)
-        contentView.snp_makeConstraints {
-            $0.edges.equalTo(view)
-        }
-        contentView.addSubview(spinner)
+        view.addSubview(spinner)
         spinner.hidesWhenStopped = true
         spinner.hidden = true
         spinner.snp_makeConstraints {
-            $0.center.equalTo(contentView)
+            $0.center.equalTo(view)
         }
         Candy.notifier().addReceiver(self)
         candy?.fetch(nil, failure:nil)
@@ -113,7 +108,7 @@ final class PhotoCandyViewController: CandyViewController, DeviceManagerNotifyin
         scrollView.frame = view.bounds
         scrollView.backgroundColor = UIColor.blackColor()
         imageView.frame = scrollView.bounds
-        contentView.insertSubview(scrollView, belowSubview: spinner)
+        view.insertSubview(scrollView, belowSubview: spinner)
         scrollView.add(imageView) {
             $0.center.equalTo(scrollView)
             $0.size.equalTo(scrollView)
@@ -121,7 +116,7 @@ final class PhotoCandyViewController: CandyViewController, DeviceManagerNotifyin
         scrollView.minimumZoomScale = 1
         scrollView.zoomScale = 1
         scrollView.maximumZoomScale = 2
-        contentView.addGestureRecognizer(scrollView.panGestureRecognizer)
+        view.addGestureRecognizer(scrollView.panGestureRecognizer)
         if let recognizer = scrollView.pinchGestureRecognizer {
             scrollView.superview?.addGestureRecognizer(recognizer)
         }
@@ -139,13 +134,14 @@ final class PhotoCandyViewController: CandyViewController, DeviceManagerNotifyin
     override func imageLoaded(image: UIImage?) {
         if let image = image {
             scrollView.snp_remakeConstraints(closure: { (make) in
-                make.center.equalTo(contentView)
-                make.width.equalTo(contentView).priorityHigh()
-                make.width.lessThanOrEqualTo(contentView)
-                make.height.equalTo(contentView).priorityHigh()
-                make.height.lessThanOrEqualTo(contentView)
+                make.center.equalTo(view)
+                make.width.equalTo(view).priorityHigh()
+                make.width.lessThanOrEqualTo(view)
+                make.height.equalTo(view).priorityHigh()
+                make.height.lessThanOrEqualTo(view)
                 make.width.equalTo(scrollView.snp_height).multipliedBy(image.size.width / image.size.height)
             })
+            scrollView.layoutIfNeeded()
             scrollView.zoomScale = 1
             scrollView.panGestureRecognizer.enabled = false
         }
@@ -183,10 +179,10 @@ final class VideoCandyViewController: CandyViewController, VideoPlayerViewDelega
         playerView.didPlayToEnd = { [weak self] _ in
             self?.playerView.playing = true
         }
-        contentView.insertSubview(imageView, belowSubview: spinner)
-        contentView.insertSubview(playerView, belowSubview: spinner)
-        imageView.snp_makeConstraints { $0.edges.equalTo(contentView) }
-        playerView.snp_makeConstraints { $0.edges.equalTo(contentView) }
+        view.insertSubview(imageView, belowSubview: spinner)
+        view.insertSubview(playerView, belowSubview: spinner)
+        imageView.snp_makeConstraints { $0.edges.equalTo(view) }
+        playerView.snp_makeConstraints { $0.edges.equalTo(view) }
         
         playerView.tapped { [weak self] _ in
             self?.toggleVolume()

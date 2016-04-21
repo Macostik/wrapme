@@ -43,11 +43,7 @@ class BaseViewController: GAITrackedViewController, KeyboardNotifying {
     
     var viewAppeared = false
     
-    private lazy var keyboardAdjustments: [KeyboardAdjustment] = {
-        var adjustments = self.keyboardAdjustmentBottomConstraints.map({ KeyboardAdjustment(constraint: $0) })
-        adjustments += self.keyboardAdjustmentTopConstraints.map({ KeyboardAdjustment(constraint: $0, isBottom: false) })
-        return adjustments
-    }()
+    private lazy var keyboardAdjustments: [KeyboardAdjustment] = [] 
     
     @IBOutlet var keyboardAdjustmentBottomConstraints: [NSLayoutConstraint] = []
     @IBOutlet var keyboardAdjustmentTopConstraints: [NSLayoutConstraint] = []
@@ -72,6 +68,9 @@ class BaseViewController: GAITrackedViewController, KeyboardNotifying {
         if shouldUsePreferredViewFrame() {
             view.forceLayout()
         }
+        var adjustments: [KeyboardAdjustment] = self.keyboardAdjustmentBottomConstraints.map({ KeyboardAdjustment(constraint: $0) })
+        adjustments += self.keyboardAdjustmentTopConstraints.map({ KeyboardAdjustment(constraint: $0, isBottom: false) })
+        keyboardAdjustments = adjustments
         screenName = NSStringFromClass(self.dynamicType)
         if keyboardBottomGuideView != nil || !keyboardAdjustments.isEmpty {
             Keyboard.keyboard.addReceiver(self)

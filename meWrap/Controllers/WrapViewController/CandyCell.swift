@@ -116,7 +116,9 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
     
     private var uploadingView: UploadingView? {
         didSet {
-            oldValue?.removeFromSuperview()
+            if oldValue?.superview == self {
+                oldValue?.removeFromSuperview()
+            }
             if let uploadingView = uploadingView {
                 uploadingView.frame = bounds
                 addSubview(uploadingView)

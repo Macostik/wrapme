@@ -110,7 +110,7 @@ class CaptureMediaViewController: CaptureViewController {
                 } else {
                     self?.cropAsset(asset, completion: { (croppedImage) -> Void in
                         if let image = croppedImage {
-                            mediaAsset.setImage(image, completion: finish)
+                            mediaAsset.setImage(image, isDowngrading: false, completion: finish)
                         } else {
                             finish()
                         }

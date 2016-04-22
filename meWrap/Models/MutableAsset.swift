@@ -49,8 +49,11 @@ class MutableAsset: Asset {
         self.thumbnailSize = thumbnailSize
     }
     
-    func setImage(image: UIImage) {
+    func setImage(image: UIImage, isDowngrading: Bool = true) {
         let cache = ImageCache.uploadingCache
+        if isDowngrading == false {
+            cache.compressionQuality = 1.0
+        }
         let largePath = cache.getPath(cache.setImage(image))
         original = largePath
         large = largePath
@@ -58,9 +61,9 @@ class MutableAsset: Asset {
         medium = small
     }
     
-    func setImage(image: UIImage, completion: Void -> Void) {
+    func setImage(image: UIImage, isDowngrading: Bool = true, completion: Void -> Void) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {[weak self] () -> Void in
-            self?.setImage(image)
+            self?.setImage(image, isDowngrading: isDowngrading)
             dispatch_async(dispatch_get_main_queue(), completion)
         })
     }

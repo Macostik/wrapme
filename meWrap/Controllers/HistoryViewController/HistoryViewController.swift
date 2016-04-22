@@ -34,7 +34,7 @@ final class CommentView: ExpandableView {
         }
         add(name) { (make) -> Void in
             make.leading.equalTo(avatar.snp_trailing).offset(18)
-            make.top.equalTo(text.snp_bottom).offset(16)
+            make.top.equalTo(avatar.snp_bottom).offset(5)
             make.trailing.lessThanOrEqualTo(self).inset(18)
         }
         

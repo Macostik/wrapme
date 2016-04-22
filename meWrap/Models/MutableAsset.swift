@@ -51,9 +51,7 @@ class MutableAsset: Asset {
     
     func setImage(image: UIImage, isDowngrading: Bool = true) {
         let cache = ImageCache.uploadingCache
-        if isDowngrading == false {
-            cache.compressionQuality = 1.0
-        }
+        cache.compressionQuality = isDowngrading ? 0.75 : 1.0
         let largePath = cache.getPath(cache.setImage(image))
         original = largePath
         large = largePath

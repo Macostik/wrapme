@@ -234,7 +234,9 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     private lazy var topView: ExpandableView = specify(ExpandableView()) { view in
-        view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
+        let backgroundView = UIView()
+        view.addSubview(backgroundView)
+        backgroundView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
         view.makeExpandable { expandingConstraint in
             view.add(self.contributorView) {
                 $0.leading.trailing.equalTo(view)
@@ -252,13 +254,29 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         view.add(self.expandableToolbar) {
             $0.leading.trailing.equalTo(view)
             $0.top.equalTo(self.toolbar.snp_bottom)
-            $0.bottom.equalTo(view)
         }
         view.add(SeparatorView(color: UIColor.whiteColor().colorWithAlphaComponent(0.1), contentMode: .Bottom)) {
             $0.leading.trailing.equalTo(view)
             $0.top.equalTo(self.toolbar)
             $0.height.equalTo(1)
         }
+        view.add(self.accessoryView) {
+            $0.leading.trailing.equalTo(view)
+            $0.height.equalTo(32)
+            $0.top.equalTo(self.expandableToolbar.snp_bottom)
+            $0.top.equalTo(view).priorityHigh()
+        }
+        
+        view.add(self.backButton) { (make) in
+            make.leading.bottom.equalTo(view).inset(20)
+            make.top.equalTo(self.expandableToolbar.snp_bottom).inset(-20)
+        }
+        
+        backgroundView.snp_makeConstraints(closure: { (make) in
+            make.leading.trailing.equalTo(view)
+            make.top.equalTo(self.contributorView)
+            make.bottom.equalTo(self.expandableToolbar)
+        })
     }
     
     private let accessoryLabel = Label(icon: "y", size: 18)
@@ -278,6 +296,11 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         view.add(self.accessoryLabel) { $0.center.equalTo(view) }
     }
     
+    private let backButton = specify(Button(icon: "w", size: 24, textColor: UIColor.whiteColor())) {
+        $0.layer.shadowColor = UIColor.blackColor().CGColor
+        $0.layer.shadowOpacity = 0.5
+        $0.layer.shadowOffset = CGSize(width: 0, height: 3)
+    }
     private let commentButton = Button.candyAction("f", color: Color.orange)
     
     let volumeButton = specify(Button.expandableCandyAction("l")) {
@@ -309,11 +332,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             $0.leading.trailing.equalTo(view)
             $0.top.equalTo(view)
         }
-        view.add(accessoryView) {
-            $0.leading.trailing.equalTo(view)
-            $0.height.equalTo(32)
-            $0.top.equalTo(topView.snp_bottom)
-        }
         
         view.add(commentView) { $0.leading.trailing.bottom.equalTo(view) }
         commentButton.layer.shadowColor = UIColor.blackColor().CGColor
@@ -329,6 +347,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             $0.bottom.equalTo(commentView.snp_top).offset(-20)
         }
         
+        backButton.addTarget(self, action: #selector(self.back(_:)), forControlEvents: .TouchUpInside)
         expandButton.addTarget(self, action: #selector(self.toggleActions), forControlEvents: .TouchUpInside)
         commentButton.addTarget(self, action: #selector(self.comments(_:)), forControlEvents: .TouchUpInside)
         drawButton.addTarget(self, action: #selector(self.draw(_:)), forControlEvents: .TouchUpInside)
@@ -366,7 +385,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
                 expandableToolbar.expanded = expanded
                 expandButton.selected = expanded
                 topView.layoutIfNeeded()
-                accessoryView.layoutIfNeeded()
             }
         }
     }
@@ -377,7 +395,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             animate(animated) {
                 topView.expanded = expanded
                 topView.layoutIfNeeded()
-                accessoryView.layoutIfNeeded()
             }
         }
     }
@@ -463,16 +480,14 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     func setBarsHidden(hidden: Bool, animated: Bool) {
-        animate(animated, duration: 0.5) {
+        animate(animated, duration: 0.3) {
             if hidden {
-                topView.transform = CGAffineTransformMakeTranslation(0, -view.height/2)
-                accessoryView.transform = CGAffineTransformMakeTranslation(0, -view.height/2)
-                commentView.transform = CGAffineTransformMakeTranslation(0, view.height/2)
+                topView.transform = CGAffineTransformMakeTranslation(0, -topView.height)
+                commentView.transform = CGAffineTransformMakeTranslation(0, commentView.height)
                 commentButton.transform = CGAffineTransformMakeTranslation(0, view.height/2)
                 volumeButton.transform = CGAffineTransformMakeTranslation(0, view.height/2)
             } else {
                 topView.transform = CGAffineTransformIdentity
-                accessoryView.transform = CGAffineTransformIdentity
                 commentView.transform = CGAffineTransformIdentity
                 commentButton.transform = CGAffineTransformIdentity
                 volumeButton.transform = CGAffineTransformIdentity
@@ -642,6 +657,19 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     func notifier(notifier: EntryNotifier, shouldNotifyOnContainer container: Entry) -> Bool {
         return wrap == container
+    }
+    
+    override func back(sender: UIButton) {
+        if let candy = candy?.validEntry() {
+            if let presenter = presenter where UIApplication.sharedApplication().statusBarOrientation.isPortrait {
+                navigationController?.popViewControllerAnimated(false)
+                presenter.dismiss(candy)
+            } else {
+                navigationController?.popViewControllerAnimated(false)
+            }
+        } else {
+            navigationController?.popToRootViewControllerAnimated(false)
+        }
     }
     
     @IBAction func downloadCandy(sender: Button) {

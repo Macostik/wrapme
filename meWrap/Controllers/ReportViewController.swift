@@ -89,21 +89,14 @@ struct Violation {
     }
     
     static func allViolations() -> [Violation] {
-        if let content = NSArray.plist("violations") as? [[String : AnyObject]] {
-            return content.map({ (dict) -> Violation in
-                return Violation(attribute: dict)
-            })
-        } else {
-            return []
-        }
+        let content = NSArray.plist("violations") as? [[String : AnyObject]]
+        return content?.map({ Violation(attribute: $0) }) ?? []
     }
 }
 
 class ReportViewController : BaseViewController {
     
     weak var candy: Candy?
-    
-    private var reportList:NSArray?
     
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -112,11 +105,8 @@ class ReportViewController : BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         doneButton.hidden = true
-        let violations = Violation.allViolations()
         dataSource.select = { [weak self] _ , violation in
-            guard let candy = self?.candy else {
-                return
-            }
+            guard let candy = self?.candy else { return }
             if let request = API.reportCandy(candy, violation: violation) {
                 request.send({[weak self] (_) -> Void in
                     self?.collectionView.hidden = true
@@ -129,7 +119,7 @@ class ReportViewController : BaseViewController {
                 self?.doneButton.hidden = false
             }
         }
-        dataSource.data = violations
+        dataSource.data = Violation.allViolations()
         collectionView.reloadData()
     }
     

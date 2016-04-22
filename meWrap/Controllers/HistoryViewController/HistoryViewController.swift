@@ -522,7 +522,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     private func updateOwnerData() {
         if let candy = candy?.validEntry() {
-            
+            candy.markAsUnread(false)
             contributorAvatar.user = candy.contributor
             contributorName.text = String(format:(candy.isVideo ? "formatted_video_by" : "formatted_photo_by").ls, candy.contributor?.name ?? "")
             contributedAt.text = candy.createdAt.timeAgoStringAtAMPM()

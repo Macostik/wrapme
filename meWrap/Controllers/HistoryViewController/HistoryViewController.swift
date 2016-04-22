@@ -274,7 +274,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         
         backgroundView.snp_makeConstraints(closure: { (make) in
             make.leading.trailing.equalTo(view)
-            make.top.equalTo(self.contributorView)
+            make.top.equalTo(view)
             make.bottom.equalTo(self.expandableToolbar)
         })
     }

@@ -329,3 +329,4 @@
 "cancel_Drawing" = "Are you sure you want to exit and cancel changes?";
 "delete_device_title" = "Delete Device";
 "delete_device_message" = "Are you sure you want to delete the device \"%@\" from your account?";
+"formatted_photo_edited_by" = "Photo & edited by %@";

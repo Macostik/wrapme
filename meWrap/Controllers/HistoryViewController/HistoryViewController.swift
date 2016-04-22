@@ -543,7 +543,11 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             contributedAt.text = candy.createdAt.timeAgoStringAtAMPM()
             contributionStatus.updateStatusIndicator(candy)
             
-            if let editor = candy.editor {
+            if candy.contributor == candy.editor {
+                contributorName.text = String(format:"formatted_photo_edited_by".ls, candy.contributor?.name ?? "")
+                editorView.expanded = false
+                topView.layoutIfNeeded()
+            } else if let editor = candy.editor {
                 editorAvatar.user = editor
                 editorName.text = String(format:"formatted_edited_by".ls, editor.name ?? "")
                 editedAt.text = candy.editedAt.timeAgoStringAtAMPM()
@@ -553,6 +557,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
                 editorView.expanded = false
                 topView.layoutIfNeeded()
             }
+            
             deleteButton.hidden = !candy.deletable
             reportButton.hidden = !deleteButton.hidden
             drawButton.hidden = candy.isVideo

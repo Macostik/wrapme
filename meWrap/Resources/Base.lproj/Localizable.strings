@@ -60,6 +60,7 @@
 "formatted_wrap_unavailable" = "\"%@\" not found.";
 "formatted_photo_by" = "Photo by %@";
 "formatted_edited_by" = "Edited by %@";
+"formatted_photo_edited_by" = "Photo & edited by %@";
 "comment" = "Comment";
 "one_comment" = "1 comment";
 "formatted_comments" = "%i comments";

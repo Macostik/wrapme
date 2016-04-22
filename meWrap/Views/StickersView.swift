@@ -11,105 +11,107 @@ import SnapKit
 
 class StickersView: UIView {
     
-    lazy var contentView: UIView = {
-        let view = UIView()
-        self.add(view, {
-            $0.edges.equalTo(self)
-        })
+    lazy var contentView: UIView = specify(UIView()) { view in
         view.backgroundColor = UIColor.clearColor()
-        return view
-    }()
+    }
     
-    lazy var transformView: TransformView = {
-        let transformView = TransformView(frame: CGRectMake(
-            self.center.x - self.width/4,
-            self.center.y - self.width/4,
-            self.width/2, self.width/2))
-        transformView.emojiLabel.font = UIFont.systemFontOfSize(self.width/2 - 5)
-        return transformView
-    }()
+    var transformView = TransformView()
     var isRotate = false
     var isChangeBounds = false
     var isMove = false
     weak var emojiView: FullScreenEmojiView?
     var close: (Sticker? -> Void)?
     
-    class func show(view: UIView, close: (Sticker? -> Void)) {
+    class func show(view: UIView, canvas: DrawingCanvas, close: (Sticker? -> Void)) {
         let stickerView = StickersView(frame: view.bounds)
         view.add(stickerView)
         stickerView.close = close
-        stickerView.setupEmojiView()
+        stickerView.setup(canvas)
     }
     
-    func setupEmojiView() {
+    func setup(canvas: DrawingCanvas) {
+        
+        add(contentView) { (make) in
+            make.edges.equalTo(canvas)
+        }
+        
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.finish)))
+        
+        transformView.trashLabel.addTarget(self, action: #selector(self.remove(_:)), forControlEvents: .TouchUpInside)
+        let scalingGesture = UIPanGestureRecognizer(target: self, action: #selector(self.scaling(_:)))
+        transformView.scaleLabel.addGestureRecognizer(scalingGesture)
+        let rotatingGesture = UIPanGestureRecognizer(target: self, action: #selector(self.rotating(_:)))
+        transformView.rotateLabel.addGestureRecognizer(rotatingGesture)
+        
+        let panningGesture = UIPanGestureRecognizer(target: self, action: #selector(self.panning(_:)))
+        contentView.addGestureRecognizer(panningGesture)
+        panningGesture.requireGestureRecognizerToFail(scalingGesture)
+        panningGesture.requireGestureRecognizerToFail(rotatingGesture)
+        
         emojiView = FullScreenEmojiView.show(selectedBlock: { [weak self] emoji in
-            self?.contentView.add(self?.transformView ?? UIView())
-            self?.transformView.emojiLabel.text = emoji as? String
+            self?.emojiSelected(emoji)
             }, close: { [weak self] in
                 self?.removeFromSuperview()
                 self?.close?(nil)
         })
     }
     
-    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-        isRotate = false; isChangeBounds = false; isMove = false
-        if emojiView != nil {  return true }
-        if (transformView.isContaintPoint(point, view: transformView.trashLabel, stickerView: self)) {
-            self.removeFromSuperview()
-            close?(nil)
-            return true
-        }
-        isRotate = transformView.isContaintPoint(point, view: transformView.rotateLabel, stickerView: self)
-        if isRotate == true { return isRotate }
-        isChangeBounds = transformView.isContaintPoint(point, view: transformView.changeSizeLabel, stickerView: self)
-        if isChangeBounds == true { return isChangeBounds }
-        isMove = contentView.convertRect(transformView.frame, toView: self).contains(point)
-        if isMove == true { return isMove }
-        addStickerToCanvas()
-        return false
+    func remove(sender: AnyObject) {
+        removeFromSuperview()
+        close?(nil)
     }
-
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesMoved(touches, withEvent: event)
-        let touch = touches.first
-        if let point = touch?.locationInView(self) {
-            if isRotate {
-                let defaultAngle = atan2(transformView.x - center.x, transformView.y - center.y)
-                let differentAngle = atan2(point.x - center.x, point.y - center.y)
-                let diff = (defaultAngle - differentAngle) + CGFloat(M_PI)
-                transformView.transform = CGAffineTransformMakeRotation(diff)
-            }
-            if isChangeBounds {
-                let offset = min(contentView.width, max(abs(abs(point.x) - center.x), abs(abs(point.y) - center.y)) * 2)
-                transformView.size = CGSizeMake(offset, offset)
-                transformView.emojiLabel.font = UIFont.systemFontOfSize(offset)
-                transformView.center = center
-            }
-            if isMove {
-                var limitX = point.x
-                var limitY = point.y
-                if point.x - transformView.width/2 < 0  {
-                    limitX = x + transformView.width/2
-                }
-                if point.y - transformView.height/2 < 0  {
-                    limitY = y + transformView.height/2
-                }
-                if point.x + transformView.width/2 > width {
-                    limitX = width - transformView.width/2
-                }
-                if point.y + transformView.height/2 > height {
-                    limitY = height - transformView.height/2
-                }
-                contentView.frame = CGRectMake(limitX - center.x, limitY - center.y, contentView.width, contentView.height)
-            }
+    func panning(sender: UIPanGestureRecognizer) {
+        let translation = sender.translationInView(transformView)
+        let transform = transformView.transform
+        transformView.transform = CGAffineTransformTranslate(transform, translation.x, translation.y)
+        sender.setTranslation(CGPoint.zero, inView: transformView)
+    }
+    
+    func setTransformIfPossible(transform: CGAffineTransform) {
+        let _transform = transformView.transform
+        transformView.transform = transform
+        let removePoint = contentView.convertPoint(transformView.trashLabel.center, fromCoordinateSpace: transformView)
+        let scalePoint = contentView.convertPoint(transformView.scaleLabel.center, fromCoordinateSpace: transformView)
+        let rotatePoint = contentView.convertPoint(transformView.rotateLabel.center, fromCoordinateSpace: transformView)
+        let rect = contentView.bounds
+        if !rect.contains(removePoint) || !rect.contains(scalePoint) || !rect.contains(rotatePoint) {
+            transformView.transform = _transform
         }
     }
     
-    private func addStickerToCanvas() {
-        let name = transformView.emojiLabel.text ?? ""
-        let frame = contentView.convertRect(transformView.frame, toView: self)
-        let sticker = Sticker(name: name, fontSize: transformView.emojiLabel.font.pointSize, frame: frame, transform: transformView.transform)
+    func scaling(sender: UIPanGestureRecognizer) {
+        let translation = sender.translationInView(transformView)
+        let scale = abs(translation.x) > abs(translation.y) ? translation.x : translation.y
+        transformView.fontSize += scale
+        sender.setTranslation(CGPoint.zero, inView: transformView)
+    }
+    
+    func rotating(sender: UIPanGestureRecognizer) {
+        
+        let p1 = contentView.convertPoint(transformView.rotateLabel.center, fromCoordinateSpace: transformView)
+        let p2 = sender.locationInView(contentView)
+        let center = CGPointApplyAffineTransform(transformView.center, transformView.transform)
+        let v1 = CGVector(dx: p1.x - center.x, dy: p1.y - center.y)
+        let v2 = CGVector(dx: p2.x - center.x, dy: p2.y - center.y)
+        
+        let angle = atan2(v2.dy, v2.dx) - atan2(v1.dy, v1.dx)
+        
+        let transform = CGAffineTransformRotate(transformView.transform, angle)
+        transformView.transform = transform
+        sender.setTranslation(CGPoint.zero, inView: transformView)
+    }
+    
+    func emojiSelected(emoji: String) {
+        contentView.add(transformView) {
+            $0.leading.top.equalTo(contentView)
+        }
+        transformView.emojiLabel.text = emoji
+        transformView.transform = CGAffineTransformMakeTranslation(100, 100)
+    }
+    
+    @objc private func finish() {
+        let sticker = Sticker(transformView: transformView)
         close?(sticker)
         self.removeFromSuperview()
     }
@@ -118,97 +120,107 @@ class StickersView: UIView {
 
 class TransformView: UIView {
     
-    let trashLabel = specify(Label(icon: "n")) {
+    let trashLabel = specify(Button(icon: "n", size: 20)) {
+        $0.highlightedColor = Color.orangeDark
         $0.backgroundColor = Color.orange
-        $0.circled = true
+        $0.cornerRadius = 20
         $0.borderColor = UIColor.whiteColor()
         $0.borderWidth = 1
         $0.clipsToBounds = true
-        $0.textAlignment = .Center
     }
     
-    let rotateLabel = specify(Label(icon: "5")) {
+    let rotateLabel = specify(Button(icon: "5", size: 20)) {
         $0.backgroundColor = Color.orange
-        $0.circled = true
+        $0.cornerRadius = 20
         $0.borderColor = UIColor.whiteColor()
         $0.borderWidth = 1
         $0.clipsToBounds = true
-        $0.textAlignment = .Center
     }
     
-    let changeSizeLabel = specify(Label(icon: "v")) {
+    let scaleLabel = specify(Button(icon: "v", size: 20)) {
         $0.backgroundColor = Color.orange
-        $0.circled = true
+        $0.cornerRadius = 20
         $0.borderColor = UIColor.whiteColor()
         $0.borderWidth = 1
         $0.clipsToBounds = true
-        $0.textAlignment = .Center
         $0.transform = CGAffineTransformMakeRotation(-37)
     }
     
-    var emojiLabel = specify(Label() , {
+    var emojiLabel = specify(UILabel() , {
+        $0.text = ""
         $0.backgroundColor = UIColor.clearColor()
         $0.textAlignment = .Center
         $0.borderColor = UIColor.whiteColor()
         $0.borderWidth = 1.0
+        $0.font = UIFont.systemFontOfSize(150)
     })
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        self.backgroundColor = UIColor.clearColor()
         self.add(emojiLabel, {
-            $0.edges.equalTo(self)
+            $0.edges.equalTo(self).inset(20)
+            $0.width.equalTo(emojiLabel.snp_height)
         })
         self.add(trashLabel, {
-            $0.width.height.equalTo(40)
-            $0.centerX.equalTo(self.snp_trailing)
-            $0.centerY.equalTo(self.snp_top)
+            $0.size.equalTo(40)
+            $0.centerX.equalTo(emojiLabel.snp_trailing)
+            $0.centerY.equalTo(emojiLabel.snp_top)
         })
         self.add(rotateLabel, {
-            $0.width.height.equalTo(40)
-            $0.centerX.equalTo(self.snp_trailing)
-            $0.centerY.equalTo(self.snp_bottom)
+            $0.size.equalTo(40)
+            $0.centerX.equalTo(emojiLabel.snp_leading)
+            $0.centerY.equalTo(emojiLabel.snp_top)
         })
-        self.add(changeSizeLabel, {
-            $0.width.height.equalTo(40)
-            $0.centerX.equalTo(self.snp_leading)
-            $0.centerY.equalTo(self.snp_top)
+        self.add(scaleLabel, {
+            $0.size.equalTo(40)
+            $0.centerX.equalTo(emojiLabel.snp_trailing)
+            $0.centerY.equalTo(emojiLabel.snp_bottom)
         })
+    }
+    
+    var fontSize: CGFloat {
+        get {
+            return emojiLabel.font.pointSize
+        }
+        set {
+            emojiLabel.font = UIFont.systemFontOfSize(max(40, round(newValue)))
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func isContaintPoint(point: CGPoint, view: UIView, stickerView: StickersView) -> Bool {
-        let rect = convertRect(view.frame, toCoordinateSpace: stickerView)
-        return rect.contains(point)
     }
 }
 
 class Sticker: Drawing {
     
     let name: String
-    let fontSize: CGFloat
-    let frame: CGRect
+    let font: UIFont
     let transform: CGAffineTransform
+    private let drawRect: CGRect
+    private let attributes: [String : AnyObject]
     
-    init(name: String = "", fontSize: CGFloat = 0.0, frame: CGRect = CGRectZero, transform: CGAffineTransform = CGAffineTransformIdentity) {
-        self.name = name
-        self.fontSize = fontSize
-        self.frame = frame
-        self.transform = transform
+    init(transformView: TransformView) {
+        name = transformView.emojiLabel.text ?? ""
+        font = transformView.emojiLabel.font
+        transform = transformView.transform
+        attributes = [NSFontAttributeName: font]
+        let size = (name as NSString).sizeWithAttributes(attributes)
+        let labelSize = transformView.emojiLabel.size
+        let dx = labelSize.width - size.width
+        let dy = labelSize.height - size.height
+        drawRect = CGRect(origin: (20 + dx/2) ^ (20 - dy/2), size: size)
     }
     
     func render() {
-        let paragraphStyle = specify(NSMutableParagraphStyle()) {
-            $0.alignment = .Center
-        }
+        let rect = drawRect
         let context = UIGraphicsGetCurrentContext()
         CGContextSaveGState(context)
-        CGContextSetTextMatrix(context, transform)
-        let attrs = [NSFontAttributeName: UIFont.icons(fontSize), NSParagraphStyleAttributeName: paragraphStyle]
-        name.drawWithRect(frame, options: .UsesLineFragmentOrigin, attributes: attrs, context: nil)
+        CGContextTranslateCTM(context, rect.midX, rect.midY)
+        CGContextConcatCTM(context, transform)
+        CGContextTranslateCTM(context, -rect.midX, -rect.midY)
+        (name as NSString).drawInRect(rect, withAttributes: attributes)
         CGContextRestoreGState(context)
     }
 }

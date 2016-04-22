@@ -143,14 +143,12 @@ class EmojiView: UIView, SegmentedControlDelegate {
 
 class FullScreenEmojiView: EmojiView {
     
-    var selectedBlock: ObjectBlock? = nil
-    var close: Block? = nil
+    var selectedBlock: (String -> ())?
+    var close: (() -> ())?
     
-    class func show(view: UIView = UIWindow.mainWindow, selectedBlock: ObjectBlock? = nil, close: Block? = nil) -> FullScreenEmojiView? {
-        guard let emojiView: FullScreenEmojiView = loadFromNib("FullScreenEmojiView") else { return nil }
-        view.add(emojiView, {
-            $0.edges.equalTo(view)
-        })
+    class func show(view: UIView = UIWindow.mainWindow, selectedBlock: String -> (), close: () -> ()) -> FullScreenEmojiView? {
+        let emojiView: FullScreenEmojiView = loadFromNib("FullScreenEmojiView")!
+        view.add(emojiView, { $0.edges.equalTo(view) })
         emojiView.selectedBlock = selectedBlock
         emojiView.close = close
         return emojiView

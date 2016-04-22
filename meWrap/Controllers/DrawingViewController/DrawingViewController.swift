@@ -108,22 +108,27 @@ class DrawingViewController: BaseViewController {
     }
     
     @IBAction func stickers(sender: UIButton) {
-        StickersView.show(canvas, close: { [weak self] sticker in
-            if let sticker = sticker {
-                self?.session.drawings.append(sticker)
-                self?.canvas.render()
-            }
+        StickersView.show(view, canvas: canvas, close: { [weak self] sticker in
             sender.hidden = false
-            self?.colorsView.hidden = false
-            self?.tapGesture.enabled = true
-            self?.panGesture.enabled = true
-            self?.canvas.userInteractionEnabled = false
+            self?.didFinishWithSticker(sticker)
             })
         sender.hidden = true
         colorsView.hidden = true
         tapGesture.enabled = false
         panGesture.enabled = false
         canvas.userInteractionEnabled = true
+    }
+    
+    private func didFinishWithSticker(sticker: Sticker?) {
+        if let sticker = sticker {
+            session.drawings.append(sticker)
+            canvas.render()
+            undoButton.hidden = session.empty
+        }
+        colorsView.hidden = false
+        tapGesture.enabled = true
+        panGesture.enabled = true
+        canvas.userInteractionEnabled = false
     }
 }
 

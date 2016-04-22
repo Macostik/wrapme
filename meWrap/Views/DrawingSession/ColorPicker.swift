@@ -47,7 +47,7 @@ final class ColorPicker: UIView {
                 picker.addSubview(picker.targetLabel)
                 picker.targetLabel.snp_makeConstraints {
                     $0.centerY.equalTo(picker)
-                    $0.leading.equalTo(picker)
+                    $0.centerX.equalTo(picker.snp_leading)
                 }
             }
         }
@@ -58,7 +58,7 @@ final class ColorPicker: UIView {
         color = touch?.view?.backgroundColor
         guard let location = touch?.locationInView(self) else { return }
         targetLabel.snp_updateConstraints {
-            $0.leading.equalTo(location)
+            $0.centerX.equalTo(self.snp_leading).offset(location.x)
         }
     }
     
@@ -69,7 +69,7 @@ final class ColorPicker: UIView {
             break
         }
         targetLabel.snp_updateConstraints {
-            $0.leading.equalTo(location)
+            $0.centerX.equalTo(self.snp_leading).offset(location.x)
         }
     }
     

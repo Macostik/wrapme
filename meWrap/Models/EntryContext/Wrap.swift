@@ -77,7 +77,7 @@ final class Wrap: Contribution {
     private var _historyCandies: [Candy]?
     var historyCandies: [Candy]! {
         get {
-            if _historyCandies == nil {
+            if _historyCandies == nil && valid {
                 _historyCandies = candies.sort({ $0.createdAt > $1.createdAt })
             }
             return _historyCandies
@@ -90,7 +90,7 @@ final class Wrap: Contribution {
     private var _recentCandies: [Candy]?
     var recentCandies: [Candy]? {
         get {
-            if _recentCandies == nil {
+            if _recentCandies == nil && valid {
                 _recentCandies = candies.sort({ $0.updatedAt > $1.updatedAt })
             }
             return _recentCandies
@@ -200,7 +200,7 @@ final class Wrap: Contribution {
     
     lazy var numberOfUnreadInboxItems: Int = {
         var count = 0
-        for candy in self.candies {
+        for candy in self.candies where candy.valid {
             if candy.unread {
                 count += 1
             }

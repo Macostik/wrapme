@@ -20,6 +20,14 @@ class DownloadingView: UIView {
     
     weak var candy: Candy?
     
+    lazy var shareFolderUrl: NSURL = {
+        if var url = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.com.ravenpod.wraplive") {
+            url = url.URLByAppendingPathComponent("ShareExtension/")
+            return url
+        }
+        return NSURL()
+    }()
+    
     class func downloadCandy(candy: Candy?, success: UIImage -> Void, failure: FailureBlock?) {
         if let candy = candy {
             if let error = candy.updateError() {
@@ -133,7 +141,12 @@ class DownloadingView: UIView {
             failure?(nil)
             return
         }
-        let destination = Alamofire.Request.suggestedDownloadDestination(directory: .DocumentDirectory, domain: .UserDomainMask)
+        let manager = NSFileManager.defaultManager()
+        _ = try? manager.removeItemAtURL(shareFolderUrl)
+        _ = try? manager.createDirectoryAtURL(shareFolderUrl, withIntermediateDirectories: true, attributes: nil)
+        let destination: (NSURL, NSHTTPURLResponse) -> (NSURL) = { _, response in
+            return self.shareFolderUrl.URLByAppendingPathComponent(response.suggestedFilename!)
+        }
         task = Alamofire.download(.GET, url, destination: destination)
             .progress { [weak self] (_, sent, total) in
                 Dispatch.mainQueue.async({

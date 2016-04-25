@@ -44,7 +44,7 @@ class StickersView: UIView {
         transformView.rotateLabel.addGestureRecognizer(rotatingGesture)
         
         let panningGesture = UIPanGestureRecognizer(target: self, action: #selector(self.panning(_:)))
-        addGestureRecognizer(panningGesture)
+        transformView.addGestureRecognizer(panningGesture)
         panningGesture.requireGestureRecognizerToFail(scalingGesture)
         panningGesture.requireGestureRecognizerToFail(rotatingGesture)
         
@@ -66,25 +66,6 @@ class StickersView: UIView {
         let transform = transformView.transform
         transformView.transform = CGAffineTransformTranslate(transform, translation.x, translation.y)
         sender.setTranslation(CGPoint.zero, inView: transformView)
-        fixTransformView()
-    }
-    
-    func fixTransformView() {
-        var transform = transformView.transform
-        let center = contentView.convertPoint(transformView.emojiLabel.center, fromCoordinateSpace: transformView)
-        if center.x < 0 {
-            transform.tx += -center.x
-        }
-        if case let dx = center.x - contentView.width where dx > 0 {
-            transform.tx -= dx
-        }
-        if center.y < 0 {
-            transform.ty += -center.y
-        }
-        if case let dy = center.y - contentView.height where dy > 0 {
-            transform.ty -= dy
-        }
-        transformView.transform = transform
     }
     
     func scaling(sender: UIPanGestureRecognizer) {
@@ -92,7 +73,6 @@ class StickersView: UIView {
         let scale = abs(translation.x) > abs(translation.y) ? translation.x : translation.y
         transformView.fontSize += scale
         sender.setTranslation(CGPoint.zero, inView: transformView)
-        fixTransformView()
     }
     
     func rotating(sender: UIPanGestureRecognizer) {
@@ -108,7 +88,6 @@ class StickersView: UIView {
         let transform = CGAffineTransformRotate(transformView.transform, angle)
         transformView.transform = transform
         sender.setTranslation(CGPoint.zero, inView: transformView)
-        fixTransformView()
     }
     
     func emojiSelected(emoji: String) {
@@ -122,12 +101,9 @@ class StickersView: UIView {
     }
     
     @objc private func finish(sender: UITapGestureRecognizer) {
-        let emojiFrame = contentView.convertRect(transformView.emojiLabel.frame, fromCoordinateSpace: transformView)
-        if !emojiFrame.contains(sender.locationInView(contentView)) {
-            let sticker = Sticker(transformView: transformView)
-            close?(sticker)
-            self.removeFromSuperview()
-        }
+        let sticker = Sticker(transformView: transformView)
+        close?(sticker)
+        self.removeFromSuperview()
     }
     
 }

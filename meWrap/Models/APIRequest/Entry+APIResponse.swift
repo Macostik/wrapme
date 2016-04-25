@@ -96,7 +96,10 @@ extension User {
         }
         
         invitedAt <!= dictionary.dateForKey("invited_at_in_epoch")
-        let _: [Device] = mappedEntries(dictionary[Keys.Devices] as? [[String : AnyObject]], container: self)
+        let devices: [Device] = mappedEntries(dictionary[Keys.Devices] as? [[String : AnyObject]], container: self)
+        if !devices.isEmpty {
+            self.devices = Set(devices)
+        }
         
         if let remoteLogging = dictionary["remote_logging"] as? Bool where current {
             NSUserDefaults.standardUserDefaults().remoteLogging = remoteLogging

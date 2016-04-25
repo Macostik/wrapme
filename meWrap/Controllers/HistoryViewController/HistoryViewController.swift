@@ -482,8 +482,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     func setBarsHidden(hidden: Bool, animated: Bool) {
         animate(animated, duration: 0.3) {
             if hidden {
-                topView.transform = CGAffineTransformMakeTranslation(0, -topView.height)
-                commentView.transform = CGAffineTransformMakeTranslation(0, commentView.height)
+                topView.transform = CGAffineTransformMakeTranslation(0, -view.height/2)
+                commentView.transform = CGAffineTransformMakeTranslation(0, view.height/2)
                 commentButton.transform = CGAffineTransformMakeTranslation(0, view.height/2)
                 volumeButton.transform = CGAffineTransformMakeTranslation(0, view.height/2)
             } else {

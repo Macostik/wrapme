@@ -52,7 +52,7 @@ extension UIViewController {
     }
     
     func backButton(color: UIColor) -> UIButton {
-        let backButton = Button(icon: "L", size: 32, textColor: color)
+        let backButton = Button(icon: "w", size: 24, textColor: color)
         backButton.setTitleColor(color.darkerColor(), forState: .Highlighted)
         backButton.addTarget(self, action: #selector(self.back(_:)), forControlEvents: .TouchUpInside)
         return backButton

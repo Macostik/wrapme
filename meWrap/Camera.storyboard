@@ -751,10 +751,10 @@
                             <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="SZ8-r8-gtM" customClass="GradientView" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ITP-VR-CiW" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ITP-VR-CiW" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="8" y="12" width="30" height="41"/>
-                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="28"/>
-                                        <state key="normal" title="L">
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
+                                        <state key="normal" title="w">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1172,10 +1172,10 @@
                             <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="DwH-YS-Lus" customClass="GradientView" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1R8-s3-mcT" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="1000" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1R8-s3-mcT" customClass="Button" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="8" y="12" width="30" height="41"/>
-                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="28"/>
-                                        <state key="normal" title="L">
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
+                                        <state key="normal" title="w">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>

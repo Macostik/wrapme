@@ -8,7 +8,7 @@
 
 import UIKit
 
-class History: PaginatedList<HistoryItem> {
+class History: PaginatedList<HistoryItem>, PaginatedListNotifying {
     
     weak var wrap: Wrap?
     
@@ -26,6 +26,7 @@ class History: PaginatedList<HistoryItem> {
         Candy.notifier().addReceiver(self)
         self.wrap = wrap
         fetchCandies(wrap)
+        historyCandies.addReceiver(self)
     }
     
     override var completed: Bool {
@@ -40,6 +41,18 @@ class History: PaginatedList<HistoryItem> {
                 success?(history.entries)
             }
             }, failure: failure)
+    }
+    
+    func listChanged<T : Equatable>(list: List<T>) {
+        notify({ ($0 as? ListNotifying)?.listChanged(self) })
+    }
+    
+    func paginatedListDidStartLoading<T : Equatable>(list: PaginatedList<T>) {
+        notify({ ($0 as? PaginatedListNotifying)?.paginatedListDidStartLoading(self) })
+    }
+    
+    func paginatedListDidFinishLoading<T : Equatable>(list: PaginatedList<T>) {
+        notify({ ($0 as? PaginatedListNotifying)?.paginatedListDidFinishLoading(self) })
     }
     
     private func fetchCandies(wrap: Wrap) {

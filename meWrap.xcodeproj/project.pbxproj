@@ -12,7 +12,6 @@
 		5B1061341C610A1900496647 /* ConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1061331C610A1900496647 /* ConfirmView.swift */; };
 		5B1D045B1BFCE16C00263102 /* SlideTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1D045A1BFCE16C00263102 /* SlideTransition.swift */; };
 		5B211FB21C087137000EC3DB /* (null) in Resources */ = {isa = PBXBuildFile; };
-		5B2784FF1CB681B500296CAB /* StickersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2784FE1CB681B400296CAB /* StickersView.swift */; };
 		5B2960571C60F5B9008D121A /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2960561C60F5B9008D121A /* ShareViewController.swift */; };
 		5B29605A1C60F5B9008D121A /* Share.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B2960581C60F5B9008D121A /* Share.storyboard */; };
 		5B29605E1C60F5B9008D121A /* ShareExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B2960541C60F5B9008D121A /* ShareExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -95,9 +94,6 @@
 		C509F7471C5E3C4800E6BFF0 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C509F7441C5E3C4800E6BFF0 /* CameraViewController.swift */; };
 		C509F7481C5E3C4800E6BFF0 /* CaptureMediaSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C509F7451C5E3C4800E6BFF0 /* CaptureMediaSession.swift */; };
 		C509F7491C5E3C4800E6BFF0 /* FlashModeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C509F7461C5E3C4800E6BFF0 /* FlashModeControl.swift */; };
-		C50B5EBC1C7F229900435E3F /* DrawingCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50B5EBB1C7F229900435E3F /* DrawingCanvas.swift */; };
-		C50B5EBE1C7F236100435E3F /* DrawingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50B5EBD1C7F236100435E3F /* DrawingSession.swift */; };
-		C50B5EC01C7F2A9400435E3F /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50B5EBF1C7F2A9400435E3F /* ColorPicker.swift */; };
 		C50B5EC21C7F2F0D00435E3F /* DrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50B5EC11C7F2F0D00435E3F /* DrawingViewController.swift */; };
 		C510BF6D1BCF93C0008223A3 /* UIDevice+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C510BF6C1BCF93C0008223A3 /* UIDevice+Ext.swift */; };
 		C5122D491BD7D2A40096C742 /* UIFont+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5122D481BD7D2A40096C742 /* UIFont+Ext.swift */; };
@@ -238,6 +234,11 @@
 		C57CB2AA1BAAE5140050FBF7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB2A51BAAE4F60050FBF7 /* libz.tbd */; };
 		C57CB2AB1BAAE51E0050FBF7 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB2A71BAAE5040050FBF7 /* libsqlite3.0.tbd */; };
 		C57E1CCB1B98930900E2303B /* StreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57E1CC91B98930900E2303B /* StreamView.swift */; };
+		C57EB14B1CCE0EE600329080 /* StickersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57EB1461CCE0EE600329080 /* StickersView.swift */; };
+		C57EB14C1CCE0EE600329080 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57EB1471CCE0EE600329080 /* ColorPicker.swift */; };
+		C57EB14D1CCE0EE600329080 /* DrawingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57EB1481CCE0EE600329080 /* DrawingSession.swift */; };
+		C57EB14E1CCE0EE600329080 /* DrawingCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57EB1491CCE0EE600329080 /* DrawingCanvas.swift */; };
+		C57EB14F1CCE0EE600329080 /* UIBezierPath+Interpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57EB14A1CCE0EE600329080 /* UIBezierPath+Interpolation.swift */; };
 		C57F7AEF1C1ECD5F00FFB465 /* test-users.plist in Resources */ = {isa = PBXBuildFile; fileRef = C57F7AEC1C1ECD5F00FFB465 /* test-users.plist */; };
 		C57F7AF01C1ECD5F00FFB465 /* violations.plist in Resources */ = {isa = PBXBuildFile; fileRef = C57F7AED1C1ECD5F00FFB465 /* violations.plist */; };
 		C57F7AF11C1ECD5F00FFB465 /* country-codes.json in Resources */ = {isa = PBXBuildFile; fileRef = C57F7AEE1C1ECD5F00FFB465 /* country-codes.json */; };
@@ -340,7 +341,6 @@
 		C5FAC9021BE2B35F0060FEDB /* NSUserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FAC9011BE2B35F0060FEDB /* NSUserDefaults+Ext.swift */; };
 		C5FBAD261C7F9E9500D64969 /* ImageEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FBAD251C7F9E9500D64969 /* ImageEditor.swift */; };
 		C5FBAD281C7FA12300D64969 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FBAD271C7FA12300D64969 /* AppDelegate.swift */; };
-		C5FEEEFF1C7E0B02007B6A79 /* UIBezierPath+Interpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FEEEFE1C7E0B02007B6A79 /* UIBezierPath+Interpolation.swift */; };
 		C5FF6B8F1C96C9B8006462EC /* ChatAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C52CEC3F1C93130F004A1A3F /* ChatAPNS.apns */; };
 /* End PBXBuildFile section */
 
@@ -444,7 +444,6 @@
 		5B03F90B1C5A65A60085BA51 /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		5B1061331C610A1900496647 /* ConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmView.swift; sourceTree = "<group>"; };
 		5B1D045A1BFCE16C00263102 /* SlideTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideTransition.swift; sourceTree = "<group>"; };
-		5B2784FE1CB681B400296CAB /* StickersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickersView.swift; sourceTree = "<group>"; };
 		5B2960541C60F5B9008D121A /* ShareExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B2960561C60F5B9008D121A /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		5B2960591C60F5B9008D121A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Share.storyboard; sourceTree = "<group>"; };
@@ -538,9 +537,6 @@
 		C509F7441C5E3C4800E6BFF0 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		C509F7451C5E3C4800E6BFF0 /* CaptureMediaSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureMediaSession.swift; sourceTree = "<group>"; };
 		C509F7461C5E3C4800E6BFF0 /* FlashModeControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashModeControl.swift; sourceTree = "<group>"; };
-		C50B5EBB1C7F229900435E3F /* DrawingCanvas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingCanvas.swift; sourceTree = "<group>"; };
-		C50B5EBD1C7F236100435E3F /* DrawingSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingSession.swift; sourceTree = "<group>"; };
-		C50B5EBF1C7F2A9400435E3F /* ColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		C50B5EC11C7F2F0D00435E3F /* DrawingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingViewController.swift; sourceTree = "<group>"; };
 		C510BF6C1BCF93C0008223A3 /* UIDevice+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Ext.swift"; sourceTree = "<group>"; };
 		C5122D481BD7D2A40096C742 /* UIFont+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Ext.swift"; sourceTree = "<group>"; };
@@ -651,6 +647,11 @@
 		C57CB2A51BAAE4F60050FBF7 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C57CB2A71BAAE5040050FBF7 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		C57E1CC91B98930900E2303B /* StreamView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamView.swift; sourceTree = "<group>"; };
+		C57EB1461CCE0EE600329080 /* StickersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickersView.swift; sourceTree = "<group>"; };
+		C57EB1471CCE0EE600329080 /* ColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
+		C57EB1481CCE0EE600329080 /* DrawingSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingSession.swift; sourceTree = "<group>"; };
+		C57EB1491CCE0EE600329080 /* DrawingCanvas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingCanvas.swift; sourceTree = "<group>"; };
+		C57EB14A1CCE0EE600329080 /* UIBezierPath+Interpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Interpolation.swift"; sourceTree = "<group>"; };
 		C57F7AEC1C1ECD5F00FFB465 /* test-users.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "test-users.plist"; sourceTree = "<group>"; };
 		C57F7AED1C1ECD5F00FFB465 /* violations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = violations.plist; sourceTree = "<group>"; };
 		C57F7AEE1C1ECD5F00FFB465 /* country-codes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "country-codes.json"; sourceTree = "<group>"; };
@@ -770,7 +771,6 @@
 		C5FAC9011BE2B35F0060FEDB /* NSUserDefaults+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+Ext.swift"; sourceTree = "<group>"; };
 		C5FBAD251C7F9E9500D64969 /* ImageEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditor.swift; sourceTree = "<group>"; };
 		C5FBAD271C7FA12300D64969 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C5FEEEFE1C7E0B02007B6A79 /* UIBezierPath+Interpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Interpolation.swift"; sourceTree = "<group>"; };
 		D2F89869A3934855EF0732E8 /* Pods-meWrap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meWrap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-meWrap/Pods-meWrap.debug.xcconfig"; sourceTree = "<group>"; };
 		D3DABF4C8ED59AC478737410 /* Pods-meWrap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meWrap.release.xcconfig"; path = "Pods/Target Support Files/Pods-meWrap/Pods-meWrap.release.xcconfig"; sourceTree = "<group>"; };
 		FB55C16CD2E21F54394A9DD0 /* Pods-meWrap.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meWrap.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-meWrap/Pods-meWrap.adhoc.xcconfig"; sourceTree = "<group>"; };
@@ -1040,9 +1040,7 @@
 				C5F5F0BF1C690BD6002F74C9 /* LoadingView.swift */,
 				C5F7C5E71C78CA31004C2E68 /* PlaceholderView.swift */,
 				C5564CF61C7B50EB0075703A /* InfoToast.swift */,
-				5B2784FE1CB681B400296CAB /* StickersView.swift */,
 				5BB67E881CAAB37200A19DA8 /* EntryToast.swift */,
-				C5978BE31B396FA500D5043E /* DrawingSession */,
 				5BD121571B0250E000FF5FBF /* DownloadingView */,
 				C52E1FC71A41947D00A2C370 /* Text Views */,
 				12E8FF1C18E9883700BF1B96 /* ComposeBar */,
@@ -1444,17 +1442,6 @@
 			path = Frameworks/MBL;
 			sourceTree = "<group>";
 		};
-		C5978BE31B396FA500D5043E /* DrawingSession */ = {
-			isa = PBXGroup;
-			children = (
-				C50B5EBB1C7F229900435E3F /* DrawingCanvas.swift */,
-				C50B5EBD1C7F236100435E3F /* DrawingSession.swift */,
-				C50B5EBF1C7F2A9400435E3F /* ColorPicker.swift */,
-				C5FEEEFE1C7E0B02007B6A79 /* UIBezierPath+Interpolation.swift */,
-			);
-			path = DrawingSession;
-			sourceTree = "<group>";
-		};
 		C5A278C41B9598DF00D5C969 /* Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -1470,6 +1457,11 @@
 		C5B8F7161B8215FE00A5E541 /* DrawingViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C57EB1461CCE0EE600329080 /* StickersView.swift */,
+				C57EB1471CCE0EE600329080 /* ColorPicker.swift */,
+				C57EB1481CCE0EE600329080 /* DrawingSession.swift */,
+				C57EB1491CCE0EE600329080 /* DrawingCanvas.swift */,
+				C57EB14A1CCE0EE600329080 /* UIBezierPath+Interpolation.swift */,
 				C50B5EC11C7F2F0D00435E3F /* DrawingViewController.swift */,
 				C5B8F71E1B82172D00A5E541 /* DrawingViewController.xib */,
 			);
@@ -2033,7 +2025,6 @@
 				C5E7AB781BCD3A79007E314B /* UIScrollView+Ext.swift in Sources */,
 				C54CEF9D1BCFB09100128CBE /* UIViewController+Ext.swift in Sources */,
 				C53012911BF4E3EA00098F9C /* EmojiView.swift in Sources */,
-				C50B5EBC1C7F229900435E3F /* DrawingCanvas.swift in Sources */,
 				C53644681C6213920002232C /* SwipeViewController.swift in Sources */,
 				C54743441C09CD8A00BECB25 /* ImageFetcher.swift in Sources */,
 				5BCC41911C4E40FC0047E7C2 /* WrapSettingsViewController.swift in Sources */,
@@ -2066,8 +2057,8 @@
 				C51B82C41C1850C20054726A /* GenericCollections+Ext.swift in Sources */,
 				C5EE45A41C01C4A2008DE8D6 /* UIImage+Ext.swift in Sources */,
 				5B37C75E1C5A06E30068E693 /* Button.swift in Sources */,
+				C57EB14B1CCE0EE600329080 /* StickersView.swift in Sources */,
 				C522795E1BECCA6B00B1C49C /* Dictionary+Ext.swift in Sources */,
-				C50B5EC01C7F2A9400435E3F /* ColorPicker.swift in Sources */,
 				C502B3181C47F2EC00F66EAE /* PubNub+Ext.swift in Sources */,
 				C54C42531BDE77BB003E644D /* ExtensionRequest.swift in Sources */,
 				C502B31A1C47F2EC00F66EAE /* WrapNotification.swift in Sources */,
@@ -2081,6 +2072,7 @@
 				C5FBAD281C7FA12300D64969 /* AppDelegate.swift in Sources */,
 				C5053E821BC7F7280040613A /* ReportViewController.swift in Sources */,
 				5BA83EEC1C6B4E3400FC5A9F /* AddContributorsViewController.swift in Sources */,
+				C57EB14C1CCE0EE600329080 /* ColorPicker.swift in Sources */,
 				C5C991131B9845CF0006F534 /* StreamMetrics.swift in Sources */,
 				C5DA2FD41C2C0B0500038352 /* AddressBookGroupView.swift in Sources */,
 				C51B4BE81C3AA2D6009F1566 /* WelcomeViewController.swift in Sources */,
@@ -2091,9 +2083,9 @@
 				C5F11E531C64A21C001C2486 /* CountriesViewController.swift in Sources */,
 				5B40D6B21C2EBB1C009EF38C /* UploadWizardViewController.swift in Sources */,
 				C55871101C4910B500F09E58 /* DownloadingView.swift in Sources */,
+				C57EB14E1CCE0EE600329080 /* DrawingCanvas.swift in Sources */,
 				C553DB411C6DF7BA001B13C7 /* CandyCell.swift in Sources */,
 				5B2C97CB1C46610E00FAED6A /* VolumeChangeObserver.swift in Sources */,
-				C50B5EBE1C7F236100435E3F /* DrawingSession.swift in Sources */,
 				C53BC48E1C05FE620009B0B9 /* SegmentedControl.swift in Sources */,
 				C5E092D61C6CED2600510AA1 /* AddressBookRecordCell.swift in Sources */,
 				C51A06B01C778E9400719826 /* ContributorCell.swift in Sources */,
@@ -2105,6 +2097,7 @@
 				C553DB421C6DF7BA001B13C7 /* MediaViewController.swift in Sources */,
 				C5F11E581C64A21C001C2486 /* LinkDeviceViewController.swift in Sources */,
 				C5F11E511C64A21C001C2486 /* EmailViewController.swift in Sources */,
+				C57EB14D1CCE0EE600329080 /* DrawingSession.swift in Sources */,
 				C55766A51C0C913D00E94E09 /* ImageView.swift in Sources */,
 				C54CEF971BCFA86C00128CBE /* NSBundle+Ext.swift in Sources */,
 				C5BD85421C2E999800EE5558 /* UploadingView.swift in Sources */,
@@ -2128,7 +2121,6 @@
 				C5F44FF41C5CBC680049215D /* WrapPickerViewController.swift in Sources */,
 				C525005A1C1F1FCB00CF8F9D /* FollowingViewController.swift in Sources */,
 				C523D8CE1BD775AC006FE7AB /* Country.swift in Sources */,
-				5B2784FF1CB681B500296CAB /* StickersView.swift in Sources */,
 				C5326F0C1C159279007A8BEF /* RunQueue.swift in Sources */,
 				C5F4E70F1C07687A00D2FC16 /* UIColor+Ext.swift in Sources */,
 				C557B6DB1C22C0B00067631E /* SoundPlayer.swift in Sources */,
@@ -2156,6 +2148,7 @@
 				C52279661BECCE8A00B1C49C /* NSDate+Formatting.swift in Sources */,
 				C552A8321BFDD37B00A7FFAD /* FlowerMenu.swift in Sources */,
 				C5F44FED1C5CB9780049215D /* UploadSummaryViewController.swift in Sources */,
+				C57EB14F1CCE0EE600329080 /* UIBezierPath+Interpolation.swift in Sources */,
 				C54743421C09CD8A00BECB25 /* ImageCache.swift in Sources */,
 				C5E6F02E1BFF710900FA3D4F /* FontPresetter.swift in Sources */,
 				C557B6DE1C22F5980067631E /* Logger.swift in Sources */,
@@ -2164,7 +2157,6 @@
 				C535D69B1C045B56002BCE34 /* WrapCoverView.swift in Sources */,
 				C5EAE4CB1C18335900DA19C9 /* Chat.swift in Sources */,
 				C5E6DD8C1C0DC84A004992E4 /* Contribution.swift in Sources */,
-				C5FEEEFF1C7E0B02007B6A79 /* UIBezierPath+Interpolation.swift in Sources */,
 				C5F9A49E1C4B8A1700A7D83B /* CaptureMediaViewController.swift in Sources */,
 				5BB67E891CAAB37200A19DA8 /* EntryToast.swift in Sources */,
 				C5E6DD941C0DC84A004992E4 /* Notifier.swift in Sources */,

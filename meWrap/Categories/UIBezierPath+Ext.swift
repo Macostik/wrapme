@@ -12,6 +12,14 @@ func ^(lhs: CGFloat, rhs: CGFloat) -> CGPoint {
     return CGPoint(x: lhs, y: rhs)
 }
 
+func ^(lhs: CGFloat, rhs: CGFloat) -> CGSize {
+    return CGSize(width: lhs, height: rhs)
+}
+
+func ^(lhs: CGPoint, rhs: CGSize) -> CGRect {
+    return CGRect(origin: lhs, size: rhs)
+}
+
 extension UIBezierPath {
     
     func move(point: CGPoint) -> Self {

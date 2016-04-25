@@ -23,6 +23,7 @@ class DrawingViewController: BaseViewController {
     @IBOutlet weak var colorsView: ColorPicker!
     @IBOutlet var panGesture: UIPanGestureRecognizer!
     @IBOutlet var tapGesture: UITapGestureRecognizer!
+    @IBOutlet weak var topView: UIView!
     
     class func draw(image: UIImage, wrap: Wrap?, finish: UIImage -> Void) -> DrawingViewController {
         let presentingViewController = UIWindow.mainWindow.rootViewController
@@ -52,7 +53,7 @@ class DrawingViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        colorsView.setup()
         colorsView.pickedColor = { [weak self] color in
             self?.session.brush.color = color
         }
@@ -107,16 +108,21 @@ class DrawingViewController: BaseViewController {
         didFinish?(image)
     }
     
+    private func setControlsHidden(hidden: Bool) {
+        colorsView.hidden = hidden
+        topView.hidden = hidden
+        tapGesture.enabled = !hidden
+        panGesture.enabled = !hidden
+        canvas.userInteractionEnabled = hidden
+    }
+    
     @IBAction func stickers(sender: UIButton) {
         StickersView.show(view, canvas: canvas, close: { [weak self] sticker in
             sender.hidden = false
             self?.didFinishWithSticker(sticker)
             })
         sender.hidden = true
-        colorsView.hidden = true
-        tapGesture.enabled = false
-        panGesture.enabled = false
-        canvas.userInteractionEnabled = true
+        setControlsHidden(true)
     }
     
     private func didFinishWithSticker(sticker: Sticker?) {
@@ -125,10 +131,7 @@ class DrawingViewController: BaseViewController {
             canvas.render()
             undoButton.hidden = session.empty
         }
-        colorsView.hidden = false
-        tapGesture.enabled = true
-        panGesture.enabled = true
-        canvas.userInteractionEnabled = false
+        setControlsHidden(false)
     }
 }
 

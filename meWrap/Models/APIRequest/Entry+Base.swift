@@ -161,11 +161,9 @@ extension Candy {
                 return
             }
             if mediaType == .Video {
-                
                 if url.isExistingFilePath {
                     PHPhotoLibrary.addVideoAtFileUrl(url.fileURL!, success: success, failure: failure)
                 } else {
-                    
                     let task = NSURLSession.sharedSession().downloadTaskWithURL(url.URL!, completionHandler: { (location, response, error) -> Void in
                         if let error = error {
                             Dispatch.mainQueue.async({ failure?(error) })

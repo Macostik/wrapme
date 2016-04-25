@@ -211,6 +211,7 @@
 "slide_to_chat" = "Slide to chat";
 "unread_messages" = "UNREAD MESSAGES";
 "downloading_photo_for_editing" = "Downloading the photo for editing...";
+"downloading_photo_for_sharing" = "Downloading the photo for sharing...";
 "invitation_tip" = "Add friends.\nChip in photos.\nStay connected.";
 "got_it" = "Got it";
 "swipe_actions_tip" = "Opening camera & chat just got easier.";

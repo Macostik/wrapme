@@ -736,26 +736,11 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     @IBAction func share(sender: Button) {
-        sender.loading = true
-        let completion: ObjectBlock = {[weak self]  item in
-            let activityVC = UIActivityViewController(activityItems: [item!], applicationActivities: nil)
+        candy?.shareCandy({ [weak self]  item in
+            guard let item = item else { return }
+            let activityVC = UIActivityViewController(activityItems: [item], applicationActivities: nil)
             self?.presentViewController(activityVC, animated: true, completion: nil)
-            sender.loading = false
-        }
-        if candy?.isVideo == true {
-            Dispatch.mainQueue.async({
-                let urlData = NSData(contentsOfURL: NSURL(string: self.candy?.asset?.original ?? "") ?? NSURL())
-                let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-                let filePath = "\(path)/tmpVideo.mov"
-                urlData?.writeToFile(filePath, atomically: true)
-                let videoLink = NSURL(fileURLWithPath: filePath)
-                completion(videoLink)
-            })
-        } else {
-            BlockImageFetching.enqueue(self.candy?.asset?.original ?? "", success: { (image) -> Void in
-                completion(image)
-                }, failure: nil)
-        }
+        })
     }
     
     @IBAction func comments(sender: AnyObject) {
@@ -766,6 +751,16 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         if let videoViewConroller = viewController as? VideoCandyViewController {
             volumeButton.selected = !volumeButton.selected
             videoViewConroller.playerView.player.muted = !volumeButton.selected
+        }
+    }
+}
+
+extension Candy {
+    func shareCandy(success: ObjectBlock, failure: FailureBlock? = nil) {
+        if isVideo == true {
+            DownloadingView.downloadCandyToURL(self, success: success, failure: failure)
+        } else {
+            BlockImageFetching.enqueue(asset?.original ?? "", success: success, failure: failure)
         }
     }
 }

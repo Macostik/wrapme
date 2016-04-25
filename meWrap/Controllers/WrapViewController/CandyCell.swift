@@ -87,6 +87,15 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
                 }, failure: { $0?.show() })
         })
         
+        menu.addShareAction({
+            candy.shareCandy({ item in
+                guard let item = item else { return }
+                let activityVC = UIActivityViewController(activityItems: [item], applicationActivities: nil)
+                guard let viewController = UINavigationController.main() else { return }
+                viewController.presentViewController(activityVC, animated: true, completion: nil)
+            })
+        })
+        
         if candy.deletable {
             menu.addDeleteAction({ [weak self] in
                 UIAlertController.confirmCandyDeleting(candy, success: { (_) -> Void in

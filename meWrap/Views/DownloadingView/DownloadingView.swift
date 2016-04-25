@@ -39,6 +39,14 @@ class DownloadingView: UIView {
         }
     }
     
+    class func downloadCandyToURL(candy: Candy?, success: NSURL -> Void, failure: FailureBlock?) {
+        if let candy = candy {
+            let view: DownloadingView! = loadFromNib("DownloadingView")
+            view.downloadingMediaLabel.text = "downloading_photo_for_sharing".ls
+            view.downloadCandyToURL(candy, success: success, failure: failure)
+        }
+    }
+    
     private class func cachedImage(url: String) -> UIImage? {
         let uid = ImageCache.uidFromURL(url)
         if ImageCache.defaultCache.contains(uid) {
@@ -56,6 +64,17 @@ class DownloadingView: UIView {
     }
     
     private func downloadCandy(candy: Candy, success: UIImage -> Void, failure: FailureBlock?) {
+        setup(candy)
+        download(success, failure:failure)
+    }
+    
+    private func downloadCandyToURL(candy: Candy, success: NSURL -> Void, failure: FailureBlock?) {
+        setup(candy)
+        downloadToURL(success, failure: failure)
+    }
+
+    
+    private func setup(candy: Candy) {
         Candy.notifier().addReceiver(self)
         let view = UIWindow.mainWindow
         frame = view.frame
@@ -67,7 +86,6 @@ class DownloadingView: UIView {
         UIView.animateWithDuration(0.5) {
             self.alpha = 1.0
         }
-        download(success, failure:failure)
     }
     
     @IBAction func cancel(sender: AnyObject) {
@@ -95,7 +113,9 @@ class DownloadingView: UIView {
         }
         let uid = ImageCache.uidFromURL(url)
         task = Alamofire.request(.GET, url).progress({ [weak self] (_, sent, total) in
-            self?.progressBar.setProgress(CGFloat(sent / total), animated: true)
+            Dispatch.mainQueue.async({
+                self?.progressBar.setProgress(CGFloat(sent / total), animated: true)
+            })
         }).responseData(completionHandler: { [weak self] response in
             if let data = response.data, let image = UIImage(data: data) {
                 ImageCache.defaultCache.setImageData(data, uid: uid)
@@ -106,6 +126,28 @@ class DownloadingView: UIView {
             }
             self?.dismiss()
         })
+    }
+    
+    private func downloadToURL(succes: NSURL -> Void, failure: FailureBlock?) {
+        guard let url = candy?.asset?.original else {
+            failure?(nil)
+            return
+        }
+        let destination = Alamofire.Request.suggestedDownloadDestination(directory: .DocumentDirectory, domain: .UserDomainMask)
+        task = Alamofire.download(.GET, url, destination: destination)
+            .progress { [weak self] (_, sent, total) in
+                Dispatch.mainQueue.async({
+                    self?.progressBar.setProgress(CGFloat(sent / total), animated: true)
+                })
+            }.response { [weak self] (request, response, data, error) in
+                if error == true {
+                    failure?(error)
+                } else if let url = request?.URL, let response = response {
+                    let destination = destination(url, response)
+                    succes(destination)
+                }
+                self?.dismiss()
+        }
     }
 }
 

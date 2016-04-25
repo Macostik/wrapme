@@ -168,4 +168,8 @@ extension UIButton {
         setAlpha(active ? 1.0 : 0.5, animated: animated)
         userInteractionEnabled = active
     }
+    
+    func addTarget(target: AnyObject?, touchUpInside: Selector) {
+        addTarget(target, action: touchUpInside, forControlEvents: .TouchUpInside)
+    }
 }

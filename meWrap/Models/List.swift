@@ -61,6 +61,7 @@ class List<T: Equatable>: Notifier {
     func remove(entry: T) {
         if let index = entries.indexOf(entry) {
             entries.removeAtIndex(index)
+            didChange()
         }
     }
     

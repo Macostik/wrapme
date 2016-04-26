@@ -144,7 +144,12 @@ class CommentsViewController: BaseViewController {
         
         if candy.uploaded {
             candy.fetch({ [weak self] _ in
-                self?.dataSource.items = candy.sortedComments()
+                let comments = candy.sortedComments()
+                let autoScroll = self?.dataSource.items?.count != comments.count
+                self?.dataSource.items = comments
+                if autoScroll {
+                    self?.streamView.setMaximumContentOffsetAnimated(false)
+                }
                 }, failure: { [weak self] (error) -> Void in
                     self?.dataSource.reload()
                     error?.showNonNetworkError()

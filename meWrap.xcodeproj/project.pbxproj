@@ -234,7 +234,7 @@
 		C57CB2AA1BAAE5140050FBF7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB2A51BAAE4F60050FBF7 /* libz.tbd */; };
 		C57CB2AB1BAAE51E0050FBF7 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB2A71BAAE5040050FBF7 /* libsqlite3.0.tbd */; };
 		C57E1CCB1B98930900E2303B /* StreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57E1CC91B98930900E2303B /* StreamView.swift */; };
-		C57EB14B1CCE0EE600329080 /* StickersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57EB1461CCE0EE600329080 /* StickersView.swift */; };
+		C57EB14B1CCE0EE600329080 /* TextOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57EB1461CCE0EE600329080 /* TextOverlayView.swift */; };
 		C57EB14C1CCE0EE600329080 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57EB1471CCE0EE600329080 /* ColorPicker.swift */; };
 		C57EB14D1CCE0EE600329080 /* DrawingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57EB1481CCE0EE600329080 /* DrawingSession.swift */; };
 		C57EB14E1CCE0EE600329080 /* DrawingCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57EB1491CCE0EE600329080 /* DrawingCanvas.swift */; };
@@ -647,7 +647,7 @@
 		C57CB2A51BAAE4F60050FBF7 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C57CB2A71BAAE5040050FBF7 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		C57E1CC91B98930900E2303B /* StreamView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamView.swift; sourceTree = "<group>"; };
-		C57EB1461CCE0EE600329080 /* StickersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickersView.swift; sourceTree = "<group>"; };
+		C57EB1461CCE0EE600329080 /* TextOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextOverlayView.swift; sourceTree = "<group>"; };
 		C57EB1471CCE0EE600329080 /* ColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		C57EB1481CCE0EE600329080 /* DrawingSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingSession.swift; sourceTree = "<group>"; };
 		C57EB1491CCE0EE600329080 /* DrawingCanvas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingCanvas.swift; sourceTree = "<group>"; };
@@ -1455,7 +1455,7 @@
 		C5B8F7161B8215FE00A5E541 /* DrawingViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C57EB1461CCE0EE600329080 /* StickersView.swift */,
+				C57EB1461CCE0EE600329080 /* TextOverlayView.swift */,
 				C57EB1471CCE0EE600329080 /* ColorPicker.swift */,
 				C57EB1481CCE0EE600329080 /* DrawingSession.swift */,
 				C57EB1491CCE0EE600329080 /* DrawingCanvas.swift */,
@@ -2055,7 +2055,7 @@
 				C51B82C41C1850C20054726A /* GenericCollections+Ext.swift in Sources */,
 				C5EE45A41C01C4A2008DE8D6 /* UIImage+Ext.swift in Sources */,
 				5B37C75E1C5A06E30068E693 /* Button.swift in Sources */,
-				C57EB14B1CCE0EE600329080 /* StickersView.swift in Sources */,
+				C57EB14B1CCE0EE600329080 /* TextOverlayView.swift in Sources */,
 				C522795E1BECCA6B00B1C49C /* Dictionary+Ext.swift in Sources */,
 				C502B3181C47F2EC00F66EAE /* PubNub+Ext.swift in Sources */,
 				C54C42531BDE77BB003E644D /* ExtensionRequest.swift in Sources */,

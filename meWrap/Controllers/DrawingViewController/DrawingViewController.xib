@@ -8,6 +8,7 @@
         <mutableArray key="icons.ttf">
             <string>icons</string>
             <string>icons</string>
+            <string>icons</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -17,7 +18,9 @@
                 <outlet property="colorsView" destination="2pR-aL-LXT" id="Knd-MN-GWD"/>
                 <outlet property="imageView" destination="sXP-dm-KOf" id="Hhe-yD-JoT"/>
                 <outlet property="panGesture" destination="eSh-Wl-2Ih" id="jlh-WF-QdN"/>
+                <outlet property="stickersButton" destination="Uyx-sl-NTt" id="fhT-TG-BJj"/>
                 <outlet property="tapGesture" destination="7td-Ni-oZS" id="7Gf-e4-Zbc"/>
+                <outlet property="textButton" destination="6Nl-Ef-hbB" id="CaB-Tr-fgg"/>
                 <outlet property="topView" destination="v6X-sF-IKi" id="uzr-tM-PHt"/>
                 <outlet property="undoButton" destination="CwX-d0-aSX" id="EfX-hH-nie"/>
                 <outlet property="view" destination="iN0-l3-epB" id="QYb-53-tqt"/>
@@ -45,7 +48,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                             <subviews>
                                 <button opaque="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2yQ-8T-8Wo" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                    <rect key="frame" x="10" y="10" width="32" height="45"/>
+                                    <rect key="frame" x="10" y="14" width="30" height="37"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                     <state key="normal" title="w">
@@ -158,6 +161,24 @@
                         <action selector="stickers:" destination="-1" eventType="touchUpInside" id="YAl-vS-NKf"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Nl-Ef-hbB" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                    <rect key="frame" x="263" y="567" width="44" height="44"/>
+                    <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="HkE-6F-llh"/>
+                        <constraint firstAttribute="height" constant="44" id="Ue4-LZ-0QU"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="26"/>
+                    <state key="normal" title="&lt;">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="text:" destination="-1" eventType="touchUpInside" id="Csm-Nr-Qnp"/>
+                    </connections>
+                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2pR-aL-LXT" customClass="ColorPicker" customModule="meWrap" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -173,8 +194,10 @@
                 <constraint firstAttribute="bottom" secondItem="ieX-bU-Fjh" secondAttribute="bottom" id="JQi-PP-U5O"/>
                 <constraint firstItem="2pR-aL-LXT" firstAttribute="top" secondItem="Uyx-sl-NTt" secondAttribute="bottom" constant="12" id="UJn-E8-D7G"/>
                 <constraint firstAttribute="trailing" secondItem="ieX-bU-Fjh" secondAttribute="trailing" id="WuR-Bf-tuN"/>
+                <constraint firstItem="2pR-aL-LXT" firstAttribute="top" secondItem="6Nl-Ef-hbB" secondAttribute="bottom" constant="12" id="ZAp-FW-3PG"/>
                 <constraint firstItem="ieX-bU-Fjh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="cVA-FL-THg"/>
                 <constraint firstAttribute="bottom" secondItem="2pR-aL-LXT" secondAttribute="bottom" id="jwE-b2-YrS"/>
+                <constraint firstItem="Uyx-sl-NTt" firstAttribute="leading" secondItem="6Nl-Ef-hbB" secondAttribute="trailing" constant="12" id="s2U-70-SGs"/>
                 <constraint firstItem="2pR-aL-LXT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="vQw-fn-Q2Y"/>
                 <constraint firstAttribute="trailing" secondItem="2pR-aL-LXT" secondAttribute="trailing" id="xSU-rk-NY7"/>
             </constraints>

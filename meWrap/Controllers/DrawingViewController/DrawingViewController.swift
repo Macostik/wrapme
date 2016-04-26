@@ -25,6 +25,9 @@ class DrawingViewController: BaseViewController {
     @IBOutlet var tapGesture: UITapGestureRecognizer!
     @IBOutlet weak var topView: UIView!
     
+    @IBOutlet weak var textButton: Button!
+    @IBOutlet weak var stickersButton: Button!
+    
     class func draw(image: UIImage, wrap: Wrap?, finish: UIImage -> Void) -> DrawingViewController {
         let presentingViewController = UIWindow.mainWindow.rootViewController
         let drawingViewController = DrawingViewController()
@@ -109,6 +112,8 @@ class DrawingViewController: BaseViewController {
     }
     
     private func setControlsHidden(hidden: Bool) {
+        textButton.hidden = hidden
+        stickersButton.hidden = hidden
         colorsView.hidden = hidden
         topView.hidden = hidden
         tapGesture.enabled = !hidden
@@ -117,17 +122,23 @@ class DrawingViewController: BaseViewController {
     }
     
     @IBAction func stickers(sender: UIButton) {
-        StickersView.show(view, canvas: canvas, close: { [weak self] sticker in
-            sender.hidden = false
-            self?.didFinishWithSticker(sticker)
+        TextOverlayView.show(view, canvas: canvas, close: { [weak self] sticker in
+            self?.didFinishWithOverlay(sticker)
             })
-        sender.hidden = true
         setControlsHidden(true)
     }
     
-    private func didFinishWithSticker(sticker: Sticker?) {
-        if let sticker = sticker {
-            session.drawings.append(sticker)
+    @IBAction func text(sender: UIButton) {
+        let overlayView = TextOverlayView.show(view, canvas: canvas, type: .Text, close: { [weak self] overlay in
+            self?.didFinishWithOverlay(overlay)
+            })
+        setControlsHidden(true)
+        overlayView.transformView.textView.textColor = session.brush.color
+    }
+    
+    private func didFinishWithOverlay(overlay: TextOverlay?) {
+        if let overlay = overlay {
+            session.drawings.append(overlay)
             canvas.render()
             undoButton.hidden = session.empty
         }

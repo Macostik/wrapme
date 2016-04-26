@@ -9,6 +9,32 @@
 import Foundation
 import SnapKit
 
+func ^(lhs: CGPoint, rhs: CGPoint) -> CGLine {
+    return CGLine(start: lhs, end: rhs)
+}
+
+struct CGLine {
+    
+    let start: CGPoint
+    let end: CGPoint
+    
+    var vertical: Bool { return start.x == end.x }
+    
+    func slope() -> CGFloat {
+        return (start.y - end.y) / (start.x - end.x)
+    }
+    
+    func angleBetween(line: CGLine) -> CGFloat {
+        let slope1 = slope()
+        let slope2 = line.slope()
+        return atan((slope1 - slope2)/(1 + slope1 * slope2))
+    }
+    
+    func distance() -> CGFloat {
+        return start.distanceFrom(end)
+    }
+}
+
 extension CGPoint {
     
     func distanceFrom(point: CGPoint) -> CGFloat {
@@ -62,13 +88,11 @@ class StickersView: UIView {
         
         let panningGesture = UIPanGestureRecognizer(target: self, action: #selector(self.panning(_:)))
         panningGesture.minimumNumberOfTouches = 1
-        panningGesture.maximumNumberOfTouches = 1
         transformView.addGestureRecognizer(panningGesture)
         panningGesture.requireGestureRecognizerToFail(rotatingGesture)
         
-        let multiplePanningGesture = UIPanGestureRecognizer(target: self, action: #selector(self.multiplePanRotating(_:)))
+        let multiplePanningGesture = UIPanGestureRecognizer(target: self, action: #selector(self.multiplePanning(_:)))
         multiplePanningGesture.minimumNumberOfTouches = 2
-        multiplePanningGesture.maximumNumberOfTouches = 2
         transformView.addGestureRecognizer(multiplePanningGesture)
         
         emojiView = FullScreenEmojiView.show(selectedBlock: { [weak self] emoji in
@@ -98,16 +122,43 @@ class StickersView: UIView {
         
         let angle = p1.angle(p2, center: center)
         
-        let transform = CGAffineTransformRotate(transformView.transform, angle)
-        transformView.transform = transform
-        sender.setTranslation(CGPoint.zero, inView: transformView)
+        transformView.transform = CGAffineTransformRotate(transformView.transform, angle)
         
         transformView.fontSize += d1 - d2
     }
     
-    func multiplePanRotating(sender: UIPanGestureRecognizer) {
+    private var previousLine: CGLine?
+    
+    func multiplePanning(sender: UIPanGestureRecognizer) {
         
-        
+        if sender.state == .Ended || sender.state == .Cancelled {
+            previousLine = nil
+        } else {
+            guard sender.numberOfTouches() > 1 else { return }
+            let p1 = sender.locationOfTouch(0, inView: contentView)
+            let p2 = sender.locationOfTouch(1, inView: contentView)
+            let line: CGLine = p1 ^ p2
+            if let previousLine = previousLine where !previousLine.vertical && !line.vertical {
+                
+                var transform = transformView.transform
+                
+                let angle = line.angleBetween(previousLine)
+                transform = CGAffineTransformRotate(transform, angle)
+                
+                let translation = sender.translationInView(transformView)
+                transform = CGAffineTransformTranslate(transform, translation.x, translation.y)
+                sender.setTranslation(CGPoint.zero, inView: transformView)
+                
+                transformView.transform = transform
+                
+                let distance1 = previousLine.distance()
+                let distance2 = line.distance()
+                transformView.fontSize *= distance2/distance1
+                self.previousLine = line
+            } else {
+                previousLine = line
+            }
+        }
     }
     
     func emojiSelected(emoji: String) {

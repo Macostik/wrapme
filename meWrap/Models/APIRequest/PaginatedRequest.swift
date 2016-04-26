@@ -37,7 +37,6 @@ final class PaginatedRequest<ResponseType>: APIRequest<ResponseType> {
                 case .Newer:
                     request["offset_x_in_epoch"] = request.newer?.timestamp
                 case .Older:
-                    request["offset_x_in_epoch"] = request.newer?.timestamp
                     request["offset_y_in_epoch"] = request.older?.timestamp
                 default: break
                 }

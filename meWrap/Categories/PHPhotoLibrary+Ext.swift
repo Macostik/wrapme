@@ -77,6 +77,18 @@ extension PHPhotoLibrary {
             })
         }
     }
+    
+    class func containApplicationAlbumAsset(asset: PHAsset) -> Bool {
+        let resultAssetCollection = PHAssetCollection.fetchAssetCollectionsContainingAsset(asset, withType: .Album, options: nil)
+        var isContain = false
+        resultAssetCollection.enumerateObjectsUsingBlock { album, _, stop in
+            if let album = album as? PHAssetCollection, let title = album.localizedTitle where title == Constants.albumName {
+                isContain = true
+                stop.initialize(true)
+            }
+        }
+        return isContain
+    }
 }
 
 extension PHAuthorizationStatus {

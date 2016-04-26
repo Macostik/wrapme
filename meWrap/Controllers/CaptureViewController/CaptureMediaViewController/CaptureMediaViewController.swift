@@ -110,7 +110,8 @@ class CaptureMediaViewController: CaptureViewController {
                 } else {
                     self?.cropAsset(asset, completion: { (croppedImage) -> Void in
                         if let image = croppedImage {
-                            mediaAsset.setImage(image, isDowngrading: false, completion: finish)
+                            let isDowngrading = PHPhotoLibrary.containApplicationAlbumAsset(asset) ?? false
+                            mediaAsset.setImage(image, isDowngrading: !isDowngrading, completion: finish)
                         } else {
                             finish()
                         }

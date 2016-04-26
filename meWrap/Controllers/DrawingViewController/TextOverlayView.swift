@@ -180,6 +180,7 @@ class TextOverlayView: UIView, KeyboardNotifying {
             transformView.textView.resignFirstResponder()
             transformView.textView.editable = false
             transformView.textView.selectable = false
+            transformView.textView.userInteractionEnabled = false
         }
     }
     
@@ -341,6 +342,7 @@ class TextEditableView: TransformView {
         if !textView.isFirstResponder() {
             textView.editable = true
             textView.selectable = true
+            textView.userInteractionEnabled = true
             textView.becomeFirstResponder()
         }
     }

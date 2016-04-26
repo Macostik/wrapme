@@ -27,6 +27,27 @@ class ImageEditor {
         
         dispatch_once(&token) {
             AdobeImageEditorCustomization.setSupportedIpadOrientations([UIInterfaceOrientation.Portrait.rawValue, UIInterfaceOrientation.PortraitUpsideDown.rawValue, UIInterfaceOrientation.LandscapeLeft.rawValue, UIInterfaceOrientation.PortraitUpsideDown.rawValue, UIInterfaceOrientation.LandscapeRight.rawValue])
+            AdobeImageEditorCustomization.setToolOrder([
+                kAdobeImageEditorEnhance,
+                kAdobeImageEditorEffects,
+                kAdobeImageEditorStickers,
+                kAdobeImageEditorOrientation,
+                kAdobeImageEditorCrop,
+                kAdobeImageEditorColorAdjust,
+                kAdobeImageEditorLightingAdjust,
+                kAdobeImageEditorSharpness,
+                kAdobeImageEditorDraw,
+                kAdobeImageEditorText,
+                kAdobeImageEditorRedeye,
+                kAdobeImageEditorWhiten,
+                kAdobeImageEditorBlemish,
+                kAdobeImageEditorBlur,
+                kAdobeImageEditorMeme,
+                kAdobeImageEditorFrames,
+                kAdobeImageEditorFocus,
+                kAdobeImageEditorSplash,
+                kAdobeImageEditorVignette
+                ])
             AdobeUXAuthManager.sharedManager().setAuthenticationParametersWithClientID("a7929bf566694d579acb507eae697db1", withClientSecret: "b6fa1e1c-4f8c-4001-88a9-0251a099f890")
         }
         let controller = AdobeUXImageEditorViewController(image:image)

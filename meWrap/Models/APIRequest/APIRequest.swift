@@ -92,7 +92,7 @@ class APIRequest<ResponseType> {
     
     var failureValidator: ((APIRequest, NSError?) -> Bool)?
     
-    private func createRequest(responseJSON: Alamofire.Response<AnyObject, NSError> -> Void, failure: FailureBlock) {
+    private func createRequest(success: Request -> Void, failure: FailureBlock) {
         let url = Environment.current.endpoint + "/" + path
         if let file = file where file.isExistingFilePath {
             let fileURL = NSURL(fileURLWithPath: file)
@@ -114,14 +114,13 @@ class APIRequest<ResponseType> {
                 encodingCompletion: { encodingResult in
                     switch encodingResult {
                     case .Success(let request, _, _):
-                        request.responseJSON(completionHandler: responseJSON)
-                        self.task = request
+                        success(request)
                     case .Failure(let encodingError):
                         failure(encodingError as NSError)
                     }
             })
         } else {
-            task = API.manager.request(method, url, parameters: parameters, headers: API.headers).responseJSON(completionHandler: responseJSON)
+            success(API.manager.request(method, url, parameters: parameters, headers: API.headers))
         }
     }
     
@@ -131,58 +130,51 @@ class APIRequest<ResponseType> {
     var uploadProgress: (NSProgress -> Void)?
     var downloadProgress: (NSProgress -> Void)?
     
-    weak var task: Alamofire.Request?
-    
-    func send(success: (ResponseType -> Void)?, failure: FailureBlock? = nil) -> Request? {
+    func send(success: (ResponseType -> Void)?, failure: FailureBlock? = nil) {
         successBlock = success
         failureBlock = failure
-        return send()
+        send()
     }
     
-    func prepare() {
-        cancel()
+    func send() {
         parametrize()
+        enqueue()
     }
     
-    func send() -> Alamofire.Request? {
-        prepare()
-        return enqueue()
-    }
-    
-    func enqueue() -> Alamofire.Request? {
+    func enqueue() {
         
         path = pathBlock?() ?? ""
         
         Logger.log("API call \(self.method.rawValue) \(self.path): \(parameters)", color: .Yellow)
         
-        createRequest({ (response) -> Void in
-            switch response.result {
-            case .Success(let value):
-                let _response = Response(dictionary: value as! [String : AnyObject])
-                if _response.code == .Success {
-                    Logger.debugLog("RESPONSE - \(self.path): \(_response.data)", color: .Green)
-                    let parsedObject = self.parser?(_response)
-                    if let object = parsedObject {
-                        Logger.log("API response \(self.method.rawValue) \(self.path) Object(s) parsed and saved from the response: \(object)")
+        createRequest({ request in
+            request.validate(statusCode: 200..<300)
+            request.responseJSON { response in
+                switch response.result {
+                case .Success(let value):
+                    let _response = Response(dictionary: value as! [String : AnyObject])
+                    if _response.code == .Success {
+                        Logger.debugLog("RESPONSE - \(self.path): \(_response.data)", color: .Green)
+                        let parsedObject = self.parser?(_response)
+                        if let object = parsedObject {
+                            Logger.log("API response \(self.method.rawValue) \(self.path) persed: \(object)")
+                        }
+                        self.handleSuccess(parsedObject)
+                    } else {
+                        Logger.log("API internal error \(self.method.rawValue) \(self.path): \(_response.code.rawValue) - \(_response.message)", color: .Red)
+                        self.handleFailure(NSError(response: _response), response: response.response)
                     }
-                    self.handleSuccess(parsedObject)
-                } else {
-                    Logger.log("API internal error \(self.method.rawValue) \(self.path): \(_response.code.rawValue) - \(_response.message)", color: .Red)
-                    self.handleFailure(NSError(response: _response), response: response.response)
+                    trackServerTime(response.response)
+                case .Failure(let error):
+                    Logger.log("API error \(self.method.rawValue) \(self.path): \(error)", color: .Red)
+                    self.handleFailure(error, response: response.response)
                 }
-                trackServerTime(response.response)
-            case .Failure(let error):
-                Logger.log("API error \(self.method.rawValue) \(self.path): \(error)", color: .Red)
-                self.handleFailure(error, response: response.response)
             }
         }) { (error) -> Void in
             Logger.log("Encoding error \(self.method.rawValue) \(self.path): \(error)", color: .Red)
             self.handleFailure(error, response: nil)
         }
-        return self.task
     }
-    
-    func cancel() { task?.cancel() }
     
     func handleSuccess(object: ResponseType?) {
         if let object = object {

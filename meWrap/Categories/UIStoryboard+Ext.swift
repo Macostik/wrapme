@@ -45,10 +45,10 @@ struct Storyboard {
 
 extension UIStoryboard {
     
-    @nonobjc static var main = UIStoryboard(name: "Main", bundle: nil)
-    @nonobjc static var signUp = UIStoryboard(name: "SignUp", bundle: nil)
-    @nonobjc static var camera = UIStoryboard(name: "Camera", bundle: nil)
-    @nonobjc static var introduction = UIStoryboard(name: "Introduction", bundle: nil)
+    @nonobjc static let main = UIStoryboard(name: "Main", bundle: nil)
+    @nonobjc static let signUp = UIStoryboard(name: "SignUp", bundle: nil)
+    @nonobjc static let camera = UIStoryboard(name: "Camera", bundle: nil)
+    @nonobjc static let introduction = UIStoryboard(name: "Introduction", bundle: nil)
     
     func present(animated: Bool) {
         UINavigationController.main.viewControllers = [instantiateInitialViewController()!]
@@ -61,6 +61,7 @@ extension UIStoryboard {
 
 extension UIWindow {
     @nonobjc static let mainWindow = specify(UIWindow(frame: UIScreen.mainScreen().bounds)) {
+        UINavigationController.main.view.frame = $0.bounds
         $0.rootViewController = UINavigationController.main
     }
 }

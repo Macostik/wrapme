@@ -738,7 +738,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     @IBAction func share(sender: Button) {
         candy?.shareCandy({ [weak self]  item in
             guard let item = item else { return }
-            let activityVC = UIActivityViewController(activityItems: [item], applicationActivities: nil)
+            let sharingsSring = "TBD".ls
+            let activityVC = UIActivityViewController(activityItems: [item, sharingsSring], applicationActivities: nil)
             self?.presentViewController(activityVC, animated: true, completion: nil)
         })
     }

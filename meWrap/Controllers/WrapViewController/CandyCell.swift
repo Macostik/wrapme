@@ -90,7 +90,8 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
         menu.addShareAction({
             candy.shareCandy({ item in
                 guard let item = item else { return }
-                let activityVC = UIActivityViewController(activityItems: [item], applicationActivities: nil)
+                let sharingsSring = "TBD".ls
+                let activityVC = UIActivityViewController(activityItems: [item, sharingsSring], applicationActivities: nil)
                 guard let viewController = UINavigationController.main() else { return }
                 viewController.presentViewController(activityVC, animated: true, completion: nil)
             })

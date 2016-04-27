@@ -321,7 +321,7 @@ class TextEditableView: TransformView, UITextViewDelegate {
     private let placeholder = "enter_text_here".ls
     
     override func layout() {
-        let fontSize = UIFont.fontLarger().pointSize * 2
+        let fontSize = round(UIScreen.mainScreen().bounds.width * 0.12)
         textView.font = UIFont.systemFontOfSize(fontSize)
         minFontSize = 7
         textView.textColor = UIColor.whiteColor()

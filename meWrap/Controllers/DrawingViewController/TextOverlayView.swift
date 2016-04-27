@@ -313,12 +313,16 @@ class StickerView: TransformView {
     }
 }
 
-class TextEditableView: TransformView {
+class TextEditableView: TransformView, UITextViewDelegate {
+    
+    private let placeholder = "enter_text_here".ls
     
     override func layout() {
-        textView.font = UIFont.systemFontOfSize(30)
+        textView.font = UIFont.systemFontOfSize(50)
         minFontSize = 7
         textView.textColor = UIColor.whiteColor()
+        textView.text = placeholder
+        textView.delegate = self
         self.add(textView, {
             $0.edges.equalTo(self).inset(20)
             $0.width.greaterThanOrEqualTo(60)
@@ -335,6 +339,28 @@ class TextEditableView: TransformView {
         })
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.textFocus(_:)))
         addGestureRecognizer(tapGesture)
+    }
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if textView.text == placeholder {
+            if !text.isEmpty {
+                textView.text = text
+            }
+        } else {
+            let result = (textView.text as NSString).stringByReplacingCharactersInRange(range, withString: text)
+            if result.isEmpty {
+                textView.text = placeholder
+            } else {
+                textView.text = result
+            }
+        }
+        return false
+    }
+    
+    func textViewDidChangeSelection(textView: UITextView) {
+        if textView.text == placeholder {
+            textView.selectedRange = NSMakeRange(textView.text.characters.count, 0)
+        }
     }
     
     func textFocus(sender: UIPanGestureRecognizer) {

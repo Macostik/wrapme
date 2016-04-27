@@ -59,6 +59,7 @@ class DrawingViewController: BaseViewController {
         colorsView.setup()
         colorsView.pickedColor = { [weak self] color in
             self?.session.brush.color = color
+            self?.textOverlayView?.transformView.textView.textColor = color
         }
         
         if let image = image {
@@ -114,7 +115,6 @@ class DrawingViewController: BaseViewController {
     private func setControlsHidden(hidden: Bool) {
         textButton.hidden = hidden
         stickersButton.hidden = hidden
-        colorsView.hidden = hidden
         topView.hidden = hidden
         tapGesture.enabled = !hidden
         panGesture.enabled = !hidden
@@ -122,18 +122,22 @@ class DrawingViewController: BaseViewController {
     }
     
     @IBAction func stickers(sender: UIButton) {
-        TextOverlayView.show(view, canvas: canvas, close: { [weak self] sticker in
+        TextOverlayView.show(canvas.superview!, canvas: canvas, close: { [weak self] sticker in
             self?.didFinishWithOverlay(sticker)
             })
         setControlsHidden(true)
+        colorsView.hidden = true
     }
     
+    weak var textOverlayView: TextOverlayView?
+    
     @IBAction func text(sender: UIButton) {
-        let overlayView = TextOverlayView.show(view, canvas: canvas, type: .Text, close: { [weak self] overlay in
+        let overlayView = TextOverlayView.show(canvas.superview!, canvas: canvas, type: .Text, close: { [weak self] overlay in
             self?.didFinishWithOverlay(overlay)
             })
         setControlsHidden(true)
         overlayView.transformView.textView.textColor = session.brush.color
+        self.textOverlayView = overlayView
     }
     
     private func didFinishWithOverlay(overlay: TextOverlay?) {
@@ -142,6 +146,7 @@ class DrawingViewController: BaseViewController {
             canvas.render()
             undoButton.hidden = session.empty
         }
+        colorsView.hidden = false
         setControlsHidden(false)
     }
 }

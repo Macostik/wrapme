@@ -332,3 +332,4 @@
 "delete_device_title" = "Delete Device";
 "delete_device_message" = "Are you sure you want to delete the device \"%@\" from your account?";
 "TBD" = "Shared from meWrap";
+"enter_text_here" = "Enter text here";

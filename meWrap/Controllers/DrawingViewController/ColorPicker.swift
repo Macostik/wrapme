@@ -54,15 +54,14 @@ final class ColorPicker: UIView {
     }
     
     func panning(sender: UIPanGestureRecognizer) {
-        if sender.state == .Ended || sender.state == .Cancelled {
-            let index = Int(targetLabel.center.x - colorsView.x)
-            if let color = colors[safe: index] {
-                pickedColor?(color)
-            }
-        } else {
+        if sender.state == .Changed {
             let x = targetLabel.x + sender.translationInView(self).x
             targetLabel.x = smoothstep(colorsView.frame.minX, colorsView.frame.maxX - targetLabel.width, x)
             sender.setTranslation(CGPoint.zero, inView: self)
+        }
+        let index = Int(targetLabel.center.x - colorsView.x)
+        if let color = colors[safe: index] {
+            pickedColor?(color)
         }
     }
     

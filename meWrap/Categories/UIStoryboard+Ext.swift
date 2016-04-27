@@ -60,22 +60,20 @@ extension UIStoryboard {
 }
 
 extension UIWindow {
-    @nonobjc static let mainWindow = specify(UIWindow(frame: UIScreen.mainScreen().bounds)) {
-        UINavigationController.main.view.frame = $0.bounds
-        $0.rootViewController = UINavigationController.main
-    }
+    @nonobjc static let mainWindow = UIWindow(frame: UIScreen.mainScreen().bounds)
 }
 
 extension UINavigationController {
     
     @nonobjc static let main = specify(UINavigationController()) {
+        UIWindow.mainWindow.rootViewController = $0
         $0.navigationBarHidden = true
     }
     
     public override func shouldAutorotate() -> Bool {
         return topViewController?.shouldAutorotate() ?? super.shouldAutorotate()
     }
-    
+        
     public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return topViewController?.supportedInterfaceOrientations() ?? super.supportedInterfaceOrientations()
     }

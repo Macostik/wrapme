@@ -10,15 +10,18 @@ import UIKit
 
 extension UIDevice {
     
-    func modelName() -> String {
+    func hardwareModel() -> String {
         var systemInfo = utsname()
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
-        let identifier = machineMirror.children.reduce("") { identifier, element in
+        return machineMirror.children.reduce("") { identifier, element in
             guard let value = element.value as? Int8 where value != 0 else { return identifier }
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
-        
+    }
+    
+    func modelName() -> String {
+        let identifier = hardwareModel()
         switch identifier {
         case "iPod5,1":                                 return "iPod Touch 5"
         case "iPod7,1":                                 return "iPod Touch 6"
@@ -43,5 +46,22 @@ extension UIDevice {
         case "i386", "x86_64":                          return "Simulator"
         default:                                        return identifier
         }
+    }
+    
+    func supportsBlurring() -> Bool {
+        if !UIAccessibilityIsReduceTransparencyEnabled() {
+            let platform: NSString = hardwareModel()
+            let deviceVersion = Float(platform.stringByReplacingOccurrencesOfString("[^0-9,.]", withString:"", options:.RegularExpressionSearch, range:NSMakeRange(0, platform.length)).stringByReplacingOccurrencesOfString(",", withString:".")) ?? 0
+            if platform == "i386" || platform == "x86_64" {
+                return true
+            } else if platform.containsString("iPhone") {
+                return (deviceVersion >= 4.1)
+            } else if platform.containsString("iPod") {
+                return (deviceVersion >= 5.1)
+            } else if platform.containsString("iPad") {
+                return (deviceVersion >= 3.4)
+            }
+        }
+        return false
     }
 }

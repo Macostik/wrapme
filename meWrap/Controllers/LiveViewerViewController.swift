@@ -132,57 +132,51 @@ class LiveViewerViewController: LiveViewController {
         
         let coverView = UIView()
         view.insertSubview(coverView, belowSubview: spinner)
+        coverView.snp_makeConstraints(closure: { $0.edges.equalTo(view) })
         self.coverView = coverView
         
         let coverImageView = ImageView(backgroundColor: UIColor.blackColor())
-        coverView.addSubview(coverImageView)
+        coverView.add(coverImageView) { $0.edges.equalTo(coverView) }
         
-        let blurEffect = UIBlurEffect(style: .Light)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        coverView.addSubview(blurView)
+        if UIDevice.currentDevice().supportsBlurring() {
+            let blurEffect = UIBlurEffect(style: .Light)
+            let blurView = UIVisualEffectView(effect: blurEffect)
+            coverView.add(blurView) { $0.edges.equalTo(coverView) }
+        } else {
+            let blurView = UIView()
+            coverView.add(blurView) { $0.edges.equalTo(coverView) }
+            blurView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.75)
+        }
         
         let wrapNameLabel = Label(preset: .XLarge, weight: .Regular, textColor: UIColor.whiteColor())
         wrapNameLabel.text = wrap?.name
-        coverView.addSubview(wrapNameLabel)
+        coverView.add(wrapNameLabel) { (make) -> Void in
+            make.centerY.equalTo(coverView).inset(-100)
+            make.centerX.equalTo(coverView)
+        }
         
         let titleLabel = Label(preset: .Larger, textColor: UIColor.whiteColor())
         titleLabel.text = broadcast.displayTitle()
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .Center
-        coverView.addSubview(titleLabel)
-        
-        let messageLabel = Label(preset: .Normal, textColor: UIColor.whiteColor())
-        messageLabel.text = text
-        coverView.addSubview(messageLabel)
-        
-        let backButton = Button()
-        backButton.titleLabel?.font = UIFont.icons(36)
-        backButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        backButton.setTitleColor(UIColor.whiteColor().darkerColor(), forState: .Normal)
-        backButton.setTitle("w", forState: .Normal)
-        backButton.addTarget(self, action: #selector(LiveViewController.close(_:)), forControlEvents: .TouchUpInside)
-        coverView.addSubview(backButton)
-        
-        coverView.snp_makeConstraints(closure: { $0.edges.equalTo(view) })
-        coverImageView.snp_makeConstraints(closure: { $0.edges.equalTo(coverView) })
-        blurView.snp_makeConstraints(closure: { $0.edges.equalTo(coverView) })
-        
-        wrapNameLabel.snp_makeConstraints { (make) -> Void in
-            make.centerY.equalTo(coverView).inset(-100)
-            make.centerX.equalTo(coverView)
-        }
-        
-        titleLabel.snp_makeConstraints { (make) -> Void in
+        coverView.add(titleLabel) { (make) -> Void in
             make.top.equalTo(wrapNameLabel.snp_bottom)
             make.leading.trailing.equalTo(coverView).inset(12)
         }
         
-        messageLabel.snp_makeConstraints { (make) -> Void in
+        let messageLabel = Label(preset: .Normal, textColor: UIColor.whiteColor())
+        messageLabel.text = text
+        coverView.add(messageLabel) { (make) -> Void in
             make.centerY.equalTo(coverView).inset(80)
             make.centerX.equalTo(coverView)
         }
         
-        backButton.snp_makeConstraints { $0.leading.top.equalTo(coverView).inset(12) }
+        let backButton = Button(icon: "w", size: 36, textColor: UIColor.whiteColor())
+        backButton.titleLabel?.font = UIFont.icons(36)
+        backButton.setTitleColor(UIColor.whiteColor().darkerColor(), forState: .Highlighted)
+        backButton.setTitle("w", forState: .Normal)
+        backButton.addTarget(self, touchUpInside: #selector(LiveViewController.close(_:)))
+        coverView.add(backButton) { $0.leading.top.equalTo(coverView).inset(12) }
         
         if let user = broadcast.broadcaster {
             if let url = user.avatar?.large where !url.isEmpty {
@@ -193,8 +187,6 @@ class LiveViewerViewController: LiveViewController {
                     }, failure: nil)
             }
         }
-        
-        self.coverView = coverView
     }
     
     override func viewDidLayoutSubviews() {

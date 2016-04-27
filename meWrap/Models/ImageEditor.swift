@@ -50,6 +50,7 @@ class ImageEditor {
                 ])
             AdobeUXAuthManager.sharedManager().setAuthenticationParametersWithClientID("a7929bf566694d579acb507eae697db1", withClientSecret: "b6fa1e1c-4f8c-4001-88a9-0251a099f890")
         }
+        let image = image.resize(image.size)
         let controller = AdobeUXImageEditorViewController(image:image)
         controller.enqueueHighResolutionRenderWithImage(image) { (result, error) -> Void in
             if let result = result {

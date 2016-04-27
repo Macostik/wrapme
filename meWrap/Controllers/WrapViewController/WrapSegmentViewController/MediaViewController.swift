@@ -114,7 +114,7 @@ class HistoryItemCell: StreamReusableView {
                 streamView.transform = CGAffineTransformIdentity
                 dataSource.items = candies
             }
-            streamView.contentOffset = item.offset
+            streamView.contentOffset.x = smoothstep(0, streamView.maximumContentOffset.x, item.offset.x)
         }
     }
     

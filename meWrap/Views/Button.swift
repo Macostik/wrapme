@@ -163,17 +163,8 @@ class Button : UIButton {
     
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
         var rect = bounds
-        if rect.width < touchArea.width {
-            let dx = touchArea.width - rect.width
-            rect.size.width     += dx
-            rect.origin.x       -= dx/2
-        }
-        if rect.height < touchArea.height {
-            let dy = touchArea.height - rect.height
-            rect.size.height    += dy
-            rect.origin.y       -= dy
-        }
-        return CGRectContainsPoint(rect, point)
+        rect = rect.insetBy(dx: -max(0, touchArea.width - rect.width)/2, dy: -max(0, touchArea.height - rect.height)/2)
+        return rect.contains(point)
     }
 }
 

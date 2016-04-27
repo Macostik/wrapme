@@ -62,34 +62,42 @@
                                     </connections>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x8F-s0-1nO">
-                                    <rect key="frame" x="268" y="17" width="97" height="30"/>
+                                    <rect key="frame" x="262" y="15" width="103" height="34"/>
                                     <subviews>
-                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CwX-d0-aSX" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="38" height="30"/>
-                                            <state key="normal" title="Undo">
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CwX-d0-aSX" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="41" height="34"/>
+                                            <state key="normal" title="undo">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="undo:" destination="-1" eventType="touchUpInside" id="4Rs-2g-4uf"/>
                                             </connections>
                                         </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JzE-qH-A2f">
-                                            <rect key="frame" x="50" y="7" width="1" height="16"/>
+                                            <rect key="frame" x="53" y="7" width="1" height="20"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="1" id="5fy-FN-Dor"/>
                                             </constraints>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J7s-1q-gPE" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                            <rect key="frame" x="63" y="0.0" width="34" height="30"/>
-                                            <state key="normal" title="Save">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J7s-1q-gPE" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                            <rect key="frame" x="66" y="0.0" width="37" height="34"/>
+                                            <state key="normal" title="save">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="finish:" destination="-1" eventType="touchUpInside" id="gnD-4q-70h"/>

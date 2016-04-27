@@ -39,6 +39,10 @@ extension UIViewController {
         controller.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
         self.presentViewController(controller, animated: animated, completion: completion)
     }
+    
+    func recursivePresentedViewController() -> UIViewController {
+        return presentedViewController?.recursivePresentedViewController() ?? self
+    }
 }
 
 extension UIViewController {

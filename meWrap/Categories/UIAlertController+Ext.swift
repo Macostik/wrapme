@@ -34,7 +34,7 @@ extension UIAlertController {
     
     func show(sender: UIView?) {
         let navigation = UINavigationController.main
-        let presentingViewController = navigation.presentedViewController ?? navigation
+        let presentingViewController = navigation.recursivePresentedViewController()
         if actions.count == 0 {
             action("ok".ls)
         }

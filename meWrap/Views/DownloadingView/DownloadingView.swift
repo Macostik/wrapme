@@ -51,6 +51,7 @@ class DownloadingView: UIView {
         if let candy = candy {
             let view: DownloadingView! = loadFromNib("DownloadingView")
             view.downloadingMediaLabel.text = "downloading_photo_for_sharing".ls
+            view.progressBar.progress = 0.0
             view.downloadCandyToURL(candy, success: success, failure: failure)
         }
     }

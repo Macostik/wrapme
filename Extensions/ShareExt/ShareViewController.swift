@@ -34,12 +34,20 @@ class ShareViewController: UIViewController {
             do {
                 
                 var items = [[String:String]]()
+                var itemType: String = ""
                 
                 for attachment in attachments {
                     let item = try attachment.loadItem()
-                    let fileName = self.writeItem(item)
-                    let createdAt = item.createdAt ?? NSDate()
-                    items.append(["fileName":fileName,"type":item.type, "createdAt" : String(createdAt.timestamp)])
+                    if case let item_Type = itemType where (item_Type == "photo" || item_Type == "video") && item.type == "text" {
+                        break
+                    } else if case let item_Type = itemType where item_Type == "text" && (item.type == "text" || item.type == "video") {
+                        break
+                    } else {
+                        itemType = item.type
+                        let fileName = self.writeItem(item)
+                        let createdAt = item.createdAt ?? NSDate()
+                        items.append(["fileName":fileName,"type":item.type, "createdAt" : String(createdAt.timestamp)])
+                    }
                 }
                 
                 Dispatch.mainQueue.async {

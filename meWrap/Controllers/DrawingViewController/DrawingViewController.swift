@@ -98,18 +98,17 @@ class DrawingViewController: BaseViewController {
     }
     
     @IBAction func finish(sender: Button) {
-        guard var image = image where !session.empty else {
+        if let image = image where !session.empty {
+            let size = CGSizeMake(image.size.width * image.scale, image.size.height * image.scale)
+            let resultImage = UIImage.draw(size, opaque:false, scale:1, drawing: { size in
+                image.drawInRect(0 ^ 0 ^ size)
+                CGContextScaleCTM(UIGraphicsGetCurrentContext(), size.width / canvas.width, size.height / canvas.height)
+                session.render()
+            })
+            didFinish?(resultImage)
+        } else {
             didCancel?()
-            return
         }
-        
-        let size = CGSizeMake(image.size.width * image.scale, image.size.height * image.scale)
-        image = UIImage.draw(size, opaque:false, scale:1, drawing: { size in
-            image.drawInRect(0 ^ 0 ^ size)
-            CGContextScaleCTM(UIGraphicsGetCurrentContext(), size.width / canvas.width, size.height / canvas.height)
-            session.render()
-        })
-        didFinish?(image)
     }
     
     private func setControlsHidden(hidden: Bool) {

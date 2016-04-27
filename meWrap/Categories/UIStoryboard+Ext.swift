@@ -51,11 +51,7 @@ extension UIStoryboard {
     @nonobjc static var introduction = UIStoryboard(name: "Introduction", bundle: nil)
     
     func present(animated: Bool) {
-        UIWindow.mainWindow.rootViewController = instantiateInitialViewController()
-        if #available(iOS 9.0, *) {} else {
-            UIWindow.mainWindow.frame = UIScreen.mainScreen().bounds
-            UIWindow.mainWindow.rootViewController?.view.frame = UIScreen.mainScreen().bounds
-        }
+        UINavigationController.main.viewControllers = [instantiateInitialViewController()!]
     }
     
     subscript(key: String) -> UIViewController? {
@@ -64,13 +60,15 @@ extension UIStoryboard {
 }
 
 extension UIWindow {
-    @nonobjc static var mainWindow = UIWindow(frame: UIScreen.mainScreen().bounds)
+    @nonobjc static let mainWindow = specify(UIWindow(frame: UIScreen.mainScreen().bounds)) {
+        $0.rootViewController = UINavigationController.main
+    }
 }
 
 extension UINavigationController {
     
-    class func main() -> UINavigationController? {
-        return UIWindow.mainWindow.rootViewController as? UINavigationController
+    @nonobjc static let main = specify(UINavigationController()) {
+        $0.navigationBarHidden = true
     }
     
     public override func shouldAutorotate() -> Bool {

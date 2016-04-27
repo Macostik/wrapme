@@ -11,14 +11,14 @@ import Foundation
 class ImageEditor {
     
     class func editImage(image: UIImage, completion: UIImage -> Void) {
-        let presentingViewController = UIWindow.mainWindow.rootViewController
+        let presentingViewController = UINavigationController.main
         let controller = editControllerWithImage(image, completion: { image in
             completion(image)
-            presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+            presentingViewController.dismissViewControllerAnimated(false, completion: nil)
             }, cancel: {
-                presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+                presentingViewController.dismissViewControllerAnimated(false, completion: nil)
             })
-        presentingViewController?.presentViewController(controller, animated: false, completion: nil)
+        presentingViewController.presentViewController(controller, animated: false, completion: nil)
     }
     
     private static var token: dispatch_once_t = 0

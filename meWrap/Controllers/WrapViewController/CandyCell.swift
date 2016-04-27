@@ -92,8 +92,7 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
                 guard let item = item else { return }
                 let sharingsSring = "TBD".ls
                 let activityVC = UIActivityViewController(activityItems: [item, sharingsSring], applicationActivities: nil)
-                guard let viewController = UINavigationController.main() else { return }
-                viewController.presentViewController(activityVC, animated: true, completion: nil)
+                UINavigationController.main.presentViewController(activityVC, animated: true, completion: nil)
             })
         })
         
@@ -113,7 +112,7 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
             menu.addReportAction({
                 if let controller = UIStoryboard.main["report"] as? ReportViewController {
                     controller.candy = candy
-                    UIWindow.mainWindow.rootViewController?.presentViewController(controller, animated: false, completion: nil)
+                    UINavigationController.main.presentViewController(controller, animated: false, completion: nil)
                 }
             })
         }

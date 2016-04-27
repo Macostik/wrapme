@@ -127,7 +127,7 @@ class LiveBroadcastNotification: WrapNotification {
     
     override func presentWithIdentifier(identifier: String?) {
         super.presentWithIdentifier(identifier)
-        guard let nc = UINavigationController.main() else { return }
+        let nc = UINavigationController.main
         weak var controller = _entry?.viewControllerWithNavigationController(nc) as? WrapViewController
         guard let liveBroadcast = liveBroadcast else { return }
         Dispatch.mainQueue.after(1.2) { _ in

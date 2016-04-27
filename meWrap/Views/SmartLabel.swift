@@ -208,7 +208,7 @@ final class SmartLabel: Label, UIGestureRecognizerDelegate,  MFMailComposeViewCo
             let mailComposeVC = MFMailComposeViewController()
             mailComposeVC.mailComposeDelegate = self
             mailComposeVC.setToRecipients([link])
-            UINavigationController.main()?.presentViewController(mailComposeVC, animated: true, completion: nil)
+            UINavigationController.main.presentViewController(mailComposeVC, animated: true, completion: nil)
         }
     }
     

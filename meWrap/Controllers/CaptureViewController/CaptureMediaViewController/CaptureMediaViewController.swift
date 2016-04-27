@@ -283,7 +283,7 @@ extension CaptureMediaViewController: UploadSummaryViewControllerDelegate {
     }
     
     private func finish(assets: [MutableAsset]) {
-        let delegate = captureDelegate ?? UINavigationController.main()?.viewControllers.first as? CaptureMediaViewControllerDelegate
+        let delegate = captureDelegate ?? UINavigationController.main.viewControllers.first as? CaptureMediaViewControllerDelegate
         delegate?.captureViewController(self, didFinishWithAssets: assets)
     }
     

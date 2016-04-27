@@ -24,10 +24,10 @@ class CandyEnlargingPresenter: UIView {
             presenter.dismissingView = dismissingView
             historyViewController.presenter = presenter
             presenter.present(candy, fromView: cell, completionHandler: { (_) -> Void in
-                UINavigationController.main()?.pushViewController(historyViewController, animated: false)
+                UINavigationController.main.pushViewController(historyViewController, animated: false)
             })
         } else {
-            UINavigationController.main()?.pushViewController(historyViewController, animated: false)
+            UINavigationController.main.pushViewController(historyViewController, animated: false)
         }
         historyViewController.dismissingView = dismissingView
     }
@@ -87,13 +87,10 @@ class CandyEnlargingPresenter: UIView {
     }
     
     private func addToSuperview() -> UIView? {
-        if let superview = UIWindow.mainWindow.rootViewController?.view {
-            frame = superview.frame
-            addSubview(imageView)
-            superview.addSubview(self)
-            return superview
-        } else {
-            return nil
-        }
+        let superview = UINavigationController.main.view
+        frame = superview.frame
+        addSubview(imageView)
+        superview.addSubview(self)
+        return superview
     }
 }

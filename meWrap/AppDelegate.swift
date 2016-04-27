@@ -108,11 +108,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                 UIStoryboard.main.present(true)
             } else {
                 Logger.log("INITIAL SIGN IN - sign up is not completed, redirecting to profile step")
-                let navigation = UIStoryboard.signUp.instantiateInitialViewController() as? UINavigationController
                 let signupFlowViewController = Storyboard.SignupFlow.instantiate()
                 signupFlowViewController.registrationNotCompleted = true
-                navigation?.viewControllers = [signupFlowViewController]
-                UIWindow.mainWindow.rootViewController = navigation
+                UINavigationController.main.viewControllers = [signupFlowViewController]
             }
         };
         
@@ -124,7 +122,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                     return;
                 }
             }
-            UIWindow.mainWindow.rootViewController = UIStoryboard.introduction["launchScreen"]
+            UINavigationController.main.viewControllers = [UIStoryboard.introduction["launchScreen"]!]
             authorization.signIn().send({ _ in
                 successBlock(User.currentUser!)
                 }, failure: { error in

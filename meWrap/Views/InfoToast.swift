@@ -141,7 +141,7 @@ class InfoToast: UIView {
 extension UIViewController {
     
     class func toastAppearanceViewController(toast: UIView?) -> UIViewController? {
-        var visibleViewController = UIWindow.mainWindow.rootViewController
+        var visibleViewController: UIViewController? = UINavigationController.main
         var presentedViewController = visibleViewController?.presentedViewController
         while let _presentedViewController = presentedViewController {
             if _presentedViewController.definesToastAppearance() {

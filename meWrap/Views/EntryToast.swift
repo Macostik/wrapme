@@ -201,7 +201,7 @@ extension EntryToast {
             toast.topLabel.text = String(format: "someone_commented".ls, comment.contributor?.name ?? "")
             toast.middleLabel.text = comment.text
             }, handleTouch: {
-                if let controller = UINavigationController.main()?.topViewController as? HistoryViewController {
+                if let controller = UINavigationController.main.topViewController as? HistoryViewController {
                     if controller.candy == comment.candy {
                         for controller in controller.childViewControllers {
                             if let controller = controller as? CommentsViewController {
@@ -243,7 +243,7 @@ extension EntryToast {
             toast.showBadge(true)
         }) {
             NotificationEntryPresenter.presentEntryRequestingAuthorization(wrap, animated: false, completionHandler: {
-                guard let nc = UINavigationController.main() else { return }
+                let nc = UINavigationController.main
                 (nc.topViewController as? LiveBroadcasterViewController)?.close()
                 if let controller = wrap.viewControllerWithNavigationController(nc) as? WrapViewController {
                     controller.presentLiveBroadcast(liveBroadcast)

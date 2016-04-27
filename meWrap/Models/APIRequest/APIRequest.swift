@@ -237,26 +237,25 @@ class APIRequest<ResponseType> {
     private func reauthorizeFailed(error: NSError?) {
         Logger.log("UNAUTHORIZED_ERROR: \(error)")
         let storyboard = UIStoryboard.signUp
-        let window = UIWindow.mainWindow
-        if window.rootViewController?.storyboard != storyboard {
-            let topView = (window.rootViewController?.presentedViewController ?? window.rootViewController)?.view
-            topView?.userInteractionEnabled = true
+        if UINavigationController.main.topViewController?.storyboard != storyboard {
+            let topView = (UINavigationController.main.presentedViewController ?? UINavigationController.main).view
+            topView.userInteractionEnabled = true
             UIAlertController.confirmReauthorization({ action in
                 self.handleFailure(error, response: nil)
                 Logger.log("ERROR - redirection to welcome screen, sign in failed: \(error)")
                 NotificationCenter.defaultCenter.clear()
                 NSUserDefaults.standardUserDefaults().clear()
                 storyboard.present(true)
-                topView?.userInteractionEnabled = true
+                topView.userInteractionEnabled = true
                 }, tryAgain: { action in
-                    topView?.userInteractionEnabled = false
+                    topView.userInteractionEnabled = false
                     let successBlock = self.successBlock
                     let failureBlock = self.failureBlock
                     self.send({ object in
                         successBlock?(object)
-                        topView?.userInteractionEnabled = true
+                        topView.userInteractionEnabled = true
                         }, failure: { error in
-                            topView?.userInteractionEnabled = true
+                            topView.userInteractionEnabled = true
                             failureBlock?(error)
                     })
             })

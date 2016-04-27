@@ -1,7 +1,7 @@
 
 final class HintView: GradientView {
     
-    class func show(casheKey: String, inView view: UIView = UIWindow.mainWindow.rootViewController?.view ?? UIWindow.mainWindow) {
+    class func show(casheKey: String, inView view: UIView = UINavigationController.main.view) {
         let hintView = HintView()
         hintView.show(casheKey, inView: view)
     }

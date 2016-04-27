@@ -29,18 +29,18 @@ class DrawingViewController: BaseViewController {
     @IBOutlet weak var stickersButton: Button!
     
     class func draw(image: UIImage, wrap: Wrap?, finish: UIImage -> Void) -> DrawingViewController {
-        let presentingViewController = UIWindow.mainWindow.rootViewController
+        let presentingViewController = UINavigationController.main
         let drawingViewController = DrawingViewController()
         NotificationCenter.defaultCenter.setActivity(wrap, type: .Drawing, inProgress: true)
         drawingViewController.setImage(image, finish: { (image) -> Void in
             finish(image)
             NotificationCenter.defaultCenter.setActivity(wrap, type: .Drawing, inProgress: false)
-            presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+            presentingViewController.dismissViewControllerAnimated(false, completion: nil)
             }, cancel: {
                 NotificationCenter.defaultCenter.setActivity(wrap, type: .Drawing, inProgress: false)
-                presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+                presentingViewController.dismissViewControllerAnimated(false, completion: nil)
         })
-        presentingViewController?.presentViewController(drawingViewController, animated: false, completion: nil)
+        presentingViewController.presentViewController(drawingViewController, animated: false, completion: nil)
         return drawingViewController
     }
     

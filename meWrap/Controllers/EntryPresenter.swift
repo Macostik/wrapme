@@ -11,9 +11,7 @@ import Foundation
 class EntryPresenter: NSObject {
     
     class func presentEntry(entry: Entry, animated: Bool) {
-        if let navigationController = UINavigationController.main() {
-            presentEntry(entry, inNavigationController: navigationController, animated:animated)
-        }
+        presentEntry(entry, inNavigationController: UINavigationController.main, animated:animated)
     }
     
     class func presentEntry(entry: Entry, inNavigationController navigationController: UINavigationController, animated: Bool) {
@@ -21,9 +19,7 @@ class EntryPresenter: NSObject {
     }
     
     class func presentEntryRequestingAuthorization(entry: Entry, animated: Bool, completionHandler: (() -> ())? = nil) {
-        if let navigationController = UINavigationController.main() {
-            presentEntryRequestingAuthorization(entry, inNavigationController: navigationController, animated:animated, completionHandler: completionHandler)
-        }
+        presentEntryRequestingAuthorization(entry, inNavigationController: UINavigationController.main, animated:animated, completionHandler: completionHandler)
     }
     
     class func presentEntryRequestingAuthorization(entry: Entry, inNavigationController navigationController: UINavigationController, animated: Bool, completionHandler: (() -> ())? = nil) {

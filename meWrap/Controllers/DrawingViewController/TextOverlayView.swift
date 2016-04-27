@@ -204,6 +204,7 @@ class TextOverlayView: UIView, KeyboardNotifying {
     }
     
     @objc private func apply(sender: UITapGestureRecognizer) {
+        transformView.prepareForRendering()
         finishWithOverlay(TextOverlay(transformView: transformView))
     }
     
@@ -290,6 +291,8 @@ class TransformView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func prepareForRendering() {}
 }
 
 class StickerView: TransformView {
@@ -370,6 +373,12 @@ class TextEditableView: TransformView, UITextViewDelegate {
             textView.selectable = true
             textView.userInteractionEnabled = true
             textView.becomeFirstResponder()
+        }
+    }
+    
+    override func prepareForRendering() {
+        if textView.text == placeholder {
+            textView.text = ""
         }
     }
 }

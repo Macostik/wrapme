@@ -199,9 +199,6 @@ class InboxViewController: WrapSegmentViewController {
             }
         }
         commentMetrics.selection = candyMetrics.selection
-        
-        Comment.notifier().addReceiver(self)
-        Candy.notifier().addReceiver(self)
     }
     
     private func fetchUpdates() {
@@ -227,6 +224,14 @@ class InboxViewController: WrapSegmentViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         fetchUpdates()
+        Comment.notifier().addReceiver(self)
+        Candy.notifier().addReceiver(self)
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        Comment.notifier().removeReceiver(self)
+        Candy.notifier().removeReceiver(self)
     }
     
     @IBAction func clearAll(sender: AnyObject) {

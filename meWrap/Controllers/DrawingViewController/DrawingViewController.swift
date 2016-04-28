@@ -70,7 +70,7 @@ class DrawingViewController: BaseViewController {
         view.layoutIfNeeded()
         
         session.delegate = self
-        session.brush = DrawingBrush(width: 10, opacity: 1, color: UIColor.redColor())
+        session.brush = DrawingBrush(width: 5, opacity: 1, color: UIColor.redColor())
  
     }
     

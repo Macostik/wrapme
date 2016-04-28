@@ -329,12 +329,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         self.scrollView = scrollView
         
         view.add(commentView) { $0.leading.trailing.bottom.equalTo(view) }
-        
-        view.add(topView) {
-            $0.leading.trailing.equalTo(view)
-            $0.top.equalTo(view)
-        }
-        
         commentButton.layer.shadowColor = UIColor.blackColor().CGColor
         commentButton.layer.shadowOpacity = 0.5
         commentButton.layer.shadowOffset = CGSize(width: 0, height: 3)
@@ -342,10 +336,16 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             $0.size.equalTo(44)
             $0.trailing.bottom.equalTo(view).inset(20)
         }
+       
         view.add(volumeButton) {
             $0.size.equalTo(44)
             $0.leading.equalTo(view).inset(20)
             $0.bottom.equalTo(commentView.snp_top).offset(-20)
+        }
+        
+        view.add(topView) {
+            $0.leading.trailing.equalTo(view)
+            $0.top.equalTo(view)
         }
         
         backButton.addTarget(self, action: #selector(self.back(_:)), forControlEvents: .TouchUpInside)

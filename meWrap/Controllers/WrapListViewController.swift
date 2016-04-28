@@ -61,6 +61,7 @@ class WrapListViewController: BaseViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         spinner.hidden = true
+        UIViewController.attemptRotationToDeviceOrientation()
     }
     
     func extractContent() {
@@ -107,7 +108,7 @@ class WrapListViewController: BaseViewController {
     }
     
     @IBAction func cancel(sender: AnyObject?) {
-        self.navigationController?.popViewControllerAnimated(false)
+        dismissViewControllerAnimated(false, completion: nil)
     }
     
     //MARK: UITextFiealDelegate
@@ -163,12 +164,16 @@ extension WrapListViewController: UploadSummaryViewControllerDelegate {
             assets?.removeAtIndex(index)
         }
         if assets?.count == 0 {
-            navigationController?.popToRootViewControllerAnimated(false)
+            dismissViewControllerAnimated(false, completion: {
+                UINavigationController.main.popToRootViewControllerAnimated(false)
+            })
         }
     }
     
     func uploadSummaryViewController(controller: UploadSummaryViewController, didFinishWithAssets assets: [MutableAsset]) {
-        self.navigationController?.popToRootViewControllerAnimated(false)
+        dismissViewControllerAnimated(false, completion: {
+            UINavigationController.main.popToRootViewControllerAnimated(false)
+        })
         Sound.play()
         controller.wrap?.uploadAssets(assets)
     }

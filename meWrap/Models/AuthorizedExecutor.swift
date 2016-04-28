@@ -43,7 +43,12 @@ extension AuthorizedExecutor {
     static func shareContent(items: [[String:String]]) {
         AuthorizedExecutor.execute {
             UINavigationController.main.dismissViewControllerAnimated(false, completion: nil)
-            UINavigationController.main.pushViewController(Storyboard.WrapList.instantiate({ $0.items = items }), animated: false)
+            let navigationController = UINavigationController()
+            let wrapListViewController = Storyboard.WrapList.instantiate({ $0.items = items })
+            navigationController.navigationBarHidden = true
+            navigationController.viewControllers = [wrapListViewController]
+                
+            UINavigationController.main.presentViewController(navigationController, animated: false, completion: nil)
         }
     }
 }

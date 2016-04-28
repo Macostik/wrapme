@@ -125,12 +125,17 @@ class DownloadingView: UIView {
             Dispatch.mainQueue.async({
                 self?.progressBar.setProgress(CGFloat(sent / total), animated: true)
             })
-        }).responseData(completionHandler: { [weak self] response in
-            if let data = response.data, let image = UIImage(data: data) {
-                ImageCache.defaultCache.setImageData(data, uid: uid)
-                InMemoryImageCache.instance[uid] = image
-                success(image)
-            } else {
+        }).validate(statusCode: 200..<300).responseData(completionHandler: { [weak self] response in
+            switch response.result {
+            case .Success(let data):
+                if let image = UIImage(data: data) {
+                    ImageCache.defaultCache.setImageData(data, uid: uid)
+                    InMemoryImageCache.instance[uid] = image
+                    success(image)
+                } else {
+                    failure?(response.result.error)
+                }
+            default:
                 failure?(response.result.error)
             }
             self?.dismiss()
@@ -153,8 +158,8 @@ class DownloadingView: UIView {
                 Dispatch.mainQueue.async({
                     self?.progressBar.setProgress(CGFloat(sent / total), animated: true)
                 })
-            }.response { [weak self] (request, response, data, error) in
-                if error == true {
+            }.validate(statusCode: 200..<300).response { [weak self] (request, response, data, error) in
+                if error != nil {
                     failure?(error)
                 } else if let url = request?.URL, let response = response {
                     let destination = destination(url, response)

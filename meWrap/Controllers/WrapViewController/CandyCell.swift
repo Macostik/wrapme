@@ -92,6 +92,7 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
                 guard let item = item else { return }
                 let sharingsSring = "TBD".ls
                 let activityVC = UIActivityViewController(activityItems: [item, sharingsSring], applicationActivities: nil)
+                activityVC.popoverPresentationController?.sourceView = self
                 UINavigationController.main.presentViewController(activityVC, animated: true, completion: nil)
             })
         })

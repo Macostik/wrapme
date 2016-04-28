@@ -740,6 +740,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             guard let item = item else { return }
             let sharingsSring = "TBD".ls
             let activityVC = UIActivityViewController(activityItems: [item, sharingsSring], applicationActivities: nil)
+            activityVC.popoverPresentationController?.sourceView = sender
             self?.presentViewController(activityVC, animated: true, completion: nil)
         })
     }

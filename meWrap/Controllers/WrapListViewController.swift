@@ -43,6 +43,11 @@ class WrapListViewController: BaseViewController {
         metrics.selection = { [weak self] item, entry in
             self?.shareContent(entry as! Wrap)
         }
+        metrics.finalizeAppearing = { _, view in
+            if let cell = view as? WrapCell {
+                cell.allowSwipeAction = false
+            }
+        }
         wrapListDataSource.items = specify(PaginatedList<Wrap>()) {
             $0.request = API.wraps(nil)
             $0.sorter = { $0.updatedAt > $1.updatedAt }

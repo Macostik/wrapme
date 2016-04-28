@@ -60,6 +60,8 @@ class WrapCell: StreamReusableView {
     
     private var swipeAction: SwipeAction?
     
+    var allowSwipeAction: Bool = true
+    
     override func layoutWithMetrics(metrics: StreamMetrics) {
         
         coverView.clipsToBounds = true
@@ -126,6 +128,7 @@ class WrapCell: StreamReusableView {
         
         swipeAction = specify(SwipeAction(view: self), {
             $0.shouldBeginPanning = { [weak self] (action) -> Bool in
+                guard self?.allowSwipeAction == true else { return false }
                 guard let wrap = self?.entry as? Wrap else { return false }
                 if wrap.isPublic {
                     if wrap.isContributing {

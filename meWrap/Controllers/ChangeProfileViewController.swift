@@ -210,6 +210,7 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
         
         verificationEmailTextView.font = Font.Smaller + .Regular
         verificationEmailTextView.preset = Font.Smaller.rawValue
+        verificationEmailTextView.userInteractionEnabled = false
         verificationEmailTextView.textContainerInset = UIEdgeInsetsZero
         verificationEmailTextView.textContainer.lineFragmentPadding = 0
         verificationEmailTextView.scrollEnabled = false
@@ -230,6 +231,7 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
                 make.bottom.equalTo(emailConfirmationView)
                 expandingConstraint = make.top.equalTo(emailConfirmationView).inset(20).constraint
                 make.trailing.equalTo(resendButton.snp_leading).offset(-20)
+                make.height.greaterThanOrEqualTo(resendButton.snp_height)
             }
         }
         

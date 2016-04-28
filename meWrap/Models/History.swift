@@ -134,8 +134,9 @@ class History: PaginatedList<HistoryItem>, PaginatedListNotifying {
     func sortCandy(candy: Candy) {
         if let item = entries[{ $0.entries.contains(candy) }] {
             item.sort()
+            didChange()
         } else {
-            _addCandy(candy)
+            addCandy(candy)
         }
     }
     

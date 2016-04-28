@@ -192,6 +192,7 @@ class TextOverlayView: UIView, KeyboardNotifying {
     
     func addTextEditableView() {
         transformView = TextEditableView()
+        transformView.layoutIfNeeded()
         Dispatch.mainQueue.async { () in
             self.transformView.textView.becomeFirstResponder()
         }
@@ -324,6 +325,7 @@ class TextEditableView: TransformView, UITextViewDelegate {
         let fontSize = round(UIScreen.mainScreen().bounds.width * 0.12)
         textView.font = UIFont.systemFontOfSize(fontSize)
         minFontSize = 7
+        textView.autocorrectionType = .No
         textView.textColor = UIColor.whiteColor()
         textView.text = placeholder
         textView.delegate = self

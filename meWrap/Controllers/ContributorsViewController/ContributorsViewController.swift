@@ -179,9 +179,9 @@ extension ContributorsViewController: EntryNotifying {
     func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
         if event == .ContributorsChanged {
             updateContributors()
-            if let wrap = wrap, let contributor = wrap.contributor where !contributor.current {
-                restrictedInvitePrioritizer.setDefaultState(!wrap.isRestrictedInvite, animated: viewAppeared)
-            }
+        }
+        if let wrap = wrap, let contributor = wrap.contributor where !contributor.current {
+            restrictedInvitePrioritizer.setDefaultState(!wrap.isRestrictedInvite, animated: viewAppeared)
         }
     }
 }

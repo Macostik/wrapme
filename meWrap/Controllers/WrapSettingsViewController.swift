@@ -96,7 +96,7 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
         candyNotifyTrigger.on = wrap.isCandyNotifiable
         chatNotifyTrigger.on = wrap.isChatNotifiable
         commentNotifyTrigger.on = wrap.isCommentNotifiable
-        restrictedInviteTrigger.on = !wrap.isRestrictedInvite
+        restrictedInviteTrigger.on = wrap.isRestrictedInvite
         API.preferences(wrap).send({ [weak self] _ in
             self?.candyNotifyTrigger.on = wrap.isCandyNotifiable
             self?.commentNotifyTrigger.on = wrap.isCommentNotifiable

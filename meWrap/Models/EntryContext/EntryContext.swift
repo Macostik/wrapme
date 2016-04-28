@@ -33,7 +33,7 @@ class EntryContext: NSManagedObjectContext {
         
         let coordinator: NSPersistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
         
-        guard let storeURL = storeURL()?.URLByAppendingPathComponent("CoreData.sqlite") else { return coordinator }
+        let storeURL = NSURL.groupContainer().URLByAppendingPathComponent("CoreData.sqlite")
         
         let options = [NSMigratePersistentStoresAutomaticallyOption:true,NSInferMappingModelAutomaticallyOption:true,"journal_mode":"DELETE"]
         
@@ -45,15 +45,6 @@ class EntryContext: NSManagedObjectContext {
         }
         
         return coordinator
-    }
-    
-    private class func storeURL() -> NSURL? {
-        let manager = NSFileManager.defaultManager()
-        if let url = manager.containerURLForSecurityApplicationGroupIdentifier(Constants.groupIdentifier) {
-            return url
-        } else {
-            return manager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).last
-        }
     }
     
     private class func createModel() -> NSManagedObjectModel? {

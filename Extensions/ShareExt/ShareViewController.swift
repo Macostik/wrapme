@@ -14,13 +14,7 @@ class ShareViewController: UIViewController {
     
     var manager = NSFileManager.defaultManager()
     
-    lazy var url: NSURL = {
-        if var url = self.manager.containerURLForSecurityApplicationGroupIdentifier("group.com.ravenpod.wraplive") {
-            url = url.URLByAppendingPathComponent("ShareExtension/")
-            return url
-        }
-        return NSURL()
-    }()
+    lazy var url: NSURL = NSURL.shareExtension()
     
     override func viewDidLoad() {
         super.viewDidLoad()

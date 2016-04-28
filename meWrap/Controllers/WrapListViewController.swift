@@ -16,10 +16,7 @@ class WrapListViewController: BaseViewController {
     private var assets: [MutableAsset]?
     private var text: String?
     
-    private lazy var url: NSURL = {
-        guard var url = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(Constants.groupIdentifier) else { return NSURL(fileURLWithPath: "") }
-        return url.URLByAppendingPathComponent("ShareExtension/")
-    }()
+    private lazy var url: NSURL = NSURL.shareExtension()
     
     @IBOutlet weak var streamView: StreamView!
     lazy var wrapListDataSource: PaginatedStreamDataSource<PaginatedList<Wrap>> = PaginatedStreamDataSource(streamView: self.streamView)

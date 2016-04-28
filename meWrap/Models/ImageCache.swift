@@ -29,17 +29,13 @@ class ImageCache: NSObject {
     
     var uids = Set<String>()
     
-    static var defaultCache: ImageCache = {
-        let cache = ImageCache(name: "wl_ImagesCache")
-        cache.size = DefaultCacheSize
-        return cache
-    }()
+    static let defaultCache = specify(ImageCache(name: "wl_ImagesCache")) {
+        $0.size = DefaultCacheSize
+    }
     
-    static var uploadingCache: ImageCache = {
-        let cache = ImageCache(name: "wl_UploadingImagesCache")
-        cache.compressionQuality = 0.75
-        return cache
-    }()
+    static let uploadingCache = specify(ImageCache(name: "wl_UploadingImagesCache")) {
+        $0.compressionQuality = 0.75
+    }
     
     private var token: dispatch_once_t = 0
     
@@ -47,7 +43,7 @@ class ImageCache: NSObject {
         super.init()
         let manager = NSFileManager.defaultManager()
         dispatch_once(&token) {
-            if let path = manager.containerURLForSecurityApplicationGroupIdentifier(Constants.groupIdentifier)?.path {
+            if let path = NSURL.groupContainer().path {
                 manager.changeCurrentDirectoryPath(path)
             }
         }

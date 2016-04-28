@@ -327,13 +327,14 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         }
         scrollView.backgroundColor = UIColor.blackColor()
         self.scrollView = scrollView
-
+        
+        view.add(commentView) { $0.leading.trailing.bottom.equalTo(view) }
+        
         view.add(topView) {
             $0.leading.trailing.equalTo(view)
             $0.top.equalTo(view)
         }
         
-        view.add(commentView) { $0.leading.trailing.bottom.equalTo(view) }
         commentButton.layer.shadowColor = UIColor.blackColor().CGColor
         commentButton.layer.shadowOpacity = 0.5
         commentButton.layer.shadowOffset = CGSize(width: 0, height: 3)

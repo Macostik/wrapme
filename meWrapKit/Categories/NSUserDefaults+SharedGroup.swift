@@ -22,13 +22,8 @@ extension NSUserDefaults {
         }
         set(newValue) {
             setObject(newValue, forKey: key)
-            enqueueSynchronize()
+            synchronize()
         }
-    }
-    
-    func enqueueSynchronize() {
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(NSUserDefaults.synchronize), object: nil)
-        self.performSelector(#selector(NSUserDefaults.synchronize), withObject: nil, afterDelay: 0)
     }
 
     var serverTimeDifference : NSTimeInterval {

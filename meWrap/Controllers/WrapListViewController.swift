@@ -57,8 +57,9 @@ class WrapListViewController: BaseViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        view.layoutIfNeeded()
         spinner.hidden = true
-        UIViewController.attemptRotationToDeviceOrientation()
+        wrapListDataSource.reload()
     }
     
     func extractContent() {

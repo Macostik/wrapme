@@ -14,3 +14,9 @@ target 'meWrap' do
     pod 'CryptoSwift'
     pod 'SnapKit', '~> 0.15.0'
 end
+
+target 'meWrapTests' do
+    pod 'Google/Analytics', '~> 1.0.0'
+    pod 'Quick'
+    pod 'Nimble'
+end

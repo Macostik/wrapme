@@ -129,6 +129,10 @@ class EntryContext: NSManagedObjectContext {
                 request = request.query("uid == %@", uid)
             }
             if let entry = request.execute().last {
+                if entry.uid != uid {
+                    entry.uid = uid
+                    cachedEntries.setObject(entry, forKey: uid)
+                }
                 return entry
             } else if allowInsert {
                 if let entry = insertEntry(name) as? T {

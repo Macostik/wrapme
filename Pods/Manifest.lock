@@ -27,12 +27,14 @@ PODS:
     - GoogleSymbolUtilities (~> 1.0)
   - libPhoneNumber-iOS (0.8.11)
   - NewRelicAgent (5.4.1)
+  - Nimble (4.0.1)
   - OpenUDID (1.0.0)
   - PubNub (4.3.0):
     - CocoaLumberjack (= 2.2.0)
     - PubNub/Core (= 4.3.0)
   - PubNub/Core (4.3.0):
     - CocoaLumberjack (= 2.2.0)
+  - Quick (0.9.2)
   - SnapKit (0.15.0)
 
 DEPENDENCIES:
@@ -43,8 +45,10 @@ DEPENDENCIES:
   - Google/Analytics (~> 1.0.0)
   - libPhoneNumber-iOS (~> 0.8)
   - NewRelicAgent
+  - Nimble
   - OpenUDID
   - PubNub (~> 4.0)
+  - Quick
   - SnapKit (~> 0.15.0)
 
 SPEC CHECKSUMS:
@@ -60,8 +64,10 @@ SPEC CHECKSUMS:
   GoogleUtilities: 5c653f7df2eedf0ce0efdfe5afe4f831f375fd7a
   libPhoneNumber-iOS: ded33fab2c51ee847979556aa504c9e70f32d703
   NewRelicAgent: c85f94358d6e02761cae6707364c4402a352a08f
+  Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
   OpenUDID: e7cb6984c7304906ad20f3a36bf087b025896b6b
   PubNub: a05f2a2c6cc1f637a0c473f236c4671c0b8c09b1
+  Quick: 18d057bc66451eedd5d1c8dc99ba2a5db6e60226
   SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
 
 COCOAPODS: 0.39.0

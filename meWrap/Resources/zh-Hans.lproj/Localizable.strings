@@ -331,7 +331,7 @@
 "delete_device_message" = "Are you sure you want to delete the device \"%@\" from your account?";
 "formatted_photo_edited_by" = "Photo & edited by %@";
 "downloading_photo_for_sharing" = "Downloading the photo for sharing...";
-"TBD" = "Shared from meWrap";
+"TBD" = "Shared from https://meWrap.me! Piecing life moments together!";
 "enter_text_here" = "Enter text here";
 "undo" = "Undo";
 "save" = "Save";

@@ -34,7 +34,7 @@ class ShareViewController: UIViewController {
                     let item = try attachment.loadItem()
                     if case let item_Type = itemType where (item_Type == "photo" || item_Type == "video") && item.type == "text" {
                         break
-                    } else if case let item_Type = itemType where item_Type == "text" && (item.type == "text" || item.type == "video") {
+                    } else if case let item_Type = itemType where item_Type == "text" && (item.type == "photo" || item.type == "video") {
                         break
                     } else {
                         itemType = item.type

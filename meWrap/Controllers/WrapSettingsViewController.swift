@@ -90,13 +90,13 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
         if isAdmin {
             adminLabel.text = "allow_friends_to_add_people".ls
         } else {
-            adminLabel.text = !wrap.isRestrictedInvite ? "friends_allowed_to_app_people".ls : "only_admin_can_add_people".ls
+            adminLabel.text = wrap.isRestrictedInvite ? "only_admin_can_add_people".ls : "friends_allowed_to_app_people".ls
         }
         chatPrioritizer.defaultState = !wrap.isPublic
         candyNotifyTrigger.on = wrap.isCandyNotifiable
         chatNotifyTrigger.on = wrap.isChatNotifiable
         commentNotifyTrigger.on = wrap.isCommentNotifiable
-        restrictedInviteTrigger.on = wrap.isRestrictedInvite
+        restrictedInviteTrigger.on = !wrap.isRestrictedInvite
         API.preferences(wrap).send({ [weak self] _ in
             self?.candyNotifyTrigger.on = wrap.isCandyNotifiable
             self?.commentNotifyTrigger.on = wrap.isCommentNotifiable
@@ -135,7 +135,7 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
         notifyEditSession?.notifyChat.changedValue = chatNotifyTrigger.on
         notifyEditSession?.notifyComment.changedValue = commentNotifyTrigger.on
         if isAdmin {
-            editSession?.isRestrictedInvite.changedValue = restrictedInviteTrigger.on
+            editSession?.isRestrictedInvite.changedValue = !restrictedInviteTrigger.on
         }
     }
     
@@ -200,8 +200,8 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
     }
     
     func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
-        if let wrap = entry as? Wrap where isAdmin {
-            adminLabel.text = !wrap.isRestrictedInvite ? "friends_allowed_to_app_people".ls : "only_admin_can_add_people".ls
+        if let wrap = entry as? Wrap where !isAdmin {
+            adminLabel.text = wrap.isRestrictedInvite ? "only_admin_can_add_people".ls : "friends_allowed_to_app_people".ls
         }
     }
     

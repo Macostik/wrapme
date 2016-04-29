@@ -27,6 +27,11 @@ class CommentAddNotification: CommentNotification {
     override func submit() {
         guard let comment = _entry else { return }
         guard let candy = comment.candy else { return }
+        
+        Logger.log("Comment received: \(comment.text ?? "")")
+        Logger.log("Number of candies with uid \(candy.uid): \(FetchRequest<Candy>().query("uid == %@", candy.uid).count())")
+        Logger.log("Number of candies with upload_uid \(candy.locuid ?? ""): \(FetchRequest<Candy>().query("locuid == %@", candy.locuid ?? "").count())")
+        
         if candy.valid {
             candy.commentCount = Int16(candy.comments.count)
         }

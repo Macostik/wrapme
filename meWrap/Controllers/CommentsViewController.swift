@@ -150,6 +150,10 @@ class CommentsViewController: BaseViewController {
                 if autoScroll {
                     self?.streamView.setMaximumContentOffsetAnimated(false)
                 }
+                
+                Logger.log("Number of candies with uid \(candy.uid): \(FetchRequest<Candy>().query("uid == %@", candy.uid).count())")
+                Logger.log("Number of candies with upload_uid \(candy.locuid ?? ""): \(FetchRequest<Candy>().query("locuid == %@", candy.locuid ?? "").count())")
+                
                 }, failure: { [weak self] (error) -> Void in
                     self?.dataSource.reload()
                     error?.showNonNetworkError()
@@ -300,6 +304,9 @@ class CommentsViewController: BaseViewController {
                 Sound.play()
                 candy.uploadComment(text.trim)
                 candy.typedComment = nil
+                Logger.log("Comment uploaded: \(text.trim)")
+                Logger.log("Number of candies with uid \(candy.uid): \(FetchRequest<Candy>().query("uid == %@", candy.uid).count())")
+                Logger.log("Number of candies with upload_uid \(candy.locuid ?? ""): \(FetchRequest<Candy>().query("locuid == %@", candy.locuid ?? "").count())")
             }
         }
     }

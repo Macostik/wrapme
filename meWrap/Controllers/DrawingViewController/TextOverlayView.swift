@@ -321,6 +321,8 @@ class TextEditableView: TransformView, UITextViewDelegate {
     
     private let placeholder = "enter_text_here".ls
     
+    private lazy var previousText: String = self.placeholder
+    
     override func layout() {
         let fontSize = round(UIScreen.mainScreen().bounds.width * 0.12)
         textView.font = UIFont.systemFontOfSize(fontSize)
@@ -347,26 +349,24 @@ class TextEditableView: TransformView, UITextViewDelegate {
         addGestureRecognizer(tapGesture)
     }
     
-    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        if textView.text == placeholder {
-            if !text.isEmpty {
-                textView.text = text
+    func textViewDidChange(textView: UITextView) {
+        let result = textView.text
+        if self.previousText == placeholder {
+            let count = result.characters.count - self.previousText.characters.count
+            if count > 0 {
+                let range = result.endIndex.advancedBy(-count)..<result.endIndex
+                textView.text = result.substringWithRange(range)
+            } else {
+                textView.text = placeholder
+                textView.selectedRange = NSMakeRange(textView.text.characters.count, 0)
             }
         } else {
-            let result = (textView.text as NSString).stringByReplacingCharactersInRange(range, withString: text)
             if result.isEmpty {
                 textView.text = placeholder
-            } else {
-                textView.text = result
+                textView.selectedRange = NSMakeRange(textView.text.characters.count, 0)
             }
         }
-        return false
-    }
-    
-    func textViewDidChangeSelection(textView: UITextView) {
-        if textView.text == placeholder {
-            textView.selectedRange = NSMakeRange(textView.text.characters.count, 0)
-        }
+        self.previousText = textView.text
     }
     
     func textFocus(sender: UIPanGestureRecognizer) {

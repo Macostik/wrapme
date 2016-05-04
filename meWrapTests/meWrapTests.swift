@@ -34,6 +34,7 @@ class EntryContextSpec: QuickSpec {
                 }
                 expect(FetchRequest<Entry>().count() - count).to(equal(0))
             }
+            
             it("upload_uid insert") {
                 let locuids = [GUID(),GUID(),GUID(),GUID(),GUID()]
                 for locuid in locuids {
@@ -55,6 +56,7 @@ class EntryContextSpec: QuickSpec {
                 }
                 expect(FetchRequest<Entry>().count() - count).to(equal(0))
             }
+            
             it("upload_uid insert without prefetching") {
                 let locuids = [GUID(),GUID(),GUID(),GUID(),GUID()]
                 for locuid in locuids {
@@ -69,6 +71,15 @@ class EntryContextSpec: QuickSpec {
                         expect(EntryContext.sharedContext.cachedEntries.objectForKey(uid) == nil).to(equal(false))
                         EntryContext.sharedContext.deleteEntry(entry)
                     }
+                }
+                expect(FetchRequest<Entry>().count() - count).to(equal(0))
+            }
+            
+            it("comment insert") {
+                let comment: Comment = Comment.entry()
+                expect(FetchRequest<Entry>().count() - count).to(equal(1))
+                if let entry = Comment.entry(comment.uid) {
+                    EntryContext.sharedContext.deleteEntry(entry)
                 }
                 expect(FetchRequest<Entry>().count() - count).to(equal(0))
             }

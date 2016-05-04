@@ -79,19 +79,18 @@ extension PubNub {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         var historyDates = userDefaults.historyDates
         let historyDate = historyDates[channel] ?? userDefaults.historyDate?.timeIntervalSince1970
-        let start: NSNumber = NSDate.now().timeIntervalSince1970
-        guard var end: NSNumber = historyDate else {
-            historyDates[channel] = start
+        guard var start: NSNumber = historyDate else {
+            historyDates[channel] = NSDate.now().timeIntervalSince1970 * 10000000
             userDefaults.historyDates = historyDates
             return messages
         }
         
-        var _result = historyFor(channel, start: start, end: end)
-        while let result = _result where !result.data.messages.isEmpty {
-            Logger.log("PUBNUB - received history with range: \(start) - \(end), count: \(result.data.messages.count)")
+        var _result = historyFor(channel, start: start, end: nil, reverse: true)
+        while let result = _result where result.data.messages.count > 0 {
+            Logger.log("PUBNUB - received history for: \(channel) since: \(start), count: \(result.data.messages.count)")
             messages.appendContentsOf(result.data.messages)
-            end = result.data.end.doubleValue / 10000000 + 0.01
-            _result = historyFor(channel, start: start, end: end)
+            start = result.data.end.doubleValue
+            _result = historyFor(channel, start: start, end: nil, reverse: true)
         }
         if _result != nil {
             historyDates[channel] = start
@@ -100,9 +99,9 @@ extension PubNub {
         return messages
     }
     
-    func historyFor(channel: String, start: NSNumber?, end: NSNumber?) -> PNHistoryResult? {
+    func historyFor(channel: String, start: NSNumber?, end: NSNumber?, reverse: Bool = false) -> PNHistoryResult? {
         return Dispatch.sleep({ (awake) in
-            historyForChannel(channel, start: start, end: end) { (result, _) in
+            historyForChannel(channel, start: start, end: end, limit: 100, reverse: reverse) { (result, _) in
                 awake(result)
             }
         })

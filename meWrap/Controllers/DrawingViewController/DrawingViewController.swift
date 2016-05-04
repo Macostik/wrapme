@@ -56,6 +56,8 @@ class DrawingViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.stickersButton.exclusiveTouch = true
+        self.textButton.exclusiveTouch = true
         colorsView.setup()
         colorsView.pickedColor = { [weak self] color in
             self?.session.brush.color = color

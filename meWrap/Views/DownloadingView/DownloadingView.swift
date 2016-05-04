@@ -139,7 +139,7 @@ class DownloadingView: UIView {
             failure?(nil)
             return
         }
-        let shareFolderUrl = NSURL.shareExtension()
+        let shareFolderUrl = NSURL.groupContainer().URLByAppendingPathComponent("ShareOutFolder/")
         let manager = NSFileManager.defaultManager()
         _ = try? manager.removeItemAtURL(shareFolderUrl)
         _ = try? manager.createDirectoryAtURL(shareFolderUrl, withIntermediateDirectories: true, attributes: nil)

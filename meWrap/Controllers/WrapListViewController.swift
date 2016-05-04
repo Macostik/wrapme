@@ -120,7 +120,8 @@ class WrapListViewController: BaseViewController {
             let controller = Storyboard.Wrap.instantiate()
             controller.segment = .Chat
             controller.wrap = wrap
-            self.navigationController?.pushViewController(controller, animated: false)
+            UINavigationController.main.pushViewController(controller, animated: false)
+            dismissViewControllerAnimated(false, completion: nil)
             performWhenLoaded(controller.chatViewController, block: { controller in
                 Dispatch.mainQueue.async({
                     controller.composeBar.becomeFirstResponder()

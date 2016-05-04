@@ -59,7 +59,7 @@ class FlowerMenu: UIView {
         snp_makeConstraints(closure: { $0.edges.equalTo(superview) })
         setNeedsDisplay()
         alpha = 0
-        DeviceManager.defaultManager.removeReceiver(self)
+        DeviceManager.defaultManager.addReceiver(self)
         UIView.animateWithDuration(0.12, delay: 0, options: .CurveEaseIn, animations: {
             self.alpha = 1
         }, completion: nil)
@@ -94,7 +94,7 @@ class FlowerMenu: UIView {
         guard superview != nil else {
             return
         }
-        DeviceManager.defaultManager.addReceiver(self)
+        DeviceManager.defaultManager.removeReceiver(self)
         UIView.animateWithDuration(0.12, delay: 0, options: .CurveEaseIn, animations: { () -> Void in
             self.alpha = 0
             self.animateHiding()

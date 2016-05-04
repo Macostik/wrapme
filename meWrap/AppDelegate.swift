@@ -233,6 +233,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillResignActive(application: UIApplication) {
+        FlowerMenu.sharedMenu.hide()
         if Authorization.active {
             let task = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
             Dispatch.mainQueue.after(15) {

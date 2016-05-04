@@ -44,15 +44,12 @@ struct Logger {
         #endif
     }
     
-    static func log(@autoclosure string: () -> String, color: LogColor = .Default, filename: String = #file, line: Int = #line) {
+    static func log<T>(@autoclosure message: () -> T, color: LogColor = .Default, filename: String = #file, line: Int = #line) {
         #if DEBUG
-            Slim.debug("\(Escape)\(color.rawValue)\n\(string())\n\n\(Escape);", filename: filename, line: line)
+            Slim.debug("\(Escape)\(color.rawValue)\n\(message())\n\n\(Escape);", filename: filename, line: line)
         #else
             if remoteLogging {
-                let appState = UIApplication.sharedApplication().applicationState.displayName()
-                let screenName = BaseViewController.lastAppearedScreenName ?? ""
-                let log = "{\"uuid\":\(User.uuid()),\"app_state\":\(appState),\"last_visited_screen\":\(screenName),\"message\":\(string())}"
-                Slim.info(log)
+                Slim.info(message, filename: filename, line: line)
             }
         #endif
     }

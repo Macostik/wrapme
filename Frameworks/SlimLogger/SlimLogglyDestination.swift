@@ -12,32 +12,20 @@ private let logglyQueue: dispatch_queue_t = dispatch_queue_create(
 class SlimLogglyDestination: LogDestination {
 
     var userid:String?
-    private let dateFormatter = NSDateFormatter()
     private var buffer:[String] = [String]()
     private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
-    private lazy var standardFields:NSDictionary = {
-        let dict = NSMutableDictionary()
-        dict["lang"] = NSLocale.preferredLanguages()[0]
-        if let infodict = NSBundle.mainBundle().infoDictionary {
-            if let appname = infodict["CFBundleName"] as? String {
-                dict["appname"] = appname
-            }
-            if let appname = infodict["CFBundleVersion"] as? String {
-                dict["appversion"] = appname
-            }
-        }
-        dict["devicename"] = UIDevice.currentDevice().name
-        dict["devicemodel"] = UIDevice.currentDevice().model
-        dict["osversion"] = UIDevice.currentDevice().systemVersion
-        dict["sessionid"] = self.generateRandomNumberAsString()
-        return dict
-    }()
+    private var standardFields: [NSObject : AnyObject] = [
+        "lang": NSLocale.preferredLanguages()[0],
+        "appname": NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleName") as? String ?? "",
+        "appversion": NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as? String ?? "",
+        "devicename": UIDevice.currentDevice().name,
+        "devicemodel": UIDevice.currentDevice().model,
+        "osversion": UIDevice.currentDevice().systemVersion
+    ]
 
     private var observer: NSObjectProtocol?
 
     init() {
-        dateFormatter.timeZone = NSTimeZone(name: "UTC")
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         observer = NSNotificationCenter.defaultCenter().addObserverForName("UIApplicationWillResignActiveNotification", object: nil, queue: nil, usingBlock: {
             [unowned self] note in
             let tmpbuffer = self.buffer
@@ -79,11 +67,6 @@ class SlimLogglyDestination: LogDestination {
     }
 
 
-    func generateRandomNumberAsString() -> String {
-        return String(arc4random_uniform(999999))
-    }
-
-
     func log<T>(@autoclosure message:() -> T, level:LogLevel, filename:String, line:Int) {
         if level.rawValue < SlimLogglyConfig.logglyLogLevel.rawValue {
             // don't log
@@ -91,24 +74,18 @@ class SlimLogglyDestination: LogDestination {
         }
 
         var jsonstr = ""
-        let mutableDict:NSMutableDictionary = NSMutableDictionary()
-        var messageIsaDictionary = false
-        if let msgdict = message() as? NSDictionary {
-            if let nsmsgdict = msgdict as? [NSObject : AnyObject] {
-                mutableDict.addEntriesFromDictionary(nsmsgdict)
-                messageIsaDictionary = true
-            }
-        }
-        if !messageIsaDictionary {
+        let mutableDict = NSMutableDictionary(dictionary: standardFields)
+        if let msgdict = message() as? [NSObject : AnyObject] {
+            mutableDict.addEntriesFromDictionary(msgdict)
+        } else {
             mutableDict.setObject("\(message())", forKey: "rawmsg")
         }
         mutableDict.setObject(level.string, forKey: "level")
-        mutableDict.setObject(dateFormatter.stringFromDate(NSDate()), forKey: "timestamp")
+        mutableDict.setObject(NSDate().timeIntervalSince1970, forKey: "timestamp")
         mutableDict.setObject("\(filename):\(line)", forKey: "sourcelocation")
-        mutableDict.addEntriesFromDictionary(standardFields as! [NSObject : AnyObject])
-        if let user = self.userid {
-            mutableDict.setObject(user, forKey: "userid")
-        }
+        mutableDict.setObject(User.uuid(), forKey: "userid")
+        mutableDict.setObject(UIApplication.sharedApplication().applicationState.displayName(), forKey: "app_state")
+        mutableDict.setObject(BaseViewController.lastAppearedScreenName ?? "", forKey: "last_visited_screen")
 
         if let jsondata = toJson(mutableDict) {
             jsonstr = toJsonString(jsondata)

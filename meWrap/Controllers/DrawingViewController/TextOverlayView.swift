@@ -204,12 +204,15 @@ class TextOverlayView: UIView, KeyboardNotifying {
         self.removeFromSuperview()
     }
     
-    @objc private func apply(sender: UITapGestureRecognizer) {
-        transformView.prepareForRendering()
-        finishWithOverlay(TextOverlay(transformView: transformView))
+    @objc private func apply(sender: AnyObject) {
+        if transformView.textView.text.isEmpty {
+            finishWithOverlay(nil)
+        } else {
+            finishWithOverlay(TextOverlay(transformView: transformView))
+        }
     }
     
-    @objc private func cancel(sender: UITapGestureRecognizer) {
+    @objc private func cancel(sender: AnyObject) {
         finishWithOverlay(nil)
     }
     
@@ -237,6 +240,47 @@ class TextOverlayView: UIView, KeyboardNotifying {
     }
 }
 
+class TransformTextView: UITextView, UITextViewDelegate {
+    
+    convenience init() {
+        self.init(frame: CGRect.zero)
+        self.delegate = self
+    }
+    
+    var placeholder: String?
+    
+    var attributes: [String: AnyObject] {
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = textAlignment
+        let textColor = self.textColor ?? UIColor.whiteColor()
+        return [NSFontAttributeName: font!, NSForegroundColorAttributeName: textColor, NSParagraphStyleAttributeName: paragraph]
+    }
+    
+    override func drawRect(rect: CGRect) {
+        if let placeholder = placeholder where text.isEmpty {
+            let attributes = self.attributes
+            let size = (placeholder as NSString).sizeWithAttributes(attributes)
+            (placeholder as NSString).drawInRect((bounds.midX - size.width/2) ^ (bounds.midY - size.height/2) ^ size, withAttributes: attributes)
+        }
+    }
+    
+    override func intrinsicContentSize() -> CGSize {
+        if let placeholder = placeholder where text.isEmpty {
+            let attributes = self.attributes
+            let size = (placeholder as NSString).sizeWithAttributes(attributes)
+            return size
+        } else {
+            return super.intrinsicContentSize()
+        }
+    }
+    
+    func textViewDidChange(textView: UITextView) {
+        if placeholder != nil {
+            setNeedsDisplay()
+        }
+    }
+}
+
 class TransformView: UIView {
     
     let trashLabel = specify(Button(icon: "n", size: 20)) {
@@ -257,7 +301,7 @@ class TransformView: UIView {
         $0.transform = CGAffineTransformMakeRotation(-37)
     }
     
-    var textView = specify(UITextView() , {
+    var textView = specify(TransformTextView() , {
         $0.scrollEnabled = false
         $0.textContainerInset = UIEdgeInsetsZero
         $0.text = ""
@@ -292,8 +336,6 @@ class TransformView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func prepareForRendering() {}
 }
 
 class StickerView: TransformView {
@@ -317,20 +359,15 @@ class StickerView: TransformView {
     }
 }
 
-class TextEditableView: TransformView, UITextViewDelegate {
-    
-    private let placeholder = "enter_text_here".ls
-    
-    private lazy var previousText: String = self.placeholder
+class TextEditableView: TransformView {
     
     override func layout() {
         let fontSize = round(UIScreen.mainScreen().bounds.width * 0.12)
         textView.font = UIFont.systemFontOfSize(fontSize)
         minFontSize = 7
+        textView.placeholder = "enter_text_here".ls
         textView.autocorrectionType = .No
         textView.textColor = UIColor.whiteColor()
-        textView.text = placeholder
-        textView.delegate = self
         self.add(textView, {
             $0.edges.equalTo(self).inset(20)
             $0.width.greaterThanOrEqualTo(60)
@@ -349,26 +386,6 @@ class TextEditableView: TransformView, UITextViewDelegate {
         addGestureRecognizer(tapGesture)
     }
     
-    func textViewDidChange(textView: UITextView) {
-        let result = textView.text
-        if self.previousText == placeholder {
-            let count = result.characters.count - self.previousText.characters.count
-            if count > 0 {
-                let range = result.endIndex.advancedBy(-count)..<result.endIndex
-                textView.text = result.substringWithRange(range)
-            } else {
-                textView.text = placeholder
-                textView.selectedRange = NSMakeRange(textView.text.characters.count, 0)
-            }
-        } else {
-            if result.isEmpty {
-                textView.text = placeholder
-                textView.selectedRange = NSMakeRange(textView.text.characters.count, 0)
-            }
-        }
-        self.previousText = textView.text
-    }
-    
     func textFocus(sender: UIPanGestureRecognizer) {
         
         if !textView.isFirstResponder() {
@@ -376,12 +393,6 @@ class TextEditableView: TransformView, UITextViewDelegate {
             textView.selectable = true
             textView.userInteractionEnabled = true
             textView.becomeFirstResponder()
-        }
-    }
-    
-    override func prepareForRendering() {
-        if textView.text == placeholder {
-            textView.text = ""
         }
     }
 }

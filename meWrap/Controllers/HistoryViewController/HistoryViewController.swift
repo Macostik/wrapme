@@ -763,7 +763,7 @@ extension Candy {
         if isVideo == true {
             DownloadingView.downloadCandyToURL(self, success: success, failure: failure)
         } else {
-            BlockImageFetching.enqueue(asset?.original ?? "", success: success, failure: failure)
+            DownloadingView.downloadCandy(self, success: success, failure: failure)
         }
     }
 }

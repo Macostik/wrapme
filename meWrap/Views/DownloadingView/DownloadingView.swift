@@ -40,12 +40,31 @@ class DownloadingView: UIView {
     }
     
     class func downloadCandyToURL(candy: Candy?, success: NSURL -> Void, failure: FailureBlock?) {
+        guard let original = candy?.asset?.original else {
+            failure?(nil)
+            return
+        }
+        if let url = cachedVideo(original) {
+            success(url)
+            return
+        }
         if let candy = candy {
             let view: DownloadingView! = loadFromNib("DownloadingView")
-            view.downloadingMediaLabel.text = "downloading_photo_for_sharing".ls
-            view.progressBar.progress = 0.0
+            view.downloadingMediaLabel.text = "downloading_media_for_sharing".ls
             view.downloadCandyToURL(candy, success: success, failure: failure)
         }
+    }
+    
+    private class func cachedVideo(url: String) -> NSURL? {
+        if url.isExistingFilePath {
+            return url.fileURL
+        } else {
+            let path = ImageCache.defaultCache.getPath(ImageCache.uidFromURL (url)) + ".mp4"
+            if path.isExistingFilePath {
+                return path.fileURL
+            }
+        }
+        return nil
     }
     
     private class func cachedImage(url: String) -> UIImage? {
@@ -134,7 +153,7 @@ class DownloadingView: UIView {
         })
     }
     
-    private func downloadToURL(succes: NSURL -> Void, failure: FailureBlock?) {
+    private func downloadToURL(success: NSURL -> Void, failure: FailureBlock?) {
         guard let url = candy?.asset?.original else {
             failure?(nil)
             return
@@ -144,9 +163,9 @@ class DownloadingView: UIView {
         _ = try? manager.removeItemAtURL(shareFolderUrl)
         _ = try? manager.createDirectoryAtURL(shareFolderUrl, withIntermediateDirectories: true, attributes: nil)
         let destination: (NSURL, NSHTTPURLResponse) -> (NSURL) = { _, response in
-            return shareFolderUrl.URLByAppendingPathComponent(response.suggestedFilename!)
+            return NSURL(fileURLWithPath: ImageCache.defaultCache.getPath(ImageCache.uidFromURL(url)) + ".mp4") ?? NSURL()
         }
-        task = Alamofire.download(.GET, url, destination: destination)
+        task = Alamofire.download(.GET, url , destination: destination)
             .progress { [weak self] (_, sent, total) in
                 Dispatch.mainQueue.async({
                     self?.progressBar.setProgress(CGFloat(sent / total), animated: true)
@@ -156,7 +175,7 @@ class DownloadingView: UIView {
                     failure?(error)
                 } else if let url = request?.URL, let response = response {
                     let destination = destination(url, response)
-                    succes(destination)
+                    success(destination)
                 }
                 self?.dismiss()
         }

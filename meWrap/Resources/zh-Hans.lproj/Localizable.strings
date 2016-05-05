@@ -330,8 +330,8 @@
 "delete_device_title" = "删除流动装置";
 "delete_device_message" = "确定要将\"%@\"从你的帐户中删除吗？";
 "formatted_photo_edited_by" = "拍摄及修图者 %@";
-"downloading_photo_for_sharing" = "下载相片中，请稍候...";
 "TBD" = "分享来自 https://meWrap.me! 一起拼凑生活回忆!";
 "enter_text_here" = "输入描述";
 "undo" = "复原";
 "save" = "存档";
+"downloading_media_for_sharing" = "Downloading the media for sharing...";

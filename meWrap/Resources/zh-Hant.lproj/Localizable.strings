@@ -330,8 +330,8 @@
 "delete_device_title" = "刪除流動裝置";
 "delete_device_message" = "確定要將\"%@\"從你的帳戶中刪除嗎？";
 "formatted_photo_edited_by" = "拍攝及修圖者 %@";
-"downloading_photo_for_sharing" = "下載相片中，請稍候...";
 "TBD" = "分享來自 https://meWrap.me! 一起拼湊生活回憶!";
 "enter_text_here" = "輸入描述";
 "undo" = "復原";
 "save" = "存檔";
+"downloading_media_for_sharing" = "Downloading the media for sharing...";

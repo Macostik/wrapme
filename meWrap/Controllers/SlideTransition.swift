@@ -70,13 +70,11 @@ class SlideTransition: NSObject, UIGestureRecognizerDelegate {
     private func addSnapshotView(contentView: UIView) {
         if let snapshotView = snapshotView?()?.snapshotViewAfterScreenUpdates(true) {
             snapshotView.alpha = 0
-            switch DeviceManager.defaultManager.orientation {
+            switch UIApplication.sharedApplication().statusBarOrientation {
             case .LandscapeLeft:
-                snapshotView.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2));
-                break
+                snapshotView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
             case .LandscapeRight:
-                snapshotView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2));
-                break
+                snapshotView.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
             default: break
             }
             snapshotView.frame = UIScreen.mainScreen().bounds

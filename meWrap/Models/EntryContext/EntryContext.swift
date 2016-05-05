@@ -128,6 +128,7 @@ class EntryContext: NSManagedObjectContext {
             } else if allowInsert {
                 if let entry = insertEntry(name) as? T {
                     entry.uid = uid
+                    cachedEntries.setObject(entry, forKey: uid)
                     return entry
                 } else {
                     return nil

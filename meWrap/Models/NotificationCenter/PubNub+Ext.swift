@@ -80,7 +80,7 @@ extension PubNub {
         var historyDates = userDefaults.historyDates
         let historyDate = historyDates[channel] ?? userDefaults.historyDate?.timeIntervalSince1970
         guard var start: NSNumber = historyDate else {
-            historyDates[channel] = NSDate.now().timeIntervalSince1970 * 10000000
+            historyDates[channel] = NSDate.now().timeIntervalSince1970
             userDefaults.historyDates = historyDates
             return messages
         }

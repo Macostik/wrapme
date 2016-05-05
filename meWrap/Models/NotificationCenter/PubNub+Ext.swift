@@ -89,7 +89,7 @@ extension PubNub {
         while let result = _result where result.data.messages.count > 0 {
             Logger.log("PUBNUB - received history for: \(channel) since: \(start), count: \(result.data.messages.count)")
             messages.appendContentsOf(result.data.messages)
-            start = result.data.end.doubleValue
+            start = result.data.end
             _result = historyFor(channel, start: start, end: nil, reverse: true)
         }
         if _result != nil {

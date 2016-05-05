@@ -167,15 +167,12 @@ class EntryNotification<T: Entry>: Notification {
     }
     
     internal func createEntry() {
-        guard let entry = T.entry(entryUid, locuid:entryLocUid) else { return }
+        guard let entry: T = T.entry(entryUid, locuid:entryLocUid) else { return }
         
         if let data = entryData {
             mapEntry(entry, data: data)
         }
         
-        if let containerType = T.containerType() where entry.container == nil {
-            entry.container = containerType.entry(containerUid, allowInsert: false)
-        }
         _entry = entry
         inserted = entry.inserted
     }

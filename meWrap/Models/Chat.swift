@@ -67,10 +67,8 @@ class Chat: PaginatedList<Message>, FontPresetting {
             let previousMessage: Message? = index == 0 ? nil : messages[index - 1]
             
             var containsDate = true
-            if message.chatMetadata.containsDate == false {
-                if let previousMessage = previousMessage {
-                    containsDate = !previousMessage.createdAt.isSameDay(message.createdAt)
-                }
+            if let previousMessage = previousMessage {
+                containsDate = !previousMessage.createdAt.isSameDay(message.createdAt)
             }
             
             var containsName = false

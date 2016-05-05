@@ -94,6 +94,7 @@ final class ChatViewController: WrapSegmentViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        streamView.width = view.width
         streamView.unlock()
         chat.sort()
         scrollToLastUnreadMessage()

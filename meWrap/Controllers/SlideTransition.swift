@@ -144,8 +144,7 @@ class ShrinkTransition: SlideTransition {
             if (percentCompleted > 0.25 || abs(gesture.velocityInView(superview).y) > 1000) {
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
                     self._snapshotView?.alpha = 1
-                    self.imageView?.transform = CGAffineTransformIdentity
-                    self.imageView?.frame = dismissingView.convertRect(dismissingView.bounds, toCoordinateSpace:superview)
+                    self.imageView?.frame = dismissingView.convertRect(dismissingView.bounds, toCoordinateSpace:self.snapshotView?() ?? superview)
                     }, completion: { (finished) -> Void in
                         self._dismissingView?.alpha = 1
                         self.imageView?.removeFromSuperview()

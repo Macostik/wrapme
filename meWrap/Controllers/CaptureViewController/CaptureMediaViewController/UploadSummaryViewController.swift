@@ -76,9 +76,9 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
         streamView.layout = HorizontalStreamLayout()
         view.addGestureRecognizer(self.scrollView!.panGestureRecognizer)
         self.videoPlayerView.delegate = self
-        let metrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<EditAssetCell>(), size: 92))
-        metrics.selection = { [weak self] item, entry in
-            self?.setViewController(self?.editAssetViewControllerForAsset(entry as? MutableAsset), direction: .Forward, animated: false)
+        let metrics = dataSource.addMetrics(StreamMetrics<EditAssetCell>(size: 92))
+        metrics.selection = { [weak self] view in
+            self?.setViewController(self?.editAssetViewControllerForAsset(view.entry as? MutableAsset), direction: .Forward, animated: false)
         }
         dataSource.items = assets
         streamView.scrollToItemPassingTest({ $0.position.index == (assets.count - 1) }, animated:false)

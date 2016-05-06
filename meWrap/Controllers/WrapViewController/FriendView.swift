@@ -13,7 +13,7 @@ final class FriendView: StreamReusableView {
     
     private let avatarView = StatusUserAvatarView(cornerRadius: 16)
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         avatarView.backgroundColor = UIColor.whiteColor()
         addSubview(avatarView)
         avatarView.snp_makeConstraints(closure: {

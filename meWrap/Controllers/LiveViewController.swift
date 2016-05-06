@@ -31,7 +31,7 @@ class LiveBroadcastEventView: StreamReusableView {
         }
     }
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         super.layoutWithMetrics(metrics)
         layer.geometryFlipped = true
     }
@@ -41,7 +41,7 @@ class LiveBroadcastEventWithAvatarView: LiveBroadcastEventView {
     
     internal var avatarView = ImageView(backgroundColor: UIColor.whiteColor())
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         super.layoutWithMetrics(metrics)
         backgroundColor = UIColor.whiteColor()
         avatarView.cornerRadius = 20
@@ -62,7 +62,7 @@ class LiveBroadcastMessageEventView: LiveBroadcastEventWithAvatarView {
     
     private var textLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.grayDarker)
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         super.layoutWithMetrics(metrics)
         textLabel.numberOfLines = 0
         addSubview(nameLabel)
@@ -96,7 +96,7 @@ class LiveBroadcastJoinEventView: LiveBroadcastEventWithAvatarView {
     
     private var textLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.grayDarker)
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         super.layoutWithMetrics(metrics)
         textLabel.numberOfLines = 0
         addSubview(textLabel)
@@ -121,7 +121,7 @@ class LiveBroadcastInfoEventView: LiveBroadcastEventView {
     
     private var textLabel = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         super.layoutWithMetrics(metrics)
         textLabel.numberOfLines = 0
         backgroundColor = Color.orange
@@ -178,8 +178,8 @@ class LiveViewController: BaseViewController {
         titleLabel?.text = broadcast.displayTitle()
     }
     
-    private func metricsForType<T: LiveBroadcastEventView>(type: T.Type, kind: LiveBroadcast.Event.Kind, minSize: CGFloat) -> StreamMetrics {
-        let metrics = StreamMetrics(loader: StreamLoader<T>())
+    private func metricsForType<T: LiveBroadcastEventView>(type: T.Type, kind: LiveBroadcast.Event.Kind, minSize: CGFloat) -> StreamMetrics<T> {
+        let metrics = StreamMetrics<T>()
         metrics.modifyItem = { [weak self] item in
             item.size = self?.chatStreamView.dynamicSizeForMetrics(metrics, item: item, minSize: minSize) ?? minSize
             item.hidden = (item.entry as! LiveBroadcast.Event).kind != kind

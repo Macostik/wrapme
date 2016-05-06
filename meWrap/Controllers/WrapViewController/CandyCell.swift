@@ -16,7 +16,7 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
     let videoIndicator = Label(icon: "+", size: 24)
     let gradientView = GradientView()
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         
         if !metrics.disableMenu {
             FlowerMenu.sharedMenu.registerView(self)

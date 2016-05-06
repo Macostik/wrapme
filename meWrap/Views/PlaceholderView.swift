@@ -11,8 +11,8 @@ import SnapKit
 
 class PlaceholderView: StreamReusableView {
     
-    class func placeholderLoader(iconName: String, message: String, color: UIColor = Color.grayLighter) -> StreamLoader<PlaceholderView> {
-        return StreamLoader<PlaceholderView>(layoutBlock: { view in
+    class func metrics(iconName: String, message: String, color: UIColor = Color.grayLighter) -> StreamMetrics<PlaceholderView> {
+        return StreamMetrics<PlaceholderView>(layoutBlock: { view in
             view.textLabel.textColor = color
             view.iconLabel.textColor = color
             view.textLabel.text = message
@@ -28,7 +28,7 @@ class PlaceholderView: StreamReusableView {
     }
     let iconLabel = Label(icon: "", size: 96, textColor: Color.grayLighter)
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         addSubview(containerView)
         containerView.addSubview(textLabel)
         containerView.addSubview(iconLabel)
@@ -48,50 +48,46 @@ class PlaceholderView: StreamReusableView {
 
 extension PlaceholderView {
     
-    class func chatPlaceholderLoader() -> StreamLoader<PlaceholderView> {
-        return placeholderLoader("7", message: "")
+    class func chatPlaceholderMetrics() -> StreamMetrics<PlaceholderView> {
+        return metrics("7", message: "")
     }
     
-    class func commentsPlaceholderMetrics() -> StreamMetrics {
-        return StreamMetrics(loader: commentsPlaceholderLoader())
+    class func commentsPlaceholderMetrics() -> StreamMetrics<PlaceholderView> {
+        return metrics("q", message: "no_comments_yet".ls, color: Color.grayLightest.colorWithAlphaComponent(0.5))
     }
     
-    class func commentsPlaceholderLoader() -> StreamLoader<PlaceholderView> {
-        return placeholderLoader("q", message: "no_comments_yet".ls, color: Color.grayLightest.colorWithAlphaComponent(0.5))
+    class func hottestPlaceholderMetrics() -> StreamMetrics<PlaceholderView> {
+        return metrics("C", message: "coming_soon".ls)
     }
     
-    class func hottestPlaceholderLoader() -> StreamLoader<PlaceholderView> {
-        return placeholderLoader("C", message: "coming_soon".ls)
+    class func inboxPlaceholderMetrics() -> StreamMetrics<PlaceholderView> {
+        return metrics("J", message: "inbox_placeholder".ls)
     }
     
-    class func inboxPlaceholderLoader() -> StreamLoader<PlaceholderView> {
-        return placeholderLoader("J", message: "inbox_placeholder".ls)
+    class func mediaPlaceholderMetrics() -> StreamMetrics<PlaceholderView> {
+        return metrics("C", message: "no_upload_yet".ls)
     }
     
-    class func mediaPlaceholderLoader() -> StreamLoader<PlaceholderView> {
-        return placeholderLoader("C", message: "no_upload_yet".ls)
+    class func singleDayPlaceholderMetrics() -> StreamMetrics<PlaceholderView> {
+        return metrics("C", message: "no_uploads_for_this_day".ls)
     }
     
-    class func singleDayPlaceholderLoader() -> StreamLoader<PlaceholderView> {
-        return placeholderLoader("C", message: "no_uploads_for_this_day".ls)
+    class func searchPlaceholderMetrics() -> StreamMetrics<PlaceholderView> {
+        return metrics(":", message: "no_contacts_with_phone_number".ls)
     }
     
-    class func searchPlaceholderLoader() -> StreamLoader<PlaceholderView> {
-        return placeholderLoader(":", message: "no_contacts_with_phone_number".ls)
-    }
-    
-    class func sharePlaceholderLoader() -> StreamLoader<PlaceholderView> {
-        return placeholderLoader("C", message: "no_wraps_yet".ls + "\n\n\n" + "easy_create_wrap".ls)
+    class func sharePlaceholderMetrics() -> StreamMetrics<PlaceholderView> {
+        return metrics("C", message: "no_wraps_yet".ls + "\n\n\n" + "easy_create_wrap".ls)
     }
 }
 
 final class HomePlaceholderView: PlaceholderView {
     
-    class func homePlaceholderLoader(actionBlock: (Void -> Void)) -> StreamLoader<HomePlaceholderView> {
-        return StreamLoader<HomePlaceholderView>(layoutBlock: { $0.actionBlock = actionBlock })
+    class func homePlaceholderMetrics(actionBlock: (Void -> Void)) -> StreamMetrics<HomePlaceholderView> {
+        return StreamMetrics<HomePlaceholderView>(layoutBlock: { $0.actionBlock = actionBlock })
     }
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         textLabel.text = "no_wraps_yet".ls + "\n\n\n" + "easy_create_wrap".ls
         iconLabel.text = "C"
         addSubview(containerView)

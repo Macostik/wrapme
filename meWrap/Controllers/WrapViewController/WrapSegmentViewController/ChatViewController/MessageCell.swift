@@ -14,7 +14,7 @@ final class MessageDateView: StreamReusableView {
     
     private let dateLabel = specify(Label(preset: .Normal, weight: .Regular)) { $0.textAlignment = .Center }
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         addSubview(dateLabel)
         dateLabel.snp_makeConstraints(closure: { $0.center.equalTo(self) })
     }
@@ -53,7 +53,7 @@ class BaseMessageCell: StreamReusableView, FlowerMenuConstructor {
         $0.backgroundColor = Color.grayLightest
     })
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         FlowerMenu.sharedMenu.registerView(self)
     }
     
@@ -77,7 +77,7 @@ class BaseMessageCell: StreamReusableView, FlowerMenuConstructor {
 
 final class MessageCell: BaseMessageCell {
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         super.layoutWithMetrics(metrics)
         addSubview(bubbleView)
         bubbleView.addSubview(textView)
@@ -106,7 +106,7 @@ final class MessageWithNameCell: BaseMessageCell {
     private let avatarView = UserAvatarView(cornerRadius: 20)
     private let nameLabel = Label(preset: .Smaller, textColor: Color.grayLighter)
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         super.layoutWithMetrics(metrics)
         addSubview(avatarView)
         addSubview(bubbleView)
@@ -158,7 +158,7 @@ final class MyMessageCell: BaseMessageCell {
     private let tailView = UIImageView(image: BaseMessageCell.rightTail)
     private let indicator = EntryStatusIndicator(color: Color.orangeLightest)
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         super.layoutWithMetrics(metrics)
         bubbleView.backgroundColor = Color.orange
         textView.textColor = UIColor.whiteColor()

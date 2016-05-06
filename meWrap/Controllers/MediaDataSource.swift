@@ -12,7 +12,7 @@ class MediaDataSource: PaginatedStreamDataSource<History> {
     
     weak var wrap: Wrap?
     
-    var liveBroadcastMetrics = specify(StreamMetrics(loader: StreamLoader<LiveBroadcastMediaView>())) {
+    var liveBroadcastMetrics = specify(StreamMetrics<LiveBroadcastMediaView>()) {
         $0.size = 70
         $0.isSeparator = true
     }
@@ -29,7 +29,7 @@ class MediaDataSource: PaginatedStreamDataSource<History> {
         }
     }
     
-    override func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetrics] {
+    override func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetricsProtocol] {
         if position.section == 0 {
             return [liveBroadcastMetrics]
         } else {

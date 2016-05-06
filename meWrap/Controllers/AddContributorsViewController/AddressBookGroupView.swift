@@ -19,7 +19,7 @@ class AddressBookGroupView: StreamReusableView {
         }
     }
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         backgroundColor = Color.orangeLight
         titleLabel.textAlignment = .Left
         addSubview(titleLabel)
@@ -36,7 +36,7 @@ class AddressBookPhoneNumberCell: StreamReusableView {
     private var typeLabel = Label(preset: .Small, textColor: Color.grayLight)
     private var phoneLabel = Label(preset: .Small, textColor: Color.grayLight)
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         typeLabel.textAlignment = .Right
         addSubview(typeLabel)
         phoneLabel.textAlignment = .Left

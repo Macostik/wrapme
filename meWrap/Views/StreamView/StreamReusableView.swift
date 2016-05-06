@@ -10,34 +10,23 @@ import Foundation
 
 class StreamReusableView: UIView, UIGestureRecognizerDelegate {
     
-    var entry: AnyObject? {
-        didSet { setup(entry) }
-    }
+    func setEntry(entry: AnyObject?) {}
+    func getEntry() -> AnyObject? { return nil }
     
-    var metrics: StreamMetrics?
+    var metrics: StreamMetricsProtocol?
     var item: StreamItem?
     var selected: Bool = false
     lazy var selectTapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(StreamReusableView.select as (StreamReusableView) -> () -> ()))
     
-    func layoutWithMetrics(metrics: StreamMetrics) {}
+    func layoutWithMetrics(metrics: StreamMetricsProtocol) {}
     
     func didLoad() {
         selectTapGestureRecognizer.delegate = self
         self.addGestureRecognizer(selectTapGestureRecognizer)
     }
     
-    func setup(entry: AnyObject?) {}
-    
-    func resetup() {
-        setup(entry)
-    }
-    
-    override func select(entry: AnyObject?) {
-        metrics?.select(item, entry: entry)
-    }
-    
     @IBAction func select() {
-        select(entry)
+        metrics?.select(self)
     }
     
     func didDequeue() {}
@@ -48,5 +37,26 @@ class StreamReusableView: UIView, UIGestureRecognizerDelegate {
     
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         return gestureRecognizer != selectTapGestureRecognizer || metrics?.selectable ?? false
+    }
+}
+
+class ConcreteStreamReusableView<T: AnyObject>: StreamReusableView {
+    
+    override func setEntry(entry: AnyObject?) {
+        self.entry = entry as? T
+    }
+
+    override func getEntry() -> AnyObject? {
+        return entry
+    }
+    
+    var entry: T? {
+        didSet { setup(entry) }
+    }
+    
+    func setup(entry: T?) {}
+    
+    func resetup() {
+        setup(entry)
     }
 }

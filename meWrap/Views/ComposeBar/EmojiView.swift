@@ -15,7 +15,7 @@ class EmojiCell: StreamReusableView {
     
     private var emojiLabel: UILabel = UILabel()
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         emojiLabel.font = UIFont.systemFontOfSize(34)
         addSubview(emojiLabel)
         emojiLabel.snp_makeConstraints { $0.center.equalTo(self) }
@@ -96,15 +96,15 @@ class EmojiView: UIView, SegmentedControlDelegate {
     func setup() {
         streamView.layout = HorizontalGridLayout()
         dataSource = StreamDataSource(streamView: streamView)
-        let metrics = StreamMetrics(loader: StreamLoader<EmojiCell>())
+        let metrics = StreamMetrics<EmojiCell>()
         
         metrics.modifyItem = { [weak self] item in
             if let streamView = self?.streamView {
                 item.ratio = (streamView.height/5) / (streamView.width/8)
             }
         }
-        metrics.selection = { [weak self] (item, emoji) -> Void in
-            let emoji = emoji as! String
+        metrics.selection = { [weak self] view -> Void in
+            let emoji = view.entry as! String
             Emoji.saveRecent(emoji)
             self?.composeBar.textView.insertText(emoji)
         }
@@ -157,14 +157,14 @@ class FullScreenEmojiView: EmojiView {
     override func setup() {
         streamView.layout = HorizontalGridLayout()
         dataSource = StreamDataSource(streamView: streamView)
-        let metrics = StreamMetrics(loader: StreamLoader<EmojiCell>())
+        let metrics = StreamMetrics<EmojiCell>()
         metrics.modifyItem = { [weak self] item in
             if let streamView = self?.streamView {
                 item.ratio = (streamView.height/11) / (streamView.width/6)
             }
         }
-        metrics.selection = { [weak self] (item, emoji) -> Void in
-            let emoji = emoji as! String
+        metrics.selection = { [weak self] view -> Void in
+            let emoji = view.entry as! String
             Emoji.saveRecent(emoji)
             self?.selectedBlock?(emoji)
             self?.removeFromSuperview()

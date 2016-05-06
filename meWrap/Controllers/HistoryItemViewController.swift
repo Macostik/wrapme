@@ -13,7 +13,7 @@ final class HistoryItemCoverView: StreamReusableView {
     
     private let imageView = ImageView(backgroundColor: UIColor.clearColor())
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         addSubview(imageView)
         imageView.snp_makeConstraints { $0.edges.equalTo(self) }
     }
@@ -88,19 +88,19 @@ final class HistoryItemViewController: BaseViewController {
         
         coverStreamView.userInteractionEnabled = false
         coverStreamView.layout = HorizontalStreamLayout()
-        coverDataSource.addMetrics(StreamMetrics(loader: StreamLoader<HistoryItemCoverView>(), size: view.width))
+        coverDataSource.addMetrics(StreamMetrics<HistoryItemCoverView>(size: view.width))
         
         streamView.layout = SquareGridLayout()
         dataSource.offsetForGridColumns = view.width * 0.6
-        dataSource.placeholderMetrics = StreamMetrics(loader: PlaceholderView.singleDayPlaceholderLoader())
+        dataSource.placeholderMetrics = PlaceholderView.singleDayPlaceholderMetrics()
         dataSource.placeholderMetrics?.isSeparator = true
         dataSource.numberOfGridColumns = 3
         dataSource.layoutSpacing = Constants.pixelSize
         
-        let metrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<CandyCell>()))
-        metrics.selection = { [weak self] (item, entry) -> Void in
+        let metrics = dataSource.addMetrics(StreamMetrics<CandyCell>())
+        metrics.selection = { [weak self] view -> Void in
             self?.streamView.lock()
-            CandyEnlargingPresenter.handleCandySelection(item, entry: entry, historyItem: self?.item, dismissingView: { candy -> UIView? in
+            CandyEnlargingPresenter.handleCandySelection(view.item, entry: view.entry, historyItem: self?.item, dismissingView: { candy -> UIView? in
                 guard let streamCandyItem = self?.streamView.itemPassingTest({ ($0.entry as? Candy) == candy}) else { return nil }
                 self?.streamView.scrollRectToVisible(streamCandyItem.frame, animated: false)
                 return streamCandyItem.view

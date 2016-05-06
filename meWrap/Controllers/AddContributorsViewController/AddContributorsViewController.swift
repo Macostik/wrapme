@@ -26,10 +26,10 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     lazy var addressBook = ArrangedAddressBook()
     
     var filteredAddressBook: ArrangedAddressBook?
-    var singleMetrics: StreamMetrics!
-    var multipleMetrics: StreamMetrics!
-    var sectionHeaderMetrics: StreamMetrics!
-    var placeholderMetrics: StreamMetrics!
+    var singleMetrics: StreamMetrics<SingleAddressBookRecordCell>!
+    var multipleMetrics: StreamMetrics<MultipleAddressBookRecordCell>!
+    var sectionHeaderMetrics: StreamMetrics<AddressBookGroupView>!
+    var placeholderMetrics: StreamMetrics<PlaceholderView>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +43,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
                 nextButton.setTitle("skip".ls, forState: .Normal)
             }
         }
-        singleMetrics = specify(StreamMetrics(loader: StreamLoader<SingleAddressBookRecordCell>()), {
+        singleMetrics = specify(StreamMetrics<SingleAddressBookRecordCell>(), {
             $0.modifyItem = { [weak self] item in
                 guard let record = item.entry as? AddressBookRecord, let phoneNumber = record.phoneNumbers.last else { return }
                 let user = phoneNumber.user
@@ -56,14 +56,13 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
                 item.size = max(nameHeight + inviteHeight + 24.0, 72.0)
             }
             $0.prepareAppearing = { [weak self] (item, view) in
-                let cell = view as? SingleAddressBookRecordCell
-                cell?.wrap = self?.wrap
-                cell?.delegate = self
+                view.wrap = self?.wrap
+                view.delegate = self
             }
             $0.selectable = false
             })
         
-        multipleMetrics = specify(StreamMetrics(loader: StreamLoader<MultipleAddressBookRecordCell>()), { [weak self] metrics in
+        multipleMetrics = specify(StreamMetrics<MultipleAddressBookRecordCell>(), { [weak self] metrics in
             metrics.selectable = false
             metrics.modifyItem = { (item) in
                 guard let record = item.entry as? AddressBookRecord else { return }
@@ -73,14 +72,13 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
                 item.size = self?.openedPosition(item.position) != nil ? heightCell + CGFloat(record.phoneNumbers.count * 50) : heightCell
             }
             metrics.finalizeAppearing = { (item, view) in
-                let cell = view as? MultipleAddressBookRecordCell
-                cell?.delegate = self
+                view.delegate = self
                 let record = item.entry as? AddressBookRecord
-                cell?.opened = record?.phoneNumbers.count > 1 && self?.openedPosition(item.position) != nil
+                view.opened = record?.phoneNumbers.count > 1 && self?.openedPosition(item.position) != nil
             }
             })
         
-        sectionHeaderMetrics = StreamMetrics(loader: StreamLoader<AddressBookGroupView>()).change({ [weak self] metrics in
+        sectionHeaderMetrics = StreamMetrics<AddressBookGroupView>().change({ [weak self] metrics in
             metrics.size = 32.0
             metrics.modifyItem = { [weak self] (item) in
                 if let group = self?.filteredAddressBook?.groups[safe: item.position.section] {
@@ -90,12 +88,11 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
                 }
             }
             metrics.finalizeAppearing = { [weak self] (item, view) in
-                let groupView = view as? AddressBookGroupView
-                groupView?.group = self?.filteredAddressBook?.groups[safe: item.position.section]
+                view.group = self?.filteredAddressBook?.groups[safe: item.position.section]
             }
             })
         
-        placeholderMetrics = StreamMetrics(loader: PlaceholderView.searchPlaceholderLoader())
+        placeholderMetrics = PlaceholderView.searchPlaceholderMetrics()
         placeholderMetrics?.selectable = false
         
         let cached = AddressBook.sharedAddressBook.cachedRecords({ [weak self] (array) in
@@ -274,7 +271,7 @@ extension AddContributorsViewController: StreamViewDelegate {
         return group?.records.count ?? 0
     }
     
-    func streamView(streamView: StreamView, headerMetricsInSection section: Int) -> [StreamMetrics] {
+    func streamView(streamView: StreamView, headerMetricsInSection section: Int) -> [StreamMetricsProtocol] {
         return [sectionHeaderMetrics]
     }
     
@@ -285,14 +282,13 @@ extension AddContributorsViewController: StreamViewDelegate {
         }
     }
     
-    func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetrics] {
+    func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetricsProtocol] {
         let group = filteredAddressBook?.groups[safe: position.section]
         let record = group?.records[safe: position.index]
-        let metrics = record?.phoneNumbers.count > 1 ? multipleMetrics : singleMetrics
-        return [metrics]
+        return [record?.phoneNumbers.count > 1 ? multipleMetrics : singleMetrics]
     }
     
-    func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetrics? {
+    func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetricsProtocol? {
         return placeholderMetrics
     }
 }

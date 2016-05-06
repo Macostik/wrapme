@@ -15,7 +15,7 @@ class LiveBroadcastViewerCell: StreamReusableView {
     private var avatarView = ImageView(backgroundColor: UIColor.whiteColor())
     private var nameLabel = Label(preset: .Small, textColor: Color.grayDarker)
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         avatarView.cornerRadius = 24
         avatarView.defaultBackgroundColor = Color.grayLighter
         avatarView.defaultIconColor = UIColor.whiteColor()
@@ -65,8 +65,7 @@ class LiveBroadcastViewersViewController: UIViewController {
             self?.removeFromContainerAnimated(false)
         }
         
-        let metrics = StreamMetrics(loader: StreamLoader<LiveBroadcastViewerCell>())
-        metrics.size = LiveBroadcastViewerCell.DefaultHeight
+        let metrics = StreamMetrics<LiveBroadcastViewerCell>(size: LiveBroadcastViewerCell.DefaultHeight)
         dataSource.addMetrics(metrics)
         update()
     }

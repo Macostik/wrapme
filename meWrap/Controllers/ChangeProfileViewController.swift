@@ -14,7 +14,7 @@ final class DeviceCell: StreamReusableView {
     private let phone = Label(preset: .Small, weight: .Bold, textColor: Color.grayDark)
     private let deleteButton = Button()
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         addSubview(name)
         addSubview(phone)
         addSubview(deleteButton)
@@ -337,10 +337,10 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
             make.bottom.equalTo(headerView).inset(10)
         }
         
-        dataSource.addMetrics(specify(StreamMetrics(loader: StreamLoader<DeviceCell>()), {
+        dataSource.addMetrics(specify(StreamMetrics<DeviceCell>(), {
             $0.size = 64
             $0.prepareAppearing = { [weak self] _, view in
-                (view as? DeviceCell)?.deleteDevice = { device in
+                view.deleteDevice = { device in
                     self?.deleteDevice(device)
                 }
             }

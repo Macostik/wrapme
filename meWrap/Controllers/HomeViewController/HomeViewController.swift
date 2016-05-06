@@ -36,25 +36,25 @@ final class HomeViewController: BaseViewController {
         
         self.streamView.contentInset = self.streamView.scrollIndicatorInsets
         dataSource.scrollDirectionLayoutPrioritizer = buttonAnimationPrioritizer
-        dataSource.addMetrics(specify(StreamMetrics(loader: StreamLoader<WrapCell>()), {
+        dataSource.addMetrics(specify(StreamMetrics<WrapCell>(), {
             $0.modifyItem = {
                 let index = $0.position.index
                 $0.size = index == 0 ? 70 : 60
                 $0.insets.origin.y = index == 1 ? 5 : 0
             }
             
-            $0.selection = { item, entry in
-                if let entry = entry as? Entry {
+            $0.selection = { view in
+                if let entry = view.entry as? Entry {
                     ChronologicalEntryPresenter.presentEntry(entry, animated: false)
                 }
             }
             $0.finalizeAppearing = { [weak self] item, view in
-                (view as? WrapCell)?.delegate = self
+                view.delegate = self
                 self?.photoButton.hidden = false
             }
         }))
         
-        dataSource.addMetrics(StreamMetrics(loader: StreamLoader<RecentCandiesView>()).change({ [weak self] metrics in
+        dataSource.addMetrics(StreamMetrics<RecentCandiesView>().change({ [weak self] metrics in
             
             metrics.modifyItem = { item in
                 let size = (Constants.screenWidth - 2.0)/3.0
@@ -63,17 +63,15 @@ final class HomeViewController: BaseViewController {
             }
             
             metrics.finalizeAppearing = { item, view in
-                if let view = view as? RecentCandiesView {
-                    self?.candiesView = view
-                    self?.finalizeAppearingOfCandiesView(view)
-                }
+                self?.candiesView = view
+                self?.finalizeAppearingOfCandiesView(view)
             }
             
             }))
         
-        dataSource.placeholderMetrics = StreamMetrics(loader: HomePlaceholderView.homePlaceholderLoader({ [weak self] () -> Void in
+        dataSource.placeholderMetrics = HomePlaceholderView.homePlaceholderMetrics({ [weak self] () -> Void in
             self?.navigationController?.pushViewController(Storyboard.UploadWizard.instantiate(), animated:false)
-            })).change({ (metrics) -> Void in
+            }).change({ (metrics) -> Void in
                 metrics.finalizeAppearing = { [weak self] item, view in
                     self?.photoButton.hidden = true
                 }
@@ -218,10 +216,9 @@ final class HomeViewController: BaseViewController {
     }
     
     private func finalizeAppearingOfCandiesView(candiesView: RecentCandiesView) {
-        let metrics = candiesView.dataSource.metrics.first
-        metrics?.selection = { [weak self] item, entry in
-            if let candy = entry as? Candy {
-                CandyEnlargingPresenter.handleCandySelection(item, entry: candy, dismissingView: { candy -> UIView? in
+        candiesView.candyMetrics.selection = { [weak self] view in
+            if let candy = view.entry as? Candy {
+                CandyEnlargingPresenter.handleCandySelection(view.item, entry: candy, dismissingView: { candy -> UIView? in
                     self?.streamView.scrollRectToVisible(candiesView.frame, animated:false)
                     return candiesView.streamView.itemPassingTest({ $0.entry === candy })?.view
                 })

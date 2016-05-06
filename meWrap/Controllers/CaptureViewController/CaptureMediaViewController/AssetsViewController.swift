@@ -17,7 +17,7 @@ class AssetCell: StreamReusableView {
     var videoIndicator = Label(icon: "+", size: 20)
     private var requestID: PHImageRequestID?
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         addSubview(imageView)
         addSubview(videoIndicator)
         acceptView.textAlignment = .Center
@@ -119,9 +119,9 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
     override func viewDidLoad() {
         super.viewDidLoad()
         streamView.layout = HorizontalSquareLayout()
-        dataSource.addMetrics(StreamMetrics(loader: StreamLoader<AssetCell>()).change({ [weak self] metrics in
-            metrics.selection = { (item, entry) in
-                if let item = item, let asset = entry as? PHAsset {
+        dataSource.addMetrics(StreamMetrics<AssetCell>().change({ [weak self] metrics in
+            metrics.selection = { view in
+                if let item = view.item, let asset = view.entry as? PHAsset {
                     item.selected = self?.selectAsset(asset) ?? false
                 }
             }

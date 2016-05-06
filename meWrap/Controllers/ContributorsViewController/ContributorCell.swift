@@ -28,7 +28,7 @@ final class ContributorCell: StreamReusableView {
     private let streamView = StreamView()
     lazy var dataSource: StreamDataSource<[User]> = StreamDataSource(streamView: self.streamView)
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         avatarView.startReceivingStatusUpdates()
         streamView.layout = HorizontalStreamLayout()
         streamView.showsHorizontalScrollIndicator = false
@@ -81,23 +81,23 @@ final class ContributorCell: StreamReusableView {
         }
     }
     
-    lazy var removeMetrics: StreamMetrics = {
-        let loader = StreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
+    lazy var removeMetrics: StreamMetricsProtocol = {
+        let metrics = StreamMetrics<StreamReusableView>(layoutBlock: { (view) -> Void in
             let button = PressButton(type: .Custom)
             button.backgroundColor = Color.dangerRed
             button.normalColor = Color.dangerRed
             button.preset = Font.Small.rawValue
             button.titleLabel?.font = UIFont.lightFontSmall()
             button.setTitle("Remove", forState: .Normal)
-            button.addTarget(self, action: #selector(ContributorCell.remove(_:)), forControlEvents: .TouchUpInside)
+            button.addTarget(self, action: #selector(self.remove(_:)), forControlEvents: .TouchUpInside)
             view.addSubview(button)
             button.snp_makeConstraints(closure: { $0.edges.equalTo(view) })
-        })
-        return self.addMetrics(StreamMetrics(loader: loader, size: 76))
+        }, size: 76)
+        return self.addMetrics(metrics)
     }()
     
-    lazy var resendMetrics: StreamMetrics = {
-        let loader = StreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
+    lazy var resendMetrics: StreamMetricsProtocol = {
+        let metrics = StreamMetrics<StreamReusableView>(layoutBlock: { (view) -> Void in
             let button = PressButton(type: .Custom)
             button.backgroundColor = Color.orange
             button.normalColor = Color.orange
@@ -109,32 +109,32 @@ final class ContributorCell: StreamReusableView {
             button.addTarget(self, action: #selector(ContributorCell.resendInvite(_:)), forControlEvents: .TouchUpInside)
             view.addSubview(button)
             button.snp_makeConstraints(closure: { $0.edges.equalTo(view) })
-        })
-        return self.addMetrics(StreamMetrics(loader: loader, size: 76))
+        }, size: 76)
+        return self.addMetrics(metrics)
     }()
     
-    lazy var spinnerMetics: StreamMetrics = {
-        let loader = StreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
+    lazy var spinnerMetics: StreamMetricsProtocol = {
+        let metrics = StreamMetrics<StreamReusableView>(layoutBlock: { (view) -> Void in
             view.backgroundColor = Color.orange
             let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
             view.addSubview(spinner)
             spinner.startAnimating()
             spinner.snp_makeConstraints(closure: { $0.center.equalTo(view) })
-        })
-        return self.addMetrics(StreamMetrics(loader: loader, size: 76))
+        }, size: 76)
+        return self.addMetrics(metrics)
     }()
     
-    lazy var resendDoneMetrics: StreamMetrics = {
-        let loader = StreamLoader<StreamReusableView>(layoutBlock: { (view) -> Void in
+    lazy var resendDoneMetrics: StreamMetricsProtocol = {
+        let metrics = StreamMetrics<StreamReusableView>(layoutBlock: { (view) -> Void in
             view.backgroundColor = Color.orange
             let icon = Label(icon: "E", size: 36)
             view.addSubview(icon)
             icon.snp_makeConstraints(closure: { $0.center.equalTo(view) })
-        })
-        return self.addMetrics(StreamMetrics(loader: loader, size: 76))
+        }, size: 76)
+        return self.addMetrics(metrics)
     }()
     
-    private func addMetrics(metrics: StreamMetrics) -> StreamMetrics {
+    private func addMetrics<T: StreamMetricsProtocol>(metrics: T) -> T {
         metrics.hidden = true
         return self.dataSource.addHeaderMetrics(metrics)
     }

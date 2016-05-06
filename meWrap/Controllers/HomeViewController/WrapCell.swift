@@ -15,11 +15,14 @@ class RecentCandiesView: StreamReusableView {
     
     lazy var dataSource: StreamDataSource<[Candy]> = StreamDataSource(streamView: self.streamView)
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    var candyMetrics: StreamMetrics<CandyCell>!
+    
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         streamView.scrollEnabled = false
         dataSource.numberOfGridColumns = 3
         streamView.layout = SquareGridLayout()
-        dataSource.addMetrics(StreamMetrics(loader: StreamLoader<CandyCell>())).disableMenu = true
+        candyMetrics = StreamMetrics<CandyCell>()
+        dataSource.addMetrics(candyMetrics).disableMenu = true
         dataSource.layoutSpacing = Constants.pixelSize
         backgroundColor = Color.orange
         streamView.backgroundColor = UIColor.whiteColor()
@@ -38,7 +41,7 @@ class RecentCandiesView: StreamReusableView {
     }
 }
 
-@objc protocol WrapCellDelegate: NSObjectProtocol {
+protocol WrapCellDelegate: class {
     func wrapCellDidBeginPanning(cell: WrapCell)
     func wrapCellDidEndPanning(cell: WrapCell, performedAction:Bool)
     func wrapCell(cell: WrapCell, presentChatViewControllerForWrap wrap: Wrap)
@@ -62,7 +65,7 @@ class WrapCell: StreamReusableView {
     
     var allowSwipeAction: Bool = true
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         
         coverView.clipsToBounds = true
         coverView.cornerRadius = 25

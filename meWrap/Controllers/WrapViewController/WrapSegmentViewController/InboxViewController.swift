@@ -32,7 +32,7 @@ class InboxCell: StreamReusableView {
     internal var imageView = ImageView(backgroundColor: UIColor.clearColor())
     internal var videoIndicator = Label(icon: "+", size: 24)
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         addSubview(containerView)
         avatarView.cornerRadius = 18
         avatarView.defaultBackgroundColor = Color.grayLighter
@@ -99,7 +99,7 @@ class InboxCommentCell: InboxCell {
     
     static let DefaultHeight: CGFloat = Constants.screenWidth / 3 + 70
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         super.layoutWithMetrics(metrics)
         textView.numberOfLines = 0
         containerView.addSubview(textView)
@@ -133,7 +133,7 @@ class InboxCandyCell: InboxCell {
     
     static let DefaultHeight: CGFloat = Constants.screenWidth / 2.5 + 70
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         super.layoutWithMetrics(metrics)
         imageView.snp_makeConstraints {
             $0.leading.trailing.equalTo(containerView)
@@ -175,10 +175,10 @@ class InboxViewController: WrapSegmentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        dataSource.placeholderMetrics = StreamMetrics(loader: PlaceholderView.inboxPlaceholderLoader())
+        dataSource.placeholderMetrics = PlaceholderView.inboxPlaceholderMetrics()
         streamView.contentInset = streamView.scrollIndicatorInsets
-        let candyMetrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<InboxCandyCell>()))
-        let commentMetrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<InboxCommentCell>()))
+        let candyMetrics = dataSource.addMetrics(StreamMetrics<InboxCandyCell>())
+        let commentMetrics = dataSource.addMetrics(StreamMetrics<InboxCommentCell>())
         
         candyMetrics.size = InboxCandyCell.DefaultHeight
         commentMetrics.size = InboxCommentCell.DefaultHeight
@@ -193,12 +193,13 @@ class InboxViewController: WrapSegmentViewController {
             $0.hidden = !(event?.contribution is Comment)
         }
         
-        candyMetrics.selection = { item, entry in
-            if let event = entry as? InboxItem {
+        let selection: InboxCell -> () = { view in
+            if let event = view.entry as? InboxItem {
                 ChronologicalEntryPresenter.presentEntry(event.contribution, animated: false)
             }
         }
-        commentMetrics.selection = candyMetrics.selection
+        candyMetrics.selection = selection
+        commentMetrics.selection = selection
     }
     
     private func fetchUpdates() {

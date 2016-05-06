@@ -19,7 +19,7 @@ final class CommentCell: StreamReusableView, FlowerMenuConstructor {
     private let text = SmartLabel(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
     private let indicator = EntryStatusIndicator(color: Color.orange)
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         FlowerMenu.sharedMenu.registerView(self)
         text.numberOfLines = 0
         avatar.defaultIconSize = 24
@@ -125,7 +125,7 @@ class CommentsViewController: BaseViewController {
         
         candy.comments.all({ $0.markAsUnread(false) })
         
-        dataSource.addMetrics(specify(StreamMetrics(loader: StreamLoader<CommentCell>()), {
+        dataSource.addMetrics(specify(StreamMetrics<CommentCell>(), {
             $0.selectable = false
             $0.modifyItem = { [weak self] item in
                 let comment = item.entry as! Comment
@@ -136,9 +136,9 @@ class CommentsViewController: BaseViewController {
         dataSource.items = candy.sortedComments()
         
         friendsStreamView.layout = HorizontalStreamLayout()
-        let friendMetrics = StreamMetrics(loader: StreamLoader<FriendView>(), size: friendsStreamView.height)
+        let friendMetrics = StreamMetrics<FriendView>(size: friendsStreamView.height)
         friendMetrics.prepareAppearing = { [weak self] item, view in
-            (view as? FriendView)?.wrap = self?.candy?.wrap
+            view.wrap = self?.candy?.wrap
         }
         friendsDataSource.addMetrics(friendMetrics)
         

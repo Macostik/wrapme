@@ -26,9 +26,9 @@ class WrapListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        wrapListDataSource.placeholderMetrics = StreamMetrics(loader: PlaceholderView.sharePlaceholderLoader())
+        wrapListDataSource.placeholderMetrics = PlaceholderView.sharePlaceholderMetrics()
         
-        let metrics = wrapListDataSource.addMetrics(StreamMetrics(loader: StreamLoader<WrapCell>(), size: 70))
+        let metrics = wrapListDataSource.addMetrics(StreamMetrics<WrapCell>(size: 70))
         metrics.modifyItem = { [weak self] item in
             let wrap = item.entry as! Wrap
             if let text = self?.searchField?.text where !text.isEmpty {
@@ -37,13 +37,11 @@ class WrapListViewController: BaseViewController {
                 item.hidden = false
             }
         }
-        metrics.selection = { [weak self] item, entry in
-            self?.shareContent(entry as! Wrap)
+        metrics.selection = { [weak self] view in
+            self?.shareContent(view.entry as! Wrap)
         }
         metrics.finalizeAppearing = { _, view in
-            if let cell = view as? WrapCell {
-                cell.allowSwipeAction = false
-            }
+            view.allowSwipeAction = false
         }
         wrapListDataSource.items = specify(PaginatedList<Wrap>()) {
             $0.request = API.wraps(nil)

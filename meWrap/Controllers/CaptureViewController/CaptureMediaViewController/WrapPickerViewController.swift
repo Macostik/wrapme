@@ -39,7 +39,7 @@ class WrapPickerCell: StreamReusableView {
     weak var coverView: WrapCoverView?
     weak var nameLabel: UILabel?
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         let coverView = WrapCoverView()
         coverView.contentMode = .ScaleAspectFill
         coverView.clipsToBounds = true
@@ -126,11 +126,11 @@ class WrapPickerViewController: BaseViewController {
         streamView.contentInset = UIEdgeInsetsMake(ItemHeight, 0, ItemHeight, 0)
         streamView.scrollIndicatorInsets = streamView.contentInset
         
-        let metrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<WrapPickerCell>(), size: ItemHeight))
-        metrics.selection = { [weak self] item, entry in
+        let metrics = dataSource.addMetrics(StreamMetrics<WrapPickerCell>(size: ItemHeight))
+        metrics.selection = { [weak self] view in
             if let weakSelf = self {
-                if let index = item?.position.index where weakSelf.streamView.contentOffset.y != CGFloat(index) * CGFloat(ItemHeight) {
-                    weakSelf.streamView.setContentOffset(CGPoint(x: 0, y: CGFloat(index) * CGFloat(ItemHeight)), animated: true)
+                if let index = view.item?.position.index where weakSelf.streamView.contentOffset.y != CGFloat(index) * CGFloat(ItemHeight) {
+                    weakSelf.streamView.setContentOffset(0 ^ CGFloat(index) * CGFloat(ItemHeight), animated: true)
                 } else {
                     Dispatch.mainQueue.async {
                         weakSelf.delegate?.wrapPickerViewControllerDidFinish(weakSelf)
@@ -142,7 +142,7 @@ class WrapPickerViewController: BaseViewController {
         wraps = User.currentUser?.sortedWraps
         
         if let wrap = wrap, let index = wraps?.indexOf(wrap) {
-            streamView.setContentOffset(CGPoint(x: 0, y: CGFloat(index) * CGFloat(ItemHeight)), animated: true)
+            streamView.setContentOffset(0 ^ CGFloat(index) * CGFloat(ItemHeight), animated: true)
         }
         
         view.addGestureRecognizer(streamView.panGestureRecognizer)

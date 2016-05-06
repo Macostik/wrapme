@@ -9,29 +9,25 @@
 import Foundation
 import UIKit
 
-protocol StreamLoaderType {
-    func loadView() -> StreamReusableView?
+protocol StreamMetricsProtocol: class {
+    func enqueueView(view: StreamReusableView)
+    func dequeueViewWithItem(item: StreamItem) -> StreamReusableView
+    func loadView() -> StreamReusableView
+    var hidden: Bool { get set }
+    var size: CGFloat { get set }
+    var insets: CGRect { get set }
+    var ratio: CGFloat { get set }
+    var selectable: Bool { get }
+    var modifyItem: (StreamItem -> Void)? { get }
+    func select(view: StreamReusableView)
+    var disableMenu: Bool { get }
+    var isSeparator: Bool { get set }
 }
 
-struct StreamLoader<T: StreamReusableView>: StreamLoaderType {
+class StreamMetrics<T: StreamReusableView>: StreamMetricsProtocol {
     
-    var layoutBlock: (T -> Void)?
-    
-    init(layoutBlock: (T -> Void)? = nil) {
+    init(layoutBlock: (T -> Void)? = nil, size: CGFloat = 0) {
         self.layoutBlock = layoutBlock
-    }
-    
-    func loadView() -> StreamReusableView? {
-        let view = T()
-        layoutBlock?(view)
-        return view
-    }
-}
-
-final class StreamMetrics {
-    
-    init(loader: StreamLoaderType, size: CGFloat = 0) {
-        self.loader = loader
         self.size = size
     }
     
@@ -40,7 +36,7 @@ final class StreamMetrics {
         return self
     }
     
-    var loader: StreamLoaderType
+    var layoutBlock: (T -> Void)?
     
     var modifyItem: (StreamItem -> Void)?
     
@@ -53,62 +49,62 @@ final class StreamMetrics {
     
     var selectable = true
     
-    var selection: ((StreamItem?, AnyObject?) -> Void)?
+    var selection: (T -> Void)?
     
-    var prepareAppearing: ((StreamItem, StreamReusableView) -> Void)?
+    var prepareAppearing: ((StreamItem, T) -> Void)?
     
-    var finalizeAppearing: ((StreamItem, StreamReusableView) -> Void)?
+    var finalizeAppearing: ((StreamItem, T) -> Void)?
     
-    var reusableViews: Set<StreamReusableView> = Set()
+    var reusableViews: Set<T> = Set()
     
     var disableMenu = false
     
-    func loadView() -> StreamReusableView? {
-        if let reusing = loader.loadView() {
-            reusing.metrics = self
-            reusing.didLoad()
-            reusing.layoutWithMetrics(self)
-            return reusing
-        } else {
-            return nil
-        }
+    func loadView() -> StreamReusableView {
+        let view = T()
+        layoutBlock?(view)
+        view.metrics = self
+        view.didLoad()
+        view.layoutWithMetrics(self)
+        return view
     }
     
-    func findView(item: StreamItem) -> StreamReusableView? {
+    func findView(item: StreamItem) -> T? {
         for view in reusableViews where view.item?.entry === item.entry {
             return view
         }
         return reusableViews.first
     }
     
-    func dequeueView(item: StreamItem) -> StreamReusableView? {
+    func dequeueView(item: StreamItem) -> T {
         if let view = findView(item) {
             reusableViews.remove(view)
             view.didDequeue()
             return view
         }
-        return loadView()
+        return loadView() as! T
     }
     
-    func dequeueViewWithItem(item: StreamItem) -> StreamReusableView? {
-        if let view = dequeueView(item) {
-            view.item = item
-            UIView.performWithoutAnimation { view.frame = item.frame }
-            item.view = view
-            prepareAppearing?(item, view)
-            view.entry = item.entry
-            finalizeAppearing?(item, view)
-            return view
-        }
-        return nil
+    func dequeueViewWithItem(item: StreamItem) -> StreamReusableView {
+        let view = dequeueView(item)
+        view.item = item
+        UIView.performWithoutAnimation { view.frame = item.frame }
+        item.view = view
+        prepareAppearing?(item, view)
+        view.entry = item.entry
+        finalizeAppearing?(item, view)
+        return view
     }
     
     func enqueueView(view: StreamReusableView) {
-        view.willEnqueue()
-        reusableViews.insert(view)
+        if let view = view as? T {
+            view.willEnqueue()
+            reusableViews.insert(view)
+        }
     }
     
-    func select(item: StreamItem?, entry: AnyObject?) {
-        selection?(item, entry)
+    func select(view: StreamReusableView) {
+        if let view = view as? T {
+            selection?(view)
+        }
     }
 }

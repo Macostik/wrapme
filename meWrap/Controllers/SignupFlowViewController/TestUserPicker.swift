@@ -151,7 +151,7 @@ class TestUserCell: StreamReusableView, FlowerMenuConstructor {
     private let email = Label(preset: .Normal, textColor: Color.orange)
     private let deviceUID = Label(preset: .Small, textColor: Color.grayLight)
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         FlowerMenu.sharedMenu.registerView(self)
         addSubview(phone)
         addSubview(email)
@@ -209,10 +209,10 @@ final class TestUserPicker: UIView {
         navigationBar.backgroundColor = Color.orange
         backgroundColor = UIColor.whiteColor()
         dataSource = StreamDataSource(streamView: streamView)
-        let metrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<TestUserCell>(), size: 110))
-        metrics.selection = { [weak self] item, entry in
+        let metrics = dataSource.addMetrics(StreamMetrics<TestUserCell>(size: 110))
+        metrics.selection = { [weak self] view in
             self?.removeFromSuperview()
-            selection(entry as! Authorization)
+            selection(view.entry as! Authorization)
         }
         navigationBar.addSubview(closeButton)
         navigationBar.addSubview(titleLabel)

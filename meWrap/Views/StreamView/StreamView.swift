@@ -13,17 +13,17 @@ var StreamViewCommonLocksChanged: String = "StreamViewCommonLocksChanged"
 
 protocol StreamViewDelegate: UIScrollViewDelegate {
     func streamView(streamView: StreamView, numberOfItemsInSection section: Int) -> Int
-    func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetrics]
+    func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetricsProtocol]
     func streamView(streamView: StreamView, didLayoutItem item: StreamItem)
     func streamView(streamView: StreamView, entryBlockForItem item: StreamItem) -> (StreamItem -> AnyObject?)?
     func streamViewWillChangeContentSize(streamView: StreamView, newContentSize: CGSize)
     func streamViewDidChangeContentSize(streamView: StreamView, oldContentSize: CGSize)
     func streamViewDidLayout(streamView: StreamView)
-    func streamViewHeaderMetrics(streamView: StreamView) -> [StreamMetrics]
-    func streamViewFooterMetrics(streamView: StreamView) -> [StreamMetrics]
-    func streamView(streamView: StreamView, headerMetricsInSection section: Int) -> [StreamMetrics]
-    func streamView(streamView: StreamView, footerMetricsInSection section: Int) -> [StreamMetrics]
-    func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetrics?
+    func streamViewHeaderMetrics(streamView: StreamView) -> [StreamMetricsProtocol]
+    func streamViewFooterMetrics(streamView: StreamView) -> [StreamMetricsProtocol]
+    func streamView(streamView: StreamView, headerMetricsInSection section: Int) -> [StreamMetricsProtocol]
+    func streamView(streamView: StreamView, footerMetricsInSection section: Int) -> [StreamMetricsProtocol]
+    func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetricsProtocol?
     func streamViewNumberOfSections(streamView: StreamView) -> Int
 }
 
@@ -33,11 +33,11 @@ extension StreamViewDelegate {
     func streamViewWillChangeContentSize(streamView: StreamView, newContentSize: CGSize) { }
     func streamViewDidChangeContentSize(streamView: StreamView, oldContentSize: CGSize) { }
     func streamViewDidLayout(streamView: StreamView) { }
-    func streamViewHeaderMetrics(streamView: StreamView) -> [StreamMetrics] { return [] }
-    func streamViewFooterMetrics(streamView: StreamView) -> [StreamMetrics] { return [] }
-    func streamView(streamView: StreamView, headerMetricsInSection section: Int) -> [StreamMetrics] { return [] }
-    func streamView(streamView: StreamView, footerMetricsInSection section: Int) -> [StreamMetrics] { return [] }
-    func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetrics? { return nil }
+    func streamViewHeaderMetrics(streamView: StreamView) -> [StreamMetricsProtocol] { return [] }
+    func streamViewFooterMetrics(streamView: StreamView) -> [StreamMetricsProtocol] { return [] }
+    func streamView(streamView: StreamView, headerMetricsInSection section: Int) -> [StreamMetricsProtocol] { return [] }
+    func streamView(streamView: StreamView, footerMetricsInSection section: Int) -> [StreamMetricsProtocol] { return [] }
+    func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetricsProtocol? { return nil }
     func streamViewNumberOfSections(streamView: StreamView) -> Int { return 1 }
 }
 
@@ -241,7 +241,7 @@ final class StreamView: UIScrollView {
         }
     }
     
-    private func addItem(delegate: StreamViewDelegate? = nil, metrics: StreamMetrics, position: StreamPosition) -> StreamItem? {
+    private func addItem(delegate: StreamViewDelegate? = nil, metrics: StreamMetricsProtocol, position: StreamPosition) -> StreamItem? {
         let item = StreamItem(metrics: metrics, position: position)
         item.entryBlock = delegate?.streamView(self, entryBlockForItem: item)
         metrics.modifyItem?(item)
@@ -265,12 +265,11 @@ final class StreamView: UIScrollView {
             if item.visible != visible {
                 item.visible = visible
                 if visible {
-                    if let view = item.metrics.dequeueViewWithItem(item) {
-                        if view.superview != self {
-                            insertSubview(view, atIndex: 0)
-                        }
-                        view.hidden = false
+                    let view = item.metrics.dequeueViewWithItem(item)
+                    if view.superview != self {
+                        insertSubview(view, atIndex: 0)
                     }
+                    view.hidden = false
                 } else if let view = item.view {
                     item.metrics.enqueueView(view)
                     view.hidden = true
@@ -280,8 +279,8 @@ final class StreamView: UIScrollView {
         }
     }
     
-    func dynamicSizeForMetrics(metrics: StreamMetrics, item: StreamItem?, minSize: CGFloat) -> CGFloat {
-        guard let view = metrics.loadView() else { return minSize }
+    func dynamicSizeForMetrics(metrics: StreamMetricsProtocol, item: StreamItem?, minSize: CGFloat) -> CGFloat {
+        let view = metrics.loadView()
         view.entry = item?.entry
         var fittingSize = UILayoutFittingCompressedSize
         fittingSize.width = width

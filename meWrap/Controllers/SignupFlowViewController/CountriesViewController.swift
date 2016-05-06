@@ -13,7 +13,7 @@ class CountryCell: StreamReusableView {
     
     private let countryNameLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.grayDark)
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         addSubview(countryNameLabel)
         let separator = SeparatorView(color: Color.grayLightest)
         addSubview(separator)
@@ -76,10 +76,10 @@ class CountriesViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let metrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<CountryCell>(), size: 50))
-        metrics.selection = { [weak self] item, entry in
-            item?.selected = true
-            if let country = entry as? Country {
+        let metrics = dataSource.addMetrics(StreamMetrics<CountryCell>(size: 50))
+        metrics.selection = { [weak self] view in
+            view.item?.selected = true
+            if let country = view.entry as? Country {
                 self?.selectionBlock?(country)
             }
         }

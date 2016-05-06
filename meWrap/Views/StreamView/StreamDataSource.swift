@@ -16,15 +16,15 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, GridLayoutDelegate, S
     
     @IBOutlet weak var streamView: StreamView?
     
-    lazy var headerMetrics = [StreamMetrics]()
+    lazy var headerMetrics = [StreamMetricsProtocol]()
     
-    lazy var sectionHeaderMetrics = [StreamMetrics]()
+    lazy var sectionHeaderMetrics = [StreamMetricsProtocol]()
     
-    lazy var metrics = [StreamMetrics]()
+    lazy var metrics = [StreamMetricsProtocol]()
     
-    lazy var sectionFooterMetrics = [StreamMetrics]()
+    lazy var sectionFooterMetrics = [StreamMetricsProtocol]()
     
-    lazy var footerMetrics = [StreamMetrics]()
+    lazy var footerMetrics = [StreamMetricsProtocol]()
     
     deinit {
         if (streamView?.delegate as? StreamDataSource) == self {
@@ -48,32 +48,32 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, GridLayoutDelegate, S
         }
     }
     
-    func addHeaderMetrics(metrics: StreamMetrics) -> StreamMetrics {
+    func addHeaderMetrics<T: StreamMetricsProtocol>(metrics: T) -> T {
         headerMetrics.append(metrics)
         return metrics
     }
     
-    func addSectionHeaderMetrics(metrics: StreamMetrics) -> StreamMetrics {
+    func addSectionHeaderMetrics<T: StreamMetricsProtocol>(metrics: T) -> T {
         sectionHeaderMetrics.append(metrics)
         return metrics
     }
     
-    func addMetrics(metrics: StreamMetrics) -> StreamMetrics {
+    func addMetrics<T: StreamMetricsProtocol>(metrics: T) -> T {
         self.metrics.append(metrics)
         return metrics
     }
     
-    func addSectionFooterMetrics(metrics: StreamMetrics) -> StreamMetrics {
+    func addSectionFooterMetrics<T: StreamMetricsProtocol>(metrics: T) -> T {
         sectionFooterMetrics.append(metrics)
         return metrics
     }
     
-    func addFooterMetrics(metrics: StreamMetrics) -> StreamMetrics {
+    func addFooterMetrics<T: StreamMetricsProtocol>(metrics: T) -> T {
         footerMetrics.append(metrics)
         return metrics
     }
     
-    var placeholderMetrics: StreamMetrics?
+    var placeholderMetrics: StreamMetricsProtocol?
     
     @IBOutlet var scrollDirectionLayoutPrioritizer: LayoutPrioritizer?
     
@@ -121,7 +121,7 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, GridLayoutDelegate, S
         return numberOfItems ?? items?.count ?? 0
     }
     
-    func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetrics] {
+    func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetricsProtocol] {
         return metrics
     }
     
@@ -147,23 +147,23 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, GridLayoutDelegate, S
         didLayoutBlock?()
     }
     
-    func streamViewHeaderMetrics(streamView: StreamView) -> [StreamMetrics] {
+    func streamViewHeaderMetrics(streamView: StreamView) -> [StreamMetricsProtocol] {
         return headerMetrics
     }
     
-    func streamViewFooterMetrics(streamView: StreamView) -> [StreamMetrics] {
+    func streamViewFooterMetrics(streamView: StreamView) -> [StreamMetricsProtocol] {
         return footerMetrics
     }
     
-    func streamView(streamView: StreamView, headerMetricsInSection section: Int) -> [StreamMetrics] {
+    func streamView(streamView: StreamView, headerMetricsInSection section: Int) -> [StreamMetricsProtocol] {
         return sectionHeaderMetrics
     }
     
-    func streamView(streamView: StreamView, footerMetricsInSection section: Int) -> [StreamMetrics] {
+    func streamView(streamView: StreamView, footerMetricsInSection section: Int) -> [StreamMetricsProtocol] {
         return sectionFooterMetrics
     }
     
-    func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetrics? {
+    func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetricsProtocol? {
         return placeholderMetrics
     }
     

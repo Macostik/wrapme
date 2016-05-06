@@ -41,7 +41,7 @@ final class ContributorsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dataSource.addMetrics(specify(StreamMetrics(loader: StreamLoader<ContributorCell>()), {
+        dataSource.addMetrics(specify(StreamMetrics<ContributorCell>(), {
             $0.modifyItem = { item in
                 let nameFont = UIFont.fontNormal()
                 let infoFont = UIFont.lightFontSmall()
@@ -50,10 +50,8 @@ final class ContributorsViewController: BaseViewController {
                 item.size = max(infoHeight + nameFont.lineHeight + VerticalIndent, MinHeight) + 1
             }
             $0.prepareAppearing = { [weak self] item, view in
-                if let view = view as? ContributorCell {
-                    view.wrap = self?.wrap
-                    view.delegate = self
-                }
+                view.wrap = self?.wrap
+                view.delegate = self
             }
         }))
         

@@ -65,7 +65,7 @@ final class SingleAddressBookRecordCell: AddressBookRecordCell {
         $0.defaultIconSize = 24
     }
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         infoLabel.numberOfLines = 0
         selectButton.addTarget(self, action: #selector(SingleAddressBookRecordCell._select(_:)), forControlEvents: .TouchUpInside)
         infoLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
@@ -142,23 +142,22 @@ final class MultipleAddressBookRecordCell: AddressBookRecordCell {
         $0.titleEdgeInsets.right = 13
     }
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         nameLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
         avatarView.defaultIconText = "&"
         avatarView.defaultBackgroundColor = Color.grayLighter
         dataSource = StreamDataSource(streamView: streamView)
-        dataSource.addMetrics(StreamMetrics(loader: StreamLoader<AddressBookPhoneNumberCell>()).change({ [weak self] metrics in
+        dataSource.addMetrics(StreamMetrics<AddressBookPhoneNumberCell>().change({ [weak self] metrics in
             metrics.size = 50.0
             metrics.selectable = true
             metrics.finalizeAppearing = { item, view in
-                let cell = view as? AddressBookPhoneNumberCell
                 let phoneNumber = item.entry as? AddressBookPhoneNumber
                 if let weakSelf = self, let phoneNumber = phoneNumber {
-                    cell?.checked = weakSelf.delegate?.recordCell(weakSelf, phoneNumberState: phoneNumber) != .Default
+                    view.checked = weakSelf.delegate?.recordCell(weakSelf, phoneNumberState: phoneNumber) != .Default
                 }
             }
-            metrics.selection = { item, phoneNumber in
-                self?.selectPhoneNumber(phoneNumber as? AddressBookPhoneNumber)
+            metrics.selection = { view in
+                self?.selectPhoneNumber(view.entry as? AddressBookPhoneNumber)
             }
             }))
         openView.addTarget(self, action: #selector(MultipleAddressBookRecordCell.open(_:)), forControlEvents: .TouchUpInside)

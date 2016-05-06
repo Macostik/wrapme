@@ -9,13 +9,7 @@
 import UIKit
 import SnapKit
 
-protocol HistoryItemCellDelegate: class {
-    func historyItemCell(cell: HistoryItemCell, didSelectItem item: HistoryItem)
-}
-
 class HistoryItemCell: StreamReusableView {
-    
-    weak var delegate: HistoryItemCellDelegate?
     
     class HistoryItemDataSource: StreamDataSource<[Candy]> {
         func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -42,14 +36,13 @@ class HistoryItemCell: StreamReusableView {
     
     private var dataSource: HistoryItemDataSource!
     
-    private var candyMetrics: StreamMetrics!
+    private var candyMetrics: StreamMetrics<CandyCell>!
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         
         streamView.layout = HorizontalSquareLayout()
         dataSource = HistoryItemDataSource(streamView: streamView)
-        candyMetrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<CandyCell>()))
-        candyMetrics.selection = metrics.selection
+        candyMetrics = dataSource.addMetrics(StreamMetrics<CandyCell>())
         dataSource.layoutSpacing = Constants.pixelSize
         candyMetrics.prepareAppearing = { [weak self] item, _ in
             item.view?.transform = self?.streamView.transform ?? CGAffineTransformIdentity
@@ -119,9 +112,7 @@ class HistoryItemCell: StreamReusableView {
     }
     
     func openHistoryItem(sender: Button) {
-        if let item = entry as? HistoryItem {
-            delegate?.historyItemCell(self, didSelectItem: item)
-        }
+        metrics?.select(self)
     }
 }
 
@@ -131,7 +122,7 @@ class LiveBroadcastMediaView: StreamReusableView {
     private let nameLabel = Label(preset: .Small)
     private let titleLabel = Label(preset: .Smaller, textColor: Color.grayLighter)
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         imageView.cornerRadius = 24
         imageView.defaultBackgroundColor = Color.grayLighter
         imageView.defaultIconColor = UIColor.whiteColor()
@@ -196,7 +187,7 @@ class MediaViewController: WrapSegmentViewController {
     
     var history: History!
     
-    weak var candyMetrics: StreamMetrics!
+    weak var candyMetrics: StreamMetrics<HistoryItemCell>!
     @IBOutlet weak var scrollDirectionPrioritizer: LayoutPrioritizer!
     
     override func viewDidLoad() {
@@ -211,29 +202,33 @@ class MediaViewController: WrapSegmentViewController {
         dataSource.scrollDirectionLayoutPrioritizer = self.scrollDirectionPrioritizer
         dataSource.numberOfGridColumns = 3
         dataSource.layoutSpacing = Constants.pixelSize
-        dataSource.placeholderMetrics = StreamMetrics(loader: PlaceholderView.mediaPlaceholderLoader())
+        dataSource.placeholderMetrics = PlaceholderView.mediaPlaceholderMetrics()
         
         if wrap.requiresFollowing && Network.sharedNetwork.reachable {
             wrap.candies = []
         }
         
         dataSource.wrap = wrap
-        dataSource.liveBroadcastMetrics.selection = { [weak self] (item, broadcast) -> Void in
-            if let broadcast = broadcast as? LiveBroadcast {
+        dataSource.liveBroadcastMetrics.selection = { [weak self] view -> Void in
+            if let broadcast = view.entry as? LiveBroadcast {
                 self?.presentLiveBroadcast(broadcast)
             }
         }
         
-        candyMetrics = dataSource.addMetrics(StreamMetrics(loader: StreamLoader<HistoryItemCell>()))
+        candyMetrics = dataSource.addMetrics(StreamMetrics<HistoryItemCell>())
         candyMetrics.prepareAppearing = { [weak self] item, view in
-            (view as? HistoryItemCell)?.delegate = self
+            view.candyMetrics.selection = { [weak self] view -> Void in
+                CandyEnlargingPresenter.handleCandySelection(view.item!, entry: view.entry!, historyItem: self?.history.itemWithCandy(view.entry as? Candy), dismissingView: { candy -> UIView? in
+                    return self?.enlargingPresenterDismissingView(candy)
+                })
+            }
         }
         candyMetrics.size = round(view.width / 2.5) + 28
         candyMetrics.selectable = false
-        candyMetrics.selection = { [weak self] (item, entry) -> Void in
-            CandyEnlargingPresenter.handleCandySelection(item, entry: entry, historyItem: self?.history.itemWithCandy(entry as? Candy), dismissingView: { candy -> UIView? in
-                return self?.enlargingPresenterDismissingView(candy)
-            })
+        candyMetrics.selection = { [weak self] view -> Void in
+            let controller = Storyboard.HistoryItem.instantiate()
+            controller.item = view.entry as? HistoryItem
+            self?.navigationController?.pushViewController(controller, animated: false)
         }
         
         dataSource.appendableBlock = { [weak self] (dataSource) -> Bool in
@@ -370,14 +365,5 @@ extension MediaViewController: EntryNotifying {
     
     func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
         return wrap == entry
-    }
-}
-
-extension MediaViewController: HistoryItemCellDelegate {
-    
-    func historyItemCell(cell: HistoryItemCell, didSelectItem item: HistoryItem) {
-        let controller = Storyboard.HistoryItem.instantiate()
-        controller.item = item
-        navigationController?.pushViewController(controller, animated: false)
     }
 }

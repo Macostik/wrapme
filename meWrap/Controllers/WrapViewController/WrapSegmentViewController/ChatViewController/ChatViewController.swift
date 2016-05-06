@@ -17,19 +17,19 @@ final class ChatViewController: WrapSegmentViewController {
     
     lazy var chat: Chat = Chat(wrap: self.wrap)
     
-    private var messageMetrics = StreamMetrics(loader: StreamLoader<MessageCell>()).change({ $0.selectable = false })
-    private var messageWithNameMetrics = StreamMetrics(loader: StreamLoader<MessageWithNameCell>()).change({ $0.selectable = false })
-    private var myMessageMetrics = StreamMetrics(loader: StreamLoader<MyMessageCell>()).change({ $0.selectable = false })
-    private var dateMetrics = StreamMetrics(loader: StreamLoader<MessageDateView>(), size: 33).change({ $0.selectable = false })
+    private var messageMetrics = StreamMetrics<MessageCell>().change({ $0.selectable = false })
+    private var messageWithNameMetrics = StreamMetrics<MessageWithNameCell>().change({ $0.selectable = false })
+    private var myMessageMetrics = StreamMetrics<MyMessageCell>().change({ $0.selectable = false })
+    private var dateMetrics = StreamMetrics<MessageDateView>(size: 33).change({ $0.selectable = false })
     
-    private lazy var placeholderMetrics: StreamMetrics = StreamMetrics(loader: PlaceholderView.chatPlaceholderLoader()).change { [weak self] metrics -> Void in
+    private lazy var placeholderMetrics: StreamMetrics<PlaceholderView> = PlaceholderView.chatPlaceholderMetrics().change { [weak self] metrics -> Void in
         metrics.prepareAppearing = { item, view in
-            (view as! PlaceholderView).textLabel.text = String(format:"no_chat_message".ls, self?.wrap?.name ?? "")
+            view.textLabel.text = String(format:"no_chat_message".ls, self?.wrap?.name ?? "")
         }
         metrics.selectable = false
     }
     
-    private var unreadMessagesMetrics = StreamMetrics(loader: StreamLoader<StreamReusableView>(layoutBlock: { view in
+    private var unreadMessagesMetrics = StreamMetrics<StreamReusableView>(layoutBlock: { view in
         let label = Label(preset: .Normal, weight: .Regular , textColor: Color.orange)
         label.text = "unread_messages".ls
         label.textAlignment = .Center
@@ -39,7 +39,7 @@ final class ChatViewController: WrapSegmentViewController {
             make.leading.trailing.equalTo(view)
             make.top.bottom.equalTo(view).inset(6)
         })
-    }), size: 46).change({ $0.selectable = false })
+    }, size: 46).change({ $0.selectable = false })
     
     private var dragged = false
     
@@ -275,8 +275,8 @@ extension ChatViewController: StreamViewDelegate {
         }
     }
     
-    func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetrics] {
-        var metrics = [StreamMetrics]()
+    func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetricsProtocol] {
+        var metrics = [StreamMetricsProtocol]()
         guard let message = chat.entries[safe: position.index] else { return metrics }
         if chat.unreadMessages.first == message && badge?.value != 0 {
             metrics.append(unreadMessagesMetrics)
@@ -308,7 +308,7 @@ extension ChatViewController: StreamViewDelegate {
         appendItemsIfNeededWithTargetContentOffset(streamView.contentOffset)
     }
     
-    func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetrics? {
+    func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetricsProtocol? {
         return placeholderMetrics
     }
     

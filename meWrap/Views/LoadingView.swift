@@ -13,11 +13,11 @@ final class LoadingView: StreamReusableView {
     
     static var DefaultSize: CGFloat = 66.0
     
-    class func metrics() -> StreamMetrics {
-        return StreamMetrics(loader: StreamLoader<LoadingView>(), size: DefaultSize)
+    class func metrics() -> StreamMetrics<LoadingView> {
+        return StreamMetrics<LoadingView>(size: DefaultSize)
     }
     
-    override func layoutWithMetrics(metrics: StreamMetrics) {
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         spinner.color = Color.orange
         spinner.hidesWhenStopped = true
         addSubview(spinner)

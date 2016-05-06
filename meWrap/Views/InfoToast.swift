@@ -183,6 +183,12 @@ extension UIAlertController {
     }
 }
 
+extension UIActivityViewController {
+    override func definesToastAppearance() -> Bool {
+        return false
+    }
+}
+
 extension InfoToast {
     
     class func showDownloadingMediaMessageForCandy(candy: Candy?) {

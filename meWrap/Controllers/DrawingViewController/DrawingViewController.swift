@@ -58,7 +58,6 @@ class DrawingViewController: BaseViewController {
         super.viewDidLoad()
         self.stickersButton.exclusiveTouch = true
         self.textButton.exclusiveTouch = true
-        colorsView.setup()
         colorsView.pickedColor = { [weak self] color in
             self?.session.brush.color = color
             self?.textOverlayView?.transformView.textView.textColor = color
@@ -74,6 +73,11 @@ class DrawingViewController: BaseViewController {
         session.delegate = self
         session.brush = DrawingBrush(width: 5, opacity: 1, color: UIColor.redColor())
  
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        colorsView.setup()
     }
     
     override func prefersStatusBarHidden() -> Bool {

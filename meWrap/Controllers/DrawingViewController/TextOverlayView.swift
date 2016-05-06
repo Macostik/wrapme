@@ -249,6 +249,14 @@ class TransformTextView: UITextView, UITextViewDelegate {
     
     var placeholder: String?
     
+    override var textColor: UIColor? {
+        didSet {
+            if placeholder != nil {
+                setNeedsDisplay()
+            }
+        }
+    }
+    
     var attributes: [String: AnyObject] {
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = textAlignment

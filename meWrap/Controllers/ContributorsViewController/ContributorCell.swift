@@ -17,7 +17,7 @@ protocol ContributorCellDelegate: class {
     func contributorCell(cell: ContributorCell, showMenu contributor: User) -> Bool
 }
 
-final class ContributorCell: StreamReusableView {
+final class ContributorCell: EntryStreamReusableView<User> {
     
     weak var delegate: ContributorCellDelegate?
     private let nameLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.grayDark)
@@ -149,8 +149,8 @@ final class ContributorCell: StreamReusableView {
     
     weak var wrap: Wrap?
     
-    override func setup(entry: AnyObject?) {
-        guard let user = entry as? User, let currentUser = User.currentUser else { return }
+    override func setup(user: User) {
+        guard let currentUser = User.currentUser else { return }
         
         let deletable = wrap?.contributor == currentUser && !user.current
         removeMetrics.hidden = !deletable
@@ -187,13 +187,13 @@ final class ContributorCell: StreamReusableView {
     
     @IBAction func toggleSlideMenu(sender: AnyObject) {
         setMenuHidden(streamView.contentOffset.x != 0, animated: true)
-        if let user = entry as? User {
+        if let user = entry {
             delegate?.contributorCell(self, didToggleMenu: user)
         }
     }
     
     @IBAction func remove(sender: AnyObject) {
-        if let user = entry as? User {
+        if let user = entry {
             delegate?.contributorCell(self, didRemoveContributor: user)
         }
     }
@@ -203,7 +203,7 @@ final class ContributorCell: StreamReusableView {
         spinnerMetics.hidden = false
         dataSource.reload()
         sender.userInteractionEnabled = false
-        guard let user = entry as? User else { return }
+        guard let user = entry else { return }
         delegate?.contributorCell(self, didInviteContributor: user, completionHandler: { [weak self] (success) -> Void in
             sender.userInteractionEnabled = false
             self?.resendMetrics.hidden = success

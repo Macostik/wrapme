@@ -145,7 +145,7 @@ struct TestUser {
     }
 }
 
-class TestUserCell: StreamReusableView, FlowerMenuConstructor {
+class TestUserCell: EntryStreamReusableView<Authorization>, FlowerMenuConstructor {
     
     private let phone = Label(preset: .Normal, textColor: Color.grayDark)
     private let email = Label(preset: .Normal, textColor: Color.orange)
@@ -171,7 +171,7 @@ class TestUserCell: StreamReusableView, FlowerMenuConstructor {
     
     func constructFlowerMenu(menu: FlowerMenu) {
         menu.addDeleteAction { [weak self] () -> Void in
-            if let authorization = self?.entry as? Authorization {
+            if let authorization = self?.entry {
                 TestUser.remove(authorization, completion: {
                     TestUser.testUsers { [weak self] authorizations in
                         (self?.superview?.superview as? TestUserPicker)?.dataSource.items = authorizations
@@ -181,12 +181,10 @@ class TestUserCell: StreamReusableView, FlowerMenuConstructor {
         }
     }
     
-    override func setup(entry: AnyObject?) {
-        if let authorization = entry as? Authorization {
-            phone.text = authorization.fullPhoneNumber
-            email.text = authorization.email
-            deviceUID.text = authorization.deviceUID
-        }
+    override func setup(authorization: Authorization) {
+        phone.text = authorization.fullPhoneNumber
+        email.text = authorization.email
+        deviceUID.text = authorization.deviceUID
     }
 }
 
@@ -212,7 +210,7 @@ final class TestUserPicker: UIView {
         let metrics = dataSource.addMetrics(StreamMetrics<TestUserCell>(size: 110))
         metrics.selection = { [weak self] view in
             self?.removeFromSuperview()
-            selection(view.entry as! Authorization)
+            selection(view.entry!)
         }
         navigationBar.addSubview(closeButton)
         navigationBar.addSubview(titleLabel)

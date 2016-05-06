@@ -9,7 +9,7 @@
 import Foundation
 import SnapKit
 
-class CandyCell: StreamReusableView, FlowerMenuConstructor {
+class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
     
     let imageView = ImageView(backgroundColor: UIColor.whiteColor())
     let commentLabel = Label(preset: .Smaller, textColor: UIColor.whiteColor())
@@ -62,7 +62,7 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
     }
     
     func constructFlowerMenu(menu: FlowerMenu) {
-        guard let candy = entry as? Candy where !(candy.wrap?.requiresFollowing ?? true) else {
+        guard let candy = entry where !(candy.wrap?.requiresFollowing ?? true) else {
             return
         }
         
@@ -137,22 +137,22 @@ class CandyCell: StreamReusableView, FlowerMenuConstructor {
         }
     }
     
-    override func setup(entry: AnyObject?) {
-        
+    override func setupEmpty() {
         userInteractionEnabled = true
         exclusiveTouch = true
-        
-        if let candy = entry as? Candy {
-            videoIndicator.hidden = candy.mediaType != .Video
-            commentLabel.text = candy.latestComment?.text
-            commentLabel.superview?.hidden = commentLabel.text?.isEmpty ?? true
-            imageView.url = candy.asset?.small
-            uploadingView = candy.uploadingView
-        } else {
-            uploadingView = nil
-            videoIndicator.hidden = true
-            imageView.url = nil
-            commentLabel.superview?.hidden = true
-        }
+        uploadingView = nil
+        videoIndicator.hidden = true
+        imageView.url = nil
+        commentLabel.superview?.hidden = true
+    }
+    
+    override func setup(candy: Candy) {
+        userInteractionEnabled = true
+        exclusiveTouch = true
+        videoIndicator.hidden = candy.mediaType != .Video
+        commentLabel.text = candy.latestComment?.text
+        commentLabel.superview?.hidden = commentLabel.text?.isEmpty ?? true
+        imageView.url = candy.asset?.small
+        uploadingView = candy.uploadingView
     }
 }

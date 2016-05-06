@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class RecentCandiesView: StreamReusableView {
+class RecentCandiesView: EntryStreamReusableView<Wrap> {
     
     var streamView: StreamView = StreamView()
     
@@ -33,8 +33,8 @@ class RecentCandiesView: StreamReusableView {
         }
     }
     
-    override func setup(entry: AnyObject?) {
-        guard let wrap = entry as? Wrap, let recentCandies = wrap.recentCandies else { return }
+    override func setup(wrap: Wrap) {
+        guard let recentCandies = wrap.recentCandies else { return }
         layoutIfNeeded()
         dataSource.numberOfItems = (recentCandies.count > Constants.recentCandiesLimit_2) ? Constants.recentCandiesLimit : Constants.recentCandiesLimit_2
         dataSource.items = recentCandies
@@ -48,7 +48,7 @@ protocol WrapCellDelegate: class {
     func wrapCell(cell: WrapCell, presentCameraViewControllerForWrap wrap: Wrap)
 }
 
-class WrapCell: StreamReusableView {
+class WrapCell: EntryStreamReusableView<Wrap> {
     
     weak var delegate: WrapCellDelegate?
     
@@ -132,7 +132,7 @@ class WrapCell: StreamReusableView {
         swipeAction = specify(SwipeAction(view: self), {
             $0.shouldBeginPanning = { [weak self] (action) -> Bool in
                 guard self?.allowSwipeAction == true else { return false }
-                guard let wrap = self?.entry as? Wrap else { return false }
+                guard let wrap = self?.entry else { return false }
                 if wrap.isPublic {
                     if wrap.isContributing {
                         return action.direction == .Left
@@ -156,7 +156,7 @@ class WrapCell: StreamReusableView {
             
             $0.didPerformAction = { [weak self] (action, direction) -> Void in
                 guard let weakSelf = self else { return }
-                if let wrap = weakSelf.entry as? Wrap {
+                if let wrap = weakSelf.entry {
                     if action.direction == .Right {
                         weakSelf.delegate?.wrapCell(weakSelf, presentChatViewControllerForWrap: wrap)
                     } else if action.direction == .Left {
@@ -172,8 +172,7 @@ class WrapCell: StreamReusableView {
         swipeAction?.reset()
     }
     
-    override func setup(entry: AnyObject?) {
-        guard let wrap = entry as? Wrap else { return }
+    override func setup(wrap: Wrap) {
         nameLabel.text = wrap.name
         coverView.url = wrap.asset?.small
         badgeLabel.value = wrap.numberOfUnreadInboxItems
@@ -197,7 +196,7 @@ class WrapCell: StreamReusableView {
     }
     
     func updateBadgeNumber() {
-        guard let wrap = entry as? Wrap else { return }
+        guard let wrap = entry else { return }
         badgeLabel.value = wrap.numberOfUnreadInboxItems + wrap.numberOfUnreadMessages
     }
 }

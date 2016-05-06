@@ -22,7 +22,7 @@ class InboxItem {
     }
 }
 
-class InboxCell: StreamReusableView {
+class InboxCell: EntryStreamReusableView<InboxItem> {
     
     internal var containerView = UIView()
     internal var headerView = UIView()
@@ -75,20 +75,18 @@ class InboxCell: StreamReusableView {
 
     }
 
-    override func setup(entry: AnyObject?) {
-        if let update = entry as? InboxItem {
-            let contribution = update.contribution
-            timeLabel.text = update.date.timeAgoStringAtAMPM()
-            imageView.url = contribution.asset?.medium
-            if update.unread {
-                userNameLabel.textColor = Color.grayDark
-                timeLabel.textColor = Color.grayDark
-                containerView.shadowColor = Color.orange
-            } else {
-                containerView.shadowColor = Color.grayLighter
-                userNameLabel.textColor = Color.grayLighter
-                timeLabel.textColor = Color.grayLighter
-            }
+    override func setup(update: InboxItem) {
+        let contribution = update.contribution
+        timeLabel.text = update.date.timeAgoStringAtAMPM()
+        imageView.url = contribution.asset?.medium
+        if update.unread {
+            userNameLabel.textColor = Color.grayDark
+            timeLabel.textColor = Color.grayDark
+            containerView.shadowColor = Color.orange
+        } else {
+            containerView.shadowColor = Color.grayLighter
+            userNameLabel.textColor = Color.grayLighter
+            timeLabel.textColor = Color.grayLighter
         }
     }
 }
@@ -117,9 +115,9 @@ class InboxCommentCell: InboxCell {
         }
     }
 
-    override func setup(entry: AnyObject?) {
-        if let update = entry as? InboxItem, let comment = update.contribution as? Comment {
-            super.setup(entry)
+    override func setup(update: InboxItem) {
+        if let comment = update.contribution as? Comment {
+            super.setup(update)
             avatarView.url = comment.contributor?.avatar?.small
             userNameLabel.text = "\(comment.contributor?.name ?? ""):"
             textView.text = comment.text
@@ -143,9 +141,9 @@ class InboxCandyCell: InboxCell {
         }
     }
     
-    override func setup(entry: AnyObject?) {
-        if let update = entry as? InboxItem, let candy = update.contribution as? Candy {
-            super.setup(entry)
+    override func setup(update: InboxItem) {
+        if let candy = update.contribution as? Candy {
+            super.setup(update)
             if update.event == .Update {
                 avatarView.url = candy.editor?.avatar?.small
                 userNameLabel.text = String(format: "formatted_edited_by".ls, candy.editor?.name ?? "")
@@ -194,7 +192,7 @@ class InboxViewController: WrapSegmentViewController {
         }
         
         let selection: InboxCell -> () = { view in
-            if let event = view.entry as? InboxItem {
+            if let event = view.entry {
                 ChronologicalEntryPresenter.presentEntry(event.contribution, animated: false)
             }
         }

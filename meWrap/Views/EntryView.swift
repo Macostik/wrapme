@@ -8,10 +8,15 @@
 
 import UIKit
 
-class EntryView: StreamReusableView, EntryNotifying {
+class EntryView<T: Entry>: EntryStreamReusableView<T>, EntryNotifying {
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        T.notifier().addReceiver(self)
+    }
     
     func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
-        setup(entry)
+        resetup()
     }
     
     func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
@@ -19,22 +24,19 @@ class EntryView: StreamReusableView, EntryNotifying {
     }
 }
 
-class UserView: EntryView {
+class UserView: EntryView<User> {
     
     @IBOutlet weak var avatarView: ImageView?
     
     @IBOutlet weak var nameLabel: UILabel?
     
-    override func setup(entry: AnyObject?) {
-        if let user = entry as? User {
-            avatarView?.url = user.avatar?.small
-            nameLabel?.text = user.name
-        }
+    override func setup(user: User) {
+        avatarView?.url = user.avatar?.small
+        nameLabel?.text = user.name
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        User.notifier().addReceiver(self)
         if let avatarView = avatarView {
             avatarView.borderWidth = Constants.pixelSize
             avatarView.borderColor = UIColor.whiteColor()
@@ -44,26 +46,23 @@ class UserView: EntryView {
     }
 }
 
-class WrapView: EntryView {
+class WrapView: EntryView<Wrap> {
     
     @IBOutlet weak var coverView: WrapCoverView?
     
     @IBOutlet weak var nameLabel: UILabel?
     
-    override func setup(entry: AnyObject?) {
-        if let wrap = entry as? Wrap {
-            if let coverView = coverView {
-                coverView.url = wrap.asset?.small
-                coverView.isFollowed = wrap.isPublic ? wrap.isContributing : false
-                coverView.isOwner = wrap.isPublic ? (wrap.contributor?.current ?? false) : false
-            }
-            nameLabel?.text = wrap.name;
+    override func setup(wrap: Wrap) {
+        if let coverView = coverView {
+            coverView.url = wrap.asset?.small
+            coverView.isFollowed = wrap.isPublic ? wrap.isContributing : false
+            coverView.isOwner = wrap.isPublic ? (wrap.contributor?.current ?? false) : false
         }
+        nameLabel?.text = wrap.name
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        Wrap.notifier().addReceiver(self)
         coverView?.circled = true
     }
 }

@@ -281,7 +281,7 @@ final class StreamView: UIScrollView {
     
     func dynamicSizeForMetrics(metrics: StreamMetricsProtocol, item: StreamItem?, minSize: CGFloat) -> CGFloat {
         let view = metrics.loadView()
-        view.entry = item?.entry
+        view.setEntry(item?.entry)
         var fittingSize = UILayoutFittingCompressedSize
         fittingSize.width = width
         let size = view.systemLayoutSizeFittingSize(fittingSize, withHorizontalFittingPriority: 1000, verticalFittingPriority: 250)

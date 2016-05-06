@@ -52,7 +52,7 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
         }
     }
     
-    @IBOutlet weak var wrapView: WrapView?
+    weak var wrapView: WrapView?
     
     var changeWrap: (Void -> Void)?
         

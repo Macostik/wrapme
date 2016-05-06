@@ -10,6 +10,14 @@ import Foundation
 
 class StreamReusableView: UIView, UIGestureRecognizerDelegate {
     
+    required init() {
+        super.init(frame: CGRect.zero)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func setEntry(entry: AnyObject?) {}
     func getEntry() -> AnyObject? { return nil }
     
@@ -40,7 +48,7 @@ class StreamReusableView: UIView, UIGestureRecognizerDelegate {
     }
 }
 
-class ConcreteStreamReusableView<T: AnyObject>: StreamReusableView {
+class EntryStreamReusableView<T: AnyObject>: StreamReusableView {
     
     override func setEntry(entry: AnyObject?) {
         self.entry = entry as? T
@@ -51,12 +59,24 @@ class ConcreteStreamReusableView<T: AnyObject>: StreamReusableView {
     }
     
     var entry: T? {
-        didSet { setup(entry) }
+        didSet {
+            didSetEntry()
+        }
     }
     
-    func setup(entry: T?) {}
+    private func didSetEntry() {
+        if let entry = entry {
+            setup(entry)
+        } else {
+            setupEmpty()
+        }
+    }
+    
+    func setup(entry: T) {}
+    
+    func setupEmpty() {}
     
     func resetup() {
-        setup(entry)
+        didSetEntry()
     }
 }

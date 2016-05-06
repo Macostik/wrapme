@@ -11,7 +11,7 @@ import SnapKit
 
 import MobileCoreServices
 
-final class CommentCell: StreamReusableView, FlowerMenuConstructor {
+final class CommentCell: EntryStreamReusableView<Comment>, FlowerMenuConstructor {
     
     private let avatar = UserAvatarView(cornerRadius: 24)
     private let name = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
@@ -56,7 +56,7 @@ final class CommentCell: StreamReusableView, FlowerMenuConstructor {
     }
     
     func constructFlowerMenu(menu: FlowerMenu) {
-        guard let comment = entry as? Comment else { return }
+        guard let comment = entry else { return }
         if comment.deletable {
             menu.addDeleteAction({ [weak self] _ in
                 self?.userInteractionEnabled = false
@@ -71,8 +71,7 @@ final class CommentCell: StreamReusableView, FlowerMenuConstructor {
         menu.addCopyAction({ UIPasteboard.generalPasteboard().string = comment.text })
     }
     
-    override func setup(entry: AnyObject?) {
-        guard let comment = entry as? Comment else { return }
+    override func setup(comment: Comment) {
         userInteractionEnabled = true
         comment.markAsUnread(false)
         name.text = comment.contributor?.name

@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class CountryCell: StreamReusableView {
+class CountryCell: EntryStreamReusableView<Country> {
     
     private let countryNameLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.grayDark)
     
@@ -27,10 +27,8 @@ class CountryCell: StreamReusableView {
         }
     }
     
-    override func setup(entry: AnyObject?) {
-        if let country = entry as? Country {
-            countryNameLabel.text = country.name
-        }
+    override func setup(country: Country) {
+        countryNameLabel.text = country.name
     }
     
     override var selected: Bool {
@@ -79,7 +77,7 @@ class CountriesViewController: BaseViewController {
         let metrics = dataSource.addMetrics(StreamMetrics<CountryCell>(size: 50))
         metrics.selection = { [weak self] view in
             view.item?.selected = true
-            if let country = view.entry as? Country {
+            if let country = view.entry {
                 self?.selectionBlock?(country)
             }
         }

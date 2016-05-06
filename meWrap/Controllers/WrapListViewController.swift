@@ -38,7 +38,7 @@ class WrapListViewController: BaseViewController {
             }
         }
         metrics.selection = { [weak self] view in
-            self?.shareContent(view.entry as! Wrap)
+            self?.shareContent(view.entry!)
         }
         metrics.finalizeAppearing = { _, view in
             view.allowSwipeAction = false

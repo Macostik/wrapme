@@ -10,24 +10,22 @@ import Foundation
 import PubNub
 import AVFoundation
 
-class LiveBroadcastEventView: StreamReusableView {
+class LiveBroadcastEventView: EntryStreamReusableView<LiveBroadcast.Event> {
     
     static let queue: RunQueue = RunQueue(limit: 1)
     
-    override func setup(entry: AnyObject?) {
-        if let event = entry as? LiveBroadcast.Event {
-            LiveBroadcastEventView.queue.run({ (finish) -> Void in
-                self.alpha = 0.0
-                UIView.animateWithDuration(1.0, animations: { () -> Void in
-                    self.alpha = 1.0
-                    finish()
-                })
+    override func setup(event: LiveBroadcast.Event) {
+        LiveBroadcastEventView.queue.run({ (finish) -> Void in
+            self.alpha = 0.0
+            UIView.animateWithDuration(1.0, animations: { () -> Void in
+                self.alpha = 1.0
+                finish()
             })
-            hidden = false
-            event.disappearingBlock = { [weak self] () -> Void in
-                self?.hidden = true
-                self?.addAnimation(CATransition.transition(kCATransitionFade, duration: 1))
-            }
+        })
+        hidden = false
+        event.disappearingBlock = { [weak self] () -> Void in
+            self?.hidden = true
+            self?.addAnimation(CATransition.transition(kCATransitionFade, duration: 1))
         }
     }
     
@@ -82,13 +80,11 @@ class LiveBroadcastMessageEventView: LiveBroadcastEventWithAvatarView {
         })
     }
     
-    override func setup(entry: AnyObject?) {
-        super.setup(entry)
-        if let event = entry as? LiveBroadcast.Event {
-            nameLabel.text = event.user?.name
-            avatarView.url = event.user?.avatar?.small
-            textLabel.text = event.text
-        }
+    override func setup(event: LiveBroadcast.Event) {
+        super.setup(event)
+        nameLabel.text = event.user?.name
+        avatarView.url = event.user?.avatar?.small
+        textLabel.text = event.text
     }
 }
 
@@ -108,12 +104,10 @@ class LiveBroadcastJoinEventView: LiveBroadcastEventWithAvatarView {
         })
     }
     
-    override func setup(entry: AnyObject?) {
-        super.setup(entry)
-        if let event = entry as? LiveBroadcast.Event {
-            avatarView.url = event.user?.avatar?.small
-            textLabel.text = event.text
-        }
+    override func setup(event: LiveBroadcast.Event) {
+        super.setup(event)
+        avatarView.url = event.user?.avatar?.small
+        textLabel.text = event.text
     }
 }
 
@@ -132,11 +126,9 @@ class LiveBroadcastInfoEventView: LiveBroadcastEventView {
         })
     }
     
-    override func setup(entry: AnyObject?) {
-        super.setup(entry)
-        if let event = entry as? LiveBroadcast.Event {
-            textLabel.text = event.text
-        }
+    override func setup(event: LiveBroadcast.Event) {
+        super.setup(event)
+        textLabel.text = event.text
     }
 }
 

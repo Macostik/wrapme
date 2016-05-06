@@ -14,12 +14,12 @@ enum AddressBookPhoneNumberState {
 }
 
 protocol AddressBookRecordCellDelegate: class {
-    func recordCell(cell: StreamReusableView, didSelectPhoneNumber person: AddressBookPhoneNumber)
-    func recordCell(cell: StreamReusableView, phoneNumberState phoneNumber: AddressBookPhoneNumber) -> AddressBookPhoneNumberState
+    func recordCell(cell: AddressBookRecordCell, didSelectPhoneNumber person: AddressBookPhoneNumber)
+    func recordCell(cell: AddressBookRecordCell, phoneNumberState phoneNumber: AddressBookPhoneNumber) -> AddressBookPhoneNumberState
     func recordCellDidToggle(cell: MultipleAddressBookRecordCell)
 }
 
-class AddressBookRecordCell: StreamReusableView {
+class AddressBookRecordCell: EntryStreamReusableView<AddressBookRecord> {
     
     weak var delegate: AddressBookRecordCellDelegate?
     
@@ -31,8 +31,7 @@ class AddressBookRecordCell: StreamReusableView {
         }
     }
     
-    override func setup(entry: AnyObject?) {
-        guard let record = entry as? AddressBookRecord else { return }
+    override func setup(record: AddressBookRecord) {
         guard let phoneNumber = record.phoneNumbers.last else { return }
         setup(record, phoneNumber: phoneNumber)
     }
@@ -124,7 +123,7 @@ final class SingleAddressBookRecordCell: AddressBookRecordCell {
     //MARK: Actions
     
     @IBAction func _select(sender: AnyObject) {
-        selectPhoneNumber((entry as? AddressBookRecord)?.phoneNumbers.last)
+        selectPhoneNumber(entry?.phoneNumbers.last)
     }
 }
 
@@ -157,7 +156,7 @@ final class MultipleAddressBookRecordCell: AddressBookRecordCell {
                 }
             }
             metrics.selection = { view in
-                self?.selectPhoneNumber(view.entry as? AddressBookPhoneNumber)
+                self?.selectPhoneNumber(view.entry)
             }
             }))
         openView.addTarget(self, action: #selector(MultipleAddressBookRecordCell.open(_:)), forControlEvents: .TouchUpInside)

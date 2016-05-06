@@ -10,7 +10,7 @@ import UIKit
 import Photos
 import SnapKit
 
-class AssetCell: StreamReusableView {
+class AssetCell: EntryStreamReusableView<PHAsset> {
     
     var imageView = ImageView(backgroundColor: UIColor.clearColor())
     var acceptView = Label(icon: "E", size: 12, textColor: Color.orange)
@@ -53,18 +53,16 @@ class AssetCell: StreamReusableView {
         $0.deliveryMode = .Opportunistic
     })
     
-    override func setup(entry: AnyObject?) {
-        if let asset = entry as? PHAsset {
-            let scale = UIScreen.mainScreen().scale
-            let thumbnail = CGSize(width: bounds.width * scale, height: bounds.height * scale)
-            let options = AssetCell.requestImageOptions
-            requestID = PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: thumbnail, contentMode: .AspectFill, options: options, resultHandler: {[weak self] (image, info) -> Void in
-                if let cell = self where (info?[PHImageResultRequestIDKey] as? NSNumber)?.intValue == cell.requestID {
-                    cell.imageView.image = image
-                }
-                })
-            videoIndicator.hidden = asset.mediaType != .Video
-        }
+    override func setup(asset: PHAsset) {
+        let scale = UIScreen.mainScreen().scale
+        let thumbnail = CGSize(width: bounds.width * scale, height: bounds.height * scale)
+        let options = AssetCell.requestImageOptions
+        requestID = PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: thumbnail, contentMode: .AspectFill, options: options, resultHandler: {[weak self] (image, info) -> Void in
+            if let cell = self where (info?[PHImageResultRequestIDKey] as? NSNumber)?.intValue == cell.requestID {
+                cell.imageView.image = image
+            }
+            })
+        videoIndicator.hidden = asset.mediaType != .Video
     }
     
     override var selected: Bool {
@@ -121,7 +119,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         streamView.layout = HorizontalSquareLayout()
         dataSource.addMetrics(StreamMetrics<AssetCell>().change({ [weak self] metrics in
             metrics.selection = { view in
-                if let item = view.item, let asset = view.entry as? PHAsset {
+                if let item = view.item, let asset = view.entry {
                     item.selected = self?.selectAsset(asset) ?? false
                 }
             }

@@ -44,7 +44,7 @@ final class HomeViewController: BaseViewController {
             }
             
             $0.selection = { view in
-                if let entry = view.entry as? Entry {
+                if let entry = view.entry {
                     ChronologicalEntryPresenter.presentEntry(entry, animated: false)
                 }
             }
@@ -217,8 +217,8 @@ final class HomeViewController: BaseViewController {
     
     private func finalizeAppearingOfCandiesView(candiesView: RecentCandiesView) {
         candiesView.candyMetrics.selection = { [weak self] view in
-            if let candy = view.entry as? Candy {
-                CandyEnlargingPresenter.handleCandySelection(view.item, entry: candy, dismissingView: { candy -> UIView? in
+            if view.entry != nil {
+                CandyEnlargingPresenter.handleCandySelection(view, dismissingView: { candy -> UIView? in
                     self?.streamView.scrollRectToVisible(candiesView.frame, animated:false)
                     return candiesView.streamView.itemPassingTest({ $0.entry === candy })?.view
                 })

@@ -9,7 +9,7 @@
 import Foundation
 import SnapKit
 
-final class FriendView: StreamReusableView {
+final class FriendView: EntryStreamReusableView<User> {
     
     private let avatarView = StatusUserAvatarView(cornerRadius: 16)
     
@@ -25,11 +25,9 @@ final class FriendView: StreamReusableView {
     
     weak var wrap: Wrap?
     
-    override func setup(entry: AnyObject?) {
-        if let friend = entry as? User {
-            avatarView.wrap = wrap
-            avatarView.user = friend
-        }
+    override func setup(friend: User) {
+        avatarView.wrap = wrap
+        avatarView.user = friend
     }
 }
 

@@ -90,7 +90,7 @@ class StreamMetrics<T: StreamReusableView>: StreamMetricsProtocol {
         UIView.performWithoutAnimation { view.frame = item.frame }
         item.view = view
         prepareAppearing?(item, view)
-        view.entry = item.entry
+        view.setEntry(item.entry)
         finalizeAppearing?(item, view)
         return view
     }

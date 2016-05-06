@@ -27,7 +27,7 @@ class EditAssetViewController: UIViewController {
     }
 }
 
-class EditAssetCell: StreamReusableView {
+class EditAssetCell: EntryStreamReusableView<MutableAsset> {
     
     private lazy var imageView: ImageView = self.add(specify(ImageView(backgroundColor: UIColor.clearColor()), { $0.borderColor = UIColor.whiteColor() }), {
         $0.leading.top.trailing.equalTo(self).inset(1)
@@ -40,17 +40,15 @@ class EditAssetCell: StreamReusableView {
     })
     private lazy var videoIndicator: Label = self.add(Label(icon: "+", size: 20), { $0.top.trailing.equalTo(self.imageView).inset(2) })
     
-    override func setup(entry: AnyObject?) {
-        if let asset = entry as? MutableAsset {
-            imageView.url = asset.small
-            updateStatus()
-            imageView.borderWidth = asset.selected ? 2 : 0
-            videoIndicator.hidden = asset.type != .Video
-        }
+    override func setup(asset: MutableAsset) {
+        imageView.url = asset.small
+        updateStatus()
+        imageView.borderWidth = asset.selected ? 2 : 0
+        videoIndicator.hidden = asset.type != .Video
     }
     
     func updateStatus() {
-        if let asset = entry as? MutableAsset {
+        if let asset = entry {
             statusLabel.text = "\(asset.comment?.isEmpty == false ? ";" : "") \(asset.edited ? "R" : "")".trim
         }
     }

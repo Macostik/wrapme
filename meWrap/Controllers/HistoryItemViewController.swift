@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-final class HistoryItemCoverView: StreamReusableView {
+final class HistoryItemCoverView: EntryStreamReusableView<Candy> {
     
     private let imageView = ImageView(backgroundColor: UIColor.clearColor())
     
@@ -18,10 +18,8 @@ final class HistoryItemCoverView: StreamReusableView {
         imageView.snp_makeConstraints { $0.edges.equalTo(self) }
     }
     
-    override func setup(entry: AnyObject?) {
-        if let candy = entry as? Candy {
-            imageView.url = candy.asset?.medium
-        }
+    override func setup(candy: Candy) {
+        imageView.url = candy.asset?.medium
     }
 }
 
@@ -100,7 +98,7 @@ final class HistoryItemViewController: BaseViewController {
         let metrics = dataSource.addMetrics(StreamMetrics<CandyCell>())
         metrics.selection = { [weak self] view -> Void in
             self?.streamView.lock()
-            CandyEnlargingPresenter.handleCandySelection(view.item, entry: view.entry, historyItem: self?.item, dismissingView: { candy -> UIView? in
+            CandyEnlargingPresenter.handleCandySelection(view, historyItem: self?.item, dismissingView: { candy -> UIView? in
                 guard let streamCandyItem = self?.streamView.itemPassingTest({ ($0.entry as? Candy) == candy}) else { return nil }
                 self?.streamView.scrollRectToVisible(streamCandyItem.frame, animated: false)
                 return streamCandyItem.view

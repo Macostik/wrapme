@@ -11,7 +11,7 @@ import SnapKit
 
 private var MaxRecentEmojisCount = 21
 
-class EmojiCell: StreamReusableView {
+class EmojiCell: EntryStreamReusableView<NSString> {
     
     private var emojiLabel: UILabel = UILabel()
     
@@ -21,8 +21,8 @@ class EmojiCell: StreamReusableView {
         emojiLabel.snp_makeConstraints { $0.center.equalTo(self) }
     }
     
-    override func setup(entry: AnyObject?) {
-        emojiLabel.text = entry as? String
+    override func setup(emoji: NSString) {
+        emojiLabel.text = emoji as String
     }
 }
 

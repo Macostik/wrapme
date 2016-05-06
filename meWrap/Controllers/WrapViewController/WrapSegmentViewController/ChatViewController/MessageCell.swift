@@ -10,7 +10,7 @@ import Foundation
 import MobileCoreServices
 import SnapKit
 
-final class MessageDateView: StreamReusableView {
+final class MessageDateView: EntryStreamReusableView<Message> {
     
     private let dateLabel = specify(Label(preset: .Normal, weight: .Regular)) { $0.textAlignment = .Center }
     
@@ -19,13 +19,12 @@ final class MessageDateView: StreamReusableView {
         dateLabel.snp_makeConstraints(closure: { $0.center.equalTo(self) })
     }
     
-    override func setup(entry: AnyObject?) {
-        guard let message = entry as? Message else { return }
+    override func setup(message: Message) {
         dateLabel.text = message.createdAt.stringWithDateStyle(.MediumStyle)
     }
 }
 
-class BaseMessageCell: StreamReusableView, FlowerMenuConstructor {
+class BaseMessageCell: EntryStreamReusableView<Message>, FlowerMenuConstructor {
     
     private static let leftTail = UIImage.draw(CGSize(width: 8, height: 10), drawing: { size in
         let path = UIBezierPath()
@@ -58,13 +57,12 @@ class BaseMessageCell: StreamReusableView, FlowerMenuConstructor {
     }
     
     func constructFlowerMenu(menu: FlowerMenu) {
-        if let message = entry as? Message {
+        if let message = entry {
             menu.addCopyAction({ UIPasteboard.generalPasteboard().string = message.text })
         }
     }
     
-    override func setup(entry: AnyObject?) {
-        guard let message = entry as? Message else { return }
+    override func setup(message: Message) {
         setupMessage(message)
     }
     

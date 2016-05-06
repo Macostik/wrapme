@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class HistoryItemCell: StreamReusableView {
+class HistoryItemCell: EntryStreamReusableView<HistoryItem> {
     
     class HistoryItemDataSource: StreamDataSource<[Candy]> {
         func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -92,23 +92,21 @@ class HistoryItemCell: StreamReusableView {
     
     internal override func willEnqueue() {
         super.willEnqueue()
-        (entry as? HistoryItem)?.offset = streamView.contentOffset
+        entry?.offset = streamView.contentOffset
     }
     
-    override func setup(entry: AnyObject?) {
+    override func setup(item: HistoryItem) {
         streamView.layoutIfNeeded()
-        if let item = entry as? HistoryItem {
-            dateLabel.text = item.date.stringWithFormat("EEE MMM d, yyyy")
-            let candies = item.entries
-            if item.date.isToday() && candies.count >= 3 {
-                streamView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
-                dataSource.items = candies.reverse()
-            } else {
-                streamView.transform = CGAffineTransformIdentity
-                dataSource.items = candies
-            }
-            streamView.contentOffset.x = smoothstep(0, streamView.maximumContentOffset.x, item.offset.x)
+        dateLabel.text = item.date.stringWithFormat("EEE MMM d, yyyy")
+        let candies = item.entries
+        if item.date.isToday() && candies.count >= 3 {
+            streamView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
+            dataSource.items = candies.reverse()
+        } else {
+            streamView.transform = CGAffineTransformIdentity
+            dataSource.items = candies
         }
+        streamView.contentOffset.x = smoothstep(0, streamView.maximumContentOffset.x, item.offset.x)
     }
     
     func openHistoryItem(sender: Button) {
@@ -116,7 +114,7 @@ class HistoryItemCell: StreamReusableView {
     }
 }
 
-class LiveBroadcastMediaView: StreamReusableView {
+class LiveBroadcastMediaView: EntryStreamReusableView<LiveBroadcast> {
     
     private let imageView = ImageView(backgroundColor: UIColor.whiteColor())
     private let nameLabel = Label(preset: .Small)
@@ -164,12 +162,10 @@ class LiveBroadcastMediaView: StreamReusableView {
         })
     }
     
-    override func setup(entry: AnyObject?) {
-        if let broadcast = entry as? LiveBroadcast {
-            nameLabel.text = "\(broadcast.broadcaster?.name ?? "") \("is_live_streaming".ls)"
-            titleLabel.text = broadcast.displayTitle()
-            imageView.url = broadcast.broadcaster?.avatar?.small
-        }
+    override func setup(broadcast: LiveBroadcast) {
+        nameLabel.text = "\(broadcast.broadcaster?.name ?? "") \("is_live_streaming".ls)"
+        titleLabel.text = broadcast.displayTitle()
+        imageView.url = broadcast.broadcaster?.avatar?.small
     }
 }
 
@@ -210,15 +206,15 @@ class MediaViewController: WrapSegmentViewController {
         
         dataSource.wrap = wrap
         dataSource.liveBroadcastMetrics.selection = { [weak self] view -> Void in
-            if let broadcast = view.entry as? LiveBroadcast {
+            if let broadcast = view.entry {
                 self?.presentLiveBroadcast(broadcast)
             }
         }
         
         candyMetrics = dataSource.addMetrics(StreamMetrics<HistoryItemCell>())
         candyMetrics.prepareAppearing = { [weak self] item, view in
-            view.candyMetrics.selection = { [weak self] view -> Void in
-                CandyEnlargingPresenter.handleCandySelection(view.item!, entry: view.entry!, historyItem: self?.history.itemWithCandy(view.entry as? Candy), dismissingView: { candy -> UIView? in
+            view.candyMetrics.selection = { view -> Void in
+                CandyEnlargingPresenter.handleCandySelection(view, historyItem: self?.history.itemWithCandy(view.entry), dismissingView: { candy -> UIView? in
                     return self?.enlargingPresenterDismissingView(candy)
                 })
             }
@@ -227,7 +223,7 @@ class MediaViewController: WrapSegmentViewController {
         candyMetrics.selectable = false
         candyMetrics.selection = { [weak self] view -> Void in
             let controller = Storyboard.HistoryItem.instantiate()
-            controller.item = view.entry as? HistoryItem
+            controller.item = view.entry
             self?.navigationController?.pushViewController(controller, animated: false)
         }
         

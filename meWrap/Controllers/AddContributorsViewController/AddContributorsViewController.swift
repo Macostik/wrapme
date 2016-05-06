@@ -88,7 +88,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
                 }
             }
             metrics.finalizeAppearing = { [weak self] (item, view) in
-                view.group = self?.filteredAddressBook?.groups[safe: item.position.section]
+                view.entry = self?.filteredAddressBook?.groups[safe: item.position.section]
             }
             })
         
@@ -194,7 +194,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     
     //MARK: AddressBookRecordCellDelegate
     
-    func recordCell(cell: StreamReusableView, phoneNumberState phoneNumber: AddressBookPhoneNumber) -> AddressBookPhoneNumberState {
+    func recordCell(cell: AddressBookRecordCell, phoneNumberState phoneNumber: AddressBookPhoneNumber) -> AddressBookPhoneNumberState {
         if let user = phoneNumber.user where wrap.contributors.contains(user) {
             return .Added
         }
@@ -210,7 +210,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         return false
     }
     
-    func recordCell(cell: StreamReusableView, didSelectPhoneNumber person: AddressBookPhoneNumber) {
+    func recordCell(cell: AddressBookRecordCell, didSelectPhoneNumber person: AddressBookPhoneNumber) {
         addressBook.selectPhoneNumber(person)
         let isEmpty = addressBook.selectedPhoneNumbers.count == 0
         if isWrapCreation {

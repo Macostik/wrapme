@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class DeviceCell: StreamReusableView {
+final class DeviceCell: EntryStreamReusableView<Device> {
     
     private let name = Label(preset: .Normal, weight: .Bold, textColor: Color.grayDark)
     private let phone = Label(preset: .Small, weight: .Bold, textColor: Color.grayDark)
@@ -40,12 +40,11 @@ final class DeviceCell: StreamReusableView {
     var deleteDevice: (Device -> ())?
     
     @objc private func deleteDevice(sender: AnyObject) {
-        guard let device = entry as? Device else { return }
+        guard let device = entry else { return }
         deleteDevice?(device)
     }
     
-    override func setup(entry: AnyObject?) {
-        guard let device = entry as? Device else { return }
+    override func setup(device: Device) {
         if device.phone?.isEmpty == false {
             phone.text = device.phone
             phone.hidden = false

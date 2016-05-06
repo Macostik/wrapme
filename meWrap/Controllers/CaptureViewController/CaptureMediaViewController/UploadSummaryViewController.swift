@@ -47,7 +47,7 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
         }
     }
     
-    @IBOutlet weak var wrapView: WrapView? {
+    weak var wrapView: WrapView? {
         didSet {
             setupWrapView(wrap)
         }
@@ -78,7 +78,7 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
         self.videoPlayerView.delegate = self
         let metrics = dataSource.addMetrics(StreamMetrics<EditAssetCell>(size: 92))
         metrics.selection = { [weak self] view in
-            self?.setViewController(self?.editAssetViewControllerForAsset(view.entry as? MutableAsset), direction: .Forward, animated: false)
+            self?.setViewController(self?.editAssetViewControllerForAsset(view.entry), direction: .Forward, animated: false)
         }
         dataSource.items = assets
         streamView.scrollToItemPassingTest({ $0.position.index == (assets.count - 1) }, animated:false)

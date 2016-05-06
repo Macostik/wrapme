@@ -34,7 +34,7 @@ protocol WrapPickerViewControllerDelegate: class {
     func wrapPickerViewControllerDidCancel(controller: WrapPickerViewController)
 }
 
-class WrapPickerCell: StreamReusableView {
+class WrapPickerCell: EntryStreamReusableView<Wrap> {
     
     weak var coverView: WrapCoverView?
     weak var nameLabel: UILabel?
@@ -75,15 +75,13 @@ class WrapPickerCell: StreamReusableView {
         })
     }
     
-    override func setup(entry: AnyObject?) {
-        if let wrap = entry as? Wrap {
-            if let coverView = coverView {
-                coverView.url = wrap.asset?.small
-                coverView.isFollowed = wrap.isPublic ? wrap.isContributing : false
-                coverView.isOwner = wrap.isPublic ? (wrap.contributor?.current ?? false) : false
-            }
-            nameLabel?.text = wrap.name;
+    override func setup(wrap: Wrap) {
+        if let coverView = coverView {
+            coverView.url = wrap.asset?.small
+            coverView.isFollowed = wrap.isPublic ? wrap.isContributing : false
+            coverView.isOwner = wrap.isPublic ? (wrap.contributor?.current ?? false) : false
         }
+        nameLabel?.text = wrap.name
     }
 }
 

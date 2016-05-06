@@ -9,14 +9,12 @@
 import UIKit
 import SnapKit
 
-class AddressBookGroupView: StreamReusableView {
+class AddressBookGroupView: EntryStreamReusableView<ArrangedAddressBookGroup> {
 
     private var titleLabel = Label(preset: .Small, textColor: Color.orangeDark)
     
-    var group: ArrangedAddressBookGroup? {
-        didSet {
-            titleLabel.text = group?.title
-        }
+    override func setup(group: ArrangedAddressBookGroup) {
+        titleLabel.text = group.title
     }
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
@@ -30,7 +28,7 @@ class AddressBookGroupView: StreamReusableView {
     }
 }
 
-class AddressBookPhoneNumberCell: StreamReusableView {
+class AddressBookPhoneNumberCell: EntryStreamReusableView<AddressBookPhoneNumber> {
     
     private var selectionView = UIButton(type: .Custom)
     private var typeLabel = Label(preset: .Small, textColor: Color.grayLight)
@@ -74,10 +72,8 @@ class AddressBookPhoneNumberCell: StreamReusableView {
         }
     }
     
-    override func setup(entry: AnyObject?) {
-        if let phoneNumber = entry as? AddressBookPhoneNumber {
-            typeLabel.text = "\(phoneNumber.label ?? ""):"
-            phoneLabel.text = phoneNumber.phone
-        }
+    override func setup(phoneNumber: AddressBookPhoneNumber) {
+        typeLabel.text = "\(phoneNumber.label ?? ""):"
+        phoneLabel.text = phoneNumber.phone
     }
 }

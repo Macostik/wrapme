@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LiveBroadcastViewerCell: StreamReusableView {
+class LiveBroadcastViewerCell: EntryStreamReusableView<User> {
     
     static let DefaultHeight: CGFloat = 56
     
@@ -36,11 +36,9 @@ class LiveBroadcastViewerCell: StreamReusableView {
         })
     }
     
-    override func setup(entry: AnyObject?) {
-        if let user = entry as? User {
-            avatarView.url = user.avatar?.small
-            nameLabel.text = user.name
-        }
+    override func setup(user: User) {
+        avatarView.url = user.avatar?.small
+        nameLabel.text = user.name
     }
 }
 

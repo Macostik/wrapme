@@ -12,9 +12,8 @@ class CandyEnlargingPresenter: UIView {
     
     private var candy: Candy?
     
-    class func handleCandySelection(item: StreamItem?, entry: AnyObject?,  historyItem: HistoryItem? = nil, dismissingView: Candy -> UIView?) -> Void {
-        guard let cell = item?.view as? CandyCell else { return }
-        guard let candy = entry as? Candy else { return }
+    class func handleCandySelection(cell: CandyCell, historyItem: HistoryItem? = nil, dismissingView: Candy -> UIView?) -> Void {
+        guard let candy = cell.entry else { return }
         guard let historyViewController = candy.viewController() as? HistoryViewController else { return }
         historyViewController.history = historyItem?.history
         historyViewController.dismissingView = dismissingView

@@ -140,20 +140,12 @@ extension NSError {
         self.init(code: response.code.rawValue, userInfo: userInfo)
     }
     
-    convenience init(code: Int, userInfo: [String:AnyObject]) {
+    convenience init(code: Int, userInfo: [String:AnyObject]? = nil) {
         self.init(domain: Environment.ErrorDomain, code: code, userInfo: userInfo)
     }
     
-    convenience init(code: Int) {
-        self.init(domain: Environment.ErrorDomain, code: code, userInfo: nil)
-    }
-    
-    convenience init(code: Int, message: String) {
+    convenience init(code: Int = ResponseCode.Default.rawValue, message: String) {
         self.init(code: code, userInfo: [NSLocalizedDescriptionKey:message])
-    }
-    
-    convenience init(message: String) {
-        self.init(code: ResponseCode.Default.rawValue, userInfo: [NSLocalizedDescriptionKey:message])
     }
     
     var isNetworkError: Bool {

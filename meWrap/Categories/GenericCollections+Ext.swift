@@ -12,7 +12,6 @@ extension Array {
     subscript (safe index: Int) -> Element? {
         return (index >= 0 && index < count) ? self[index] : nil
     }
-    
 }
 
 extension Array where Element: Equatable {
@@ -37,5 +36,12 @@ extension CollectionType {
             return element
         }
         return nil
+    }
+}
+
+extension Dictionary {
+    
+    func get<T>(key: Key) -> T? {
+        return self[key] as? T
     }
 }

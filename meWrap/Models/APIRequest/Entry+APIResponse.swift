@@ -79,7 +79,7 @@ extension Entry {
 
 extension User {
     override class func uid(dictionary: [String:AnyObject]) -> String? {
-        return dictionary[Keys.UID.User] as? String
+        return dictionary.get(Keys.UID.User)
     }
     
     override func map(dictionary: [String : AnyObject], container: Entry?) {
@@ -96,7 +96,7 @@ extension User {
         }
         
         invitedAt <!= dictionary.dateForKey("invited_at_in_epoch")
-        let devices: [Device] = mappedEntries(dictionary[Keys.Devices] as? [[String : AnyObject]], container: self)
+        let devices: [Device] = mappedEntries(dictionary.get(Keys.Devices), container: self)
         if !devices.isEmpty {
             self.devices = Set(devices)
         }
@@ -109,7 +109,7 @@ extension User {
 
 extension Device {
     override class func uid(dictionary: [String:AnyObject]) -> String? {
-        return dictionary[Keys.UID.Device] as? String
+        return dictionary.get(Keys.UID.Device)
     }
     override func map(dictionary: [String : AnyObject], container: Entry?) {
         super.map(dictionary, container: container)
@@ -123,7 +123,7 @@ extension Device {
 extension Contribution {
     
     override class func locuid(dictionary: [String:AnyObject]) -> String? {
-        return dictionary[Keys.UID.Upload] as? String
+        return dictionary.get(Keys.UID.Upload)
     }
     
     override func map(dictionary: [String : AnyObject], container: Entry?) {
@@ -132,14 +132,14 @@ extension Contribution {
         if let updatedAt = dictionary.dateForKey(Keys.LastTouchedAt) where updatedAt.later(self.updatedAt) {
             self.updatedAt = updatedAt
         }
-        contributor <!= mappedEntry(dictionary[Keys.Contributor] as? [String:AnyObject])
+        contributor <!= mappedEntry(dictionary.get(Keys.Contributor))
     }
 }
 
 extension Wrap {
     
     override class func uid(dictionary: [String:AnyObject]) -> String? {
-        return dictionary[Keys.UID.Wrap] as? String
+        return dictionary.get(Keys.UID.Wrap)
     }
     override func map(dictionary: [String : AnyObject], container: Entry?) {
         super.map(dictionary, container: container)
@@ -152,7 +152,7 @@ extension Wrap {
             contributors <!= Set(mappedEntries(array)) as? Set<User>
         }
         
-        contributor <!= mappedEntry(dictionary[Keys.Creator] as? [String:AnyObject])
+        contributor <!= mappedEntry(dictionary.get(Keys.Creator))
         
         if let currentUser = User.currentUser {
             let isContributing = contributors.contains(currentUser)
@@ -169,14 +169,14 @@ extension Wrap {
             }
         }
         
-        let _: [Candy] = mappedEntries(dictionary[Keys.Candies] as? [[String : AnyObject]], container: self)
+        let _: [Candy] = mappedEntries(dictionary.get(Keys.Candies), container: self)
     }
 }
 
 extension Candy {
     
     override class func uid(dictionary: [String:AnyObject]) -> String? {
-        return dictionary[Keys.UID.Candy] as? String
+        return dictionary.get(Keys.UID.Candy)
     }
     
     override func map(dictionary: [String : AnyObject], container: Entry?) {
@@ -187,14 +187,14 @@ extension Candy {
         
         super.map(dictionary, container: container)
         
-        editor <!= mappedEntry(dictionary[Keys.Editor] as? [String:AnyObject])
+        editor <!= mappedEntry(dictionary.get(Keys.Editor))
         editedAt <!= dictionary.dateForKey(Keys.EditedAt)
         
-        if let type = dictionary[Keys.CandyType] as? Int {
+        if let type: Int = dictionary.get(Keys.CandyType) {
             self.type <!= Int16(type)
         }
         
-        let _: [Comment] = mappedEntries(dictionary[Keys.Comments] as? [[String : AnyObject]], container: self)
+        let _: [Comment] = mappedEntries(dictionary.get(Keys.Comments), container: self)
         
         let asset = self.asset?.editCandyAsset(dictionary, mediaType: mediaType)
         if asset != self.asset {
@@ -202,7 +202,7 @@ extension Candy {
         }
         
         if wrap == nil {
-            wrap <!= container as? Wrap ?? Wrap.entry(dictionary[Keys.UID.Wrap] as? String)
+            wrap <!= container as? Wrap ?? Wrap.entry(dictionary.get(Keys.UID.Wrap))
         }
         
         if let commentCount = dictionary[Keys.CommentCount] as? Int {
@@ -221,7 +221,7 @@ extension Message {
         super.map(dictionary, container: container)
         text <!= dictionary[Keys.Content]
         if wrap == nil {
-            wrap <!= container as? Wrap ?? Wrap.entry(dictionary[Keys.UID.Wrap] as? String)
+            wrap <!= container as? Wrap ?? Wrap.entry(dictionary.get(Keys.UID.Wrap))
         }
     }
 }
@@ -236,7 +236,11 @@ extension Comment {
         super.map(dictionary, container: container)
         text <!= dictionary[Keys.Content]
         if self.candy == nil {
-            self.candy <!= container as? Candy ?? Candy.entry(dictionary[Keys.UID.Candy] as? String)
+            if let candy = container as? Candy {
+                self.candy = candy
+            } else {
+                self.candy <!= Candy.entry(dictionary.get(Keys.UID.Candy), locuid: dictionary.get(Keys.UID.CandyUpload))
+            }
         }
     }
 }

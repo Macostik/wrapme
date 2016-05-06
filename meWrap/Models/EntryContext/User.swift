@@ -63,7 +63,7 @@ final class User: Entry {
     
     lazy var securePhones: String? = self.formatPhones(true)
     
-    var sortedWraps: [Wrap]? {
+    var sortedWraps: [Wrap] {
         return wraps.sort({ $0.updatedAt > $1.updatedAt })
     }
     

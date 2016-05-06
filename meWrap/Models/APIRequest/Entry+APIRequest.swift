@@ -70,13 +70,7 @@ extension User {
     func preloadFirstWraps() {
         RunQueue.fetchQueue.run { (finish) -> Void in
             API.wraps(nil).fresh({ [weak self] (wraps) -> Void in
-                
-                if let wraps = self?.sortedWraps?.prefix(2) {
-                    for wrap in wraps {
-                        wrap.preload()
-                    }
-                }
-                
+                self?.sortedWraps.prefix(2).all({ $0.preload() })
                 finish()
                 }, failure: { (_) -> Void in
                     finish()
@@ -159,11 +153,9 @@ extension Wrap {
     func preload() {
         let history = History(wrap: self)
         history.fresh({ (object) -> Void in
-            for item in history.entries.prefix(5) {
-                for candy in item.entries.prefix(20) {
-                    candy.asset?.fetch()
-                }
-            }
+            history.entries.prefix(5).all({
+                $0.entries.prefix(20).all({ $0.asset?.fetch() })
+            })
             }, failure: nil)
     }
 }

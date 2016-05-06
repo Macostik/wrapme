@@ -336,7 +336,7 @@ extension CaptureMediaViewController: EntryNotifying {
         if let wrap = self.wrap where createdWraps.contains(wrap) {
             createdWraps.remove(wrap)
         }
-        wrap = User.currentUser?.sortedWraps?.first
+        wrap = User.currentUser?.sortedWraps.first
     }
     
     func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {

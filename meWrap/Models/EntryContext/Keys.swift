@@ -29,6 +29,7 @@ struct Keys {
         static let Upload = "upload_uid"
         static let Device = "device_uid"
         static let UID = "uid"
+        static let CandyUpload = "candy_upload_uid"
     }
     
     static let CandyType = "candy_type"

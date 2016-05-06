@@ -8,17 +8,15 @@
 
 import UIKit
 
-class RunQueue: NSObject {
+typealias RunBlock = (finish: Void -> Void) -> Void
+
+final class RunQueue {
     
-    static var entryFetchQueue = RunQueue(limit: 3)
+    static let entryFetchQueue = RunQueue(limit: 3)
     
-    static var fetchQueue = RunQueue(limit: 1)
-            
-    private struct Block {
-        var block: (finish: Void -> Void) -> Void
-    }
+    static let fetchQueue = RunQueue(limit: 1)
     
-    private var blocks = [Block]()
+    private var blocks = [RunBlock]()
     
     private var executions = 0 {
         didSet {
@@ -45,23 +43,23 @@ class RunQueue: NSObject {
         self.limit = limit
     }
     
-    private func _run(block: (finish: Void -> Void) -> Void) {
+    private func _run(block: RunBlock) {
         block(finish: {
             if let block = self.blocks.first {
-                self.blocks.removeFirst()
-                self._run(block.block)
+                _ = self.blocks.removeFirst()
+                self._run(block)
             } else {
                 self.executions = self.executions - 1
             }
         })
     }
     
-    func run(block: (finish: Void -> Void) -> Void) {
+    func run(block: RunBlock) {
         if limit == 0 || executions < limit {
             executions = executions + 1
             _run(block)
         } else {
-            blocks.append(Block(block: block))
+            blocks.append(block)
         }
     }
     

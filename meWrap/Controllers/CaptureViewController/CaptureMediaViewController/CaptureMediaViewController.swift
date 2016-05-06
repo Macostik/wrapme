@@ -18,7 +18,7 @@ protocol CaptureWrapContainer: class {
 extension CaptureWrapContainer {
     func setupWrapView(wrap: Wrap?) {
         if let wrapView = wrapView {
-            wrapView.entry = wrap
+            wrapView.wrap = wrap
             wrapView.hidden = wrap == nil
         }
     }

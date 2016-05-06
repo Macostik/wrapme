@@ -241,7 +241,7 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
         imageView.cornerRadius = 78
         imageView.defaultIconSize = 64
         imageView.borderColor = Color.grayLighter
-        imageView.borderWidth = 2
+        imageView.borderWidth = 1
         imageView.defaultIconText = "&"
         imageView.defaultIconColor = Color.grayLighter
         imageView.defaultBackgroundColor = UIColor.whiteColor()

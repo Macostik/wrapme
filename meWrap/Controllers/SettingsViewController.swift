@@ -8,10 +8,30 @@
 
 import UIKit
 
-class SettingsViewController: BaseViewController {
+class SettingsViewController: BaseViewController, EntryNotifying {
+    
+    private let avatarView = ImageView(backgroundColor: UIColor.whiteColor())
+    
+    @IBOutlet weak var accountButton: Button!
     
     override func loadView() {
         super.loadView()
+        
+        avatarView.defaultIconSize = 16
+        avatarView.defaultIconText = "&"
+        avatarView.defaultIconColor = UIColor.whiteColor()
+        avatarView.defaultBackgroundColor = Color.grayLighter
+        avatarView.cornerRadius = 16
+        avatarView.borderColor = Color.grayLighter
+        avatarView.borderWidth = 1
+        view.insertSubview(avatarView, aboveSubview: accountButton)
+        avatarView.snp_makeConstraints { (make) in
+            make.size.equalTo(32)
+            make.leading.equalTo(accountButton).inset(12)
+            make.centerY.equalTo(accountButton)
+        }
+        User.notifier().addReceiver(self)
+        
         let debugButton = QAButton(type: .System)
         debugButton.setTitle("Debug", forState: .Normal)
         debugButton.addTarget(self, action: #selector(self.debug(_:)), forControlEvents: .TouchUpInside)
@@ -43,5 +63,18 @@ class SettingsViewController: BaseViewController {
             NSUserDefaults.standardUserDefaults().clear()
             UIStoryboard.signUp.present(true)
         }).show()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        avatarView.url = User.currentUser?.avatar?.small
+    }
+    
+    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
+        avatarView.url = User.currentUser?.avatar?.small
+    }
+    
+    func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
+        return entry == User.currentUser
     }
 }

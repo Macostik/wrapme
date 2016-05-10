@@ -79,6 +79,7 @@ extension EditProfileViewController: CaptureAvatarViewControllerDelegate {
 extension EditProfileViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         return true
     }
     

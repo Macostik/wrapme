@@ -20,7 +20,7 @@ class DownloadingView: UIView {
     
     weak var candy: Candy?
     
-    class func downloadCandy(candy: Candy?, success: UIImage -> Void, failure: FailureBlock?) {
+    class func downloadCandy(candy: Candy?, forSharing: Bool = false, success: UIImage -> Void, failure: FailureBlock?) {
         if let candy = candy {
             if let error = candy.updateError() {
                 failure?(error)
@@ -29,6 +29,7 @@ class DownloadingView: UIView {
                     success(cachedImage)
                 } else {
                     let view: DownloadingView! = loadFromNib("DownloadingView")
+                    if forSharing { view.downloadingMediaLabel.text = "downloading_media_for_sharing".ls }
                     view.downloadCandy(candy, success:success, failure:failure)
                 }
             } else {

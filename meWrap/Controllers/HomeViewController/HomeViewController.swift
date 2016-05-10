@@ -282,6 +282,7 @@ extension HomeViewController: CaptureMediaViewControllerDelegate {
 extension HomeViewController: WrapCellDelegate {
     
     func wrapCellDidBeginPanning(cell: WrapCell) {
+        streamView.userInteractionEnabled = false
         streamView.lock()
     }
     

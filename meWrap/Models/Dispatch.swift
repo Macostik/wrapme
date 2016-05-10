@@ -57,11 +57,11 @@ struct Dispatch {
     }
 }
 
-class DispatchTask {
+final class DispatchTask {
     
     var block: (Void -> Void)?
     
-    init(delay: Float, block: Void -> Void) {
+    init(_ delay: Float = 0, _ block: Void -> Void) {
         self.block = block
         Dispatch.mainQueue.after(delay) { [weak self] () -> Void in
             if let block = self?.block {

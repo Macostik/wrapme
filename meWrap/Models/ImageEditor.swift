@@ -8,9 +8,9 @@
 
 import Foundation
 
-class ImageEditor {
+struct ImageEditor {
     
-    class func editImage(image: UIImage, completion: UIImage -> Void) {
+    static func editImage(image: UIImage, completion: UIImage -> Void) {
         let presentingViewController = UINavigationController.main
         let controller = editControllerWithImage(image, completion: { image in
             completion(image)
@@ -23,7 +23,7 @@ class ImageEditor {
     
     private static var token: dispatch_once_t = 0
     
-    class func editControllerWithImage(image: UIImage, completion: UIImage -> Void, cancel: Block) -> AdobeUXImageEditorViewController {
+    static func editControllerWithImage(image: UIImage, completion: UIImage -> Void, cancel: Block) -> AdobeUXImageEditorViewController {
         
         dispatch_once(&token) {
             AdobeImageEditorCustomization.setSupportedIpadOrientations([UIInterfaceOrientation.Portrait.rawValue, UIInterfaceOrientation.PortraitUpsideDown.rawValue, UIInterfaceOrientation.LandscapeLeft.rawValue, UIInterfaceOrientation.PortraitUpsideDown.rawValue, UIInterfaceOrientation.LandscapeRight.rawValue])
@@ -61,5 +61,4 @@ class ImageEditor {
         }
         return controller
     }
-    
 }

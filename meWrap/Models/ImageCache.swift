@@ -9,15 +9,15 @@
 import Foundation
 import CryptoSwift
 
-class ImageCache: NSObject {
+final class ImageCache {
     
-    private static var DefaultCacheSize = 524288000
+    private static let DefaultCacheSize = 524288000
     
     var compressionQuality: CGFloat = 1
     
     var permitted = false
     
-    var path = ""
+    var path: String
     
     var size: Int = 0 {
         didSet {
@@ -40,7 +40,6 @@ class ImageCache: NSObject {
     private var token: dispatch_once_t = 0
     
     init(name: String) {
-        super.init()
         let manager = NSFileManager.defaultManager()
         dispatch_once(&token) {
             if let path = NSURL.groupContainer().path {
@@ -96,18 +95,18 @@ class ImageCache: NSObject {
         }
     }
     
+    private var task: DispatchTask?
+    
     private func enqueueCheckSize() {
         if permitted {
-            enqueueSelector(#selector(ImageCache.checkSizeInBackground))
+            self.task = DispatchTask(0.5) { self.checkSizeInBackground() }
         }
     }
     
     private var checkingState = false
     
-    func checkSizeInBackground() {
-        guard !checkingState else {
-            return
-        }
+    @objc func checkSizeInBackground() {
+        guard !checkingState else { return }
         checkingState = true
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
             let result = self.checkSize()

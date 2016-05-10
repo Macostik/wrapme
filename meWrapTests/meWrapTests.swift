@@ -9,10 +9,12 @@
 import Quick
 import Nimble
 @testable import meWrap
+import XCTest
 
 class EntryContextSpec: QuickSpec {
     
     override func spec() {
+        
         describe("insert") {
             
             var count: Int!
@@ -79,17 +81,6 @@ class EntryContextSpec: QuickSpec {
                 let comment: Comment = Comment.entry()
                 expect(FetchRequest<Entry>().count() - count).to(equal(1))
                 if let entry = Comment.entry(comment.uid) {
-                    EntryContext.sharedContext.deleteEntry(entry)
-                }
-                expect(FetchRequest<Entry>().count() - count).to(equal(0))
-            }
-            
-            it("finding entry by locuid") {
-                let entry1: Entry = Entry.entry()
-                entry1.locuid = entry1.uid
-                expect(FetchRequest<Entry>().count() - count).to(equal(1))
-                if let entry = Entry.entry(GUID(), locuid: entry1.locuid) {
-                    expect(entry).to(equal(entry1))
                     EntryContext.sharedContext.deleteEntry(entry)
                 }
                 expect(FetchRequest<Entry>().count() - count).to(equal(0))

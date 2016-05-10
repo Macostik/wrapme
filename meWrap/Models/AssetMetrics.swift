@@ -63,7 +63,7 @@ extension Asset {
         asset.large = urls[metrics.large]?.prepend(uri) ?? self.large
         asset.medium = urls[metrics.medium]?.prepend(uri) ?? self.medium
         asset.small = urls[metrics.small]?.prepend(uri) ?? self.small
-        return self != asset ? asset : self
+        return asset
     }
     
     func cacheForAsset(asset: Asset) {

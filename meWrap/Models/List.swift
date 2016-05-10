@@ -105,7 +105,7 @@ protocol PaginatedListProtocol: BaseOrderedContainer {
     func newer(success: ([PaginatedEntryType] -> ())?, failure: FailureBlock?)
     func older(success: ([PaginatedEntryType] -> ())?, failure: FailureBlock?)
     var completed: Bool { get set }
-    func addReceiver(receiver: NSObject?)
+    func addReceiver(receiver: AnyObject?)
 }
 
 class PaginatedList<T: Equatable>: List<T>, PaginatedListProtocol {

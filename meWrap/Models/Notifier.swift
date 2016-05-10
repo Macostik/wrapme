@@ -9,56 +9,45 @@
 import Foundation
 
 func ==(lhs: NotifyReceiverWrapper, rhs: NotifyReceiverWrapper) -> Bool {
-    return lhs.receiver == rhs.receiver
+    return lhs.receiver === rhs.receiver
 }
 
-class NotifyReceiverWrapper: Hashable {
-    weak var receiver: NSObject?
-    init(receiver: NSObject?) {
-        self.receiver = receiver
-    }
-    
-    var hashValue: Int {
-        return receiver?.hashValue ?? 0
-    }
+struct NotifyReceiverWrapper: Equatable {
+    weak var receiver: AnyObject?
 }
 
 class Notifier: NSObject {
     
-    internal var receivers = Set<NotifyReceiverWrapper>()
+    internal var receivers = [NotifyReceiverWrapper]()
         
-    func addReceiver(receiver: NSObject?) {
-        if let receiver = receiver {
-            receivers.insert(NotifyReceiverWrapper(receiver: receiver))
-        }
+    func addReceiver(receiver: AnyObject?) {
+        guard let receiver = receiver else { return }
+        receivers.append(NotifyReceiverWrapper(receiver: receiver))
     }
     
-    func removeReceiver(receiver: NSObject?) {
-        if let index = receivers.indexOf({ $0.receiver == receiver }) {
+    func insertReceiver(receiver: AnyObject?) {
+        guard let receiver = receiver else { return }
+        receivers.insert(NotifyReceiverWrapper(receiver: receiver), atIndex: 0)
+    }
+    
+    func removeReceiver(receiver: AnyObject?) {
+        guard let receiver = receiver else { return }
+        if let index = receivers.indexOf({ $0.receiver === receiver }) {
             receivers.removeAtIndex(index)
         }
     }
     
     func notify(@noescape enumerator: (receiver: AnyObject) -> Void) {
-        for wrapper in self.receivers {
+        var emptyWrappers = [NotifyReceiverWrapper]()
+        for wrapper in receivers {
             if let receiver = wrapper.receiver {
                 enumerator(receiver: receiver)
+            } else {
+                emptyWrappers.append(wrapper)
             }
         }
-    }
-}
-
-@objc protocol OrderedNotifierReceiver {
-    optional func notifier(notifier: OrderedNotifier, shouldNotifyBeforeReceiver receiver: AnyObject) -> Bool
-}
-
-class OrderedNotifier: Notifier {
-    override func notify(@noescape enumerator: (receiver: AnyObject) -> Void) {
-        var _receivers = [AnyObject]()
-        super.notify { _receivers.append($0) }
-        _receivers = _receivers.sort({ $0.notifier?(self, shouldNotifyBeforeReceiver: $1) ?? false })
-        for receiver in _receivers {
-            enumerator(receiver: receiver)
+        for wrapper in emptyWrappers {
+            receivers.remove(wrapper)
         }
     }
 }

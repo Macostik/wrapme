@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Photos
 
-class MutableAsset: Asset {
+final class MutableAsset: Asset {
     var comment: String?
     var canBeSavedToAssets: Bool = false
     var assetID: String?

@@ -23,7 +23,7 @@ class History: PaginatedList<HistoryItem>, PaginatedListNotifying {
             $0.olderThen = { $0.last?.createdAt }
         })
         super.init()
-        Candy.notifier().addReceiver(self)
+        Candy.notifier().insertReceiver(self)
         self.wrap = wrap
         fetchCandies(wrap)
         historyCandies.addReceiver(self)
@@ -151,10 +151,6 @@ class History: PaginatedList<HistoryItem>, PaginatedListNotifying {
     func itemWithCandy(candy: Candy?) -> HistoryItem? {
         guard let candy = candy else { return nil }
         return entries[{ $0.entries.contains(candy) }]
-    }
-    
-    func notifier(notifier: OrderedNotifier, shouldNotifyBeforeReceiver receiver: AnyObject) -> Bool {
-        return true
     }
     
     func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {

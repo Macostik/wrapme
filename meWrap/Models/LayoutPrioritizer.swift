@@ -24,34 +24,25 @@ class LayoutPrioritizer: NSObject {
     
         if defaultState != state {
             
-            if animated {
-                UIView.beginAnimations(nil, context: nil)
-                UIView.setAnimationBeginsFromCurrentState(true)
-                UIView.setAnimationCurve(.EaseInOut)
-                UIView.setAnimationDuration(0.25)
-            }
-            
-            for constraint in defaultConstraints {
-                constraint.priority = state ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow
-            }
-            
-            for constraint in alternativeConstraints {
-                constraint.priority = state ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh
-            }
-            
-            if parentViews.count > 0 {
-                for view in parentViews {
-                    (animated || !asynchronous) ? view.layoutIfNeeded() : view.setNeedsLayout()
+            animate(animated, duration: 0.25, curve: .EaseInOut, animations: {
+                for constraint in defaultConstraints {
+                    constraint.priority = state ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow
                 }
-            } else {
-                if let view = (defaultConstraints.first?.firstItem as? UIView)?.superview {
-                    (animated || !asynchronous) ? view.layoutIfNeeded() : view.setNeedsLayout()
+                
+                for constraint in alternativeConstraints {
+                    constraint.priority = state ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh
                 }
-            }
-            
-            if (animated) {
-                UIView.commitAnimations()
-            }
+                
+                if parentViews.count > 0 {
+                    for view in parentViews {
+                        (animated || !asynchronous) ? view.layoutIfNeeded() : view.setNeedsLayout()
+                    }
+                } else {
+                    if let view = (defaultConstraints.first?.firstItem as? UIView)?.superview {
+                        (animated || !asynchronous) ? view.layoutIfNeeded() : view.setNeedsLayout()
+                    }
+                }
+            })
         }
     }
     

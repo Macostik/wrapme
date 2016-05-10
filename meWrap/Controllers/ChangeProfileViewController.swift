@@ -521,10 +521,6 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
     
     //MARK: EntryNotifying
     
-    func notifier(notifier: OrderedNotifier, shouldNotifyBeforeReceiver receiver: AnyObject) -> Bool {
-        return false
-    }
-    
     func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
         updateEmailConfirmationView()
         dataSource.reload()

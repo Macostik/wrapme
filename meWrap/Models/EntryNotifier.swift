@@ -12,7 +12,7 @@ import UIKit
     case Default, ContentAdded, ContentChanged, ContentDeleted, ContributorsChanged, PreferencesChanged, LiveBroadcastsChanged, NumberOfUnreadMessagesChanged, InboxChanged, UserStatus
 }
 
-@objc protocol EntryNotifying: OrderedNotifierReceiver {
+@objc protocol EntryNotifying {
     optional func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool
     
     optional func notifier(notifier: EntryNotifier, shouldNotifyOnContainer container: Entry) -> Bool
@@ -26,7 +26,7 @@ import UIKit
     optional func notifier(notifier: EntryNotifier, willDeleteContainer container: Entry)
 }
 
-class EntryNotifier: OrderedNotifier {
+class EntryNotifier: Notifier {
     
     let name: String
     

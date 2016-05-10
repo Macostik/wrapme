@@ -105,4 +105,20 @@ final class Candy: Contribution {
     }
     
     var typedComment: String?
+    
+    func fetchAsset(success: () -> ()) {
+        if let asset = asset {
+            if UIApplication.sharedApplication().applicationState == .Background {
+                let task = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
+                asset.fetch({
+                    UIApplication.sharedApplication().endBackgroundTask(task)
+                })
+                success()
+            } else {
+                asset.fetch(success)
+            }
+        } else {
+            success()
+        }
+    }
 }

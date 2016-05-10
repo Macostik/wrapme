@@ -196,10 +196,7 @@ extension Candy {
         
         let _: [Comment] = mappedEntries(dictionary.get(Keys.Comments), container: self)
         
-        let asset = self.asset?.editCandyAsset(dictionary, mediaType: mediaType)
-        if asset != self.asset {
-            self.asset = asset
-        }
+        self.asset <!= self.asset?.editCandyAsset(dictionary, mediaType: mediaType)
         
         if wrap == nil {
             wrap <!= container as? Wrap ?? Wrap.entry(dictionary.get(Keys.UID.Wrap))

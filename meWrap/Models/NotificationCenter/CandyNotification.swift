@@ -41,19 +41,7 @@ class CandyAddNotification: CandyNotification {
         createEntryIfNeeded()
         if let candy = _entry {
             candy.recursivelyFetchIfNeeded({ _ in
-                if let asset = candy.asset {
-                    if UIApplication.sharedApplication().applicationState == .Background {
-                        let task = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
-                        asset.fetch({
-                            UIApplication.sharedApplication().endBackgroundTask(task)
-                        })
-                        success()
-                    } else {
-                        asset.fetch(success)
-                    }
-                } else {
-                    success()
-                }
+                candy.fetchAsset(success)
                 }, failure: failure)
         } else {
             success()
@@ -83,20 +71,8 @@ class CandyUpdateNotification: CandyNotification {
         createEntryIfNeeded()
         if let candy = _entry {
             if entryData == nil {
-                candy.fetch({ (_) -> Void in
-                    if let asset = candy.asset {
-                        if UIApplication.sharedApplication().applicationState == .Background {
-                            let task = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
-                            asset.fetch({
-                                UIApplication.sharedApplication().endBackgroundTask(task)
-                            })
-                            success()
-                        } else {
-                            asset.fetch(success)
-                        }
-                    } else {
-                        success()
-                    }
+                candy.fetch({ _ in
+                    candy.fetchAsset(success)
                     }, failure: failure)
             } else {
                 if let asset = candy.asset {
@@ -125,8 +101,6 @@ class CandyUpdateNotification: CandyNotification {
 }
 
 class CandyDeleteNotification: CandyNotification {
-    
-    override func mapEntry(candy: Candy, data: [String : AnyObject]) { }
     
     override func submit() {
         _entry?.remove()

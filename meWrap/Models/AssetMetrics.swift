@@ -120,6 +120,6 @@ extension Asset {
 extension String {
     
     func prepend(uri: String) -> String {
-        return hasPrefix("http") ? self : uri.stringByAppendingString(self)
+        return isEmpty || hasPrefix("http") ? self : uri.stringByAppendingString(self)
     }
 }

@@ -19,12 +19,16 @@ class CandyNotification: EntryNotification<Candy> {
                 candy.uploading = nil
             }
             
+            if candy.uid == candy.locuid {
+                Logger.log(["uploaded_candy":data])
+            }
+            
             let oldPicture = candy.asset?.copy() as? Asset
             candy.map(data)
             if let newAsset = candy.asset where originatedByCurrentUser {
                 oldPicture?.cacheForAsset(newAsset)
             }
-            if candy.sortedComments().contains({ $0.uploading != nil }) {
+            if candy.comments.contains({ $0.uploading != nil }) {
                 Uploader.wrapUploader.start()
             }
         }
@@ -126,7 +130,7 @@ class CandyDeleteNotification: CandyNotification {
     
     override func submit() {
         _entry?.remove()
-        if let wrap = _entry?.wrap where wrap.valid && wrap.candies.count < Constants.recentCandiesLimit {
+        if let wrap = _entry?.wrap?.validEntry() where wrap.candies.count < Constants.recentCandiesLimit {
             wrap.fetch(Wrap.ContentTypeRecent, success: nil, failure: nil)
         }
     }

@@ -30,6 +30,8 @@ final class Message: Contribution {
         set { }
     }
     
+    override var canBeUploaded: Bool { return wrap?.uploaded == true }
+    
     lazy var chatMetadata = ChatMetadata()
 }
 

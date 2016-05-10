@@ -81,6 +81,7 @@ class SlimLogglyDestination: LogDestination {
             mutableDict.setObject("\(message())", forKey: "rawmsg")
         }
         mutableDict.setObject(level.string, forKey: "level")
+        mutableDict.setObject(NSDate().timeIntervalSince1970, forKey: "timestamp")
         mutableDict.setObject("\(filename):\(line)", forKey: "sourcelocation")
         mutableDict.setObject(User.uuid(), forKey: "userid")
         mutableDict.setObject(UIApplication.sharedApplication().applicationState.displayName(), forKey: "app_state")

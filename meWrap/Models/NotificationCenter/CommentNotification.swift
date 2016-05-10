@@ -28,14 +28,6 @@ class CommentAddNotification: CommentNotification {
         guard let comment = _entry else { return }
         guard let candy = comment.candy else { return }
         
-        Logger.log([
-            "pn_comment": comment.text?.trim ?? "",
-            "candy_uid": candy.uid,
-            "candy_upload_uid": candy.locuid ?? "",
-            "number_of_candies_by_uid": FetchRequest<Candy>().query("uid == %@", candy.uid).count(),
-            "number_of_candies_by_upload_uid": FetchRequest<Candy>().query("locuid == %@", candy.locuid ?? "").count()
-            ])
-        
         if candy.valid {
             candy.commentCount = Int16(candy.comments.count)
         }

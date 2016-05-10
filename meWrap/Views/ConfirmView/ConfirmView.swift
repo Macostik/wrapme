@@ -126,7 +126,7 @@ final class ConfirmInvitationView: ConfirmView, KeyboardNotifying, UITextViewDel
     
     //MARK: UITextViewDelegate
     
-    let WLMessageLimit = 280
+    let WLMessageLimit = 160
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if let string: NSString = textView.text {

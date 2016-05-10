@@ -302,6 +302,14 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         $0.layer.shadowOffset = CGSize(width: 0, height: 3)
     }
     private let commentButton = Button.candyAction("f", color: Color.orange)
+    private let commentCountLabel = specify(UILabel()) {
+        $0.font = UIFont.systemFontOfSize(8, weight: UIFontWeightBold)
+        $0.textColor = UIColor.whiteColor()
+        $0.backgroundColor = Color.orange
+        $0.cornerRadius = 9
+        $0.textAlignment = .Center
+        $0.clipsToBounds = true
+    }
     
     let volumeButton = specify(Button.expandableCandyAction("l")) {
         $0.setTitle("m", forState: .Selected)
@@ -335,6 +343,10 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         view.add(commentButton) {
             $0.size.equalTo(44)
             $0.trailing.bottom.equalTo(view).inset(20)
+        }
+        commentButton.add(commentCountLabel) { (make) in
+            make.trailing.top.equalTo(commentButton)
+            make.size.equalTo(18)
         }
        
         view.add(volumeButton) {
@@ -564,6 +576,13 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             drawButton.hidden = candy.isVideo
             editButton.hidden = candy.isVideo
             commentView.comment = candy.latestComment
+            let commentCount = candy.commentCount
+            if commentCount > 0 {
+                commentCountLabel.hidden = false
+                commentCountLabel.text = commentCount > 99 ? "99+" : "\(commentCount)"
+            } else {
+                commentCountLabel.hidden = true
+            }
             volumeButton.hidden = !candy.isVideo
         }
     }

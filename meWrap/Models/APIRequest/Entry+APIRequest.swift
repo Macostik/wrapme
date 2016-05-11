@@ -428,6 +428,13 @@ extension Message {
             failure?(nil)
         }
     }
+    override func fetch(success: ObjectBlock?, failure: FailureBlock?) {
+        if uploaded {
+            API.message(self).send(success, failure: failure)
+        } else {
+            failure?(nil)
+        }
+    }
 }
 
 extension Comment {
@@ -476,6 +483,13 @@ extension Comment {
                 success?(nil)
             }
             break
+        }
+    }
+    override func fetch(success: ObjectBlock?, failure: FailureBlock?) {
+        if uploaded {
+            API.comment(self).send(success, failure: failure)
+        } else {
+            failure?(NSError(message:("comment_is_uploading").ls))
         }
     }
 }

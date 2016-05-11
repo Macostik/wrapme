@@ -118,6 +118,26 @@ extension API {
         }).contributionUnavailable(candy)
     }
     
+    static func message(message: Message) -> APIRequest<Message> {
+        return APIRequest(.GET, "entities/\(message.uid)", parser: { response in
+            if let dictionary = response.dictionary("chat") {
+                return message.validEntry()?.update(Message.prefetchDictionary(dictionary))
+            } else {
+                return message
+            }
+        }).contributionUnavailable(message)
+    }
+    
+    static func comment(comment: Comment) -> APIRequest<Comment> {
+        return APIRequest(.GET, "entities/\(comment.uid)", parser: { response in
+            if let dictionary = response.dictionary("comment") {
+                return comment.validEntry()?.update(Comment.prefetchDictionary(dictionary))
+            } else {
+                return comment
+            }
+        }).contributionUnavailable(comment)
+    }
+    
     static func deleteCandy(candy: Candy) -> APIRequest<Response>? {
         guard let wrap = candy.wrap else { return nil }
         return APIRequest(.DELETE, "wraps/\(wrap.uid)/candies/\(candy.uid)", parser: { response in

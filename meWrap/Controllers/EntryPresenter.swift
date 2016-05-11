@@ -113,7 +113,10 @@ extension Message {
     }
     
     override func isValidViewController(controller: UIViewController) -> Bool {
-        return (controller as? WrapViewController)?.wrap == wrap
+        guard let _wrap = (controller as? WrapViewController)?.wrap where _wrap == wrap else {
+            return false
+        }
+        return true
     }
 }
 

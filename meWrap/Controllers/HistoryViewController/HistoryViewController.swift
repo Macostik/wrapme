@@ -303,10 +303,10 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     private let commentButton = Button.candyAction("f", color: Color.orange)
     private let commentCountLabel = specify(UILabel()) {
-        $0.font = UIFont.systemFontOfSize(8, weight: UIFontWeightBold)
+        $0.font = UIFont.systemFontOfSize(10, weight: UIFontWeightBold)
         $0.textColor = UIColor.whiteColor()
         $0.backgroundColor = Color.orange
-        $0.cornerRadius = 9
+        $0.cornerRadius = 10
         $0.textAlignment = .Center
         $0.clipsToBounds = true
     }
@@ -345,8 +345,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             $0.trailing.bottom.equalTo(view).inset(20)
         }
         commentButton.add(commentCountLabel) { (make) in
-            make.trailing.top.equalTo(commentButton)
-            make.size.equalTo(18)
+            make.trailing.top.equalTo(commentButton).inset(-2)
+            make.size.equalTo(20)
         }
        
         view.add(volumeButton) {

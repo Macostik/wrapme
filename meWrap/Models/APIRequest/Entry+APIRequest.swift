@@ -174,6 +174,7 @@ extension Uploading {
             if let contribution = contribution where !inProgress {
                 inProgress = true
                 contribution.notifyOnUpdate(.Default)
+                Logger.log("Trying to upload: \(contribution)")
                 send(contribution, success: { [weak self] (object) -> Void in
                     self?.inProgress = false
                     self?.remove()
@@ -222,6 +223,7 @@ extension Uploading {
         if contribution.canBeUploaded {
             contribution.add(success, failure: failure)
         } else {
+            Logger.log("Cannot be uploaded: \(contribution)")
             failure?(nil)
         }
     }

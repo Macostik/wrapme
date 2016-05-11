@@ -144,9 +144,12 @@ final class NotificationCenter: NSObject {
         if !notifications.isEmpty {
             for notification in notifications {
                 RunQueue.fetchQueue.run { finish in
+                    Logger.log("Fetching notification \(notification)")
                     notification.fetch({ _ in
+                        Logger.log("Fetching notification success \(notification)")
                         finish()
-                        }, failure: { _ in
+                        }, failure: { error in
+                            Logger.log("Fetching notification error \(notification): \(error ?? "")")
                             finish()
                     })
                 }

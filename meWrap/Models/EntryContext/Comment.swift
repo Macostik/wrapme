@@ -25,7 +25,12 @@ final class Comment: Contribution {
         }
     }
     
-    override var canBeUploaded: Bool { return candy?.uploaded == true }
+    override var canBeUploaded: Bool {
+        if let candy = candy where candy.uploaded == false {
+            Logger.log("Comment cannot be uploaded. It's candy: \(candy)")
+        }
+        return candy?.uploaded == true
+    }
     
     override var deletable: Bool { return super.deletable || (candy?.deletable ?? false) }
     

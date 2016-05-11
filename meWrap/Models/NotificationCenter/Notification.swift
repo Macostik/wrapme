@@ -175,6 +175,12 @@ class EntryNotification<T: Entry>: Notification {
         
         _entry = entry
         inserted = entry.inserted
+        
+        if let locuid = entry.locuid {
+            Logger.log("Notification \(self). Created entry \(entry). Number of entries with the same upload_uid \(FetchRequest<T>().query("locuid == %@", locuid))")
+        } else {
+            Logger.log("Notification \(self). Created entry \(entry). No upload_uid")
+        }
     }
     
     override func fetch(success: Block, failure: FailureBlock) {

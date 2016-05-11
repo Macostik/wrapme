@@ -94,7 +94,7 @@ extension Button {
     }
 }
 
-class HistoryViewController: SwipeViewController<CandyViewController>, EntryNotifying {
+class HistoryViewController: SwipeViewController<CandyViewController>, EntryNotifying, DeviceManagerNotifying {
     
     weak var candy: Candy? {
         didSet {
@@ -476,6 +476,10 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         }
         
         setCandy(candy, direction: .Forward, animated: false)
+        
+        
+        DeviceManager.defaultManager.addReceiver(self)
+        DeviceManager.defaultManager.beginUsingAccelerometer()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -684,6 +688,16 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         return wrap == container
     }
     
+    func manager(manager: DeviceManager, didChangeOrientation orientation: UIDeviceOrientation) {
+        animate(true, duration: 1.0) {
+            if orientation == .LandscapeLeft || orientation == .LandscapeRight {
+                self.commentView.transform = CGAffineTransformMakeTranslation(0, self.view.height/2)
+            } else {
+                self.commentView.transform = CGAffineTransformIdentity
+            }
+        }
+    }
+    
     override func back(sender: UIButton) {
         if let candy = candy?.validEntry() {
             if let presenter = presenter where UIApplication.sharedApplication().statusBarOrientation.isPortrait {
@@ -695,6 +709,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         } else {
             navigationController?.popToRootViewControllerAnimated(false)
         }
+        DeviceManager.defaultManager.endUsingAccelerometer()
     }
     
     @IBAction func downloadCandy(sender: Button) {

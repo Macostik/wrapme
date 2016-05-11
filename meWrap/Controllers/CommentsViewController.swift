@@ -89,32 +89,62 @@ class CommentsViewController: BaseViewController {
     
     weak var candy: Candy?
     
-    @IBOutlet weak var streamView: StreamView!
-    @IBOutlet weak var friendsStreamView: StreamView!
+    let streamView = StreamView()
+    private let friendsStreamView = StreamView()
     
     private lazy var friendsDataSource: StreamDataSource<[User]> = StreamDataSource(streamView: self.friendsStreamView)
     
     private lazy var dataSource: StreamDataSource<[Comment]> = StreamDataSource(streamView: self.streamView)
     
-    @IBOutlet weak var composeBar: ComposeBar!
+    private let composeBar = ComposeBar()
     
-    @IBOutlet weak var composeBarBottomPrioritizer: LayoutPrioritizer!
-    @IBOutlet weak var contentView: UIView!
+    private var contentView = UIView()
     weak var historyViewController: HistoryViewController?
     
     private var candyNotifyReceiver: EntryNotifyReceiver<Candy>?
     
     private var commentNotifyReceiver: EntryNotifyReceiver<Comment>?
-    @IBOutlet weak var topView: UIView!
+    private let topView = UIView()
     
     deinit {
         streamView.layer.removeObserver(self, forKeyPath: "bounds", context: nil)
     }
     
+    override func loadView() {
+        let view = UIView(frame: self.preferredViewFrame)
+        self.view = view
+        view.backgroundColor = UIColor(white: 0, alpha: 0.7)
+        view.add(contentView) { (make) in
+            make.edges.equalTo(view)
+        }
+        contentView.add(topView) { (make) in
+            make.leading.trailing.top.equalTo(contentView)
+        }
+        topView.add(friendsStreamView) { (make) in
+            make.edges.equalTo(topView)
+        }
+        let closeButton = Button(icon: "!", size: 15, textColor: Color.orange)
+        closeButton.setTitleColor(Color.orangeDarker, forState: .Highlighted)
+        closeButton.addTarget(self, touchUpInside: #selector(self.onClose(_:)))
+        topView.add(closeButton) { (make) in
+            make.top.trailing.bottom.equalTo(topView).inset(5)
+        }
+        contentView.add(streamView) { (make) in
+            make.leading.trailing.equalTo(contentView)
+            make.top.equalTo(topView.snp_bottom)
+        }
+        contentView.add(composeBar) { (make) in
+            make.leading.trailing.bottom.equalTo(contentView)
+            make.top.equalTo(streamView.snp_bottom)
+        }
+        
+        composeBar.textView.placeholder = "comment_placeholder".ls
+        streamView.indicatorStyle = .White
+        streamView.alwaysBounceVertical = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        streamView.indicatorStyle = .White
         
         streamView.layer.addObserver(self, forKeyPath: "bounds", options: .New, context: nil)
         view.addGestureRecognizer(streamView.panGestureRecognizer)

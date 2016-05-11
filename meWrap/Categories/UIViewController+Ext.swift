@@ -15,8 +15,10 @@ extension UIViewController {
     
     func addContainedViewController(controller: UIViewController, toView view: UIView, animated: Bool) {
         addChildViewController(controller)
-        controller.view.frame = view.bounds
         view.addSubview(controller.view)
+        controller.view.snp_makeConstraints { (make) in
+            make.edges.equalTo(view)
+        }
         controller.didMoveToParentViewController(self)
     }
     

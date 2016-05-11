@@ -513,7 +513,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             return
         }
         setBarsHidden(true, animated: animated)
-        let commentsViewController = Storyboard.Comments.instantiate({ $0.candy = candy })
+        let commentsViewController = CommentsViewController()
+        commentsViewController.candy = candy
         commentsViewController.presentForController(self, animated: animated)
         self.commentsViewController = commentsViewController
     }

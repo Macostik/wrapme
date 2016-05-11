@@ -21,24 +21,27 @@ class TextView: UITextView {
         }
     }
     
-    @IBOutlet weak var placeholderLabel: UILabel?
-    
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TextView.textDidChange), name: UITextViewTextDidChangeNotification, object: self)
+    override init(frame: CGRect, textContainer: NSTextContainer?) {
+        super.init(frame: frame, textContainer: textContainer)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.textDidChange), name: UITextViewTextDidChangeNotification, object: self)
         if editable && dataDetectorTypes != .None {
             dataDetectorTypes = .All
         }
     }
     
-    override var hidden: Bool {
-        willSet {
-            super.hidden = newValue
-            placeholderLabel?.hidden = newValue
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.textDidChange), name: UITextViewTextDidChangeNotification, object: self)
+        if editable && dataDetectorTypes != .None {
+            dataDetectorTypes = .All
         }
     }
     
@@ -49,15 +52,20 @@ class TextView: UITextView {
     }
     
     final func textDidChange() {
-        placeholderLabel?.hidden = !text.isEmpty
+        setNeedsDisplay()
+    }
+    
+    override func drawRect(rect: CGRect) {
+        if let placeholder = placeholder where text.isEmpty {
+            let attributes = [NSFontAttributeName: self.font!, NSForegroundColorAttributeName: Color.grayLighter]
+            let size = placeholder.sizeWithAttributes(attributes)
+            placeholder.drawAtPoint(0 ^ (height/2 - size.height/2), withAttributes: attributes)
+        }
     }
     
     var placeholder: String? {
-        set {
-            placeholderLabel?.text = newValue
-        }
-        get {
-            return placeholderLabel?.text
+        didSet {
+            setNeedsDisplay()
         }
     }
     

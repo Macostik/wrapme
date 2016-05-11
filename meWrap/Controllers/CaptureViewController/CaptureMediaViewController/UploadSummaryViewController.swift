@@ -73,6 +73,10 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        composeBar.textView.placeholder = "add_comment".ls
+        composeBar.emojiButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        composeBar.doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        composeBar.doneButton.setTitle("E", forState: .Normal)
         streamView.layout = HorizontalStreamLayout()
         view.addGestureRecognizer(self.scrollView!.panGestureRecognizer)
         self.videoPlayerView.delegate = self
@@ -214,7 +218,7 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
     
     @IBAction func composeBarDidFinish(sender: AnyObject) {
         composeBar.resignFirstResponder()
-        composeBar.setDoneButtonHidden(true)
+        composeBar.setDoneButtonHidden(true, animated: true)
     }
     
     func composeBarDidChangeText(composeBar: ComposeBar) {

@@ -24,7 +24,7 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     var videoRecordingTimeLeft: NSTimeInterval = Constants.maxVideoRecordedDuration
     
     lazy var videoFilePath: String = {
-        let videosDirectoryPath = NSHomeDirectory() + "/Documents/Videos"
+        let videosDirectoryPath = "Documents/Videos"
         _ = try? NSFileManager.defaultManager().createDirectoryAtPath(videosDirectoryPath, withIntermediateDirectories:true, attributes:nil)
         let path = "\(videosDirectoryPath)/capturedVideo.mov"
         return path

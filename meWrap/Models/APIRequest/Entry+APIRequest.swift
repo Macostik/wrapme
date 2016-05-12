@@ -339,10 +339,8 @@ extension Candy {
         case .Ready:
             remove()
             success?(nil)
-            break
         case .InProgress:
             failure?(NSError(message: (isVideo ? "video_is_uploading" : "photo_is_uploading").ls))
-            break
         case .Finished:
             if uid == locuid {
                 failure?(NSError(message: "publishing_in_progress".ls))
@@ -353,7 +351,6 @@ extension Candy {
                     failure?(nil)
                 }
             }
-            break
         }
     }
     
@@ -409,10 +406,8 @@ extension Comment {
         case .Ready:
             remove()
             success?(nil)
-            break
         case .InProgress:
             failure?(NSError(message: "comment_is_uploading".ls))
-            break
         case .Finished:
             if let candy = candy {
                 switch candy.status {
@@ -435,7 +430,6 @@ extension Comment {
                 remove()
                 success?(nil)
             }
-            break
         }
     }
 }

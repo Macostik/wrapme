@@ -138,6 +138,8 @@ final class UploadMediaCommentViewController: UIViewController {
         }
         uploadButton.cornerRadius = 36
         uploadButton.backgroundColor = Color.green
+        uploadButton.normalColor = Color.green
+        uploadButton.highlightedColor = Color.green.darkerColor()
         view.add(uploadButton) { (make) in
             make.bottom.equalTo(view).inset(12)
             make.centerX.equalTo(view)

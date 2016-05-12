@@ -69,6 +69,20 @@ class Asset: NSObject, NSCopying {
             return "image/jpeg"
         }
     }
+    
+    func videoURL() -> NSURL? {
+        guard let original = original else { return nil }
+        if original.isExistingFilePath {
+            return original.fileURL
+        } else {
+            let path = ImageCache.defaultCache.getPath(ImageCache.uidFromURL(original)) + ".mp4"
+            if path.isExistingFilePath {
+                return path.fileURL
+            } else {
+                return original.URL
+            }
+        }
+    }
 }
 
 class AssetTransformer: NSValueTransformer {

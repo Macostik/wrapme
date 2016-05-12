@@ -9,6 +9,10 @@
 import Foundation
 import CoreData
 
+enum CommentType {
+    case Text, Photo, Video
+}
+
 @objc(Comment)
 final class Comment: Contribution {
 
@@ -39,5 +43,13 @@ final class Comment: Contribution {
     override func remove() {
         decrementBadgeIfNeeded()
         super.remove()
+    }
+    
+    func type() -> CommentType {
+        if let asset = asset {
+            return asset.type == .Video ? .Video : .Photo
+        } else {
+            return .Text
+        }
     }
 }

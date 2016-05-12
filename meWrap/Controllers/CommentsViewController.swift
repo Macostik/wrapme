@@ -11,13 +11,24 @@ import SnapKit
 
 import MobileCoreServices
 
-final class CommentCell: EntryStreamReusableView<Comment>, FlowerMenuConstructor {
+class CommentCell: EntryStreamReusableView<Comment> {
+    
+    internal let name = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
+    internal let date = Label(preset: .Smaller, weight: .Regular, textColor: Color.grayLighter)
+    internal let indicator = EntryStatusIndicator(color: Color.orange)
+    
+    override func setup(comment: Comment) {
+        comment.markAsUnread(false)
+        name.text = comment.contributor?.name
+        date.text = comment.createdAt.timeAgoString()
+        indicator.updateStatusIndicator(comment)
+    }
+}
+
+final class TextCommentCell: CommentCell, FlowerMenuConstructor {
     
     private let avatar = UserAvatarView(cornerRadius: 24)
-    private let name = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
-    private let date = Label(preset: .Smaller, weight: .Regular, textColor: Color.grayLighter)
     private let text = SmartLabel(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
-    private let indicator = EntryStatusIndicator(color: Color.orange)
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         FlowerMenu.sharedMenu.registerView(self)
@@ -73,12 +84,101 @@ final class CommentCell: EntryStreamReusableView<Comment>, FlowerMenuConstructor
     
     override func setup(comment: Comment) {
         userInteractionEnabled = true
-        comment.markAsUnread(false)
-        name.text = comment.contributor?.name
+        super.setup(comment)
         avatar.user = comment.contributor
-        date.text = comment.createdAt.timeAgoString()
-        indicator.updateStatusIndicator(comment)
         text.text = comment.text
+    }
+}
+
+class MediaCommentCell: CommentCell {
+    
+    var mediaView: UIView!
+    
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
+        mediaView.cornerRadius = 45
+        mediaView.borderColor = UIColor.whiteColor()
+        mediaView.borderWidth = 1
+        mediaView.clipsToBounds = true
+        addSubview(mediaView)
+        addSubview(name)
+        addSubview(date)
+        addSubview(indicator)
+        
+        mediaView.snp_makeConstraints { (make) -> Void in
+            make.leading.top.equalTo(self).offset(20)
+            make.size.equalTo(90)
+        }
+        name.snp_makeConstraints { (make) -> Void in
+            make.leading.equalTo(mediaView.snp_trailing).offset(18)
+            make.bottom.equalTo(mediaView.snp_centerY).offset(2)
+            make.trailing.lessThanOrEqualTo(self).inset(18)
+        }
+        
+        date.snp_makeConstraints { (make) -> Void in
+            make.leading.equalTo(mediaView.snp_trailing).offset(18)
+            make.top.equalTo(mediaView.snp_centerY).offset(2)
+        }
+        
+        indicator.snp_makeConstraints { (make) -> Void in
+            make.leading.equalTo(date.snp_trailing).offset(12)
+            make.centerY.equalTo(date)
+        }
+    }
+    
+    private var uploadingView: UploadingView? {
+        didSet {
+            if oldValue?.superview == mediaView {
+                oldValue?.removeFromSuperview()
+            }
+            if let uploadingView = uploadingView {
+                uploadingView.frame = mediaView.bounds
+                mediaView.addSubview(uploadingView)
+                uploadingView.update()
+            }
+        }
+    }
+}
+
+final class PhotoCommentCell: MediaCommentCell {
+    private let imageView = ImageView(backgroundColor: UIColor.clearColor())
+    
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
+        mediaView = imageView
+        imageView.defaultIconSize = 24
+        super.layoutWithMetrics(metrics)
+    }
+    
+    override func setup(comment: Comment) {
+        super.setup(comment)
+        imageView.url = comment.asset?.small
+        uploadingView = comment.uploadingView
+    }
+}
+
+final class VideoCommentCell: MediaCommentCell {
+    private let playerView = VideoPlayer()
+    
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
+        mediaView = playerView
+        (playerView.layer as? AVPlayerLayer)?.videoGravity = AVLayerVideoGravityResizeAspectFill
+        super.layoutWithMetrics(metrics)
+        
+        playerView.didPlayToEnd = { [weak self] _ in
+            self?.playerView.playing = true
+        }
+        playerView.player.muted = true
+    }
+    
+    override func willEnqueue() {
+        super.willEnqueue()
+        playerView.url = nil
+    }
+    
+    override func setup(comment: Comment) {
+        super.setup(comment)
+        playerView.url = comment.asset?.videoURL()
+        playerView.playing = true
+        uploadingView = comment.uploadingView
     }
 }
 
@@ -193,13 +293,33 @@ class CommentsViewController: BaseViewController, CaptureCommentViewControllerDe
         
         candy.comments.all({ $0.markAsUnread(false) })
         
-        dataSource.addMetrics(specify(StreamMetrics<CommentCell>(), {
+        dataSource.addMetrics(specify(StreamMetrics<TextCommentCell>(), {
             $0.selectable = false
             $0.modifyItem = { [weak self] item in
                 let comment = item.entry as! Comment
                 item.size = self?.heightCell(comment) ?? 0
+                item.hidden = comment.type() != .Text
             }
         }))
+        
+        dataSource.addMetrics(specify(StreamMetrics<PhotoCommentCell>(), {
+            $0.selectable = false
+            $0.size = 130
+            $0.modifyItem = { item in
+                let comment = item.entry as! Comment
+                item.hidden = comment.type() != .Photo
+            }
+        }))
+        
+        dataSource.addMetrics(specify(StreamMetrics<VideoCommentCell>(), {
+            $0.selectable = false
+            $0.size = 130
+            $0.modifyItem = { item in
+                let comment = item.entry as! Comment
+                item.hidden = comment.type() != .Video
+            }
+        }))
+        
         dataSource.placeholderMetrics = PlaceholderView.commentsPlaceholderMetrics()
         dataSource.items = candy.sortedComments()
         
@@ -412,21 +532,18 @@ class CommentsViewController: BaseViewController, CaptureCommentViewControllerDe
     }
     
     func captureViewController(controller: CaptureCommentViewController, didFinishWithAsset asset: MutableAsset) {
+        if let candy = candy?.validEntry() {
+            Sound.play()
+            let comment: Comment = Comment.contribution()
+            comment.asset = asset.uploadableAsset()
+            candy.commentCount += 1
+            comment.candy = candy
+            Uploader.commentUploader.upload(Uploading.uploading(comment))
+            comment.notifyOnAddition()
+        }
         controller.removeFromContainerAnimated(false)
         showComposeBar()
         view.layoutIfNeeded()
-        close(true)
-        if let candy = candy?.validEntry() {
-            Dispatch.mainQueue.async {
-                Sound.play()
-                let comment: Comment = Comment.contribution()
-                comment.asset = asset.uploadableAsset()
-                candy.commentCount += 1
-                comment.candy = candy
-                Uploader.commentUploader.upload(Uploading.uploading(comment))
-                comment.notifyOnAddition()
-            }
-        }
     }
     
     func captureViewControllerDidCancel(controller: CaptureCommentViewController) {

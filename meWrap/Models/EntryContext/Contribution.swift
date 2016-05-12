@@ -94,4 +94,26 @@ class Contribution: Entry {
     func updateProgress(progress: CGFloat) {
         _uploadingView?.updateProgress(progress)
     }
+    
+    func uploadToS3Bucket(metadata: [String:String], success: ObjectBlock?, failure: FailureBlock?) {
+        
+        Logger.log("Uploading \(self.dynamicType.entityName()) to S3 bucket: \(metadata)")
+        
+        guard let asset = asset, let original = asset.original where original.isExistingFilePath else {
+            remove()
+            failure?(NSError(code: ResponseCode.UploadFileNotFound.rawValue))
+            return
+        }
+        
+        S3Bucket.bucket.upload(original, contentType: asset.contentType(), metadata: metadata, progress: { [weak self] _, current, total in
+            let progress = smoothstep(0, 1, CGFloat(current) / CGFloat(total))
+            self?.updateProgress(progress)
+            }, success: { [weak self] () in
+                if let candy = self where candy.valid {
+                    success?(self)
+                } else {
+                    failure?(nil)
+                }
+            }, failure: failure)
+    }
 }

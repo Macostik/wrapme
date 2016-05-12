@@ -17,8 +17,7 @@ class EditAssetViewController: UIViewController {
     override func loadView() {
         super.loadView()
         imageView.contentMode = .ScaleAspectFit
-        view.addSubview(imageView)
-        imageView.snp_makeConstraints { $0.edges.equalTo(view) }
+        view.add(imageView) { $0.edges.equalTo(view) }
     }
 
     override func viewDidLoad() {

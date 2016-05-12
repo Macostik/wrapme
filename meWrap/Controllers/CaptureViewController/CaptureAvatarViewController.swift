@@ -43,7 +43,7 @@ class CaptureAvatarViewController: CaptureViewController {
     }
     
     private func editImage(image: UIImage, completionHandler: UIImage -> Void) {
-        if let controller = storyboard?["editAvatar"] as? EditAvatarViewController {
+        if let controller = UIStoryboard.camera["editAvatar"] as? EditAvatarViewController {
             controller.image = image;
             controller.completionHandler = completionHandler
             pushViewController(controller, animated: false)

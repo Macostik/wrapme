@@ -61,6 +61,14 @@ class Asset: NSObject, NSCopying {
         asset.small = small
         return asset
     }
+    
+    func contentType() -> String {
+        if type == .Video {
+            return "video/mp4"
+        } else {
+            return "image/jpeg"
+        }
+    }
 }
 
 class AssetTransformer: NSValueTransformer {

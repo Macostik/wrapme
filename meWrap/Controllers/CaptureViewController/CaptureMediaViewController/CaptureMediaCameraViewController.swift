@@ -10,13 +10,13 @@ import UIKit
 
 class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContainer {
 
-    @IBOutlet weak var finishButton: Button!
+    @IBOutlet weak var finishButton: Button?
     
     @IBOutlet weak var videoRecordingProgressBar: ProgressBar!
     @IBOutlet weak var videoRecordingView: UIView!
-    @IBOutlet weak var videoRecordingTimeLabel: UILabel!
+    @IBOutlet weak var videoRecordingTimeLabel: UILabel?
     @IBOutlet weak var cancelVideoRecordingLabel: UILabel!
-    @IBOutlet weak var videoRecordingIndicator: UIView!
+    @IBOutlet weak var videoRecordingIndicator: UIView?
     weak var videoRecordingTimer: NSTimer?
     weak var startVideoRecordingTimer: NSTimer?
     weak var audioInput: AVCaptureDeviceInput?
@@ -84,7 +84,7 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
         assetsView.hidden = recording
         assetsInteractionView.hidden = recording
         rotateButton.hidden = recording
-        cropAreaView.hidden = recording
+        cropAreaView?.hidden = recording
         flashModeControl.alpha = recording ? 0.0 : 1.0
         wrapView?.superview?.hidden = recording
     }
@@ -237,8 +237,8 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     
     override func animateOrientationChange(transform: CGAffineTransform) {
         super.animateOrientationChange(transform)
-        videoRecordingTimeLabel.transform = transform
-        finishButton.transform = transform
+        videoRecordingTimeLabel?.transform = transform
+        finishButton?.transform = transform
     }
 }
 
@@ -247,7 +247,7 @@ private let videoRecordingTimerInterval: NSTimeInterval = 0.03333333
 extension CaptureMediaCameraViewController: AVCaptureFileOutputRecordingDelegate {
     
     func captureOutput(captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAtURL outputFileURL: NSURL!, fromConnections connections: [AnyObject]!, error: NSError!) {
-        videoRecordingIndicator.layer.removeAnimationForKey("videoRecording")
+        videoRecordingIndicator?.layer.removeAnimationForKey("videoRecording")
         self.cancelVideoRecordingLabel.hidden = true
         videoRecordingTimer?.invalidate()
         prepareSessionForPhotoTaking()
@@ -261,7 +261,7 @@ extension CaptureMediaCameraViewController: AVCaptureFileOutputRecordingDelegate
     }
     
     func captureOutput(captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAtURL fileURL: NSURL!, fromConnections connections: [AnyObject]!) {
-        videoRecordingIndicator.layer.addAnimation(specify(CABasicAnimation(keyPath: "opacity"), {
+        videoRecordingIndicator?.layer.addAnimation(specify(CABasicAnimation(keyPath: "opacity"), {
             $0.fromValue = 1
             $0.toValue = 0
             $0.autoreverses = true
@@ -271,17 +271,17 @@ extension CaptureMediaCameraViewController: AVCaptureFileOutputRecordingDelegate
         }), forKey: "videoRecording")
         cancelVideoRecordingLabel.hidden = false
         videoRecordingTimeLeft = Constants.maxVideoRecordedDuration
-        videoRecordingTimeLabel.text = String(Constants.maxVideoRecordedDuration)
+        videoRecordingTimeLabel?.text = String(Constants.maxVideoRecordedDuration)
         videoRecordingProgressBar.progress = 0;
         videoRecordingView.hidden = false
         videoRecordingTimer?.invalidate()
-        videoRecordingTimer = NSTimer.scheduledTimerWithTimeInterval(videoRecordingTimerInterval, target: self, selector: #selector(CaptureMediaCameraViewController.recordingTimerChanged(_:)), userInfo: nil, repeats: true)
+        videoRecordingTimer = NSTimer.scheduledTimerWithTimeInterval(videoRecordingTimerInterval, target: self, selector: #selector(self.recordingTimerChanged(_:)), userInfo: nil, repeats: true)
     }
     
     func recordingTimerChanged(timer: NSTimer) {
         if videoRecordingTimeLeft > 0 {
             videoRecordingTimeLeft = max(0, videoRecordingTimeLeft - videoRecordingTimerInterval)
-            videoRecordingTimeLabel.text = String(ceil(videoRecordingTimeLeft)) + "\""
+            videoRecordingTimeLabel?.text = String(ceil(videoRecordingTimeLeft)) + "\""
             videoRecordingProgressBar.progress = CGFloat(1.0 - videoRecordingTimeLeft/Constants.maxVideoRecordedDuration)
         } else {
             videoRecordingTimer?.invalidate()

@@ -16,20 +16,25 @@ class CaptureViewController: UINavigationController, CameraViewControllerDelegat
     var friendsInvited = false
     
     class func captureMediaViewController(wrap: Wrap?) -> CaptureMediaViewController {
-        let controller = UIStoryboard.camera["captureMedia"] as! CaptureMediaViewController
+        let controller = CaptureMediaViewController(cameraViewController: UIStoryboard.camera["mediaCamera"] as! CameraViewController)
         controller.wrap = wrap
         return controller
     }
     
     class func captureAvatarViewController() -> CaptureAvatarViewController {
-        return UIStoryboard.camera["captureAvatar"] as! CaptureAvatarViewController
+        return CaptureAvatarViewController(cameraViewController: UIStoryboard.camera["avatarCamera"] as! CameraViewController)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        let cameraViewController = viewControllers.last as? CameraViewController
-        cameraViewController?.delegate = self
+    class func captureCommentViewController() -> CaptureCommentViewController {
+        return CaptureCommentViewController(cameraViewController: UIStoryboard.camera["commentCamera"] as! CameraViewController)
+    }
+    
+    convenience init(cameraViewController: CameraViewController) {
+        self.init()
+        navigationBarHidden = true
         self.cameraViewController = cameraViewController
+        cameraViewController.delegate = self
+        viewControllers = [cameraViewController]
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -86,7 +91,9 @@ class CaptureViewController: UINavigationController, CameraViewControllerDelegat
         let height = CGFloat(asset.pixelHeight)
         let scale = (width > height ? height : width) / resizeImageWidth()
         let size = CGSizeMake(width / scale, height / scale)
-        PHImageManager.defaultManager().requestImageDataForAsset(asset, options: nil) { (data, _, _, info) in
+        let options = PHImageRequestOptions()
+        options.networkAccessAllowed = true
+        PHImageManager.defaultManager().requestImageDataForAsset(asset, options: options) { (data, _, _, info) in
             if let data = data, let image = UIImage(data: data) {
                 completion(image.resize(size))
             } else {

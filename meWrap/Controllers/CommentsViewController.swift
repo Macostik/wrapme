@@ -85,7 +85,7 @@ final class CommentCell: EntryStreamReusableView<Comment>, FlowerMenuConstructor
 private let CommentEstimateWidth: CGFloat = Constants.screenWidth - 104
 private let CommentVerticalSpacing: CGFloat = 60
 
-class CommentsViewController: BaseViewController {
+class CommentsViewController: BaseViewController, CaptureCommentViewControllerDelegate {
     
     weak var candy: Candy?
     
@@ -105,6 +105,8 @@ class CommentsViewController: BaseViewController {
     
     private var commentNotifyReceiver: EntryNotifyReceiver<Comment>?
     private let topView = UIView()
+    private let bottomView = UIView()
+    private let cameraButton = Button(icon: "u", size: 24, textColor: Color.orange)
     
     deinit {
         streamView.layer.removeObserver(self, forKeyPath: "bounds", context: nil)
@@ -124,7 +126,7 @@ class CommentsViewController: BaseViewController {
             make.edges.equalTo(topView)
         }
         let closeButton = Button(icon: "!", size: 15, textColor: Color.orange)
-        closeButton.setTitleColor(Color.orangeDarker, forState: .Highlighted)
+        closeButton.setTitleColor(Color.orangeDark, forState: .Highlighted)
         closeButton.addTarget(self, touchUpInside: #selector(self.onClose(_:)))
         topView.add(closeButton) { (make) in
             make.top.trailing.bottom.equalTo(topView).inset(5)
@@ -133,21 +135,58 @@ class CommentsViewController: BaseViewController {
             make.leading.trailing.equalTo(contentView)
             make.top.equalTo(topView.snp_bottom)
         }
-        contentView.add(composeBar) { (make) in
+        bottomView.backgroundColor = UIColor(white: 0, alpha: 0.7)
+        contentView.add(bottomView) { (make) in
             make.leading.trailing.bottom.equalTo(contentView)
             make.top.equalTo(streamView.snp_bottom)
         }
         
+        cameraButton.setTitleColor(Color.orangeDark, forState: .Highlighted)
+        cameraButton.addTarget(self, touchUpInside: #selector(self.cameraAction(_:)))
+        showComposeBar()
+        
+        composeBar.delegate = self
         composeBar.textView.placeholder = "comment_placeholder".ls
         streamView.indicatorStyle = .White
         streamView.alwaysBounceVertical = true
+        
+        keyboardBottomGuideView = contentView
+    }
+    
+    var disableDismissingByScroll = false
+    
+    private func showComposeBar() {
+        disableDismissingByScroll = false
+        bottomView.subviews.all({ $0.removeFromSuperview() })
+        bottomView.add(composeBar) { (make) in
+            make.leading.top.bottom.equalTo(bottomView)
+        }
+        bottomView.add(cameraButton) { (make) in
+            make.trailing.top.bottom.equalTo(bottomView)
+            make.leading.equalTo(composeBar.snp_trailing)
+            make.width.equalTo(44)
+        }
+    }
+    
+    func showCamera() {
+        disableDismissingByScroll = true
+        bottomView.subviews.all({ $0.removeFromSuperview() })
+        let camera = CaptureViewController.captureCommentViewController()
+        camera.captureDelegate = self
+        addChildViewController(camera)
+        bottomView.addSubview(camera.view)
+        camera.view.snp_makeConstraints { (make) in
+            make.edges.equalTo(bottomView)
+            make.height.equalTo(camera.view.width)
+        }
+        camera.didMoveToParentViewController(self)
+        view.layoutIfNeeded()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         streamView.layer.addObserver(self, forKeyPath: "bounds", options: .New, context: nil)
-        view.addGestureRecognizer(streamView.panGestureRecognizer)
         streamView.panGestureRecognizer.addTarget(self, action: #selector(self.panned(_:)))
         
         guard let candy = candy?.validEntry() else { return }
@@ -194,7 +233,7 @@ class CommentsViewController: BaseViewController {
     }
     
     func panned(sender: UIPanGestureRecognizer) {
-        if sender.state == .Ended && scrollingOffset != 0 {
+        if sender.state == .Ended && scrollingOffset != 0 && !disableDismissingByScroll {
             let velocity = sender.velocityInView(sender.view)
             if abs(scrollingOffset) > streamView.height/4 || abs(velocity.y) > 1200 {
                 let snapshot = contentView.snapshotViewAfterScreenUpdates(false)
@@ -212,11 +251,11 @@ class CommentsViewController: BaseViewController {
             guard newValue != scrollingOffset else { return }
             if newValue == 0 {
                 topView.transform = CGAffineTransformIdentity
-                composeBar.transform = CGAffineTransformIdentity
+                bottomView.transform = CGAffineTransformIdentity
                 view.backgroundColor = UIColor(white: 0, alpha: 0.7)
             } else {
-                (newValue < 0 ? topView : composeBar).transform = CGAffineTransformMakeTranslation(0, -newValue)
-                (newValue < 0 ? composeBar : topView).transform = CGAffineTransformIdentity
+                (newValue < 0 ? topView : bottomView).transform = CGAffineTransformMakeTranslation(0, -newValue)
+                (newValue < 0 ? bottomView : topView).transform = CGAffineTransformIdentity
                 let value = smoothstep(0.0, 1.0, 1 - abs(newValue) / (contentView.height / 2))
                 view.backgroundColor = UIColor(white: 0, alpha: 0.7 * value)
             }
@@ -229,7 +268,7 @@ class CommentsViewController: BaseViewController {
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if streamView.superview == contentView {
+        if streamView.superview == contentView && !disableDismissingByScroll {
             scrollingOffset = scrollingOffsetChanged()
         }
     }
@@ -366,6 +405,34 @@ class CommentsViewController: BaseViewController {
     
     @IBAction func onClose(sender: AnyObject?) {
         close(true)
+    }
+    
+    @IBAction func cameraAction(sender: AnyObject?) {
+        showCamera()
+    }
+    
+    func captureViewController(controller: CaptureCommentViewController, didFinishWithAsset asset: MutableAsset) {
+        controller.removeFromContainerAnimated(false)
+        showComposeBar()
+        view.layoutIfNeeded()
+        close(true)
+        if let candy = candy?.validEntry() {
+            Dispatch.mainQueue.async {
+                Sound.play()
+                let comment: Comment = Comment.contribution()
+                comment.asset = asset.uploadableAsset()
+                candy.commentCount += 1
+                comment.candy = candy
+                Uploader.commentUploader.upload(Uploading.uploading(comment))
+                comment.notifyOnAddition()
+            }
+        }
+    }
+    
+    func captureViewControllerDidCancel(controller: CaptureCommentViewController) {
+        controller.removeFromContainerAnimated(false)
+        showComposeBar()
+        view.layoutIfNeeded()
     }
 }
 

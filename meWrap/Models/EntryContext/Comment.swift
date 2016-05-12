@@ -29,11 +29,6 @@ final class Comment: Contribution {
     
     override var deletable: Bool { return super.deletable || (candy?.deletable ?? false) }
     
-    override var asset: Asset? {
-        get { return candy?.asset }
-        set { }
-    }
-    
     func decrementBadgeIfNeeded() {
         if let wrap = candy?.wrap where unread && wrap.numberOfUnreadInboxItems > 0 {
             wrap.numberOfUnreadInboxItems -= 1

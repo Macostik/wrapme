@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreData
-import AWSS3
 
 private var S3ConfigurationToken: dispatch_once_t = 0
 
@@ -335,59 +334,6 @@ extension Candy {
         uploadToS3Bucket(metadata, success: success, failure: failure)
     }
     
-    func uploadToS3Bucket(metadata: [String:String], success: ObjectBlock?, failure: FailureBlock?) {
-        
-        Logger.log("Uploading to S3 bucket: \(metadata)")
-        
-        dispatch_once(&S3ConfigurationToken) {
-            let accessKey = "AKIAIPEMEBV7F4GN2FVA"
-            let secretKey = "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"
-            let credentialsProvider = AWSStaticCredentialsProvider(accessKey:accessKey, secretKey:secretKey)
-            let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
-            AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
-        }
-        
-        guard let original = asset?.original else {
-            remove()
-            failure?(NSError(code: ResponseCode.UploadFileNotFound.rawValue))
-            return
-        }
-        
-        let path = original as NSString
-        
-        if path.hasPrefix("http") {
-            success?(self)
-            return
-        }
-        
-        let uploadRequest = AWSS3TransferManagerUploadRequest()
-        uploadRequest.bucket = Environment.current.s3Bucket
-        uploadRequest.key = path.lastPathComponent
-        uploadRequest.metadata = metadata
-        if mediaType == .Video {
-            uploadRequest.contentType = "video/mp4"
-        } else {
-            uploadRequest.contentType = "image/jpeg"
-        }
-        uploadRequest.body = path.fileURL
-        AWSS3TransferManager.defaultS3TransferManager().upload(uploadRequest).continueWithBlock { [weak self] (task) -> AnyObject! in
-            Dispatch.mainQueue.async { () -> Void in
-                if let wrap = self?.wrap where wrap.valid && task.completed && (task.result != nil) {
-                    success?(self)
-                } else {
-                    failure?(task.error)
-                }
-            }
-            return task
-        }
-        uploadRequest.uploadProgress = { [weak self] _, current, total in
-            Dispatch.mainQueue.async({ () in
-                let progress = smoothstep(0, 1, CGFloat(current) / CGFloat(total))
-                self?.updateProgress(progress)
-            })
-        }
-    }
-    
     override func delete(success: ObjectBlock?, failure: FailureBlock?) {
         switch status {
         case .Ready:
@@ -434,10 +380,24 @@ extension Comment {
     
     override func add(success: ObjectBlock?, failure: FailureBlock?) {
         if candy?.uploaded ?? false {
-            if let request = API.postComment(self) {
-                request.send(success, failure: failure)
+            if let asset = asset where asset.original?.isExistingFilePath == true {
+                let metadata = [
+                    "Accept" : "application/vnd.ravenpod+json;version=\(Environment.current.version)",
+                    Keys.UID.Device : Authorization.current.deviceUID ?? "",
+                    Keys.UID.User : contributor?.uid ?? "",
+                    Keys.UID.Wrap : candy?.wrap?.uid ?? "",
+                    Keys.UID.Candy : candy?.uid ?? "",
+                    Keys.UID.Upload : locuid ?? "",
+                    Keys.ContributedAt : "\(createdAt.timestamp)",
+                    "upload_type" : "20"
+                ]
+                uploadToS3Bucket(metadata, success: success, failure: failure)
             } else {
-                failure?(nil)
+                if let request = API.postComment(self) {
+                    request.send(success, failure: failure)
+                } else {
+                    failure?(nil)
+                }
             }
         } else {
             failure?(nil)

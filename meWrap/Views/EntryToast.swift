@@ -197,7 +197,7 @@ extension EntryToast {
     class func showCommentAddition(comment: Comment) {
         EntryToast.entryToast.show(setup: { (toast) in
             toast.avatar.url = comment.contributor?.avatar?.small
-            toast.imageView.url = comment.asset?.medium
+            toast.imageView.url = comment.contributor?.avatar?.medium
             toast.topLabel.text = String(format: "someone_commented".ls, comment.contributor?.name ?? "")
             toast.middleLabel.text = comment.text
             }, handleTouch: {

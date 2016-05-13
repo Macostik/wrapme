@@ -339,7 +339,13 @@ extension Candy {
     
     func uploadToS3Bucket(metadata: [String:String], success: ObjectBlock?, failure: FailureBlock?) {
         
-        Logger.log("Uploading to S3 bucket: \(metadata)")
+        var contentType: String!
+        if mediaType == .Video {
+            contentType = "video/mp4"
+        } else {
+            contentType = "image/jpeg"
+        }
+        Logger.log("Uploading \(contentType) to S3 bucket: \(metadata)")
         
         dispatch_once(&S3ConfigurationToken) {
             let accessKey = "AKIAIPEMEBV7F4GN2FVA"
@@ -366,17 +372,15 @@ extension Candy {
         uploadRequest.bucket = Environment.current.s3Bucket
         uploadRequest.key = path.lastPathComponent
         uploadRequest.metadata = metadata
-        if mediaType == .Video {
-            uploadRequest.contentType = "video/mp4"
-        } else {
-            uploadRequest.contentType = "image/jpeg"
-        }
+        uploadRequest.contentType = contentType
         uploadRequest.body = path.fileURL
         AWSS3TransferManager.defaultS3TransferManager().upload(uploadRequest).continueWithBlock { [weak self] (task) -> AnyObject! in
             Dispatch.mainQueue.async { () -> Void in
                 if let wrap = self?.wrap where wrap.valid && task.completed && (task.result != nil) {
+                    Logger.log("Uploading \(contentType) to S3 bucket success: \(metadata)")
                     success?(self)
                 } else {
+                    Logger.log("Uploading \(contentType) to S3 bucket error: \(metadata)\n \(task.error ?? "")")
                     failure?(task.error)
                 }
             }

@@ -238,6 +238,7 @@ extension Uploading {
     
     override func remove() {
         super.remove()
+        Logger.log("Removing Uploading object for contribution \(contribution ?? "")")
         contribution?.uploading = nil
     }
 }

@@ -16,6 +16,7 @@ class CandyNotification: EntryNotification<Candy> {
         if type != .CandyDelete {
             
             if originatedByCurrentUser && candy.status == .Ready {
+                Logger.log("Candy is uploaded \(candy), so removing Uploading object")
                 candy.uploading = nil
             }
             

@@ -156,36 +156,113 @@ final class PhotoCommentCell: MediaCommentCell {
 }
 
 final class VideoCommentCell: MediaCommentCell {
-    private let playerView = VideoPlayer()
+    private let imageView = ImageView(backgroundColor: UIColor.clearColor())
+    weak var playerView: VideoPlayer?
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
-        mediaView = playerView
-        (playerView.layer as? AVPlayerLayer)?.videoGravity = AVLayerVideoGravityResizeAspectFill
+        mediaView = imageView
         super.layoutWithMetrics(metrics)
-        
-        playerView.didPlayToEnd = { [weak self] _ in
-            self?.playerView.playing = true
+    }
+    
+    private func createPlayerView() -> VideoPlayer {
+        let playerView = VideoPlayer()
+        (playerView.layer as? AVPlayerLayer)?.videoGravity = AVLayerVideoGravityResizeAspectFill
+        playerView.didPlayToEnd = { [weak playerView] _ in
+            playerView?.playing = true
         }
         playerView.player.muted = true
+        return playerView
     }
     
     override func willEnqueue() {
         super.willEnqueue()
-        playerView.url = nil
+        playerView?.removeFromSuperview()
     }
     
     override func setup(comment: Comment) {
         super.setup(comment)
+        let playerView = createPlayerView()
+        imageView.insertSubview(playerView, atIndex: 0)
+        playerView.snp_makeConstraints { (make) in
+            make.edges.equalTo(imageView)
+        }
         playerView.url = comment.asset?.videoURL()
-        playerView.playing = true
+        self.playerView = playerView
         uploadingView = comment.uploadingView
+        imageView.url = comment.asset?.small
     }
 }
 
 private let CommentEstimateWidth: CGFloat = Constants.screenWidth - 104
 private let CommentVerticalSpacing: CGFloat = 60
 
-class CommentsViewController: BaseViewController, CaptureCommentViewControllerDelegate {
+final class CommentsDataSource: StreamDataSource<[Comment]> {
+    
+    let videoCommentMetrics = specify(StreamMetrics<VideoCommentCell>(), {
+        $0.selectable = false
+        $0.size = 130
+        $0.modifyItem = { item in
+            let comment = item.entry as! Comment
+            item.hidden = comment.type() != .Video
+        }
+    })
+    
+    override init() {
+        super.init()
+        addMetrics(specify(StreamMetrics<TextCommentCell>(), {
+            $0.selectable = false
+            $0.modifyItem = { [weak self] item in
+                let comment = item.entry as! Comment
+                item.size = self?.heightCell(comment) ?? 0
+                item.hidden = comment.type() != .Text
+            }
+        }))
+        
+        addMetrics(specify(StreamMetrics<PhotoCommentCell>(), {
+            $0.selectable = false
+            $0.size = 130
+            $0.modifyItem = { item in
+                let comment = item.entry as! Comment
+                item.hidden = comment.type() != .Photo
+            }
+        }))
+        
+        addMetrics(videoCommentMetrics)
+    }
+    
+    private func heightCell(comment: Comment) -> CGFloat {
+        let font = Font.Small + .Regular
+        let nameFont = Font.Small + .Bold
+        let timeFont = Font.Smaller + .Regular
+        let textHeight = comment.text?.heightWithFont(font, width:CommentEstimateWidth) ?? 0
+        return max(textHeight, font.lineHeight) + nameFont.lineHeight + timeFont.lineHeight + CommentVerticalSpacing
+    }
+    
+    override func reload() {
+        super.reload()
+        playVideoCommentsIfNeeded()
+    }
+    
+    func playVideoCommentsIfNeeded() {
+        streamView?.visibleItems().all({
+            if $0.metrics === videoCommentMetrics {
+                ($0.view as? VideoCommentCell)?.playerView?.playing = true
+            }
+        })
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        playVideoCommentsIfNeeded()
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            playVideoCommentsIfNeeded()
+        }
+    }
+}
+
+final class CommentsViewController: BaseViewController, CaptureCommentViewControllerDelegate {
     
     weak var candy: Candy?
     
@@ -194,7 +271,7 @@ class CommentsViewController: BaseViewController, CaptureCommentViewControllerDe
     
     private lazy var friendsDataSource: StreamDataSource<[User]> = StreamDataSource(streamView: self.friendsStreamView)
     
-    private lazy var dataSource: StreamDataSource<[Comment]> = StreamDataSource(streamView: self.streamView)
+    private lazy var dataSource: CommentsDataSource = CommentsDataSource(streamView: self.streamView)
     
     private let composeBar = ComposeBar()
     
@@ -292,33 +369,6 @@ class CommentsViewController: BaseViewController, CaptureCommentViewControllerDe
         guard let candy = candy?.validEntry() else { return }
         
         candy.comments.all({ $0.markAsUnread(false) })
-        
-        dataSource.addMetrics(specify(StreamMetrics<TextCommentCell>(), {
-            $0.selectable = false
-            $0.modifyItem = { [weak self] item in
-                let comment = item.entry as! Comment
-                item.size = self?.heightCell(comment) ?? 0
-                item.hidden = comment.type() != .Text
-            }
-        }))
-        
-        dataSource.addMetrics(specify(StreamMetrics<PhotoCommentCell>(), {
-            $0.selectable = false
-            $0.size = 130
-            $0.modifyItem = { item in
-                let comment = item.entry as! Comment
-                item.hidden = comment.type() != .Photo
-            }
-        }))
-        
-        dataSource.addMetrics(specify(StreamMetrics<VideoCommentCell>(), {
-            $0.selectable = false
-            $0.size = 130
-            $0.modifyItem = { item in
-                let comment = item.entry as! Comment
-                item.hidden = comment.type() != .Video
-            }
-        }))
         
         dataSource.placeholderMetrics = PlaceholderView.commentsPlaceholderMetrics()
         dataSource.items = candy.sortedComments()
@@ -442,14 +492,6 @@ class CommentsViewController: BaseViewController, CaptureCommentViewControllerDe
                 self?.close()
             }
         }
-    }
-    
-    private func heightCell(comment: Comment) -> CGFloat {
-        let font = Font.Small + .Regular
-        let nameFont = Font.Small + .Bold
-        let timeFont = Font.Smaller + .Regular
-        let textHeight = comment.text?.heightWithFont(font, width:CommentEstimateWidth) ?? 0
-        return max(textHeight, font.lineHeight) + nameFont.lineHeight + timeFont.lineHeight + CommentVerticalSpacing
     }
     
     override func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {

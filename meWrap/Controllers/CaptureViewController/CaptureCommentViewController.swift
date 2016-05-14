@@ -137,9 +137,9 @@ final class UploadMediaCommentViewController: UIViewController {
             make.trailing.equalTo(gradientView).inset(12)
         }
         uploadButton.cornerRadius = 36
-        uploadButton.backgroundColor = Color.green
-        uploadButton.normalColor = Color.green
-        uploadButton.highlightedColor = Color.green.darkerColor()
+        uploadButton.normalColor = Color.green.colorWithAlphaComponent(0.9)
+        uploadButton.backgroundColor = uploadButton.normalColor
+        uploadButton.highlightedColor = Color.green.darkerColor().colorWithAlphaComponent(0.9)
         view.add(uploadButton) { (make) in
             make.bottom.equalTo(view).inset(12)
             make.centerX.equalTo(view)

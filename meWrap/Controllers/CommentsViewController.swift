@@ -131,6 +131,7 @@ class MediaCommentCell: CommentCell {
                 oldValue?.removeFromSuperview()
             }
             if let uploadingView = uploadingView {
+                mediaView.layoutIfNeeded()
                 uploadingView.frame = mediaView.bounds
                 mediaView.addSubview(uploadingView)
                 uploadingView.update()
@@ -574,6 +575,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     }
     
     func captureViewController(controller: CaptureCommentViewController, didFinishWithAsset asset: MutableAsset) {
+        close(true)
         if let candy = candy?.validEntry() {
             Sound.play()
             let comment: Comment = Comment.contribution()
@@ -583,9 +585,6 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
             Uploader.commentUploader.upload(Uploading.uploading(comment))
             comment.notifyOnAddition()
         }
-        controller.removeFromContainerAnimated(false)
-        showComposeBar()
-        view.layoutIfNeeded()
     }
     
     func captureViewControllerDidCancel(controller: CaptureCommentViewController) {

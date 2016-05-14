@@ -7,6 +7,68 @@
 //
 
 import UIKit
+import SnapKit
+
+class VideoRecordControl: UIView {
+    
+    let cancelLabel = Label(icon: "!", size: 20, textColor: Color.orange)
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.5)
+        let circleView = UIView()
+        circleView.backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.9)
+        circleView.cornerRadius = 36
+        add(circleView) { (make) in
+            make.size.equalTo(72)
+            make.trailing.top.bottom.equalTo(self)
+        }
+        circleView.add(specify(UIView(), {
+            $0.cornerRadius = 16
+            $0.backgroundColor = Color.dangerRed
+        })) { (make) in
+            make.size.equalTo(32)
+            make.center.equalTo(circleView)
+        }
+        
+        let arrowLabel = Label(icon: "w", size: 15, textColor: Color.orange)
+        arrowLabel.textAlignment = .Center
+        add(arrowLabel) { (make) in
+            make.width.equalTo(22)
+            make.centerY.equalTo(self)
+            make.trailing.equalTo(circleView.snp_leading)
+        }
+        
+        cancelLabel.cornerRadius = 28
+        cancelLabel.clipsToBounds = true
+        cancelLabel.backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.9)
+        cancelLabel.textAlignment = .Center
+        add(cancelLabel) { (make) in
+            make.size.equalTo(56)
+            make.leading.centerY.equalTo(self)
+            make.trailing.equalTo(arrowLabel.snp_leading)
+        }
+        bringSubviewToFront(circleView)
+        layer.masksToBounds = true
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let mask = CAShapeLayer()
+        let path = UIBezierPath()
+        path.move(cancelLabel.width/2 ^ cancelLabel.frame.maxY)
+        path.addArcWithCenter(cancelLabel.width/2 ^ height/2, radius: cancelLabel.width/2, startAngle: CGFloat(M_PI_2), endAngle: -CGFloat(M_PI_2), clockwise: true)
+        path.addLineToPoint((width - height/2) ^ 0)
+        path.addArcWithCenter((width - height/2) ^ height/2, radius: height/2, startAngle: -CGFloat(M_PI_2), endAngle: CGFloat(M_PI_2), clockwise: true)
+        path.closePath()
+        mask.path = path.CGPath
+        layer.mask = mask
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
 
 class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContainer {
 
@@ -15,7 +77,7 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     @IBOutlet weak var videoRecordingProgressBar: ProgressBar!
     @IBOutlet weak var videoRecordingView: UIView!
     @IBOutlet weak var videoRecordingTimeLabel: UILabel?
-    @IBOutlet weak var cancelVideoRecordingLabel: UILabel!
+    lazy var videoRecordControl: VideoRecordControl = VideoRecordControl()
     @IBOutlet weak var videoRecordingIndicator: UIView?
     weak var videoRecordingTimer: NSTimer?
     weak var startVideoRecordingTimer: NSTimer?
@@ -216,14 +278,16 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
         case .Changed:
             let location = sender.locationInView(videoRecordingView)
             if movieFileOutput.recording && !videoRecordingCancelled {
-                if location.x < Constants.screenWidth/4 {
+                if location.x < videoRecordControl.x + videoRecordControl.cancelLabel.width {
                     cancelVideoRecording()
                 }
             }
         case .Ended:
             let location = sender.locationInView(videoRecordingView)
-            if cancelVideoRecordingLabel.frame.contains(location) {
-                cancelVideoRecording()
+            if location.x < videoRecordControl.x + videoRecordControl.cancelLabel.width {
+                if !videoRecordingCancelled {
+                    cancelVideoRecording()
+                }
             } else {
                 stopVideoRecording()
             }
@@ -248,11 +312,12 @@ extension CaptureMediaCameraViewController: AVCaptureFileOutputRecordingDelegate
     
     func captureOutput(captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAtURL outputFileURL: NSURL!, fromConnections connections: [AnyObject]!, error: NSError!) {
         videoRecordingIndicator?.layer.removeAnimationForKey("videoRecording")
-        self.cancelVideoRecordingLabel.hidden = true
         videoRecordingTimer?.invalidate()
         prepareSessionForPhotoTaking()
         updateVideoRecordingViews(false)
         videoRecordingView.hidden = true
+        videoRecordControl.removeFromSuperview()
+        takePhotoButton.hidden = false
         if videoRecordingCancelled {
             _ = try? NSFileManager.defaultManager().removeItemAtURL(outputFileURL)
         } else {
@@ -269,7 +334,10 @@ extension CaptureMediaCameraViewController: AVCaptureFileOutputRecordingDelegate
             $0.repeatCount = FLT_MAX
             $0.removedOnCompletion = false
         }), forKey: "videoRecording")
-        cancelVideoRecordingLabel.hidden = false
+        videoRecordingView.add(videoRecordControl) { (make) in
+            make.trailing.centerY.equalTo(takePhotoButton)
+        }
+        takePhotoButton.hidden = true
         videoRecordingTimeLeft = Constants.maxVideoRecordedDuration
         videoRecordingTimeLabel?.text = String(Constants.maxVideoRecordedDuration)
         videoRecordingProgressBar.progress = 0;

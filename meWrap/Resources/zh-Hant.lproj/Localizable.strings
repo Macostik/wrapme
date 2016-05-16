@@ -34,7 +34,6 @@
 "wrap_is_uploading" = "上載圍拍中，請稍等。";
 "photo_is_uploading" = "上載相片中，請稍等。";
 "comment_is_uploading" = "上載回應中，請稍等。";
-"delete_photo" = "刪除";
 "delete_photo_confirmation" = "確定要刪除相片嗎？";
 "new_version_is_available" = "meWrap有更新版本";
 "update" = "更新";
@@ -335,3 +334,4 @@
 "undo" = "復原";
 "save" = "存檔";
 "downloading_media_for_sharing" = "Downloading the media for sharing...";
+"delete_comment_confirmation" = "Are you sure you want to delete the comment?";

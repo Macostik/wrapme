@@ -34,7 +34,6 @@
 "wrap_is_uploading" = "Uploading the wrap now. Please wait.";
 "photo_is_uploading" = "Uploading the photo now. Please wait.";
 "comment_is_uploading" = "Uploading the comment now. Please wait.";
-"delete_photo" = "Delete";
 "delete_photo_confirmation" = "Are you sure you want to delete the photo?";
 "new_version_is_available" = "A new version of meWrap is available";
 "update" = "Update";
@@ -335,3 +334,4 @@
 "enter_text_here" = "Enter text here";
 "undo" = "Undo";
 "save" = "Save";
+"delete_comment_confirmation" = "Are you sure you want to delete the comment?";

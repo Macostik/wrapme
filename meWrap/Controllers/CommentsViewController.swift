@@ -34,6 +34,8 @@ final class TextCommentCell: CommentCell, FlowerMenuConstructor {
         FlowerMenu.sharedMenu.registerView(self)
         text.numberOfLines = 0
         avatar.defaultIconSize = 24
+        avatar.borderColor = UIColor.whiteColor()
+        avatar.borderWidth = 1
         addSubview(avatar)
         addSubview(name)
         addSubview(date)
@@ -61,7 +63,7 @@ final class TextCommentCell: CommentCell, FlowerMenuConstructor {
         }
         
         indicator.snp_makeConstraints { (make) -> Void in
-            make.leading.equalTo(date.snp_trailing).offset(12)
+            make.leading.equalTo(date.snp_trailing).offset(10)
             make.centerY.equalTo(date)
         }
     }
@@ -110,7 +112,7 @@ class MediaCommentCell: CommentCell {
         }
         name.snp_makeConstraints { (make) -> Void in
             make.leading.equalTo(mediaView.snp_trailing).offset(18)
-            make.bottom.equalTo(mediaView.snp_centerY).offset(2)
+            make.bottom.equalTo(mediaView.snp_centerY).offset(-2)
             make.trailing.lessThanOrEqualTo(self).inset(18)
         }
         
@@ -120,8 +122,38 @@ class MediaCommentCell: CommentCell {
         }
         
         indicator.snp_makeConstraints { (make) -> Void in
-            make.leading.equalTo(date.snp_trailing).offset(12)
+            make.leading.equalTo(date.snp_trailing).offset(10)
             make.centerY.equalTo(date)
+        }
+        addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longPress(_:))))
+    }
+    
+    private weak var commentViewController: CommentViewController?
+    
+    @objc private func longPress(sender: UILongPressGestureRecognizer) {
+        if sender.state == .Began {
+            let controller = CommentViewController()
+            controller.comment = entry
+            controller.modalPresentationStyle = .OverCurrentContext
+            UINavigationController.main.presentViewController(controller, animated: false, completion: nil)
+            commentViewController = controller
+        } else if sender.state == .Ended || sender.state == .Cancelled {
+            if let comment = entry where commentViewController?.actionWith(sender) == .Delete {
+                UINavigationController.main.dismissViewControllerAnimated(false, completion: nil)
+                Dispatch.mainQueue.after(0.2) { [weak self] () in
+                    UIAlertController.confirmCommentDeleting({  _ in
+                        self?.userInteractionEnabled = false
+                        comment.delete ({ (_) -> Void in
+                            self?.userInteractionEnabled = true
+                            }, failure: { [weak self] (error) in
+                                error?.show()
+                                self?.userInteractionEnabled = true
+                            })
+                        }, failure: nil)
+                }
+            } else {
+                UINavigationController.main.dismissViewControllerAnimated(false, completion: nil)
+            }
         }
     }
     
@@ -165,16 +197,6 @@ final class VideoCommentCell: MediaCommentCell {
         super.layoutWithMetrics(metrics)
     }
     
-    private func createPlayerView() -> VideoPlayer {
-        let playerView = VideoPlayer()
-        (playerView.layer as? AVPlayerLayer)?.videoGravity = AVLayerVideoGravityResizeAspectFill
-        playerView.didPlayToEnd = { [weak playerView] _ in
-            playerView?.playing = true
-        }
-        playerView.player.muted = true
-        return playerView
-    }
-    
     override func willEnqueue() {
         super.willEnqueue()
         playerView?.removeFromSuperview()
@@ -182,7 +204,7 @@ final class VideoCommentCell: MediaCommentCell {
     
     override func setup(comment: Comment) {
         super.setup(comment)
-        let playerView = createPlayerView()
+        let playerView = CommentViewController.createPlayerView()
         imageView.insertSubview(playerView, atIndex: 0)
         playerView.snp_makeConstraints { (make) in
             make.edges.equalTo(imageView)

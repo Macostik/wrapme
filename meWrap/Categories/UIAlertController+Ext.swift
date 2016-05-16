@@ -82,7 +82,14 @@ extension UIAlertController {
     }
     
     class func confirmCandyDeleting(candy: Candy, success: (UIAlertAction -> Void)?, failure: (UIAlertAction -> Void)?) {
-        let controller = alert("delete_photo".ls, message: (candy.isVideo ? "delete_video_confirmation" : "delete_photo_confirmation").ls)
+        let controller = alert("delete".ls, message: (candy.isVideo ? "delete_video_confirmation" : "delete_photo_confirmation").ls)
+        controller.action("cancel".ls, handler: failure)
+        controller.action("ok".ls, handler: success)
+        controller.show()
+    }
+    
+    static func confirmCommentDeleting(success: (UIAlertAction -> Void)?, failure: (UIAlertAction -> Void)?) {
+        let controller = alert("delete".ls, message: "delete_comment_confirmation".ls)
         controller.action("cancel".ls, handler: failure)
         controller.action("ok".ls, handler: success)
         controller.show()

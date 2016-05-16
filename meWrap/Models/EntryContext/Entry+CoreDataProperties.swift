@@ -90,6 +90,7 @@ extension Comment {
     
     @NSManaged var text: String?
     @NSManaged var candy: Candy?
+    @NSManaged var type: Int16
     
 }
 

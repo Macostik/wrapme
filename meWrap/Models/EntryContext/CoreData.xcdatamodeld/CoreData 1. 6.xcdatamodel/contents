@@ -9,6 +9,7 @@
     </entity>
     <entity name="Comment" representedClassName="Comment" parentEntity="Contribution" syncable="YES">
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0.0" syncable="YES"/>
         <relationship name="candy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Candy" inverseName="comments" inverseEntity="Candy" syncable="YES"/>
     </entity>
     <entity name="Contribution" representedClassName="Contribution" parentEntity="Entry">
@@ -68,7 +69,7 @@
     </entity>
     <elements>
         <element name="Candy" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="Comment" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="Comment" positionX="0" positionY="0" width="128" height="90"/>
         <element name="Contribution" positionX="0" positionY="0" width="128" height="120"/>
         <element name="Device" positionX="9" positionY="63" width="128" height="105"/>
         <element name="Entry" positionX="0" positionY="0" width="128" height="120"/>

@@ -67,7 +67,8 @@ final class ChatViewController: WrapSegmentViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        composeBar.textView.placeholder = "message_placeholder".ls
+        composeBar.textView.textColor = Color.grayDark
         if wrap == nil {
             Dispatch.mainQueue.after(0.5) { self.navigationController?.popViewControllerAnimated(false) }
             return

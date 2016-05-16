@@ -47,6 +47,8 @@ class LiveViewerViewController: LiveViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        composeBar.textView.placeholder = "view_broadcast_text_placeholder".ls
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.applicationWillResignActive), name: UIApplicationWillResignActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.applicationDidBecomeActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
         

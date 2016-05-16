@@ -206,16 +206,7 @@ final class VideoCandyViewController: CandyViewController, VideoPlayerViewDelega
     
     internal override func setup(candy: Candy) {
         super.setup(candy)
-        guard let original = candy.asset?.original where !playerView.playing else { return }
-        if original.isExistingFilePath {
-            playerView.url = original.fileURL
-        } else {
-            let path = ImageCache.defaultCache.getPath(ImageCache.uidFromURL(original)) + ".mp4"
-            if path.isExistingFilePath {
-                playerView.url = path.fileURL
-            } else {
-                playerView.url = original.URL
-            }
-        }
+        guard !playerView.playing else { return }
+        playerView.url = candy.asset?.videoURL()
     }
 }

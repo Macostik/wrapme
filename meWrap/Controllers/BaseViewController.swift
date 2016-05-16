@@ -76,22 +76,18 @@ class BaseViewController: GAITrackedViewController, KeyboardNotifying {
             Keyboard.keyboard.addReceiver(self)
         }
         if !whenLoadedBlocks.isEmpty {
-            whenLoadedBlocks.all({ $0.block() })
+            whenLoadedBlocks.all({ $0() })
             whenLoadedBlocks.removeAll()
         }
     }
     
-    private struct WhenLoadedBlock {
-        let block: () -> ()
-    }
+    private var whenLoadedBlocks = [Block]()
     
-    private var whenLoadedBlocks = [WhenLoadedBlock]()
-    
-    func whenLoaded(block: () -> ()) {
+    func whenLoaded(block: Block) {
         if isViewLoaded() {
             block()
         } else {
-            whenLoadedBlocks.append(WhenLoadedBlock(block: block))
+            whenLoadedBlocks.append(block)
         }
     }
     

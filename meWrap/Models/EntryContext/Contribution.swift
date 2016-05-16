@@ -94,4 +94,33 @@ class Contribution: Entry {
     func updateProgress(progress: CGFloat) {
         _uploadingView?.updateProgress(progress)
     }
+    
+    func uploadToS3Bucket(metadata: [String:String], success: ObjectBlock?, failure: FailureBlock?) {
+        
+        guard let asset = asset, let original = asset.original where original.isExistingFilePath else {
+            Logger.log("Failed S3 uploading, no file: \(metadata)")
+            remove()
+            failure?(NSError(code: ResponseCode.UploadFileNotFound.rawValue))
+            return
+        }
+        
+        let contentType = asset.contentType()
+        Logger.log("Uploading \(contentType) to S3 bucket: \(metadata)")
+        
+        S3Bucket.bucket.upload(original, contentType: contentType, metadata: metadata, progress: { [weak self] _, current, total in
+            let progress = smoothstep(0, 1, CGFloat(current) / CGFloat(total))
+            self?.updateProgress(progress)
+            }, success: { [weak self] () in
+                if self?.valid == true {
+                    Logger.log("Uploading \(contentType) to S3 bucket success: \(metadata)")
+                    success?(self)
+                } else {
+                    Logger.log("Uploading \(contentType) to S3 bucket error due to invalid entry: \(metadata)")
+                    failure?(nil)
+                }
+            }, failure: { error in
+                Logger.log("Uploading \(contentType) to S3 bucket error: \(metadata)\n \(error ?? "")")
+                failure?(error)
+        })
+    }
 }

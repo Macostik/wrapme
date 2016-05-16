@@ -9,6 +9,10 @@
 import Foundation
 import CoreData
 
+enum CommentType {
+    case Text, Photo, Video
+}
+
 @objc(Comment)
 final class Comment: Contribution {
 
@@ -34,11 +38,6 @@ final class Comment: Contribution {
     
     override var deletable: Bool { return super.deletable || (candy?.deletable ?? false) }
     
-    override var asset: Asset? {
-        get { return candy?.asset }
-        set { }
-    }
-    
     func decrementBadgeIfNeeded() {
         if let wrap = candy?.wrap where unread && wrap.numberOfUnreadInboxItems > 0 {
             wrap.numberOfUnreadInboxItems -= 1
@@ -49,5 +48,25 @@ final class Comment: Contribution {
     override func remove() {
         decrementBadgeIfNeeded()
         super.remove()
+    }
+    
+    func commentType() -> CommentType {
+        if let asset = asset {
+            return asset.type == .Video ? .Video : .Photo
+        } else {
+            return .Text
+        }
+    }
+    
+    var mediaType: MediaType {
+        get { return MediaType(rawValue: type) ?? .Photo }
+        set { type = newValue.rawValue }
+    }
+    
+    override func awakeFromInsert() {
+        super.awakeFromInsert()
+        if asset == nil {
+            asset = Asset()
+        }
     }
 }

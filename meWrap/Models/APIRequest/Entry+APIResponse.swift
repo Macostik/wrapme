@@ -92,7 +92,7 @@ extension User {
         name <!= dictionary[Keys.Name]
         
         if let urls = dictionary[Keys.AvatarURLs] as? [String:String] {
-            avatar <!= self.avatar?.edit(urls, metrics: AssetMetrics.avatarMetrics)
+            avatar <!= self.avatar?.edit(urls, metrics: AssetMetrics.avatarMetrics, type: .Photo)
         }
         
         invitedAt <!= dictionary.dateForKey("invited_at_in_epoch")
@@ -231,7 +231,19 @@ extension Comment {
     
     override func map(dictionary: [String : AnyObject], container: Entry?) {
         super.map(dictionary, container: container)
+        
         text <!= dictionary[Keys.Content]
+        
+        if let type: Int = dictionary.get(Keys.CommentType) {
+            self.type <!= Int16(type)
+        }
+        
+        if let urls = dictionary[Keys.MediaURLs] as? [String : String] {
+            self.asset <!= self.asset?.edit(urls, metrics: AssetMetrics.mediaCommentMetrics, type: mediaType)
+        } else {
+            self.asset = nil
+        }
+        
         if self.candy == nil {
             if let candy = container as? Candy {
                 self.candy = candy

@@ -327,9 +327,14 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     private var shrinkTransition: ShrinkTransition?
     
+    let contentView = UIView()
+    
     override func loadView() {
-        let view = UIView(frame: preferredViewFrame)
-        self.view = view
+        self.view = UIView(frame: preferredViewFrame)
+        contentView.frame = preferredViewFrame
+        let view = self.view.add(contentView) {
+            $0.edges.equalTo(self.view)
+        }
         let scrollView = view.add(UIScrollView(frame: preferredViewFrame)) {
             $0.edges.equalTo(view)
         }
@@ -419,7 +424,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        shrinkTransition = specify(ShrinkTransition(view: view), {
+        shrinkTransition = specify(ShrinkTransition(view: contentView), {
             
             $0.panGestureRecognizer.requireGestureRecognizerToFail(swipeUpGesture)
             $0.panGestureRecognizer.requireGestureRecognizerToFail(swipeDownGesture)
@@ -517,7 +522,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             return
         }
         setBarsHidden(true, animated: animated)
-        let commentsViewController = Storyboard.Comments.instantiate({ $0.candy = candy })
+        let commentsViewController = CommentsViewController()
+        commentsViewController.candy = candy
         commentsViewController.presentForController(self, animated: animated)
         self.commentsViewController = commentsViewController
     }

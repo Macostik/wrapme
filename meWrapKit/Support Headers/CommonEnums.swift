@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc enum Event: Int16 {
+enum Event: Int16 {
     case Add, Update, Delete
 }
 
@@ -16,6 +16,6 @@ enum ContributionStatus: Int {
     case Ready, InProgress, Finished
 }
 
-@objc enum MediaType: Int16 {
+enum MediaType: Int16 {
     case Photo = 10, Video = 20
 }

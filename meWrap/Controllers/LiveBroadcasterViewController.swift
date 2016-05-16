@@ -51,6 +51,8 @@ final class LiveBroadcasterViewController: LiveViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        composeBar.textView.placeholder = "broadcast_text_placeholder".ls
+        composeBar.doneButton.setTitle("E", forState: .Normal)
         self.composeBar.text = self.broadcast.title
         chatStreamView.hidden = true
         joinsCountView.hidden = true
@@ -279,7 +281,7 @@ final class LiveBroadcasterViewController: LiveViewController {
     
     @IBAction func finishTitleInput(sender: AnyObject?) {
         composeBar.resignFirstResponder()
-        composeBar.setDoneButtonHidden(true)
+        composeBar.setDoneButtonHidden(true, animated: true)
     }
     
     func focusing(sender: UITapGestureRecognizer) {

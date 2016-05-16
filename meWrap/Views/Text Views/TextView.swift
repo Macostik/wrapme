@@ -52,20 +52,31 @@ class TextView: UITextView {
     }
     
     final func textDidChange() {
-        setNeedsDisplay()
+        updatePlaceholder()
     }
     
-    override func drawRect(rect: CGRect) {
+    private lazy var placeholderLabel: UILabel = specify(UILabel()) { label in
+        self.addSubview(label)
+        label.snp_makeConstraints {
+            $0.leading.centerY.equalTo(self)
+        }
+    }
+    
+    private func updatePlaceholder() {
         if let placeholder = placeholder where text.isEmpty {
-            let attributes = [NSFontAttributeName: self.font!, NSForegroundColorAttributeName: Color.grayLighter]
-            let size = placeholder.sizeWithAttributes(attributes)
-            placeholder.drawAtPoint(0 ^ (height/2 - size.height/2), withAttributes: attributes)
+            placeholderLabel.text = placeholder
+            placeholderLabel.hidden = false
+            placeholderLabel.font = font
+            placeholderLabel.textColor = Color.grayLighter
+        } else {
+            placeholderLabel.text = ""
+            placeholderLabel.hidden = true
         }
     }
     
     var placeholder: String? {
         didSet {
-            setNeedsDisplay()
+            updatePlaceholder()
         }
     }
     

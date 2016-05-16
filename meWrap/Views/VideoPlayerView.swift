@@ -106,7 +106,7 @@ class VideoPlayer: UIView {
     
     var item: AVPlayerItem? {
         if _item == nil, let url = url {
-            _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
             _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeMoviePlayback)
             _ = try? AVAudioSession.sharedInstance().setActive(true)
             _item = AVPlayerItem(URL: url)

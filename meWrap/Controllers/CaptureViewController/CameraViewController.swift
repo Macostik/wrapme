@@ -77,25 +77,19 @@ class CameraViewController: BaseViewController {
         }
     }
     
-    lazy var session: CaptureMediaSession = {
-        let session = CaptureMediaSession()
-        session.addOutput(self.stillImageOutput)
-        return session
-    }()
+    lazy var session: CaptureMediaSession = specify(CaptureMediaSession()) {
+        $0.addOutput(self.stillImageOutput)
+    }
     
-    lazy var movieFileOutput: AVCaptureMovieFileOutput = {
-        let output = AVCaptureMovieFileOutput()
+    lazy var movieFileOutput: AVCaptureMovieFileOutput = specify(AVCaptureMovieFileOutput()) {
         let maxDuration = CMTimeMakeWithSeconds(Constants.maxVideoRecordedDuration, Int32(NSEC_PER_SEC))
-        output.maxRecordedDuration = maxDuration
-        output.movieFragmentInterval = kCMTimeInvalid
-        return output
-    }()
+        $0.maxRecordedDuration = maxDuration
+        $0.movieFragmentInterval = kCMTimeInvalid
+    }
     
-    lazy var stillImageOutput: AVCaptureStillImageOutput = {
-        let output = AVCaptureStillImageOutput()
-        output.outputSettings = [AVVideoCodecKey : AVVideoCodecJPEG]
-        return output
-    }()
+    lazy var stillImageOutput: AVCaptureStillImageOutput = specify(AVCaptureStillImageOutput()) {
+        $0.outputSettings = [AVVideoCodecKey : AVVideoCodecJPEG]
+    }
     
     var zoomScale: CGFloat = 1 {
         didSet {
@@ -146,6 +140,10 @@ class CameraViewController: BaseViewController {
     }
     
     override func viewDidLoad() {
+        
+        _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+        _ = try? AVAudioSession.sharedInstance().setActive(true)
+        
         super.viewDidLoad()
         
         DeviceManager.defaultManager.addReceiver(self)
@@ -176,19 +174,21 @@ class CameraViewController: BaseViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        enqueueSelector(#selector(CameraViewController.hideAssets), delay: 3.0)
+        enqueueSelector(#selector(self.hideAssets), delay: 3.0)
         self.assetsViewController.assetsHidingHandler = { [weak self] _ in
             if let controller = self {
-                NSObject.cancelPreviousPerformRequestsWithTarget(controller, selector: #selector(CameraViewController.hideAssets), object: nil)
+                NSObject.cancelPreviousPerformRequestsWithTarget(controller, selector: #selector(controller.hideAssets), object: nil)
             }
         }
         registerOnVolumeChange()
+        UIApplication.sharedApplication().idleTimerDisabled = true
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         VolumeChangeObserver.sharedObserver.unregister()
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(CameraViewController.hideAssets), object: nil)
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(self.hideAssets), object: nil)
+        UIApplication.sharedApplication().idleTimerDisabled = false
     }
     
     internal func registerOnVolumeChange() {

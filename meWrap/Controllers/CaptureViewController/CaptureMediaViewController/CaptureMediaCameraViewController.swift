@@ -311,6 +311,7 @@ private let videoRecordingTimerInterval: NSTimeInterval = 0.03333333
 extension CaptureMediaCameraViewController: AVCaptureFileOutputRecordingDelegate {
     
     func captureOutput(captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAtURL outputFileURL: NSURL!, fromConnections connections: [AnyObject]!, error: NSError!) {
+        
         videoRecordingIndicator?.layer.removeAnimationForKey("videoRecording")
         videoRecordingTimer?.invalidate()
         prepareSessionForPhotoTaking()
@@ -318,7 +319,8 @@ extension CaptureMediaCameraViewController: AVCaptureFileOutputRecordingDelegate
         videoRecordingView.hidden = true
         videoRecordControl.removeFromSuperview()
         takePhotoButton.hidden = false
-        if videoRecordingCancelled {
+        if videoRecordingCancelled || error != nil {
+            error?.show()
             _ = try? NSFileManager.defaultManager().removeItemAtURL(outputFileURL)
         } else {
             delegate?.cameraViewController?(self, didCaptureVideoAtPath: videoFilePath, saveToAlbum: true)

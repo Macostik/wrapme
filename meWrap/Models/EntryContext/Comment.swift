@@ -51,7 +51,7 @@ final class Comment: Contribution {
     }
     
     func commentType() -> CommentType {
-        if let asset = asset {
+        if let asset = asset where asset.original?.isEmpty == false {
             return asset.type == .Video ? .Video : .Photo
         } else {
             return .Text

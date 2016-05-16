@@ -637,7 +637,11 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return .All
+        if let commentsViewController = commentsViewController {
+            return commentsViewController.supportedInterfaceOrientations()
+        } else {
+            return .All
+        }
     }
     
     override func prefersStatusBarHidden() -> Bool {

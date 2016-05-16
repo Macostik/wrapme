@@ -369,18 +369,22 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     }
     
     func showCamera() {
-        disableDismissingByScroll = true
-        bottomView.subviews.all({ $0.removeFromSuperview() })
         let camera = CaptureViewController.captureCommentViewController()
         camera.captureDelegate = self
-        addChildViewController(camera)
-        bottomView.addSubview(camera.view)
-        camera.view.snp_makeConstraints { (make) in
-            make.edges.equalTo(bottomView)
-            make.height.equalTo(camera.view.width)
+        if UIApplication.sharedApplication().statusBarOrientation.isPortrait {
+            disableDismissingByScroll = true
+            bottomView.subviews.all({ $0.removeFromSuperview() })
+            addChildViewController(camera)
+            bottomView.addSubview(camera.view)
+            camera.view.snp_makeConstraints { (make) in
+                make.edges.equalTo(bottomView)
+                make.height.equalTo(camera.view.width)
+            }
+            camera.didMoveToParentViewController(self)
+            view.layoutIfNeeded()
+        } else {
+            UINavigationController.main.presentViewController(camera, animated: false, completion: nil)
         }
-        camera.didMoveToParentViewController(self)
-        view.layoutIfNeeded()
     }
     
     override func viewDidLoad() {
@@ -423,6 +427,14 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         DeviceManager.defaultManager.addReceiver(self)
 		User.notifier().addReceiver(self)
         composeBar.text = candy.typedComment
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        if childViewControllers.count > 0 {
+            return [.Portrait, .PortraitUpsideDown]
+        } else {
+            return .All
+        }
     }
     
     func panned(sender: UIPanGestureRecognizer) {
@@ -597,6 +609,9 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     }
     
     func captureViewController(controller: CaptureCommentViewController, didFinishWithAsset asset: MutableAsset) {
+        if let presenter = controller.presentingViewController {
+            presenter.dismissViewControllerAnimated(false, completion: nil)
+        }
         close(true)
         if let candy = candy?.validEntry() {
             Sound.play()
@@ -610,9 +625,13 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     }
     
     func captureViewControllerDidCancel(controller: CaptureCommentViewController) {
-        controller.removeFromContainerAnimated(false)
-        showComposeBar()
-        view.layoutIfNeeded()
+        if let presenter = controller.presentingViewController {
+            presenter.dismissViewControllerAnimated(false, completion: nil)
+        } else {
+            controller.removeFromContainerAnimated(false)
+            showComposeBar()
+            view.layoutIfNeeded()
+        }
     }
 }
 

@@ -197,9 +197,14 @@ extension EntryToast {
     class func showCommentAddition(comment: Comment) {
         EntryToast.entryToast.show(setup: { (toast) in
             toast.avatar.url = comment.contributor?.avatar?.small
-            toast.imageView.url = comment.contributor?.avatar?.medium
             toast.topLabel.text = String(format: "someone_commented".ls, comment.contributor?.name ?? "")
-            toast.middleLabel.text = comment.text
+            if comment.commentType() == .Text {
+                toast.imageView.url = comment.candy?.asset?.medium
+                toast.middleLabel.text = comment.text
+            } else {
+                toast.imageView.url = comment.asset?.medium
+                toast.middleLabel.text = ""
+            }
             }, handleTouch: {
                 if let controller = UINavigationController.main.topViewController as? HistoryViewController {
                     if controller.candy == comment.candy {

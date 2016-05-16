@@ -16,10 +16,8 @@ struct Environment: CustomStringConvertible {
     static var ErrorDomain = "com.mewrap.error"
     static var ErrorResponseDataKey = "\(Environment.ErrorDomain).response.data"
     
-    static var Local = "local"
     static var QA = "qa"
     static var Production = "production"
-    
     static let names = [QA, Production]
     
     static let isProduction = ENV == Production
@@ -31,50 +29,36 @@ struct Environment: CustomStringConvertible {
     let defaultImageURI: String
     let defaultVideoURI: String
     let defaultAvatarURI: String
+    let defaultMediaCommentURI: String
     let s3Bucket: String
     let newRelicToken: String
     let GAITrackingId: String?
     
-    static let current = Environment.environmentNamed(NSUserDefaults.standardUserDefaults().environment ?? ENV)
+    static let current = Environment()
     
-    static func environmentNamed(name: String) -> Environment {
-        switch name {
-        case Environment.Local: return Environment(
-            name: name,
-            endpoint: "http://0.0.0.0:3000/api",
-            version: "8",
-            pubnub: ("pub-c-87bbbc30-fc43-4f6b-b1f4-cedd5f30d5e8", "sub-c-6562fe64-4270-11e4-aed8-02ee2ddab7fe"),
-            defaultImageURI: "https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments",
-            defaultVideoURI: "https://d2rojtzyvje8rl.cloudfront.net/candies/video_attachments",
-            defaultAvatarURI: "https://d2rojtzyvje8rl.cloudfront.net/users/avatars",
-            s3Bucket: "wraplive-qa-upload-placeholder",
-            newRelicToken: "AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c",
-            GAITrackingId: nil
-            )
-        case Environment.QA: return Environment(
-            name: name,
-            endpoint: "https://qa-api.mewrap.me/api",
-            version: "8",
-            pubnub: ("pub-c-87bbbc30-fc43-4f6b-b1f4-cedd5f30d5e8", "sub-c-6562fe64-4270-11e4-aed8-02ee2ddab7fe"),
-            defaultImageURI: "https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments",
-            defaultVideoURI: "https://d2rojtzyvje8rl.cloudfront.net/candies/video_attachments",
-            defaultAvatarURI: "https://d2rojtzyvje8rl.cloudfront.net/users/avatars",
-            s3Bucket: "wraplive-qa-upload-placeholder",
-            newRelicToken: "AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c",
-            GAITrackingId: nil
-            )
-        default: return Environment(
-            name: name,
-            endpoint: "https://prd-api.mewrap.me/api",
-            version: "8",
-            pubnub: ("pub-c-87bbbc30-fc43-4f6b-b1f4-cedd5f30d5e8", "sub-c-6562fe64-4270-11e4-aed8-02ee2ddab7fe"),
-            defaultImageURI: "https://dhtwvi2qvu3d7.cloudfront.net/candies/image_attachments",
-            defaultVideoURI: "https://dhtwvi2qvu3d7.cloudfront.net/candies/video_attachments",
-            defaultAvatarURI: "https://dhtwvi2qvu3d7.cloudfront.net/users/avatars",
-            s3Bucket: "wraplive-production-upload-placeholder",
-            newRelicToken: "AAd46869ec0b3558fb5890343d895b3acdd40ebaa8",
-            GAITrackingId: "UA-60538241-1"
-            )
+    init() {
+        name = NSUserDefaults.standardUserDefaults().environment ?? Environment.ENV
+        pubnub = ("pub-c-87bbbc30-fc43-4f6b-b1f4-cedd5f30d5e8", "sub-c-6562fe64-4270-11e4-aed8-02ee2ddab7fe")
+        if name == Environment.QA {
+            endpoint = "https://qa-api.mewrap.me/api"
+            version = "8"
+            defaultImageURI = "https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments"
+            defaultVideoURI = "https://d2rojtzyvje8rl.cloudfront.net/candies/video_attachments"
+            defaultAvatarURI = "https://d2rojtzyvje8rl.cloudfront.net/users/avatars"
+            defaultMediaCommentURI = ""
+            s3Bucket = "wraplive-qa-upload-placeholder"
+            newRelicToken = "AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c"
+            GAITrackingId = nil
+        } else {
+            endpoint = "https://prd-api.mewrap.me/api"
+            version = "8"
+            defaultImageURI = "https://dhtwvi2qvu3d7.cloudfront.net/candies/image_attachments"
+            defaultVideoURI = "https://dhtwvi2qvu3d7.cloudfront.net/candies/video_attachments"
+            defaultAvatarURI = "https://dhtwvi2qvu3d7.cloudfront.net/users/avatars"
+            defaultMediaCommentURI = ""
+            s3Bucket = "wraplive-production-upload-placeholder"
+            newRelicToken = "AAd46869ec0b3558fb5890343d895b3acdd40ebaa8"
+            GAITrackingId = "UA-60538241-1"
         }
     }
     

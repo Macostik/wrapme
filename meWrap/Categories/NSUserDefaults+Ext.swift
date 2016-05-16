@@ -14,9 +14,6 @@ private var _confirmationDate: NSDate?
 private var _historyDate: NSDate?
 private var _historyDates: [String:NSNumber]?
 private var _handledNotifications: [String]?
-private var _imageURI: String?
-private var _videoURI: String?
-private var _avatarURI: String?
 private var _pageSize: Int = -1
 private var _remoteLogging: Bool?
 
@@ -173,48 +170,6 @@ extension NSUserDefaults {
     var recentEmojis: [String]? {
         get { return self["recentEmojis"] as? [String] }
         set { self["recentEmojis"] = newValue }
-    }
-    
-    var imageURI: String! {
-        get {
-            if _imageURI == nil {
-                _imageURI = self["imageURI"] as? String ?? Environment.current.defaultImageURI
-            }
-            return _imageURI
-        }
-        set {
-            _imageURI = newValue
-            self["imageURI"] = newValue
-            AssetMetrics.imageMetrics.uri = newValue
-        }
-    }
-    
-    var videoURI: String! {
-        get {
-            if _videoURI == nil {
-                _videoURI = self["videoURI"] as? String ?? Environment.current.defaultVideoURI
-            }
-            return _videoURI
-        }
-        set {
-            _videoURI = newValue
-            self["videoURI"] = newValue
-            AssetMetrics.videoMetrics.uri = newValue
-        }
-    }
-    
-    var avatarURI: String! {
-        get {
-            if _avatarURI == nil {
-                _avatarURI = self["avatarURI"] as? String ?? Environment.current.defaultAvatarURI
-            }
-            return _avatarURI
-        }
-        set {
-            _avatarURI = newValue
-            self["avatarURI"] = newValue
-            AssetMetrics.avatarMetrics.uri = newValue
-        }
     }
     
     var pageSize: Int {

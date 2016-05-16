@@ -45,11 +45,23 @@ final class Comment: Contribution {
         super.remove()
     }
     
-    func type() -> CommentType {
+    func commentType() -> CommentType {
         if let asset = asset {
             return asset.type == .Video ? .Video : .Photo
         } else {
             return .Text
+        }
+    }
+    
+    var mediaType: MediaType {
+        get { return MediaType(rawValue: type) ?? .Photo }
+        set { type = newValue.rawValue }
+    }
+    
+    override func awakeFromInsert() {
+        super.awakeFromInsert()
+        if asset == nil {
+            asset = Asset()
         }
     }
 }

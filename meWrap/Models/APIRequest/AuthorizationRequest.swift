@@ -65,7 +65,6 @@ extension API {
                 Uploader.wrapUploader.start()
             }
             
-            let environment = Environment.current
             let userDefaults = NSUserDefaults.standardUserDefaults()
             
             if let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies {
@@ -76,9 +75,10 @@ extension API {
             
             
             userDefaults.pageSize = response["pagination_fetch_size"] as? Int ?? 30
-            userDefaults.imageURI = response["image_uri"] as? String ?? environment.defaultImageURI
-            userDefaults.avatarURI = response["avatar_uri"] as? String ?? environment.defaultAvatarURI
-            userDefaults.videoURI = response["video_uri"] as? String ?? environment.defaultVideoURI
+            AssetURI.imageURI.remoteValue = response["image_uri"] as? String
+            AssetURI.avatarURI.remoteValue = response["avatar_uri"] as? String
+            AssetURI.videoURI.remoteValue = response["video_uri"] as? String
+            AssetURI.mediaCommentURI.remoteValue = response["media_comment_uri"] as? String
             
             if let userData = response.dictionary("user"), let user: User = mappedEntry(userData) {
                 userDefaults.remoteLogging = userData["remote_logging"] as? Bool ?? false

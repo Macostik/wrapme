@@ -24,9 +24,10 @@ final class Authorization: Archive {
         let defaults = NSUserDefaults.standardUserDefaults()
         guard active else { return true }
         guard defaults.remoteLogging != nil else { return true }
-        guard defaults.imageURI != nil else { return true }
-        guard defaults.avatarURI != nil else { return true }
-        guard defaults.videoURI != nil else { return true }
+        guard AssetURI.imageURI.remoteValue != nil else { return true }
+        guard AssetURI.avatarURI.remoteValue != nil else { return true }
+        guard AssetURI.videoURI.remoteValue != nil else { return true }
+        guard AssetURI.mediaCommentURI.remoteValue != nil else { return true }
         guard User.currentUser?.uid != nil else { return true }
         return false
     }

@@ -102,8 +102,8 @@ class EntryContext: NSManagedObjectContext {
         cachedEntries.removeAllObjects()
     }
     
-    func insertEntry(name: String) -> Entry? {
-        return NSEntityDescription.insertNewObjectForEntityForName(name, inManagedObjectContext: self) as? Entry
+    func insertEntry<T: Entry>(name: String) -> T? {
+        return NSEntityDescription.insertNewObjectForEntityForName(name, inManagedObjectContext: self) as? T
     }
     
     func entry<T: Entry>(name: String = T.entityName(), uid: String?, locuid: String? = nil, allowInsert: Bool = true) -> T? {
@@ -126,7 +126,7 @@ class EntryContext: NSManagedObjectContext {
                 }
                 return entry
             } else if allowInsert {
-                if let entry = insertEntry(name) as? T {
+                if let entry: T = insertEntry(name) {
                     entry.uid = uid
                     cachedEntries.setObject(entry, forKey: uid)
                     return entry

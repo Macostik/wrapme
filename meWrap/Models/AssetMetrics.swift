@@ -9,9 +9,31 @@
 import Foundation
 import UIKit
 
+class AssetURI {
+    private let key: String
+    var defaultValue: String
+    var remoteValue: String? {
+        willSet {
+            NSUserDefaults.standardUserDefaults()[key] = newValue
+        }
+    }
+    var value: String {
+        return remoteValue ?? defaultValue
+    }
+    init (key: String, defaultValue: String) {
+        self.key = key
+        self.defaultValue = defaultValue
+        self.remoteValue = NSUserDefaults.standardUserDefaults()[key] as? String
+    }
+    static let imageURI = AssetURI(key: "imageURI", defaultValue: Environment.current.defaultImageURI)
+    static let videoURI = AssetURI(key: "videoURI", defaultValue: Environment.current.defaultVideoURI)
+    static let avatarURI = AssetURI(key: "avatarURI", defaultValue: Environment.current.defaultAvatarURI)
+    static let mediaCommentURI = AssetURI(key: "mediaCommentURI", defaultValue: Environment.current.defaultMediaCommentURI)
+}
+
 struct AssetMetrics {
     
-    var uri: String
+    var uri: AssetURI
     var original: String
     var large: String
     var medium: String
@@ -19,13 +41,13 @@ struct AssetMetrics {
     
     static var imageMetrics: AssetMetrics = {
         if UI_USER_INTERFACE_IDIOM() == .Pad {
-            return AssetMetrics(uri: NSUserDefaults.standardUserDefaults().imageURI,
+            return AssetMetrics(uri: AssetURI.imageURI,
                                 original: Keys.URL.Original,
                                 large: Keys.URL.XLarge,
                                 medium: Keys.URL.Large,
                                 small: Keys.URL.MediumSQ)
         } else {
-            return AssetMetrics(uri: NSUserDefaults.standardUserDefaults().imageURI,
+            return AssetMetrics(uri: AssetURI.imageURI,
                                 original: Keys.URL.Original,
                                 large: Keys.URL.Large,
                                 medium: Keys.URL.MediumSQ,
@@ -35,30 +57,35 @@ struct AssetMetrics {
     
     static var videoMetrics: AssetMetrics = {
         var metrics = imageMetrics
-        metrics.uri = NSUserDefaults.standardUserDefaults().videoURI
+        metrics.uri = AssetURI.videoURI
         return metrics
     }()
     
-    static var avatarMetrics = AssetMetrics(uri: NSUserDefaults.standardUserDefaults().avatarURI,
+    static var avatarMetrics = AssetMetrics(uri: AssetURI.avatarURI,
                                             original: Keys.URL.Large,
                                             large: Keys.URL.Large,
                                             medium: Keys.URL.Medium,
                                             small: Keys.URL.Small)
+    
+    static var mediaCommentMetrics = AssetMetrics(uri: AssetURI.mediaCommentURI,
+                                            original: Keys.URL.Original,
+                                            large: Keys.URL.Large,
+                                            medium: Keys.URL.MediumSQ,
+                                            small: Keys.URL.SmallSQ)
 }
 
 extension Asset {
     
     func editCandyAsset(dictionary: [String : AnyObject], mediaType: MediaType) -> Asset {
         guard let urls = dictionary[Keys.MediaURLs] as? [String : String] else { return self }
-        switch mediaType {
-        case .Photo: return edit(urls, metrics: AssetMetrics.imageMetrics)
-        case .Video: return edit(urls, metrics: AssetMetrics.videoMetrics)
-        }
+        let metrics = mediaType == .Video ? AssetMetrics.videoMetrics : AssetMetrics.imageMetrics
+        return edit(urls, metrics: metrics, type: mediaType)
     }
     
-    func edit(urls: [String : String], metrics: AssetMetrics) -> Asset {
-        let uri = metrics.uri
+    func edit(urls: [String : String], metrics: AssetMetrics, type: MediaType) -> Asset {
+        let uri = metrics.uri.value
         let asset = Asset()
+        asset.type = type
         asset.original = urls[metrics.original]?.prepend(uri) ?? self.original
         asset.large = urls[metrics.large]?.prepend(uri) ?? self.large
         asset.medium = urls[metrics.medium]?.prepend(uri) ?? self.medium

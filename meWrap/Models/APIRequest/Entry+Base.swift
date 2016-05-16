@@ -13,7 +13,7 @@ import Photos
 extension Entry {
     
     class func entry<T: Entry>() -> T {
-        let entry = NSEntityDescription.insertNewObjectForEntityForName(T.entityName(), inManagedObjectContext: EntryContext.sharedContext) as! T
+        let entry: T = EntryContext.sharedContext.insertEntry(T.entityName()) as! T
         entry.uid = GUID()
         entry.createdAt = NSDate.now()
         entry.updatedAt = entry.createdAt
@@ -38,14 +38,8 @@ extension Entry {
         container?.notifyOnUpdate(.ContentDeleted)
     }
     
-    func touch() {
-        touch(NSDate.now())
-    }
-    
-    func touch(date: NSDate) {
-        if let container = container {
-            container.touch(date)
-        }
+    func touch(date: NSDate = NSDate.now()) {
+        container?.touch(date)
         updatedAt = date
     }
     
@@ -140,15 +134,12 @@ extension Candy {
         switch status {
         case .Ready:
             asset = newAsset
-            break
-        case .InProgress:
-            break
+        case .InProgress: break
         case .Finished:
             updatedAt = NSDate.now()
             editedAt = updatedAt
             editor = User.currentUser
             asset = newAsset
-            break
         }
     }
     

@@ -204,7 +204,7 @@ final class CommentsDataSource: StreamDataSource<[Comment]> {
         $0.size = 130
         $0.modifyItem = { item in
             let comment = item.entry as! Comment
-            item.hidden = comment.type() != .Video
+            item.hidden = comment.commentType() != .Video
         }
     })
     
@@ -215,7 +215,7 @@ final class CommentsDataSource: StreamDataSource<[Comment]> {
             $0.modifyItem = { [weak self] item in
                 let comment = item.entry as! Comment
                 item.size = self?.heightCell(comment) ?? 0
-                item.hidden = comment.type() != .Text
+                item.hidden = comment.commentType() != .Text
             }
         }))
         
@@ -224,7 +224,7 @@ final class CommentsDataSource: StreamDataSource<[Comment]> {
             $0.size = 130
             $0.modifyItem = { item in
                 let comment = item.entry as! Comment
-                item.hidden = comment.type() != .Photo
+                item.hidden = comment.commentType() != .Photo
             }
         }))
         

@@ -614,6 +614,7 @@
 		C547433F1C09CD8A00BECB25 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		C54743411C09CD8A00BECB25 /* ImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 		C54743451C09CE3700BECB25 /* CATransition+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CATransition+Ext.swift"; sourceTree = "<group>"; };
+		C548E5011CE9C49F00F5DCE9 /* CoreData 1. 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1. 6.xcdatamodel"; sourceTree = "<group>"; };
 		C54AF74A19B8C491006F7EDB /* meWrap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = meWrap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54C423D1BDE6260003E644D /* Archive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
 		C54C424D1BDE77BB003E644D /* ExtensionMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionMessage.swift; sourceTree = "<group>"; };
@@ -3276,6 +3277,7 @@
 		C5E6DD781C0DC84A004992E4 /* CoreData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				C548E5011CE9C49F00F5DCE9 /* CoreData 1. 6.xcdatamodel */,
 				C5092CC91C11F299006C9414 /* CoreData 1. 5.xcdatamodel */,
 				C5E6DD791C0DC84A004992E4 /* CoreData 1. 2.xcdatamodel */,
 				C5E6DD7A1C0DC84A004992E4 /* CoreData 1. 3.xcdatamodel */,
@@ -3283,7 +3285,7 @@
 				C5E6DD7C1C0DC84A004992E4 /* CoreData 1.1.xcdatamodel */,
 				C5E6DD7D1C0DC84A004992E4 /* CoreData.xcdatamodel */,
 			);
-			currentVersion = C5092CC91C11F299006C9414 /* CoreData 1. 5.xcdatamodel */;
+			currentVersion = C548E5011CE9C49F00F5DCE9 /* CoreData 1. 6.xcdatamodel */;
 			path = CoreData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

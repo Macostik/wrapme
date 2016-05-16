@@ -9,7 +9,7 @@
 import UIKit
 
 func ==(lhs: Asset, rhs: Asset) -> Bool {
-    return lhs.original == rhs.original && lhs.large == rhs.large && lhs.medium == rhs.medium && lhs.small == rhs.small
+    return lhs.type == rhs.type && lhs.original == rhs.original && lhs.large == rhs.large && lhs.medium == rhs.medium && lhs.small == rhs.small
 }
 
 class Asset: NSObject, NSCopying {
@@ -35,20 +35,11 @@ class Asset: NSObject, NSCopying {
     }
     
     func JSONValue() -> NSData? {
-        var dictionary = [String : AnyObject]()
-        dictionary["type"] = Int(type.rawValue)
-        if let original = original {
-            dictionary["original"] = original
-        }
-        if let large = large {
-            dictionary["large"] = large
-        }
-        if let medium = medium {
-            dictionary["medium"] = medium
-        }
-        if let small = small {
-            dictionary["small"] = small
-        }
+        let dictionary = ["type": Int(type.rawValue),
+                          "original": original ?? "",
+                          "large": large ?? "",
+                          "medium": medium ?? "",
+                          "small": small ?? ""]
         return try? NSJSONSerialization.dataWithJSONObject(dictionary, options: [])
     }
     

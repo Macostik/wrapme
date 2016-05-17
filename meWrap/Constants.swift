@@ -15,7 +15,7 @@ struct Constants {
     static let isPhone: Bool = UI_USER_INTERFACE_IDIOM() == .Phone
     static let appStoreID: Int = 879908578
     static let albumName = "meWrap"
-    static let maxVideoRecordedDuration: NSTimeInterval = 60
+    static let maxVideoRecordedDuration: NSTimeInterval = 120
     static let addressBookPhoneNumberMinimumLength = 6
     static let profileNameLimit = 40
     static let phoneNumberLimit = 20

@@ -85,11 +85,16 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     var videoRecordingCancelled: Bool = false
     var videoRecordingTimeLeft: NSTimeInterval = Constants.maxVideoRecordedDuration
     
+    lazy var movieFileOutput: AVCaptureMovieFileOutput = specify(AVCaptureMovieFileOutput()) {
+        let maxDuration = CMTimeMakeWithSeconds(Constants.maxVideoRecordedDuration, Int32(NSEC_PER_SEC))
+        $0.maxRecordedDuration = maxDuration
+        $0.movieFragmentInterval = kCMTimeInvalid
+    }
+    
     lazy var videoFilePath: String = {
-        let videosDirectoryPath = "Documents/Videos"
-        _ = try? NSFileManager.defaultManager().createDirectoryAtPath(videosDirectoryPath, withIntermediateDirectories:true, attributes:nil)
-        let path = "\(videosDirectoryPath)/capturedVideo.mov"
-        return path
+        let path = "Documents/Videos"
+        _ = try? NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories:true, attributes:nil)
+        return "\(path)/capturedVideo.mov"
     }()
     
     deinit {
@@ -319,7 +324,7 @@ extension CaptureMediaCameraViewController: AVCaptureFileOutputRecordingDelegate
         videoRecordingView.hidden = true
         videoRecordControl.removeFromSuperview()
         takePhotoButton.hidden = false
-        if videoRecordingCancelled || error != nil {
+        if videoRecordingCancelled || (error != nil && error.code != AVError.MaximumDurationReached.rawValue) {
             error?.show()
             _ = try? NSFileManager.defaultManager().removeItemAtURL(outputFileURL)
         } else {

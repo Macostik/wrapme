@@ -81,12 +81,6 @@ class CameraViewController: BaseViewController {
         $0.addOutput(self.stillImageOutput)
     }
     
-    lazy var movieFileOutput: AVCaptureMovieFileOutput = specify(AVCaptureMovieFileOutput()) {
-        let maxDuration = CMTimeMakeWithSeconds(Constants.maxVideoRecordedDuration, Int32(NSEC_PER_SEC))
-        $0.maxRecordedDuration = maxDuration
-        $0.movieFragmentInterval = kCMTimeInvalid
-    }
-    
     lazy var stillImageOutput: AVCaptureStillImageOutput = specify(AVCaptureStillImageOutput()) {
         $0.outputSettings = [AVVideoCodecKey : AVVideoCodecJPEG]
     }

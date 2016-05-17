@@ -139,7 +139,7 @@ final class CommentViewController: UIViewController {
                 playerView.url = comment.asset?.videoURL()
                 playerView.playing = true
             }
-            deleteButton.hidden = !comment.deletable
+            deleteButton.hidden = !comment.deletable || !comment.uploaded
         }
     }
 }

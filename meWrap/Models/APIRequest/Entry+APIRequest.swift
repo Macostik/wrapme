@@ -424,17 +424,18 @@ extension Comment {
                 case .Ready:
                     remove()
                     success?(nil)
-                    break
                 case .InProgress:
                     failure?(NSError(message: (candy.isVideo ? "video_is_uploading" : "photo_is_uploading").ls))
-                    break
                 case .Finished:
-                    if let request = API.deleteComment(self) {
-                        request.send(success, failure: failure)
+                    if uid == locuid {
+                        failure?(NSError(message: "publishing_in_progress".ls))
                     } else {
-                        failure?(nil)
+                        if let request = API.deleteComment(self) {
+                            request.send(success, failure: failure)
+                        } else {
+                            failure?(nil)
+                        }
                     }
-                    break;
                 }
             } else {
                 remove()

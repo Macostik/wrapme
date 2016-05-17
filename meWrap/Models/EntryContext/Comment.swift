@@ -38,6 +38,8 @@ final class Comment: Contribution {
     
     override var deletable: Bool { return super.deletable || (candy?.deletable ?? false) }
     
+    override var uploaded: Bool { return super.uploaded && uid != locuid }
+    
     func decrementBadgeIfNeeded() {
         if let wrap = candy?.wrap where unread && wrap.numberOfUnreadInboxItems > 0 {
             wrap.numberOfUnreadInboxItems -= 1

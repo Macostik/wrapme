@@ -35,18 +35,22 @@ class CommentAddNotification: CommentNotification {
             comment.markAsUnread(true)
         }
         comment.notifyOnAddition()
-        weak var controller = UINavigationController.main.topViewController as? HistoryViewController
-        let commentViewController = controller?.commentsViewController
-        if controller == nil || controller?.candy?.comments.contains(comment) == false || commentViewController?.isMaxContentOffset == false {
-            if comment.contributor?.current == false && !isHistorycal {
-                EntryToast.showCommentAddition(comment)
-            }
-        } else {
-            if self.isHistorycal == false {
-                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+        if comment.contributor != User.currentUser {
+            weak var controller = UINavigationController.main.topViewController as? HistoryViewController
+            let commentViewController = controller?.commentsViewController
+            if controller == nil || controller?.candy?.comments.contains(comment) == false || commentViewController?.isMaxContentOffset == false {
+                if comment.contributor?.current == false && !isHistorycal {
+                    EntryToast.showCommentAddition(comment)
+                }
+            } else {
+                if self.isHistorycal == false {
+                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                }
             }
         }
     }
+    
+    override func canBeHandled() -> Bool { return Authorization.active }
 }
 
 class CommentDeleteNotification: CommentNotification {

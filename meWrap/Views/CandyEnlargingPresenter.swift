@@ -44,48 +44,44 @@ class CandyEnlargingPresenter: UIView {
             completionHandler(self)
             return
         }
-        if let superview = addToSuperview() {
-            imageView.image = image
-            StreamView.lock()
-            imageView.frame = superview.convertRect(fromView.bounds, fromCoordinateSpace:fromView)
-            fromView.hidden = true
-            backgroundColor = UIColor(white: 0, alpha: 0)
-            UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseIn, animations: { () -> Void in
-                self.imageView.frame = self.size.fit(image.size).rectCenteredInSize(self.size)
-                self.backgroundColor = UIColor(white: 0, alpha: 1)
-                }, completion: { (_) -> Void in
-                    completionHandler(self)
-                    fromView.hidden = false
-                    self.removeFromSuperview()
-                    StreamView.unlock()
-            })
-        } else {
-            completionHandler(self)
-        }
+        let superview = addToSuperview()
+        imageView.image = image
+        StreamView.lock()
+        imageView.frame = superview.convertRect(fromView.bounds, fromCoordinateSpace:fromView)
+        fromView.hidden = true
+        backgroundColor = UIColor(white: 0, alpha: 0)
+        UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseIn, animations: { () -> Void in
+            self.imageView.frame = self.size.fit(image.size).rectCenteredInSize(self.size)
+            self.backgroundColor = UIColor(white: 0, alpha: 1)
+            }, completion: { (_) -> Void in
+                completionHandler(self)
+                fromView.hidden = false
+                self.removeFromSuperview()
+                StreamView.unlock()
+        })
     }
     
     func dismiss(candy: Candy) {
         guard let view = self.dismissingView?(candy) else { return }
         guard let url = candy.asset?.large else { return }
         guard let image = InMemoryImageCache.instance[url] ?? ImageCache.defaultCache.imageWithURL(url) else { return }
-        if let superview = addToSuperview() {
-            imageView.image = image
-            imageView.frame = self.size.fit(image.size).rectCenteredInSize(self.size)
-            StreamView.lock()
-            view.hidden = true
-            backgroundColor = UIColor(white: 0, alpha: 1)
-            UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseIn, animations: { () -> Void in
-                self.backgroundColor = UIColor(white: 0, alpha: 0)
-                self.imageView.frame = superview.convertRect(view.bounds, fromCoordinateSpace:view)
-                }, completion: { (_) -> Void in
-                    view.hidden = false
-                    self.removeFromSuperview()
-                    StreamView.unlock()
-            })
-        }
+        let superview = addToSuperview()
+        imageView.image = image
+        imageView.frame = self.size.fit(image.size).rectCenteredInSize(self.size)
+        StreamView.lock()
+        view.hidden = true
+        backgroundColor = UIColor(white: 0, alpha: 1)
+        UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseIn, animations: { () -> Void in
+            self.backgroundColor = UIColor(white: 0, alpha: 0)
+            self.imageView.frame = superview.convertRect(view.bounds, fromCoordinateSpace:view)
+            }, completion: { (_) -> Void in
+                view.hidden = false
+                self.removeFromSuperview()
+                StreamView.unlock()
+        })
     }
     
-    private func addToSuperview() -> UIView? {
+    private func addToSuperview() -> UIView {
         let superview = UINavigationController.main.view
         frame = superview.frame
         addSubview(imageView)

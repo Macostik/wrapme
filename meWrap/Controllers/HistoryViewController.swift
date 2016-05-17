@@ -72,28 +72,6 @@ final class CommentView: ExpandableView {
     }
 }
 
-extension Button {
-    
-    class func candyAction(action: String, color: UIColor, size: CGFloat = 20) -> Button {
-        let button = Button(icon: action, size: size)
-        button.cornerRadius = 22
-        button.normalColor = color
-        button.highlightedColor = color.darkerColor()
-        button.update()
-        return button
-    }
-    
-    class func expandableCandyAction(action: String, size: CGFloat = 20) -> Button {
-        let button = Button(icon: action, size: size)
-        button.setTitleColor(Color.grayLight, forState: .Highlighted)
-        button.setTitleColor(Color.grayLight, forState: .Selected)
-        button.borderColor = UIColor.whiteColor()
-        button.borderWidth = 1
-        button.cornerRadius = 22
-        return button
-    }
-}
-
 class HistoryViewController: SwipeViewController<CandyViewController>, EntryNotifying, DeviceManagerNotifying {
     
     weak var candy: Candy? {
@@ -424,51 +402,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        shrinkTransition = specify(ShrinkTransition(view: contentView), {
-            
-            $0.panGestureRecognizer.requireGestureRecognizerToFail(swipeUpGesture)
-            $0.panGestureRecognizer.requireGestureRecognizerToFail(swipeDownGesture)
-            
-            $0.contentView = { [weak self] _ in
-                return self?.viewController?.view
-            }
-            
-            $0.dismissingView = { [weak self] _ in
-                guard let candy = self?.candy else { return nil }
-                return self?.dismissingView?(candy)
-            }
-            
-            $0.image = { [weak self] _ in
-                return self?.viewController?.imageView.image
-            }
-            
-            $0.snapshotView = { [weak self] _ in
-                guard let controller = self else { return nil }
-                guard let controllers = controller.navigationController?.viewControllers else { return nil }
-                guard let index = controllers.indexOf(controller) else { return nil }
-                return controllers[safe: index - 1]?.view
-            }
-            
-            $0.shouldStart = { [weak self] _ in
-                if let photoViewController = self?.viewController as? PhotoCandyViewController {
-                    return photoViewController.scrollView.zoomScale == 1
-                } else {
-                    return true
-                }
-            }
-            
-            $0.didStart = { [weak self] _ in
-                self?.setBarsHidden(true, animated: true)
-            }
-            
-            $0.didCancel = { [weak self] _ in
-                self?.setBarsHidden(false, animated: true)
-            }
-            
-            $0.didFinish = { [weak self] _ in
-                self?.navigationController?.popViewControllerAnimated(false)
-            }
-        })
+        shrinkTransition = createShrinkTransition()
         
         wrap = candy?.wrap
         
@@ -480,8 +414,9 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             history = History(wrap:wrap)
         }
         
-        setCandy(candy, direction: .Forward, animated: false)
-        
+        if let candy = candy {
+            setCandy(candy, direction: .Forward, animated: false)
+        }
         
         DeviceManager.defaultManager.addReceiver(self)
         DeviceManager.defaultManager.beginUsingAccelerometer()
@@ -528,12 +463,11 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         self.commentsViewController = commentsViewController
     }
     
-    private func setCandy(candy: Candy?, direction: SwipeDirection, animated: Bool) {
+    private func setCandy(candy: Candy, direction: SwipeDirection, animated: Bool) {
         self.candy = candy
-        if let controller = candyViewController(candy) {
-            updateOwnerData()
-            setViewController(controller, direction: direction, animated: animated)
-        }
+        let controller = candyViewController(candy)
+        updateOwnerData()
+        setViewController(controller, direction: direction, animated: animated)
     }
     
     private func fetchCandiesOlderThen(candy: Candy) {
@@ -545,8 +479,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             }, failure: nil)
     }
     
-    private func candyViewController(candy: Candy?) -> CandyViewController? {
-        guard let candy = candy else { return nil }
+    private func candyViewController(candy: Candy) -> CandyViewController {
         if let controller = cachedCandyViewControllers[candy] {
             return controller
         } else {
@@ -725,9 +658,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     @IBAction func downloadCandy(sender: Button) {
         PHPhotoLibrary.authorize({ [weak self] in
             if let candy = self?.candy {
-                sender.loading = true
                 candy.download({ () -> Void in
-                    sender.loading = false
                     InfoToast.showDownloadingMediaMessageForCandy(candy)
                     }, failure: { (error) -> Void in
                         if let error = error where error.isNetworkError {
@@ -735,7 +666,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
                         } else {
                             error?.show()
                         }
-                        sender.loading = false
                 })
             }
         }) { (_) -> Void in
@@ -764,14 +694,14 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     @IBAction func editPhoto(sender: AnyObject) {
-        DownloadingView.downloadCandy(candy, success: { [weak self] (image) -> Void in
+        DownloadingView.downloadCandyImage(candy, success: { [weak self] (image) -> Void in
             ImageEditor.editImage(image) { self?.candy?.editWithImage($0) }
             }, failure: { $0?.show() })
     }
     
     @IBAction func draw(sender: UIButton) {
         sender.userInteractionEnabled = false
-        DownloadingView.downloadCandy(candy, success: { [weak self] (image) -> Void in
+        DownloadingView.downloadCandyImage(candy, success: { [weak self] (image) -> Void in
             DrawingViewController.draw(image, wrap: self?.candy?.wrap) { self?.candy?.editWithImage($0) }
             sender.userInteractionEnabled = true
             }, failure: { (error) -> Void in
@@ -781,13 +711,12 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     @IBAction func share(sender: Button) {
-        candy?.shareCandy({ [weak self]  item in
-            guard let item = item else { return }
-            let sharingsSring = "TBD".ls
-            let activityVC = UIActivityViewController(activityItems: [item, sharingsSring], applicationActivities: nil)
+        
+        DownloadingView.downloadCandy(candy, message: "downloading_media_for_sharing".ls, success: { [weak self] (url) in
+            let activityVC = UIActivityViewController(activityItems: [url, "sharing_text".ls], applicationActivities: nil)
             activityVC.popoverPresentationController?.sourceView = sender
             self?.presentViewController(activityVC, animated: true, completion: nil)
-        })
+            })
     }
     
     @IBAction func comments(sender: AnyObject) {
@@ -798,16 +727,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         if let videoViewConroller = viewController as? VideoCandyViewController {
             volumeButton.selected = !volumeButton.selected
             videoViewConroller.playerView.player.muted = !volumeButton.selected
-        }
-    }
-}
-
-extension Candy {
-    func shareCandy(success: ObjectBlock, failure: FailureBlock? = nil) {
-        if isVideo == true {
-            DownloadingView.downloadCandyToURL(self, success: success, failure: failure)
-        } else {
-            DownloadingView.downloadCandy(self, forSharing: true, success: success, failure: failure)
         }
     }
 }

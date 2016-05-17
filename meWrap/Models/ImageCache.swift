@@ -219,11 +219,11 @@ final class ImageCache {
         return contains(ImageCache.uidFromURL(url))
     }
     
-    class func uidFromURL(url: String) -> String {
+    class func uidFromURL(url: String, ext: String = "jpg") -> String {
         if let hash = hashes[url] {
             return hash
         } else {
-            let hash = url.md5()
+            let hash = "\(url.md5()).\(ext)"
             hashes[url] = hash
             return hash
         }

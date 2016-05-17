@@ -147,46 +147,13 @@ extension Candy {
         if (PHPhotoLibrary.authorizationStatus() == .Denied) {
             failure?(NSError(message:"downloading_privacy_settings".ls))
         } else {
-            guard let url = asset?.original else {
-                failure?(nil)
-                return
-            }
-            if mediaType == .Video {
-                if url.isExistingFilePath {
-                    PHPhotoLibrary.addVideoAtFileUrl(url.fileURL!, success: success, failure: failure)
+            DownloadingView.downloadCandy(self, message: "downloading_media".ls, success: { (url) in
+                if self.mediaType == .Video {
+                    PHPhotoLibrary.addVideoAtFileUrl(url, success: success, failure: failure)
                 } else {
-                    let task = NSURLSession.sharedSession().downloadTaskWithURL(url.URL!, completionHandler: { (location, response, error) -> Void in
-                        if let error = error {
-                            Dispatch.mainQueue.async({ failure?(error) })
-                        } else {
-                            if let location = location {
-                                let url = NSURL(fileURLWithPath: "Documents/\(GUID()).mp4")
-                                let manager = NSFileManager.defaultManager()
-                                _ = try? manager.moveItemAtURL(location, toURL: url)
-                                if url.checkResourceIsReachableAndReturnError(nil) {
-                                    PHPhotoLibrary.addVideoAtFileUrl(url, success: { () -> Void in
-                                        _ = try? manager.removeItemAtURL(url)
-                                        success?()
-                                        }, failure: { (error) -> Void in
-                                            _ = try? manager.removeItemAtURL(url)
-                                            failure?(error)
-                                    })
-                                } else {
-                                    Dispatch.mainQueue.async({ failure?(NSError(message: "Local video file is not reachable")) })
-                                }
-                            } else {
-                                Dispatch.mainQueue.async({ failure?(error) })
-                            }
-                        }
-                    })
-                    
-                    task.resume()
+                    PHPhotoLibrary.addImageAtFileUrl(url, success: success, failure: failure)
                 }
-            } else {
-                BlockImageFetching.enqueue(url, success: { (image) -> Void in
-                    PHPhotoLibrary.addImage(image, success: success, failure: failure)
-                    }, failure: failure)
-            }
+                }, failure: failure)
         }
     }
 }

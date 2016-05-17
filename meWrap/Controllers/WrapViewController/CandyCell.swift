@@ -69,13 +69,13 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         if candy.updateError() == nil && !candy.isVideo {
             
             menu.addEditPhotoAction({
-                DownloadingView.downloadCandy(candy, success: { (image) -> Void in
+                DownloadingView.downloadCandyImage(candy, success: { (image) -> Void in
                     ImageEditor.editImage(image) { candy.editWithImage($0) }
                     }, failure: { $0?.show() })
             })
             
             menu.addDrawPhotoAction({
-                DownloadingView.downloadCandy(candy, success: { (image) -> Void in
+                DownloadingView.downloadCandyImage(candy, success: { (image) -> Void in
                     DrawingViewController.draw(image, wrap: candy.wrap) { candy.editWithImage($0) }
                     }, failure: { $0?.show() })
             })
@@ -88,13 +88,11 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         })
         
         menu.addShareAction({
-            candy.shareCandy({ item in
-                guard let item = item else { return }
-                let sharingsSring = "TBD".ls
-                let activityVC = UIActivityViewController(activityItems: [item, sharingsSring], applicationActivities: nil)
+            DownloadingView.downloadCandy(candy, message: "downloading_media_for_sharing".ls, success: { [weak self] (url) in
+                let activityVC = UIActivityViewController(activityItems: [url, "sharing_text".ls], applicationActivities: nil)
                 activityVC.popoverPresentationController?.sourceView = self
                 UINavigationController.main.presentViewController(activityVC, animated: true, completion: nil)
-            })
+                })
         })
         
         if candy.deletable {

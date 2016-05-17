@@ -59,7 +59,7 @@ extension PHPhotoLibrary {
         }
     }
     
-    class func authorize( success: Block, failure: FailureBlock) {
+    class func authorize(success: Block, failure: FailureBlock) {
         let status = PHPhotoLibrary.authorizationStatus()
         if status == .Authorized {
             success()

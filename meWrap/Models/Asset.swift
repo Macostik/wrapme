@@ -66,7 +66,7 @@ class Asset: NSObject, NSCopying {
         if original.isExistingFilePath {
             return original.fileURL
         } else {
-            let path = ImageCache.defaultCache.getPath(ImageCache.uidFromURL(original)) + ".mp4"
+            let path = ImageCache.defaultCache.getPath(ImageCache.uidFromURL(original, ext: "mp4"))
             if path.isExistingFilePath {
                 return path.fileURL
             } else {

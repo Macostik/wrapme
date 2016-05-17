@@ -206,3 +206,25 @@ class QAButton: DebugButton {
         #endif
     }
 }
+
+extension Button {
+    
+    static func candyAction(action: String, color: UIColor, size: CGFloat = 20) -> Button {
+        let button = Button(icon: action, size: size)
+        button.cornerRadius = 22
+        button.normalColor = color
+        button.highlightedColor = color.darkerColor()
+        button.update()
+        return button
+    }
+    
+    static func expandableCandyAction(action: String, size: CGFloat = 20) -> Button {
+        let button = Button(icon: action, size: size)
+        button.setTitleColor(Color.grayLight, forState: .Highlighted)
+        button.setTitleColor(Color.grayLight, forState: .Selected)
+        button.borderColor = UIColor.whiteColor()
+        button.borderWidth = 1
+        button.cornerRadius = 22
+        return button
+    }
+}

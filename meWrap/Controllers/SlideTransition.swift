@@ -168,3 +168,54 @@ class ShrinkTransition: SlideTransition {
         }
     }
 }
+
+extension HistoryViewController {
+    
+    func createShrinkTransition() -> ShrinkTransition {
+        return specify(ShrinkTransition(view: contentView), {
+            
+            $0.panGestureRecognizer.requireGestureRecognizerToFail(swipeUpGesture)
+            $0.panGestureRecognizer.requireGestureRecognizerToFail(swipeDownGesture)
+            
+            $0.contentView = { [weak self] _ in
+                return self?.viewController?.view
+            }
+            
+            $0.dismissingView = { [weak self] _ in
+                guard let candy = self?.candy else { return nil }
+                return self?.dismissingView?(candy)
+            }
+            
+            $0.image = { [weak self] _ in
+                return self?.viewController?.imageView.image
+            }
+            
+            $0.snapshotView = { [weak self] _ in
+                guard let controller = self else { return nil }
+                guard let controllers = controller.navigationController?.viewControllers else { return nil }
+                guard let index = controllers.indexOf(controller) else { return nil }
+                return controllers[safe: index - 1]?.view
+            }
+            
+            $0.shouldStart = { [weak self] _ in
+                if let photoViewController = self?.viewController as? PhotoCandyViewController {
+                    return photoViewController.scrollView.zoomScale == 1
+                } else {
+                    return true
+                }
+            }
+            
+            $0.didStart = { [weak self] _ in
+                self?.setBarsHidden(true, animated: true)
+            }
+            
+            $0.didCancel = { [weak self] _ in
+                self?.setBarsHidden(false, animated: true)
+            }
+            
+            $0.didFinish = { [weak self] _ in
+                self?.navigationController?.popViewControllerAnimated(false)
+            }
+        })
+    }
+}

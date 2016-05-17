@@ -99,7 +99,7 @@ extension Asset {
         if let original = original where original.hasSuffix("mp4") {
             
             if let _original = asset.original {
-                let path = ImageCache.defaultCache.getPath(ImageCache.uidFromURL(_original)) + ".mp4"
+                let path = ImageCache.defaultCache.getPath(ImageCache.uidFromURL(_original, ext: "mp4"))
                 _ = try? manager.moveItemAtPath(original, toPath: path)
             } else {
                 asset.original = original

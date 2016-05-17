@@ -634,6 +634,9 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         fetchCandiesOlderThen(candy)
         if let videoViewConroller = viewController as? VideoCandyViewController {
             volumeButton.selected = !videoViewConroller.playerView.player.muted
+            if topView.y != 0 {
+                setBarsHidden(false, animated: true)
+            }
         }
         setActionsExpanded(false, animated: false)
         setTopViewExpanded(false)

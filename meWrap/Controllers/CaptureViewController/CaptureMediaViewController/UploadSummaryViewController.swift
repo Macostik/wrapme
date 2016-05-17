@@ -221,7 +221,7 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
         scrollView!.panGestureRecognizer.enabled = true
     }
     
-    @IBAction func composeBarDidFinish(sender: AnyObject) {
+    func composeBar(composeBar: ComposeBar, didFinishWithText text: String) {
         composeBar.resignFirstResponder()
         composeBar.setDoneButtonHidden(true, animated: true)
     }

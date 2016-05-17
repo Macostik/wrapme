@@ -336,3 +336,5 @@
 "save" = "Save";
 "delete_comment_confirmation" = "Are you sure you want to delete the comment?";
 "comments" = "Comments";
+"photo_comment_tip" = "Hold to view the photo";
+"video_comment_tip" = "Hold to view the video";

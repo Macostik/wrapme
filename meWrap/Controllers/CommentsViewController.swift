@@ -126,6 +126,7 @@ class MediaCommentCell: CommentCell {
             make.centerY.equalTo(date)
         }
         addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longPress(_:))))
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tap(_:))))
     }
     
     private weak var commentViewController: CommentViewController?
@@ -155,6 +156,50 @@ class MediaCommentCell: CommentCell {
                 UINavigationController.main.dismissViewControllerAnimated(false, completion: nil)
             }
         }
+    }
+    
+    private static weak var tipView: UIView?
+    
+    @objc private func tap(sender: UITapGestureRecognizer) {
+        MediaCommentCell.tipView?.removeFromSuperview()
+        let tipView = UIView()
+        let contentView = UIView()
+        contentView.cornerRadius = 4
+        contentView.clipsToBounds = true
+        contentView.backgroundColor = Color.orange.colorWithAlphaComponent(0.8)
+        let label = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
+        label.text = tipMessage()
+        let triangle = TriangleView()
+        triangle.backgroundColor = contentView.backgroundColor
+        triangle.contentMode = .Bottom
+        tipView.add(contentView) { (make) in
+            make.leading.top.trailing.equalTo(tipView)
+        }
+        tipView.add(triangle) { (make) in
+            make.top.equalTo(contentView.snp_bottom)
+            make.bottom.equalTo(tipView)
+            make.size.equalTo(CGSize(width: 20, height: 10))
+            make.centerX.equalTo(contentView.snp_leading).inset(45)
+        }
+        contentView.add(label) { (make) in
+            make.edges.equalTo(contentView).inset(10)
+        }
+        let streamView = superview!
+        let mediaFrame = streamView.convertRect(mediaView.bounds, fromCoordinateSpace: mediaView)
+        streamView.add(tipView) { (make) in
+            make.leading.equalTo(streamView).inset(mediaFrame.origin.x)
+            make.bottom.equalTo(streamView.snp_top).inset(mediaFrame.origin.y)
+        }
+        MediaCommentCell.tipView = tipView
+        UIView.animateWithDuration(0.5, delay: 4, options: .CurveEaseIn, animations: { 
+            tipView.alpha = 0
+            }) { [weak tipView] (_) in
+                tipView?.removeFromSuperview()
+        }
+    }
+    
+    internal func tipMessage() -> String {
+        return "photo_comment_tip".ls
     }
     
     private var uploadingView: UploadingView? {
@@ -200,6 +245,10 @@ final class VideoCommentCell: MediaCommentCell {
     override func willEnqueue() {
         super.willEnqueue()
         playerView?.removeFromSuperview()
+    }
+    
+    internal override func tipMessage() -> String {
+        return "video_comment_tip".ls
     }
     
     override func setup(comment: Comment) {

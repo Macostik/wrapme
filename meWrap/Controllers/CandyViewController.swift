@@ -183,10 +183,6 @@ final class VideoCandyViewController: CandyViewController, VideoPlayerViewDelega
         view.insertSubview(playerView, belowSubview: spinner)
         imageView.snp_makeConstraints { $0.edges.equalTo(view) }
         playerView.snp_makeConstraints { $0.edges.equalTo(view) }
-        
-        playerView.tapped { [weak self] _ in
-            self?.toggleVolume()
-        }
     }
     
     func toggleVolume() {

@@ -399,7 +399,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             return self?.topView.expanded == true
         }
         scrollView.tapped { [weak self] _ in
-            self?.setTopViewExpanded(false)
+            self?.handleTapOnScrollView()
         }
         
         let secondCommentButton = TransparentButton(type: .Custom)
@@ -423,6 +423,18 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
                 expandableToolbar.expanded = expanded
                 expandButton.selected = expanded
                 topView.layoutIfNeeded()
+            }
+        }
+    }
+    
+    private func handleTapOnScrollView() {
+        if topView.expanded {
+            setTopViewExpanded(false)
+        } else {
+            if candy?.isVideo == true {
+                toggleVolume()
+            } else {
+                setBarsHidden(topView.y == 0, animated: true)
             }
         }
     }
@@ -785,10 +797,14 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         showCommentView()
     }
     
-    @IBAction func toggleVolume(sender: AnyObject) {
+    private func toggleVolume() {
         if let videoViewConroller = viewController as? VideoCandyViewController {
             volumeButton.selected = !volumeButton.selected
             videoViewConroller.playerView.player.muted = !volumeButton.selected
         }
+    }
+    
+    @IBAction func toggleVolume(sender: AnyObject) {
+        toggleVolume()
     }
 }

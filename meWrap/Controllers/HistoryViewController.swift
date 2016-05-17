@@ -366,6 +366,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             invisibleBarsContrains.append($0.bottom.equalTo(view.snp_top).priorityLow().constraint)
         }
         
+        userStatusView.hidden = true
         view.add(userStatusView) {
             $0.size.equalTo(44)
             $0.bottom.equalTo(commentView.snp_top).inset(-20).priorityLow()
@@ -453,8 +454,10 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         
         Candy.notifier().addReceiver(self)
         
-        if let wrap = wrap where history == nil {
-            history = History(wrap:wrap)
+        if let wrap = wrap {
+            if history == nil {
+                history = History(wrap:wrap)
+            }
             updateUserStatus(wrap)
             userNotifyReceiver = EntryNotifyReceiver<User>().setup({ [weak self] (receiver) in
                 receiver.didUpdate = { user, event in

@@ -10,6 +10,12 @@ import Foundation
 import Photos
 import SnapKit
 
+class TransparentButton: Button {
+    override func intrinsicContentSize() -> CGSize {
+        return CGSize.zero
+    }
+}
+
 final class CommentView: ExpandableView {
     
     private let avatar = UserAvatarView(cornerRadius: 24)
@@ -88,6 +94,9 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     var presenter: CandyEnlargingPresenter?
     var dismissingView: (Candy -> UIView?)?
+    
+    private var visibleBarsContrains = [Constraint]()
+    private var invisibleBarsContrains = [Constraint]()
     
     private let drawButton = Button.candyAction("8", color: Color.purple, size: 24)
     private let editButton = Button.candyAction("R", color: Color.blue)
@@ -319,13 +328,19 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         scrollView.backgroundColor = UIColor.blackColor()
         self.scrollView = scrollView
         
-        view.add(commentView) { $0.leading.trailing.bottom.equalTo(view) }
+        view.add(commentView) {
+            $0.leading.trailing.equalTo(view)
+            visibleBarsContrains.append($0.bottom.equalTo(view).priorityHigh().constraint)
+            invisibleBarsContrains.append($0.top.equalTo(view.snp_bottom).priorityLow().constraint)
+        }
         commentButton.layer.shadowColor = UIColor.blackColor().CGColor
         commentButton.layer.shadowOpacity = 0.5
         commentButton.layer.shadowOffset = CGSize(width: 0, height: 3)
         view.add(commentButton) {
             $0.size.equalTo(44)
-            $0.trailing.bottom.equalTo(view).inset(20)
+            $0.trailing.equalTo(view).inset(20)
+            visibleBarsContrains.append($0.bottom.equalTo(view).inset(20).priorityHigh().constraint)
+            invisibleBarsContrains.append($0.top.equalTo(view.snp_bottom).inset(-20).priorityLow().constraint)
         }
         commentButton.add(commentCountLabel) { (make) in
             make.trailing.top.equalTo(commentButton).inset(-2)
@@ -335,12 +350,14 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         view.add(volumeButton) {
             $0.size.equalTo(44)
             $0.leading.equalTo(view).inset(20)
-            $0.bottom.equalTo(commentView.snp_top).offset(-20)
+            visibleBarsContrains.append($0.bottom.equalTo(commentView.snp_top).offset(-20).priorityHigh().constraint)
+            invisibleBarsContrains.append($0.top.equalTo(commentView).inset(20).priorityLow().constraint)
         }
         
         view.add(topView) {
             $0.leading.trailing.equalTo(view)
-            $0.top.equalTo(view)
+            visibleBarsContrains.append($0.top.equalTo(view).priorityHigh().constraint)
+            invisibleBarsContrains.append($0.bottom.equalTo(view.snp_top).priorityLow().constraint)
         }
         
         backButton.addTarget(self, action: #selector(self.back(_:)), forControlEvents: .TouchUpInside)
@@ -369,6 +386,20 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         scrollView.tapped { [weak self] _ in
             self?.setTopViewExpanded(false)
         }
+        
+//        commentView.tapped { [weak self] (_) in
+//            self?.showCommentView()
+//        }
+        
+        let secondCommentButton = TransparentButton(type: .Custom)
+        secondCommentButton.titleLabel?.removeFromSuperview()
+        secondCommentButton.highlightedColor = Color.grayLighter.colorWithAlphaComponent(0.2)
+        commentView.insertSubview(secondCommentButton, atIndex: 0)
+        secondCommentButton.highlightings = [commentButton]
+        secondCommentButton.snp_makeConstraints(closure: {
+            $0.edges.equalTo(commentView)
+        })
+        secondCommentButton.addTarget(self, touchUpInside: #selector(self.comments(_:)))
     }
     
     @objc private func toggleActions() {
@@ -417,9 +448,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         if let candy = candy {
             setCandy(candy, direction: .Forward, animated: false)
         }
-        
-        DeviceManager.defaultManager.addReceiver(self)
-        DeviceManager.defaultManager.beginUsingAccelerometer()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -438,17 +466,21 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     func setBarsHidden(hidden: Bool, animated: Bool) {
         animate(animated, duration: 0.3) {
-            if hidden {
-                topView.transform = CGAffineTransformMakeTranslation(0, -view.height/2)
-                commentView.transform = CGAffineTransformMakeTranslation(0, view.height/2)
-                commentButton.transform = CGAffineTransformMakeTranslation(0, view.height/2)
-                volumeButton.transform = CGAffineTransformMakeTranslation(0, view.height/2)
-            } else {
-                topView.transform = CGAffineTransformIdentity
-                commentView.transform = CGAffineTransformIdentity
-                commentButton.transform = CGAffineTransformIdentity
-                volumeButton.transform = CGAffineTransformIdentity
+            for contraint in visibleBarsContrains {
+                if hidden {
+                    contraint.updatePriorityLow()
+                } else {
+                    contraint.updatePriorityHigh()
+                }
             }
+            for contraint in invisibleBarsContrains {
+                if hidden {
+                    contraint.updatePriorityHigh()
+                } else {
+                    contraint.updatePriorityLow()
+                }
+            }
+            view.layoutIfNeeded()
         }
     }
     
@@ -631,14 +663,15 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         return wrap == container
     }
     
-    func manager(manager: DeviceManager, didChangeOrientation orientation: UIDeviceOrientation) {
-        animate(true, duration: 1.0) {
-            if orientation == .LandscapeLeft || orientation == .LandscapeRight {
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        coordinator.animateAlongsideTransition({ _ in
+            if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
                 self.commentView.transform = CGAffineTransformMakeTranslation(0, self.view.height/2)
             } else {
                 self.commentView.transform = CGAffineTransformIdentity
             }
-        }
+            }, completion: { _ in })
     }
     
     override func back(sender: UIButton) {
@@ -652,7 +685,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         } else {
             navigationController?.popToRootViewControllerAnimated(false)
         }
-        DeviceManager.defaultManager.endUsingAccelerometer()
     }
     
     @IBAction func downloadCandy(sender: Button) {

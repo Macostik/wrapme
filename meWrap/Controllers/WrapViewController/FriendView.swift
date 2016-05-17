@@ -271,8 +271,7 @@ final class StatusUserAvatarView: UserAvatarView, EntryNotifying {
         self.superview?.addSubview(statusView)
         statusView.snp_makeConstraints { (make) -> Void in
             make.size.equalTo(12)
-            make.centerY.equalTo(self.snp_bottom).multipliedBy(0.853)
-            make.centerX.equalTo(self.snp_trailing).multipliedBy(0.853)
+            make.trailing.bottom.equalTo(self).inset(2)
         }
         return statusView
     }()

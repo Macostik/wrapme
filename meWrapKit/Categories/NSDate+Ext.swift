@@ -13,15 +13,23 @@ private var _hourInterval: NSTimeInterval = 3600
 private var _dayInterval: NSTimeInterval = 86400
 private var _weekInterval: NSTimeInterval = 604800
 
-func >(lhs: NSDate, rhs: NSDate) -> Bool {
+public func >(lhs: NSDate, rhs: NSDate) -> Bool {
     return lhs.timestamp > rhs.timestamp
 }
 
-func <(lhs: NSDate, rhs: NSDate) -> Bool {
+public func <(lhs: NSDate, rhs: NSDate) -> Bool {
     return lhs.timestamp < rhs.timestamp
 }
 
-extension NSDate {
+public func >=(lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs.timestamp >= rhs.timestamp
+}
+
+public func <=(lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs.timestamp <= rhs.timestamp
+}
+
+extension NSDate: Comparable {
     
     func startOfDay() -> NSDate {
         return NSCalendar.currentCalendar().startOfDayForDate(self)

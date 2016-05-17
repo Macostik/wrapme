@@ -304,6 +304,12 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         $0.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
     }
     
+    private let userStatusView = specify(StatusUserAvatarView(backgroundColor: UIColor.clearColor())) {
+        $0.cornerRadius = 22
+        $0.borderColor = UIColor.whiteColor()
+        $0.borderWidth = 1
+    }
+    
     private var cachedCandyViewControllers = [Candy : CandyViewController]()
     private weak var removedCandy: Candy?
     
@@ -360,6 +366,14 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             invisibleBarsContrains.append($0.bottom.equalTo(view.snp_top).priorityLow().constraint)
         }
         
+        view.add(userStatusView) {
+            $0.size.equalTo(44)
+            $0.bottom.equalTo(commentView.snp_top).inset(-20).priorityLow()
+            $0.bottom.lessThanOrEqualTo(commentButton.snp_top).offset(-20).priorityHigh()
+            visibleBarsContrains.append($0.trailing.equalTo(view).inset(20).priorityHigh().constraint)
+            invisibleBarsContrains.append($0.leading.equalTo(view.snp_trailing).inset(-20).priorityLow().constraint)
+        }
+        
         backButton.addTarget(self, action: #selector(self.back(_:)), forControlEvents: .TouchUpInside)
         expandButton.addTarget(self, action: #selector(self.toggleActions), forControlEvents: .TouchUpInside)
         commentButton.addTarget(self, action: #selector(self.comments(_:)), forControlEvents: .TouchUpInside)
@@ -386,10 +400,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         scrollView.tapped { [weak self] _ in
             self?.setTopViewExpanded(false)
         }
-        
-//        commentView.tapped { [weak self] (_) in
-//            self?.showCommentView()
-//        }
         
         let secondCommentButton = TransparentButton(type: .Custom)
         secondCommentButton.titleLabel?.removeFromSuperview()
@@ -430,6 +440,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         setTopViewExpanded(!topView.expanded)
     }
     
+    private var userNotifyReceiver: EntryNotifyReceiver<User>?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -443,11 +455,26 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         
         if let wrap = wrap where history == nil {
             history = History(wrap:wrap)
+            updateUserStatus(wrap)
+            userNotifyReceiver = EntryNotifyReceiver<User>().setup({ [weak self] (receiver) in
+                receiver.didUpdate = { user, event in
+                    if wrap.contributors.contains(user) && event == .UserStatus {
+                        self?.updateUserStatus(wrap)
+                    }
+                }
+            })
         }
         
         if let candy = candy {
             setCandy(candy, direction: .Forward, animated: false)
         }
+    }
+    
+    private func updateUserStatus(wrap: Wrap) {
+        let activeContributors = wrap.contributors.filter({ $0.activityForWrap(wrap) != nil })
+        userStatusView.hidden = activeContributors.isEmpty
+        userStatusView.wrap = wrap
+        userStatusView.user = activeContributors.sort({ $0.activeAt > $1.activeAt }).first
     }
     
     override func viewWillAppear(animated: Bool) {

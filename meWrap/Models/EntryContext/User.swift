@@ -44,6 +44,10 @@ final class User: Entry {
         return activeDevices.sort({ $0.activeAt > $1.activeAt })[{ $0.activity.wrap == wrap && $0.activity.inProgress }]?.activity
     }
     
+    var activeAt: NSDate {
+        return devices.map{ $0.activeAt }.maxElement() ?? NSDate(timeIntervalSince1970: 0)
+    }
+    
     private func formatPhones(secure: Bool) -> String {
         let hiddenCharacter: Character = "*"
         let phones = devices.reduce("", combine: { (phones, device) -> String in

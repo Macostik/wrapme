@@ -290,9 +290,6 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     weak var candy: Candy?
     
     let streamView = StreamView()
-    private let friendsStreamView = StreamView()
-    
-    private lazy var friendsDataSource: StreamDataSource<[User]> = StreamDataSource(streamView: self.friendsStreamView)
     
     private lazy var dataSource: CommentsDataSource = CommentsDataSource(streamView: self.streamView)
     
@@ -308,6 +305,14 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     private let bottomView = UIView()
     private let cameraButton = Button(icon: "u", size: 24, textColor: Color.orange)
     
+    private let userStatusView = specify(StatusUserAvatarView(backgroundColor: UIColor.clearColor())) {
+        $0.cornerRadius = 22
+        $0.borderColor = UIColor.whiteColor()
+        $0.borderWidth = 1
+    }
+    
+    private var userNotifyReceiver: EntryNotifyReceiver<User>?
+    
     deinit {
         streamView.layer.removeObserver(self, forKeyPath: "bounds", context: nil)
     }
@@ -322,14 +327,31 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         contentView.add(topView) { (make) in
             make.leading.trailing.top.equalTo(contentView)
         }
-        topView.add(friendsStreamView) { (make) in
-            make.edges.equalTo(topView)
-        }
         let closeButton = Button(icon: "!", size: 15, textColor: Color.orange)
         closeButton.setTitleColor(Color.orangeDark, forState: .Highlighted)
         closeButton.addTarget(self, touchUpInside: #selector(self.onClose(_:)))
         topView.add(closeButton) { (make) in
-            make.top.trailing.bottom.equalTo(topView).inset(5)
+            make.centerY.equalTo(topView)
+            make.trailing.equalTo(topView).inset(5)
+        }
+        
+        userStatusView.hidden = true
+        topView.add(userStatusView) {
+            $0.size.equalTo(21)
+            $0.leading.top.bottom.equalTo(topView).inset(20)
+        }
+        
+        let commentsLabel = Label(preset: .Large, weight: .Regular, textColor: UIColor.whiteColor())
+        commentsLabel.text = "comments".ls
+        topView.add(commentsLabel) { (make) in
+            make.center.equalTo(topView)
+        }
+        
+        let separator = SeparatorView(color: UIColor(white: 1, alpha: 0.5))
+        separator.contentMode = .Bottom
+        topView.add(separator) { (make) in
+            make.leading.bottom.trailing.equalTo(topView)
+            make.height.equalTo(1)
         }
         contentView.add(streamView) { (make) in
             make.leading.trailing.equalTo(contentView)
@@ -400,13 +422,6 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         dataSource.placeholderMetrics = PlaceholderView.commentsPlaceholderMetrics()
         dataSource.items = candy.sortedComments()
         
-        friendsStreamView.layout = HorizontalStreamLayout()
-        let friendMetrics = StreamMetrics<FriendView>(size: friendsStreamView.height)
-        friendMetrics.prepareAppearing = { [weak self] item, view in
-            view.wrap = self?.candy?.wrap
-        }
-        friendsDataSource.addMetrics(friendMetrics)
-        
         if candy.uploaded {
             candy.fetch({ [weak self] _ in
                 let comments = candy.sortedComments()
@@ -421,12 +436,34 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
                     error?.showNonNetworkError()
             })
         }
-        friendsDataSource.items = activeContibutors
         
         addNotifyReceivers()
         DeviceManager.defaultManager.addReceiver(self)
-		User.notifier().addReceiver(self)
         composeBar.text = candy.typedComment
+        
+        if let wrap = candy.wrap {
+            updateUserStatus(wrap)
+            userNotifyReceiver = EntryNotifyReceiver<User>().setup({ [weak self] (receiver) in
+                receiver.didUpdate = { user, event in
+                    if wrap.contributors.contains(user) && event == .UserStatus {
+                        self?.updateUserStatus(wrap)
+                    }
+                }
+                })
+        }
+    }
+    
+    private func updateUserStatus(wrap: Wrap) {
+        let activeContributors = wrap.contributors.filter({ $0.activityForWrap(wrap) != nil })
+        let hidden = activeContributors.isEmpty
+        userStatusView.wrap = wrap
+        userStatusView.user = activeContributors.sort({ $0.activeAt > $1.activeAt }).first
+        if userStatusView.hidden != hidden {
+            userStatusView.hidden = hidden
+            userStatusView.snp_updateConstraints(closure: {
+                $0.size.equalTo(hidden ? 21 : 44)
+            })
+        }
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
@@ -485,11 +522,6 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     
     var isEndingOfScroll: Bool {
         return abs(streamView.contentOffset.y - streamView.maximumContentOffset.y) <= 5
-    }
-
- 	var activeContibutors: [User] {
-        guard let wrap = candy?.wrap else { return [] }
-        return wrap.contributors.filter({ $0.activityForWrap(wrap) != nil }).sort({ $0.name < $1.name })
     }
     
     var isMaxContentOffset: Bool = false
@@ -658,13 +690,5 @@ extension CommentsViewController: DeviceManagerNotifying {
     func manager(manager: DeviceManager, didChangeOrientation orientation: UIDeviceOrientation) {
         view.layoutIfNeeded()
         dataSource.reload()
-    }
-}
-extension CommentsViewController: EntryNotifying {
-    
-    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
-        if event == .UserStatus {
-            friendsDataSource.items = activeContibutors
-        }
     }
 }

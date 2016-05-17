@@ -31,8 +31,14 @@ struct UserActivity {
     mutating func notifyIfNeeded() {
         if needsNotify {
             needsNotify = false
-            Dispatch.mainQueue.async({ self.device?.owner?.notifyOnUpdate(.UserStatus) })
+            Dispatch.mainQueue.async({
+                self.notify()
+            })
         }
+    }
+    
+    private func notify() {
+        device?.owner?.notifyOnUpdate(.UserStatus)
     }
     
     weak var device: Device?

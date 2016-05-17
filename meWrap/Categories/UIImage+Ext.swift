@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreImage
 
 extension UIImage {
     
@@ -62,12 +63,12 @@ extension UIImage {
         let image = CGImage
         
         let bitmap = CGBitmapContextCreate(nil,
-            Int(newRect.size.width),
-            Int(newRect.size.height),
-            CGImageGetBitsPerComponent(image),
-            0,
-            CGImageGetColorSpace(image),
-            CGImageGetBitmapInfo(image).rawValue)
+                                           Int(newRect.size.width),
+                                           Int(newRect.size.height),
+                                           CGImageGetBitsPerComponent(image),
+                                           0,
+                                           CGImageGetColorSpace(image),
+                                           CGImageGetBitmapInfo(image).rawValue)
         
         CGContextConcatCTM(bitmap, transform)
         CGContextSetInterpolationQuality(bitmap, .Default)

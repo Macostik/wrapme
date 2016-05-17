@@ -1192,7 +1192,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RfV-Wr-Q9R" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                <rect key="frame" x="123.5" y="395.5" width="73" height="73"/>
+                                <rect key="frame" x="124" y="396" width="73" height="73"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="73" id="uXk-oj-zEz"/>
@@ -1482,6 +1482,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BiA-zj-hHg" customClass="ImageView" customModule="meWrap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="458"/>
+                            </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x4C-3O-a96">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="458"/>
                                 <constraints>
@@ -1523,8 +1526,8 @@
                             <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="DwH-YS-Lus" customClass="GradientView" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="1000" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1R8-s3-mcT" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="12" width="30" height="41"/>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1R8-s3-mcT" customClass="Button" customModule="meWrap" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="14" width="30" height="37"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                         <state key="normal" title="w">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1772,9 +1775,13 @@
                             <constraint firstAttribute="trailing" secondItem="ao0-lV-pbN" secondAttribute="trailing" id="29e-8y-iNm"/>
                             <constraint firstItem="oyu-cu-lw1" firstAttribute="leading" secondItem="fOQ-kN-b10" secondAttribute="leading" constant="10" id="7jQ-wh-hGF"/>
                             <constraint firstItem="ao0-lV-pbN" firstAttribute="top" secondItem="oyu-cu-lw1" secondAttribute="bottom" constant="10" id="EnK-3f-YuW"/>
+                            <constraint firstItem="BiA-zj-hHg" firstAttribute="height" secondItem="x4C-3O-a96" secondAttribute="height" id="Gdz-nX-vVN"/>
+                            <constraint firstItem="BiA-zj-hHg" firstAttribute="centerY" secondItem="x4C-3O-a96" secondAttribute="centerY" id="JDx-5D-viY"/>
                             <constraint firstItem="3yq-a6-Fsm" firstAttribute="leading" secondItem="ojC-8r-fOh" secondAttribute="trailing" constant="10" id="K11-QH-kPH"/>
                             <constraint firstItem="x4C-3O-a96" firstAttribute="top" secondItem="J8F-Df-FmE" secondAttribute="bottom" id="KNe-Ow-O4e"/>
+                            <constraint firstItem="BiA-zj-hHg" firstAttribute="width" secondItem="x4C-3O-a96" secondAttribute="width" id="OEF-fi-WQW"/>
                             <constraint firstItem="h5t-N3-cw5" firstAttribute="height" secondItem="x4C-3O-a96" secondAttribute="height" id="OTP-3I-lOM"/>
+                            <constraint firstItem="BiA-zj-hHg" firstAttribute="centerX" secondItem="x4C-3O-a96" secondAttribute="centerX" id="RhF-nV-RCI"/>
                             <constraint firstItem="DwH-YS-Lus" firstAttribute="top" secondItem="J8F-Df-FmE" secondAttribute="bottom" id="TtV-Sq-j7B"/>
                             <constraint firstAttribute="trailing" secondItem="DwH-YS-Lus" secondAttribute="trailing" id="VLg-YY-3kR"/>
                             <constraint firstItem="mxa-eX-hMc" firstAttribute="top" secondItem="x4C-3O-a96" secondAttribute="bottom" id="Wpo-Mb-D43"/>
@@ -1800,6 +1807,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="blurredImageView" destination="BiA-zj-hHg" id="9MB-5T-UU5"/>
                         <outlet property="bottomView" destination="mxa-eX-hMc" id="dYr-Td-HR0"/>
                         <outlet property="composeBar" destination="ao0-lV-pbN" id="QXo-Sk-wDV"/>
                         <outlet property="deleteButton" destination="oyu-cu-lw1" id="L5Q-Qr-zRM"/>

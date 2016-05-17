@@ -71,8 +71,12 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
         return .Slide
     }
     
+    @IBOutlet weak var blurredImageView: ImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+        blurredImageView.add(blurView) { $0.edges.equalTo(blurredImageView) }
         composeBar.textView.placeholder = "add_comment".ls
         composeBar.emojiButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         composeBar.doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
@@ -103,6 +107,7 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
     }
     
     private func updateAssetData(asset: MutableAsset) {
+        blurredImageView.url = asset.small
         drawButton.hidden = asset.type == .Video
         editButton.hidden = drawButton.hidden
         composeBar.text = asset.comment

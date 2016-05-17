@@ -162,6 +162,11 @@ class MediaCommentCell: CommentCell {
     
     @objc private func tap(sender: UITapGestureRecognizer) {
         MediaCommentCell.tipView?.removeFromSuperview()
+        
+        let streamView = superview!
+        let mediaFrame = streamView.convertRect(mediaView.bounds, fromCoordinateSpace: mediaView)
+        let arrowDown = (frame.origin.y - streamView.layer.bounds.origin.y) > 44
+        
         let tipView = UIView()
         let contentView = UIView()
         contentView.cornerRadius = 4
@@ -171,24 +176,38 @@ class MediaCommentCell: CommentCell {
         label.text = tipMessage()
         let triangle = TriangleView()
         triangle.backgroundColor = contentView.backgroundColor
-        triangle.contentMode = .Bottom
+        
+        triangle.contentMode = arrowDown ? .Bottom : .Top
         tipView.add(contentView) { (make) in
-            make.leading.top.trailing.equalTo(tipView)
+            if arrowDown {
+                make.leading.top.trailing.equalTo(tipView)
+            } else {
+                make.leading.bottom.trailing.equalTo(tipView)
+            }
         }
         tipView.add(triangle) { (make) in
-            make.top.equalTo(contentView.snp_bottom)
-            make.bottom.equalTo(tipView)
+            if arrowDown {
+                make.top.equalTo(contentView.snp_bottom)
+                make.bottom.equalTo(tipView)
+            } else {
+                make.bottom.equalTo(contentView.snp_top)
+                make.top.equalTo(tipView)
+            }
             make.size.equalTo(CGSize(width: 20, height: 10))
             make.centerX.equalTo(contentView.snp_leading).inset(45)
         }
+        
         contentView.add(label) { (make) in
             make.edges.equalTo(contentView).inset(10)
         }
-        let streamView = superview!
-        let mediaFrame = streamView.convertRect(mediaView.bounds, fromCoordinateSpace: mediaView)
+        
         streamView.add(tipView) { (make) in
             make.leading.equalTo(streamView).inset(mediaFrame.origin.x)
-            make.bottom.equalTo(streamView.snp_top).inset(mediaFrame.origin.y)
+            if arrowDown {
+                make.bottom.equalTo(streamView.snp_top).inset(mediaFrame.origin.y)
+            } else {
+                make.top.equalTo(streamView.snp_top).inset(mediaFrame.maxY)
+            }
         }
         MediaCommentCell.tipView = tipView
         UIView.animateWithDuration(0.5, delay: 4, options: .CurveEaseIn, animations: { 

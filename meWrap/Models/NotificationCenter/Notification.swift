@@ -177,7 +177,7 @@ class EntryNotification<T: Entry>: Notification {
         inserted = entry.inserted
         
         if let locuid = entry.locuid {
-            Logger.log("Notification \(self). Created entry \(entry). Number of entries with the same upload_uid \(FetchRequest<T>().query("locuid == %@", locuid))")
+            Logger.log("Notification \(self). Created entry \(entry). Number of entries with the same upload_uid \(FetchRequest<T>().query("locuid == %@", locuid).count())")
         } else {
             Logger.log("Notification \(self). Created entry \(entry). No upload_uid")
         }

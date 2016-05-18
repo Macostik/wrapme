@@ -372,6 +372,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     private let topView = UIView()
     private let bottomView = UIView()
     private let cameraButton = Button(icon: "u", size: 24, textColor: Color.orange)
+    let closeButton = Button(icon: "!", size: 15, textColor: Color.orange)
     
     private let userStatusView = specify(StatusUserAvatarView(backgroundColor: UIColor.clearColor())) {
         $0.cornerRadius = 22
@@ -392,20 +393,15 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         view.add(contentView) { (make) in
             make.edges.equalTo(view)
         }
-        contentView.add(topView) { (make) in
-            make.leading.trailing.top.equalTo(contentView)
-        }
-        let closeButton = Button(icon: "!", size: 15, textColor: Color.orange)
+        contentView.addSubview(topView)
+        layoutTopView()
+        
         closeButton.setTitleColor(Color.orangeDark, forState: .Highlighted)
         closeButton.addTarget(self, touchUpInside: #selector(self.onClose(_:)))
-        topView.add(closeButton) { (make) in
-            make.centerY.equalTo(topView)
-            make.trailing.equalTo(topView).inset(5)
-        }
         
         userStatusView.hidden = true
         topView.add(userStatusView) {
-            $0.size.equalTo(21)
+            $0.size.equalTo(44)
             $0.leading.top.bottom.equalTo(topView).inset(20)
         }
         
@@ -421,7 +417,8 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
             make.leading.bottom.trailing.equalTo(topView)
             make.height.equalTo(1)
         }
-        contentView.add(streamView) { (make) in
+        contentView.insertSubview(streamView, atIndex: 0)
+        streamView.snp_makeConstraints { (make) in
             make.leading.trailing.equalTo(contentView)
             make.top.equalTo(topView.snp_bottom)
         }
@@ -523,14 +520,42 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     
     private func updateUserStatus(wrap: Wrap) {
         let activeContributors = wrap.contributors.filter({ $0.activityForWrap(wrap) != nil })
-        let hidden = activeContributors.isEmpty
+        userStatusView.hidden = activeContributors.isEmpty
         userStatusView.wrap = wrap
         userStatusView.user = activeContributors.sort({ $0.activeAt > $1.activeAt }).first
-        if userStatusView.hidden != hidden {
-            userStatusView.hidden = hidden
-            userStatusView.snp_updateConstraints(closure: {
-                $0.size.equalTo(hidden ? 21 : 44)
-            })
+    }
+    
+    func layoutTopView() {
+        let isLandscape = UIApplication.sharedApplication().statusBarOrientation.isLandscape
+        self.topView.hidden = isLandscape
+        self.topView.snp_remakeConstraints(closure: { (make) in
+            make.leading.trailing.equalTo(self.contentView)
+            if isLandscape {
+                make.bottom.equalTo(self.contentView.snp_top)
+            } else {
+                make.top.equalTo(self.contentView)
+            }
+        })
+        closeButton.removeFromSuperview()
+        if isLandscape {
+            contentView.add(closeButton) { (make) in
+                make.trailing.top.equalTo(contentView).inset(5)
+            }
+        } else {
+            topView.add(closeButton) { (make) in
+                make.centerY.equalTo(topView)
+                make.trailing.equalTo(topView).inset(5)
+            }
+        }
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        coordinator.animateAlongsideTransition({ (_) in
+            self.layoutTopView()
+            self.contentView.layoutIfNeeded()
+            }) { (_) in
+                
         }
     }
     

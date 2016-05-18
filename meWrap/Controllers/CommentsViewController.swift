@@ -92,6 +92,8 @@ final class TextCommentCell: CommentCell, FlowerMenuConstructor {
     }
 }
 
+private weak var commentViewController: CommentViewController?
+
 class MediaCommentCell: CommentCell {
     
     var mediaView: UIView!
@@ -128,8 +130,6 @@ class MediaCommentCell: CommentCell {
         addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longPress(_:))))
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tap(_:))))
     }
-    
-    private weak var commentViewController: CommentViewController?
     
     @objc private func longPress(sender: UILongPressGestureRecognizer) {
         if sender.state == .Began {
@@ -535,11 +535,15 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if childViewControllers.count > 0 {
+        if commentViewController != nil {
             return [.Portrait, .PortraitUpsideDown]
         } else {
             return .All
         }
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return commentViewController == nil
     }
     
     func panned(sender: UIPanGestureRecognizer) {

@@ -653,6 +653,14 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         }
     }
     
+    override func shouldAutorotate() -> Bool {
+        if let commentsViewController = commentsViewController {
+            return commentsViewController.shouldAutorotate()
+        } else {
+            return true
+        }
+    }
+    
     override func prefersStatusBarHidden() -> Bool {
         return true
     }

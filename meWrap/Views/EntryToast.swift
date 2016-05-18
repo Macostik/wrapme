@@ -15,7 +15,7 @@ enum EntryToastStyle {
 
 class EntryToast: UIView {
     static let entryToast = EntryToast()
-    static let DismissalDelay: NSTimeInterval = 4.0
+    static let DismissalDelay: NSTimeInterval = 5.0
     private let imageHeight = Constants.screenWidth / 3 * 1.5
     private let avatar = ImageView(backgroundColor: UIColor.clearColor())
     private let imageView = ImageView(backgroundColor: UIColor.clearColor())

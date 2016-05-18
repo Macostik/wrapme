@@ -39,12 +39,8 @@ final class CommentView: UIView {
         imageView.clipsToBounds = true
         addSubview(name)
         addSubview(date)
-        add(indicator) { (make) -> Void in
-            make.leading.equalTo(date.snp_trailing).offset(10)
-            make.centerY.equalTo(date)
-        }
         snp_makeConstraints { (make) in
-            make.height.equalTo(130)
+            make.height.equalTo(0)
         }
     }
     
@@ -66,13 +62,13 @@ final class CommentView: UIView {
                 make.top.equalTo(avatar)
                 make.trailing.lessThanOrEqualTo(self).inset(18)
             }
-            name.snp_remakeConstraints { (make) -> Void in
+            add(name) { (make) -> Void in
                 make.leading.equalTo(avatar.snp_trailing).offset(18)
                 make.top.equalTo(avatar.snp_bottom).offset(5)
                 make.trailing.lessThanOrEqualTo(self).inset(18)
             }
             
-            date.snp_remakeConstraints { (make) -> Void in
+            add(date) { (make) -> Void in
                 make.leading.equalTo(avatar.snp_trailing).offset(18)
                 make.top.equalTo(name.snp_bottom).offset(4)
             }
@@ -82,13 +78,13 @@ final class CommentView: UIView {
                 make.leading.top.equalTo(self).inset(20)
                 make.size.equalTo(90)
             }
-            name.snp_remakeConstraints { (make) -> Void in
+            add(name) { (make) -> Void in
                 make.leading.equalTo(imageView.snp_trailing).offset(18)
                 make.bottom.equalTo(imageView.snp_centerY).offset(-2)
                 make.trailing.lessThanOrEqualTo(self).inset(18)
             }
             
-            date.snp_remakeConstraints { (make) -> Void in
+            add(date) { (make) -> Void in
                 make.leading.equalTo(imageView.snp_trailing).offset(18)
                 make.top.equalTo(imageView.snp_centerY).offset(2)
             }
@@ -97,6 +93,11 @@ final class CommentView: UIView {
             })
             addGestureRecognizer(longPressGesture)
             self.longPressGesture = longPressGesture
+        }
+        
+        add(indicator) { (make) -> Void in
+            make.leading.equalTo(date.snp_trailing).offset(10)
+            make.centerY.equalTo(date)
         }
     }
     
@@ -140,6 +141,9 @@ final class CommentView: UIView {
                 avatar.removeFromSuperview()
                 text.removeFromSuperview()
                 imageView.removeFromSuperview()
+                name.removeFromSuperview()
+                date.removeFromSuperview()
+                indicator.removeFromSuperview()
                 if let comment = newValue {
                     comment.markAsUnread(false)
                     name.text = comment.contributor?.name

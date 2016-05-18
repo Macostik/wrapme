@@ -76,9 +76,7 @@ class InboxCell: EntryStreamReusableView<InboxItem> {
     }
 
     override func setup(update: InboxItem) {
-        let contribution = update.contribution
         timeLabel.text = update.date.timeAgoStringAtAMPM()
-        imageView.url = contribution.asset?.medium
         if update.unread {
             userNameLabel.textColor = Color.grayDark
             timeLabel.textColor = Color.grayDark
@@ -118,6 +116,7 @@ class InboxCommentCell: InboxCell {
     override func setup(update: InboxItem) {
         if let comment = update.contribution as? Comment {
             super.setup(update)
+            imageView.url = comment.candy?.asset?.medium
             avatarView.url = comment.contributor?.avatar?.small
             userNameLabel.text = "\(comment.contributor?.name ?? ""):"
             textView.text = comment.text
@@ -144,6 +143,7 @@ class InboxCandyCell: InboxCell {
     override func setup(update: InboxItem) {
         if let candy = update.contribution as? Candy {
             super.setup(update)
+            imageView.url = candy.asset?.medium
             if update.event == .Update {
                 avatarView.url = candy.editor?.avatar?.small
                 userNameLabel.text = String(format: "formatted_edited_by".ls, candy.editor?.name ?? "")

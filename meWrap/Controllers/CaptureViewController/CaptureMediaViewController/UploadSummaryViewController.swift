@@ -35,7 +35,6 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
     private let uploadButton = Button(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
     private let drawButton = Button.candyAction("8", color: Color.purple, size: 24)
     private let videoPlayer = VideoPlayer()
-    private let volumeButton = Button.expandableCandyAction("m")
     
     weak var delegate: UploadSummaryViewControllerDelegate?
     
@@ -171,19 +170,12 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
             make.leading.trailing.top.equalTo(view)
             make.bottom.equalTo(streamView.snp_top)
         }
-        videoPlayer.didPlayToEnd = { [weak self] _ in
-            self?.videoPlayer.playing = true
-        }
-        volumeButton.setTitle("l", forState: .Selected)
-        volumeButton.addTarget(self, touchUpInside: #selector(self.volume(_:)))
-        volumeButton.backgroundColor = UIColor(white: 0, alpha: 0.8)
-        view.add(volumeButton) { (make) in
+        view.add(videoPlayer.volumeButton) { (make) in
             make.trailing.equalTo(view).inset(10)
             make.bottom.equalTo(composeBar.snp_top).inset(10)
             make.size.equalTo(44)
         }
-        videoPlayer.player.muted = true
-        volumeButton.selected = true
+        videoPlayer.muted = true
         
         keyboardBottomGuideView = streamView
     }
@@ -221,7 +213,7 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
         drawButton.hidden = isVideo
         editButton.hidden = drawButton.hidden
         composeBar.text = asset.comment
-        volumeButton.hidden = !isVideo
+        videoPlayer.volumeButton.hidden = !isVideo
         videoPlayer.hidden = !isVideo
         if isVideo {
             videoPlayer.url = asset.original?.fileURL
@@ -322,11 +314,6 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
             self?.dismissViewControllerAnimated(false, completion: nil)
         }
         presentViewController(drawingViewController, animated: false, completion: nil)
-    }
-    
-    @objc private func volume(sender: UIButton) {
-        sender.selected = !sender.selected
-        videoPlayer.player.muted = sender.selected
     }
     
     func composeBar(composeBar: ComposeBar, didFinishWithText text: String) {

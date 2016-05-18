@@ -92,8 +92,6 @@ final class TextCommentCell: CommentCell, FlowerMenuConstructor {
     }
 }
 
-private weak var commentViewController: CommentViewController?
-
 class MediaCommentCell: CommentCell {
     
     var mediaView: UIView!
@@ -127,35 +125,10 @@ class MediaCommentCell: CommentCell {
             make.leading.equalTo(date.snp_trailing).offset(10)
             make.centerY.equalTo(date)
         }
-        addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longPress(_:))))
+        addGestureRecognizer(CommentLongPressGesture.gesture({ [weak self] () -> Comment? in
+            return self?.entry
+        }))
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tap(_:))))
-    }
-    
-    @objc private func longPress(sender: UILongPressGestureRecognizer) {
-        if sender.state == .Began {
-            let controller = CommentViewController()
-            controller.comment = entry
-            controller.modalPresentationStyle = .OverCurrentContext
-            UINavigationController.main.presentViewController(controller, animated: false, completion: nil)
-            commentViewController = controller
-        } else if sender.state == .Ended || sender.state == .Cancelled {
-            if let comment = entry where commentViewController?.actionWith(sender) == .Delete {
-                UINavigationController.main.dismissViewControllerAnimated(false, completion: nil)
-                Dispatch.mainQueue.after(0.2) { [weak self] () in
-                    UIAlertController.confirmCommentDeleting({  _ in
-                        self?.userInteractionEnabled = false
-                        comment.delete ({ (_) -> Void in
-                            self?.userInteractionEnabled = true
-                            }, failure: { [weak self] (error) in
-                                error?.show()
-                                self?.userInteractionEnabled = true
-                            })
-                        }, failure: nil)
-                }
-            } else {
-                UINavigationController.main.dismissViewControllerAnimated(false, completion: nil)
-            }
-        }
     }
     
     private static weak var tipView: UIView?
@@ -560,7 +533,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if commentViewController != nil {
+        if CommentViewController.current != nil {
             return [.Portrait, .PortraitUpsideDown]
         } else {
             return .All
@@ -568,7 +541,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     }
     
     override func shouldAutorotate() -> Bool {
-        return commentViewController == nil
+        return CommentViewController.current == nil
     }
     
     func panned(sender: UIPanGestureRecognizer) {

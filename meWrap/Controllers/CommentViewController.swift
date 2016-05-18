@@ -12,7 +12,43 @@ enum CommentAction {
     case None, Delete
 }
 
+class CommentLongPressGesture: UILongPressGestureRecognizer {
+    
+    var comment: (() -> Comment?)?
+    
+    class func gesture(comment: () -> Comment?) -> CommentLongPressGesture {
+        let gesture = CommentLongPressGesture()
+        gesture.addTarget(gesture, action: #selector(gesture.longPress(_:)))
+        gesture.comment = comment
+        return gesture
+    }
+    
+    @objc private func longPress(sender: UILongPressGestureRecognizer) {
+        if sender.state == .Began {
+            let controller = CommentViewController()
+            controller.comment = comment?()
+            controller.modalPresentationStyle = .OverCurrentContext
+            UINavigationController.main.presentViewController(controller, animated: false, completion: nil)
+            CommentViewController.current = controller
+        } else if sender.state == .Ended || sender.state == .Cancelled {
+            if let comment = comment?() where CommentViewController.current?.actionWith(sender) == .Delete {
+                Dispatch.mainQueue.after(0.2) { () in
+                    UIAlertController.confirmCommentDeleting({  _ in
+                        comment.delete ({ (_) -> Void in
+                            }, failure: { (error) in
+                                error?.show()
+                            })
+                        }, failure: nil)
+                }
+            }
+            UINavigationController.main.dismissViewControllerAnimated(false, completion: nil)
+        }
+    }
+}
+
 final class CommentViewController: UIViewController {
+    
+    static weak var current: CommentViewController?
     
     private let name = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
     private let date = Label(preset: .Smaller, weight: .Regular, textColor: Color.grayLighter)
@@ -118,9 +154,6 @@ final class CommentViewController: UIViewController {
     static func createPlayerView(muted: Bool = true) -> VideoPlayer {
         let playerView = VideoPlayer()
         (playerView.layer as? AVPlayerLayer)?.videoGravity = AVLayerVideoGravityResizeAspectFill
-        playerView.didPlayToEnd = { [weak playerView] _ in
-            playerView?.playing = true
-        }
         playerView.player.muted = muted
         return playerView
     }

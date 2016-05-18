@@ -12,19 +12,21 @@ import AVKit
 
 final class VideoPlayer: UIView {
     
-    var didPlayToEnd: (() -> ())?
-    var didPlay: (() -> ())?
-    var didPause: (() -> ())?
-    var didSeekToTime: (() -> ())?
-    var didChangeStatus: (AVPlayerStatus -> ())?
-    var playbackLikelyToKeepUp: (Bool -> ())?
+    lazy var volumeButton: Button = specify(Button.expandableCandyAction("m")) {
+        $0.setTitle("l", forState: .Selected)
+        $0.addTarget(self, touchUpInside: #selector(self.volume(_:)))
+        $0.backgroundColor = UIColor(white: 0, alpha: 0.8)
+    }
+    
+    lazy var spinner: UIActivityIndicatorView = specify(UIActivityIndicatorView(activityIndicatorStyle: .White)) {
+        self.add($0) { $0.center.equalTo(self) }
+    }
     
     override class func layerClass() -> AnyClass  {
         return AVPlayerLayer.self
     }
     
     deinit {
-        player.removeObserver(self, forKeyPath: "status")
         _item?.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
         NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
     }
@@ -32,36 +34,29 @@ final class VideoPlayer: UIView {
     var playing: Bool = false {
         didSet {
             guard playing != oldValue else { return }
-            didChangePlaying(playing)
+            if playing {
+                play()
+            } else {
+                player.pause()
+            }
         }
     }
     
-    internal func didChangePlaying(playing: Bool) {
-        if playing {
-            if let item = item where CMTimeCompare(item.currentTime(), item.duration) == 0 {
-                item.seekToTime(kCMTimeZero)
-            }
-            player.play()
-            didPlay?()
-        } else {
-            player.pause()
-            didPause?()
+    private func play() {
+        if let item = item where CMTimeCompare(item.currentTime(), item.duration) == 0 {
+            item.seekToTime(kCMTimeZero)
         }
+        player.play()
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         guard let item = item else { return }
-        if keyPath == "status" {
-            didChangeStatus?(player.status)
-            didChangeStatus(player.status)
-        } else if keyPath == "playbackLikelyToKeepUp" {
-            playbackLikelyToKeepUp?(item.playbackLikelyToKeepUp)
-            didChangePlaybackLikelyToKeepUp(item.playbackLikelyToKeepUp)
+        if item.playbackLikelyToKeepUp {
+            spinner.stopAnimating()
+        } else {
+            spinner.startAnimating()
         }
     }
-    
-    internal func didChangePlaybackLikelyToKeepUp(playbackLikelyToKeepUp: Bool) {}
-    internal func didChangeStatus(status: AVPlayerStatus) {}
     
     private var _item: AVPlayerItem? {
         didSet {
@@ -70,8 +65,6 @@ final class VideoPlayer: UIView {
             player.replaceCurrentItemWithPlayerItem(_item)
         }
     }
-    
-    internal func didSetItem(item: AVPlayerItem?) {}
     
     var item: AVPlayerItem? {
         if _item == nil, let url = url {
@@ -84,7 +77,6 @@ final class VideoPlayer: UIView {
     }
     
     lazy var player: AVPlayer = specify(AVPlayer()) { player in
-        player.addObserver(self, forKeyPath: "status", options: .New, context: nil)
         (self.layer as? AVPlayerLayer)?.player = player
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.playerItemDidPlayToEndTime(_:)), name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
     }
@@ -96,17 +88,27 @@ final class VideoPlayer: UIView {
                 if _item != nil {
                     _item = nil
                 }
-                didSetURL(url)
             }
         }
     }
     
-    internal func didSetURL(url: NSURL?) {}
-    
     func playerItemDidPlayToEndTime(notification: NSNotification) {
         if _item == notification.object as? AVPlayerItem {
-            playing = false
-            didPlayToEnd?()
+            play()
         }
+    }
+    
+    var muted: Bool {
+        set {
+            player.muted = newValue
+            volumeButton.selected = newValue
+        }
+        get {
+            return player.muted
+        }
+    }
+    
+    @objc private func volume(sender: UIButton) {
+        muted = !muted
     }
 }

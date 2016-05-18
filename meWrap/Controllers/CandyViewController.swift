@@ -169,16 +169,6 @@ final class VideoCandyViewController: CandyViewController {
         super.loadView()
         playerView.player.muted = true
         imageView.contentMode = .ScaleAspectFit
-        playerView.playbackLikelyToKeepUp = { [weak self] keepUp in
-            if keepUp {
-                self?.spinner.stopAnimating()
-            } else {
-                self?.spinner.startAnimating()
-            }
-        }
-        playerView.didPlayToEnd = { [weak self] _ in
-            self?.playerView.playing = true
-        }
         view.insertSubview(imageView, belowSubview: spinner)
         view.insertSubview(playerView, belowSubview: spinner)
         imageView.snp_makeConstraints { $0.edges.equalTo(view) }

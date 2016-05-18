@@ -29,6 +29,8 @@ class ExpandableView: UIView {
         var constraint: Constraint?
         block(expandingConstraint: &constraint)
         expandingConstraint = constraint
-        constraint?.deactivate()
+        if expanded == false {
+            constraint?.deactivate()
+        }
     }
 }

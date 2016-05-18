@@ -173,16 +173,9 @@ final class UploadMediaCommentViewController: UIViewController {
             videoPlayer.url = asset.original?.fileURL
             videoPlayer.playing = true
             videoPlayer.player.muted = false
-            videoPlayer.didPlayToEnd = { [weak self] _ in
-                self?.videoPlayer?.playing = true
-            }
             self.videoPlayer = videoPlayer
             (videoPlayer.layer as? AVPlayerLayer)?.videoGravity = AVLayerVideoGravityResizeAspectFill
-            let volumeButton = Button.expandableCandyAction("m")
-            volumeButton.setTitle("l", forState: .Selected)
-            volumeButton.addTarget(self, touchUpInside: #selector(self.volume(_:)))
-            volumeButton.backgroundColor = UIColor(white: 0, alpha: 0.8)
-            view.add(volumeButton) { (make) in
+            view.add(videoPlayer.volumeButton) { (make) in
                 make.leading.equalTo(view).inset(12)
                 make.centerY.equalTo(uploadButton)
                 make.size.equalTo(44)
@@ -200,11 +193,6 @@ final class UploadMediaCommentViewController: UIViewController {
     
     @objc private func retake() {
         self.navigationController?.popViewControllerAnimated(false)
-    }
-    
-    @objc private func volume(sender: UIButton) {
-        sender.selected = !sender.selected
-        videoPlayer?.player.muted = sender.selected
     }
 }
 

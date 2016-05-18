@@ -16,7 +16,7 @@ class TransparentButton: Button {
     }
 }
 
-final class CommentView: ExpandableView {
+final class CommentView: UIView {
     
     private let avatar = UserAvatarView(cornerRadius: 24)
     private let name = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
@@ -24,53 +24,147 @@ final class CommentView: ExpandableView {
     private let text = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
     private let indicator = EntryStatusIndicator(color: Color.orange)
     
+    private let imageView = ImageView(backgroundColor: UIColor.clearColor())
+    
+    weak var videoPlayer: VideoPlayer?
+    
     func layout() {
         text.numberOfLines = 2
         avatar.borderColor = UIColor.whiteColor()
         avatar.borderWidth = 1
         avatar.defaultIconSize = 24
-        add(avatar) { (make) -> Void in
-            make.leading.top.equalTo(self).offset(20)
-            make.size.equalTo(48)
+        imageView.cornerRadius = 45
+        imageView.borderColor = UIColor.whiteColor()
+        imageView.borderWidth = 1
+        imageView.clipsToBounds = true
+        addSubview(name)
+        addSubview(date)
+        add(indicator) { (make) -> Void in
+            make.leading.equalTo(date.snp_trailing).offset(10)
+            make.centerY.equalTo(date)
         }
-        add(text) { (make) -> Void in
-            make.leading.equalTo(avatar.snp_trailing).offset(18)
-            make.top.equalTo(avatar)
-            make.trailing.lessThanOrEqualTo(self).inset(18)
+        snp_makeConstraints { (make) in
+            make.height.equalTo(130)
         }
-        add(name) { (make) -> Void in
-            make.leading.equalTo(avatar.snp_trailing).offset(18)
-            make.top.equalTo(avatar.snp_bottom).offset(5)
-            make.trailing.lessThanOrEqualTo(self).inset(18)
+    }
+    
+    private weak var longPressGesture: CommentLongPressGesture?
+    
+    private func layoutFor(commentType: CommentType) {
+        
+        if let longPressGesture = longPressGesture {
+            removeGestureRecognizer(longPressGesture)
         }
         
-        makeExpandable { (expandingConstraint) in
-            add(date) { (make) -> Void in
+        if commentType == .Text {
+            add(avatar) { (make) -> Void in
+                make.leading.top.equalTo(self).offset(20)
+                make.size.equalTo(48)
+            }
+            add(text) { (make) -> Void in
+                make.leading.equalTo(avatar.snp_trailing).offset(18)
+                make.top.equalTo(avatar)
+                make.trailing.lessThanOrEqualTo(self).inset(18)
+            }
+            name.snp_remakeConstraints { (make) -> Void in
+                make.leading.equalTo(avatar.snp_trailing).offset(18)
+                make.top.equalTo(avatar.snp_bottom).offset(5)
+                make.trailing.lessThanOrEqualTo(self).inset(18)
+            }
+            
+            date.snp_remakeConstraints { (make) -> Void in
                 make.leading.equalTo(avatar.snp_trailing).offset(18)
                 make.top.equalTo(name.snp_bottom).offset(4)
-                expandingConstraint = make.bottom.equalTo(self).inset(20).constraint
+            }
+            
+        } else {
+            add(imageView) { (make) -> Void in
+                make.leading.top.equalTo(self).inset(20)
+                make.size.equalTo(90)
+            }
+            name.snp_remakeConstraints { (make) -> Void in
+                make.leading.equalTo(imageView.snp_trailing).offset(18)
+                make.bottom.equalTo(imageView.snp_centerY).offset(-2)
+                make.trailing.lessThanOrEqualTo(self).inset(18)
+            }
+            
+            date.snp_remakeConstraints { (make) -> Void in
+                make.leading.equalTo(imageView.snp_trailing).offset(18)
+                make.top.equalTo(imageView.snp_centerY).offset(2)
+            }
+            let longPressGesture = CommentLongPressGesture.gesture({ [weak self] _ in
+                return self?.comment
+            })
+            addGestureRecognizer(longPressGesture)
+            self.longPressGesture = longPressGesture
+        }
+    }
+    
+    private var uploadingView: UploadingView? {
+        didSet {
+            if oldValue?.superview == imageView {
+                oldValue?.removeFromSuperview()
+            }
+            if let uploadingView = uploadingView {
+                imageView.layoutIfNeeded()
+                uploadingView.frame = imageView.bounds
+                imageView.addSubview(uploadingView)
+                uploadingView.update()
             }
         }
-        
-        add(indicator) { (make) -> Void in
-            make.leading.equalTo(date.snp_trailing).offset(12)
-            make.centerY.equalTo(date)
+    }
+    
+    private func addVideoPlayer(comment: Comment) {
+        let playerView = CommentViewController.createPlayerView()
+        imageView.insertSubview(playerView, atIndex: 0)
+        playerView.snp_makeConstraints { (make) in
+            make.edges.equalTo(imageView)
+        }
+        playerView.url = comment.asset?.videoURL()
+        self.videoPlayer = playerView
+        playerView.muted = true
+        playerView.playing = true
+        playerView.volumeButton.cornerRadius = 16
+        playerView.volumeButton.titleLabel?.font = UIFont.icons(15)
+        add(playerView.volumeButton) { (make) in
+            make.trailing.bottom.equalTo(imageView)
+            make.size.equalTo(32)
         }
     }
     
     var comment: Comment? {
         willSet {
             if newValue != comment {
+                videoPlayer?.volumeButton.removeFromSuperview()
+                videoPlayer?.removeFromSuperview()
+                avatar.removeFromSuperview()
+                text.removeFromSuperview()
+                imageView.removeFromSuperview()
                 if let comment = newValue {
                     comment.markAsUnread(false)
                     name.text = comment.contributor?.name
                     avatar.user = comment.contributor
                     date.text = comment.createdAt.timeAgoString()
                     indicator.updateStatusIndicator(comment)
-                    text.text = comment.text
-                    expanded = true
+                    videoPlayer?.removeFromSuperview()
+                    let commentType = comment.commentType()
+                    layoutFor(commentType)
+                    if commentType == .Text {
+                        text.text = comment.text
+                    } else {
+                        imageView.url = comment.asset?.small
+                        if commentType == .Video {
+                            addVideoPlayer(comment)
+                        }
+                        uploadingView = comment.uploadingView
+                    }
+                    snp_updateConstraints(closure: { (make) in
+                        make.height.equalTo(130)
+                    })
                 } else {
-                    expanded = false
+                    snp_updateConstraints(closure: { (make) in
+                        make.height.equalTo(0)
+                    })
                 }
                 layoutIfNeeded()
             }
@@ -351,7 +445,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             make.trailing.top.equalTo(commentButton).inset(-2)
             make.size.equalTo(20)
         }
-       
+        
         view.add(volumeButton) {
             $0.size.equalTo(44)
             $0.leading.equalTo(view).inset(20)
@@ -478,7 +572,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
                         self?.updateUserStatus(wrap)
                     }
                 }
-            })
+                })
         }
         
         if let candy = candy {

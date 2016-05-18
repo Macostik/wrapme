@@ -390,7 +390,13 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             self?.toggleTopView()
         }
         swipeDownGesture = view.swiped(.Down) { [weak self] _ in
-            self?.setTopViewExpanded(true)
+            if let controller = self {
+                if controller.topView.y != 0 {
+                    controller.setBarsHidden(false, animated: true)
+                } else {
+                    controller.setTopViewExpanded(true)
+                }
+            }
         }
         swipeUpGesture = view.swiped(.Up) { [weak self] _ in
             self?.setTopViewExpanded(false)
@@ -431,11 +437,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         if topView.expanded {
             setTopViewExpanded(false)
         } else {
-            if candy?.isVideo == true {
-                toggleVolume()
-            } else {
-                setBarsHidden(topView.y == 0, animated: true)
-            }
+            setBarsHidden(topView.y == 0, animated: true)
         }
     }
     
@@ -634,9 +636,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         fetchCandiesOlderThen(candy)
         if let videoViewConroller = viewController as? VideoCandyViewController {
             volumeButton.selected = !videoViewConroller.playerView.player.muted
-            if topView.y != 0 {
-                setBarsHidden(false, animated: true)
-            }
         }
         setActionsExpanded(false, animated: false)
         setTopViewExpanded(false)
@@ -706,17 +705,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     func notifier(notifier: EntryNotifier, shouldNotifyOnContainer container: Entry) -> Bool {
         return wrap == container
-    }
-    
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        coordinator.animateAlongsideTransition({ _ in
-            if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
-                self.commentView.transform = CGAffineTransformMakeTranslation(0, self.view.height/2)
-            } else {
-                self.commentView.transform = CGAffineTransformIdentity
-            }
-            }, completion: { _ in })
     }
     
     override func back(sender: UIButton) {

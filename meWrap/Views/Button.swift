@@ -34,6 +34,14 @@ class Button : UIButton {
         setTitleColor(textColor, forState: .Normal)
     }
     
+    convenience init(preset: Font, weight: Font.Weight = .Light, textColor: UIColor = Color.grayDarker) {
+        self.init()
+        titleLabel?.font = UIFont.fontWithPreset(preset, weight: weight)
+        self.preset = preset.rawValue
+        setTitleColor(textColor, forState: .Normal)
+        FontPresetter.defaultPresetter.addReceiver(self)
+    }
+    
     static let minTouchSize: CGFloat = 44.0
     
     var animated: Bool = false

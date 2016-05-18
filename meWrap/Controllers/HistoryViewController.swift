@@ -328,11 +328,10 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         let view = self.view.add(contentView) {
             $0.edges.equalTo(self.view)
         }
-        let scrollView = view.add(UIScrollView(frame: preferredViewFrame)) {
+        let scrollView = view.add(self.scrollView) {
             $0.edges.equalTo(view)
         }
         scrollView.backgroundColor = UIColor.blackColor()
-        self.scrollView = scrollView
         
         view.add(commentView) {
             $0.leading.trailing.equalTo(view)

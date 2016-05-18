@@ -57,7 +57,7 @@ extension UIViewController {
         navigationController?.popViewControllerAnimated(false)
     }
     
-    func backButton(color: UIColor) -> UIButton {
+    func backButton(color: UIColor) -> Button {
         let backButton = Button(icon: "w", size: 24, textColor: color)
         backButton.setTitleColor(color.darkerColor(), forState: .Highlighted)
         backButton.addTarget(self, action: #selector(self.back(_:)), forControlEvents: .TouchUpInside)

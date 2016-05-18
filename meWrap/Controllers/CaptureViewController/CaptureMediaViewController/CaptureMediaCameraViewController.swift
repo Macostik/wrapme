@@ -134,6 +134,7 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
         recognizer.allowableMovement = takePhotoButton.width
         recognizer.delegate = self
         takePhotoButton.addGestureRecognizer(recognizer)
+        wrapView?.selectButton.addTarget(self, touchUpInside: #selector(self.selectWrap(_:)))
     }
     
     override func viewDidAppear(animated: Bool) {

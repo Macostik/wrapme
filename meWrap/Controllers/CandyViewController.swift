@@ -161,7 +161,7 @@ final class PhotoCandyViewController: CandyViewController, DeviceManagerNotifyin
     }
 }
 
-final class VideoCandyViewController: CandyViewController, VideoPlayerViewDelegate {
+final class VideoCandyViewController: CandyViewController {
     
     let playerView = VideoPlayer()
     

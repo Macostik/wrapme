@@ -13,9 +13,9 @@ protocol UploadSummaryViewControllerDelegate: class {
     func uploadSummaryViewController(controller: UploadSummaryViewController, didDeselectAsset asset: MutableAsset)
 }
 
-class UploadSummaryViewController: SwipeViewController<EditAssetViewController>, CaptureWrapContainer, VideoPlayerViewDelegate, ComposeBarDelegate {
+class UploadSummaryViewController: SwipeViewController<EditAssetViewController>, CaptureWrapContainer, ComposeBarDelegate {
     
-    @IBOutlet weak var streamView: StreamView!
+    private let streamView = StreamView()
     
     lazy var dataSource: StreamDataSource<[MutableAsset]> = StreamDataSource(streamView: self.streamView)
     
@@ -29,13 +29,13 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
     
     var assets: [MutableAsset] = []
     
-    @IBOutlet weak var composeBar: ComposeBar!
-    @IBOutlet weak var bottomView: UIView!
-    @IBOutlet weak var deleteButton: UIButton!
-    @IBOutlet weak var editButton: UIButton!
-    @IBOutlet weak var uploadButton: UIButton!
-    @IBOutlet weak var drawButton: UIButton!
-    @IBOutlet weak var videoPlayerView: VideoPlayerView!
+    private let composeBar = ComposeBar()
+    private let deleteButton = Button.expandableCandyAction("n")
+    private let editButton = Button.candyAction("R", color: Color.blue, size: 24)
+    private let uploadButton = Button(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
+    private let drawButton = Button.candyAction("8", color: Color.purple, size: 24)
+    private let videoPlayer = VideoPlayer()
+    private let volumeButton = Button.expandableCandyAction("m")
     
     weak var delegate: UploadSummaryViewControllerDelegate?
     
@@ -71,19 +71,128 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
         return .Slide
     }
     
-    @IBOutlet weak var blurredImageView: ImageView!
+    private let blurredImageView = ImageView()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-        blurredImageView.add(blurView) { $0.edges.equalTo(blurredImageView) }
+    override func loadView() {
+        let view = UIView(frame: self.preferredViewFrame)
+        self.view = view
+        view.backgroundColor = UIColor.blackColor()
+        view.add(streamView) { (make) in
+            make.leading.trailing.bottom.equalTo(view)
+            make.height.equalTo(110)
+        }
+        
+        view.add(blurredImageView) { (make) in
+            make.leading.trailing.top.equalTo(view)
+            make.bottom.equalTo(streamView.snp_top)
+        }
+        
+        view.add(scrollView) { (make) in
+            make.leading.trailing.top.equalTo(view)
+            make.bottom.equalTo(streamView.snp_top)
+        }
+        
+        let topView = GradientView(startColor: UIColor(white: 0, alpha: 0.8), contentMode: .Top)
+        view.add(topView) { (make) in
+            make.leading.trailing.top.equalTo(view)
+            make.height.equalTo(64)
+        }
+        
+        let backButton = self.backButton(UIColor.whiteColor())
+        topView.add(backButton) { (make) in
+            make.leading.equalTo(topView).inset(8)
+            make.centerY.equalTo(topView)
+        }
+        
+        let wrapView = WrapView()
+        wrapView.selectButton.addTarget(self, touchUpInside: #selector(self.selectWrap(_:)))
+        self.wrapView = topView.add(wrapView) { (make) in
+            make.leading.equalTo(backButton.snp_trailing).offset(12)
+            make.trailing.lessThanOrEqualTo(topView).inset(8)
+            make.top.bottom.equalTo(topView)
+        }
+        
+        uploadButton.cornerRadius = 13
+        uploadButton.backgroundColor = Color.orange
+        uploadButton.normalColor = Color.orange
+        uploadButton.highlightedColor = Color.orangeDark
+        uploadButton.clipsToBounds = true
+        uploadButton.setTitle("send".ls, forState: .Normal)
+        uploadButton.addTarget(self, touchUpInside: #selector(self.upload(_:)))
+        topView.add(uploadButton) { (make) in
+            make.centerY.equalTo(topView)
+            make.size.equalTo(CGSize(width: 54, height: 26))
+            make.trailing.equalTo(topView).inset(8)
+        }
+        
+        composeBar.delegate = self
         composeBar.textView.placeholder = "add_comment".ls
         composeBar.emojiButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         composeBar.doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         composeBar.doneButton.setTitle("E", forState: .Normal)
+        composeBar.backgroundColor = UIColor(white: 0, alpha: 0.8)
+        view.add(composeBar) { (make) in
+            make.leading.trailing.equalTo(view)
+            make.bottom.equalTo(streamView.snp_top)
+        }
+        
+        view.add(GradientView(startColor: UIColor(white: 0, alpha: 0.8))) { (make) in
+            make.leading.trailing.equalTo(view)
+            make.bottom.equalTo(composeBar.snp_top)
+            make.height.equalTo(44)
+        }
+        
+        deleteButton.backgroundColor = UIColor(white: 0, alpha: 0.8)
+        deleteButton.addTarget(self, touchUpInside: #selector(self.deleteAsset(_:)))
+        view.add(deleteButton) { (make) in
+            make.size.equalTo(44)
+            make.leading.equalTo(view).inset(10)
+            make.bottom.equalTo(composeBar.snp_top).offset(-10)
+        }
+        
+        editButton.addTarget(self, touchUpInside: #selector(self.edit(_:)))
+        view.add(editButton) { (make) in
+            make.size.equalTo(44)
+            make.trailing.equalTo(view).inset(10)
+            make.bottom.equalTo(composeBar.snp_top).inset(-10)
+        }
+        
+        drawButton.addTarget(self, touchUpInside: #selector(self.draw(_:)))
+        view.add(drawButton) { (make) in
+            make.size.equalTo(44)
+            make.trailing.equalTo(editButton.snp_leading).offset(-10)
+            make.bottom.equalTo(composeBar.snp_top).inset(-10)
+        }
+        
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+        blurredImageView.add(blurView) { $0.edges.equalTo(blurredImageView) }
+        view.insertSubview(videoPlayer, aboveSubview: scrollView)
+        videoPlayer.snp_makeConstraints { (make) in
+            make.leading.trailing.top.equalTo(view)
+            make.bottom.equalTo(streamView.snp_top)
+        }
+        videoPlayer.didPlayToEnd = { [weak self] _ in
+            self?.videoPlayer.playing = true
+        }
+        volumeButton.setTitle("l", forState: .Selected)
+        volumeButton.addTarget(self, touchUpInside: #selector(self.volume(_:)))
+        volumeButton.backgroundColor = UIColor(white: 0, alpha: 0.8)
+        view.add(volumeButton) { (make) in
+            make.trailing.equalTo(view).inset(10)
+            make.bottom.equalTo(composeBar.snp_top).inset(10)
+            make.size.equalTo(44)
+        }
+        videoPlayer.player.muted = true
+        volumeButton.selected = true
+        
+        keyboardBottomGuideView = streamView
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         streamView.layout = HorizontalStreamLayout()
-        view.addGestureRecognizer(self.scrollView!.panGestureRecognizer)
-        self.videoPlayerView.delegate = self
+        view.addGestureRecognizer(self.scrollView.panGestureRecognizer)
         let metrics = dataSource.addMetrics(StreamMetrics<EditAssetCell>(size: 92))
         metrics.selection = { [weak self] view in
             self?.setViewController(self?.editAssetViewControllerForAsset(view.entry), direction: .Forward, animated: false)
@@ -108,15 +217,17 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
     
     private func updateAssetData(asset: MutableAsset) {
         blurredImageView.url = asset.small
-        drawButton.hidden = asset.type == .Video
+        let isVideo = asset.type == .Video
+        drawButton.hidden = isVideo
         editButton.hidden = drawButton.hidden
         composeBar.text = asset.comment
-        if asset.type == .Video {
-            videoPlayerView.url = asset.original?.fileURL
-            videoPlayerView.hidden = false
+        volumeButton.hidden = !isVideo
+        videoPlayer.hidden = !isVideo
+        if isVideo {
+            videoPlayer.url = asset.original?.fileURL
+            videoPlayer.playing = true
         } else {
-            videoPlayerView.url = nil
-            videoPlayerView.hidden = true
+            videoPlayer.url = nil
         }
         assets.all({ $0.selected = $0 == asset })
         dataSource.reload()
@@ -128,8 +239,8 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
         return specify(EditAssetViewController(), { $0.asset = asset })
     }
     
-    override func keyboardAdjustmentConstant(adjustment: KeyboardAdjustment, keyboard: Keyboard) -> CGFloat {
-        return (keyboard.height - bottomView.height)
+    override func keyboardBottomGuideViewAdjustment(keyboard: Keyboard) -> CGFloat {
+        return (keyboard.height - streamView.height)
     }
     
     override func viewControllerNextTo(viewController: EditAssetViewController?, direction: SwipeDirection) -> EditAssetViewController? {
@@ -182,7 +293,7 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
         viewController?.imageView.image = image
     }
     
-    @IBAction func deletePicture(sender: AnyObject?) {
+    @IBAction func deleteAsset(sender: AnyObject?) {
         guard let asset = asset, let index = assets.indexOf(asset) else { return }
         assets.removeAtIndex(index)
         delegate?.uploadSummaryViewController(self, didDeselectAsset:asset)
@@ -213,12 +324,9 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
         presentViewController(drawingViewController, animated: false, completion: nil)
     }
     
-    func videoPlayerViewDidPlay(view: VideoPlayerView) {
-        scrollView!.panGestureRecognizer.enabled = false
-    }
-    
-    func videoPlayerViewDidPause(view: VideoPlayerView) {
-        scrollView!.panGestureRecognizer.enabled = true
+    @objc private func volume(sender: UIButton) {
+        sender.selected = !sender.selected
+        videoPlayer.player.muted = sender.selected
     }
     
     func composeBar(composeBar: ComposeBar, didFinishWithText text: String) {
@@ -241,12 +349,12 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
     }
     
     func composeBarDidBeginEditing(composeBar: ComposeBar) {
-        scrollView?.userInteractionEnabled = false
+        scrollView.scrollEnabled = false
     }
     
     func composeBarDidEndEditing(composeBar: ComposeBar) {
         asset?.comment = composeBar.text?.trim
-        scrollView?.userInteractionEnabled = true
+        scrollView.scrollEnabled = true
     }
 }
 

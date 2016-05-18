@@ -114,7 +114,7 @@
 		C5218E7A1AE55936007E55D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50647681ABD889100CB4BE3 /* CoreData.framework */; };
 		C5218E7D1AE5594E007E55D0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E671AE554B7007E55D0 /* OpenGLES.framework */; };
 		C5218E7E1AE55965007E55D0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E621AE5547D007E55D0 /* Accelerate.framework */; };
-		C521E18C1BC7AE1B00505432 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C521E18B1BC7AE1B00505432 /* VideoPlayerView.swift */; };
+		C521E18C1BC7AE1B00505432 /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C521E18B1BC7AE1B00505432 /* VideoPlayer.swift */; };
 		C522779C1C996985004AEE65 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C522779B1C996985004AEE65 /* CommentsViewController.swift */; };
 		C522795E1BECCA6B00B1C49C /* Dictionary+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C522795D1BECCA6B00B1C49C /* Dictionary+Ext.swift */; };
 		C52279621BECCA8600B1C49C /* NSDate+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52279611BECCA8600B1C49C /* NSDate+Ext.swift */; };
@@ -250,7 +250,7 @@
 		C5861A671BFA07E300C64663 /* libmbl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5861A661BFA07E300C64663 /* libmbl.a */; };
 		C5861A6C1BFA3C9400C64663 /* LiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5861A6B1BFA3C9400C64663 /* LiveViewController.swift */; };
 		C58DFDD61CB6C3E7001DF2E5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5BEC4171B8F1E9800499EEA /* LaunchScreen.xib */; };
-		C59CEBD31BFB20B500C3E686 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59CEBD21BFB20B500C3E686 /* EntryView.swift */; };
+		C59CEBD31BFB20B500C3E686 /* WrapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59CEBD21BFB20B500C3E686 /* WrapView.swift */; };
 		C5A406FE1C200A71007D1D0E /* CandyEnlargingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A406FD1C200A71007D1D0E /* CandyEnlargingPresenter.swift */; };
 		C5A407001C202198007D1D0E /* StoryboardTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A406FF1C202198007D1D0E /* StoryboardTransition.swift */; };
 		C5A604241C7F64A200B41A99 /* CandyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A604231C7F64A200B41A99 /* CandyViewController.swift */; };
@@ -570,7 +570,7 @@
 		C51E34EB1BD8ECC300C6F678 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		C5218E621AE5547D007E55D0 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C5218E671AE554B7007E55D0 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		C521E18B1BC7AE1B00505432 /* VideoPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		C521E18B1BC7AE1B00505432 /* VideoPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 		C522779B1C996985004AEE65 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		C522795D1BECCA6B00B1C49C /* Dictionary+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Ext.swift"; sourceTree = "<group>"; };
 		C52279611BECCA8600B1C49C /* NSDate+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Ext.swift"; sourceTree = "<group>"; };
@@ -679,7 +679,7 @@
 		C5861A651BFA07E300C64663 /* VideoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoConfig.h; sourceTree = "<group>"; };
 		C5861A661BFA07E300C64663 /* libmbl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmbl.a; sourceTree = "<group>"; };
 		C5861A6B1BFA3C9400C64663 /* LiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveViewController.swift; sourceTree = "<group>"; };
-		C59CEBD21BFB20B500C3E686 /* EntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
+		C59CEBD21BFB20B500C3E686 /* WrapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapView.swift; sourceTree = "<group>"; };
 		C5A278C51B9598DF00D5C969 /* meWrap-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "meWrap-Info.plist"; sourceTree = "<group>"; };
 		C5A278C71B9598DF00D5C969 /* meWrapToday-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "meWrapToday-Info.plist"; sourceTree = "<group>"; };
 		C5A278C91B9598DF00D5C969 /* meWrapWatchApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "meWrapWatchApp-Info.plist"; sourceTree = "<group>"; };
@@ -1045,11 +1045,11 @@
 				5B37C75D1C5A06E30068E693 /* Button.swift */,
 				5BD529481BDA796000527077 /* SmartLabel.swift */,
 				C51E34E91BD8EB4100C6F678 /* SeparatorView.swift */,
-				C521E18B1BC7AE1B00505432 /* VideoPlayerView.swift */,
+				C521E18B1BC7AE1B00505432 /* VideoPlayer.swift */,
 				C51E34EB1BD8ECC300C6F678 /* GradientView.swift */,
 				C530127A1BF49AD600098F9C /* Refresher.swift */,
 				C5E4FD0C1BF7AF7100575DA4 /* ShapeView.swift */,
-				C59CEBD21BFB20B500C3E686 /* EntryView.swift */,
+				C59CEBD21BFB20B500C3E686 /* WrapView.swift */,
 				C5EA6D9A1BFCC8270029970A /* FlowerMenu.swift */,
 				C55766A31C0C913D00E94E09 /* ImageView.swift */,
 				C55766A41C0C913D00E94E09 /* EntryStatusIndicator.swift */,
@@ -2188,7 +2188,7 @@
 				C55BE8C31C03062C006B04FC /* NSObject+Ext.swift in Sources */,
 				C502B3241C47F30400F66EAE /* APIRequest.swift in Sources */,
 				C558710E1C48F63500F09E58 /* NotificationSubscription.swift in Sources */,
-				C521E18C1BC7AE1B00505432 /* VideoPlayerView.swift in Sources */,
+				C521E18C1BC7AE1B00505432 /* VideoPlayer.swift in Sources */,
 				C502B3131C47F2EC00F66EAE /* CandyNotification.swift in Sources */,
 				C540C0F31B988BFD00F880C9 /* StreamItem.swift in Sources */,
 				C5E6DD891C0DC84A004992E4 /* Asset.swift in Sources */,
@@ -2232,7 +2232,7 @@
 				C54743421C09CD8A00BECB25 /* ImageCache.swift in Sources */,
 				C5E6F02E1BFF710900FA3D4F /* FontPresetter.swift in Sources */,
 				C557B6DE1C22F5980067631E /* Logger.swift in Sources */,
-				C59CEBD31BFB20B500C3E686 /* EntryView.swift in Sources */,
+				C59CEBD31BFB20B500C3E686 /* WrapView.swift in Sources */,
 				C502B32B1C47F30400F66EAE /* PaginatedRequest.swift in Sources */,
 				C535D69B1C045B56002BCE34 /* WrapCoverView.swift in Sources */,
 				C5EAE4CB1C18335900DA19C9 /* Chat.swift in Sources */,

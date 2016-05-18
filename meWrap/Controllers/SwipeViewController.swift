@@ -23,7 +23,7 @@ class SwipeViewController<T: UIViewController>: BaseViewController, UIScrollView
     }
     
     deinit {
-        scrollView?.delegate = nil
+        scrollView.delegate = nil
     }
     
     private weak var _viewController: T?
@@ -55,7 +55,7 @@ class SwipeViewController<T: UIViewController>: BaseViewController, UIScrollView
         }
     }
     
-    @IBOutlet weak var scrollView: UIScrollView!
+    internal let scrollView = UIScrollView()
     
     private var scrollWidth: CGFloat {
         return scrollView.width

@@ -131,13 +131,12 @@ class WrapListViewController: BaseViewController {
             let completionBlock: Block = { [weak self] _ in
                 queue.didFinish = nil
                 if let weakSelf = self {
-                    Storyboard.UploadSummary.instantiate({
-                        $0.assets = assets
-                        $0.delegate = weakSelf
-                        $0.wrap = wrap
-                        $0.changeWrap = { _ in self?.navigationController?.popViewControllerAnimated(false) }
-                        self?.navigationController?.pushViewController($0, animated: false)
-                    })
+                    let controller = UploadSummaryViewController()
+                    controller.assets = assets
+                    controller.delegate = weakSelf
+                    controller.wrap = wrap
+                    controller.changeWrap = { _ in self?.navigationController?.popViewControllerAnimated(false) }
+                    self?.navigationController?.pushViewController(controller, animated: false)
                 }
             }
             if queue.isExecuting {

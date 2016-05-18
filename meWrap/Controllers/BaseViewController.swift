@@ -124,6 +124,10 @@ class BaseViewController: GAITrackedViewController, KeyboardNotifying {
         }
     }
     
+    func keyboardBottomGuideViewAdjustment(keyboard: Keyboard) -> CGFloat {
+        return keyboard.height
+    }
+    
     private func adjust(keyboard: Keyboard, willHide: Bool = false) {
         keyboardAdjustments.all({
             $0.constraint.constant = willHide ? $0.defaultConstant : keyboardAdjustmentConstant($0, keyboard:keyboard)
@@ -139,7 +143,7 @@ class BaseViewController: GAITrackedViewController, KeyboardNotifying {
         if let keyboardBottomGuideView = keyboardBottomGuideView {
             keyboard.performAnimation({ () in
                 keyboardBottomGuideView.snp_updateConstraints(closure: { (make) in
-                    make.bottom.equalTo(view).inset(keyboard.height)
+                    make.bottom.equalTo(view).inset(keyboardBottomGuideViewAdjustment(keyboard))
                 })
                 view.layoutIfNeeded()
             })

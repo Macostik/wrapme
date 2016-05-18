@@ -164,14 +164,13 @@ class CaptureMediaViewController: CaptureViewController {
         
         let completionBlock: Block = { [weak self] _ in
             queue.didFinish = nil
-            Storyboard.UploadSummary.instantiate({ (controller) -> Void in
-                controller.assets = self?.assets.sort({ $0.date < $1.date }) ?? []
-                controller.delegate = self
-                controller.changeWrap = { self?.showWrapPicker() }
-                controller.wrap = self?.wrap
-                self?.pushViewController(controller, animated: false)
-                completionHandler?()
-            })
+            let controller = UploadSummaryViewController()
+            controller.assets = self?.assets.sort({ $0.date < $1.date }) ?? []
+            controller.delegate = self
+            controller.changeWrap = { self?.showWrapPicker() }
+            controller.wrap = self?.wrap
+            self?.pushViewController(controller, animated: false)
+            completionHandler?()
         }
         
         if queue.isExecuting {

@@ -35,3 +35,7 @@
 "APNS_MSG09" = "meWrap發放了重要更新。立即到App Store下載吧！";
 "APNS_TT10" = "好友已接受邀請";
 "APNS_MSG10" = "%@已接受你的邀請，加入了meWrap成為新用戶。";
+"APNS_TT11" = "New Photo Comment";
+"APNS_MSG11" = "%@ just sent you a photo comment.";
+"APNS_TT12" = "New Video Comment";
+"APNS_MSG12" = "%@ just sent you a video comment.";

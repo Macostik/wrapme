@@ -35,3 +35,7 @@
 "APNS_MSG09" = "meWrap critical update available. Please update from App Store immediately.";
 "APNS_TT10" = "Invite Accepted";
 "APNS_MSG10" = "%@ is now on meWrap.";
+"APNS_TT11" = "New Photo Comment";
+"APNS_MSG11" = "%@ just sent you a photo comment.";
+"APNS_TT12" = "New Video Comment";
+"APNS_MSG12" = "%@ just sent you a video comment.";

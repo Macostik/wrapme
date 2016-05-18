@@ -73,11 +73,13 @@ final class ComposeBar: UIControl, UITextViewDelegate {
         textView.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.becomeFirstResponder)))
     }
     
+    var animatesDoneButton = true
+    
     var text: String? {
         set {
             textView.text = newValue
             updateHeight()
-            setDoneButtonHidden(newValue?.trim.isEmpty ?? true, animated: true)
+            setDoneButtonHidden(newValue?.trim.isEmpty ?? true, animated: animatesDoneButton)
         }
         get {
             return textView.text
@@ -156,18 +158,18 @@ final class ComposeBar: UIControl, UITextViewDelegate {
     func textViewDidChange(textView: UITextView) {
         delegate?.composeBarDidChangeText?(self)
         updateHeight()
-        setDoneButtonHidden(textView.text.trim.isEmpty, animated: true)
+        setDoneButtonHidden(textView.text.trim.isEmpty, animated: animatesDoneButton)
         sendActionsForControlEvents(.EditingChanged)
     }
     
     func textViewDidBeginEditing(textView: UITextView) {
-        setDoneButtonHidden(textView.text.trim.isEmpty, animated: true)
+        setDoneButtonHidden(textView.text.trim.isEmpty, animated: animatesDoneButton)
         delegate?.composeBarDidBeginEditing?(self)
         sendActionsForControlEvents(.EditingDidBegin)
     }
     
     func textViewDidEndEditing(textView: UITextView) {
-        setDoneButtonHidden(textView.text.trim.isEmpty, animated: true)
+        setDoneButtonHidden(textView.text.trim.isEmpty, animated: animatesDoneButton)
         delegate?.composeBarDidEndEditing?(self)
         sendActionsForControlEvents(.EditingDidEnd)
         updateHeight()

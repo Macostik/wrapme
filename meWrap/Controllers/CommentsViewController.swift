@@ -432,6 +432,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         cameraButton.addTarget(self, touchUpInside: #selector(self.cameraAction(_:)))
         showComposeBar()
         
+        composeBar.animatesDoneButton = false
         composeBar.delegate = self
         composeBar.textView.placeholder = "comment_placeholder".ls
         streamView.indicatorStyle = .White
@@ -446,12 +447,11 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         disableDismissingByScroll = false
         bottomView.subviews.all({ $0.removeFromSuperview() })
         bottomView.add(composeBar) { (make) in
-            make.leading.top.bottom.equalTo(bottomView)
+            make.edges.equalTo(bottomView)
         }
         bottomView.add(cameraButton) { (make) in
             make.trailing.top.bottom.equalTo(bottomView)
-            make.leading.equalTo(composeBar.snp_trailing)
-            make.width.equalTo(44)
+            make.width.equalTo(48)
         }
     }
     
@@ -774,6 +774,7 @@ extension CommentsViewController: ComposeBarDelegate {
     func composeBarDidChangeText(composeBar: ComposeBar) {
         candy?.typedComment = composeBar.text
         typing = composeBar.text?.isEmpty == false
+        cameraButton.hidden = composeBar.text?.isEmpty == false
         enqueueSelector(#selector(self.typingIdled), argument: nil, delay: 3)
     }
     

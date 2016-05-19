@@ -103,14 +103,6 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
             make.centerY.equalTo(topView)
         }
         
-        let wrapView = WrapView()
-        wrapView.selectButton.addTarget(self, touchUpInside: #selector(self.selectWrap(_:)))
-        self.wrapView = topView.add(wrapView) { (make) in
-            make.leading.equalTo(backButton.snp_trailing).offset(12)
-            make.trailing.lessThanOrEqualTo(topView).inset(8)
-            make.top.bottom.equalTo(topView)
-        }
-        
         uploadButton.cornerRadius = 13
         uploadButton.backgroundColor = Color.orange
         uploadButton.normalColor = Color.orange
@@ -122,6 +114,14 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
             make.centerY.equalTo(topView)
             make.size.equalTo(CGSize(width: 54, height: 26))
             make.trailing.equalTo(topView).inset(8)
+        }
+        
+        let wrapView = WrapView()
+        wrapView.selectButton.addTarget(self, touchUpInside: #selector(self.selectWrap(_:)))
+        self.wrapView = topView.add(wrapView) { (make) in
+            make.leading.equalTo(backButton.snp_trailing).offset(12)
+            make.trailing.lessThanOrEqualTo(uploadButton.snp_leading).inset(-8)
+            make.top.bottom.equalTo(topView)
         }
         
         composeBar.delegate = self

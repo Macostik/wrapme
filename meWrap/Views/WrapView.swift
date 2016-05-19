@@ -43,6 +43,7 @@ class WrapView: UIView {
         }
         
         let arrow = Label(icon: "|", size: 17, textColor: UIColor.whiteColor())
+        arrow.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
         arrow.highlightedTextColor = Color.grayLighter
         add(arrow) { (make) in
             make.leading.equalTo(name.snp_trailing).offset(8)

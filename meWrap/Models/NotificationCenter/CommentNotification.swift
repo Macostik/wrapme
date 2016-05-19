@@ -11,15 +11,6 @@ import Foundation
 class CommentNotification: EntryNotification<Comment> {
     
     override func dataKey() -> String { return "comment" }
-    
-    override func fetch(success: Block, failure: FailureBlock) {
-        createEntryIfNeeded()
-        if let comment = _entry {
-            comment.recursivelyFetchIfNeeded(success, failure: failure)
-        } else {
-            success()
-        }
-    }
 }
 
 class CommentAddNotification: CommentNotification {
@@ -50,6 +41,25 @@ class CommentAddNotification: CommentNotification {
     }
     
     override func canBeHandled() -> Bool { return Authorization.active }
+    
+    override func fetch(success: Block, failure: FailureBlock) {
+        createEntryIfNeeded()
+        if let comment = _entry {
+            comment.recursivelyFetchIfNeeded({
+                if comment.commentType() == .Text {
+                    success()
+                } else {
+                    if let asset = comment.asset {
+                        asset.fetch(success)
+                    } else {
+                        success()
+                    }
+                }
+                }, failure: failure)
+        } else {
+            success()
+        }
+    }
 }
 
 class CommentDeleteNotification: CommentNotification {

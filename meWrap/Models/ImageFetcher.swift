@@ -117,6 +117,7 @@ class BlockImageFetching: NSObject {
     }
     
     class func enqueue(url: String?) -> UIImage? {
+        guard url != nil else { return nil }
         return Dispatch.sleep({ (awake) in
             Dispatch.mainQueue.async {
                 enqueue(url, success: { image in awake(image) }, failure: { _ in awake(nil) })

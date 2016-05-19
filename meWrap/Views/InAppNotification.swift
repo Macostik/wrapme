@@ -14,7 +14,7 @@ enum InAppNotificationStyle {
 }
 
 class InAppNotification: UIView {
-    static let entryToast = InAppNotification()
+    private static let instance = InAppNotification()
     static let DismissalDelay: NSTimeInterval = 5.0
     private let imageHeight = Constants.screenWidth / 3 * 1.5
     private let avatar = ImageView(backgroundColor: UIColor.clearColor())
@@ -177,7 +177,7 @@ class InAppNotification: UIView {
 extension InAppNotification {
     
     class func showCandyAddition(candy: Candy) {
-        InAppNotification.entryToast.show(setup: { (toast) in
+        InAppNotification.instance.show(setup: { (toast) in
             toast.avatar.url = candy.contributor?.avatar?.small
             toast.imageView.url = candy.asset?.medium
             toast.topLabel.text = String(format: (candy.isVideo ? "just_sent_you_a_new_video" : "just_sent_you_a_new_photo").ls, candy.contributor?.name ?? "")
@@ -186,7 +186,7 @@ extension InAppNotification {
     }
     
     class func showCandyUpdate(candy: Candy) {
-        InAppNotification.entryToast.show(setup: { (toast) in
+        InAppNotification.instance.show(setup: { (toast) in
             toast.avatar.url = candy.contributor?.avatar?.small
             toast.imageView.url = candy.asset?.medium
             toast.topLabel.text = String(format: "someone_edited_photo".ls, candy.editor?.name ?? "")
@@ -195,7 +195,7 @@ extension InAppNotification {
     }
     
     class func showCommentAddition(comment: Comment) {
-        InAppNotification.entryToast.show(setup: { (toast) in
+        InAppNotification.instance.show(setup: { (toast) in
             toast.avatar.url = comment.contributor?.avatar?.small
             let commentType = comment.commentType()
             if commentType == .Text {
@@ -220,7 +220,7 @@ extension InAppNotification {
     }
     
     class func showMessageAddition(message: Message) {
-        InAppNotification.entryToast.show(style: .Short, setup: { (toast) in
+        InAppNotification.instance.show(style: .Short, setup: { (toast) in
             toast.avatar.url = message.contributor?.avatar?.small
             toast.imageView.url = message.asset?.medium
             toast.topLabel.text = String(format: "\(message.contributor?.name ?? ""):")
@@ -229,7 +229,7 @@ extension InAppNotification {
     }
     
     class func showWrapInvitation(wrap: Wrap, inviter: User?) {
-        InAppNotification.entryToast.show(style: wrap.asset?.medium == nil ? .Short : .Full, setup: { (toast) in
+        InAppNotification.instance.show(style: wrap.asset?.medium == nil ? .Short : .Full, setup: { (toast) in
             toast.imageView.url = wrap.asset?.medium
             toast.avatar.url = inviter?.avatar?.small
             toast.topLabel.text =  String(format: "you're_invited".ls ?? "")
@@ -239,7 +239,7 @@ extension InAppNotification {
     
     class func showLiveBroadcast(liveBroadcast: LiveBroadcast) {
         guard let wrap = liveBroadcast.wrap else { return }
-        InAppNotification.entryToast.show(style: .Short, setup: { (toast) in
+        InAppNotification.instance.show(style: .Short, setup: { (toast) in
             toast.imageView.url = wrap.asset?.medium
             toast.avatar.url = liveBroadcast.broadcaster?.avatar?.small
             toast.topLabel.text = String(format: "someone_is_live".ls, liveBroadcast.broadcaster?.name ?? "")

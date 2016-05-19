@@ -129,16 +129,17 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
         composeBar.emojiButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         composeBar.doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         composeBar.doneButton.setTitle("E", forState: .Normal)
-        composeBar.backgroundColor = UIColor(white: 0, alpha: 0.8)
         view.add(composeBar) { (make) in
             make.leading.trailing.equalTo(view)
             make.bottom.equalTo(streamView.snp_top)
         }
         
-        view.add(GradientView(startColor: UIColor(white: 0, alpha: 0.8))) { (make) in
+        let gradient = GradientView(startColor: UIColor(white: 0, alpha: 0.8))
+        view.insertSubview(gradient, belowSubview: composeBar)
+        gradient.snp_makeConstraints { (make) in
             make.leading.trailing.equalTo(view)
-            make.bottom.equalTo(composeBar.snp_top)
-            make.height.equalTo(44)
+            make.bottom.equalTo(composeBar)
+            make.height.equalTo(composeBar).offset(44)
         }
         
         deleteButton.backgroundColor = UIColor(white: 0, alpha: 0.8)

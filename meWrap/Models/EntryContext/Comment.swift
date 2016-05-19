@@ -48,6 +48,7 @@ final class Comment: Contribution {
     }
     
     override func remove() {
+        candy?.commentCount -= 1
         decrementBadgeIfNeeded()
         super.remove()
     }

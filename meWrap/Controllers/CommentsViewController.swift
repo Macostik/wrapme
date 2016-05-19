@@ -666,7 +666,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         if let candy = candy?.validEntry() {
             Dispatch.mainQueue.async {
                 Sound.play()
-                candy.uploadComment(text.trim)
+                candy.uploadComment(Comment.comment(text))
                 candy.typedComment = nil
             }
         }
@@ -719,10 +719,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
             Sound.play()
             let comment: Comment = Comment.contribution()
             comment.asset = asset.uploadableAsset()
-            candy.commentCount += 1
-            comment.candy = candy
-            Uploader.commentUploader.upload(Uploading.uploading(comment))
-            comment.notifyOnAddition()
+            candy.uploadComment(comment)
         }
     }
     

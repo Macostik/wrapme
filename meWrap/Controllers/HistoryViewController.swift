@@ -176,7 +176,7 @@ final class CommentView: UIView {
     }
 }
 
-class HistoryViewController: SwipeViewController<CandyViewController>, EntryNotifying, DeviceManagerNotifying, VideoPlayerNotifying {
+class HistoryViewController: SwipeViewController<CandyViewController>, EntryNotifying, DeviceManagerNotifying {
     
     weak var candy: Candy? {
         didSet {
@@ -555,7 +555,26 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        VideoPlayer.notifier.addReceiver(self)
+        VideoPlayer.notifier.subscribe(self) { (owner, videoPlayer) in
+            if let videoViewConroller = owner.viewController as? VideoCandyViewController {
+                if videoViewConroller.playerView != videoPlayer {
+                    videoViewConroller.playerView.muted = true
+                    owner.volumeButton.selected = false
+                }
+            }
+        }
+        
+        CommentViewController.willAppear.subscribe(self) { (owner, controller) in
+            if let videoViewConroller = owner.viewController as? VideoCandyViewController {
+                if controller.comment?.commentType() == .Video {
+                    videoViewConroller.playerView.playing = false
+                    CommentViewController.willDisappear.subscribe(owner) { (owner, controller) in
+                        videoViewConroller.playerView.playing = true
+                        CommentViewController.willDisappear.unsubscribe(owner)
+                    }
+                }
+            }
+        }
         
         shrinkTransition = createShrinkTransition()
         
@@ -743,7 +762,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if let commentsViewController = CommentsViewController.current {
+        if let commentsViewController = CommentsViewController.current ?? CommentViewController.current {
             return commentsViewController.supportedInterfaceOrientations()
         } else {
             return .All
@@ -751,7 +770,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     override func shouldAutorotate() -> Bool {
-        if let commentsViewController = CommentsViewController.current {
+        if let commentsViewController = CommentsViewController.current ?? CommentViewController.current {
             return commentsViewController.shouldAutorotate()
         } else {
             return true
@@ -902,14 +921,5 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     @IBAction func toggleVolume(sender: AnyObject) {
         toggleVolume()
-    }
-    
-    func videoPlayerDidBecomeUnmuted(videoPlayer: VideoPlayer) {
-        if let videoViewConroller = viewController as? VideoCandyViewController {
-            if videoViewConroller.playerView != videoPlayer {
-                videoViewConroller.playerView.muted = true
-                volumeButton.selected = false
-            }
-        }
     }
 }

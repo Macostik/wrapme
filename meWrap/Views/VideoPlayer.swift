@@ -10,11 +10,7 @@ import Foundation
 import AVFoundation
 import AVKit
 
-protocol VideoPlayerNotifying {
-    func videoPlayerDidBecomeUnmuted(videoPlayer: VideoPlayer)
-}
-
-final class VideoPlayer: UIView, VideoPlayerNotifying {
+final class VideoPlayer: UIView {
     
     lazy var volumeButton: Button = specify(Button.expandableCandyAction("l")) {
         $0.setTitle("m", forState: .Selected)
@@ -26,11 +22,15 @@ final class VideoPlayer: UIView, VideoPlayerNotifying {
         self.add($0) { $0.center.equalTo(self) }
     }
     
-    static let notifier = Notifier()
+    static let notifier = BlockNotifier<VideoPlayer>()
     
     convenience init() {
         self.init(frame: CGRect.zero)
-        VideoPlayer.notifier.addReceiver(self)
+        VideoPlayer.notifier.subscribe(self) { (owner, videoPlayer) in
+            if videoPlayer != owner {
+                owner.muted = true
+            }
+        }
     }
     
     override class func layerClass() -> AnyClass  {
@@ -115,19 +115,11 @@ final class VideoPlayer: UIView, VideoPlayerNotifying {
             player.muted = newValue
             volumeButton.selected = !newValue
             if newValue == false {
-                VideoPlayer.notifier.notify({ (receiver) in
-                    (receiver as? VideoPlayerNotifying)?.videoPlayerDidBecomeUnmuted(self)
-                })
+                VideoPlayer.notifier.notify(self)
             }
         }
         get {
             return player.muted
-        }
-    }
-    
-    func videoPlayerDidBecomeUnmuted(videoPlayer: VideoPlayer) {
-        if videoPlayer != self {
-            muted = true
         }
     }
     

@@ -51,3 +51,55 @@ class Notifier: NSObject {
         }
     }
 }
+
+private var _uid: Int = 0
+
+private func generetaeUid() -> Int {
+    let uid = _uid
+    _uid = _uid + 1
+    return uid
+}
+
+private func ==<T>(lhs: BlockNotifierReceiver<T>, rhs: BlockNotifierReceiver<T>) -> Bool {
+    return lhs.hashValue == rhs.hashValue
+}
+
+private struct BlockNotifierReceiver<T>: Hashable {
+    private var hashValue: Int = generetaeUid()
+    weak var owner: AnyObject?
+    var block: (AnyObject, T) -> ()
+    init(owner: AnyObject, block: (AnyObject, T) -> ()) {
+        self.owner = owner
+        self.block = block
+    }
+}
+
+class BlockNotifier<T> {
+    
+    private var receivers = [BlockNotifierReceiver<T>]()
+    
+    func subscribe<OwnerType: AnyObject>(owner: OwnerType, block: (owner: OwnerType, value: T) -> ()) {
+        receivers.append(BlockNotifierReceiver(owner: owner, block: { block(owner: $0 as! OwnerType, value: $1) }))
+    }
+    
+    func unsubscribe(owner: AnyObject) {
+        receivers = receivers.filter({ $0.owner !== owner })
+    }
+    
+    func notify(value: T) {
+        
+        var garbage = [BlockNotifierReceiver<T>]()
+        
+        for receiver in receivers {
+            if let owner = receiver.owner {
+                receiver.block(owner, value)
+            } else {
+                garbage.append(receiver)
+            }
+        }
+        
+        for receiver in garbage {
+            receivers.remove(receiver)
+        }
+    }
+}

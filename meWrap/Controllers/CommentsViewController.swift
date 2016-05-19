@@ -480,6 +480,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         addNotifyReceivers()
         DeviceManager.defaultManager.addReceiver(self)
         composeBar.text = candy.typedComment
+        cameraButton.hidden = composeBar.text?.isEmpty == false
         
         if let wrap = candy.wrap {
             updateUserStatus(wrap)

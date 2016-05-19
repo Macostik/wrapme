@@ -50,6 +50,10 @@ final class CommentViewController: UIViewController {
     
     static weak var current: CommentViewController?
     
+    static let willAppear = BlockNotifier<CommentViewController>()
+    
+    static let willDisappear = BlockNotifier<CommentViewController>()
+    
     private let name = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
     private let date = Label(preset: .Smaller, weight: .Regular, textColor: Color.grayLighter)
     private let indicator = EntryStatusIndicator(color: Color.orange)
@@ -133,6 +137,16 @@ final class CommentViewController: UIViewController {
             make.leading.equalTo(date.snp_trailing).offset(10)
             make.centerY.equalTo(date)
         }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        CommentViewController.willAppear.notify(self)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        CommentViewController.willDisappear.notify(self)
     }
     
     func actionWith(sender: UILongPressGestureRecognizer) -> CommentAction {

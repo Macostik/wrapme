@@ -215,6 +215,7 @@ extension ChatViewController: ComposeBarDelegate {
     
     private func sendMessageWithText(text: String) {
         if wrap.valid {
+            markAsReadIfNeeded()
             streamView.contentOffset = streamView.maximumContentOffset
             wrap.uploadMessage(text)
             Sound.play()
@@ -231,15 +232,26 @@ extension ChatViewController: ComposeBarDelegate {
     }
     
     func composeBarDidChangeText(composeBar: ComposeBar) {
+        if markAsReadIfNeeded() {
+            streamView.reload()
+        }
         wrap.typedMessage = composeBar.text
         typing = composeBar.text?.isEmpty == false
         enqueueSelector(#selector(self.typingIdled), argument: nil, delay: 3)
     }
     
-    func composeBarDidBeginEditing(composeBar: ComposeBar) {
+    private func markAsReadIfNeeded() -> Bool {
         if chat.unreadMessages.count > 0 {
             chat.markAsRead()
             badge?.value = 0
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func composeBarDidBeginEditing(composeBar: ComposeBar) {
+        if markAsReadIfNeeded() {
             streamView.reload()
         }
     }

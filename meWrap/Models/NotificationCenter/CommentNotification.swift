@@ -36,11 +36,10 @@ class CommentAddNotification: CommentNotification {
         }
         comment.notifyOnAddition()
         if comment.contributor != User.currentUser {
-            weak var controller = UINavigationController.main.topViewController as? HistoryViewController
-            let commentViewController = controller?.commentsViewController
-            if controller == nil || controller?.candy?.comments.contains(comment) == false || commentViewController?.isMaxContentOffset == false {
+            let controller = CommentsViewController.current
+            if controller == nil || controller?.candy?.comments.contains(comment) == false || controller?.isMaxContentOffset == false {
                 if comment.contributor?.current == false && !isHistorycal {
-                    EntryToast.showCommentAddition(comment)
+                    InAppNotification.showCommentAddition(comment)
                 }
             } else {
                 if self.isHistorycal == false {

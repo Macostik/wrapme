@@ -290,7 +290,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
                         let broadcast = device.activity.generateLiveBroadcast()
                         wrap.addBroadcast(broadcast)
                         if broadcast.broadcaster?.current == false {
-                            EntryToast.showLiveBroadcast(broadcast)
+                            InAppNotification.showLiveBroadcast(broadcast)
                         }
                         }, failure: nil)
                 } else {

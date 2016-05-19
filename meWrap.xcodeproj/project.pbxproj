@@ -60,7 +60,7 @@
 		5BAF17AB1C624DFB00D33026 /* CommonEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6DD961C0DC8F5004992E4 /* CommonEnums.swift */; };
 		5BAF17AC1C624E1000D33026 /* NSDate+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52279651BECCE8A00B1C49C /* NSDate+Formatting.swift */; };
 		5BAF17AD1C624E1E00D33026 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5060D191BEBA7E2007FFD5B /* String+Ext.swift */; };
-		5BB67E891CAAB37200A19DA8 /* EntryToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB67E881CAAB37200A19DA8 /* EntryToast.swift */; };
+		5BB67E891CAAB37200A19DA8 /* InAppNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB67E881CAAB37200A19DA8 /* InAppNotification.swift */; };
 		5BCC41911C4E40FC0047E7C2 /* WrapSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCC41901C4E40FC0047E7C2 /* WrapSettingsViewController.swift */; };
 		5BD529491BDA796000527077 /* SmartLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD529481BDA796000527077 /* SmartLabel.swift */; };
 		5BE7CD651C0D8781009A7617 /* ConfirmInvitationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE7CD641C0D8781009A7617 /* ConfirmInvitationView.xib */; };
@@ -506,7 +506,7 @@
 		5B8B31821C8D856A00D8A463 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5BA6CAF11A10E51B004AD41C /* s04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s04.wav; path = Sounds/s04.wav; sourceTree = "<group>"; };
 		5BA83EEB1C6B4E3400FC5A9F /* AddContributorsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContributorsViewController.swift; sourceTree = "<group>"; };
-		5BB67E881CAAB37200A19DA8 /* EntryToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryToast.swift; sourceTree = "<group>"; };
+		5BB67E881CAAB37200A19DA8 /* InAppNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InAppNotification.swift; sourceTree = "<group>"; };
 		5BCC41901C4E40FC0047E7C2 /* WrapSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapSettingsViewController.swift; sourceTree = "<group>"; };
 		5BD529481BDA796000527077 /* SmartLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartLabel.swift; sourceTree = "<group>"; };
 		5BE7CD641C0D8781009A7617 /* ConfirmInvitationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmInvitationView.xib; sourceTree = "<group>"; };
@@ -1062,7 +1062,7 @@
 				C5F5F0BF1C690BD6002F74C9 /* LoadingView.swift */,
 				C5F7C5E71C78CA31004C2E68 /* PlaceholderView.swift */,
 				C5564CF61C7B50EB0075703A /* InfoToast.swift */,
-				5BB67E881CAAB37200A19DA8 /* EntryToast.swift */,
+				5BB67E881CAAB37200A19DA8 /* InAppNotification.swift */,
 				C54365761CEB19F1005E9F26 /* DownloadingView.swift */,
 				C52E1FC71A41947D00A2C370 /* Text Views */,
 				12E8FF1C18E9883700BF1B96 /* ComposeBar */,
@@ -2238,7 +2238,7 @@
 				C5EAE4CB1C18335900DA19C9 /* Chat.swift in Sources */,
 				C5E6DD8C1C0DC84A004992E4 /* Contribution.swift in Sources */,
 				C5F9A49E1C4B8A1700A7D83B /* CaptureMediaViewController.swift in Sources */,
-				5BB67E891CAAB37200A19DA8 /* EntryToast.swift in Sources */,
+				5BB67E891CAAB37200A19DA8 /* InAppNotification.swift in Sources */,
 				C5E6DD941C0DC84A004992E4 /* Notifier.swift in Sources */,
 				C5F11E571C64A21C001C2486 /* EditProfileViewController.swift in Sources */,
 				C557B6D91C22BC610067631E /* Network.swift in Sources */,

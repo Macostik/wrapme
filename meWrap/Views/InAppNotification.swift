@@ -1,5 +1,5 @@
 //
-//  EntryToast.swift
+//  InAppNotification.swift
 //  meWrap
 //
 //  Created by Yura Granchenko on 29/03/16.
@@ -9,12 +9,12 @@
 import Foundation
 import SnapKit
 
-enum EntryToastStyle {
+enum InAppNotificationStyle {
     case Full, Short
 }
 
-class EntryToast: UIView {
-    static let entryToast = EntryToast()
+class InAppNotification: UIView {
+    static let entryToast = InAppNotification()
     static let DismissalDelay: NSTimeInterval = 5.0
     private let imageHeight = Constants.screenWidth / 3 * 1.5
     private let avatar = ImageView(backgroundColor: UIColor.clearColor())
@@ -116,7 +116,7 @@ class EntryToast: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func show(style style: EntryToastStyle = .Full, @noescape setup: EntryToast -> (), handleTouch: (() -> ())? = nil) {
+    func show(style style: InAppNotificationStyle = .Full, @noescape setup: InAppNotification -> (), handleTouch: (() -> ())? = nil) {
         guard UIApplication.sharedApplication().applicationState == .Active else { return }
         showBadge(false)
         Sound.play(.note)
@@ -146,7 +146,7 @@ class EntryToast: UIView {
             self.transform = CGAffineTransformMakeTranslation(0, self.height)
         })
         
-        self.enqueueSelector(#selector(self.dissmis), delay: EntryToast.DismissalDelay)
+        self.enqueueSelector(#selector(self.dissmis), delay: InAppNotification.DismissalDelay)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -174,10 +174,10 @@ class EntryToast: UIView {
     }
 }
 
-extension EntryToast {
+extension InAppNotification {
     
     class func showCandyAddition(candy: Candy) {
-        EntryToast.entryToast.show(setup: { (toast) in
+        InAppNotification.entryToast.show(setup: { (toast) in
             toast.avatar.url = candy.contributor?.avatar?.small
             toast.imageView.url = candy.asset?.medium
             toast.topLabel.text = String(format: (candy.isVideo ? "just_sent_you_a_new_video" : "just_sent_you_a_new_photo").ls, candy.contributor?.name ?? "")
@@ -186,7 +186,7 @@ extension EntryToast {
     }
     
     class func showCandyUpdate(candy: Candy) {
-        EntryToast.entryToast.show(setup: { (toast) in
+        InAppNotification.entryToast.show(setup: { (toast) in
             toast.avatar.url = candy.contributor?.avatar?.small
             toast.imageView.url = candy.asset?.medium
             toast.topLabel.text = String(format: "someone_edited_photo".ls, candy.editor?.name ?? "")
@@ -195,33 +195,32 @@ extension EntryToast {
     }
     
     class func showCommentAddition(comment: Comment) {
-        EntryToast.entryToast.show(setup: { (toast) in
+        InAppNotification.entryToast.show(setup: { (toast) in
             toast.avatar.url = comment.contributor?.avatar?.small
-            toast.topLabel.text = String(format: "someone_commented".ls, comment.contributor?.name ?? "")
-            if comment.commentType() == .Text {
+            let commentType = comment.commentType()
+            if commentType == .Text {
+                toast.topLabel.text = String(format: "someone_commented".ls, comment.contributor?.name ?? "")
                 toast.imageView.url = comment.candy?.asset?.medium
                 toast.middleLabel.text = comment.text
             } else {
+                if commentType == .Photo {
+                    toast.topLabel.text = String(format: "APNS_MSG11".ls, comment.contributor?.name ?? "")
+                } else {
+                    toast.topLabel.text = String(format: "APNS_MSG12".ls, comment.contributor?.name ?? "")
+                }
                 toast.imageView.url = comment.asset?.medium
                 toast.middleLabel.text = ""
             }
             }, handleTouch: {
-                if let controller = UINavigationController.main.topViewController as? HistoryViewController {
-                    if controller.candy == comment.candy {
-                        for controller in controller.childViewControllers {
-                            if let controller = controller as? CommentsViewController {
-                                controller.streamView.scrollToItemPassingTest({ $0.entry === comment }, animated: true)
-                                return
-                            }
-                        }
-                    }
+                if let controller = CommentsViewController.current where controller.candy == comment.candy {
+                    controller.streamView.scrollToItemPassingTest({ $0.entry === comment }, animated: true)
                 }
                 NotificationEntryPresenter.presentEntryRequestingAuthorization(comment, animated: false)
         })
     }
     
     class func showMessageAddition(message: Message) {
-        EntryToast.entryToast.show(style: .Short, setup: { (toast) in
+        InAppNotification.entryToast.show(style: .Short, setup: { (toast) in
             toast.avatar.url = message.contributor?.avatar?.small
             toast.imageView.url = message.asset?.medium
             toast.topLabel.text = String(format: "\(message.contributor?.name ?? ""):")
@@ -230,7 +229,7 @@ extension EntryToast {
     }
     
     class func showWrapInvitation(wrap: Wrap, inviter: User?) {
-        EntryToast.entryToast.show(style: wrap.asset?.medium == nil ? .Short : .Full, setup: { (toast) in
+        InAppNotification.entryToast.show(style: wrap.asset?.medium == nil ? .Short : .Full, setup: { (toast) in
             toast.imageView.url = wrap.asset?.medium
             toast.avatar.url = inviter?.avatar?.small
             toast.topLabel.text =  String(format: "you're_invited".ls ?? "")
@@ -240,7 +239,7 @@ extension EntryToast {
     
     class func showLiveBroadcast(liveBroadcast: LiveBroadcast) {
         guard let wrap = liveBroadcast.wrap else { return }
-        EntryToast.entryToast.show(style: .Short, setup: { (toast) in
+        InAppNotification.entryToast.show(style: .Short, setup: { (toast) in
             toast.imageView.url = wrap.asset?.medium
             toast.avatar.url = liveBroadcast.broadcaster?.avatar?.small
             toast.topLabel.text = String(format: "someone_is_live".ls, liveBroadcast.broadcaster?.name ?? "")

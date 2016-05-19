@@ -414,8 +414,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     var swipeDownGesture: SwipeGesture!
     var swipeUpGesture: SwipeGesture!
     
-    weak var commentsViewController: CommentsViewController?
-    
     private var shrinkTransition: ShrinkTransition?
     
     let contentView = UIView()
@@ -628,14 +626,14 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     func showCommentView(animated: Bool = true) {
-        if self.commentsViewController != nil {
+        if CommentsViewController.current != nil {
             return
         }
         setBarsHidden(true, animated: animated)
         let commentsViewController = CommentsViewController()
         commentsViewController.candy = candy
         commentsViewController.presentForController(self, animated: animated)
-        self.commentsViewController = commentsViewController
+        CommentsViewController.current = commentsViewController
     }
     
     private func setCandy(candy: Candy, direction: SwipeDirection, animated: Bool) {
@@ -745,7 +743,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if let commentsViewController = commentsViewController {
+        if let commentsViewController = CommentsViewController.current {
             return commentsViewController.supportedInterfaceOrientations()
         } else {
             return .All
@@ -753,7 +751,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     override func shouldAutorotate() -> Bool {
-        if let commentsViewController = commentsViewController {
+        if let commentsViewController = CommentsViewController.current {
             return commentsViewController.shouldAutorotate()
         } else {
             return true

@@ -328,6 +328,8 @@ final class CommentsDataSource: StreamDataSource<[Comment]> {
 
 final class CommentsViewController: BaseViewController, CaptureCommentViewControllerDelegate {
     
+    static weak var current: CommentsViewController?
+    
     weak var candy: Candy?
     
     let streamView = StreamView()
@@ -693,11 +695,11 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
                 self.contentView.transform = CGAffineTransformMakeTranslation(0, up ? -self.view.height : self.view.height)
             }) { (_) in
                 self.removeFromContainerAnimated(true)
-                self.historyViewController?.commentsViewController = nil
+                CommentsViewController.current = nil
             }
         } else {
             removeFromContainerAnimated(true)
-            self.historyViewController?.commentsViewController = nil
+            CommentsViewController.current = nil
         }
         historyViewController?.setBarsHidden(false, animated: animated)
     }

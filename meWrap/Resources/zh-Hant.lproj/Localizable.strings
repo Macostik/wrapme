@@ -261,6 +261,8 @@
 "is_live_streaming" = "正在直播中";
 "posted_new_photo" = "添加了新相片";
 "posted_new_video" = "添加了新影片";
+"posted_photo_comment" = "posted a photo comment";
+"posted_video_comment" = "posted a video comment";
 "is_live_streaming" = "正在直播中";
 "signup_status" = "你好！我已是meWrap用戶。";
 "invite_status" = "邀請已於%@發出";

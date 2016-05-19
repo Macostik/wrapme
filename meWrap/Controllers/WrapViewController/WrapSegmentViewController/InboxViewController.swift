@@ -10,15 +10,22 @@ import UIKit
 import SnapKit
 
 class InboxItem {
+    
+    enum Style {
+        case Image, Text
+    }
+    
     let event: Event
+    let style: Style
     var unread: Bool
     let contribution: Contribution
     let date: NSDate
-    init(event: Event, contribution: Contribution, date: NSDate, unread: Bool) {
+    init(event: Event, style: Style = .Image, contribution: Contribution, date: NSDate, unread: Bool) {
         self.event = event
         self.contribution = contribution
         self.date = date
         self.unread = unread
+        self.style = style
     }
 }
 
@@ -89,7 +96,7 @@ class InboxCell: EntryStreamReusableView<InboxItem> {
     }
 }
 
-class InboxCommentCell: InboxCell {
+class InboxTextCell: InboxCell {
     
     private var textView = Label(preset: .Normal, weight: .Regular, textColor: Color.grayLighter)
     
@@ -126,7 +133,7 @@ class InboxCommentCell: InboxCell {
     }
 }
 
-class InboxCandyCell: InboxCell {
+class InboxImageCell: InboxCell {
     
     static let DefaultHeight: CGFloat = Constants.screenWidth / 2.5 + 70
     
@@ -141,8 +148,8 @@ class InboxCandyCell: InboxCell {
     }
     
     override func setup(update: InboxItem) {
+        super.setup(update)
         if let candy = update.contribution as? Candy {
-            super.setup(update)
             imageView.url = candy.asset?.medium
             if update.event == .Update {
                 avatarView.url = candy.editor?.avatar?.small
@@ -152,6 +159,27 @@ class InboxCandyCell: InboxCell {
                 userNameLabel.text = "\(candy.contributor?.name ?? "") \((candy.isVideo ? "posted_new_video" : "posted_new_photo").ls)"
             }
             videoIndicator.hidden = candy.mediaType != .Video
+        } else if let comment = update.contribution as? Comment {
+            imageView.url = comment.asset?.medium
+            avatarView.url = comment.contributor?.avatar?.small
+            let isVideo = comment.commentType() == .Video
+            userNameLabel.text = "\(comment.contributor?.name ?? "") \((isVideo ? "posted_video_comment" : "posted_photo_comment").ls)"
+            videoIndicator.hidden = !isVideo
+        }
+    }
+}
+
+extension StreamMetrics where T:InboxCell {
+    
+    private func setupWithStyle(style: InboxItem.Style) {
+        modifyItem = {
+            $0.insets.origin.y = $0.position.index == 0 ? 4 : 0
+            $0.hidden = ($0.entry as! InboxItem).style != style
+        }
+        selection = { view in
+            if let event = view.entry {
+                ChronologicalEntryPresenter.presentEntry(event.contribution, animated: false)
+            }
         }
     }
 }
@@ -172,32 +200,10 @@ class InboxViewController: WrapSegmentViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         dataSource.placeholderMetrics = PlaceholderView.inboxPlaceholderMetrics()
         streamView.contentInset = streamView.scrollIndicatorInsets
-        let candyMetrics = dataSource.addMetrics(StreamMetrics<InboxCandyCell>())
-        let commentMetrics = dataSource.addMetrics(StreamMetrics<InboxCommentCell>())
-        
-        candyMetrics.size = InboxCandyCell.DefaultHeight
-        commentMetrics.size = InboxCommentCell.DefaultHeight
-        candyMetrics.modifyItem = {
-            $0.insets.origin.y = $0.position.index == 0 ? 0 : Constants.pixelSize
-            let event = $0.entry as? InboxItem
-            $0.hidden = !(event?.contribution is Candy)
-        }
-        commentMetrics.modifyItem = {
-            $0.insets.origin.y = $0.position.index == 0 ? 0 : Constants.pixelSize
-            let event = $0.entry as? InboxItem
-            $0.hidden = !(event?.contribution is Comment)
-        }
-        
-        let selection: InboxCell -> () = { view in
-            if let event = view.entry {
-                ChronologicalEntryPresenter.presentEntry(event.contribution, animated: false)
-            }
-        }
-        candyMetrics.selection = selection
-        commentMetrics.selection = selection
+        dataSource.addMetrics(StreamMetrics<InboxImageCell>(size: InboxImageCell.DefaultHeight)).setupWithStyle(.Image)
+        dataSource.addMetrics(StreamMetrics<InboxTextCell>(size: InboxTextCell.DefaultHeight)).setupWithStyle(.Text)
     }
     
     private func fetchUpdates() {
@@ -212,7 +218,11 @@ class InboxViewController: WrapSegmentViewController {
             }
             for comment in candy.comments {
                 if comment.unread { containsUnread = true }
-                updates.append(InboxItem(event: .Add, contribution: comment, date: comment.createdAt, unread: comment.unread))
+                if comment.commentType() == .Text {
+                    updates.append(InboxItem(event: .Add, style: .Text, contribution: comment, date: comment.createdAt, unread: comment.unread))
+                } else {
+                    updates.append(InboxItem(event: .Add, contribution: comment, date: comment.createdAt, unread: comment.unread))
+                }
             }
         }
         self.updates = updates.sort({ $0.date > $1.date })

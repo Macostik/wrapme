@@ -154,7 +154,7 @@ final class CommentViewController: UIViewController {
     static func createPlayerView(muted: Bool = true) -> VideoPlayer {
         let playerView = VideoPlayer()
         (playerView.layer as? AVPlayerLayer)?.videoGravity = AVLayerVideoGravityResizeAspectFill
-        playerView.player.muted = muted
+        playerView.muted = muted
         return playerView
     }
     

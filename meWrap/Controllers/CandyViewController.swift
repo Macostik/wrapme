@@ -167,7 +167,6 @@ final class VideoCandyViewController: CandyViewController {
     
     override func loadView() {
         super.loadView()
-        playerView.player.muted = true
         imageView.contentMode = .ScaleAspectFit
         view.insertSubview(imageView, belowSubview: spinner)
         view.insertSubview(playerView, belowSubview: spinner)
@@ -176,8 +175,8 @@ final class VideoCandyViewController: CandyViewController {
     }
     
     func toggleVolume() {
-        playerView.player.muted = !playerView.player.muted
-        historyViewController?.volumeButton.selected = !playerView.player.muted
+        playerView.muted = !playerView.muted
+        historyViewController?.volumeButton.selected = !playerView.muted
     }
     
     override func viewDidAppear(animated: Bool) {

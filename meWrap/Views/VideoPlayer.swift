@@ -10,16 +10,27 @@ import Foundation
 import AVFoundation
 import AVKit
 
-final class VideoPlayer: UIView {
+protocol VideoPlayerNotifying {
+    func videoPlayerDidBecomeUnmuted(videoPlayer: VideoPlayer)
+}
+
+final class VideoPlayer: UIView, VideoPlayerNotifying {
     
-    lazy var volumeButton: Button = specify(Button.expandableCandyAction("m")) {
-        $0.setTitle("l", forState: .Selected)
+    lazy var volumeButton: Button = specify(Button.expandableCandyAction("l")) {
+        $0.setTitle("m", forState: .Selected)
         $0.addTarget(self, touchUpInside: #selector(self.volume(_:)))
         $0.backgroundColor = UIColor(white: 0, alpha: 0.8)
     }
     
     lazy var spinner: UIActivityIndicatorView = specify(UIActivityIndicatorView(activityIndicatorStyle: .White)) {
         self.add($0) { $0.center.equalTo(self) }
+    }
+    
+    static let notifier = Notifier()
+    
+    convenience init() {
+        self.init(frame: CGRect.zero)
+        VideoPlayer.notifier.addReceiver(self)
     }
     
     override class func layerClass() -> AnyClass  {
@@ -77,6 +88,7 @@ final class VideoPlayer: UIView {
     }
     
     lazy var player: AVPlayer = specify(AVPlayer()) { player in
+        player.muted = true
         (self.layer as? AVPlayerLayer)?.player = player
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.playerItemDidPlayToEndTime(_:)), name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
     }
@@ -101,10 +113,21 @@ final class VideoPlayer: UIView {
     var muted: Bool {
         set {
             player.muted = newValue
-            volumeButton.selected = newValue
+            volumeButton.selected = !newValue
+            if newValue == false {
+                VideoPlayer.notifier.notify({ (receiver) in
+                    (receiver as? VideoPlayerNotifying)?.videoPlayerDidBecomeUnmuted(self)
+                })
+            }
         }
         get {
             return player.muted
+        }
+    }
+    
+    func videoPlayerDidBecomeUnmuted(videoPlayer: VideoPlayer) {
+        if videoPlayer != self {
+            muted = true
         }
     }
     

@@ -123,8 +123,8 @@ final class CommentView: UIView {
         }
         playerView.url = comment.asset?.videoURL()
         self.videoPlayer = playerView
-        playerView.muted = true
         playerView.playing = true
+        playerView.volumeButton.backgroundColor = UIColor.blackColor()
         playerView.volumeButton.cornerRadius = 16
         playerView.volumeButton.titleLabel?.font = UIFont.icons(15)
         add(playerView.volumeButton) { (make) in
@@ -176,7 +176,7 @@ final class CommentView: UIView {
     }
 }
 
-class HistoryViewController: SwipeViewController<CandyViewController>, EntryNotifying, DeviceManagerNotifying {
+class HistoryViewController: SwipeViewController<CandyViewController>, EntryNotifying, DeviceManagerNotifying, VideoPlayerNotifying {
     
     weak var candy: Candy? {
         didSet {
@@ -398,7 +398,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     let volumeButton = specify(Button.expandableCandyAction("l")) {
         $0.setTitle("m", forState: .Selected)
-        $0.setTitleColor(UIColor.whiteColor(), forState: .Selected)
+        $0.setTitleColor(Color.grayLight, forState: .Highlighted)
         $0.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
     }
     
@@ -556,6 +556,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        VideoPlayer.notifier.addReceiver(self)
         
         shrinkTransition = createShrinkTransition()
         
@@ -732,7 +734,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         self.candy = candy
         fetchCandiesOlderThen(candy)
         if let videoViewConroller = viewController as? VideoCandyViewController {
-            volumeButton.selected = !videoViewConroller.playerView.player.muted
+            volumeButton.selected = !videoViewConroller.playerView.muted
         }
         setActionsExpanded(false, animated: false)
         setTopViewExpanded(false)
@@ -896,11 +898,20 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     private func toggleVolume() {
         if let videoViewConroller = viewController as? VideoCandyViewController {
             volumeButton.selected = !volumeButton.selected
-            videoViewConroller.playerView.player.muted = !volumeButton.selected
+            videoViewConroller.playerView.muted = !volumeButton.selected
         }
     }
     
     @IBAction func toggleVolume(sender: AnyObject) {
         toggleVolume()
+    }
+    
+    func videoPlayerDidBecomeUnmuted(videoPlayer: VideoPlayer) {
+        if let videoViewConroller = viewController as? VideoCandyViewController {
+            if videoViewConroller.playerView != videoPlayer {
+                videoViewConroller.playerView.muted = true
+                volumeButton.selected = false
+            }
+        }
     }
 }

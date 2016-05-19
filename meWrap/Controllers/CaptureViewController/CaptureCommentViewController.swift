@@ -172,7 +172,7 @@ final class UploadMediaCommentViewController: UIViewController {
             }
             videoPlayer.url = asset.original?.fileURL
             videoPlayer.playing = true
-            videoPlayer.player.muted = false
+            videoPlayer.muted = false
             self.videoPlayer = videoPlayer
             (videoPlayer.layer as? AVPlayerLayer)?.videoGravity = AVLayerVideoGravityResizeAspectFill
             view.add(videoPlayer.volumeButton) { (make) in

@@ -34,7 +34,7 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
     private let editButton = Button.candyAction("R", color: Color.blue, size: 24)
     private let uploadButton = Button(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
     private let drawButton = Button.candyAction("8", color: Color.purple, size: 24)
-    private let videoPlayer = VideoPlayer()
+    private weak var volumeButton: Button?
     
     weak var delegate: UploadSummaryViewControllerDelegate?
     
@@ -166,17 +166,6 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
         
         let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
         blurredImageView.add(blurView) { $0.edges.equalTo(blurredImageView) }
-        view.insertSubview(videoPlayer, aboveSubview: scrollView)
-        videoPlayer.snp_makeConstraints { (make) in
-            make.leading.trailing.top.equalTo(view)
-            make.bottom.equalTo(streamView.snp_top)
-        }
-        view.add(videoPlayer.volumeButton) { (make) in
-            make.trailing.equalTo(view).inset(10)
-            make.bottom.equalTo(composeBar.snp_top).inset(10)
-            make.size.equalTo(44)
-        }
-        videoPlayer.muted = true
         
         keyboardBottomGuideView = streamView
     }
@@ -214,13 +203,14 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
         drawButton.hidden = isVideo
         editButton.hidden = drawButton.hidden
         composeBar.text = asset.comment
-        videoPlayer.volumeButton.hidden = !isVideo
-        videoPlayer.hidden = !isVideo
-        if isVideo {
-            videoPlayer.url = asset.original?.fileURL
-            videoPlayer.playing = true
-        } else {
-            videoPlayer.url = nil
+        volumeButton?.removeFromSuperview()
+        if let viewController = viewController where viewController.asset == asset && isVideo {
+            view.add(viewController.videoPlayer.volumeButton) { (make) in
+                make.trailing.equalTo(view).inset(10)
+                make.bottom.equalTo(composeBar.snp_top).inset(-10)
+                make.size.equalTo(44)
+            }
+            self.volumeButton = viewController.videoPlayer.volumeButton
         }
         assets.all({ $0.selected = $0 == asset })
         dataSource.reload()

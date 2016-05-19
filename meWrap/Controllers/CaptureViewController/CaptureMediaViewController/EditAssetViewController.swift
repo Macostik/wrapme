@@ -12,12 +12,31 @@ class EditAssetViewController: UIViewController {
     
     let imageView = ImageView(backgroundColor: UIColor.clearColor())
     
+    lazy var videoPlayer = VideoPlayer()
+    
     var asset: MutableAsset?
     
     override func loadView() {
         super.loadView()
         imageView.contentMode = .ScaleAspectFit
         view.add(imageView) { $0.edges.equalTo(view) }
+        if asset?.type == .Video {
+            
+            imageView.add(videoPlayer, { (make) in
+                make.edges.equalTo(imageView)
+            })
+            videoPlayer.url = asset?.original?.fileURL
+        }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        videoPlayer.playing = true
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        videoPlayer.playing = false
     }
 
     override func viewDidLoad() {

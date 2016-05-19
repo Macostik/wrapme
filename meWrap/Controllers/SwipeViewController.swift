@@ -160,6 +160,8 @@ class SwipeViewController<T: UIViewController>: BaseViewController, UIScrollView
         } else {
             scrollView.contentOffset.x = x
         }
+        sendDidChangeOffsetForViewController(_secondViewController)
+        sendDidChangeOffsetForViewController(_viewController)
     }
     
     func setViewController(viewController: T?, direction: SwipeDirection, animated: Bool) {

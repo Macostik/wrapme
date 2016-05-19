@@ -118,7 +118,7 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
                     self?.navigationController?.popViewControllerAnimated(false)
                 } else {
                     self?.navigationController?.popToRootViewControllerAnimated(false)
-                    if (deletable) { InfoToast.show("delete_wrap_success".ls) }
+                    if (deletable) { Toast.show("delete_wrap_success".ls) }
                 }
                 sender.loading = false
                 }, failure: { [weak self] error -> Void in
@@ -182,7 +182,7 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
                     })
                 }
             } else {
-                InfoToast.show("wrap_name_cannot_be_blank".ls)
+                Toast.show("wrap_name_cannot_be_blank".ls)
             }
         }
         navigationController?.popViewControllerAnimated(false)
@@ -194,7 +194,7 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
         if let wrap = entry as? Wrap where viewAppeared && !userInitiatedDestructiveAction {
             navigationController?.popToRootViewControllerAnimated(false)
             if !wrap.deletable {
-                InfoToast.showMessageForUnavailableWrap(wrap)
+                Toast.showMessageForUnavailableWrap(wrap)
             }
         }
     }

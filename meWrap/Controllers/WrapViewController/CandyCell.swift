@@ -83,7 +83,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         
         menu.addDownloadAction({
             candy.download({ () -> Void in
-                InfoToast.showDownloadingMediaMessageForCandy(candy)
+                Toast.showDownloadingMediaMessageForCandy(candy)
                 }, failure: { $0?.show() })
         })
         

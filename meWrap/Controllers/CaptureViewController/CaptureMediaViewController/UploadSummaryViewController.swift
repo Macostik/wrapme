@@ -328,7 +328,7 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
             comment = comment.substringToIndex(comment.endIndex.predecessor())
         }
         if comment != composeBar.text?.trim {
-            InfoToast.show("comment_limit".ls)
+            Toast.show("comment_limit".ls)
             composeBar.text = comment
         }
         asset?.comment = comment

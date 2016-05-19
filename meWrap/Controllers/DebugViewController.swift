@@ -124,16 +124,16 @@ class DebugViewController: BaseViewController {
     @objc private func addTestUser(sender: AnyObject) {
         TestUser.add(completion: { error in
             if let error = error {
-                InfoToast.show(error)
+                Toast.show(error)
             } else {
-                InfoToast.show("Current user is added to the list of test users")
+                Toast.show("Current user is added to the list of test users")
             }
         })
     }
     
     @objc private func addDemoImages(sender: UIButton) {
         addDemoImageWithCount(30000)
-        InfoToast.show("5 demo images will be added to Photos")
+        Toast.show("5 demo images will be added to Photos")
     }
     
     @objc private func cleanCache(sender: UIButton) {

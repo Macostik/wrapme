@@ -211,7 +211,7 @@ final class WrapViewController: BaseViewController {
             receiver.willDelete = { entry in
                 if self?.viewAppeared == true {
                     self?.navigationController?.popToRootViewControllerAnimated(false)
-                    InfoToast.showMessageForUnavailableWrap(entry)
+                    Toast.showMessageForUnavailableWrap(entry)
                 }
             }
             })

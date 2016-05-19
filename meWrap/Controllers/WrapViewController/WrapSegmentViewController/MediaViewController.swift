@@ -261,7 +261,7 @@ class MediaViewController: WrapSegmentViewController {
     
     func presentLiveBroadcast(broadcast: LiveBroadcast) {
         if !Network.sharedNetwork.reachable {
-            InfoToast.show("no_internet_connection".ls)
+            Toast.show("no_internet_connection".ls)
             return
         }
         if let controller = storyboard?["liveViewer"] as? LiveViewerViewController {
@@ -321,7 +321,7 @@ class MediaViewController: WrapSegmentViewController {
     
     @IBAction func liveBroadcast(sender: UIButton) {
         if !Network.sharedNetwork.reachable {
-            InfoToast.show("no_internet_connection".ls)
+            Toast.show("no_internet_connection".ls)
             return
         }
         guard let wrap = wrap else { return }

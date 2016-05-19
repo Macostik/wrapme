@@ -205,7 +205,7 @@ extension WrapPickerViewController {
     @IBAction func saveNewWrap(sender: Button) {
         
         guard let name = wrapNameTextField?.text?.trim where name.isEmpty == false else {
-            InfoToast.show("wrap_name_cannot_be_blank".ls)
+            Toast.show("wrap_name_cannot_be_blank".ls)
             return
         }
         

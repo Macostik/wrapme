@@ -75,7 +75,7 @@ final class ConfirmEmailViewController: SignupStepViewController {
                 if let error = error {
                     if error.isResponseError(.EmailAlreadyConfirmed) {
                         self?.setSuccessStatusAnimated(false)
-                        InfoToast.show("Your email is already confirmed.")
+                        Toast.show("Your email is already confirmed.")
                     } else {
                         error.show()
                     }

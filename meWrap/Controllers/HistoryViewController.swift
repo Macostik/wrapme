@@ -802,10 +802,10 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
                 navigationController?.dismissViewControllerAnimated(false, completion: nil)
             }
             if removedCandy == candy {
-                InfoToast.show((candy.isVideo ? "video_deleted" : "photo_deleted").ls)
+                Toast.show((candy.isVideo ? "video_deleted" : "photo_deleted").ls)
                 self.removedCandy = nil
             } else {
-                InfoToast.show((candy.isVideo ? "video_unavailable" : "photo_unavailable").ls)
+                Toast.show((candy.isVideo ? "video_unavailable" : "photo_unavailable").ls)
             }
             
             if let nextCandy = candyAfterDeletingCandyAt(index) {
@@ -819,7 +819,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     func notifier(notifier: EntryNotifier, willDeleteContainer container: Entry) {
-        InfoToast.showMessageForUnavailableWrap(wrap)
+        Toast.showMessageForUnavailableWrap(wrap)
         navigationController?.popToRootViewControllerAnimated(false)
     }
     
@@ -848,10 +848,10 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         PHPhotoLibrary.authorize({ [weak self] in
             if let candy = self?.candy {
                 candy.download({ () -> Void in
-                    InfoToast.showDownloadingMediaMessageForCandy(candy)
+                    Toast.showDownloadingMediaMessageForCandy(candy)
                     }, failure: { (error) -> Void in
                         if let error = error where error.isNetworkError {
-                            InfoToast.show("downloading_internet_connection_error".ls)
+                            Toast.show("downloading_internet_connection_error".ls)
                         } else {
                             error?.show()
                         }

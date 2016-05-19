@@ -70,7 +70,7 @@ class WrapListViewController: BaseViewController {
                 if items.count <= 10 {
                     assets = handleAssets(items)
                 } else {
-                    InfoToast.show("upload_photos_limit_error".ls)
+                    Toast.show("upload_photos_limit_error".ls)
                     handleAssets(Array(items.prefix(10)))
                 }
             }

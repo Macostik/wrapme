@@ -253,7 +253,7 @@ extension HomeViewController {
     
     @IBAction func resendConfirmation(sender: AnyObject?) {
         API.resendConfirmation(nil).send({ _ in
-            InfoToast.show("confirmation_resend".ls)
+            Toast.show("confirmation_resend".ls)
             }, failure: { $0?.show() })
     }
 }

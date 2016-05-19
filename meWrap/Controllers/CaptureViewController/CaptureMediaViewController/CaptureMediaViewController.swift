@@ -135,7 +135,7 @@ class CaptureMediaViewController: CaptureViewController {
             success(asset)
             if assets.count == 10 {
                 showUploadSummary {
-                    InfoToast.show("upload_photos_limit_error".ls)
+                    Toast.show("upload_photos_limit_error".ls)
                 }
             }
             }, failure: failure)
@@ -190,7 +190,7 @@ extension CaptureMediaViewController {
     
     func assetsViewController(controller: AssetsViewController, shouldSelectAsset asset: PHAsset) -> Bool {
         if asset.mediaType == .Video && asset.duration >= Constants.maxVideoRecordedDuration + 1 {
-            InfoToast.show(String(format:"formatted_upload_video_duration_limit".ls, Int(Constants.maxVideoRecordedDuration)))
+            Toast.show(String(format:"formatted_upload_video_duration_limit".ls, Int(Constants.maxVideoRecordedDuration)))
             return false
         } else {
             return shouldAddAsset({}, failure: { $0?.show() })

@@ -1,5 +1,5 @@
 //
-//  InfoToast.swift
+//  Toast.swift
 //  meWrap
 //
 //  Created by Sergey Maximenko on 1/5/16.
@@ -21,10 +21,10 @@ struct DefaultToastAppearance : Appearance {
     var textColor: UIColor { return UIColor.whiteColor() }
 }
 
-class InfoToast: UIView {
+class Toast: UIView {
     
     static let DismissalDelay: NSTimeInterval = 4.0
-    private static let toast = InfoToast()
+    private static let toast = Toast()
     var topMessageInset: Constraint!
     var runQueue = RunQueue(limit: 1)
     var queuedMessages = Set<String>()
@@ -107,7 +107,7 @@ class InfoToast: UIView {
                 self.queuedMessages.remove(message)
                 finish()
             }
-            self.enqueueSelector(#selector(InfoToast.dismiss), delay: InfoToast.DismissalDelay)
+            self.enqueueSelector(#selector(Toast.dismiss), delay: Toast.DismissalDelay)
         }
     }
     
@@ -125,7 +125,7 @@ class InfoToast: UIView {
     }
     
     func dismiss() {
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(InfoToast.dismiss), object: nil)
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(Toast.dismiss), object: nil)
         UIView.animateWithDuration(0.25, animations: { self.alpha = 0 }, completion: { (_) -> Void in
             self.removeFromSuperview()
             self.dismissBlock?()
@@ -189,17 +189,21 @@ extension UIActivityViewController {
     }
 }
 
-extension InfoToast {
+extension Toast {
     
-    class func showDownloadingMediaMessageForCandy(candy: Candy?) {
+    static func downloadingMediaMessageForCandy(candy: Candy?) -> String {
         if let candy = candy where candy.valid {
-            show(String(format: (candy.isVideo ? "downloading_video" : "downloading_photo").ls, Constants.albumName))
+            return String(format: (candy.isVideo ? "downloading_video" : "downloading_photo").ls, Constants.albumName)
         } else {
-            show(String(format: "downloading_media".ls, Constants.albumName))
+            return String(format: "downloading_media".ls, Constants.albumName)
         }
     }
     
-    class func showMessageForUnavailableWrap(wrap: Wrap?) {
+    static func showDownloadingMediaMessageForCandy(candy: Candy?) {
+        show(downloadingMediaMessageForCandy(candy))
+    }
+    
+    static func showMessageForUnavailableWrap(wrap: Wrap?) {
         show(String(format: "formatted_wrap_unavailable".ls, wrap?.name ?? ""))
     }
 }

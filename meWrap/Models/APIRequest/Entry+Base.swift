@@ -147,7 +147,7 @@ extension Candy {
         if (PHPhotoLibrary.authorizationStatus() == .Denied) {
             failure?(NSError(message:"downloading_privacy_settings".ls))
         } else {
-            DownloadingView.downloadCandy(self, message: "downloading_media".ls, success: { (url) in
+            DownloadingView.downloadCandy(self, message: Toast.downloadingMediaMessageForCandy(self), success: { (url) in
                 if self.mediaType == .Video {
                     PHPhotoLibrary.addVideoAtFileUrl(url, success: success, failure: failure)
                 } else {

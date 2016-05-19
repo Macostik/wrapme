@@ -120,6 +120,16 @@ final class NotificationCenter: NSObject {
         return notifications
     }
     
+    let historyNotifier = BlockNotifier<NotificationCenter>()
+    
+    var queryingHistory = false {
+        didSet {
+            if queryingHistory != oldValue {
+                historyNotifier.notify(self)
+            }
+        }
+    }
+    
     func requestHistory() {
         RunQueue.fetchQueue.run { [unowned self] finish in
             
@@ -128,11 +138,17 @@ final class NotificationCenter: NSObject {
                 return
             }
             
+            self.queryingHistory = true
+            
             Dispatch.defaultQueue.async({
                 let messages = self.userSubscription.history()
                 Dispatch.mainQueue.async({
                     if messages.count > 0 {
-                        self.handleNotifications(self.notificationsFromMessages(messages))
+                        self.handleNotifications(self.notificationsFromMessages(messages), completionHandler: {
+                            self.queryingHistory = false
+                        })
+                    } else {
+                        self.queryingHistory = false
                     }
                     finish()
                 })
@@ -140,7 +156,7 @@ final class NotificationCenter: NSObject {
         }
     }
     
-    private func handleNotifications(notifications: [Notification]) {
+    private func handleNotifications(notifications: [Notification], completionHandler: (() -> ())? = nil) {
         if !notifications.isEmpty {
             for notification in notifications {
                 RunQueue.fetchQueue.run { finish in
@@ -161,7 +177,10 @@ final class NotificationCenter: NSObject {
                     notification.submit()
                 }
                 finish()
+                completionHandler?()
             }
+        } else {
+            completionHandler?()
         }
     }
     

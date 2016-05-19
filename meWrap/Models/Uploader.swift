@@ -9,12 +9,6 @@
 import UIKit
 import CoreData
 
-@objc protocol UploaderNotifying {
-    optional func uploaderDidStart(uploader: Uploader)
-    optional func uploaderDidChange(uploader: Uploader)
-    optional func uploaderDidStop(uploader: Uploader)
-}
-
 class Uploader: Notifier {
     
     static let wrapUploader = Uploader(entityName: Wrap.entityName(), subuploaders: [candyUploader, messageUploader], limit: 3)
@@ -38,15 +32,19 @@ class Uploader: Notifier {
     var entityName: String
     
     private var runQueue = RunQueue()
-    private var uploadings = [Uploading]()
+    private lazy var uploadings: [Uploading] = self.prepareUploadings()
+    
+    let didStart = BlockNotifier<Uploader>()
+    let didChange = BlockNotifier<Uploader>()
+    let didStop = BlockNotifier<Uploader>()
     
     var isUploading: Bool = false {
         didSet {
             if isUploading != oldValue {
                 if isUploading {
-                    notify { $0.uploaderDidStart?(self) }
+                    didStart.notify(self)
                 } else {
-                    notify { $0.uploaderDidStop?(self) }
+                    didStop.notify(self)
                 }
             }
         }
@@ -73,18 +71,13 @@ class Uploader: Notifier {
         }
     }
     
-    private func prepare() {
+    private func prepareUploadings() -> [Uploading] {
         let contributions = FetchRequest<Contribution>(name: entityName).query("uploading != nil").sort("createdAt", asc:true).execute()
-        uploadings = contributions.map({ $0.uploading! })
         Logger.log("\(entityName) uploading queue prepared with: \(contributions)")
-        for uploader in subuploaders {
-            uploader.prepare()
-        }
+        return contributions.map({ $0.uploading! })
     }
     
     func start() {
-        
-        prepare()
         
         guard Network.sharedNetwork.reachable && Authorization.active else { return }
         
@@ -97,8 +90,8 @@ class Uploader: Notifier {
         }
     }
     
-    private func didChange() {
-        notify { $0.uploaderDidChange?(self) }
+    private func _didChange() {
+        didChange.notify(self)
         isUploading = !isEmpty
     }
     
@@ -107,13 +100,13 @@ class Uploader: Notifier {
         uploading.upload({ [weak self] (object) -> Void in
             self?.remove(uploading)
             success?(object)
-            self?.didChange()
+            self?._didChange()
             }) { [weak self] (error) -> Void in
                 if !(uploading.contribution?.valid ?? false) {
                     self?.remove(uploading)
                 }
                 failure?(error)
-                self?.didChange()
+                self?._didChange()
         }
     }
     
@@ -140,7 +133,7 @@ class Uploader: Notifier {
     private func add(uploading: Uploading) {
         if !uploadings.contains(uploading) {
             uploadings.append(uploading)
-            notify { $0.uploaderDidChange?(self) }
+            didChange.notify(self)
         }
     }
     
@@ -171,7 +164,7 @@ class Uploader: Notifier {
                 }
             }
             
-            didChange()
+            _didChange()
             
             for uploading in removedUploadings {
                 if let contribution = uploading.contribution {
@@ -196,7 +189,7 @@ extension Uploader: EntryNotifying {
         
         if let uploading = contribution.uploading, let index = uploadings.indexOf(uploading) {
             uploadings.removeAtIndex(index)
-            didChange()
+            _didChange()
         }
         
         isUploading = !isEmpty

@@ -131,6 +131,15 @@ final class HomeViewController: BaseViewController {
                 }
             }
         }
+        
+        
+        if let navigationBar = navigationBar {
+            let activityStatusView = ActivityStatusView()
+            navigationBar.add(activityStatusView, { (make) in
+                make.leading.equalTo(navigationBar).inset(12)
+                make.centerY.equalTo(navigationBar).inset(10)
+            })
+        }
     }
     
     func refreshUserActivities() {

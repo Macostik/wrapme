@@ -146,6 +146,7 @@
 		C532F4EF1C2DA4D8004585E0 /* Uploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532F4EE1C2DA4D8004585E0 /* Uploader.swift */; };
 		C5347E261C75EB510080074C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5347E251C75EB510080074C /* HomeViewController.swift */; };
 		C5347E281C7625AC0080074C /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5347E271C7625AC0080074C /* ChatViewController.swift */; };
+		C534A2931CEDFDA9006955B0 /* ActivityStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534A2921CEDFDA9006955B0 /* ActivityStatusView.swift */; };
 		C535D6991C045476002BCE34 /* OverlayImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C535D6981C045476002BCE34 /* OverlayImageView.swift */; };
 		C535D69B1C045B56002BCE34 /* WrapCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C535D69A1C045B56002BCE34 /* WrapCoverView.swift */; };
 		C53644681C6213920002232C /* SwipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53644671C6213920002232C /* SwipeViewController.swift */; };
@@ -600,6 +601,7 @@
 		C532F4EE1C2DA4D8004585E0 /* Uploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uploader.swift; sourceTree = "<group>"; };
 		C5347E251C75EB510080074C /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C5347E271C7625AC0080074C /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		C534A2921CEDFDA9006955B0 /* ActivityStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityStatusView.swift; sourceTree = "<group>"; };
 		C535D6981C045476002BCE34 /* OverlayImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayImageView.swift; sourceTree = "<group>"; };
 		C535D69A1C045B56002BCE34 /* WrapCoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapCoverView.swift; sourceTree = "<group>"; };
 		C53644671C6213920002232C /* SwipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeViewController.swift; sourceTree = "<group>"; };
@@ -1068,6 +1070,7 @@
 				12E8FF1C18E9883700BF1B96 /* ComposeBar */,
 				12E8FF0718E960E000BF1B96 /* StreamView */,
 				5BA432AE1A3F3F5200B53BC7 /* ConfirmView */,
+				C534A2921CEDFDA9006955B0 /* ActivityStatusView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2078,6 +2081,7 @@
 				C56449A21CE37F41006444A6 /* CaptureCommentViewController.swift in Sources */,
 				C5E6DD9F1C0DD11A004992E4 /* Keys.swift in Sources */,
 				C55BE8C71C031BA6006B04FC /* ExtensionRequest+Ext.swift in Sources */,
+				C534A2931CEDFDA9006955B0 /* ActivityStatusView.swift in Sources */,
 				C535D6991C045476002BCE34 /* OverlayImageView.swift in Sources */,
 				C530127F1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift in Sources */,
 				C502B3251C47F30400F66EAE /* API.swift in Sources */,

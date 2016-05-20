@@ -539,12 +539,12 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         if CommentViewController.current != nil {
             return [.Portrait, .PortraitUpsideDown]
         } else {
-            return .All
+            return childViewControllers.count > 0 ? [.Portrait, .PortraitUpsideDown] : .All
         }
     }
     
     override func shouldAutorotate() -> Bool {
-        return CommentViewController.current == nil
+        return CommentViewController.current == nil && childViewControllers.count == 0
     }
     
     func panned(sender: UIPanGestureRecognizer) {

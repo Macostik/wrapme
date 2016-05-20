@@ -590,6 +590,9 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        Dispatch.mainQueue.async { () in
+            self.dataSource.reload()
+        }
         streamView.setMaximumContentOffsetAnimated(false)
     }
     

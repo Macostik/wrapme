@@ -386,7 +386,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         $0.layer.shadowOpacity = 0.5
         $0.layer.shadowOffset = CGSize(width: 0, height: 3)
     }
-    private let commentButton = Button.candyAction("f", color: Color.orange)
+    let commentButton = Button.candyAction("f", color: Color.orange)
     private let commentCountLabel = specify(UILabel()) {
         $0.font = UIFont.systemFontOfSize(10, weight: UIFontWeightBold)
         $0.textColor = UIColor.whiteColor()
@@ -440,8 +440,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         view.add(commentButton) {
             $0.size.equalTo(44)
             $0.trailing.equalTo(view).inset(20)
-            visibleBarsContrains.append($0.bottom.equalTo(view).inset(20).priorityHigh().constraint)
-            invisibleBarsContrains.append($0.top.equalTo(view.snp_bottom).inset(-20).priorityLow().constraint)
+            $0.bottom.equalTo(view).inset(20)
         }
         commentButton.add(commentCountLabel) { (make) in
             make.trailing.top.equalTo(commentButton).inset(-2)
@@ -653,6 +652,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         commentsViewController.candy = candy
         commentsViewController.presentForController(self, animated: animated)
         CommentsViewController.current = commentsViewController
+        commentButton.hidden = true
     }
     
     private func setCandy(candy: Candy, direction: SwipeDirection, animated: Bool) {

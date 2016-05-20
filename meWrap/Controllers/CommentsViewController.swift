@@ -703,6 +703,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
             CommentsViewController.current = nil
         }
         historyViewController?.setBarsHidden(false, animated: animated)
+        historyViewController?.commentButton.hidden = false
     }
     
     @IBAction func onClose(sender: AnyObject?) {

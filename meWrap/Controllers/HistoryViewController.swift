@@ -364,7 +364,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         })
     }
     
-    private let accessoryLabel = Label(icon: "y", size: 20)
+    private let accessoryLabel = Label(icon: "y", size: 21)
     
     private lazy var accessoryView: UIView = specify(UIView()) { view in
         view.clipsToBounds = true

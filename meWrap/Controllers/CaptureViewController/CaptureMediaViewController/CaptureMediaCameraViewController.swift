@@ -326,7 +326,6 @@ extension CaptureMediaCameraViewController: AVCaptureFileOutputRecordingDelegate
         videoRecordControl.removeFromSuperview()
         takePhotoButton.hidden = false
         if videoRecordingCancelled || (error != nil && error.code != AVError.MaximumDurationReached.rawValue) {
-            error?.show()
             _ = try? NSFileManager.defaultManager().removeItemAtURL(outputFileURL)
         } else {
             delegate?.cameraViewController?(self, didCaptureVideoAtPath: videoFilePath, saveToAlbum: true)

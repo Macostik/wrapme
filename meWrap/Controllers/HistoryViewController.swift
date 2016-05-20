@@ -364,7 +364,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         })
     }
     
-    private let accessoryLabel = Label(icon: "y", size: 18)
+    private let accessoryLabel = Label(icon: "y", size: 20)
     
     private lazy var accessoryView: UIView = specify(UIView()) { view in
         view.clipsToBounds = true
@@ -537,8 +537,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     private func setTopViewExpanded(expanded: Bool, animated: Bool = true) {
         if topView.expanded != expanded {
-            accessoryLabel.text = expanded ? "z" : "y"
             animate(animated) {
+                accessoryLabel.layer.transform = CATransform3DMakeRotation(expanded ? CGFloat(M_PI) : 0, 1, 0, 0)
                 topView.expanded = expanded
                 topView.layoutIfNeeded()
             }

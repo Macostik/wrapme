@@ -9,11 +9,7 @@
 import UIKit
 import CoreMotion
 
-@objc protocol DeviceManagerNotifying {
-    optional func manager(manager: DeviceManager, didChangeOrientation orientation: UIDeviceOrientation)
-}
-
-class DeviceManager: Notifier {
+class DeviceManager: BlockNotifier<UIDeviceOrientation> {
     
     static let defaultManager = DeviceManager()
     
@@ -37,7 +33,7 @@ class DeviceManager: Notifier {
     
     private func orientationChanged(notification: NSNotification) {
         orientationFromAccelerometer = nil
-        notify { $0.manager?(self, didChangeOrientation: UIDevice.currentDevice().orientation) }
+        notify(UIDevice.currentDevice().orientation)
     }
     
     func beginUsingAccelerometer() {
@@ -66,7 +62,7 @@ class DeviceManager: Notifier {
         if orientationFromAccelerometer != orientation {
             orientationFromAccelerometer = orientation
             Dispatch.mainQueue.async { _ in
-                self.notify { $0.manager?(self, didChangeOrientation: orientation) }
+                self.notify(orientation)
             }
         }
     }

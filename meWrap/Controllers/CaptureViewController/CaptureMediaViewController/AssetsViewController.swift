@@ -10,6 +10,18 @@ import UIKit
 import Photos
 import SnapKit
 
+extension UIDeviceOrientation {
+    
+    func interfaceTransform() -> CGAffineTransform {
+        switch self {
+        case .LandscapeLeft: return CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+        case .LandscapeRight: return CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+        case .PortraitUpsideDown: return CGAffineTransformMakeRotation(CGFloat(M_PI))
+        default: return CGAffineTransformIdentity
+        }
+    }
+}
+
 class AssetCell: EntryStreamReusableView<PHAsset> {
     
     var imageView = ImageView(backgroundColor: UIColor.clearColor())
@@ -37,6 +49,11 @@ class AssetCell: EntryStreamReusableView<PHAsset> {
             $0.trailing.equalTo(self).offset(-2)
             $0.width.height.equalTo(20)
         })
+        DeviceManager.defaultManager.subscribe(self) { (owner, value) in
+            animate(animations: { 
+                owner.transform = value.interfaceTransform()
+            })
+        }
     }
     
     override func willEnqueue() {
@@ -63,6 +80,7 @@ class AssetCell: EntryStreamReusableView<PHAsset> {
             }
             })
         videoIndicator.hidden = asset.mediaType != .Video
+        transform = DeviceManager.defaultManager.orientation.interfaceTransform()
     }
     
     override var selected: Bool {

@@ -478,7 +478,6 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         }
         
         addNotifyReceivers()
-        DeviceManager.defaultManager.addReceiver(self)
         composeBar.text = candy.typedComment
         cameraButton.hidden = composeBar.text?.isEmpty == false
         
@@ -529,9 +528,9 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         coordinator.animateAlongsideTransition({ (_) in
             self.layoutTopView()
-            self.contentView.layoutIfNeeded()
-            }) { (_) in
-                
+            self.view.layoutIfNeeded()
+            self.dataSource.reload()
+            }) { (_) in   
         }
     }
     
@@ -590,9 +589,6 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        Dispatch.mainQueue.async { () in
-            self.dataSource.reload()
-        }
         streamView.setMaximumContentOffsetAnimated(false)
     }
     
@@ -757,13 +753,5 @@ extension CommentsViewController: ComposeBarDelegate {
     
     func typingIdled() {
         typing = false
-    }
-}
-
-extension CommentsViewController: DeviceManagerNotifying {
-    
-    func manager(manager: DeviceManager, didChangeOrientation orientation: UIDeviceOrientation) {
-        view.layoutIfNeeded()
-        dataSource.reload()
     }
 }

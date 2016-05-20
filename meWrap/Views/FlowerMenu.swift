@@ -59,7 +59,9 @@ class FlowerMenu: UIView {
         snp_makeConstraints(closure: { $0.edges.equalTo(superview) })
         setNeedsDisplay()
         alpha = 0
-        DeviceManager.defaultManager.addReceiver(self)
+        DeviceManager.defaultManager.subscribe(self) { (owner, value) in
+            owner.hide()
+        }
         UIView.animateWithDuration(0.12, delay: 0, options: .CurveEaseIn, animations: {
             self.alpha = 1
         }, completion: nil)
@@ -94,7 +96,7 @@ class FlowerMenu: UIView {
         guard superview != nil else {
             return
         }
-        DeviceManager.defaultManager.removeReceiver(self)
+        DeviceManager.defaultManager.unsubscribe(self)
         UIView.animateWithDuration(0.12, delay: 0, options: .CurveEaseIn, animations: { () -> Void in
             self.alpha = 0
             self.animateHiding()
@@ -184,12 +186,6 @@ class FlowerMenu: UIView {
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        hide()
-    }
-}
-
-extension FlowerMenu: DeviceManagerNotifying {
-    func manager(manager: DeviceManager, didChangeOrientation orientation: UIDeviceOrientation) {
         hide()
     }
 }

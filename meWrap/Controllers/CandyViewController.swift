@@ -89,7 +89,7 @@ extension CandyViewController: NetworkNotifying {
     }
 }
 
-final class PhotoCandyViewController: CandyViewController, DeviceManagerNotifying, UIScrollViewDelegate {
+final class PhotoCandyViewController: CandyViewController, UIScrollViewDelegate {
     
     let scrollView = UIScrollView()
 
@@ -123,7 +123,10 @@ final class PhotoCandyViewController: CandyViewController, DeviceManagerNotifyin
         
         scrollView.panGestureRecognizer.enabled = false
         
-        DeviceManager.defaultManager.addReceiver(self)
+        DeviceManager.defaultManager.subscribe(self) { (owner, value) in
+            owner.scrollView.zoomScale = 1
+            owner.scrollView.panGestureRecognizer.enabled = false
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -145,11 +148,6 @@ final class PhotoCandyViewController: CandyViewController, DeviceManagerNotifyin
             scrollView.zoomScale = 1
             scrollView.panGestureRecognizer.enabled = false
         }
-    }
-    
-    func manager(manager: DeviceManager, didChangeOrientation orientation: UIDeviceOrientation) {
-        scrollView.zoomScale = 1
-        scrollView.panGestureRecognizer.enabled = false
     }
     
     func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {

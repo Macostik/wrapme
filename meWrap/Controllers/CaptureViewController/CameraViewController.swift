@@ -142,7 +142,9 @@ class CameraViewController: BaseViewController {
         
         super.viewDidLoad()
         
-        DeviceManager.defaultManager.addReceiver(self)
+        DeviceManager.defaultManager.subscribe(self) { (owner, orientation) in
+            owner.applyDeviceOrientation(orientation)
+        }
         DeviceManager.defaultManager.beginUsingAccelerometer()
         
         AVCaptureDevice.authorize({ _ in
@@ -444,12 +446,6 @@ extension CameraViewController: UIGestureRecognizerDelegate {
 //    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
 //        return true
 //    }
-}
-
-extension CameraViewController: DeviceManagerNotifying {
-    func manager(manager: DeviceManager, didChangeOrientation orientation: UIDeviceOrientation) {
-        applyDeviceOrientation(orientation)
-    }
 }
 
 extension AVCaptureDevice {

@@ -176,7 +176,7 @@ final class CommentView: UIView {
     }
 }
 
-class HistoryViewController: SwipeViewController<CandyViewController>, EntryNotifying, DeviceManagerNotifying {
+class HistoryViewController: SwipeViewController<CandyViewController>, EntryNotifying {
     
     weak var candy: Candy? {
         didSet {

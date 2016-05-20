@@ -133,6 +133,8 @@ class CameraViewController: BaseViewController {
         DeviceManager.defaultManager.endUsingAccelerometer()
     }
     
+    lazy var defaultPosition: AVCaptureDevicePosition = .Back
+    
     override func viewDidLoad() {
         
         _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
@@ -144,11 +146,10 @@ class CameraViewController: BaseViewController {
         DeviceManager.defaultManager.beginUsingAccelerometer()
         
         AVCaptureDevice.authorize({ _ in
+            self.position = self.defaultPosition
             if self.isAvatar {
-                self.position = .Front
                 self.flashMode = .Off
             } else {
-                self.position = NSUserDefaults.standardUserDefaults().captureMediaDevicePosition
                 self.flashMode = NSUserDefaults.standardUserDefaults().captureMediaFlashMode
             }
             self.flashModeControl.mode = self.flashMode

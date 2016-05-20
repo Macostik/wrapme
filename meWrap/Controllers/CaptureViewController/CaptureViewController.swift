@@ -22,15 +22,18 @@ class CaptureViewController: UINavigationController, CameraViewControllerDelegat
     }
     
     class func captureAvatarViewController() -> CaptureAvatarViewController {
-        return CaptureAvatarViewController(cameraViewController: UIStoryboard.camera["avatarCamera"] as! CameraViewController)
+        let cameraViewController = UIStoryboard.camera["avatarCamera"] as! CameraViewController
+        return CaptureAvatarViewController(cameraViewController: cameraViewController, defaultPosition: .Front)
     }
     
     class func captureCommentViewController() -> CaptureCommentViewController {
-        return CaptureCommentViewController(cameraViewController: UIStoryboard.camera["commentCamera"] as! CameraViewController)
+        let cameraViewController = UIStoryboard.camera["commentCamera"] as! CameraViewController
+        return CaptureCommentViewController(cameraViewController: cameraViewController, defaultPosition: .Front)
     }
     
-    convenience init(cameraViewController: CameraViewController) {
+    convenience init(cameraViewController: CameraViewController, defaultPosition: AVCaptureDevicePosition = NSUserDefaults.standardUserDefaults().captureMediaDevicePosition) {
         self.init()
+        cameraViewController.defaultPosition = defaultPosition
         navigationBarHidden = true
         self.cameraViewController = cameraViewController
         cameraViewController.delegate = self

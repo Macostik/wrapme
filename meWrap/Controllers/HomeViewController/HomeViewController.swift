@@ -154,9 +154,6 @@ final class HomeViewController: BaseViewController {
         dataSource.reload()
         updateEmailConfirmationView(false)
         AuthorizedExecutor.authorized = true
-        if NSUserDefaults.standardUserDefaults().numberOfLaunches >= 3 && User.currentUser?.wraps.count >= 3 {
-            HintView.showHomeSwipeTransitionHintView(view)
-        }
         streamView.unlock()
     }
     

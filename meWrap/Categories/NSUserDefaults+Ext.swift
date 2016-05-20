@@ -108,15 +108,6 @@ extension NSUserDefaults {
         set { self["captureMediaFlashMode"] = newValue.rawValue }
     }
     
-    var shownHints: [String:Bool] {
-        get {
-            return self["HintView_shownHints"] as? [String:Bool] ?? [String:Bool]()
-        }
-        set {
-            self["HintView_shownHints"] = newValue
-        }
-    }
-    
     var historyDate: NSDate? {
         get {
             if _historyDate == nil {

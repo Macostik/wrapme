@@ -27,7 +27,6 @@
 		5B35CDB51C6CE30100616AFA /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C507F80D1C218BB1006DA3E5 /* Dispatch.swift */; };
 		5B37C75E1C5A06E30068E693 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37C75D1C5A06E30068E693 /* Button.swift */; };
 		5B383A751CA3E2590097B547 /* note.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5B383A741CA3E2590097B547 /* note.wav */; };
-		5B3C792A1C7318B700EAB05D /* HintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3C79291C7318B700EAB05D /* HintView.swift */; };
 		5B40D6B21C2EBB1C009EF38C /* UploadWizardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40D6B11C2EBB1C009EF38C /* UploadWizardViewController.swift */; };
 		5B436C9D1C9FFC5100635931 /* peopleAndSmiles_iOS_8.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B436C9C1C9FFC5100635931 /* peopleAndSmiles_iOS_8.plist */; };
 		5B436CA51C9FFCAD00635931 /* activity_iOS_8.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B436C9E1C9FFCAD00635931 /* activity_iOS_8.plist */; };
@@ -471,7 +470,6 @@
 		5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeProfileViewController.swift; sourceTree = "<group>"; };
 		5B37C75D1C5A06E30068E693 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		5B383A741CA3E2590097B547 /* note.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = note.wav; path = Sounds/note.wav; sourceTree = "<group>"; };
-		5B3C79291C7318B700EAB05D /* HintView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HintView.swift; sourceTree = "<group>"; };
 		5B3DBD201C5243C000A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5B3DBD211C5243C000A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5B3DBD221C5243C000A5F33E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -1042,7 +1040,6 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5B3C79291C7318B700EAB05D /* HintView.swift */,
 				C51C4BCE1CC4E99300326331 /* ExpandableView.swift */,
 				5B37C75D1C5A06E30068E693 /* Button.swift */,
 				5BD529481BDA796000527077 /* SmartLabel.swift */,
@@ -2106,7 +2103,6 @@
 				C502B3281C47F30400F66EAE /* Entry+APIResponse.swift in Sources */,
 				C532F4EF1C2DA4D8004585E0 /* Uploader.swift in Sources */,
 				C51D68D21CE9F7BD00714CE4 /* CommentViewController.swift in Sources */,
-				5B3C792A1C7318B700EAB05D /* HintView.swift in Sources */,
 				C5E7AB781BCD3A79007E314B /* UIScrollView+Ext.swift in Sources */,
 				C54CEF9D1BCFB09100128CBE /* UIViewController+Ext.swift in Sources */,
 				C53012911BF4E3EA00098F9C /* EmojiView.swift in Sources */,

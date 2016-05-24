@@ -69,7 +69,7 @@ final class ActivityStatusView: UIView, NetworkNotifying {
         }
     }
     
-    private var status: ActivityStatus = .None {
+    var status: ActivityStatus = .None {
         willSet {
             guard newValue != status else { return }
             switch newValue {
@@ -86,12 +86,12 @@ final class ActivityStatusView: UIView, NetworkNotifying {
                     })
             case .History:
                 cloudIcon = Label(icon: "A", size: 10, textColor: Color.orange)
-                cloudIcon?.addAnimation(specify(CABasicAnimation(keyPath: "transform")) {
-                    $0.toValue = NSValue(CATransform3D: CATransform3DMakeRotation(CGFloat(M_PI_2), 0, 0, 1))
+                cloudIcon?.addAnimation(specify(CABasicAnimation(keyPath: "transform.rotation.z")) {
                     $0.removedOnCompletion = false
-                    $0.duration = 0.2
+                    $0.toValue = M_PI
+                    $0.duration = 0.4
                     $0.repeatCount = FLT_MAX
-                    $0.cumulative = true
+                    $0.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
                     })
             case .Offline:
                 cloudIcon = Label(icon: "~", size: 10, textColor: Color.orange)
@@ -101,7 +101,7 @@ final class ActivityStatusView: UIView, NetworkNotifying {
         }
     }
     
-    private func update() {
+    func update() {
         let isOnline = Network.sharedNetwork.reachable
         let uploadCount = Uploader.candyUploader.count
         let queryingHistory = NotificationCenter.defaultCenter.queryingHistory

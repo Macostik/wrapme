@@ -22,6 +22,8 @@ final class HomeViewController: BaseViewController {
     @IBOutlet weak var photoButton: UIButton!
     weak var candiesView: RecentCandiesView?
     
+    let activityStatusView = ActivityStatusView()
+    
     private var userNotifyReceiver: EntryNotifyReceiver<User>!
     private var wrapNotifyReceiver: EntryNotifyReceiver<Wrap>!
     
@@ -134,7 +136,6 @@ final class HomeViewController: BaseViewController {
         
         
         if let navigationBar = navigationBar {
-            let activityStatusView = ActivityStatusView()
             navigationBar.add(activityStatusView, { (make) in
                 make.leading.equalTo(navigationBar).inset(12)
                 make.centerY.equalTo(navigationBar).inset(10)
@@ -155,6 +156,8 @@ final class HomeViewController: BaseViewController {
         updateEmailConfirmationView(false)
         AuthorizedExecutor.authorized = true
         streamView.unlock()
+        activityStatusView.status = .None
+        activityStatusView.update()
     }
     
     override func viewDidDisappear(animated: Bool) {

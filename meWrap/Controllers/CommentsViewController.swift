@@ -663,14 +663,13 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         }
     }
     
-    private func sendMessageWithText(text: String) {
-        close(true)
+    private func sendComment(@noescape block: Comment -> ()) {
         if let candy = candy?.validEntry() {
-            Dispatch.mainQueue.async {
-                Sound.play()
-                candy.uploadComment(Comment.comment(text))
-                candy.typedComment = nil
-            }
+            Sound.play()
+            let comment: Comment = Comment.contribution()
+            block(comment)
+            candy.uploadComment(comment)
+            streamView.setMaximumContentOffsetAnimated(true)
         }
     }
     
@@ -717,12 +716,11 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         if let presenter = controller.presentingViewController {
             presenter.dismissViewControllerAnimated(false, completion: nil)
         }
-        close(true)
-        if let candy = candy?.validEntry() {
-            Sound.play()
-            let comment: Comment = Comment.contribution()
+        controller.removeFromContainerAnimated(false)
+        showComposeBar()
+        view.layoutIfNeeded()
+        sendComment { (comment) in
             comment.asset = asset.uploadableAsset()
-            candy.uploadComment(comment)
         }
     }
     
@@ -741,7 +739,12 @@ extension CommentsViewController: ComposeBarDelegate {
     
     func composeBar(composeBar: ComposeBar, didFinishWithText text: String) {
         typing = false
-        sendMessageWithText(text)
+        composeBar.text = nil
+        contentView.layoutIfNeeded()
+        sendComment { (comment) in
+            comment.text = text
+        }
+        candy?.typedComment = nil
     }
     
     func composeBarDidChangeText(composeBar: ComposeBar) {

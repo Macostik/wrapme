@@ -132,7 +132,7 @@ class LiveBroadcastInfoEventView: LiveBroadcastEventView {
     }
 }
 
-class LiveViewController: BaseViewController {
+class LiveViewController: BaseViewController, ComposeBarDelegate {
         
     @IBOutlet weak var joinsCountView: UIView!
     
@@ -200,6 +200,8 @@ class LiveViewController: BaseViewController {
         wrapNameLabel?.text = wrap?.name
         
         Wrap.notifier().addReceiver(self)
+        
+        composeBar.delegate = self
     }
     
     internal func close() {

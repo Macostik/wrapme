@@ -279,7 +279,7 @@ final class LiveBroadcasterViewController: LiveViewController {
         super.close()
     }
     
-    @IBAction func finishTitleInput(sender: AnyObject?) {
+    func composeBar(composeBar: ComposeBar, didFinishWithText text: String) {
         composeBar.resignFirstResponder()
         composeBar.setDoneButtonHidden(true, animated: true)
     }

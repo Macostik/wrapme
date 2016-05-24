@@ -206,7 +206,7 @@ class LiveViewerViewController: LiveViewController {
         }
     }
     
-    @IBAction func sendMessage(sender: AnyObject?) {
+    func composeBar(composeBar: ComposeBar, didFinishWithText text: String) {
         if let text = composeBar.text?.trim where !text.isEmpty {
             chatSubscription.send([
                 "content" : text,

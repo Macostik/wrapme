@@ -59,9 +59,7 @@ class FlowerMenu: UIView {
         snp_makeConstraints(closure: { $0.edges.equalTo(superview) })
         setNeedsDisplay()
         alpha = 0
-        DeviceManager.defaultManager.subscribe(self) { (owner, value) in
-            owner.hide()
-        }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.hide), name: UIApplicationDidChangeStatusBarOrientationNotification, object: nil)
         UIView.animateWithDuration(0.12, delay: 0, options: .CurveEaseIn, animations: {
             self.alpha = 1
         }, completion: nil)
@@ -93,10 +91,8 @@ class FlowerMenu: UIView {
     }
     
     func hide() {
-        guard superview != nil else {
-            return
-        }
-        DeviceManager.defaultManager.unsubscribe(self)
+        guard superview != nil else { return }
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidChangeStatusBarOrientationNotification, object: nil)
         UIView.animateWithDuration(0.12, delay: 0, options: .CurveEaseIn, animations: { () -> Void in
             self.alpha = 0
             self.animateHiding()

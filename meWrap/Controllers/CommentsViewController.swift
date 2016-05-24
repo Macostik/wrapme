@@ -740,6 +740,7 @@ extension CommentsViewController: ComposeBarDelegate {
     func composeBar(composeBar: ComposeBar, didFinishWithText text: String) {
         typing = false
         composeBar.text = nil
+        cameraButton.hidden = false
         contentView.layoutIfNeeded()
         sendComment { (comment) in
             comment.text = text

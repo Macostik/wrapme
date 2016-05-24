@@ -195,20 +195,3 @@ final class UploadMediaCommentViewController: UIViewController {
         self.navigationController?.popViewControllerAnimated(false)
     }
 }
-
-final class CaptureCommentCameraViewController: CaptureMediaCameraViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if let layer = videoRecordingProgressBar.layer as? CAShapeLayer {
-            layer.strokeColor = Color.green.CGColor
-            layer.lineCap = kCALineCapRound
-            layer.lineJoin = kCALineJoinRound
-            layer.lineWidth = 12
-            layer.cornerRadius = 6
-            layer.masksToBounds = true
-            layer.backgroundColor = UIColor.blackColor().CGColor
-        }
-        // Do any additional setup after loading the view.
-    }
-}

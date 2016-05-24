@@ -13,10 +13,20 @@ class VideoRecordControl: UIView {
     
     let cancelLabel = Label(icon: "!", size: 20, textColor: Color.orange)
     
+    private let arrowLabel = Label(icon: "w", size: 15, textColor: Color.orange)
+    
+    private let backgroundView = UIView()
+    
+    private let circleView = UIView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.5)
-        let circleView = UIView()
+        backgroundView.backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.5)
+        
+        add(backgroundView) { (make) in
+            make.edges.equalTo(self)
+        }
+        
         circleView.backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.9)
         circleView.cornerRadius = 36
         add(circleView) { (make) in
@@ -31,7 +41,6 @@ class VideoRecordControl: UIView {
             make.center.equalTo(circleView)
         }
         
-        let arrowLabel = Label(icon: "w", size: 15, textColor: Color.orange)
         arrowLabel.textAlignment = .Center
         add(arrowLabel) { (make) in
             make.width.equalTo(22)
@@ -62,7 +71,50 @@ class VideoRecordControl: UIView {
         path.addArcWithCenter((width - height/2) ^ height/2, radius: height/2, startAngle: -CGFloat(M_PI_2), endAngle: CGFloat(M_PI_2), clockwise: true)
         path.closePath()
         mask.path = path.CGPath
-        layer.mask = mask
+        backgroundView.layer.mask = mask
+    }
+    
+    func expand(animated: Bool, completion: (() -> ())? = nil) {
+        
+        animate(animated, duration: 0.3) {
+            UIView.setAnimationCurve(.EaseOut)
+            cancelLabel.transform = CGAffineTransformIdentity
+        }
+        animate(animated, duration: 0.2) {
+            UIView.setAnimationDelay(0.2)
+            backgroundView.alpha = 1
+        }
+        if animated {
+            UIView.animateWithDuration(0.2, delay: 0.2, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.6, options: .CurveEaseOut, animations: {
+                self.arrowLabel.transform = CGAffineTransformIdentity
+            }) { (_) in
+                completion?()
+            }
+        } else {
+            arrowLabel.transform = CGAffineTransformIdentity
+            completion?()
+        }
+    }
+    
+    func collapse(animated: Bool, completion: (() -> ())? = nil) {
+        
+        animate(animated, duration: 0.1) {
+            backgroundView.alpha = 0
+            arrowLabel.transform = CGAffineTransformMakeTranslation(max(0, circleView.center.x - arrowLabel.center.x), 0)
+        }
+        var transform = CGAffineTransformMakeTranslation(max(0, self.circleView.center.x - self.cancelLabel.center.x), 0)
+        transform = CGAffineTransformRotate(transform, CGFloat(M_PI_2))
+        if animated {
+            UIView.animateWithDuration(0.2, delay: 0.1, options: .CurveEaseIn, animations: {
+                
+                self.cancelLabel.transform = transform
+            }) { (_) in
+                completion?()
+            }
+        } else {
+            cancelLabel.transform = transform
+            completion?()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -74,11 +126,27 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
 
     @IBOutlet weak var finishButton: Button?
     
-    @IBOutlet weak var videoRecordingProgressBar: ProgressBar!
-    @IBOutlet weak var videoRecordingView: UIView!
-    @IBOutlet weak var videoRecordingTimeLabel: UILabel?
+    lazy var videoRecordingProgressBar: ProgressBar = specify(ProgressBar()) {
+        $0.cornerRadius = 6
+        $0.clipsToBounds = true
+        $0.backgroundColor = UIColor.blackColor()
+        $0.lineWidth = 12
+        if let layer = $0.layer as? CAShapeLayer {
+            layer.strokeColor = Color.green.CGColor
+            layer.lineCap = kCALineCapRound
+            layer.lineJoin = kCALineJoinRound
+            layer.lineWidth = 12
+            layer.cornerRadius = 6
+            layer.masksToBounds = true
+            layer.backgroundColor = UIColor.blackColor().CGColor
+        }
+    }
     lazy var videoRecordControl: VideoRecordControl = VideoRecordControl()
-    @IBOutlet weak var videoRecordingIndicator: UIView?
+    lazy var videoRecordingIndicator: UIView = specify(UIView()) {
+        $0.cornerRadius = 6
+        $0.clipsToBounds = true
+        $0.backgroundColor = Color.dangerRed
+    }
     weak var videoRecordingTimer: NSTimer?
     weak var startVideoRecordingTimer: NSTimer?
     weak var audioInput: AVCaptureDeviceInput?
@@ -282,15 +350,15 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
                 self.startVideoRecordingTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(CaptureMediaCameraViewController.startVideoRecording as (CaptureMediaCameraViewController) -> () -> ()), userInfo: nil, repeats: false)
             }
         case .Changed:
-            let location = sender.locationInView(videoRecordingView)
+            let location = sender.locationInView(videoRecordControl)
             if movieFileOutput.recording && !videoRecordingCancelled {
-                if location.x < videoRecordControl.x + videoRecordControl.cancelLabel.width {
+                if location.x < videoRecordControl.cancelLabel.frame.maxX {
                     cancelVideoRecording()
                 }
             }
         case .Ended:
-            let location = sender.locationInView(videoRecordingView)
-            if location.x < videoRecordControl.x + videoRecordControl.cancelLabel.width {
+            let location = sender.locationInView(videoRecordControl)
+            if location.x < videoRecordControl.cancelLabel.frame.maxX {
                 if !videoRecordingCancelled {
                     cancelVideoRecording()
                 }
@@ -307,7 +375,6 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     
     override func animateOrientationChange(transform: CGAffineTransform) {
         super.animateOrientationChange(transform)
-        videoRecordingTimeLabel?.transform = transform
         finishButton?.transform = transform
     }
 }
@@ -318,22 +385,36 @@ extension CaptureMediaCameraViewController: AVCaptureFileOutputRecordingDelegate
     
     func captureOutput(captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAtURL outputFileURL: NSURL!, fromConnections connections: [AnyObject]!, error: NSError!) {
         
-        videoRecordingIndicator?.layer.removeAnimationForKey("videoRecording")
-        videoRecordingTimer?.invalidate()
-        prepareSessionForPhotoTaking()
-        updateVideoRecordingViews(false)
-        videoRecordingView.hidden = true
-        videoRecordControl.removeFromSuperview()
-        takePhotoButton.hidden = false
-        if videoRecordingCancelled || (error != nil && error.code != AVError.MaximumDurationReached.rawValue) {
-            _ = try? NSFileManager.defaultManager().removeItemAtURL(outputFileURL)
-        } else {
-            delegate?.cameraViewController?(self, didCaptureVideoAtPath: videoFilePath, saveToAlbum: true)
+        videoRecordControl.collapse(true) { 
+            self.videoRecordingIndicator.layer.removeAnimationForKey("videoRecording")
+            self.videoRecordingTimer?.invalidate()
+            self.prepareSessionForPhotoTaking()
+            self.updateVideoRecordingViews(false)
+            self.videoRecordingIndicator.removeFromSuperview()
+            self.videoRecordingProgressBar.removeFromSuperview()
+            self.videoRecordControl.removeFromSuperview()
+            self.takePhotoButton.hidden = false
+            if self.videoRecordingCancelled || (error != nil && error.code != AVError.MaximumDurationReached.rawValue) {
+                _ = try? NSFileManager.defaultManager().removeItemAtURL(outputFileURL)
+            } else {
+                self.delegate?.cameraViewController?(self, didCaptureVideoAtPath: self.videoFilePath, saveToAlbum: true)
+            }
         }
     }
     
     func captureOutput(captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAtURL fileURL: NSURL!, fromConnections connections: [AnyObject]!) {
-        videoRecordingIndicator?.layer.addAnimation(specify(CABasicAnimation(keyPath: "opacity"), {
+        
+        view.add(videoRecordingProgressBar) {
+            $0.centerX.equalTo(view)
+            $0.centerY.equalTo(view.snp_top).inset(32)
+            $0.size.equalTo(CGSize(width: 200, height: 12))
+        }
+        view.add(videoRecordingIndicator) {
+            $0.leading.equalTo(view).inset(12)
+            $0.centerY.equalTo(view.snp_top).inset(32)
+            $0.size.equalTo(12)
+        }
+        videoRecordingIndicator.layer.addAnimation(specify(CABasicAnimation(keyPath: "opacity"), {
             $0.fromValue = 1
             $0.toValue = 0
             $0.autoreverses = true
@@ -341,14 +422,15 @@ extension CaptureMediaCameraViewController: AVCaptureFileOutputRecordingDelegate
             $0.repeatCount = FLT_MAX
             $0.removedOnCompletion = false
         }), forKey: "videoRecording")
-        videoRecordingView.add(videoRecordControl) { (make) in
+        view.add(videoRecordControl) { (make) in
             make.trailing.centerY.equalTo(takePhotoButton)
         }
+        videoRecordControl.layoutIfNeeded()
+        videoRecordControl.collapse(false)
+        videoRecordControl.expand(true)
         takePhotoButton.hidden = true
         videoRecordingTimeLeft = Constants.maxVideoRecordedDuration
-        videoRecordingTimeLabel?.text = String(Constants.maxVideoRecordedDuration)
-        videoRecordingProgressBar.progress = 0;
-        videoRecordingView.hidden = false
+        videoRecordingProgressBar.progress = 0
         videoRecordingTimer?.invalidate()
         videoRecordingTimer = NSTimer.scheduledTimerWithTimeInterval(videoRecordingTimerInterval, target: self, selector: #selector(self.recordingTimerChanged(_:)), userInfo: nil, repeats: true)
     }
@@ -356,7 +438,6 @@ extension CaptureMediaCameraViewController: AVCaptureFileOutputRecordingDelegate
     func recordingTimerChanged(timer: NSTimer) {
         if videoRecordingTimeLeft > 0 {
             videoRecordingTimeLeft = max(0, videoRecordingTimeLeft - videoRecordingTimerInterval)
-            videoRecordingTimeLabel?.text = String(ceil(videoRecordingTimeLeft)) + "\""
             videoRecordingProgressBar.progress = CGFloat(1.0 - videoRecordingTimeLeft/Constants.maxVideoRecordedDuration)
         } else {
             videoRecordingTimer?.invalidate()

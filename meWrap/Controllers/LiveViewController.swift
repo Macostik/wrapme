@@ -10,145 +10,85 @@ import Foundation
 import PubNub
 import AVFoundation
 
-class LiveBroadcastEventView: EntryStreamReusableView<LiveBroadcast.Event> {
+class LiveBroadcastEventView: UIView {
     
-    static let queue: RunQueue = RunQueue(limit: 1)
-    
-    override func setup(event: LiveBroadcast.Event) {
-        LiveBroadcastEventView.queue.run({ (finish) -> Void in
-            self.alpha = 0.0
-            UIView.animateWithDuration(1.0, animations: { () -> Void in
-                self.alpha = 1.0
-                finish()
+    convenience init(event: LiveBroadcast.Event) {
+        self.init(frame: CGRect.zero)
+        
+        if event.kind == .Info {
+            let textLabel = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
+            textLabel.numberOfLines = 0
+            backgroundColor = Color.orange
+            addSubview(textLabel)
+            textLabel.snp_makeConstraints(closure: {
+                $0.top.bottom.equalTo(self).inset(7)
+                $0.leading.trailing.equalTo(self).offset(12)
             })
-        })
-        hidden = false
-        event.disappearingBlock = { [weak self] () -> Void in
-            self?.hidden = true
-            self?.addAnimation(CATransition.transition(kCATransitionFade, duration: 1))
+            textLabel.text = event.text
+        } else {
+            backgroundColor = UIColor.whiteColor()
+            let avatarView = ImageView(backgroundColor: UIColor.whiteColor())
+            avatarView.cornerRadius = 20
+            avatarView.defaultBackgroundColor = Color.grayLighter
+            avatarView.defaultIconColor = UIColor.whiteColor()
+            avatarView.defaultIconText = "&"
+            addSubview(avatarView)
+            avatarView.snp_makeConstraints(closure: {
+                $0.leading.top.equalTo(self).offset(12)
+                $0.size.equalTo(40)
+                $0.bottom.lessThanOrEqualTo(self).inset(12).priorityHigh()
+            })
+            
+            let textLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.grayDarker)
+            textLabel.numberOfLines = 0
+            addSubview(textLabel)
+            if event.kind == .Message {
+                
+                let nameLabel = Label(preset: .Smaller, weight: .Regular, textColor: Color.grayDarker)
+                addSubview(nameLabel)
+                nameLabel.snp_makeConstraints(closure: {
+                    $0.top.equalTo(avatarView.snp_top)
+                    $0.leading.equalTo(avatarView.snp_trailing).offset(12)
+                    $0.trailing.greaterThanOrEqualTo(self).offset(12)
+                })
+                
+                textLabel.snp_makeConstraints(closure: {
+                    $0.top.equalTo(nameLabel.snp_bottom)
+                    $0.leading.equalTo(avatarView.snp_trailing).offset(12)
+                    $0.trailing.equalTo(self).inset(12)
+                    $0.bottom.equalTo(self).inset(12).priorityLow()
+                })
+                
+                nameLabel.text = event.user?.name
+                avatarView.url = event.user?.avatar?.small
+                textLabel.text = event.text
+            } else {
+                textLabel.snp_makeConstraints(closure: {
+                    $0.top.equalTo(avatarView)
+                    $0.leading.equalTo(avatarView.snp_trailing).offset(12)
+                    $0.trailing.equalTo(self).offset(12)
+                    $0.bottom.equalTo(self).inset(12).priorityLow()
+                })
+                avatarView.url = event.user?.avatar?.small
+                textLabel.text = event.text
+            }
         }
-    }
-    
-    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
-        super.layoutWithMetrics(metrics)
-        layer.geometryFlipped = true
-    }
-}
-
-class LiveBroadcastEventWithAvatarView: LiveBroadcastEventView {
-    
-    internal var avatarView = ImageView(backgroundColor: UIColor.whiteColor())
-    
-    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
-        super.layoutWithMetrics(metrics)
-        backgroundColor = UIColor.whiteColor()
-        avatarView.cornerRadius = 20
-        avatarView.defaultBackgroundColor = Color.grayLighter
-        avatarView.defaultIconColor = UIColor.whiteColor()
-        avatarView.defaultIconText = "&"
-        addSubview(avatarView)
-        avatarView.snp_makeConstraints(closure: {
-            $0.leading.top.equalTo(self).offset(12)
-            $0.size.equalTo(40)
-        })
-    }
-}
-
-class LiveBroadcastMessageEventView: LiveBroadcastEventWithAvatarView {
-    
-    private var nameLabel = Label(preset: .Smaller, weight: .Regular, textColor: Color.grayDarker)
-    
-    private var textLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.grayDarker)
-    
-    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
-        super.layoutWithMetrics(metrics)
-        textLabel.numberOfLines = 0
-        addSubview(nameLabel)
-        addSubview(textLabel)
-        
-        nameLabel.snp_makeConstraints(closure: {
-            $0.top.equalTo(avatarView.snp_top)
-            $0.leading.equalTo(avatarView.snp_trailing).offset(12)
-            $0.trailing.greaterThanOrEqualTo(self).offset(12)
-        })
-        
-        textLabel.snp_makeConstraints(closure: {
-            $0.top.equalTo(nameLabel.snp_bottom)
-            $0.leading.equalTo(avatarView.snp_trailing).offset(12)
-            $0.trailing.equalTo(self).inset(12)
-            $0.bottom.equalTo(self).inset(12)
-        })
-    }
-    
-    override func setup(event: LiveBroadcast.Event) {
-        super.setup(event)
-        nameLabel.text = event.user?.name
-        avatarView.url = event.user?.avatar?.small
-        textLabel.text = event.text
-    }
-}
-
-class LiveBroadcastJoinEventView: LiveBroadcastEventWithAvatarView {
-    
-    private var textLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.grayDarker)
-    
-    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
-        super.layoutWithMetrics(metrics)
-        textLabel.numberOfLines = 0
-        addSubview(textLabel)
-        textLabel.snp_makeConstraints(closure: {
-            $0.top.equalTo(avatarView)
-            $0.leading.equalTo(avatarView.snp_trailing).offset(12)
-            $0.trailing.equalTo(self).offset(12)
-            $0.bottom.equalTo(self).inset(12)
-        })
-    }
-    
-    override func setup(event: LiveBroadcast.Event) {
-        super.setup(event)
-        avatarView.url = event.user?.avatar?.small
-        textLabel.text = event.text
-    }
-}
-
-class LiveBroadcastInfoEventView: LiveBroadcastEventView {
-    
-    private var textLabel = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
-    
-    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
-        super.layoutWithMetrics(metrics)
-        textLabel.numberOfLines = 0
-        backgroundColor = Color.orange
-        addSubview(textLabel)
-        textLabel.snp_makeConstraints(closure: {
-            $0.top.bottom.equalTo(self).inset(7)
-            $0.leading.trailing.equalTo(self).offset(12)
-        })
-    }
-    
-    override func setup(event: LiveBroadcast.Event) {
-        super.setup(event)
-        textLabel.text = event.text
     }
 }
 
 class LiveViewController: BaseViewController, ComposeBarDelegate {
-        
-    @IBOutlet weak var joinsCountView: UIView!
     
-    @IBOutlet weak var joinsCountLabel: UILabel!
+    internal let joinsCountView = UIView()
     
-    @IBOutlet weak var chatStreamView: StreamView!
-        
-    var chatDataSource: StreamDataSource<[LiveBroadcast.Event]>!
+    internal let joinsCountLabel = Label(preset: .Small, weight: .Regular, textColor: Color.orange)
     
-    @IBOutlet weak var wrapNameLabel: UILabel!
+    internal let wrapNameLabel = Label(preset: .Normal, weight: .Regular, textColor: UIColor.whiteColor())
     
-    @IBOutlet weak var titleLabel: UILabel!
+    internal let titleLabel = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
     
     var wrap: Wrap?
     
-    @IBOutlet weak var composeBar: ComposeBar!
+    internal let composeBar = ComposeBar()
     
     lazy var broadcast: LiveBroadcast = LiveBroadcast()
     
@@ -167,17 +107,86 @@ class LiveViewController: BaseViewController, ComposeBarDelegate {
     
     internal func updateBroadcastInfo() {
         joinsCountLabel.text = "\(max(0, broadcast.viewers.count))"
-        titleLabel?.text = broadcast.displayTitle()
+        titleLabel.text = broadcast.displayTitle()
     }
     
-    private func metricsForType<T: LiveBroadcastEventView>(type: T.Type, kind: LiveBroadcast.Event.Kind, minSize: CGFloat) -> StreamMetrics<T> {
-        let metrics = StreamMetrics<T>()
-        metrics.modifyItem = { [weak self] item in
-            item.size = self?.chatStreamView.dynamicSizeForMetrics(metrics, item: item, minSize: minSize) ?? minSize
-            item.hidden = (item.entry as! LiveBroadcast.Event).kind != kind
-            item.insets.origin.y = item.position.index == 0 ? 0 : 6
+    override func loadView() {
+        super.loadView()
+        view.backgroundColor = UIColor.blackColor()
+        let closeButton = Button(icon: "!", size: 17, textColor: UIColor.whiteColor())
+        closeButton.cornerRadius = 18
+        closeButton.clipsToBounds = true
+        closeButton.borderColor = UIColor.whiteColor()
+        closeButton.borderWidth = 2
+        closeButton.addTarget(self, touchUpInside: #selector(self.close(_:)))
+        closeButton.backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.7)
+        closeButton.normalColor = Color.grayDarker.colorWithAlphaComponent(0.7)
+        closeButton.highlightedColor = Color.grayLighter
+        view.add(closeButton) { (make) in
+            make.trailing.top.equalTo(view).inset(12)
+            make.size.equalTo(36)
         }
-        return metrics
+        
+        let wrapNameView = view.add(UIView()) { (make) in
+            make.leading.top.equalTo(view).inset(12)
+            make.trailing.lessThanOrEqualTo(closeButton.snp_leading).inset(-12)
+        }
+        wrapNameView.cornerRadius = 4
+        wrapNameView.backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.7)
+        
+        wrapNameView.add(wrapNameLabel) { (make) in
+            make.edges.equalTo(wrapNameView).inset(6)
+        }
+        
+        let titleView = view.add(UIView()) { (make) in
+            make.leading.equalTo(view).inset(12)
+            make.top.equalTo(wrapNameView.snp_bottom).inset(-12)
+            make.trailing.lessThanOrEqualTo(closeButton.snp_leading).inset(-12)
+        }
+        titleView.cornerRadius = 4
+        titleView.backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.7)
+        
+        titleView.add(titleLabel) { (make) in
+            make.edges.equalTo(titleView).inset(6)
+        }
+        
+        composeBar.backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.7)
+        view.addSubview(composeBar)
+        
+        view.add(joinsCountView) { (make) in
+            make.bottom.equalTo(composeBar.snp_top).inset(-12)
+            make.trailing.equalTo(view).inset(12)
+        }
+        
+        let joinsIcon = Label(icon: "&", size: 24, textColor: UIColor.whiteColor())
+        joinsIcon.highlightedTextColor = Color.grayLighter
+        
+        joinsCountView.add(joinsIcon) { (make) in
+            make.leading.top.bottom.equalTo(joinsCountView)
+        }
+        joinsCountLabel.highlightedTextColor = Color.grayLighter
+        joinsCountLabel.backgroundColor = UIColor.whiteColor()
+        joinsCountLabel.cornerRadius = 6
+        joinsCountLabel.clipsToBounds = true
+        joinsCountLabel.textAlignment = .Center
+        joinsCountView.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        joinsCountLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        joinsIcon.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        joinsCountLabel.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        joinsCountView.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        joinsIcon.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        joinsCountView.add(joinsCountLabel) { (make) in
+            make.trailing.centerY.equalTo(joinsCountView)
+            make.leading.equalTo(joinsIcon.snp_trailing)
+            make.height.equalTo(20)
+            make.width.greaterThanOrEqualTo(joinsCountLabel.snp_height)
+        }
+        let joinsButton = Button(type: .Custom)
+        joinsButton.highlightings = [joinsCountLabel, joinsIcon]
+        joinsButton.addTarget(self, touchUpInside: #selector(self.presentViewers(_:)))
+        joinsCountView.add(joinsButton) { (make) in
+            make.edges.equalTo(joinsCountView)
+        }
     }
     
     override func viewDidLoad() {
@@ -187,21 +196,64 @@ class LiveViewController: BaseViewController, ComposeBarDelegate {
         
         UIApplication.sharedApplication().idleTimerDisabled = true
         
-        let streamView = chatStreamView
-        
-        streamView.layer.geometryFlipped = true
-        
-        chatDataSource = StreamDataSource(streamView: streamView)
-        
-        chatDataSource.addMetrics(metricsForType(LiveBroadcastMessageEventView.self, kind: .Message, minSize: 64))
-        chatDataSource.addMetrics(metricsForType(LiveBroadcastJoinEventView.self, kind: .Join, minSize: 64))
-        chatDataSource.addMetrics(metricsForType(LiveBroadcastInfoEventView.self, kind: .Info, minSize: 32))
-        
-        wrapNameLabel?.text = wrap?.name
+        wrapNameLabel.text = wrap?.name
         
         Wrap.notifier().addReceiver(self)
         
         composeBar.delegate = self
+    }
+    
+    internal var eventViews = [LiveBroadcastEventView]()
+    
+    internal func insertEvent(event: LiveBroadcast.Event) {
+        let eventView = LiveBroadcastEventView(event: event)
+        
+        view.add(eventView, { (make) in
+            make.leading.equalTo(view).inset(12)
+            make.trailing.equalTo(joinsCountView.snp_leading).inset(-12)
+            if let latestEventView = eventViews.last {
+                make.bottom.equalTo(latestEventView.snp_top).inset(-6)
+            } else {
+                make.bottom.equalTo(composeBar.snp_top).inset(-12)
+            }
+        })
+        eventViews.append(eventView)
+        eventView.alpha = 0
+        UIView.animateWithDuration(0.5) {
+            eventView.alpha = 1
+        }
+        if eventViews.count > 3 {
+            eventViews.first?.removeFromSuperview()
+            eventViews.removeFirst()
+            if let first = eventViews.first {
+                first.snp_remakeConstraints(closure: { (make) in
+                    make.leading.equalTo(view).inset(12)
+                    make.trailing.equalTo(joinsCountView.snp_leading).inset(-12)
+                    make.bottom.equalTo(composeBar.snp_top).inset(-12)
+                })
+            }
+        }
+        
+        Dispatch.mainQueue.after(4) { [weak eventView] () -> Void in
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                eventView?.alpha = 0
+                }, completion: { _ in
+                    eventView?.removeFromSuperview()
+                    if let index = self.eventViews.indexOf({ $0 == eventView }) {
+                        self.eventViews.removeAtIndex(index)
+                    }
+                    if let first = self.eventViews.first {
+                        first.snp_remakeConstraints(closure: { (make) in
+                            make.leading.equalTo(self.view).inset(12)
+                            make.trailing.equalTo(self.joinsCountView.snp_leading).inset(-12)
+                            make.bottom.equalTo(self.composeBar.snp_top).inset(-12)
+                        })
+                    }
+                    UIView.animateWithDuration(0.5) {
+                        self.view.layoutIfNeeded()
+                    }
+            })
+        }
     }
     
     internal func close() {
@@ -215,11 +267,9 @@ class LiveViewController: BaseViewController, ComposeBarDelegate {
     private weak var viewersController: LiveBroadcastViewersViewController?
     
     @IBAction func presentViewers(sender: AnyObject) {
-        if let controller = storyboard?["broadcastViewers"] as? LiveBroadcastViewersViewController {
-            controller.broadcast = broadcast
-            addContainedViewController(controller, animated: false)
-            viewersController = controller
-        }
+        let controller = LiveBroadcastViewersViewController(broadcast: broadcast)
+        addContainedViewController(controller, animated: false)
+        viewersController = controller
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -254,6 +304,7 @@ extension LiveViewController: EntryNotifying {
 }
 
 extension LiveViewController: NotificationSubscriptionDelegate {
+    
     func notificationSubscription(subscription: NotificationSubscription, didReceiveMessage message: PNMessageResult) {
         guard let message = message.data.message as? [String : AnyObject],
             let user = User.entry(message["userUid"] as? String),
@@ -262,8 +313,7 @@ extension LiveViewController: NotificationSubscriptionDelegate {
             let event = LiveBroadcast.Event(kind: .Message)
             event.user = user
             event.text = text
-            self?.broadcast.insert(event)
-            self?.chatDataSource.items = self?.broadcast.events
+            self?.insertEvent(event)
             }, failure: nil)
     }
     
@@ -278,8 +328,7 @@ extension LiveViewController: NotificationSubscriptionDelegate {
                 let event = LiveBroadcast.Event(kind: .Join)
                 event.text = "\(user.name ?? "") \("joined".ls)"
                 event.user = user
-                broadcast.insert(event)
-                controller.chatDataSource.items = broadcast.events
+                self?.insertEvent(event)
                 broadcast.viewers.insert(user)
                 break
             case "leave", "timeout":

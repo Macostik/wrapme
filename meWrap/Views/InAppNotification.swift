@@ -8,6 +8,7 @@
 
 import Foundation
 import SnapKit
+import AudioToolbox
 
 enum InAppNotificationStyle {
     case Full, Short

@@ -9,10 +9,11 @@
 import UIKit
 import PubNub
 import SnapKit
+import AVFoundation
 
 class LiveViewerViewController: LiveViewController {
     
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
     
     private var playerLayer = AVPlayerLayer()
     
@@ -42,6 +43,19 @@ class LiveViewerViewController: LiveViewController {
     
     func applicationDidBecomeActive() {
         playerLayer.player?.play()
+    }
+    
+    override func loadView() {
+        super.loadView()
+        
+        keyboardBottomGuideView = composeBar
+        composeBar.snp_makeConstraints { (make) in
+            make.leading.bottom.trailing.equalTo(view)
+        }
+        
+        view.add(spinner) { (make) in
+            make.center.equalTo(view)
+        }
     }
 
     override func viewDidLoad() {

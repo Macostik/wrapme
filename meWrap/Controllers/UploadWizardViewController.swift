@@ -89,10 +89,9 @@ class UploadWizardViewController: BaseViewController {
         }
         
         if isBroadcasting {
-            Storyboard.LiveBroadcaster.instantiate({ (controller) -> Void in
-                controller.wrap = wrap
-                controllers.append(controller)
-            })
+            let controller = LiveBroadcasterViewController()
+            controller.wrap = wrap
+            controllers.append(controller)
         }
         navigationController?.viewControllers = controllers
     }

@@ -8,68 +8,135 @@
 
 import UIKit
 import PubNub
+import WowzaGoCoderSDK
+import AVFoundation
 
 private let LiveBroadcastUsername = "ravenpod"
 private let LiveBroadcastPassword = "34f82ab09fb501330b3910ddb1e38026"
 
-final class LiveBroadcasterViewController: LiveViewController {
+final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback {
     
-    var cameraPosition: Int32 = 1
+    private let startButton = Button()
     
-    let streamer: Streamer = Streamer.instance() as! Streamer
+    private let toggleCameraButton = Button(icon: "}", size: 18, textColor: UIColor.whiteColor())
     
-    private var connectionID: Int32?
-    
-    @IBOutlet weak var startButton: UIButton!
-    
-    @IBOutlet weak var toggleCameraButton: UIButton!
+    private var goCoder: WowzaGoCoder?
     
     weak var focusView: UIView?
-    
-    weak var previewLayer: AVCaptureVideoPreviewLayer? {
-        didSet {
-            oldValue?.removeFromSuperlayer()
-            if let layer = previewLayer {
-                layer.frame = view.bounds
-                layer.videoGravity = AVLayerVideoGravityResizeAspectFill
-                view.layer.insertSublayer(layer, atIndex: 0)
-            }
-        }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        let center = NSNotificationCenter.defaultCenter()
-        center.addObserver(self, selector: #selector(UIApplicationDelegate.applicationWillTerminate(_:)), name: UIApplicationWillTerminateNotification, object: nil)
-        center.addObserver(self, selector: #selector(UIApplicationDelegate.applicationWillResignActive(_:)), name: UIApplicationWillResignActiveNotification, object: nil)
-        center.addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidBecomeActive(_:)), name: UIApplicationDidBecomeActiveNotification, object: nil)
-    }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    private static let registered = WowzaGoCoder.registerLicenseKey("GSDK-4B42-0003-BCF5-6462-F494") == nil
+    
+    override func loadView() {
+        super.loadView()
+        
+        let center = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector: #selector(self.applicationWillTerminate(_:)), name: UIApplicationWillTerminateNotification, object: nil)
+        center.addObserver(self, selector: #selector(self.applicationWillResignActive(_:)), name: UIApplicationWillResignActiveNotification, object: nil)
+        center.addObserver(self, selector: #selector(self.applicationDidBecomeActive(_:)), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        
+        startButton.backgroundColor = Color.orange
+        startButton.normalColor = Color.orange
+        startButton.highlightedColor = Color.orangeDarker
+        startButton.addTarget(self, touchUpInside: #selector(self.startBroadcast(_:)))
+        startButton.cornerRadius = 36
+        startButton.clipsToBounds = true
+        startButton.borderColor = UIColor.whiteColor()
+        startButton.borderWidth = 4
+        view.add(startButton) { (make) in
+            make.centerX.equalTo(view)
+            make.bottom.equalTo(view).inset(12)
+            make.size.equalTo(72)
+        }
+        
+        composeBar.snp_makeConstraints { (make) in
+            make.leading.trailing.equalTo(view)
+            make.bottom.equalTo(startButton.snp_top).inset(-12)
+        }
+        
+        toggleCameraButton.backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.7)
+        toggleCameraButton.normalColor = Color.grayDarker.colorWithAlphaComponent(0.7)
+        toggleCameraButton.highlightedColor = Color.grayLighter
+        toggleCameraButton.cornerRadius = 22
+        toggleCameraButton.clipsToBounds = true
+        toggleCameraButton.borderColor = UIColor.whiteColor()
+        toggleCameraButton.borderWidth = 2
+        toggleCameraButton.addTarget(self, touchUpInside: #selector(self.toggleCamera))
+        view.add(toggleCameraButton) { (make) in
+            make.trailing.equalTo(view).inset(12)
+            make.bottom.equalTo(composeBar.snp_top).inset(-12)
+            make.size.equalTo(44)
+        }
+        
+        Keyboard.keyboard.addReceiver(self)
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.focusing(_:))))
+        view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(self.zooming(_:))))
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if !LiveBroadcasterViewController.registered {
+            Dispatch.mainQueue.async({ () in
+                self.navigationController?.popViewControllerAnimated(false)
+            })
+            return
+        }
+        
+        goCoder = WowzaGoCoder.sharedInstance()
+        
+        goCoder?.cameraView = view
+        if let wrap = wrap, let goCoder = goCoder, let preview = goCoder.cameraPreview {
+            
+            broadcast.broadcaster = User.currentUser
+            broadcast.streamName = "\(wrap.uid)-\(User.uuid())"
+            broadcast.wrap = wrap
+            
+            goCoder.config = specify(goCoder.config, { config in
+                config.videoFrameRate = 15
+                config.videoKeyFrameInterval = 2
+                config.videoBitrate = 280000
+                
+                config.audioChannels = 1
+                config.audioSampleRate = 44100
+                config.audioBitrate = 32000
+                
+                config.hostAddress = "live.mewrap.me"
+                config.applicationName = "live"
+                config.portNumber = 1935
+                config.username = LiveBroadcastUsername
+                config.password = LiveBroadcastPassword
+                config.loadPreset(.Preset640x480)
+                config.streamName = broadcast.streamName
+            })
+            
+            toggleCameraButton.hidden = preview.cameras?.count <= 1
+            preview.previewGravity = .ResizeAspectFill
+            
+            preview.config = specify(preview.config, {
+                $0.loadPreset(.Preset640x480)
+            })
+            
+            preview.startPreview()
+        }
+        
         composeBar.textView.placeholder = "broadcast_text_placeholder".ls
         composeBar.doneButton.setTitle("E", forState: .Normal)
         self.composeBar.text = self.broadcast.title
-        chatStreamView.hidden = true
         joinsCountView.hidden = true
-        titleLabel?.superview?.hidden = true
-        startCapture(cameraPosition)
+        titleLabel.superview?.hidden = true
         UIAlertController.showNoMediaAccess(true)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        UIView.performWithoutAnimation { [weak self] () -> Void in
-            if let weakSelf = self, let layer = weakSelf.previewLayer {
-                layer.frame = weakSelf.view.bounds
-                if weakSelf.allowAutorotate {
-                    layer.connection?.videoOrientation = weakSelf.orientationForVideoConnection()
-                }
-            }
+        if allowAutorotate {
+            goCoder?.cameraPreview?.previewLayer?.frame = view.bounds
+            goCoder?.cameraPreview?.previewLayer?.connection?.videoOrientation = orientationForVideoConnection()
         }
     }
     
@@ -89,124 +156,82 @@ final class LiveBroadcasterViewController: LiveViewController {
     
     func applicationWillResignActive(notification: NSNotification) {
         stopBroadcast()
-        view = nil
     }
     
     func applicationDidBecomeActive(notification: NSNotification) {
-        presentViewController(UIViewController(), animated: false, completion: nil)
-        dismissViewControllerAnimated(false, completion: nil)
-    }
-    
-    private func startCapture(position: Int32) {
-        startVideoCapture(position)
-        startAudioCapture()
-    }
-    
-    private func startVideoCapture(position: Int32) {
-        cameraPosition = position
-        let cameras = CameraInfo.getCameraList() as? [CameraInfo]
-        guard let cameraInfo = cameras?.filter({ $0.position == position }).first else { return }
-        
-        let videoConfig = VideoConfig()
-        
-        let videoSizes: [CGSize] = (cameraInfo.videoSizes as? [NSValue])?.map({ $0.CGSizeValue() }) ?? []
-        let preferedSize = videoSizes.filter({ $0.width == 640 && $0.height == 480 }).first
-        videoConfig.videoSize = preferedSize ?? videoSizes[3]
-        videoConfig.bitrate = 280000
-        videoConfig.fps = 15
-        videoConfig.keyFrameInterval = 2
-        let profiles = VideoConfig.getSupportedProfiles() as! [String]
-        videoConfig.profileLevel = profiles[0]
-        
-        let orientation: AVCaptureVideoOrientation = orientationForVideoConnection()
-        if let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self) {
-            previewLayer = layer
-            layer.connection.videoOrientation = orientation
-            if let device = videoCamera() {
-                do {
-                    try device.lockForConfiguration()
-                    if device.isFocusModeSupported(.ContinuousAutoFocus) {
-                        device.focusMode = .ContinuousAutoFocus
-                    }
-                    if device.isExposureModeSupported(.ContinuousAutoExposure) {
-                        device.exposureMode = .ContinuousAutoExposure
-                    }
-                    device.unlockForConfiguration()
-                } catch { }
-            }
+        joinsCountView.hidden = true
+        startButton.hidden = false
+        composeBar.hidden = false
+        composeBar.snp_remakeConstraints { (make) in
+            make.leading.trailing.equalTo(view)
+            make.bottom.equalTo(startButton.snp_top).inset(-12)
+        }
+        toggleCameraButton.snp_remakeConstraints { (make) in
+            make.trailing.equalTo(view).inset(12)
+            make.bottom.equalTo(composeBar.snp_top).inset(-12)
+            make.size.equalTo(44)
         }
     }
     
-    private func startAudioCapture() {
-        _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
-        _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeVideoRecording)
-        let audioConfig = AudioConfig()
-        audioConfig.bitrate = 32000
-        audioConfig.channelCount = 1
-        audioConfig.sampleRate = 44100
-        streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
-    }
-    
-    private func stopCapture() {
-        streamer.stopVideoCapture()
-        streamer.stopAudioCapture()
-    }
-    
     func startBroadcast() {
-        
-        guard let wrap = wrap else { return }
-        guard let user = User.currentUser else { return }
-        let deviceUID = Authorization.current.deviceUID
-        
-        titleLabel?.text = composeBar.text
-        titleLabel?.superview?.hidden = false
-        
+        titleLabel.text = composeBar.text
+        titleLabel.superview?.hidden = false
         broadcast.title = composeBar.text
-        
-        broadcast.broadcaster = user
-        broadcast.streamName = "\(wrap.uid)-\(user.uid)-\(deviceUID)"
-        broadcast.wrap = wrap
-        
-        stopCapture()
-        startCapture(cameraPosition)
-        
-        createConnection()
-        
+        Dispatch.defaultQueue.async { () in
+            self.goCoder?.startStreaming(self)
+        }
         chatSubscription.subscribe()
         updateBroadcastInfo()
     }
     
-    private func createConnection() {
-        let uri = "rtsp://\(LiveBroadcastUsername):\(LiveBroadcastPassword)@live.mewrap.me:1935/live/\(broadcast.streamName)"
-        connectionID = streamer.createConnectionWithListener(self, uri: uri, mode: 0)
+    func onWZError(status: WZStatus!) {
+        Dispatch.mainQueue.async({ () in
+            status.error?.show()
+        })
     }
     
-    private func releaseConnection() {
-        startEventIsAlreadyPresented = false
-        if let connectionID = connectionID {
-            self.connectionID = nil
-            streamer.releaseConnectionId(connectionID)
+    func onWZEvent(status: WZStatus!) {
+        
+    }
+    
+    func onWZStatus(status: WZStatus!) {
+        if status.state == .Running {
+            Dispatch.mainQueue.async({ () in
+                let liveEvent = LiveBroadcast.Event(kind: .Info)
+                liveEvent.text = String(format: "your_broadcast_is_live".ls)
+                self.insertEvent(liveEvent)
+            })
         }
     }
     
     func stopBroadcast() {
         NotificationCenter.defaultCenter.setActivity(wrap, type: .Live, inProgress: false)
-        releaseConnection()
-        stopCapture()
+        goCoder?.endStreaming(self)
     }
     
     @IBAction func startBroadcast(sender: UIButton) {
         if composeBar.isFirstResponder() {
             composeBar.resignFirstResponder()
         }
+        
+        if let error = goCoder?.config.validateForBroadcast() {
+            error.show()
+            return
+        }
+        
         startBroadcast()
         joinsCountView.hidden = false
-        chatStreamView.hidden = false
-        toggleCameraButton.hidden = true
         sender.hidden = true
         composeBar.hidden = true
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(LiveBroadcasterViewController.focusing(_:))))
-        view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(LiveBroadcasterViewController.zooming(_:))))
+        composeBar.snp_remakeConstraints { (make) in
+            make.leading.trailing.equalTo(view)
+            make.top.equalTo(view.snp_bottom)
+        }
+        toggleCameraButton.snp_remakeConstraints { (make) in
+            make.trailing.equalTo(view).inset(12)
+            make.bottom.equalTo(joinsCountView.snp_top).inset(-12)
+            make.size.equalTo(44)
+        }
         
         Dispatch.mainQueue.after(6) { [weak self] _ in
             
@@ -258,20 +283,14 @@ final class LiveBroadcasterViewController: LiveViewController {
             
             let liveEvent = LiveBroadcast.Event(kind: .Info)
             liveEvent.text = String(format: "formatted_broadcast_notification".ls, wrap.name ?? "")
-            broadcast.insert(liveEvent)
-            _self.chatDataSource.items = broadcast.events
+            _self.insertEvent(liveEvent)
         }
         
         allowAutorotate = false
     }
     
-    @IBAction func toggleCamera() {
-		if composeBar.hidden {
-			streamer.changeCamera()
-		} else {
-			stopCapture()
-			startCapture(cameraPosition == 1 ? 2 : 1)
-		}
+    func toggleCamera() {
+        goCoder?.cameraPreview?.switchCamera()
     }
     
     internal override func close() {
@@ -285,7 +304,7 @@ final class LiveBroadcasterViewController: LiveViewController {
     }
     
     func focusing(sender: UITapGestureRecognizer) {
-        guard let layer = previewLayer, let session = layer.session where session.running else { return }
+        guard let layer = goCoder?.cameraPreview?.previewLayer, let session = layer.session where session.running else { return }
         
         self.focusView?.removeFromSuperview()
         
@@ -329,7 +348,7 @@ final class LiveBroadcasterViewController: LiveViewController {
     }
 	
     private func videoCamera() -> AVCaptureDevice? {
-        guard let session = previewLayer?.session else { return nil }
+        guard let session = goCoder?.cameraPreview?.previewLayer?.session else { return nil }
         return videoInput(session)?.device
     }
     
@@ -355,49 +374,25 @@ final class LiveBroadcasterViewController: LiveViewController {
         updateBroadcastInfo()
     }
     
-    private var startEventIsAlreadyPresented = false
-    
     //MARK: BaseViewController
     
-    override func keyboardAdjustmentConstant(adjustment: KeyboardAdjustment, keyboard: Keyboard) -> CGFloat {
-        let identifier = adjustment.constraint.identifier
-        if identifier == "trailing_landscape" {
-            let orientation = UIApplication.sharedApplication().statusBarOrientation
-            return orientation.isPortrait ? 12.0 : 68.0
-        } else if identifier == "bottom_landscape" {
-            return keyboard.height + 68.0
-        } else {
-            return super.keyboardAdjustmentConstant(adjustment, keyboard: keyboard)
-        }
-    }
-}
-
-extension LiveBroadcasterViewController: StreamerListener {
-    
-    @objc(connectionStateDidChangeId:State:Status:)
-    func connectionStateDidChangeId(connectionID: Int32, state: ConnectionState, status: ConnectionStatus) {
-        
-        guard self.connectionID == connectionID else {
-            return
-        }
-        
-        if state == .Record && !startEventIsAlreadyPresented {
-            startEventIsAlreadyPresented = true
-            let liveEvent = LiveBroadcast.Event(kind: .Info)
-            liveEvent.text = String(format: "your_broadcast_is_live".ls)
-            broadcast.insert(liveEvent)
-            chatDataSource.items = broadcast.events
-        }
-        
-        if state == .Disconnected {
-            releaseConnection()
-            Dispatch.mainQueue.after(status == .UnknownFail ? 1 : 3, block: { [weak self] () -> Void in
-                self?.createConnection()
-                })
+    override func keyboardWillShow(keyboard: Keyboard) {
+        keyboard.performAnimation { () in
+            composeBar.snp_makeConstraints { (make) in
+                make.leading.trailing.equalTo(view)
+                make.bottom.equalTo(view).inset(keyboard.height)
+            }
+            view.layoutIfNeeded()
         }
     }
     
-    func videoCaptureStateDidChange(state: CaptureState) { }
-    
-    func audioCaptureStateDidChange(state: CaptureState) { }
+    override func keyboardWillHide(keyboard: Keyboard) {
+        keyboard.performAnimation { () in
+            composeBar.snp_remakeConstraints { (make) in
+                make.leading.trailing.equalTo(view)
+                make.bottom.equalTo(startButton.snp_top).inset(-12)
+            }
+            view.layoutIfNeeded()
+        }
+    }
 }

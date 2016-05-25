@@ -22,8 +22,6 @@ class LiveBroadcast: NSObject {
         var kind: Kind
         var text: String?
         var user: User?
-        var disappearingBlock: (Void -> Void)?
-        
         init(kind: Kind) { self.kind = kind }
     }
     
@@ -32,29 +30,6 @@ class LiveBroadcast: NSObject {
     var title: String?
     var streamName = ""
     var viewers = Set<User>()
-    
-    var events = [Event]()
-    
-    func insert(event: Event) {
-        events.insert(event, atIndex: 0)
-        if (events.count > 3) {
-            events.removeLast()
-        }
-        Dispatch.mainQueue.after(4) { [weak self] () -> Void in
-            self?.dismiss(event)
-        }
-    }
-    
-    func dismiss(event: Event) {
-        event.disappearingBlock?()
-        remove(event)
-    }
-    
-    func remove(event: Event) {
-        if let index = events.indexOf({ $0 === event }) {
-            events.removeAtIndex(index)
-        }
-    }
     
     func displayTitle() -> String {
         if let title = title where !title.isEmpty {

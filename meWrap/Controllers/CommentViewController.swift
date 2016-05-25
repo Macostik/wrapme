@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
 
 enum CommentAction {
     case None, Delete

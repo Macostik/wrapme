@@ -8,6 +8,7 @@
 
 import Foundation
 import CryptoSwift
+import AVFoundation
 
 private var _authorization: Authorization?
 private var _confirmationDate: NSDate?

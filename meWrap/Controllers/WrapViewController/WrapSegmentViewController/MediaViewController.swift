@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import AVFoundation
 
 class HistoryItemCell: EntryStreamReusableView<HistoryItem> {
     
@@ -264,11 +265,10 @@ class MediaViewController: WrapSegmentViewController {
             Toast.show("no_internet_connection".ls)
             return
         }
-        if let controller = storyboard?["liveViewer"] as? LiveViewerViewController {
-            controller.wrap = wrap
-            controller.broadcast = broadcast
-            navigationController?.pushViewController(controller, animated: false)
-        }
+        let controller = LiveViewerViewController()
+        controller.wrap = wrap
+        controller.broadcast = broadcast
+        navigationController?.pushViewController(controller, animated: false)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -328,10 +328,9 @@ class MediaViewController: WrapSegmentViewController {
         
         let openLiveBroadcast: (Void -> Void) = { [weak self] () -> Void in
             FollowingViewController.followWrapIfNeeded(wrap) {
-                Storyboard.LiveBroadcaster.instantiate({ (controller) -> Void in
-                    controller.wrap = wrap
-                    self?.navigationController?.pushViewController(controller, animated: false)
-                })
+                let controller = LiveBroadcasterViewController()
+                controller.wrap = wrap
+                self?.navigationController?.pushViewController(controller, animated: false)
             }
         }
         

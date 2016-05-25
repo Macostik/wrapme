@@ -134,6 +134,9 @@ class MediaCommentCell: CommentCell {
     private static weak var tipView: UIView?
     
     @objc private func tap(sender: UITapGestureRecognizer) {
+        
+        guard CommentsViewController.current?.handleTap() == true else { return }
+        
         MediaCommentCell.tipView?.removeFromSuperview()
         
         let streamView = superview!
@@ -414,6 +417,22 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         streamView.alwaysBounceVertical = true
         
         keyboardBottomGuideView = contentView
+        
+        contentView.tapped { [weak self] (_) in
+            self?.handleTap()
+        }
+    }
+    
+    func handleTap() -> Bool {
+        if composeBar.superview == nil {
+            showComposeBar()
+            return false
+        } else if composeBar.isFirstResponder() == true {
+            composeBar.resignFirstResponder()
+            return false
+        } else {
+            return true
+        }
     }
     
     var disableDismissingByScroll = false

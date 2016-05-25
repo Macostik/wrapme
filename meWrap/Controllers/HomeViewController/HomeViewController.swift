@@ -280,11 +280,9 @@ extension HomeViewController: CaptureMediaViewControllerDelegate {
                 controller.segment = .Media
                 navigationController?.viewControllers = [self, controller]
             }
-            FollowingViewController.followWrapIfNeeded(wrap, performAction: {
-                Sound.play()
-                wrap.uploadAssets(assets)
-            })
-        }        
+            Sound.play()
+            wrap.uploadAssets(assets)
+        }
     }
 }
 

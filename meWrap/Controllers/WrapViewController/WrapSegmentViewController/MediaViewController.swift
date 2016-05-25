@@ -309,14 +309,7 @@ class MediaViewController: WrapSegmentViewController {
     }
     
     @IBAction func addPhoto(sender: UIButton) {
-        guard let wrap = wrap else {
-            return
-        }
-        FollowingViewController.followWrapIfNeeded(wrap) { [weak self] () -> Void in
-            if let controller = self {
-                (controller.delegate as? MediaViewControllerDelegate)?.mediaViewControllerDidAddPhoto(controller)
-            }
-        }
+        (delegate as? MediaViewControllerDelegate)?.mediaViewControllerDidAddPhoto(self)
     }
     
     @IBAction func liveBroadcast(sender: UIButton) {
@@ -327,11 +320,9 @@ class MediaViewController: WrapSegmentViewController {
         guard let wrap = wrap else { return }
         
         let openLiveBroadcast: (Void -> Void) = { [weak self] () -> Void in
-            FollowingViewController.followWrapIfNeeded(wrap) {
-                let controller = LiveBroadcasterViewController()
-                controller.wrap = wrap
-                self?.navigationController?.pushViewController(controller, animated: false)
-            }
+            let controller = LiveBroadcasterViewController()
+            controller.wrap = wrap
+            self?.navigationController?.pushViewController(controller, animated: false)
         }
         
         AVCaptureDevice.authorize({ _ in

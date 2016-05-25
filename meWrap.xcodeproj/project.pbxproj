@@ -122,7 +122,6 @@
 		C523D8CE1BD775AC006FE7AB /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C523D8CD1BD775AC006FE7AB /* Country.swift */; };
 		C52462771C63CA020097AF45 /* SignupFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52462761C63CA020097AF45 /* SignupFlowViewController.swift */; };
 		C52500581C1F1F8200CF8F9D /* HistoryItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52500571C1F1F8200CF8F9D /* HistoryItemViewController.swift */; };
-		C525005A1C1F1FCB00CF8F9D /* FollowingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52500591C1F1FCB00CF8F9D /* FollowingViewController.swift */; };
 		C525005C1C1F1FD500CF8F9D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C525005B1C1F1FD500CF8F9D /* SettingsViewController.swift */; };
 		C5294E781C0B6242001CE272 /* ExtensionEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E771C0B6241001CE272 /* ExtensionEntry.swift */; };
 		C5294E791C0B660C001CE272 /* ExtensionEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5294E771C0B6241001CE272 /* ExtensionEntry.swift */; };
@@ -580,7 +579,6 @@
 		C523D8CD1BD775AC006FE7AB /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		C52462761C63CA020097AF45 /* SignupFlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupFlowViewController.swift; sourceTree = "<group>"; };
 		C52500571C1F1F8200CF8F9D /* HistoryItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItemViewController.swift; sourceTree = "<group>"; };
-		C52500591C1F1FCB00CF8F9D /* FollowingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingViewController.swift; sourceTree = "<group>"; };
 		C525005B1C1F1FD500CF8F9D /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C5259D661ACC2333003D3317 /* meWrap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = meWrap.entitlements; sourceTree = "<group>"; };
 		C5294E771C0B6241001CE272 /* ExtensionEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionEntry.swift; sourceTree = "<group>"; };
@@ -969,7 +967,6 @@
 				C553B18F1BF9F75600E50219 /* EntryPresenter.swift */,
 				C52500571C1F1F8200CF8F9D /* HistoryItemViewController.swift */,
 				5BF9F9AA1C5F70670075402C /* HomeDataSource.swift */,
-				C52500591C1F1FCB00CF8F9D /* FollowingViewController.swift */,
 				5B31A7861C56620D002E1A2A /* ChangeProfileViewController.swift */,
 				C525005B1C1F1FD500CF8F9D /* SettingsViewController.swift */,
 				5B40D6B11C2EBB1C009EF38C /* UploadWizardViewController.swift */,
@@ -2198,7 +2195,6 @@
 				C566BD9E1C4E6B50000E80BA /* UIBezierPath+Ext.swift in Sources */,
 				C5E6DD8F1C0DC84A004992E4 /* Entry.swift in Sources */,
 				C5F44FF41C5CBC680049215D /* WrapPickerViewController.swift in Sources */,
-				C525005A1C1F1FCB00CF8F9D /* FollowingViewController.swift in Sources */,
 				C523D8CE1BD775AC006FE7AB /* Country.swift in Sources */,
 				C5326F0C1C159279007A8BEF /* RunQueue.swift in Sources */,
 				C5F4E70F1C07687A00D2FC16 /* UIColor+Ext.swift in Sources */,

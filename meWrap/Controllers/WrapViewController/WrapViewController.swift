@@ -352,10 +352,8 @@ extension WrapViewController: CaptureMediaViewControllerDelegate {
         controller.presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
         
         Dispatch.mainQueue.async {
-            FollowingViewController.followWrapIfNeeded(wrap) {
-                Sound.play()
-                wrap?.uploadAssets(assets)
-            }
+            Sound.play()
+            wrap?.uploadAssets(assets)
         }
     }
     

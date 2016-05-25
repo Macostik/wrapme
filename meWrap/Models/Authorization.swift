@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import OpenUDID
 
 final class Authorization: Archive {
     
@@ -36,7 +35,7 @@ final class Authorization: Archive {
         return ["deviceUID","deviceName","countryCode","phone","email","unconfirmed_email","password"]
     }
     
-    var deviceUID: String = OpenUDID.value()
+    var deviceUID: String = DeviceManager.defaultManager.UDID
     
     var deviceName: String = UIDevice.currentDevice().modelName()
     

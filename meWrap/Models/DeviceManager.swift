@@ -72,4 +72,37 @@ class DeviceManager: BlockNotifier<UIDeviceOrientation> {
         motionManager = nil
         orientationFromAccelerometer = nil
     }
+    
+    private func UDIDPastebord(create: Bool = false) -> UIPasteboard? {
+        return UIPasteboard(name: "__udid_\(NSBundle.mainBundle().bundleIdentifier ?? "")", create: create)
+    }
+    
+    private func OpenUDID() -> String? {
+        guard let pasteboard = UIPasteboard(name: "org.OpenUDID.slot.0", create: false) else { return nil }
+        guard let data = pasteboard.dataForPasteboardType("org.OpenUDID") else { return nil }
+        guard let info = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? [NSObject: AnyObject] else { return nil }
+        return info["OpenUDID"] as? String
+    }
+    
+    private var _UDID: String? = NSUserDefaults.standardUserDefaults()["__udid"] as? String {
+        didSet {
+            if let value = _UDID {
+                NSUserDefaults.standardUserDefaults()["__udid"] = value
+            }
+        }
+    }
+    var UDID: String {
+        if let value = _UDID {
+            return value
+        } else if let value = UDIDPastebord()?.valueForPasteboardType("__udid") as? String {
+            _UDID = value
+            return value
+        } else {
+            let value = OpenUDID() ?? GUID().md5()
+            _UDID = value
+            UDIDPastebord(true)?.setValue(value, forPasteboardType: "__udid")
+            return value
+        }
+    }
 }
+

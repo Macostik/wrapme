@@ -5,7 +5,6 @@ use_frameworks!
 target 'meWrap' do
     pod 'Alamofire', '~> 3.0'
     pod 'PubNub', '~> 4.0'
-    pod 'OpenUDID'
     pod 'AWSCore'
     pod 'AWSS3'
     pod 'libPhoneNumber-iOS', '~> 0.8'

@@ -117,15 +117,12 @@ class HistoryItemCell: EntryStreamReusableView<HistoryItem> {
 
 class LiveBroadcastMediaView: EntryStreamReusableView<LiveBroadcast> {
     
-    private let imageView = ImageView(backgroundColor: UIColor.whiteColor())
+    private let imageView = ImageView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.gray)
     private let nameLabel = Label(preset: .Small)
     private let titleLabel = Label(preset: .Smaller, textColor: Color.grayLighter)
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         imageView.cornerRadius = 24
-        imageView.defaultBackgroundColor = Color.grayLighter
-        imageView.defaultIconColor = UIColor.whiteColor()
-        imageView.defaultIconText = "&"
         addSubview(imageView)
         addSubview(nameLabel)
         addSubview(titleLabel)

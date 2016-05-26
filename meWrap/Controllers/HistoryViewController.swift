@@ -32,7 +32,7 @@ final class CommentView: UIView {
         text.numberOfLines = 2
         avatar.borderColor = UIColor.whiteColor()
         avatar.borderWidth = 1
-        avatar.defaultIconSize = 24
+        avatar.placeholder.font = UIFont.icons(24)
         imageView.cornerRadius = 45
         imageView.borderColor = UIColor.whiteColor()
         imageView.borderWidth = 1

@@ -61,7 +61,7 @@ final class SingleAddressBookRecordCell: AddressBookRecordCell {
     }
     private let avatarView = specify(StatusUserAvatarView(cornerRadius: 24)) {
         $0.startReceivingStatusUpdates()
-        $0.defaultIconSize = 24
+        $0.placeholder.font = UIFont.icons(24)
     }
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
@@ -131,7 +131,7 @@ final class MultipleAddressBookRecordCell: AddressBookRecordCell {
     
     private let streamView = StreamView()
     private var dataSource: StreamDataSource<[AddressBookPhoneNumber]>!
-    private let avatarView = ImageView(backgroundColor: UIColor.whiteColor())
+    private let avatarView = ImageView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.gray)
     private let openView = specify(UIButton(type: .Custom)) {
         $0.titleLabel?.font = UIFont.icons(18.0)
         $0.setTitle("y", forState: .Normal)
@@ -143,8 +143,6 @@ final class MultipleAddressBookRecordCell: AddressBookRecordCell {
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         nameLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
-        avatarView.defaultIconText = "&"
-        avatarView.defaultBackgroundColor = Color.grayLighter
         dataSource = StreamDataSource(streamView: streamView)
         dataSource.addMetrics(StreamMetrics<AddressBookPhoneNumberCell>().change({ [weak self] metrics in
             metrics.size = 50.0

@@ -9,49 +9,59 @@
 import UIKit
 import SnapKit
 
+
 class ImageView: UIImageView {
     
-    convenience init(backgroundColor: UIColor) {
+    struct Placeholder {
+        let text: String
+        let size: CGFloat
+        let backgroundColor: UIColor
+        let textColor: UIColor
+        static let gray = Placeholder(text: "&", size: 24, backgroundColor: Color.grayLighter, textColor: UIColor.whiteColor())
+        static let white = Placeholder(text: "&", size: 24, backgroundColor: UIColor.whiteColor(), textColor: Color.grayLighter)
+        func userStyle(size: CGFloat) -> Placeholder {
+            return Placeholder(text: "&", size: size, backgroundColor: self.backgroundColor, textColor: self.textColor)
+        }
+        func photoStyle(size: CGFloat) -> Placeholder {
+            return Placeholder(text: "t", size: size, backgroundColor: self.backgroundColor, textColor: self.textColor)
+        }
+    }
+    
+    convenience init(backgroundColor: UIColor, placeholder: Placeholder? = nil) {
         self.init()
         self.backgroundColor = backgroundColor
         contentMode = .ScaleAspectFill
         clipsToBounds = true
+        if let placeholder = placeholder {
+            applyPlaceholder(placeholder)
+        }
     }
     
-    private lazy var defaultIconView: Label = {
-        let iconView = Label(icon: self.defaultIconText ?? "", size: self.defaultIconSize, textColor: self.defaultIconColor)
+    lazy var placeholder: Label = {
+        let iconView = Label(icon: "", size: 24, textColor: UIColor.whiteColor())
         iconView.hidden = true
         iconView.textAlignment = .Center
-        iconView.backgroundColor = self.defaultBackgroundColor ?? self.backgroundColor
+        iconView.backgroundColor = self.backgroundColor
         self.insertSubview(iconView, atIndex: 0)
         iconView.snp_makeConstraints(closure: { $0.edges.equalTo(self) })
         return iconView
     }()
     
-    @IBInspectable var defaultIconSize: CGFloat = 24 {
-        willSet { defaultIconView.font = UIFont.icons(newValue) }
-    }
-    
-    @IBInspectable var defaultIconText: String? {
-        willSet { defaultIconView.text = newValue }
-    }
-    
-    @IBInspectable var defaultIconColor = UIColor.whiteColor() {
-        willSet { defaultIconView.textColor = newValue }
-    }
-    
-    @IBInspectable var defaultBackgroundColor: UIColor? {
-        willSet { defaultIconView.backgroundColor = newValue }
+    func applyPlaceholder(style: Placeholder) {
+        placeholder.textColor = style.textColor
+        placeholder.backgroundColor = style.backgroundColor
+        placeholder.text = style.text
+        placeholder.font = UIFont.icons(style.size)
     }
     
     var url: String? {
         didSet {
             image = nil
             if let url = url where !url.isEmpty {
-                defaultIconView.hidden = true
+                placeholder.hidden = true
                 ImageFetcher.defaultFetcher.enqueue(url, receiver: self)
             } else {
-                defaultIconView.hidden = false
+                placeholder.hidden = false
             }
         }
     }
@@ -72,13 +82,13 @@ extension ImageView: ImageFetching {
         return url
     }
     func fetcher(fetcher: ImageFetcher, didFailWithError error: NSError) {
-        defaultIconView.hidden = false
+        placeholder.hidden = false
         failure?(error)
         failure = nil
         success = nil
     }
     func fetcher(fetcher: ImageFetcher, didFinishWithImage image: UIImage, cached: Bool) {
-        defaultIconView.hidden = true
+        placeholder.hidden = true
         self.image = image
         if !cached {
             addAnimation(CATransition.transition(kCATransitionFade))

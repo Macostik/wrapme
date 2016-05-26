@@ -69,7 +69,7 @@ final class CommentViewController: UIViewController {
         
         view.userInteractionEnabled = false
         
-        avatar.defaultIconSize = 24
+        avatar.placeholder.font = UIFont.icons(24)
         avatar.borderColor = UIColor.whiteColor()
         avatar.borderWidth = 1
         

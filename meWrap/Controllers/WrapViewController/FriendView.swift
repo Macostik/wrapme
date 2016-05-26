@@ -33,13 +33,9 @@ final class FriendView: EntryStreamReusableView<User> {
 
 class UserAvatarView: ImageView {
     
-    convenience init(cornerRadius: CGFloat, backgroundColor: UIColor = UIColor.clearColor()) {
-        self.init(backgroundColor: backgroundColor)
+    convenience init(cornerRadius: CGFloat, backgroundColor: UIColor = UIColor.clearColor(), placeholderSize: CGFloat = 16) {
+        self.init(backgroundColor: backgroundColor, placeholder: ImageView.Placeholder.gray.userStyle(placeholderSize))
         self.cornerRadius = cornerRadius
-        defaultIconSize = 16
-        defaultIconText = "&"
-        defaultIconColor = UIColor.whiteColor()
-        defaultBackgroundColor = Color.grayLighter
     }
     
     weak var user: User? {
@@ -55,9 +51,9 @@ class UserAvatarView: ImageView {
     internal func update(user: User) {
         let url = user.avatar?.small
         if !user.isInvited && url?.isEmpty ?? true {
-            defaultBackgroundColor = Color.orange
+            placeholder.backgroundColor = Color.orange
         } else {
-            defaultBackgroundColor = Color.grayLighter
+            placeholder.backgroundColor = Color.grayLighter
         }
         self.url = url
     }

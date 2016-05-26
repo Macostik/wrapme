@@ -96,7 +96,7 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
     private let cancelButton = Button()
     private let doneButton = Button()
     private let resendButton = Button()
-    private let imageView = ImageView(backgroundColor: UIColor.clearColor())
+    private let imageView = ImageView(backgroundColor: UIColor.clearColor(), placeholder: ImageView.Placeholder.white.userStyle(64))
     private let emailConfirmationView = ExpandableView()
     private let emailTextField = TextField()
     private let nameTextField = TextField()
@@ -239,12 +239,8 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
         }
         
         imageView.cornerRadius = 78
-        imageView.defaultIconSize = 64
         imageView.borderColor = Color.grayLighter
         imageView.borderWidth = 1
-        imageView.defaultIconText = "&"
-        imageView.defaultIconColor = Color.grayLighter
-        imageView.defaultBackgroundColor = UIColor.whiteColor()
         headerView.addSubview(imageView)
         imageView.snp_makeConstraints {
             $0.size.equalTo(156)

@@ -10,7 +10,7 @@ import UIKit
 
 class WrapView: UIView {
     
-    private let cover = ImageView(backgroundColor: UIColor.clearColor())
+    private let cover = ImageView(backgroundColor: UIColor.clearColor(), placeholder: ImageView.Placeholder.gray.photoStyle(16))
     
     private let name = Label(preset: .Large, weight: .Regular, textColor: UIColor.whiteColor())
     
@@ -27,9 +27,6 @@ class WrapView: UIView {
     }
     
     func layout() {
-        cover.defaultIconSize = 16
-        cover.defaultIconText = "t"
-        cover.defaultBackgroundColor = Color.grayLighter
         cover.cornerRadius = 17
         add(cover) { (make) in
             make.size.equalTo(34)

@@ -18,8 +18,8 @@ class InAppNotification: UIView {
     private static let instance = InAppNotification()
     static let DismissalDelay: NSTimeInterval = 5.0
     private let imageHeight = Constants.screenWidth / 3 * 1.5
-    private let avatar = ImageView(backgroundColor: UIColor.clearColor())
-    private let imageView = ImageView(backgroundColor: UIColor.clearColor())
+    private let avatar = ImageView(backgroundColor: UIColor.clearColor(), placeholder: ImageView.Placeholder.gray.userStyle(14))
+    private let imageView = ImageView(backgroundColor: UIColor.clearColor(), placeholder: ImageView.Placeholder.white.photoStyle(24))
     private var topLabel = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
     private let middleLabel = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
     private let rightLabel = Label(preset: .Smaller, weight: .Regular, textColor: Color.orange)
@@ -44,9 +44,6 @@ class InAppNotification: UIView {
         rightLabel.text = "now".ls
         bottomLabel.text = "tap_to_view".ls
         avatar.cornerRadius = 14
-        imageView.defaultIconText = "t"
-        imageView.defaultIconColor = Color.grayLighter
-        imageView.defaultBackgroundColor = UIColor.whiteColor()
         backgroundColor = UIColor.blackColor()
         topView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
         bottomView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)

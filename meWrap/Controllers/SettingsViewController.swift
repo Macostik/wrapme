@@ -10,17 +10,13 @@ import UIKit
 
 class SettingsViewController: BaseViewController, EntryNotifying {
     
-    private let avatarView = ImageView(backgroundColor: UIColor.whiteColor())
+    private let avatarView = ImageView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.gray.userStyle(16))
     
     @IBOutlet weak var accountButton: Button!
     
     override func loadView() {
         super.loadView()
         
-        avatarView.defaultIconSize = 16
-        avatarView.defaultIconText = "&"
-        avatarView.defaultIconColor = UIColor.whiteColor()
-        avatarView.defaultBackgroundColor = Color.grayLighter
         avatarView.cornerRadius = 16
         avatarView.borderColor = Color.grayLighter
         avatarView.borderWidth = 1

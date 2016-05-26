@@ -52,7 +52,7 @@ class WrapCell: EntryStreamReusableView<Wrap> {
     
     weak var delegate: WrapCellDelegate?
     
-    private let coverView = WrapCoverView(backgroundColor: UIColor.whiteColor())
+    private let coverView = WrapCoverView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.gray.photoStyle(24))
     private let nameLabel = Label(preset: .Large, textColor: Color.grayDarker)
     private let dateLabel = Label(preset: .Small, textColor: Color.grayLight)
     private let badgeLabel = BadgeLabel(preset: .Smaller, textColor: UIColor.whiteColor())
@@ -69,8 +69,6 @@ class WrapCell: EntryStreamReusableView<Wrap> {
         
         coverView.clipsToBounds = true
         coverView.cornerRadius = 25
-        coverView.defaultBackgroundColor = Color.grayLighter
-        coverView.defaultIconText = "t"
         
         badgeLabel.intrinsicContentSizeInsets = CGSize(width: 5, height: 5)
         badgeLabel.cornerRadius = 9

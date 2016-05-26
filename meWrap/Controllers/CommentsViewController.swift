@@ -33,7 +33,7 @@ final class TextCommentCell: CommentCell, FlowerMenuConstructor {
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         FlowerMenu.sharedMenu.registerView(self)
         text.numberOfLines = 0
-        avatar.defaultIconSize = 24
+        avatar.placeholder.font = UIFont.icons(24)
         avatar.borderColor = UIColor.whiteColor()
         avatar.borderWidth = 1
         addSubview(avatar)
@@ -217,7 +217,7 @@ final class PhotoCommentCell: MediaCommentCell {
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         mediaView = imageView
-        imageView.defaultIconSize = 24
+        imageView.placeholder.font = UIFont.icons(24)
         super.layoutWithMetrics(metrics)
     }
     

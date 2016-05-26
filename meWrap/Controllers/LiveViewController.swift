@@ -27,11 +27,8 @@ class LiveBroadcastEventView: UIView {
             textLabel.text = event.text
         } else {
             backgroundColor = UIColor.whiteColor()
-            let avatarView = ImageView(backgroundColor: UIColor.whiteColor())
+            let avatarView = ImageView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.gray)
             avatarView.cornerRadius = 20
-            avatarView.defaultBackgroundColor = Color.grayLighter
-            avatarView.defaultIconColor = UIColor.whiteColor()
-            avatarView.defaultIconText = "&"
             addSubview(avatarView)
             avatarView.snp_makeConstraints(closure: {
                 $0.leading.top.equalTo(self).offset(12)

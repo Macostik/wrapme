@@ -12,14 +12,11 @@ class LiveBroadcastViewerCell: EntryStreamReusableView<User> {
     
     static let DefaultHeight: CGFloat = 56
     
-    private var avatarView = ImageView(backgroundColor: UIColor.whiteColor())
+    private var avatarView = ImageView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.gray)
     private var nameLabel = Label(preset: .Small, textColor: Color.grayDarker)
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         avatarView.cornerRadius = 24
-        avatarView.defaultBackgroundColor = Color.grayLighter
-        avatarView.defaultIconColor = UIColor.whiteColor()
-        avatarView.defaultIconText = "&"
         addSubview(avatarView)
         addSubview(nameLabel)
         

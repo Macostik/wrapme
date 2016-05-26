@@ -11,7 +11,7 @@ import SnapKit
 
 class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
     
-    let imageView = ImageView(backgroundColor: UIColor.whiteColor())
+    let imageView = ImageView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.white.photoStyle(56))
     let commentLabel = Label(preset: .Smaller, textColor: UIColor.whiteColor())
     let videoIndicator = Label(icon: "+", size: 24)
     let gradientView = GradientView()
@@ -22,9 +22,6 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
             FlowerMenu.sharedMenu.registerView(self)
         }
         
-        imageView.defaultIconSize = 56
-        imageView.defaultIconText = "t"
-        imageView.defaultIconColor = Color.grayLighter
         let pressedStateButton = Button(type: .Custom)
         pressedStateButton.addTarget(self, action: #selector(CandyCell.select as CandyCell -> () -> ()), forControlEvents: .TouchUpInside)
         pressedStateButton.highlightedColor = UIColor.blackColor().colorWithAlphaComponent(0.6)

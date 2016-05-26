@@ -40,13 +40,10 @@ class WrapPickerCell: EntryStreamReusableView<Wrap> {
     weak var nameLabel: UILabel?
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
-        let coverView = WrapCoverView()
+        let coverView = WrapCoverView(backgroundColor: UIColor.clearColor(), placeholder: ImageView.Placeholder.gray.photoStyle(24))
         coverView.contentMode = .ScaleAspectFill
         coverView.clipsToBounds = true
         coverView.cornerRadius = 16
-        coverView.defaultBackgroundColor = Color.grayLighter
-        coverView.defaultIconColor = UIColor.whiteColor()
-        coverView.defaultIconText = "t"
         addSubview(coverView)
         self.coverView = coverView
         

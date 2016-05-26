@@ -34,7 +34,7 @@ final class ContributorCell: EntryStreamReusableView<User> {
         streamView.showsHorizontalScrollIndicator = false
         streamView.pagingEnabled = true
         streamView.bounces = false
-        avatarView.defaultIconSize = 24
+        avatarView.placeholder.font = UIFont.icons(24)
         infoLabel.numberOfLines = 0
         slideMenuButton.addTarget(self, action: #selector(ContributorCell.toggleSlideMenu(_:)), forControlEvents: .TouchUpInside)
         slideMenuButton.titleLabel?.font = UIFont.icons(24)

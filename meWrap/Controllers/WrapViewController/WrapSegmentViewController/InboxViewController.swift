@@ -33,7 +33,7 @@ class InboxCell: EntryStreamReusableView<InboxItem> {
     
     internal var containerView = UIView()
     internal var headerView = UIView()
-    internal var avatarView = ImageView(backgroundColor: UIColor.clearColor())
+    internal var avatarView = ImageView(backgroundColor: UIColor.clearColor(), placeholder: ImageView.Placeholder.gray)
     internal var userNameLabel = Label(preset: .Small, textColor: Color.grayLighter)
     internal var timeLabel = Label(preset: .Smaller, textColor: Color.grayLighter)
     internal var imageView = ImageView(backgroundColor: UIColor.clearColor())
@@ -42,9 +42,6 @@ class InboxCell: EntryStreamReusableView<InboxItem> {
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         addSubview(containerView)
         avatarView.cornerRadius = 18
-        avatarView.defaultBackgroundColor = Color.grayLighter
-        avatarView.defaultIconColor = UIColor.whiteColor()
-        avatarView.defaultIconText = "&"
         containerView.addSubview(headerView)
         containerView.backgroundColor = UIColor.whiteColor()
         containerView.shadowOpacity = 1

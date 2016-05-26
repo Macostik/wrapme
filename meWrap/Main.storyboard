@@ -2307,6 +2307,7 @@ QWRkEEZyaWVuZFZpZXc
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
+                                                    <action selector="textFieldDidChange:" destination="Ki2-IL-epK" eventType="editingChanged" id="2lD-PE-PTe"/>
                                                     <outlet property="delegate" destination="Ki2-IL-epK" id="2Lb-BQ-LzQ"/>
                                                 </connections>
                                             </textField>

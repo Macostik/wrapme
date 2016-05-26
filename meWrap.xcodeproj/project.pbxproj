@@ -145,8 +145,6 @@
 		C5347E261C75EB510080074C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5347E251C75EB510080074C /* HomeViewController.swift */; };
 		C5347E281C7625AC0080074C /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5347E271C7625AC0080074C /* ChatViewController.swift */; };
 		C534A2931CEDFDA9006955B0 /* ActivityStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534A2921CEDFDA9006955B0 /* ActivityStatusView.swift */; };
-		C535D6991C045476002BCE34 /* OverlayImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C535D6981C045476002BCE34 /* OverlayImageView.swift */; };
-		C535D69B1C045B56002BCE34 /* WrapCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C535D69A1C045B56002BCE34 /* WrapCoverView.swift */; };
 		C53644681C6213920002232C /* SwipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53644671C6213920002232C /* SwipeViewController.swift */; };
 		C538EA141C8996EB0011767B /* FriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C538EA131C8996EB0011767B /* FriendView.swift */; };
 		C53A02321C0D8961003B3D1F /* InMemoryImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */; };
@@ -603,8 +601,6 @@
 		C5347E251C75EB510080074C /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C5347E271C7625AC0080074C /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		C534A2921CEDFDA9006955B0 /* ActivityStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityStatusView.swift; sourceTree = "<group>"; };
-		C535D6981C045476002BCE34 /* OverlayImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayImageView.swift; sourceTree = "<group>"; };
-		C535D69A1C045B56002BCE34 /* WrapCoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapCoverView.swift; sourceTree = "<group>"; };
 		C53644671C6213920002232C /* SwipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeViewController.swift; sourceTree = "<group>"; };
 		C538EA131C8996EB0011767B /* FriendView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendView.swift; sourceTree = "<group>"; };
 		C53A02311C0D8961003B3D1F /* InMemoryImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryImageCache.swift; sourceTree = "<group>"; };
@@ -1054,8 +1050,6 @@
 				C5EA6D9A1BFCC8270029970A /* FlowerMenu.swift */,
 				C55766A31C0C913D00E94E09 /* ImageView.swift */,
 				C55766A41C0C913D00E94E09 /* EntryStatusIndicator.swift */,
-				C535D6981C045476002BCE34 /* OverlayImageView.swift */,
-				C535D69A1C045B56002BCE34 /* WrapCoverView.swift */,
 				C53BC48D1C05FE620009B0B9 /* SegmentedControl.swift */,
 				C5A406FD1C200A71007D1D0E /* CandyEnlargingPresenter.swift */,
 				C532F4E81C2D5F02004585E0 /* ProgressBar.swift */,
@@ -2083,7 +2077,6 @@
 				C5E6DD9F1C0DD11A004992E4 /* Keys.swift in Sources */,
 				C55BE8C71C031BA6006B04FC /* ExtensionRequest+Ext.swift in Sources */,
 				C534A2931CEDFDA9006955B0 /* ActivityStatusView.swift in Sources */,
-				C535D6991C045476002BCE34 /* OverlayImageView.swift in Sources */,
 				C530127F1BF4AC5A00098F9C /* PaginatedStreamDataSource.swift in Sources */,
 				C502B3251C47F30400F66EAE /* API.swift in Sources */,
 				C53012941BF4E4BF00098F9C /* Refresher.swift in Sources */,
@@ -2237,7 +2230,6 @@
 				C557B6DE1C22F5980067631E /* Logger.swift in Sources */,
 				C59CEBD31BFB20B500C3E686 /* WrapView.swift in Sources */,
 				C502B32B1C47F30400F66EAE /* PaginatedRequest.swift in Sources */,
-				C535D69B1C045B56002BCE34 /* WrapCoverView.swift in Sources */,
 				C5EAE4CB1C18335900DA19C9 /* Chat.swift in Sources */,
 				C5E6DD8C1C0DC84A004992E4 /* Contribution.swift in Sources */,
 				C5F9A49E1C4B8A1700A7D83B /* CaptureMediaViewController.swift in Sources */,

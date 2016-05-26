@@ -36,49 +36,32 @@ protocol WrapPickerViewControllerDelegate: class {
 
 class WrapPickerCell: EntryStreamReusableView<Wrap> {
     
-    weak var coverView: WrapCoverView?
-    weak var nameLabel: UILabel?
+    private let coverView = ImageView(backgroundColor: UIColor.clearColor(), placeholder: ImageView.Placeholder.gray.photoStyle(24))
+    private let nameLabel = Label(preset: .Normal, textColor: Color.grayDarker)
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
-        let coverView = WrapCoverView(backgroundColor: UIColor.clearColor(), placeholder: ImageView.Placeholder.gray.photoStyle(24))
-        coverView.contentMode = .ScaleAspectFill
-        coverView.clipsToBounds = true
         coverView.cornerRadius = 16
-        addSubview(coverView)
-        self.coverView = coverView
-        
-        let nameLabel = Label(preset: .Normal, textColor: Color.grayDarker)
-        addSubview(nameLabel)
-        self.nameLabel = nameLabel
-        
-        let separator = SeparatorView(color: Color.grayDarker.colorWithAlphaComponent(0.1))
-        addSubview(separator)
-        
-        coverView.snp_makeConstraints(closure: {
+        add(coverView) {
             $0.centerX.equalTo(self).offset(-120)
             $0.centerY.equalTo(self)
-            $0.width.height.equalTo(36)
-        })
+            $0.size.equalTo(36)
+        }
         
-        nameLabel.snp_makeConstraints(closure: {
+        add(nameLabel) {
             $0.leading.equalTo(coverView.snp_trailing).offset(12)
             $0.centerY.equalTo(self)
             $0.width.equalTo(240)
-        })
+        }
         
-        separator.snp_makeConstraints(closure: {
+        add(SeparatorView(color: Color.grayDarker.colorWithAlphaComponent(0.1))) {
             $0.leading.trailing.bottom.equalTo(self)
             $0.height.equalTo(1)
-        })
+        }
     }
     
     override func setup(wrap: Wrap) {
-        if let coverView = coverView {
-            coverView.url = wrap.asset?.small
-            coverView.isFollowed = wrap.isPublic ? wrap.isContributing : false
-            coverView.isOwner = wrap.isPublic ? (wrap.contributor?.current ?? false) : false
-        }
-        nameLabel?.text = wrap.name
+        coverView.url = wrap.asset?.small
+        nameLabel.text = wrap.name
     }
 }
 

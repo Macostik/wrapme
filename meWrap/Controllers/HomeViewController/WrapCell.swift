@@ -52,7 +52,7 @@ class WrapCell: EntryStreamReusableView<Wrap> {
     
     weak var delegate: WrapCellDelegate?
     
-    private let coverView = WrapCoverView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.gray.photoStyle(24))
+    private let coverView = ImageView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.gray.photoStyle(24))
     private let nameLabel = Label(preset: .Large, textColor: Color.grayDarker)
     private let dateLabel = Label(preset: .Small, textColor: Color.grayLight)
     private let badgeLabel = BadgeLabel(preset: .Smaller, textColor: UIColor.whiteColor())
@@ -174,14 +174,7 @@ class WrapCell: EntryStreamReusableView<Wrap> {
         nameLabel.text = wrap.name
         coverView.url = wrap.asset?.small
         badgeLabel.value = wrap.numberOfUnreadInboxItems
-        if (wrap.isPublic) {
-            dateLabel.text = "\(wrap.contributor?.name ?? "") \(wrap.updatedAt.timeAgoStringAtAMPM())"
-            coverView.isFollowed = wrap.isContributing
-            coverView.isOwner = wrap.contributor?.current ?? false
-        } else {
-            dateLabel.text = wrap.updatedAt.timeAgoStringAtAMPM()
-            coverView.isFollowed = false
-        }
+        dateLabel.text = wrap.updatedAt.timeAgoStringAtAMPM()
         updateBadgeNumber()
         liveBadge.hidden = wrap.liveBroadcasts.isEmpty
         if wrap.liveBroadcasts.isEmpty {

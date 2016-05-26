@@ -138,6 +138,15 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
         goCoder?.cameraPreview?.previewLayer?.connection?.videoOrientation = orientationForVideoConnection()
     }
     
+    override func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {
+        UIAlertController.alert("live".ls, message: "end_live_streaming_confirmation".ls).action("no".ls, handler: { _ in
+            completion(false)
+        }).action("yes".ls, handler: { [weak self] _ in
+            NotificationCenter.defaultCenter.setActivity(self?.wrap, type: .Live, inProgress: false)
+            completion(true)
+        }).show()
+    }
+    
     private func orientationForVideoConnection() -> AVCaptureVideoOrientation {
         let orientation = DeviceManager.defaultManager.orientation
         switch orientation {

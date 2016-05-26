@@ -16,7 +16,7 @@
 "no_access_to_contacts" = "沒有讀取通訊錄的權限。";
 "leave_screen_on_editing" = "內容尚未存檔，確定要離開嗎？";
 "discard_changes" = "確定";
-"unsaved_photo" = "未存檔相片";
+"unsaved_media" = "未存檔相片";
 "continue" = "繼續";
 "cancel" = "取消";
 "ok" = "確認";
@@ -342,3 +342,6 @@
 "comments" = "Comments";
 "photo_comment_tip" = "Hold to view the photo";
 "video_comment_tip" = "Hold to view the video";
+"yes" = "Yes";
+"no" = "No";
+"end_live_streaming_confirmation" = "Are you sure you want to end the live-streaming?";

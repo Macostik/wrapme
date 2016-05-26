@@ -423,9 +423,28 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         }
     }
     
+    override func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {
+        if let camera = camera {
+            camera.requestAuthorizationForPresentingEntry(entry, completion: completion)
+        } else {
+            completion((entry as? Comment)?.candy != candy)
+        }
+    }
+    
     func handleTap() -> Bool {
+        
         if composeBar.superview == nil {
-            showComposeBar()
+            
+            if let camera = camera, let candy = candy {
+                camera.requestAuthorizationForPresentingEntry(candy, completion: { [weak self] allow in
+                    if allow {
+                        self?.showComposeBar()
+                    }
+                })
+            } else {
+                showComposeBar()
+            }
+            
             return false
         } else if composeBar.isFirstResponder() == true {
             composeBar.resignFirstResponder()
@@ -449,6 +468,8 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         }
     }
     
+    private weak var camera: CaptureCommentViewController?
+    
     func showCamera() {
         let camera = CaptureViewController.captureCommentViewController()
         camera.captureDelegate = self
@@ -466,6 +487,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         } else {
             UINavigationController.main.presentViewController(camera, animated: false, completion: nil)
         }
+        self.camera = camera
     }
     
     override func viewDidLoad() {
@@ -650,10 +672,6 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
                 self?.close()
             }
         }
-    }
-    
-    override func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {
-        completion((entry as? Comment)?.candy != candy)
     }
     
     var typing = false {

@@ -16,7 +16,7 @@
 "no_access_to_contacts" = "No permission to access contacts.";
 "leave_screen_on_editing" = "Are you sure you want to leave this screen?";
 "discard_changes" = "Discard changes";
-"unsaved_photo" = "Unsaved photo";
+"unsaved_media" = "Unsaved media";
 "continue" = "Continue";
 "cancel" = "Cancel";
 "ok" = "OK";
@@ -342,3 +342,6 @@
 "comments" = "Comments";
 "photo_comment_tip" = "Hold to view the photo";
 "video_comment_tip" = "Hold to view the video";
+"yes" = "Yes";
+"no" = "No";
+"end_live_streaming_confirmation" = "Are you sure you want to end the live-streaming?";

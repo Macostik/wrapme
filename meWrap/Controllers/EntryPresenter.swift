@@ -34,6 +34,15 @@ class EntryPresenter: NSObject {
                     completionHandler?()
                 }
             })
+        } else if let topViewController = navigationController.topViewController {
+            topViewController.requestAuthorizationForPresentingEntry(entry, completion: { (flag) -> Void in
+                if (flag) {
+                    self.presentEntry(entry, inNavigationController: navigationController, animated:animated)
+                    completionHandler?()
+                } else {
+                    completionHandler?()
+                }
+            })
         } else {
             self.presentEntry(entry, inNavigationController: navigationController, animated:animated)
             completionHandler?()

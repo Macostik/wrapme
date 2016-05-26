@@ -102,7 +102,7 @@ class EditAvatarViewController: BaseViewController {
     }
     
     override func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {
-        UIAlertController.alert("unsaved_photo".ls, message: "leave_screen_on_editing".ls).action("cancel".ls, handler: { _ in
+        UIAlertController.alert("unsaved_media".ls, message: "leave_screen_on_editing".ls).action("cancel".ls, handler: { _ in
             completion(false)
         }).action("discard_changes".ls, handler: { _ in completion(true) }).show()
     }

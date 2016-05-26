@@ -169,6 +169,12 @@ final class UploadMediaCommentViewController: UIViewController {
         uploadButton.userInteractionEnabled = false
     }
     
+    override func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {
+        UIAlertController.alert("unsaved_media".ls, message: "leave_screen_on_editing".ls).action("cancel".ls, handler: { _ in
+            completion(false)
+        }).action("discard_changes".ls, handler: { _ in completion(true) }).show()
+    }
+    
     func setAsset(asset: MutableAsset) {
         uploadButton.userInteractionEnabled = true
         spinner.stopAnimating()

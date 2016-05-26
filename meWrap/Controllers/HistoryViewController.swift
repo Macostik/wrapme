@@ -513,6 +513,14 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         secondCommentButton.addTarget(self, touchUpInside: #selector(self.comments(_:)))
     }
     
+    override func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {
+        if let commentsViewController = CommentsViewController.current {
+            commentsViewController.requestAuthorizationForPresentingEntry(entry, completion: completion)
+        } else {
+            super.requestAuthorizationForPresentingEntry(entry, completion: completion)
+        }
+    }
+    
     @objc private func toggleActions() {
         setActionsExpanded(!expandableToolbar.expanded)
     }

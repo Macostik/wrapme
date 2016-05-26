@@ -84,9 +84,7 @@ final class Candy: Contribution {
     func sortedComments() -> [Comment] {
         return comments.sort({ $0.createdAt < $1.createdAt }) ?? []
     }
-    
-    override var uploaded: Bool { return super.uploaded && uid != locuid }
-    
+        
     override var canBeUploaded: Bool { return wrap?.uploaded == true }
     
     override var deletable: Bool { return super.deletable || (wrap?.deletable ?? false) }

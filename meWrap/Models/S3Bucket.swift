@@ -11,6 +11,20 @@ import AWSS3
 
 class S3Bucket {
     
+    struct Upload {
+        
+        let type: UploadType
+        let url: String
+        let contentType: String
+        let metadata: [String:String]
+    }
+    
+    enum UploadType: Int {
+        case Candy = 10
+        case Comment = 20
+        case EditedCandy = 30
+    }
+    
     static let bucket: S3Bucket = {
         let bucket = S3Bucket()
         let accessKey = "AKIAIPEMEBV7F4GN2FVA"
@@ -21,19 +35,22 @@ class S3Bucket {
         return bucket
     }()
     
-    func upload(url: String, contentType: String, metadata: [String:String], progress: ((Int64, Int64, Int64) -> Void)? = nil, success: Block?, failure: FailureBlock?) {
-                
-        if url.hasPrefix("http") {
+    func upload(upload: Upload, progress: ((Int64, Int64, Int64) -> Void)? = nil, success: Block?, failure: FailureBlock?) {
+        
+        if upload.url.hasPrefix("http") {
             success?()
             return
         }
         
+        var metadata = upload.metadata
+        metadata["upload_type"] = "\(upload.type.rawValue)"
+        
         let uploadRequest = AWSS3TransferManagerUploadRequest()
         uploadRequest.bucket = Environment.current.s3Bucket
         uploadRequest.metadata = metadata
-        uploadRequest.key = (url as NSString).lastPathComponent
-        uploadRequest.contentType = contentType
-        uploadRequest.body = url.fileURL
+        uploadRequest.key = (upload.url as NSString).lastPathComponent
+        uploadRequest.contentType = upload.contentType
+        uploadRequest.body = upload.url.fileURL
         AWSS3TransferManager.defaultS3TransferManager().upload(uploadRequest).continueWithBlock { (task) -> AnyObject! in
             Dispatch.mainQueue.async { () -> Void in
                 if task.completed && (task.result != nil) {

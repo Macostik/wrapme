@@ -33,13 +33,11 @@ final class Comment: Contribution {
         if let candy = candy where candy.uploaded == false {
             Logger.log("Comment cannot be uploaded. It's candy: \(candy)")
         }
-        return candy?.uploaded == true
+        return candy?.uploaded ?? false
     }
     
     override var deletable: Bool { return super.deletable || (candy?.deletable ?? false) }
-    
-    override var uploaded: Bool { return super.uploaded && uid != locuid }
-    
+        
     func decrementBadgeIfNeeded() {
         if let wrap = candy?.wrap where unread && wrap.numberOfUnreadInboxItems > 0 {
             wrap.numberOfUnreadInboxItems -= 1

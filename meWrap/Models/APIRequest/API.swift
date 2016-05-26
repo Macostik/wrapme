@@ -118,6 +118,25 @@ extension API {
         }).contributionUnavailable(candy)
     }
     
+    static func candyPlaceholder(candy: Candy) -> APIRequest<Candy>? {
+        guard let wrap = candy.wrap else { return nil }
+        let path = "wraps/\(wrap.uid)/candies/placeholder"
+        return APIRequest(.POST, path, modifier: {
+            $0["upload_uid"] = candy.locuid
+            $0["contributed_at"] = candy.createdAt.timestamp
+            if let comment = candy.comments.first {
+                $0["message"] = comment.text
+                $0["message_upload_uid"] = comment.locuid
+                $0["message_contributed_at"] = comment.createdAt.timestamp
+            }
+            }, parser: { response in
+                if let candyObject = response.dictionary("candy") {
+                    candy.map(candyObject, container: wrap)
+                }
+                return candy
+        })
+    }
+    
     static func message(message: Message) -> APIRequest<Message> {
         return APIRequest(.GET, "entities/\(message.uid)", parser: { response in
             if let dictionary = response.dictionary("chat") {
@@ -146,9 +165,7 @@ extension API {
         }).contributionUnavailable(candy)
     }
     
-    static func deleteComment(comment: Comment) -> APIRequest<Response>? {
-        guard let candy = comment.candy else { return nil }
-        guard let wrap = candy.wrap else { return nil }
+    static func deleteComment(comment: Comment, candy: Candy, wrap: Wrap) -> APIRequest<Response> {
         return APIRequest(.DELETE, "wraps/\(wrap.uid)/candies/\(candy.uid)/comments/\(comment.uid)", parser: { response in
             comment.remove()
             candy.validEntry()?.commentCount = Int16(response.data["comment_count"] as? Int ?? 0)
@@ -207,10 +224,8 @@ extension API {
         }).contributionUnavailable(wrap)
     }
     
-    static func postComment(comment: Comment) -> APIRequest<Comment>? {
-        guard let candy = comment.candy else { return nil }
-        guard let wrap = candy.wrap else { return nil }
-        return APIRequest<Comment>(.POST, "wraps/\(wrap.uid)/candies/\(candy.uid)/comments", modifier: {
+    static func postComment(comment: Comment, candy: Candy, wrap: Wrap) -> APIRequest<Comment> {
+        return APIRequest(.POST, "wraps/\(wrap.uid)/candies/\(candy.uid)/comments", modifier: {
             $0["message"] = comment.text
             $0["upload_uid"] = comment.locuid
             $0["contributed_at_in_epoch"] = NSNumber(double: comment.updatedAt.timestamp)

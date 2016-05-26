@@ -299,27 +299,28 @@ extension Candy {
     
     override func add(success: ObjectBlock?, failure: FailureBlock?) {
         
-        var metadata = [
+        if !uploaded {
+            if let request = API.candyPlaceholder(self) {
+                request.send({ _ in
+                    self.add(success, failure: failure)
+                    }, failure: failure)
+            } else {
+                failure?(nil)
+            }
+            return
+        }
+        
+        let metadata = [
             "Accept" : "application/vnd.ravenpod+json;version=\(Environment.current.version)",
             Keys.UID.Device : Authorization.current.deviceUID ?? "",
             Keys.UID.User : contributor?.uid ?? "",
+            Keys.UID.Candy : uid,
             Keys.UID.Wrap : wrap?.uid ?? "",
             Keys.UID.Upload : locuid ?? "",
-            Keys.ContributedAt : "\(createdAt.timestamp)"
+            Keys.ContributedAt : "\(createdAt.timestamp)",
         ]
         
-        if let comment = comments.filter({ $0.uploading == nil }).first  {
-            if let text = comment.text, let locuid = comment.locuid {
-                var escapedText = ""
-                for unicodeScalar in text.unicodeScalars {
-                    escapedText += unicodeScalar.escape(asASCII: true)
-                }
-                metadata["message"] = escapedText
-                metadata["message_upload_uid"] = locuid
-            }
-        }
-        
-        uploadToS3Bucket(metadata, success: success, failure: failure)
+        uploadToS3Bucket(.Candy, metadata: metadata, success: success, failure: failure)
     }
     
     override func update(success: ObjectBlock?, failure: FailureBlock?) {
@@ -330,34 +331,26 @@ extension Candy {
             Keys.UID.User : User.currentUser?.uid ?? "",
             Keys.UID.Wrap : wrap?.uid ?? "",
             Keys.UID.Candy : uid,
-            Keys.EditedAt : "\(updatedAt.timestamp)"
+            Keys.EditedAt : "\(updatedAt.timestamp)",
         ]
         
-        uploadToS3Bucket(metadata, success: success, failure: failure)
+        uploadToS3Bucket(.EditedCandy, metadata: metadata, success: success, failure: failure)
     }
     
     override func delete(success: ObjectBlock?, failure: FailureBlock?) {
-        switch status {
-        case .Ready:
-            remove()
-            success?(nil)
-        case .InProgress:
-            failure?(NSError(message: (isVideo ? "video_is_uploading" : "photo_is_uploading").ls))
-        case .Finished:
-            if uid == locuid {
-                failure?(NSError(message: "publishing_in_progress".ls))
+        if !uploaded {
+            failure?(NSError(message: "publishing_in_progress".ls))
+        } else {
+            if let request = API.deleteCandy(self) {
+                request.send(success, failure: failure)
             } else {
-                if let request = API.deleteCandy(self) {
-                    request.send(success, failure: failure)
-                } else {
-                    failure?(nil)
-                }
+                failure?(nil)
             }
         }
     }
     
     override func fetch(success: ObjectBlock?, failure: FailureBlock?) {
-        if uploaded {
+        if uploaded && status == .Finished {
             API.candy(self).send(success, failure: failure)
         } else {
             failure?(NSError(message:(isVideo ? "video_is_uploading" : "photo_is_uploading").ls))
@@ -366,6 +359,7 @@ extension Candy {
 }
 
 extension Message {
+    
     override func add(success: ObjectBlock?, failure: FailureBlock?) {
         if let request = API.uploadMessage(self) {
             request.send(success, failure: failure)
@@ -373,6 +367,7 @@ extension Message {
             failure?(nil)
         }
     }
+    
     override func fetch(success: ObjectBlock?, failure: FailureBlock?) {
         if uploaded {
             API.message(self).send(success, failure: failure)
@@ -385,25 +380,20 @@ extension Message {
 extension Comment {
     
     override func add(success: ObjectBlock?, failure: FailureBlock?) {
-        if candy?.uploaded ?? false {
+        if let candy = candy, let wrap = candy.wrap where candy.uploaded {
             if let asset = asset where asset.original?.isExistingFilePath == true {
                 let metadata = [
                     "Accept" : "application/vnd.ravenpod+json;version=\(Environment.current.version)",
                     Keys.UID.Device : Authorization.current.deviceUID ?? "",
                     Keys.UID.User : contributor?.uid ?? "",
-                    Keys.UID.Wrap : candy?.wrap?.uid ?? "",
-                    Keys.UID.Candy : candy?.uid ?? "",
+                    Keys.UID.Wrap : candy.wrap?.uid ?? "",
+                    Keys.UID.Candy : candy.uid ?? "",
                     Keys.UID.Upload : locuid ?? "",
                     Keys.ContributedAt : "\(createdAt.timestamp)",
-                    "upload_type" : "20"
                 ]
-                uploadToS3Bucket(metadata, success: success, failure: failure)
+                uploadToS3Bucket(.Comment, metadata: metadata, success: success, failure: failure)
             } else {
-                if let request = API.postComment(self) {
-                    request.send(success, failure: failure)
-                } else {
-                    failure?(nil)
-                }
+                API.postComment(self, candy: candy, wrap: wrap).send(success, failure: failure)
             }
         } else {
             failure?(nil)
@@ -411,37 +401,18 @@ extension Comment {
     }
     
     override func delete(success: ObjectBlock?, failure: FailureBlock?) {
-        switch status {
-        case .Ready:
+        if let candy = candy, let wrap = candy.wrap {
+            if !uploaded {
+                failure?(NSError(message: "publishing_in_progress".ls))
+            } else {
+                API.deleteComment(self, candy: candy, wrap: wrap).send(success, failure: failure)
+            }
+        } else {
             remove()
             success?(nil)
-        case .InProgress:
-            failure?(NSError(message: "comment_is_uploading".ls))
-        case .Finished:
-            if let candy = candy {
-                switch candy.status {
-                case .Ready:
-                    remove()
-                    success?(nil)
-                case .InProgress:
-                    failure?(NSError(message: (candy.isVideo ? "video_is_uploading" : "photo_is_uploading").ls))
-                case .Finished:
-                    if uid == locuid {
-                        failure?(NSError(message: "publishing_in_progress".ls))
-                    } else {
-                        if let request = API.deleteComment(self) {
-                            request.send(success, failure: failure)
-                        } else {
-                            failure?(nil)
-                        }
-                    }
-                }
-            } else {
-                remove()
-                success?(nil)
-            }
         }
     }
+    
     override func fetch(success: ObjectBlock?, failure: FailureBlock?) {
         if uploaded {
             API.comment(self).send(success, failure: failure)

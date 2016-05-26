@@ -115,9 +115,7 @@ final class Wrap: Contribution {
         get { return cover?.asset }
         set { }
     }
-    
-    override var uploaded: Bool { return super.uploaded && uid != locuid }
-    
+        
     var isContributing: Bool {
         guard let currentUser = User.currentUser else { return false }
         return contributors.contains(currentUser)

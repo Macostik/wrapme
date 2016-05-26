@@ -67,7 +67,7 @@ class Contribution: Entry {
     
     var status: ContributionStatus { return statusOfUploadingEvent(.Add) }
     
-    var uploaded: Bool { return status == .Finished }
+    var uploaded: Bool { return uid != locuid }
     
     var deletable: Bool { return contributor?.current ?? false }
     
@@ -95,7 +95,7 @@ class Contribution: Entry {
         _uploadingView?.updateProgress(progress)
     }
     
-    func uploadToS3Bucket(metadata: [String:String], success: ObjectBlock?, failure: FailureBlock?) {
+    func uploadToS3Bucket(uploadType: S3Bucket.UploadType, metadata: [String:String], success: ObjectBlock?, failure: FailureBlock?) {
         
         guard let asset = asset, let original = asset.original where original.isExistingFilePath else {
             Logger.log("Failed S3 uploading, no file: \(metadata)")
@@ -107,7 +107,8 @@ class Contribution: Entry {
         let contentType = asset.contentType()
         Logger.log("Uploading \(contentType) to S3 bucket: \(metadata)")
         
-        S3Bucket.bucket.upload(original, contentType: contentType, metadata: metadata, progress: { [weak self] _, current, total in
+        let upload = S3Bucket.Upload(type: uploadType, url: original, contentType: contentType, metadata: metadata)
+        S3Bucket.bucket.upload(upload, progress: { [weak self] _, current, total in
             let progress = smoothstep(0, 1, CGFloat(current) / CGFloat(total))
             self?.updateProgress(progress)
             }, success: { [weak self] () in

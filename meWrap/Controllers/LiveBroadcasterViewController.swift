@@ -304,6 +304,12 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
     }
     
     func focusing(sender: UITapGestureRecognizer) {
+        
+        if composeBar.isFirstResponder() {
+            composeBar.resignFirstResponder()
+            return
+        }
+        
         guard let layer = goCoder?.cameraPreview?.previewLayer, let session = layer.session where session.running else { return }
         
         self.focusView?.removeFromSuperview()

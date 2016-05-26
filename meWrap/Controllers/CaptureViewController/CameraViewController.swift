@@ -148,6 +148,8 @@ class CameraViewController: BaseViewController {
         
         flashModeControl.backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.7)
         flashModeControl.cornerRadius = 22
+        flashModeControl.borderColor = UIColor.whiteColor()
+        flashModeControl.borderWidth = 2
         view.add(flashModeControl) { (make) in
             make.leading.equalTo(view).inset(8)
             make.bottom.equalTo(assetsViewController.view.snp_top).inset(-8)

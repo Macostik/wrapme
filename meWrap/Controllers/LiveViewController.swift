@@ -96,8 +96,6 @@ class LiveViewController: BaseViewController, ComposeBarDelegate {
         return chatSubscription
     }()
     
-    var allowAutorotate = true
-    
     deinit {
         UIApplication.sharedApplication().idleTimerDisabled = false
     }
@@ -278,7 +276,7 @@ class LiveViewController: BaseViewController, ComposeBarDelegate {
     }
     
     override func shouldAutorotate() -> Bool {
-        return allowAutorotate
+        return true
     }
 }
 

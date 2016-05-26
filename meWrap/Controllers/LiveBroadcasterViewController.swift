@@ -134,10 +134,8 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if allowAutorotate {
-            goCoder?.cameraPreview?.previewLayer?.frame = view.bounds
-            goCoder?.cameraPreview?.previewLayer?.connection?.videoOrientation = orientationForVideoConnection()
-        }
+        goCoder?.cameraPreview?.previewLayer?.frame = view.bounds
+        goCoder?.cameraPreview?.previewLayer?.connection?.videoOrientation = orientationForVideoConnection()
     }
     
     private func orientationForVideoConnection() -> AVCaptureVideoOrientation {
@@ -285,8 +283,6 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
             liveEvent.text = String(format: "formatted_broadcast_notification".ls, wrap.name ?? "")
             _self.insertEvent(liveEvent)
         }
-        
-        allowAutorotate = false
     }
     
     func toggleCamera() {

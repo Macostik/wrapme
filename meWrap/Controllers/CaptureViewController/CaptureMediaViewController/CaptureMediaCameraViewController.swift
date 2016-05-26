@@ -218,8 +218,7 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     
     internal func updateVideoRecordingViews(recording: Bool) {
         bottomView.hidden = recording
-        assetsView.hidden = recording
-        assetsInteractionView.hidden = recording
+        assetsViewController.view.hidden = recording
         rotateButton.hidden = recording
         cropAreaView?.hidden = recording
         flashModeControl.alpha = recording ? 0.0 : 1.0

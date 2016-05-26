@@ -119,16 +119,71 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
     
     lazy var dataSource: StreamDataSource<PHFetchResult> = StreamDataSource(streamView: self.streamView)
     let streamView = StreamView()
-    var assetsHidingHandler: (Void -> Void)?
     
     deinit {
         PHPhotoLibrary.sharedPhotoLibrary().unregisterChangeObserver(self)
     }
     
+    private let arrow = Label(icon: "\"", size: 20)
+    private let container = UIView()
+    
+    convenience init(panningView: UIView) {
+        self.init(nibName: nil, bundle: nil)
+        panningView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.panning(_:))))
+    }
+    
+    private var heightConstraint: Constraint!
+    
     override func loadView() {
         super.loadView()
-        view.addSubview(streamView)
-        streamView.snp_makeConstraints { $0.edges.equalTo(view) }
+        view.clipsToBounds = true
+        let interactionView = UIView()
+        interactionView.clipsToBounds = true
+        view.add(interactionView) { (make) in
+            make.leading.top.trailing.equalTo(view)
+            make.height.equalTo(24)
+        }
+        
+        let arrowView = UIView()
+        arrowView.backgroundColor = Color.orange
+        arrowView.clipsToBounds = true
+        arrowView.cornerRadius = 4
+        interactionView.add(arrowView) { (make) in
+            make.centerX.top.equalTo(interactionView)
+            make.size.equalTo(CGSize(width: 36, height: 32))
+        }
+        interactionView.add(arrow) { (make) in
+            make.center.equalTo(interactionView)
+        }
+        
+        let actionButton = Button(type: .Custom)
+        actionButton.addTarget(self, touchUpInside: #selector(self.toggle(_:)))
+        interactionView.add(actionButton) { (make) in
+            make.edges.equalTo(interactionView)
+        }
+        
+        container.clipsToBounds = true
+        view.add(container) {
+            $0.top.equalTo(interactionView.snp_bottom)
+            $0.leading.trailing.bottom.equalTo(view)
+            heightConstraint = $0.height.equalTo(view.snp_width).multipliedBy(0.25).constraint
+        }
+        container.add(streamView) {
+            $0.leading.top.trailing.equalTo(container)
+            $0.height.equalTo(view.snp_width).multipliedBy(0.25)
+        }
+        container.add(specify(UIView(), {
+            $0.backgroundColor = Color.orange
+        })) { (make) in
+            make.leading.top.trailing.equalTo(container)
+            make.height.equalTo(1)
+        }
+        container.add(specify(UIView(), {
+            $0.backgroundColor = Color.orange
+        })) { (make) in
+            make.leading.bottom.trailing.equalTo(container)
+            make.height.equalTo(1)
+        }
         streamView.alwaysBounceHorizontal = true
     }
     
@@ -149,7 +204,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
             }
             }))
         
-        streamView.panGestureRecognizer.addTarget(self, action: #selector(AssetsViewController.hideAssetsViewController))
+        streamView.panGestureRecognizer.addTarget(self, action: #selector(self.cancelAutoHide))
         
         PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
         
@@ -164,6 +219,51 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         }
     }
     
+    @objc private func panning(sender: UIPanGestureRecognizer) {
+        let minHeight = -streamView.height
+        var offset = (container.height - streamView.height)
+        if (sender.state == .Changed) {
+            let translation = sender.translationInView(sender.view)
+            offset = smoothstep(minHeight, 0, offset - translation.y / 2)
+            heightConstraint.updateOffset(offset)
+            arrow.layer.transform = CATransform3DMakeRotation(CGFloat(M_PI) * offset / minHeight, 1, 0, 0)
+            view.superview?.layoutIfNeeded()
+            sender.setTranslation(CGPointZero, inView: sender.view)
+        } else if (sender.state == .Ended || sender.state == .Cancelled) {
+            let velocity = sender.velocityInView(sender.view).y
+            if abs(velocity) > 500 {
+                setHidden(velocity > 0, animated: true)
+            } else {
+                setHidden(offset < minHeight/2, animated: true)
+            }
+        }
+    }
+    
+    @objc private func toggle(sender: AnyObject?) {
+        setHidden(container.height != 0, animated: true)
+    }
+    
+    func hide() {
+        setHidden(true, animated: true)
+    }
+    
+    func enqueueAutoHide() {
+        enqueueSelector(#selector(self.hide), delay: 3.0)
+    }
+    
+    func setHidden(hidden: Bool, animated: Bool) {
+        cancelAutoHide()
+        heightConstraint.updateOffset(hidden ? -streamView.height : 0)
+        UIView.animateWithDuration(animated ? 0.3 : 0) {
+            if (hidden) {
+                self.arrow.layer.transform = CATransform3DMakeRotation(CGFloat(M_PI), 1, 0, 0)
+            } else {
+                self.arrow.layer.transform = CATransform3DIdentity
+            }
+            self.view.superview?.layoutIfNeeded()
+        }
+    }
+    
     func photoLibraryDidChange(changeInstance: PHChange) {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             if let currentAssets = self.assets, let assets = changeInstance.changeDetailsForFetchResult(currentAssets)?.fetchResultAfterChanges {
@@ -174,7 +274,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
     }
     
     func selectAsset(asset: PHAsset) -> Bool {
-        hideAssetsViewController()
+        cancelAutoHide()
         let identifier = asset.localIdentifier
         if selectedAssets.contains(identifier) {
             selectedAssets.remove(identifier)
@@ -189,8 +289,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         return false
     }
     
-    func hideAssetsViewController() {
-        assetsHidingHandler?()
-        assetsHidingHandler = nil
+    func cancelAutoHide() {
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(self.hide), object: nil)
     }
 }

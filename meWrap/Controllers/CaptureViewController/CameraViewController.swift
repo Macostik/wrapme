@@ -90,26 +90,19 @@ class CameraViewController: BaseViewController {
         didSet {
             if let device = self.videoInput?.device where device.videoZoomFactor != zoomScale {
                 device.lock { $0.videoZoomFactor = zoomScale }
-                showZoomLabel()
             }
         }
     }
     
     @IBOutlet weak var cropAreaView: UIView?
-    @IBOutlet weak var unauthorizedStatusView: UILabel!
     @IBOutlet weak var cameraView: CameraView!
     @IBOutlet weak var bottomView: UIView!
-    @IBOutlet weak var flashModeControl: FlashModeControl!
-    @IBOutlet weak var rotateButton: UIButton!
-    @IBOutlet weak var zoomLabel: UILabel!
+    internal let flashModeControl = FlashModeControl()
+    internal let rotateButton = Button(icon: "}", size: 18, textColor: UIColor.whiteColor())
+    weak var zoomLabel: Label?
     @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var assetsHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var assetsArrow: UILabel!
-    @IBOutlet weak var assetsView: UIView!
-    @IBOutlet weak var assetsContentView: UIView!
-    @IBOutlet weak var assetsInteractionView: UIView!
     
-    internal var assetsViewController = AssetsViewController()
+    internal lazy var assetsViewController: AssetsViewController = AssetsViewController(panningView: self.cameraView)
     
     private lazy var focusView: UIView = specify(UIView(frame:CGRectMake(0, 0, 67, 67))) {
         $0.userInteractionEnabled = true
@@ -119,22 +112,47 @@ class CameraViewController: BaseViewController {
         $0.userInteractionEnabled = false
     }
     
-    func showZoomLabel() {
-        self.zoomLabel.text = "\(Int(zoomScale))"
-        zoomLabel.setAlpha(1.0, animated: true)
-        enqueueSelector(#selector(CameraViewController.hideZoomLabel), delay: 1.0)
-    }
-    
-    func hideZoomLabel() {
-        zoomLabel.setAlpha(0.0, animated: true)
-    }
-    
     deinit {
         VolumeChangeObserver.sharedObserver.unregister()
         DeviceManager.defaultManager.endUsingAccelerometer()
     }
     
     lazy var defaultPosition: AVCaptureDevicePosition = .Back
+    
+    override func loadView() {
+        super.loadView()
+        
+        assetsViewController.delegate = delegate
+        assetsViewController.isAvatar = isAvatar
+        
+        view.insertSubview(assetsViewController.view, belowSubview: bottomView)
+        assetsViewController.view.snp_makeConstraints { (make) in
+            make.leading.trailing.equalTo(view)
+            make.bottom.equalTo(bottomView.snp_top)
+        }
+        
+        rotateButton.backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.7)
+        rotateButton.normalColor = Color.grayDarker.colorWithAlphaComponent(0.7)
+        rotateButton.highlightedColor = Color.grayLighter
+        rotateButton.cornerRadius = 22
+        rotateButton.clipsToBounds = true
+        rotateButton.borderColor = UIColor.whiteColor()
+        rotateButton.borderWidth = 2
+        rotateButton.exclusiveTouch = true
+        rotateButton.addTarget(self, touchUpInside: #selector(self.rotateCamera(_:)))
+        view.add(rotateButton) { (make) in
+            make.trailing.equalTo(view).inset(8)
+            make.bottom.equalTo(assetsViewController.view.snp_top).inset(-8)
+            make.size.equalTo(44)
+        }
+        
+        flashModeControl.backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.7)
+        flashModeControl.cornerRadius = 22
+        view.add(flashModeControl) { (make) in
+            make.leading.equalTo(view).inset(8)
+            make.bottom.equalTo(assetsViewController.view.snp_top).inset(-8)
+        }
+    }
     
     override func viewDidLoad() {
         
@@ -159,25 +177,20 @@ class CameraViewController: BaseViewController {
             self.cameraView.layer.session = self.session
             self.session.start()
             }) { _ in
-                self.unauthorizedStatusView.hidden = false
+                let accessLabel = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
+                accessLabel.text = "access_to_camera_message".ls
+                self.cameraView.add(accessLabel) { (make) in
+                    make.center.equalTo(self.cameraView)
+                }
                 self.takePhotoButton.active = false
         }
-        
-        assetsViewController.delegate = delegate
-        assetsViewController.isAvatar = isAvatar
-        addContainedViewController(assetsViewController, toView: assetsContentView, animated: false)
         
         UIAlertController.showNoMediaAccess(!isAvatar)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        enqueueSelector(#selector(self.hideAssets), delay: 3.0)
-        self.assetsViewController.assetsHidingHandler = { [weak self] _ in
-            if let controller = self {
-                NSObject.cancelPreviousPerformRequestsWithTarget(controller, selector: #selector(controller.hideAssets), object: nil)
-            }
-        }
+        assetsViewController.enqueueAutoHide()
         registerOnVolumeChange()
         UIApplication.sharedApplication().idleTimerDisabled = true
     }
@@ -185,7 +198,7 @@ class CameraViewController: BaseViewController {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         VolumeChangeObserver.sharedObserver.unregister()
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(self.hideAssets), object: nil)
+        assetsViewController.cancelAutoHide()
         UIApplication.sharedApplication().idleTimerDisabled = false
     }
     
@@ -212,7 +225,7 @@ class CameraViewController: BaseViewController {
     
     private func captureImage(completon: Block?) {
         delegate?.cameraViewControllerWillCaptureImage?(self)
-        setAssetsViewControllerHidden(true, animated: true)
+        assetsViewController.setHidden(true, animated: true)
         self.takePhotoButton.active = false
         view.userInteractionEnabled = false
         UIView.animateWithDuration(0.1, animations: { self.cameraView.alpha = 0.0 }) { _ in
@@ -235,23 +248,6 @@ class CameraViewController: BaseViewController {
         return delegate?.cameraViewControllerCanCaptureMedia?(self) ?? true
     }
     
-    func hideAssets() {
-        setAssetsViewControllerHidden(true, animated: true)
-    }
-    
-    func setAssetsViewControllerHidden(hidden: Bool, animated: Bool) {
-        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:#selector(CameraViewController.hideAssets), object:nil)
-        self.assetsHeightConstraint.constant = hidden ? -self.assetsViewController.view.height : 0
-        UIView.animateWithDuration(animated ? 0.3 : 0) {
-            if (hidden) {
-                self.assetsArrow.layer.transform = CATransform3DMakeRotation(CGFloat(M_PI), 1, 0, 0)
-            } else {
-                self.assetsArrow.layer.transform = CATransform3DIdentity
-            }
-            self.view.layoutIfNeeded()
-        }
-    }
-    
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return .Portrait
     }
@@ -272,24 +268,16 @@ class CameraViewController: BaseViewController {
     }
     
     private func applyDeviceOrientationToFunctionalButton(orientation: UIDeviceOrientation) {
-        flashModeControl.setSelecting(false, animated: true)
-        func orientationTransform(orientation: UIDeviceOrientation) -> CGAffineTransform {
-            switch orientation {
-            case .LandscapeLeft: return CGAffineTransformMakeRotation(CGFloat(M_PI_2))
-            case .LandscapeRight: return CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
-            case .PortraitUpsideDown: return CGAffineTransformMakeRotation(CGFloat(M_PI))
-            default: return CGAffineTransformIdentity
-            }
+        animate {
+            animateOrientationChange(orientation.interfaceTransform())
         }
-        let transform = orientationTransform(orientation)
-        UIView.animateWithDuration(0.25) { self.animateOrientationChange(transform) }
     }
     
     internal func animateOrientationChange(transform: CGAffineTransform) {
         backButton.transform = transform
         rotateButton.transform = transform
         takePhotoButton.transform = transform
-        for subView in flashModeControl.subviews {
+        for subView in flashModeControl.buttons {
             subView.transform = transform
         }
     }
@@ -356,29 +344,6 @@ extension CameraViewController { // MARK: - Actions
         }
     }
     
-    @IBAction func panning(sender: UIPanGestureRecognizer) {
-        let minHeight = -assetsViewController.view.height
-        let constraint = self.assetsHeightConstraint
-        if (sender.state == .Changed) {
-            let translation = sender.translationInView(sender.view)
-            constraint.constant = smoothstep(minHeight, 0, constraint.constant - translation.y / 2)
-            assetsArrow.layer.transform = CATransform3DMakeRotation(CGFloat(M_PI) * constraint.constant / minHeight, 1, 0, 0)
-            view.layoutIfNeeded()
-            sender.setTranslation(CGPointZero, inView: sender.view)
-        } else if (sender.state == .Ended || sender.state == .Cancelled) {
-            let velocity = sender.velocityInView(sender.view).y
-            if abs(velocity) > 500 {
-                setAssetsViewControllerHidden(velocity > 0, animated: true)
-            } else {
-                setAssetsViewControllerHidden(constraint.constant < minHeight/2, animated: true)
-            }
-        }
-    }
-    
-    @IBAction func toggleQuickAssets(sender: AnyObject?) {
-        setAssetsViewControllerHidden(assetsHeightConstraint.constant == 0, animated: true)
-    }
-    
     @IBAction func getSamplePhoto(sender: AnyObject?) {
         self.takePhotoButton.active = false
         fetchSampleImage({ (image) -> Void in
@@ -425,10 +390,26 @@ extension CameraViewController { // MARK: - Actions
     }
     
     @IBAction func zooming(sender: UIPinchGestureRecognizer) {
-        if sender.state == .Changed {
+        if sender.state == .Began {
+            let zoomLabel = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
+            zoomLabel.text = "\(Int(zoomScale))x"
+            view.add(zoomLabel, { (make) in
+                make.trailing.equalTo(view).inset(8)
+                make.bottom.equalTo(bottomView.snp_top)
+            })
+            self.zoomLabel = zoomLabel
+        } else if sender.state == .Changed {
             let device = self.videoInput?.device
             zoomScale = smoothstep(1, min(8, device?.activeFormat?.videoMaxZoomFactor ?? 1), zoomScale * sender.scale)
             sender.scale = 1
+            zoomLabel?.text = "\(Int(zoomScale))x"
+        } else if sender.state == .Ended || sender.state == .Cancelled {
+            weak var zoomLabel = self.zoomLabel
+            UIView.animateWithDuration(0.5, animations: {
+                zoomLabel?.alpha = 0
+                }, completion: { (_) in
+                    zoomLabel?.removeFromSuperview()
+            })
         }
     }
 }

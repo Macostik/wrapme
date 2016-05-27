@@ -25,6 +25,7 @@ final class CommentView: UIView {
     private let indicator = EntryStatusIndicator(color: Color.orange)
     
     private let imageView = ImageView(backgroundColor: UIColor.clearColor())
+    private let tip = Label(preset: .XSmall, weight: .Regular, textColor: Color.gray)
     
     weak var videoPlayer: VideoPlayer?
     
@@ -33,24 +34,27 @@ final class CommentView: UIView {
         avatar.borderColor = UIColor.whiteColor()
         avatar.borderWidth = 1
         avatar.placeholder.font = UIFont.icons(24)
-        imageView.cornerRadius = 45
+        imageView.cornerRadius = 10
         imageView.borderColor = UIColor.whiteColor()
         imageView.borderWidth = 1
         imageView.clipsToBounds = true
-        addSubview(name)
-        addSubview(date)
         snp_makeConstraints { (make) in
             make.height.equalTo(0)
         }
+        tip.insets = 0 ^ 4
+        tip.backgroundColor = UIColor(white: 1, alpha: 0.7)
+        tip.textAlignment = .Center
+        tip.text = "hold_to_view".ls
+        imageView.add(tip) { (make) in
+            make.leading.bottom.trailing.equalTo(imageView)
+        }
+        imageView.userInteractionEnabled = true
+        imageView.addGestureRecognizer(CommentLongPressGesture.gesture({ [weak self] _ in
+            return self?.comment
+            }))
     }
     
-    private weak var longPressGesture: CommentLongPressGesture?
-    
     private func layoutFor(commentType: CommentType) {
-        
-        if let longPressGesture = longPressGesture {
-            removeGestureRecognizer(longPressGesture)
-        }
         
         if commentType == .Text {
             add(avatar) { (make) -> Void in
@@ -60,12 +64,12 @@ final class CommentView: UIView {
             add(text) { (make) -> Void in
                 make.leading.equalTo(avatar.snp_trailing).offset(18)
                 make.top.equalTo(avatar)
-                make.trailing.lessThanOrEqualTo(self).inset(18)
+                make.trailing.lessThanOrEqualTo(self).inset(20)
             }
             add(name) { (make) -> Void in
                 make.leading.equalTo(avatar.snp_trailing).offset(18)
                 make.top.equalTo(avatar.snp_bottom).offset(5)
-                make.trailing.lessThanOrEqualTo(self).inset(18)
+                make.trailing.lessThanOrEqualTo(self).inset(20)
             }
             
             add(date) { (make) -> Void in
@@ -74,25 +78,31 @@ final class CommentView: UIView {
             }
             
         } else {
+            
             add(imageView) { (make) -> Void in
-                make.leading.top.equalTo(self).inset(20)
-                make.size.equalTo(90)
+                make.trailing.top.equalTo(self).inset(20)
+                make.size.equalTo(88)
+            }
+            
+            add(avatar) { (make) -> Void in
+                make.leading.top.equalTo(self).offset(20)
+                make.size.equalTo(48)
+            }
+            add(text) { (make) -> Void in
+                make.leading.equalTo(avatar.snp_trailing).offset(18)
+                make.top.equalTo(avatar)
+                make.trailing.lessThanOrEqualTo(imageView.snp_leading).inset(18)
             }
             add(name) { (make) -> Void in
-                make.leading.equalTo(imageView.snp_trailing).offset(18)
-                make.bottom.equalTo(imageView.snp_centerY).offset(-2)
-                make.trailing.lessThanOrEqualTo(self).inset(18)
+                make.leading.equalTo(avatar.snp_trailing).offset(18)
+                make.top.equalTo(avatar.snp_bottom).offset(5)
+                make.trailing.lessThanOrEqualTo(imageView.snp_leading).inset(18)
             }
             
             add(date) { (make) -> Void in
-                make.leading.equalTo(imageView.snp_trailing).offset(18)
-                make.top.equalTo(imageView.snp_centerY).offset(2)
+                make.leading.equalTo(avatar.snp_trailing).offset(18)
+                make.top.equalTo(name.snp_bottom).offset(4)
             }
-            let longPressGesture = CommentLongPressGesture.gesture({ [weak self] _ in
-                return self?.comment
-            })
-            addGestureRecognizer(longPressGesture)
-            self.longPressGesture = longPressGesture
         }
         
         add(indicator) { (make) -> Void in
@@ -109,7 +119,7 @@ final class CommentView: UIView {
             if let uploadingView = uploadingView {
                 imageView.layoutIfNeeded()
                 uploadingView.frame = imageView.bounds
-                imageView.addSubview(uploadingView)
+                imageView.insertSubview(uploadingView, belowSubview: tip)
                 uploadingView.update()
             }
         }
@@ -125,18 +135,17 @@ final class CommentView: UIView {
         self.videoPlayer = playerView
         playerView.playing = true
         playerView.volumeButton.backgroundColor = UIColor.blackColor()
-        playerView.volumeButton.cornerRadius = 16
-        playerView.volumeButton.titleLabel?.font = UIFont.icons(15)
-        add(playerView.volumeButton) { (make) in
-            make.trailing.bottom.equalTo(imageView)
-            make.size.equalTo(32)
+        playerView.volumeButton.cornerRadius = 12
+        playerView.volumeButton.titleLabel?.font = UIFont.icons(12)
+        playerView.add(playerView.volumeButton) { (make) in
+            make.trailing.top.equalTo(playerView).inset(4)
+            make.size.equalTo(24)
         }
     }
     
     var comment: Comment? {
         willSet {
             if newValue != comment {
-                videoPlayer?.volumeButton.removeFromSuperview()
                 videoPlayer?.removeFromSuperview()
                 avatar.removeFromSuperview()
                 text.removeFromSuperview()
@@ -153,9 +162,8 @@ final class CommentView: UIView {
                     videoPlayer?.removeFromSuperview()
                     let commentType = comment.commentType()
                     layoutFor(commentType)
-                    if commentType == .Text {
-                        text.text = comment.text
-                    } else {
+                    text.text = comment.text
+                    if commentType != .Text {
                         imageView.url = comment.asset?.small
                         if commentType == .Video {
                             addVideoPlayer(comment)
@@ -440,7 +448,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         view.add(commentButton) {
             $0.size.equalTo(44)
             $0.trailing.equalTo(view).inset(20)
-            $0.bottom.equalTo(view).inset(20)
+            $0.bottom.equalTo(commentView.snp_top).inset(-20)
         }
         commentButton.add(commentCountLabel) { (make) in
             make.trailing.top.equalTo(commentButton).inset(-2)

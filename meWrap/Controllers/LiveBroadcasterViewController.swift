@@ -144,7 +144,7 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
         }).action("yes".ls, handler: { [weak self] _ in
             NotificationCenter.defaultCenter.setActivity(self?.wrap, type: .Live, inProgress: false)
             completion(true)
-        }).show()
+            }).show()
     }
     
     private func orientationForVideoConnection() -> AVCaptureVideoOrientation {
@@ -222,6 +222,7 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
     func stopBroadcast() {
         NotificationCenter.defaultCenter.setActivity(wrap, type: .Live, inProgress: false)
         goCoder?.endStreaming(self)
+        chatSubscription.unsubscribe()
     }
     
     @IBAction func startBroadcast(sender: UIButton) {
@@ -365,9 +366,9 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
                 return input
             }
         }
-		return nil
+        return nil
     }
-	
+    
     private func videoCamera() -> AVCaptureDevice? {
         guard let session = goCoder?.cameraPreview?.previewLayer?.session else { return nil }
         return videoInput(session)?.device

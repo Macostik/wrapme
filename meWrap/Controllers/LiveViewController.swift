@@ -312,6 +312,7 @@ extension LiveViewController: NotificationSubscriptionDelegate {
     
     func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {
         guard let uuid = event.data.presence.uuid where uuid != User.uuid() else { return }
+        guard !broadcast.streamName.containsString(uuid) else { return }
         guard let user = PubNub.userFromUUID(uuid) else { return }
         user.fetchIfNeeded({ [weak self] (_) -> Void in
             guard let controller = self else { return }

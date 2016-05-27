@@ -180,12 +180,18 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
         }
     }
     
-    func startBroadcast() {
+    func startStreaming(completionHandler: () -> ()) {
         titleLabel.text = composeBar.text
         titleLabel.superview?.hidden = false
         broadcast.title = composeBar.text
-        Dispatch.defaultQueue.async { () in
-            self.goCoder?.startStreaming(self)
+        Dispatch.defaultQueue.async { [weak self] () in
+            self?.streamingStarted = {
+                completionHandler()
+                let liveEvent = LiveBroadcast.Event(kind: .Info)
+                liveEvent.text = String(format: "your_broadcast_is_live".ls)
+                self?.insertEvent(liveEvent)
+            }
+            self?.goCoder?.startStreaming(self)
             UIApplication.sharedApplication().idleTimerDisabled = true
         }
         chatSubscription.subscribe()
@@ -202,12 +208,13 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
         
     }
     
+    private var streamingStarted: (() -> ())?
+    
     func onWZStatus(status: WZStatus!) {
         if status.state == .Running {
             Dispatch.mainQueue.async({ () in
-                let liveEvent = LiveBroadcast.Event(kind: .Info)
-                liveEvent.text = String(format: "your_broadcast_is_live".ls)
-                self.insertEvent(liveEvent)
+                self.streamingStarted?()
+                self.streamingStarted = nil
             })
         }
     }
@@ -227,7 +234,61 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
             return
         }
         
-        startBroadcast()
+        startStreaming { [weak self] _ in
+            
+            Dispatch.mainQueue.after(6) {
+                
+                guard let _self = self else { return }
+                guard let wrap = _self.wrap else { return }
+                guard let user = User.currentUser else { return }
+                
+                let broadcast = _self.broadcast
+                
+                NotificationCenter.defaultCenter.setActivity(wrap, type: .Live, inProgress: true, info: [
+                    "streamName" : broadcast.streamName,
+                    "title" : broadcast.title ?? ""
+                    ])
+                
+                let streamInfo = [
+                    "wrap_uid" : wrap.uid,
+                    "user_uid" : user.uid,
+                    "device_uid" : Authorization.current.deviceUID,
+                    "title" : broadcast.title ?? ""
+                ]
+                
+                let message: [NSObject : AnyObject] = [
+                    "pn_apns" : [
+                        "aps" : [
+                            "alert" : [
+                                "title-loc-key" : "APNS_TT08",
+                                "loc-key" : "APNS_MSG08",
+                                "loc-args" : [user.name ?? "", broadcast.displayTitle(), wrap.name ?? ""]
+                            ],
+                            "sound" : "default",
+                            "content-available" : 1
+                        ],
+                        "stream_info" : streamInfo,
+                        "msg_type" : NotificationType.LiveBroadcast.rawValue
+                    ],
+                    "pn_gcm": [
+                        "data": [
+                            "message": [
+                                "msg_uid" : NSProcessInfo.processInfo().globallyUniqueString,
+                                "stream_info" : streamInfo,
+                                "msg_type" : NotificationType.LiveBroadcast.rawValue
+                            ]
+                        ]
+                    ],
+                    "msg_type" : NotificationType.LiveBroadcast.rawValue
+                ]
+                
+                PubNub.sharedInstance.publish(message, toChannel: wrap.uid, withCompletion: nil)
+                
+                let liveEvent = LiveBroadcast.Event(kind: .Info)
+                liveEvent.text = String(format: "formatted_broadcast_notification".ls, wrap.name ?? "")
+                _self.insertEvent(liveEvent)
+            }
+        }
         joinsCountView.hidden = false
         sender.hidden = true
         composeBar.hidden = true
@@ -239,59 +300,6 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
             make.trailing.equalTo(view).inset(12)
             make.bottom.equalTo(joinsCountView.snp_top).inset(-12)
             make.size.equalTo(44)
-        }
-        
-        Dispatch.mainQueue.after(6) { [weak self] _ in
-            
-            guard let _self = self else { return }
-            guard let wrap = _self.wrap else { return }
-            guard let user = User.currentUser else { return }
-            
-            let broadcast = _self.broadcast
-            
-            NotificationCenter.defaultCenter.setActivity(wrap, type: .Live, inProgress: true, info: [
-                "streamName" : broadcast.streamName,
-                "title" : broadcast.title ?? ""
-                ])
-            
-            let streamInfo = [
-                "wrap_uid" : wrap.uid,
-                "user_uid" : user.uid,
-                "device_uid" : Authorization.current.deviceUID,
-                "title" : broadcast.title ?? ""
-            ]
-            
-            let message: [NSObject : AnyObject] = [
-                "pn_apns" : [
-                    "aps" : [
-                        "alert" : [
-                            "title-loc-key" : "APNS_TT08",
-                            "loc-key" : "APNS_MSG08",
-                            "loc-args" : [user.name ?? "", broadcast.displayTitle(), wrap.name ?? ""]
-                        ],
-                        "sound" : "default",
-                        "content-available" : 1
-                    ],
-                    "stream_info" : streamInfo,
-                    "msg_type" : NotificationType.LiveBroadcast.rawValue
-                ],
-                "pn_gcm": [
-                    "data": [
-                        "message": [
-                            "msg_uid" : NSProcessInfo.processInfo().globallyUniqueString,
-                            "stream_info" : streamInfo,
-                            "msg_type" : NotificationType.LiveBroadcast.rawValue
-                        ]
-                    ]
-                ],
-                "msg_type" : NotificationType.LiveBroadcast.rawValue
-            ]
-            
-            PubNub.sharedInstance.publish(message, toChannel: wrap.uid, withCompletion: nil)
-            
-            let liveEvent = LiveBroadcast.Event(kind: .Info)
-            liveEvent.text = String(format: "formatted_broadcast_notification".ls, wrap.name ?? "")
-            _self.insertEvent(liveEvent)
         }
     }
     

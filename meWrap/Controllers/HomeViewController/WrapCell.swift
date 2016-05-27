@@ -70,7 +70,6 @@ class WrapCell: EntryStreamReusableView<Wrap> {
         coverView.clipsToBounds = true
         coverView.cornerRadius = 25
         
-        badgeLabel.intrinsicContentSizeInsets = CGSize(width: 5, height: 5)
         badgeLabel.cornerRadius = 9
         badgeLabel.textAlignment = .Center
         badgeLabel.clipsToBounds = true

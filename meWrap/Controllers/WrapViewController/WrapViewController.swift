@@ -34,7 +34,6 @@ final class WrapSegmentButton: Button {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        badge.intrinsicContentSizeInsets = CGSize(width: 5, height: 5)
         badge.clipsToBounds = true
         badge.textAlignment = .Center
         badge.backgroundColor = Color.dangerRed
@@ -43,29 +42,22 @@ final class WrapSegmentButton: Button {
         selectionView.backgroundColor = Color.orange
         iconLabel.highlightedTextColor = Color.orange
         textLabel.highlightedTextColor = Color.orange
-        let view = UIView()
+        let view = add(UIView()) { $0.center.equalTo(self) }
         view.userInteractionEnabled = false
-        addSubview(view)
-        view.addSubview(iconLabel)
-        view.addSubview(textLabel)
-        addSubview(selectionView)
-        addSubview(badge)
-        view.snp_makeConstraints { $0.center.equalTo(self) }
-        iconLabel.snp_makeConstraints { $0.leading.top.bottom.equalTo(view) }
-        textLabel.snp_makeConstraints {
+        view.add(iconLabel) { $0.leading.top.bottom.equalTo(view) }
+        view.add(textLabel) {
             $0.leading.equalTo(iconLabel.snp_trailing).offset(5)
             $0.trailing.centerY.equalTo(view)
         }
-        badge.snp_makeConstraints(closure: {
-            $0.bottom.equalTo(view.snp_centerY).offset(-1)
-            $0.leading.equalTo(iconLabel.snp_trailing).inset(10)
-            $0.width.greaterThanOrEqualTo(badge.snp_height)
-        })
-        selectionView.snp_makeConstraints {
+        add(selectionView) {
             $0.leading.trailing.bottom.equalTo(self)
             $0.height.equalTo(4)
         }
-        badge.circled = true
+        add(badge) {
+            $0.bottom.equalTo(view.snp_centerY).offset(-1)
+            $0.leading.equalTo(iconLabel.snp_trailing).inset(10)
+            $0.width.greaterThanOrEqualTo(badge.snp_height)
+        }
     }
     
     var badge = BadgeLabel(preset: .Smaller, weight: .Regular, textColor: UIColor.whiteColor())

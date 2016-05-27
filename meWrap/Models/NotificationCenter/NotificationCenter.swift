@@ -309,7 +309,11 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
                         let broadcast = device.activity.generateLiveBroadcast()
                         wrap.addBroadcast(broadcast)
                         if broadcast.broadcaster?.current == false {
-                            InAppNotification.showLiveBroadcast(broadcast)
+                            Dispatch.mainQueue.async({ [weak broadcast] () in
+                                if let broadcast = broadcast {
+                                    InAppNotification.showLiveBroadcast(broadcast)
+                                }
+                            })
                         }
                         }, failure: nil)
                 } else {

@@ -1,4 +1,4 @@
-xcodeproj 'meWrap.xcodeproj'
+project 'meWrap.xcodeproj'
 platform :ios, '8.0'
 use_frameworks!
 

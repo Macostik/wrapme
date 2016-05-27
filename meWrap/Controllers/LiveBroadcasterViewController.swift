@@ -14,21 +14,62 @@ import AVFoundation
 private let LiveBroadcastUsername = "ravenpod"
 private let LiveBroadcastPassword = "34f82ab09fb501330b3910ddb1e38026"
 
-final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback {
+final class Streamer: NSObject, WZStatusCallback {
+    
+    static let streamer = Streamer()
+    
+    static let registered = WowzaGoCoder.registerLicenseKey("GSDK-4B42-0003-BCF5-6462-F494") == nil
+    
+    var goCoder: WowzaGoCoder? {
+        if Streamer.registered {
+            return WowzaGoCoder.sharedInstance()
+        } else {
+            return nil
+        }
+    }
+    
+    func start(completion: () -> ()) {
+        streamingStarted = completion
+        goCoder?.startStreaming(self)
+    }
+    
+    func stop() {
+        goCoder?.endStreaming(self)
+    }
+    
+    func onWZError(status: WZStatus!) {
+        Dispatch.mainQueue.async({ () in
+            status.error?.show()
+        })
+    }
+    
+    func onWZEvent(status: WZStatus!) {
+        
+    }
+    
+    private var streamingStarted: (() -> ())?
+    
+    func onWZStatus(status: WZStatus!) {
+        if status.state == .Running {
+            Dispatch.mainQueue.async({ () in
+                self.streamingStarted?()
+                self.streamingStarted = nil
+            })
+        }
+    }
+}
+
+final class LiveBroadcasterViewController: LiveViewController {
     
     private let startButton = Button()
     
     private let toggleCameraButton = Button(icon: "}", size: 18, textColor: UIColor.whiteColor())
-    
-    private var goCoder: WowzaGoCoder?
     
     weak var focusView: UIView?
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
-    
-    private static let registered = WowzaGoCoder.registerLicenseKey("GSDK-4B42-0003-BCF5-6462-F494") == nil
     
     override func loadView() {
         super.loadView()
@@ -80,14 +121,14 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if !LiveBroadcasterViewController.registered {
+        if !Streamer.registered {
             Dispatch.mainQueue.async({ () in
                 self.navigationController?.popViewControllerAnimated(false)
             })
             return
         }
         
-        goCoder = WowzaGoCoder.sharedInstance()
+        let goCoder = Streamer.streamer.goCoder
         
         goCoder?.cameraView = view
         if let wrap = wrap, let goCoder = goCoder, let preview = goCoder.cameraPreview {
@@ -134,8 +175,8 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        goCoder?.cameraPreview?.previewLayer?.frame = view.bounds
-        goCoder?.cameraPreview?.previewLayer?.connection?.videoOrientation = orientationForVideoConnection()
+        Streamer.streamer.goCoder?.cameraPreview?.previewLayer?.frame = view.bounds
+        Streamer.streamer.goCoder?.cameraPreview?.previewLayer?.connection?.videoOrientation = orientationForVideoConnection()
     }
     
     override func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {
@@ -185,43 +226,21 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
         titleLabel.superview?.hidden = false
         broadcast.title = composeBar.text
         Dispatch.defaultQueue.async { [weak self] () in
-            self?.streamingStarted = {
+            Streamer.streamer.start({
                 completionHandler()
                 let liveEvent = LiveBroadcast.Event(kind: .Info)
                 liveEvent.text = String(format: "your_broadcast_is_live".ls)
                 self?.insertEvent(liveEvent)
-            }
-            self?.goCoder?.startStreaming(self)
+            })
             UIApplication.sharedApplication().idleTimerDisabled = true
         }
         chatSubscription.subscribe()
         updateBroadcastInfo()
     }
     
-    func onWZError(status: WZStatus!) {
-        Dispatch.mainQueue.async({ () in
-            status.error?.show()
-        })
-    }
-    
-    func onWZEvent(status: WZStatus!) {
-        
-    }
-    
-    private var streamingStarted: (() -> ())?
-    
-    func onWZStatus(status: WZStatus!) {
-        if status.state == .Running {
-            Dispatch.mainQueue.async({ () in
-                self.streamingStarted?()
-                self.streamingStarted = nil
-            })
-        }
-    }
-    
     func stopBroadcast() {
         NotificationCenter.defaultCenter.setActivity(wrap, type: .Live, inProgress: false)
-        goCoder?.endStreaming(self)
+        Streamer.streamer.stop()
         chatSubscription.unsubscribe()
     }
     
@@ -230,7 +249,7 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
             composeBar.resignFirstResponder()
         }
         
-        if let error = goCoder?.config.validateForBroadcast() {
+        if let error = Streamer.streamer.goCoder?.config.validateForBroadcast() {
             error.show()
             return
         }
@@ -305,7 +324,7 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
     }
     
     func toggleCamera() {
-        goCoder?.cameraPreview?.switchCamera()
+        Streamer.streamer.goCoder?.cameraPreview?.switchCamera()
         UIApplication.sharedApplication().idleTimerDisabled = true
     }
     
@@ -326,7 +345,7 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
             return
         }
         
-        guard let layer = goCoder?.cameraPreview?.previewLayer, let session = layer.session where session.running else { return }
+        guard let layer = Streamer.streamer.goCoder?.cameraPreview?.previewLayer, let session = layer.session where session.running else { return }
         
         self.focusView?.removeFromSuperview()
         
@@ -370,7 +389,7 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
     }
     
     private func videoCamera() -> AVCaptureDevice? {
-        guard let session = goCoder?.cameraPreview?.previewLayer?.session else { return nil }
+        guard let session = Streamer.streamer.goCoder?.cameraPreview?.previewLayer?.session else { return nil }
         return videoInput(session)?.device
     }
     

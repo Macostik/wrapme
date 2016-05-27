@@ -187,8 +187,6 @@ class LiveViewController: BaseViewController, ComposeBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        UIView.performWithoutAnimation { UIViewController.attemptRotationToDeviceOrientation() }
-        
         UIApplication.sharedApplication().idleTimerDisabled = true
         
         wrapNameLabel.text = wrap?.name

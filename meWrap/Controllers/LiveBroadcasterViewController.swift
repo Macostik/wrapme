@@ -186,6 +186,7 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
         broadcast.title = composeBar.text
         Dispatch.defaultQueue.async { () in
             self.goCoder?.startStreaming(self)
+            UIApplication.sharedApplication().idleTimerDisabled = true
         }
         chatSubscription.subscribe()
         updateBroadcastInfo()
@@ -296,6 +297,7 @@ final class LiveBroadcasterViewController: LiveViewController, WZStatusCallback 
     
     func toggleCamera() {
         goCoder?.cameraPreview?.switchCamera()
+        UIApplication.sharedApplication().idleTimerDisabled = true
     }
     
     internal override func close() {

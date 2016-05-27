@@ -11,21 +11,11 @@ import SnapKit
 
 import MobileCoreServices
 
-class CommentCell: EntryStreamReusableView<Comment> {
+class CommentCell: EntryStreamReusableView<Comment>, FlowerMenuConstructor {
     
     internal let name = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
     internal let date = Label(preset: .Smaller, weight: .Regular, textColor: Color.grayLighter)
     internal let indicator = EntryStatusIndicator(color: Color.orange)
-    
-    override func setup(comment: Comment) {
-        comment.markAsUnread(false)
-        name.text = comment.contributor?.name
-        date.text = comment.createdAt.timeAgoString()
-        indicator.updateStatusIndicator(comment)
-    }
-}
-
-final class TextCommentCell: CommentCell, FlowerMenuConstructor {
     
     private let avatar = UserAvatarView(cornerRadius: 24)
     private let text = SmartLabel(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
@@ -46,16 +36,6 @@ final class TextCommentCell: CommentCell, FlowerMenuConstructor {
             make.leading.top.equalTo(self).offset(20)
             make.size.equalTo(48)
         }
-        text.snp_makeConstraints { (make) -> Void in
-            make.leading.equalTo(avatar.snp_trailing).offset(18)
-            make.top.equalTo(avatar)
-            make.trailing.lessThanOrEqualTo(self).inset(18)
-        }
-        name.snp_makeConstraints { (make) -> Void in
-            make.leading.equalTo(avatar.snp_trailing).offset(18)
-            make.top.equalTo(text.snp_bottom).offset(16)
-            make.trailing.lessThanOrEqualTo(self).inset(18)
-        }
         
         date.snp_makeConstraints { (make) -> Void in
             make.leading.equalTo(avatar.snp_trailing).offset(18)
@@ -65,6 +45,22 @@ final class TextCommentCell: CommentCell, FlowerMenuConstructor {
         indicator.snp_makeConstraints { (make) -> Void in
             make.leading.equalTo(date.snp_trailing).offset(10)
             make.centerY.equalTo(date)
+        }
+        
+        layout()
+    }
+    
+    internal func layout() {
+        
+        text.snp_makeConstraints { (make) -> Void in
+            make.leading.equalTo(avatar.snp_trailing).offset(18)
+            make.top.equalTo(avatar)
+            make.trailing.lessThanOrEqualTo(self).inset(20)
+        }
+        name.snp_makeConstraints { (make) -> Void in
+            make.leading.equalTo(avatar.snp_trailing).offset(18)
+            make.top.equalTo(text.snp_bottom).offset(16)
+            make.trailing.lessThanOrEqualTo(self).inset(20)
         }
     }
     
@@ -81,7 +77,9 @@ final class TextCommentCell: CommentCell, FlowerMenuConstructor {
                 })
                 })
         }
-        menu.addCopyAction({ UIPasteboard.generalPasteboard().string = comment.text })
+        if comment.text?.isEmpty == false {
+            menu.addCopyAction({ UIPasteboard.generalPasteboard().string = comment.text })
+        }
     }
     
     override func setup(comment: Comment) {
@@ -89,219 +87,130 @@ final class TextCommentCell: CommentCell, FlowerMenuConstructor {
         super.setup(comment)
         avatar.user = comment.contributor
         text.text = comment.text
+        comment.markAsUnread(false)
+        name.text = comment.contributor?.name
+        date.text = comment.createdAt.timeAgoString()
+        indicator.updateStatusIndicator(comment)
     }
 }
 
 class MediaCommentCell: CommentCell {
     
-    var mediaView: UIView!
+    private let imageView = ImageView(backgroundColor: UIColor.clearColor())
+    private let tip = Label(preset: .XSmall, weight: .Regular, textColor: Color.gray)
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
-        mediaView.cornerRadius = 45
-        mediaView.borderColor = UIColor.whiteColor()
-        mediaView.borderWidth = 1
-        mediaView.clipsToBounds = true
-        addSubview(mediaView)
-        addSubview(name)
-        addSubview(date)
-        addSubview(indicator)
         
-        mediaView.snp_makeConstraints { (make) -> Void in
-            make.leading.top.equalTo(self).offset(20)
-            make.size.equalTo(90)
+        imageView.cornerRadius = 10
+        imageView.borderColor = UIColor.whiteColor()
+        imageView.borderWidth = 1
+        imageView.clipsToBounds = true
+        add(imageView) { (make) -> Void in
+            make.trailing.top.equalTo(self).inset(20)
+            make.size.equalTo(88)
+        }
+        tip.insets = 0 ^ 4
+        tip.backgroundColor = UIColor(white: 1, alpha: 0.7)
+        tip.textAlignment = .Center
+        tip.text = "hold_to_view".ls
+        imageView.add(tip) { (make) in
+            make.leading.bottom.trailing.equalTo(imageView)
+        }
+        
+        imageView.userInteractionEnabled = true
+        imageView.addGestureRecognizer(CommentLongPressGesture.gesture({ [weak self] () -> Comment? in
+            return self?.entry
+            }))
+        
+        super.layoutWithMetrics(metrics)
+    }
+    
+    internal override func layout() {
+        
+        text.snp_makeConstraints { (make) -> Void in
+            make.leading.equalTo(avatar.snp_trailing).offset(18)
+            make.top.equalTo(avatar)
+            make.trailing.lessThanOrEqualTo(imageView.snp_leading).inset(18)
         }
         name.snp_makeConstraints { (make) -> Void in
-            make.leading.equalTo(mediaView.snp_trailing).offset(18)
-            make.bottom.equalTo(mediaView.snp_centerY).offset(-2)
-            make.trailing.lessThanOrEqualTo(self).inset(18)
+            make.leading.equalTo(avatar.snp_trailing).offset(18)
+            make.top.equalTo(text.snp_bottom).offset(16)
+            make.trailing.lessThanOrEqualTo(imageView.snp_leading).inset(18)
         }
-        
-        date.snp_makeConstraints { (make) -> Void in
-            make.leading.equalTo(mediaView.snp_trailing).offset(18)
-            make.top.equalTo(mediaView.snp_centerY).offset(2)
-        }
-        
-        indicator.snp_makeConstraints { (make) -> Void in
-            make.leading.equalTo(date.snp_trailing).offset(10)
-            make.centerY.equalTo(date)
-        }
-        addGestureRecognizer(CommentLongPressGesture.gesture({ [weak self] () -> Comment? in
-            return self?.entry
-        }))
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tap(_:))))
-    }
-    
-    private static weak var tipView: UIView?
-    
-    @objc private func tap(sender: UITapGestureRecognizer) {
-        
-        guard CommentsViewController.current?.handleTap() == true else { return }
-        
-        MediaCommentCell.tipView?.removeFromSuperview()
-        
-        let streamView = superview!
-        let mediaFrame = streamView.convertRect(mediaView.bounds, fromCoordinateSpace: mediaView)
-        let arrowDown = (frame.origin.y - streamView.layer.bounds.origin.y) > 44
-        
-        let tipView = UIView()
-        let contentView = UIView()
-        contentView.cornerRadius = 4
-        contentView.clipsToBounds = true
-        contentView.backgroundColor = Color.orange.colorWithAlphaComponent(0.8)
-        let label = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
-        label.text = tipMessage()
-        let triangle = TriangleView()
-        triangle.backgroundColor = contentView.backgroundColor
-        
-        triangle.contentMode = arrowDown ? .Bottom : .Top
-        tipView.add(contentView) { (make) in
-            if arrowDown {
-                make.leading.top.trailing.equalTo(tipView)
-            } else {
-                make.leading.bottom.trailing.equalTo(tipView)
-            }
-        }
-        tipView.add(triangle) { (make) in
-            if arrowDown {
-                make.top.equalTo(contentView.snp_bottom)
-                make.bottom.equalTo(tipView)
-            } else {
-                make.bottom.equalTo(contentView.snp_top)
-                make.top.equalTo(tipView)
-            }
-            make.size.equalTo(CGSize(width: 20, height: 10))
-            make.centerX.equalTo(contentView.snp_leading).inset(45)
-        }
-        
-        contentView.add(label) { (make) in
-            make.edges.equalTo(contentView).inset(10)
-        }
-        
-        streamView.add(tipView) { (make) in
-            make.leading.equalTo(streamView).inset(mediaFrame.origin.x)
-            if arrowDown {
-                make.bottom.equalTo(streamView.snp_top).inset(mediaFrame.origin.y)
-            } else {
-                make.top.equalTo(streamView.snp_top).inset(mediaFrame.maxY)
-            }
-        }
-        MediaCommentCell.tipView = tipView
-        UIView.animateWithDuration(0.5, delay: 4, options: .CurveEaseIn, animations: { 
-            tipView.alpha = 0
-            }) { [weak tipView] (_) in
-                tipView?.removeFromSuperview()
-        }
-    }
-    
-    internal func tipMessage() -> String {
-        return "photo_comment_tip".ls
     }
     
     private var uploadingView: UploadingView? {
         didSet {
-            if oldValue?.superview == mediaView {
+            if oldValue?.superview == imageView {
                 oldValue?.removeFromSuperview()
             }
             if let uploadingView = uploadingView {
-                mediaView.layoutIfNeeded()
-                uploadingView.frame = mediaView.bounds
-                mediaView.addSubview(uploadingView)
+                imageView.layoutIfNeeded()
+                uploadingView.frame = imageView.bounds
+                imageView.insertSubview(uploadingView, belowSubview: tip)
                 uploadingView.update()
             }
         }
     }
-}
-
-final class PhotoCommentCell: MediaCommentCell {
-    private let imageView = ImageView(backgroundColor: UIColor.clearColor())
     
-    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
-        mediaView = imageView
-        imageView.placeholder.font = UIFont.icons(24)
-        super.layoutWithMetrics(metrics)
-    }
-    
-    override func setup(comment: Comment) {
-        super.setup(comment)
-        imageView.url = comment.asset?.small
-        uploadingView = comment.uploadingView
-    }
-}
-
-final class VideoCommentCell: MediaCommentCell {
-    private let imageView = ImageView(backgroundColor: UIColor.clearColor())
     weak var playerView: VideoPlayer?
-    
-    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
-        mediaView = imageView
-        super.layoutWithMetrics(metrics)
-    }
     
     override func willEnqueue() {
         super.willEnqueue()
         playerView?.removeFromSuperview()
     }
     
-    internal override func tipMessage() -> String {
-        return "video_comment_tip".ls
-    }
-    
     override func setup(comment: Comment) {
         super.setup(comment)
-        let playerView = CommentViewController.createPlayerView()
-        imageView.insertSubview(playerView, atIndex: 0)
-        playerView.snp_makeConstraints { (make) in
-            make.edges.equalTo(imageView)
+        
+        if comment.commentType() == .Video {
+            let playerView = CommentViewController.createPlayerView()
+            imageView.insertSubview(playerView, atIndex: 0)
+            playerView.snp_makeConstraints { (make) in
+                make.edges.equalTo(imageView)
+            }
+            playerView.url = comment.asset?.videoURL()
+            self.playerView = playerView
         }
-        playerView.url = comment.asset?.videoURL()
-        self.playerView = playerView
+        
         uploadingView = comment.uploadingView
         imageView.url = comment.asset?.small
     }
 }
 
-private let CommentEstimateWidth: CGFloat = Constants.screenWidth - 104
 private let CommentVerticalSpacing: CGFloat = 60
 
 final class CommentsDataSource: StreamDataSource<[Comment]> {
     
-    let videoCommentMetrics = specify(StreamMetrics<VideoCommentCell>(), {
-        $0.selectable = false
-        $0.size = 130
-        $0.modifyItem = { item in
-            let comment = item.entry as! Comment
-            item.hidden = comment.commentType() != .Video
-        }
-    })
+    var mediaCommentMetrics: StreamMetrics<MediaCommentCell>?
     
     override init() {
         super.init()
-        addMetrics(specify(StreamMetrics<TextCommentCell>(), {
+        addMetrics(specify(StreamMetrics<CommentCell>(), {
             $0.selectable = false
             $0.modifyItem = { [weak self] item in
                 let comment = item.entry as! Comment
-                item.size = self?.heightCell(comment) ?? 0
-                item.hidden = comment.commentType() != .Text
+                item.size = max(130, self?.heightCell(comment) ?? 0)
+                item.hidden = comment.hasMedia
             }
         }))
         
-        addMetrics(specify(StreamMetrics<PhotoCommentCell>(), {
+        let mediaCommentMetrics = addMetrics(specify(StreamMetrics<MediaCommentCell>(), {
             $0.selectable = false
-            $0.size = 130
-            $0.modifyItem = { item in
+            $0.modifyItem = { [weak self] item in
                 let comment = item.entry as! Comment
-                item.hidden = comment.commentType() != .Photo
+                item.size = max(130, self?.heightCell(comment) ?? 0)
+                item.hidden = !comment.hasMedia
             }
         }))
-        
-        addMetrics(videoCommentMetrics)
+        self.mediaCommentMetrics = mediaCommentMetrics
     }
     
     private func heightCell(comment: Comment) -> CGFloat {
         let font = Font.Small + .Regular
         let nameFont = Font.Small + .Bold
         let timeFont = Font.Smaller + .Regular
-        let textHeight = comment.text?.heightWithFont(font, width:CommentEstimateWidth) ?? 0
+        let textHeight = comment.text?.heightWithFont(font, width:Constants.screenWidth - (comment.hasMedia ? 194 : 106)) ?? 0
         return max(textHeight, font.lineHeight) + nameFont.lineHeight + timeFont.lineHeight + CommentVerticalSpacing
     }
     
@@ -312,8 +221,8 @@ final class CommentsDataSource: StreamDataSource<[Comment]> {
     
     func playVideoCommentsIfNeeded() {
         streamView?.visibleItems().all({
-            if $0.metrics === videoCommentMetrics {
-                ($0.view as? VideoCommentCell)?.playerView?.playing = true
+            if $0.metrics === mediaCommentMetrics {
+                ($0.view as? MediaCommentCell)?.playerView?.playing = true
             }
         })
     }

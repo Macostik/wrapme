@@ -51,6 +51,8 @@ final class Comment: Contribution {
         super.remove()
     }
     
+    var hasMedia: Bool { return asset?.original?.isEmpty == false }
+    
     func commentType() -> CommentType {
         if let asset = asset where asset.original?.isEmpty == false {
             return asset.type == .Video ? .Video : .Photo

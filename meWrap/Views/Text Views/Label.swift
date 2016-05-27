@@ -47,4 +47,12 @@ class Label: UILabel {
         guard let preset = preset else { return }
         font = font.fontWithPreset(preset)
     }
+    
+    @IBInspectable var insets: CGSize = CGSize.zero
+    
+    override func intrinsicContentSize() -> CGSize {
+        var size = super.intrinsicContentSize()
+        size = CGSizeMake(size.width + insets.width, size.height + insets.height)
+        return size
+    }
 }

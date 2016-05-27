@@ -340,8 +340,7 @@
 "downloading_media_for_sharing" = "Downloading the media for sharing...";
 "delete_comment_confirmation" = "Are you sure you want to delete the comment?";
 "comments" = "Comments";
-"photo_comment_tip" = "Hold to view the photo";
-"video_comment_tip" = "Hold to view the video";
+"hold_to_view" = "Hold to view";
 "yes" = "Yes";
 "no" = "No";
 "end_live_streaming_confirmation" = "Are you sure you want to end the live-streaming?";

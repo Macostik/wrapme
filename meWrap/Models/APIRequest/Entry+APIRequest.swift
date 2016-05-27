@@ -400,7 +400,7 @@ extension Comment {
     }
     
     override func delete(success: ObjectBlock?, failure: FailureBlock?) {
-        if let candy = candy, let wrap = candy.wrap {
+        if let candy = candy, let wrap = candy.wrap where candy.status != .Ready {
             if !uploaded {
                 failure?(NSError(message: "publishing_in_progress".ls))
             } else {

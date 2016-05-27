@@ -312,12 +312,11 @@ extension Candy {
         
         let metadata = [
             "Accept" : "application/vnd.ravenpod+json;version=\(Environment.current.version)",
-            Keys.UID.Device : Authorization.current.deviceUID ?? "",
+            Keys.UID.Device : Authorization.current.deviceUID,
             Keys.UID.User : contributor?.uid ?? "",
             Keys.UID.Candy : uid,
             Keys.UID.Wrap : wrap?.uid ?? "",
-            Keys.UID.Upload : locuid ?? "",
-            Keys.ContributedAt : "\(createdAt.timestamp)",
+            Keys.UID.Upload : locuid ?? ""
         ]
         
         uploadToS3Bucket(.Candy, metadata: metadata, success: success, failure: failure)

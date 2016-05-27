@@ -35,7 +35,7 @@ final class Authorization: Archive {
         return ["deviceUID","deviceName","countryCode","phone","email","unconfirmed_email","password"]
     }
     
-    var deviceUID: String = DeviceManager.defaultManager.UDID
+    lazy var deviceUID: String = DeviceManager.defaultManager.UDID
     
     var deviceName: String = UIDevice.currentDevice().modelName()
     

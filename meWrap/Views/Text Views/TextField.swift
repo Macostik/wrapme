@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TextField: UITextField {
+class TextField: UITextField, FontPresetable {
     
     @IBInspectable var disableSeparator: Bool = false
     @IBInspectable var trim: Bool = false
@@ -23,12 +23,15 @@ class TextField: UITextField {
         }
     }
     
+    var presetableFont: UIFont? {
+        get { return font }
+        set { font = newValue }
+    }
+    var contentSizeCategoryObserver: NotificationObserver?
+    
     @IBInspectable var preset: String? {
         willSet {
-            if let font = font, let preset = newValue where !preset.isEmpty {
-                self.font = font.fontWithPreset(preset)
-                FontPresetter.defaultPresetter.addReceiver(self)
-            }
+            makePresetable(newValue)
         }
     }
     
@@ -52,11 +55,6 @@ class TextField: UITextField {
         let flag = super.becomeFirstResponder()
         setNeedsDisplay()
         return flag
-    }
-    
-    func presetterDidChangeContentSizeCategory(presetter: FontPresetter) {
-        guard let preset = preset, let font = font else { return }
-        self.font = font.fontWithPreset(preset)
     }
     
     override func drawRect(rect: CGRect) {

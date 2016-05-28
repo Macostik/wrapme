@@ -94,6 +94,7 @@
 		C509F7481C5E3C4800E6BFF0 /* CaptureMediaSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C509F7451C5E3C4800E6BFF0 /* CaptureMediaSession.swift */; };
 		C509F7491C5E3C4800E6BFF0 /* FlashModeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C509F7461C5E3C4800E6BFF0 /* FlashModeControl.swift */; };
 		C50B5EC21C7F2F0D00435E3F /* DrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50B5EC11C7F2F0D00435E3F /* DrawingViewController.swift */; };
+		C50B7E331CFA1A9000612487 /* FontPresetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50B7E321CFA1A9000612487 /* FontPresetable.swift */; };
 		C510BF6D1BCF93C0008223A3 /* UIDevice+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C510BF6C1BCF93C0008223A3 /* UIDevice+Ext.swift */; };
 		C5122D491BD7D2A40096C742 /* UIFont+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5122D481BD7D2A40096C742 /* UIFont+Ext.swift */; };
 		C517FD7A1C4D070D00A7EE55 /* LiveViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C517FD791C4D070D00A7EE55 /* LiveViewerViewController.swift */; };
@@ -307,7 +308,6 @@
 		C5E6DDA11C0DD314004992E4 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6DD9E1C0DD11A004992E4 /* Keys.swift */; };
 		C5E6F0231BFF38C200FA3D4F /* SwipeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6F01F1BFF38C200FA3D4F /* SwipeAction.swift */; };
 		C5E6F0281BFF558000FA3D4F /* MediaDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6F0271BFF558000FA3D4F /* MediaDataSource.swift */; };
-		C5E6F02E1BFF710900FA3D4F /* FontPresetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6F02D1BFF710900FA3D4F /* FontPresetter.swift */; };
 		C5E7AB781BCD3A79007E314B /* UIScrollView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7AB771BCD3A79007E314B /* UIScrollView+Ext.swift */; };
 		C5E7AB7A1BCD47D4007E314B /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7AB791BCD47D4007E314B /* UIView+Ext.swift */; };
 		C5E7AB7C1BCD4E28007E314B /* UIGestureRecognizer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7AB7B1BCD4E28007E314B /* UIGestureRecognizer+Ext.swift */; };
@@ -552,6 +552,7 @@
 		C509F7451C5E3C4800E6BFF0 /* CaptureMediaSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureMediaSession.swift; sourceTree = "<group>"; };
 		C509F7461C5E3C4800E6BFF0 /* FlashModeControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashModeControl.swift; sourceTree = "<group>"; };
 		C50B5EC11C7F2F0D00435E3F /* DrawingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingViewController.swift; sourceTree = "<group>"; };
+		C50B7E321CFA1A9000612487 /* FontPresetable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontPresetable.swift; sourceTree = "<group>"; };
 		C510BF6C1BCF93C0008223A3 /* UIDevice+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Ext.swift"; sourceTree = "<group>"; };
 		C5122D481BD7D2A40096C742 /* UIFont+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Ext.swift"; sourceTree = "<group>"; };
 		C517FD791C4D070D00A7EE55 /* LiveViewerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveViewerViewController.swift; sourceTree = "<group>"; };
@@ -747,7 +748,6 @@
 		C5E6E8361BBAC3EC007FFA66 /* Timecost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timecost.h; sourceTree = "<group>"; };
 		C5E6F01F1BFF38C200FA3D4F /* SwipeAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeAction.swift; sourceTree = "<group>"; };
 		C5E6F0271BFF558000FA3D4F /* MediaDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaDataSource.swift; sourceTree = "<group>"; };
-		C5E6F02D1BFF710900FA3D4F /* FontPresetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontPresetter.swift; sourceTree = "<group>"; };
 		C5E7AB771BCD3A79007E314B /* UIScrollView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Ext.swift"; sourceTree = "<group>"; };
 		C5E7AB791BCD47D4007E314B /* UIView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		C5E7AB7B1BCD4E28007E314B /* UIGestureRecognizer+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Ext.swift"; sourceTree = "<group>"; };
@@ -999,12 +999,12 @@
 				C5E6DD851C0DC84A004992E4 /* Notifier.swift */,
 				C5053E1F1BC7CF0F0040613A /* AssetMetrics.swift */,
 				C523D8C91BD76BC0006FE7AB /* LayoutPrioritizer.swift */,
+				C50B7E321CFA1A9000612487 /* FontPresetable.swift */,
 				C523D8CD1BD775AC006FE7AB /* Country.swift */,
 				C54C42621BDE8AEC003E644D /* Authorization.swift */,
 				C5F0766B1BE2A97900021FAE /* EntryDescriptor.swift */,
 				C5AA71AE1BE3946700EA106A /* EntryNotifier.swift */,
 				C5AA71D51BE3D39D00EA106A /* MutableAsset.swift */,
-				C5E6F02D1BFF710900FA3D4F /* FontPresetter.swift */,
 				C55BE8C81C031D54006B04FC /* AuthorizedExecutor.swift */,
 				C5F4E70C1C07489E00D2FC16 /* EditSession.swift */,
 				C547433F1C09CD8A00BECB25 /* ImageCache.swift */,
@@ -2158,6 +2158,7 @@
 				C5F11E531C64A21C001C2486 /* CountriesViewController.swift in Sources */,
 				5B40D6B21C2EBB1C009EF38C /* UploadWizardViewController.swift in Sources */,
 				C57EB14E1CCE0EE600329080 /* DrawingCanvas.swift in Sources */,
+				C50B7E331CFA1A9000612487 /* FontPresetable.swift in Sources */,
 				C553DB411C6DF7BA001B13C7 /* CandyCell.swift in Sources */,
 				5B2C97CB1C46610E00FAED6A /* VolumeChangeObserver.swift in Sources */,
 				C53BC48E1C05FE620009B0B9 /* SegmentedControl.swift in Sources */,
@@ -2223,7 +2224,6 @@
 				C5F44FED1C5CB9780049215D /* UploadSummaryViewController.swift in Sources */,
 				C57EB14F1CCE0EE600329080 /* UIBezierPath+Interpolation.swift in Sources */,
 				C54743421C09CD8A00BECB25 /* ImageCache.swift in Sources */,
-				C5E6F02E1BFF710900FA3D4F /* FontPresetter.swift in Sources */,
 				C557B6DE1C22F5980067631E /* Logger.swift in Sources */,
 				C59CEBD31BFB20B500C3E686 /* WrapView.swift in Sources */,
 				C502B32B1C47F30400F66EAE /* PaginatedRequest.swift in Sources */,

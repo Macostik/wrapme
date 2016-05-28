@@ -87,7 +87,7 @@ private func sortDevices<T: SequenceType where T.Generator.Element: Device>(devi
     }
 }
 
-final class ChangeProfileViewController: BaseViewController, EditSessionDelegate, UITextFieldDelegate, CaptureAvatarViewControllerDelegate, EntryNotifying, FontPresetting {
+final class ChangeProfileViewController: BaseViewController, EditSessionDelegate, UITextFieldDelegate, CaptureAvatarViewControllerDelegate, EntryNotifying {
     
     private let streamView = StreamView()
     
@@ -356,13 +356,17 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
         alert.show()
     }
     
+    private var contentSizeObserver: NotificationObserver?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         editSession = ProfileEditSession(user: User.currentUser!)
         setupEditableUserInterface()
         updateEmailConfirmationView()
         User.notifier().addReceiver(self)
-        FontPresetter.defaultPresetter.addReceiver(self)
+        contentSizeObserver = NotificationObserver.contentSizeCategoryObserver({ [weak self] (_) in
+            self?.verificationEmailTextView.attributedText = ChangeProfileViewController.verificationSuggestion()
+        })
         dataSource.items = sortDevices(User.currentUser?.devices ?? [])
         API.devices().send({ [weak self] (devices) in
             self?.dataSource.items = sortDevices(devices)
@@ -520,11 +524,5 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
     func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
         updateEmailConfirmationView()
         dataSource.reload()
-    }
-    
-    //MARK: WLFontPresetterReceiver
-    
-    func presetterDidChangeContentSizeCategory(presetter: FontPresetter) {
-        verificationEmailTextView.attributedText = ChangeProfileViewController.verificationSuggestion()
     }
 }

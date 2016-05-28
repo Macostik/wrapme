@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Label: UILabel {
+class Label: UILabel, FontPresetable {
     
     convenience init(icon: String, size: CGFloat = UIFont.systemFontSize(), textColor: UIColor = UIColor.whiteColor()) {
         self.init()
@@ -22,15 +22,18 @@ class Label: UILabel {
         font = UIFont.fontWithPreset(preset, weight: weight)
         self.preset = preset.rawValue
         self.textColor = textColor
-        FontPresetter.defaultPresetter.addReceiver(self)
+        makePresetable(preset)
     }
+    
+    var presetableFont: UIFont? {
+        get { return font }
+        set { font = newValue }
+    }
+    var contentSizeCategoryObserver: NotificationObserver?
     
     @IBInspectable var preset: String? {
         willSet {
-            if let preset = newValue where !preset.isEmpty {
-                font = font.fontWithPreset(preset)
-                FontPresetter.defaultPresetter.addReceiver(self)
-            }
+            makePresetable(newValue)
         }
     }
     
@@ -41,11 +44,6 @@ class Label: UILabel {
                 layoutIfNeeded()
             }
         }
-    }
-    
-    func presetterDidChangeContentSizeCategory(presetter: FontPresetter) {
-        guard let preset = preset else { return }
-        font = font.fontWithPreset(preset)
     }
     
     @IBInspectable var insets: CGSize = CGSize.zero

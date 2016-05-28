@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AddContributorsViewController: BaseViewController, AddressBookRecordCellDelegate, UITextFieldDelegate, FontPresetting, AddressBookNoifying {
+class AddContributorsViewController: BaseViewController, AddressBookRecordCellDelegate, UITextFieldDelegate, AddressBookNoifying {
     
     var wrap: Wrap!
     var isBroadcasting: Bool = false
@@ -30,6 +30,8 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     var multipleMetrics: StreamMetrics<MultipleAddressBookRecordCell>!
     var sectionHeaderMetrics: StreamMetrics<AddressBookGroupView>!
     var placeholderMetrics: StreamMetrics<PlaceholderView>!
+    
+    private var contentSizeObserver: NotificationObserver?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,8 +108,9 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         if cached {
             AddressBook.sharedAddressBook.updateCachedRecords()
         }
-        FontPresetter.defaultPresetter.addReceiver(self)
-        
+        contentSizeObserver = NotificationObserver.contentSizeCategoryObserver({ [weak self]   (_) in
+            self?.streamView.reload()
+        })
     }
     
     func filterContacts() {
@@ -252,12 +255,6 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         filterContacts()
         textField.resignFirstResponder()
         return true
-    }
-    
-    //MARK: WLFontPresetterReceiver
-    
-    func presetterDidChangeContentSizeCategory(presetter: FontPresetter) {
-        streamView.reload()
     }
 }
 

@@ -8,16 +8,19 @@
 
 import Foundation
 
-class TextView: UITextView {
+class TextView: UITextView, FontPresetable {
     
     @IBInspectable var trim: Bool = false
     
+    var presetableFont: UIFont? {
+        get { return font }
+        set { font = newValue }
+    }
+    var contentSizeCategoryObserver: NotificationObserver?
+    
     @IBInspectable var preset: String? {
         willSet {
-            if let font = font, let preset = newValue where !preset.isEmpty {
-                self.font = font.fontWithPreset(preset)
-                FontPresetter.defaultPresetter.addReceiver(self)
-            }
+            makePresetable(newValue)
         }
     }
     
@@ -27,18 +30,15 @@ class TextView: UITextView {
     
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.textDidChange), name: UITextViewTextDidChangeNotification, object: self)
-        if editable && dataDetectorTypes != .None {
-            dataDetectorTypes = .All
-        }
+        awake()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        awake()
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    func awake() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.textDidChange), name: UITextViewTextDidChangeNotification, object: self)
         if editable && dataDetectorTypes != .None {
             dataDetectorTypes = .All
@@ -86,11 +86,6 @@ class TextView: UITextView {
         }
         
         return super.resignFirstResponder()
-    }
-    
-    func presetterDidChangeContentSizeCategory(presetter: FontPresetter) {
-        guard let preset = preset, let font = font else { return }
-        self.font = font.fontWithPreset(preset)
     }
     
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {

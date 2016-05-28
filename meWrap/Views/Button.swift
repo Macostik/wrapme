@@ -25,7 +25,7 @@ extension UILabel: Highlightable, Selectable {
     }
 }
 
-class Button : UIButton {
+class Button : UIButton, FontPresetable {
     
     convenience init(icon: String, size: CGFloat, textColor: UIColor = UIColor.whiteColor()) {
         self.init()
@@ -39,7 +39,7 @@ class Button : UIButton {
         titleLabel?.font = UIFont.fontWithPreset(preset, weight: weight)
         self.preset = preset.rawValue
         setTitleColor(textColor, forState: .Normal)
-        FontPresetter.defaultPresetter.addReceiver(self)
+        makePresetable(preset)
     }
     
     static let minTouchSize: CGFloat = 44.0
@@ -66,12 +66,15 @@ class Button : UIButton {
         }
     }
     
+    var presetableFont: UIFont? {
+        get { return titleLabel?.font }
+        set { titleLabel?.font = newValue }
+    }
+    var contentSizeCategoryObserver: NotificationObserver?
+    
     @IBInspectable var preset: String? {
         willSet {
-            if let newValue = newValue {
-                titleLabel?.font = titleLabel?.font.fontWithPreset(newValue)
-                FontPresetter.defaultPresetter.addReceiver(self)
-            }
+            makePresetable(newValue)
         }
     }
     
@@ -162,11 +165,6 @@ class Button : UIButton {
     override func intrinsicContentSize() -> CGSize {
         let intrinsicSize = super.intrinsicContentSize()
         return CGSizeMake(intrinsicSize.width + insets.width, intrinsicSize.height + insets.height)
-    }
-    
-    func presetterDidChangeContentSizeCategory(presetter: FontPresetter) {
-        guard let preset = preset else { return }
-        titleLabel?.font = titleLabel?.font.fontWithPreset(preset)
     }
     
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {

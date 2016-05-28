@@ -9,7 +9,7 @@
 import UIKit
 import PubNub
 
-class Chat: PaginatedList<Message>, FontPresetting {
+class Chat: PaginatedList<Message> {
     
     let wrap: Wrap
         
@@ -19,19 +19,21 @@ class Chat: PaginatedList<Message>, FontPresetting {
     
     var nameFont = UIFont.lightFontSmaller()
     
-    static var MaxWidth: CGFloat = Constants.screenWidth - LeadingBubbleIndentWithAvatar - 2*MessageHorizontalInset - BubbleIndent
-    static var MinWidth: CGFloat = Constants.screenWidth - 2*BubbleIndent - 2*MessageHorizontalInset
+    static let MaxWidth: CGFloat = Constants.screenWidth - LeadingBubbleIndentWithAvatar - 2*MessageHorizontalInset - BubbleIndent
+    static let MinWidth: CGFloat = Constants.screenWidth - 2*BubbleIndent - 2*MessageHorizontalInset
     
-    static var MessageVerticalInset: CGFloat = 6.0
-    static var MessageHorizontalInset: CGFloat = 6.0
-    static var MessageWithNameMinimumCellHeight: CGFloat = 40.0
-    static var MessageWithoutNameMinimumCellHeight: CGFloat = 24.0
-    static var LeadingBubbleIndentWithAvatar: CGFloat = 64.0
-    static var BubbleIndent: CGFloat = 16.0
-    static var MessageGroupSpacing: CGFloat = 6.0
-    static var MessageSpacing: CGFloat = 2.0
-    static var NameVerticalInset: CGFloat = 6.0
-        
+    static let MessageVerticalInset: CGFloat = 6.0
+    static let MessageHorizontalInset: CGFloat = 6.0
+    static let MessageWithNameMinimumCellHeight: CGFloat = 40.0
+    static let MessageWithoutNameMinimumCellHeight: CGFloat = 24.0
+    static let LeadingBubbleIndentWithAvatar: CGFloat = 64.0
+    static let BubbleIndent: CGFloat = 16.0
+    static let MessageGroupSpacing: CGFloat = 6.0
+    static let MessageSpacing: CGFloat = 2.0
+    static let NameVerticalInset: CGFloat = 6.0
+    
+    private var contentSizeObserver: NotificationObserver?
+    
     required init(wrap: Wrap) {
         self.wrap = wrap
         super.init()
@@ -40,7 +42,16 @@ class Chat: PaginatedList<Message>, FontPresetting {
         request = API.messages(wrap)
         sorter = { $0.createdAt < $1.createdAt }
         addEntries(wrap.messages)
-        FontPresetter.defaultPresetter.addReceiver(self)
+        contentSizeObserver = NotificationObserver.contentSizeCategoryObserver({ [weak self]   (_) in
+            if let chat = self {
+                for message in wrap.messages {
+                    message.chatMetadata.height = nil
+                }
+                chat.messageFont = UIFont.fontNormal()
+                chat.nameFont = UIFont.lightFontSmaller()
+                chat.notify { ($0 as? ListNotifying)?.listChanged(chat) }
+            }
+            })
     }
     
     func resetMessages() {
@@ -110,14 +121,5 @@ class Chat: PaginatedList<Message>, FontPresetting {
             message.chatMetadata.height = commentHeight
             return commentHeight
         }
-    }
-    
-    func presetterDidChangeContentSizeCategory(presetter: FontPresetter) {
-        for message in wrap.messages {
-            message.chatMetadata.height = nil
-        }
-        messageFont = UIFont.fontNormal()
-        nameFont = UIFont.lightFontSmaller()
-        super.didChange()
     }
 }

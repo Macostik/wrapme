@@ -158,9 +158,7 @@ final class LiveBroadcasterViewController: LiveViewController {
             toggleCameraButton.hidden = preview.cameras?.count <= 1
             preview.previewGravity = .ResizeAspectFill
             
-            preview.config = specify(preview.config, {
-                $0.loadPreset(.Preset640x480)
-            })
+            preview.config = goCoder.config
             
             preview.startPreview()
         }

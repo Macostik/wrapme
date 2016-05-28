@@ -19,7 +19,6 @@
 		5B2960671C6103BE008D121A /* meWrapShareExt-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B2960661C6103BE008D121A /* meWrapShareExt-Info.plist */; };
 		5B2BB79A1C620CB1005045FF /* NSUserDefaults+SharedGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C694D41BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift */; };
 		5B2C97CB1C46610E00FAED6A /* VolumeChangeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C97CA1C46610E00FAED6A /* VolumeChangeObserver.swift */; };
-		5B2FB96A1C5B501A001C4385 /* BadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB9691C5B501A001C4385 /* BadgeLabel.swift */; };
 		5B2FB96C1C5B71C8001C4385 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96B1C5B71C8001C4385 /* TextField.swift */; };
 		5B2FB96E1C5B8513001C4385 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96D1C5B8513001C4385 /* TextView.swift */; };
 		5B2FB9701C5BA958001C4385 /* ComposeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96F1C5BA958001C4385 /* ComposeBar.swift */; };
@@ -460,7 +459,6 @@
 		5B2960591C60F5B9008D121A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Share.storyboard; sourceTree = "<group>"; };
 		5B2960661C6103BE008D121A /* meWrapShareExt-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "meWrapShareExt-Info.plist"; sourceTree = "<group>"; };
 		5B2C97CA1C46610E00FAED6A /* VolumeChangeObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeChangeObserver.swift; sourceTree = "<group>"; };
-		5B2FB9691C5B501A001C4385 /* BadgeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeLabel.swift; sourceTree = "<group>"; };
 		5B2FB96B1C5B71C8001C4385 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		5B2FB96D1C5B8513001C4385 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		5B2FB96F1C5BA958001C4385 /* ComposeBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBar.swift; sourceTree = "<group>"; };
@@ -1333,7 +1331,6 @@
 			isa = PBXGroup;
 			children = (
 				5B03F90B1C5A65A60085BA51 /* Label.swift */,
-				5B2FB9691C5B501A001C4385 /* BadgeLabel.swift */,
 				5B2FB96B1C5B71C8001C4385 /* TextField.swift */,
 				5B2FB96D1C5B8513001C4385 /* TextView.swift */,
 			);
@@ -2237,7 +2234,6 @@
 				C5E6DD941C0DC84A004992E4 /* Notifier.swift in Sources */,
 				C5F11E571C64A21C001C2486 /* EditProfileViewController.swift in Sources */,
 				C557B6D91C22BC610067631E /* Network.swift in Sources */,
-				5B2FB96A1C5B501A001C4385 /* BadgeLabel.swift in Sources */,
 				C5E6DD8D1C0DC84A004992E4 /* CoreData.xcdatamodeld in Sources */,
 				C51E34EA1BD8EB4100C6F678 /* SeparatorView.swift in Sources */,
 				C517FD7A1C4D070D00A7EE55 /* LiveViewerViewController.swift in Sources */,

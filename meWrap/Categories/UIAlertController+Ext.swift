@@ -55,7 +55,7 @@ extension UIAlertController {
 
 extension UIAlertController {
     
-    class func confirmWrapDeleting(wrap: Wrap, success: (UIAlertAction -> Void)?, failure: (UIAlertAction -> Void)?) {
+    static func confirmWrapDeleting(wrap: Wrap, success: (UIAlertAction -> Void)?, failure: (UIAlertAction -> Void)?) {
         let controller: UIAlertController!
         if wrap.deletable {
             controller = alert("delete_wrap".ls, message: String(format: "formatted_delete_wrap_confirmation".ls, wrap.name ?? ""))
@@ -75,14 +75,14 @@ extension UIAlertController {
         controller.show()
     }
     
-    class func confirmCancelingDrawChanges(success: (UIAlertAction -> Void)?, failure: (UIAlertAction -> Void)?) {
+    static func confirmCancelingDrawChanges(success: (UIAlertAction -> Void)?, failure: (UIAlertAction -> Void)?) {
         let controller = alert("quit".ls, message: "cancel_Drawing".ls)
         controller.action("cancel".ls, handler: failure)
         controller.action("ok".ls, handler: success)
         controller.show()
     }
     
-    class func confirmCandyDeleting(candy: Candy, success: (UIAlertAction -> Void)?, failure: (UIAlertAction -> Void)?) {
+    static func confirmCandyDeleting(candy: Candy, success: (UIAlertAction -> Void)?, failure: (UIAlertAction -> Void)?) {
         let controller = alert("delete".ls, message: (candy.isVideo ? "delete_video_confirmation" : "delete_photo_confirmation").ls)
         controller.action("cancel".ls, handler: failure)
         controller.action("ok".ls, handler: success)
@@ -96,7 +96,7 @@ extension UIAlertController {
         controller.show()
     }
     
-    class func showNoMediaAccess(includeMicrophone: Bool) {
+    static func showNoMediaAccess(includeMicrophone: Bool) {
         
         func alertText() -> (title: String, message: String)? {
             let noCameraAccess = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo).denied
@@ -122,9 +122,7 @@ extension UIAlertController {
     }
 }
 
-struct ConfirmReauthorizationHandler {
-    var block: (UIAlertAction -> Void)
-}
+typealias ConfirmReauthorizationHandler = UIAlertAction -> Void
 
 extension UIAlertController {
     
@@ -136,8 +134,8 @@ extension UIAlertController {
     
     class func confirmReauthorization(signUp: (UIAlertAction -> Void), tryAgain: (UIAlertAction -> Void)) {
         
-        reauthorizeHandlers.append(ConfirmReauthorizationHandler(block: signUp))
-        tryAgainHandlers.append(ConfirmReauthorizationHandler(block: tryAgain))
+        reauthorizeHandlers.append(signUp)
+        tryAgainHandlers.append(tryAgain)
         
         if !confirmingReauthorization {
             confirmingReauthorization = true
@@ -145,7 +143,7 @@ extension UIAlertController {
             controller.action("try_again".ls, handler: { action in
                 confirmingReauthorization = false
                 for handler in tryAgainHandlers {
-                    handler.block(action)
+                    handler(action)
                 }
                 tryAgainHandlers.removeAll()
                 reauthorizeHandlers.removeAll()
@@ -153,7 +151,7 @@ extension UIAlertController {
             controller.action("authorization_error_sign_up".ls, handler: { action in
                 confirmingReauthorization = false
                 for handler in reauthorizeHandlers {
-                    handler.block(action)
+                    handler(action)
                 }
                 tryAgainHandlers.removeAll()
                 reauthorizeHandlers.removeAll()

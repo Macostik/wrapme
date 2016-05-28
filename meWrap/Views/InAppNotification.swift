@@ -108,6 +108,10 @@ class InAppNotification: UIView {
         bottomLabel.snp_makeConstraints {
             $0.edges.equalTo(bottomView).inset(UIEdgeInsetsMake(8, 8, 8, 8))
         }
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tap(_:))))
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(self.swipe(_:)))
+        swipe.direction = .Up
+        addGestureRecognizer(swipe)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -147,11 +151,14 @@ class InAppNotification: UIView {
         self.enqueueSelector(#selector(self.dissmis), delay: InAppNotification.DismissalDelay)
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    @objc private func tap(sender: UITapGestureRecognizer) {
         dissmis()
         UIWindow.mainWindow.endEditing(true)
         handleTouch?()
+    }
+    
+    @objc private func swipe(sender: UITapGestureRecognizer) {
+        dissmis()
     }
     
     func dissmis() {

@@ -56,3 +56,20 @@ class Label: UILabel {
         return size
     }
 }
+
+final class BadgeLabel: Label {
+    
+    var value = 0 {
+        willSet {
+            text = String(newValue)
+            hidden = newValue == 0
+        }
+    }
+    
+    override func intrinsicContentSize() -> CGSize {
+        var size = super.intrinsicContentSize()
+        size = CGSizeMake(size.width + 5, size.height + 5)
+        layer.cornerRadius = size.height/2
+        return size
+    }
+}

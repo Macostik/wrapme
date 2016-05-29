@@ -162,8 +162,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
             Toast.show("no_internet_connection".ls)
             return
         }
-        let performRequestBlock = { [weak self] (message: AnyObject?) in
-            let message = message as? String
+        let performRequestBlock = { [weak self] (message: String?) in
             if let selectedPhoneNumbers = self?.addressBook.selectedPhoneNumbers, let wrap = self?.wrap {
                 API.addContributors(selectedPhoneNumbers, wrap: wrap, message: message).send({ _ in
                     self?.navigationController?.popViewControllerAnimated(false)
@@ -182,7 +181,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
             navigationController?.popViewControllerAnimated(false)
         } else if containUnregisterAddresBookGroupRecord() {
             let content = String(format: "send_message_to_friends_content".ls, User.currentUser?.name ?? "", wrap?.name ?? "")
-            ConfirmInvitationView.instance().showInView(view, content: content, success: performRequestBlock, cancel: nil)
+            ConfirmInvitationView().showInView(view, content: content, success: performRequestBlock, cancel: nil)
         } else {
             performRequestBlock(nil)
         }

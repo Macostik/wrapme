@@ -86,19 +86,16 @@ class Button : UIButton, FontPresetable {
                 if newValue == true {
                     let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
                     spinner.color = spinnerColor ?? titleColorForState(.Normal)
-                    var spinnerSuperView: UIView = self
                     let contentWidth = sizeThatFits(size).width
                     if (self.width - contentWidth) < spinner.width {
-                        if let superView = self.superview {
-                            spinnerSuperView = superView
-                        }
+                        superview?.addSubview(spinner)
                         spinner.center = center
                         alpha = 0
                     } else {
+                        addSubview(spinner)
                         let size = bounds.size
                         spinner.center = CGPointMake(size.width - size.height/2, size.height/2)
                     }
-                    spinnerSuperView.addSubview(spinner)
                     spinner.startAnimating()
                     self.spinner = spinner
                     userInteractionEnabled = false

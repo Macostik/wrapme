@@ -46,7 +46,7 @@ final class EmailViewController: SignupStepViewController {
     
     @IBAction func useTestAccount(sender: AnyObject) {
         TestUserPicker.showInView(UIWindow.mainWindow) { (authorization) -> Void in
-            ConfirmAuthorizationView.instance().showInView(UIWindow.mainWindow, authorization: authorization, success: { _ in
+            ConfirmAuthorizationView().showInView(UIWindow.mainWindow, authorization: authorization, success: { _ in
                 authorization.signIn().send({ _ in
                     UIStoryboard.main.present(false)
                     }, failure: { $0?.show() })

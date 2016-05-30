@@ -138,9 +138,9 @@ final class LiveBroadcasterViewController: LiveViewController {
             broadcast.wrap = wrap
             
             goCoder.config = specify(goCoder.config, { config in
-                config.videoFrameRate = 30
-                config.videoKeyFrameInterval = 30
-                config.videoBitrate = 280000
+                config.videoFrameRate = 15
+                config.videoKeyFrameInterval = 2
+                config.videoBitrate = 28000
                 
                 config.audioChannels = 1
                 config.audioSampleRate = 44100

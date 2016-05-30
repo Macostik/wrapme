@@ -354,6 +354,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
             if let camera = camera, let candy = candy {
                 camera.requestAuthorizationForPresentingEntry(candy, completion: { [weak self] allow in
                     if allow {
+                        self?.dismissCamera()
                         self?.showComposeBar()
                     }
                 })
@@ -373,15 +374,16 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     var disableDismissingByScroll = false
     
     private func showComposeBar() {
-        camera?.removeFromContainerAnimated(false)
         disableDismissingByScroll = false
-        bottomView.subviews.all({ $0.removeFromSuperview() })
-        bottomView.add(composeBar) { (make) in
-            make.edges.equalTo(bottomView)
-        }
-        bottomView.add(cameraButton) { (make) in
-            make.trailing.top.bottom.equalTo(bottomView)
-            make.width.equalTo(48)
+        if composeBar.superview != bottomView {
+            bottomView.subviews.all({ $0.removeFromSuperview() })
+            bottomView.add(composeBar) { (make) in
+                make.edges.equalTo(bottomView)
+            }
+            bottomView.add(cameraButton) { (make) in
+                make.trailing.top.bottom.equalTo(bottomView)
+                make.width.equalTo(48)
+            }
         }
     }
     
@@ -487,9 +489,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         coordinator.animateAlongsideTransition({ (_) in
             self.layoutTopView()
             self.view.layoutIfNeeded()
-            Dispatch.mainQueue.async({ () in
-                self.dataSource.reload()
-            })
+            self.dataSource.reload()
             }) { (_) in   
         }
     }
@@ -625,9 +625,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
             let comment: Comment = Comment.contribution()
             block(comment)
             candy.uploadComment(comment)
-            Dispatch.mainQueue.async({ () in
-                self.streamView.setMaximumContentOffsetAnimated(true)
-            })
+            self.streamView.setMaximumContentOffsetAnimated(true)
         }
     }
     
@@ -670,23 +668,33 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         showCamera()
     }
     
-    func captureViewController(controller: CaptureCommentViewController, didFinishWithAsset asset: MutableAsset) {
-        if let presenter = controller.presentingViewController {
-            presenter.dismissViewControllerAnimated(false, completion: nil)
+    private func dismissCamera(completion: (() -> ())? = nil) {
+        if let camera = camera {
+            if let presenter = camera.presentingViewController {
+                presenter.dismissViewControllerAnimated(false, completion: completion)
+            } else {
+                camera.removeFromContainerAnimated(false)
+                completion?()
+            }
+        } else {
+            completion?()
         }
-        showComposeBar()
-        view.layoutIfNeeded()
-        sendComment { (comment) in
-            comment.asset = asset.uploadableAsset()
+    }
+    
+    func captureViewController(controller: CaptureCommentViewController, didFinishWithAsset asset: MutableAsset) {
+        dismissCamera {
+            self.showComposeBar()
+            self.view.layoutIfNeeded()
+            self.sendComment { (comment) in
+                comment.asset = asset.uploadableAsset()
+            }
         }
     }
     
     func captureViewControllerDidCancel(controller: CaptureCommentViewController) {
-        if let presenter = controller.presentingViewController {
-            presenter.dismissViewControllerAnimated(false, completion: nil)
-        } else {
-            showComposeBar()
-            view.layoutIfNeeded()
+        dismissCamera {
+            self.showComposeBar()
+            self.view.layoutIfNeeded()
         }
     }
 }

@@ -373,6 +373,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     var disableDismissingByScroll = false
     
     private func showComposeBar() {
+        camera?.removeFromContainerAnimated(false)
         disableDismissingByScroll = false
         bottomView.subviews.all({ $0.removeFromSuperview() })
         bottomView.add(composeBar) { (make) in
@@ -669,7 +670,6 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         if let presenter = controller.presentingViewController {
             presenter.dismissViewControllerAnimated(false, completion: nil)
         }
-        controller.removeFromContainerAnimated(false)
         showComposeBar()
         view.layoutIfNeeded()
         sendComment { (comment) in
@@ -681,7 +681,6 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         if let presenter = controller.presentingViewController {
             presenter.dismissViewControllerAnimated(false, completion: nil)
         } else {
-            controller.removeFromContainerAnimated(false)
             showComposeBar()
             view.layoutIfNeeded()
         }

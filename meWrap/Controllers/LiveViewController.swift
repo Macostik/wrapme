@@ -204,49 +204,46 @@ class LiveViewController: BaseViewController, ComposeBarDelegate {
         view.add(eventView, { (make) in
             make.leading.equalTo(view).inset(12)
             make.trailing.equalTo(joinsCountView.snp_leading).inset(-12)
-            if let latestEventView = eventViews.last {
-                make.bottom.equalTo(latestEventView.snp_top).inset(-6)
-            } else {
-                make.bottom.equalTo(composeBar.snp_top).inset(-12)
-            }
+            make.top.equalTo(composeBar.snp_top).inset(12)
         })
-        eventViews.append(eventView)
+        
         eventView.alpha = 0
+        self.view.layoutIfNeeded()
         UIView.animateWithDuration(0.5) {
             eventView.alpha = 1
-        }
-        if eventViews.count > 3 {
-            eventViews.first?.removeFromSuperview()
-            eventViews.removeFirst()
-            if let first = eventViews.first {
-                first.snp_remakeConstraints(closure: { (make) in
-                    make.leading.equalTo(view).inset(12)
-                    make.trailing.equalTo(joinsCountView.snp_leading).inset(-12)
-                    make.bottom.equalTo(composeBar.snp_top).inset(-12)
+            if let last = self.eventViews.last {
+                last.snp_remakeConstraints(closure: { (make) in
+                    make.leading.equalTo(self.view).inset(12)
+                    make.trailing.equalTo(self.joinsCountView.snp_leading).inset(-12)
+                    make.bottom.equalTo(eventView.snp_top).inset(-12)
                 })
             }
+            eventView.snp_remakeConstraints(closure: { (make) in
+                make.leading.equalTo(self.view).inset(12)
+                make.trailing.equalTo(self.joinsCountView.snp_leading).inset(-12)
+                make.bottom.equalTo(self.composeBar.snp_top).inset(-12)
+            })
+            self.view.layoutIfNeeded()
+        }
+        eventViews.append(eventView)
+        if eventViews.count > 3 {
+            hideEventView(eventViews[0])
         }
         
-        Dispatch.mainQueue.after(4) { [weak eventView] () -> Void in
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                eventView?.alpha = 0
-                }, completion: { _ in
-                    eventView?.removeFromSuperview()
-                    if let index = self.eventViews.indexOf({ $0 == eventView }) {
-                        self.eventViews.removeAtIndex(index)
-                    }
-                    if let first = self.eventViews.first {
-                        first.snp_remakeConstraints(closure: { (make) in
-                            make.leading.equalTo(self.view).inset(12)
-                            make.trailing.equalTo(self.joinsCountView.snp_leading).inset(-12)
-                            make.bottom.equalTo(self.composeBar.snp_top).inset(-12)
-                        })
-                    }
-                    UIView.animateWithDuration(0.5) {
-                        self.view.layoutIfNeeded()
-                    }
-            })
+        Dispatch.mainQueue.after(4) { [weak self, weak eventView] () -> Void in
+            self?.hideEventView(eventView)
         }
+    }
+    
+    private func hideEventView(eventView: LiveBroadcastEventView?) {
+        UIView.animateWithDuration(0.5, animations: { [weak eventView] () -> Void in
+            eventView?.alpha = 0
+            }, completion: { [weak eventView] _ in
+                eventView?.removeFromSuperview()
+                if let index = self.eventViews.indexOf({ $0 == eventView }) {
+                    self.eventViews.removeAtIndex(index)
+                }
+        })
     }
     
     internal func close() {

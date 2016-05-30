@@ -30,6 +30,7 @@ class CommentCell: EntryStreamReusableView<Comment>, FlowerMenuConstructor {
         addSubview(name)
         addSubview(date)
         addSubview(text)
+        indicator.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
         addSubview(indicator)
         
         avatar.snp_makeConstraints { (make) -> Void in
@@ -42,15 +43,15 @@ class CommentCell: EntryStreamReusableView<Comment>, FlowerMenuConstructor {
             make.top.equalTo(name.snp_bottom).offset(4)
         }
         
-        indicator.snp_makeConstraints { (make) -> Void in
-            make.leading.equalTo(date.snp_trailing).offset(10)
-            make.centerY.equalTo(date)
-        }
-        
         layout()
     }
     
     internal func layout() {
+        
+        indicator.snp_makeConstraints { (make) -> Void in
+            make.leading.equalTo(date.snp_trailing).offset(10)
+            make.centerY.equalTo(date)
+        }
         
         text.snp_makeConstraints { (make) -> Void in
             make.leading.equalTo(avatar.snp_trailing).offset(18)
@@ -127,15 +128,21 @@ class MediaCommentCell: CommentCell {
     
     internal override func layout() {
         
+        indicator.snp_makeConstraints { (make) -> Void in
+            make.leading.equalTo(date.snp_trailing).offset(10)
+            make.centerY.equalTo(date)
+            make.trailing.lessThanOrEqualTo(imageView.snp_leading).inset(-18)
+        }
+        
         text.snp_makeConstraints { (make) -> Void in
             make.leading.equalTo(avatar.snp_trailing).offset(18)
             make.top.equalTo(avatar)
-            make.trailing.lessThanOrEqualTo(imageView.snp_leading).inset(18)
+            make.trailing.lessThanOrEqualTo(imageView.snp_leading).inset(-18)
         }
         name.snp_makeConstraints { (make) -> Void in
             make.leading.equalTo(avatar.snp_trailing).offset(18)
             make.top.equalTo(text.snp_bottom).offset(16)
-            make.trailing.lessThanOrEqualTo(imageView.snp_leading).inset(18)
+            make.trailing.lessThanOrEqualTo(imageView.snp_leading).inset(-18)
         }
     }
     
@@ -456,7 +463,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         self.topView.snp_remakeConstraints(closure: { (make) in
             make.leading.trailing.equalTo(self.contentView)
             if isLandscape {
-                make.bottom.equalTo(self.contentView.snp_top)
+                make.bottom.equalTo(self.contentView.snp_top).inset(36)
             } else {
                 make.top.equalTo(self.contentView)
             }

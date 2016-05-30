@@ -52,6 +52,7 @@ final class CommentView: UIView {
         imageView.addGestureRecognizer(CommentLongPressGesture.gesture({ [weak self] _ in
             return self?.comment
             }))
+        indicator.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
     }
     
     private func layoutFor(commentType: CommentType) {
@@ -77,6 +78,11 @@ final class CommentView: UIView {
                 make.top.equalTo(name.snp_bottom).offset(4)
             }
             
+            add(indicator) { (make) -> Void in
+                make.leading.equalTo(date.snp_trailing).offset(10)
+                make.centerY.equalTo(date)
+            }
+            
         } else {
             
             add(imageView) { (make) -> Void in
@@ -91,23 +97,24 @@ final class CommentView: UIView {
             add(text) { (make) -> Void in
                 make.leading.equalTo(avatar.snp_trailing).offset(18)
                 make.top.equalTo(avatar)
-                make.trailing.lessThanOrEqualTo(imageView.snp_leading).inset(18)
+                make.trailing.lessThanOrEqualTo(imageView.snp_leading).inset(-18)
             }
             add(name) { (make) -> Void in
                 make.leading.equalTo(avatar.snp_trailing).offset(18)
                 make.top.equalTo(avatar.snp_bottom).offset(5)
-                make.trailing.lessThanOrEqualTo(imageView.snp_leading).inset(18)
+                make.trailing.lessThanOrEqualTo(imageView.snp_leading).inset(-18)
             }
             
             add(date) { (make) -> Void in
                 make.leading.equalTo(avatar.snp_trailing).offset(18)
                 make.top.equalTo(name.snp_bottom).offset(4)
             }
-        }
-        
-        add(indicator) { (make) -> Void in
-            make.leading.equalTo(date.snp_trailing).offset(10)
-            make.centerY.equalTo(date)
+            
+            add(indicator) { (make) -> Void in
+                make.leading.equalTo(date.snp_trailing).offset(10)
+                make.centerY.equalTo(date)
+                make.trailing.lessThanOrEqualTo(imageView.snp_leading).inset(-18)
+            }
         }
     }
     

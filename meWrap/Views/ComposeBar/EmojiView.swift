@@ -100,17 +100,18 @@ class EmojiView: UIView, SegmentedControlDelegate {
         
         metrics.modifyItem = { [weak self] item in
             if let streamView = self?.streamView {
-                item.ratio = (streamView.height/5) / (streamView.width/8)
+                item.ratio = (streamView.height/4) / (streamView.width/8)
             }
         }
+        dataSource.numberOfGridColumns = 4
+        dataSource.sizeForGridColumns = 0.25
+        
         metrics.selection = { [weak self] view -> Void in
             let emoji = view.entry as! String
             Emoji.saveRecent(emoji)
             self?.composeBar.textView.insertText(emoji)
         }
         dataSource.addMetrics(metrics)
-        dataSource.numberOfGridColumns = 5
-        dataSource.sizeForGridColumns = 0.2
         if let recentEmojis = Emoji.recentEmojis() where recentEmojis.count > 0 {
             emojis = recentEmojis
         } else {

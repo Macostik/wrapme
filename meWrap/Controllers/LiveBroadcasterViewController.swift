@@ -141,6 +141,8 @@ final class LiveBroadcasterViewController: LiveViewController {
                 config.videoFrameRate = 15
                 config.videoKeyFrameInterval = 2
                 config.videoBitrate = 28000
+                config.videoPreviewRotates = true
+                config.videoBitrateLowBandwidthScalingFactor = 0.5
                 
                 config.audioChannels = 1
                 config.audioSampleRate = 44100
@@ -174,7 +176,6 @@ final class LiveBroadcasterViewController: LiveViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         Streamer.streamer.goCoder?.cameraPreview?.previewLayer?.frame = view.bounds
-        Streamer.streamer.goCoder?.cameraPreview?.previewLayer?.connection?.videoOrientation = orientationForVideoConnection()
     }
     
     override func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {

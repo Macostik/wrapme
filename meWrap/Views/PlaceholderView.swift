@@ -29,6 +29,7 @@ class PlaceholderView: StreamReusableView {
     let iconLabel = Label(icon: "", size: 96, textColor: Color.grayLighter)
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
+        userInteractionEnabled = false
         addSubview(containerView)
         containerView.addSubview(textLabel)
         containerView.addSubview(iconLabel)
@@ -123,6 +124,7 @@ final class HomePlaceholderView: PlaceholderView {
             make.height.equalTo(48)
             make.leading.trailing.bottom.equalTo(containerView)
         }
+        userInteractionEnabled = true
     }
     
     var actionBlock: (Void -> Void)?

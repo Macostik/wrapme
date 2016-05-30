@@ -62,22 +62,6 @@ final class StreamView: UIScrollView {
             }
         }
     }
-    
-    override var frame: CGRect {
-        didSet {
-            if layout.finalized {
-                if layout.horizontal {
-                    if frame.height != oldValue.height {
-                        reload()
-                    }
-                } else {
-                    if frame.width != oldValue.width {
-                        reload()
-                    }
-                }
-            }
-        }
-    }
 
     deinit {
         delegate = nil
@@ -182,6 +166,8 @@ final class StreamView: UIScrollView {
                 
         layout.finalizeLayout()
         
+        layoutSize = layoutSize(layer.bounds)
+        
         delegate.streamViewDidLayout(self)
         
         updateVisibility()
@@ -259,7 +245,23 @@ final class StreamView: UIScrollView {
         updateVisibility(withRect: layer.bounds)
     }
     
+    private var layoutSize: CGFloat = 0
+    
+    private func layoutSize(rect: CGRect) -> CGFloat {
+        return layout.horizontal ? rect.height : rect.width
+    }
+    
+    private func reloadIfNeeded(rect: CGRect) -> Bool {
+        if layoutSize != layoutSize(rect) {
+            reload()
+            return true
+        } else {
+            return false
+        }
+    }
+    
     private func updateVisibility(withRect rect: CGRect) {
+        guard !reloadIfNeeded(rect) else { return }
         for item in items {
             let visible = item.frame.intersects(rect)
             if item.visible != visible {

@@ -487,7 +487,9 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         coordinator.animateAlongsideTransition({ (_) in
             self.layoutTopView()
             self.view.layoutIfNeeded()
-            self.dataSource.reload()
+            Dispatch.mainQueue.async({ () in
+                self.dataSource.reload()
+            })
             }) { (_) in   
         }
     }
@@ -623,7 +625,9 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
             let comment: Comment = Comment.contribution()
             block(comment)
             candy.uploadComment(comment)
-            streamView.setMaximumContentOffsetAnimated(true)
+            Dispatch.mainQueue.async({ () in
+                self.streamView.setMaximumContentOffsetAnimated(true)
+            })
         }
     }
     

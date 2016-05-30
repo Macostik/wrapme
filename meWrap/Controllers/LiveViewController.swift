@@ -201,11 +201,12 @@ class LiveViewController: BaseViewController, ComposeBarDelegate {
     internal func insertEvent(event: LiveBroadcast.Event) {
         let eventView = LiveBroadcastEventView(event: event)
         
-        view.add(eventView, { (make) in
+        view.insertSubview(eventView, belowSubview: composeBar)
+        eventView.snp_makeConstraints { (make) in
             make.leading.equalTo(view).inset(12)
             make.trailing.equalTo(joinsCountView.snp_leading).inset(-12)
             make.top.equalTo(composeBar.snp_top).inset(12)
-        })
+        }
         
         eventView.alpha = 0
         self.view.layoutIfNeeded()

@@ -242,7 +242,7 @@ extension ChatViewController: ComposeBarDelegate {
     }
     
     private func markAsReadIfNeeded() -> Bool {
-        if chat.unreadMessages.count > 0 {
+        if chat.unreadMessages.count > 0 || badge?.value > 0 {
             chat.markAsRead()
             badge?.value = 0
             return true

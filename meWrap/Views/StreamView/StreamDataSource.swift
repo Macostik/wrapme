@@ -77,10 +77,15 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, GridLayoutDelegate, S
     
     @IBOutlet var scrollDirectionLayoutPrioritizer: LayoutPrioritizer?
     
+    private var contentSizeCategoryObserver: NotificationObserver?
+    
     convenience init(streamView: StreamView) {
         self.init()
         self.streamView = streamView
         streamView.delegate = self
+        contentSizeCategoryObserver = NotificationObserver.contentSizeCategoryObserver({ [weak self] (_) in
+            self?.reload()
+        })
     }
     
     var numberOfItems: Int?

@@ -217,7 +217,7 @@ final class CommentsDataSource: StreamDataSource<[Comment]> {
         let font = Font.Small + .Regular
         let nameFont = Font.Small + .Bold
         let timeFont = Font.Smaller + .Regular
-        let textHeight = comment.text?.heightWithFont(font, width:Constants.screenWidth - (comment.hasMedia ? 194 : 106)) ?? 0
+        let textHeight = comment.text?.heightWithFont(font, width:Constants.screenWidth - (comment.hasMedia ? 212 : 106)) ?? 0
         return max(textHeight, font.lineHeight) + nameFont.lineHeight + timeFont.lineHeight + CommentVerticalSpacing
     }
     

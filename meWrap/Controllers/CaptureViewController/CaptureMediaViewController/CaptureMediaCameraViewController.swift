@@ -226,6 +226,10 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     }
     
     func startVideoRecording() {
+        
+        AudioSession.category = AVAudioSessionCategoryPlayAndRecord
+        AudioSession.locked = true
+        
         self.videoRecordingCancelled = false
         if videoFilePath.isExistingFilePath {
             _ = try? NSFileManager.defaultManager().removeItemAtPath(videoFilePath)
@@ -322,6 +326,10 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     }
     
     func stopVideoRecording() {
+        
+        AudioSession.locked = false
+        AudioSession.category = AVAudioSessionCategoryAmbient
+        
         if movieFileOutput.recording {
             movieFileOutput.stopRecording()
         } else {

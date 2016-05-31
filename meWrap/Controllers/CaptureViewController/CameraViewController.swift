@@ -158,8 +158,7 @@ class CameraViewController: BaseViewController {
     
     override func viewDidLoad() {
         
-        _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
-        _ = try? AVAudioSession.sharedInstance().setActive(true)
+        AudioSession.category = AVAudioSessionCategoryAmbient
         
         super.viewDidLoad()
         

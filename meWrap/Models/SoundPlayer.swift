@@ -8,6 +8,29 @@
 
 import UIKit
 import AudioToolbox
+import AVFoundation
+
+struct AudioSession {
+    
+    static var locked = false
+    
+    static var category: String? {
+        didSet {
+            if let category = category where category != oldValue && !locked {
+                _ = try? AVAudioSession.sharedInstance().setCategory(category)
+                _ = try? AVAudioSession.sharedInstance().setActive(true)
+            }
+        }
+    }
+    
+    static var mode: String? {
+        didSet {
+            if let mode = mode where mode != oldValue && !locked {
+                _ = try? AVAudioSession.sharedInstance().setMode(mode)
+            }
+        }
+    }
+}
 
 enum Sound: String {
     

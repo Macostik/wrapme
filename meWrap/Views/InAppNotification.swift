@@ -187,7 +187,7 @@ extension InAppNotification {
             toast.imageView.url = candy.asset?.medium
             toast.topLabel.text = String(format: (candy.isVideo ? "just_sent_you_a_new_video" : "just_sent_you_a_new_photo").ls, candy.contributor?.name ?? "")
             toast.middleLabel.text = ""
-            }, handleTouch: { NotificationEntryPresenter.presentEntryRequestingAuthorization(candy, animated: false) })
+            }, handleTouch: { NotificationEntryPresenter.presentEntryWithPermission(candy, animated: false) })
     }
     
     class func showCandyUpdate(candy: Candy) {
@@ -196,7 +196,7 @@ extension InAppNotification {
             toast.imageView.url = candy.asset?.medium
             toast.topLabel.text = String(format: "someone_edited_photo".ls, candy.editor?.name ?? "")
             toast.middleLabel.text = ""
-            }, handleTouch: { NotificationEntryPresenter.presentEntryRequestingAuthorization(candy, animated: false) })
+            }, handleTouch: { NotificationEntryPresenter.presentEntryWithPermission(candy, animated: false) })
     }
     
     class func showCommentAddition(comment: Comment) {
@@ -220,7 +220,7 @@ extension InAppNotification {
                 if let controller = CommentsViewController.current where controller.candy == comment.candy {
                     controller.streamView.scrollToItemPassingTest({ $0.entry === comment }, animated: true)
                 }
-                NotificationEntryPresenter.presentEntryRequestingAuthorization(comment, animated: false)
+                NotificationEntryPresenter.presentEntryWithPermission(comment, animated: false)
         })
     }
     
@@ -230,7 +230,7 @@ extension InAppNotification {
             toast.imageView.url = message.asset?.medium
             toast.topLabel.text = String(format: "\(message.contributor?.name ?? ""):")
             toast.middleLabel.text = message.text
-            }, handleTouch: { NotificationEntryPresenter.presentEntryRequestingAuthorization(message, animated: false) })
+            }, handleTouch: { NotificationEntryPresenter.presentEntryWithPermission(message, animated: false) })
     }
     
     class func showWrapInvitation(wrap: Wrap, inviter: User?) {
@@ -239,7 +239,7 @@ extension InAppNotification {
             toast.avatar.url = inviter?.avatar?.small
             toast.topLabel.text =  String(format: "you're_invited".ls ?? "")
             toast.middleLabel.text = String(format: "invited_you_to".ls, inviter?.name ?? "", wrap.name ?? "")
-            }, handleTouch: { NotificationEntryPresenter.presentEntryRequestingAuthorization(wrap, animated: false) })
+            }, handleTouch: { NotificationEntryPresenter.presentEntryWithPermission(wrap, animated: false) })
     }
     
     class func showLiveBroadcast(liveBroadcast: LiveBroadcast) {
@@ -251,10 +251,10 @@ extension InAppNotification {
             toast.middleLabel.text = String(format: "\(wrap.name ?? "")")
             toast.showBadge(true)
         }) {
-            NotificationEntryPresenter.presentEntryRequestingAuthorization(wrap, animated: false, completionHandler: {
+            NotificationEntryPresenter.presentEntryWithPermission(wrap, animated: false, completionHandler: {
                 let nc = UINavigationController.main
                 (nc.topViewController as? LiveBroadcasterViewController)?.close()
-                if let controller = wrap.viewControllerWithNavigationController(nc) as? WrapViewController {
+                if let controller = wrap.createViewControllerIfNeeded() as? WrapViewController {
                     controller.presentLiveBroadcast(liveBroadcast)
                 }
             })

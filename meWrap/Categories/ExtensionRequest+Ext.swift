@@ -35,7 +35,7 @@ extension ExtensionRequest {
     
     private func presentCandy(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
         if let uid = parameters?["uid"] as? String, let candy = Candy.entry(uid, allowInsert: false) {
-            AuthorizedExecutor.presentEntry(candy.serializeReference())
+            AuthorizedExecutor.presentEntry(candy)
             success(ExtensionReply())
         } else {
             failure(ExtensionError(message: "No entry."))
@@ -44,7 +44,7 @@ extension ExtensionRequest {
     
     private func presentComment(success: (ExtensionReply -> Void), failure: (ExtensionError -> Void)) {
         if let uid = parameters?["uid"] as? String, let comment = Comment.entry(uid, allowInsert: false) {
-            AuthorizedExecutor.presentEntry(comment.serializeReference())
+            AuthorizedExecutor.presentEntry(comment)
             success(ExtensionReply())
         } else {
             failure(ExtensionError(message: "No entry."))

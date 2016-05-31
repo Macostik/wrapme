@@ -104,35 +104,36 @@ class LiveBroadcastNotification: WrapNotification {
     
     var liveBroadcast: LiveBroadcast?
     
-    override func setupEntryData(body: [String : AnyObject]) {
-        if let streamInfo = body["stream_info"] as? [String:String] {
-            super.setupEntryData(streamInfo)
-        }
-    }
-    
     override func createEntry() {
-        if let body = body, let streamInfo = body["stream_info"] as? [String:String] {
-            guard let userUID = streamInfo["user_uid"] else { return }
-            guard let deviceUID = streamInfo["device_uid"] else { return }
-            guard let wrap = Wrap.entry(entryUid) else { return }
+        if let info = body?["stream_info"] as? [String:String] {
+            guard let userUID = info["user_uid"] else { return }
+            guard let deviceUID = info["device_uid"] else { return }
+            guard let wrap = Wrap.entry(info["wrap_uid"]) else { return }
             _entry = wrap
             let broadcast = LiveBroadcast()
             broadcast.broadcaster = User.entry(userUID)
             broadcast.wrap = wrap
-            broadcast.title = streamInfo["title"]
+            broadcast.title = info["title"]
             broadcast.streamName = "\(wrap.uid)-\(userUID)-\(deviceUID)"
             liveBroadcast = wrap.addBroadcast(broadcast)
         }
     }
     
-    override func presentWithIdentifier(identifier: String?) {
-        super.presentWithIdentifier(identifier)
-        let nc = UINavigationController.main
-        weak var controller = _entry?.viewControllerWithNavigationController(nc) as? WrapViewController
-        guard let liveBroadcast = liveBroadcast else { return }
-        Dispatch.mainQueue.after(1.2) { _ in
-            controller?.presentLiveBroadcast(liveBroadcast)
-        }
+    override func presentWithIdentifier(identifier: String?, completionHandler: (() -> ())?) {
+        super.presentWithIdentifier(identifier, completionHandler: {
+            guard let wrap = self._entry, let liveBroadcast = self.liveBroadcast else {
+                completionHandler?()
+                return
+            }
+            Dispatch.mainQueue.after(1.2) { _ in
+                if let controller = wrap.createViewControllerIfNeeded() as? WrapViewController {
+                    controller.presentLiveBroadcast(liveBroadcast)
+                    completionHandler?()
+                } else {
+                    completionHandler?()
+                }
+            }
+        })
     }
     
     override func submit() {

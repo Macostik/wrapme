@@ -32,10 +32,12 @@ struct AuthorizedExecutor {
 
 extension AuthorizedExecutor {
     
-    static func presentEntry(entryReference: [String:String]) {
-        AuthorizedExecutor.execute {
-            if let entry = Entry.deserializeReference(entryReference) {
-                NotificationEntryPresenter.presentEntryRequestingAuthorization(entry, animated:false)
+    static func presentEntry(entry: Entry, completionHandler: (() -> ())? = nil) {
+        AuthorizedExecutor.execute { [weak entry] _ in
+            if let entry = entry {
+                NotificationEntryPresenter.presentEntryWithPermission(entry, animated:false, completionHandler: completionHandler)
+            } else {
+                completionHandler?()
             }
         }
     }

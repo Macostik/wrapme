@@ -84,7 +84,7 @@ class UploadWizardViewController: BaseViewController {
             controllers.append(controller)
         }
         
-        if let controller = wrap?.viewController() {
+        if let controller = wrap?.createViewController() {
             controllers.append(controller)
         }
         

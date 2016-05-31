@@ -40,10 +40,9 @@ class MessageAddNotification: EntryNotification<Message> {
         }
     }
     
-    override func presentWithIdentifier(identifier: String?) {
-        super.presentWithIdentifier(identifier)
-        let nc = UINavigationController.main
-        if let controller = _entry?.viewControllerWithNavigationController(nc) as? WrapViewController {
+    override func presentWithIdentifier(identifier: String?, completionHandler: (() -> ())?) {
+        super.presentWithIdentifier(identifier, completionHandler: completionHandler)
+        if let controller = _entry?.createViewControllerIfNeeded() as? WrapViewController {
             controller.segment = .Chat
             if identifier == "reply" {
                 performWhenLoaded(controller.chatViewController, block: { controller in

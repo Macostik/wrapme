@@ -276,7 +276,7 @@ extension HomeViewController: CaptureMediaViewControllerDelegate {
     func captureViewController(controller: CaptureMediaViewController, didFinishWithAssets assets: [MutableAsset]) {
         dismissViewControllerAnimated(false, completion: nil)
         if let wrap = controller.wrap {
-            if let controller = wrap.viewControllerWithNavigationController(navigationController!) as? WrapViewController {
+            if let controller = wrap.createViewControllerIfNeeded() as? WrapViewController {
                 controller.segment = .Media
                 navigationController?.viewControllers = [self, controller]
             }

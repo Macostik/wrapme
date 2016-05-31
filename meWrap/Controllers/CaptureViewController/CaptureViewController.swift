@@ -48,8 +48,8 @@ class CaptureViewController: UINavigationController, CameraViewControllerDelegat
         return .Slide
     }
     
-    override func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {
-        topViewController?.requestAuthorizationForPresentingEntry(entry, completion: completion)
+    override func requestPresentingPermission(completion: BooleanBlock) {
+        topViewController?.requestPresentingPermission(completion)
     }
     
     func resizeImageWidth() -> CGFloat {

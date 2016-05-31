@@ -36,10 +36,11 @@ enum NotificationType: Int {
 }
 
 class UpdateAvailableNotification: Notification {
-    override func presentWithIdentifier(identifier: String?) {
+    override func presentWithIdentifier(identifier: String?, completionHandler: (() -> ())?) {
         if let url = "itms-apps://itunes.apple.com/app/id\(Constants.appStoreID)".URL {
             UIApplication.sharedApplication().openURL(url)
         }
+        completionHandler?()
     }
 }
 
@@ -111,7 +112,9 @@ class Notification: CustomStringConvertible {
     
     func canBeHandled() -> Bool { return Authorization.active && !originatedByCurrentUser }
     
-    func presentWithIdentifier(identifier: String?) { }
+    func presentWithIdentifier(identifier: String?, completionHandler: (() -> ())? = nil) {
+        completionHandler?()
+    }
     
     func getEntry() -> Entry? { return nil }
 }
@@ -194,9 +197,11 @@ class EntryNotification<T: Entry>: Notification {
     
     override func canBeHandled() -> Bool { return Authorization.active && !originatedByCurrentUser }
     
-    override func presentWithIdentifier(identifier: String?) {
+    override func presentWithIdentifier(identifier: String?, completionHandler: (() -> ())? = nil) {
         if let entry = entry {
-            AuthorizedExecutor.presentEntry(entry.serializeReference())
+            AuthorizedExecutor.presentEntry(entry, completionHandler: completionHandler)
+        } else {
+            completionHandler?()
         }
     }
 }

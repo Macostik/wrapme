@@ -345,11 +345,11 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         }
     }
     
-    override func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {
+    override func requestPresentingPermission(completion: BooleanBlock) {
         if let camera = camera {
-            camera.requestAuthorizationForPresentingEntry(entry, completion: completion)
+            camera.requestPresentingPermission(completion)
         } else {
-            completion((entry as? Comment)?.candy != candy)
+            completion(true)
         }
     }
     
@@ -357,8 +357,8 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         
         if composeBar.superview == nil {
             
-            if let camera = camera, let candy = candy {
-                camera.requestAuthorizationForPresentingEntry(candy, completion: { [weak self] allow in
+            if let camera = camera {
+                camera.requestPresentingPermission({ [weak self] allow in
                     if allow {
                         self?.camera?.removeFromContainerAnimated(false)
                         self?.showComposeBar()

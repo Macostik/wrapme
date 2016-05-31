@@ -532,11 +532,11 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         secondCommentButton.addTarget(self, touchUpInside: #selector(self.comments(_:)))
     }
     
-    override func requestAuthorizationForPresentingEntry(entry: Entry, completion: BooleanBlock) {
+    override func requestPresentingPermission(completion: BooleanBlock) {
         if let commentsViewController = CommentsViewController.current {
-            commentsViewController.requestAuthorizationForPresentingEntry(entry, completion: completion)
+            commentsViewController.requestPresentingPermission(completion)
         } else {
-            super.requestAuthorizationForPresentingEntry(entry, completion: completion)
+            super.requestPresentingPermission(completion)
         }
     }
     

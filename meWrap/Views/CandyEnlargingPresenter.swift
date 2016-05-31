@@ -14,7 +14,7 @@ class CandyEnlargingPresenter: UIView {
     
     class func handleCandySelection(cell: CandyCell, historyItem: HistoryItem? = nil, dismissingView: Candy -> UIView?) -> Void {
         guard let candy = cell.entry else { return }
-        guard let historyViewController = candy.viewController() as? HistoryViewController else { return }
+        guard let historyViewController = candy.createViewController() as? HistoryViewController else { return }
         historyViewController.history = historyItem?.history
         historyViewController.dismissingView = dismissingView
         if candy.valid && cell.imageView.image != nil {

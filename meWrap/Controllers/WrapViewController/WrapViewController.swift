@@ -336,7 +336,7 @@ extension WrapViewController: CaptureMediaViewControllerDelegate {
     func captureViewController(controller: CaptureMediaViewController, didFinishWithAssets assets: [MutableAsset]) {
         let wrap = controller.wrap ?? self.wrap
         if self.wrap != wrap {
-            if let mainViewController = self.navigationController?.viewControllers.first, let wrapViewController = wrap?.viewController() {
+            if let mainViewController = self.navigationController?.viewControllers.first, let wrapViewController = wrap?.createViewController() {
                 self.navigationController?.viewControllers = [mainViewController, wrapViewController]
             }
         }

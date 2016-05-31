@@ -128,6 +128,10 @@ final class LiveBroadcasterViewController: LiveViewController {
             return
         }
         
+        _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
+        _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeVideoRecording)
+        _ = try? AVAudioSession.sharedInstance().setActive(true)
+        
         let goCoder = Streamer.streamer.goCoder
         
         goCoder?.cameraView = view

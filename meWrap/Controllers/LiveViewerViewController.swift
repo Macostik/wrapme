@@ -66,7 +66,7 @@ class LiveViewerViewController: LiveViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.applicationWillResignActive), name: UIApplicationWillResignActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.applicationDidBecomeActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
         
-        _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+        _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
         _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeMoviePlayback)
         _ = try? AVAudioSession.sharedInstance().setActive(true)
         

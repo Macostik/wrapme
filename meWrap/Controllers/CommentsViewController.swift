@@ -287,8 +287,14 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         view.add(contentView) { (make) in
             make.edges.equalTo(view)
         }
-        contentView.addSubview(topView)
-        layoutTopView()
+        contentView.add(topView) { (make) in
+            make.leading.trailing.equalTo(self.contentView)
+            make.top.equalTo(self.contentView)
+        }
+        topView.add(closeButton) { (make) in
+            make.centerY.equalTo(topView)
+            make.trailing.equalTo(topView).inset(5)
+        }
         
         closeButton.setTitleColor(Color.orangeDark, forState: .Highlighted)
         closeButton.addTarget(self, touchUpInside: #selector(self.onClose(_:)))
@@ -354,10 +360,10 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
             if let camera = camera, let candy = candy {
                 camera.requestAuthorizationForPresentingEntry(candy, completion: { [weak self] allow in
                     if allow {
-                        self?.dismissCamera()
+                        self?.camera?.removeFromContainerAnimated(false)
                         self?.showComposeBar()
                     }
-                })
+                    })
             } else {
                 showComposeBar()
             }
@@ -392,20 +398,16 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     func showCamera() {
         let camera = CaptureViewController.captureCommentViewController()
         camera.captureDelegate = self
-        if UIApplication.sharedApplication().statusBarOrientation.isPortrait {
-            disableDismissingByScroll = true
-            bottomView.subviews.all({ $0.removeFromSuperview() })
-            addChildViewController(camera)
-            bottomView.addSubview(camera.view)
-            camera.view.snp_makeConstraints { (make) in
-                make.edges.equalTo(bottomView)
-                make.height.equalTo(camera.view.width)
-            }
-            camera.didMoveToParentViewController(self)
-            view.layoutIfNeeded()
-        } else {
-            UINavigationController.main.presentViewController(camera, animated: false, completion: nil)
+        disableDismissingByScroll = true
+        bottomView.subviews.all({ $0.removeFromSuperview() })
+        addChildViewController(camera)
+        bottomView.addSubview(camera.view)
+        camera.view.snp_makeConstraints { (make) in
+            make.edges.equalTo(bottomView)
+            make.height.equalTo(camera.view.width)
         }
+        camera.didMoveToParentViewController(self)
+        view.layoutIfNeeded()
         self.camera = camera
     }
     
@@ -434,7 +436,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
                 }, failure: { [weak self] (error) -> Void in
                     self?.dataSource.reload()
                     error?.showNonNetworkError()
-            })
+                })
         }
         
         addNotifyReceivers()
@@ -458,52 +460,6 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         userStatusView.hidden = activeContributors.isEmpty
         userStatusView.wrap = wrap
         userStatusView.user = activeContributors.sort({ $0.activeAt > $1.activeAt }).first
-    }
-    
-    func layoutTopView() {
-        let isLandscape = UIApplication.sharedApplication().statusBarOrientation.isLandscape
-        self.topView.hidden = isLandscape
-        self.topView.snp_remakeConstraints(closure: { (make) in
-            make.leading.trailing.equalTo(self.contentView)
-            if isLandscape {
-                make.bottom.equalTo(self.contentView.snp_top).inset(36)
-            } else {
-                make.top.equalTo(self.contentView)
-            }
-        })
-        closeButton.removeFromSuperview()
-        if isLandscape {
-            contentView.add(closeButton) { (make) in
-                make.trailing.top.equalTo(contentView).inset(5)
-            }
-        } else {
-            topView.add(closeButton) { (make) in
-                make.centerY.equalTo(topView)
-                make.trailing.equalTo(topView).inset(5)
-            }
-        }
-    }
-    
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        coordinator.animateAlongsideTransition({ (_) in
-            self.layoutTopView()
-            self.view.layoutIfNeeded()
-            self.dataSource.reload()
-            }) { (_) in   
-        }
-    }
-    
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if CommentViewController.current != nil {
-            return [.Portrait, .PortraitUpsideDown]
-        } else {
-            return childViewControllers.count > 0 ? [.Portrait, .PortraitUpsideDown] : .All
-        }
-    }
-    
-    override func shouldAutorotate() -> Bool {
-        return CommentViewController.current == nil && childViewControllers.count == 0
     }
     
     func panned(sender: UIPanGestureRecognizer) {
@@ -557,7 +513,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     }
     
     var isMaxContentOffset: Bool = false
-
+    
     private func addNotifyReceivers() {
         commentNotifyReceiver = EntryNotifyReceiver<Comment>().setup { [weak self] receiver in
             receiver.container = { return self?.candy }
@@ -668,34 +624,19 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         showCamera()
     }
     
-    private func dismissCamera(completion: (() -> ())? = nil) {
-        if let camera = camera {
-            if let presenter = camera.presentingViewController {
-                presenter.dismissViewControllerAnimated(false, completion: completion)
-            } else {
-                camera.removeFromContainerAnimated(false)
-                completion?()
-            }
-        } else {
-            completion?()
-        }
-    }
-    
     func captureViewController(controller: CaptureCommentViewController, didFinishWithAsset asset: MutableAsset) {
-        dismissCamera {
-            self.showComposeBar()
-            self.view.layoutIfNeeded()
-            self.sendComment { (comment) in
-                comment.asset = asset.uploadableAsset()
-            }
+        camera?.removeFromContainerAnimated(false)
+        showComposeBar()
+        view.layoutIfNeeded()
+        sendComment { (comment) in
+            comment.asset = asset.uploadableAsset()
         }
     }
     
     func captureViewControllerDidCancel(controller: CaptureCommentViewController) {
-        dismissCamera {
-            self.showComposeBar()
-            self.view.layoutIfNeeded()
-        }
+        camera?.removeFromContainerAnimated(false)
+        showComposeBar()
+        view.layoutIfNeeded()
     }
 }
 

@@ -86,32 +86,16 @@ final class CommentViewController: UIViewController {
         contentView.addSubview(indicator)
         contentView.addSubview(imageView)
         
-        if UIApplication.sharedApplication().statusBarOrientation.isPortrait {
-            
-            view.add(contentView) { (make) in
-                make.leading.trailing.equalTo(view).inset(8)
-                make.centerY.equalTo(view)
-            }
-            
-            deleteButton.backgroundColor = UIColor(white: 0, alpha: 0.8)
-            view.add(deleteButton) { (make) in
-                make.leading.equalTo(contentView)
-                make.top.equalTo(contentView.snp_bottom).inset(-8)
-                make.size.equalTo(44)
-            }
-        } else {
-            
-            view.add(contentView) { (make) in
-                make.top.bottom.equalTo(view).inset(8)
-                make.centerX.equalTo(view)
-            }
-            
-            deleteButton.backgroundColor = UIColor(white: 0, alpha: 0.8)
-            view.add(deleteButton) { (make) in
-                make.trailing.equalTo(contentView.snp_leading).inset(-8)
-                make.bottom.equalTo(contentView)
-                make.size.equalTo(44)
-            }
+        view.add(contentView) { (make) in
+            make.leading.trailing.equalTo(view).inset(8)
+            make.centerY.equalTo(view)
+        }
+        
+        deleteButton.backgroundColor = UIColor(white: 0, alpha: 0.8)
+        view.add(deleteButton) { (make) in
+            make.leading.equalTo(contentView)
+            make.top.equalTo(contentView.snp_bottom).inset(-8)
+            make.size.equalTo(44)
         }
         
         imageView.snp_makeConstraints { (make) -> Void in

@@ -433,16 +433,20 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     let contentView = UIView()
     
+    private let rotatingView = UIView()
+    
     override func loadView() {
         self.view = UIView(frame: preferredViewFrame)
+        self.view.backgroundColor = UIColor.blackColor()
         contentView.frame = preferredViewFrame
         let view = self.view.add(contentView) {
             $0.edges.equalTo(self.view)
         }
-        let scrollView = view.add(self.scrollView) {
-            $0.edges.equalTo(view)
-        }
-        scrollView.backgroundColor = UIColor.blackColor()
+        rotatingView.frame = preferredViewFrame
+        view.addSubview(rotatingView)
+        scrollView.frame = preferredViewFrame
+        scrollView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        rotatingView.addSubview(scrollView)
         
         view.add(commentView) {
             $0.leading.trailing.equalTo(view)
@@ -623,6 +627,18 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         if let candy = candy {
             setCandy(candy, direction: .Forward, animated: false)
         }
+        
+        setOrientation(DeviceManager.defaultManager.orientation, animated: false)
+        DeviceManager.defaultManager.subscribe(self) { (owner, orientation) in
+            owner.setOrientation(orientation, animated: true)
+        }
+    }
+    
+    private func setOrientation(orientation: UIDeviceOrientation, animated: Bool) {
+        animate(animated) {
+            rotatingView.transform = orientation.interfaceTransform()
+        }
+        rotatingView.frame = contentView.bounds
     }
     
     private func updateUserStatus(wrap: Wrap) {
@@ -784,20 +800,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         viewController.view.alpha = offset
     }
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if let commentsViewController = CommentsViewController.current ?? CommentViewController.current {
-            return commentsViewController.supportedInterfaceOrientations()
-        } else {
-            return .All
-        }
-    }
-    
     override func shouldAutorotate() -> Bool {
-        if let commentsViewController = CommentsViewController.current ?? CommentViewController.current {
-            return commentsViewController.shouldAutorotate()
-        } else {
-            return true
-        }
+        return false
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -856,12 +860,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     override func back(sender: UIButton) {
         if let candy = candy?.validEntry() {
-            if let presenter = presenter where UIApplication.sharedApplication().statusBarOrientation.isPortrait {
-                navigationController?.popViewControllerAnimated(false)
-                presenter.dismiss(candy)
-            } else {
-                navigationController?.popViewControllerAnimated(false)
-            }
+            navigationController?.popViewControllerAnimated(false)
+            presenter?.dismiss(candy)
         } else {
             navigationController?.popToRootViewControllerAnimated(false)
         }

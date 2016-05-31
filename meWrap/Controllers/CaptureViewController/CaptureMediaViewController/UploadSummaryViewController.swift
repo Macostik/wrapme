@@ -314,8 +314,8 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
     
     func composeBarDidChangeText(composeBar: ComposeBar) {
         var comment = composeBar.text?.trim ?? ""
-        while comment.utf8.count > InstanceCommentLimit {
-            comment = comment.substringToIndex(comment.endIndex.predecessor())
+        while comment.characters.count > InstanceCommentLimit {
+            comment = comment.substringToIndex(comment.startIndex.advancedBy(InstanceCommentLimit))
         }
         if comment != composeBar.text?.trim {
             Toast.show("comment_limit".ls)

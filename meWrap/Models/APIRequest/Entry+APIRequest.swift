@@ -380,15 +380,24 @@ extension Comment {
     
     override func add(success: ObjectBlock?, failure: FailureBlock?) {
         if let candy = candy, let wrap = candy.wrap where candy.uploaded {
+            
             if let asset = asset where asset.original?.isExistingFilePath == true {
+                
+                if !uploaded {
+                    API.commentPlaceholder(self, candy: candy, wrap: wrap).send({ _ in
+                        self.add(success, failure: failure)
+                        }, failure: failure)
+                    return
+                }
+                
                 let metadata = [
                     "Accept" : "application/vnd.ravenpod+json;version=\(Environment.current.version)",
-                    Keys.UID.Device : Authorization.current.deviceUID ?? "",
+                    Keys.UID.Device : Authorization.current.deviceUID,
                     Keys.UID.User : contributor?.uid ?? "",
-                    Keys.UID.Wrap : candy.wrap?.uid ?? "",
-                    Keys.UID.Candy : candy.uid ?? "",
-                    Keys.UID.Upload : locuid ?? "",
-                    Keys.ContributedAt : "\(createdAt.timestamp)",
+                    Keys.UID.Comment : uid,
+                    Keys.UID.Wrap : wrap.uid,
+                    Keys.UID.Candy : candy.uid,
+                    Keys.UID.Upload : locuid ?? ""
                 ]
                 uploadToS3Bucket(.Comment, metadata: metadata, success: success, failure: failure)
             } else {

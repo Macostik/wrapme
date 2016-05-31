@@ -98,6 +98,8 @@ final class CaptureCommentViewController: CaptureViewController {
         }
     }
     
+    weak var uploadMediaCommentViewController: UploadMediaCommentViewController?
+    
     func prepareAndUploadAsset(asset: MutableAsset, @noescape prepare: (() -> ()) -> ()) {
         let controller = UploadMediaCommentViewController()
         prepare({
@@ -106,17 +108,19 @@ final class CaptureCommentViewController: CaptureViewController {
         controller.uploadButton.addTarget(self, touchUpInside: #selector(self.upload))
         controller.closeButton.addTarget(self, touchUpInside: #selector(self.cancel))
         self.pushViewController(controller, animated: false)
+        uploadMediaCommentViewController = controller
     }
     
     @objc private func upload() {
         if let asset = asset {
+            asset.comment = uploadMediaCommentViewController?.composeBar.text?.trim
             asset.saveToAssetsIfNeeded()
             captureDelegate?.captureViewController(self, didFinishWithAsset: asset)
         }
     }
 }
 
-final class UploadMediaCommentViewController: UIViewController {
+final class UploadMediaCommentViewController: UIViewController, ComposeBarDelegate {
     
     let uploadButton = Button(icon: "g", size: 24, textColor: UIColor.whiteColor())
     let closeButton = Button(type: .Custom)
@@ -126,6 +130,8 @@ final class UploadMediaCommentViewController: UIViewController {
     var imageView: ImageView?
     
     let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
+    
+    let composeBar = ComposeBar()
     
     override func loadView() {
         super.loadView()
@@ -167,6 +173,29 @@ final class UploadMediaCommentViewController: UIViewController {
         }
         spinner.startAnimating()
         uploadButton.userInteractionEnabled = false
+        
+        composeBar.backgroundColor = UIColor(white: 0, alpha: 0.7)
+        composeBar.delegate = self
+        composeBar.textView.placeholder = "add_caption".ls
+        composeBar.emojiButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        composeBar.doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        composeBar.doneButton.setTitle("E", forState: .Normal)
+        view.add(composeBar) { (make) in
+            make.leading.trailing.equalTo(view)
+            make.bottom.equalTo(uploadButton.snp_top).inset(-12)
+        }
+    }
+    
+    func composeBar(composeBar: ComposeBar, didFinishWithText text: String) {
+        composeBar.resignFirstResponder()
+        composeBar.setDoneButtonHidden(true, animated: true)
+    }
+    
+    func composeBarDidChangeText(composeBar: ComposeBar) {
+        let comment = composeBar.text?.trim ?? ""
+        while comment.characters.count > Constants.wrapNameLimit {
+            composeBar.text = comment.substringToIndex(comment.startIndex.advancedBy(Constants.wrapNameLimit))
+        }
     }
     
     override func requestPresentingPermission(completion: BooleanBlock) {

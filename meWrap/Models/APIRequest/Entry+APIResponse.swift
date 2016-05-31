@@ -240,8 +240,6 @@ extension Comment {
         
         if let urls = dictionary[Keys.MediaURLs] as? [String : String] {
             self.asset <!= self.asset?.edit(urls, metrics: AssetMetrics.mediaCommentMetrics, type: mediaType)
-        } else {
-            self.asset = nil
         }
         
         if self.candy == nil {

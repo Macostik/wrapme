@@ -338,9 +338,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         streamView.indicatorStyle = .White
         streamView.alwaysBounceVertical = true
         
-        keyboardBottomGuideView = contentView
-        
-        contentView.tapped { [weak self] (_) in
+        streamView.tapped { [weak self] (_) in
             self?.handleTap()
         }
     }
@@ -453,6 +451,8 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
                 }
                 })
         }
+        
+        Keyboard.keyboard.addReceiver(self)
     }
     
     private func updateUserStatus(wrap: Wrap) {
@@ -565,13 +565,28 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     
     override func keyboardWillShow(keyboard: Keyboard) {
         streamView.keepContentOffset {
-            super.keyboardWillShow(keyboard)
+            if camera == nil {
+                contentView.snp_remakeConstraints(closure: { (make) in
+                    make.leading.top.trailing.equalTo(view)
+                    make.bottom.equalTo(view).inset(keyboard.height)
+                })
+            } else {
+                contentView.snp_remakeConstraints(closure: { (make) in
+                    make.size.equalTo(view)
+                    make.centerX.equalTo(view)
+                    make.bottom.equalTo(view).inset(keyboard.height)
+                })
+            }
+            contentView.layoutIfNeeded()
         }
     }
     
     override func keyboardWillHide(keyboard: Keyboard) {
         streamView.keepContentOffset {
-            super.keyboardWillHide(keyboard)
+            contentView.snp_remakeConstraints(closure: { (make) in
+                make.edges.equalTo(view)
+            })
+            contentView.layoutIfNeeded()
         }
     }
     
@@ -629,6 +644,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         showComposeBar()
         view.layoutIfNeeded()
         sendComment { (comment) in
+            comment.text = asset.comment
             comment.asset = asset.uploadableAsset()
         }
     }

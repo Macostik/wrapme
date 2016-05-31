@@ -147,6 +147,20 @@ extension API {
         }).contributionUnavailable(message)
     }
     
+    static func commentPlaceholder(comment: Comment, candy: Candy, wrap: Wrap) -> APIRequest<Comment> {
+        let path = "wraps/\(wrap.uid)/candies/\(candy.uid)/comments/placeholder"
+        return APIRequest(.POST, path, modifier: {
+            $0["upload_uid"] = comment.locuid
+            $0["contributed_at"] = comment.createdAt.timestamp
+            $0["message"] = comment.text
+            }, parser: { response in
+                if let commentObject = response.dictionary("comment") {
+                    comment.map(commentObject, container: candy)
+                }
+                return comment
+        })
+    }
+    
     static func comment(comment: Comment) -> APIRequest<Comment> {
         return APIRequest(.GET, "entities/\(comment.uid)", parser: { response in
             if let dictionary = response.dictionary("comment") {
@@ -170,7 +184,7 @@ extension API {
             comment.remove()
             candy.validEntry()?.commentCount = Int16(response.data["comment_count"] as? Int ?? 0)
             return response
-        }).contributionUnavailable(candy)
+        }).contributionUnavailable(comment)
     }
     
     static func deleteWrap(wrap: Wrap) -> APIRequest<Response> {

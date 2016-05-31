@@ -167,6 +167,8 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     }()
     
     deinit {
+        AudioSession.locked = false
+        AudioSession.category = AVAudioSessionCategoryAmbient
         if videoFilePath.isExistingFilePath {
             _ = try? NSFileManager.defaultManager().removeItemAtPath(self.videoFilePath)
         }
@@ -198,6 +200,8 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AudioSession.category = AVAudioSessionCategoryPlayAndRecord
+        AudioSession.locked = true
         setupWrapView(wrap)
         let recognizer = UILongPressGestureRecognizer(target:self, action:#selector(CaptureMediaCameraViewController.startVideoRecording(_:)))
         recognizer.allowableMovement = takePhotoButton.width
@@ -226,10 +230,6 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     }
     
     func startVideoRecording() {
-        
-        AudioSession.category = AVAudioSessionCategoryPlayAndRecord
-        AudioSession.locked = true
-        
         self.videoRecordingCancelled = false
         if videoFilePath.isExistingFilePath {
             _ = try? NSFileManager.defaultManager().removeItemAtPath(videoFilePath)
@@ -326,10 +326,6 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     }
     
     func stopVideoRecording() {
-        
-        AudioSession.locked = false
-        AudioSession.category = AVAudioSessionCategoryAmbient
-        
         if movieFileOutput.recording {
             movieFileOutput.stopRecording()
         } else {

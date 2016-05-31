@@ -344,3 +344,4 @@
 "yes" = "Yes";
 "no" = "No";
 "end_live_streaming_confirmation" = "Are you sure you want to end the live-streaming?";
+"add_caption" = "Add a caption...";

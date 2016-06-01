@@ -192,8 +192,8 @@ final class UploadMediaCommentViewController: UIViewController, ComposeBarDelega
     }
     
     func composeBarDidChangeText(composeBar: ComposeBar) {
-        let comment = composeBar.text?.trim ?? ""
-        while comment.characters.count > Constants.wrapNameLimit {
+        let comment = composeBar.text ?? ""
+        if comment.characters.count > Constants.wrapNameLimit {
             composeBar.text = comment.substringToIndex(comment.startIndex.advancedBy(Constants.wrapNameLimit))
         }
     }

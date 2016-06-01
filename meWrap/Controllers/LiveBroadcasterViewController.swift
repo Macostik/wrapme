@@ -68,6 +68,7 @@ final class LiveBroadcasterViewController: LiveViewController {
     weak var focusView: UIView?
     
     deinit {
+        stopBroadcast()
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
@@ -241,9 +242,11 @@ final class LiveBroadcasterViewController: LiveViewController {
     }
     
     func stopBroadcast() {
-        NotificationCenter.defaultCenter.setActivity(wrap, type: .Live, inProgress: false)
-        Streamer.streamer.stop()
-        chatSubscription.unsubscribe()
+        if startButton.hidden {
+            NotificationCenter.defaultCenter.setActivity(wrap, type: .Live, inProgress: false)
+            Streamer.streamer.stop()
+            chatSubscription.unsubscribe()
+        }
     }
     
     @IBAction func startBroadcast(sender: UIButton) {
@@ -328,11 +331,6 @@ final class LiveBroadcasterViewController: LiveViewController {
     func toggleCamera() {
         Streamer.streamer.goCoder?.cameraPreview?.switchCamera()
         UIApplication.sharedApplication().idleTimerDisabled = true
-    }
-    
-    internal override func close() {
-        stopBroadcast()
-        super.close()
     }
     
     func composeBar(composeBar: ComposeBar, didFinishWithText text: String) {

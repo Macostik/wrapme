@@ -627,18 +627,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         if let candy = candy {
             setCandy(candy, direction: .Forward, animated: false)
         }
-        
-        setOrientation(DeviceManager.defaultManager.orientation, animated: false)
-        DeviceManager.defaultManager.subscribe(self) { (owner, orientation) in
-            owner.setOrientation(orientation, animated: true)
-        }
-    }
-    
-    private func setOrientation(orientation: UIDeviceOrientation, animated: Bool) {
-        animate(animated) {
-            rotatingView.transform = orientation.interfaceTransform()
-        }
-        rotatingView.frame = contentView.bounds
     }
     
     private func updateUserStatus(wrap: Wrap) {

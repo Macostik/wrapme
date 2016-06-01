@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CandyViewController: BaseViewController {
+class CandyViewController: BaseViewController, EntryNotifying, NetworkNotifying {
     
     weak var candy: Candy?
     
@@ -39,6 +39,21 @@ class CandyViewController: BaseViewController {
         candy?.fetch(nil, failure:nil)
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setOrientation(DeviceManager.defaultManager.orientation, animated: false)
+        DeviceManager.defaultManager.subscribe(self) { (owner, orientation) in
+            owner.setOrientation(orientation, animated: true)
+        }
+    }
+    
+    internal func setOrientation(orientation: UIDeviceOrientation, animated: Bool) {
+        animate(animated) {
+            imageView.transform = orientation.interfaceTransform()
+        }
+        imageView.frame = view.bounds
+    }
+    
     internal func setup(candy: Candy) {
         self.spinner.startAnimating()
         imageView.setURL(candy.asset?.large, success: { [weak self] (image, cached) -> Void in
@@ -61,24 +76,16 @@ class CandyViewController: BaseViewController {
             setup(candy)
         }
     }
-}
-
-extension CandyViewController: EntryNotifying {
     
     func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
-        if let candy = candy {
-            if event == .Default {
-                setup(candy)
-            }
+        if let candy = candy where event == .Default {
+            setup(candy)
         }
     }
     
     func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
         return candy == entry
     }
-}
-
-extension CandyViewController: NetworkNotifying {
     
     func networkDidChangeReachability(network: Network) {
         if let candy = candy where network.reachable {
@@ -97,6 +104,9 @@ final class PhotoCandyViewController: CandyViewController, UIScrollViewDelegate 
         scrollView.delegate = nil
     }
     
+    let contentView = UIView()
+    let rotationView = UIView()
+    
     override func loadView() {
         super.loadView()
         scrollView.delegate = self
@@ -107,12 +117,12 @@ final class PhotoCandyViewController: CandyViewController, UIScrollViewDelegate 
         scrollView.bouncesZoom = false
         scrollView.frame = view.bounds
         scrollView.backgroundColor = UIColor.blackColor()
-        imageView.frame = scrollView.bounds
-        view.insertSubview(scrollView, belowSubview: spinner)
-        scrollView.add(imageView) {
-            $0.center.equalTo(scrollView)
-            $0.size.equalTo(scrollView)
-        }
+        contentView.frame = view.bounds
+        rotationView.frame = view.bounds
+        view.insertSubview(contentView, belowSubview: spinner)
+        contentView.addSubview(rotationView)
+        rotationView.addSubview(scrollView)
+        scrollView.addSubview(imageView)
         scrollView.minimumZoomScale = 1
         scrollView.zoomScale = 1
         scrollView.maximumZoomScale = 2
@@ -122,11 +132,18 @@ final class PhotoCandyViewController: CandyViewController, UIScrollViewDelegate 
         }
         
         scrollView.panGestureRecognizer.enabled = false
-        
-        DeviceManager.defaultManager.subscribe(self) { (owner, value) in
-            owner.scrollView.zoomScale = 1
-            owner.scrollView.panGestureRecognizer.enabled = false
+    }
+    
+    internal override func setOrientation(orientation: UIDeviceOrientation, animated: Bool) {
+        animate(animated) {
+            contentView.transform = orientation.interfaceTransform()
         }
+        contentView.frame = view.bounds
+        rotationView.frame = contentView.bounds
+        scrollView.frame = imageRect(imageView.image)
+        scrollView.zoomScale = 1
+        scrollView.panGestureRecognizer.enabled = false
+        imageView.frame = scrollView.bounds
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -134,20 +151,19 @@ final class PhotoCandyViewController: CandyViewController, UIScrollViewDelegate 
         super.viewWillAppear(animated)
     }
     
-    override func imageLoaded(image: UIImage?) {
+    private func imageRect(image: UIImage?) -> CGRect {
         if let image = image {
-            scrollView.snp_remakeConstraints(closure: { (make) in
-                make.center.equalTo(view)
-                make.width.equalTo(view).priorityHigh()
-                make.width.lessThanOrEqualTo(view)
-                make.height.equalTo(view).priorityHigh()
-                make.height.lessThanOrEqualTo(view)
-                make.width.equalTo(scrollView.snp_height).multipliedBy(image.size.width / image.size.height)
-            })
-            scrollView.layoutIfNeeded()
-            scrollView.zoomScale = 1
-            scrollView.panGestureRecognizer.enabled = false
+            return rotationView.size.fit(image.size).rectCenteredInSize(rotationView.size)
+        } else {
+            return rotationView.bounds
         }
+    }
+    
+    override func imageLoaded(image: UIImage?) {
+        scrollView.frame = imageRect(image)
+        imageView.frame = scrollView.bounds
+        scrollView.zoomScale = 1
+        scrollView.panGestureRecognizer.enabled = false
     }
     
     func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
@@ -165,11 +181,12 @@ final class VideoCandyViewController: CandyViewController {
     
     override func loadView() {
         super.loadView()
+        imageView.frame = view.bounds
         imageView.contentMode = .ScaleAspectFit
+        imageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         view.insertSubview(imageView, belowSubview: spinner)
-        view.insertSubview(playerView, belowSubview: spinner)
-        imageView.snp_makeConstraints { $0.edges.equalTo(view) }
-        playerView.snp_makeConstraints { $0.edges.equalTo(view) }
+        playerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        imageView.addSubview(playerView)
     }
     
     func toggleVolume() {

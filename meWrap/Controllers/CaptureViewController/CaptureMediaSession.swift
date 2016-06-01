@@ -69,19 +69,19 @@ class CaptureMediaSession: AVCaptureSession {
     }
     
     func start() {
-        dispatch_async(queue, {
+        performBlock {
             if !self.running {
                 self.startRunning()
             }
-        })
+        }
     }
     
     func stop() {
-        dispatch_async(queue, {
+        performBlock {
             if self.running {
                 self.stopRunning()
             }
-        })
+        }
     }
     
     func containsOutput(output: AVCaptureOutput) -> Bool {
@@ -172,5 +172,34 @@ extension AVCaptureConnection {
         } else {
             videoOrientation = .Portrait
         }
+    }
+}
+
+class CaptureMovieFileOutput: AVCaptureMovieFileOutput, AVCaptureFileOutputRecordingDelegate {
+    
+    var finishHandler: ((NSURL?, NSError?) ->())?
+    var startHandler: (CaptureMovieFileOutput -> ())?
+    var stopHandler: (() -> ())?
+    
+    func start(url: NSURL, handler: CaptureMovieFileOutput -> ()) {
+        startHandler = handler
+        startRecordingToOutputFileURL(url, recordingDelegate: self)
+    }
+    
+    func stop(handler: () ->()) {
+        stopHandler = handler
+        stopRecording()
+    }
+    
+    func captureOutput(captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAtURL fileURL: NSURL!, fromConnections connections: [AnyObject]!) {
+        startHandler?(self)
+        startHandler = nil
+    }
+    
+    func captureOutput(captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAtURL outputFileURL: NSURL!, fromConnections connections: [AnyObject]!, error: NSError!) {
+        finishHandler?(outputFileURL, error)
+        finishHandler = nil
+        stopHandler?()
+        stopHandler = nil
     }
 }

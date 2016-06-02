@@ -239,8 +239,7 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
         }
         
         imageView.cornerRadius = 78
-        imageView.borderColor = Color.grayLighter
-        imageView.borderWidth = 1
+        imageView.setBorder(color: Color.grayLighter)
         headerView.addSubview(imageView)
         imageView.snp_makeConstraints {
             $0.size.equalTo(156)
@@ -264,8 +263,7 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
         cameraIcon.backgroundColor = UIColor.whiteColor()
         cameraIcon.normalColor = UIColor.whiteColor()
         cameraIcon.highlightedColor = Color.grayLightest
-        cameraIcon.borderColor = Color.orange
-        cameraIcon.borderWidth = 1
+        cameraIcon.setBorder(color: Color.orange)
         cameraIcon.userInteractionEnabled = false
         headerView.addSubview(cameraIcon)
         takeAvatarButton.highlightings = [cameraIcon]

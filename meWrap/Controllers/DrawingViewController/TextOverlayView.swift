@@ -295,16 +295,14 @@ class TransformView: UIView {
         $0.highlightedColor = Color.orangeDark
         $0.backgroundColor = Color.orange
         $0.cornerRadius = 20
-        $0.borderColor = UIColor.whiteColor()
-        $0.borderWidth = 1
+        $0.setBorder()
         $0.clipsToBounds = true
     }
     
     let rotateLabel = specify(Button(icon: "v", size: 20)) {
         $0.backgroundColor = Color.orange
         $0.cornerRadius = 20
-        $0.borderColor = UIColor.whiteColor()
-        $0.borderWidth = 1
+        $0.setBorder()
         $0.clipsToBounds = true
         $0.transform = CGAffineTransformMakeRotation(-37)
     }
@@ -315,8 +313,7 @@ class TransformView: UIView {
         $0.text = ""
         $0.backgroundColor = UIColor.clearColor()
         $0.textAlignment = .Center
-        $0.borderColor = UIColor.whiteColor()
-        $0.borderWidth = 1.0
+        $0.setBorder()
         $0.font = UIFont.systemFontOfSize(150)
     })
     

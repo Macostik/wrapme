@@ -155,13 +155,13 @@ extension UploadWizardViewController: UITextFieldDelegate {
     }
 }
 
-extension UploadWizardViewController: CaptureMediaViewControllerDelegate {
+extension UploadWizardViewController: CaptureCandyViewControllerDelegate {
     
-    func captureViewControllerDidCancel(controller: CaptureMediaViewController) {
+    func captureViewControllerDidCancel(controller: CaptureCandyViewController) {
         dismissViewControllerAnimated(false, completion: nil)
     }
     
-    func captureViewController(controller: CaptureMediaViewController, didFinishWithAssets assets: [MutableAsset]) {
+    func captureViewController(controller: CaptureCandyViewController, didFinishWithAssets assets: [MutableAsset]) {
         dismissViewControllerAnimated(false, completion: nil)
         if let wrap = controller.wrap where self.wrap != wrap {
             self.wrap = wrap

@@ -1,5 +1,5 @@
 //
-//  CaptureMediaViewController.swift
+//  CaptureCandyViewController.swift
 //  meWrap
 //
 //  Created by Sergey Maximenko on 1/17/16.
@@ -11,27 +11,25 @@ import Photos
 
 protocol CaptureWrapContainer: class {
     weak var wrap: Wrap? { get set }
-    weak var wrapView: WrapView? { get set }
+    var wrapView: WrapView { get }
     func setupWrapView(wrap: Wrap?)
 }
 
 extension CaptureWrapContainer {
     func setupWrapView(wrap: Wrap?) {
-        if let wrapView = wrapView {
-            wrapView.wrap = wrap
-            wrapView.hidden = wrap == nil
-        }
+        wrapView.wrap = wrap
+        wrapView.hidden = wrap == nil
     }
 }
 
-protocol CaptureMediaViewControllerDelegate: class {
-    func captureViewController(controller: CaptureMediaViewController, didFinishWithAssets assets: [MutableAsset])
-    func captureViewControllerDidCancel(controller: CaptureMediaViewController)
+protocol CaptureCandyViewControllerDelegate: class {
+    func captureViewController(controller: CaptureCandyViewController, didFinishWithAssets assets: [MutableAsset])
+    func captureViewControllerDidCancel(controller: CaptureCandyViewController)
 }
 
-class CaptureMediaViewController: CaptureViewController {
+class CaptureCandyViewController: CaptureViewController {
         
-    weak var captureDelegate: CaptureMediaViewControllerDelegate?
+    weak var captureDelegate: CaptureCandyViewControllerDelegate?
     
     private var runQueue = RunQueue(limit: 1)
     
@@ -55,7 +53,7 @@ class CaptureMediaViewController: CaptureViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let cameraViewController = cameraViewController as? CaptureMediaCameraViewController {
+        if let cameraViewController = cameraViewController as? CandyCameraViewController {
             cameraViewController.wrap = wrap
             cameraViewController.changeWrap = { [weak self] _ in
                 self?.showWrapPicker()
@@ -71,11 +69,10 @@ class CaptureMediaViewController: CaptureViewController {
     
     func showWrapPicker() {
         view.layoutIfNeeded()
-        Storyboard.WrapPicker.instantiate { (controller) -> Void in
-            controller.delegate = self
-            controller.wrap = wrap
-            controller.showInViewController(self)
-        }
+        let controller = WrapPickerViewController()
+        controller.delegate = self
+        controller.wrap = wrap
+        controller.showInViewController(self)
     }
     
     override func toastAppearanceViewController(toast: UIView?) -> UIViewController {
@@ -155,8 +152,8 @@ class CaptureMediaViewController: CaptureViewController {
         if assetsCount < 0 {
             assetsCount = 0
         }
-        cameraViewController?.takePhotoButton?.setTitle("\(assetsCount)", forState: .Normal)
-        (cameraViewController as? CaptureMediaCameraViewController)?.finishButton?.hidden = assetsCount == 0
+        cameraViewController?.takePhotoButton.setTitle("\(assetsCount)", forState: .Normal)
+        (cameraViewController as? CandyCameraViewController)?.finishButton.hidden = assetsCount == 0
     }
     
     private func showUploadSummary(completionHandler: (Void -> Void)?) {
@@ -174,7 +171,7 @@ class CaptureMediaViewController: CaptureViewController {
         }
         
         if queue.isExecuting {
-            weak var finishButton = (cameraViewController as? CaptureMediaCameraViewController)?.finishButton
+            weak var finishButton = (cameraViewController as? CandyCameraViewController)?.finishButton
             finishButton?.loading = true
             queue.didFinish = {
                 finishButton?.loading = false
@@ -186,7 +183,7 @@ class CaptureMediaViewController: CaptureViewController {
     }
 }
 
-extension CaptureMediaViewController {
+extension CaptureCandyViewController {
     
     func assetsViewController(controller: AssetsViewController, shouldSelectAsset asset: PHAsset) -> Bool {
         if asset.mediaType == .Video && asset.duration >= Constants.maxVideoRecordedDuration + 1 {
@@ -254,18 +251,18 @@ extension CaptureMediaViewController {
         asset.date = NSDate.now()
         asset.canBeSavedToAssets = saveToAlbum
         addAsset(asset, success: { (_) -> Void in
-            controller.takePhotoButton?.userInteractionEnabled = false
+            controller.takePhotoButton.userInteractionEnabled = false
             runQueue.run { (finish) -> Void in
                 asset.setVideoFromRecordAtPath(path, completion: {
                     finish()
-                    controller.takePhotoButton?.userInteractionEnabled = true
+                    controller.takePhotoButton.userInteractionEnabled = true
                 })
             }
             }) { $0?.show() }
     }
 }
 
-extension CaptureMediaViewController: UploadSummaryViewControllerDelegate {
+extension CaptureCandyViewController: UploadSummaryViewControllerDelegate {
     
     func uploadSummaryViewController(controller: UploadSummaryViewController, didDeselectAsset asset: MutableAsset) {
         if let index = assets.indexOf(asset) {
@@ -282,7 +279,7 @@ extension CaptureMediaViewController: UploadSummaryViewControllerDelegate {
     }
     
     private func finish(assets: [MutableAsset]) {
-        let delegate = captureDelegate ?? UINavigationController.main.viewControllers.first as? CaptureMediaViewControllerDelegate
+        let delegate = captureDelegate ?? UINavigationController.main.viewControllers.first as? CaptureCandyViewControllerDelegate
         delegate?.captureViewController(self, didFinishWithAssets: assets)
     }
     
@@ -306,7 +303,7 @@ extension CaptureMediaViewController: UploadSummaryViewControllerDelegate {
     }
 }
 
-extension CaptureMediaViewController: WrapPickerViewControllerDelegate {
+extension CaptureCandyViewController: WrapPickerViewControllerDelegate {
     
     func wrapPickerViewController(controller: WrapPickerViewController, didCreateWrap wrap: Wrap) {
         createdWraps.insert(wrap)
@@ -329,7 +326,7 @@ extension CaptureMediaViewController: WrapPickerViewControllerDelegate {
     }
 }
 
-extension CaptureMediaViewController: EntryNotifying {
+extension CaptureCandyViewController: EntryNotifying {
     
     func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
         if let wrap = self.wrap where createdWraps.contains(wrap) {

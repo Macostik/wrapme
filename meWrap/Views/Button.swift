@@ -224,8 +224,7 @@ extension Button {
     static func expandableCandyAction(action: String, size: CGFloat = 20) -> Button {
         let button = Button(icon: action, size: size)
         button.setTitleColor(Color.grayLight, forState: .Highlighted)
-        button.borderColor = UIColor.whiteColor()
-        button.borderWidth = 1
+        button.setBorder(color: UIColor.whiteColor())
         button.cornerRadius = 22
         return button
     }

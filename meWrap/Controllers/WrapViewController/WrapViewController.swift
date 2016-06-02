@@ -331,9 +331,9 @@ extension WrapViewController {
     }
 }
 
-extension WrapViewController: CaptureMediaViewControllerDelegate {
+extension WrapViewController: CaptureCandyViewControllerDelegate {
     
-    func captureViewController(controller: CaptureMediaViewController, didFinishWithAssets assets: [MutableAsset]) {
+    func captureViewController(controller: CaptureCandyViewController, didFinishWithAssets assets: [MutableAsset]) {
         let wrap = controller.wrap ?? self.wrap
         if self.wrap != wrap {
             if let mainViewController = self.navigationController?.viewControllers.first, let wrapViewController = wrap?.createViewController() {
@@ -349,7 +349,7 @@ extension WrapViewController: CaptureMediaViewControllerDelegate {
         }
     }
     
-    func captureViewControllerDidCancel(controller: CaptureMediaViewController) {
+    func captureViewControllerDidCancel(controller: CaptureCandyViewController) {
         dismissViewControllerAnimated(false, completion: nil)
     }
 }

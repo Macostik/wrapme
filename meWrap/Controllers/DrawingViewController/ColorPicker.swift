@@ -42,8 +42,7 @@ final class ColorPicker: UIView {
         
         targetLabel.userInteractionEnabled = false
         targetLabel.cornerRadius = 3
-        targetLabel.borderColor = UIColor.whiteColor()
-        targetLabel.borderWidth = 1
+        targetLabel.setBorder(color: UIColor.whiteColor())
         targetLabel.layer.shadowColor = UIColor.blackColor().CGColor
         targetLabel.layer.shadowOpacity = 0.5
         targetLabel.layer.shadowOffset = CGSize(width: 0, height: 0)

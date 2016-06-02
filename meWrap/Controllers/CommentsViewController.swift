@@ -24,8 +24,7 @@ class CommentCell: EntryStreamReusableView<Comment>, FlowerMenuConstructor {
         FlowerMenu.sharedMenu.registerView(self)
         text.numberOfLines = 0
         avatar.placeholder.font = UIFont.icons(24)
-        avatar.borderColor = UIColor.whiteColor()
-        avatar.borderWidth = 1
+        avatar.setBorder()
         addSubview(avatar)
         addSubview(name)
         addSubview(date)
@@ -103,8 +102,7 @@ class MediaCommentCell: CommentCell {
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         
         imageView.cornerRadius = 10
-        imageView.borderColor = UIColor.whiteColor()
-        imageView.borderWidth = 1
+        imageView.setBorder()
         imageView.clipsToBounds = true
         add(imageView) { (make) -> Void in
             make.trailing.top.equalTo(self).inset(20)
@@ -270,8 +268,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     
     private let userStatusView = specify(StatusUserAvatarView(backgroundColor: UIColor.clearColor())) {
         $0.cornerRadius = 22
-        $0.borderColor = UIColor.whiteColor()
-        $0.borderWidth = 1
+        $0.setBorder()
     }
     
     private var userNotifyReceiver: EntryNotifyReceiver<User>?

@@ -86,8 +86,7 @@ final class LiveBroadcasterViewController: LiveViewController {
         startButton.addTarget(self, touchUpInside: #selector(self.startBroadcast(_:)))
         startButton.cornerRadius = 36
         startButton.clipsToBounds = true
-        startButton.borderColor = UIColor.whiteColor()
-        startButton.borderWidth = 4
+        startButton.setBorder(width: 4)
         view.add(startButton) { (make) in
             make.centerX.equalTo(view)
             make.bottom.equalTo(view).inset(12)
@@ -104,8 +103,7 @@ final class LiveBroadcasterViewController: LiveViewController {
         toggleCameraButton.highlightedColor = Color.grayLighter
         toggleCameraButton.cornerRadius = 22
         toggleCameraButton.clipsToBounds = true
-        toggleCameraButton.borderColor = UIColor.whiteColor()
-        toggleCameraButton.borderWidth = 2
+        toggleCameraButton.setBorder(width: 2)
         toggleCameraButton.addTarget(self, touchUpInside: #selector(self.toggleCamera))
         view.add(toggleCameraButton) { (make) in
             make.trailing.equalTo(view).inset(12)
@@ -369,8 +367,7 @@ final class LiveBroadcasterViewController: LiveViewController {
             focusView.center = point
             focusView.userInteractionEnabled = false
             focusView.backgroundColor = UIColor.clearColor()
-            focusView.borderColor = Color.orange.colorWithAlphaComponent(0.5)
-            focusView.borderWidth = 1
+            focusView.setBorder(color: Color.orange.colorWithAlphaComponent(0.5))
             view.addSubview(focusView)
             self.focusView = focusView
             UIView.animateWithDuration(0.33, delay: 1.0, options: .CurveEaseInOut, animations: { () -> Void in

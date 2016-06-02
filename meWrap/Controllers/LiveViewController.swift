@@ -111,8 +111,7 @@ class LiveViewController: BaseViewController, ComposeBarDelegate {
         let closeButton = Button(icon: "!", size: 17, textColor: UIColor.whiteColor())
         closeButton.cornerRadius = 18
         closeButton.clipsToBounds = true
-        closeButton.borderColor = UIColor.whiteColor()
-        closeButton.borderWidth = 2
+        closeButton.setBorder(width: 2)
         closeButton.addTarget(self, touchUpInside: #selector(self.close(_:)))
         closeButton.backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.7)
         closeButton.normalColor = Color.grayDarker.colorWithAlphaComponent(0.7)

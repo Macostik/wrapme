@@ -52,8 +52,7 @@ final class SingleAddressBookRecordCell: AddressBookRecordCell {
     private let statusButton = specify(Button(type: .Custom)) {
         $0.titleLabel?.font = UIFont.systemFontOfSize(11)
         $0.cornerRadius = 5
-        $0.borderColor = Color.greenOnline
-        $0.borderWidth = 1
+        $0.setBorder(color: Color.greenOnline)
         $0.userInteractionEnabled = false
         $0.setTitleColor(Color.greenOnline, forState: .Normal)
         $0.clipsToBounds = true

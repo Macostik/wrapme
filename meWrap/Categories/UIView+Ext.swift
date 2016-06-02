@@ -108,6 +108,11 @@ extension UIView {
     
     // MARK: - QuartzCore
     
+    func setBorder(color color: UIColor = UIColor.whiteColor(), width: CGFloat = 1) {
+        layer.borderColor = color.CGColor
+        layer.borderWidth = width
+    }
+    
     @IBInspectable var borderColor: UIColor? {
         set { layer.borderColor = newValue?.CGColor }
         get {

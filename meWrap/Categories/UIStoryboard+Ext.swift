@@ -30,14 +30,10 @@ struct Storyboard {
     static let Friends = StoryboardObject<ContributorsViewController>("friends")
     static let UploadWizard = StoryboardObject<UploadWizardViewController>("uploadWizard")
     static let UploadWizardEnd = StoryboardObject<UploadWizardEndViewController>("uploadWizardEnd")
-    static let WrapPicker = StoryboardObject<WrapPickerViewController>("wrapPicker", UIStoryboard.camera)
     static let ReportCandy = StoryboardObject<ReportViewController>("report")
-    static let Comments = StoryboardObject<CommentsViewController>("comments")
     static let HistoryItem = StoryboardObject<HistoryItemViewController>("historyItem")
     static let Wrap = StoryboardObject<WrapViewController>("wrap")
     static let WrapList = StoryboardObject<WrapListViewController>("wrapList")
-    static let PhotoCandy = StoryboardObject<CandyViewController>("photoCandy")
-    static let VideoCandy = StoryboardObject<CandyViewController>("videoCandy")
     static let SignupFlow = StoryboardObject<SignupFlowViewController>("signupFlow", UIStoryboard.signUp)
 }
 
@@ -45,7 +41,6 @@ extension UIStoryboard {
     
     @nonobjc static let main = UIStoryboard(name: "Main", bundle: nil)
     @nonobjc static let signUp = UIStoryboard(name: "SignUp", bundle: nil)
-    @nonobjc static let camera = UIStoryboard(name: "Camera", bundle: nil)
     @nonobjc static let introduction = UIStoryboard(name: "Introduction", bundle: nil)
     
     func present(animated: Bool) {

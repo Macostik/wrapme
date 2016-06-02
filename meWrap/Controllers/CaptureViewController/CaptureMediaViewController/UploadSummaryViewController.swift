@@ -46,11 +46,7 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
         }
     }
     
-    weak var wrapView: WrapView? {
-        didSet {
-            setupWrapView(wrap)
-        }
-    }
+    let wrapView = WrapView()
     
     var changeWrap: (Void -> Void)?
     
@@ -116,9 +112,8 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
             make.trailing.equalTo(topView).inset(8)
         }
         
-        let wrapView = WrapView()
         wrapView.selectButton.addTarget(self, touchUpInside: #selector(self.selectWrap(_:)))
-        self.wrapView = topView.add(wrapView) { (make) in
+        topView.add(wrapView) { (make) in
             make.leading.equalTo(backButton.snp_trailing).offset(12)
             make.trailing.lessThanOrEqualTo(uploadButton.snp_leading).inset(-8)
             make.top.bottom.equalTo(topView)
@@ -173,6 +168,7 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupWrapView(wrap)
         streamView.layout = HorizontalStreamLayout()
         view.addGestureRecognizer(self.scrollView.panGestureRecognizer)
         let metrics = dataSource.addMetrics(StreamMetrics<EditAssetCell>(size: 92))

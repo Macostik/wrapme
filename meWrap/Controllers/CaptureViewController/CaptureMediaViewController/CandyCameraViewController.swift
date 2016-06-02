@@ -1,5 +1,5 @@
 //
-//  CaptureMediaCameraViewController.swift
+//  CandyCameraViewController.swift
 //  meWrap
 //
 //  Created by Sergey Maximenko on 1/20/16.
@@ -123,9 +123,7 @@ class VideoRecordControl: UIView {
     }
 }
 
-class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContainer {
-
-    @IBOutlet weak var finishButton: Button?
+class MediaCameraViewController: CameraViewController {
     
     var startVideoRecordingTask: DispatchTask?
     weak var audioInput: AVCaptureDeviceInput?
@@ -151,59 +149,14 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
         }
     }
     
-    weak var wrap: Wrap? {
-        didSet {
-            if viewAppeared {
-                NotificationCenter.defaultCenter.setActivity(oldValue, type: .Photo, inProgress: false)
-            }
-            
-            if isViewLoaded() {
-                setupWrapView(wrap)
-            }
-            
-            if viewAppeared {
-                NotificationCenter.defaultCenter.setActivity(wrap, type: .Photo, inProgress: true)
-            }
-        }
-    }
-    
-    weak var wrapView: WrapView?
-    
-    var changeWrap: (Void -> Void)?
-        
-    @IBAction func selectWrap(sender: UIButton) {
-        changeWrap?()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         AudioSession.category = AVAudioSessionCategoryPlayAndRecord
         AudioSession.locked = true
-        setupWrapView(wrap)
-        let recognizer = UILongPressGestureRecognizer(target:self, action:#selector(CaptureMediaCameraViewController.startVideoRecording(_:)))
+        let recognizer = UILongPressGestureRecognizer(target:self, action:#selector(CandyCameraViewController.startVideoRecording(_:)))
         recognizer.allowableMovement = takePhotoButton.width
         recognizer.delegate = self
         takePhotoButton.addGestureRecognizer(recognizer)
-        wrapView?.selectButton.addTarget(self, touchUpInside: #selector(self.selectWrap(_:)))
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        NotificationCenter.defaultCenter.setActivity(wrap, type: .Photo, inProgress: true)
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        NotificationCenter.defaultCenter.setActivity(wrap, type: .Photo, inProgress: false)
-    }
-    
-    internal func updateVideoRecordingViews(recording: Bool) {
-        bottomView.hidden = recording
-        assetsViewController.view.hidden = recording
-        rotateButton.hidden = recording
-        cropAreaView?.hidden = recording
-        flashModeControl.alpha = recording ? 0.0 : 1.0
-        wrapView?.superview?.hidden = recording
     }
     
     func startVideoRecording() {
@@ -292,7 +245,7 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
         output.finishHandler = { outputURL, error in
             videoRecordControl.collapse(true) {
                 self.prepareSessionForPhotoTaking()
-                self.updateVideoRecordingViews(false)
+                self.photoTakingView.hidden = false
                 videoRecordingView.removeFromSuperview()
                 self.takePhotoButton.hidden = false
                 if self.videoRecordingCancelled || (error != nil && error?.code != AVError.MaximumDurationReached.rawValue) {
@@ -323,7 +276,6 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     }
     
     private func prepareSessionForVideoRecording(preparingCompletion: Block) {
-        NotificationCenter.defaultCenter.setActivity(wrap, type: .Video, inProgress: true)
         VolumeChangeObserver.sharedObserver.unregister()
         if !session.containsOutput(movieFileOutput) {
             blurCamera({ (completion) -> Void in
@@ -365,7 +317,6 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     }
     
     private func prepareSessionForPhotoTaking() {
-        NotificationCenter.defaultCenter.setActivity(wrap, type: .Photo, inProgress: true)
         registerOnVolumeChange()
         let output = stillImageOutput
         if !session.containsOutput(output) {
@@ -398,8 +349,8 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
             })
         } else {
             prepareSessionForPhotoTaking()
-            if bottomView.hidden {
-                updateVideoRecordingViews(false)
+            if photoTakingView.hidden {
+                self.photoTakingView.hidden = false
             }
             startVideoRecordingTask = nil
         }
@@ -415,7 +366,7 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
         
         switch sender.state {
         case .Began:
-            updateVideoRecordingViews(true)
+            self.photoTakingView.hidden = true
             prepareSessionForVideoRecording {
                 self.startVideoRecordingTask = DispatchTask(0.5, { [weak self] _ in
                     self?.startVideoRecording()
@@ -440,6 +391,112 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
         default: break
         }
     }
+}
+
+class CandyCameraViewController: MediaCameraViewController, CaptureWrapContainer {
+    
+    let finishButton = Button(preset: .Large, weight: .Bold, textColor: Color.orange)
+    
+    weak var wrap: Wrap? {
+        didSet {
+            if viewAppeared {
+                NotificationCenter.defaultCenter.setActivity(oldValue, type: .Photo, inProgress: false)
+            }
+            
+            if isViewLoaded() {
+                setupWrapView(wrap)
+            }
+            
+            if viewAppeared {
+                NotificationCenter.defaultCenter.setActivity(wrap, type: .Photo, inProgress: true)
+            }
+        }
+    }
+    
+    var wrapView = WrapView()
+    
+    var changeWrap: (Void -> Void)?
+    
+    @IBAction func selectWrap(sender: UIButton) {
+        changeWrap?()
+    }
+    
+    override func loadView() {
+        super.loadView()
+        
+        let bottomGradient = GradientView(startColor: UIColor.blackColor(), contentMode: .Bottom)
+        photoTakingView.insertSubview(bottomGradient, atIndex: 0)
+        bottomGradient.snp_makeConstraints { (make) in
+            make.leading.trailing.bottom.equalTo(photoTakingView)
+            make.height.equalTo(48)
+        }
+        
+        let videoTip = Label(preset: .Smaller, weight: .Regular, textColor: UIColor.whiteColor())
+        videoTip.text = "video_suggestion".ls
+        photoTakingView.add(videoTip) { (make) in
+            make.centerX.equalTo(photoTakingView)
+            make.bottom.equalTo(photoTakingView).inset(14)
+        }
+        
+        takePhotoButton.snp_makeConstraints { (make) in
+            make.size.equalTo(72)
+            make.centerX.equalTo(view)
+            make.bottom.equalTo(videoTip.snp_top).inset(-14)
+        }
+        
+        finishButton.setTitle("next".ls, forState: .Normal)
+        finishButton.addTarget(self, touchUpInside: #selector(self.finish(_:)))
+        photoTakingView.add(finishButton) { (make) in
+            make.trailing.equalTo(photoTakingView).inset(8)
+            make.centerY.equalTo(takePhotoButton)
+        }
+        
+        addCropAreaView()
+        
+        let topGradient = GradientView(startColor: UIColor.blackColor(), contentMode: .Top)
+        photoTakingView.insertSubview(topGradient, atIndex: 0)
+        topGradient.snp_makeConstraints { (make) in
+            make.leading.trailing.top.equalTo(photoTakingView)
+            make.height.equalTo(64)
+        }
+        
+        topGradient.add(wrapView) { (make) in
+            make.leading.equalTo(backButton.snp_trailing).inset(-12)
+            make.top.bottom.equalTo(topGradient)
+            make.trailing.lessThanOrEqualTo(topGradient).inset(12)
+        }
+        
+        backButton.snp_makeConstraints { (make) in
+            make.centerY.equalTo(topGradient)
+            make.leading.equalTo(topGradient).inset(8)
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupWrapView(wrap)
+        wrapView.selectButton.addTarget(self, touchUpInside: #selector(self.selectWrap(_:)))
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        NotificationCenter.defaultCenter.setActivity(wrap, type: .Photo, inProgress: true)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.defaultCenter.setActivity(wrap, type: .Photo, inProgress: false)
+    }
+    
+    private override func prepareSessionForPhotoTaking() {
+        NotificationCenter.defaultCenter.setActivity(wrap, type: .Photo, inProgress: true)
+        super.prepareSessionForPhotoTaking()
+    }
+    
+    private override func prepareSessionForVideoRecording(preparingCompletion: Block) {
+        NotificationCenter.defaultCenter.setActivity(wrap, type: .Video, inProgress: true)
+        super.prepareSessionForVideoRecording(preparingCompletion)
+    }
     
     @IBAction func finish(sender: AnyObject?) {
         delegate?.cameraViewControllerDidFinish?(self)
@@ -447,6 +504,6 @@ class CaptureMediaCameraViewController: CameraViewController, CaptureWrapContain
     
     override func animateOrientationChange(transform: CGAffineTransform) {
         super.animateOrientationChange(transform)
-        finishButton?.transform = transform
+        finishButton.transform = transform
     }
 }

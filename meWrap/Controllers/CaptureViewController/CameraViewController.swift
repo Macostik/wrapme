@@ -19,8 +19,8 @@ class CameraView: UIView {
         return AVCaptureVideoPreviewLayer.self
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    convenience init() {
+        self.init(frame: CGRect.zero)
         self.layer.videoGravity = AVLayerVideoGravityResizeAspectFill
     }
 }
@@ -36,8 +36,6 @@ class CameraView: UIView {
 }
 
 class CameraViewController: BaseViewController {
-    
-    @IBOutlet weak var takePhotoButton: UIButton!
     
     var handleImageSetup: Block?
     
@@ -94,21 +92,21 @@ class CameraViewController: BaseViewController {
         }
     }
     
+    let takePhotoButton = Button(preset: .XLarge, weight: .Bold, textColor: UIColor.whiteColor())
     @IBOutlet weak var cropAreaView: UIView?
-    @IBOutlet weak var cameraView: CameraView!
-    @IBOutlet weak var bottomView: UIView!
+    internal let cameraView = CameraView()
+    internal let photoTakingView = UIView()
     internal let flashModeControl = FlashModeControl()
     internal let rotateButton = Button(icon: "}", size: 18, textColor: UIColor.whiteColor())
     weak var zoomLabel: Label?
-    @IBOutlet weak var backButton: UIButton!
+    internal let backButton = Button(icon: "w", size: 24, textColor: UIColor.whiteColor())
     
-    internal lazy var assetsViewController: AssetsViewController = AssetsViewController(panningView: self.cameraView)
+    internal lazy var assetsViewController: AssetsViewController = AssetsViewController(panningView: self.photoTakingView)
     
     private lazy var focusView: UIView = specify(UIView(frame:CGRectMake(0, 0, 67, 67))) {
         $0.userInteractionEnabled = true
         $0.backgroundColor = UIColor.clearColor()
-        $0.borderColor = Color.orange.colorWithAlphaComponent(0.5)
-        $0.borderWidth = 1
+        $0.setBorder(color: Color.orange.colorWithAlphaComponent(0.5))
         $0.userInteractionEnabled = false
     }
     
@@ -122,13 +120,31 @@ class CameraViewController: BaseViewController {
     override func loadView() {
         super.loadView()
         
+        view.backgroundColor = UIColor.blackColor()
+        
+        view.add(cameraView) { (make) in
+            make.edges.equalTo(view)
+        }
+        
+        view.add(photoTakingView) { (make) in
+            make.edges.equalTo(view)
+        }
+        
+        takePhotoButton.addTarget(self, touchUpInside: #selector(self.shot(_:)))
+        takePhotoButton.backgroundColor = Color.orange
+        takePhotoButton.normalColor = Color.orange
+        takePhotoButton.highlightedColor = Color.orangeDark
+        takePhotoButton.cornerRadius = 36
+        takePhotoButton.setBorder(width: 2)
+        view.addSubview(takePhotoButton)
+        
         assetsViewController.delegate = delegate
         assetsViewController.isAvatar = isAvatar
         
-        view.insertSubview(assetsViewController.view, belowSubview: bottomView)
+        photoTakingView.addSubview(assetsViewController.view)
         assetsViewController.view.snp_makeConstraints { (make) in
-            make.leading.trailing.equalTo(view)
-            make.bottom.equalTo(bottomView.snp_top)
+            make.leading.trailing.equalTo(photoTakingView)
+            make.bottom.equalTo(takePhotoButton.snp_top).inset(-12)
         }
         
         rotateButton.backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.7)
@@ -136,23 +152,39 @@ class CameraViewController: BaseViewController {
         rotateButton.highlightedColor = Color.grayLighter
         rotateButton.cornerRadius = 22
         rotateButton.clipsToBounds = true
-        rotateButton.borderColor = UIColor.whiteColor()
-        rotateButton.borderWidth = 2
+        rotateButton.setBorder(width: 1)
         rotateButton.exclusiveTouch = true
         rotateButton.addTarget(self, touchUpInside: #selector(self.rotateCamera(_:)))
-        view.add(rotateButton) { (make) in
-            make.trailing.equalTo(view).inset(8)
+        photoTakingView.add(rotateButton) { (make) in
+            make.trailing.equalTo(photoTakingView).inset(8)
             make.bottom.equalTo(assetsViewController.view.snp_top).inset(-8)
             make.size.equalTo(44)
         }
         
         flashModeControl.backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.7)
         flashModeControl.cornerRadius = 22
-        flashModeControl.borderColor = UIColor.whiteColor()
-        flashModeControl.borderWidth = 2
-        view.add(flashModeControl) { (make) in
-            make.leading.equalTo(view).inset(8)
+        flashModeControl.setBorder(width: 1)
+        photoTakingView.add(flashModeControl) { (make) in
+            make.leading.equalTo(photoTakingView).inset(8)
             make.bottom.equalTo(assetsViewController.view.snp_top).inset(-8)
+        }
+        
+        backButton.setTitleColor(UIColor.whiteColor().darkerColor(), forState: .Highlighted)
+        backButton.addTarget(self, action: #selector(self.cancel(_:)), forControlEvents: .TouchUpInside)
+        photoTakingView.addSubview(backButton)
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.focusing(_:))))
+        view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(self.zooming(_:))))
+    }
+    
+    internal func addCropAreaView() {
+        let cropAreaView = UIView()
+        cropAreaView.setBorder(color: UIColor(white: 1, alpha: 0.25))
+        cropAreaView.clipsToBounds = true
+        photoTakingView.insertSubview(cropAreaView, atIndex: 0)
+        cropAreaView.snp_makeConstraints { (make) in
+            make.leading.trailing.centerY.equalTo(photoTakingView)
+            make.height.equalTo(cropAreaView.snp_width)
         }
     }
     
@@ -161,6 +193,16 @@ class CameraViewController: BaseViewController {
         AudioSession.category = AVAudioSessionCategoryAmbient
         
         super.viewDidLoad()
+        
+        #if DEBUG
+            let samplePhotoButton = DebugButton(type: .System)
+            samplePhotoButton.setTitle("Sample", forState: .Normal)
+            samplePhotoButton.addTarget(self, touchUpInside: #selector(self.getSamplePhoto(_:)))
+            photoTakingView.add(samplePhotoButton) {
+                $0.centerX.equalTo(photoTakingView)
+                $0.bottom.equalTo(assetsViewController.view.snp_top).inset(-20)
+            }
+        #endif
         
         DeviceManager.defaultManager.subscribe(self) { (owner, orientation) in
             owner.applyDeviceOrientation(orientation)
@@ -396,7 +438,7 @@ extension CameraViewController { // MARK: - Actions
             zoomLabel.text = "\(Int(zoomScale))x"
             view.add(zoomLabel, { (make) in
                 make.trailing.equalTo(view).inset(8)
-                make.bottom.equalTo(bottomView.snp_top)
+                make.bottom.equalTo(takePhotoButton.snp_top).inset(-12)
             })
             self.zoomLabel = zoomLabel
         } else if sender.state == .Changed {

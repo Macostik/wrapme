@@ -43,11 +43,10 @@ class CaptureAvatarViewController: CaptureViewController {
     }
     
     private func editImage(image: UIImage, completionHandler: UIImage -> Void) {
-        if let controller = UIStoryboard.camera["editAvatar"] as? EditAvatarViewController {
-            controller.image = image;
-            controller.completionHandler = completionHandler
-            pushViewController(controller, animated: false)
-        }
+        let controller = EditAvatarViewController()
+        controller.image = image
+        controller.completionHandler = completionHandler
+        pushViewController(controller, animated: false)
     }
     
     func handleAsset(asset: PHAsset) {
@@ -57,7 +56,7 @@ class CaptureAvatarViewController: CaptureViewController {
                 self?.handleImage(image, saveToAlbum: false)
             }
             self?.view.userInteractionEnabled = true
-        })
+            })
     }
 }
 
@@ -85,15 +84,81 @@ extension CaptureAvatarViewController {
     }
 }
 
+class AvatarCameraViewController: CameraViewController {
+    
+    override func loadView() {
+        super.loadView()
+        
+        takePhotoButton.snp_makeConstraints { (make) in
+            make.size.equalTo(72)
+            make.centerX.equalTo(view)
+            make.bottom.equalTo(view).inset(12)
+        }
+        backButton.snp_makeConstraints { (make) in
+            make.centerY.equalTo(takePhotoButton)
+            make.leading.equalTo(photoTakingView).inset(12)
+        }
+        
+        addCropAreaView()
+    }
+}
+
 class EditAvatarViewController: BaseViewController {
     
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var editButton: UIButton!
-    @IBOutlet weak var bottomView: UIView!
+    private let imageView = UIImageView()
+    private let editButton = Button.candyAction("R", color: Color.blue, size: 24)
+    private let doneButton = Button(icon: "E", size: 30, textColor: UIColor.whiteColor())
+    private let cancelButton = Button(icon: "!", size: 24, textColor: UIColor.whiteColor())
     
     var image: UIImage?
     
     var completionHandler: (UIImage -> Void)?
+    
+    override func loadView() {
+        super.loadView()
+        view.backgroundColor = UIColor.blackColor()
+        imageView.contentMode = .ScaleAspectFit
+        
+        let bottomView = view.add(UIView()) { (make) in
+            make.leading.bottom.trailing.equalTo(view)
+            make.height.equalTo(142)
+        }
+        
+        view.add(imageView) { (make) in
+            make.leading.top.trailing.equalTo(view)
+            make.bottom.equalTo(bottomView.snp_top)
+        }
+        
+        editButton.cornerRadius = 22
+        editButton.addTarget(self, touchUpInside: #selector(self.edit(_:)))
+        
+        doneButton.highlightedColor = Color.grayLight
+        doneButton.cornerRadius = 30
+        doneButton.setBorder(width: 2)
+        doneButton.addTarget(self, touchUpInside: #selector(self.done(_:)))
+        
+        cancelButton.highlightedColor = Color.grayLight
+        cancelButton.cornerRadius = 30
+        cancelButton.setBorder(width: 2)
+        cancelButton.addTarget(self, touchUpInside: #selector(self.cancel(_:)))
+        
+        view.add(editButton) { (make) in
+            make.trailing.bottom.equalTo(imageView).inset(12)
+            make.size.equalTo(44)
+        }
+        
+        bottomView.add(doneButton) { (make) in
+            make.centerY.equalTo(bottomView)
+            make.centerX.equalTo(bottomView).inset(78)
+            make.size.equalTo(60)
+        }
+        
+        bottomView.add(cancelButton) { (make) in
+            make.centerY.equalTo(bottomView)
+            make.centerX.equalTo(bottomView).inset(-78)
+            make.size.equalTo(60)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,8 +178,8 @@ class EditAvatarViewController: BaseViewController {
             self?.image = image
             self?.imageView.image = image
             self?.navigationController?.popViewControllerAnimated(false)
-            }) { [weak self] _ in
-                self?.navigationController?.popViewControllerAnimated(false)
+        }) { [weak self] _ in
+            self?.navigationController?.popViewControllerAnimated(false)
         }
         navigationController?.pushViewController(controller, animated:false)
     }

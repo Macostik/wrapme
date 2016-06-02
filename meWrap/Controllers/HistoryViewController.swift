@@ -31,12 +31,10 @@ final class CommentView: UIView {
     
     func layout() {
         text.numberOfLines = 2
-        avatar.borderColor = UIColor.whiteColor()
-        avatar.borderWidth = 1
+        avatar.setBorder()
         avatar.placeholder.font = UIFont.icons(24)
         imageView.cornerRadius = 10
-        imageView.borderColor = UIColor.whiteColor()
-        imageView.borderWidth = 1
+        imageView.setBorder()
         imageView.clipsToBounds = true
         snp_makeConstraints { (make) in
             make.height.equalTo(0)
@@ -272,8 +270,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     private let contributorAvatar = specify(UserAvatarView(cornerRadius: 24)) {
-        $0.borderColor = UIColor.whiteColor()
-        $0.borderWidth = 1
+        $0.setBorder()
     }
     private let contributorName = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
     private let contributedAt = Label(preset: .Smaller, weight: .Regular, textColor: Color.grayLighter)
@@ -281,8 +278,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     private lazy var contributionStatus = EntryStatusIndicator(color: Color.orange)
     
     private lazy var editorAvatar = specify(UserAvatarView(cornerRadius: 24)) {
-        $0.borderColor = UIColor.whiteColor()
-        $0.borderWidth = 1
+        $0.setBorder()
     }
     private lazy var editorName = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
     private lazy var editedAt = Label(preset: .Smaller, weight: .Regular, textColor: Color.grayLighter)
@@ -419,8 +415,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     
     private let userStatusView = specify(StatusUserAvatarView(backgroundColor: UIColor.clearColor())) {
         $0.cornerRadius = 22
-        $0.borderColor = UIColor.whiteColor()
-        $0.borderWidth = 1
+        $0.setBorder()
     }
     
     private var cachedCandyViewControllers = [Candy : CandyViewController]()

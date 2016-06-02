@@ -15,19 +15,19 @@ class CaptureViewController: UINavigationController, CameraViewControllerDelegat
     
     var friendsInvited = false
     
-    class func captureMediaViewController(wrap: Wrap?) -> CaptureMediaViewController {
-        let controller = CaptureMediaViewController(cameraViewController: UIStoryboard.camera["mediaCamera"] as! CameraViewController)
+    static func captureMediaViewController(wrap: Wrap?) -> CaptureCandyViewController {
+        let controller = CaptureCandyViewController(cameraViewController: CandyCameraViewController())
         controller.wrap = wrap
         return controller
     }
     
-    class func captureAvatarViewController() -> CaptureAvatarViewController {
-        let cameraViewController = UIStoryboard.camera["avatarCamera"] as! CameraViewController
+    static func captureAvatarViewController() -> CaptureAvatarViewController {
+        let cameraViewController = AvatarCameraViewController()
         return CaptureAvatarViewController(cameraViewController: cameraViewController, defaultPosition: .Front)
     }
     
-    class func captureCommentViewController() -> CaptureCommentViewController {
-        let cameraViewController = UIStoryboard.camera["commentCamera"] as! CameraViewController
+    static func captureCommentViewController() -> CaptureCommentViewController {
+        let cameraViewController = CommentCameraViewController()
         return CaptureCommentViewController(cameraViewController: cameraViewController, defaultPosition: .Front)
     }
     

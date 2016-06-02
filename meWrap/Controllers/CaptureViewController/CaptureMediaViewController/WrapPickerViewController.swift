@@ -71,13 +71,14 @@ class WrapPickerViewController: BaseViewController {
     
     weak var wrap: Wrap?
     
-    @IBOutlet weak var streamView: StreamView!
+    private let streamView = StreamView()
     
-    lazy var dataSource: WrapPickerDataSource = WrapPickerDataSource(streamView: self.streamView)
+    private lazy var dataSource: WrapPickerDataSource = WrapPickerDataSource(streamView: self.streamView)
     
-    @IBOutlet weak var wrapNameTextField: UITextField?
-    
-    @IBOutlet var editingPrioritizer: LayoutPrioritizer?
+    private let wrapNameTextField = TextField()
+    private let creationView = UIView()
+    private let createButton = Button(icon: "P", size: 36, textColor: Color.grayDark)
+    private let saveButton = Button(icon: "N", size: 36, textColor: Color.grayDark)
     
     private var wraps: [Wrap]? {
         didSet {
@@ -97,8 +98,64 @@ class WrapPickerViewController: BaseViewController {
         return .Slide
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func loadView() {
+        super.loadView()
+        
+        view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        
+        let gestureView = UIView()
+        gestureView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.hide(_:))))
+        view.add(gestureView) { (make) in
+            make.edges.equalTo(view)
+        }
+        
+        streamView.cornerRadius = 6
+        streamView.backgroundColor = Color.grayLightest.colorWithAlphaComponent(0.84)
+        view.add(streamView) { (make) in
+            make.centerY.equalTo(view)
+            make.trailing.leading.equalTo(view).inset(10)
+            make.height.equalTo(165)
+        }
+        
+        creationView.clipsToBounds = true
+        
+        streamView.add(creationView) { (make) in
+            make.centerX.top.equalTo(streamView)
+            make.size.equalTo(CGSize(width: 300, height: 55))
+        }
+        
+        createButton.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        createButton.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        saveButton.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        saveButton.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        createButton.addTarget(self, touchUpInside: #selector(self.createNewWrap(_:)))
+        creationView.add(createButton) { (make) in
+            make.centerY.equalTo(creationView)
+            make.leading.equalTo(creationView).inset(12)
+        }
+        
+        wrapNameTextField.delegate = self
+        wrapNameTextField.disableSeparator = true
+        wrapNameTextField.trim = true
+        wrapNameTextField.font = Font.Normal + .Light
+        wrapNameTextField.makePresetable(.Normal)
+        
+        creationView.addSubview(saveButton)
+        
+        creationView.add(wrapNameTextField) { (make) in
+            make.leading.equalTo(createButton.snp_trailing).offset(12)
+            make.centerY.equalTo(creationView)
+            make.height.equalTo(44)
+            make.trailing.equalTo(saveButton.snp_leading).offset(-12)
+        }
+        
+        saveButton.addTarget(self, touchUpInside: #selector(self.saveNewWrap(_:)))
+        if wrap == nil {
+            setCreating(true, animated: false)
+            Dispatch.mainQueue.async { self.wrapNameTextField.becomeFirstResponder() }
+        } else {
+            setCreating(false, animated: false)
+        }
         
         dataSource.layoutOffset = ItemHeight
         streamView.contentInset = UIEdgeInsetsMake(ItemHeight, 0, ItemHeight, 0)
@@ -107,7 +164,7 @@ class WrapPickerViewController: BaseViewController {
         let metrics = dataSource.addMetrics(StreamMetrics<WrapPickerCell>(size: ItemHeight))
         metrics.selection = { [weak self] view in
             if let weakSelf = self {
-                if let index = view.item?.position.index where weakSelf.streamView.contentOffset.y != CGFloat(index) * CGFloat(ItemHeight) {
+                if let index = view.item?.position.index where weakSelf.streamView.contentOffset.y != CGFloat(index) * ItemHeight {
                     weakSelf.streamView.setContentOffset(0 ^ CGFloat(index) * CGFloat(ItemHeight), animated: true)
                 } else {
                     Dispatch.mainQueue.async {
@@ -120,17 +177,13 @@ class WrapPickerViewController: BaseViewController {
         wraps = User.currentUser?.sortedWraps
         
         if let wrap = wrap, let index = wraps?.indexOf(wrap) {
-            streamView.setContentOffset(0 ^ CGFloat(index) * CGFloat(ItemHeight), animated: true)
+            streamView.setContentOffset(0 ^ CGFloat(index) * ItemHeight, animated: true)
         }
         
         view.addGestureRecognizer(streamView.panGestureRecognizer)
         streamView.addObserver(self, forKeyPath: "contentOffset", options: .New, context: nil)
         
-        wrapNameTextField?.placeholder = "new_wrap".ls
-        if wrap == nil {
-            editingPrioritizer?.defaultState = true
-            Dispatch.mainQueue.async { self.wrapNameTextField?.becomeFirstResponder() }
-        }
+        wrapNameTextField.placeholder = "new_wrap".ls
         Wrap.notifier().addReceiver(self)
     }
     
@@ -157,6 +210,27 @@ class WrapPickerViewController: BaseViewController {
         view.endEditing(true)
         removeFromContainerAnimated(false)
     }
+    
+    private var creating: Bool?
+    
+    func setCreating(creating: Bool, animated: Bool) {
+        guard creating != self.creating else { return }
+        self.creating = creating
+        animate(animated) {
+            saveButton.snp_remakeConstraints { (make) in
+                if creating {
+                    make.centerY.equalTo(creationView)
+                    make.trailing.equalTo(creationView).inset(12)
+                } else {
+                    make.centerY.equalTo(creationView)
+                    make.leading.equalTo(creationView.snp_trailing)
+                }
+            }
+            if animated {
+                saveButton.superview?.layoutIfNeeded()
+            }
+        }
+    }
 }
 
 extension WrapPickerViewController: EntryNotifying {
@@ -179,17 +253,17 @@ extension WrapPickerViewController: EntryNotifying {
 extension WrapPickerViewController {
     
     @IBAction func createNewWrap(sender: AnyObject?) {
-        wrapNameTextField?.becomeFirstResponder()
+        wrapNameTextField.becomeFirstResponder()
     }
     
     @IBAction func saveNewWrap(sender: Button) {
         
-        guard let name = wrapNameTextField?.text?.trim where name.isEmpty == false else {
+        guard let name = wrapNameTextField.text?.trim where name.isEmpty == false else {
             Toast.show("wrap_name_cannot_be_blank".ls)
             return
         }
         
-        wrapNameTextField?.resignFirstResponder()
+        wrapNameTextField.resignFirstResponder()
         
         let wrap = Wrap.wrap()
         wrap.name = name
@@ -206,8 +280,8 @@ extension WrapPickerViewController {
     }
     
     @IBAction func hide(sender: AnyObject?) {
-        if wrapNameTextField?.isFirstResponder() == true {
-            wrapNameTextField?.resignFirstResponder()
+        if wrapNameTextField.isFirstResponder() == true {
+            wrapNameTextField.resignFirstResponder()
         } else {
             delegate?.wrapPickerViewControllerDidCancel(self)
         }
@@ -224,13 +298,13 @@ extension WrapPickerViewController: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        wrapNameTextField?.placeholder = "what_is_new_wrap_about".ls
-        editingPrioritizer?.setDefaultState(false, animated: true)
+        wrapNameTextField.placeholder = "what_is_new_wrap_about".ls
+        setCreating(true, animated: true)
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-        wrapNameTextField?.placeholder = "new_wrap".ls
-        editingPrioritizer?.setDefaultState(true, animated: true)
+        wrapNameTextField.placeholder = "new_wrap".ls
+        setCreating(false, animated: true)
     }
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {

@@ -238,3 +238,37 @@ final class UploadMediaCommentViewController: UIViewController, ComposeBarDelega
         self.navigationController?.popViewControllerAnimated(false)
     }
 }
+
+class CommentCameraViewController: MediaCameraViewController {
+    
+    override func loadView() {
+        super.loadView()
+        
+        takePhotoButton.snp_makeConstraints { (make) in
+            make.size.equalTo(72)
+            make.centerX.equalTo(view)
+            make.bottom.equalTo(view).inset(12)
+        }
+        
+        let topGradient = GradientView(startColor: UIColor.blackColor(), contentMode: .Top)
+        photoTakingView.insertSubview(topGradient, atIndex: 0)
+        topGradient.snp_makeConstraints { (make) in
+            make.leading.trailing.top.equalTo(photoTakingView)
+            make.height.equalTo(64)
+        }
+        
+        let videoTip = Label(preset: .Smaller, weight: .Regular, textColor: UIColor.whiteColor())
+        videoTip.text = "video_suggestion".ls
+        photoTakingView.add(videoTip) { (make) in
+            make.center.equalTo(topGradient)
+        }
+        
+        backButton.titleLabel?.font = Font.Small + .Regular
+        backButton.setTitleColor(Color.orange, forState: .Normal)
+        backButton.setTitle("close".ls, forState: .Normal)
+        backButton.snp_makeConstraints { (make) in
+            make.centerY.equalTo(topGradient)
+            make.trailing.equalTo(topGradient).inset(8)
+        }
+    }
+}

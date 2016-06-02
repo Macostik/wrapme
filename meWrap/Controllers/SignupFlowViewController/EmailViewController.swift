@@ -63,8 +63,7 @@ final class ConfirmEmailViewController: SignupStepViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         emailLabel?.text = "\(Authorization.current.email ?? "") is not confirmed yet"
-        useAnotherEmailButton.borderWidth = 1
-        useAnotherEmailButton.borderColor = useAnotherEmailButton.titleColorForState(.Normal)
+        useAnotherEmailButton.setBorder(color: Color.orange)
         User.notifier().addReceiver(self)
     }
     

@@ -18,8 +18,7 @@ class SettingsViewController: BaseViewController, EntryNotifying {
         super.loadView()
         
         avatarView.cornerRadius = 16
-        avatarView.borderColor = Color.grayLighter
-        avatarView.borderWidth = 1
+        avatarView.setBorder(color: Color.grayLighter)
         view.insertSubview(avatarView, aboveSubview: accountButton)
         avatarView.snp_makeConstraints { (make) in
             make.size.equalTo(32)

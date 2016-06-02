@@ -70,8 +70,7 @@ final class CommentViewController: UIViewController {
         view.userInteractionEnabled = false
         
         avatar.placeholder.font = UIFont.icons(24)
-        avatar.borderColor = UIColor.whiteColor()
-        avatar.borderWidth = 1
+        avatar.setBorder()
         
         view.add(UIVisualEffectView(effect: UIBlurEffect(style: .Dark)), { $0.edges.equalTo(view) })
         

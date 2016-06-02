@@ -35,8 +35,7 @@ class AssetCell: EntryStreamReusableView<PHAsset> {
         acceptView.textAlignment = .Center
         acceptView.backgroundColor = UIColor.whiteColor()
         acceptView.cornerRadius = 10
-        acceptView.borderColor = Color.orange
-        acceptView.borderWidth = 1
+        acceptView.setBorder(color: Color.orange)
         acceptView.clipsToBounds = true
         addSubview(acceptView)
         imageView.snp_makeConstraints(closure: { $0.edges.equalTo(self) })

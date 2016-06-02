@@ -622,6 +622,13 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         if let candy = candy {
             setCandy(candy, direction: .Forward, animated: false)
         }
+        
+        backButton.transform = DeviceManager.defaultManager.orientation.interfaceTransform()
+        DeviceManager.defaultManager.subscribe(self) { (owner, value) in
+            animate {
+                owner.backButton.transform = value.interfaceTransform()
+            }
+        }
     }
     
     private func updateUserStatus(wrap: Wrap) {

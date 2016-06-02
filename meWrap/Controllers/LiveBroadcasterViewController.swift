@@ -148,7 +148,7 @@ final class LiveBroadcasterViewController: LiveViewController {
                 
                 config.audioChannels = 1
                 config.audioSampleRate = 44100
-                config.audioBitrate = 32000
+                config.audioBitrate = 64000
                 
                 config.hostAddress = "live.mewrap.me"
                 config.applicationName = "live"

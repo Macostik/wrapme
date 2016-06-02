@@ -148,6 +148,7 @@ class EntryNotification<T: Entry>: Notification {
     }
     
     override func getEntry() -> Entry? {
+        createEntryIfNeeded()
         return _entry
     }
     

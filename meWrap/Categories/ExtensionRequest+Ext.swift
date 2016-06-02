@@ -75,7 +75,8 @@ extension ExtensionRequest {
             return
         }
         NotificationCenter.handleRemoteNotification(notification, success: { (notification) -> Void in
-            if let url = (notification.getEntry() as? Contribution)?.asset?.small {
+            let contribution = notification.getEntry() as? Contribution
+            if let url = contribution?.notificationImageURL() {
                 success(ExtensionReply(reply: ["url":url]))
             } else {
                 failure(ExtensionError(message: "No data"))
@@ -118,6 +119,10 @@ extension Contribution {
             return update.toDictionary()
         }
     }
+    
+    func notificationImageURL() -> String? {
+        return asset?.small
+    }
 }
 
 extension Wrap {
@@ -158,6 +163,7 @@ extension Candy {
 }
 
 extension Comment {
+    
     func extensionComment() -> ExtensionComment {
         let comment = ExtensionComment()
         comment.uid = uid ?? ""
@@ -170,5 +176,9 @@ extension Comment {
         comment.createdAt = createdAt
         comment.text = text
         return comment
+    }
+    
+    override func notificationImageURL() -> String? {
+        return candy?.asset?.small
     }
 }

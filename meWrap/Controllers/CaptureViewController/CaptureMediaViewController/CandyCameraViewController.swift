@@ -460,15 +460,15 @@ class CandyCameraViewController: MediaCameraViewController, CaptureWrapContainer
             make.height.equalTo(64)
         }
         
+        photoTakingView.add(backButton) { (make) in
+            make.centerY.equalTo(topGradient)
+            make.leading.equalTo(topGradient).inset(8)
+        }
+        
         topGradient.add(wrapView) { (make) in
             make.leading.equalTo(backButton.snp_trailing).inset(-12)
             make.top.bottom.equalTo(topGradient)
             make.trailing.lessThanOrEqualTo(topGradient).inset(12)
-        }
-        
-        backButton.snp_makeConstraints { (make) in
-            make.centerY.equalTo(topGradient)
-            make.leading.equalTo(topGradient).inset(8)
         }
     }
     

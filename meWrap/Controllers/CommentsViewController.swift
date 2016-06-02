@@ -629,7 +629,16 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     }
     
     @IBAction func onClose(sender: AnyObject?) {
-        close(true)
+        if let camera = camera {
+            camera.requestPresentingPermission({ [weak self] allow in
+                if allow {
+                    self?.camera?.removeFromContainerAnimated(false)
+                    self?.showComposeBar()
+                }
+                })
+        } else {
+            close(true)
+        }
     }
     
     @IBAction func cameraAction(sender: AnyObject?) {

@@ -75,18 +75,6 @@ final class CaptureCommentViewController: CaptureViewController {
         }
     }
     
-    func cancel() {
-        if let delegate = captureDelegate {
-            delegate.captureViewControllerDidCancel(self)
-        } else {
-            presentingViewController?.dismissViewControllerAnimated(false, completion:nil)
-        }
-    }
-    
-    func cameraViewControllerDidCancel(controller: CameraViewController) {
-        cancel()
-    }
-    
     func cameraViewController(controller: CameraViewController, didCaptureVideoAtPath path: String, saveToAlbum: Bool) {
         let asset = MutableAsset(isAvatar: false)
         asset.type = .Video
@@ -106,7 +94,6 @@ final class CaptureCommentViewController: CaptureViewController {
             controller.setAsset(asset)
         })
         controller.uploadButton.addTarget(self, touchUpInside: #selector(self.upload))
-        controller.closeButton.addTarget(self, touchUpInside: #selector(self.cancel))
         self.pushViewController(controller, animated: false)
         uploadMediaCommentViewController = controller
     }
@@ -123,7 +110,6 @@ final class CaptureCommentViewController: CaptureViewController {
 final class UploadMediaCommentViewController: UIViewController, ComposeBarDelegate {
     
     let uploadButton = Button(icon: "g", size: 24, textColor: UIColor.whiteColor())
-    let closeButton = Button(type: .Custom)
     
     var videoPlayer: VideoPlayer?
     
@@ -136,19 +122,9 @@ final class UploadMediaCommentViewController: UIViewController, ComposeBarDelega
     override func loadView() {
         super.loadView()
         
-        let gradientView = GradientView()
-        gradientView.startColor = UIColor.blackColor()
-        gradientView.contentMode = .Top
+        let gradientView = GradientView(startColor: UIColor.blackColor(), contentMode: .Top)
         view.add(gradientView) { (make) in
             make.leading.top.trailing.equalTo(view)
-            make.height.equalTo(64)
-        }
-        closeButton.titleLabel?.font = Font.Small + .Regular
-        closeButton.setTitleColor(Color.orange, forState: .Normal)
-        closeButton.setTitle("close".ls, forState: .Normal)
-        gradientView.add(closeButton) { (make) in
-            make.centerY.equalTo(gradientView.snp_top).inset(22)
-            make.trailing.equalTo(gradientView).inset(12)
         }
         uploadButton.cornerRadius = 36
         uploadButton.normalColor = Color.green.colorWithAlphaComponent(0.9)
@@ -174,15 +150,12 @@ final class UploadMediaCommentViewController: UIViewController, ComposeBarDelega
         spinner.startAnimating()
         uploadButton.userInteractionEnabled = false
         
-        composeBar.backgroundColor = UIColor(white: 0, alpha: 0.7)
         composeBar.delegate = self
         composeBar.textView.placeholder = "add_caption".ls
-        composeBar.emojiButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        composeBar.doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         composeBar.doneButton.setTitle("E", forState: .Normal)
-        view.add(composeBar) { (make) in
-            make.leading.trailing.equalTo(view)
-            make.bottom.equalTo(uploadButton.snp_top).inset(-12)
+        gradientView.add(composeBar) { (make) in
+            make.leading.top.trailing.equalTo(gradientView)
+            make.bottom.equalTo(gradientView).offset(-16)
         }
     }
     
@@ -261,14 +234,6 @@ class CommentCameraViewController: MediaCameraViewController {
         videoTip.text = "video_suggestion".ls
         photoTakingView.add(videoTip) { (make) in
             make.center.equalTo(topGradient)
-        }
-        
-        backButton.titleLabel?.font = Font.Small + .Regular
-        backButton.setTitleColor(Color.orange, forState: .Normal)
-        backButton.setTitle("close".ls, forState: .Normal)
-        backButton.snp_makeConstraints { (make) in
-            make.centerY.equalTo(topGradient)
-            make.trailing.equalTo(topGradient).inset(8)
         }
     }
 }

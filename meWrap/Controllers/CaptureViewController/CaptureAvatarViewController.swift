@@ -94,7 +94,7 @@ class AvatarCameraViewController: CameraViewController {
             make.centerX.equalTo(view)
             make.bottom.equalTo(view).inset(12)
         }
-        backButton.snp_makeConstraints { (make) in
+        photoTakingView.add(backButton) { (make) in
             make.centerY.equalTo(takePhotoButton)
             make.leading.equalTo(photoTakingView).inset(12)
         }

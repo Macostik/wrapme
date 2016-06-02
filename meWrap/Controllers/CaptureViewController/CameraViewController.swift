@@ -171,7 +171,6 @@ class CameraViewController: BaseViewController {
         
         backButton.setTitleColor(UIColor.whiteColor().darkerColor(), forState: .Highlighted)
         backButton.addTarget(self, action: #selector(self.cancel(_:)), forControlEvents: .TouchUpInside)
-        photoTakingView.addSubview(backButton)
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.focusing(_:))))
         view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(self.zooming(_:))))

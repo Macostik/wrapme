@@ -49,7 +49,7 @@ class Chat: PaginatedList<Message> {
                 }
                 chat.messageFont = UIFont.fontNormal()
                 chat.nameFont = UIFont.lightFontSmaller()
-                chat.notify { ($0 as? ListNotifying)?.listChanged(chat) }
+                chat.didChangeNotifier.notify(chat)
             }
             })
     }

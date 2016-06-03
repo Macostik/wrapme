@@ -26,7 +26,15 @@ class PaginatedStreamDataSource<T: PaginatedListProtocol>: StreamDataSource<T> {
     override var items: T? {
         didSet {
             if let set = items {
-                set.addReceiver(self)
+                set.didChangeNotifier.subscribe(self, block: { [unowned self] (value) in
+                    self.reload()
+                })
+                set.didStartLoading.subscribe(self, block: { [unowned self] (value) in
+                    self.setLoading(set.count == 0 && !set.completed)
+                })
+                set.didFinishLoading.subscribe(self, block: { [unowned self] (value) in
+                    self.setLoading(false)
+                })
                 setLoading(set.count == 0 && !set.completed)
                 didSetItems()
             }
@@ -121,17 +129,5 @@ class PaginatedStreamDataSource<T: PaginatedListProtocol>: StreamDataSource<T> {
     
     func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         appendItemsIfNeededWithTargetContentOffset(targetContentOffset.memory)
-    }
-}
-
-extension PaginatedStreamDataSource: PaginatedListNotifying {
-    func listChanged<T: Equatable>(list: List<T>) {
-        reload()
-    }
-    func paginatedListDidStartLoading<T: Equatable>(set: PaginatedList<T>) {
-        setLoading(set.count == 0 && !set.completed)
-    }
-    func paginatedListDidFinishLoading<T: Equatable>(set: PaginatedList<T>) {
-        setLoading(false)
     }
 }

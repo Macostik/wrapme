@@ -105,7 +105,19 @@ final class HistoryItemViewController: BaseViewController {
             })
         }
         dataSource.items = item?.entries
-        item?.history.addReceiver(self)
+        item?.history.didChangeNotifier.subscribe(self, block: { [unowned self] (value) in
+            guard let item = self.item else { return }
+            self.dataSource.items = item.entries
+            if let candy = self.coverCandy where !item.entries.contains(candy) {
+                self.coverCandy = item.entries.first
+            }
+            if item.entries.count == 0 {
+                for _item in item.history.entries where _item.date.isSameDay(item.date) {
+                    self.item = _item
+                    self.dataSource.items = _item.entries
+                }
+            }
+        })
         
         recursivelyUpdateCover(false)
     }
@@ -132,22 +144,5 @@ final class HistoryItemViewController: BaseViewController {
         super.viewWillAppear(animated)
         streamView.unlock()
         streamView.reload()
-    }
-}
-
-extension HistoryItemViewController: ListNotifying {
-    
-    func listChanged<T : Equatable>(list: List<T>) {
-        guard let item = item else { return }
-        dataSource.items = item.entries
-        if let candy = coverCandy where !item.entries.contains(candy) {
-            coverCandy = item.entries.first
-        }
-        if item.entries.count == 0 {
-            for _item in item.history.entries where _item.date.isSameDay(item.date) {
-                self.item = _item
-                dataSource.items = _item.entries
-            }
-        }
     }
 }

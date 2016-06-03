@@ -83,7 +83,9 @@ final class ChatViewController: WrapSegmentViewController {
         messageMetrics.modifyItem = messageWithNameMetrics.modifyItem
         myMessageMetrics.modifyItem = messageWithNameMetrics.modifyItem
         
-        chat.addReceiver(self)
+        chat.didChangeNotifier.subscribe(self) { [unowned self] (value) in
+            self.streamView.reload()
+        }
         
         if !wrap.messages.isEmpty {
             chat.newer(nil, failure: { $0?.showNonNetworkError() })
@@ -181,13 +183,6 @@ final class ChatViewController: WrapSegmentViewController {
         } else {
             navigationController?.popToRootViewControllerAnimated(false)
         }
-    }
-}
-
-extension ChatViewController: ListNotifying {
-    
-    func listChanged<T : Equatable>(list: List<T>) {
-        streamView.reload()
     }
 }
 

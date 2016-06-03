@@ -8,11 +8,7 @@
 
 import UIKit
 
-protocol ListNotifying {
-    func listChanged<T: Equatable>(list: List<T>)
-}
-
-class List<T: Equatable>: Notifier {
+class List<T: Equatable> {
     
     var sorter: (lhs: T, rhs: T) -> Bool = { _ in return true }
     
@@ -22,6 +18,8 @@ class List<T: Equatable>: Notifier {
     }
     
     var entries = [T]()
+    
+    let didChangeNotifier = BlockNotifier<List<T>>()
     
     internal func _add(entry: T) -> Bool {
         if !entries.contains(entry) {
@@ -66,7 +64,7 @@ class List<T: Equatable>: Notifier {
     }
     
     internal func didChange() {
-        notify { ($0 as? ListNotifying)?.listChanged(self) }
+        didChangeNotifier.notify(self)
     }
     
     subscript(index: Int) -> T? {
@@ -89,23 +87,15 @@ extension List: BaseOrderedContainer {
     }
 }
 
-protocol PaginatedListNotifying: ListNotifying {
-    func paginatedListDidStartLoading<T: Equatable>(list: PaginatedList<T>)
-    func paginatedListDidFinishLoading<T: Equatable>(list: PaginatedList<T>)
-}
-
-extension PaginatedListNotifying {
-    func paginatedListDidStartLoading<T: Equatable>(list: PaginatedList<T>) {}
-    func paginatedListDidFinishLoading<T: Equatable>(list: PaginatedList<T>) {}
-}
-
 protocol PaginatedListProtocol: BaseOrderedContainer {
-    associatedtype PaginatedEntryType
+    associatedtype PaginatedEntryType: Equatable
     func fresh(success: ([PaginatedEntryType] -> ())?, failure: FailureBlock?)
     func newer(success: ([PaginatedEntryType] -> ())?, failure: FailureBlock?)
     func older(success: ([PaginatedEntryType] -> ())?, failure: FailureBlock?)
     var completed: Bool { get set }
-    func addReceiver(receiver: AnyObject?)
+    var didChangeNotifier: BlockNotifier<List<PaginatedEntryType>> { get }
+    var didStartLoading: BlockNotifier<PaginatedList<PaginatedEntryType>> { get }
+    var didFinishLoading: BlockNotifier<PaginatedList<PaginatedEntryType>> { get }
 }
 
 class PaginatedList<T: Equatable>: List<T>, PaginatedListProtocol {
@@ -115,6 +105,9 @@ class PaginatedList<T: Equatable>: List<T>, PaginatedListProtocol {
         self.request = request
         self.entries = entries.sort(sorter)
     }
+    
+    let didStartLoading = BlockNotifier<PaginatedList<T>>()
+    let didFinishLoading = BlockNotifier<PaginatedList<T>>()
     
     var completed: Bool = false {
         didSet {
@@ -131,14 +124,14 @@ class PaginatedList<T: Equatable>: List<T>, PaginatedListProtocol {
     private func addLoadingType(type: PaginatedRequestType) {
         loadingTypes.insert(type)
         if loadingTypes.count == 1 {
-            notify({ ($0 as? PaginatedListNotifying)?.paginatedListDidStartLoading(self) })
+            didStartLoading.notify(self)
         }
     }
     
     private func removeLoadingType(type: PaginatedRequestType) {
         loadingTypes.remove(type)
         if loadingTypes.count == 0 {
-            notify({ ($0 as? PaginatedListNotifying)?.paginatedListDidFinishLoading(self) })
+            didFinishLoading.notify(self)
         }
     }
     

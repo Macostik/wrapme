@@ -8,7 +8,7 @@
 
 import UIKit
 
-class History: PaginatedList<HistoryItem>, PaginatedListNotifying {
+class History: PaginatedList<HistoryItem> {
     
     weak var wrap: Wrap?
     
@@ -26,7 +26,15 @@ class History: PaginatedList<HistoryItem>, PaginatedListNotifying {
         Candy.notifier().insertReceiver(self)
         self.wrap = wrap
         fetchCandies(wrap)
-        historyCandies.addReceiver(self)
+        historyCandies.didChangeNotifier.subscribe(self) { [unowned self] (value) in
+            self.didChangeNotifier.notify(self)
+        }
+        historyCandies.didStartLoading.subscribe(self) { [unowned self] (value) in
+            self.didStartLoading.notify(self)
+        }
+        historyCandies.didFinishLoading.subscribe(self) { [unowned self] (value) in
+            self.didFinishLoading.notify(self)
+        }
     }
     
     override var completed: Bool {
@@ -41,18 +49,6 @@ class History: PaginatedList<HistoryItem>, PaginatedListNotifying {
                 success?(history.entries)
             }
             }, failure: failure)
-    }
-    
-    func listChanged<T : Equatable>(list: List<T>) {
-        notify({ ($0 as? ListNotifying)?.listChanged(self) })
-    }
-    
-    func paginatedListDidStartLoading<T : Equatable>(list: PaginatedList<T>) {
-        notify({ ($0 as? PaginatedListNotifying)?.paginatedListDidStartLoading(self) })
-    }
-    
-    func paginatedListDidFinishLoading<T : Equatable>(list: PaginatedList<T>) {
-        notify({ ($0 as? PaginatedListNotifying)?.paginatedListDidFinishLoading(self) })
     }
     
     private func fetchCandies(wrap: Wrap) {
@@ -180,7 +176,9 @@ func ==(lhs: HistoryItem, rhs: HistoryItem) -> Bool {
     return lhs.date == rhs.date
 }
 
-class HistoryItem: List<Candy> {
+class HistoryItem: List<Candy>, Hashable {
+    
+    var hashValue: Int { return date.hashValue }
     
     unowned var history: History
     

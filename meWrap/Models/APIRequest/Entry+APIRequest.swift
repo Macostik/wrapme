@@ -337,13 +337,19 @@ extension Candy {
     }
     
     override func delete(success: ObjectBlock?, failure: FailureBlock?) {
-        if !uploaded {
-            failure?(NSError(message: "publishing_in_progress".ls))
+        
+        if status == .Ready {
+            remove()
+            success?(nil)
         } else {
-            if let request = API.deleteCandy(self) {
-                request.send(success, failure: failure)
+            if !uploaded {
+                failure?(NSError(message: "publishing_in_progress".ls))
             } else {
-                failure?(nil)
+                if let request = API.deleteCandy(self) {
+                    request.send(success, failure: failure)
+                } else {
+                    failure?(nil)
+                }
             }
         }
     }
@@ -409,7 +415,7 @@ extension Comment {
     }
     
     override func delete(success: ObjectBlock?, failure: FailureBlock?) {
-        if let candy = candy, let wrap = candy.wrap where candy.status != .Ready {
+        if let candy = candy, let wrap = candy.wrap where candy.status != .Ready && status != .Ready {
             if !uploaded {
                 failure?(NSError(message: "publishing_in_progress".ls))
             } else {

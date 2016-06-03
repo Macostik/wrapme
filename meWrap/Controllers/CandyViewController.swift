@@ -184,6 +184,7 @@ final class VideoCandyViewController: CandyViewController {
         imageView.frame = view.bounds
         imageView.contentMode = .ScaleAspectFit
         imageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        playerView.frame = view.bounds
         view.insertSubview(imageView, belowSubview: spinner)
         playerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         imageView.addSubview(playerView)

@@ -272,7 +272,7 @@ extension ChatViewController: StreamViewDelegate {
     private func appendItemsIfNeededWithTargetContentOffset(targetContentOffset: CGPoint) {
         let sv = self.streamView
         let reachedRequiredOffset = (targetContentOffset.y - sv.minimumContentOffset.y) < sv.fittingContentHeight
-        if reachedRequiredOffset && Network.sharedNetwork.reachable && !chat.completed {
+        if reachedRequiredOffset && Network.network.reachable && !chat.completed {
             if wrap != nil {
                 chat.older(nil, failure: { $0?.showNonNetworkError() })
             }

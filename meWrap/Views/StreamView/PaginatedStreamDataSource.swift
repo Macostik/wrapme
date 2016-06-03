@@ -35,7 +35,7 @@ class PaginatedStreamDataSource<T: PaginatedListProtocol>: StreamDataSource<T> {
     
     func setLoading(loading: Bool) {
         var _loading = loading
-        if !Network.sharedNetwork.reachable {
+        if !Network.network.reachable {
           _loading = false
         }
         
@@ -97,10 +97,17 @@ class PaginatedStreamDataSource<T: PaginatedListProtocol>: StreamDataSource<T> {
         }
         
         if reachedRequiredOffset && isAppendable() {
-            if Network.sharedNetwork.reachable {
+            if Network.network.reachable {
                 append(nil, failure: { $0?.showNonNetworkError() })
             } else {
-                Network.sharedNetwork.addReceiver(self)
+                Network.network.subscribe(self, block: { [unowned self] reachable in
+                    if reachable {
+                        Network.network.unsubscribe(self)
+                        if let streamView = self.streamView {
+                            self.appendItemsIfNeededWithTargetContentOffset(streamView.contentOffset)
+                        }
+                    }
+                })
             }
         }
     }
@@ -114,15 +121,6 @@ class PaginatedStreamDataSource<T: PaginatedListProtocol>: StreamDataSource<T> {
     
     func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         appendItemsIfNeededWithTargetContentOffset(targetContentOffset.memory)
-    }
-    
-    func networkDidChangeReachability(network: Network) {
-        if network.reachable {
-            network.removeReceiver(self)
-            if let streamView = streamView {
-                appendItemsIfNeededWithTargetContentOffset(streamView.contentOffset)
-            }
-        }
     }
 }
 

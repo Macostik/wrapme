@@ -12,7 +12,7 @@ enum ActivityStatus {
     case None, Upload, History, Offline
 }
 
-final class ActivityStatusView: UIView, NetworkNotifying {
+final class ActivityStatusView: UIView {
     
     private let count = Label(preset: .Smaller, weight: .Bold, textColor: UIColor.whiteColor())
     
@@ -34,28 +34,26 @@ final class ActivityStatusView: UIView, NetworkNotifying {
         
         let uploader = Uploader.candyUploader
         
-        uploader.didStart.subscribe(self) { (owner, value) in
-            owner.update()
+        uploader.didStart.subscribe(self) { [unowned self] _ in
+            self.update()
         }
-        uploader.didChange.subscribe(self) { (owner, value) in
-            owner.update()
+        uploader.didChange.subscribe(self) { [unowned self] _ in
+            self.update()
         }
-        uploader.didStop.subscribe(self) { (owner, value) in
-            owner.update()
+        uploader.didStop.subscribe(self) { [unowned self] _ in
+            self.update()
         }
         
-        Network.sharedNetwork.addReceiver(self)
+        Network.network.subscribe(self) { [unowned self] _ in
+            self.update()
+        }
         
-        NotificationCenter.defaultCenter.historyNotifier.subscribe(self) { (owner, value) in
-            owner.update()
+        NotificationCenter.defaultCenter.historyNotifier.subscribe(self) { [unowned self] _ in
+            self.update()
         }
         update()
         clipsToBounds = true
         cloud.clipsToBounds = true
-    }
-    
-    func networkDidChangeReachability(network: Network) {
-        update()
     }
     
     private weak var cloudIcon: UIView? {
@@ -102,7 +100,7 @@ final class ActivityStatusView: UIView, NetworkNotifying {
     }
     
     func update() {
-        let isOnline = Network.sharedNetwork.reachable
+        let isOnline = Network.network.reachable
         let uploadCount = Uploader.candyUploader.count
         let queryingHistory = NotificationCenter.defaultCenter.queryingHistory
         count.text = "\(uploadCount)"

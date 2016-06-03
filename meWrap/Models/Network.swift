@@ -9,30 +9,30 @@
 import UIKit
 import Alamofire
 
-@objc protocol NetworkNotifying {
-    optional func networkDidChangeReachability(network: Network)
-}
+final class Network: BlockNotifier<Bool> {
 
-class Network: Notifier {
-
-    static let sharedNetwork = Network()
+    static let network = Network()
     
     private var reachabilityManager = Alamofire.NetworkReachabilityManager()
     
-    var reachable: Bool {
-        return reachabilityManager?.isReachable ?? false
+    var reachable: Bool = true {
+        didSet {
+            if reachable != oldValue {
+                self.notify(reachable)
+            }
+        }
     }
     
     override init() {
         super.init()
-        reachabilityManager?.startListening()
-        Dispatch.mainQueue.after(0.2) { () -> Void in
+        if let manager = reachabilityManager {
+            manager.startListening()
+            reachable = manager.isReachable
             self.reachabilityManager?.listener = { _ in
-                if self.reachable {
-                    Uploader.wrapUploader.start()
-                }
-                self.notify({ $0.networkDidChangeReachability?(self) })
+                self.reachable = manager.isReachable
             }
+        } else {
+            reachable = false
         }
     }
 }

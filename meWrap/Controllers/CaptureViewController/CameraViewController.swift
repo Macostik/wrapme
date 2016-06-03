@@ -203,8 +203,8 @@ class CameraViewController: BaseViewController {
             }
         #endif
         
-        DeviceManager.defaultManager.subscribe(self) { (owner, orientation) in
-            owner.applyDeviceOrientation(orientation)
+        DeviceManager.defaultManager.subscribe(self) { [unowned self] orientation in
+            self.applyDeviceOrientation(orientation)
         }
         DeviceManager.defaultManager.beginUsingAccelerometer()
         

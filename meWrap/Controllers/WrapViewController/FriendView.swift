@@ -285,6 +285,7 @@ final class StatusUserAvatarView: UserAvatarView, EntryNotifying {
     weak var wrap: Wrap?
     
     private func activityAnimationView(user: User) -> ActivityAnimationView? {
+        guard Network.network.reachable else { return nil }
         guard let wrap = wrap, let activity = user.activityForWrap(wrap) else { return nil }
         return ActivityAnimationView.animationView(activity.type)
     }
@@ -298,11 +299,16 @@ final class StatusUserAvatarView: UserAvatarView, EntryNotifying {
     override func update(user: User) {
         super.update(user)
         activityAnimationView = activityAnimationView(user)
-        statusView.hidden = (activityAnimationView != nil) || !(user.current || user.isActive)
+        statusView.hidden = (activityAnimationView != nil) || !(user.current || user.isActive) || !Network.network.reachable
     }
     
     func startReceivingStatusUpdates() {
         User.notifier().addReceiver(self)
+        Network.network.subscribe(self) { [unowned self] (value) in
+            if let user = self.user {
+                self.update(user)
+            }
+        }
     }
     
     func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {

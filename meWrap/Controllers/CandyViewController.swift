@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CandyViewController: BaseViewController, EntryNotifying, NetworkNotifying {
+class CandyViewController: BaseViewController, EntryNotifying {
     
     weak var candy: Candy?
     
@@ -42,8 +42,8 @@ class CandyViewController: BaseViewController, EntryNotifying, NetworkNotifying 
     override func viewDidLoad() {
         super.viewDidLoad()
         setOrientation(DeviceManager.defaultManager.orientation, animated: false)
-        DeviceManager.defaultManager.subscribe(self) { (owner, orientation) in
-            owner.setOrientation(orientation, animated: true)
+        DeviceManager.defaultManager.subscribe(self) { [unowned self] orientation in
+            self.setOrientation(orientation, animated: true)
         }
     }
     
@@ -60,8 +60,14 @@ class CandyViewController: BaseViewController, EntryNotifying, NetworkNotifying 
             self?.imageLoaded(image)
             self?.spinner.stopAnimating()
             }) { [weak self] (error) -> Void in
-                if error?.isNetworkError == true {
-                    Network.sharedNetwork.addReceiver(self)
+                if let controller = self where error?.isNetworkError == true {
+                    Network.network.subscribe(controller, block: { [unowned controller] reachable in
+                        if let candy = controller.candy where reachable {
+                            controller.errorLabel.hidden = true
+                            controller.setup(candy)
+                            Network.network.unsubscribe(controller)
+                        }
+                    })
                     self?.errorLabel.hidden = false
                 }
                 self?.spinner.stopAnimating()
@@ -85,14 +91,6 @@ class CandyViewController: BaseViewController, EntryNotifying, NetworkNotifying 
     
     func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
         return candy == entry
-    }
-    
-    func networkDidChangeReachability(network: Network) {
-        if let candy = candy where network.reachable {
-            errorLabel.hidden = true
-            setup(candy)
-            network.removeReceiver(self)
-        }
     }
 }
 

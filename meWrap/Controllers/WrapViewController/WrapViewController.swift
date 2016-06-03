@@ -135,6 +135,10 @@ final class WrapViewController: BaseViewController {
         API.contributors(wrap).send({ [weak self] _ in
             self?.updateFriendsBar(wrap)
             }, failure: nil)
+        
+        Network.network.subscribe(self) { [unowned self] (value) in
+            self.friendsDataSource.reload()
+        }
     }
     
     override func viewWillAppear(animated: Bool) {

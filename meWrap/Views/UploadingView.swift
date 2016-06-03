@@ -12,12 +12,14 @@ enum UploadingViewState {
     case Ready, InProgress, Finished, Offline, None
 }
 
-class UploadingView: UIView, NetworkNotifying, EntryNotifying {
+class UploadingView: UIView, EntryNotifying {
     
     init(contribution: Contribution) {
         super.init(frame: CGRect.zero)
         self.contribution = contribution
-        Network.sharedNetwork.addReceiver(self)
+        Network.network.subscribe(self) { [unowned self] _ in
+            self.update()
+        }
         backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
         contribution.dynamicType.notifier().addReceiver(self)
         contentView.borderWidth = 2
@@ -127,7 +129,7 @@ class UploadingView: UIView, NetworkNotifying, EntryNotifying {
     
     func update() {
         guard let contribution = contribution else { return }
-        if Network.sharedNetwork.reachable {
+        if Network.network.reachable {
             switch contribution.statusOfAnyUploadingType() {
             case .Ready:
                 state = .Ready
@@ -139,10 +141,6 @@ class UploadingView: UIView, NetworkNotifying, EntryNotifying {
         } else {
             state = .Offline
         }
-    }
-    
-    func networkDidChangeReachability(network: Network) {
-        update()
     }
     
     func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {

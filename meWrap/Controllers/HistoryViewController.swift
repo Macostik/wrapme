@@ -576,22 +576,22 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        VideoPlayer.notifier.subscribe(self) { (owner, videoPlayer) in
-            if let videoViewConroller = owner.viewController as? VideoCandyViewController {
+        VideoPlayer.notifier.subscribe(self) { [unowned self] videoPlayer in
+            if let videoViewConroller = self.viewController as? VideoCandyViewController {
                 if videoViewConroller.playerView != videoPlayer {
                     videoViewConroller.playerView.muted = true
-                    owner.volumeButton.selected = false
+                    self.volumeButton.selected = false
                 }
             }
         }
         
-        CommentViewController.willAppear.subscribe(self) { (owner, controller) in
-            if let videoViewConroller = owner.viewController as? VideoCandyViewController {
+        CommentViewController.willAppear.subscribe(self) { [unowned self] controller in
+            if let videoViewConroller = self.viewController as? VideoCandyViewController {
                 if controller.comment?.commentType() == .Video {
                     videoViewConroller.playerView.playing = false
-                    CommentViewController.willDisappear.subscribe(owner) { (owner, controller) in
+                    CommentViewController.willDisappear.subscribe(self) { controller in
                         videoViewConroller.playerView.playing = true
-                        CommentViewController.willDisappear.unsubscribe(owner)
+                        CommentViewController.willDisappear.unsubscribe(self)
                     }
                 }
             }
@@ -624,9 +624,9 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         }
         
         backButton.transform = DeviceManager.defaultManager.orientation.interfaceTransform()
-        DeviceManager.defaultManager.subscribe(self) { (owner, value) in
+        DeviceManager.defaultManager.subscribe(self) { [unowned self] value in
             animate {
-                owner.backButton.transform = value.interfaceTransform()
+                self.backButton.transform = value.interfaceTransform()
             }
         }
     }

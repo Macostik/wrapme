@@ -48,9 +48,9 @@ class AssetCell: EntryStreamReusableView<PHAsset> {
             $0.trailing.equalTo(self).offset(-2)
             $0.width.height.equalTo(20)
         })
-        DeviceManager.defaultManager.subscribe(self) { (owner, value) in
+        DeviceManager.defaultManager.subscribe(self) { [unowned self] orientation in
             animate(animations: { 
-                owner.transform = value.interfaceTransform()
+                self.transform = orientation.interfaceTransform()
             })
         }
     }

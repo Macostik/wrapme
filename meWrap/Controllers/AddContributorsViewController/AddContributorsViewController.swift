@@ -145,7 +145,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         if addressBook.selectedPhoneNumbers.count == 0 {
             completionHandler?(false)
         } else {
-            if Network.sharedNetwork.reachable != true {
+            if Network.network.reachable != true {
                 Toast.show("no_internet_connection".ls)
                 return
             }
@@ -158,7 +158,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     }
     
     @IBAction func done(sender: Button) {
-        if Network.sharedNetwork.reachable != true {
+        if Network.network.reachable != true {
             Toast.show("no_internet_connection".ls)
             return
         }

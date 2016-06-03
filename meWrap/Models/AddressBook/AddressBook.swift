@@ -137,7 +137,7 @@ class AddressBook: Notifier {
     }
     
     func updateCachedRecords() {
-        runQueue.run { finish in
+        runQueue.run { [unowned self] finish in
             self.addressBook({ addressBook in
                 self.records(addressBook, success: { _ in
                     finish()
@@ -146,7 +146,12 @@ class AddressBook: Notifier {
                 })
                 }) { error in
                     if let error = error where error.isNetworkError {
-                        Network.sharedNetwork.addReceiver(self)
+                        Network.network.subscribe(self, block: { reachable in
+                            if reachable {
+                                self.updateCachedRecords()
+                                Network.network.unsubscribe(self)
+                            }
+                        })
                     }
                     finish()
             }
@@ -176,15 +181,6 @@ class AddressBook: Notifier {
                 }) { _ in
                     finish()
             }
-        }
-    }
-}
-
-extension AddressBook: NetworkNotifying {
-    func networkDidChangeReachability(network: Network) {
-        if network.reachable {
-            updateCachedRecords()
-            network.removeReceiver(self)
         }
     }
 }

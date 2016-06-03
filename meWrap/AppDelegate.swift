@@ -31,7 +31,19 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         presentInitialViewController()
         initializeVersionTool()
         
-        Network.sharedNetwork.addReceiver(self)
+        Network.network.subscribe(self) { [unowned self] reachable in
+            if reachable {
+                if self.retryResetBadge {
+                    self.retryResetBadge = false
+                    self.resetBadge()
+                }
+                if Authorization.active {
+                    Uploader.wrapUploader.start()
+                } else if Authorization.current.canAuthorize {
+                    Authorization.current.signIn().send()
+                }
+            }
+        }
         
         if let notification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? [String:AnyObject] {
             NotificationCenter.handleRemoteNotification(notification, success: { $0.presentWithIdentifier(nil) }, failure: { $0?.show() })
@@ -266,23 +278,6 @@ extension AppDelegate: WCSessionDelegate {
                     replyHandler(["error":error.toDictionary()])
                     UIApplication.sharedApplication().endBackgroundTask(task)
             })
-        }
-    }
-}
-
-extension AppDelegate: NetworkNotifying {
-    
-    func networkDidChangeReachability(network: Network) {
-        if network.reachable {
-            if retryResetBadge {
-                retryResetBadge = false
-                resetBadge()
-            }
-            if Authorization.active {
-                Uploader.wrapUploader.start()
-            } else if Authorization.current.canAuthorize {
-                Authorization.current.signIn().send()
-            }
         }
     }
 }

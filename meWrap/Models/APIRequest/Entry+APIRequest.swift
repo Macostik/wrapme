@@ -169,7 +169,7 @@ extension Uploading {
     }
     
     func upload(success: ObjectBlock?, failure: FailureBlock?) {
-        if Network.sharedNetwork.reachable {
+        if Network.network.reachable {
             if let contribution = contribution where !inProgress {
                 inProgress = true
                 contribution.notifyOnUpdate(.Default)

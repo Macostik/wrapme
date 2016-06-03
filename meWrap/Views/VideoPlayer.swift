@@ -26,9 +26,9 @@ final class VideoPlayer: UIView {
     
     convenience init() {
         self.init(frame: CGRect.zero)
-        VideoPlayer.notifier.subscribe(self) { (owner, videoPlayer) in
-            if videoPlayer != owner {
-                owner.muted = true
+        VideoPlayer.notifier.subscribe(self) { [unowned self] videoPlayer in
+            if videoPlayer != self {
+                self.muted = true
             }
         }
     }

@@ -198,7 +198,7 @@ class MediaViewController: WrapSegmentViewController {
         dataSource.layoutSpacing = Constants.pixelSize
         dataSource.placeholderMetrics = PlaceholderView.mediaPlaceholderMetrics()
         
-        if wrap.requiresFollowing && Network.sharedNetwork.reachable {
+        if wrap.requiresFollowing && Network.network.reachable {
             wrap.candies = []
         }
         
@@ -240,7 +240,9 @@ class MediaViewController: WrapSegmentViewController {
         refresher.addTarget(dataSource, action: #selector(dataSource.refresh(_:)), forControlEvents: .ValueChanged)
         refresher.addTarget(self, action: #selector(self.refreshUserActivities), forControlEvents: .ValueChanged)
                 
-        Network.sharedNetwork.addReceiver(self)
+        Network.network.subscribe(self) { [unowned self] _ in
+            self.dataSource.reload()
+        }
         
         if wrap.candies.count > 0 {
             dataSource.items?.newer(nil, failure: nil)
@@ -258,7 +260,7 @@ class MediaViewController: WrapSegmentViewController {
     }
     
     func presentLiveBroadcast(broadcast: LiveBroadcast) {
-        if !Network.sharedNetwork.reachable {
+        if !Network.network.reachable {
             Toast.show("no_internet_connection".ls)
             return
         }
@@ -310,7 +312,7 @@ class MediaViewController: WrapSegmentViewController {
     }
     
     @IBAction func liveBroadcast(sender: UIButton) {
-        if !Network.sharedNetwork.reachable {
+        if !Network.network.reachable {
             Toast.show("no_internet_connection".ls)
             return
         }
@@ -328,13 +330,6 @@ class MediaViewController: WrapSegmentViewController {
             }) { _ in
                 sender.alpha =  0.5
         }
-    }
-}
-
-extension MediaViewController: NetworkNotifying {
-    
-    func networkDidChangeReachability(network: Network) {
-        dataSource.reload()
     }
 }
 

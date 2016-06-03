@@ -67,8 +67,8 @@ private func ==<T>(lhs: BlockNotifierReceiver<T>, rhs: BlockNotifierReceiver<T>)
 private struct BlockNotifierReceiver<T>: Hashable {
     private var hashValue: Int = generetaeUid()
     weak var owner: AnyObject?
-    var block: (AnyObject, T) -> ()
-    init(owner: AnyObject, block: (AnyObject, T) -> ()) {
+    var block: T -> ()
+    init(owner: AnyObject, block: T -> ()) {
         self.owner = owner
         self.block = block
     }
@@ -78,8 +78,8 @@ class BlockNotifier<T> {
     
     private var receivers = [BlockNotifierReceiver<T>]()
     
-    func subscribe<OwnerType: AnyObject>(owner: OwnerType, block: (owner: OwnerType, value: T) -> ()) {
-        receivers.append(BlockNotifierReceiver(owner: owner, block: { block(owner: $0 as! OwnerType, value: $1) }))
+    func subscribe(owner: AnyObject, block: (value: T) -> ()) {
+        receivers.append(BlockNotifierReceiver(owner: owner, block: block))
     }
     
     func unsubscribe(owner: AnyObject) {
@@ -91,8 +91,8 @@ class BlockNotifier<T> {
         var garbage = [BlockNotifierReceiver<T>]()
         
         for receiver in receivers {
-            if let owner = receiver.owner {
-                receiver.block(owner, value)
+            if receiver.owner != nil {
+                receiver.block(value)
             } else {
                 garbage.append(receiver)
             }

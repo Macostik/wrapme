@@ -19,9 +19,14 @@ extension NSData {
 
 final class NotificationCenter: NSObject {
     
-    static let defaultCenter = specify(NotificationCenter()) {
-        Network.sharedNetwork.addReceiver($0)
-        User.notifier().addReceiver($0)
+    static let defaultCenter = specify(NotificationCenter()) { center in
+        Network.network.subscribe(center, block: { [unowned center] reachable in
+            if reachable {
+                center.requestHistory()
+                center.refreshUserActivities(true, completionHandler: nil)
+            }
+        })
+        User.notifier().addReceiver(center)
     }
     
     var enqueuedMessages = [AnyObject]()
@@ -133,7 +138,7 @@ final class NotificationCenter: NSObject {
     func requestHistory() {
         RunQueue.fetchQueue.run { [unowned self] finish in
             
-            guard !self.userSubscription.name.isEmpty && Network.sharedNetwork.reachable else {
+            guard !self.userSubscription.name.isEmpty && Network.network.reachable else {
                 finish()
                 return
             }
@@ -223,15 +228,6 @@ final class NotificationCenter: NSObject {
         _info["in_progress"] = inProgress
         let state = [ "activity" : _info ]
         PubNub.sharedInstance.setState(state, forUUID: User.uuid(), onChannel: wrap.uid, withCompletion: nil)
-    }
-}
-
-extension NotificationCenter: NetworkNotifying {
-    func networkDidChangeReachability(network: Network) {
-        if network.reachable {
-            requestHistory()
-            refreshUserActivities(true, completionHandler: nil)
-        }
     }
 }
 

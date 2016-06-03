@@ -64,7 +64,7 @@ class Uploader: Notifier {
     }
     
     func finish() {
-        if isEmpty && Network.sharedNetwork.reachable {
+        if isEmpty && Network.network.reachable {
             for uploader in subuploaders {
                 uploader.start()
             }
@@ -79,7 +79,7 @@ class Uploader: Notifier {
     
     func start() {
         
-        guard Network.sharedNetwork.reachable && Authorization.active else { return }
+        guard Network.network.reachable && Authorization.active else { return }
         
         if isEmpty {
             finish()

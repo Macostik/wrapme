@@ -29,6 +29,8 @@ final class NotificationCenter: NSObject {
         User.notifier().addReceiver(center)
     }
     
+    private let runQueue = RunQueue(limit: 1)
+    
     var enqueuedMessages = [AnyObject]()
     
     var userSubscription = NotificationSubscription(name:"", isGroup:true, observePresence:true)
@@ -136,7 +138,7 @@ final class NotificationCenter: NSObject {
     }
     
     func requestHistory() {
-        RunQueue.fetchQueue.run { [unowned self] finish in
+        runQueue.run { [unowned self] finish in
             
             guard !self.userSubscription.name.isEmpty && Network.network.reachable else {
                 finish()
@@ -164,7 +166,7 @@ final class NotificationCenter: NSObject {
     private func handleNotifications(notifications: [Notification], completionHandler: (() -> ())? = nil) {
         if !notifications.isEmpty {
             for notification in notifications {
-                RunQueue.fetchQueue.run { finish in
+                runQueue.run { finish in
                     Logger.log("Fetching notification \(notification)")
                     notification.fetch({ _ in
                         Logger.log("Fetching notification success \(notification)")
@@ -177,7 +179,7 @@ final class NotificationCenter: NSObject {
                 Logger.log("PubNub message received \(notification)")
             }
             
-            RunQueue.fetchQueue.run { finish in
+            runQueue.run { finish in
                 for notification in notifications {
                     notification.submit()
                 }

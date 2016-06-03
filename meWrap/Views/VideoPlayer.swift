@@ -24,6 +24,13 @@ final class VideoPlayer: UIView {
     
     static let notifier = BlockNotifier<VideoPlayer>()
     
+    static func createPlayerView(muted: Bool = true) -> VideoPlayer {
+        let playerView = VideoPlayer()
+        (playerView.layer as? AVPlayerLayer)?.videoGravity = AVLayerVideoGravityResizeAspectFill
+        playerView.muted = muted
+        return playerView
+    }
+    
     convenience init() {
         self.init(frame: CGRect.zero)
         VideoPlayer.notifier.subscribe(self) { [unowned self] videoPlayer in

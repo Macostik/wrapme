@@ -289,12 +289,6 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
         let user = result.user
         let device = result.device
         
-        if event == "timeout" || event == "leave" {
-            device.isActive = false
-        } else if event == "join" {
-            device.isActive = true
-        }
-        
         if event == "state-change" {
             device.isActive = true
             guard let wrap = Wrap.entry(data.actualChannel) else { return }
@@ -319,7 +313,10 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
                     }
                 }
             }
+        } else if event == "join" {
+            device.isActive = true
         } else if event == "timeout" || event == "leave" {
+            device.isActive = false
             guard let wrap = Wrap.entry(data.actualChannel, allowInsert: false) else { return }
             if device.activity.inProgress && device.activity.wrap == wrap {
                 device.activity.inProgress = false

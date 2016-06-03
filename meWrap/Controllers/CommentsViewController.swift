@@ -169,7 +169,7 @@ class MediaCommentCell: CommentCell {
         super.setup(comment)
         
         if comment.commentType() == .Video {
-            let playerView = CommentViewController.createPlayerView()
+            let playerView = VideoPlayer.createPlayerView()
             imageView.insertSubview(playerView, atIndex: 0)
             playerView.snp_makeConstraints { (make) in
                 make.edges.equalTo(imageView)

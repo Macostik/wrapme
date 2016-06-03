@@ -141,6 +141,13 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         commentLabel.superview?.hidden = true
     }
     
+    private weak var videoPlayer: VideoPlayer?
+    
+    override func willEnqueue() {
+        super.willEnqueue()
+        videoPlayer?.removeFromSuperview()
+    }
+    
     override func setup(candy: Candy) {
         userInteractionEnabled = true
         exclusiveTouch = true
@@ -149,5 +156,19 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         commentLabel.superview?.hidden = commentLabel.text?.isEmpty ?? true
         imageView.url = candy.asset?.small
         uploadingView = candy.uploadingView
+        
+        if candy.mediaType == .Video {
+            let playerView = VideoPlayer.createPlayerView()
+            playerView.frame = imageView.bounds
+            playerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+            imageView.insertSubview(playerView, atIndex: 0)
+            playerView.url = candy.asset?.videoURL()
+            self.videoPlayer = playerView
+            self.performSelector(#selector(self.startPlayingVideo), withObject: nil, afterDelay: 0.0)
+        }
+    }
+    
+    func startPlayingVideo() {
+        videoPlayer?.playing = true
     }
 }

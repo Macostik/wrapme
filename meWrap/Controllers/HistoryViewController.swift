@@ -131,7 +131,7 @@ final class CommentView: UIView {
     }
     
     private func addVideoPlayer(comment: Comment) {
-        let playerView = CommentViewController.createPlayerView()
+        let playerView = VideoPlayer.createPlayerView()
         imageView.insertSubview(playerView, atIndex: 0)
         playerView.snp_makeConstraints { (make) in
             make.edges.equalTo(imageView)

@@ -149,13 +149,6 @@ final class CommentViewController: UIViewController {
         return true
     }
     
-    static func createPlayerView(muted: Bool = true) -> VideoPlayer {
-        let playerView = VideoPlayer()
-        (playerView.layer as? AVPlayerLayer)?.videoGravity = AVLayerVideoGravityResizeAspectFill
-        playerView.muted = muted
-        return playerView
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let comment = comment {
@@ -165,7 +158,7 @@ final class CommentViewController: UIViewController {
             avatar.user = comment.contributor
             imageView.url = comment.asset?.medium
             if comment.commentType() == .Video {
-                let playerView = CommentViewController.createPlayerView(false)
+                let playerView = VideoPlayer.createPlayerView(false)
                 imageView.add(playerView) { $0.edges.equalTo(imageView) }
                 playerView.url = comment.asset?.videoURL()
                 playerView.playing = true

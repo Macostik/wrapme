@@ -155,7 +155,6 @@ final class ChatViewController: WrapSegmentViewController {
             if _self.chat.entries.contains({ $0 === message }) {
                 finish()
             } else {
-                streamView.layoutIfNeeded()
                 _self.chat.add(message)
                 let offset = streamView.contentOffset
                 let maximumOffset = streamView.maximumContentOffset

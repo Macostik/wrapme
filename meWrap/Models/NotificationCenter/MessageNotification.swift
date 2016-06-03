@@ -23,19 +23,20 @@ class MessageAddNotification: EntryNotification<Message> {
     
     override func submit() {
         guard let message = _entry else { return }
-        if inserted && message.contributor != User.currentUser {
+        
+        var read = false
+        if let controller = UINavigationController.main.topViewController as? WrapViewController {
+            if controller.segment == .Chat && controller.wrap == message.wrap {
+                read = true
+            }
+        }
+        
+        if inserted && message.contributor != User.currentUser && !read {
             message.markAsUnread(true)
         }
         message.notifyOnAddition()
-        var allow = true
-        let topViewController = UINavigationController.main.topViewController as? WrapViewController
-        if topViewController?.segment == .Chat {
-            let wrap = topViewController?.wrap
-            if wrap == message.wrap {
-                allow = false
-            }
-        }
-        if message.contributor?.current == false && !isHistorycal && allow {
+        
+        if message.contributor?.current == false && !isHistorycal && !read {
             InAppNotification.showMessageAddition(message)
         }
     }

@@ -171,7 +171,7 @@ final class LiveBroadcasterViewController: LiveViewController {
                 config.portNumber = 1935
                 config.username = LiveBroadcastUsername
                 config.password = LiveBroadcastPassword
-                config.loadPreset(.Preset640x480)
+                config.loadPreset(.Preset352x288)
                 config.streamName = broadcast.streamName
             })
             

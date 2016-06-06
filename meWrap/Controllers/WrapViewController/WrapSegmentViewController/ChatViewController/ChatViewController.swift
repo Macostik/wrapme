@@ -57,13 +57,13 @@ final class ChatViewController: WrapSegmentViewController {
         chat.resetMessages()
         scrollToLastUnreadMessage()
         NSNotificationCenter.defaultCenter().removeObserver(self, name:UIApplicationDidBecomeActiveNotification, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ChatViewController.applicationWillResignActive), name:UIApplicationWillResignActiveNotification, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.applicationWillResignActive), name:UIApplicationWillResignActiveNotification, object:nil)
     }
     
     func applicationWillResignActive() {
         streamView.lock()
         NSNotificationCenter.defaultCenter().removeObserver(self, name:UIApplicationWillResignActiveNotification, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ChatViewController.applicationDidBecomeActive), name:UIApplicationDidBecomeActiveNotification, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.applicationDidBecomeActive), name:UIApplicationDidBecomeActiveNotification, object:nil)
     }
     
     override func viewDidLoad() {
@@ -102,7 +102,7 @@ final class ChatViewController: WrapSegmentViewController {
         streamView.unlock()
         chat.sort()
         scrollToLastUnreadMessage()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ChatViewController.applicationWillResignActive), name:UIApplicationWillResignActiveNotification, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.applicationWillResignActive), name:UIApplicationWillResignActiveNotification, object:nil)
     }
     
     override func viewWillDisappear(animated: Bool) {

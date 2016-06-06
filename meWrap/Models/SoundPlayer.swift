@@ -53,7 +53,7 @@ enum Sound: String {
     }
     
     static func play(sound: Sound = .s04) {
-        guard UIApplication.sharedApplication().applicationState == .Active else { return }
+        guard UIApplication.isActive else { return }
         guard let soundID = sound.ID() else { return }
         AudioServicesPlaySystemSound(soundID)
     }

@@ -10,6 +10,13 @@ import Foundation
 import WatchConnectivity
 import PubNub
 
+extension UIApplication {
+    
+    static var isActive: Bool {
+        return sharedApplication().applicationState == .Active
+    }
+}
+
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
     

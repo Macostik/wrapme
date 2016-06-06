@@ -257,7 +257,7 @@ extension NotificationCenter: PNObjectEventListener {
         #if DEBUG
             print("PUBNUB - subscribtion status: \(status.debugDescription)")
         #endif
-        if UIApplication.sharedApplication().applicationState == .Active && status.category == .PNConnectedCategory {
+        if UIApplication.isActive && status.category == .PNConnectedCategory {
             if let status = status as? PNSubscribeStatus where status.subscribedChannelGroups.count > 0 {
                 requestHistory()
             }

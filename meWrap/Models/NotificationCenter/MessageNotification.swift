@@ -26,19 +26,18 @@ class MessageAddNotification: EntryNotification<Message> {
         
         var read = false
         if let controller = UINavigationController.main.topViewController as? WrapViewController {
-            if controller.segment == .Chat && controller.wrap == message.wrap {
+            if controller.segment == .Chat && controller.wrap == message.wrap && UIApplication.isActive {
                 read = true
             }
         }
         
         if inserted && message.contributor != User.currentUser && !read {
             message.markAsUnread(true)
+            if !isHistorycal {
+                InAppNotification.showMessageAddition(message)
+            }
         }
         message.notifyOnAddition()
-        
-        if message.contributor?.current == false && !isHistorycal && !read {
-            InAppNotification.showMessageAddition(message)
-        }
     }
     
     override func presentWithIdentifier(identifier: String?, completionHandler: (() -> ())?) {

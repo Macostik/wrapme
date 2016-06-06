@@ -119,7 +119,7 @@ class InAppNotification: UIView {
     }
     
     func show(style style: InAppNotificationStyle = .Full, @noescape setup: InAppNotification -> (), handleTouch: (() -> ())? = nil) {
-        guard UIApplication.sharedApplication().applicationState == .Active else { return }
+        guard UIApplication.isActive else { return }
         showBadge(false)
         Sound.play(.note)
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)

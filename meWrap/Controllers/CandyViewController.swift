@@ -136,10 +136,10 @@ final class PhotoCandyViewController: CandyViewController, UIScrollViewDelegate 
         animate(animated) {
             contentView.transform = orientation.interfaceTransform()
         }
+        scrollView.zoomScale = 1
         contentView.frame = view.bounds
         rotationView.frame = contentView.bounds
         scrollView.frame = imageRect(imageView.image)
-        scrollView.zoomScale = 1
         scrollView.panGestureRecognizer.enabled = false
         imageView.frame = scrollView.bounds
     }
@@ -158,10 +158,13 @@ final class PhotoCandyViewController: CandyViewController, UIScrollViewDelegate 
     }
     
     override func imageLoaded(image: UIImage?) {
-        scrollView.frame = imageRect(image)
-        imageView.frame = scrollView.bounds
-        scrollView.zoomScale = 1
-        scrollView.panGestureRecognizer.enabled = false
+        let rect = imageRect(image)
+        if rect.size != scrollView.frame.size {
+            scrollView.zoomScale = 1
+            scrollView.frame = rect
+            imageView.frame = scrollView.bounds
+            scrollView.panGestureRecognizer.enabled = false
+        }
     }
     
     func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {

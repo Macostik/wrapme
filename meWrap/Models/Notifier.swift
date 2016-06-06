@@ -79,6 +79,7 @@ class BlockNotifier<T> {
     private var receivers = [BlockNotifierReceiver<T>]()
     
     func subscribe(owner: AnyObject, block: (value: T) -> ()) {
+        receivers = receivers.filter({ $0.owner != nil })
         receivers.append(BlockNotifierReceiver(owner: owner, block: block))
     }
     
@@ -87,19 +88,8 @@ class BlockNotifier<T> {
     }
     
     func notify(value: T) {
-        
-        var garbage = [BlockNotifierReceiver<T>]()
-        
-        for receiver in receivers {
-            if receiver.owner != nil {
-                receiver.block(value)
-            } else {
-                garbage.append(receiver)
-            }
-        }
-        
-        for receiver in garbage {
-            receivers.remove(receiver)
+        for receiver in receivers where receiver.owner != nil {
+            receiver.block(value)
         }
     }
 }

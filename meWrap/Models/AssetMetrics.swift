@@ -96,7 +96,8 @@ extension Asset {
     func cacheForAsset(asset: Asset) {
         let cache = ImageCache.defaultCache
         let manager = NSFileManager.defaultManager()
-        if let original = original where original.hasSuffix("mp4") {
+        guard let original = original where original.isExistingFilePath else { return }
+        if original.hasSuffix("mp4") {
             
             if let _original = asset.original {
                 let path = ImageCache.defaultCache.getPath(ImageCache.uidFromURL(_original, ext: "mp4"))
@@ -104,8 +105,8 @@ extension Asset {
             } else {
                 asset.original = original
             }
-        } else if let from = original, let to = asset.original {
-            cache.setImageAtPath(from, withURL: to)
+        } else if let to = asset.original {
+            cache.setImageAtPath(original, withURL: to)
         }
         if let from = large, let to = asset.large {
             cache.setImageAtPath(from, withURL: to)
@@ -116,22 +117,18 @@ extension Asset {
         if let from = small, let to = asset.small {
             cache.setImageAtPath(from, withURL: to)
         }
-        if let url = original {
-            _ = try? manager.removeItemAtPath(url)
-            cache.uids.remove(ImageCache.uidFromURL(url))
+        
+        func completeCachingURL(url: String?) {
+            if let url = url where url.isExistingFilePath {
+                _ = try? manager.removeItemAtPath(url)
+                ImageCache.uploadingCache.uids.remove((url as NSString).lastPathComponent)
+            }
         }
-        if let url = large {
-            _ = try? manager.removeItemAtPath(url)
-            cache.uids.remove(ImageCache.uidFromURL(url))
-        }
-        if let url = medium {
-            _ = try? manager.removeItemAtPath(url)
-            cache.uids.remove(ImageCache.uidFromURL(url))
-        }
-        if let url = small {
-            _ = try? manager.removeItemAtPath(url)
-            cache.uids.remove(ImageCache.uidFromURL(url))
-        }
+        
+        completeCachingURL(self.original)
+        completeCachingURL(large)
+        completeCachingURL(medium)
+        completeCachingURL(small)
     }
     
     func fetch(completionHandler: (Void -> Void)? = nil) {

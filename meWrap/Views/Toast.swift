@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Social
 
 protocol Appearance {
     var isIconHidden: Bool { get }
@@ -184,7 +185,31 @@ extension UIAlertController {
 }
 
 extension UIActivityViewController {
+    
     override func definesToastAppearance() -> Bool {
+        return false
+    }
+    
+    public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return [.Portrait, .PortraitUpsideDown]
+    }
+    
+    public override func shouldAutorotate() -> Bool {
+        return false
+    }
+}
+
+extension SLComposeViewController {
+    
+    override func definesToastAppearance() -> Bool {
+        return false
+    }
+    
+    public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return [.Portrait, .PortraitUpsideDown]
+    }
+    
+    public override func shouldAutorotate() -> Bool {
         return false
     }
 }

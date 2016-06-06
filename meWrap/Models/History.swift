@@ -8,7 +8,7 @@
 
 import UIKit
 
-class History: PaginatedList<HistoryItem> {
+class History: PaginatedList<HistoryItem>, EntryNotifying {
     
     weak var wrap: Wrap?
     
@@ -149,7 +149,7 @@ class History: PaginatedList<HistoryItem> {
         return entries[{ $0.entries.contains(candy) }]
     }
     
-    func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {
+    @objc func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {
         guard let candy = entry as? Candy else { return }
         addCandy(candy)
         if let contributor = candy.contributor where contributor.current {
@@ -157,17 +157,17 @@ class History: PaginatedList<HistoryItem> {
         }
     }
     
-    func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
+    @objc func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
         guard let candy = entry as? Candy else { return }
         removeCandy(candy)
     }
     
-    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
+    @objc func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
         guard let candy = entry as? Candy else { return }
         sortCandy(candy)
     }
     
-    func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
+    @objc func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
         return wrap == entry.container
     }
 }

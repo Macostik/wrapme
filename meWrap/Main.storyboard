@@ -3,14 +3,12 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="icons.ttf">
-            <string>icons</string>
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
@@ -1341,80 +1339,6 @@
             </objects>
             <point key="canvasLocation" x="3718" y="-532"/>
         </scene>
-        <!--Chat View Controller-->
-        <scene sceneID="JRm-Kq-Yqc">
-            <objects>
-                <viewController storyboardIdentifier="chat" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ef1-h7-yay" userLabel="Chat View Controller" customClass="ChatViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="gG3-lt-ayC"/>
-                        <viewControllerLayoutGuide type="bottom" id="nir-Cb-3ne"/>
-                    </layoutGuides>
-                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="hIQ-pE-cV8">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q8b-PD-zug" customClass="StreamView" customModule="meWrap">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="552"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="delegate" destination="ef1-h7-yay" id="DUf-p4-jBl"/>
-                                </connections>
-                            </scrollView>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="48" translatesAutoresizingMaskIntoConstraints="NO" id="dQp-Lx-kpC" customClass="ComposeBar" customModule="meWrap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="552" width="600" height="48"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p6f-On-oWb" customClass="SeparatorView" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="1"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="xQL-q7-M02"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="p6f-On-oWb" secondAttribute="trailing" id="3tT-tM-7wz"/>
-                                    <constraint firstItem="p6f-On-oWb" firstAttribute="top" secondItem="dQp-Lx-kpC" secondAttribute="top" id="Bm1-NG-OMt"/>
-                                    <constraint firstItem="p6f-On-oWb" firstAttribute="leading" secondItem="dQp-Lx-kpC" secondAttribute="leading" id="wqV-bb-fFq"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="delegate" destination="ef1-h7-yay" id="uwe-aK-54k"/>
-                                </connections>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Q8b-PD-zug" secondAttribute="trailing" id="0jT-Aw-zKN"/>
-                            <constraint firstItem="dQp-Lx-kpC" firstAttribute="top" secondItem="Q8b-PD-zug" secondAttribute="bottom" id="9qq-Xs-A9b"/>
-                            <constraint firstAttribute="trailing" secondItem="dQp-Lx-kpC" secondAttribute="trailing" id="GbZ-k6-ly2"/>
-                            <constraint firstItem="Q8b-PD-zug" firstAttribute="top" secondItem="gG3-lt-ayC" secondAttribute="bottom" id="LNA-tn-NYM"/>
-                            <constraint firstItem="nir-Cb-3ne" firstAttribute="top" secondItem="dQp-Lx-kpC" secondAttribute="bottom" id="RiC-ww-QNg"/>
-                            <constraint firstItem="Q8b-PD-zug" firstAttribute="leading" secondItem="hIQ-pE-cV8" secondAttribute="leading" id="rr3-bZ-6tM"/>
-                            <constraint firstItem="dQp-Lx-kpC" firstAttribute="leading" secondItem="hIQ-pE-cV8" secondAttribute="leading" id="yTy-Zs-906"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="aUD-yq-Ejy"/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <connections>
-                        <outlet property="composeBar" destination="dQp-Lx-kpC" id="cly-mG-GSx"/>
-                        <outlet property="streamView" destination="Q8b-PD-zug" id="rWf-Td-0mg"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="RiC-ww-QNg" collectionClass="NSMutableArray" id="gWA-Ba-uP2"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nVG-1G-xkC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2388" y="789"/>
-        </scene>
         <!--Contributors View Controller-->
         <scene sceneID="8UV-zT-Qeh">
             <objects>
@@ -1691,56 +1615,6 @@ QWRkEEZyaWVuZFZpZXc
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yXa-Fb-BfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1730.625" y="789.08450704225345"/>
-        </scene>
-        <!--History Item View Controller-->
-        <scene sceneID="VV3-KU-Pmv">
-            <objects>
-                <viewController storyboardIdentifier="historyItem" automaticallyAdjustsScrollViewInsets="NO" id="jav-qj-dCh" customClass="HistoryItemViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="6bt-pZ-AoF"/>
-                        <viewControllerLayoutGuide type="bottom" id="v8w-Fg-Toy"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="FNG-yL-eVT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2kP-h9-ZMO" customClass="StreamView" customModule="meWrap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                            </scrollView>
-                            <button opaque="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OHf-zN-126" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                <rect key="frame" x="12" y="20" width="32" height="44"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
-                                <state key="normal" title="w">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" red="0.91664922240000002" green="0.91662174460000001" blue="0.91663730139999999" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="back:" destination="jav-qj-dCh" eventType="touchUpInside" id="0Uy-1C-cvb"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="2kP-h9-ZMO" secondAttribute="trailing" id="H8U-Fm-dEx"/>
-                            <constraint firstItem="OHf-zN-126" firstAttribute="leading" secondItem="FNG-yL-eVT" secondAttribute="leading" constant="12" id="PHc-bN-YzM"/>
-                            <constraint firstAttribute="bottom" secondItem="2kP-h9-ZMO" secondAttribute="bottom" id="Qsc-gu-2G8"/>
-                            <constraint firstItem="2kP-h9-ZMO" firstAttribute="leading" secondItem="FNG-yL-eVT" secondAttribute="leading" id="Rks-0e-hjG"/>
-                            <constraint firstItem="2kP-h9-ZMO" firstAttribute="top" secondItem="6bt-pZ-AoF" secondAttribute="bottom" constant="-20" id="UTN-0V-Wj9"/>
-                            <constraint firstItem="OHf-zN-126" firstAttribute="centerY" secondItem="FNG-yL-eVT" secondAttribute="top" constant="42" id="tZm-fq-ats"/>
-                        </constraints>
-                    </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
-                    <connections>
-                        <outlet property="streamView" destination="2kP-h9-ZMO" id="meX-X5-y7o"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Tjv-l4-BeD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2383" y="1515"/>
         </scene>
         <!--WrapListViewController-->
         <scene sceneID="CPk-QO-ikZ">

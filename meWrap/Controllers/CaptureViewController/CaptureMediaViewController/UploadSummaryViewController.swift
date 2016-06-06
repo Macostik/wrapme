@@ -73,8 +73,22 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
         self.view = view
         view.backgroundColor = UIColor.blackColor()
         view.add(streamView) { (make) in
-            make.leading.trailing.bottom.equalTo(view)
+            make.leading.trailing.equalTo(view)
+            let constraint = make.bottom.equalTo(view).constraint
             make.height.equalTo(110)
+            Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
+                
+                keyboard.performAnimation({ () in
+                    constraint.updateOffset(-(keyboard.height - self.streamView.height))
+                    self.view.layoutIfNeeded()
+                })
+                
+                }, willHide: { [unowned self] (keyboard) in
+                    keyboard.performAnimation({ () in
+                        constraint.updateOffset(0)
+                        self.view.layoutIfNeeded()
+                    })
+            })
         }
         
         view.add(blurredImageView) { (make) in
@@ -161,8 +175,6 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
         
         let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
         blurredImageView.add(blurView) { $0.edges.equalTo(blurredImageView) }
-        
-        keyboardBottomGuideView = streamView
     }
     
     override func viewDidLoad() {
@@ -216,10 +228,6 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
     func editAssetViewControllerForAsset(asset: MutableAsset?) -> EditAssetViewController? {
         guard let asset = asset else { return nil }
         return specify(EditAssetViewController(), { $0.asset = asset })
-    }
-    
-    override func keyboardBottomGuideViewAdjustment(keyboard: Keyboard) -> CGFloat {
-        return (keyboard.height - streamView.height)
     }
     
     override func viewControllerNextTo(viewController: EditAssetViewController?, direction: SwipeDirection) -> EditAssetViewController? {

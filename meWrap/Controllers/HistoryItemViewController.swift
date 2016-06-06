@@ -35,12 +35,18 @@ final class HistoryItemViewController: BaseViewController {
     
     var item: HistoryItem?
     
-    @IBOutlet weak var streamView: StreamView!
+    private let streamView = StreamView()
     
     private lazy var dataSource: StreamDataSource<[Candy]> = StreamDataSource(streamView: self.streamView)
     
     override func loadView() {
         super.loadView()
+        automaticallyAdjustsScrollViewInsets = false
+        view.backgroundColor = UIColor.whiteColor()
+        view.add(streamView) { (make) in
+            make.edges.equalTo(view)
+        }
+        
         let coverView = UIView()
         let infoView = UIView()
         coverView.backgroundColor = UIColor.blackColor()
@@ -75,6 +81,11 @@ final class HistoryItemViewController: BaseViewController {
             make.leading.bottom.equalTo(infoView).inset(12)
             make.trailing.greaterThanOrEqualTo(infoView).inset(12)
             make.top.equalTo(infoView.snp_centerY)
+        }
+        
+        view.add(backButton(UIColor.whiteColor())) { (make) in
+            make.leading.equalTo(view).offset(12)
+            make.centerY.equalTo(view.snp_top).offset(42)
         }
     }
     

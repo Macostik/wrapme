@@ -13,8 +13,8 @@ final class ChatViewController: WrapSegmentViewController {
     
     weak var badge: BadgeLabel?
     
-    @IBOutlet weak var streamView: StreamView!
-    @IBOutlet weak var composeBar: ComposeBar!
+    private let streamView = StreamView()
+    let composeBar = ComposeBar()
     
     lazy var chat: Chat = Chat(wrap: self.wrap)
     
@@ -47,7 +47,7 @@ final class ChatViewController: WrapSegmentViewController {
     private var runQueue = RunQueue(limit: 1)
     
     deinit {
-        streamView?.delegate = nil
+        streamView.delegate = nil
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
@@ -66,10 +66,48 @@ final class ChatViewController: WrapSegmentViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.applicationDidBecomeActive), name:UIApplicationDidBecomeActiveNotification, object:nil)
     }
     
+    override func loadView() {
+        super.loadView()
+        
+        view.backgroundColor = UIColor.whiteColor()
+        composeBar.backgroundColor = UIColor.whiteColor()
+        
+        streamView.delegate = self
+        view.add(streamView) { (make) in
+            make.leading.top.trailing.equalTo(view)
+        }
+        view.add(composeBar) { (make) in
+            make.leading.trailing.equalTo(view)
+            make.top.equalTo(streamView.snp_bottom)
+            let constraint = make.bottom.equalTo(view).constraint
+            Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
+                self.streamView.keepContentOffset {
+                    keyboard.performAnimation({ () in
+                        constraint.updateOffset(-keyboard.height)
+                        self.view.layoutIfNeeded()
+                    })
+                }
+            }) { [unowned self] (keyboard) in
+                self.streamView.keepContentOffset {
+                    keyboard.performAnimation({ () in
+                        constraint.updateOffset(0)
+                        self.view.layoutIfNeeded()
+                    })
+                }
+            }
+        }
+        let separator = SeparatorView(color: Color.grayLighter, contentMode: .Top)
+        composeBar.add(separator) { (make) in
+            make.leading.top.trailing.equalTo(composeBar)
+            make.height.equalTo(1)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         composeBar.textView.placeholder = "message_placeholder".ls
         composeBar.textView.textColor = Color.grayDark
+        composeBar.delegate = self
         if wrap == nil {
             Dispatch.mainQueue.after(0.5) { self.navigationController?.popViewControllerAnimated(false) }
             return
@@ -92,7 +130,6 @@ final class ChatViewController: WrapSegmentViewController {
         }
         
         Message.notifier().addReceiver(self)
-        Keyboard.keyboard.addReceiver(self)
         composeBar.text = wrap.typedMessage
     }
     
@@ -127,18 +164,6 @@ final class ChatViewController: WrapSegmentViewController {
     func sendTypingStateChange() {
         if let wrap = wrap {
             NotificationCenter.defaultCenter.sendTyping(typing, wrap: wrap)
-        }
-    }
-    
-    override func keyboardWillShow(keyboard: Keyboard) {
-        streamView.keepContentOffset {
-            super.keyboardWillShow(keyboard)
-        }
-    }
-    
-    override func keyboardWillHide(keyboard: Keyboard) {
-        streamView.keepContentOffset {
-            super.keyboardWillHide(keyboard)
         }
     }
     

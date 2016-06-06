@@ -112,7 +112,7 @@ final class WrapViewController: BaseViewController {
     
     lazy var inboxViewController: InboxViewController = self.controllerNamed("inbox")
     lazy var mediaViewController: MediaViewController = self.controllerNamed("media")
-    lazy var chatViewController: ChatViewController = self.controllerNamed("chat")
+    lazy var chatViewController: ChatViewController = self.addController(ChatViewController())
     
     override func viewDidLoad() {
         chatViewController.badge = chatSegmentButton.badge
@@ -309,7 +309,10 @@ final class WrapViewController: BaseViewController {
     }
     
     private func controllerNamed<T: WrapSegmentViewController>(name: String) -> T {
-        let controller = storyboard?[name] as! T
+        return addController(storyboard?[name] as! T)
+    }
+    
+    private func addController<T: WrapSegmentViewController>(controller: T) -> T {
         controller.wrap = wrap
         controller.delegate = self
         addChildViewController(controller)

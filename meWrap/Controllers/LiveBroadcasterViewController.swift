@@ -98,6 +98,24 @@ final class LiveBroadcasterViewController: LiveViewController {
             make.bottom.equalTo(startButton.snp_top).inset(-12)
         }
         
+        Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
+            keyboard.performAnimation { () in
+                self.composeBar.snp_remakeConstraints { (make) in
+                    make.leading.trailing.equalTo(self.view)
+                    make.bottom.equalTo(self.view).inset(keyboard.height)
+                }
+                self.view.layoutIfNeeded()
+            }
+        }) { [unowned self] (keyboard) in
+            keyboard.performAnimation { () in
+                self.composeBar.snp_remakeConstraints { (make) in
+                    make.leading.trailing.equalTo(self.view)
+                    make.bottom.equalTo(self.startButton.snp_top).inset(-12)
+                }
+                self.view.layoutIfNeeded()
+            }
+        }
+        
         toggleCameraButton.backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.7)
         toggleCameraButton.normalColor = Color.grayDarker.colorWithAlphaComponent(0.7)
         toggleCameraButton.highlightedColor = Color.grayLighter
@@ -110,8 +128,6 @@ final class LiveBroadcasterViewController: LiveViewController {
             make.bottom.equalTo(composeBar.snp_top).inset(-12)
             make.size.equalTo(44)
         }
-        
-        Keyboard.keyboard.addReceiver(self)
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.focusing(_:))))
         view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(self.zooming(_:))))
@@ -410,27 +426,5 @@ final class LiveBroadcasterViewController: LiveViewController {
     
     override func wrapLiveBroadcastsUpdated() {
         updateBroadcastInfo()
-    }
-    
-    //MARK: BaseViewController
-    
-    override func keyboardWillShow(keyboard: Keyboard) {
-        keyboard.performAnimation { () in
-            composeBar.snp_makeConstraints { (make) in
-                make.leading.trailing.equalTo(view)
-                make.bottom.equalTo(view).inset(keyboard.height)
-            }
-            view.layoutIfNeeded()
-        }
-    }
-    
-    override func keyboardWillHide(keyboard: Keyboard) {
-        keyboard.performAnimation { () in
-            composeBar.snp_remakeConstraints { (make) in
-                make.leading.trailing.equalTo(view)
-                make.bottom.equalTo(startButton.snp_top).inset(-12)
-            }
-            view.layoutIfNeeded()
-        }
     }
 }

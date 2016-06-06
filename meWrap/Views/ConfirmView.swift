@@ -145,7 +145,7 @@ final class ConfirmAuthorizationView: ConfirmView {
     }
 }
 
-final class ConfirmInvitationView: ConfirmView, KeyboardNotifying, UITextViewDelegate {
+final class ConfirmInvitationView: ConfirmView, UITextViewDelegate {
     
     private let contentTextView = TextView()
     
@@ -187,7 +187,26 @@ final class ConfirmInvitationView: ConfirmView, KeyboardNotifying, UITextViewDel
     }
     
     func showInView(view: UIView, content: String, success: String -> Void, cancel: Block?) {
-        Keyboard.keyboard.addReceiver(self)
+        
+        Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
+            keyboard.performAnimation { () in
+                self.contentView.snp_remakeConstraints(closure: { (make) in
+                    make.centerX.equalTo(self)
+                    make.centerY.equalTo(self).inset(-keyboard.height/2)
+                    make.width.lessThanOrEqualTo(self).offset(-24)
+                    make.height.lessThanOrEqualTo(self).offset(-(24 + keyboard.height))
+                })
+                self.contentView.layoutIfNeeded()
+            }
+            }, willHide: { [unowned self] (keyboard) in
+                keyboard.performAnimation { () in
+                    self.contentView.snp_remakeConstraints(closure: { (make) in
+                        make.center.equalTo(self)
+                        make.size.lessThanOrEqualTo(self).offset(-24)
+                    })
+                    self.contentView.layoutIfNeeded()
+                }
+        })
         contentTextView.text = content
         contentTextView.delegate = self
         self.showInView(view, success: { [weak self] _ in
@@ -195,28 +214,6 @@ final class ConfirmInvitationView: ConfirmView, KeyboardNotifying, UITextViewDel
                 success(text)
             }
             }, cancel: cancel)
-    }
-    
-    func keyboardWillShow(keyboard: Keyboard) {
-        keyboard.performAnimation { () in
-            contentView.snp_remakeConstraints(closure: { (make) in
-                make.centerX.equalTo(self)
-                make.centerY.equalTo(self).inset(-keyboard.height/2)
-                make.width.lessThanOrEqualTo(self).offset(-24)
-                make.height.lessThanOrEqualTo(self).offset(-(24 + keyboard.height))
-            })
-            contentView.layoutIfNeeded()
-        }
-    }
-    
-    func keyboardWillHide(keyboard: Keyboard) {
-        keyboard.performAnimation { () in
-            contentView.snp_remakeConstraints(closure: { (make) in
-                make.center.equalTo(self)
-                make.size.lessThanOrEqualTo(self).offset(-24)
-            })
-            contentView.layoutIfNeeded()
-        }
     }
     
     //MARK: UITextViewDelegate

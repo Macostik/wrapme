@@ -19,31 +19,29 @@ class VolumeChangeObserver : NSObject {
     static let sharedObserver = VolumeChangeObserver()
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if keyPath == "outputVolume" {
-            let value = change?[NSKeyValueChangeOldKey]
-            changeVolumeValue(value != nil)
-        } else {
-            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+        if let oldValue = change?[NSKeyValueChangeOldKey] as? Float where !(initialization && AVAudioSession.sharedInstance().outputVolume == 0.5) {
+            didChangeVolume(oldValue)
         }
     }
     
     func registerWithBlock(success: Block) {
         initVolumeView()
         self.success = success
-        defer {
-            let center = NSNotificationCenter.defaultCenter()
-            center.addObserver(self, selector: #selector(VolumeChangeObserver.sessionInterruption(_:)), name: AVAudioSessionInterruptionNotification, object: nil)
-            center.addObserver(self, selector: #selector(VolumeChangeObserver.activate(_:)), name: UIApplicationDidBecomeActiveNotification, object: nil)
-            audioSession.addObserver(self, forKeyPath: "outputVolume", options: [.New, .Old] , context:nil)
-            changeVolumeValue(false)
-        }
+        let center = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector: #selector(self.activate(_:)), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        audioSession.addObserver(self, forKeyPath: "outputVolume", options: [.New, .Old] , context:nil)
     }
     
     private func initVolumeView () {
-        volumeView = MPVolumeView(frame: CGRectMake(CGFloat(MAXFLOAT), CGFloat(MAXFLOAT), 0.5, 0.5))
-        guard let volumeView = volumeView else { return }
-        _ = try? audioSession.setActive(true)
+        self.volumeView?.removeFromSuperview()
+        let volumeView = MPVolumeView(frame: CGRectMake(CGFloat(MAXFLOAT), CGFloat(MAXFLOAT), 0.5, 0.5))
         UIWindow.mainWindow.addSubview(volumeView)
+        _ = try? audioSession.setActive(true)
+        self.volumeView = volumeView
+        initialization = true
+        Dispatch.mainQueue.after(0.5) { () in
+            self.setVolumeIfNeeded()
+        }
     }
     
     func unregister() {
@@ -56,34 +54,45 @@ class VolumeChangeObserver : NSObject {
         locked = false
     }
     
-    func sessionInterruption(notification: NSNotification) {
-        if (notification.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt == 1) {
-            initVolumeView()
-        }
-    }
-    
     func activate(notification: NSNotification) {
         initVolumeView()
     }
     
-    private func changeVolumeValue(change: Bool) {
-        guard let subviews = volumeView?.subviews else { return }
-        for subview in subviews {
-            if let slider = subview as? UISlider {
-                if change {
-                    if (slider.value != 0.5) {
-                        slider.value = 0.5
-                        if !locked {
-                            success?()
-                        }
-                    }
-                } else {
-                    Dispatch.mainQueue.after(1.0, block: { _ in
-                        slider.value = 0.5
-                    })
+    private var initialization = false
+    
+    private func setVolumeIfNeeded() {
+        let volume = AVAudioSession.sharedInstance().outputVolume
+        if volume == 0 || volume == 1 {
+            volumeView?.volumeSlider()?.value = 0.5
+            Dispatch.mainQueue.after(0.5) { () in
+                self.initialization = false
+            }
+        } else {
+            initialization = false
+        }
+    }
+    
+    private func didChangeVolume(oldValue: Float) {
+        if let slider = volumeView?.volumeSlider() {
+            if (slider.value != oldValue) {
+                slider.value = oldValue
+                if !locked {
+                    success?()
                 }
-                break
             }
         }
+    }
+}
+
+extension MPVolumeView {
+    
+    private func volumeSlider() -> UISlider? {
+        for subview in subviews {
+            if let slider = subview as? UISlider {
+                slider.continuous = false
+                return slider
+            }
+        }
+        return nil
     }
 }

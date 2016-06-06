@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class Uploader: Notifier {
+final class Uploader {
     
     static let wrapUploader = Uploader(entityName: Wrap.entityName(), subuploaders: [candyUploader, messageUploader], limit: 3)
     
@@ -59,7 +59,6 @@ class Uploader: Notifier {
         self.subuploaders = subuploaders
         self.limit = limit
         self.runQueue.limit = limit
-        super.init()
         EntryNotifier.notifierForName(entityName).addReceiver(self)
     }
     
@@ -179,11 +178,11 @@ class Uploader: Notifier {
 
 extension Uploader: EntryNotifying {
     
-    func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
+    @objc func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
         return entry.valid
     }
     
-    func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
+    @objc func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
         
         guard let contribution = (entry as? Contribution) else { return }
         

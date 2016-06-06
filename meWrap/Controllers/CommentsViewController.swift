@@ -449,7 +449,34 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
                 })
         }
         
-        Keyboard.keyboard.addReceiver(self)
+        Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
+            self.streamView.keepContentOffset {
+                keyboard.performAnimation({ () in
+                    if self.camera == nil {
+                        self.contentView.snp_remakeConstraints(closure: { (make) in
+                            make.leading.top.trailing.equalTo(self.view)
+                            make.bottom.equalTo(self.view).inset(keyboard.height)
+                        })
+                    } else {
+                        self.contentView.snp_remakeConstraints(closure: { (make) in
+                            make.size.equalTo(self.view)
+                            make.centerX.equalTo(self.view)
+                            make.bottom.equalTo(self.view).inset(keyboard.height)
+                        })
+                    }
+                    self.contentView.layoutIfNeeded()
+                })
+            }
+            }) { [unowned self] (keyboard) in
+                self.streamView.keepContentOffset {
+                    keyboard.performAnimation({ () in
+                        self.contentView.snp_remakeConstraints(closure: { (make) in
+                            make.edges.equalTo(self.view)
+                        })
+                        self.contentView.layoutIfNeeded()
+                    })
+                }
+        }
     }
     
     private func updateUserStatus(wrap: Wrap) {
@@ -557,33 +584,6 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     func sendTypingStateChange() {
         if let wrap = candy?.wrap {
             NotificationCenter.defaultCenter.sendTyping(typing, wrap: wrap)
-        }
-    }
-    
-    override func keyboardWillShow(keyboard: Keyboard) {
-        streamView.keepContentOffset {
-            if camera == nil {
-                contentView.snp_remakeConstraints(closure: { (make) in
-                    make.leading.top.trailing.equalTo(view)
-                    make.bottom.equalTo(view).inset(keyboard.height)
-                })
-            } else {
-                contentView.snp_remakeConstraints(closure: { (make) in
-                    make.size.equalTo(view)
-                    make.centerX.equalTo(view)
-                    make.bottom.equalTo(view).inset(keyboard.height)
-                })
-            }
-            contentView.layoutIfNeeded()
-        }
-    }
-    
-    override func keyboardWillHide(keyboard: Keyboard) {
-        streamView.keepContentOffset {
-            contentView.snp_remakeConstraints(closure: { (make) in
-                make.edges.equalTo(view)
-            })
-            contentView.layoutIfNeeded()
         }
     }
     

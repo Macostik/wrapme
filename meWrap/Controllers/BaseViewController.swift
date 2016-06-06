@@ -27,7 +27,7 @@ func performWhenLoaded<T: BaseViewController>(controller: T, block: T -> ()) {
     }
 }
 
-class BaseViewController: GAITrackedViewController, KeyboardNotifying {
+class BaseViewController: GAITrackedViewController {
     
     @IBInspectable var statusBarDefault = false
     
@@ -38,8 +38,6 @@ class BaseViewController: GAITrackedViewController, KeyboardNotifying {
     @IBOutlet lazy var keyboardAdjustmentLayoutViews: [UIView] = [self.view]
     
     var keyboardAdjustmentAnimated = true
-    
-    @IBOutlet weak var keyboardBottomGuideView: UIView?
     
     var viewAppeared = false
     
@@ -72,8 +70,19 @@ class BaseViewController: GAITrackedViewController, KeyboardNotifying {
         adjustments += self.keyboardAdjustmentTopConstraints.map({ KeyboardAdjustment(constraint: $0, isBottom: false) })
         keyboardAdjustments = adjustments
         screenName = NSStringFromClass(self.dynamicType)
-        if keyboardBottomGuideView != nil || !keyboardAdjustments.isEmpty {
-            Keyboard.keyboard.addReceiver(self)
+        if !keyboardAdjustments.isEmpty {
+            
+            Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
+                
+                guard self.isViewLoaded() && !self.keyboardAdjustments.isEmpty else { return }
+                self.adjust(keyboard)
+                
+                }, willHide: { [unowned self] (keyboard) in
+                    
+                    guard self.isViewLoaded() && !self.keyboardAdjustments.isEmpty else { return }
+                    self.adjust(keyboard, willHide: true)
+                    
+                })
         }
         if !whenLoadedBlocks.isEmpty {
             whenLoadedBlocks.all({ $0() })
@@ -124,10 +133,6 @@ class BaseViewController: GAITrackedViewController, KeyboardNotifying {
         }
     }
     
-    func keyboardBottomGuideViewAdjustment(keyboard: Keyboard) -> CGFloat {
-        return keyboard.height
-    }
-    
     private func adjust(keyboard: Keyboard, willHide: Bool = false) {
         keyboardAdjustments.all({
             $0.constraint.constant = willHide ? $0.defaultConstant : keyboardAdjustmentConstant($0, keyboard:keyboard)
@@ -138,36 +143,4 @@ class BaseViewController: GAITrackedViewController, KeyboardNotifying {
             keyboardAdjustmentLayoutViews.all { $0.layoutIfNeeded() }
         }
     }
-    
-    func keyboardWillShow(keyboard: Keyboard) {
-        if let keyboardBottomGuideView = keyboardBottomGuideView {
-            keyboard.performAnimation({ () in
-                keyboardBottomGuideView.snp_updateConstraints(closure: { (make) in
-                    make.bottom.equalTo(view).inset(keyboardBottomGuideViewAdjustment(keyboard))
-                })
-                view.layoutIfNeeded()
-            })
-        } else {
-            guard isViewLoaded() && !keyboardAdjustments.isEmpty else { return }
-            adjust(keyboard)
-        }
-    }
-    
-    func keyboardDidShow(keyboard: Keyboard) {}
-    
-    func keyboardWillHide(keyboard: Keyboard) {
-        if let keyboardBottomGuideView = keyboardBottomGuideView {
-            keyboard.performAnimation({ () in
-                keyboardBottomGuideView.snp_updateConstraints(closure: { (make) in
-                    make.bottom.equalTo(view)
-                })
-                view.layoutIfNeeded()
-            })
-        } else {
-            guard isViewLoaded() && !keyboardAdjustments.isEmpty else { return }
-            adjust(keyboard, willHide: true)
-        }
-    }
-    
-    func keyboardDidHide(keyboard: Keyboard) {}
 }

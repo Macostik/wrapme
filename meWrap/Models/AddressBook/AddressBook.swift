@@ -9,20 +9,16 @@
 import UIKit
 import AddressBook
 
-@objc protocol AddressBookNoifying {
-    optional func addressBook(addressBook: AddressBook, didUpdateCachedRecords cachedRecords: [AddressBookRecord]?)
-}
-
 func addressBookChanged(addessBook: ABAddressBookRef!, info: CFDictionary!, context: UnsafeMutablePointer<Void>) {
     if let _addressBook = ABAddressBookCreateWithOptions(nil, nil)?.takeUnretainedValue() {
         AddressBook.sharedAddressBook.ABAddressBook = _addressBook
     } else {
         AddressBook.sharedAddressBook.ABAddressBook = addessBook
     }
-    AddressBook.sharedAddressBook.enqueueSelector(#selector(AddressBook.updateCachedRecords), delay: 0.0)
+    AddressBook.sharedAddressBook.updateCachedRecords()
 }
 
-class AddressBook: Notifier {
+class AddressBook: BlockNotifier<[AddressBookRecord]> {
     
     private var ABAddressBook: ABAddressBookRef?
     
@@ -32,7 +28,9 @@ class AddressBook: Notifier {
     
     var cachedRecords: [AddressBookRecord]? {
         didSet {
-            notify { $0.addressBook?(self, didUpdateCachedRecords: cachedRecords) }
+            if let cachedRecords = cachedRecords {
+                notify(cachedRecords)
+            }
         }
     }
     
@@ -136,12 +134,20 @@ class AddressBook: Notifier {
         return ABAddressBook
     }
     
+    private var updatingCachedRecords = false
+    
     func updateCachedRecords() {
+        
+        guard !updatingCachedRecords else { return }
+        updatingCachedRecords = true
+        
         runQueue.run { [unowned self] finish in
             self.addressBook({ addressBook in
                 self.records(addressBook, success: { _ in
+                    self.updatingCachedRecords = false
                     finish()
                     }, failure: { _ in
+                        self.updatingCachedRecords = false
                         finish()
                 })
                 }) { error in
@@ -153,6 +159,7 @@ class AddressBook: Notifier {
                             }
                         })
                     }
+                    self.updatingCachedRecords = false
                     finish()
             }
         }

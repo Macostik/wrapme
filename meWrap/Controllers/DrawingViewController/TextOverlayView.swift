@@ -52,7 +52,7 @@ enum TextOverlayType {
     case Sticker, Text
 }
 
-class TextOverlayView: UIView, KeyboardNotifying {
+class TextOverlayView: UIView {
     
     lazy var contentView: UIView = specify(UIView()) { view in
         view.backgroundColor = UIColor.clearColor()
@@ -112,7 +112,30 @@ class TextOverlayView: UIView, KeyboardNotifying {
             addTextEditableView()
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.textFocus(_:)))
             addGestureRecognizer(tapGesture)
-            Keyboard.keyboard.addReceiver(self)
+            Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
+                
+                guard let superview = self.superview else { return }
+                let transform = superview.transform
+                superview.transform = CGAffineTransformIdentity
+                let center = self.convertPoint(self.transformView.textView.center, fromCoordinateSpace: self.transformView)
+                let translation: CGFloat = (self.height - keyboard.height) / 2 - center.y
+                superview.transform = transform
+                keyboard.performAnimation { () in
+                    superview.transform = CGAffineTransformMakeTranslation(0, translation)
+                    self.cancelButton.transform = CGAffineTransformMakeTranslation(0, -translation)
+                    self.applyButton.transform = CGAffineTransformMakeTranslation(0, -translation)
+                }
+                
+            }) { [unowned self] (keyboard) in
+                
+                guard let superview = self.superview else { return }
+                keyboard.performAnimation { () in
+                    superview.transform = CGAffineTransformIdentity
+                    self.cancelButton.transform = CGAffineTransformIdentity
+                    self.applyButton.transform = CGAffineTransformIdentity
+                }
+                
+            }
         }
     }
     
@@ -214,29 +237,6 @@ class TextOverlayView: UIView, KeyboardNotifying {
     
     @objc private func cancel(sender: AnyObject) {
         finishWithOverlay(nil)
-    }
-    
-    func keyboardWillShow(keyboard: Keyboard) {
-        guard let superview = self.superview else { return }
-        let transform = superview.transform
-        superview.transform = CGAffineTransformIdentity
-        let center = convertPoint(transformView.textView.center, fromCoordinateSpace: transformView)
-        let translation: CGFloat = (height - keyboard.height) / 2 - center.y
-        superview.transform = transform
-        keyboard.performAnimation { () in
-            superview.transform = CGAffineTransformMakeTranslation(0, translation)
-            cancelButton.transform = CGAffineTransformMakeTranslation(0, -translation)
-            applyButton.transform = CGAffineTransformMakeTranslation(0, -translation)
-        }
-    }
-    
-    func keyboardWillHide(keyboard: Keyboard) {
-        guard let superview = self.superview else { return }
-        keyboard.performAnimation { () in
-            superview.transform = CGAffineTransformIdentity
-            cancelButton.transform = CGAffineTransformIdentity
-            applyButton.transform = CGAffineTransformIdentity
-        }
     }
 }
 

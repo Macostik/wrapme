@@ -220,7 +220,7 @@ class MediaViewController: WrapSegmentViewController {
         candyMetrics.size = round(view.width / 2.5) + 28
         candyMetrics.selectable = false
         candyMetrics.selection = { [weak self] view -> Void in
-            let controller = Storyboard.HistoryItem.instantiate()
+            let controller = HistoryItemViewController()
             controller.item = view.entry
             self?.navigationController?.pushViewController(controller, animated: false)
         }

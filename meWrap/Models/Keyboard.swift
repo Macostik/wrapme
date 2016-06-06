@@ -8,16 +8,12 @@
 
 import UIKit
 
-@objc protocol KeyboardNotifying {
-    optional func keyboardWillShow(keyboard: Keyboard)
-    optional func keyboardDidShow(keyboard: Keyboard)
-    optional func keyboardWillHide(keyboard: Keyboard)
-    optional func keyboardDidHide(keyboard: Keyboard)
-}
-
-class Keyboard: Notifier {
+final class Keyboard {
     
     static let keyboard = Keyboard()
+    
+    let willShow = BlockNotifier<Void>()
+    let willHide = BlockNotifier<Void>()
     
     var height: CGFloat = 0
     var animationDuration: NSTimeInterval = 0
@@ -26,8 +22,7 @@ class Keyboard: Notifier {
     
     lazy var tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(Keyboard.tap(_:)))
     
-    override init() {
-        super.init()
+    init() {
         let center = NSNotificationCenter.defaultCenter()
         let queue = NSOperationQueue.mainQueue()
         center.addObserverForName(UIKeyboardWillShowNotification, object: nil, queue: queue, usingBlock: keyboardWillShow)
@@ -56,22 +51,21 @@ class Keyboard: Notifier {
     func keyboardWillShow(notification: NSNotification) {
         fetchKeyboardMetadata(notification)
         isShown = true
-        notify { $0.keyboardWillShow?(self) }
+        willShow.notify()
     }
     
     func keyboardDidShow(notification: NSNotification) {
         fetchKeyboardMetadata(notification)
-        notify { $0.keyboardDidShow?(self) }
         UIWindow.mainWindow.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    func tap(sender: UITapGestureRecognizer) {
+    @objc func tap(sender: UITapGestureRecognizer) {
         sender.view?.endEditing(true)
     }
     
     func keyboardWillHide(notification: NSNotification) {
         fetchKeyboardAnimationMetadata(notification)
-        notify { $0.keyboardWillHide?(self) }
+        willHide.notify()
     }
     
     func keyboardDidHide(notification: NSNotification) {
@@ -79,7 +73,6 @@ class Keyboard: Notifier {
         animationDuration = 0
         animationCurve = .Linear
         isShown = false
-        notify { $0.keyboardDidHide?(self) }
         tapGestureRecognizer.view?.removeGestureRecognizer(tapGestureRecognizer)
     }
     
@@ -90,5 +83,10 @@ class Keyboard: Notifier {
         UIView.setAnimationCurve(animationCurve)
         animation()
         UIView.commitAnimations()
+    }
+    
+    func handle(owner: AnyObject, willShow: (keyboard: Keyboard) -> (), willHide: (keyboard: Keyboard) -> ()) {
+        self.willShow.subscribe(owner) { _ in willShow(keyboard: Keyboard.keyboard) }
+        self.willHide.subscribe(owner) { _ in willHide(keyboard: Keyboard.keyboard) }
     }
 }

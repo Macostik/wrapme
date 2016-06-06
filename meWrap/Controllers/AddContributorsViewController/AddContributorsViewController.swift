@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AddContributorsViewController: BaseViewController, AddressBookRecordCellDelegate, UITextFieldDelegate, AddressBookNoifying {
+class AddContributorsViewController: BaseViewController, AddressBookRecordCellDelegate, UITextFieldDelegate {
     
     var wrap: Wrap!
     var isBroadcasting: Bool = false
@@ -35,7 +35,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        spinner.startAnimating()
+        
         if isWrapCreation {
             titleLabel.text = "share_with_friends".ls
             nextButton.hidden = self.isBroadcasting
@@ -97,14 +97,26 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         placeholderMetrics = PlaceholderView.searchPlaceholderMetrics()
         placeholderMetrics?.selectable = false
         
+        spinner.startAnimating()
         let cached = AddressBook.sharedAddressBook.cachedRecords({ [weak self] (array) in
-            self?.addressBook(AddressBook.sharedAddressBook, didUpdateCachedRecords: array)
             self?.spinner.stopAnimating()
             }) { [weak self] (error) in
                 self?.spinner.stopAnimating()
                 error?.show()
         }
-        AddressBook.sharedAddressBook.addReceiver(self)
+        AddressBook.sharedAddressBook.subscribe(self) { [unowned self] cachedRecords in
+            let oldAddressBook = self.addressBook
+            self.addressBook = ArrangedAddressBook()
+            self.addressBook.addRecords(cachedRecords)
+            if oldAddressBook.groups.count != 0 {
+                for phoneNumber in oldAddressBook.selectedPhoneNumbers {
+                    if let phoneNumber = self.addressBook.phoneNumberEqualTo(phoneNumber) {
+                        self.addressBook.selectedPhoneNumbers.insert(phoneNumber)
+                    }
+                }
+            }
+            self.filterContacts()
+        }
         if cached {
             AddressBook.sharedAddressBook.updateCachedRecords()
         }
@@ -118,25 +130,6 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
             filteredAddressBook = addressBook.filter(text)
             streamView.reload()
         }
-    }
-    
-    // MARK: - AddressBookReceiver
-    
-    func addressBook(addressBook: AddressBook, didUpdateCachedRecords cachedRecords: [AddressBookRecord]?) {
-        spinner.stopAnimating()
-        let oldAddressBook = self.addressBook
-        self.addressBook = ArrangedAddressBook()
-        if let cachedRecords = cachedRecords {
-            self.addressBook.addRecords(cachedRecords)
-        }
-        if oldAddressBook.groups.count != 0 {
-            for phoneNumber in oldAddressBook.selectedPhoneNumbers {
-                if let phoneNumber = self.addressBook.phoneNumberEqualTo(phoneNumber) {
-                    self.addressBook.selectedPhoneNumbers.insert(phoneNumber)
-                }
-            }
-        }
-        filterContacts()
     }
     
     //MARK: Actions

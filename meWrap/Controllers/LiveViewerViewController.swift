@@ -48,10 +48,22 @@ class LiveViewerViewController: LiveViewController {
     override func loadView() {
         super.loadView()
         
-        keyboardBottomGuideView = composeBar
         composeBar.snp_makeConstraints { (make) in
-            make.leading.bottom.trailing.equalTo(view)
+            make.leading.trailing.equalTo(view)
+            let constraint = make.bottom.equalTo(view).constraint
+            Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
+                keyboard.performAnimation { () in
+                    constraint.updateOffset(-keyboard.height)
+                    self.view.layoutIfNeeded()
+                }
+            }) { [unowned self] (keyboard) in
+                keyboard.performAnimation { () in
+                    constraint.updateOffset(0)
+                    self.view.layoutIfNeeded()
+                }
+            }
         }
+        
         
         view.add(spinner) { (make) in
             make.center.equalTo(view)

@@ -392,6 +392,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     
     func showCamera() {
         let camera = CaptureViewController.captureCommentViewController()
+        camera.cameraViewController?.preferredViewFrame = 0 ^ 0 ^ (view.width ^ view.width)
         camera.captureDelegate = self
         disableDismissingByScroll = true
         bottomView.subviews.all({ $0.removeFromSuperview() })
@@ -476,6 +477,63 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
                         self.contentView.layoutIfNeeded()
                     })
                 }
+        }
+        
+        showMediaCommentHintIfNeeded()
+    }
+    
+    private weak var mediaCommentHint: UIView?
+    
+    private func showMediaCommentHintIfNeeded() {
+        
+        let showCount = NSUserDefaults.standardUserDefaults()["mediaCommentHintShowCount"] as? Int ?? 0
+        guard showCount < 10 else { return }
+        NSUserDefaults.standardUserDefaults()["mediaCommentHintShowCount"] = showCount + 1
+        
+        composeBar.clipsToBounds = false
+        let tipView = self.composeBar.add(UIView()) { (make) in
+            make.trailing.equalTo(self.composeBar).offset(-6)
+            make.bottom.equalTo(cameraButton.snp_top)
+        }
+        
+        let contentView = tipView.add(UIView()) { (make) in
+            make.leading.top.trailing.equalTo(tipView)
+        }
+        contentView.cornerRadius = 4
+        contentView.clipsToBounds = true
+        contentView.backgroundColor = Color.orange.colorWithAlphaComponent(0.8)
+        let label = Label(preset: .Smaller, weight: .Regular, textColor: UIColor.whiteColor())
+        label.text = "media_comment_hint".ls
+        let triangle = TriangleView()
+        triangle.backgroundColor = contentView.backgroundColor
+        triangle.contentMode = .Bottom
+        
+        tipView.add(triangle) { (make) in
+            make.top.equalTo(contentView.snp_bottom)
+            make.bottom.equalTo(tipView)
+            make.size.equalTo(CGSize(width: 20, height: 10))
+            make.centerX.equalTo(cameraButton)
+        }
+        
+        contentView.add(label) { (make) in
+            make.edges.equalTo(contentView).inset(10)
+        }
+        
+        mediaCommentHint = tipView
+        hideMediaCommentHintIfNeeded(4)
+    }
+    
+    private func hideMediaCommentHintIfNeeded(delay: Float = 0) {
+        if let mediaCommentHint = mediaCommentHint {
+            Dispatch.mainQueue.after(delay, block: { [weak mediaCommentHint] () in
+                self.mediaCommentHint = nil
+                UIView.animateWithDuration(0.3, animations: { _ in
+                    mediaCommentHint?.alpha = 0
+                    }, completion: { (_) in
+                        mediaCommentHint?.removeFromSuperview()
+                    })
+            })
+            
         }
     }
     
@@ -642,6 +700,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     }
     
     @IBAction func cameraAction(sender: AnyObject?) {
+        mediaCommentHint?.removeFromSuperview()
         showCamera()
     }
     
@@ -675,7 +734,16 @@ extension CommentsViewController: ComposeBarDelegate {
         candy?.typedComment = nil
     }
     
+    func composeBarDidBeginEditing(composeBar: ComposeBar) {
+        hideMediaCommentHintIfNeeded()
+    }
+    
+    func composeBarDidEndEditing(composeBar: ComposeBar) {
+        hideMediaCommentHintIfNeeded()
+    }
+    
     func composeBarDidChangeText(composeBar: ComposeBar) {
+        hideMediaCommentHintIfNeeded()
         candy?.typedComment = composeBar.text
         typing = composeBar.text?.isEmpty == false
         cameraButton.hidden = composeBar.text?.isEmpty == false

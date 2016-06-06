@@ -165,7 +165,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         view.add(container) {
             $0.top.equalTo(interactionView.snp_bottom)
             $0.leading.trailing.bottom.equalTo(view)
-            heightConstraint = $0.height.equalTo(view.snp_width).multipliedBy(0.25).constraint
+            heightConstraint = $0.height.equalTo(view.snp_width).offset(hiddenByDefault ? -Constants.screenWidth * 0.25 : 0).multipliedBy(0.25).constraint
         }
         container.add(streamView) {
             $0.leading.top.trailing.equalTo(container)
@@ -250,9 +250,11 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         enqueueSelector(#selector(self.hide), delay: 3.0)
     }
     
+    var hiddenByDefault = false
+    
     func setHidden(hidden: Bool, animated: Bool) {
         cancelAutoHide()
-        heightConstraint.updateOffset(hidden ? -streamView.height : 0)
+        heightConstraint.updateOffset(hidden ? -Constants.screenWidth * 0.25 : 0)
         UIView.animateWithDuration(animated ? 0.3 : 0) {
             if (hidden) {
                 self.arrow.layer.transform = CATransform3DMakeRotation(CGFloat(M_PI), 1, 0, 0)

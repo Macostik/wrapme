@@ -576,7 +576,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        VideoPlayer.notifier.subscribe(self) { [unowned self] videoPlayer in
+        VideoPlayer.didBecomeUnmuted.subscribe(self) { [unowned self] videoPlayer in
             if let videoViewConroller = self.viewController as? VideoCandyViewController {
                 if videoViewConroller.playerView != videoPlayer {
                     videoViewConroller.playerView.muted = true

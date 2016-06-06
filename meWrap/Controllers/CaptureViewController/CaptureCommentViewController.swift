@@ -20,16 +20,6 @@ final class CaptureCommentViewController: CaptureViewController {
     
     private var asset: MutableAsset?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if let cameraViewController = cameraViewController {
-            performWhenLoaded(cameraViewController) {
-                $0.assetsViewController.cancelAutoHide()
-                $0.assetsViewController.setHidden(true, animated: false)
-            }
-        }
-    }
-    
     private func handleImage(image: UIImage, saveToAlbum: Bool) {
         let asset = MutableAsset(isAvatar: false)
         asset.canBeSavedToAssets = saveToAlbum
@@ -215,6 +205,9 @@ final class UploadMediaCommentViewController: UIViewController, ComposeBarDelega
 class CommentCameraViewController: MediaCameraViewController {
     
     override func loadView() {
+        
+        assetsViewController.hiddenByDefault = true
+        
         super.loadView()
         
         takePhotoButton.snp_makeConstraints { (make) in

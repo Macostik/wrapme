@@ -22,7 +22,7 @@ final class VideoPlayer: UIView {
         self.add($0) { $0.center.equalTo(self) }
     }
     
-    static let notifier = BlockNotifier<VideoPlayer>()
+    static let didBecomeUnmuted = BlockNotifier<VideoPlayer>()
     
     static func createPlayerView(muted: Bool = true) -> VideoPlayer {
         let playerView = VideoPlayer()
@@ -33,7 +33,7 @@ final class VideoPlayer: UIView {
     
     convenience init() {
         self.init(frame: CGRect.zero)
-        VideoPlayer.notifier.subscribe(self) { [unowned self] videoPlayer in
+        VideoPlayer.didBecomeUnmuted.subscribe(self) { [unowned self] videoPlayer in
             if videoPlayer != self {
                 self.muted = true
             }
@@ -121,7 +121,7 @@ final class VideoPlayer: UIView {
             player.muted = newValue
             volumeButton.selected = !newValue
             if newValue == false {
-                VideoPlayer.notifier.notify(self)
+                VideoPlayer.didBecomeUnmuted.notify(self)
             }
         }
         get {

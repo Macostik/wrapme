@@ -218,6 +218,7 @@ class CameraViewController: BaseViewController {
             self.flashModeControl.mode = self.flashMode
             self.cameraView.layer.session = self.session
             self.session.start()
+            self.cameraView.setNeedsLayout()
             }) { _ in
                 let accessLabel = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
                 accessLabel.text = "access_to_camera_message".ls
@@ -228,6 +229,10 @@ class CameraViewController: BaseViewController {
         }
         
         UIAlertController.showNoMediaAccess(!isAvatar)
+    }
+    
+    override func shouldUsePreferredViewFrame() -> Bool {
+        return false
     }
     
     override func viewWillAppear(animated: Bool) {

@@ -17,7 +17,7 @@ extension NSData {
     }
 }
 
-final class NotificationCenter: NSObject {
+final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener {
     
     static let defaultCenter = specify(NotificationCenter()) { center in
         Network.network.subscribe(center, block: { [unowned center] reachable in
@@ -42,8 +42,6 @@ final class NotificationCenter: NSObject {
     func applicationDidBecomeActive() {
         liveSubscription?.subscribe()
         subscribe()
-        Dispatch.mainQueue.after(0.5, block: { self.requestHistory() })
-        refreshUserActivities(true, completionHandler: nil)
     }
     
     func handleDeviceToken(deviceToken: NSData) {
@@ -55,10 +53,8 @@ final class NotificationCenter: NSObject {
     }
     
     func subscribe(user: User? = User.currentUser) {
-        guard let user = user else { return }
-        let uuid = user.uid
-        if uuid.isEmpty { return }
-        let channelName = "cg-\(uuid)"
+        guard let user = user where !user.uid.isEmpty else { return }
+        let channelName = "cg-\(user.uid)"
         if userSubscription.name != channelName {
             userSubscription.name = channelName
             userSubscription.delegate = self
@@ -76,6 +72,8 @@ final class NotificationCenter: NSObject {
         PubNub.sharedInstance.subscribeToChannels([channel], withPresence: false)
         userSubscription.subscribe()
         Logger.logglyDestination.userid = User.uuid()
+        requestHistory()
+        refreshUserActivities(true, completionHandler: nil)
     }
     
     func clear() {
@@ -140,7 +138,7 @@ final class NotificationCenter: NSObject {
     func requestHistory() {
         runQueue.run { [unowned self] finish in
             
-            guard !self.userSubscription.name.isEmpty && Network.network.reachable else {
+            guard !self.userSubscription.name.isEmpty && Network.network.reachable && UIApplication.isActive else {
                 finish()
                 return
             }
@@ -231,9 +229,18 @@ final class NotificationCenter: NSObject {
         let state = [ "activity" : _info ]
         PubNub.sharedInstance.setState(state, forUUID: User.uuid(), onChannel: wrap.uid, withCompletion: nil)
     }
-}
-
-extension NotificationCenter: PNObjectEventListener {
+    
+    // MARK: - EntryNotifier
+    
+    func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {
+        subscribe(entry as? User)
+    }
+    
+    func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
+        return entry == User.currentUser
+    }
+    
+    // MARK: - PNObjectEventListener
     
     func client(client: PubNub, didReceiveMessage message: PNMessageResult) {
         userSubscription.didReceiveMessage(message)
@@ -257,22 +264,6 @@ extension NotificationCenter: PNObjectEventListener {
         #if DEBUG
             print("PUBNUB - subscribtion status: \(status.debugDescription)")
         #endif
-        if UIApplication.isActive && status.category == .PNConnectedCategory {
-            if let status = status as? PNSubscribeStatus where status.subscribedChannelGroups.count > 0 {
-                requestHistory()
-            }
-        }
-    }
-}
-
-extension NotificationCenter: EntryNotifying {
-    
-    func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {
-        subscribe(entry as? User)
-    }
-    
-    func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
-        return entry == User.currentUser
     }
 }
 

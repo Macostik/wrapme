@@ -42,12 +42,14 @@ class ConfirmView: UIView {
         bottomView.add(cancelButton) { (make) in
             make.leading.bottom.equalTo(bottomView)
             make.top.equalTo(bottomView).inset(1)
+            make.height.equalTo(44)
         }
         bottomView.add(doneButton) { (make) in
             make.trailing.bottom.equalTo(bottomView)
             make.top.equalTo(bottomView).inset(1)
             make.leading.equalTo(cancelButton.snp_trailing).inset(-1)
             make.width.equalTo(cancelButton.snp_width)
+            make.height.equalTo(44)
         }
         layout()
     }
@@ -109,30 +111,30 @@ final class ConfirmAuthorizationView: ConfirmView {
         confirmLabel.text = "confirm_your_details".ls
         confirmLabel.textAlignment = .Center
         contentView.add(confirmLabel) { (make) in
-            make.top.equalTo(contentView).inset(12)
+            make.top.equalTo(contentView).inset(20)
             make.centerX.equalTo(contentView)
-            make.leading.trailing.equalTo(contentView).inset(12)
+            make.leading.trailing.equalTo(contentView).inset(20)
         }
         emailLabel.textAlignment = .Center
         contentView.add(emailLabel) { (make) in
-            make.top.equalTo(confirmLabel.snp_bottom).inset(-12)
+            make.top.equalTo(confirmLabel.snp_bottom).inset(-20)
             make.centerX.equalTo(contentView)
-            make.leading.trailing.equalTo(contentView).inset(12)
+            make.leading.trailing.equalTo(contentView).inset(20)
         }
         phoneLabel.textAlignment = .Center
         contentView.add(phoneLabel) { (make) in
             make.top.equalTo(emailLabel.snp_bottom)
             make.centerX.equalTo(contentView)
-            make.leading.trailing.equalTo(contentView).inset(12)
+            make.leading.trailing.equalTo(contentView).inset(20)
         }
         let correctLabel = Label(preset: .Normal, weight: .Light, textColor: Color.gray)
         correctLabel.text = "is_it_correct".ls
         correctLabel.textAlignment = .Center
         contentView.add(correctLabel) { (make) in
-            make.top.equalTo(phoneLabel.snp_bottom).inset(-12)
+            make.top.equalTo(phoneLabel.snp_bottom).inset(-20)
             make.centerX.equalTo(contentView)
-            make.leading.trailing.equalTo(contentView).inset(12)
-            make.bottom.equalTo(bottomView.snp_top).inset(-12)
+            make.leading.trailing.equalTo(contentView).inset(20)
+            make.bottom.equalTo(bottomView.snp_top).inset(-20)
         }
     }
     
@@ -157,9 +159,9 @@ final class ConfirmInvitationView: ConfirmView, UITextViewDelegate {
         inviteLabel.textAlignment = .Center
         inviteLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
         contentView.add(inviteLabel) { (make) in
-            make.top.equalTo(contentView).inset(12)
+            make.top.equalTo(contentView).inset(20)
             make.centerX.equalTo(contentView)
-            make.leading.trailing.equalTo(contentView).inset(12)
+            make.leading.trailing.equalTo(contentView).inset(20)
         }
         let sendLabel = Label(preset: .Normal, weight: .Light, textColor: Color.gray)
         sendLabel.text = "send_message_to_friends_body".ls
@@ -167,9 +169,9 @@ final class ConfirmInvitationView: ConfirmView, UITextViewDelegate {
         sendLabel.numberOfLines = 0
         sendLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
         contentView.add(sendLabel) { (make) in
-            make.top.equalTo(inviteLabel.snp_bottom).inset(-12)
+            make.top.equalTo(inviteLabel.snp_bottom).inset(-20)
             make.centerX.equalTo(contentView)
-            make.leading.trailing.equalTo(contentView).inset(12)
+            make.leading.trailing.equalTo(contentView).inset(20)
         }
         
         contentTextView.textColor = Color.gray
@@ -179,10 +181,10 @@ final class ConfirmInvitationView: ConfirmView, UITextViewDelegate {
         contentTextView.clipsToBounds = true
         contentTextView.cornerRadius = 5
         contentView.add(contentTextView) { (make) in
-            make.top.equalTo(sendLabel.snp_bottom).inset(-12)
+            make.top.equalTo(sendLabel.snp_bottom).inset(-20)
             make.height.equalTo(100)
-            make.leading.trailing.equalTo(contentView).inset(12)
-            make.bottom.equalTo(bottomView.snp_top).inset(-12)
+            make.leading.trailing.equalTo(contentView).inset(20)
+            make.bottom.equalTo(bottomView.snp_top).inset(-20)
         }
     }
     

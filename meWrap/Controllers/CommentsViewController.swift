@@ -267,6 +267,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     let closeButton = Button(icon: "!", size: 15, textColor: Color.orange)
     
     private let userStatusView = specify(StatusUserAvatarView(backgroundColor: UIColor.clearColor())) {
+        $0.applyPlaceholder(ImageView.Placeholder.gray)
         $0.cornerRadius = 22
         $0.setBorder()
     }

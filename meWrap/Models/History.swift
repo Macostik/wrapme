@@ -162,11 +162,6 @@ class History: PaginatedList<HistoryItem>, EntryNotifying {
         removeCandy(candy)
     }
     
-    @objc func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
-        guard let candy = entry as? Candy else { return }
-        sortCandy(candy)
-    }
-    
     @objc func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
         return wrap == entry.container
     }

@@ -414,6 +414,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     private let userStatusView = specify(StatusUserAvatarView(backgroundColor: UIColor.clearColor())) {
+        $0.applyPlaceholder(ImageView.Placeholder.gray)
         $0.cornerRadius = 22
         $0.setBorder()
     }

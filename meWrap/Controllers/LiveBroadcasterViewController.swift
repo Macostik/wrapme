@@ -156,22 +156,30 @@ final class LiveBroadcasterViewController: LiveViewController {
             broadcast.wrap = wrap
             
             goCoder.config = specify(goCoder.config, { config in
-                config.videoFrameRate = 15
-                config.videoKeyFrameInterval = 2
-                config.videoBitrate = 28000
+                //
+                // We comment all the video and audio tuning because GoCoder SDK
+                // is able to perform abr streaming (adaptive bitrate streaming),
+                // in which it will tune down/up the video and audio data usage
+                // based on network bandwidth. The videoBitrateLowBandwidthScalingFactor
+                // is to specify the min. scaling down factor it can go down to when 
+                // bad network connnection is observed.
+                //
+                // config.videoFrameRate = 15
+                // config.videoKeyFrameInterval = 2
+                // config.videoBitrate = 280000
                 config.videoPreviewRotates = true
-                config.videoBitrateLowBandwidthScalingFactor = 0.187
+                config.videoBitrateLowBandwidthScalingFactor = 0.1
                 
-                config.audioChannels = 1
-                config.audioSampleRate = 44100
-                config.audioBitrate = 64000
+                // config.audioChannels = 1
+                // config.audioSampleRate = 44100
+                // config.audioBitrate = 64000
                 
                 config.hostAddress = "live.mewrap.me"
                 config.applicationName = "live"
                 config.portNumber = 1935
                 config.username = LiveBroadcastUsername
                 config.password = LiveBroadcastPassword
-                config.loadPreset(.Preset352x288)
+                config.loadPreset(.Preset640x480)
                 config.streamName = broadcast.streamName
             })
             

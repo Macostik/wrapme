@@ -9,7 +9,7 @@
 import Foundation
 import Photos
 
-@objc protocol CaptureAvatarViewControllerDelegate {
+protocol CaptureAvatarViewControllerDelegate: class {
     func captureViewController(controller: CaptureAvatarViewController, didFinishWithAvatar avatar: MutableAsset)
     func captureViewControllerDidCancel(controller: CaptureAvatarViewController)
 }

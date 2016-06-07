@@ -92,7 +92,10 @@ extension User {
         name <!= dictionary[Keys.Name]
         
         if let urls = dictionary[Keys.AvatarURLs] as? [String:String] {
-            avatar <!= self.avatar?.edit(urls, metrics: AssetMetrics.avatarMetrics, type: .Photo)
+            let avatar = self.avatar?.edit(urls, metrics: AssetMetrics.avatarMetrics, type: .Photo)
+            if self.avatar != avatar {
+                self.avatar = avatar
+            }
         }
         
         invitedAt <!= dictionary.dateForKey("invited_at_in_epoch")
@@ -196,7 +199,10 @@ extension Candy {
         
         let _: [Comment] = mappedEntries(dictionary.get(Keys.Comments), container: self)
         
-        self.asset <!= self.asset?.editCandyAsset(dictionary, mediaType: mediaType)
+        let asset = self.asset?.editCandyAsset(dictionary, mediaType: mediaType)
+        if self.asset != asset {
+            self.asset = asset
+        }
         
         if wrap == nil {
             wrap <!= container as? Wrap ?? Wrap.entry(dictionary.get(Keys.UID.Wrap))
@@ -239,7 +245,10 @@ extension Comment {
         }
         
         if let urls = dictionary[Keys.MediaURLs] as? [String : String] {
-            self.asset <!= self.asset?.edit(urls, metrics: AssetMetrics.mediaCommentMetrics, type: mediaType)
+            let asset = self.asset?.edit(urls, metrics: AssetMetrics.mediaCommentMetrics, type: mediaType)
+            if self.asset != asset {
+                self.asset = asset
+            }
         }
         
         if self.candy == nil {

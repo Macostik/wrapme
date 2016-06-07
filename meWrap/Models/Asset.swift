@@ -12,6 +12,32 @@ func ==(lhs: Asset, rhs: Asset) -> Bool {
     return lhs.type == rhs.type && lhs.original == rhs.original && lhs.large == rhs.large && lhs.medium == rhs.medium && lhs.small == rhs.small
 }
 
+func !=(lhs: Asset, rhs: Asset) -> Bool {
+    return !(lhs == rhs)
+}
+
+func !=(lhs: Asset?, rhs: Asset?) -> Bool {
+    return !(lhs == rhs)
+}
+
+func ==(lhs: Asset?, rhs: Asset?) -> Bool {
+    if let lhs = lhs {
+        if let rhs = rhs {
+            return lhs == rhs
+        } else {
+            return false
+        }
+    } else if let rhs = rhs {
+        if let lhs = lhs {
+            return lhs == rhs
+        } else {
+            return false
+        }
+    } else {
+        return true
+    }
+}
+
 class Asset: NSObject, NSCopying {
     var original: String?
     var large: String?
@@ -20,7 +46,7 @@ class Asset: NSObject, NSCopying {
     var type: MediaType = .Photo
     
     override var description: String {
-        return "urls \noriginal: \(original)\nlarge: \(large)\nmedium: \(medium)\nsmall: \(small)"
+        return "type: \(type.rawValue)\noriginal: \(original)\nlarge: \(large)\nmedium: \(medium)\nsmall: \(small)"
     }
     
     convenience init(json: NSData) {

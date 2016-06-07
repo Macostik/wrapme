@@ -55,7 +55,7 @@ class UserAvatarView: ImageView {
         } else {
             placeholder.backgroundColor = Color.grayLighter
         }
-        self.url = nil
+        self.url = url
     }
     
     internal func clear() {

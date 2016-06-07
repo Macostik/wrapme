@@ -70,15 +70,6 @@ final class NotificationSubscription {
         }
     }
     
-    func history() -> [AnyObject] {
-        let pubnub = PubNub.sharedInstance
-        if isGroup {
-            return pubnub.channelsForGroup(name).reduce([AnyObject](), combine: { $0 + pubnub.allHistoryFor($1) })
-        } else {
-            return pubnub.allHistoryFor(name)
-        }
-    }
-    
     func didReceiveMessage(message: PNMessageResult) {
         if message.data.actualChannel == name || message.data.subscribedChannel == name {
             delegate?.notificationSubscription(self, didReceiveMessage: message)

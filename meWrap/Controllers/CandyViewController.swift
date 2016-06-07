@@ -55,22 +55,23 @@ class CandyViewController: BaseViewController, EntryNotifying {
     }
     
     internal func setup(candy: Candy) {
+        
         self.spinner.startAnimating()
         imageView.setURL(candy.asset?.large, success: { [weak self] (image, cached) -> Void in
             self?.imageLoaded(image)
             self?.spinner.stopAnimating()
-            }) { [weak self] (error) -> Void in
-                if let controller = self where error?.isNetworkError == true {
-                    Network.network.subscribe(controller, block: { [unowned controller] reachable in
-                        if let candy = controller.candy where reachable {
-                            controller.errorLabel.hidden = true
-                            controller.setup(candy)
-                            Network.network.unsubscribe(controller)
-                        }
+        }) { [weak self] (error) -> Void in
+            if let controller = self where error?.isNetworkError == true {
+                Network.network.subscribe(controller, block: { [unowned controller] reachable in
+                    if let candy = controller.candy where reachable {
+                        controller.errorLabel.hidden = true
+                        controller.setup(candy)
+                        Network.network.unsubscribe(controller)
+                    }
                     })
-                    self?.errorLabel.hidden = false
-                }
-                self?.spinner.stopAnimating()
+                self?.errorLabel.hidden = false
+            }
+            self?.spinner.stopAnimating()
         }
     }
     
@@ -133,15 +134,16 @@ final class PhotoCandyViewController: CandyViewController, UIScrollViewDelegate 
     }
     
     internal override func setOrientation(orientation: UIDeviceOrientation, animated: Bool) {
-        animate(animated) {
-            contentView.transform = orientation.interfaceTransform()
+        let transform = orientation.interfaceTransform()
+        if !CGAffineTransformEqualToTransform(transform, contentView.transform) {
+            animate(animated) {
+                contentView.transform = transform
+            }
+            
+            contentView.frame = view.bounds
+            rotationView.frame = contentView.bounds
+            imageLoaded(imageView.image)
         }
-        scrollView.zoomScale = 1
-        contentView.frame = view.bounds
-        rotationView.frame = contentView.bounds
-        scrollView.frame = imageRect(imageView.image)
-        scrollView.panGestureRecognizer.enabled = false
-        imageView.frame = scrollView.bounds
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -163,6 +165,7 @@ final class PhotoCandyViewController: CandyViewController, UIScrollViewDelegate 
             scrollView.zoomScale = 1
             scrollView.frame = rect
             imageView.frame = scrollView.bounds
+            scrollView.contentSize = imageView.size
             scrollView.panGestureRecognizer.enabled = false
         }
     }

@@ -145,18 +145,15 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
             
             self.queryingHistory = true
             
-            Dispatch.defaultQueue.async({
-                let messages = self.userSubscription.history()
-                Dispatch.mainQueue.async({
-                    if messages.count > 0 {
-                        self.handleNotifications(self.notificationsFromMessages(messages), completionHandler: {
-                            self.queryingHistory = false
-                        })
-                    } else {
+            PubNub.sharedInstance.allHistoryForChannelGroup(self.userSubscription.name, completionHandler: { (messages) in
+                if messages.count > 0 {
+                    self.handleNotifications(self.notificationsFromMessages(messages), completionHandler: {
                         self.queryingHistory = false
-                    }
-                    finish()
-                })
+                    })
+                } else {
+                    self.queryingHistory = false
+                }
+                finish()
             })
         }
     }

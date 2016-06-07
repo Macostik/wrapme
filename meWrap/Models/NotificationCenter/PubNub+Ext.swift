@@ -74,43 +74,62 @@ extension PubNub {
         return (user, device)
     }
     
-    func allHistoryFor(channel: String) -> [AnyObject] {
-        var messages = [AnyObject]()
+    func allHistoryForChannelGroup(group: String, completionHandler: [AnyObject] -> ()) {
+        
+        var allMessages = [AnyObject]()
+        
         let userDefaults = NSUserDefaults.standardUserDefaults()
         var historyDates = userDefaults.historyDates
-        let historyDate = historyDates[channel] ?? userDefaults.historyDate?.timeIntervalSince1970
-        guard var start: NSNumber = historyDate else {
-            historyDates[channel] = NSDate.now().timeIntervalSince1970
-            userDefaults.historyDates = historyDates
-            return messages
-        }
         
-        var _result = historyFor(channel, start: start, end: nil, reverse: true)
-        while let result = _result where result.data.messages.count > 0 {
-            Logger.log("PUBNUB - received history for: \(channel) since: \(start), count: \(result.data.messages.count)")
-            messages.appendContentsOf(result.data.messages)
-            start = result.data.end
-            _result = historyFor(channel, start: start, end: nil, reverse: true)
-        }
-        if _result != nil {
-            historyDates[channel] = start
-            userDefaults.historyDates = historyDates
-        }
-        return messages
-    }
-    
-    func historyFor(channel: String, start: NSNumber?, end: NSNumber?, reverse: Bool = false) -> PNHistoryResult? {
-        return Dispatch.sleep({ (awake) in
-            historyForChannel(channel, start: start, end: end, limit: 100, reverse: reverse) { (result, _) in
-                awake(result)
+        channelsForGroup(group) { (result, status) in
+            if let channels = result?.data.channels {
+                
+                var handled = channels.count
+                
+                let handle = {
+                    handled = handled - 1
+                    if handled == 0 {
+                        userDefaults.historyDates = historyDates
+                        completionHandler(allMessages)
+                    }
+                }
+                
+                for channel in channels {
+                    let historyDate = historyDates[channel] ?? userDefaults.historyDate?.timeIntervalSince1970
+                    guard let start: NSNumber = historyDate else {
+                        historyDates[channel] = NSDate.now().timeIntervalSince1970
+                        handle()
+                        continue
+                    }
+                    
+                    Logger.log("PUBNUB - history query start for: \(channel) since: \(start)")
+                    self.recursiveHistoryFor(channel, start: start, completionHandler: { (messages, start) in
+                        if messages.isEmpty {
+                            Logger.log("PUBNUB - history query end for: \(channel) since: \(start)")
+                            historyDates[channel] = start
+                            handle()
+                        } else {
+                            Logger.log("PUBNUB - history query messages for: \(channel) since: \(start), count: \(messages.count)")
+                            allMessages.appendContentsOf(messages)
+                        }
+                    })
+                }
+                
+            } else {
+                completionHandler(allMessages)
             }
-        })
+        }
     }
     
-    func channelsForGroup(group: String) -> [String] {
-        return Dispatch.sleep({ (awake) in
-            channelsForGroup(group) { result, _ in awake(result?.data.channels) }
-        }) ?? []
+    private func recursiveHistoryFor(channel: String, start: NSNumber?, completionHandler: ([AnyObject], NSNumber?) -> ()) {
+        historyForChannel(channel, start: start, end: nil, limit: 100, reverse: true) { (result, _) in
+            if let result = result, case let messages = result.data.messages where !messages.isEmpty {
+                completionHandler(messages, start)
+                self.recursiveHistoryFor(channel, start: result.data.end, completionHandler: completionHandler)
+            } else {
+                completionHandler([], start)
+            }
+        }
     }
 }
 

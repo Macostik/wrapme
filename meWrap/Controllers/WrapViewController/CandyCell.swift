@@ -15,6 +15,10 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
     let commentLabel = Label(preset: .Smaller, textColor: UIColor.whiteColor())
     let videoIndicator = Label(icon: "+", size: 24)
     let gradientView = GradientView()
+    private let spinner = specify(UIActivityIndicatorView(activityIndicatorStyle: .White)) {
+        $0.color = Color.grayLightest
+        $0.hidesWhenStopped = true
+    }
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         
@@ -56,6 +60,11 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         pressedStateButton.snp_makeConstraints { make in
             make.edges.equalTo(self)
         }
+        
+        imageView.add(spinner) {
+            $0.center.equalTo(imageView)
+        }
+        imageView.spinner = spinner
     }
     
     func constructFlowerMenu(menu: FlowerMenu) {

@@ -54,13 +54,17 @@ class ImageView: UIImageView {
         placeholder.font = UIFont.icons(style.size)
     }
     
+    weak var spinner: UIActivityIndicatorView?
+    
     var url: String? {
         didSet {
             image = nil
             if let url = url where !url.isEmpty {
                 placeholder.hidden = true
+                spinner?.startAnimating()
                 ImageFetcher.defaultFetcher.enqueue(url, receiver: self)
             } else {
+                spinner?.stopAnimating()
                 placeholder.hidden = false
             }
         }
@@ -82,12 +86,14 @@ extension ImageView: ImageFetching {
         return url
     }
     func fetcher(fetcher: ImageFetcher, didFailWithError error: NSError) {
+        spinner?.stopAnimating()
         placeholder.hidden = false
         failure?(error)
         failure = nil
         success = nil
     }
     func fetcher(fetcher: ImageFetcher, didFinishWithImage image: UIImage, cached: Bool) {
+        spinner?.stopAnimating()
         placeholder.hidden = true
         self.image = image
         if !cached {

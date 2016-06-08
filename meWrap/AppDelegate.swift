@@ -171,7 +171,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         
-        if userInfo["aps"]?["alert"] != nil {
+        if (userInfo["aps"] as? [String:AnyObject])?["alert"] != nil {
             forceResetBadge = true
         }
         
@@ -254,15 +254,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(application: UIApplication) {
         FlowerMenu.sharedMenu.hide()
         if Authorization.active {
-            let task = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
-            Dispatch.mainQueue.after(15) {
-                if application.applicationState != .Active {
-                    NotificationCenter.defaultCenter.userSubscription.unsubscribe()
-                }
-                Dispatch.mainQueue.after(1) {
-                    UIApplication.sharedApplication().endBackgroundTask(task)
-                }
-            }
+            NotificationCenter.defaultCenter.applicationWillResignActive()
             resetBadge()
         }
     }

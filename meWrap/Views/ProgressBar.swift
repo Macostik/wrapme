@@ -101,9 +101,7 @@ class ProgressBar: UIView {
             layer.strokeEnd = _progress
         }
     }
-}
-
-extension ProgressBar {
+    
     func uploadProgress() -> NSProgress -> Void {
         return { [weak self] progress in
             let completed = CGFloat(progress.completedUnitCount)
@@ -120,14 +118,5 @@ extension ProgressBar {
             let value = 0.45 + 0.45 * completed/total
             self?.setProgress(0.1 + value, animated: true)
         }
-    }
-}
-
-extension APIRequest {
-    
-    func handleProgress(progressBar: ProgressBar) -> APIRequest {
-        uploadProgress = progressBar.uploadProgress()
-        downloadProgress = progressBar.downloadProgress()
-        return self
     }
 }

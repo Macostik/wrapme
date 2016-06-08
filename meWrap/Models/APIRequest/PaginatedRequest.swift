@@ -15,12 +15,8 @@ enum PaginatedRequestType {
 
 final class PaginatedRequest<ResponseType>: APIRequest<ResponseType> {
     
-    convenience init(_ method: Alamofire.Method, _ path: String = "", modifier: (APIRequest<ResponseType> -> Void)? = nil, parser: (Response -> ResponseType?)? = nil) {
-        self.init(method, { path }, modifier: modifier, parser: parser)
-    }
-    
-    override init(_ method: Alamofire.Method, _ pathBlock: () -> String, modifier: (APIRequest<ResponseType> -> Void)? = nil, parser: (Response -> ResponseType?)? = nil) {
-        super.init(method, pathBlock, modifier: modifier, parser: parser)
+    override init(_ method: Alamofire.Method, _ path: String = "", modifier: (APIRequest<ResponseType> -> Void)? = nil, parser: (Response -> ResponseType?)? = nil) {
+        super.init(method, path, modifier: modifier, parser: parser)
         modify()
     }
     

@@ -27,14 +27,23 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
             }
         })
         User.notifier().addReceiver(center)
+        center.runQueue.didFinish = {
+            if !center.notificationsToSubmit.isEmpty {
+                NotificationCenter.addHandledNotifications(center.notificationsToSubmit)
+                for notification in center.notificationsToSubmit {
+                    notification.submit()
+                }
+                center.notificationsToSubmit.removeAll()
+            }
+            center.queryingHistory = false
+        }
     }
     
     private let runQueue = RunQueue(limit: 1)
     
-    var enqueuedMessages = [AnyObject]()
-    
-    var userSubscription = NotificationSubscription(name:"", isGroup:true, observePresence:true)
+    var groupName = ""
     weak var liveSubscription: NotificationSubscription?
+    private var notificationsToSubmit = [Notification]()
     
     var pushToken: String?
     var pushTokenData: NSData?
@@ -42,6 +51,18 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
     func applicationDidBecomeActive() {
         liveSubscription?.subscribe()
         subscribe()
+    }
+    
+    func applicationWillResignActive() {
+        let task = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
+        Dispatch.mainQueue.after(15) {
+            if UIApplication.sharedApplication().applicationState != .Active {
+                PubNub.sharedInstance.unsubscribeFromChannelGroups([self.groupName], withPresence: true)
+            }
+            Dispatch.mainQueue.after(1) {
+                UIApplication.sharedApplication().endBackgroundTask(task)
+            }
+        }
     }
     
     func handleDeviceToken(deviceToken: NSData) {
@@ -54,10 +75,12 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
     
     func subscribe(user: User? = User.currentUser) {
         guard let user = user where !user.uid.isEmpty else { return }
-        let channelName = "cg-\(user.uid)"
-        if userSubscription.name != channelName {
-            userSubscription.name = channelName
-            userSubscription.delegate = self
+        let groupName = "cg-\(user.uid)"
+        if self.groupName != groupName {
+            if !self.groupName.isEmpty {
+                PubNub.sharedInstance.unsubscribeFromChannelGroups([self.groupName], withPresence: true)
+            }
+            self.groupName = groupName
             if pushToken != nil {
                 if Authorization.active {
                     API.updateDevice().send()
@@ -70,8 +93,8 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
         }
         let channel = User.uuid()
         PubNub.sharedInstance.subscribeToChannels([channel], withPresence: false)
-        userSubscription.subscribe()
-        Logger.logglyDestination.userid = User.uuid()
+        PubNub.sharedInstance.subscribeToChannelGroups([groupName], withPresence: true)
+        Logger.logglyDestination.userid = channel
         requestHistory()
         refreshUserActivities(true, completionHandler: nil)
     }
@@ -106,16 +129,16 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
         }
     }
     
-    func notificationsFromMessages(messages: [AnyObject]?, isHistorycal: Bool = true) -> [Notification] {
-        guard let messages = messages where !messages.isEmpty else { return [] }
+    func notificationsFromMessages(messages: [AnyObject], isHistorycal: Bool = true) -> [Notification] {
+        
+        guard !messages.isEmpty else { return [] }
         
         var notifications = [Notification]()
         
         for message in messages {
-            guard let n = Notification.notificationWithMessage(message) else { continue }
-            n.isHistorycal = isHistorycal
-            guard n.canBeHandled() && !NotificationCenter.canSkipNotification(n) else { continue }
-            notifications.append(n)
+            if let n = notificationFromMessage(message, isHistorycal: isHistorycal) {
+                notifications.append(n)
+            }
         }
         
         if notifications.isEmpty { return notifications }
@@ -123,6 +146,13 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
         NotificationCenter.addHandledNotifications(notifications)
         
         return notifications
+    }
+    
+    private func notificationFromMessage(message: AnyObject, isHistorycal: Bool = true) -> Notification? {
+        guard let n = Notification.notificationWithMessage(message) else { return nil }
+        guard n.canBeHandled() && !NotificationCenter.canSkipNotification(n) else { return nil }
+        n.isHistorycal = isHistorycal
+        return n
     }
     
     let historyNotifier = BlockNotifier<NotificationCenter>()
@@ -138,18 +168,16 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
     func requestHistory() {
         runQueue.run { [unowned self] finish in
             
-            guard !self.userSubscription.name.isEmpty && Network.network.reachable && UIApplication.isActive else {
+            guard !self.groupName.isEmpty && Network.network.reachable && UIApplication.isActive else {
                 finish()
                 return
             }
             
             self.queryingHistory = true
             
-            PubNub.sharedInstance.allHistoryForChannelGroup(self.userSubscription.name, completionHandler: { (messages) in
-                if messages.count > 0 {
-                    self.handleNotifications(self.notificationsFromMessages(messages), completionHandler: {
-                        self.queryingHistory = false
-                    })
+            PubNub.sharedInstance.allHistoryForChannelGroup(self.groupName, completionHandler: { (messages) in
+                if case let notifications = self.notificationsFromMessages(messages) where !notifications.isEmpty {
+                    self.handleNotifications(notifications)
                 } else {
                     self.queryingHistory = false
                 }
@@ -158,31 +186,24 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
         }
     }
     
-    private func handleNotifications(notifications: [Notification], completionHandler: (() -> ())? = nil) {
-        if !notifications.isEmpty {
-            for notification in notifications {
-                runQueue.run { finish in
-                    Logger.log("Fetching notification \(notification)")
-                    notification.fetch({ _ in
-                        Logger.log("Fetching notification success \(notification)")
-                        finish()
-                        }, failure: { error in
-                            Logger.log("Fetching notification error \(notification): \(error ?? "")")
-                            finish()
-                    })
-                }
-                Logger.log("PubNub message received \(notification)")
-            }
-            
-            runQueue.run { finish in
-                for notification in notifications {
-                    notification.submit()
-                }
+    private func handleNotifications(notifications: [Notification]) {
+        for notification in notifications {
+            handleNotification(notification)
+        }
+    }
+    
+    private func handleNotification(notification: Notification) {
+        Logger.log("PubNub message received \(notification)")
+        notificationsToSubmit.append(notification)
+        runQueue.run { finish in
+            Logger.log("Fetching notification \(notification)")
+            notification.fetch({ _ in
+                Logger.log("Fetching notification success \(notification)")
                 finish()
-                completionHandler?()
-            }
-        } else {
-            completionHandler?()
+                }, failure: { error in
+                    Logger.log("Fetching notification error \(notification): \(error ?? "")")
+                    finish()
+            })
         }
     }
     
@@ -206,12 +227,6 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
         } else {
             failure?(NSError(message: "Data in remote notification is not valid."))
         }
-    }
-    
-    func handleEnqueuedMessages() {
-        let notifications = notificationsFromMessages(enqueuedMessages, isHistorycal: false)
-        enqueuedMessages.removeAll()
-        handleNotifications(notifications)
     }
     
     func sendTyping(typing: Bool, wrap: Wrap) {
@@ -240,8 +255,11 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
     // MARK: - PNObjectEventListener
     
     func client(client: PubNub, didReceiveMessage message: PNMessageResult) {
-        userSubscription.didReceiveMessage(message)
-        liveSubscription?.didReceiveMessage(message)
+        if message.data.subscribedChannel == groupName {
+            didReceiveMessage(message)
+        } else {
+            liveSubscription?.didReceiveMessage(message)
+        }
         #if DEBUG
             if let msg = message.data.message {
                 print("listener didReceiveMessage in \(message.data.actualChannel ?? message.data.subscribedChannel)\n \(msg)")
@@ -250,8 +268,12 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
     }
     
     func client(client: PubNub, didReceivePresenceEvent event: PNPresenceEventResult) {
-        userSubscription.didReceivePresenceEvent(event)
-        liveSubscription?.didReceivePresenceEvent(event)
+        if event.data.subscribedChannel == groupName {
+            didReceivePresenceEvent(event)
+        } else {
+            liveSubscription?.didReceivePresenceEvent(event)
+        }
+        
         #if DEBUG
             print("PUBNUB - did receive presence event in \(event.data.actualChannel ?? event.data.subscribedChannel)\n: \(event.data)")
         #endif
@@ -262,16 +284,30 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
             print("PUBNUB - subscribtion status: \(status.debugDescription)")
         #endif
     }
-}
-
-extension NotificationCenter: NotificationSubscriptionDelegate {
     
-    func notificationSubscription(subscription: NotificationSubscription, didReceiveMessage message: PNMessageResult) {
-        enqueuedMessages.append(message.data)
-        enqueueSelector(#selector(self.handleEnqueuedMessages))
+    private let additionQueue = RunQueue(limit: 1)
+    
+    private func didReceiveMessage(message: PNMessageResult) {
+        if let notification = notificationFromMessage(message.data, isHistorycal: false) {
+            if notification.type.isAddition() {
+                additionQueue.run({ (finish) in
+                    Logger.log("Fetching notification \(notification)")
+                    notification.handle({ _ in
+                        NotificationCenter.addHandledNotifications([notification])
+                        Logger.log("Fetching notification success \(notification)")
+                        finish()
+                        }, failure: { error in
+                            Logger.log("Fetching notification error \(notification): \(error ?? "")")
+                            finish()
+                    })
+                })
+            } else {
+                handleNotification(notification)
+            }
+        }
     }
     
-    func notificationSubscription(subscription: NotificationSubscription, didReceivePresenceEvent event: PNPresenceEventResult) {
+    private func didReceivePresenceEvent(event: PNPresenceEventResult) {
         let data = event.data
         let event = data.presenceEvent
         guard let uuid = data.presence.uuid where uuid != User.uuid() else { return }
@@ -337,7 +373,7 @@ extension NotificationCenter: NotificationSubscriptionDelegate {
     }
     
     func refreshUserActivities(notify: Bool = false, completionHandler: (Void -> Void)?) {
-        PubNub.sharedInstance.hereNowForChannelGroup(userSubscription.name) { (result, status) -> Void in
+        PubNub.sharedInstance.hereNowForChannelGroup(groupName) { (result, status) -> Void in
             if let channels = result?.data.channels {
                 
                 var users = Set<String>()

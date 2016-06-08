@@ -13,8 +13,8 @@ final class StreamItem {
     
     var frame = CGRectZero
     var visible = false
-    var position: StreamPosition
-    var metrics: StreamMetricsProtocol
+    let position: StreamPosition
+    let metrics: StreamMetricsProtocol
     var entryBlock: (StreamItem -> AnyObject?)?
     
     init(metrics: StreamMetricsProtocol, position: StreamPosition) {

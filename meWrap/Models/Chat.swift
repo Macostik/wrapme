@@ -13,7 +13,7 @@ class Chat: PaginatedList<Message> {
     
     let wrap: Wrap
         
-    lazy var unreadMessages = [Message]()
+    var unreadMessages = [Message]()
     
     var messageFont = UIFont.fontNormal()
     
@@ -41,7 +41,7 @@ class Chat: PaginatedList<Message> {
         olderThen = { $0.first?.createdAt }
         request = API.messages(wrap)
         sorter = { $0.createdAt < $1.createdAt }
-        addEntries(wrap.messages)
+        entries = wrap.messages.sort(sorter)
         contentSizeObserver = NotificationObserver.contentSizeCategoryObserver({ [weak self]   (_) in
             if let chat = self {
                 for message in wrap.messages {

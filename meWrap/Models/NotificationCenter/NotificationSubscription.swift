@@ -55,15 +55,6 @@ final class NotificationSubscription {
         PubNub.sharedInstance.publish(message, toChannel: name, withCompletion: nil)
     }
     
-    func changeState(state: [String : AnyObject], channel: String) {
-        let uuid = PubNub.sharedInstance.currentConfiguration().uuid
-        PubNub.sharedInstance.setState(state, forUUID: uuid, onChannel: channel, withCompletion: nil)
-    }
-    
-    func changeState(state: [String : AnyObject]) {
-        changeState(state, channel: name)
-    }
-    
     func hereNow(completion: [[NSObject : AnyObject]]? -> Void) {
         PubNub.sharedInstance.hereNowForChannel(name, withVerbosity: .State) { (result, status) -> Void in
             completion(result?.data.uuids as? [[NSObject : AnyObject]])

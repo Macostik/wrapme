@@ -23,22 +23,21 @@ class PaginatedStreamDataSource<T: PaginatedListProtocol>: StreamDataSource<T> {
         return metrics
     }()
     
-    override var items: T? {
-        didSet {
-            if let set = items {
-                set.didChangeNotifier.subscribe(self, block: { [unowned self] (value) in
-                    self.reload()
+    override func didSetItems() {
+        if let set = items {
+            set.didChangeNotifier.subscribe(self, block: { [unowned self] (value) in
+                self.reload()
                 })
-                set.didStartLoading.subscribe(self, block: { [unowned self] (value) in
-                    self.setLoading(set.count == 0 && !set.completed)
+            set.didStartLoading.subscribe(self, block: { [unowned self] (value) in
+                self.setLoading(set.count == 0 && !set.completed)
                 })
-                set.didFinishLoading.subscribe(self, block: { [unowned self] (value) in
-                    self.setLoading(false)
+            set.didFinishLoading.subscribe(self, block: { [unowned self] (value) in
+                self.setLoading(false)
                 })
-                setLoading(set.count == 0 && !set.completed)
-                didSetItems()
-            }
+            setLoading(set.count == 0 && !set.completed)
+            
         }
+        super.didSetItems()
     }
     
     func setLoading(loading: Bool) {

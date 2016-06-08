@@ -34,31 +34,18 @@ class APIRequest<ResponseType> {
     
     private var method: Alamofire.Method = .GET
     
-    convenience init(_ method: Alamofire.Method, _ path: String = "", modifier: (APIRequest<ResponseType> -> Void)? = nil, parser: (Response -> ResponseType?)? = nil) {
-        self.init(method, { path }, modifier: modifier, parser: parser)
-    }
-    
-    init(_ method: Alamofire.Method, _ pathBlock: () -> String, modifier: (APIRequest<ResponseType> -> Void)? = nil, parser: (Response -> ResponseType?)? = nil) {
+    init(_ method: Alamofire.Method, _ path: String = "", modifier: (APIRequest<ResponseType> -> Void)? = nil, parser: (Response -> ResponseType?)? = nil) {
+        self.path = path
         self.method = method
-        self.pathBlock = pathBlock
         if let modifier = modifier {
             modifiers.append(APIRequestContainer(block: modifier))
         }
         self.parser = parser
     }
     
-    private var path = ""
-    
-    private var pathBlock: (() -> String)?
+    var path = ""
     
     private var parameters = [String:AnyObject]()
-    
-    private func parametrize() {
-        parameters.removeAll()
-        for modifier in modifiers {
-            modifier.block(self)
-        }
-    }
     
     var parser: (Response -> ResponseType?)?
     
@@ -137,13 +124,14 @@ class APIRequest<ResponseType> {
     }
     
     func send() {
-        parametrize()
+        parameters.removeAll()
+        for modifier in modifiers {
+            modifier.block(self)
+        }
         enqueue()
     }
     
     func enqueue() {
-        
-        path = pathBlock?() ?? ""
         
         Logger.log("API call \(self.method.rawValue) \(self.path): \(parameters)", color: .Yellow)
         
@@ -254,5 +242,11 @@ class APIRequest<ResponseType> {
         } else {
             self.handleFailure(error, response: nil)
         }
+    }
+    
+    func handleProgress(progressBar: ProgressBar) -> APIRequest {
+        uploadProgress = progressBar.uploadProgress()
+        downloadProgress = progressBar.downloadProgress()
+        return self
     }
 }

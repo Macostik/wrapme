@@ -27,6 +27,13 @@ enum NotificationType: Int {
     case CriticalUpdate        = 1400
     case InviteeSignUp         = 1500
     
+    func isAddition() -> Bool {
+        switch self {
+        case .ContributorAdd, .CandyAdd, .CommentAdd, .MessageAdd: return true
+        default: return false
+        }
+    }
+    
     func isDelete() -> Bool {
         switch self {
         case .WrapDelete, .CommentDelete, .CandyDelete: return true
@@ -179,12 +186,6 @@ class EntryNotification<T: Entry>: Notification {
         
         _entry = entry
         inserted = entry.inserted
-        
-        if let locuid = entry.locuid {
-            Logger.log("Notification \(self). Created entry \(entry). Number of entries with the same upload_uid \(FetchRequest<T>().query("locuid == %@", locuid).count())")
-        } else {
-            Logger.log("Notification \(self). Created entry \(entry). No upload_uid")
-        }
     }
     
     override func fetch(success: Block, failure: FailureBlock) {

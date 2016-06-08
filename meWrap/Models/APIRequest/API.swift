@@ -38,8 +38,6 @@ struct API {
         let manager = Alamofire.Manager()
         manager.startRequestsImmediately = true
         manager.session.configuration.timeoutIntervalForRequest = 45
-        //        manager.securityPolicy.allowInvalidCertificates = true
-        //        manager.securityPolicy.validatesDomainName = false
         return manager
     }
 }
@@ -57,7 +55,8 @@ extension API {
     }
     
     static func candies(wrap: Wrap) -> PaginatedRequest<[Candy]> {
-        return PaginatedRequest<[Candy]>(.GET, { "wraps/\(wrap.uid)/candies" }, modifier: { (request) -> Void in
+        return PaginatedRequest<[Candy]>(.GET, modifier: { (request) -> Void in
+            request.path = "wraps/\(wrap.uid)/candies"
             if let request = request as? PaginatedRequest {
                 switch request.type {
                 case .Newer:

@@ -62,12 +62,12 @@ class CaptureAvatarViewController: CaptureViewController {
 
 extension CaptureAvatarViewController {
     
-    func assetsViewController(controller: AssetsViewController, shouldSelectAsset asset: PHAsset) -> Bool {
+    override func assetsViewController(controller: AssetsViewController, shouldSelectAsset asset: PHAsset) -> Bool {
         handleAsset(asset)
         return false
     }
     
-    func cameraViewController(controller: CameraViewController, didCaptureImage image: UIImage, saveToAlbum: Bool) {
+    override func cameraViewController(controller: CameraViewController, didCaptureImage image: UIImage, saveToAlbum: Bool) {
         view.userInteractionEnabled = false
         cropImage(image) { [weak self] (image) -> Void in
             self?.handleImage(image, saveToAlbum: saveToAlbum)
@@ -75,7 +75,7 @@ extension CaptureAvatarViewController {
         }
     }
     
-    func cameraViewControllerDidCancel(controller: CameraViewController) {
+    override func cameraViewControllerDidCancel(controller: CameraViewController) {
         if let delegate = captureDelegate {
             delegate.captureViewControllerDidCancel(self)
         } else {

@@ -104,4 +104,15 @@ class CaptureViewController: UINavigationController, CameraViewControllerDelegat
             }
         }
     }
+    
+    func assetsViewController(controller: AssetsViewController, shouldSelectAsset asset: PHAsset) -> Bool { return true }
+    func assetsViewController(controller: AssetsViewController, didSelectAsset asset: PHAsset) {}
+    func assetsViewController(controller: AssetsViewController, didDeselectAsset asset: PHAsset) {}
+    func cameraViewController(controller: CameraViewController, didCaptureImage image: UIImage, saveToAlbum: Bool) {}
+    func cameraViewControllerDidCancel(controller: CameraViewController) {}
+    func cameraViewControllerDidFailImageCapturing(controller: CameraViewController) {}
+    func cameraViewControllerWillCaptureImage(controller: CameraViewController) {}
+    func cameraViewController(controller: CameraViewController, didCaptureVideoAtPath path: String, saveToAlbum: Bool) {}
+    func cameraViewControllerDidFinish(controller: CameraViewController) {}
+    func cameraViewControllerCanCaptureMedia(controller: CameraViewController) -> Bool { return true }
 }

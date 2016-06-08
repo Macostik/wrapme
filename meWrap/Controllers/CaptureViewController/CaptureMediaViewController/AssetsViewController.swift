@@ -101,10 +101,10 @@ extension PHFetchResult: BaseOrderedContainer {
     }
 }
 
-@objc protocol AssetsViewControllerDelegate {
-    optional func assetsViewController(controller: AssetsViewController, shouldSelectAsset asset: PHAsset) -> Bool
-    optional func assetsViewController(controller: AssetsViewController, didSelectAsset asset: PHAsset)
-    optional func assetsViewController(controller: AssetsViewController, didDeselectAsset asset: PHAsset)
+protocol AssetsViewControllerDelegate: class {
+    func assetsViewController(controller: AssetsViewController, shouldSelectAsset asset: PHAsset) -> Bool
+    func assetsViewController(controller: AssetsViewController, didSelectAsset asset: PHAsset)
+    func assetsViewController(controller: AssetsViewController, didDeselectAsset asset: PHAsset)
 }
 
 class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
@@ -153,6 +153,9 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         }
         interactionView.add(arrow) { (make) in
             make.center.equalTo(interactionView)
+        }
+        if hiddenByDefault {
+            arrow.layer.transform = CATransform3DMakeRotation(CGFloat(M_PI), 1, 0, 0)
         }
         
         let actionButton = Button(type: .Custom)
@@ -279,11 +282,11 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         let identifier = asset.localIdentifier
         if selectedAssets.contains(identifier) {
             selectedAssets.remove(identifier)
-            delegate?.assetsViewController?(self, didDeselectAsset:asset)
+            delegate?.assetsViewController(self, didDeselectAsset:asset)
         } else {
-            if delegate?.assetsViewController?(self, shouldSelectAsset:asset) ?? true {
+            if delegate?.assetsViewController(self, shouldSelectAsset:asset) ?? true {
                 selectedAssets.insert(identifier)
-                delegate?.assetsViewController?(self, didSelectAsset:asset)
+                delegate?.assetsViewController(self, didSelectAsset:asset)
                 return true
             }
         }

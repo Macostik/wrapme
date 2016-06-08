@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import AVFoundation
 
-class VideoRecordControl: UIView {
+final class VideoRecordControl: UIView {
     
     let cancelLabel = Label(icon: "!", size: 20, textColor: Color.orange)
     
@@ -153,8 +153,8 @@ class MediaCameraViewController: CameraViewController {
         super.viewDidLoad()
         AudioSession.category = AVAudioSessionCategoryPlayAndRecord
         AudioSession.locked = true
-        let recognizer = UILongPressGestureRecognizer(target:self, action:#selector(CandyCameraViewController.startVideoRecording(_:)))
-        recognizer.allowableMovement = takePhotoButton.width
+        let recognizer = UILongPressGestureRecognizer(target:self, action:#selector(self.startVideoRecording(_:)))
+        recognizer.allowableMovement = 72
         recognizer.delegate = self
         takePhotoButton.addGestureRecognizer(recognizer)
     }
@@ -253,7 +253,7 @@ class MediaCameraViewController: CameraViewController {
                         _ = try? NSFileManager.defaultManager().removeItemAtURL(url)
                     }
                 } else {
-                    self.delegate?.cameraViewController?(self, didCaptureVideoAtPath: self.videoFilePath, saveToAlbum: true)
+                    self.delegate?.cameraViewController(self, didCaptureVideoAtPath: self.videoFilePath, saveToAlbum: true)
                 }
             }
         }
@@ -499,7 +499,7 @@ class CandyCameraViewController: MediaCameraViewController, CaptureWrapContainer
     }
     
     @IBAction func finish(sender: AnyObject?) {
-        delegate?.cameraViewControllerDidFinish?(self)
+        delegate?.cameraViewControllerDidFinish(self)
     }
     
     override func animateOrientationChange(transform: CGAffineTransform) {

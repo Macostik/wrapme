@@ -25,14 +25,14 @@ class CameraView: UIView {
     }
 }
 
-@objc protocol CameraViewControllerDelegate: AssetsViewControllerDelegate {
-    optional func cameraViewController(controller: CameraViewController, didCaptureImage image: UIImage, saveToAlbum: Bool)
-    optional func cameraViewControllerDidCancel(controller: CameraViewController)
-    optional func cameraViewControllerDidFailImageCapturing(controller: CameraViewController)
-    optional func cameraViewControllerWillCaptureImage(controller: CameraViewController)
-    optional func cameraViewController(controller: CameraViewController, didCaptureVideoAtPath path: String, saveToAlbum: Bool)
-    optional func cameraViewControllerDidFinish(controller: CameraViewController)
-    optional func cameraViewControllerCanCaptureMedia(controller: CameraViewController) -> Bool
+protocol CameraViewControllerDelegate: AssetsViewControllerDelegate {
+    func cameraViewController(controller: CameraViewController, didCaptureImage image: UIImage, saveToAlbum: Bool)
+    func cameraViewControllerDidCancel(controller: CameraViewController)
+    func cameraViewControllerDidFailImageCapturing(controller: CameraViewController)
+    func cameraViewControllerWillCaptureImage(controller: CameraViewController)
+    func cameraViewController(controller: CameraViewController, didCaptureVideoAtPath path: String, saveToAlbum: Bool)
+    func cameraViewControllerDidFinish(controller: CameraViewController)
+    func cameraViewControllerCanCaptureMedia(controller: CameraViewController) -> Bool
 }
 
 class CameraViewController: BaseViewController {
@@ -267,11 +267,11 @@ class CameraViewController: BaseViewController {
     }
     
     private func finishWithImage(image: UIImage) {
-        delegate?.cameraViewController?(self, didCaptureImage: image, saveToAlbum: true)
+        delegate?.cameraViewController(self, didCaptureImage: image, saveToAlbum: true)
     }
     
     private func captureImage(completon: Block?) {
-        delegate?.cameraViewControllerWillCaptureImage?(self)
+        delegate?.cameraViewControllerWillCaptureImage(self)
         assetsViewController.setHidden(true, animated: true)
         self.takePhotoButton.active = false
         view.userInteractionEnabled = false
@@ -292,7 +292,7 @@ class CameraViewController: BaseViewController {
     }
     
     internal func canCaptureMedia() -> Bool {
-        return delegate?.cameraViewControllerCanCaptureMedia?(self) ?? true
+        return delegate?.cameraViewControllerCanCaptureMedia(self) ?? true
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
@@ -382,7 +382,7 @@ class CameraViewController: BaseViewController {
 extension CameraViewController { // MARK: - Actions
     
     @IBAction func cancel(sender: AnyObject?) {
-        delegate?.cameraViewControllerDidCancel?(self)
+        delegate?.cameraViewControllerDidCancel(self)
     }
     
     @IBAction func shot(sender: AnyObject?) {
@@ -394,7 +394,7 @@ extension CameraViewController { // MARK: - Actions
     @IBAction func getSamplePhoto(sender: AnyObject?) {
         self.takePhotoButton.active = false
         fetchSampleImage({ (image) -> Void in
-            self.delegate?.cameraViewController?(self, didCaptureImage:image, saveToAlbum:false)
+            self.delegate?.cameraViewController(self, didCaptureImage:image, saveToAlbum:false)
             self.takePhotoButton.active = true
             }) { _ in
                 self.takePhotoButton.active = true
@@ -471,10 +471,6 @@ extension CameraViewController: UIGestureRecognizerDelegate {
             return true
         }
     }
-    
-//    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-//        return true
-//    }
 }
 
 extension AVCaptureDevice {

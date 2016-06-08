@@ -114,7 +114,6 @@ final class PhotoCandyViewController: CandyViewController, UIScrollViewDelegate 
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.bounces = false
         scrollView.bouncesZoom = false
-        scrollView.frame = view.bounds
         scrollView.backgroundColor = UIColor.blackColor()
         contentView.frame = view.bounds
         rotationView.frame = view.bounds
@@ -151,16 +150,9 @@ final class PhotoCandyViewController: CandyViewController, UIScrollViewDelegate 
         super.viewWillAppear(animated)
     }
     
-    private func imageRect(image: UIImage?) -> CGRect {
-        if let image = image {
-            return rotationView.size.fit(image.size).rectCenteredInSize(rotationView.size)
-        } else {
-            return rotationView.bounds
-        }
-    }
-    
     override func imageLoaded(image: UIImage?) {
-        let rect = imageRect(image)
+        guard let image = image else { return }
+        let rect = rotationView.size.fit(image.size).rectCenteredInSize(rotationView.size)
         if rect.size != scrollView.frame.size {
             scrollView.zoomScale = 1
             scrollView.frame = rect

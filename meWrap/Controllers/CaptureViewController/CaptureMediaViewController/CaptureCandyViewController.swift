@@ -27,7 +27,7 @@ protocol CaptureCandyViewControllerDelegate: class {
     func captureViewControllerDidCancel(controller: CaptureCandyViewController)
 }
 
-class CaptureCandyViewController: CaptureViewController {
+class CaptureCandyViewController: CaptureViewController, UploadSummaryViewControllerDelegate, WrapPickerViewControllerDelegate {
         
     weak var captureDelegate: CaptureCandyViewControllerDelegate?
     
@@ -181,11 +181,8 @@ class CaptureCandyViewController: CaptureViewController {
             completionBlock()
         }
     }
-}
-
-extension CaptureCandyViewController {
     
-    func assetsViewController(controller: AssetsViewController, shouldSelectAsset asset: PHAsset) -> Bool {
+    override func assetsViewController(controller: AssetsViewController, shouldSelectAsset asset: PHAsset) -> Bool {
         if asset.mediaType == .Video && asset.duration >= Constants.maxVideoRecordedDuration + 1 {
             Toast.show(String(format:"formatted_upload_video_duration_limit".ls, Int(Constants.maxVideoRecordedDuration)))
             return false
@@ -194,12 +191,12 @@ extension CaptureCandyViewController {
         }
     }
     
-    func assetsViewController(controller: AssetsViewController, didSelectAsset asset: PHAsset) {
+    override func assetsViewController(controller: AssetsViewController, didSelectAsset asset: PHAsset) {
         assetsViewController = controller
         handleAsset(asset)
     }
     
-    func assetsViewController(controller: AssetsViewController, didDeselectAsset asset: PHAsset) {
+    override func assetsViewController(controller: AssetsViewController, didDeselectAsset asset: PHAsset) {
         for (index, _asset) in self.assets.enumerate() where _asset.assetID == asset.localIdentifier {
             if let exportSession = _asset.videoExportSession {
                 exportSession.cancelExport()
@@ -211,7 +208,7 @@ extension CaptureCandyViewController {
         updateCountLabel()
     }
     
-    func cameraViewController(controller: CameraViewController, didCaptureImage image: UIImage, saveToAlbum: Bool) {
+    override func cameraViewController(controller: CameraViewController, didCaptureImage image: UIImage, saveToAlbum: Bool) {
         view.userInteractionEnabled = false
         cropImage(image) { [weak self] (image) -> Void in
             self?.handleImage(image, saveToAlbum: saveToAlbum)
@@ -219,7 +216,7 @@ extension CaptureCandyViewController {
         }
     }
     
-    func cameraViewControllerDidCancel(controller: CameraViewController) {
+    override func cameraViewControllerDidCancel(controller: CameraViewController) {
         if let delegate = captureDelegate {
             delegate.captureViewControllerDidCancel(self)
         } else {
@@ -227,25 +224,25 @@ extension CaptureCandyViewController {
         }
     }
     
-    func cameraViewControllerWillCaptureImage(controller: CameraViewController) {
+    override func cameraViewControllerWillCaptureImage(controller: CameraViewController) {
         assetsCount += 1
         updateCountLabel()
     }
     
-    func cameraViewControllerDidFailImageCapturing(controller: CameraViewController) {
+    override func cameraViewControllerDidFailImageCapturing(controller: CameraViewController) {
         assetsCount -= 1
         updateCountLabel()
     }
     
-    func cameraViewControllerDidFinish(controller: CameraViewController) {
+    override func cameraViewControllerDidFinish(controller: CameraViewController) {
         showUploadSummary(nil)
     }
     
-    func cameraViewControllerCanCaptureMedia(controller: CameraViewController) -> Bool {
+    override func cameraViewControllerCanCaptureMedia(controller: CameraViewController) -> Bool {
         return shouldAddAsset({}, failure: { $0?.show() })
     }
     
-    func cameraViewController(controller: CameraViewController, didCaptureVideoAtPath path: String, saveToAlbum: Bool) {
+    override func cameraViewController(controller: CameraViewController, didCaptureVideoAtPath path: String, saveToAlbum: Bool) {
         let asset = MutableAsset(isAvatar: false)
         asset.type = .Video
         asset.date = NSDate.now()
@@ -258,11 +255,8 @@ extension CaptureCandyViewController {
                     controller.takePhotoButton.userInteractionEnabled = true
                 })
             }
-            }) { $0?.show() }
+        }) { $0?.show() }
     }
-}
-
-extension CaptureCandyViewController: UploadSummaryViewControllerDelegate {
     
     func uploadSummaryViewController(controller: UploadSummaryViewController, didDeselectAsset asset: MutableAsset) {
         if let index = assets.indexOf(asset) {
@@ -301,9 +295,6 @@ extension CaptureCandyViewController: UploadSummaryViewControllerDelegate {
             finish(assets)
         }
     }
-}
-
-extension CaptureCandyViewController: WrapPickerViewControllerDelegate {
     
     func wrapPickerViewController(controller: WrapPickerViewController, didCreateWrap wrap: Wrap) {
         createdWraps.insert(wrap)

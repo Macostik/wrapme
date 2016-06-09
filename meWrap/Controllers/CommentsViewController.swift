@@ -479,8 +479,6 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
                     })
                 }
         }
-        
-        showMediaCommentHintIfNeeded()
     }
     
     private weak var mediaCommentHint: UIView?
@@ -736,7 +734,7 @@ extension CommentsViewController: ComposeBarDelegate {
     }
     
     func composeBarDidBeginEditing(composeBar: ComposeBar) {
-        hideMediaCommentHintIfNeeded()
+        showMediaCommentHintIfNeeded()
     }
     
     func composeBarDidEndEditing(composeBar: ComposeBar) {

@@ -56,15 +56,7 @@ class EntryStreamReusableView<T: AnyObject>: StreamReusableView {
     
     var entry: T? {
         didSet {
-            didSetEntry()
-        }
-    }
-    
-    private func didSetEntry() {
-        if let entry = entry {
-            setup(entry)
-        } else {
-            setupEmpty()
+            resetup()
         }
     }
     
@@ -73,6 +65,10 @@ class EntryStreamReusableView<T: AnyObject>: StreamReusableView {
     func setupEmpty() {}
     
     func resetup() {
-        didSetEntry()
+        if let entry = entry {
+            setup(entry)
+        } else {
+            setupEmpty()
+        }
     }
 }

@@ -45,6 +45,7 @@ extension AuthorizedExecutor {
     static func shareContent(items: [[String:String]]) {
         AuthorizedExecutor.execute {
             UINavigationController.main.dismissViewControllerAnimated(false, completion: nil)
+            UINavigationController.main.popToRootViewControllerAnimated(false)
             let navigationController = UINavigationController()
             navigationController.navigationBarHidden = true
             navigationController.viewControllers = [WrapListViewController(items: items)]

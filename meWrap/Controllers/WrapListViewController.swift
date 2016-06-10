@@ -256,16 +256,12 @@ extension WrapListViewController: UploadSummaryViewControllerDelegate {
             assets?.removeAtIndex(index)
         }
         if assets?.count == 0 {
-            dismissViewControllerAnimated(false, completion: {
-                UINavigationController.main.popToRootViewControllerAnimated(false)
-            })
+            dismissViewControllerAnimated(false, completion: nil)
         }
     }
     
     func uploadSummaryViewController(controller: UploadSummaryViewController, didFinishWithAssets assets: [MutableAsset]) {
-        dismissViewControllerAnimated(false, completion: {
-            UINavigationController.main.popToRootViewControllerAnimated(false)
-        })
+        dismissViewControllerAnimated(false, completion: nil)
         Sound.play()
         controller.wrap?.uploadAssets(assets)
     }

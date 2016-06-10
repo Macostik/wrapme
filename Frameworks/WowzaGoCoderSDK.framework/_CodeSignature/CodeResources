@@ -10,7 +10,7 @@
 		</data>
 		<key>Headers/WZAudioDevice.h</key>
 		<data>
-		TrO/JHErVeJESMxc7FyuArFSovg=
+		Mszyfrd5WxMm6lHyj2SWzWM/zA4=
 		</data>
 		<key>Headers/WZAudioEncoderSink.h</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Headers/WZAudioSink.h</key>
 		<data>
-		qNpPCZqPHjDz/NZ5/vHECGPtQZ4=
+		EcDGEeyS6tXpEi2yQCtlEh5WPdA=
 		</data>
 		<key>Headers/WZBroadcast.h</key>
 		<data>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Headers/WZMediaConfig.h</key>
 		<data>
-		QLDhn8g6uXRd4LTQlNTQ866AqOU=
+		L4LIctxzQPbxOrRzQQ0galLOYOE=
 		</data>
 		<key>Headers/WZMediaSink.h</key>
 		<data>
@@ -90,7 +90,7 @@
 		</data>
 		<key>Headers/WowzaGoCoder.h</key>
 		<data>
-		1oUgijR/MAdCjhXM0uP7iXFk1Ws=
+		9m6kF75EXXm1OjlDfexRSRm4QKc=
 		</data>
 		<key>Headers/WowzaGoCoderSDK.h</key>
 		<data>
@@ -98,7 +98,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		9tU/vibqZrOnwG7c1JGvnxBQkoc=
+		snkHO3tSn/TKoDjURVBjVIrAjE8=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -126,11 +126,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			TrO/JHErVeJESMxc7FyuArFSovg=
+			Mszyfrd5WxMm6lHyj2SWzWM/zA4=
 			</data>
 			<key>hash2</key>
 			<data>
-			xjFObbvHHaQ+d/X3lXAuSVIlCIa8I9S8988NveYOWrU=
+			fDMacpir554u6Pv0x/fZ/h4Ia16ktINBIyflFXsOQtE=
 			</data>
 		</dict>
 		<key>Headers/WZAudioEncoderSink.h</key>
@@ -148,11 +148,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			qNpPCZqPHjDz/NZ5/vHECGPtQZ4=
+			EcDGEeyS6tXpEi2yQCtlEh5WPdA=
 			</data>
 			<key>hash2</key>
 			<data>
-			kj9o5DZn+XwGhfnmUTW4b7aA8ap6EURcVXzitoesiMk=
+			AhBVXSKRWCDIYBSFeu2JCVFqhNkOK3EkQGxhEownlQI=
 			</data>
 		</dict>
 		<key>Headers/WZBroadcast.h</key>
@@ -236,11 +236,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			QLDhn8g6uXRd4LTQlNTQ866AqOU=
+			L4LIctxzQPbxOrRzQQ0galLOYOE=
 			</data>
 			<key>hash2</key>
 			<data>
-			yaKf9kQdPDfBAswjKu9EQ2EebUCVvxqqzOo/Imvd17g=
+			uBBd3oUrvRdtkalgEt48MJpGmm2K0kLC6RIH2HnAk78=
 			</data>
 		</dict>
 		<key>Headers/WZMediaSink.h</key>
@@ -346,11 +346,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			1oUgijR/MAdCjhXM0uP7iXFk1Ws=
+			9m6kF75EXXm1OjlDfexRSRm4QKc=
 			</data>
 			<key>hash2</key>
 			<data>
-			bTS5wn7R3TRbo4SIGMbI7muZ1xd8L/cgpVg61tsQpSQ=
+			Iwdx9syIer93Yf24wCxtLroS/+frWna4eYW0G7AhxF0=
 			</data>
 		</dict>
 		<key>Headers/WowzaGoCoderSDK.h</key>

@@ -228,7 +228,9 @@ typedef NS_ENUM(NSUInteger, WZAudioChannels) {
 
 /*!
  *  The desired audio sample rate. Note that the actual sample rate
- *  might be different from the desired rate.
+ *  might be different from the desired rate. Set this property to 0
+ *  to have WowzaGoCoder select the optimal sample rate based on the
+ *  current hardware capabilities.
  */
 @property (nonatomic, assign) NSUInteger audioSampleRate;
 

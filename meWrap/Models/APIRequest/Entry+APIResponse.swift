@@ -148,7 +148,6 @@ extension Wrap {
         super.map(dictionary, container: container)
         
         name <!= dictionary[Keys.Name]
-        isPublic <!= dictionary["is_public"] as? Bool
         isRestrictedInvite <!= dictionary["is_restricted_invite"] as? Bool
         
         if let array = dictionary[Keys.Contributors] as? [[String:AnyObject]] {
@@ -157,19 +156,8 @@ extension Wrap {
         
         contributor <!= mappedEntry(dictionary.get(Keys.Creator))
         
-        if let currentUser = User.currentUser {
-            let isContributing = contributors.contains(currentUser)
-            if isPublic {
-                if let isFollowing = dictionary["is_following"] as? Bool {
-                    if isFollowing && !isContributing {
-                        contributors.insert(currentUser)
-                    } else if (!isFollowing && isContributing) {
-                        contributors.remove(currentUser)
-                    }
-                }
-            } else if !isContributing {
-                contributors.insert(currentUser)
-            }
+        if let currentUser = User.currentUser where !contributors.contains(currentUser) {
+            contributors.insert(currentUser)
         }
         
         let _: [Candy] = mappedEntries(dictionary.get(Keys.Candies), container: self)

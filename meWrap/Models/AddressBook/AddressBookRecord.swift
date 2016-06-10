@@ -92,6 +92,9 @@ class AddressBookRecord: NSObject {
                 self.name = name.takeUnretainedValue() as String
             }
             phoneNumbers = phones
+            for phoneNumber in phones {
+                phoneNumber.record = self
+            }
         } else {
             return nil
         }
@@ -100,6 +103,9 @@ class AddressBookRecord: NSObject {
     convenience init(phoneNumbers: [AddressBookPhoneNumber]) {
         self.init()
         self.phoneNumbers = phoneNumbers
+        for phoneNumber in phoneNumbers {
+            phoneNumber.record = self
+        }
     }
     
     convenience init(record: AddressBookRecord) {

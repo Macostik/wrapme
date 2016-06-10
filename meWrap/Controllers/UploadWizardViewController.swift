@@ -36,7 +36,7 @@ class UploadWizardViewController: BaseViewController {
                 text = String(format:"first_wrap".ls, User.currentUser?.name ?? "")
             }
             guard let name = text where !name.isEmpty else { return nil }
-            let wrap = Wrap.wrap()
+            let wrap = insertWrap()
             wrap.name = name
             self.wrap = wrap
             Uploader.wrapUploader.upload(Uploading.uploading(wrap), success: nil, failure: { [weak self] error in

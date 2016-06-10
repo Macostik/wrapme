@@ -33,6 +33,7 @@ extension User {
     @NSManaged var wraps: Set<Wrap>
     @NSManaged var avatar: Asset?
     @NSManaged var invitedAt: NSDate
+    @NSManaged var invitees: Set<Invitee>?
 }
 
 extension Device {
@@ -66,13 +67,23 @@ extension Wrap {
     @NSManaged var isCandyNotifiable: Bool
     @NSManaged var isCommentNotifiable: Bool
     @NSManaged var isChatNotifiable: Bool
-    @NSManaged var isPublic: Bool
     @NSManaged var isRestrictedInvite: Bool
     @NSManaged var name: String?
     @NSManaged var candies: Set<Candy>
     @NSManaged var contributors: Set<User>
     @NSManaged var messages: Set<Message>
     @NSManaged var candiesPaginationDate: NSDate?
+    @NSManaged var invitees: Set<Invitee>?
+    @NSManaged var invitationMessage: String?
+    
+}
+
+extension Invitee {
+    
+    @NSManaged var name: String?
+    @NSManaged var phone: String?
+    @NSManaged var user: User?
+    @NSManaged var wrap: Wrap?
     
 }
 

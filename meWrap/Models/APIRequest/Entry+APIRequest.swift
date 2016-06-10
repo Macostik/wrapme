@@ -78,10 +78,12 @@ extension User {
     }
 }
 
+let AddFriendsUploadingType: Int16 = 3
+
 extension Wrap {
     
     func uploadMessage(text: String) {
-        let message: Message = Message.contribution()
+        let message: Message = insertContribution()
         let uploading = Uploading.uploading(message)
         message.wrap = self
         message.text = text
@@ -90,13 +92,13 @@ extension Wrap {
     }
     
     func uploadAsset(asset: MutableAsset, createdAt: NSDate) {
-        let candy = Candy.candy(asset.type)
+        let candy = insertCandy(asset.type)
         candy.createdAt = createdAt
         candy.updatedAt = createdAt
         candy.wrap = self
         candy.asset = asset.uploadableAsset()
         if let comment = asset.comment where !comment.isEmpty {
-            Comment.comment(comment).candy = candy
+            insertComment(comment).candy = candy
         }
         Uploader.candyUploader.upload(Uploading.uploading(candy))
         candy.notifyOnAddition()
@@ -157,13 +159,29 @@ extension Wrap {
             })
             }, failure: nil)
     }
+    
+    override func isCustomUploading(uploading: Uploading) -> Bool {
+        return uploading.type == AddFriendsUploadingType
+    }
+    
+    override func sendUploading(uploading: Uploading, success: ObjectBlock?, failure: FailureBlock?) {
+        if uploaded {
+            API.addContributors(self).send(success, failure: failure)
+        } else {
+            failure?(nil)
+        }
+    }
 }
 
 extension Uploading {
     
-    class func uploading(contribution: Contribution, event: Event = .Add) -> Uploading {
+    static func uploading(contribution: Contribution, event: Event = .Add) -> Uploading {
+        return uploading(contribution, type: event.rawValue)
+    }
+    
+    static func uploading(contribution: Contribution, type: Int16) -> Uploading {
         let uploading = EntryContext.sharedContext.insertEntry(entityName()) as! Uploading
-        uploading.type = event.rawValue
+        uploading.type = type
         uploading.contribution = contribution
         return uploading
     }
@@ -207,14 +225,18 @@ extension Uploading {
     }
     
     private func send(contribution: Contribution, success: ObjectBlock?, failure: FailureBlock?) {
-        if let type = Event(rawValue: self.type) {
-            switch type {
-            case .Add: add(contribution, success: success, failure: failure)
-            case .Update: update(contribution, success: success, failure: failure)
-            case .Delete: failure?(nil)
-            }
+        if contribution.isCustomUploading(self) {
+            contribution.sendUploading(self, success: success, failure: failure)
         } else {
-            failure?(nil)
+            if let type = Event(rawValue: self.type) {
+                switch type {
+                case .Add: add(contribution, success: success, failure: failure)
+                case .Update: update(contribution, success: success, failure: failure)
+                case .Delete: failure?(nil)
+                }
+            } else {
+                failure?(nil)
+            }
         }
     }
     
@@ -240,6 +262,15 @@ extension Uploading {
         Logger.log("Removing Uploading object for contribution \(contribution ?? "")")
         contribution?.uploading = nil
     }
+}
+
+extension Contribution {
+    
+    func isCustomUploading(uploading: Uploading) -> Bool {
+        return false
+    }
+    
+    func sendUploading(uploading: Uploading, success: ObjectBlock?, failure: FailureBlock?) {}
 }
 
 extension Candy {

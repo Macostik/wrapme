@@ -10,15 +10,38 @@ import Foundation
 import CoreData
 import Photos
 
+func insertEntry<T: Entry>() -> T {
+    let entry: T = EntryContext.sharedContext.insertEntry(T.entityName()) as! T
+    entry.uid = GUID()
+    entry.createdAt = NSDate.now()
+    entry.updatedAt = entry.createdAt
+    return entry
+}
+
+func insertContribution<T: Contribution>() -> T {
+    return specify(insertEntry(), {
+        $0.locuid = $0.uid
+        $0.contributor = User.currentUser
+    })
+}
+
+func insertWrap() -> Wrap {
+    return specify(insertContribution(), {
+        if let contributor = $0.contributor {
+            $0.contributors = [contributor]
+        }
+    })
+}
+
+func insertCandy(mediaType: MediaType) -> Candy {
+    return specify(insertContribution(), { $0.mediaType = mediaType })
+}
+
+func insertComment(text: String) -> Comment {
+    return specify(insertContribution(), { $0.text = text })
+}
+
 extension Entry {
-    
-    class func entry<T: Entry>() -> T {
-        let entry: T = EntryContext.sharedContext.insertEntry(T.entityName()) as! T
-        entry.uid = GUID()
-        entry.createdAt = NSDate.now()
-        entry.updatedAt = entry.createdAt
-        return entry
-    }
     
     func markAsUnread(unread: Bool) {
         if valid && self.unread != unread {
@@ -50,7 +73,7 @@ extension Entry {
 
 extension User {
     
-    class func uuid() -> String {
+    static func uuid() -> String {
         return "\(User.currentUser?.uid ?? "")-\(Authorization.current.deviceUID)"
     }
     
@@ -59,29 +82,7 @@ extension User {
     }
 }
 
-extension Device {
-    
-}
-
-extension Contribution {
-    
-    class func contribution<T: Contribution>() -> T {
-        return specify(entry(), {
-            $0.locuid = $0.uid
-            $0.contributor = User.currentUser
-        })
-    }
-}
-
 extension Wrap {
-    
-    class func wrap() -> Wrap {
-        return specify(contribution(), {
-            if let contributor = $0.contributor {
-                $0.contributors = [contributor]
-            }
-        })
-    }
     
     override func fetched() -> Bool {
         return !(name?.isEmpty ?? true) && contributor != nil
@@ -89,10 +90,6 @@ extension Wrap {
 }
 
 extension Candy {
-    
-    class func candy(mediaType: MediaType) -> Candy {
-        return specify(contribution(), { $0.mediaType = mediaType })
-    }
     
     override func markAsUnread(unread: Bool) {
         if !unread {
@@ -177,10 +174,6 @@ extension Message {
 }
 
 extension Comment {
-    
-    class func comment(text: String) -> Comment {
-        return specify(contribution(), { $0.text = text })
-    }
     
     override func fetched() -> Bool {
         return !(text?.isEmpty ?? true) && candy != nil

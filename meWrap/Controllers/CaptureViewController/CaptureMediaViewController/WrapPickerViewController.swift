@@ -265,7 +265,7 @@ extension WrapPickerViewController {
         
         wrapNameTextField.resignFirstResponder()
         
-        let wrap = Wrap.wrap()
+        let wrap = insertWrap()
         wrap.name = name
         delegate?.wrapPickerViewController(self, didSelectWrap:wrap)
         delegate?.wrapPickerViewController(self, didCreateWrap:wrap)

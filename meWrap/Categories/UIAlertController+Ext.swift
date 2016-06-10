@@ -62,15 +62,9 @@ extension UIAlertController {
             controller.action("cancel".ls, handler: failure)
             controller.action("delete".ls, handler: success)
         } else {
-            if (wrap.isPublic) {
-                controller = alert("unfollow_confirmation_title".ls, message: "unfollow_confirmation_message".ls)
-                controller.action("uppercase_no".ls, handler: failure)
-                controller.action("uppercase_yes".ls, handler: success)
-            } else {
-                controller = alert("leave_wrap".ls, message: String(format: "leave_wrap_confirmation".ls, wrap.name ?? ""))
-                controller.action("uppercase_no".ls, handler: failure)
-                controller.action("uppercase_yes".ls, handler: success)
-            }
+            controller = alert("leave_wrap".ls, message: String(format: "leave_wrap_confirmation".ls, wrap.name ?? ""))
+            controller.action("uppercase_no".ls, handler: failure)
+            controller.action("uppercase_yes".ls, handler: success)
         }
         controller.show()
     }

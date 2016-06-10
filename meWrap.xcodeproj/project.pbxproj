@@ -603,6 +603,7 @@
 		C540C0EE1B988BF700F880C9 /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		C540C0F11B988BFD00F880C9 /* StreamItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamItem.swift; sourceTree = "<group>"; };
 		C54220CB1CB2A8830082F519 /* DebugViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
+		C54332BF1D09BC0200ACB14E /* CoreData 1. 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1. 7.xcdatamodel"; sourceTree = "<group>"; };
 		C54365761CEB19F1005E9F26 /* DownloadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadingView.swift; sourceTree = "<group>"; };
 		C54365781CEB1A07005E9F26 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		C54604D71C08C6DF00FB2303 /* meWrapWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = meWrapWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3229,6 +3230,7 @@
 		C5E6DD781C0DC84A004992E4 /* CoreData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				C54332BF1D09BC0200ACB14E /* CoreData 1. 7.xcdatamodel */,
 				C548E5011CE9C49F00F5DCE9 /* CoreData 1. 6.xcdatamodel */,
 				C5092CC91C11F299006C9414 /* CoreData 1. 5.xcdatamodel */,
 				C5E6DD791C0DC84A004992E4 /* CoreData 1. 2.xcdatamodel */,
@@ -3237,7 +3239,7 @@
 				C5E6DD7C1C0DC84A004992E4 /* CoreData 1.1.xcdatamodel */,
 				C5E6DD7D1C0DC84A004992E4 /* CoreData.xcdatamodel */,
 			);
-			currentVersion = C548E5011CE9C49F00F5DCE9 /* CoreData 1. 6.xcdatamodel */;
+			currentVersion = C54332BF1D09BC0200ACB14E /* CoreData 1. 7.xcdatamodel */;
 			path = CoreData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

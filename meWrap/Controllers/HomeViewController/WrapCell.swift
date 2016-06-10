@@ -61,10 +61,8 @@ class WrapCell: EntryStreamReusableView<Wrap> {
     private var nameBadgeLeading: Constraint!
     private var nameLiveLeading: Constraint!
     
-    private var swipeAction: SwipeAction?
-    
-    var allowSwipeAction: Bool = true
-    
+    var swipeAction: SwipeAction?
+        
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         
         coverView.clipsToBounds = true
@@ -127,18 +125,8 @@ class WrapCell: EntryStreamReusableView<Wrap> {
         }
         
         swipeAction = specify(SwipeAction(view: self), {
-            $0.shouldBeginPanning = { [weak self] (action) -> Bool in
-                guard self?.allowSwipeAction == true else { return false }
-                guard let wrap = self?.entry else { return false }
-                if wrap.isPublic {
-                    if wrap.isContributing {
-                        return action.direction == .Left
-                    } else {
-                        return false
-                    }
-                } else {
-                    return true
-                }
+            $0.shouldBeginPanning = { _ in
+                return true
             }
             
             $0.didBeginPanning = { [weak self] (action) -> Void in

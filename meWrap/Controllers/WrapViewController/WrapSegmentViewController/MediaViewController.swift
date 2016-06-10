@@ -198,10 +198,6 @@ class MediaViewController: WrapSegmentViewController {
         dataSource.layoutSpacing = Constants.pixelSize
         dataSource.placeholderMetrics = PlaceholderView.mediaPlaceholderMetrics()
         
-        if wrap.requiresFollowing && Network.network.reachable {
-            wrap.candies = []
-        }
-        
         dataSource.wrap = wrap
         dataSource.liveBroadcastMetrics.selection = { [weak self] view -> Void in
             if let broadcast = view.entry {

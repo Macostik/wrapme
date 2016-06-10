@@ -99,23 +99,16 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         
         spinner.startAnimating()
         let cached = AddressBook.sharedAddressBook.cachedRecords({ [weak self] (array) in
+            self?.handleCachedRecords(array)
             self?.spinner.stopAnimating()
-            }) { [weak self] (error) in
+            }) { [weak self] records, error in
+                self?.handleCachedRecords(records)
                 self?.spinner.stopAnimating()
                 error?.show()
+                AddressBook.sharedAddressBook.updateCachedRecords()
         }
         AddressBook.sharedAddressBook.subscribe(self) { [unowned self] cachedRecords in
-            let oldAddressBook = self.addressBook
-            self.addressBook = ArrangedAddressBook()
-            self.addressBook.addRecords(cachedRecords)
-            if oldAddressBook.groups.count != 0 {
-                for phoneNumber in oldAddressBook.selectedPhoneNumbers {
-                    if let phoneNumber = self.addressBook.phoneNumberEqualTo(phoneNumber) {
-                        self.addressBook.selectedPhoneNumbers.insert(phoneNumber)
-                    }
-                }
-            }
-            self.filterContacts()
+            self.handleCachedRecords(cachedRecords)
         }
         if cached {
             AddressBook.sharedAddressBook.updateCachedRecords()
@@ -123,6 +116,20 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         contentSizeObserver = NotificationObserver.contentSizeCategoryObserver({ [weak self]   (_) in
             self?.streamView.reload()
         })
+    }
+    
+    private func handleCachedRecords(cachedRecords: [AddressBookRecord]) {
+        let oldAddressBook = self.addressBook
+        self.addressBook = ArrangedAddressBook()
+        self.addressBook.addRecords(cachedRecords)
+        if oldAddressBook.groups.count != 0 {
+            for phoneNumber in oldAddressBook.selectedPhoneNumbers {
+                if let phoneNumber = self.addressBook.phoneNumberEqualTo(phoneNumber) {
+                    self.addressBook.selectedPhoneNumbers.insert(phoneNumber)
+                }
+            }
+        }
+        self.filterContacts()
     }
     
     func filterContacts() {
@@ -138,41 +145,90 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         if addressBook.selectedPhoneNumbers.count == 0 {
             completionHandler?(false)
         } else {
-            if Network.network.reachable != true {
-                Toast.show("no_internet_connection".ls)
-                return
+            switch wrap.status {
+            case .Ready:
+                wrap.invitees = getInvitees(addressBook.selectedPhoneNumbers)
+                completionHandler?(true)
+            case .InProgress:
+                Toast.show("publishing_in_progress".ls)
+            case .Finished:
+                wrap.invitees = getInvitees(addressBook.selectedPhoneNumbers)
+                Uploader.wrapUploader.upload(Uploading.uploading(wrap, type: AddFriendsUploadingType))
+                completionHandler?(true)
             }
-            API.addContributors(addressBook.selectedPhoneNumbers, wrap: wrap, message: nil).send({ [weak self] _ in
-                self?.completionHandler?(true)
-                }, failure: { error in
-                    error?.show()
-            })
         }
     }
     
-    @IBAction func done(sender: Button) {
-        if Network.network.reachable != true {
-            Toast.show("no_internet_connection".ls)
-            return
+    private func getInvitees(selectedPhoneNumbers: Set<AddressBookPhoneNumber>) -> Set<Invitee> {
+        let registered = selectedPhoneNumbers.filter({ $0.user != nil })
+        var invitees = Set<Invitee>(registered.map({
+            let invitee: Invitee = insertEntry()
+            invitee.user = $0.user
+            return invitee
+        }))
+        
+        var unregistered = selectedPhoneNumbers.subtract(registered)
+        
+        while !unregistered.isEmpty {
+            let invitee: Invitee = insertEntry()
+            if let phoneNumber = unregistered.first {
+                invitee.name = phoneNumber.name
+                if let record = phoneNumber.record {
+                    let grouped = unregistered.filter({ $0.record == record })
+                    invitee.phone = grouped.reduce("", combine: { phones, number -> String in
+                        if phones.isEmpty {
+                            return phones + "," + (number.phone ?? "")
+                        } else {
+                            return phones + (number.phone ?? "")
+                        }
+                    })
+                    unregistered.subtractInPlace(grouped)
+                } else {
+                    invitee.phone = phoneNumber.phone
+                    unregistered.remove(phoneNumber)
+                }
+            }
+            invitees.insert(invitee)
         }
+        return invitees
+    }
+    
+    @IBAction func done(sender: Button) {
+
+        let selectedPhoneNumbers = addressBook.selectedPhoneNumbers
+        
         let performRequestBlock = { [weak self] (message: String?) in
-            if let selectedPhoneNumbers = self?.addressBook.selectedPhoneNumbers, let wrap = self?.wrap {
-                API.addContributors(selectedPhoneNumbers, wrap: wrap, message: message).send({ _ in
+            if let invitees = self?.getInvitees(selectedPhoneNumbers), let wrap = self?.wrap {
+                
+                switch wrap.status {
+                case .Ready:
+                    wrap.invitees = invitees
+                    wrap.invitationMessage = message
                     self?.navigationController?.popViewControllerAnimated(false)
                     if message?.isEmpty ?? true {
                         Toast.show("isn't_using_invite".ls)
                     } else {
                         Toast.show("is_using_invite".ls)
                     }
-                    }, failure: { (error) in
-                        error?.show()
-                })
+                case .InProgress:
+                    Toast.show("publishing_in_progress".ls)
+                case .Finished:
+                    wrap.invitees = invitees
+                    wrap.invitationMessage = message
+                    Uploader.wrapUploader.upload(Uploading.uploading(wrap, type: AddFriendsUploadingType))
+                    self?.navigationController?.popViewControllerAnimated(false)
+                    if message?.isEmpty ?? true {
+                        Toast.show("isn't_using_invite".ls)
+                    } else {
+                        Toast.show("is_using_invite".ls)
+                    }
+                }
             }
         }
         
-        if addressBook.selectedPhoneNumbers.count == 0 {
+        if selectedPhoneNumbers.count == 0 {
             navigationController?.popViewControllerAnimated(false)
-        } else if containUnregisterAddresBookGroupRecord() {
+        } else if selectedPhoneNumbers.contains({ $0.user == nil }) {
             let content = String(format: "send_message_to_friends_content".ls, User.currentUser?.name ?? "", wrap?.name ?? "")
             ConfirmInvitationView().showInView(view, content: content, success: performRequestBlock, cancel: nil)
         } else {
@@ -194,15 +250,6 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
             return .Added
         }
         return addressBook.selectedPhoneNumber(phoneNumber) != nil ? .Selected : .Default
-    }
-    
-    func containUnregisterAddresBookGroupRecord() -> Bool {
-        for phoneNumber in addressBook.selectedPhoneNumbers {
-            if phoneNumber.user == nil {
-                return true
-            }
-        }
-        return false
     }
     
     func recordCell(cell: AddressBookRecordCell, didSelectPhoneNumber person: AddressBookPhoneNumber) {

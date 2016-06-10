@@ -43,13 +43,9 @@ class ContributorAddNotification: WrapNotification {
     
     override func submit() {
         guard let wrap = _entry else { return }
-        if wrap.isPublic && !inserted {
-            wrap.notifyOnUpdate(.ContributorsChanged)
-        } else {
-            wrap.notifyOnAddition()
-            if wrap.contributor?.current == false && user?.current == true && !isHistorycal {
-                InAppNotification.showWrapInvitation(wrap, inviter: inviter)
-            }
+        wrap.notifyOnAddition()
+        if wrap.contributor?.current == false && user?.current == true && !isHistorycal {
+            InAppNotification.showWrapInvitation(wrap, inviter: inviter)
         }
     }
 }
@@ -61,7 +57,7 @@ class ContributorDeleteNotification: WrapNotification {
         guard let body = body else { return }
         let userData = body["user"] as? [String: AnyObject]
         if let user: User = userData != nil ? mappedEntry(userData!) : User.entry(body["user_uid"] as? String) {
-            if user.current && !wrap.isPublic {
+            if user.current {
                 wrap.remove()
             } else {
                 wrap.contributors.remove(user)

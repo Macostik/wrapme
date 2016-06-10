@@ -56,7 +56,7 @@ extension ExtensionRequest {
         guard let uid = parameters[Keys.UID.Candy] as? String else { failure(ExtensionError(message: "No candy uid")); return }
         guard let candy = Candy.entry(uid, allowInsert: false) else { failure(ExtensionError(message: "Photo isn't available.")); return }
         guard let text = parameters["text"] as? String else { failure(ExtensionError(message: "No text provided.")); return }
-        candy.uploadComment(Comment.comment(text))
+        candy.uploadComment(insertComment(text))
         success(ExtensionReply())
     }
     

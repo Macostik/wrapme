@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="1.4" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Automatic">
+    <entity name="Candy" representedClassName="Candy" parentEntity="Contribution" syncable="YES">
+        <attribute name="commentCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="updateUnread" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Comment" inverseName="candy" inverseEntity="Comment" syncable="YES"/>
+        <relationship name="wrap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wrap" inverseName="candies" inverseEntity="Wrap" syncable="YES"/>
+    </entity>
+    <entity name="Comment" representedClassName="Comment" parentEntity="Contribution" syncable="YES">
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="candy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Candy" inverseName="comments" inverseEntity="Candy" syncable="YES"/>
+    </entity>
+    <entity name="Contribution" representedClassName="Contribution" parentEntity="Entry">
+        <attribute name="asset" optional="YES" attributeType="Transformable" valueTransformerName="assetTransformer" syncable="YES"/>
+        <attribute name="editedAt" optional="YES" attributeType="Date" defaultDateTimeInterval="-952500480" syncable="YES"/>
+        <relationship name="contributor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="contributions" inverseEntity="User" syncable="YES"/>
+        <relationship name="editor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="editings" inverseEntity="User" syncable="YES"/>
+        <relationship name="uploading" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Uploading" inverseName="contribution" inverseEntity="Uploading" syncable="YES"/>
+        <userInfo/>
+    </entity>
+    <entity name="Device" representedClassName="Device" parentEntity="Entry" syncable="YES">
+        <attribute name="activated" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="devices" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="Entry" representedClassName="Entry" isAbstract="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" defaultDateTimeInterval="-952500420" syncable="YES"/>
+        <attribute name="locuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uid" optional="YES" attributeType="String" defaultValueString="default" syncable="YES"/>
+        <attribute name="unread" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" defaultDateTimeInterval="-952500480" syncable="YES"/>
+        <userInfo/>
+    </entity>
+    <entity name="Invitee" representedClassName="Invitee" parentEntity="Entry" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="invitees" inverseEntity="User" syncable="YES"/>
+        <relationship name="wrap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wrap" inverseName="invitees" inverseEntity="Wrap" syncable="YES"/>
+    </entity>
+    <entity name="Message" representedClassName="Message" parentEntity="Contribution" syncable="YES">
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="wrap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wrap" inverseName="messages" inverseEntity="Wrap" syncable="YES"/>
+    </entity>
+    <entity name="Uploading" representedClassName="Uploading" parentEntity="Entry" syncable="YES">
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="contribution" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Contribution" inverseName="uploading" inverseEntity="Contribution" syncable="YES"/>
+    </entity>
+    <entity name="User" representedClassName="User" parentEntity="Entry">
+        <attribute name="avatar" optional="YES" attributeType="Transformable" valueTransformerName="assetTransformer" syncable="YES"/>
+        <attribute name="current" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="firstTimeUse" optional="YES" attributeType="Boolean" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="invitedAt" optional="YES" attributeType="Date" defaultDateTimeInterval="467573580" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="contributions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Contribution" inverseName="contributor" inverseEntity="Contribution" syncable="YES"/>
+        <relationship name="devices" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Device" inverseName="owner" inverseEntity="Device" syncable="YES"/>
+        <relationship name="editings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Candy" inverseName="editor" inverseEntity="Contribution" syncable="YES"/>
+        <relationship name="invitees" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Invitee" inverseName="user" inverseEntity="Invitee" syncable="YES"/>
+        <relationship name="wraps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wrap" inverseName="contributors" inverseEntity="Wrap" syncable="YES"/>
+        <userInfo/>
+    </entity>
+    <entity name="Wrap" representedClassName="Wrap" parentEntity="Contribution">
+        <attribute name="candiesPaginationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="invitationMessage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isCandyNotifiable" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <attribute name="isChatNotifiable" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <attribute name="isCommentNotifiable" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <attribute name="isRestrictedInvite" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="candies" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Candy" inverseName="wrap" inverseEntity="Candy" syncable="YES"/>
+        <relationship name="contributors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="wraps" inverseEntity="User" syncable="YES"/>
+        <relationship name="invitees" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Invitee" inverseName="wrap" inverseEntity="Invitee" syncable="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Message" inverseName="wrap" inverseEntity="Message" syncable="YES"/>
+        <userInfo/>
+    </entity>
+    <elements>
+        <element name="Candy" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="Comment" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="Contribution" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="Device" positionX="9" positionY="63" width="128" height="105"/>
+        <element name="Entry" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="Invitee" positionX="9" positionY="81" width="128" height="105"/>
+        <element name="Message" positionX="18" positionY="72" width="128" height="75"/>
+        <element name="Uploading" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="User" positionX="0" positionY="0" width="128" height="195"/>
+        <element name="Wrap" positionX="0" positionY="0" width="128" height="210"/>
+    </elements>
+</model>

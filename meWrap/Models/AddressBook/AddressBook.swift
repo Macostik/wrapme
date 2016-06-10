@@ -47,16 +47,15 @@ class AddressBook: BlockNotifier<[AddressBookRecord]> {
         }
     }
     
-    func cachedRecords(success: [AddressBookRecord] -> (), failure: FailureBlock?) -> Bool {
+    func cachedRecords(success: [AddressBookRecord] -> (), failure: ([AddressBookRecord], NSError?) -> ()) -> Bool {
         if let records = validCachedRecords() {
             success(records)
             return true
         } else {
-            
             runQueue.run { finish in
                 
-                let _failure: FailureBlock = { error in
-                    failure?(error)
+                let _failure: (([AddressBookRecord], NSError?) -> ()) = { records, error in
+                    failure(records, error)
                     finish()
                 }
                 
@@ -65,13 +64,15 @@ class AddressBook: BlockNotifier<[AddressBookRecord]> {
                         success(records)
                         finish()
                         }, failure: _failure)
-                    }, failure: _failure)
+                    }, failure: { error in
+                        _failure([], error)
+                })
             }
             return false
         }
     }
     
-    private func records(addressBook: ABAddressBookRef, success: [AddressBookRecord] -> (), failure: FailureBlock?) {
+    private func records(addressBook: ABAddressBookRef, success: [AddressBookRecord] -> (), failure: ([AddressBookRecord], NSError?) -> ()) {
         Dispatch.defaultQueue.async {
             do {
                 let records = try self.contacts(addressBook)
@@ -79,10 +80,12 @@ class AddressBook: BlockNotifier<[AddressBookRecord]> {
                     API.contributorsFromRecords(records).send({ records in
                         self.cachedRecords = records
                         success(records)
-                        }, failure: failure)
+                        }, failure: { error in
+                            failure(records, error)
+                    })
                 }
             } catch let error as NSError {
-                Dispatch.mainQueue.async { failure?(error) }
+                Dispatch.mainQueue.async { failure([], error) }
             }
         }
     }
@@ -146,19 +149,19 @@ class AddressBook: BlockNotifier<[AddressBookRecord]> {
                 self.records(addressBook, success: { _ in
                     self.updatingCachedRecords = false
                     finish()
-                    }, failure: { _ in
+                    }, failure: { records, error in
+                        if let error = error where error.isNetworkError {
+                            Network.network.subscribe(self, block: { reachable in
+                                if reachable {
+                                    self.updateCachedRecords()
+                                    Network.network.unsubscribe(self)
+                                }
+                            })
+                        }
                         self.updatingCachedRecords = false
                         finish()
                 })
                 }) { error in
-                    if let error = error where error.isNetworkError {
-                        Network.network.subscribe(self, block: { reachable in
-                            if reachable {
-                                self.updateCachedRecords()
-                                Network.network.unsubscribe(self)
-                            }
-                        })
-                    }
                     self.updatingCachedRecords = false
                     finish()
             }

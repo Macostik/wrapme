@@ -647,7 +647,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     private func sendComment(@noescape block: Comment -> ()) {
         if let candy = candy?.validEntry() {
             Sound.play()
-            let comment: Comment = Comment.contribution()
+            let comment: Comment = insertContribution()
             block(comment)
             candy.uploadComment(comment)
             self.streamView.setMaximumContentOffsetAnimated(true)

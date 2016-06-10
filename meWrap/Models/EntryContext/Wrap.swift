@@ -121,10 +121,6 @@ final class Wrap: Contribution {
         return contributors.contains(currentUser)
     }
     
-    var requiresFollowing: Bool {
-        return isPublic && !isContributing
-    }
-    
     var liveBroadcasts = [LiveBroadcast]()
     
     func addBroadcastIfNeeded(broadcast: LiveBroadcast, notify: Bool = false) {
@@ -195,4 +191,9 @@ final class Wrap: Contribution {
         User.prefetchDescriptors(&descriptors, inDictionary: dictionary?["creator"] as? [String:AnyObject])
         Candy.prefetchDescriptors(&descriptors, inArray: dictionary?["candies"] as? [[String:AnyObject]])
     }
+}
+
+@objc(Invitee)
+final class Invitee: Entry {
+    override class func entityName() -> String { return "Invitee" }
 }

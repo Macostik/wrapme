@@ -73,26 +73,20 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
         super.viewDidLoad()
         saveButton.hidden = true
         guard let wrap = wrap else { return }
-        let title = wrap.deletable ? "DELETE_WRAP".ls : (wrap.isPublic ? "FOLLOWING" : "LEAVE_WRAP").ls
+        let title = wrap.deletable ? "DELETE_WRAP".ls : "LEAVE_WRAP".ls
         actionButton.setTitle(title, forState: .Normal)
         wrapNameTextField.text = wrap.name
         editSession = WrapEditSession(wrap: wrap)
         editSession?.delegate = self
         notifyEditSession = WrapNotifyEditSession(wrap: wrap)
         notifyEditSession?.delegate = self
-        if wrap.isPublic && !(wrap.contributor?.current ?? false)  {
-            let isFollowing = wrap.isContributing
-            editButton.hidden = isFollowing
-            wrapNameTextField.enabled = !isFollowing
-        }
-        isAdmin = wrap.contributor?.current ?? false && !wrap.isPublic
+        isAdmin = wrap.contributor?.current ?? false
         restrictedInviteTrigger.hidden = !isAdmin
         if isAdmin {
             adminLabel.text = "allow_friends_to_add_people".ls
         } else {
             adminLabel.text = wrap.isRestrictedInvite ? "only_admin_can_add_people".ls : "friends_allowed_to_app_people".ls
         }
-        chatPrioritizer.defaultState = !wrap.isPublic
         candyNotifyTrigger.on = wrap.isCandyNotifiable
         chatNotifyTrigger.on = wrap.isChatNotifiable
         commentNotifyTrigger.on = wrap.isCommentNotifiable
@@ -114,12 +108,8 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
             self?.view.userInteractionEnabled = false
             let deletable = wrap.deletable
             wrap.delete({ _ in
-                if (wrap.isPublic) {
-                    self?.navigationController?.popViewControllerAnimated(false)
-                } else {
-                    self?.navigationController?.popToRootViewControllerAnimated(false)
-                    if (deletable) { Toast.show("delete_wrap_success".ls) }
-                }
+                self?.navigationController?.popToRootViewControllerAnimated(false)
+                if (deletable) { Toast.show("delete_wrap_success".ls) }
                 sender.loading = false
                 }, failure: { [weak self] error -> Void in
                     self?.userInitiatedDestructiveAction = false

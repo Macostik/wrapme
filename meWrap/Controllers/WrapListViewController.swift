@@ -41,7 +41,9 @@ class WrapListViewController: BaseViewController {
             self?.shareContent(view.entry!)
         }
         metrics.finalizeAppearing = { _, view in
-            view.allowSwipeAction = false
+            view.swipeAction?.shouldBeginPanning = { _ in
+                return false
+            }
         }
         wrapListDataSource.items = specify(PaginatedList<Wrap>()) {
             $0.request = API.wraps(nil)

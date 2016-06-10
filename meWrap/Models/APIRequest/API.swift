@@ -19,6 +19,27 @@ extension APIRequest {
         }
         return self
     }
+    
+    func configureForInvitation(wrap: Wrap) {
+        guard let invitees = wrap.invitees else { return }
+        let registeredContributors = invitees.filter({ $0.user != nil })
+        self["user_uids"] = registeredContributors.map({ $0.user!.uid })
+        self["message"] = wrap.invitationMessage
+        
+        let unregisteredContributors = invitees.subtract(registeredContributors)
+        var inviteByPhone = [[String : AnyObject]]()
+        
+        for invitee in unregisteredContributors {
+            if let phones = invitee.phone?.characters.split(",").map({ String($0) }) where phones.count > 0 {
+                if phones.count > 1 {
+                    inviteByPhone.append(["name":invitee.name ?? "","phone_numbers" : phones])
+                } else {
+                    inviteByPhone.append(["name":invitee.name ?? "","phone_number" : phones[0]])
+                }
+            }
+        }
+        self["invitees"] = inviteByPhone.map({ String(data: try! NSJSONSerialization.dataWithJSONObject($0, options: []), encoding: NSUTF8StringEncoding) ?? "" })
+    }
 }
 
 struct API {
@@ -195,44 +216,7 @@ extension API {
     
     static func leaveWrap(wrap: Wrap) -> APIRequest<Response> {
         return APIRequest(.DELETE, "wraps/\(wrap.uid)/leave", parser: { response in
-            if wrap.isPublic {
-                if let user = User.currentUser {
-                    wrap.contributors.remove(user)
-                    wrap.notifyOnUpdate(.ContributorsChanged)
-                }
-            } else {
-                wrap.remove()
-            }
-            return response
-        }).contributionUnavailable(wrap)
-    }
-    
-    static func followWrap(wrap: Wrap) -> APIRequest<Wrap> {
-        return APIRequest<Wrap>(.POST, "wraps/\(wrap.uid)/follow", parser: { response in
-            wrap.touch()
-            if let user = User.currentUser {
-                wrap.contributors.insert(user)
-                wrap.notifyOnUpdate(.ContributorsChanged)
-            }
-            NotificationCenter.defaultCenter.refreshWrapUserActivities(wrap, completionHandler: {
-                if wrap.liveBroadcasts.count > 0 {
-                    wrap.notifyOnUpdate(.LiveBroadcastsChanged)
-                }
-            })
-            return wrap
-        }).contributionUnavailable(wrap)
-    }
-    
-    static func unfollowWrap(wrap: Wrap) -> APIRequest<Response> {
-        return APIRequest(.DELETE, "wraps/\(wrap.uid)/unfollow", parser: { response in
-            if let user = User.currentUser {
-                wrap.contributors.remove(user)
-                wrap.notifyOnUpdate(.ContributorsChanged)
-            }
-            if wrap.liveBroadcasts.count > 0 {
-                wrap.liveBroadcasts = []
-                wrap.notifyOnUpdate(.LiveBroadcastsChanged)
-            }
+            wrap.remove()
             return response
         }).contributionUnavailable(wrap)
     }
@@ -333,31 +317,12 @@ extension API {
         }).contributionUnavailable(wrap)
     }
     
-    static func addContributors(contributors: Set<AddressBookPhoneNumber>, wrap: Wrap, message: String?) -> APIRequest<Wrap> {
+    static func addContributors(wrap: Wrap) -> APIRequest<Wrap> {
         return APIRequest<Wrap>(.POST, "wraps/\(wrap.uid)/add_contributor", modifier: { (request) -> Void in
-            
-            let registeredContributors = contributors.filter({ $0.user != nil })
-            request["user_uids"] = registeredContributors.map({ $0.user!.uid })
-            request["message"] = message
-            
-            var unregisteredContributors = contributors.subtract(registeredContributors)
-            var invitees = [[String : AnyObject]]()
-            while !unregisteredContributors.isEmpty {
-                if let phoneNumber = unregisteredContributors.first {
-                    if let record = phoneNumber.record {
-                        let groupedContributors = unregisteredContributors.filter({ $0.record == record })
-                        let phoneNumbers: [String] = groupedContributors.map({ $0.phone ?? "" })
-                        invitees.append(["name":phoneNumber.name ?? "","phone_numbers" : phoneNumbers])
-                        unregisteredContributors.subtractInPlace(groupedContributors)
-                    } else {
-                        invitees.append(["name":phoneNumber.name ?? "","phone_number" : phoneNumber.phone ?? ""])
-                        unregisteredContributors.remove(phoneNumber)
-                    }
-                }
-            }
-            let _invitees: [String] = invitees.map({ String(data: try! NSJSONSerialization.dataWithJSONObject($0, options: []), encoding: NSUTF8StringEncoding) ?? "" })
-            request["invitees"] = _invitees
+            request.configureForInvitation(wrap)
             }, parser: { response in
+                wrap.invitees = nil
+                wrap.invitationMessage = nil
                 return self.parseContributors(wrap, response: response)
         }).contributionUnavailable(wrap)
     }
@@ -375,6 +340,7 @@ extension API {
             request["name"] = wrap.name
             request["upload_uid"] = wrap.locuid
             request["contributed_at_in_epoch"] = NSNumber(double: wrap.updatedAt.timestamp)
+            request.configureForInvitation(wrap)
             }, parser: { response in
                 if wrap.valid {
                     if let dictionary = response.dictionary("wrap") {

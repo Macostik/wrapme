@@ -68,7 +68,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
     }
     
     func constructFlowerMenu(menu: FlowerMenu) {
-        guard let candy = entry where !(candy.wrap?.requiresFollowing ?? true) else {
+        guard let candy = entry else {
             return
         }
         

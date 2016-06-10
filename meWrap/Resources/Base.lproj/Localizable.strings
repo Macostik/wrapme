@@ -146,6 +146,7 @@
 "your_name" = "Your name";
 "done" = "Done";
 "search_contacts" = "Search contacts";
+"search_wraps" = "Search wraps";
 "about_app" = "About meWrap";
 "edit_your_profile" = "Edit Your Profile";
 "change_email" = "Change e-mail";
@@ -321,6 +322,7 @@
 "just_sent_you_a_new_video" = "%@ just sent you a new video";
 "someone_commented" = "%@ commented:";
 "no_wraps_yet" = "No wraps yet";
+"no_wraps_found" = "No wraps found";
 "send" = "Send";
 "someone_edited_photo" = "%@ just edited a photo.";
 "someone_is_live" = "%@ is live";

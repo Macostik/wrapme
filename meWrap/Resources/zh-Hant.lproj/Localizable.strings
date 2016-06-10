@@ -145,6 +145,7 @@
 "your_name" = "輸入你的姓名";
 "done" = "完成";
 "search_contacts" = "搜尋聯絡人";
+"search_wraps" = "Search wraps";
 "about_app" = "關於meWrap";
 "edit_your_profile" = "編輯個人資料";
 "change_email" = "更改電郵地址";
@@ -319,6 +320,7 @@
 "just_sent_you_a_new_video" = "%@傳了新影片給你";
 "someone_commented" = "%@回應:";
 "no_wraps_yet" = "暫未有圍拍。";
+"no_wraps_found" = "No wraps found";
 "send" = "傳送";
 "someone_edited_photo" = "%@添加了相片特效。";
 "someone_is_live" = "%@正在直播中";

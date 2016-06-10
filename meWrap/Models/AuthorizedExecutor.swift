@@ -46,10 +46,8 @@ extension AuthorizedExecutor {
         AuthorizedExecutor.execute {
             UINavigationController.main.dismissViewControllerAnimated(false, completion: nil)
             let navigationController = UINavigationController()
-            let wrapListViewController = Storyboard.WrapList.instantiate({ $0.items = items })
             navigationController.navigationBarHidden = true
-            navigationController.viewControllers = [wrapListViewController]
-                
+            navigationController.viewControllers = [WrapListViewController(items: items)]
             UINavigationController.main.presentViewController(navigationController, animated: false, completion: nil)
         }
     }

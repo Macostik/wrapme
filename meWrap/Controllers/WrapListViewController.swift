@@ -10,7 +10,16 @@ import Foundation
 
 class WrapListViewController: BaseViewController {
     
-    var items: [[String:String]]?
+    let items: [[String:String]]
+    
+    required init(items: [[String:String]]) {
+        self.items = items
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private var runQueue = RunQueue(limit: 1)
     private var assets: [MutableAsset]?
@@ -18,10 +27,92 @@ class WrapListViewController: BaseViewController {
     
     private lazy var url: NSURL = NSURL.shareExtension()
     
-    @IBOutlet weak var streamView: StreamView!
+    private let streamView = StreamView()
     lazy var wrapListDataSource: PaginatedStreamDataSource<PaginatedList<Wrap>> = PaginatedStreamDataSource(streamView: self.streamView)
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
-    @IBOutlet weak var searchField: TextField!
+    private let searchField = TextField()
+    
+    override func loadView() {
+        super.loadView()
+        view.backgroundColor = UIColor.whiteColor()
+        let navigationBar = UIView()
+        navigationBar.backgroundColor = Color.orange
+        self.navigationBar = view.add(navigationBar) { (make) in
+            make.leading.top.trailing.equalTo(view)
+            make.height.equalTo(64)
+        }
+        let backButton = Button(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
+        backButton.setTitle("cancel".ls, forState: .Normal)
+        backButton.setTitleColor(UIColor.whiteColor().darkerColor(), forState: .Highlighted)
+        backButton.addTarget(self, action: #selector(self.cancel(_:)), forControlEvents: .TouchUpInside)
+        navigationBar.add(backButton) { (make) in
+            make.leading.equalTo(navigationBar).inset(12)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        let title = Label(preset: .Large, weight: .Regular, textColor: UIColor.whiteColor())
+        title.text = "Select Wrap To Share"
+        navigationBar.add(title) { (make) in
+            make.centerX.equalTo(navigationBar)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        self.navigationBar = navigationBar
+        
+        let searchView = UIView()
+        view.add(searchView) { (make) in
+            make.leading.trailing.equalTo(view)
+            make.top.equalTo(navigationBar.snp_bottom)
+            make.height.equalTo(44)
+        }
+        
+        let searchIcon = Label(icon: "I", size: 17, textColor: Color.orange)
+        searchIcon.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        searchIcon.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        searchView.add(searchIcon) { (make) in
+            make.trailing.equalTo(searchView).offset(-12)
+            make.centerY.equalTo(searchView)
+        }
+        
+        searchField.font = Font.Small + .Light
+        searchField.makePresetable(.Small)
+        searchField.disableSeparator = true
+        searchField.placeholder = "search_wraps".ls
+        searchField.addTarget(self, action: #selector(self.searchTextChanged(_:)), forControlEvents: .EditingChanged)
+        searchView.add(searchField) { (make) in
+            make.leading.equalTo(searchView).offset(12)
+            make.top.bottom.equalTo(searchView)
+            make.trailing.equalTo(searchIcon.snp_leading).offset(-12)
+        }
+        
+        let separator = SeparatorView(color: Color.grayLightest, contentMode: .Bottom)
+        searchView.add(separator) { (make) in
+            make.leading.bottom.trailing.equalTo(searchView)
+            make.height.equalTo(1)
+        }
+        
+        view.add(streamView) { (make) in
+            make.leading.bottom.trailing.equalTo(view)
+            make.top.equalTo(searchView.snp_bottom)
+        }
+        
+        Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
+            
+            keyboard.performAnimation({ () in
+                self.streamView.snp_updateConstraints(closure: { (make) in
+                    make.bottom.equalTo(self.view).offset(-keyboard.height)
+                })
+                self.streamView.layoutIfNeeded()
+            })
+            
+            
+            }) { [unowned self] (keyboard) in
+                
+                keyboard.performAnimation({ () in
+                    self.streamView.snp_updateConstraints(closure: { (make) in
+                        make.bottom.equalTo(self.view).offset(0)
+                    })
+                    self.streamView.layoutIfNeeded()
+                })
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,13 +122,14 @@ class WrapListViewController: BaseViewController {
         let metrics = wrapListDataSource.addMetrics(StreamMetrics<WrapCell>(size: 70))
         metrics.modifyItem = { [weak self] item in
             let wrap = item.entry as! Wrap
-            if let text = self?.searchField?.text where !text.isEmpty {
+            if let text = self?.searchField.text where !text.isEmpty {
                 item.hidden = wrap.name?.rangeOfString(text, options: .CaseInsensitiveSearch, range: nil, locale: nil) == nil
             } else {
                 item.hidden = false
             }
         }
         metrics.selection = { [weak self] view in
+            self?.searchField.resignFirstResponder()
             self?.shareContent(view.entry!)
         }
         metrics.finalizeAppearing = { _, view in
@@ -58,23 +150,21 @@ class WrapListViewController: BaseViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         view.layoutIfNeeded()
-        spinner.hidden = true
         wrapListDataSource.reload()
     }
     
     func extractContent() {
-        if let items = items?.sort({ $0["createdAt"] < $1["createdAt"] }) {
-            if let text = items.filter({ $0["type"] == "text" }).first {
-                let textFile = url.URLByAppendingPathComponent(text["fileName"] ?? "")
-                guard let data = NSData(contentsOfURL: textFile) else { return }
-                self.text = String(data: data, encoding: NSUTF8StringEncoding)
+        let items = self.items.sort({ $0["createdAt"] < $1["createdAt"] })
+        if let text = items.filter({ $0["type"] == "text" }).first {
+            let textFile = url.URLByAppendingPathComponent(text["fileName"] ?? "")
+            guard let data = NSData(contentsOfURL: textFile) else { return }
+            self.text = String(data: data, encoding: NSUTF8StringEncoding)
+        } else {
+            if items.count <= 10 {
+                assets = handleAssets(items)
             } else {
-                if items.count <= 10 {
-                    assets = handleAssets(items)
-                } else {
-                    Toast.show("upload_photos_limit_error".ls)
-                    handleAssets(Array(items.prefix(10)))
-                }
+                Toast.show("upload_photos_limit_error".ls)
+                assets = handleAssets(Array(items.prefix(10)))
             }
         }
     }
@@ -142,10 +232,14 @@ class WrapListViewController: BaseViewController {
                 }
             }
             if queue.isExecuting {
-                spinner.hidden = false
+                let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
+                navigationBar!.add(spinner, { (make) in
+                    make.trailing.equalTo(navigationBar!).inset(-12)
+                    make.centerY.equalTo(navigationBar!).offset(10)
+                })
                 spinner.startAnimating()
-                queue.didFinish = { [weak self] in
-                    self?.spinner.stopAnimating()
+                queue.didFinish = {
+                    spinner.removeFromSuperview()
                     completionBlock()
                 }
             } else {

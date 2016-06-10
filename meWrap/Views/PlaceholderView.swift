@@ -78,7 +78,7 @@ extension PlaceholderView {
     }
     
     class func sharePlaceholderMetrics() -> StreamMetrics<PlaceholderView> {
-        return metrics("C", message: "no_wraps_yet".ls + "\n\n\n" + "easy_create_wrap".ls)
+        return metrics("C", message: "no_wraps_found".ls)
     }
 }
 

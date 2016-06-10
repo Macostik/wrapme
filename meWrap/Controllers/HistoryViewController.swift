@@ -892,8 +892,10 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     @IBAction func report(sender: AnyObject) {
-        let controller = Storyboard.ReportCandy.instantiate { $0.candy = candy }
-        navigationController?.presentViewController(controller, animated: false, completion: nil)
+        if let candy = candy {
+            let controller = ReportViewController(candy: candy)
+            navigationController?.presentViewController(controller, animated: false, completion: nil)
+        }
     }
     
     @IBAction func editPhoto(sender: AnyObject) {

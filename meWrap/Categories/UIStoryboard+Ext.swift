@@ -30,7 +30,6 @@ struct Storyboard {
     static let Friends = StoryboardObject<ContributorsViewController>("friends")
     static let UploadWizard = StoryboardObject<UploadWizardViewController>("uploadWizard")
     static let UploadWizardEnd = StoryboardObject<UploadWizardEndViewController>("uploadWizardEnd")
-    static let ReportCandy = StoryboardObject<ReportViewController>("report")
     static let Wrap = StoryboardObject<WrapViewController>("wrap")
     static let WrapList = StoryboardObject<WrapListViewController>("wrapList")
     static let SignupFlow = StoryboardObject<SignupFlowViewController>("signupFlow", UIStoryboard.signUp)

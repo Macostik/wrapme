@@ -16,16 +16,17 @@ class StreamReusableView: UIView, UIGestureRecognizerDelegate {
     var metrics: StreamMetricsProtocol?
     var item: StreamItem?
     var selected: Bool = false
-    lazy var selectTapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(StreamReusableView.select as (StreamReusableView) -> () -> ()))
+    let selectTapGestureRecognizer = UITapGestureRecognizer()
     
     func layoutWithMetrics(metrics: StreamMetricsProtocol) {}
     
     func didLoad() {
+        selectTapGestureRecognizer.addTarget(self, action: #selector(self.selectAction))
         selectTapGestureRecognizer.delegate = self
         self.addGestureRecognizer(selectTapGestureRecognizer)
     }
     
-    @IBAction func select() {
+    @IBAction func selectAction() {
         metrics?.select(self)
     }
     

@@ -27,7 +27,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         }
         
         let pressedStateButton = Button(type: .Custom)
-        pressedStateButton.addTarget(self, action: #selector(CandyCell.select as CandyCell -> () -> ()), forControlEvents: .TouchUpInside)
+        pressedStateButton.addTarget(self, action: #selector(self.selectAction), forControlEvents: .TouchUpInside)
         pressedStateButton.highlightedColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
         pressedStateButton.normalColor = UIColor.clearColor()
         pressedStateButton.exclusiveTouch = true
@@ -115,10 +115,8 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
             })
         } else {
             menu.addReportAction({
-                if let controller = UIStoryboard.main["report"] as? ReportViewController {
-                    controller.candy = candy
-                    UINavigationController.main.presentViewController(controller, animated: false, completion: nil)
-                }
+                let controller = ReportViewController(candy: candy)
+                UINavigationController.main.presentViewController(controller, animated: false, completion: nil)
             })
         }
     }

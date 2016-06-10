@@ -83,7 +83,7 @@ class WrapCell: EntryStreamReusableView<Wrap> {
         
         let button = Button(type: .Custom)
         button.highlightedColor = Color.grayLightest
-        button.addTarget(self, action: #selector(WrapCell.select as WrapCell -> () -> ()), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(self.selectAction), forControlEvents: .TouchUpInside)
         addSubview(button)
         addSubview(coverView)
         addSubview(badgeLabel)

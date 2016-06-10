@@ -1,5 +1,5 @@
 //
-//  WLReportViewController.swift
+//  ReportViewController.swift
 //  meWrap
 //
 //  Created by Yura Granchenko on 17/09/15.
@@ -11,65 +11,46 @@
 import Foundation
 import UIKit
 
-class ViolationCell : UICollectionViewCell {
-    @IBOutlet weak var textLabel: UILabel!
-    @IBOutlet weak var showArrowLabel: UILabel!
-    @IBOutlet weak var button: UIButton!
-    @IBOutlet weak var leadingContstraint: NSLayoutConstraint!
+final class ViolationCell: EntryStreamReusableView<Violation> {
     
-    var select : ((ViolationCell, Violation) -> Void)?
-    var entry : Violation? {
-        didSet {
-            guard let entry = entry else {
-                return
-            }
-            textLabel.text = entry.title?.ls
-            textLabel.textColor = entry.fontColor
-            textLabel.font = textLabel.font.fontWithSize(entry.fontSize)
-            showArrowLabel.hidden = entry.code == nil
-            button.hidden = showArrowLabel.hidden
-            leadingContstraint.constant += entry.indent
+    private let textLabel = Label(preset: .Normal, weight: .Regular)
+    private let arrow = Label(icon: "x", size: 17, textColor: Color.grayLighter)
+    private let selectButton = Button(type: .Custom)
+    
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
+        
+        selectButton.addTarget(self, touchUpInside: #selector(self.selectAction))
+        selectButton.highlightedColor = Color.grayLightest
+        add(selectButton) { (make) in
+            make.edges.equalTo(self)
+        }
+        
+        arrow.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        arrow.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        add(arrow) { (make) in
+            make.trailing.equalTo(self).offset(-12)
+            make.centerY.equalTo(self)
+        }
+        add(textLabel) { (make) in
+            make.leading.equalTo(self).offset(12)
+            make.centerY.equalTo(self)
+            make.trailing.lessThanOrEqualTo(arrow.snp_leading).offset(-12)
         }
     }
     
-    @IBAction func postViolationRequest(sender: AnyObject) {
-        if let entry = entry where entry.code != nil {
-            select?(self, entry)
+    override func setup(violatin: Violation) {
+        textLabel.text = violatin.title?.ls
+        textLabel.textColor = violatin.fontColor
+        textLabel.font = textLabel.font.fontWithSize(violatin.fontSize)
+        arrow.hidden = violatin.code == nil
+        selectButton.hidden = arrow.hidden
+        textLabel.snp_updateConstraints { (make) in
+            make.leading.equalTo(self).offset(12 + violatin.indent)
         }
     }
 }
 
-class CVDataSource : NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    var data : [Violation] = []
-    var select : ((ViolationCell, Violation) -> Void)?
-    
-    @IBInspectable var identifier: String = ""
-    @IBInspectable var cellWidth: CGFloat = 0
-    @IBInspectable var cellHeight: CGFloat = 0
-    
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
-    }
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let entry = data[indexPath.item]
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! ViolationCell
-        cell.entry = entry
-        cell.select = select
-        return cell
-    }
-    
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(cellWidth > 0 ? cellWidth : UIScreen.mainScreen().bounds.width, cellHeight > 0 ? cellHeight : 50)
-    }
-}
-
-struct Violation {
+final class Violation {
     let title: String?
     let fontSize: CGFloat
     let fontColor: UIColor?
@@ -94,33 +75,93 @@ struct Violation {
     }
 }
 
-class ReportViewController : BaseViewController {
+final class ReportViewController: BaseViewController {
     
-    weak var candy: Candy?
+    let candy: Candy
     
-    @IBOutlet weak var doneButton: UIButton!
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var dataSource : CVDataSource!
+    required init(candy: Candy) {
+        self.candy = candy
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private let streamView = StreamView()
+    private lazy var dataSource: StreamDataSource<[Violation]> = StreamDataSource(streamView: self.streamView)
+    
+    override func loadView() {
+        super.loadView()
+        view.backgroundColor = UIColor.whiteColor()
+        let navigationBar = UIView()
+        navigationBar.backgroundColor = Color.orange
+        self.navigationBar = view.add(navigationBar) { (make) in
+            make.leading.top.trailing.equalTo(view)
+            make.height.equalTo(64)
+        }
+        let backButton = Button(icon: "w", size: 24, textColor: UIColor.whiteColor())
+        backButton.setTitleColor(UIColor.whiteColor().darkerColor(), forState: .Highlighted)
+        backButton.addTarget(self, action: #selector(self.done), forControlEvents: .TouchUpInside)
+        navigationBar.add(backButton) { (make) in
+            make.leading.equalTo(navigationBar).inset(12)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        let title = Label(preset: .Large, weight: .Regular, textColor: UIColor.whiteColor())
+        title.text = "Report"
+        navigationBar.add(title) { (make) in
+            make.centerX.equalTo(navigationBar)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        self.navigationBar = navigationBar
+        
+        streamView.delaysContentTouches = false
+        view.add(streamView) { (make) in
+            make.leading.bottom.trailing.equalTo(view)
+            make.top.equalTo(navigationBar.snp_bottom)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        doneButton.hidden = true
-        dataSource.select = { [weak self] _ , violation in
-            guard let candy = self?.candy else { return }
-            if let request = API.reportCandy(candy, violation: violation) {
-                request.send({[weak self] (_) -> Void in
-                    self?.collectionView.hidden = true
-                    self?.doneButton.hidden = false
-                    }, failure: { (error) -> Void in
-                        error?.show()
-                })
-            } else {
-                self?.collectionView.hidden = true
-                self?.doneButton.hidden = false
-            }
+        dataSource.addMetrics(StreamMetrics<ViolationCell>(size: 36)).selection = { [weak self] cell in
+            guard let candy = self?.candy, let violation = cell.entry else { return }
+            API.reportCandy(candy, violation: violation)?.send({ [weak self] (_) -> Void in
+                self?.reportCompleted()
+                }, failure: { (error) -> Void in
+                    error?.show()
+            })
         }
-        dataSource.data = Violation.allViolations()
-        collectionView.reloadData()
+        dataSource.items = Violation.allViolations()
+    }
+    
+    private func reportCompleted() {
+        streamView.removeFromSuperview()
+        let doneButton = Button(preset: .Normal, weight: .Regular, textColor: UIColor.whiteColor())
+        doneButton.setTitle("done".ls, forState: .Normal)
+        doneButton.addTarget(self, touchUpInside: #selector(self.done))
+        navigationBar!.add(doneButton, { (make) in
+            make.trailing.equalTo(navigationBar!).offset(-12)
+            make.centerY.equalTo(navigationBar!).offset(10)
+        })
+        
+        let thankYouLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.grayDark)
+        thankYouLabel.numberOfLines = 0
+        thankYouLabel.text = "thank_you".ls
+        view.add(thankYouLabel) { (make) in
+            make.leading.equalTo(view).offset(12)
+            make.top.equalTo(navigationBar!.snp_bottom).offset(12)
+            make.trailing.lessThanOrEqualTo(view).offset(-12)
+        }
+        
+        let thankYouLabel1 = Label(preset: .Small, weight: .Regular, textColor: Color.grayLighter)
+        thankYouLabel1.numberOfLines = 0
+        thankYouLabel1.text = "thank_you_for_report".ls
+        view.add(thankYouLabel1) { (make) in
+            make.leading.equalTo(view).offset(12)
+            make.top.equalTo(thankYouLabel.snp_bottom).offset(12)
+            make.trailing.lessThanOrEqualTo(view).offset(-12)
+        }
     }
     
     @IBAction func done() {

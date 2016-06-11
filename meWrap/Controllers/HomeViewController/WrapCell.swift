@@ -23,7 +23,7 @@ class RecentCandiesView: EntryStreamReusableView<Wrap> {
         streamView.layout = SquareGridLayout()
         candyMetrics = StreamMetrics<CandyCell>()
         dataSource.addMetrics(candyMetrics).disableMenu = true
-        dataSource.layoutSpacing = Constants.pixelSize
+        dataSource.layoutSpacing = 1
         backgroundColor = Color.orange
         streamView.backgroundColor = UIColor.whiteColor()
         addSubview(streamView)

@@ -44,7 +44,7 @@ class HistoryItemCell: EntryStreamReusableView<HistoryItem> {
         streamView.layout = HorizontalSquareLayout()
         dataSource = HistoryItemDataSource(streamView: streamView)
         candyMetrics = dataSource.addMetrics(StreamMetrics<CandyCell>())
-        dataSource.layoutSpacing = Constants.pixelSize
+        dataSource.layoutSpacing = 1
         candyMetrics.prepareAppearing = { [weak self] item, _ in
             item.view?.transform = self?.streamView.transform ?? CGAffineTransformIdentity
         }
@@ -195,7 +195,7 @@ class MediaViewController: WrapSegmentViewController {
         
         dataSource.scrollDirectionLayoutPrioritizer = self.scrollDirectionPrioritizer
         dataSource.numberOfGridColumns = 3
-        dataSource.layoutSpacing = Constants.pixelSize
+        dataSource.layoutSpacing = 1
         dataSource.placeholderMetrics = PlaceholderView.mediaPlaceholderMetrics()
         
         dataSource.wrap = wrap

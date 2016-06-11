@@ -119,4 +119,10 @@ final class Candy: Contribution {
             success()
         }
     }
+    
+    lazy var ratio: CGFloat = randomRatio()
+}
+
+func randomRatio() -> CGFloat {
+    return ((200 + CGFloat(arc4random_uniform(200))) / (200 + CGFloat(arc4random_uniform(200))))
 }

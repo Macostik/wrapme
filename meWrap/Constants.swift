@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 struct Constants {
-    static let pixelSize: CGFloat = 1.0
     static let screenWidth: CGFloat = UIScreen.mainScreen().bounds.width
     static let isPhone: Bool = UI_USER_INTERFACE_IDIOM() == .Phone
     static let appStoreID: Int = 879908578

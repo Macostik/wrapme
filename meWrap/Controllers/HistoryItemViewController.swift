@@ -29,9 +29,9 @@ final class HistoryItemViewController: BaseViewController {
     
     private let dateLabel = Label(preset: .Smaller, textColor: UIColor.whiteColor())
     
-    private let coverStreamView = StreamView()
+    private let cover = ImageView(backgroundColor: UIColor.blackColor())
     
-    private lazy var coverDataSource: StreamDataSource<[Candy]> = StreamDataSource(streamView: self.coverStreamView)
+    private var candies: [Candy]?
     
     var item: HistoryItem?
     
@@ -39,47 +39,53 @@ final class HistoryItemViewController: BaseViewController {
     
     private lazy var dataSource: StreamDataSource<[Candy]> = StreamDataSource(streamView: self.streamView)
     
+    let coverView = UIView()
+    
     override func loadView() {
         super.loadView()
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = UIColor.whiteColor()
-        view.add(streamView) { (make) in
-            make.edges.equalTo(view)
-        }
         
-        let coverView = UIView()
         let infoView = UIView()
         coverView.backgroundColor = UIColor.blackColor()
-        infoView.backgroundColor = Color.orange
-        streamView.addSubview(coverView)
-        coverView.addSubview(infoView)
-        coverView.addSubview(coverStreamView)
-        infoView.addSubview(nameLabel)
-        infoView.addSubview(dateLabel)
+        infoView.backgroundColor = Color.orange.colorWithAlphaComponent(0.5)
         
-        coverView.snp_makeConstraints { (make) -> Void in
-            make.width.top.centerX.equalTo(streamView)
+        let anchorView = view.add(UIView()) { (make) -> Void in
+            make.leading.top.trailing.equalTo(view)
             make.height.equalTo(view.width * 0.6)
         }
         
-        coverStreamView.snp_makeConstraints { (make) -> Void in
-            make.trailing.leading.top.equalTo(coverView)
-            make.bottom.equalTo(infoView.snp_top)
+        view.add(coverView) { (make) -> Void in
+            make.leading.top.trailing.equalTo(view)
+            make.height.equalTo(view.snp_width).multipliedBy(0.6)
+        }
+        view.add(streamView) { (make) in
+            make.top.equalTo(anchorView.snp_bottom)
+            make.leading.bottom.trailing.equalTo(view)
         }
         
-        infoView.snp_makeConstraints { (make) -> Void in
+        coverView.add(cover) { (make) -> Void in
+            make.edges.equalTo(coverView)
+        }
+        coverView.add(infoView) { (make) -> Void in
             make.leading.trailing.bottom.equalTo(coverView)
         }
         
-        nameLabel.snp_makeConstraints { (make) -> Void in
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+        coverView.insertSubview(blurView, belowSubview: infoView)
+        blurView.snp_makeConstraints { (make) in
+            make.edges.equalTo(infoView)
+        }
+        cover.setContentHuggingPriority(UILayoutPriorityDefaultLow, forAxis: .Vertical)
+        cover.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Vertical)
+        infoView.add(nameLabel) { (make) -> Void in
             make.leading.top.equalTo(infoView).offset(12)
-            make.trailing.greaterThanOrEqualTo(infoView).inset(12)
+            make.trailing.lessThanOrEqualTo(infoView).offset(-12)
             make.bottom.equalTo(infoView.snp_centerY)
         }
-        
-        dateLabel.snp_makeConstraints { (make) -> Void in
+        infoView.add(dateLabel) { (make) -> Void in
             make.leading.bottom.equalTo(infoView).inset(12)
-            make.trailing.greaterThanOrEqualTo(infoView).inset(12)
+            make.trailing.lessThanOrEqualTo(infoView).offset(-12)
             make.top.equalTo(infoView.snp_centerY)
         }
         
@@ -89,24 +95,28 @@ final class HistoryItemViewController: BaseViewController {
         }
     }
     
+    deinit {
+        streamView.layer.removeObserver(self, forKeyPath: "bounds", context: nil)
+    }
+    
     override func viewDidLoad() {
         nameLabel.text = item?.history.wrap?.name
         dateLabel.text = item?.date.stringWithFormat("EEE MMM d, yyyy")
         
         super.viewDidLoad()
         
-        coverStreamView.userInteractionEnabled = false
-        coverStreamView.layout = HorizontalStreamLayout()
-        coverDataSource.addMetrics(StreamMetrics<HistoryItemCoverView>(size: view.width))
-        
-        streamView.layout = SquareGridLayout()
-        dataSource.offsetForGridColumns = view.width * 0.6
+        streamView.layout = GridLayout()
         dataSource.placeholderMetrics = PlaceholderView.singleDayPlaceholderMetrics()
         dataSource.placeholderMetrics?.isSeparator = true
         dataSource.numberOfGridColumns = 3
-        dataSource.layoutSpacing = Constants.pixelSize
+        dataSource.sizeForGridColumns = 1.0/3.0
+        dataSource.layoutSpacing = 1
+        dataSource.offsetForGridColumns = 1
         
         let metrics = dataSource.addMetrics(StreamMetrics<CandyCell>())
+        metrics.modifyItem = { (item) in
+            item.ratio = (item.entry as? Candy)?.ratio ?? 1
+        }
         metrics.selection = { [weak self] view -> Void in
             self?.streamView.lock()
             CandyEnlargingPresenter.handleCandySelection(view, historyItem: self?.item, dismissingView: { candy -> UIView? in
@@ -131,17 +141,39 @@ final class HistoryItemViewController: BaseViewController {
         })
         
         recursivelyUpdateCover(false)
+        
+        streamView.layer.addObserver(self, forKeyPath: "bounds", options: .New, context: nil)
+        
+        view.addGestureRecognizer(streamView.panGestureRecognizer)
+    }
+    
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        let offset = min(streamView.layer.bounds.origin.y, 0)
+        coverView.snp_updateConstraints(closure: { (make) in
+            make.height.equalTo(view.snp_width).multipliedBy(0.6).offset(-offset)
+        })
     }
     
     private var coverCandy: Candy?
     
     private func setCoverCandy(candy: Candy?, animated: Bool) {
         coverCandy = candy
-        coverStreamView.scrollToItemPassingTest({ $0.entry === candy }, animated: animated)
+        if animated {
+            UIView.animateWithDuration(0.5, animations: {
+                self.cover.alpha = 0
+                }, completion: { (_) in
+                    self.cover.url = candy?.asset?.medium
+                    UIView.animateWithDuration(0.5, animations: {
+                        self.cover.alpha = 1
+                        })
+            })
+        } else {
+            cover.url = candy?.asset?.medium
+        }
     }
     
     private func recursivelyUpdateCover(animated: Bool) {
-        coverDataSource.items = item?.entries
+        candies = item?.entries
         if let currentCandy = coverCandy, let index = item?.entries.indexOf(currentCandy) {
             let candy = item?.entries[safe: index + 1] ?? item?.entries.first
             setCoverCandy(candy, animated: animated)

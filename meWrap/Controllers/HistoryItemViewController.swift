@@ -50,18 +50,21 @@ final class HistoryItemViewController: BaseViewController {
         coverView.backgroundColor = UIColor.blackColor()
         infoView.backgroundColor = Color.orange.colorWithAlphaComponent(0.5)
         
-        let anchorView = view.add(UIView()) { (make) -> Void in
-            make.leading.top.trailing.equalTo(view)
-            make.height.equalTo(view.width * 0.6)
+        view.add(streamView) { (make) in
+            make.edges.equalTo(view)
         }
         
-        view.add(coverView) { (make) -> Void in
-            make.leading.top.trailing.equalTo(view)
-            make.height.equalTo(view.snp_width).multipliedBy(0.6)
+        let anchorView = streamView.add(UIView()) { (make) -> Void in
+            make.centerX.top.equalTo(streamView)
+            make.width.equalTo(streamView)
+            make.height.equalTo(streamView.snp_width).multipliedBy(0.6)
         }
-        view.add(streamView) { (make) in
-            make.top.equalTo(anchorView.snp_bottom)
-            make.leading.bottom.trailing.equalTo(view)
+        
+        streamView.add(coverView) { (make) -> Void in
+            make.centerX.equalTo(streamView)
+            make.bottom.equalTo(anchorView)
+            make.width.equalTo(streamView)
+            make.height.equalTo(streamView.snp_width).multipliedBy(0.6)
         }
         
         coverView.add(cover) { (make) -> Void in
@@ -108,7 +111,7 @@ final class HistoryItemViewController: BaseViewController {
         let layout = GridLayout()
         layout.numberOfColumns = 3
         layout.spacing = 1
-        layout.offset = 1
+        layout.offset = cover.height + 1
         streamView.layout = layout
         streamView.placeholderMetrics = PlaceholderView.singleDayPlaceholderMetrics()
         streamView.placeholderMetrics?.isSeparator = true

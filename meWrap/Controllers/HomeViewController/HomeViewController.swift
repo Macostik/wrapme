@@ -71,7 +71,7 @@ final class HomeViewController: BaseViewController {
             
             }))
         
-        dataSource.placeholderMetrics = HomePlaceholderView.homePlaceholderMetrics({ [weak self] () -> Void in
+        streamView.placeholderMetrics = HomePlaceholderView.homePlaceholderMetrics({ [weak self] () -> Void in
             self?.navigationController?.pushViewController(Storyboard.UploadWizard.instantiate(), animated:false)
             }).change({ (metrics) -> Void in
                 metrics.finalizeAppearing = { [weak self] item, view in

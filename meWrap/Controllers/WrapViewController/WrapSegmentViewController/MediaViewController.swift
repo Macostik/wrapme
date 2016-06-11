@@ -195,7 +195,7 @@ class MediaViewController: WrapSegmentViewController {
         streamView.contentInset = streamView.scrollIndicatorInsets
         
         dataSource.scrollDirectionLayoutPrioritizer = self.scrollDirectionPrioritizer
-        dataSource.placeholderMetrics = PlaceholderView.mediaPlaceholderMetrics()
+        streamView.placeholderMetrics = PlaceholderView.mediaPlaceholderMetrics()
         
         dataSource.wrap = wrap
         dataSource.liveBroadcastMetrics.selection = { [weak self] view -> Void in

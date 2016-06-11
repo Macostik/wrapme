@@ -17,19 +17,19 @@ class MediaDataSource: PaginatedStreamDataSource<History> {
         $0.isSeparator = true
     }
     
-    override func streamViewNumberOfSections(streamView: StreamView) -> Int {
+    override func numberOfSections() -> Int {
         return 2
     }
     
-    override func streamView(streamView: StreamView, numberOfItemsInSection section: Int) -> Int {
+    override func numberOfItemsIn(section: Int) -> Int {
         if section == 0 {
             return wrap?.liveBroadcasts.count ?? 0
         } else {
-            return super.streamView(streamView, numberOfItemsInSection: section)
+            return super.numberOfItemsIn(section)
         }
     }
     
-    override func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetricsProtocol] {
+    override func metricsAt(position: StreamPosition) -> [StreamMetricsProtocol] {
         if position.section == 0 {
             return [liveBroadcastMetrics]
         } else {
@@ -37,14 +37,14 @@ class MediaDataSource: PaginatedStreamDataSource<History> {
         }
     }
     
-    override func streamView(streamView: StreamView, entryBlockForItem item: StreamItem) -> (StreamItem -> AnyObject?)? {
+    override func entryBlockForItem(item: StreamItem) -> (StreamItem -> AnyObject?)? {
         let position = item.position
         if position.section == 0 {
             return { [weak self] _ in
                 return self?.wrap?.liveBroadcasts[safe: position.index]
             }
         } else {
-            return super.streamView(streamView, entryBlockForItem: item)
+            return super.entryBlockForItem(item)
         }
     }
 }

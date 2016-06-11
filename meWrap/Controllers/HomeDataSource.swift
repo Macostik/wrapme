@@ -37,8 +37,8 @@ class HomeDataSource: PaginatedStreamDataSource<PaginatedList<Wrap>> {
         }
     }
     
-    override func streamView(streamView: StreamView, numberOfItemsInSection section: Int) -> Int {
+    override func numberOfItemsIn(section: Int) -> Int {
         wrap = items?.entries.first
-        return super.streamView(streamView, numberOfItemsInSection: section)
+        return super.numberOfItemsIn(section)
     }
 }

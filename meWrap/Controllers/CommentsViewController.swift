@@ -418,7 +418,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         
         candy.comments.all({ $0.markAsUnread(false) })
         
-        dataSource.placeholderMetrics = PlaceholderView.commentsPlaceholderMetrics()
+        streamView.placeholderMetrics = PlaceholderView.commentsPlaceholderMetrics()
         dataSource.items = candy.sortedComments()
         
         if candy.uploaded {

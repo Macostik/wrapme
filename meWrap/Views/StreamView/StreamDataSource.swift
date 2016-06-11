@@ -12,7 +12,7 @@ enum ScrollDirection {
     case Unknown, Up, Down
 }
 
-class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDelegate {
+class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDataSource, UIScrollViewDelegate {
     
     @IBOutlet weak var streamView: StreamView?
     
@@ -73,8 +73,6 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDelegate {
         return metrics
     }
     
-    var placeholderMetrics: StreamMetricsProtocol?
-    
     @IBOutlet var scrollDirectionLayoutPrioritizer: LayoutPrioritizer?
     
     private var contentSizeCategoryObserver: NotificationObserver?
@@ -83,6 +81,7 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDelegate {
         self.init()
         self.streamView = streamView
         streamView.delegate = self
+        streamView.dataSource = self
         contentSizeCategoryObserver = NotificationObserver.contentSizeCategoryObserver({ [weak self] (_) in
             self?.reload()
         })
@@ -106,57 +105,41 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDelegate {
         }
     }
     
-    func streamView(streamView: StreamView, numberOfItemsInSection section: Int) -> Int {
+    func numberOfItemsIn(section: Int) -> Int {
         return numberOfItems ?? items?.count ?? 0
     }
     
-    func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetricsProtocol] {
+    func metricsAt(position: StreamPosition) -> [StreamMetricsProtocol] {
         return metrics
     }
     
-    func streamView(streamView: StreamView, didLayoutItem item: StreamItem) {
+    func didLayoutItem(item: StreamItem) {
         didLayoutItemBlock?(item)
     }
     
-    func streamView(streamView: StreamView, entryBlockForItem item: StreamItem) -> (StreamItem -> AnyObject?)? {
+    func entryBlockForItem(item: StreamItem) -> (StreamItem -> AnyObject?)? {
         return { [weak self] item -> AnyObject? in
             return self?.entryForItem(item)
         }
     }
     
-    func streamViewWillChangeContentSize(streamView: StreamView, newContentSize: CGSize) {
+    func didChangeContentSize(oldContentSize: CGSize) {
         
     }
     
-    func streamViewDidChangeContentSize(streamView: StreamView, oldContentSize: CGSize) {
+    func didLayout() {
         
     }
     
-    func streamViewDidLayout(streamView: StreamView) {
-        
-    }
-    
-    func streamViewHeaderMetrics(streamView: StreamView) -> [StreamMetricsProtocol] {
-        return headerMetrics
-    }
-    
-    func streamViewFooterMetrics(streamView: StreamView) -> [StreamMetricsProtocol] {
-        return footerMetrics
-    }
-    
-    func streamView(streamView: StreamView, headerMetricsInSection section: Int) -> [StreamMetricsProtocol] {
+    func headerMetricsIn(section: Int) -> [StreamMetricsProtocol] {
         return sectionHeaderMetrics
     }
     
-    func streamView(streamView: StreamView, footerMetricsInSection section: Int) -> [StreamMetricsProtocol] {
+    func footerMetricsIn(section: Int) -> [StreamMetricsProtocol] {
         return sectionFooterMetrics
     }
     
-    func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetricsProtocol? {
-        return placeholderMetrics
-    }
-    
-    func streamViewNumberOfSections(streamView: StreamView) -> Int {
+    func numberOfSections() -> Int {
         return 1
     }
 }

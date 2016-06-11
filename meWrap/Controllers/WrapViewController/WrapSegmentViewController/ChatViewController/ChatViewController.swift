@@ -9,7 +9,7 @@
 import UIKit
 import AudioToolbox
 
-final class ChatViewController: WrapSegmentViewController {
+final class ChatViewController: WrapSegmentViewController, UIScrollViewDelegate {
     
     weak var badge: BadgeLabel?
     
@@ -22,13 +22,6 @@ final class ChatViewController: WrapSegmentViewController {
     private var messageWithNameMetrics = StreamMetrics<MessageWithNameCell>().change({ $0.selectable = false })
     private var myMessageMetrics = StreamMetrics<MyMessageCell>().change({ $0.selectable = false })
     private var dateMetrics = StreamMetrics<MessageDateView>(size: 33).change({ $0.selectable = false })
-    
-    private lazy var placeholderMetrics: StreamMetrics<PlaceholderView> = PlaceholderView.chatPlaceholderMetrics().change { [weak self] metrics -> Void in
-        metrics.prepareAppearing = { item, view in
-            view.textLabel.text = String(format:"no_chat_message".ls, self?.wrap?.name ?? "")
-        }
-        metrics.selectable = false
-    }
     
     private var unreadMessagesMetrics = StreamMetrics<StreamReusableView>(layoutBlock: { view in
         let label = Label(preset: .Normal, weight: .Regular , textColor: Color.orange)
@@ -73,6 +66,7 @@ final class ChatViewController: WrapSegmentViewController {
         composeBar.backgroundColor = UIColor.whiteColor()
         
         streamView.delegate = self
+        streamView.dataSource = self
         view.add(streamView) { (make) in
             make.leading.top.trailing.equalTo(view)
         }
@@ -100,6 +94,13 @@ final class ChatViewController: WrapSegmentViewController {
         composeBar.add(separator) { (make) in
             make.leading.top.trailing.equalTo(composeBar)
             make.height.equalTo(1)
+        }
+        
+        streamView.placeholderMetrics = PlaceholderView.chatPlaceholderMetrics().change { [weak self] metrics -> Void in
+            metrics.prepareAppearing = { item, view in
+                view.textLabel.text = String(format:"no_chat_message".ls, self?.wrap?.name ?? "")
+            }
+            metrics.selectable = false
         }
     }
     
@@ -286,7 +287,7 @@ extension ChatViewController: ComposeBarDelegate {
     }
 }
 
-extension ChatViewController: StreamViewDelegate {
+extension ChatViewController: StreamViewDataSource {
     
     private func appendItemsIfNeededWithTargetContentOffset(targetContentOffset: CGPoint) {
         let sv = self.streamView
@@ -298,17 +299,17 @@ extension ChatViewController: StreamViewDelegate {
         }
     }
     
-    func streamView(streamView: StreamView, numberOfItemsInSection section: Int) -> Int {
+    func numberOfItemsIn(section: Int) -> Int {
         return chat.entries.count
     }
     
-    func streamView(streamView: StreamView, entryBlockForItem item: StreamItem) -> (StreamItem -> AnyObject?)? {
+    func entryBlockForItem(item: StreamItem) -> (StreamItem -> AnyObject?)? {
         return { [weak self] item in
             return self?.chat.entries[safe: item.position.index]
         }
     }
     
-    func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetricsProtocol] {
+    func metricsAt(position: StreamPosition) -> [StreamMetricsProtocol] {
         var metrics = [StreamMetricsProtocol]()
         guard let message = chat.entries[safe: position.index] else { return metrics }
         if chat.unreadMessages.first == message && badge?.value != 0 {
@@ -327,7 +328,7 @@ extension ChatViewController: StreamViewDelegate {
         return metrics
     }
     
-    func streamViewDidChangeContentSize(streamView: StreamView, oldContentSize: CGSize) {
+    func didChangeContentSize(oldContentSize: CGSize) {
         if streamView.scrollable {
             if dragged {
                 let offset = streamView.contentSize.height - oldContentSize.height
@@ -339,10 +340,6 @@ extension ChatViewController: StreamViewDelegate {
             }
         }
         appendItemsIfNeededWithTargetContentOffset(streamView.contentOffset)
-    }
-    
-    func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetricsProtocol? {
-        return placeholderMetrics
     }
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {

@@ -29,12 +29,13 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     var singleMetrics: StreamMetrics<SingleAddressBookRecordCell>!
     var multipleMetrics: StreamMetrics<MultipleAddressBookRecordCell>!
     var sectionHeaderMetrics: StreamMetrics<AddressBookGroupView>!
-    var placeholderMetrics: StreamMetrics<PlaceholderView>!
     
     private var contentSizeObserver: NotificationObserver?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        streamView.dataSource = self
         
         if isWrapCreation {
             titleLabel.text = "share_with_friends".ls
@@ -94,8 +95,9 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
             }
             })
         
-        placeholderMetrics = PlaceholderView.searchPlaceholderMetrics()
-        placeholderMetrics?.selectable = false
+        let placeholderMetrics = PlaceholderView.searchPlaceholderMetrics()
+        streamView.placeholderMetrics = placeholderMetrics
+        placeholderMetrics.selectable = false
         
         spinner.startAnimating()
         let cached = AddressBook.sharedAddressBook.cachedRecords({ [weak self] (array) in
@@ -297,34 +299,30 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     }
 }
 
-extension AddContributorsViewController: StreamViewDelegate {
+extension AddContributorsViewController: StreamViewDataSource {
     
-    func streamViewNumberOfSections(streamView: StreamView) -> Int {
+    func numberOfSections() -> Int {
         return filteredAddressBook?.groups.count ?? 0
     }
-    func streamView(streamView: StreamView, numberOfItemsInSection section: Int) -> Int {
+    func numberOfItemsIn(section: Int) -> Int {
         let group = filteredAddressBook?.groups[safe: section]
         return group?.records.count ?? 0
     }
     
-    func streamView(streamView: StreamView, headerMetricsInSection section: Int) -> [StreamMetricsProtocol] {
+    func headerMetricsIn(section: Int) -> [StreamMetricsProtocol] {
         return [sectionHeaderMetrics]
     }
     
-    func streamView(streamView: StreamView, entryBlockForItem item: StreamItem) -> (StreamItem -> AnyObject?)? {
+    func entryBlockForItem(item: StreamItem) -> (StreamItem -> AnyObject?)? {
         return { [weak self] (item) in
             let group = self?.filteredAddressBook?.groups[safe: item.position.section]
             return group?.records[safe: item.position.index]
         }
     }
     
-    func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetricsProtocol] {
+    func metricsAt(position: StreamPosition) -> [StreamMetricsProtocol] {
         let group = filteredAddressBook?.groups[safe: position.section]
         let record = group?.records[safe: position.index]
         return [record?.phoneNumbers.count > 1 ? multipleMetrics : singleMetrics]
-    }
-    
-    func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetricsProtocol? {
-        return placeholderMetrics
     }
 }

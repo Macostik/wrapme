@@ -46,6 +46,7 @@ class PaginatedStreamDataSource<T: PaginatedListProtocol>: StreamDataSource<T> {
           _loading = false
         }
         
+        let placeholderMetrics = streamView?.placeholderMetrics
         if (placeholderMetrics?.hidden != _loading || loadingMetrics.hidden == _loading) {
             placeholderMetrics?.hidden = _loading
             loadingMetrics.hidden = !_loading
@@ -119,10 +120,10 @@ class PaginatedStreamDataSource<T: PaginatedListProtocol>: StreamDataSource<T> {
         }
     }
     
-    override func streamViewDidLayout(streamView: StreamView) {
-        super.streamViewDidLayout(streamView)
+    override func didLayout() {
+        super.didLayout()
         Dispatch.mainQueue.async { () -> Void in
-            self.appendItemsIfNeededWithTargetContentOffset(streamView.contentOffset)
+            self.appendItemsIfNeededWithTargetContentOffset(self.streamView!.contentOffset)
         }
     }
     

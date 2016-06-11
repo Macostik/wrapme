@@ -136,7 +136,7 @@ final class ContributorCell: EntryStreamReusableView<User> {
     
     private func addMetrics<T: StreamMetricsProtocol>(metrics: T) -> T {
         metrics.hidden = true
-        return self.dataSource.addHeaderMetrics(metrics)
+        return self.dataSource.addSectionHeaderMetrics(metrics)
     }
     
     override func didDequeue() {

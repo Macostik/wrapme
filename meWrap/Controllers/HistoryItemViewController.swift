@@ -110,8 +110,8 @@ final class HistoryItemViewController: BaseViewController {
         layout.spacing = 1
         layout.offset = 1
         streamView.layout = layout
-        dataSource.placeholderMetrics = PlaceholderView.singleDayPlaceholderMetrics()
-        dataSource.placeholderMetrics?.isSeparator = true
+        streamView.placeholderMetrics = PlaceholderView.singleDayPlaceholderMetrics()
+        streamView.placeholderMetrics?.isSeparator = true
         
         let metrics = dataSource.addMetrics(StreamMetrics<CandyCell>())
         metrics.modifyItem = { (item) in

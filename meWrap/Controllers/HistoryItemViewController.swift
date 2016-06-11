@@ -105,13 +105,13 @@ final class HistoryItemViewController: BaseViewController {
         
         super.viewDidLoad()
         
-        streamView.layout = GridLayout()
+        let layout = GridLayout()
+        layout.numberOfColumns = 3
+        layout.spacing = 1
+        layout.offset = 1
+        streamView.layout = layout
         dataSource.placeholderMetrics = PlaceholderView.singleDayPlaceholderMetrics()
         dataSource.placeholderMetrics?.isSeparator = true
-        dataSource.numberOfGridColumns = 3
-        dataSource.sizeForGridColumns = 1.0/3.0
-        dataSource.layoutSpacing = 1
-        dataSource.offsetForGridColumns = 1
         
         let metrics = dataSource.addMetrics(StreamMetrics<CandyCell>())
         metrics.modifyItem = { (item) in

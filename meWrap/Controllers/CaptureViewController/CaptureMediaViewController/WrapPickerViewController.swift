@@ -157,7 +157,7 @@ class WrapPickerViewController: BaseViewController {
             setCreating(false, animated: false)
         }
         
-        dataSource.layoutOffset = ItemHeight
+        streamView.layout.offset = ItemHeight
         streamView.contentInset = UIEdgeInsetsMake(ItemHeight, 0, ItemHeight, 0)
         streamView.scrollIndicatorInsets = streamView.contentInset
         

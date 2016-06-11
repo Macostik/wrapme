@@ -41,10 +41,11 @@ class HistoryItemCell: EntryStreamReusableView<HistoryItem> {
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         
-        streamView.layout = HorizontalSquareLayout()
+        let layout = HorizontalSquareLayout()
+        layout.spacing = 1
+        streamView.layout = layout
         dataSource = HistoryItemDataSource(streamView: streamView)
         candyMetrics = dataSource.addMetrics(StreamMetrics<CandyCell>())
-        dataSource.layoutSpacing = 1
         candyMetrics.prepareAppearing = { [weak self] item, _ in
             item.view?.transform = self?.streamView.transform ?? CGAffineTransformIdentity
         }
@@ -194,8 +195,6 @@ class MediaViewController: WrapSegmentViewController {
         streamView.contentInset = streamView.scrollIndicatorInsets
         
         dataSource.scrollDirectionLayoutPrioritizer = self.scrollDirectionPrioritizer
-        dataSource.numberOfGridColumns = 3
-        dataSource.layoutSpacing = 1
         dataSource.placeholderMetrics = PlaceholderView.mediaPlaceholderMetrics()
         
         dataSource.wrap = wrap

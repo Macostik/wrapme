@@ -16,27 +16,25 @@ class SquareGridLayout: StreamLayout {
     var spacing: CGFloat = 0
     var isEdgeSeporator = false
     
+    internal var currentOffset: CGFloat = 0
+    
     override func prepareLayout(sv: StreamView) {
-        if let delegate = sv.delegate as? GridLayoutDelegate {
-            numberOfColumns = delegate.streamView(sv, layoutNumberOfColumns: self)
-            spacing = delegate.streamView(sv, layoutSpacing: self)
-            let num = CGFloat(numberOfColumns)
-            size = (sv.frame.width - spacing * (num + (isEdgeSeporator ? 1 : -1))) / num
-            offset = delegate.streamView(sv, layout: self, offsetForColumn: 0)
-        }
+        let num = CGFloat(numberOfColumns)
+        size = (sv.frame.width - spacing * (num + (isEdgeSeporator ? 1 : -1))) / num
+        currentOffset = offset
     }
     
     override func frameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
         let metrics = item.metrics
         if metrics.isSeparator {
-            var y = offset + spacing
+            var y = currentOffset + spacing
             if let previous = item.previous {
                 y = previous.frame.maxY + spacing
             }
             return CGRect(x: 0, y: y, width: streamView.width, height: item.size)
         } else {
             var x = CGFloat(isEdgeSeporator) * spacing
-            var y = offset + spacing
+            var y = currentOffset + spacing
             var column: Int = 0
             if let previous = item.previous {
                 if metrics.isSeparator || previous.metrics.isSeparator {
@@ -62,13 +60,9 @@ class HorizontalSquareGridLayout: SquareGridLayout {
     override var horizontal: Bool { return true }
     
     override func prepareLayout(sv: StreamView) {
-        if let delegate = sv.delegate as? GridLayoutDelegate {
-            numberOfColumns = delegate.streamView(sv, layoutNumberOfColumns: self)
-            spacing = delegate.streamView(sv, layoutSpacing: self)
-            let num = CGFloat(numberOfColumns)
-            size = (sv.frame.height - spacing * (num + 1)) / num
-            offset = delegate.streamView(sv, layout: self, offsetForColumn: 0)
-        }
+        let num = CGFloat(numberOfColumns)
+        size = (sv.frame.height - spacing * (num + (isEdgeSeporator ? 1 : -1))) / num
+        currentOffset = offset
     }
     
     override func frameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
@@ -95,10 +89,7 @@ class SquareLayout: StreamLayout {
     var spacing: CGFloat = 0
     
     override func prepareLayout(streamView: StreamView) {
-        if let delegate = streamView.delegate as? GridLayoutDelegate {
-            spacing =  delegate.streamView(streamView, layoutSpacing: self)
-            size = streamView.frame.size.width - spacing*2
-        }
+        size = streamView.frame.size.width - spacing*2
     }
     
     override func frameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
@@ -115,10 +106,7 @@ class HorizontalSquareLayout: SquareLayout {
     override var horizontal: Bool { return true }
     
     override func prepareLayout(streamView: StreamView) {
-        if let delegate = streamView.delegate as? GridLayoutDelegate {
-            spacing =  delegate.streamView(streamView, layoutSpacing: self)
-            size = streamView.frame.size.height - spacing*2
-        }
+        size = streamView.frame.size.height - spacing*2
     }
     
     override func frameForItem(item: StreamItem, streamView: StreamView) -> CGRect {

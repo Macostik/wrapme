@@ -19,11 +19,12 @@ class RecentCandiesView: EntryStreamReusableView<Wrap> {
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         streamView.scrollEnabled = false
-        dataSource.numberOfGridColumns = 3
-        streamView.layout = SquareGridLayout()
+        let layout = SquareGridLayout()
+        layout.numberOfColumns = 3
+        layout.spacing = 1
+        streamView.layout = layout
         candyMetrics = StreamMetrics<CandyCell>()
         dataSource.addMetrics(candyMetrics).disableMenu = true
-        dataSource.layoutSpacing = 1
         backgroundColor = Color.orange
         streamView.backgroundColor = UIColor.whiteColor()
         addSubview(streamView)

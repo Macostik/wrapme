@@ -162,7 +162,7 @@ final class ContributorCell: EntryStreamReusableView<User> {
             resendMetrics.hidden = inviteResent
         }
         streamView.layoutIfNeeded()
-        dataSource.layoutOffset = width
+        streamView.layout.offset = width
         dataSource.reload()
         let isCreator = wrap?.contributor == user ?? false
         let name = user.current ? "you".ls : user.name

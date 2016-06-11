@@ -389,7 +389,7 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
         }
         emailConfirmationView.expanded = !(unconfirmed_Email?.isEmpty ?? true)
         headerView.layoutIfNeeded()
-        dataSource.layoutOffset = headerView.height
+        streamView.layout.offset = headerView.height
     }
     
     func setupEditableUserInterface() {

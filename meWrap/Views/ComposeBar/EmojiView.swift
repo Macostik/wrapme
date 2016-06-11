@@ -94,7 +94,9 @@ class EmojiView: UIView, SegmentedControlDelegate {
     }
     
     func setup() {
-        streamView.layout = HorizontalGridLayout()
+        let layout = HorizontalGridLayout()
+        layout.numberOfColumns = 4
+        streamView.layout = layout
         dataSource = StreamDataSource(streamView: streamView)
         let metrics = StreamMetrics<EmojiCell>()
         
@@ -103,8 +105,6 @@ class EmojiView: UIView, SegmentedControlDelegate {
                 item.ratio = (streamView.height/4) / (streamView.width/8)
             }
         }
-        dataSource.numberOfGridColumns = 4
-        dataSource.sizeForGridColumns = 0.25
         
         metrics.selection = { [weak self] view -> Void in
             let emoji = view.entry as! String
@@ -156,7 +156,9 @@ class FullScreenEmojiView: EmojiView {
     }
     
     override func setup() {
-        streamView.layout = HorizontalGridLayout()
+        let layout = HorizontalGridLayout()
+        layout.numberOfColumns = 11
+        streamView.layout = layout
         dataSource = StreamDataSource(streamView: streamView)
         let metrics = StreamMetrics<EmojiCell>()
         metrics.modifyItem = { [weak self] item in
@@ -171,8 +173,6 @@ class FullScreenEmojiView: EmojiView {
             self?.removeFromSuperview()
         }
         dataSource.addMetrics(metrics)
-        dataSource.numberOfGridColumns = 11
-        dataSource.sizeForGridColumns = 1/11
         if let recentEmojis = Emoji.recentEmojis() where recentEmojis.count > 0 {
             emojis = recentEmojis
         } else {

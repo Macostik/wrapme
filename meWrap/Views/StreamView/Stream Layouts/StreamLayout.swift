@@ -9,14 +9,6 @@
 import Foundation
 import UIKit
 
-protocol StreamLayoutDelegate: StreamViewDelegate {
-    func streamView(streamView:StreamView, offsetForLayout:StreamLayout) -> CGFloat
-}
-
-extension StreamLayoutDelegate {
-    func streamView(streamView:StreamView, offsetForLayout:StreamLayout) -> CGFloat { return 0 }
-}
-
 class StreamLayout {
     
     var horizontal: Bool { return false }
@@ -27,11 +19,6 @@ class StreamLayout {
     
     func prepareLayout(streamView: StreamView) {
         finalized = false
-        if let delegate = streamView.delegate as? StreamLayoutDelegate {
-            offset = delegate.streamView(streamView, offsetForLayout: self)
-        } else {
-            offset = 0
-        }
     }
     
     func contentSize(item: StreamItem, streamView: StreamView) -> CGSize {

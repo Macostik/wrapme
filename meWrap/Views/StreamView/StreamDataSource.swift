@@ -12,7 +12,7 @@ enum ScrollDirection {
     case Unknown, Up, Down
 }
 
-class StreamDataSource<T: BaseOrderedContainer>: NSObject, GridLayoutDelegate, StreamLayoutDelegate {
+class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDelegate {
     
     @IBOutlet weak var streamView: StreamView?
     
@@ -90,23 +90,7 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, GridLayoutDelegate, S
     
     var numberOfItems: Int?
     
-    @IBInspectable var layoutOffset: CGFloat = 0
-    
-    @IBInspectable var layoutSpacing: CGFloat = 0
-    
-    @IBInspectable var numberOfGridColumns: Int = 1
-    
-    @IBInspectable var sizeForGridColumns: CGFloat = 1
-    
-    @IBInspectable var offsetForGridColumns: CGFloat = 0
-    
     var didLayoutItemBlock: (StreamItem -> Void)?
-    
-    var willChangeContentSizeBlock: (CGSize -> Void)?
-    
-    var didChangeContentSizeBlock: (CGSize -> Void)?
-    
-    var didLayoutBlock: (Void -> Void)?
     
     private func entryForItem(item: StreamItem) -> AnyObject? {
         return items?[safe: item.position.index] as? AnyObject
@@ -141,15 +125,15 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, GridLayoutDelegate, S
     }
     
     func streamViewWillChangeContentSize(streamView: StreamView, newContentSize: CGSize) {
-        willChangeContentSizeBlock?(newContentSize)
+        
     }
     
     func streamViewDidChangeContentSize(streamView: StreamView, oldContentSize: CGSize) {
-        didChangeContentSizeBlock?(oldContentSize)
+        
     }
     
     func streamViewDidLayout(streamView: StreamView) {
-        didLayoutBlock?()
+        
     }
     
     func streamViewHeaderMetrics(streamView: StreamView) -> [StreamMetricsProtocol] {
@@ -184,33 +168,5 @@ extension StreamDataSource {
         if scrollView.tracking && (scrollView.contentSize.height > scrollView.height || direction == .Up) {
             direction = scrollView.panGestureRecognizer.translationInView(scrollView).y > 0 ? .Down : .Up
         }
-    }
-}
-
-extension StreamDataSource {
-    // MARK: - GridLayoutDelegate
-    
-    func streamView(streamView: StreamView, layoutNumberOfColumns layout: StreamLayout) -> Int {
-        return numberOfGridColumns
-    }
-    
-    func streamView(streamView: StreamView, layout: StreamLayout, offsetForColumn column: Int)  -> CGFloat {
-        return offsetForGridColumns
-    }
-    
-    func streamView(streamView: StreamView, layout: StreamLayout, sizeForColumn column: Int) -> CGFloat {
-        return sizeForGridColumns
-    }
-    
-    func streamView(streamView: StreamView, layoutSpacing layout: StreamLayout)  -> CGFloat {
-        return layoutSpacing
-    }
-}
-
-extension StreamDataSource {
-    // MARK: - StreamLayoutDelegate
-    
-    func streamView(streamView:StreamView, offsetForLayout:StreamLayout) -> CGFloat {
-        return layoutOffset
     }
 }

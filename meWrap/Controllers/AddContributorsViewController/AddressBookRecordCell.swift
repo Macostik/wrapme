@@ -149,7 +149,7 @@ final class MultipleAddressBookRecordCell: AddressBookRecordCell {
             metrics.finalizeAppearing = { item, view in
                 let phoneNumber = item.entry as? AddressBookPhoneNumber
                 if let weakSelf = self, let phoneNumber = phoneNumber {
-                    view.checked = weakSelf.delegate?.recordCell(weakSelf, phoneNumberState: phoneNumber) != .Default
+                    view.state = weakSelf.delegate?.recordCell(weakSelf, phoneNumberState: phoneNumber) ?? .Default
                 }
             }
             metrics.selection = { view in

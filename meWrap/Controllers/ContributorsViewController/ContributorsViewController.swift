@@ -169,7 +169,7 @@ final class ContributorsViewController: BaseViewController {
     
     private func updateContributors() {
         var contributors: [AnyObject] = Array(wrap.contributors.subtract(removedContributors))
-        wrap.invitees?.all({
+        wrap.invitees.all({
             contributors.append($0)
         })
         self.contributors = contributors.sort {

@@ -8,24 +8,23 @@
 
 import UIKit
 
-class ArrangedAddressBookGroup: NSObject {
+final class ArrangedAddressBookGroup {
     
-    var title: String?
+    let title: String
     
     var records = [AddressBookRecord]()
     
-    var registered = true
+    let registered: Bool
     
-    class func registeredGroup() -> ArrangedAddressBookGroup {
+    static func registeredGroup() -> ArrangedAddressBookGroup {
         return ArrangedAddressBookGroup(title: "friends_on_meWrap".ls, registered: true)
     }
     
-    class func unregisteredGroup() -> ArrangedAddressBookGroup {
+    static func unregisteredGroup() -> ArrangedAddressBookGroup {
         return ArrangedAddressBookGroup(title: "invite_to_meWrap".ls, registered: false)
     }
     
-    convenience init(title: String?, registered: Bool) {
-        self.init()
+    init(title: String, registered: Bool) {
         self.title = title
         self.registered = registered
     }
@@ -71,7 +70,7 @@ class ArrangedAddressBookGroup: NSObject {
     }
 }
 
-class ArrangedAddressBook: NSObject {
+final class ArrangedAddressBook {
     
     var groups: [ArrangedAddressBookGroup] = [ArrangedAddressBookGroup.registeredGroup(),ArrangedAddressBookGroup.unregisteredGroup()]
     var selectedPhoneNumbers = Set<AddressBookPhoneNumber>()

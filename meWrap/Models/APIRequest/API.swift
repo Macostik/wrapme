@@ -21,7 +21,7 @@ extension APIRequest {
     }
     
     func configureForInvitation(wrap: Wrap) {
-        guard let invitees = wrap.invitees else { return }
+        let invitees = wrap.invitees
         let registeredContributors = invitees.filter({ $0.user != nil })
         self["user_uids"] = registeredContributors.map({ $0.user!.uid })
         self["message"] = wrap.invitationMessage
@@ -30,13 +30,7 @@ extension APIRequest {
         var inviteByPhone = [[String : AnyObject]]()
         
         for invitee in unregisteredContributors {
-            if let phones = invitee.phone?.characters.split("\n").map({ String($0) }) where phones.count > 0 {
-                if phones.count > 1 {
-                    inviteByPhone.append(["name":invitee.name ?? "","phone_numbers" : phones])
-                } else {
-                    inviteByPhone.append(["name":invitee.name ?? "","phone_number" : phones[0]])
-                }
-            }
+            inviteByPhone.append(["name":invitee.name ?? "","phone_numbers" : invitee.phones])
         }
         self["invitees"] = inviteByPhone.map({ String(data: try! NSJSONSerialization.dataWithJSONObject($0, options: []), encoding: NSUTF8StringEncoding) ?? "" })
     }
@@ -321,9 +315,10 @@ extension API {
         return APIRequest<Wrap>(.POST, "wraps/\(wrap.uid)/add_contributor", modifier: { (request) -> Void in
             request.configureForInvitation(wrap)
             }, parser: { response in
-                wrap.invitees?.all({ (invitee) in
+                wrap.invitees.all({ (invitee) in
                     EntryContext.sharedContext.deleteEntry(invitee)
                 })
+                wrap.invitees = Set()
                 wrap.invitationMessage = nil
                 return self.parseContributors(wrap, response: response)
         }).contributionUnavailable(wrap)
@@ -345,10 +340,16 @@ extension API {
             request.configureForInvitation(wrap)
             }, parser: { response in
                 if wrap.valid {
+                    wrap.invitees.all({ (invitee) in
+                        EntryContext.sharedContext.deleteEntry(invitee)
+                    })
+                    wrap.invitees = Set()
+                    wrap.invitationMessage = nil
                     if let dictionary = response.dictionary("wrap") {
                         wrap.map(dictionary)
                         wrap.notifyOnAddition()
                     }
+                    self.parseContributors(wrap, response: response)
                 }
                 return wrap
         })

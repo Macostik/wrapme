@@ -109,11 +109,9 @@ class AddressBookRecord: NSObject {
         let phones = ABRecordCopyValue(ABRecord, kABPersonPhoneProperty)?.takeUnretainedValue()
         let count = ABMultiValueGetCount(phones)
         for i in 0...count {
-            let phoneNumber = AddressBookPhoneNumber()
             let phone = (ABMultiValueCopyValueAtIndex(phones, i)?.takeUnretainedValue() as? String)?.clearPhoneNumber()
-            
             if let phone = phone where phone.characters.count >= Constants.addressBookPhoneNumberMinimumLength {
-                phoneNumber.phone = phone
+                let phoneNumber = AddressBookPhoneNumber(phone: phone)
                 let phoneLabel: CFStringRef = ABMultiValueCopyLabelAtIndex(phones, i)?.takeUnretainedValue() ?? ""
                 let label = ABAddressBookCopyLocalizedLabel(phoneLabel).takeUnretainedValue()
                 phoneNumber.label = label as String
@@ -136,11 +134,19 @@ func ==(lhs: AddressBookPhoneNumber, rhs: AddressBookPhoneNumber) -> Bool {
     }
 }
 
-class AddressBookPhoneNumber: NSObject {
+final class AddressBookPhoneNumber: Hashable, CustomStringConvertible {
     
     weak var record: AddressBookRecord?
     
-    var phone = ""
+    let phone: String
+    
+    init(phone: String) {
+        self.phone = phone
+    }
+    
+    var hashValue: Int {
+        return phone.hashValue
+    }
     
     private var _name: String?
     var name: String? {
@@ -184,7 +190,7 @@ class AddressBookPhoneNumber: NSObject {
     
     var activated = false
     
-    override var description: String {
+    var description: String {
         return phone ?? ""
     }
 }

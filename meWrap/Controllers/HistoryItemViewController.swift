@@ -41,6 +41,8 @@ final class HistoryItemViewController: BaseViewController {
     
     private let infoView = UIView()
     
+    private var coverHeightConstraint: Constraint!
+    
     override func loadView() {
         super.loadView()
         automaticallyAdjustsScrollViewInsets = false
@@ -50,6 +52,7 @@ final class HistoryItemViewController: BaseViewController {
         infoView.backgroundColor = Color.orange.colorWithAlphaComponent(0.5)
         
         streamView.alwaysBounceVertical = true
+        streamView.delaysContentTouches = false
         view.add(streamView) { (make) in
             make.edges.equalTo(view)
         }
@@ -64,7 +67,7 @@ final class HistoryItemViewController: BaseViewController {
             make.centerX.equalTo(streamView)
             make.bottom.equalTo(anchorView)
             make.width.equalTo(streamView)
-            make.height.equalTo(streamView.snp_width).multipliedBy(0.6)
+            coverHeightConstraint = make.height.equalTo(streamView.snp_width).multipliedBy(0.6).constraint
         }
         
         coverView.add(infoView) { (make) -> Void in
@@ -147,9 +150,7 @@ final class HistoryItemViewController: BaseViewController {
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         let offset = min(streamView.layer.bounds.origin.y, 0)
-        coverView.snp_updateConstraints(closure: { (make) in
-            make.height.equalTo(view.snp_width).multipliedBy(0.6).offset(-offset)
-        })
+        coverHeightConstraint.updateOffset(-offset)
     }
     
     private var coverCandy: Candy?

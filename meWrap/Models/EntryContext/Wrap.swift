@@ -213,7 +213,15 @@ final class Invitee: Entry, Contributor {
         if let user = user {
             return "\("invitation_pending".ls)\n\(user.securePhones)"
         } else {
-            return "\("invitation_pending".ls)\n\(phone)"
+            return "\("invitation_pending".ls)\n\(phone ?? "")"
         }
     }
+    
+    lazy var phones: [String] = {
+        if let phones = self.phone?.characters.split("\n").map({ String($0) }) where phones.count > 0 {
+            return phones
+        } else {
+            return []
+        }
+    }()
 }

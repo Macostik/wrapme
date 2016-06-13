@@ -85,7 +85,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
             metrics.size = 32.0
             metrics.modifyItem = { [weak self] (item) in
                 if let group = self?.filteredAddressBook?.groups[safe: item.position.section] {
-                    item.hidden = group.title?.isEmpty != true && group.records.isEmpty
+                    item.hidden = group.records.isEmpty
                 } else {
                     item.hidden = true
                 }
@@ -166,7 +166,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
                 if let record = phoneNumber.record {
                     let grouped = unregistered.filter({ $0.record == record })
                     invitee.phone = grouped.reduce("", combine: { phones, number -> String in
-                        if phones.isEmpty {
+                        if !phones.isEmpty {
                             return phones + "\n" + (number.phone ?? "")
                         } else {
                             return phones + (number.phone ?? "")
@@ -197,18 +197,13 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         let performRequestBlock = { (message: String?) in
             let status = wrap.status
             if status != .InProgress {
-                wrap.invitees = invitees
+                wrap.invitees = wrap.invitees.union(invitees)
                 wrap.invitationMessage = message
                 wrap.notifyOnUpdate(.ContributorsChanged)
                 if status == .Finished {
                     Uploader.wrapUploader.upload(Uploading.uploading(wrap, type: AddFriendsUploadingType))
                 }
                 completionHandler(invited: true, message: message)
-                if message?.isEmpty ?? true {
-                    Toast.show("isn't_using_invite".ls)
-                } else {
-                    Toast.show("is_using_invite".ls)
-                }
             } else {
                 Toast.show("publishing_in_progress".ls)
             }
@@ -226,10 +221,14 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         sendInvitation { [weak self] (invited, message) in
             self?.navigationController?.popViewControllerAnimated(false)
             if invited {
-                if message?.isEmpty ?? true {
-                    Toast.show("isn't_using_invite".ls)
+                if Network.network.reachable {
+                    if message?.isEmpty ?? true {
+                        Toast.show("isn't_using_invite".ls)
+                    } else {
+                        Toast.show("is_using_invite".ls)
+                    }
                 } else {
-                    Toast.show("is_using_invite".ls)
+                    Toast.show("offline_invitation_message".ls)
                 }
             }
         }
@@ -245,8 +244,16 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     //MARK: AddressBookRecordCellDelegate
     
     func recordCell(cell: AddressBookRecordCell, phoneNumberState phoneNumber: AddressBookPhoneNumber) -> AddressBookPhoneNumberState {
-        if let user = phoneNumber.user where wrap.contributors.contains(user) {
-            return .Added
+        if let user = phoneNumber.user {
+            if wrap.contributors.contains(user) {
+                return .Added
+            } else if wrap.invitees.contains({ $0.user == user }) {
+                return .Added
+            }
+        } else {
+            if wrap.invitees.contains({ $0.phones.contains(phoneNumber.phone) }) {
+                return .Added
+            }
         }
         return addressBook.selectedPhoneNumber(phoneNumber) != nil ? .Selected : .Default
     }

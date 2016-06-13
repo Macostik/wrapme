@@ -73,7 +73,7 @@ extension Wrap {
     @NSManaged var contributors: Set<User>
     @NSManaged var messages: Set<Message>
     @NSManaged var candiesPaginationDate: NSDate?
-    @NSManaged var invitees: Set<Invitee>?
+    @NSManaged var invitees: Set<Invitee>
     @NSManaged var invitationMessage: String?
     
 }

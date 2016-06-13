@@ -157,29 +157,37 @@ final class LiveBroadcasterViewController: LiveViewController {
             
             goCoder.config = specify(goCoder.config, { config in
                 //
-                // We comment all the video and audio tuning because GoCoder SDK
-                // is able to perform abr streaming (adaptive bitrate streaming),
-                // in which it will tune down/up the video and audio data usage
-                // based on network bandwidth. The videoBitrateLowBandwidthScalingFactor
-                // is to specify the min. scaling down factor it can go down to when 
-                // bad network connnection is observed.
+                // We should not use preset .Preset640x480 because that 
+                // doesn't allow us to specify the lower video bitrate as 280K.
+                // With default 1.5Mbps, if broadcaster is under high speed internet
+                // and is fully utilizing 1.5Mbps, viewers will suffer if they don't 
+                // have high speed internet to catch up with the broadcaster's
+                // fast-publishing pace.
                 //
-                // config.videoFrameRate = 15
-                // config.videoKeyFrameInterval = 2
-                // config.videoBitrate = 280000
-                config.videoPreviewRotates = true
+                // Therefore, we don't use preset and instead, we specify the video
+                // width and height, as well as video bitrate so that we can control
+                // the max video bitrate the broadcaster is publishing.
+                //
+                // videoBitrateLowBandwidthScalingFactor = 0.1 is used to handle
+                // broadcaster's low speed interest situation (10% of 280K?)
+                //
+                // Frame rate and key frame interval should be 20/20. Default is 30/30.
+                // Most people cannot see video frame rate higher than 24 and so 20 
+                // should be sufficient enough
+                //
+                config.videoWidth = 640
+                config.videoHeight = 480
+                config.videoFrameRate = 20
+                config.videoKeyFrameInterval = 20
+                config.videoBitrate = 280000
                 config.videoBitrateLowBandwidthScalingFactor = 0.1
-                
-                // config.audioChannels = 1
-                // config.audioSampleRate = 44100
-                // config.audioBitrate = 64000
+                config.videoPreviewRotates = true
                 
                 config.hostAddress = "live.mewrap.me"
                 config.applicationName = "live"
                 config.portNumber = 1935
                 config.username = LiveBroadcastUsername
                 config.password = LiveBroadcastPassword
-                config.loadPreset(.Preset640x480)
                 config.streamName = broadcast.streamName
             })
             

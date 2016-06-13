@@ -17,6 +17,10 @@ class GridLayout: StreamLayout {
     
     private var offsets = [CGFloat]()
     
+    override func contentSize(item: StreamItem, streamView: StreamView) -> CGSize {
+        return CGSize(width: streamView.width, height: offsets.maxElement() ?? 0)
+    }
+    
     func position(column: Int) -> CGFloat {
         return CGFloat(column) * columnSize
     }
@@ -69,6 +73,10 @@ class GridLayout: StreamLayout {
 class HorizontalGridLayout: GridLayout {
     
     override var horizontal: Bool { return true }
+    
+    override func contentSize(item: StreamItem, streamView: StreamView) -> CGSize {
+        return CGSize(width: offsets.maxElement() ?? 0, height: streamView.height)
+    }
     
     override func frameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
         

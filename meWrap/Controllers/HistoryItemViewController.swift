@@ -29,8 +29,6 @@ final class HistoryItemViewController: BaseViewController {
     
     private let dateLabel = Label(preset: .Smaller, textColor: UIColor.whiteColor())
     
-    private let cover = ImageView(backgroundColor: UIColor.blackColor())
-    
     private var candies: [Candy]?
     
     var item: HistoryItem?
@@ -39,17 +37,19 @@ final class HistoryItemViewController: BaseViewController {
     
     private lazy var dataSource: StreamDataSource<[Candy]> = StreamDataSource(streamView: self.streamView)
     
-    let coverView = UIView()
+    private let coverView = UIView()
+    
+    private let infoView = UIView()
     
     override func loadView() {
         super.loadView()
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = UIColor.whiteColor()
         
-        let infoView = UIView()
         coverView.backgroundColor = UIColor.blackColor()
         infoView.backgroundColor = Color.orange.colorWithAlphaComponent(0.5)
         
+        streamView.alwaysBounceVertical = true
         view.add(streamView) { (make) in
             make.edges.equalTo(view)
         }
@@ -67,9 +67,6 @@ final class HistoryItemViewController: BaseViewController {
             make.height.equalTo(streamView.snp_width).multipliedBy(0.6)
         }
         
-        coverView.add(cover) { (make) -> Void in
-            make.edges.equalTo(coverView)
-        }
         coverView.add(infoView) { (make) -> Void in
             make.leading.trailing.bottom.equalTo(coverView)
         }
@@ -79,8 +76,6 @@ final class HistoryItemViewController: BaseViewController {
         blurView.snp_makeConstraints { (make) in
             make.edges.equalTo(infoView)
         }
-        cover.setContentHuggingPriority(UILayoutPriorityDefaultLow, forAxis: .Vertical)
-        cover.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Vertical)
         infoView.add(nameLabel) { (make) -> Void in
             make.leading.top.equalTo(infoView).offset(12)
             make.trailing.lessThanOrEqualTo(infoView).offset(-12)
@@ -111,7 +106,7 @@ final class HistoryItemViewController: BaseViewController {
         let layout = GridLayout()
         layout.numberOfColumns = 3
         layout.spacing = 1
-        layout.offset = cover.height + 1
+        layout.offset = coverView.height + 1
         streamView.layout = layout
         streamView.placeholderMetrics = PlaceholderView.singleDayPlaceholderMetrics()
         streamView.placeholderMetrics?.isSeparator = true
@@ -159,19 +154,31 @@ final class HistoryItemViewController: BaseViewController {
     
     private var coverCandy: Candy?
     
+    private var cover: ImageView?
+    
     private func setCoverCandy(candy: Candy?, animated: Bool) {
         coverCandy = candy
+        guard let candy = candy else { return }
+        let cover = ImageView(backgroundColor: UIColor.clearColor())
+        coverView.insertSubview(cover, atIndex: 0)
+        cover.snp_makeConstraints { (make) -> Void in
+            make.edges.equalTo(coverView)
+        }
+        cover.url = candy.asset?.medium
         if animated {
-            UIView.animateWithDuration(0.5, animations: {
-                self.cover.alpha = 0
+            cover.alpha = 0
+            UIView.animateWithDuration(2, animations: {
+                cover.alpha = 1
+                })
+            UIView.animateWithDuration(2, animations: {
+                self.cover?.alpha = 0
                 }, completion: { (_) in
-                    self.cover.url = candy?.asset?.medium
-                    UIView.animateWithDuration(0.5, animations: {
-                        self.cover.alpha = 1
-                        })
+                    self.cover?.removeFromSuperview()
+                    self.cover = cover
             })
         } else {
-            cover.url = candy?.asset?.medium
+            self.cover?.removeFromSuperview()
+            self.cover = cover
         }
     }
     
@@ -183,7 +190,7 @@ final class HistoryItemViewController: BaseViewController {
         } else {
             setCoverCandy(item?.entries.first, animated: animated)
         }
-        Dispatch.mainQueue.after(4) { [weak self] _ in self?.recursivelyUpdateCover(true) }
+        Dispatch.mainQueue.after(6) { [weak self] _ in self?.recursivelyUpdateCover(true) }
     }
     
     override func viewWillAppear(animated: Bool) {

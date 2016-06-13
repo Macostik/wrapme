@@ -58,9 +58,6 @@ class CaptureAvatarViewController: CaptureViewController {
             self?.view.userInteractionEnabled = true
             })
     }
-}
-
-extension CaptureAvatarViewController {
     
     override func assetsViewController(controller: AssetsViewController, shouldSelectAsset asset: PHAsset) -> Bool {
         handleAsset(asset)

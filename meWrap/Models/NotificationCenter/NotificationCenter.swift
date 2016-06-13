@@ -316,7 +316,7 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
         let device = result.device
         
         if event == "state-change" {
-            device.isActive = true
+            device.isOnline = true
             guard let wrap = Wrap.entry(data.actualChannel) else { return }
             device.activity.handleState(data.presence.state, wrap: wrap)
             if device.activity.type == .Live {
@@ -340,9 +340,9 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
                 }
             }
         } else if event == "join" {
-            device.isActive = true
+            device.isOnline = true
         } else if event == "timeout" || event == "leave" {
-            device.isActive = false
+            device.isOnline = false
             guard let wrap = Wrap.entry(data.actualChannel, allowInsert: false) else { return }
             if device.activity.inProgress && device.activity.wrap == wrap {
                 device.activity.inProgress = false
@@ -395,7 +395,7 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
                     let user = result.user
                     let device = result.device
                     usersOnline.append(user)
-                    device.isActive = true
+                    device.isOnline = true
                     activitiesLoop: for (channel, _activities) in activities {
                         if let activity = _activities[uuid] {
                             device.activity.handleActivity(activity)
@@ -416,7 +416,7 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
                 
                 User.currentUser?.wraps.all({ (wrap) in
                     for user in wrap.contributors where !usersOnline.contains(user) {
-                        user.devices.all { $0.isActive = false }
+                        user.devices.all { $0.isOnline = false }
                     }
                 })
             }
@@ -438,7 +438,7 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
                     let user = uuidResult.user
                     let device = uuidResult.device
                     usersOnline.append(user)
-                    device.isActive = true
+                    device.isOnline = true
                     if let activity = result.activities[uuid] {
                         device.activity.handleActivity(activity)
                         device.activity.wrap = wrap
@@ -455,7 +455,7 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
                 }
                 
                 for user in wrap.contributors where !usersOnline.contains(user) {
-                    user.devices.all { $0.isActive = false }
+                    user.devices.all { $0.isOnline = false }
                 }
             }
             completionHandler?()

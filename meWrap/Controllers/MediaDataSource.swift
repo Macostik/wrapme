@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MediaDataSource: PaginatedStreamDataSource<History> {
+final class MediaDataSource: PaginatedStreamDataSource<History> {
     
     weak var wrap: Wrap?
     

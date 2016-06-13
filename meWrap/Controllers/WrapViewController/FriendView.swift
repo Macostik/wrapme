@@ -50,7 +50,7 @@ class UserAvatarView: ImageView {
     
     internal func update(user: User) {
         let url = user.avatar?.small
-        if !user.isInvited && url?.isEmpty ?? true {
+        if !user.signupPending && url?.isEmpty ?? true {
             placeholder.backgroundColor = Color.orange
         } else {
             placeholder.backgroundColor = Color.grayLighter
@@ -59,6 +59,7 @@ class UserAvatarView: ImageView {
     }
     
     internal func clear() {
+        placeholder.backgroundColor = Color.grayLighter
         url = nil
     }
 }
@@ -299,7 +300,7 @@ final class StatusUserAvatarView: UserAvatarView, EntryNotifying {
     override func update(user: User) {
         super.update(user)
         activityAnimationView = activityAnimationView(user)
-        statusView.hidden = (activityAnimationView != nil) || !(user.current || user.isActive) || !Network.network.reachable
+        statusView.hidden = (activityAnimationView != nil) || !(user.current || user.isOnline) || !Network.network.reachable
     }
     
     func startReceivingStatusUpdates() {

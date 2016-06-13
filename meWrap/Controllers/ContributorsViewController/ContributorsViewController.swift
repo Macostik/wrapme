@@ -12,13 +12,17 @@ private let VerticalIndent: CGFloat = 24
 private let HorizontalIndent: CGFloat = 96.0
 private let MinHeight: CGFloat = 72.0
 
+final class InviteeCell: EntryStreamReusableView<Invitee> {
+    
+}
+
 final class ContributorsViewController: BaseViewController {
     
     let wrap: Wrap
     
     private let streamView = StreamView()
     
-    private lazy var dataSource: StreamDataSource<[User]> = StreamDataSource(streamView: self.streamView)
+    private lazy var dataSource: StreamDataSource<[AnyObject]> = StreamDataSource(streamView: self.streamView)
     
     private let addFriendView = Button(type: .Custom)
     
@@ -28,11 +32,9 @@ final class ContributorsViewController: BaseViewController {
     
     private weak var contributiorWithOpenedMenu: User?
     
-    private var contributors: [User] = [] {
+    private var contributors: [AnyObject] = [] {
         didSet {
-            if contributors != oldValue {
-                dataSource.items = contributors
-            }
+            dataSource.items = contributors
         }
     }
     
@@ -49,6 +51,7 @@ final class ContributorsViewController: BaseViewController {
         super.loadView()
         view.backgroundColor = UIColor.whiteColor()
         streamView.alwaysBounceVertical = true
+        streamView.delaysContentTouches = false
         
         let navigationBar = UIView()
         
@@ -108,9 +111,12 @@ final class ContributorsViewController: BaseViewController {
             $0.modifyItem = { item in
                 let nameFont = UIFont.fontNormal()
                 let infoFont = UIFont.lightFontSmall()
-                let contributor = item.entry as! User
-                let infoHeight = contributor.contributorInfo().heightWithFont(infoFont, width:Constants.screenWidth - HorizontalIndent)
-                item.size = max(infoHeight + nameFont.lineHeight + VerticalIndent, MinHeight) + 1
+                if let contributor = item.entry as? Contributor {
+                    let infoHeight = contributor.contributorInfo().heightWithFont(infoFont, width:Constants.screenWidth - HorizontalIndent)
+                    item.size = max(infoHeight + nameFont.lineHeight + VerticalIndent, MinHeight) + 1
+                } else {
+                    item.size = max(infoFont.lineHeight + nameFont.lineHeight + VerticalIndent, MinHeight) + 1
+                }
             }
             $0.prepareAppearing = { [weak self] item, view in
                 view.wrap = self?.wrap
@@ -162,15 +168,21 @@ final class ContributorsViewController: BaseViewController {
     }
     
     private func updateContributors() {
-        contributors = wrap.contributors.subtract(removedContributors).sort {
-            if $0.current {
+        var contributors: [AnyObject] = Array(wrap.contributors.subtract(removedContributors))
+        wrap.invitees?.all({
+            contributors.append($0)
+        })
+        self.contributors = contributors.sort {
+            let lhs = $0 as! Contributor
+            let rhs = $1 as! Contributor
+            if lhs.current {
                 return false
-            } else if $1.current {
+            } else if rhs.current {
                 return true
             } else {
-                return $0.name < $1.name
+                return lhs.displayName < rhs.displayName
             }
-            } ?? []
+        }
     }
     
     @objc private func addFriend(sender: AnyObject) {
@@ -184,7 +196,7 @@ extension ContributorsViewController: ContributorCellDelegate {
     
     func contributorCell(cell: ContributorCell, didRemoveContributor contributor: User) {
         
-        if let index = contributors.indexOf(contributor) {
+        if let index = contributors.indexOf({ $0 === contributor }) {
             contributors.removeAtIndex(index)
         }
         
@@ -232,7 +244,7 @@ extension ContributorsViewController: ContributorCellDelegate {
     
     func contributorCell(cell: ContributorCell, didToggleMenu contributor: User) {
         if let contributor = contributiorWithOpenedMenu {
-            NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:#selector(ContributorsViewController.hideMenuForContributor(_:)), object:contributor)
+            NSObject.cancelPreviousPerformRequestsWithTarget(self, selector:#selector(self.hideMenuForContributor(_:)), object:contributor)
         }
         
         if contributiorWithOpenedMenu == contributor {

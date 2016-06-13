@@ -193,7 +193,27 @@ final class Wrap: Contribution {
     }
 }
 
+protocol Contributor: AnyObject {
+    func contributorInfo() -> String
+    var displayName: String? { get }
+    var current: Bool { get }
+}
+
 @objc(Invitee)
-final class Invitee: Entry {
+final class Invitee: Entry, Contributor {
     override class func entityName() -> String { return "Invitee" }
+    
+    var current: Bool = false
+    
+    var displayName: String? {
+        return user?.name ?? name
+    }
+
+    func contributorInfo() -> String {
+        if let user = user {
+            return "\("invitation_pending".ls)\n\(user.securePhones)"
+        } else {
+            return "\("invitation_pending".ls)\n\(phone)"
+        }
+    }
 }

@@ -144,20 +144,8 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     //MARK: Actions
     
     @IBAction func next(sender: AnyObject) {
-        if addressBook.selectedPhoneNumbers.count == 0 {
-            completionHandler?(false)
-        } else {
-            switch wrap.status {
-            case .Ready:
-                wrap.invitees = getInvitees(addressBook.selectedPhoneNumbers)
-                completionHandler?(true)
-            case .InProgress:
-                Toast.show("publishing_in_progress".ls)
-            case .Finished:
-                wrap.invitees = getInvitees(addressBook.selectedPhoneNumbers)
-                Uploader.wrapUploader.upload(Uploading.uploading(wrap, type: AddFriendsUploadingType))
-                completionHandler?(true)
-            }
+        sendInvitation { [weak self] (invited, message) in
+            self?.completionHandler?(invited)
         }
     }
     
@@ -179,7 +167,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
                     let grouped = unregistered.filter({ $0.record == record })
                     invitee.phone = grouped.reduce("", combine: { phones, number -> String in
                         if phones.isEmpty {
-                            return phones + "," + (number.phone ?? "")
+                            return phones + "\n" + (number.phone ?? "")
                         } else {
                             return phones + (number.phone ?? "")
                         }
@@ -195,46 +183,55 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         return invitees
     }
     
-    @IBAction func done(sender: Button) {
-
+    private func sendInvitation(completionHandler: (invited: Bool, message: String?) -> ()) {
+        
         let selectedPhoneNumbers = addressBook.selectedPhoneNumbers
         
-        let performRequestBlock = { [weak self] (message: String?) in
-            if let invitees = self?.getInvitees(selectedPhoneNumbers), let wrap = self?.wrap {
-                
-                switch wrap.status {
-                case .Ready:
-                    wrap.invitees = invitees
-                    wrap.invitationMessage = message
-                    self?.navigationController?.popViewControllerAnimated(false)
-                    if message?.isEmpty ?? true {
-                        Toast.show("isn't_using_invite".ls)
-                    } else {
-                        Toast.show("is_using_invite".ls)
-                    }
-                case .InProgress:
-                    Toast.show("publishing_in_progress".ls)
-                case .Finished:
-                    wrap.invitees = invitees
-                    wrap.invitationMessage = message
+        guard let wrap = wrap where !selectedPhoneNumbers.isEmpty else {
+            completionHandler(invited: false, message: nil)
+            return
+        }
+        
+        let invitees = getInvitees(selectedPhoneNumbers)
+        
+        let performRequestBlock = { (message: String?) in
+            let status = wrap.status
+            if status != .InProgress {
+                wrap.invitees = invitees
+                wrap.invitationMessage = message
+                wrap.notifyOnUpdate(.ContributorsChanged)
+                if status == .Finished {
                     Uploader.wrapUploader.upload(Uploading.uploading(wrap, type: AddFriendsUploadingType))
-                    self?.navigationController?.popViewControllerAnimated(false)
-                    if message?.isEmpty ?? true {
-                        Toast.show("isn't_using_invite".ls)
-                    } else {
-                        Toast.show("is_using_invite".ls)
-                    }
                 }
+                completionHandler(invited: true, message: message)
+                if message?.isEmpty ?? true {
+                    Toast.show("isn't_using_invite".ls)
+                } else {
+                    Toast.show("is_using_invite".ls)
+                }
+            } else {
+                Toast.show("publishing_in_progress".ls)
             }
         }
         
-        if selectedPhoneNumbers.count == 0 {
-            navigationController?.popViewControllerAnimated(false)
-        } else if selectedPhoneNumbers.contains({ $0.user == nil }) {
-            let content = String(format: "send_message_to_friends_content".ls, User.currentUser?.name ?? "", wrap?.name ?? "")
+        if selectedPhoneNumbers.contains({ $0.user == nil }) {
+            let content = String(format: "send_message_to_friends_content".ls, User.currentUser?.name ?? "", wrap.name ?? "")
             ConfirmInvitationView().showInView(view, content: content, success: performRequestBlock, cancel: nil)
         } else {
             performRequestBlock(nil)
+        }
+    }
+    
+    @IBAction func done(sender: Button) {
+        sendInvitation { [weak self] (invited, message) in
+            self?.navigationController?.popViewControllerAnimated(false)
+            if invited {
+                if message?.isEmpty ?? true {
+                    Toast.show("isn't_using_invite".ls)
+                } else {
+                    Toast.show("is_using_invite".ls)
+                }
+            }
         }
     }
     

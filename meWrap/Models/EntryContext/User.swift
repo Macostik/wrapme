@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 @objc(User)
-final class User: Entry {
+final class User: Entry, Contributor {
     
     override class func entityName() -> String { return "User" }
     
@@ -21,27 +21,27 @@ final class User: Entry {
         }
     }
     
-    var isInvited: Bool {
+    var signupPending: Bool {
         return !current && devices.count > 0 && !devices.contains({ $0.activated })
     }
     
-    var isActive: Bool = false {
+    var isOnline: Bool = false {
         didSet {
-            if isActive != oldValue {
+            if isOnline != oldValue {
                 self.notifyOnUpdate(.UserStatus)
             }
         }
     }
     
-    var activeDevices = Set<Device>() {
+    var devicesOnline = Set<Device>() {
         didSet {
-            isActive = activeDevices.count > 0
+            isOnline = devicesOnline.count > 0
         }
     }
     
     func activityForWrap(wrap: Wrap) -> UserActivity? {
-        guard !activeDevices.isEmpty else { return nil }
-        return activeDevices.sort({ $0.activeAt > $1.activeAt })[{ $0.activity.wrap == wrap && $0.activity.inProgress }]?.activity
+        guard !devicesOnline.isEmpty else { return nil }
+        return devicesOnline.sort({ $0.activeAt > $1.activeAt })[{ $0.activity.wrap == wrap && $0.activity.inProgress }]?.activity
     }
     
     var activeAt: NSDate {
@@ -63,9 +63,9 @@ final class User: Entry {
         return phones.isEmpty ? "no_devices".ls : phones
     }
     
-    lazy var phones: String? = self.formatPhones(false)
+    lazy var phones: String = self.formatPhones(false)
     
-    lazy var securePhones: String? = self.formatPhones(true)
+    lazy var securePhones: String = self.formatPhones(true)
     
     var sortedWraps: [Wrap] {
         return wraps.sort({ $0.updatedAt > $1.updatedAt })
@@ -78,16 +78,17 @@ final class User: Entry {
         }
     }
     
+    var displayName: String? {
+        return name
+    }
+    
     func contributorInfo() -> String {
-        let isInvited = self.isInvited
-        var infoString = isInvited ? "sign_up_pending".ls : ""
-        if isInvited {
-            infoString = infoString + "\n" + String(format: "invite_status_swipe_to".ls, invitedAt.stringWithDateStyle(.ShortStyle))
+        if signupPending {
+            let invitedAt = self.invitedAt.stringWithDateStyle(.ShortStyle)
+            return "sign_up_pending".ls + "\n" + String(format: "invite_status_swipe_to".ls, invitedAt) + "\n\(securePhones)"
         } else {
-            infoString = infoString + "\n" + "signup_status".ls
+            return "signup_status".ls + "\n\(securePhones)"
         }
-        infoString = infoString + "\n" + (securePhones ?? "")
-        return infoString.trim
     }
 }
 
@@ -96,13 +97,13 @@ final class Device: Entry {
     
     var activeAt: NSDate = NSDate(timeIntervalSince1970: 0)
     
-    var isActive: Bool = false {
+    var isOnline: Bool = false {
         didSet {
-            if isActive != oldValue {
-                if isActive {
-                    owner?.activeDevices.insert(self)
+            if isOnline != oldValue {
+                if isOnline {
+                    owner?.devicesOnline.insert(self)
                 } else {
-                    owner?.activeDevices.remove(self)
+                    owner?.devicesOnline.remove(self)
                 }
             }
         }

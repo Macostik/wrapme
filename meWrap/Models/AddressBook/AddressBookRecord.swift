@@ -57,29 +57,16 @@ class AddressBookRecord: NSObject {
     
     lazy var infoString: String? = {
         guard let phoneNumber = self.phoneNumbers.last else { return nil }
-        if let user = phoneNumber.user {
-            var infoString = user.isInvited ? ("sign_up_pending".ls + "\n") : ""
+        if let user = phoneNumber.user where user.valid {
             if phoneNumber.activated {
-                infoString += "signup_status".ls
+                return "\("signup_status".ls)\n\(user.phones)"
             } else {
-                infoString += String(format:"invite_status".ls, user.invitedAt.stringWithDateStyle(.ShortStyle))
+                let invitedAt = String(format: "invite_status_swipe_to".ls, user.invitedAt.stringWithDateStyle(.ShortStyle))
+                return "\("sign_up_pending".ls)\n\(invitedAt)\n\(user.phones)"
             }
-            infoString += "\n" + self.phoneStrings
-            return infoString.trim
         } else {
             return "invite_me_to_meWrap".ls
         }
-    }()
-    
-    lazy var phoneStrings: String = {
-        if let phoneNumber = self.phoneNumbers.last {
-            if let user = phoneNumber.user where user.valid {
-                return user.phones ?? ""
-            } else {
-                return phoneNumber.phone
-            }
-        }
-        return ""
     }()
     
     convenience init?(ABRecord: ABRecordRef) {

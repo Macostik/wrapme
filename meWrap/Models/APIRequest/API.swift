@@ -30,7 +30,7 @@ extension APIRequest {
         var inviteByPhone = [[String : AnyObject]]()
         
         for invitee in unregisteredContributors {
-            if let phones = invitee.phone?.characters.split(",").map({ String($0) }) where phones.count > 0 {
+            if let phones = invitee.phone?.characters.split("\n").map({ String($0) }) where phones.count > 0 {
                 if phones.count > 1 {
                     inviteByPhone.append(["name":invitee.name ?? "","phone_numbers" : phones])
                 } else {
@@ -321,7 +321,9 @@ extension API {
         return APIRequest<Wrap>(.POST, "wraps/\(wrap.uid)/add_contributor", modifier: { (request) -> Void in
             request.configureForInvitation(wrap)
             }, parser: { response in
-                wrap.invitees = nil
+                wrap.invitees?.all({ (invitee) in
+                    EntryContext.sharedContext.deleteEntry(invitee)
+                })
                 wrap.invitationMessage = nil
                 return self.parseContributors(wrap, response: response)
         }).contributionUnavailable(wrap)

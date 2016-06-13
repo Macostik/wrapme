@@ -268,8 +268,8 @@ final class WrapViewController: BaseViewController {
                 }
             }
             
-            if $0.isActive != $1.isActive {
-                return $0.isActive
+            if $0.isOnline != $1.isOnline {
+                return $0.isOnline
             }
             
             let noAvatar0 = ($0.avatar?.small?.isEmpty ?? true)

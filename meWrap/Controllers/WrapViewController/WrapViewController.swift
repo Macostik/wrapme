@@ -328,8 +328,8 @@ extension WrapViewController {
     }
     
     @IBAction func showFriends(sender: AnyObject) {
-        let controller = Storyboard.Friends.instantiate()
-        controller.wrap = wrap
+        guard let wrap = wrap else { return }
+        let controller = ContributorsViewController(wrap: wrap)
         navigationController?.pushViewController(controller, animated: false)
     }
     

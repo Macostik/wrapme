@@ -120,7 +120,7 @@ final class Candy: Contribution {
         }
     }
     
-    lazy var ratio: CGFloat = randomRatio()
+    let ratio: CGFloat = randomRatio()
 }
 
 func randomRatio() -> CGFloat {

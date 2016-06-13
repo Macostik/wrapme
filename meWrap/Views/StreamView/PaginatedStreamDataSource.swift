@@ -13,7 +13,7 @@ class PaginatedStreamDataSource<T: PaginatedListProtocol>: StreamDataSource<T> {
     var appendableBlock: (PaginatedStreamDataSource -> Bool)?
     
     lazy var loadingMetrics: StreamMetrics<LoadingView> = {
-        let metrics = self.addFooterMetrics(LoadingView.metrics())
+        let metrics = self.addSectionFooterMetrics(LoadingView.metrics())
         metrics.modifyItem = { [weak self] item in
             if let sv = self?.streamView {
                 item.size = sv.layout.horizontal ? sv.fittingContentWidth : sv.fittingContentHeight

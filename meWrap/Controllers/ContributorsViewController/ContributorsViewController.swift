@@ -14,15 +14,13 @@ private let MinHeight: CGFloat = 72.0
 
 final class ContributorsViewController: BaseViewController {
     
-    weak var wrap: Wrap?
+    let wrap: Wrap
     
-    @IBOutlet weak var streamView: StreamView!
+    private let streamView = StreamView()
     
     private lazy var dataSource: StreamDataSource<[User]> = StreamDataSource(streamView: self.streamView)
     
-    @IBOutlet weak var addFriendView: UIView!
-    
-    @IBOutlet var restrictedInvitePrioritizer: LayoutPrioritizer!
+    private let addFriendView = Button(type: .Custom)
     
     private var invitedContributors = Set<User>()
     
@@ -36,6 +34,71 @@ final class ContributorsViewController: BaseViewController {
                 dataSource.items = contributors
             }
         }
+    }
+    
+    required init(wrap: Wrap) {
+        self.wrap = wrap
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func loadView() {
+        super.loadView()
+        view.backgroundColor = UIColor.whiteColor()
+        streamView.alwaysBounceVertical = true
+        
+        let navigationBar = UIView()
+        
+        view.addSubview(addFriendView)
+        view.addSubview(navigationBar)
+        
+        addFriendView.snp_makeConstraints { (make) in
+            make.centerX.equalTo(view)
+            make.top.equalTo(navigationBar.snp_bottom)
+            make.height.equalTo(44)
+        }
+        
+        let addFriendIcon = Label(icon: "2", size: 19, textColor: Color.grayDark)
+        let addFriendLabel = Label(preset: .Small, weight: .Regular, textColor: Color.grayDark)
+        addFriendLabel.text = "add_friend...".ls
+        addFriendIcon.highlightedTextColor = Color.grayLighter
+        addFriendLabel.highlightedTextColor = Color.grayLighter
+        addFriendView.highlightings = [addFriendIcon, addFriendLabel]
+        addFriendView.addTarget(self, touchUpInside: #selector(self.addFriend(_:)))
+        
+        addFriendView.add(addFriendIcon) { (make) in
+            make.leading.top.bottom.equalTo(addFriendView)
+        }
+        
+        addFriendView.add(addFriendLabel) { (make) in
+            make.centerY.trailing.equalTo(addFriendView)
+            make.leading.equalTo(addFriendIcon.snp_trailing).offset(3)
+        }
+        
+        view.add(streamView) { (make) in
+            make.top.equalTo(addFriendView.snp_bottom)
+            make.leading.bottom.trailing.equalTo(view)
+        }
+        
+        navigationBar.backgroundColor = Color.orange
+        navigationBar.snp_makeConstraints { (make) in
+            make.leading.top.trailing.equalTo(view)
+            make.height.equalTo(64)
+        }
+        navigationBar.add(backButton(UIColor.whiteColor())) { (make) in
+            make.leading.equalTo(navigationBar).inset(12)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        let title = Label(preset: .Large, weight: .Regular, textColor: UIColor.whiteColor())
+        title.text = "friends".ls
+        navigationBar.add(title) { (make) in
+            make.centerX.equalTo(navigationBar)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        self.navigationBar = navigationBar
     }
     
     override func viewDidLoad() {
@@ -62,25 +125,44 @@ final class ContributorsViewController: BaseViewController {
         
         updateContributors()
         
-        if let wrap = wrap {
-            API.contributors(wrap).send({ [weak self] _ in
-                self?.updateContributors()
-                }) { [weak self] (error) -> Void in
-                    self?.dataSource.reload()
-                    error?.showNonNetworkError()
-            }
+        API.contributors(wrap).send({ [weak self] _ in
+            self?.updateContributors()
+        }) { [weak self] (error) -> Void in
+            self?.dataSource.reload()
+            error?.showNonNetworkError()
         }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        if let wrap = wrap, let contributor = wrap.contributor where !contributor.current {
-            restrictedInvitePrioritizer.defaultState = !wrap.isRestrictedInvite
+        if let contributor = wrap.contributor where !contributor.current {
+            setAddFriendViewHidden(wrap.isRestrictedInvite, animated: false)
+        }
+    }
+    
+    private var addFriendViewHidden = false
+    
+    private func setAddFriendViewHidden(hidden: Bool, animated: Bool) {
+        guard hidden != addFriendViewHidden else { return }
+        addFriendViewHidden = hidden
+        addFriendView.snp_remakeConstraints { (make) in
+            make.centerX.equalTo(view)
+            if hidden {
+                make.bottom.equalTo(navigationBar!)
+            } else {
+                make.top.equalTo(navigationBar!.snp_bottom)
+            }
+            make.height.equalTo(44)
+        }
+        if animated {
+            UIView.animateWithDuration(0.3, animations: { 
+                self.view.layoutIfNeeded()
+            })
         }
     }
     
     private func updateContributors() {
-        contributors = wrap?.contributors.subtract(removedContributors).sort {
+        contributors = wrap.contributors.subtract(removedContributors).sort {
             if $0.current {
                 return false
             } else if $1.current {
@@ -90,13 +172,17 @@ final class ContributorsViewController: BaseViewController {
             }
             } ?? []
     }
+    
+    @objc private func addFriend(sender: AnyObject) {
+        let controller = Storyboard.AddFriends.instantiate()
+        controller.wrap = wrap
+        navigationController?.pushViewController(controller, animated: false)
+    }
 }
 
 extension ContributorsViewController: ContributorCellDelegate {
     
     func contributorCell(cell: ContributorCell, didRemoveContributor contributor: User) {
-        
-        guard let wrap = wrap else { return }
         
         if let index = contributors.indexOf(contributor) {
             contributors.removeAtIndex(index)
@@ -129,8 +215,6 @@ extension ContributorsViewController: ContributorCellDelegate {
     }
     
     func contributorCell(cell: ContributorCell, didInviteContributor contributor: User, completionHandler: Bool -> Void) {
-        
-        guard let wrap = wrap else { return }
         
         API.resendInvite(wrap, user: contributor).send({ [weak self] (_) -> Void in
             completionHandler(true)
@@ -178,8 +262,8 @@ extension ContributorsViewController: EntryNotifying {
         if event == .ContributorsChanged {
             updateContributors()
         }
-        if let wrap = wrap, let contributor = wrap.contributor where !contributor.current {
-            restrictedInvitePrioritizer.setDefaultState(!wrap.isRestrictedInvite, animated: viewAppeared)
+        if let contributor = wrap.contributor where !contributor.current {
+            setAddFriendViewHidden(wrap.isRestrictedInvite, animated: viewAppeared)
         }
     }
 }

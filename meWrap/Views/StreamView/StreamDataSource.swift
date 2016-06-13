@@ -16,15 +16,11 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDataSource,
     
     @IBOutlet weak var streamView: StreamView?
     
-    lazy var headerMetrics = [StreamMetricsProtocol]()
-    
     lazy var sectionHeaderMetrics = [StreamMetricsProtocol]()
     
     lazy var metrics = [StreamMetricsProtocol]()
     
     lazy var sectionFooterMetrics = [StreamMetricsProtocol]()
-    
-    lazy var footerMetrics = [StreamMetricsProtocol]()
     
     deinit {
         if (streamView?.delegate as? StreamDataSource) == self {
@@ -48,11 +44,6 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDataSource,
         }
     }
     
-    func addHeaderMetrics<T: StreamMetricsProtocol>(metrics: T) -> T {
-        headerMetrics.append(metrics)
-        return metrics
-    }
-    
     func addSectionHeaderMetrics<T: StreamMetricsProtocol>(metrics: T) -> T {
         sectionHeaderMetrics.append(metrics)
         return metrics
@@ -65,11 +56,6 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDataSource,
     
     func addSectionFooterMetrics<T: StreamMetricsProtocol>(metrics: T) -> T {
         sectionFooterMetrics.append(metrics)
-        return metrics
-    }
-    
-    func addFooterMetrics<T: StreamMetricsProtocol>(metrics: T) -> T {
-        footerMetrics.append(metrics)
         return metrics
     }
     
@@ -94,9 +80,7 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDataSource,
     private func entryForItem(item: StreamItem) -> AnyObject? {
         return items?[safe: item.position.index] as? AnyObject
     }
-    
-    // MARK: - UIScrollViewDelegate
-    
+        
     private var direction: ScrollDirection = .Unknown {
         didSet {
             if direction != oldValue {
@@ -142,9 +126,7 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDataSource,
     func numberOfSections() -> Int {
         return 1
     }
-}
-
-extension StreamDataSource {
+    
     // MARK: - UIScrollViewDelegate
     
     func scrollViewDidScroll(scrollView: UIScrollView) {

@@ -19,8 +19,6 @@ protocol StreamViewDataSource {
     func entryBlockForItem(item: StreamItem) -> (StreamItem -> AnyObject?)?
     func didChangeContentSize(oldContentSize: CGSize)
     func didLayout()
-    func headerMetrics() -> [StreamMetricsProtocol]
-    func footerMetrics() -> [StreamMetricsProtocol]
     func headerMetricsIn(section: Int) -> [StreamMetricsProtocol]
     func footerMetricsIn(section: Int) -> [StreamMetricsProtocol]
 }
@@ -31,8 +29,6 @@ extension StreamViewDataSource {
     func entryBlockForItem(item: StreamItem) -> (StreamItem -> AnyObject?)? { return nil }
     func didChangeContentSize(oldContentSize: CGSize) { }
     func didLayout() { }
-    func headerMetrics() -> [StreamMetricsProtocol] { return [] }
-    func footerMetrics() -> [StreamMetricsProtocol] { return [] }
     func headerMetricsIn(section: Int) -> [StreamMetricsProtocol] { return [] }
     func footerMetricsIn(section: Int) -> [StreamMetricsProtocol] { return [] }
 }
@@ -180,10 +176,6 @@ final class StreamView: UIScrollView {
         guard let dataSource = dataSource else { return }
         let layout = self.layout
         
-        for header in dataSource.headerMetrics() {
-            addItem(metrics: header, position: StreamPosition.zero)
-        }
-        
         for section in 0..<dataSource.numberOfSections() {
             
             let position = StreamPosition(section: section, index: 0)
@@ -205,10 +197,6 @@ final class StreamView: UIScrollView {
             }
             
             layout.prepareForNextSection()
-        }
-        
-        for footer in dataSource.footerMetrics() {
-            addItem(metrics: footer, position: StreamPosition.zero)
         }
         
         if items.isEmpty, let placeholder = placeholderMetrics {

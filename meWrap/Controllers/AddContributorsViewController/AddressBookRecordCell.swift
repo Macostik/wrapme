@@ -9,17 +9,13 @@
 import Foundation
 import SnapKit
 
-enum AddressBookPhoneNumberState {
-    case Default, Selected, Added
-}
-
 protocol AddressBookRecordCellDelegate: class {
     func recordCell(cell: AddressBookRecordCell, didSelectPhoneNumber person: AddressBookPhoneNumber)
-    func recordCell(cell: AddressBookRecordCell, phoneNumberState phoneNumber: AddressBookPhoneNumber) -> AddressBookPhoneNumberState
+    func recordCell(cell: AddressBookRecordCell, phoneNumberIsSelected phoneNumber: AddressBookPhoneNumber) -> Bool
     func recordCellDidToggle(cell: MultipleAddressBookRecordCell)
 }
 
-class AddressBookRecordCell: EntryStreamReusableView<AddressBookRecord> {
+class AddressBookRecordCell: EntryStreamReusableView<ArrangedAddressBookRecord> {
     
     weak var delegate: AddressBookRecordCellDelegate?
     
@@ -31,12 +27,12 @@ class AddressBookRecordCell: EntryStreamReusableView<AddressBookRecord> {
         }
     }
     
-    override func setup(record: AddressBookRecord) {
+    override func setup(record: ArrangedAddressBookRecord) {
         guard let phoneNumber = record.phoneNumbers.last else { return }
         setup(record, phoneNumber: phoneNumber)
     }
     
-    internal func setup(record: AddressBookRecord, phoneNumber: AddressBookPhoneNumber) { }
+    internal func setup(record: ArrangedAddressBookRecord, phoneNumber: AddressBookPhoneNumber) { }
 }
 
 final class SingleAddressBookRecordCell: AddressBookRecordCell {
@@ -102,19 +98,19 @@ final class SingleAddressBookRecordCell: AddressBookRecordCell {
     
     weak var wrap: Wrap?
     
-    override func setup(record: AddressBookRecord, phoneNumber: AddressBookPhoneNumber) {
-        nameLabel.text = phoneNumber.name
-        if let user = phoneNumber.user {
+    override func setup(record: ArrangedAddressBookRecord, phoneNumber: AddressBookPhoneNumber) {
+        nameLabel.text = record.name
+        if let user = record.user {
             avatarView.wrap = wrap
             avatarView.user = user
         } else {
             avatarView.user = nil
-            avatarView.url = phoneNumber.avatar?.small
+            avatarView.url = record.avatar?.small
         }
         infoLabel.text = record.infoString
-        let state = delegate?.recordCell(self, phoneNumberState: phoneNumber) ?? .Default
-        selectButton.hidden = state == .Added
-        selectButton.selected = state == .Selected
+        let selected = delegate?.recordCell(self, phoneNumberIsSelected: phoneNumber) ?? false
+        selectButton.hidden = record.added
+        selectButton.selected = selected
         statusButton.hidden = !selectButton.hidden
         statusButton.setTitle(statusButton.hidden ? "" : "already_in".ls, forState: .Normal)
     }
@@ -149,14 +145,14 @@ final class MultipleAddressBookRecordCell: AddressBookRecordCell {
             metrics.finalizeAppearing = { item, view in
                 let phoneNumber = item.entry as? AddressBookPhoneNumber
                 if let weakSelf = self, let phoneNumber = phoneNumber {
-                    view.state = weakSelf.delegate?.recordCell(weakSelf, phoneNumberState: phoneNumber) ?? .Default
+                    view.checked = weakSelf.delegate?.recordCell(weakSelf, phoneNumberIsSelected: phoneNumber) ?? false
                 }
             }
             metrics.selection = { view in
                 self?.selectPhoneNumber(view.entry)
             }
             }))
-        openView.addTarget(self, action: #selector(MultipleAddressBookRecordCell.open(_:)), forControlEvents: .TouchUpInside)
+        openView.addTarget(self, action: #selector(self.open(_:)), forControlEvents: .TouchUpInside)
         avatarView.cornerRadius = 24
         let infoLabel = Label(preset: .Small, textColor: Color.grayLight)
         infoLabel.text = "invite_me_to_meWrap".ls
@@ -189,9 +185,9 @@ final class MultipleAddressBookRecordCell: AddressBookRecordCell {
         }
     }
     
-    override func setup(record: AddressBookRecord, phoneNumber: AddressBookPhoneNumber) {
-        nameLabel.text = phoneNumber.name
-        avatarView.url = phoneNumber.avatar?.small
+    override func setup(record: ArrangedAddressBookRecord, phoneNumber: AddressBookPhoneNumber) {
+        nameLabel.text = record.name
+        avatarView.url = record.avatar?.small
         layoutIfNeeded()
         dataSource.items = record.phoneNumbers
     }

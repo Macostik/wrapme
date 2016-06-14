@@ -12,151 +12,157 @@ final class ArrangedAddressBookGroup {
     
     let title: String
     
-    var records = [AddressBookRecord]()
+    var records = [ArrangedAddressBookRecord]()
+    var filteredRecords = [ArrangedAddressBookRecord]()
     
-    let registered: Bool
-    
-    static func registeredGroup() -> ArrangedAddressBookGroup {
-        return ArrangedAddressBookGroup(title: "friends_on_meWrap".ls, registered: true)
-    }
-    
-    static func unregisteredGroup() -> ArrangedAddressBookGroup {
-        return ArrangedAddressBookGroup(title: "invite_to_meWrap".ls, registered: false)
-    }
-    
-    init(title: String, registered: Bool) {
+    init(title: String) {
         self.title = title
-        self.registered = registered
     }
     
-    func add(record: AddressBookRecord) -> Bool {
-        if record.registered == registered {
-            records.append(record)
-            return true
-        } else {
-            return false
-        }
+    func add(record: ArrangedAddressBookRecord) {
+        records.append(record)
     }
     
     func sort() {
-        records.sortInPlace { (r1, r2) -> Bool in
-            let pn1 = r1.phoneNumbers.last
-            let pn2 = r2.phoneNumbers.last
-            
-            if let name1 = pn1?.name, let name2 = pn2?.name where !name1.isEmpty && !name2.isEmpty {
-                return pn1?.name < pn2?.name
-            }
-            return r1.hashValue < r2.hashValue
-        }
+        records.sortInPlace { $0.name < $1.name }
     }
     
-    func filter(text: String) -> ArrangedAddressBookGroup {
-        if !text.isEmpty {
-            let group = ArrangedAddressBookGroup(title: title, registered: registered)
-            group.records = records.filter({ $0.phoneNumbers.last?.name?.rangeOfString(text, options: .CaseInsensitiveSearch, range: nil, locale: nil) != nil })
-            return group
+    func filter(text: String?) {
+        if let text = text where !text.isEmpty {
+            filteredRecords = records.filter({ $0.name.rangeOfString(text, options: .CaseInsensitiveSearch, range: nil, locale: nil) != nil })
         } else {
-            return self
+            filteredRecords = records
         }
     }
+}
+
+func ==(lhs: ArrangedAddressBookRecord, rhs: ArrangedAddressBookRecord) -> Bool {
+    return lhs.user == rhs.user || lhs.phoneNumbers == rhs.phoneNumbers
+}
+
+final class ArrangedAddressBookRecord: Hashable {
+    var added = false
+    let name: String
+    let avatar: Asset?
+    let user: User?
+    let phoneNumbers: [AddressBookPhoneNumber]
     
-    func phoneNumberEqualTo(phoneNumber:AddressBookPhoneNumber) -> AddressBookPhoneNumber? {
-        for record in records {
-            for _phoneNumber in record.phoneNumbers where _phoneNumber == phoneNumber {
-                return _phoneNumber
-            }
-        }
-        return nil
+    var hashValue: Int = 0
+    
+    init(name: String, avatar: Asset?, user: User?, phoneNumbers: [AddressBookPhoneNumber]) {
+        self.name = name
+        self.avatar = avatar
+        self.user = user
+        self.phoneNumbers = phoneNumbers
+        hashValue = user?.hashValue ?? phoneNumbers.first?.hashValue ?? 0
     }
+    lazy var infoString: String? = {
+        guard let phoneNumber = self.phoneNumbers.last else { return nil }
+        if let user = self.user where user.valid {
+            if phoneNumber.activated {
+                return "\("signup_status".ls)\n\(user.phones)"
+            } else {
+                let invitedAt = String(format: "invite_status_swipe_to".ls, user.invitedAt.stringWithDateStyle(.ShortStyle))
+                return "\("sign_up_pending".ls)\n\(invitedAt)\n\(user.phones)"
+            }
+        } else {
+            return "invite_me_to_meWrap".ls
+        }
+    }()
 }
 
 final class ArrangedAddressBook {
     
-    var groups: [ArrangedAddressBookGroup] = [ArrangedAddressBookGroup.registeredGroup(),ArrangedAddressBookGroup.unregisteredGroup()]
-    var selectedPhoneNumbers = Set<AddressBookPhoneNumber>()
+    let wrap: Wrap
+    var groups: [ArrangedAddressBookGroup]
+    var selectedPhoneNumbers = [ArrangedAddressBookRecord: [AddressBookPhoneNumber]]()
     
-    func addRecords(records: [AddressBookRecord]) {
+    convenience init(wrap: Wrap, records: [AddressBookRecord]) {
+        self.init(wrap: wrap)
+        var invitees: [Invitee] = FetchRequest<Invitee>().execute()
+        for invitee in invitees.reverse() {
+            if invitee.wrap == nil {
+                invitees.remove(invitee)
+                EntryContext.sharedContext.deleteEntry(invitee)
+            }
+        }
         for record in records {
-            addRecord(record)
+            addRecord(record, wrap: wrap, invitees: invitees)
         }
         sort()
     }
     
-    func addRecord(record: AddressBookRecord) {
-        var _record = record
-        _record = AddressBookRecord(record: _record)
-        
-        if _record.phoneNumbers.count == 0 {
-            return;
-        } else if _record.phoneNumbers.count == 1 {
-            addRecordToGroup(_record)
-        } else {
-            
-            var phoneNumbers = _record.phoneNumbers
-            
-            for phoneNumber in _record.phoneNumbers {
-                if let user = phoneNumber.user {
-                    let newRecord = AddressBookRecord(phoneNumbers: [phoneNumber])
-                    if user.name == nil {
-                        newRecord.name = _record.name
-                    }
-                    addRecordToGroup(newRecord)
-                    if let index = phoneNumbers.indexOf(phoneNumber) {
-                        phoneNumbers.removeAtIndex(index)
-                    }
-                }
-            }
-            
-            if phoneNumbers.count != 0 {
-                _record.phoneNumbers = phoneNumbers
-                addRecordToGroup(_record)
-            }
-        }
+    init(wrap: Wrap) {
+        self.wrap = wrap
+        groups = [ArrangedAddressBookGroup(title: "friends_on_meWrap".ls), ArrangedAddressBookGroup(title: "invite_to_meWrap".ls)]
     }
     
-    func addRecordToGroup(record: AddressBookRecord) {
-        for group in groups where group.add(record) { break }
+    private func checkIfAdded(record: ArrangedAddressBookRecord, wrap: Wrap) -> Bool {
+        if let user = record.user {
+            if wrap.contributors.contains(user) {
+                return true
+            } else if wrap.invitees.contains({ $0.user == user }) {
+                return true
+            }
+        } else {
+            for phoneNumber in record.phoneNumbers {
+                if wrap.invitees.contains({ $0.phones.contains(phoneNumber.phone) }) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    func addRecord(record: AddressBookRecord, wrap: Wrap, invitees: [Invitee]) {
+        var phoneNumbers = [AddressBookPhoneNumber]()
+        for phoneNumber in record.phoneNumbers {
+            if invitees.contains({ $0.phones.contains(phoneNumber.phone) }) {
+                let newRecord = ArrangedAddressBookRecord(name: record.name, avatar: record.avatar, user: nil, phoneNumbers: [phoneNumber])
+                newRecord.added = checkIfAdded(newRecord, wrap: wrap)
+                groups[0].add(newRecord)
+            } else if let user = phoneNumber.user {
+                let newRecord = ArrangedAddressBookRecord(name: user.name ?? record.name, avatar: user.avatar, user: user, phoneNumbers: [phoneNumber])
+                newRecord.added = checkIfAdded(newRecord, wrap: wrap)
+                groups[0].add(newRecord)
+            } else {
+                phoneNumbers.append(phoneNumber)
+            }
+        }
+        if phoneNumbers.count != 0 {
+            let newRecord = ArrangedAddressBookRecord(name: record.name, avatar: record.avatar, user: nil, phoneNumbers: phoneNumbers)
+            groups[1].add(newRecord)
+        }
     }
     
     func sort() {
         for group in groups { group.sort() }
     }
     
-    func selectPhoneNumber(phoneNumber: AddressBookPhoneNumber) {
-        if let index = selectedPhoneNumbers.indexOf({ $0 == phoneNumber }) {
-            selectedPhoneNumbers.removeAtIndex(index)
-        } else {
-            selectedPhoneNumbers.insert(phoneNumber)
-        }
-    }
-    
-    func selectedPhoneNumber(phoneNumber: AddressBookPhoneNumber) -> AddressBookPhoneNumber? {
-        for _phoneNumber in selectedPhoneNumbers where _phoneNumber == phoneNumber {
-            return _phoneNumber
-        }
-        return nil
-    }
-    
-    func filter(text: String) -> ArrangedAddressBook {
-        if !text.isEmpty {
-            let addressBook = ArrangedAddressBook()
-            addressBook.groups = groups.map({ $0.filter(text) })
-            return addressBook
-        } else {
-            return self;
-        }
-    }
-    
-    func phoneNumberEqualTo(phoneNumber: AddressBookPhoneNumber) -> AddressBookPhoneNumber? {
-        for group in groups {
-            if let _phoneNumber = group.phoneNumberEqualTo(phoneNumber) {
-                return _phoneNumber
-            }
-        }
-        return nil
+    func filter(text: String?) {
+        groups.all({ $0.filter(text) })
     }
     
     func clearSelection() {
         selectedPhoneNumbers.removeAll()
+    }
+    
+    func selectionIsEmpty() -> Bool {
+        return !selectedPhoneNumbers.contains({ (_, phoneNumbers) -> Bool in
+            !phoneNumbers.isEmpty
+        })
+    }
+    
+    func selectPhoneNumber(record: ArrangedAddressBookRecord, phoneNumber: AddressBookPhoneNumber) {
+        if var phoneNumbers = selectedPhoneNumbers[record] {
+            if phoneNumbers.contains(phoneNumber) {
+                phoneNumbers.remove(phoneNumber)
+            } else {
+                phoneNumbers.append(phoneNumber)
+            }
+            selectedPhoneNumbers[record] = phoneNumbers
+        } else {
+            selectedPhoneNumbers[record] = [phoneNumber]
+        }
     }
 }

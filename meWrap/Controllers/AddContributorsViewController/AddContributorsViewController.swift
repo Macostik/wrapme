@@ -23,9 +23,8 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     @IBOutlet weak var nextButton: UIButton!
     
     lazy var openedRows = [StreamPosition]()
-    lazy var addressBook = ArrangedAddressBook()
+    lazy var addressBook: ArrangedAddressBook = ArrangedAddressBook(wrap: self.wrap)
     
-    var filteredAddressBook: ArrangedAddressBook?
     var singleMetrics: StreamMetrics<SingleAddressBookRecordCell>!
     var multipleMetrics: StreamMetrics<MultipleAddressBookRecordCell>!
     var sectionHeaderMetrics: StreamMetrics<AddressBookGroupView>!
@@ -48,13 +47,13 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         }
         singleMetrics = specify(StreamMetrics<SingleAddressBookRecordCell>(), {
             $0.modifyItem = { [weak self] item in
-                guard let record = item.entry as? AddressBookRecord, let phoneNumber = record.phoneNumbers.last else { return }
-                let user = phoneNumber.user
+                guard let record = item.entry as? ArrangedAddressBookRecord else { return }
+                let user = record.user
                 var leftIdent: CGFloat = 114.0
                 if let user = user where self?.wrap.contributors.contains(user) ?? false {
                     leftIdent = 160.0
                 }
-                let nameHeight = phoneNumber.name?.heightWithFont(UIFont.fontNormal(), width: (self?.streamView.width ?? 0.0) - leftIdent) ?? 0.0
+                let nameHeight = record.name.heightWithFont(UIFont.fontNormal(), width: (self?.streamView.width ?? 0.0) - leftIdent) ?? 0.0
                 let inviteHeight = record.infoString?.heightWithFont(UIFont.lightFontSmall(), width: (self?.streamView.width ?? 0.0) - leftIdent) ?? 0
                 item.size = max(nameHeight + inviteHeight + 24.0, 72.0)
             }
@@ -68,8 +67,8 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         multipleMetrics = specify(StreamMetrics<MultipleAddressBookRecordCell>(), { [weak self] metrics in
             metrics.selectable = false
             metrics.modifyItem = { (item) in
-                guard let record = item.entry as? AddressBookRecord else { return }
-                let nameHeight = record.name?.heightWithFont(UIFont.fontNormal(), width: (self?.streamView.width ?? 0.0) - 142.0) ?? 0.0
+                guard let record = item.entry as? ArrangedAddressBookRecord else { return }
+                let nameHeight = record.name.heightWithFont(UIFont.fontNormal(), width: (self?.streamView.width ?? 0.0) - 142.0) ?? 0.0
                 let inviteHeight = "invite_me_to_meWrap".ls.heightWithFont(UIFont.lightFontSmall(), width: (self?.streamView.width ?? 0.0) - 142.0) ?? 0.0
                 let heightCell = max(nameHeight + inviteHeight + 16.0, 72.0)
                 item.size = self?.openedPosition(item.position) != nil ? heightCell + CGFloat(record.phoneNumbers.count * 50) : heightCell
@@ -84,14 +83,14 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         sectionHeaderMetrics = StreamMetrics<AddressBookGroupView>().change({ [weak self] metrics in
             metrics.size = 32.0
             metrics.modifyItem = { [weak self] (item) in
-                if let group = self?.filteredAddressBook?.groups[safe: item.position.section] {
-                    item.hidden = group.records.isEmpty
+                if let group = self?.addressBook.groups[safe: item.position.section] {
+                    item.hidden = group.filteredRecords.isEmpty
                 } else {
                     item.hidden = true
                 }
             }
             metrics.finalizeAppearing = { [weak self] (item, view) in
-                view.entry = self?.filteredAddressBook?.groups[safe: item.position.section]
+                view.entry = self?.addressBook.groups[safe: item.position.section]
             }
             })
         
@@ -122,23 +121,14 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     
     private func handleCachedRecords(cachedRecords: [AddressBookRecord]) {
         let oldAddressBook = self.addressBook
-        self.addressBook = ArrangedAddressBook()
-        self.addressBook.addRecords(cachedRecords)
-        if oldAddressBook.groups.count != 0 {
-            for phoneNumber in oldAddressBook.selectedPhoneNumbers {
-                if let phoneNumber = self.addressBook.phoneNumberEqualTo(phoneNumber) {
-                    self.addressBook.selectedPhoneNumbers.insert(phoneNumber)
-                }
-            }
-        }
+        self.addressBook = ArrangedAddressBook(wrap: wrap, records: cachedRecords)
+        addressBook.selectedPhoneNumbers = oldAddressBook.selectedPhoneNumbers
         self.filterContacts()
     }
     
     func filterContacts() {
-        if let text = searchField.text {
-            filteredAddressBook = addressBook.filter(text)
-            streamView.reload()
-        }
+        addressBook.filter(searchField.text)
+        streamView.reload()
     }
     
     //MARK: Actions
@@ -149,55 +139,36 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
         }
     }
     
-    private func getInvitees(selectedPhoneNumbers: Set<AddressBookPhoneNumber>) -> Set<Invitee> {
-        let registered = selectedPhoneNumbers.filter({ $0.user != nil })
-        var invitees = Set<Invitee>(registered.map({
-            let invitee: Invitee = insertEntry()
-            invitee.user = $0.user
-            return invitee
-        }))
+    private func getInvitees() -> Set<Invitee> {
         
-        var unregistered = selectedPhoneNumbers.subtract(registered)
+        var invitees = Set<Invitee>()
         
-        while !unregistered.isEmpty {
+        for (record, phoneNumbers) in addressBook.selectedPhoneNumbers {
             let invitee: Invitee = insertEntry()
-            if let phoneNumber = unregistered.first {
-                invitee.name = phoneNumber.name
-                if let record = phoneNumber.record {
-                    let grouped = unregistered.filter({ $0.record == record })
-                    invitee.phone = grouped.reduce("", combine: { phones, number -> String in
-                        if !phones.isEmpty {
-                            return phones + "\n" + (number.phone ?? "")
-                        } else {
-                            return phones + (number.phone ?? "")
-                        }
-                    })
-                    unregistered.subtractInPlace(grouped)
-                } else {
-                    invitee.phone = phoneNumber.phone
-                    unregistered.remove(phoneNumber)
-                }
+            invitee.wrap = wrap
+            if let user = record.user {
+                invitee.user = user
+            } else {
+                invitee.name = record.name
+                invitee.phone = phoneNumbers.reduce("", combine: { $0.isEmpty ? $1.phone : $0 + "\n" + $1.phone }) as String
             }
             invitees.insert(invitee)
         }
+        
         return invitees
     }
     
     private func sendInvitation(completionHandler: (invited: Bool, message: String?) -> ()) {
         
-        let selectedPhoneNumbers = addressBook.selectedPhoneNumbers
-        
-        guard let wrap = wrap where !selectedPhoneNumbers.isEmpty else {
+        guard let wrap = wrap where !addressBook.selectionIsEmpty() else {
             completionHandler(invited: false, message: nil)
             return
         }
         
-        let invitees = getInvitees(selectedPhoneNumbers)
-        
-        let performRequestBlock = { (message: String?) in
+        let performRequestBlock = { [weak self] (message: String?) in
             let status = wrap.status
             if status != .InProgress {
-                wrap.invitees = wrap.invitees.union(invitees)
+                self?.getInvitees()
                 wrap.invitationMessage = message
                 wrap.notifyOnUpdate(.ContributorsChanged)
                 if status == .Finished {
@@ -209,7 +180,7 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
             }
         }
         
-        if selectedPhoneNumbers.contains({ $0.user == nil }) {
+        if addressBook.selectedPhoneNumbers.contains({ (record, _) in record.user == nil }) {
             let content = String(format: "send_message_to_friends_content".ls, User.currentUser?.name ?? "", wrap.name ?? "")
             ConfirmInvitationView().showInView(view, content: content, success: performRequestBlock, cancel: nil)
         } else {
@@ -243,24 +214,15 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     
     //MARK: AddressBookRecordCellDelegate
     
-    func recordCell(cell: AddressBookRecordCell, phoneNumberState phoneNumber: AddressBookPhoneNumber) -> AddressBookPhoneNumberState {
-        if let user = phoneNumber.user {
-            if wrap.contributors.contains(user) {
-                return .Added
-            } else if wrap.invitees.contains({ $0.user == user }) {
-                return .Added
-            }
-        } else {
-            if wrap.invitees.contains({ $0.phones.contains(phoneNumber.phone) }) {
-                return .Added
-            }
-        }
-        return addressBook.selectedPhoneNumber(phoneNumber) != nil ? .Selected : .Default
+    func recordCell(cell: AddressBookRecordCell, phoneNumberIsSelected phoneNumber: AddressBookPhoneNumber) -> Bool {
+        guard let record = cell.entry else { return false }
+        return addressBook.selectedPhoneNumbers[record]?.contains(phoneNumber) == true
     }
     
-    func recordCell(cell: AddressBookRecordCell, didSelectPhoneNumber person: AddressBookPhoneNumber) {
-        addressBook.selectPhoneNumber(person)
-        let isEmpty = addressBook.selectedPhoneNumbers.count == 0
+    func recordCell(cell: AddressBookRecordCell, didSelectPhoneNumber phoneNumber: AddressBookPhoneNumber) {
+        guard let record = cell.entry else { return }
+        addressBook.selectPhoneNumber(record, phoneNumber: phoneNumber)
+        let isEmpty = addressBook.selectionIsEmpty()
         if isWrapCreation {
             if isBroadcasting {
                 nextButton.hidden = isEmpty
@@ -306,11 +268,11 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
 extension AddContributorsViewController: StreamViewDataSource {
     
     func numberOfSections() -> Int {
-        return filteredAddressBook?.groups.count ?? 0
+        return addressBook.groups.count
     }
     func numberOfItemsIn(section: Int) -> Int {
-        let group = filteredAddressBook?.groups[safe: section]
-        return group?.records.count ?? 0
+        let group = addressBook.groups[safe: section]
+        return group?.filteredRecords.count ?? 0
     }
     
     func headerMetricsIn(section: Int) -> [StreamMetricsProtocol] {
@@ -319,14 +281,14 @@ extension AddContributorsViewController: StreamViewDataSource {
     
     func entryBlockForItem(item: StreamItem) -> (StreamItem -> AnyObject?)? {
         return { [weak self] (item) in
-            let group = self?.filteredAddressBook?.groups[safe: item.position.section]
-            return group?.records[safe: item.position.index]
+            let group = self?.addressBook.groups[safe: item.position.section]
+            return group?.filteredRecords[safe: item.position.index]
         }
     }
     
     func metricsAt(position: StreamPosition) -> [StreamMetricsProtocol] {
-        let group = filteredAddressBook?.groups[safe: position.section]
-        let record = group?.records[safe: position.index]
+        let group = addressBook.groups[safe: position.section]
+        let record = group?.filteredRecords[safe: position.index]
         return [record?.phoneNumbers.count > 1 ? multipleMetrics : singleMetrics]
     }
 }

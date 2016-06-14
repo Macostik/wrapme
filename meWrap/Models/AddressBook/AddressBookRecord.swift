@@ -9,9 +9,9 @@
 import UIKit
 import AddressBook
 
-class AddressBookRecord: NSObject {
+final class AddressBookRecord: CustomStringConvertible {
     
-    var name: String?
+    let name: String
     
     private var _avatar: Asset?
     var avatar: Asset? {
@@ -47,56 +47,29 @@ class AddressBookRecord: NSObject {
         return phoneNumbers.first?.user != nil
     }
     
-    var phoneNumbers = [AddressBookPhoneNumber]() {
-        didSet {
-            for phoneNumber in phoneNumbers {
-                phoneNumber.record = self
-            }
-        }
-    }
-    
-    lazy var infoString: String? = {
-        guard let phoneNumber = self.phoneNumbers.last else { return nil }
-        if let user = phoneNumber.user where user.valid {
-            if phoneNumber.activated {
-                return "\("signup_status".ls)\n\(user.phones)"
-            } else {
-                let invitedAt = String(format: "invite_status_swipe_to".ls, user.invitedAt.stringWithDateStyle(.ShortStyle))
-                return "\("sign_up_pending".ls)\n\(invitedAt)\n\(user.phones)"
-            }
-        } else {
-            return "invite_me_to_meWrap".ls
-        }
-    }()
+    var phoneNumbers = [AddressBookPhoneNumber]()
     
     convenience init?(ABRecord: ABRecordRef) {
-        self.init()
         let phones = AddressBookRecord.getPhones(ABRecord)
         if !phones.isEmpty {
+            var name: String?
+            if let _name = ABRecordCopyCompositeName(ABRecord) {
+                name = _name.takeUnretainedValue() as String
+            }
+            self.init(phoneNumbers: phones, name: name ?? "")
             hasImage = ABPersonHasImageData(ABRecord)
             recordID = ABRecordGetRecordID(ABRecord)
-            if let name = ABRecordCopyCompositeName(ABRecord) {
-                self.name = name.takeUnretainedValue() as String
-            }
-            phoneNumbers = phones
-            for phoneNumber in phones {
-                phoneNumber.record = self
-            }
         } else {
             return nil
         }
     }
     
-    convenience init(phoneNumbers: [AddressBookPhoneNumber]) {
-        self.init()
+    required init(phoneNumbers: [AddressBookPhoneNumber], name: String) {
+        self.name = name
         self.phoneNumbers = phoneNumbers
-        for phoneNumber in phoneNumbers {
-            phoneNumber.record = self
-        }
     }
     
-    convenience init(record: AddressBookRecord) {
-        self.init()
+    required init(record: AddressBookRecord) {
         hasImage = record.hasImage
         recordID = record.recordID
         name = record.name
@@ -121,7 +94,7 @@ class AddressBookRecord: NSObject {
         return phoneNumbers
     }
     
-    override var description: String {
+    var description: String {
         return "\(name ?? "") \(phoneNumbers.description)"
     }
 }
@@ -136,8 +109,6 @@ func ==(lhs: AddressBookPhoneNumber, rhs: AddressBookPhoneNumber) -> Bool {
 
 final class AddressBookPhoneNumber: Hashable, CustomStringConvertible {
     
-    weak var record: AddressBookRecord?
-    
     let phone: String
     
     init(phone: String) {
@@ -148,45 +119,9 @@ final class AddressBookPhoneNumber: Hashable, CustomStringConvertible {
         return phone.hashValue
     }
     
-    private var _name: String?
-    var name: String? {
-        get {
-            if _name == nil {
-                if let name = user?.name {
-                    _name = name
-                } else if let name = record?.name {
-                    _name = name
-                } else {
-                    _name = phone
-                }
-            }
-            return _name
-        }
-        set {
-            _name = newValue
-        }
-    }
-    
     var label: String?
     
     var user: User?
-    
-    private var _avatar: Asset?
-    var avatar: Asset? {
-        get {
-            if _avatar == nil {
-                if user?.avatar?.small != nil {
-                    _avatar = user?.avatar
-                } else {
-                    _avatar = record?.avatar
-                }
-            }
-            return _avatar
-        }
-        set {
-            _avatar = newValue
-        }
-    }
     
     var activated = false
     

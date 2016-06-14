@@ -110,7 +110,7 @@ final class WrapViewController: BaseViewController {
     
     @IBOutlet weak var moreFriendsLabel: UILabel!
     
-    lazy var inboxViewController: InboxViewController = self.controllerNamed("inbox")
+    lazy var inboxViewController: InboxViewController = self.addController(InboxViewController())
     lazy var mediaViewController: MediaViewController = self.controllerNamed("media")
     lazy var chatViewController: ChatViewController = self.addController(ChatViewController())
     

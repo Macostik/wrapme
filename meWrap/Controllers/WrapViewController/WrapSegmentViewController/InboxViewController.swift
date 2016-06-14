@@ -31,13 +31,13 @@ class InboxItem {
 
 class InboxCell: EntryStreamReusableView<InboxItem> {
     
-    internal var containerView = UIView()
-    internal var headerView = UIView()
-    internal var avatarView = ImageView(backgroundColor: UIColor.clearColor(), placeholder: ImageView.Placeholder.gray)
-    internal var userNameLabel = Label(preset: .Small, textColor: Color.grayLighter)
-    internal var timeLabel = Label(preset: .Smaller, textColor: Color.grayLighter)
-    internal var imageView = ImageView(backgroundColor: UIColor.clearColor())
-    internal var videoIndicator = Label(icon: "+", size: 24)
+    internal let containerView = UIView()
+    internal let headerView = UIView()
+    internal let avatarView = ImageView(backgroundColor: UIColor.clearColor(), placeholder: ImageView.Placeholder.gray)
+    internal let userNameLabel = Label(preset: .Small, textColor: Color.grayLighter)
+    internal let timeLabel = Label(preset: .Smaller, textColor: Color.grayLighter)
+    internal let imageView = ImageView(backgroundColor: UIColor.clearColor())
+    internal let videoIndicator = Label(icon: "+", size: 24)
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         addSubview(containerView)
@@ -75,8 +75,10 @@ class InboxCell: EntryStreamReusableView<InboxItem> {
             $0.top.equalTo(avatarView.snp_centerY)
             $0.trailing.equalTo(headerView).inset(12)
         }
-        videoIndicator.snp_makeConstraints { $0.trailing.top.equalTo(imageView).inset(12) }
-
+        videoIndicator.snp_makeConstraints {
+            $0.trailing.equalTo(imageView).offset(-12)
+            $0.top.equalTo(imageView).offset(8)
+        }
     }
 
     override func setup(update: InboxItem) {
@@ -95,7 +97,7 @@ class InboxCell: EntryStreamReusableView<InboxItem> {
 
 class InboxTextCell: InboxCell {
     
-    private var textView = Label(preset: .Normal, weight: .Regular, textColor: Color.grayLighter)
+    private let textView = Label(preset: .Normal, weight: .Regular, textColor: Color.grayLighter)
     
     static let DefaultHeight: CGFloat = Constants.screenWidth / 3 + 70
     
@@ -120,11 +122,16 @@ class InboxTextCell: InboxCell {
     override func setup(update: InboxItem) {
         if let comment = update.contribution as? Comment {
             super.setup(update)
-            imageView.url = comment.candy?.asset?.medium
+            let commentType = comment.commentType()
+            if commentType == .Text {
+                imageView.url = comment.candy?.asset?.small
+            } else {
+                imageView.url = comment.asset?.small
+            }
             avatarView.url = comment.contributor?.avatar?.small
             userNameLabel.text = "\(comment.contributor?.name ?? ""):"
             textView.text = comment.text
-            videoIndicator.hidden = comment.candy?.mediaType != .Video
+            videoIndicator.hidden = commentType != .Video
             textView.textColor = update.unread ? Color.grayDark : Color.grayLighter
         }
     }
@@ -185,14 +192,35 @@ class InboxViewController: WrapSegmentViewController {
 
     lazy var dataSource: StreamDataSource<[InboxItem]> = StreamDataSource(streamView: self.streamView)
     
-    @IBOutlet weak var streamView: StreamView!
-    @IBOutlet weak var clearButton: UIButton!
-    @IBOutlet var clearLayoutPrioritizer: LayoutPrioritizer!
+    private let streamView = StreamView()
+    private let clearButton = Button(preset: .Small, weight: .Light, textColor: Color.orange)
     
     var updates: [InboxItem] = [] {
         willSet {
             dataSource.items = newValue
         }
+    }
+    
+    override func loadView() {
+        super.loadView()
+        view.backgroundColor = UIColor.whiteColor()
+        streamView.frame = preferredViewFrame
+        clearButton.setTitle("mark_all_as_read".ls, forState: .Normal)
+        clearButton.highlightedColor = Color.orange
+        clearButton.backgroundColor = UIColor.whiteColor()
+        clearButton.normalColor = UIColor.whiteColor()
+        clearButton.clipsToBounds = true
+        clearButton.setBorder(color: Color.orange)
+        clearButton.cornerRadius = 6
+        clearButton.setTitleColor(UIColor.whiteColor(), forState: .Highlighted)
+        clearButton.insets = 24 ^ 0
+        clearButton.addTarget(self, touchUpInside: #selector(self.clearAll(_:)))
+        view.add(clearButton) { (make) in
+            make.top.equalTo(view).offset(10)
+            make.leading.equalTo(view).offset(8)
+        }
+        streamView.alwaysBounceVertical = true
+        view.addSubview(streamView)
     }
     
     override func viewDidLoad() {
@@ -215,15 +243,18 @@ class InboxViewController: WrapSegmentViewController {
             }
             for comment in candy.comments {
                 if comment.unread { containsUnread = true }
-                if comment.commentType() == .Text {
-                    updates.append(InboxItem(event: .Add, style: .Text, contribution: comment, date: comment.createdAt, unread: comment.unread))
-                } else {
-                    updates.append(InboxItem(event: .Add, contribution: comment, date: comment.createdAt, unread: comment.unread))
-                }
+                updates.append(InboxItem(event: .Add, style: .Text, contribution: comment, date: comment.createdAt, unread: comment.unread))
             }
         }
         self.updates = updates.sort({ $0.date > $1.date })
-        clearLayoutPrioritizer.defaultState = containsUnread
+        streamView.snp_remakeConstraints { (make) in
+            if containsUnread {
+                make.top.equalTo(clearButton.snp_bottom).offset(4)
+            } else {
+                make.top.equalTo(view)
+            }
+            make.leading.bottom.trailing.equalTo(view)
+        }
         clearButton.hidden = !containsUnread
     }
     
@@ -245,7 +276,9 @@ class InboxViewController: WrapSegmentViewController {
             $0.unread = false
             $0.contribution.markAsUnread(false)
         })
-        clearLayoutPrioritizer.defaultState = false
+        streamView.snp_remakeConstraints { (make) in
+            make.edges.equalTo(view)
+        }
         clearButton.hidden = true
         dataSource.reload()
     }

@@ -23,11 +23,19 @@ final class HistoryItemCoverView: EntryStreamReusableView<Candy> {
     }
 }
 
+final class ShadowLabel: Label {
+    
+    override func drawTextInRect(rect: CGRect) {
+        CGContextSetShadowWithColor(UIGraphicsGetCurrentContext(), CGSize(width: 1, height: -1), 3, UIColor.blackColor().CGColor)
+        super.drawTextInRect(rect)
+    }
+}
+
 final class HistoryItemViewController: BaseViewController {
     
-    private let nameLabel = Label(preset: .Normal, textColor: UIColor.whiteColor())
+    private let nameLabel = ShadowLabel(preset: .Normal, weight: .Bold, textColor: UIColor.whiteColor())
     
-    private let dateLabel = Label(preset: .Smaller, textColor: UIColor.whiteColor())
+    private let dateLabel = ShadowLabel(preset: .Smaller, weight: .Regular, textColor: UIColor.whiteColor())
     
     private var candies: [Candy]?
     
@@ -49,7 +57,6 @@ final class HistoryItemViewController: BaseViewController {
         view.backgroundColor = UIColor.whiteColor()
         
         coverView.backgroundColor = UIColor.blackColor()
-        infoView.backgroundColor = Color.orange.colorWithAlphaComponent(0.5)
         
         streamView.alwaysBounceVertical = true
         streamView.delaysContentTouches = false
@@ -74,11 +81,6 @@ final class HistoryItemViewController: BaseViewController {
             make.leading.trailing.bottom.equalTo(coverView)
         }
         
-        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-        coverView.insertSubview(blurView, belowSubview: infoView)
-        blurView.snp_makeConstraints { (make) in
-            make.edges.equalTo(infoView)
-        }
         infoView.add(nameLabel) { (make) -> Void in
             make.leading.top.equalTo(infoView).offset(12)
             make.trailing.lessThanOrEqualTo(infoView).offset(-12)
@@ -106,10 +108,9 @@ final class HistoryItemViewController: BaseViewController {
         
         super.viewDidLoad()
         
-        let layout = GridLayout()
-        layout.numberOfColumns = 3
+        let layout = MosaicLayout()
         layout.spacing = 1
-        layout.offset = coverView.height + 1
+        layout.offset = coverView.height
         streamView.layout = layout
         streamView.placeholderMetrics = PlaceholderView.singleDayPlaceholderMetrics()
         streamView.placeholderMetrics?.isSeparator = true

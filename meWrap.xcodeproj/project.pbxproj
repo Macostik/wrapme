@@ -225,6 +225,7 @@
 		C564C8161C4A47EE001C6460 /* CaptureAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C564C8151C4A47EE001C6460 /* CaptureAvatarViewController.swift */; };
 		C565ED6D1B9F2567002352C8 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B787D9C1A27876F004AE459 /* NotificationCenter.framework */; };
 		C566BD9E1C4E6B50000E80BA /* UIBezierPath+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566BD9D1C4E6B50000E80BA /* UIBezierPath+Ext.swift */; };
+		C56A6B971D1018A9001EA72F /* MosaicLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56A6B961D1018A9001EA72F /* MosaicLayout.swift */; };
 		C56D4E4F1C0B54D300B20566 /* meWrapWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C54604D71C08C6DF00FB2303 /* meWrapWatchApp.app */; };
 		C571C2791CCE46420084D4CA /* AdobeCreativeSDKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C571C2771CCE46420084D4CA /* AdobeCreativeSDKCore.framework */; };
 		C571C27A1CCE46420084D4CA /* AdobeCreativeSDKImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C571C2781CCE46420084D4CA /* AdobeCreativeSDKImage.framework */; };
@@ -650,6 +651,7 @@
 		C56449A11CE37F41006444A6 /* CaptureCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureCommentViewController.swift; sourceTree = "<group>"; };
 		C564C8151C4A47EE001C6460 /* CaptureAvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureAvatarViewController.swift; sourceTree = "<group>"; };
 		C566BD9D1C4E6B50000E80BA /* UIBezierPath+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Ext.swift"; sourceTree = "<group>"; };
+		C56A6B961D1018A9001EA72F /* MosaicLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MosaicLayout.swift; sourceTree = "<group>"; };
 		C571C2771CCE46420084D4CA /* AdobeCreativeSDKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKCore.framework; sourceTree = "<group>"; };
 		C571C2781CCE46420084D4CA /* AdobeCreativeSDKImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKImage.framework; sourceTree = "<group>"; };
 		C571C27B1CCE46BC0084D4CA /* AdobeCreativeSDKCoreResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdobeCreativeSDKCoreResources.bundle; path = AdobeCreativeSDKCore.framework/Versions/A/Resources/AdobeCreativeSDKCoreResources.bundle; sourceTree = "<group>"; };
@@ -1122,6 +1124,7 @@
 				C5A877C91B985E8B006C5226 /* StreamLayout.swift */,
 				C540C0EE1B988BF700F880C9 /* GridLayout.swift */,
 				C5CBA7C61BA9556B0008EAAE /* SquareGridLayout.swift */,
+				C56A6B961D1018A9001EA72F /* MosaicLayout.swift */,
 			);
 			path = "Stream Layouts";
 			sourceTree = "<group>";
@@ -2177,6 +2180,7 @@
 				C5F44FF41C5CBC680049215D /* WrapPickerViewController.swift in Sources */,
 				C523D8CE1BD775AC006FE7AB /* Country.swift in Sources */,
 				C5326F0C1C159279007A8BEF /* RunQueue.swift in Sources */,
+				C56A6B971D1018A9001EA72F /* MosaicLayout.swift in Sources */,
 				C5F4E70F1C07687A00D2FC16 /* UIColor+Ext.swift in Sources */,
 				C557B6DB1C22C0B00067631E /* SoundPlayer.swift in Sources */,
 				C54220CC1CB2A8830082F519 /* DebugViewController.swift in Sources */,

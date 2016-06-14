@@ -49,32 +49,20 @@ final class AddressBookRecord: CustomStringConvertible {
     
     var phoneNumbers = [AddressBookPhoneNumber]()
     
-    convenience init?(ABRecord: ABRecordRef) {
+    required init?(ABRecord: ABRecordRef) {
         let phones = AddressBookRecord.getPhones(ABRecord)
         if !phones.isEmpty {
-            var name: String?
             if let _name = ABRecordCopyCompositeName(ABRecord) {
-                name = _name.takeUnretainedValue() as String
+                self.name = _name.takeUnretainedValue() as String
+            } else {
+                self.name = ""
             }
-            self.init(phoneNumbers: phones, name: name ?? "")
+            self.phoneNumbers = phones
             hasImage = ABPersonHasImageData(ABRecord)
             recordID = ABRecordGetRecordID(ABRecord)
         } else {
             return nil
         }
-    }
-    
-    required init(phoneNumbers: [AddressBookPhoneNumber], name: String) {
-        self.name = name
-        self.phoneNumbers = phoneNumbers
-    }
-    
-    required init(record: AddressBookRecord) {
-        hasImage = record.hasImage
-        recordID = record.recordID
-        name = record.name
-        _avatar = record._avatar
-        phoneNumbers = record.phoneNumbers
     }
     
     private class func getPhones(ABRecord: ABRecordRef) -> [AddressBookPhoneNumber] {

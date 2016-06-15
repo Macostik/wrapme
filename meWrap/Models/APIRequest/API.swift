@@ -294,7 +294,11 @@ extension API {
     }
     
     private static func parseContributors(wrap: Wrap, response: Response) -> Wrap {
-        if wrap.valid, let array = response.array("contributors") {
+        return parseContributors(wrap, array: response.array("contributors"))
+    }
+    
+    private static func parseContributors(wrap: Wrap, array: [[String: AnyObject]]?) -> Wrap {
+        if wrap.valid, let array = array {
             let _contributors: [User] = mappedEntries(User.prefetchArray(array))
             let contributors = Set<User>(_contributors)
             if wrap.contributors != contributors {
@@ -348,8 +352,8 @@ extension API {
                     if let dictionary = response.dictionary("wrap") {
                         wrap.map(dictionary)
                         wrap.notifyOnAddition()
+                        self.parseContributors(wrap, array: dictionary[Keys.Contributors] as? [[String: AnyObject]])
                     }
-                    self.parseContributors(wrap, response: response)
                 }
                 return wrap
         })

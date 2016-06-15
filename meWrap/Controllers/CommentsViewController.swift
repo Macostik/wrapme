@@ -232,11 +232,11 @@ final class CommentsDataSource: StreamDataSource<[Comment]> {
         })
     }
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         playVideoCommentsIfNeeded()
     }
     
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
             playVideoCommentsIfNeeded()
         }

@@ -55,8 +55,6 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDataSource,
         return metrics
     }
     
-    @IBOutlet var scrollDirectionLayoutPrioritizer: LayoutPrioritizer?
-    
     private var contentSizeCategoryObserver: NotificationObserver?
     
     convenience init(streamView: StreamView) {
@@ -109,5 +107,17 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDataSource,
     
     func numberOfSections() -> Int {
         return 1
+    }
+    
+    var didEndDecelerating: (() -> ())?
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            didEndDecelerating?()
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        didEndDecelerating?()
     }
 }

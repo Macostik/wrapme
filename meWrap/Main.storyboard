@@ -426,24 +426,6 @@
                                     <constraint firstItem="qsz-UP-cFd" firstAttribute="centerY" secondItem="9Rl-cW-5hv" secondAttribute="centerY" constant="10" id="wR5-u2-p0p"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YZO-Vw-o8l">
-                                <rect key="frame" x="258" y="512" width="84" height="84"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="84" id="G0q-Hi-rMd"/>
-                                    <constraint firstAttribute="width" constant="84" id="qPS-wn-wfu"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="61"/>
-                                <state key="normal" backgroundImage="btn_wrap_camera_enabled">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted" backgroundImage="btn_wrap_camera_pressed"/>
-                                <connections>
-                                    <action selector="addPhoto:" destination="L91-fZ-J9O" eventType="touchUpInside" id="Eku-Ef-acO"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -452,13 +434,10 @@
                             <constraint firstItem="uGg-7M-ebG" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="HTc-G6-dUL"/>
                             <constraint firstAttribute="trailing" secondItem="uGg-7M-ebG" secondAttribute="trailing" id="Oyl-yA-asQ"/>
                             <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="uGg-7M-ebG" secondAttribute="bottom" id="PPm-TK-65j"/>
-                            <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="YZO-Vw-o8l" secondAttribute="bottom" priority="750" constant="4" id="UIc-K5-oLM"/>
-                            <constraint firstItem="YZO-Vw-o8l" firstAttribute="top" secondItem="FgI-7k-v3i" secondAttribute="top" priority="250" constant="4" id="Zoy-YM-Vvv"/>
                             <constraint firstAttribute="trailing" secondItem="9Rl-cW-5hv" secondAttribute="trailing" id="a0D-I9-wse"/>
                             <constraint firstItem="9Rl-cW-5hv" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="iFH-7m-26c"/>
                             <constraint firstAttribute="trailing" secondItem="lBJ-p7-MjG" secondAttribute="trailing" id="kAR-Ij-AJb"/>
                             <constraint firstItem="uGg-7M-ebG" firstAttribute="top" secondItem="lBJ-p7-MjG" secondAttribute="bottom" id="mBw-a0-I5X"/>
-                            <constraint firstItem="YZO-Vw-o8l" firstAttribute="centerX" secondItem="L5N-Xm-IFu" secondAttribute="centerX" id="tz3-kM-s6U"/>
                             <constraint firstItem="lBJ-p7-MjG" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="uKa-Dl-P0k"/>
                             <constraint firstItem="9Rl-cW-5hv" firstAttribute="top" secondItem="XNa-AC-NhU" secondAttribute="bottom" constant="-20" id="yr0-5l-IHU"/>
                         </constraints>
@@ -466,12 +445,10 @@
                     <navigationItem key="navigationItem" id="kPg-o5-wH3"/>
                     <keyCommands/>
                     <connections>
-                        <outlet property="buttonAnimationPrioritizer" destination="GFV-Ya-rff" id="oNP-VJ-s9t"/>
                         <outlet property="createWrapButton" destination="KxF-7g-Abs" id="DiP-hq-Kq1"/>
                         <outlet property="emailConfirmationLayoutPrioritizer" destination="LSq-pS-yid" id="Bin-aV-yY8"/>
                         <outlet property="emailConfirmationView" destination="lBJ-p7-MjG" id="voU-oV-5wv"/>
                         <outlet property="navigationBar" destination="9Rl-cW-5hv" id="9kd-xs-4J2"/>
-                        <outlet property="photoButton" destination="YZO-Vw-o8l" id="2q7-fd-ztx"/>
                         <outlet property="streamView" destination="uGg-7M-ebG" id="DWY-UV-XhD"/>
                         <outlet property="verificationEmailLabel" destination="ZDN-HJ-7Th" id="HaN-Oo-VCI"/>
                     </connections>
@@ -498,13 +475,6 @@
                         <outletCollection property="parentViews" destination="L5N-Xm-IFu" collectionClass="NSMutableArray" id="gul-rp-0Az"/>
                         <outletCollection property="alternativeConstraints" destination="F0c-eT-pdM" collectionClass="NSMutableArray" id="XeV-a0-XFJ"/>
                         <outletCollection property="defaultConstraints" destination="8Aa-Cz-phe" collectionClass="NSMutableArray" id="3VD-58-8Z4"/>
-                    </connections>
-                </customObject>
-                <customObject id="GFV-Ya-rff" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
-                    <connections>
-                        <outletCollection property="defaultConstraints" destination="UIc-K5-oLM" collectionClass="NSMutableArray" id="L8K-g9-mQu"/>
-                        <outletCollection property="alternativeConstraints" destination="Zoy-YM-Vvv" collectionClass="NSMutableArray" id="UlA-el-KZy"/>
-                        <outletCollection property="parentViews" destination="YZO-Vw-o8l" collectionClass="NSMutableArray" id="HGf-eO-2fG"/>
                     </connections>
                 </customObject>
             </objects>
@@ -1758,8 +1728,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="btn_wrap_camera_enabled" width="84" height="84"/>
-        <image name="btn_wrap_camera_pressed" width="84" height="84"/>
         <image name="create_wrap_step_first" width="1356" height="763"/>
         <image name="create_wrap_step_last" width="1272" height="714"/>
     </resources>

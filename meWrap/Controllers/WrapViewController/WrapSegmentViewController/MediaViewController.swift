@@ -252,6 +252,12 @@ class MediaViewController: WrapSegmentViewController {
         streamView.didScrollDown = { [weak self] _ in
             self?.didScrollDown()
         }
+        
+        let didEndDecelerating: () -> () = { [weak self] _ in
+            self?.streamView.direction = .Down
+        }
+        mediaDataSource.didEndDecelerating = didEndDecelerating
+        mosaicDataSource.didEndDecelerating = didEndDecelerating
     }
     
     private func didScrollUp() {

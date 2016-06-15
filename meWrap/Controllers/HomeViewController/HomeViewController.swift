@@ -19,7 +19,7 @@ final class HomeViewController: BaseViewController {
     @IBOutlet weak var emailConfirmationView: UIView!
     @IBOutlet weak var createWrapButton: UIButton!
     @IBOutlet weak var verificationEmailLabel: Label!
-    @IBOutlet weak var photoButton: UIButton!
+    private let photoButton = Button(type: .Custom)
     weak var candiesView: RecentCandiesView?
     
     let activityStatusView = ActivityStatusView()
@@ -33,11 +33,55 @@ final class HomeViewController: BaseViewController {
         NSNotificationCenter.defaultCenter().removeObserver(self, name:UIApplicationWillEnterForegroundNotification, object:nil)
     }
     
+    override func loadView() {
+        super.loadView()
+        photoButton.setBackgroundImage(UIImage(named: "btn_wrap_camera_enabled"), forState: .Normal)
+        photoButton.setBackgroundImage(UIImage(named: "btn_wrap_camera_pressed"), forState: .Highlighted)
+        photoButton.exclusiveTouch = true
+        view.addSubview(photoButton)
+        defaultPhotoButtonLayout()
+        streamView.trackScrollDirection = true
+        streamView.didScrollUp = { [weak self] _ in
+            self?.didScrollUp()
+        }
+        streamView.didScrollDown = { [weak self] _ in
+            self?.didScrollDown()
+        }
+        dataSource.didEndDecelerating = { [weak self] _ in
+            self?.streamView.direction = .Down
+        }
+    }
+    
+    private func didScrollUp() {
+        photoButton.snp_remakeConstraints { (make) in
+            make.size.equalTo(84)
+            make.top.equalTo(view.snp_bottom).offset(4)
+            make.centerX.equalTo(view)
+        }
+        animate {
+            view.layoutIfNeeded()
+        }
+    }
+    
+    private func defaultPhotoButtonLayout() {
+        photoButton.snp_remakeConstraints { (make) in
+            make.size.equalTo(84)
+            make.bottom.equalTo(view).offset(-4)
+            make.centerX.equalTo(view)
+        }
+    }
+    
+    private func didScrollDown() {
+        defaultPhotoButtonLayout()
+        animate {
+            view.layoutIfNeeded()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.streamView.contentInset = self.streamView.scrollIndicatorInsets
-        dataSource.scrollDirectionLayoutPrioritizer = buttonAnimationPrioritizer
         dataSource.addMetrics(specify(StreamMetrics<WrapCell>(), {
             $0.modifyItem = {
                 let index = $0.position.index

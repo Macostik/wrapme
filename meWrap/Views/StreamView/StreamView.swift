@@ -85,7 +85,7 @@ final class StreamView: UIScrollView {
     
     var trackScrollDirection = false
     
-    private var direction: ScrollDirection = .Unknown {
+    var direction: ScrollDirection = .Unknown {
         didSet {
             if direction != oldValue {
                 if direction == .Up {

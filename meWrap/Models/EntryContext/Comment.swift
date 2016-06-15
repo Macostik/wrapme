@@ -66,7 +66,7 @@ final class Comment: Contribution {
             return text
         } else {
             let isVideo = asset?.type == .Video
-            return "\(contributor?.name ?? "") \(isVideo ? "posted_video_comment".ls : "posted_photo_comment".ls)"
+            return "\(isVideo ? "video_comment_by".ls : "photo_comment_by".ls) \(contributor?.name ?? "")"
         }
     }
     

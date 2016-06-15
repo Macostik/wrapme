@@ -60,7 +60,7 @@ class History: PaginatedList<HistoryItem>, EntryNotifying {
         for candy in candies {
             if let _candy = _candy {
                 if _candy.createdAt.isSameDay(candy.createdAt) {
-                    item.entries.insert(candy, atIndex: 0)
+                    item.entries.append(candy)
                 } else {
                     item = HistoryItem(candy: candy, history: self)
                     items.append(item)
@@ -185,7 +185,7 @@ class HistoryItem: List<Candy>, Hashable {
         self.history = history
         date = candy.createdAt
         super.init()
-        sorter = { $0.createdAt < $1.createdAt }
+        sorter = { $0.createdAt > $1.createdAt }
         entries.append(candy)
     }
     

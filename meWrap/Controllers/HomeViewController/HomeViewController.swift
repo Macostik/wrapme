@@ -227,7 +227,7 @@ final class HomeViewController: BaseViewController {
     private func finalizeAppearingOfCandiesView(candiesView: RecentCandiesView) {
         candiesView.candyMetrics.selection = { [weak self] view in
             if view.entry != nil {
-                CandyEnlargingPresenter.handleCandySelection(view, dismissingView: { candy -> UIView? in
+                CandyPresenter.present(view, dismissingView: { candy -> UIView? in
                     self?.streamView.scrollRectToVisible(candiesView.frame, animated:false)
                     return candiesView.streamView.itemPassingTest({ $0.entry === candy })?.view
                 })

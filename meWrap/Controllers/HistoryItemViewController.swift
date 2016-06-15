@@ -121,7 +121,7 @@ final class HistoryItemViewController: BaseViewController {
         }
         metrics.selection = { [weak self] view -> Void in
             self?.streamView.lock()
-            CandyEnlargingPresenter.handleCandySelection(view, historyItem: self?.item, dismissingView: { candy -> UIView? in
+            CandyPresenter.present(view, history: self?.item?.history, dismissingView: { candy -> UIView? in
                 guard let streamCandyItem = self?.streamView.itemPassingTest({ ($0.entry as? Candy) == candy}) else { return nil }
                 self?.streamView.scrollRectToVisible(streamCandyItem.frame, animated: false)
                 return streamCandyItem.view

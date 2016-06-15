@@ -1,5 +1,5 @@
 //
-//  CandyEnlargingPresenter.swift
+//  CandyPresenter.swift
 //  meWrap
 //
 //  Created by Sergey Maximenko on 12/15/15.
@@ -8,21 +8,16 @@
 
 import UIKit
 
-class CandyEnlargingPresenter: UIView {
+final class CandyPresenter: UIView {
     
-    private var candy: Candy?
-    
-    class func handleCandySelection(cell: CandyCell, historyItem: HistoryItem? = nil, dismissingView: Candy -> UIView?) -> Void {
+    static func present(cell: CandyCell, history: History? = nil, dismissingView: Candy -> UIView?) -> Void {
         guard let candy = cell.entry else { return }
         guard let historyViewController = candy.createViewController() as? HistoryViewController else { return }
-        historyViewController.history = historyItem?.history
+        historyViewController.history = history
         historyViewController.dismissingView = dismissingView
         if candy.valid && cell.imageView.image != nil {
-            let presenter = CandyEnlargingPresenter()
-            presenter.candy = candy
-            presenter.dismissingView = dismissingView
-            historyViewController.presenter = presenter
-            presenter.present(candy, fromView: cell, completionHandler: { (_) -> Void in
+            historyViewController.dismissingView = dismissingView
+            CandyPresenter.present(candy, fromView: cell, completionHandler: { (_) -> Void in
                 UINavigationController.main.pushViewController(historyViewController, animated: false)
             })
         } else {
@@ -39,44 +34,46 @@ class CandyEnlargingPresenter: UIView {
     
     var dismissingView: (Candy -> UIView?)?
     
-    func present(candy: Candy, fromView: UIView, completionHandler: (CandyEnlargingPresenter -> Void)) {
+    static func present(candy: Candy, fromView: UIView, completionHandler: () -> ()) {
         guard let url = candy.asset?.large, let image = InMemoryImageCache.instance[url] ?? ImageCache.defaultCache.imageWithURL(url) else {
-            completionHandler(self)
+            completionHandler()
             return
         }
-        let superview = addToSuperview()
-        imageView.image = image
+        let presenter = CandyPresenter()
+        let superview = presenter.addToSuperview()
+        presenter.imageView.image = image
         StreamView.lock()
-        imageView.frame = superview.convertRect(fromView.bounds, fromCoordinateSpace:fromView)
+        presenter.imageView.frame = superview.convertRect(fromView.bounds, fromCoordinateSpace:fromView)
         fromView.hidden = true
-        backgroundColor = UIColor(white: 0, alpha: 0)
+        presenter.backgroundColor = UIColor(white: 0, alpha: 0)
         UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseIn, animations: { () -> Void in
-            self.imageView.frame = self.size.fit(image.size).rectCenteredInSize(self.size)
-            self.backgroundColor = UIColor(white: 0, alpha: 1)
+            presenter.imageView.frame = presenter.size.fit(image.size).rectCenteredInSize(presenter.size)
+            presenter.backgroundColor = UIColor(white: 0, alpha: 1)
             }, completion: { (_) -> Void in
-                completionHandler(self)
+                completionHandler()
                 fromView.hidden = false
-                self.removeFromSuperview()
+                presenter.removeFromSuperview()
                 StreamView.unlock()
         })
     }
     
-    func dismiss(candy: Candy) {
-        guard let view = self.dismissingView?(candy) else { return }
+    static func dismiss(candy: Candy, dismissingView: (Candy -> UIView?)?) {
+        guard let view = dismissingView?(candy) else { return }
         guard let url = candy.asset?.large else { return }
         guard let image = InMemoryImageCache.instance[url] ?? ImageCache.defaultCache.imageWithURL(url) else { return }
-        let superview = addToSuperview()
-        imageView.image = image
-        imageView.frame = self.size.fit(image.size).rectCenteredInSize(self.size)
+        let presenter = CandyPresenter()
+        let superview = presenter.addToSuperview()
+        presenter.imageView.image = image
+        presenter.imageView.frame = presenter.size.fit(image.size).rectCenteredInSize(presenter.size)
         StreamView.lock()
         view.hidden = true
-        backgroundColor = UIColor(white: 0, alpha: 1)
+        presenter.backgroundColor = UIColor(white: 0, alpha: 1)
         UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseIn, animations: { () -> Void in
-            self.backgroundColor = UIColor(white: 0, alpha: 0)
-            self.imageView.frame = superview.convertRect(view.bounds, fromCoordinateSpace:view)
+            presenter.backgroundColor = UIColor(white: 0, alpha: 0)
+            presenter.imageView.frame = superview.convertRect(view.bounds, fromCoordinateSpace:view)
             }, completion: { (_) -> Void in
                 view.hidden = false
-                self.removeFromSuperview()
+                presenter.removeFromSuperview()
                 StreamView.unlock()
         })
     }

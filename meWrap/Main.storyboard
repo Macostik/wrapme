@@ -442,7 +442,6 @@
                                 <state key="highlighted" backgroundImage="btn_wrap_camera_pressed"/>
                                 <connections>
                                     <action selector="addPhoto:" destination="L91-fZ-J9O" eventType="touchUpInside" id="Eku-Ef-acO"/>
-                                    <action selector="addPhoto:" destination="Eg5-Ne-qmp" eventType="touchUpInside" id="q53-sV-90z"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1044,119 +1043,6 @@
                 </customObject>
             </objects>
             <point key="canvasLocation" x="2388" y="124"/>
-        </scene>
-        <!--Media View Controller-->
-        <scene sceneID="vJn-ul-sL5">
-            <objects>
-                <viewController storyboardIdentifier="media" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Eg5-Ne-qmp" customClass="MediaViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="3DU-Zj-0y1"/>
-                        <viewControllerLayoutGuide type="bottom" id="riF-U0-7aK"/>
-                    </layoutGuides>
-                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="z88-8Q-V7N">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zI4-B5-vhI" customClass="StreamView" customModule="meWrap">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="92"/>
-                            </scrollView>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PNO-TY-VYu">
-                                <rect key="frame" x="258" y="512" width="84" height="84"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="84" id="NZ8-CV-V6c"/>
-                                    <constraint firstAttribute="height" constant="84" id="xWO-9U-Le4"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="61"/>
-                                <state key="normal" backgroundImage="btn_wrap_camera_enabled">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted" backgroundImage="btn_wrap_camera_pressed"/>
-                                <connections>
-                                    <action selector="addPhoto:" destination="Eg5-Ne-qmp" eventType="touchUpInside" id="d2i-r9-nOQ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RbZ-zE-qem" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                <rect key="frame" x="537" y="541" width="55" height="55"/>
-                                <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="0.77743028085443033" colorSpace="calibratedRGB"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="55" id="A1f-Nv-mHh"/>
-                                    <constraint firstAttribute="width" constant="55" id="Cvc-rn-GCh"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="LIVE">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
-                                        <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="0.77743028089999999" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
-                                        <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="liveBroadcast:" destination="Eg5-Ne-qmp" eventType="touchUpInside" id="PMp-vb-fJx"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="zI4-B5-vhI" firstAttribute="top" secondItem="3DU-Zj-0y1" secondAttribute="bottom" id="3bx-kK-noX"/>
-                            <constraint firstItem="PNO-TY-VYu" firstAttribute="centerX" secondItem="z88-8Q-V7N" secondAttribute="centerX" id="6ku-DA-Exl"/>
-                            <constraint firstItem="riF-U0-7aK" firstAttribute="top" secondItem="PNO-TY-VYu" secondAttribute="bottom" priority="750" constant="4" id="CrN-KF-fsR"/>
-                            <constraint firstItem="riF-U0-7aK" firstAttribute="top" secondItem="PNO-TY-VYu" secondAttribute="top" priority="250" id="Dqa-Ym-RTY"/>
-                            <constraint firstAttribute="trailing" secondItem="zI4-B5-vhI" secondAttribute="trailing" id="IDE-e3-pRs"/>
-                            <constraint firstAttribute="trailing" secondItem="RbZ-zE-qem" secondAttribute="trailing" constant="8" id="UN1-d1-ubu"/>
-                            <constraint firstItem="zI4-B5-vhI" firstAttribute="leading" secondItem="z88-8Q-V7N" secondAttribute="leading" id="XJF-bx-x5n"/>
-                            <constraint firstItem="riF-U0-7aK" firstAttribute="top" secondItem="zI4-B5-vhI" secondAttribute="bottom" id="dc9-e0-Msn"/>
-                            <constraint firstItem="riF-U0-7aK" firstAttribute="top" secondItem="RbZ-zE-qem" secondAttribute="top" priority="250" id="nTX-QR-nik"/>
-                            <constraint firstItem="riF-U0-7aK" firstAttribute="top" secondItem="RbZ-zE-qem" secondAttribute="bottom" priority="750" constant="4" id="rJg-0I-PSE"/>
-                        </constraints>
-                    </view>
-                    <toolbarItems/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <connections>
-                        <outlet property="addPhotoButton" destination="PNO-TY-VYu" id="m5b-cf-eyT"/>
-                        <outlet property="liveButton" destination="RbZ-zE-qem" id="gjL-9Q-uVk"/>
-                        <outlet property="primaryConstraint" destination="8F6-xd-Raa" id="idQ-bf-VUC"/>
-                        <outlet property="scrollDirectionPrioritizer" destination="SFh-vB-Xt1" id="AyH-T7-SLa"/>
-                        <outlet property="streamView" destination="zI4-B5-vhI" id="oVx-JM-lqd"/>
-                    </connections>
-                </viewController>
-                <customObject id="8F6-xd-Raa" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
-                    <connections>
-                        <outletCollection property="parentViews" destination="z88-8Q-V7N" collectionClass="NSMutableArray" id="NSu-0h-eYw"/>
-                        <outletCollection property="defaultConstraints" destination="CrN-KF-fsR" collectionClass="NSMutableArray" id="wdU-KA-Ihl"/>
-                        <outletCollection property="alternativeConstraints" destination="Dqa-Ym-RTY" collectionClass="NSMutableArray" id="1Te-nr-cRc"/>
-                        <outletCollection property="defaultConstraints" destination="rJg-0I-PSE" collectionClass="NSMutableArray" id="JjD-zm-H5Z"/>
-                        <outletCollection property="alternativeConstraints" destination="nTX-QR-nik" collectionClass="NSMutableArray" id="iMV-fx-qAX"/>
-                    </connections>
-                </customObject>
-                <customObject id="SFh-vB-Xt1" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
-                    <connections>
-                        <outletCollection property="defaultConstraints" destination="CrN-KF-fsR" collectionClass="NSMutableArray" id="cs2-Wo-0GI"/>
-                        <outletCollection property="alternativeConstraints" destination="Dqa-Ym-RTY" collectionClass="NSMutableArray" id="hJI-2F-00F"/>
-                        <outletCollection property="parentViews" destination="PNO-TY-VYu" collectionClass="NSMutableArray" id="jwJ-Aj-e5U"/>
-                        <outletCollection property="defaultConstraints" destination="rJg-0I-PSE" collectionClass="NSMutableArray" id="wjO-nk-obT"/>
-                        <outletCollection property="alternativeConstraints" destination="nTX-QR-nik" collectionClass="NSMutableArray" id="nKY-H7-HMp"/>
-                        <outletCollection property="parentViews" destination="RbZ-zE-qem" collectionClass="NSMutableArray" id="lre-TE-KiW"/>
-                    </connections>
-                </customObject>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yXa-Fb-BfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1730.625" y="789.08450704225345"/>
         </scene>
         <!--Wrap Settings View Controller-->
         <scene sceneID="6Yj-w4-GCu">

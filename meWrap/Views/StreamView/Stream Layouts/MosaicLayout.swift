@@ -20,24 +20,15 @@ final class MosaicSlice {
         self.items = items
     }
     
-    var maxY: CGFloat {
-        var maxY: CGFloat = 0
-        for rect in completedFrames {
-            if rect.maxY > maxY {
-                maxY = rect.maxY
-            }
-        }
-        return maxY
-    }
-    
-    var completedFrames = [CGRect]()
+    var numberOfCompletedFrames = 0
 }
 
 class MosaicLayout: StreamLayout {
     
     var spacing: CGFloat = 0
     
-    private var curentOffset: CGFloat = 0
+    private var currentOffset: CGFloat = 0
+    private var sliceY: CGFloat = 0
     
     private var slices: [MosaicSlice] = [
         MosaicSlice.separator,
@@ -52,16 +43,20 @@ class MosaicLayout: StreamLayout {
     
     private var slice: MosaicSlice? {
         didSet {
-            oldValue?.completedFrames = []
+            oldValue?.numberOfCompletedFrames = 0
         }
     }
     
     override func contentSize(item: StreamItem, streamView: StreamView) -> CGSize {
-        return CGSize(width: streamView.width, height: slice?.maxY ?? 0)
+        return CGSize(width: streamView.width, height: currentOffset)
     }
     
     override func prepareLayout(sv: StreamView) {
-        curentOffset = offset
+        sliceY = offset
+        currentOffset = offset
+        for slice in slices {
+            slice.numberOfCompletedFrames = 0
+        }
         slice = slices[0]
         sliceIndex = 0
     }
@@ -69,13 +64,18 @@ class MosaicLayout: StreamLayout {
     override func frameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
         
         guard item.metrics.isSeparator == false else {
-            return super.frameForItem(item, streamView: streamView)
+            let frame = CGRectMake(0, currentOffset, streamView.frame.width, item.size)
+            currentOffset = currentOffset + item.size
+            sliceY = currentOffset
+            return frame
         }
         
         guard var slice = slice else { return CGRect.zero }
         
-        if slice.completedFrames.count == slice.items.count {
-            curentOffset = slice.maxY
+        let size = streamView.frame.size.width
+        
+        if slice.numberOfCompletedFrames == slice.items.count {
+            sliceY = currentOffset
             let index = sliceIndex + 1
             if index < slices.count {
                 let _slice = slices[index]
@@ -90,11 +90,9 @@ class MosaicLayout: StreamLayout {
             }
         }
         
-        let item = slice.items[slice.completedFrames.count]
+        let item = slice.items[slice.numberOfCompletedFrames]
         
-        let size = streamView.frame.size.width
-        
-        var frame: CGRect = ((size * item[0]) ^ (curentOffset + size * item[1])) ^ ((size * item[2]) ^ (size * item[3]))
+        var frame: CGRect = ((size * item[0]) ^ (sliceY + size * item[1])) ^ ((size * item[2]) ^ (size * item[3]))
         
         frame.origin.y = frame.origin.y + spacing
         frame.size.height = frame.size.height - spacing
@@ -110,8 +108,19 @@ class MosaicLayout: StreamLayout {
             frame.size.width = frame.size.width - spacing
         }
         
-        slice.completedFrames.append(frame)
+        slice.numberOfCompletedFrames = slice.numberOfCompletedFrames + 1
+        
+        if frame.maxY > currentOffset {
+            currentOffset = frame.maxY
+        }
         
         return frame
+    }
+    
+    override func prepareForNextSection() {
+        if let slice = slice where slice.numberOfCompletedFrames > 0 {
+            slice.numberOfCompletedFrames = slice.items.count
+            sliceY = currentOffset
+        }
     }
 }

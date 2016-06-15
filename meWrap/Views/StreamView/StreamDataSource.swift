@@ -8,10 +8,6 @@
 
 import Foundation
 
-enum ScrollDirection {
-    case Unknown, Up, Down
-}
-
 class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDataSource, UIScrollViewDelegate {
     
     @IBOutlet weak var streamView: StreamView?
@@ -80,14 +76,6 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDataSource,
     private func entryForItem(item: StreamItem) -> AnyObject? {
         return items?[safe: item.position.index] as? AnyObject
     }
-        
-    private var direction: ScrollDirection = .Unknown {
-        didSet {
-            if direction != oldValue {
-                scrollDirectionLayoutPrioritizer?.setDefaultState(direction == .Down, animated: true)
-            }
-        }
-    }
     
     func numberOfItemsIn(section: Int) -> Int {
         return numberOfItems ?? items?.count ?? 0
@@ -107,13 +95,9 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDataSource,
         }
     }
     
-    func didChangeContentSize(oldContentSize: CGSize) {
-        
-    }
+    func didChangeContentSize(oldContentSize: CGSize) {}
     
-    func didLayout() {
-        
-    }
+    func didLayout() {}
     
     func headerMetricsIn(section: Int) -> [StreamMetricsProtocol] {
         return sectionHeaderMetrics
@@ -125,13 +109,5 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDataSource,
     
     func numberOfSections() -> Int {
         return 1
-    }
-    
-    // MARK: - UIScrollViewDelegate
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if scrollView.tracking && (scrollView.contentSize.height > scrollView.height || direction == .Up) {
-            direction = scrollView.panGestureRecognizer.translationInView(scrollView).y > 0 ? .Down : .Up
-        }
     }
 }

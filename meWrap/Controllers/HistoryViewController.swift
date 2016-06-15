@@ -203,7 +203,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     var history: History?
     private var candies = [Candy]()
     
-    var presenter: CandyEnlargingPresenter?
     var dismissingView: (Candy -> UIView?)?
     
     private var visibleBarsContrains = [Constraint]()
@@ -852,7 +851,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     override func back(sender: UIButton) {
         if let candy = candy?.validEntry() {
             navigationController?.popViewControllerAnimated(false)
-            presenter?.dismiss(candy)
+            CandyPresenter.dismiss(candy, dismissingView: dismissingView)
         } else {
             navigationController?.popToRootViewControllerAnimated(false)
         }

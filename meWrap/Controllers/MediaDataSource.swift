@@ -48,3 +48,47 @@ final class MediaDataSource: PaginatedStreamDataSource<History> {
         }
     }
 }
+
+final class MosaicMediaDataSource: PaginatedStreamDataSource<History> {
+    
+    weak var wrap: Wrap?
+    
+    var liveBroadcastMetrics = specify(StreamMetrics<LiveBroadcastMediaView>()) {
+        $0.size = 70
+        $0.isSeparator = true
+    }
+    
+    override func numberOfSections() -> Int {
+        return (items?.entries.count ?? 0) + 1
+    }
+    
+    override func numberOfItemsIn(section: Int) -> Int {
+        if section == 0 {
+            return wrap?.liveBroadcasts.count ?? 0
+        } else {
+            return items?.entries[safe: section - 1]?.entries.count ?? 0
+        }
+    }
+    
+    override func metricsAt(position: StreamPosition) -> [StreamMetricsProtocol] {
+        if position.section == 0 {
+            return [liveBroadcastMetrics]
+        } else {
+            return metrics
+        }
+    }
+    
+    override func entryBlockForItem(item: StreamItem) -> (StreamItem -> AnyObject?)? {
+        let position = item.position
+        if position.section == 0 {
+            return { [weak self] _ in
+                return self?.wrap?.liveBroadcasts[safe: position.index]
+            }
+        } else {
+            return { [weak self] item in
+                let position = item.position
+                return self?.items?.entries[safe: position.section - 1]?.entries[safe: position.index]
+            }
+        }
+    }
+}

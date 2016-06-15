@@ -14,7 +14,6 @@ enum WrapSegment: Int {
 }
 
 class WrapSegmentViewController: BaseViewController {
-    weak var delegate: AnyObject?
     weak var wrap: Wrap!
 }
 
@@ -111,11 +110,12 @@ final class WrapViewController: BaseViewController {
     @IBOutlet weak var moreFriendsLabel: UILabel!
     
     lazy var inboxViewController: InboxViewController = self.addController(InboxViewController())
-    lazy var mediaViewController: MediaViewController = self.controllerNamed("media")
+    lazy var mediaViewController: MediaViewController = self.addController(MediaViewController())
     lazy var chatViewController: ChatViewController = self.addController(ChatViewController())
     
     override func viewDidLoad() {
         chatViewController.badge = chatSegmentButton.badge
+        mediaViewController.addPhotoButton.addTarget(self, touchUpInside: #selector(self.addPhoto(_:)))
         super.viewDidLoad()
         
         addNotifyReceivers()
@@ -314,7 +314,6 @@ final class WrapViewController: BaseViewController {
     
     private func addController<T: WrapSegmentViewController>(controller: T) -> T {
         controller.wrap = wrap
-        controller.delegate = self
         addChildViewController(controller)
         controller.didMoveToParentViewController(self)
         return controller
@@ -335,6 +334,12 @@ extension WrapViewController {
     
     @IBAction override func back(sender: UIButton) {
         navigationController?.popToRootViewControllerAnimated(false)
+    }
+    
+    @IBAction func addPhoto(sender: UIButton) {
+        let captureViewController = CaptureViewController.captureMediaViewController(wrap)
+        captureViewController.captureDelegate = self
+        presentViewController(captureViewController, animated: false, completion: nil)
     }
 }
 
@@ -358,14 +363,5 @@ extension WrapViewController: CaptureCandyViewControllerDelegate {
     
     func captureViewControllerDidCancel(controller: CaptureCandyViewController) {
         dismissViewControllerAnimated(false, completion: nil)
-    }
-}
-
-extension WrapViewController: MediaViewControllerDelegate {
-    
-    func mediaViewControllerDidAddPhoto(controller: MediaViewController) {
-        let captureViewController = CaptureViewController.captureMediaViewController(wrap)
-        captureViewController.captureDelegate = self
-        presentViewController(captureViewController, animated: false, completion: nil)
     }
 }

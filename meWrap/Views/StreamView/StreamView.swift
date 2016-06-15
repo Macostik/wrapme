@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+enum ScrollDirection {
+    case Unknown, Up, Down
+}
+
 var StreamViewCommonLocksChanged: String = "StreamViewCommonLocksChanged"
 
 protocol StreamViewDataSource {
@@ -76,7 +80,27 @@ final class StreamView: UIScrollView {
         layer.addObserver(self, forKeyPath: "bounds", options: .New, context: nil)
     }
     
+    var didScrollUp: (() -> ())?
+    var didScrollDown: (() -> ())?
+    
+    var trackScrollDirection = false
+    
+    private var direction: ScrollDirection = .Unknown {
+        didSet {
+            if direction != oldValue {
+                if direction == .Up {
+                    didScrollUp?()
+                } else {
+                    didScrollDown?()
+                }
+            }
+        }
+    }
+    
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if trackScrollDirection && tracking && (contentSize.height > height || direction == .Up) {
+            direction = panGestureRecognizer.translationInView(self).y > 0 ? .Down : .Up
+        }
         if layout.finalized {
             updateVisibility()
         }

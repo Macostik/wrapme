@@ -165,14 +165,17 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         }
         
         container.clipsToBounds = true
+        
+        let height = round(Constants.screenWidth / 4)
+        
         view.add(container) {
             $0.top.equalTo(interactionView.snp_bottom)
             $0.leading.trailing.bottom.equalTo(view)
-            heightConstraint = $0.height.equalTo(view.snp_width).offset(hiddenByDefault ? -Constants.screenWidth * 0.25 : 0).multipliedBy(0.25).constraint
+            heightConstraint = $0.height.equalTo(hiddenByDefault ? 0 : height).constraint
         }
         container.add(streamView) {
             $0.leading.top.trailing.equalTo(container)
-            $0.height.equalTo(view.snp_width).multipliedBy(0.25)
+            $0.height.equalTo(height)
         }
         container.add(specify(UIView(), {
             $0.backgroundColor = Color.orange
@@ -222,11 +225,11 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
     }
     
     @objc private func panning(sender: UIPanGestureRecognizer) {
-        let minHeight = -streamView.height
-        var offset = (container.height - streamView.height)
+        let minHeight = streamView.height
+        var offset = container.height
         if (sender.state == .Changed) {
             let translation = sender.translationInView(sender.view)
-            offset = smoothstep(minHeight, 0, offset - translation.y / 2)
+            offset = smoothstep(0, minHeight, offset - translation.y / 2)
             heightConstraint.updateOffset(offset)
             arrow.layer.transform = CATransform3DMakeRotation(CGFloat(M_PI) * offset / minHeight, 1, 0, 0)
             view.superview?.layoutIfNeeded()
@@ -257,7 +260,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
     
     func setHidden(hidden: Bool, animated: Bool) {
         cancelAutoHide()
-        heightConstraint.updateOffset(hidden ? -Constants.screenWidth * 0.25 : 0)
+        heightConstraint.updateOffset(hidden ? 0 : round(Constants.screenWidth / 4))
         UIView.animateWithDuration(animated ? 0.3 : 0) {
             if (hidden) {
                 self.arrow.layer.transform = CATransform3DMakeRotation(CGFloat(M_PI), 1, 0, 0)

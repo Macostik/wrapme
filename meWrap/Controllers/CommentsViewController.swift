@@ -463,7 +463,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
                         self.contentView.snp_remakeConstraints(closure: { (make) in
                             make.size.equalTo(self.view)
                             make.centerX.equalTo(self.view)
-                            make.bottom.equalTo(self.view).inset(keyboard.height)
+                            make.bottom.equalTo(self.view).offset(-self.topView.height)
                         })
                     }
                     self.contentView.layoutIfNeeded()

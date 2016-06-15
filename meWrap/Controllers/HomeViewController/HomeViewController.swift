@@ -38,6 +38,7 @@ final class HomeViewController: BaseViewController {
         photoButton.setBackgroundImage(UIImage(named: "btn_wrap_camera_enabled"), forState: .Normal)
         photoButton.setBackgroundImage(UIImage(named: "btn_wrap_camera_pressed"), forState: .Highlighted)
         photoButton.exclusiveTouch = true
+        photoButton.addTarget(self, touchUpInside: #selector(self.addPhoto(_:)))
         view.addSubview(photoButton)
         defaultPhotoButtonLayout()
         streamView.trackScrollDirection = true

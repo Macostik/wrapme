@@ -243,6 +243,9 @@ class MediaViewController: WrapSegmentViewController {
         layoutButton.exclusiveTouch = true
         view.addSubview(layoutButton)
         
+        streamView.contentInset = UIEdgeInsetsMake(0, 0, 92, 0)
+        streamView.scrollIndicatorInsets = streamView.contentInset
+        
         defaultButtonsLayout()
         
         streamView.trackScrollDirection = true
@@ -310,8 +313,6 @@ class MediaViewController: WrapSegmentViewController {
         super.viewDidLoad()
         
         guard let wrap = wrap else { return }
-        
-        streamView.contentInset = streamView.scrollIndicatorInsets
 
         streamView.placeholderMetrics = PlaceholderView.mediaPlaceholderMetrics()
         

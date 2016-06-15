@@ -61,6 +61,15 @@ final class Comment: Contribution {
         }
     }
     
+    func displayText() -> String {
+        if let text = text where !text.isEmpty {
+            return text
+        } else {
+            let isVideo = asset?.type == .Video
+            return "\(contributor?.name ?? "") \(isVideo ? "posted_video_comment".ls : "posted_photo_comment".ls)"
+        }
+    }
+    
     var mediaType: MediaType {
         get { return MediaType(rawValue: type) ?? .Photo }
         set { type = newValue.rawValue }

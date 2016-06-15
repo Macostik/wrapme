@@ -107,6 +107,8 @@ protocol AssetsViewControllerDelegate: class {
     func assetsViewController(controller: AssetsViewController, didDeselectAsset asset: PHAsset)
 }
 
+private let AssetsHeight: CGFloat = round(Constants.screenWidth / 4)
+
 class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
     
     var isAvatar: Bool = false
@@ -166,16 +168,14 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
         
         container.clipsToBounds = true
         
-        let height = round(Constants.screenWidth / 4)
-        
         view.add(container) {
             $0.top.equalTo(interactionView.snp_bottom)
             $0.leading.trailing.bottom.equalTo(view)
-            heightConstraint = $0.height.equalTo(hiddenByDefault ? 0 : height).constraint
+            heightConstraint = $0.height.equalTo(hiddenByDefault ? 0 : AssetsHeight).constraint
         }
         container.add(streamView) {
             $0.leading.top.trailing.equalTo(container)
-            $0.height.equalTo(height)
+            $0.height.equalTo(AssetsHeight)
         }
         container.add(specify(UIView(), {
             $0.backgroundColor = Color.orange
@@ -225,13 +225,11 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
     }
     
     @objc private func panning(sender: UIPanGestureRecognizer) {
-        let minHeight = streamView.height
-        var offset = container.height
         if (sender.state == .Changed) {
             let translation = sender.translationInView(sender.view)
-            offset = smoothstep(0, minHeight, offset - translation.y / 2)
+            let offset = smoothstep(0, AssetsHeight, container.height - translation.y / 2)
             heightConstraint.updateOffset(offset)
-            arrow.layer.transform = CATransform3DMakeRotation(CGFloat(M_PI) * offset / minHeight, 1, 0, 0)
+            arrow.layer.transform = CATransform3DMakeRotation(CGFloat(M_PI) * offset / AssetsHeight, 1, 0, 0)
             view.superview?.layoutIfNeeded()
             sender.setTranslation(CGPointZero, inView: sender.view)
         } else if (sender.state == .Ended || sender.state == .Cancelled) {
@@ -239,7 +237,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
             if abs(velocity) > 500 {
                 setHidden(velocity > 0, animated: true)
             } else {
-                setHidden(offset < minHeight/2, animated: true)
+                setHidden(container.height < AssetsHeight/2, animated: true)
             }
         }
     }
@@ -260,7 +258,7 @@ class AssetsViewController: UIViewController, PHPhotoLibraryChangeObserver {
     
     func setHidden(hidden: Bool, animated: Bool) {
         cancelAutoHide()
-        heightConstraint.updateOffset(hidden ? 0 : round(Constants.screenWidth / 4))
+        heightConstraint.updateOffset(hidden ? 0 : AssetsHeight)
         UIView.animateWithDuration(animated ? 0.3 : 0) {
             if (hidden) {
                 self.arrow.layer.transform = CATransform3DMakeRotation(CGFloat(M_PI), 1, 0, 0)

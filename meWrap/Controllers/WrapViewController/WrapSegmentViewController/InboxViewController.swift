@@ -124,13 +124,14 @@ class InboxTextCell: InboxCell {
             super.setup(update)
             let commentType = comment.commentType()
             if commentType == .Text {
+                textView.text = comment.text
                 imageView.url = comment.candy?.asset?.small
             } else {
+                textView.text = comment.displayText()
                 imageView.url = comment.asset?.small
             }
             avatarView.url = comment.contributor?.avatar?.small
             userNameLabel.text = "\(comment.contributor?.name ?? ""):"
-            textView.text = comment.text
             videoIndicator.hidden = commentType != .Video
             textView.textColor = update.unread ? Color.grayDark : Color.grayLighter
         }
@@ -188,7 +189,7 @@ extension StreamMetrics where T:InboxCell {
     }
 }
 
-class InboxViewController: WrapSegmentViewController {
+final class InboxViewController: WrapSegmentViewController {
 
     lazy var dataSource: StreamDataSource<[InboxItem]> = StreamDataSource(streamView: self.streamView)
     

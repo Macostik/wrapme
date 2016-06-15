@@ -41,6 +41,8 @@ final class HomeViewController: BaseViewController {
         photoButton.addTarget(self, touchUpInside: #selector(self.addPhoto(_:)))
         view.addSubview(photoButton)
         defaultPhotoButtonLayout()
+        streamView.contentInset = UIEdgeInsetsMake(0, 0, 92, 0)
+        streamView.scrollIndicatorInsets = streamView.contentInset
         streamView.trackScrollDirection = true
         streamView.didScrollUp = { [weak self] _ in
             self?.didScrollUp()
@@ -82,7 +84,6 @@ final class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.streamView.contentInset = self.streamView.scrollIndicatorInsets
         dataSource.addMetrics(specify(StreamMetrics<WrapCell>(), {
             $0.modifyItem = {
                 let index = $0.position.index

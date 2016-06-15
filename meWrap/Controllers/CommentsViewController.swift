@@ -86,7 +86,7 @@ class CommentCell: EntryStreamReusableView<Comment>, FlowerMenuConstructor {
         userInteractionEnabled = true
         super.setup(comment)
         avatar.user = comment.contributor
-        text.text = comment.text
+        text.text = comment.displayText()
         comment.markAsUnread(false)
         name.text = comment.contributor?.name
         date.text = comment.createdAt.timeAgoString()

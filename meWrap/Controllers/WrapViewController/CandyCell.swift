@@ -14,11 +14,14 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
     let imageView = ImageView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.white.photoStyle(56))
     let commentLabel = Label(preset: .Smaller, textColor: UIColor.whiteColor())
     let videoIndicator = Label(icon: "+", size: 24)
-    let gradientView = GradientView()
+    let gradientView = GradientView(startColor: UIColor.blackColor().colorWithAlphaComponent(0.8))
+    private let mediaCommentIndicator = UIImageView()
     private let spinner = specify(UIActivityIndicatorView(activityIndicatorStyle: .White)) {
         $0.color = Color.grayLightest
         $0.hidesWhenStopped = true
     }
+    
+    private var textCommentConstraint: Constraint!
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         
@@ -31,34 +34,30 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         pressedStateButton.highlightedColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
         pressedStateButton.normalColor = UIColor.clearColor()
         pressedStateButton.exclusiveTouch = true
-        addSubview(imageView)
-        addSubview(videoIndicator)
-        addSubview(pressedStateButton)
-        gradientView.startColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
-        gradientView.contentMode = .Bottom
-        addSubview(gradientView)
-        commentLabel.textAlignment = .Center
-        commentLabel.numberOfLines = 2
-        gradientView.addSubview(commentLabel)
-        
-        imageView.snp_makeConstraints(closure: { $0.edges.equalTo(self) })
-        
-        videoIndicator.snp_makeConstraints {
+        add(imageView) { $0.edges.equalTo(self) }
+        add(videoIndicator) {
             $0.top.equalTo(self).offset(2)
             $0.right.equalTo(self).offset(-2)
         }
-
-        gradientView.snp_makeConstraints { make in
-            make.left.right.equalTo(self)
-            make.bottom.equalTo(self)
-        }
-
-        commentLabel.snp_makeConstraints { make in
-            make.edges.equalTo(gradientView).inset(UIEdgeInsetsMake(4, 4, 4, 4))
-        }
-        
-        pressedStateButton.snp_makeConstraints { make in
+        add(pressedStateButton) { make in
             make.edges.equalTo(self)
+        }
+        add(gradientView) { make in
+            make.leading.bottom.trailing.equalTo(self)
+            make.height.equalTo(36)
+        }
+        mediaCommentIndicator.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        mediaCommentIndicator.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        commentLabel.textAlignment = .Center
+        commentLabel.numberOfLines = 2
+        gradientView.add(commentLabel) { make in
+            make.trailing.equalTo(gradientView).inset(4)
+            make.centerY.equalTo(gradientView)
+            textCommentConstraint = make.leading.equalTo(gradientView).offset(4).priorityHigh().constraint
+        }
+        gradientView.add(mediaCommentIndicator) { make in
+            make.centerY.equalTo(gradientView)
+            make.leading.equalTo(gradientView).offset(8)
         }
         
         imageView.add(spinner) {
@@ -155,12 +154,20 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         videoPlayer?.removeFromSuperview()
     }
     
+    static let photoAnimationImage: UIImage? = UIImage.draw(20 ^ 16, drawing: { (size) in
+        Color.orange.setFill()
+        UIBezierPath(roundedRect: (0 ^ 0) ^ size, cornerRadius: 3).fill()
+    })
+    
+    static let videoAnimationImage: UIImage? = UIImage.draw(20 ^ 16, drawing: { (size) in
+        Color.orange.setFill()
+        UIBezierPath(roundedRect: (0 ^ 0) ^ size, cornerRadius: 3).fill()
+    })
+    
     override func setup(candy: Candy) {
         userInteractionEnabled = true
         exclusiveTouch = true
         videoIndicator.hidden = candy.mediaType != .Video
-        commentLabel.text = candy.latestComment?.text
-        commentLabel.superview?.hidden = commentLabel.text?.isEmpty ?? true
         imageView.url = candy.asset?.small
         uploadingView = candy.uploadingView
         
@@ -172,6 +179,33 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
             playerView.url = candy.asset?.videoURL()
             self.videoPlayer = playerView
             self.performSelector(#selector(self.startPlayingVideo), withObject: nil, afterDelay: 0.0)
+        }
+        
+        if let comment = candy.latestComment  {
+            let commentType = comment.commentType()
+            if commentType == .Text {
+                commentLabel.textAlignment = .Center
+                textCommentConstraint.updateOffset(4)
+                commentLabel.text = comment.text
+                gradientView.hidden = comment.text?.isEmpty ?? true
+                mediaCommentIndicator.hidden = true
+                mediaCommentIndicator.image = nil
+            } else  {
+                commentLabel.textAlignment = .Left
+                mediaCommentIndicator.hidden = false
+                textCommentConstraint.updateOffset(36)
+                gradientView.hidden = false
+                if commentType == .Photo {
+                    mediaCommentIndicator.image = CandyCell.photoAnimationImage
+                } else {
+                    mediaCommentIndicator.image = CandyCell.videoAnimationImage
+                }
+                commentLabel.text = comment.displayText()
+            }
+        } else {
+            mediaCommentIndicator.image = nil
+            commentLabel.text = nil
+            gradientView.hidden = true
         }
     }
     

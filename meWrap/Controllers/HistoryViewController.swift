@@ -167,13 +167,15 @@ final class CommentView: UIView {
                     videoPlayer?.removeFromSuperview()
                     let commentType = comment.commentType()
                     layoutFor(commentType)
-                    text.text = comment.text
                     if commentType != .Text {
+                        text.text = comment.displayText()
                         imageView.url = comment.asset?.small
                         if commentType == .Video {
                             addVideoPlayer(comment)
                         }
                         uploadingView = comment.uploadingView
+                    } else {
+                        text.text = comment.text
                     }
                     snp_updateConstraints(closure: { (make) in
                         make.height.equalTo(130)

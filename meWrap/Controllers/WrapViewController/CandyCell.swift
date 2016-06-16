@@ -154,15 +154,9 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         videoPlayer?.removeFromSuperview()
     }
     
-    static let photoAnimationImage: UIImage? = UIImage.draw(20 ^ 16, drawing: { (size) in
-        Color.orange.setFill()
-        UIBezierPath(roundedRect: (0 ^ 0) ^ size, cornerRadius: 3).fill()
-    })
+    static let photoAnimationImage: UIImage? = UIImage.animatedImageNamed("animation_photo_comment_", duration: 1)
     
-    static let videoAnimationImage: UIImage? = UIImage.draw(20 ^ 16, drawing: { (size) in
-        Color.orange.setFill()
-        UIBezierPath(roundedRect: (0 ^ 0) ^ size, cornerRadius: 3).fill()
-    })
+    static let videoAnimationImage: UIImage? = UIImage.animatedImageNamed("animation_video_comment_", duration: 1)
     
     override func setup(candy: Candy) {
         userInteractionEnabled = true
@@ -200,6 +194,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
                 } else {
                     mediaCommentIndicator.image = CandyCell.videoAnimationImage
                 }
+                mediaCommentIndicator.startAnimating()
                 commentLabel.text = comment.displayText()
             }
         } else {

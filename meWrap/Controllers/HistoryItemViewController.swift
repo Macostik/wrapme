@@ -112,8 +112,7 @@ final class HistoryItemViewController: BaseViewController {
         layout.spacing = 1
         layout.offset = coverView.height
         streamView.layout = layout
-        streamView.placeholderMetrics = PlaceholderView.singleDayPlaceholderMetrics()
-        streamView.placeholderMetrics?.isSeparator = true
+        streamView.placeholderViewBlock = PlaceholderView.singleDayPlaceholder()
         
         let metrics = dataSource.addMetrics(StreamMetrics<CandyCell>())
         metrics.modifyItem = { (item) in
@@ -160,7 +159,11 @@ final class HistoryItemViewController: BaseViewController {
     
     private func setCoverCandy(candy: Candy?, animated: Bool) {
         coverCandy = candy
-        guard let candy = candy else { return }
+        guard let candy = candy else {
+            self.cover?.removeFromSuperview()
+            self.cover = nil
+            return
+        }
         let cover = ImageView(backgroundColor: UIColor.clearColor())
         coverView.insertSubview(cover, atIndex: 0)
         cover.snp_makeConstraints { (make) -> Void in

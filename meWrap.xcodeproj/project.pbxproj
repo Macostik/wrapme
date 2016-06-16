@@ -332,7 +332,6 @@
 		C5F4E70F1C07687A00D2FC16 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4E70E1C07687A00D2FC16 /* UIColor+Ext.swift */; };
 		C5F5EAE91BDEA79F00DF1DA5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50647681ABD889100CB4BE3 /* CoreData.framework */; };
 		C5F5F0BE1C687B1B002F74C9 /* UserActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F5F0BD1C687B1B002F74C9 /* UserActivity.swift */; };
-		C5F5F0C01C690BD6002F74C9 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F5F0BF1C690BD6002F74C9 /* LoadingView.swift */; };
 		C5F7C5E81C78CA31004C2E68 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7C5E71C78CA31004C2E68 /* PlaceholderView.swift */; };
 		C5F843361CF46972002BD697 /* WowzaGoCoderSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5F843351CF46972002BD697 /* WowzaGoCoderSDK.framework */; };
 		C5F843391CF46E1D002BD697 /* WowzaGoCoderSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C5F843351CF46972002BD697 /* WowzaGoCoderSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -772,7 +771,6 @@
 		C5F4E70C1C07489E00D2FC16 /* EditSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSession.swift; sourceTree = "<group>"; };
 		C5F4E70E1C07687A00D2FC16 /* UIColor+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		C5F5F0BD1C687B1B002F74C9 /* UserActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivity.swift; sourceTree = "<group>"; };
-		C5F5F0BF1C690BD6002F74C9 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		C5F7C5E71C78CA31004C2E68 /* PlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		C5F843351CF46972002BD697 /* WowzaGoCoderSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WowzaGoCoderSDK.framework; path = Frameworks/WowzaGoCoderSDK.framework; sourceTree = "<group>"; };
 		C5F9A49D1C4B8A1700A7D83B /* CaptureCandyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureCandyViewController.swift; sourceTree = "<group>"; };
@@ -1048,7 +1046,6 @@
 				C5A406FD1C200A71007D1D0E /* CandyPresenter.swift */,
 				C532F4E81C2D5F02004585E0 /* ProgressBar.swift */,
 				C5BD85411C2E999800EE5558 /* UploadingView.swift */,
-				C5F5F0BF1C690BD6002F74C9 /* LoadingView.swift */,
 				C5F7C5E71C78CA31004C2E68 /* PlaceholderView.swift */,
 				C5564CF61C7B50EB0075703A /* Toast.swift */,
 				5BB67E881CAAB37200A19DA8 /* InAppNotification.swift */,
@@ -2198,7 +2195,6 @@
 				C53012871BF4C0AD00098F9C /* (null) in Sources */,
 				C53BC4861C05B32C0009B0B9 /* AssetsViewController.swift in Sources */,
 				C5E6DD901C0DC84A004992E4 /* EntryContext.swift in Sources */,
-				C5F5F0C01C690BD6002F74C9 /* LoadingView.swift in Sources */,
 				C51A06AB1C778E7600719826 /* InboxViewController.swift in Sources */,
 				C54E281E1C773435000B7682 /* MessageCell.swift in Sources */,
 				C5E6DD8B1C0DC84A004992E4 /* Comment.swift in Sources */,

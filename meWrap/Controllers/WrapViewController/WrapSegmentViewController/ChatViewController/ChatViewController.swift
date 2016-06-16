@@ -96,11 +96,10 @@ final class ChatViewController: WrapSegmentViewController, UIScrollViewDelegate 
             make.height.equalTo(1)
         }
         
-        streamView.placeholderMetrics = PlaceholderView.chatPlaceholderMetrics().change { [weak self] metrics -> Void in
-            metrics.prepareAppearing = { item, view in
-                view.textLabel.text = String(format:"no_chat_message".ls, self?.wrap?.name ?? "")
-            }
-            metrics.selectable = false
+        streamView.placeholderViewBlock = { [weak self] _ in
+            let view = PlaceholderView.chatPlaceholder()()
+            view.textLabel.text = String(format:"no_chat_message".ls, self?.wrap?.name ?? "")
+            return view
         }
     }
     

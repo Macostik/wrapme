@@ -117,7 +117,7 @@ class WrapListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        streamView.placeholderMetrics = PlaceholderView.sharePlaceholderMetrics()
+        streamView.placeholderViewBlock = PlaceholderView.sharePlaceholder()
         
         let metrics = wrapListDataSource.addMetrics(StreamMetrics<WrapCell>(size: 70))
         metrics.modifyItem = { [weak self] item in

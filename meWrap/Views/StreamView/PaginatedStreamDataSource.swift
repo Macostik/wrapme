@@ -12,16 +12,16 @@ class PaginatedStreamDataSource<T: PaginatedListProtocol>: StreamDataSource<T> {
     
     var appendableBlock: (PaginatedStreamDataSource -> Bool)?
     
-    lazy var loadingMetrics: StreamMetrics<LoadingView> = {
-        let metrics = self.addSectionFooterMetrics(LoadingView.metrics())
-        metrics.modifyItem = { [weak self] item in
-            if let sv = self?.streamView {
-                item.size = sv.layout.horizontal ? sv.fittingContentWidth : sv.fittingContentHeight
+    weak var spinner: UIActivityIndicatorView? {
+        didSet {
+            oldValue?.removeFromSuperview()
+            if let spinner = spinner, let streamView = streamView {
+                streamView.superview?.add(spinner, { (make) in
+                    make.center.equalTo(streamView)
+                })
             }
         }
-        metrics.hidden = true
-        return metrics
-    }()
+    }
     
     override func didSetItems() {
         if let set = items {
@@ -41,16 +41,18 @@ class PaginatedStreamDataSource<T: PaginatedListProtocol>: StreamDataSource<T> {
     }
     
     func setLoading(loading: Bool) {
-        var _loading = loading
-        if !Network.network.reachable {
-          _loading = false
-        }
-        
-        let placeholderMetrics = streamView?.placeholderMetrics
-        if (placeholderMetrics?.hidden != _loading || loadingMetrics.hidden == _loading) {
-            placeholderMetrics?.hidden = _loading
-            loadingMetrics.hidden = !_loading
-            reload()
+        guard let streamView = streamView else { return }
+        let loading = loading && Network.network.reachable
+        if loading != streamView.hidden {
+            streamView.hidden = loading
+            if loading {
+                let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
+                spinner.color = Color.orange
+                self.spinner = spinner
+                spinner.startAnimating()
+            } else {
+                spinner = nil
+            }
         }
     }
     

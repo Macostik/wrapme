@@ -94,9 +94,8 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
             }
             })
         
-        let placeholderMetrics = PlaceholderView.searchPlaceholderMetrics()
-        streamView.placeholderMetrics = placeholderMetrics
-        placeholderMetrics.selectable = false
+        let placeholderMetrics = PlaceholderView.searchPlaceholder()
+        streamView.placeholderViewBlock = placeholderMetrics
         
         spinner.startAnimating()
         let cached = AddressBook.sharedAddressBook.cachedRecords({ [weak self] (array) in

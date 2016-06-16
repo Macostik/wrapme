@@ -226,7 +226,7 @@ final class InboxViewController: WrapSegmentViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        streamView.placeholderMetrics = PlaceholderView.inboxPlaceholderMetrics()
+        streamView.placeholderViewBlock = PlaceholderView.inboxPlaceholder()
         streamView.contentInset = streamView.scrollIndicatorInsets
         dataSource.addMetrics(StreamMetrics<InboxImageCell>(size: InboxImageCell.DefaultHeight)).setupWithStyle(.Image)
         dataSource.addMetrics(StreamMetrics<InboxTextCell>(size: InboxTextCell.DefaultHeight)).setupWithStyle(.Text)

@@ -117,12 +117,11 @@ final class HomeViewController: BaseViewController {
             
             }))
         
-        streamView.placeholderMetrics = HomePlaceholderView.homePlaceholderMetrics({ [weak self] () -> Void in
-            self?.navigationController?.pushViewController(Storyboard.UploadWizard.instantiate(), animated:false)
-            }).change({ (metrics) -> Void in
-                metrics.finalizeAppearing = { [weak self] item, view in
-                    self?.photoButton.hidden = true
-                }
+        streamView.placeholderViewBlock = PlaceholderView.homePlaceholder({ [weak self] button -> Void in
+            if let controller = self {
+                controller.photoButton.hidden = true
+                button.addTarget(controller, touchUpInside: #selector(self?.showUploadWizard(_:)))
+            }
             })
         
         let refresher = Refresher(scrollView: self.streamView)
@@ -295,6 +294,10 @@ final class HomeViewController: BaseViewController {
 }
 
 extension HomeViewController {
+    
+    @IBAction func showUploadWizard(sender: AnyObject?) {
+        navigationController?.pushViewController(Storyboard.UploadWizard.instantiate(), animated:false)
+    }
     
     @IBAction func createWrap(sender: AnyObject?) {
         let controller = Storyboard.UploadWizard.instantiate()

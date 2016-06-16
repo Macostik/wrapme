@@ -314,7 +314,7 @@ class MediaViewController: WrapSegmentViewController {
         
         guard let wrap = wrap else { return }
 
-        streamView.placeholderMetrics = PlaceholderView.mediaPlaceholderMetrics()
+        streamView.placeholderViewBlock = PlaceholderView.mediaPlaceholder()
         
         history = History(wrap: wrap)
         

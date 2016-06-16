@@ -51,7 +51,9 @@ final class StreamView: UIScrollView {
     
     var dataSource: StreamViewDataSource?
     
-    var placeholderMetrics: StreamMetricsProtocol?
+    private weak var placeholderView: PlaceholderView?
+    
+    var placeholderViewBlock: (() -> PlaceholderView)?
     
     override var contentInset: UIEdgeInsets  {
         didSet {
@@ -117,6 +119,7 @@ final class StreamView: UIScrollView {
     }
     
     private func clear() {
+        placeholderView?.removeFromSuperview()
         for item in items {
             if let view = item.view {
                 view.hidden = true
@@ -223,13 +226,14 @@ final class StreamView: UIScrollView {
             layout.prepareForNextSection()
         }
         
-        if items.isEmpty, let placeholder = placeholderMetrics {
-            if layout.horizontal {
-                placeholder.size = self.fittingContentWidth - layout.offset
-            } else {
-                placeholder.size = self.fittingContentHeight - layout.offset
-            }
-            addItem(metrics: placeholder, position:StreamPosition.zero)
+        if items.isEmpty, let placeholder = placeholderViewBlock {
+            let placeholderView = placeholder()
+            add(placeholderView, { (make) in
+                make.centerX.equalTo(self)
+                make.centerY.equalTo(self).offset(layout.offset/2)
+                make.size.lessThanOrEqualTo(self).offset(-24)
+            })
+            self.placeholderView = placeholderView
         }
     }
     

@@ -60,7 +60,10 @@ struct API {
 extension API {
     
     static func wraps(scope: String?) -> PaginatedRequest<[Wrap]> {
-        return PaginatedRequest<[Wrap]>(.GET, "wraps", modifier: { $0["scope"] = scope }, parser: { response in
+        return PaginatedRequest<[Wrap]>(.GET, "wraps", modifier: {
+            ($0 as? PaginatedRequest)?.modifyForPagination()
+            $0["scope"] = scope
+            }, parser: { response in
             if let wraps = response.array("wraps") {
                 return mappedEntries(Wrap.prefetchArray(wraps))
             } else {
@@ -95,7 +98,9 @@ extension API {
     }
     
     static func messages(wrap: Wrap) -> PaginatedRequest<[Message]> {
-        return PaginatedRequest<[Message]>(.GET, "wraps/\(wrap.uid)/chats", parser: { response in
+        return PaginatedRequest<[Message]>(.GET, "wraps/\(wrap.uid)/chats", modifier: {
+            ($0 as? PaginatedRequest)?.modifyForPagination()
+            }, parser: { response in
             if let chats = response.array("chats") where wrap.valid && !chats.isEmpty {
                 let messages: [Message] = mappedEntries(Message.prefetchArray(chats), container: wrap)
                 wrap.notifyOnUpdate(.ContentAdded)

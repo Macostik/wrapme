@@ -17,7 +17,6 @@ final class PaginatedRequest<ResponseType>: APIRequest<ResponseType> {
     
     override init(_ method: Alamofire.Method, _ path: String = "", modifier: (APIRequest<ResponseType> -> Void)? = nil, parser: (Response -> ResponseType?)? = nil) {
         super.init(method, path, modifier: modifier, parser: parser)
-        modify()
     }
     
     var type: PaginatedRequestType = .Fresh
@@ -26,17 +25,13 @@ final class PaginatedRequest<ResponseType>: APIRequest<ResponseType> {
     
     var older: NSDate?
     
-    func modify() -> Self {
-        return modify { (request) -> Void in
-            if let request = request as? PaginatedRequest {
-                switch request.type {
-                case .Newer:
-                    request["offset_x_in_epoch"] = request.newer?.timestamp
-                case .Older:
-                    request["offset_y_in_epoch"] = request.older?.timestamp
-                default: break
-                }
-            }
+    func modifyForPagination() {
+        switch type {
+        case .Newer:
+            self["offset_x_in_epoch"] = newer?.timestamp
+        case .Older:
+            self["offset_y_in_epoch"] = older?.timestamp
+        default: break
         }
     }
     

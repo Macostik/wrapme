@@ -105,7 +105,7 @@ final class WrapViewController: BaseViewController {
     
     private var userNotifyReceiver: EntryNotifyReceiver<User>?
     
-    private lazy var friendsDataSource: StreamDataSource<[User]> = StreamDataSource(streamView: self.friendsStreamView)
+    private lazy var friendsDataSource: StreamDataSource<[AnyObject]> = StreamDataSource(streamView: self.friendsStreamView)
     
     @IBOutlet weak var moreFriendsLabel: UILabel!
     
@@ -122,10 +122,18 @@ final class WrapViewController: BaseViewController {
         
         friendsStreamView.layout = HorizontalStreamLayout()
         let friendMetrics = StreamMetrics<FriendView>(size: friendsStreamView.height)
+        friendMetrics.modifyItem = { item in
+            item.hidden = !(item.entry is User)
+        }
         friendMetrics.prepareAppearing = { [weak self] item, view in
             view.wrap = self?.wrap
         }
         friendsDataSource.addMetrics(friendMetrics)
+        let inviteeMetrics = StreamMetrics<InviteeView>(size: friendsStreamView.height)
+        inviteeMetrics.modifyItem = { item in
+            item.hidden = !(item.entry is Invitee)
+        }
+        friendsDataSource.addMetrics(inviteeMetrics)
         guard let wrap = wrap where wrap.valid else { return }
         
         segmentedControl.deselect()
@@ -234,7 +242,8 @@ final class WrapViewController: BaseViewController {
     
     private func updateFriendsBar(wrap: Wrap) {
         let maxFriendsCount = Int((Constants.screenWidth - moreFriendsLabel.width) / friendsStreamView.height)
-        let contributors = wrap.contributors.sort {
+        let invitees: [AnyObject] = Array(wrap.invitees)
+        let contributors: [AnyObject] = wrap.contributors.sort {
             
             if $0.current {
                 return false
@@ -280,9 +289,10 @@ final class WrapViewController: BaseViewController {
             }
             
             return $0.name < $1.name
-            }.prefix(maxFriendsCount)
-        moreFriendsLabel.hidden = wrap.contributors.count <= maxFriendsCount
-        friendsDataSource.items = Array(contributors)
+            }
+        let friends = invitees + contributors
+        moreFriendsLabel.hidden = friends.count <= maxFriendsCount
+        friendsDataSource.items = Array(friends.prefix(maxFriendsCount))
     }
     
     private func updateMessageCouter() {

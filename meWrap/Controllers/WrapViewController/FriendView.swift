@@ -17,9 +17,8 @@ final class FriendView: EntryStreamReusableView<User> {
         avatarView.backgroundColor = UIColor.whiteColor()
         addSubview(avatarView)
         avatarView.snp_makeConstraints(closure: {
-            $0.width.height.equalTo(32)
-            $0.centerY.equalTo(self)
-            $0.trailing.equalTo(self)
+            $0.size.equalTo(32)
+            $0.centerY.trailing.equalTo(self)
         })
     }
     
@@ -28,6 +27,24 @@ final class FriendView: EntryStreamReusableView<User> {
     override func setup(friend: User) {
         avatarView.wrap = wrap
         avatarView.user = friend
+    }
+}
+
+final class InviteeView: EntryStreamReusableView<Invitee> {
+    
+    private let avatarView = ImageView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.gray.userStyle(16))
+    
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
+        avatarView.cornerRadius = 16
+        addSubview(avatarView)
+        avatarView.snp_makeConstraints(closure: {
+            $0.size.equalTo(32)
+            $0.centerY.trailing.equalTo(self)
+        })
+    }
+    
+    override func setup(invitee: Invitee) {
+        avatarView.url = invitee.user?.avatar?.small
     }
 }
 

@@ -238,13 +238,17 @@ final class InboxViewController: WrapSegmentViewController {
         var updates = [InboxItem]()
         for candy in wrap.candies {
             if candy.unread || candy.updateUnread { containsUnread = true }
-            updates.append(InboxItem(event: .Add, contribution: candy, date: candy.createdAt, unread: candy.unread))
-            if candy.editor != nil {
+            if candy.contributor?.current == false {
+                updates.append(InboxItem(event: .Add, contribution: candy, date: candy.createdAt, unread: candy.unread))
+            }
+            if candy.editor != nil && candy.editor?.current == false {
                 updates.append(InboxItem(event: .Update, contribution: candy, date: candy.editedAt, unread: candy.updateUnread))
             }
             for comment in candy.comments {
                 if comment.unread { containsUnread = true }
-                updates.append(InboxItem(event: .Add, style: .Text, contribution: comment, date: comment.createdAt, unread: comment.unread))
+                if comment.contributor?.current == false {
+                    updates.append(InboxItem(event: .Add, style: .Text, contribution: comment, date: comment.createdAt, unread: comment.unread))
+                }
             }
         }
         self.updates = updates.sort({ $0.date > $1.date })

@@ -154,9 +154,9 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         videoPlayer?.removeFromSuperview()
     }
     
-    static let photoAnimationImage: UIImage? = UIImage.animatedImageNamed("animation_photo_comment_", duration: 1)
+    static let photoAnimationImage: UIImage? = UIImage.animatedImageNamed("animation_photo_comment_", duration: 3)
     
-    static let videoAnimationImage: UIImage? = UIImage.animatedImageNamed("animation_video_comment_", duration: 1)
+    static let videoAnimationImage: UIImage? = UIImage.animatedImageNamed("animation_video_comment_", duration: 3)
     
     override func setup(candy: Candy) {
         userInteractionEnabled = true

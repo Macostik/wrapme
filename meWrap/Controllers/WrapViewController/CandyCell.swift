@@ -51,9 +51,9 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         commentLabel.textAlignment = .Center
         commentLabel.numberOfLines = 2
         gradientView.add(commentLabel) { make in
-            make.trailing.equalTo(gradientView).inset(4)
+            make.trailing.equalTo(gradientView).offset(-4)
             make.centerY.equalTo(gradientView)
-            textCommentConstraint = make.leading.equalTo(gradientView).offset(4).priorityHigh().constraint
+            textCommentConstraint = make.leading.equalTo(gradientView).offset(4).constraint
         }
         gradientView.add(mediaCommentIndicator) { make in
             make.centerY.equalTo(gradientView)

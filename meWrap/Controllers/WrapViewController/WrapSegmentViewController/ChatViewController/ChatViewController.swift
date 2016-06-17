@@ -78,7 +78,8 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
         streamView.delegate = self
         streamView.dataSource = self
         view.add(streamView) { (make) in
-            make.leading.top.trailing.equalTo(view)
+            make.top.equalTo(view).offset(100)
+            make.leading.trailing.equalTo(view)
         }
         view.add(composeBar) { (make) in
             make.leading.trailing.equalTo(view)

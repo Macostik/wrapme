@@ -27,12 +27,13 @@ class Refresher: UIControl {
     }
     
     convenience init(scrollView: UIScrollView) {
-        self.init(frame: scrollView.bounds.offsetBy(dx: 0, dy: -scrollView.height))
+        let inset = scrollView.contentInset.top
+        self.init(frame: scrollView.bounds.offsetBy(dx: 0, dy: -(scrollView.height - inset)))
         autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleBottomMargin, .FlexibleWidth]
         translatesAutoresizingMaskIntoConstraints = true
         backgroundColor = Color.orange
         scrollView.addSubview(self)
-        inset = scrollView.contentInset.top
+        self.inset = inset
         contentMode = .Center
         scrollView.panGestureRecognizer.addTarget(self, action:#selector(Refresher.dragging(_:)))
         spinner.hidesWhenStopped = true
@@ -136,7 +137,7 @@ class Refresher: UIControl {
         var hidden = true
         
         if sender.state == .Began {
-            hidden = offset > 0;
+            hidden = offset > 0
             refreshable = false
             if (!hidden) {
                 contentView.center = CGPointMake(width/2.0, height - Refresher.ContentSize/2.0)

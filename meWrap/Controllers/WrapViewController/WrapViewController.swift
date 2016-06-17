@@ -118,9 +118,13 @@ final class WrapViewController: WrapBaseViewController {
     
     override func loadView() {
         super.loadView()
+        automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = UIColor.whiteColor()
         let navigationBar = UIView()
         navigationBar.backgroundColor = Color.orange
+        friendsStreamView.backgroundColor = UIColor.whiteColor()
+        segmentedControl.backgroundColor = UIColor.whiteColor()
+        view.addSubview(containerView)
         view.addSubview(friendsStreamView)
         view.addSubview(segmentedControl)
         view.add(navigationBar) { (make) in
@@ -143,6 +147,10 @@ final class WrapViewController: WrapBaseViewController {
             make.trailing.lessThanOrEqualTo(settingsButton.snp_leading).offset(-12)
         }
         self.navigationBar = navigationBar
+        containerView.snp_makeConstraints { (make) in
+            make.leading.bottom.trailing.equalTo(view)
+            make.top.equalTo(navigationBar.snp_bottom)
+        }
         friendsStreamView.scrollEnabled = false
         friendsStreamView.userInteractionEnabled = false
         friendsStreamView.add(moreFriendsLabel) { (make) in
@@ -182,10 +190,6 @@ final class WrapViewController: WrapBaseViewController {
         }
         segmentedControl.setControls([inboxSegmentButton, mediaSegmentButton, chatSegmentButton])
         segmentedControl.addTarget(self, action: #selector(self.segmentChanged(_:)), forControlEvents: .ValueChanged)
-        view.add(containerView) { (make) in
-            make.leading.bottom.trailing.equalTo(view)
-            make.top.equalTo(segmentedControl.snp_bottom)
-        }
         
         handleKeyboardIfNeeded()
     }
@@ -200,7 +204,6 @@ final class WrapViewController: WrapBaseViewController {
             make.leading.trailing.equalTo(self.view)
             make.top.equalTo(navigationBar!.snp_bottom)
             make.height.equalTo(50)
-            
         })
     }
     
@@ -422,10 +425,8 @@ final class WrapViewController: WrapBaseViewController {
             if let controller = viewController {
                 controller.preferredViewFrame = containerView.bounds
                 let view = controller.view
-                view.translatesAutoresizingMaskIntoConstraints = false
                 view.frame = self.containerView.bounds
-                containerView.addSubview(view)
-                view.snp_makeConstraints(closure: { $0.edges.equalTo(containerView) })
+                containerView.add(view) { $0.edges.equalTo(containerView) }
                 view.setNeedsLayout()
             }
         }

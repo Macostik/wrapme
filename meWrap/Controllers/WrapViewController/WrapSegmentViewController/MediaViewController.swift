@@ -309,6 +309,10 @@ class MediaViewController: WrapBaseViewController {
     
     override func loadView() {
         super.loadView()
+                
+        streamView.contentInset = UIEdgeInsetsMake(100, 0, 92, 0)
+        streamView.scrollIndicatorInsets = streamView.contentInset
+        
         streamView.delaysContentTouches = false
         streamView.alwaysBounceVertical = true
         view.add(streamView) { (make) in
@@ -356,9 +360,6 @@ class MediaViewController: WrapBaseViewController {
             make.centerX.equalTo(layoutSwitcherView)
             make.centerY.equalTo(addPhotoButton)
         }
-        
-        streamView.contentInset = UIEdgeInsetsMake(0, 0, 92, 0)
-        streamView.scrollIndicatorInsets = streamView.contentInset
         
         defaultButtonsLayout()
         

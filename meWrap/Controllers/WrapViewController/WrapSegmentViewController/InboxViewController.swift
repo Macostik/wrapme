@@ -217,7 +217,7 @@ final class InboxViewController: WrapBaseViewController {
         clearButton.insets = 24 ^ 0
         clearButton.addTarget(self, touchUpInside: #selector(self.clearAll(_:)))
         view.add(clearButton) { (make) in
-            make.top.equalTo(view).offset(10)
+            make.top.equalTo(view).offset(110)
             make.leading.equalTo(view).offset(8)
         }
         streamView.alwaysBounceVertical = true
@@ -255,7 +255,7 @@ final class InboxViewController: WrapBaseViewController {
             if containsUnread {
                 make.top.equalTo(clearButton.snp_bottom).offset(4)
             } else {
-                make.top.equalTo(view)
+                make.top.equalTo(view).offset(104)
             }
             make.leading.bottom.trailing.equalTo(view)
         }
@@ -281,7 +281,8 @@ final class InboxViewController: WrapBaseViewController {
             $0.contribution.markAsUnread(false)
         })
         streamView.snp_remakeConstraints { (make) in
-            make.edges.equalTo(view)
+            make.top.equalTo(view).offset(104)
+            make.leading.bottom.trailing.equalTo(view)
         }
         clearButton.hidden = true
         dataSource.reload()

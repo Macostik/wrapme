@@ -350,9 +350,7 @@ extension HomeViewController: WrapCellDelegate {
     func wrapCell(cell: WrapCell, presentChatViewControllerForWrap wrap: Wrap) {
         streamView.userInteractionEnabled = true
         if wrap.valid {
-            let wrapViewController = Storyboard.Wrap.instantiate()
-            wrapViewController.wrap = wrap
-            wrapViewController.segment = .Chat
+            let wrapViewController = WrapViewController(wrap: wrap, segment: .Chat)
             navigationController?.pushViewController(wrapViewController, animated:false)
         }
     }

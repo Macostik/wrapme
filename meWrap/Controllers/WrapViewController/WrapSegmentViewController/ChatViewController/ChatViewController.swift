@@ -9,14 +9,23 @@
 import UIKit
 import AudioToolbox
 
-final class ChatViewController: WrapSegmentViewController, UIScrollViewDelegate {
+final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, StreamViewDataSource, EntryNotifying, ComposeBarDelegate {
     
     weak var badge: BadgeLabel?
     
     private let streamView = StreamView()
     let composeBar = ComposeBar()
     
-    lazy var chat: Chat = Chat(wrap: self.wrap)
+    let chat: Chat
+    
+    required init(wrap: Wrap) {
+        chat = Chat(wrap: wrap)
+        super.init(wrap: wrap)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private var messageMetrics = StreamMetrics<MessageCell>().change({ $0.selectable = false })
     private var messageWithNameMetrics = StreamMetrics<MessageWithNameCell>().change({ $0.selectable = false })
@@ -65,6 +74,7 @@ final class ChatViewController: WrapSegmentViewController, UIScrollViewDelegate 
         view.backgroundColor = UIColor.whiteColor()
         composeBar.backgroundColor = UIColor.whiteColor()
         
+        streamView.alwaysBounceVertical = true
         streamView.delegate = self
         streamView.dataSource = self
         view.add(streamView) { (make) in
@@ -98,7 +108,7 @@ final class ChatViewController: WrapSegmentViewController, UIScrollViewDelegate 
         
         streamView.placeholderViewBlock = { [weak self] _ in
             let view = PlaceholderView.chatPlaceholder()()
-            view.textLabel.text = String(format:"no_chat_message".ls, self?.wrap?.name ?? "")
+            view.textLabel.text = String(format:"no_chat_message".ls, self?.wrap.name ?? "")
             return view
         }
     }
@@ -108,7 +118,7 @@ final class ChatViewController: WrapSegmentViewController, UIScrollViewDelegate 
         composeBar.textView.placeholder = "message_placeholder".ls
         composeBar.textView.textColor = Color.grayDark
         composeBar.delegate = self
-        if wrap == nil {
+        if wrap.valid == false {
             Dispatch.mainQueue.after(0.5) { self.navigationController?.popViewControllerAnimated(false) }
             return
         }
@@ -162,9 +172,7 @@ final class ChatViewController: WrapSegmentViewController, UIScrollViewDelegate 
     }
     
     func sendTypingStateChange() {
-        if let wrap = wrap {
-            NotificationCenter.defaultCenter.sendTyping(typing, wrap: wrap)
-        }
+        NotificationCenter.defaultCenter.sendTyping(typing, wrap: wrap)
     }
     
     func insertMessage(message: Message) {
@@ -209,9 +217,71 @@ final class ChatViewController: WrapSegmentViewController, UIScrollViewDelegate 
             navigationController?.popToRootViewControllerAnimated(false)
         }
     }
-}
-
-extension ChatViewController: EntryNotifying {
+    
+    private func appendItemsIfNeededWithTargetContentOffset(targetContentOffset: CGPoint) {
+        let sv = self.streamView
+        let reachedRequiredOffset = (targetContentOffset.y - sv.minimumContentOffset.y) < sv.fittingContentHeight
+        if reachedRequiredOffset && Network.network.reachable && !chat.completed {
+            if wrap.valid == true {
+                chat.older(nil, failure: { $0?.showNonNetworkError() })
+            }
+        }
+    }
+    
+    // MARK: - StreamViewDataSource
+    
+    func numberOfItemsIn(section: Int) -> Int {
+        return chat.entries.count
+    }
+    
+    func entryBlockForItem(item: StreamItem) -> (StreamItem -> AnyObject?)? {
+        return { [weak self] item in
+            return self?.chat.entries[safe: item.position.index]
+        }
+    }
+    
+    func metricsAt(position: StreamPosition) -> [StreamMetricsProtocol] {
+        var metrics = [StreamMetricsProtocol]()
+        guard let message = chat.entries[safe: position.index] else { return metrics }
+        if chat.unreadMessages.first == message && badge?.value != 0 {
+            metrics.append(unreadMessagesMetrics)
+        }
+        if message.chatMetadata.containsDate {
+            metrics.append(dateMetrics)
+        }
+        if message.contributor?.current == true {
+            metrics.append(myMessageMetrics)
+        } else if message.chatMetadata.containsName {
+            metrics.append(messageWithNameMetrics)
+        } else {
+            metrics.append(messageMetrics)
+        }
+        return metrics
+    }
+    
+    func didChangeContentSize(oldContentSize: CGSize) {
+        if streamView.scrollable {
+            if dragged {
+                let offset = streamView.contentSize.height - oldContentSize.height
+                if offset > 0 {
+                    streamView.contentOffset.y += offset
+                }
+            } else {
+                streamView.contentOffset = streamView.maximumContentOffset
+            }
+        }
+        appendItemsIfNeededWithTargetContentOffset(streamView.contentOffset)
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        dragged = true
+    }
+    
+    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        appendItemsIfNeededWithTargetContentOffset(targetContentOffset.memory)
+    }
+    
+    // MARK: - EntryNotifying
     
     func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {
         insertMessage(entry as! Message)
@@ -229,9 +299,8 @@ extension ChatViewController: EntryNotifying {
     func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
         return wrap == entry.container
     }
-}
-
-extension ChatViewController: ComposeBarDelegate {
+    
+    // MARK: - ComposeBarDelegate
     
     private func sendMessageWithText(text: String) {
         if wrap.valid {
@@ -283,69 +352,5 @@ extension ChatViewController: ComposeBarDelegate {
     func composeBar(composeBar: ComposeBar, didChangeHeight oldHeight: CGFloat) {
         if composeBar.text?.isEmpty == true { return }
         streamView.contentOffset.y += (composeBar.height - oldHeight)
-    }
-}
-
-extension ChatViewController: StreamViewDataSource {
-    
-    private func appendItemsIfNeededWithTargetContentOffset(targetContentOffset: CGPoint) {
-        let sv = self.streamView
-        let reachedRequiredOffset = (targetContentOffset.y - sv.minimumContentOffset.y) < sv.fittingContentHeight
-        if reachedRequiredOffset && Network.network.reachable && !chat.completed {
-            if wrap != nil {
-                chat.older(nil, failure: { $0?.showNonNetworkError() })
-            }
-        }
-    }
-    
-    func numberOfItemsIn(section: Int) -> Int {
-        return chat.entries.count
-    }
-    
-    func entryBlockForItem(item: StreamItem) -> (StreamItem -> AnyObject?)? {
-        return { [weak self] item in
-            return self?.chat.entries[safe: item.position.index]
-        }
-    }
-    
-    func metricsAt(position: StreamPosition) -> [StreamMetricsProtocol] {
-        var metrics = [StreamMetricsProtocol]()
-        guard let message = chat.entries[safe: position.index] else { return metrics }
-        if chat.unreadMessages.first == message && badge?.value != 0 {
-            metrics.append(unreadMessagesMetrics)
-        }
-        if message.chatMetadata.containsDate {
-            metrics.append(dateMetrics)
-        }
-        if message.contributor?.current == true {
-            metrics.append(myMessageMetrics)
-        } else if message.chatMetadata.containsName {
-            metrics.append(messageWithNameMetrics)
-        } else {
-            metrics.append(messageMetrics)
-        }
-        return metrics
-    }
-    
-    func didChangeContentSize(oldContentSize: CGSize) {
-        if streamView.scrollable {
-            if dragged {
-                let offset = streamView.contentSize.height - oldContentSize.height
-                if offset > 0 {
-                    streamView.contentOffset.y += offset
-                }
-            } else {
-                streamView.contentOffset = streamView.maximumContentOffset
-            }
-        }
-        appendItemsIfNeededWithTargetContentOffset(streamView.contentOffset)
-    }
-    
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        dragged = true
-    }
-    
-    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        appendItemsIfNeededWithTargetContentOffset(targetContentOffset.memory)
     }
 }

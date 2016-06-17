@@ -13,26 +13,26 @@ enum WrapSegment: Int {
     case Inbox, Media, Chat
 }
 
-class WrapSegmentViewController: BaseViewController {
-    weak var wrap: Wrap!
+class WrapBaseViewController: BaseViewController {
+    let wrap: Wrap
+    required init(wrap: Wrap) {
+        self.wrap = wrap
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 final class WrapSegmentButton: Button {
     
-    @IBInspectable var icon: String? {
-        willSet {
-            iconLabel.text = newValue
-        }
-    }
-    
-    @IBInspectable var text: String? {
-        willSet {
-            textLabel.text = newValue?.ls
-        }
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    convenience init(icon: String, text: String) {
+        self.init(frame: CGRect.zero)
+        highlightedColor = Color.grayLightest
+        exclusiveTouch = true
+        iconLabel.text = icon
+        textLabel.text = text
         badge.clipsToBounds = true
         badge.textAlignment = .Center
         badge.backgroundColor = Color.dangerRed
@@ -76,9 +76,12 @@ final class WrapSegmentButton: Button {
     }
 }
 
-final class WrapViewController: BaseViewController {
+final class WrapViewController: WrapBaseViewController {
     
-    weak var wrap: Wrap?
+    convenience init(wrap: Wrap, segment: WrapSegment) {
+        self.init(wrap: wrap)
+        self.segment = segment
+    }
     
     var segment: WrapSegment = .Media {
         didSet {
@@ -88,18 +91,18 @@ final class WrapViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var nameLabel: UILabel!
+    private let nameLabel = Label(preset: .Large, weight: .Regular, textColor: UIColor.whiteColor())
     
-    @IBOutlet weak var inboxSegmentButton: WrapSegmentButton!
+    private let inboxSegmentButton = WrapSegmentButton(icon: "r", text: "inbox".ls)
     
-    @IBOutlet weak var mediaSegmentButton: WrapSegmentButton!
+    private let mediaSegmentButton = WrapSegmentButton(icon: "t", text: "media".ls)
     
-    @IBOutlet weak var chatSegmentButton: WrapSegmentButton!
+    private let chatSegmentButton = WrapSegmentButton(icon: ";", text: "chat".ls)
     
-    @IBOutlet weak var segmentedControl: SegmentedControl!
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var settingsButton: UIButton!
-    @IBOutlet weak var friendsStreamView: StreamView!
+    private let segmentedControl = SegmentedControl()
+    private let containerView = UIView()
+    private let settingsButton = Button(icon: "0", size: 26, textColor: UIColor.whiteColor())
+    private let friendsStreamView = StreamView()
     
     private var wrapNotifyReceiver: EntryNotifyReceiver<Wrap>?
     
@@ -107,11 +110,126 @@ final class WrapViewController: BaseViewController {
     
     private lazy var friendsDataSource: StreamDataSource<[AnyObject]> = StreamDataSource(streamView: self.friendsStreamView)
     
-    @IBOutlet weak var moreFriendsLabel: UILabel!
+    private let moreFriendsLabel = Label(icon: "/", size: 24, textColor:Color.grayLighter)
     
-    lazy var inboxViewController: InboxViewController = self.addController(InboxViewController())
-    lazy var mediaViewController: MediaViewController = self.addController(MediaViewController())
-    lazy var chatViewController: ChatViewController = self.addController(ChatViewController())
+    lazy var inboxViewController: InboxViewController = self.addController(InboxViewController(wrap: self.wrap))
+    lazy var mediaViewController: MediaViewController = self.addController(MediaViewController(wrap: self.wrap))
+    lazy var chatViewController: ChatViewController = self.addController(ChatViewController(wrap: self.wrap))
+    
+    override func loadView() {
+        super.loadView()
+        view.backgroundColor = UIColor.whiteColor()
+        let navigationBar = UIView()
+        navigationBar.backgroundColor = Color.orange
+        view.addSubview(friendsStreamView)
+        view.addSubview(segmentedControl)
+        view.add(navigationBar) { (make) in
+            make.leading.top.trailing.equalTo(view)
+            make.height.equalTo(64)
+        }
+        let _backButton = navigationBar.add(backButton(UIColor.whiteColor())) { (make) in
+            make.leading.equalTo(navigationBar).offset(12)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        settingsButton.addTarget(self, touchUpInside: #selector(self.settings(_:)))
+        navigationBar.add(settingsButton) { (make) in
+            make.trailing.equalTo(navigationBar).offset(-12)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        navigationBar.add(nameLabel) { (make) in
+            make.centerX.equalTo(navigationBar)
+            make.centerY.equalTo(navigationBar).offset(10)
+            make.leading.greaterThanOrEqualTo(_backButton.snp_trailing).offset(12)
+            make.trailing.lessThanOrEqualTo(settingsButton.snp_leading).offset(-12)
+        }
+        self.navigationBar = navigationBar
+        friendsStreamView.scrollEnabled = false
+        friendsStreamView.userInteractionEnabled = false
+        friendsStreamView.add(moreFriendsLabel) { (make) in
+            make.width.equalTo(54)
+            make.centerY.trailing.equalTo(friendsStreamView)
+        }
+        let friendsButton = Button(type: .Custom)
+        friendsButton.exclusiveTouch = true
+        friendsButton.highlightedColor = Color.grayLightest
+        friendsButton.addTarget(self, touchUpInside: #selector(self.showFriends(_:)))
+        view.insertSubview(friendsButton, belowSubview: friendsStreamView)
+        friendsButton.snp_makeConstraints { (make) in
+            make.size.equalTo(friendsStreamView)
+            make.center.equalTo(friendsStreamView)
+        }
+        defaultTopViewLayout()
+        segmentedControl.add(SeparatorView(color: Color.grayLighter, contentMode: .Top)) { (make) in
+            make.height.equalTo(1)
+            make.leading.top.trailing.equalTo(segmentedControl)
+        }
+        segmentedControl.add(SeparatorView(color: Color.grayLighter)) { (make) in
+            make.height.equalTo(1)
+            make.leading.bottom.trailing.equalTo(segmentedControl)
+        }
+        segmentedControl.add(inboxSegmentButton) { (make) in
+            make.leading.top.bottom.equalTo(segmentedControl)
+        }
+        segmentedControl.add(mediaSegmentButton) { (make) in
+            make.top.bottom.equalTo(segmentedControl)
+            make.leading.equalTo(inboxSegmentButton.snp_trailing)
+            make.width.equalTo(inboxSegmentButton)
+        }
+        segmentedControl.add(chatSegmentButton) { (make) in
+            make.trailing.top.bottom.equalTo(segmentedControl)
+            make.leading.equalTo(mediaSegmentButton.snp_trailing)
+            make.width.equalTo(mediaSegmentButton)
+        }
+        segmentedControl.setControls([inboxSegmentButton, mediaSegmentButton, chatSegmentButton])
+        segmentedControl.addTarget(self, action: #selector(self.segmentChanged(_:)), forControlEvents: .ValueChanged)
+        view.add(containerView) { (make) in
+            make.leading.bottom.trailing.equalTo(view)
+            make.top.equalTo(segmentedControl.snp_bottom)
+        }
+        
+        handleKeyboardIfNeeded()
+    }
+    
+    private func defaultTopViewLayout() {
+        self.segmentedControl.snp_remakeConstraints { (make) in
+            make.leading.trailing.equalTo(self.view)
+            make.top.equalTo(self.friendsStreamView.snp_bottom)
+            make.height.equalTo(50)
+        }
+        self.friendsStreamView.snp_remakeConstraints(closure: { (make) in
+            make.leading.trailing.equalTo(self.view)
+            make.top.equalTo(navigationBar!.snp_bottom)
+            make.height.equalTo(50)
+            
+        })
+    }
+    
+    private func handleKeyboardIfNeeded() {
+        let screenBounds = UIScreen.mainScreen().bounds
+        if screenBounds.width == 320 && screenBounds.height == 480 {
+            Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
+                keyboard.performAnimation({ () in
+                    self.friendsStreamView.snp_remakeConstraints(closure: { (make) in
+                        make.leading.trailing.equalTo(self.view)
+                        make.height.equalTo(50)
+                        
+                    })
+                    self.segmentedControl.snp_remakeConstraints { (make) in
+                        make.leading.trailing.equalTo(self.view)
+                        make.top.equalTo(self.friendsStreamView.snp_bottom)
+                        make.height.equalTo(50)
+                        make.bottom.equalTo(self.navigationBar!)
+                    }
+                    self.view.layoutIfNeeded()
+                })
+            }) { [unowned self] (keyboard) in
+                keyboard.performAnimation({ () in
+                    self.defaultTopViewLayout()
+                    self.view.layoutIfNeeded()
+                })
+            }
+        }
+    }
     
     override func viewDidLoad() {
         chatViewController.badge = chatSegmentButton.badge
@@ -134,7 +252,7 @@ final class WrapViewController: BaseViewController {
             item.hidden = !(item.entry is Invitee)
         }
         friendsDataSource.addMetrics(inviteeMetrics)
-        guard let wrap = wrap where wrap.valid else { return }
+        guard case let wrap = wrap where wrap.valid else { return }
         
         segmentedControl.deselect()
         
@@ -151,19 +269,10 @@ final class WrapViewController: BaseViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        if wrap?.valid == true {
+        if wrap.valid == true {
             updateWrapData()
             updateSegmentIfNeeded()
             updateMessageCouter()
-        }
-    }
-    
-    override func keyboardAdjustmentConstant(adjustment: KeyboardAdjustment, keyboard: Keyboard) -> CGFloat {
-        let screenBounds = UIScreen.mainScreen().bounds
-        if screenBounds.width == 320 && screenBounds.height == 480 {
-            return -(segmentedControl.superview?.height ?? 0)
-        } else {
-            return 0
         }
     }
     
@@ -181,14 +290,12 @@ final class WrapViewController: BaseViewController {
     
     func presentLiveBroadcast(broadcast: LiveBroadcast) {
         segment = .Media
-        performWhenLoaded(self) {
-            performWhenLoaded($0.mediaViewController, block: {
-                $0.presentLiveBroadcast(broadcast)
-            })
-        }
+        performWhenLoaded(mediaViewController, block: {
+            $0.presentLiveBroadcast(broadcast)
+        })
     }
     
-    private func controllerForSegment(segment: WrapSegment) -> WrapSegmentViewController {
+    private func controllerForSegment(segment: WrapSegment) -> WrapBaseViewController {
         switch segment {
         case .Inbox: return inboxViewController
         case .Media: return mediaViewController
@@ -203,7 +310,7 @@ final class WrapViewController: BaseViewController {
             receiver.didUpdate = { entry, event in
                 if event == .NumberOfUnreadMessagesChanged {
                     if self?.segment != .Chat {
-                        self?.chatSegmentButton.badge.value = self?.wrap?.numberOfUnreadMessages ?? 0
+                        self?.chatSegmentButton.badge.value = self?.wrap.numberOfUnreadMessages ?? 0
                     }
                 } else if event == .InboxChanged {
                     self?.updateInboxCounter()
@@ -222,7 +329,7 @@ final class WrapViewController: BaseViewController {
         
         userNotifyReceiver = EntryNotifyReceiver<User>().setup({ [weak self] (receiver) -> Void in
             receiver.shouldNotify = { user in
-                return self?.wrap?.contributors.contains(user) ?? false
+                return self?.wrap.contributors.contains(user) ?? false
             }
             receiver.didUpdate = { entry, event in
                 if event == .UserStatus {
@@ -235,7 +342,6 @@ final class WrapViewController: BaseViewController {
     }
     
     private func updateWrapData() {
-        guard let wrap = wrap else { return }
         nameLabel.text = wrap.name
         updateFriendsBar(wrap)
     }
@@ -289,21 +395,21 @@ final class WrapViewController: BaseViewController {
             }
             
             return $0.name < $1.name
-            }
+        }
         let friends = invitees + contributors
         moreFriendsLabel.hidden = friends.count <= maxFriendsCount
         friendsDataSource.items = Array(friends.prefix(maxFriendsCount))
     }
     
     private func updateMessageCouter() {
-        chatSegmentButton.badge.value = wrap?.numberOfUnreadMessages ?? 0
+        chatSegmentButton.badge.value = wrap.numberOfUnreadMessages ?? 0
     }
     
     private func updateInboxCounter() {
-        inboxSegmentButton.badge.value = wrap?.numberOfUnreadInboxItems ?? 0
+        inboxSegmentButton.badge.value = wrap.numberOfUnreadInboxItems ?? 0
     }
     
-    private var viewController: WrapSegmentViewController? {
+    private var viewController: WrapBaseViewController? {
         didSet {
             oldValue?.view.removeFromSuperview()
             if let controller = viewController {
@@ -318,12 +424,11 @@ final class WrapViewController: BaseViewController {
         }
     }
     
-    private func controllerNamed<T: WrapSegmentViewController>(name: String) -> T {
+    private func controllerNamed<T: WrapBaseViewController>(name: String) -> T {
         return addController(storyboard?[name] as! T)
     }
     
-    private func addController<T: WrapSegmentViewController>(controller: T) -> T {
-        controller.wrap = wrap
+    private func addController<T: WrapBaseViewController>(controller: T) -> T {
         addChildViewController(controller)
         controller.didMoveToParentViewController(self)
         return controller
@@ -337,7 +442,6 @@ extension WrapViewController {
     }
     
     @IBAction func showFriends(sender: AnyObject) {
-        guard let wrap = wrap else { return }
         let controller = ContributorsViewController(wrap: wrap)
         navigationController?.pushViewController(controller, animated: false)
     }
@@ -351,6 +455,12 @@ extension WrapViewController {
         captureViewController.captureDelegate = self
         presentViewController(captureViewController, animated: false, completion: nil)
     }
+    
+    @IBAction func settings(sender: UIButton) {
+        let controller = UIStoryboard.main["wrapSettings"] as! WrapSettingsViewController
+        controller.wrap = wrap
+        navigationController?.pushViewController(controller, animated: false)
+    }
 }
 
 extension WrapViewController: CaptureCandyViewControllerDelegate {
@@ -358,7 +468,7 @@ extension WrapViewController: CaptureCandyViewControllerDelegate {
     func captureViewController(controller: CaptureCandyViewController, didFinishWithAssets assets: [MutableAsset]) {
         let wrap = controller.wrap ?? self.wrap
         if self.wrap != wrap {
-            if let mainViewController = self.navigationController?.viewControllers.first, let wrapViewController = wrap?.createViewController() {
+            if let mainViewController = self.navigationController?.viewControllers.first, let wrapViewController = wrap.createViewController() {
                 self.navigationController?.viewControllers = [mainViewController, wrapViewController]
             }
         }
@@ -367,7 +477,7 @@ extension WrapViewController: CaptureCandyViewControllerDelegate {
         
         Dispatch.mainQueue.async {
             Sound.play()
-            wrap?.uploadAssets(assets)
+            wrap.uploadAssets(assets)
         }
     }
     

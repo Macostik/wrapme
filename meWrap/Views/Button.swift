@@ -32,6 +32,7 @@ class Button : UIButton, FontPresetable {
         titleLabel?.font = UIFont.icons(size)
         setTitle(icon, forState: .Normal)
         setTitleColor(textColor, forState: .Normal)
+        setTitleColor(textColor.darkerColor(), forState: .Highlighted)
     }
     
     convenience init(preset: Font, weight: Font.Weight = .Light, textColor: UIColor = Color.grayDarker) {

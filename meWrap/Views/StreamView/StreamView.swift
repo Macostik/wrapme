@@ -175,9 +175,9 @@ final class StreamView: UIScrollView {
             changeContentSize(layout.contentSize(item, streamView: self))
         } else {
             if layout.horizontal {
-                contentSize = CGSizeMake(layout.offset, height)
+                changeContentSize(CGSizeMake(0, height))
             } else {
-                contentSize = CGSizeMake(width, layout.offset)
+                changeContentSize(CGSizeMake(width, 0))
             }
         }
         

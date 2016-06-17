@@ -173,7 +173,7 @@ final class LiveBroadcastMediaView: EntryStreamReusableView<LiveBroadcast> {
     }
 }
 
-class MediaViewController: WrapSegmentViewController {
+class MediaViewController: WrapBaseViewController {
     
     var isMediaLayout = true {
         didSet {
@@ -209,7 +209,16 @@ class MediaViewController: WrapSegmentViewController {
     private let liveButton = Button(preset: .Normal, weight: .Regular, textColor: UIColor.whiteColor())
     private let layoutButton = Button(icon: "O", size: 24, textColor: UIColor.whiteColor())
     
-    var history: History!
+    let history: History
+    
+    required init(wrap: Wrap) {
+        history = History(wrap: wrap)
+        super.init(wrap: wrap)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         super.loadView()
@@ -312,11 +321,7 @@ class MediaViewController: WrapSegmentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let wrap = wrap else { return }
-
         streamView.placeholderViewBlock = PlaceholderView.mediaPlaceholder()
-        
-        history = History(wrap: wrap)
         
         let refresher = Refresher(scrollView: streamView)
         refresher.style = .Orange
@@ -413,11 +418,9 @@ class MediaViewController: WrapSegmentViewController {
     }
     
     func refreshUserActivities() {
-        if let wrap = wrap {
-            NotificationCenter.defaultCenter.refreshWrapUserActivities(wrap, completionHandler: { [weak self] () -> Void in
-                self?.dataSource.reload()
+        NotificationCenter.defaultCenter.refreshWrapUserActivities(wrap, completionHandler: { [weak self] () -> Void in
+            self?.dataSource.reload()
             })
-        }
     }
     
     func presentLiveBroadcast(broadcast: LiveBroadcast) {
@@ -454,7 +457,7 @@ class MediaViewController: WrapSegmentViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        guard let wrap = wrap where wrap.valid else {
+        guard wrap.valid else {
             Dispatch.mainQueue.after(0.5, block: { self.navigationController?.popViewControllerAnimated(false) })
             return
         }
@@ -471,20 +474,19 @@ class MediaViewController: WrapSegmentViewController {
             Toast.show("no_internet_connection".ls)
             return
         }
-        guard let wrap = wrap else { return }
         
-        let openLiveBroadcast: (Void -> Void) = { [weak self] () -> Void in
-            let controller = LiveBroadcasterViewController()
-            controller.wrap = wrap
-            self?.navigationController?.pushViewController(controller, animated: false)
-        }
-        
-        AVCaptureDevice.authorize({ _ in
-            openLiveBroadcast()
+        AVCaptureDevice.authorize({ [weak self] _ in
+            self?.startLiveBroadcast()
             sender.alpha = 1
             }) { _ in
                 sender.alpha =  0.5
         }
+    }
+    
+    private func startLiveBroadcast() {
+        let controller = LiveBroadcasterViewController()
+        controller.wrap = wrap
+        navigationController?.pushViewController(controller, animated: false)
     }
 }
 

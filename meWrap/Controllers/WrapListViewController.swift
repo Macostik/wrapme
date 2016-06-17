@@ -207,9 +207,7 @@ class WrapListViewController: BaseViewController {
     
     func shareContent(wrap: Wrap) {
         if let text = text {
-            let controller = Storyboard.Wrap.instantiate()
-            controller.segment = .Chat
-            controller.wrap = wrap
+            let controller = WrapViewController(wrap: wrap, segment: .Chat)
             UINavigationController.main.pushViewController(controller, animated: false)
             dismissViewControllerAnimated(false, completion: nil)
             performWhenLoaded(controller.chatViewController, block: { controller in

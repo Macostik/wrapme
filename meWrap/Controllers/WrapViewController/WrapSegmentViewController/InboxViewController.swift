@@ -189,7 +189,7 @@ extension StreamMetrics where T:InboxCell {
     }
 }
 
-final class InboxViewController: WrapSegmentViewController {
+final class InboxViewController: WrapBaseViewController {
 
     lazy var dataSource: StreamDataSource<[InboxItem]> = StreamDataSource(streamView: self.streamView)
     
@@ -233,7 +233,6 @@ final class InboxViewController: WrapSegmentViewController {
     }
     
     private func fetchUpdates() {
-        guard let wrap = wrap else { return }
         var containsUnread = false
         var updates = [InboxItem]()
         for candy in wrap.candies {

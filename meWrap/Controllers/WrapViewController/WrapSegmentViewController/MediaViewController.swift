@@ -383,7 +383,8 @@ class MediaViewController: WrapBaseViewController {
             make.top.equalTo(view.snp_bottom).offset(4)
             make.centerX.equalTo(view)
         }
-        animate { 
+        animate {
+            (parentViewController as? WrapViewController)?.setTopViewsHidden(true)
             view.layoutIfNeeded()
         }
     }
@@ -399,6 +400,7 @@ class MediaViewController: WrapBaseViewController {
     private func didScrollDown() {
         defaultButtonsLayout()
         animate {
+            (parentViewController as? WrapViewController)?.setTopViewsHidden(false)
             view.layoutIfNeeded()
         }
     }

@@ -209,26 +209,33 @@ final class WrapViewController: WrapBaseViewController {
         if screenBounds.width == 320 && screenBounds.height == 480 {
             Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
                 keyboard.performAnimation({ () in
-                    self.friendsStreamView.snp_remakeConstraints(closure: { (make) in
-                        make.leading.trailing.equalTo(self.view)
-                        make.height.equalTo(50)
-                        
-                    })
-                    self.segmentedControl.snp_remakeConstraints { (make) in
-                        make.leading.trailing.equalTo(self.view)
-                        make.top.equalTo(self.friendsStreamView.snp_bottom)
-                        make.height.equalTo(50)
-                        make.bottom.equalTo(self.navigationBar!)
-                    }
-                    self.view.layoutIfNeeded()
+                    self.setTopViewsHidden(true)
                 })
             }) { [unowned self] (keyboard) in
                 keyboard.performAnimation({ () in
-                    self.defaultTopViewLayout()
-                    self.view.layoutIfNeeded()
+                    self.setTopViewsHidden(false)
                 })
             }
         }
+    }
+    
+    func setTopViewsHidden(hidden: Bool) {
+        if hidden {
+            self.friendsStreamView.snp_remakeConstraints(closure: { (make) in
+                make.leading.trailing.equalTo(self.view)
+                make.height.equalTo(50)
+                
+            })
+            self.segmentedControl.snp_remakeConstraints { (make) in
+                make.leading.trailing.equalTo(self.view)
+                make.top.equalTo(self.friendsStreamView.snp_bottom)
+                make.height.equalTo(50)
+                make.bottom.equalTo(self.navigationBar!)
+            }
+        } else {
+            self.defaultTopViewLayout()
+        }
+        self.view.layoutIfNeeded()
     }
     
     override func viewDidLoad() {

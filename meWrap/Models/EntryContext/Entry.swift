@@ -9,6 +9,23 @@
 import Foundation
 import CoreData
 
+func ==(lhs: Entry, rhs: Entry) -> Bool {
+    return lhs.uid == rhs.uid
+}
+
+func !=(lhs: Entry, rhs: Entry) -> Bool {
+    return lhs.uid != rhs.uid
+}
+
+func ==(lhs: Entry?, rhs: Entry?) -> Bool {
+    return lhs?.uid == rhs?.uid
+}
+
+func !=(lhs: Entry?, rhs: Entry?) -> Bool {
+    return lhs?.uid != rhs?.uid
+}
+
+
 @objc(Entry)
 class Entry: NSManagedObject {
 
@@ -24,21 +41,6 @@ class Entry: NSManagedObject {
     
     class func entry(uid: String?, locuid: String? = nil, allowInsert: Bool = true) -> Self? {
         return EntryContext.sharedContext.entry(uid: uid, locuid: locuid, allowInsert: allowInsert)
-    }
-    
-    class func entryExists(uid: String?) -> Bool {
-        return EntryContext.sharedContext.hasEntry(entityName(), uid: uid)
-    }
-    
-    class func deserializeReference(reference: [String : String]) -> Self? {
-        guard let name = reference["name"], let uid = reference["uid"] else {
-            return nil
-        }
-        return EntryContext.sharedContext.entry(name, uid: uid, allowInsert: false)
-    }
-    
-    func serializeReference() -> [String : String] {
-        return ["name":self.dynamicType.entityName(), "uid":uid];
     }
     
     var valid: Bool { return managedObjectContext != nil && !self.deleted && (container?.valid ?? true) }

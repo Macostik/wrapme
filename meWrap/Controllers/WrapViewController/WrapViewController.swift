@@ -122,7 +122,6 @@ final class WrapViewController: WrapBaseViewController {
         view.backgroundColor = UIColor.whiteColor()
         let navigationBar = UIView()
         navigationBar.backgroundColor = Color.orange
-        friendsStreamView.backgroundColor = UIColor.whiteColor()
         segmentedControl.backgroundColor = UIColor.whiteColor()
         view.addSubview(containerView)
         view.addSubview(friendsStreamView)
@@ -158,6 +157,8 @@ final class WrapViewController: WrapBaseViewController {
             make.centerY.trailing.equalTo(friendsStreamView)
         }
         let friendsButton = Button(type: .Custom)
+        friendsButton.backgroundColor = UIColor.whiteColor()
+        friendsButton.normalColor = UIColor.whiteColor()
         friendsButton.exclusiveTouch = true
         friendsButton.highlightedColor = Color.grayLightest
         friendsButton.addTarget(self, touchUpInside: #selector(self.showFriends(_:)))

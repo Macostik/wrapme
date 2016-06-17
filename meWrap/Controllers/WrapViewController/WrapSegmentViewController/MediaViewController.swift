@@ -173,7 +173,7 @@ final class LiveBroadcastMediaView: EntryStreamReusableView<LiveBroadcast> {
     }
 }
 
-final class LayoutSwitcher: UIView {
+final class LayoutSwitcher: UIButton {
     
     private let mosaicButton = UIButton(type: .Custom)
     private let mediaButton = UIButton(type: .Custom)
@@ -190,6 +190,9 @@ final class LayoutSwitcher: UIView {
         selectionView.snp_makeConstraints { (make) in
             make.edges.equalTo(mosaicButton)
         }
+        selectionView.userInteractionEnabled = false
+        mosaicButton.userInteractionEnabled = false
+        mediaButton.userInteractionEnabled = false
         clipsToBounds = true
         cornerRadius = 24
         selectionView.cornerRadius = cornerRadius * 0.86
@@ -208,6 +211,18 @@ final class LayoutSwitcher: UIView {
             make.size.equalTo(self.snp_height).multipliedBy(0.86)
             make.centerY.equalTo(self)
             make.centerX.equalTo(self.snp_trailing).offset(-24)
+        }
+    }
+    
+    override var highlighted: Bool {
+        didSet {
+            animate(duration: 0.12) {
+                if highlighted {
+                    selectionView.transform = CGAffineTransformMakeScale(cornerRadius/selectionView.cornerRadius, cornerRadius/selectionView.cornerRadius)
+                } else {
+                    selectionView.transform = CGAffineTransformIdentity
+                }
+            }
         }
     }
     
@@ -281,7 +296,9 @@ class MediaViewController: WrapBaseViewController {
         streamView.dataSource = dataSource
         layoutButton.setIsMediaLayout(isMediaLayout, animated: reload)
         if reload {
-            dataSource.items = history
+            Dispatch.mainQueue.async({ () in
+                self.dataSource.items = self.history
+            })
         }
     }
     
@@ -352,8 +369,7 @@ class MediaViewController: WrapBaseViewController {
             make.centerY.equalTo(addPhotoButton)
         }
         
-        layoutButton.mediaButton.addTarget(self, touchUpInside: #selector(self.changeLayout(_:)))
-        layoutButton.mosaicButton.addTarget(self, touchUpInside: #selector(self.changeLayout(_:)))
+        layoutButton.addTarget(self, touchUpInside: #selector(self.changeLayout(_:)))
         layoutButton.mosaicButton.exclusiveTouch = true
         layoutButton.mediaButton.exclusiveTouch = true
         view.add(layoutButton) { (make) in

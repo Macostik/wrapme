@@ -26,10 +26,6 @@ struct EntryDescriptor: Hashable {
         self.locuid = locuid
     }
     
-    func entryExists() -> Bool {
-        return EntryContext.sharedContext.hasEntry(name, uid: uid)
-    }
-    
     func belongsToEntry(entry: Entry) -> Bool {
         if let locuid = locuid {
             return uid == entry.uid || locuid == entry.locuid

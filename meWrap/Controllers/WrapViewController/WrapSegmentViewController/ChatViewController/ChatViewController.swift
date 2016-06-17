@@ -161,7 +161,16 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
     }
     
     func scrollToLastUnreadMessage() {
-        streamView.scrollToItemPassingTest({ $0.metrics === unreadMessagesMetrics }, animated:false)
+        if let message = chat.unreadMessages.first, let index = chat.entries.indexOf(message) {
+            streamView.scrollToItemPassingTest({
+                $0.metrics is StreamMetrics<MessageCell> && $0.position.index == index
+                }, animated:false)
+            let unreadMessagesItem = streamView.itemPassingTest({ $0.metrics === unreadMessagesMetrics })
+            if let item = unreadMessagesItem where item.visible == false {
+                let offsetY = smoothstep(streamView.minimumContentOffset.y, streamView.maximumContentOffset.y, item.frame.origin.y)
+                streamView.contentOffset.y = offsetY
+            }
+        }
     }
     
     var typing = false {

@@ -19,7 +19,7 @@ final class HomeViewController: BaseViewController {
     @IBOutlet weak var emailConfirmationView: UIView!
     @IBOutlet weak var createWrapButton: UIButton!
     @IBOutlet weak var verificationEmailLabel: Label!
-    private let photoButton = Button(type: .Custom)
+    private let photoButton = AnimatedButton(type: .Custom)
     weak var candiesView: RecentCandiesView?
     
     let activityStatusView = ActivityStatusView()
@@ -35,8 +35,10 @@ final class HomeViewController: BaseViewController {
     
     override func loadView() {
         super.loadView()
-        photoButton.setBackgroundImage(UIImage(named: "btn_wrap_camera_enabled"), forState: .Normal)
-        photoButton.setBackgroundImage(UIImage(named: "btn_wrap_camera_pressed"), forState: .Highlighted)
+        photoButton.cornerRadius = 41
+        photoButton.circleView.backgroundColor = Color.orange.colorWithAlphaComponent(0.88)
+        photoButton.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.7)
+        photoButton.setImage(UIImage(named: "home_ic_new_photo"), forState: .Normal)
         photoButton.exclusiveTouch = true
         photoButton.addTarget(self, touchUpInside: #selector(self.addPhoto(_:)))
         view.addSubview(photoButton)
@@ -57,7 +59,7 @@ final class HomeViewController: BaseViewController {
     
     private func didScrollUp() {
         photoButton.snp_remakeConstraints { (make) in
-            make.size.equalTo(84)
+            make.size.equalTo(82)
             make.top.equalTo(view.snp_bottom).offset(4)
             make.centerX.equalTo(view)
         }
@@ -68,7 +70,7 @@ final class HomeViewController: BaseViewController {
     
     private func defaultPhotoButtonLayout() {
         photoButton.snp_remakeConstraints { (make) in
-            make.size.equalTo(84)
+            make.size.equalTo(82)
             make.bottom.equalTo(view).offset(-4)
             make.centerX.equalTo(view)
         }

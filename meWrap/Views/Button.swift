@@ -230,3 +230,46 @@ extension Button {
         return button
     }
 }
+
+final class AnimatedButton: Button {
+    
+    let circleView = UIView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        adjustsImageWhenHighlighted = false
+        circleView.userInteractionEnabled = false
+        insertSubview(circleView, atIndex: 0)
+        circleView.snp_makeConstraints { (make) in
+            make.center.equalTo(self)
+            make.size.equalTo(self).multipliedBy(0.86)
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        sendSubviewToBack(circleView)
+        circleView.cornerRadius = cornerRadius * 0.86
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override var highlighted: Bool {
+        didSet {
+            animate(duration: 0.12) {
+                if highlighted {
+                    let scale = cornerRadius/circleView.cornerRadius
+                    circleView.transform = CGAffineTransformMakeScale(scale, scale)
+                    circleView.backgroundColor = circleView.backgroundColor?.colorWithAlphaComponent(1)
+                } else {
+                    circleView.transform = CGAffineTransformIdentity
+                    circleView.backgroundColor = circleView.backgroundColor?.colorWithAlphaComponent(0.88)
+                }
+                layoutIfNeeded()
+            }
+        }
+    }
+}
+

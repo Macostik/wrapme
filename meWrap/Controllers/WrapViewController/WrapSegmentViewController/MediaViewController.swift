@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import AVFoundation
 
-class HistoryItemHeader: EntryStreamReusableView<HistoryItem> {
+final class HistoryItemHeader: EntryStreamReusableView<HistoryItem> {
     
     private let dateLabel = Label(preset: .Small, weight: .Regular, textColor: Color.orange)
     
@@ -55,7 +55,7 @@ class HistoryItemHeader: EntryStreamReusableView<HistoryItem> {
     }
 }
 
-class HistoryItemCell: EntryStreamReusableView<HistoryItem> {
+final class HistoryItemCell: EntryStreamReusableView<HistoryItem> {
     
     class HistoryItemDataSource: StreamDataSource<[Candy]> {
         func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -173,6 +173,90 @@ final class LiveBroadcastMediaView: EntryStreamReusableView<LiveBroadcast> {
     }
 }
 
+final class LayoutSwitcher: UIView {
+    
+    private let mosaicButton = UIButton(type: .Custom)
+    private let mediaButton = UIButton(type: .Custom)
+    private let selectionView = UIView()
+    
+    convenience init() {
+        self.init(frame: CGRect.zero)
+        snp_makeConstraints { (make) in
+            make.size.equalTo(CGSize(width: 96, height: 48))
+        }
+        addSubview(selectionView)
+        addSubview(mosaicButton)
+        addSubview(mediaButton)
+        selectionView.snp_makeConstraints { (make) in
+            make.edges.equalTo(mosaicButton)
+        }
+        clipsToBounds = true
+        cornerRadius = 24
+        selectionView.cornerRadius = cornerRadius * 0.86
+        selectionView.backgroundColor = Color.orange.colorWithAlphaComponent(0.88)
+        backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.7)
+        mediaButton.setImage(UIImage(named: "home_ic_list_view_normal"), forState: .Normal)
+        mediaButton.setImage(UIImage(named: "home_ic_list_view_selected"), forState: .Selected)
+        mosaicButton.setImage(UIImage(named: "home_ic_tiles_view_normal"), forState: .Normal)
+        mosaicButton.setImage(UIImage(named: "home_ic_tiles_view_selected"), forState: .Selected)
+        mosaicButton.snp_makeConstraints { (make) in
+            make.size.equalTo(self.snp_height).multipliedBy(0.86)
+            make.centerY.equalTo(self)
+            make.centerX.equalTo(self.snp_leading).offset(24)
+        }
+        mediaButton.snp_makeConstraints { (make) in
+            make.size.equalTo(self.snp_height).multipliedBy(0.86)
+            make.centerY.equalTo(self)
+            make.centerX.equalTo(self.snp_trailing).offset(-24)
+        }
+    }
+    
+    func setIsMediaLayout(isMediaLayout: Bool, animated: Bool) {
+        
+        if animated {
+            self.mosaicButton.selected = true
+            self.mediaButton.selected = true
+            UIView.animateWithDuration(0.12, animations: {
+                UIView.setAnimationBeginsFromCurrentState(true)
+                self.selectionView.backgroundColor = Color.orange
+                self.selectionView.snp_remakeConstraints(closure: { (make) in
+                    make.leading.equalTo(self.mosaicButton)
+                    make.trailing.equalTo(self.mediaButton)
+                    make.top.bottom.equalTo(self.mosaicButton)
+                })
+                self.layoutIfNeeded()
+                }, completion: { (_) in
+                    UIView.animateWithDuration(0.12, animations: {
+                        UIView.setAnimationBeginsFromCurrentState(true)
+                        self.mosaicButton.selected = !isMediaLayout
+                        self.mediaButton.selected = isMediaLayout
+                        self.selectionView.backgroundColor = Color.orange.colorWithAlphaComponent(0.88)
+                        self.selectionView.snp_remakeConstraints(closure: { (make) in
+                            if isMediaLayout {
+                                make.edges.equalTo(self.mediaButton)
+                            } else {
+                                make.edges.equalTo(self.mosaicButton)
+                            }
+                        })
+                        self.layoutIfNeeded()
+                        }, completion: { (_) in
+                            
+                    })
+            })
+        } else {
+            mosaicButton.selected = !isMediaLayout
+            mediaButton.selected = isMediaLayout
+            self.selectionView.snp_remakeConstraints(closure: { (make) in
+                if isMediaLayout {
+                    make.edges.equalTo(self.mediaButton)
+                } else {
+                    make.edges.equalTo(self.mosaicButton)
+                }
+            })
+        }
+    }
+}
+
 class MediaViewController: WrapBaseViewController {
     
     var isMediaLayout = true {
@@ -195,7 +279,7 @@ class MediaViewController: WrapBaseViewController {
         dataSource.streamView = streamView
         streamView.delegate = dataSource
         streamView.dataSource = dataSource
-        layoutButton.selected = isMediaLayout
+        layoutButton.setIsMediaLayout(isMediaLayout, animated: reload)
         if reload {
             dataSource.items = history
         }
@@ -205,9 +289,12 @@ class MediaViewController: WrapBaseViewController {
     lazy var mediaDataSource: PaginatedStreamDataSource<History> = self.createMediaDataSource()
     lazy var mosaicDataSource: PaginatedStreamDataSource<History> = self.createMosaicDataSource()
     private let streamView = StreamView()
-    let addPhotoButton = Button(type: .Custom)
-    private let liveButton = Button(preset: .Normal, weight: .Regular, textColor: UIColor.whiteColor())
-    private let layoutButton = Button(icon: "O", size: 24, textColor: UIColor.whiteColor())
+    let addPhotoButton = AnimatedButton(type: .Custom)
+    private let liveButton = AnimatedButton(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
+    private let layoutButton = LayoutSwitcher()
+    
+    private let layoutSwitcherView = UIView()
+    private let liveButtonView = UIView()
     
     let history: History
     
@@ -227,30 +314,48 @@ class MediaViewController: WrapBaseViewController {
         view.add(streamView) { (make) in
             make.edges.equalTo(view)
         }
-        liveButton.cornerRadius = 28
-        liveButton.setTitle("LIVE", forState: .Normal)
-        liveButton.clipsToBounds = true
-        liveButton.normalColor = Color.orange.colorWithAlphaComponent(0.78)
-        liveButton.backgroundColor = liveButton.normalColor
-        liveButton.highlightedColor = Color.orangeDark
-        liveButton.setTitleColor(Color.grayLightest, forState: .Highlighted)
-        liveButton.addTarget(self, touchUpInside: #selector(self.liveBroadcast(_:)))
-        liveButton.exclusiveTouch = true
-        view.addSubview(liveButton)
-        addPhotoButton.setBackgroundImage(UIImage(named: "btn_wrap_camera_enabled"), forState: .Normal)
-        addPhotoButton.setBackgroundImage(UIImage(named: "btn_wrap_camera_pressed"), forState: .Highlighted)
+        
+        addPhotoButton.cornerRadius = 41
+        addPhotoButton.circleView.backgroundColor = Color.orange.colorWithAlphaComponent(0.88)
+        addPhotoButton.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.7)
+        addPhotoButton.setImage(UIImage(named: "home_ic_new_photo"), forState: .Normal)
         addPhotoButton.exclusiveTouch = true
         view.addSubview(addPhotoButton)
-        layoutButton.cornerRadius = 28
-        layoutButton.setTitle("S", forState: .Selected)
-        layoutButton.clipsToBounds = true
-        layoutButton.normalColor = Color.orange.colorWithAlphaComponent(0.78)
-        layoutButton.backgroundColor = layoutButton.normalColor
-        layoutButton.highlightedColor = Color.orangeDark
-        layoutButton.setTitleColor(Color.grayLightest, forState: .Highlighted)
-        layoutButton.addTarget(self, touchUpInside: #selector(self.changeLayout(_:)))
-        layoutButton.exclusiveTouch = true
-        view.addSubview(layoutButton)
+        
+        layoutSwitcherView.userInteractionEnabled = false
+        view.add(layoutSwitcherView) { (make) in
+            make.leading.bottom.equalTo(view)
+            make.trailing.equalTo(addPhotoButton.snp_leading)
+            make.height.equalTo(addPhotoButton)
+        }
+        liveButtonView.userInteractionEnabled = false
+        view.add(liveButtonView) { (make) in
+            make.trailing.bottom.equalTo(view)
+            make.leading.equalTo(addPhotoButton.snp_trailing)
+            make.height.equalTo(addPhotoButton)
+        }
+        
+        liveButton.cornerRadius = 24
+        liveButton.circleView.backgroundColor = Color.dangerRed.colorWithAlphaComponent(0.88)
+        liveButton.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.7)
+        liveButton.setTitle("LIVE", forState: .Normal)
+        liveButton.clipsToBounds = true
+        liveButton.addTarget(self, touchUpInside: #selector(self.liveBroadcast(_:)))
+        liveButton.exclusiveTouch = true
+        view.add(liveButton) { (make) in
+            make.size.equalTo(48)
+            make.centerX.equalTo(liveButtonView)
+            make.centerY.equalTo(addPhotoButton)
+        }
+        
+        layoutButton.mediaButton.addTarget(self, touchUpInside: #selector(self.changeLayout(_:)))
+        layoutButton.mosaicButton.addTarget(self, touchUpInside: #selector(self.changeLayout(_:)))
+        layoutButton.mosaicButton.exclusiveTouch = true
+        layoutButton.mediaButton.exclusiveTouch = true
+        view.add(layoutButton) { (make) in
+            make.centerX.equalTo(layoutSwitcherView)
+            make.centerY.equalTo(addPhotoButton)
+        }
         
         streamView.contentInset = UIEdgeInsetsMake(0, 0, 92, 0)
         streamView.scrollIndicatorInsets = streamView.contentInset
@@ -273,20 +378,10 @@ class MediaViewController: WrapBaseViewController {
     }
     
     private func didScrollUp() {
-        liveButton.snp_remakeConstraints { (make) in
-            make.size.equalTo(56)
-            make.leading.equalTo(view.snp_trailing).offset(8)
-            make.bottom.equalTo(view).offset(-4)
-        }
         addPhotoButton.snp_remakeConstraints { (make) in
-            make.size.equalTo(84)
+            make.size.equalTo(82)
             make.top.equalTo(view.snp_bottom).offset(4)
             make.centerX.equalTo(view)
-        }
-        layoutButton.snp_remakeConstraints { (make) in
-            make.size.equalTo(56)
-            make.trailing.equalTo(view.snp_leading).offset(-8)
-            make.bottom.equalTo(view).offset(-4)
         }
         animate { 
             view.layoutIfNeeded()
@@ -294,20 +389,10 @@ class MediaViewController: WrapBaseViewController {
     }
     
     private func defaultButtonsLayout() {
-        liveButton.snp_remakeConstraints { (make) in
-            make.size.equalTo(56)
-            make.trailing.equalTo(view).offset(-8)
-            make.bottom.equalTo(view).offset(-4)
-        }
         addPhotoButton.snp_remakeConstraints { (make) in
-            make.size.equalTo(84)
+            make.size.equalTo(82)
             make.bottom.equalTo(view).offset(-4)
             make.centerX.equalTo(view)
-        }
-        layoutButton.snp_remakeConstraints { (make) in
-            make.size.equalTo(56)
-            make.leading.equalTo(view).offset(8)
-            make.bottom.equalTo(view).offset(-4)
         }
     }
     

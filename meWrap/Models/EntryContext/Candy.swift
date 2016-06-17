@@ -30,7 +30,7 @@ final class Candy: Contribution {
     private var _latestComment: Comment?
     var latestComment: Comment? {
         if _latestComment == nil {
-            _latestComment = comments.sort({ $0.createdAt.later($1.createdAt) }).first
+            _latestComment = comments.sort({ $0.createdAt > $1.createdAt }).first
         }
         return _latestComment
     }

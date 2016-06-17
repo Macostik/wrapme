@@ -34,6 +34,8 @@ class StreamReusableView: UIView, UIGestureRecognizerDelegate {
     
     func willEnqueue() {}
     
+    func resetup() {}
+    
     // MARK: - UIGestureRecognizerDelegate
     
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -65,7 +67,7 @@ class EntryStreamReusableView<T: AnyObject>: StreamReusableView {
     
     func setupEmpty() {}
     
-    func resetup() {
+    override func resetup() {
         if let entry = entry {
             setup(entry)
         } else {

@@ -495,6 +495,10 @@ extension MediaViewController: EntryNotifying {
     func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
         if (event == .LiveBroadcastsChanged) {
             dataSource.reload()
+        } else {
+            streamView.visibleItems().all({ (item) in
+                item.view?.resetup()
+            })
         }
     }
     

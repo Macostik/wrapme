@@ -197,23 +197,18 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
                 return
             }
             let streamView = _self.streamView
-            if _self.chat.entries.contains({ $0 === message }) {
+            _self.chat.add(message)
+            let offset = streamView.contentOffset.y
+            let maxOffset = streamView.maximumContentOffset.y
+            if message.contributor != User.currentUser {
+                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+            }
+            if !streamView.scrollable || maxOffset - offset > 5 {
                 finish()
             } else {
-                _self.chat.add(message)
-                let offset = streamView.contentOffset
-                let maximumOffset = streamView.maximumContentOffset
-                if message.contributor != User.currentUser {
-                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                }
-                if !streamView.scrollable || offset.y < maximumOffset.y {
-                    finish()
-                } else {
-                    streamView.reload()
-                    streamView.contentOffset = streamView.maximumContentOffset.offset(0, y: -_self.chat.heightOfMessageCell(message))
-                    streamView.setMaximumContentOffsetAnimated(true)
-                    Dispatch.mainQueue.after(0.5, block:finish)
-                }
+                streamView.contentOffset.y = maxOffset - _self.chat.heightOfMessageCell(message)
+                streamView.setMaximumContentOffsetAnimated(true)
+                Dispatch.mainQueue.after(0.5, block:finish)
             }
         }
     }
@@ -327,6 +322,7 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
         self.typing = false
         wrap.typedMessage = nil
         composeBar.text = ""
+        view.layoutIfNeeded()
         sendMessageWithText(text)
     }
     

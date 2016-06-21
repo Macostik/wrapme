@@ -208,6 +208,8 @@ class CameraViewController: BaseViewController {
         }
         DeviceManager.defaultManager.beginUsingAccelerometer()
         
+        cameraView.hidden = true
+        
         AVCaptureDevice.authorize({ _ in
             self.position = self.defaultPosition
             if self.isAvatar {
@@ -218,7 +220,11 @@ class CameraViewController: BaseViewController {
             self.flashModeControl.mode = self.flashMode
             self.cameraView.layer.session = self.session
             self.session.start()
-            self.cameraView.setNeedsLayout()
+            self.session.performBlock({ () in
+                Dispatch.mainQueue.async({ () in
+                    self.cameraView.hidden = false
+                })
+            })
             }) { _ in
                 let accessLabel = Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
                 accessLabel.text = "access_to_camera_message".ls

@@ -37,7 +37,6 @@ class InboxCell: EntryStreamReusableView<InboxItem> {
     internal let userNameLabel = Label(preset: .Small, textColor: Color.grayLighter)
     internal let timeLabel = Label(preset: .Smaller, textColor: Color.grayLighter)
     internal let imageView = ImageView(backgroundColor: UIColor.clearColor())
-    internal let videoIndicator = Label(icon: "+", size: 24)
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         addSubview(containerView)
@@ -50,7 +49,6 @@ class InboxCell: EntryStreamReusableView<InboxItem> {
         headerView.addSubview(userNameLabel)
         headerView.addSubview(timeLabel)
         containerView.addSubview(imageView)
-        containerView.addSubview(videoIndicator)
         containerView.snp_makeConstraints {
             $0.top.equalTo(self)
             $0.leading.trailing.equalTo(self).inset(8)
@@ -75,10 +73,27 @@ class InboxCell: EntryStreamReusableView<InboxItem> {
             $0.top.equalTo(avatarView.snp_centerY)
             $0.trailing.equalTo(headerView).inset(12)
         }
-        videoIndicator.snp_makeConstraints {
-            $0.trailing.equalTo(imageView).offset(-12)
-            $0.top.equalTo(imageView).offset(8)
-        }
+    }
+    
+    internal weak var videoPlayer: VideoPlayer?
+    
+    override func willEnqueue() {
+        super.willEnqueue()
+        videoPlayer?.removeFromSuperview()
+    }
+    
+    @objc internal func startPlayingVideo() {
+        videoPlayer?.playing = true
+    }
+    
+    internal func addVideoPlayer(asset: Asset?) {
+        let playerView = VideoPlayer.createPlayerView()
+        playerView.frame = imageView.bounds
+        playerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        imageView.insertSubview(playerView, atIndex: 0)
+        playerView.url = asset?.videoURL()
+        self.videoPlayer = playerView
+        self.performSelector(#selector(self.startPlayingVideo), withObject: nil, afterDelay: 0.0)
     }
 
     override func setup(update: InboxItem) {
@@ -126,13 +141,18 @@ class InboxTextCell: InboxCell {
             if commentType == .Text {
                 textView.text = comment.text
                 imageView.url = comment.candy?.asset?.small
+                if comment.candy?.mediaType == .Video {
+                    addVideoPlayer(comment.candy?.asset)
+                }
             } else {
                 textView.text = comment.displayText((comment.isVideo ? "see_my_video_comment".ls : "see_my_photo_comment".ls))
                 imageView.url = comment.asset?.small
+                if comment.commentType() == .Video {
+                    addVideoPlayer(comment.asset)
+                }
             }
             avatarView.url = comment.contributor?.avatar?.small
             userNameLabel.text = "\(comment.contributor?.name ?? ""):"
-            videoIndicator.hidden = commentType != .Video
             textView.textColor = update.unread ? Color.grayDark : Color.grayLighter
         }
     }
@@ -163,13 +183,9 @@ class InboxImageCell: InboxCell {
                 avatarView.url = candy.contributor?.avatar?.small
                 userNameLabel.text = "\(candy.contributor?.name ?? "") \((candy.isVideo ? "posted_new_video" : "posted_new_photo").ls)"
             }
-            videoIndicator.hidden = candy.mediaType != .Video
-        } else if let comment = update.contribution as? Comment {
-            imageView.url = comment.asset?.medium
-            avatarView.url = comment.contributor?.avatar?.small
-            let isVideo = comment.commentType() == .Video
-            userNameLabel.text = "\(comment.contributor?.name ?? "") \((isVideo ? "posted_video_comment" : "posted_photo_comment").ls)"
-            videoIndicator.hidden = !isVideo
+            if candy.mediaType == .Video {
+                addVideoPlayer(candy.asset)
+            }
         }
     }
 }

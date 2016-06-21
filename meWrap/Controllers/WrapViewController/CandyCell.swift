@@ -13,7 +13,6 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
     
     let imageView = ImageView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.white.photoStyle(56))
     let commentLabel = Label(preset: .Smaller, textColor: UIColor.whiteColor())
-    let videoIndicator = Label(icon: "+", size: 24)
     let gradientView = GradientView(startColor: UIColor.blackColor().colorWithAlphaComponent(0.8))
     private let mediaCommentIndicator = UIImageView()
     private let spinner = specify(UIActivityIndicatorView(activityIndicatorStyle: .White)) {
@@ -35,10 +34,6 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         pressedStateButton.normalColor = UIColor.clearColor()
         pressedStateButton.exclusiveTouch = true
         add(imageView) { $0.edges.equalTo(self) }
-        add(videoIndicator) {
-            $0.top.equalTo(self).offset(2)
-            $0.right.equalTo(self).offset(-2)
-        }
         add(pressedStateButton) { make in
             make.edges.equalTo(self)
         }
@@ -142,7 +137,6 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         userInteractionEnabled = true
         exclusiveTouch = true
         uploadingView = nil
-        videoIndicator.hidden = true
         imageView.url = nil
         commentLabel.superview?.hidden = true
     }
@@ -161,7 +155,6 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
     override func setup(candy: Candy) {
         userInteractionEnabled = true
         exclusiveTouch = true
-        videoIndicator.hidden = candy.mediaType != .Video
         imageView.url = candy.asset?.small
         uploadingView = candy.uploadingView
         

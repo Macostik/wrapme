@@ -164,6 +164,7 @@ class CameraViewController: BaseViewController {
         flashModeControl.backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.7)
         flashModeControl.cornerRadius = 22
         flashModeControl.setBorder(width: 1)
+        flashModeControl.addTarget(self, action: #selector(self.flashModeChanged(_:)), forControlEvents: .ValueChanged)
         photoTakingView.add(flashModeControl) { (make) in
             make.leading.equalTo(photoTakingView).inset(8)
             make.bottom.equalTo(assetsViewController.view.snp_top).inset(-8)

@@ -73,12 +73,12 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
         
         view.backgroundColor = UIColor.whiteColor()
         composeBar.backgroundColor = UIColor.whiteColor()
-        
+        streamView.contentInset = UIEdgeInsetsMake(100, 0, 0, 0)
         streamView.alwaysBounceVertical = true
         streamView.delegate = self
         streamView.dataSource = self
         view.add(streamView) { (make) in
-            make.top.equalTo(view).offset(100)
+            make.top.equalTo(view)
             make.leading.trailing.equalTo(view)
         }
         view.add(composeBar) { (make) in
@@ -144,8 +144,11 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
         composeBar.text = wrap.typedMessage
     }
     
+    private var topViewsHidden = false
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        topViewsHidden = false
         streamView.width = view.width
         streamView.unlock()
         chat.sort()
@@ -318,7 +321,20 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
         }
     }
     
+    private func setTopViewsHidden(hidden: Bool) {
+        if hidden != topViewsHidden {
+            if streamView.scrollable || !hidden {
+                topViewsHidden = hidden
+                streamView.contentInset.top = hidden ? 0 : 100
+                animate(animations: {
+                    (parentViewController as? WrapViewController)?.setTopViewsHidden(hidden)
+                })
+            }
+        }
+    }
+    
     func composeBar(composeBar: ComposeBar, didFinishWithText text: String) {
+        setTopViewsHidden(false)
         self.typing = false
         wrap.typedMessage = nil
         composeBar.text = ""
@@ -332,6 +348,7 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
         }
         wrap.typedMessage = composeBar.text
         typing = composeBar.text?.isEmpty == false
+        setTopViewsHidden(typing)
         enqueueSelector(#selector(self.typingIdled), argument: nil, delay: 3)
     }
     
@@ -346,9 +363,14 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
     }
     
     func composeBarDidBeginEditing(composeBar: ComposeBar) {
+        setTopViewsHidden(composeBar.text?.isEmpty == false)
         if markAsReadIfNeeded() {
             streamView.reload()
         }
+    }
+    
+    func composeBarDidEndEditing(composeBar: ComposeBar) {
+        setTopViewsHidden(false)
     }
     
     func typingIdled() {

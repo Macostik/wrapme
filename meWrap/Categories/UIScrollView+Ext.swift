@@ -84,6 +84,6 @@ extension UIScrollView {
         let height = self.height
         let offset = self.contentOffset.y
         block()
-        self.contentOffset.y = smoothstep(0, self.maximumContentOffset.y, offset + (height - self.height))
+        self.contentOffset.y = smoothstep(self.minimumContentOffset.y, self.maximumContentOffset.y, offset + (height - self.height))
     }
 }

@@ -127,7 +127,7 @@ class InboxTextCell: InboxCell {
                 textView.text = comment.text
                 imageView.url = comment.candy?.asset?.small
             } else {
-                textView.text = comment.displayText()
+                textView.text = comment.displayText((comment.isVideo ? "see_my_video_comment".ls : "see_my_photo_comment".ls))
                 imageView.url = comment.asset?.small
             }
             avatarView.url = comment.contributor?.avatar?.small

@@ -168,7 +168,7 @@ final class CommentView: UIView {
                     let commentType = comment.commentType()
                     layoutFor(commentType)
                     if commentType != .Text {
-                        text.text = comment.displayText()
+                        text.text = comment.displayText((comment.isVideo ? "see_my_video_comment".ls : "see_my_photo_comment".ls))
                         imageView.url = comment.asset?.small
                         if commentType == .Video {
                             addVideoPlayer(comment)

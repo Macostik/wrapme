@@ -61,14 +61,15 @@ final class Comment: Contribution {
         }
     }
     
-    func displayText() -> String {
+    func displayText(@autoclosure block: () -> String) -> String {
         if let text = text where !text.isEmpty {
             return text
         } else {
-            let isVideo = asset?.type == .Video
-            return "\(isVideo ? "video_comment_by".ls : "photo_comment_by".ls) \(contributor?.name ?? "")"
+            return block()
         }
     }
+    
+    var isVideo: Bool { return asset?.type == .Video }
     
     var mediaType: MediaType {
         get { return MediaType(rawValue: type) ?? .Photo }

@@ -57,7 +57,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         }
         gradientView.add(mediaCommentIndicator) { make in
             make.centerY.equalTo(gradientView)
-            make.leading.equalTo(gradientView).offset(8)
+            make.leading.equalTo(gradientView).offset(3)
         }
         
         imageView.add(spinner) {
@@ -187,7 +187,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
             } else  {
                 commentLabel.textAlignment = .Left
                 mediaCommentIndicator.hidden = false
-                textCommentConstraint.updateOffset(36)
+                textCommentConstraint.updateOffset(24)
                 gradientView.hidden = false
                 if commentType == .Photo {
                     mediaCommentIndicator.image = CandyCell.photoAnimationImage
@@ -195,7 +195,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
                     mediaCommentIndicator.image = CandyCell.videoAnimationImage
                 }
                 mediaCommentIndicator.startAnimating()
-                commentLabel.text = comment.displayText()
+                commentLabel.text = comment.displayText("\(comment.isVideo ? "video_comment_by".ls : "photo_comment_by".ls) \(comment.contributor?.name ?? "")")
             }
         } else {
             mediaCommentIndicator.image = nil

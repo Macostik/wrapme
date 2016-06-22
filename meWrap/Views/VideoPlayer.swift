@@ -22,7 +22,13 @@ final class VideoPlayer: UIView {
         self.add($0) { $0.center.equalTo(self) }
     }
     
+    private var paused = false
+    
     static let didBecomeUnmuted = BlockNotifier<VideoPlayer>()
+    
+    static let pauseAll = BlockNotifier<Void>()
+    
+    static let resumeAll = BlockNotifier<Void>()
     
     static func createPlayerView(muted: Bool = true) -> VideoPlayer {
         let playerView = VideoPlayer()
@@ -33,6 +39,19 @@ final class VideoPlayer: UIView {
     
     convenience init() {
         self.init(frame: CGRect.zero)
+        
+        VideoPlayer.pauseAll.subscribe(self) { [unowned self] (value) in
+            self.paused = true
+            self.player.pause()
+        }
+        
+        VideoPlayer.resumeAll.subscribe(self) { [unowned self] (value) in
+            self.paused = false
+            if self.playing {
+                self.player.play()
+            }
+        }
+        
         VideoPlayer.didBecomeUnmuted.subscribe(self) { [unowned self] videoPlayer in
             if videoPlayer != self {
                 self.muted = true
@@ -53,7 +72,9 @@ final class VideoPlayer: UIView {
         didSet {
             guard playing != oldValue else { return }
             if playing {
-                play()
+                if !paused {
+                    play()
+                }
             } else {
                 player.pause()
             }
@@ -111,7 +132,7 @@ final class VideoPlayer: UIView {
     }
     
     func playerItemDidPlayToEndTime(notification: NSNotification) {
-        if _item == notification.object as? AVPlayerItem {
+        if _item == notification.object as? AVPlayerItem && !paused {
             play()
         }
     }
@@ -131,5 +152,14 @@ final class VideoPlayer: UIView {
     
     @objc private func volume(sender: UIButton) {
         muted = !muted
+    }
+    
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        if window == nil {
+            player.pause()
+        } else if playing && !paused {
+            player.play()
+        }
     }
 }

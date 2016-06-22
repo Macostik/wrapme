@@ -142,8 +142,6 @@ class MediaCameraViewController: CameraViewController {
     }()
     
     deinit {
-        AudioSession.locked = false
-        AudioSession.category = AVAudioSessionCategoryAmbient
         if videoFilePath.isExistingFilePath {
             _ = try? NSFileManager.defaultManager().removeItemAtPath(self.videoFilePath)
         }
@@ -151,8 +149,6 @@ class MediaCameraViewController: CameraViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AudioSession.category = AVAudioSessionCategoryPlayAndRecord
-        AudioSession.locked = true
         let recognizer = UILongPressGestureRecognizer(target:self, action:#selector(self.startVideoRecording(_:)))
         recognizer.allowableMovement = 72
         recognizer.delegate = self

@@ -182,6 +182,7 @@ class CaptureMovieFileOutput: AVCaptureMovieFileOutput, AVCaptureFileOutputRecor
     var stopHandler: (() -> ())?
     
     func start(url: NSURL, handler: CaptureMovieFileOutput -> ()) {
+        AudioSession.category = AVAudioSessionCategoryPlayAndRecord
         startHandler = handler
         startRecordingToOutputFileURL(url, recordingDelegate: self)
     }
@@ -201,5 +202,6 @@ class CaptureMovieFileOutput: AVCaptureMovieFileOutput, AVCaptureFileOutputRecor
         finishHandler = nil
         stopHandler?()
         stopHandler = nil
+        AudioSession.category = AVAudioSessionCategoryAmbient
     }
 }

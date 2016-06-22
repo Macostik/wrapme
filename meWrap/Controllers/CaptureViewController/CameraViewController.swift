@@ -189,9 +189,6 @@ class CameraViewController: BaseViewController {
     }
     
     override func viewDidLoad() {
-        
-        AudioSession.category = AVAudioSessionCategoryAmbient
-        
         super.viewDidLoad()
         
         #if DEBUG

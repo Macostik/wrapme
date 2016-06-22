@@ -12,11 +12,9 @@ import AVFoundation
 
 struct AudioSession {
     
-    static var locked = false
-    
     static var category: String? {
         didSet {
-            if let category = category where category != oldValue && !locked {
+            if let category = category where category != oldValue {
                 _ = try? AVAudioSession.sharedInstance().setCategory(category)
                 _ = try? AVAudioSession.sharedInstance().setActive(true)
             }
@@ -25,7 +23,7 @@ struct AudioSession {
     
     static var mode: String? {
         didSet {
-            if let mode = mode where mode != oldValue && !locked {
+            if let mode = mode where mode != oldValue {
                 _ = try? AVAudioSession.sharedInstance().setMode(mode)
             }
         }

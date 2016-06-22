@@ -169,8 +169,8 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
                 $0.metrics is StreamMetrics<MessageCell> && $0.position.index == index
                 }, animated:false)
             let unreadMessagesItem = streamView.itemPassingTest({ $0.metrics === unreadMessagesMetrics })
-            if let item = unreadMessagesItem where item.visible == false {
-                let offsetY = smoothstep(streamView.minimumContentOffset.y, streamView.maximumContentOffset.y, item.frame.origin.y)
+            if let item = unreadMessagesItem where item.frame.origin.y < (streamView.layer.bounds.origin.y + streamView.contentInset.top) {
+                let offsetY = smoothstep(streamView.minimumContentOffset.y, streamView.maximumContentOffset.y, (item.frame.origin.y - streamView.contentInset.top))
                 streamView.contentOffset.y = offsetY
             }
         }

@@ -328,7 +328,7 @@ final class StreamView: UIScrollView {
         let minOffset = minimumContentOffset
         let maxOffset = maximumContentOffset
         if layout.horizontal {
-            let offset = item.frame.origin.x - fittingContentWidth / 2 + item.frame.size.width / 2
+            let offset = (item.frame.origin.x - contentInset.right) - fittingContentWidth / 2 + item.frame.size.width / 2
             if offset < minOffset.x {
                 setContentOffset(minOffset, animated: animated)
             } else if offset > maxOffset.x {
@@ -337,7 +337,7 @@ final class StreamView: UIScrollView {
                 setContentOffset(CGPointMake(offset, 0), animated: animated)
             }
         } else {
-            let offset = item.frame.origin.y - fittingContentHeight / 2 + item.frame.size.height / 2
+            let offset = (item.frame.origin.y - contentInset.top) - fittingContentHeight / 2 + item.frame.size.height / 2
             if offset < minOffset.y {
                 setContentOffset(minOffset, animated: animated)
             } else if offset > maxOffset.y {

@@ -18,7 +18,7 @@ final class Streamer: NSObject, WZStatusCallback {
     
     static let streamer = Streamer()
     
-    static let registered = WowzaGoCoder.registerLicenseKey("GSDK-4B42-0003-BCF5-6462-F494") == nil
+    static let registered = WowzaGoCoder.registerLicenseKey("GSDK-4E42-0000-E695-47D9-23F7") == nil
     
     var goCoder: WowzaGoCoder? {
         if Streamer.registered {

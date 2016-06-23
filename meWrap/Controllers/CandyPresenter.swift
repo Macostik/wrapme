@@ -12,18 +12,25 @@ final class CandyPresenter: UIView {
     
     static func present(cell: CandyCell, history: History? = nil, dismissingView: Candy -> UIView?) -> Void {
         guard let candy = cell.entry else { return }
-        guard let historyViewController = candy.createViewController() as? HistoryViewController else { return }
-        historyViewController.history = history
-        historyViewController.dismissingView = dismissingView
+        guard let controller = candy.createViewController() as? HistoryViewController else { return }
+        controller.history = history?.historyCandies
+        controller.dismissingView = dismissingView
+        controller.modalPresentationStyle = .OverCurrentContext
+        let nc = UINavigationController.main
+        nc.pushViewController(controller, animated: false)
         if candy.valid && cell.imageView.image != nil {
-            historyViewController.dismissingView = dismissingView
+            let previousView = nc.viewControllers[nc.viewControllers.count - 2].view
+            nc.view.insertSubview(previousView, atIndex: 0)
+            controller.dismissingView = dismissingView
+            controller.view.hidden = true
+            controller.setBarsHidden(true, animated: false)
             CandyPresenter.present(candy, fromView: cell, completionHandler: { (_) -> Void in
-                UINavigationController.main.pushViewController(historyViewController, animated: false)
+                controller.view.hidden = false
+                controller.setBarsHidden(false, animated: true)
+                previousView.removeFromSuperview()
             })
-        } else {
-            UINavigationController.main.pushViewController(historyViewController, animated: false)
         }
-        historyViewController.dismissingView = dismissingView
+        controller.dismissingView = dismissingView
     }
     
     
@@ -31,8 +38,6 @@ final class CandyPresenter: UIView {
         $0.contentMode = .ScaleAspectFill
         $0.clipsToBounds = true
     }
-    
-    var dismissingView: (Candy -> UIView?)?
     
     static func present(candy: Candy, fromView: UIView, completionHandler: () -> ()) {
         guard let url = candy.asset?.large, let image = InMemoryImageCache.instance[url] ?? ImageCache.defaultCache.imageWithURL(url) else {

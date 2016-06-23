@@ -49,8 +49,6 @@ class LiveBroadcastViewersViewController: UIViewController {
     
     let broadcast: LiveBroadcast
     
-    private var slideTransition: SlideTransition?
-    
     let contentView = UIView()
     
     required init(broadcast: LiveBroadcast) {
@@ -92,16 +90,15 @@ class LiveBroadcastViewersViewController: UIViewController {
             make.centerY.equalTo(topView)
         }
         
-        slideTransition = SlideTransition(view: contentView)
+        let slideTransition = SlideTransition()
+        contentView.addGestureRecognizer(slideTransition)
+        slideTransition.didFinish = { [weak self] _ in
+            self?.removeFromContainerAnimated(false)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        slideTransition?.didFinish = { [weak self] _ in
-            self?.removeFromContainerAnimated(false)
-        }
-        
         let metrics = StreamMetrics<LiveBroadcastViewerCell>(size: LiveBroadcastViewerCell.DefaultHeight)
         dataSource.addMetrics(metrics)
         update()

@@ -8,25 +8,18 @@
 
 import UIKit
 
-class SlideTransition: NSObject, UIGestureRecognizerDelegate {
+class SlideTransition: UIPanGestureRecognizer, UIGestureRecognizerDelegate {
     
-    var shouldStart: () -> Bool = { _ in return true }
     var didStart: (() -> ())?
     var didCancel: (() -> ())?
     var didFinish: (() -> ())?
     
     var contentView: (() -> UIView?)?
-    var snapshotView: (() -> UIView?)?
     
-    private weak var _snapshotView: UIView?
-    
-    let panGestureRecognizer = UIPanGestureRecognizer()
-    
-    required init(view: UIView) {
-        super.init()
-        panGestureRecognizer.addTarget(self, action: #selector(self.panned(_:)))
-        panGestureRecognizer.delegate = self
-        view.addGestureRecognizer(panGestureRecognizer)
+    required init() {
+        super.init(target: nil, action: nil)
+        addTarget(self, action: #selector(self.panned(_:)))
+        delegate = self
     }
     
     func panned(gesture: UIPanGestureRecognizer) {
@@ -40,16 +33,13 @@ class SlideTransition: NSObject, UIGestureRecognizerDelegate {
         let percentCompleted = abs(translation.y/superview.height)
         switch gesture.state {
         case .Began:
-            addSnapshotView(contentView)
             didStart?()
         case .Changed:
             contentView.transform = CGAffineTransformMakeTranslation(0, translation.y)
-            _snapshotView?.alpha = percentCompleted
         case .Ended, .Cancelled:
             if  (percentCompleted > 0.25 || abs(gesture.velocityInView(superview).y) > 1000) {
                 let endPoint = superview.height
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
-                    self._snapshotView?.alpha = 1
                     contentView.transform = CGAffineTransformMakeTranslation(0, translation.y <= 0 ? -endPoint : endPoint)
                     }, completion: { (finished) -> Void in
                         self.didFinish?()
@@ -57,9 +47,7 @@ class SlideTransition: NSObject, UIGestureRecognizerDelegate {
             } else {
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
                     contentView.transform = CGAffineTransformIdentity
-                    self._snapshotView?.alpha = 0
                     }, completion: { _ in
-                        self._snapshotView?.removeFromSuperview()
                         self.didCancel?()
                 })
             }
@@ -67,67 +55,61 @@ class SlideTransition: NSObject, UIGestureRecognizerDelegate {
         }
     }
     
-    private func addSnapshotView(contentView: UIView) {
-        if let snapshotView = snapshotView?()?.snapshotViewAfterScreenUpdates(true) {
-            snapshotView.alpha = 0
-            switch UIApplication.sharedApplication().statusBarOrientation {
-            case .LandscapeLeft:
-                snapshotView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
-            case .LandscapeRight:
-                snapshotView.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
-            default: break
-            }
-            snapshotView.frame = UIScreen.mainScreen().bounds
-            contentView.superview?.insertSubview(snapshotView, belowSubview: contentView)
-            self._snapshotView = snapshotView
-        }
-    }
-    
     //MARK: UIGestureRecognizerDelegate
     
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if panGestureRecognizer == gestureRecognizer {
-            let velocity = panGestureRecognizer.velocityInView(gestureRecognizer.view)
-            return abs(velocity.x) < abs(velocity.y) && shouldStart()
+        if self == gestureRecognizer {
+            let velocity = velocityInView(gestureRecognizer.view)
+            return abs(velocity.x) < abs(velocity.y)
         } else {
             return true
         }
     }
 }
 
-class ShrinkTransition: SlideTransition {
+final class ShrinkTransition: SlideTransition {
     
-    var dismissingView: (() -> UIView?)?
-    var image: (() -> UIImage?)?
-    
-    private weak var _dismissingView: UIView?
+    private weak var dismissingView: UIView?
     
     private weak var imageView: UIImageView?
+    
+    private weak var controller: HistoryViewController?
+    
+    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if (controller?.viewController as? PhotoCandyViewController)?.scrollView.zoomScale != 1 {
+            return false
+        } else {
+            return super.gestureRecognizerShouldBegin(gestureRecognizer)
+        }
+    }
+    
+    required init() {}
     
     override func panned(gesture: UIPanGestureRecognizer) {
         
         if gesture.state == .Began {
-            _dismissingView = dismissingView?()
+            dismissingView = controller?.candyDismissingView()?()
         }
         
-        let orientationIsPortrait = UIApplication.sharedApplication().statusBarOrientation.isPortrait
-        if let dismissingView = _dismissingView, let image = image?() where orientationIsPortrait {
+        if let dismissingView = dismissingView, let image = controller?.viewController?.imageView.image {
             shrink(gesture, image: image, dismissingView: dismissingView)
         } else {
             slide(gesture)
         }
     }
     
+    private weak var snapshotView: UIView?
+    
     func shrink(gesture: UIPanGestureRecognizer, image: UIImage, dismissingView: UIView) {
-        guard let contentView = contentView?() ?? gesture.view else { return }
+        guard let contentView = controller?.viewController?.view ?? gesture.view else { return }
         guard let superview = contentView.superview else { return }
         let translation = gesture.translationInView(superview)
         let percentCompleted = abs(translation.y/superview.height)
-        let cell: CandyCell? = _dismissingView as? CandyCell
+        let cell: CandyCell? = dismissingView as? CandyCell
         cell?.gradientView.alpha = 0
         switch gesture.state {
         case .Began:
-            _dismissingView?.alpha = 0
+            dismissingView.alpha = 0
             let imageView = UIImageView(frame: superview.size.fit(image.size).rectCenteredInSize(superview.size))
             imageView.image = image
             imageView.contentMode = .ScaleAspectFill
@@ -135,32 +117,36 @@ class ShrinkTransition: SlideTransition {
             self.imageView = imageView
             superview.addSubview(imageView)
             contentView.hidden = true
-            addSnapshotView(contentView)
-            didStart?()
+            snapshotView = controller?.view
+            if let previousView = UINavigationController.main.viewControllers.suffix(2).first?.view {
+                UINavigationController.main.view.insertSubview(previousView, atIndex: 0)
+            }
+            controller?.setBarsHidden(true, animated: true)
         case .Changed:
             imageView?.transform = CGAffineTransformMakeTranslation(translation.x, translation.y)
-            _snapshotView?.alpha = percentCompleted
+            snapshotView?.backgroundColor = UIColor(white: 0, alpha: 1 - percentCompleted)
         case .Ended, .Cancelled:
             if (percentCompleted > 0.25 || abs(gesture.velocityInView(superview).y) > 1000) {
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
-                    self._snapshotView?.alpha = 1
-                    self.imageView?.frame = dismissingView.convertRect(dismissingView.bounds, toCoordinateSpace:self.snapshotView?() ?? superview)
+                    self.snapshotView?.backgroundColor = UIColor(white: 0, alpha: 0)
+                    self.imageView?.frame = dismissingView.convertRect(dismissingView.bounds, toCoordinateSpace:self.snapshotView ?? superview)
                     }, completion: { (finished) -> Void in
-                        self._dismissingView?.alpha = 1
+                        dismissingView.alpha = 1
                         self.imageView?.removeFromSuperview()
-                        self.didFinish?()
+                        UINavigationController.main.viewControllers.suffix(2).first?.view.removeFromSuperview()
+                        UINavigationController.main.popViewControllerAnimated(false)
                         UIView.animateWithDuration(0.5, animations: { cell?.gradientView.alpha = 1.0 })
                 })
             } else {
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
                     self.imageView?.transform = CGAffineTransformIdentity
-                    self._snapshotView?.alpha = 0
+                    self.snapshotView?.backgroundColor = UIColor(white: 0, alpha: 1)
                     }, completion: { _ in
-                        self._dismissingView?.alpha = 1
+                        dismissingView.alpha = 1
                         contentView.hidden = false
-                        self._snapshotView?.removeFromSuperview()
                         self.imageView?.removeFromSuperview()
-                        self.didCancel?()
+                        UINavigationController.main.viewControllers.suffix(2).first?.view.removeFromSuperview()
+                        self.controller?.setBarsHidden(false, animated: true)
                         UIView.animateWithDuration(0.5, animations: { cell?.gradientView.alpha = 1.0 })
                 })
             }
@@ -171,51 +157,18 @@ class ShrinkTransition: SlideTransition {
 
 extension HistoryViewController {
     
-    func createShrinkTransition() -> ShrinkTransition {
-        return specify(ShrinkTransition(view: contentView), {
-            
-            $0.panGestureRecognizer.requireGestureRecognizerToFail(swipeUpGesture)
-            $0.panGestureRecognizer.requireGestureRecognizerToFail(swipeDownGesture)
-            
-            $0.contentView = { [weak self] _ in
-                return self?.viewController?.view
-            }
-            
-            $0.dismissingView = { [weak self] _ in
-                guard let candy = self?.candy else { return nil }
-                return self?.dismissingView?(candy)
-            }
-            
-            $0.image = { [weak self] _ in
-                return self?.viewController?.imageView.image
-            }
-            
-            $0.snapshotView = { [weak self] _ in
-                guard let controller = self else { return nil }
-                guard let controllers = controller.navigationController?.viewControllers else { return nil }
-                guard let index = controllers.indexOf(controller) else { return nil }
-                return controllers[safe: index - 1]?.view
-            }
-            
-            $0.shouldStart = { [weak self] _ in
-                if let photoViewController = self?.viewController as? PhotoCandyViewController {
-                    return photoViewController.scrollView.zoomScale == 1
-                } else {
-                    return true
-                }
-            }
-            
-            $0.didStart = { [weak self] _ in
-                self?.setBarsHidden(true, animated: true)
-            }
-            
-            $0.didCancel = { [weak self] _ in
-                self?.setBarsHidden(false, animated: true)
-            }
-            
-            $0.didFinish = { [weak self] _ in
-                self?.navigationController?.popViewControllerAnimated(false)
-            }
-        })
+    func candyDismissingView() -> (() -> UIView?)? {
+        return { [weak self] _ in
+            guard let candy = self?.candy else { return nil }
+            return self?.dismissingView?(candy)
+        }
+    }
+    
+    func createShrinkTransition() {
+        let transition = ShrinkTransition()
+        transition.controller = self
+        transition.requireGestureRecognizerToFail(swipeUpGesture)
+        transition.requireGestureRecognizerToFail(swipeDownGesture)
+        contentView.addGestureRecognizer(transition)
     }
 }

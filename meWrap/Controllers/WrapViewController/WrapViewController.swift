@@ -460,6 +460,7 @@ extension WrapViewController {
     }
     
     @IBAction func addPhoto(sender: UIButton) {
+        VideoPlayer.pauseAll.notify()
         let captureViewController = CaptureViewController.captureMediaViewController(wrap)
         captureViewController.captureDelegate = self
         presentViewController(captureViewController, animated: false, completion: nil)
@@ -477,12 +478,14 @@ extension WrapViewController: CaptureCandyViewControllerDelegate {
     func captureViewController(controller: CaptureCandyViewController, didFinishWithAssets assets: [MutableAsset]) {
         let wrap = controller.wrap ?? self.wrap
         if self.wrap != wrap {
-            if let mainViewController = self.navigationController?.viewControllers.first, let wrapViewController = wrap.createViewController() {
-                self.navigationController?.viewControllers = [mainViewController, wrapViewController]
+            if let mainViewController = self.navigationController?.viewControllers.first {
+                self.navigationController?.viewControllers = [mainViewController, wrap.createViewController()]
             }
         }
         
-        controller.presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+        controller.presentingViewController?.dismissViewControllerAnimated(false, completion: {
+            VideoPlayer.resumeAll.notify()
+        })
         
         Dispatch.mainQueue.async {
             Sound.play()
@@ -491,6 +494,8 @@ extension WrapViewController: CaptureCandyViewControllerDelegate {
     }
     
     func captureViewControllerDidCancel(controller: CaptureCandyViewController) {
-        dismissViewControllerAnimated(false, completion: nil)
+        dismissViewControllerAnimated(false, completion: {
+            VideoPlayer.resumeAll.notify()
+        })
     }
 }

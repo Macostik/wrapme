@@ -191,7 +191,7 @@ final class CommentView: UIView {
     }
 }
 
-class HistoryViewController: SwipeViewController<CandyViewController>, EntryNotifying {
+final class HistoryViewController: SwipeViewController<CandyViewController>, EntryNotifying {
     
     weak var candy: Candy? {
         didSet {
@@ -202,7 +202,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     }
     
     private weak var wrap: Wrap?
-    var history: History?
+    var history: PaginatedList<Candy>?
     private var candies = [Candy]()
     
     var dismissingView: (Candy -> UIView?)?
@@ -426,8 +426,6 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
     var swipeDownGesture: SwipeGesture!
     var swipeUpGesture: SwipeGesture!
     
-    private var shrinkTransition: ShrinkTransition?
-    
     let contentView = UIView()
     
     private let rotatingView = UIView()
@@ -529,6 +527,10 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         secondCommentButton.addTarget(self, touchUpInside: #selector(self.comments(_:)))
     }
     
+    override func shouldUsePreferredViewFrame() -> Bool {
+        return false
+    }
+    
     override func requestPresentingPermission(completion: BooleanBlock) {
         if let commentsViewController = CommentsViewController.current {
             commentsViewController.requestPresentingPermission(completion)
@@ -599,7 +601,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
             }
         }
         
-        shrinkTransition = createShrinkTransition()
+        createShrinkTransition()
         
         wrap = candy?.wrap
         
@@ -609,7 +611,7 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
         
         if let wrap = wrap {
             if history == nil {
-                history = History(wrap:wrap)
+                history = History.paginatedList(wrap)
             }
             updateUserStatus(wrap)
             userNotifyReceiver = EntryNotifyReceiver<User>().setup({ [weak self] (receiver) in
@@ -670,7 +672,10 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
                     contraint.updatePriorityLow()
                 }
             }
-            view.layoutIfNeeded()
+            if animated {
+                view.layoutIfNeeded()
+            }
+
         }
     }
     
@@ -731,10 +736,8 @@ class HistoryViewController: SwipeViewController<CandyViewController>, EntryNoti
                 editorName.text = String(format:"formatted_edited_by".ls, editor.name ?? "")
                 editedAt.text = candy.editedAt.timeAgoStringAtAMPM()
                 editorView.expanded = true
-                topView.layoutIfNeeded()
             } else {
                 editorView.expanded = false
-                topView.layoutIfNeeded()
             }
             
             deleteButton.hidden = !candy.deletable

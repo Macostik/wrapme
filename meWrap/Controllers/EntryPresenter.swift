@@ -51,39 +51,22 @@ extension UIViewController {
 
 extension Entry {
     
-    func createViewController() -> UIViewController? {
-        return nil
+    func createViewController() -> UIViewController {
+        return UIViewController()
     }
     
-    func createViewControllerIfNeeded() -> UIViewController? {
+    func createViewControllerIfNeeded() -> UIViewController {
         return UINavigationController.main.viewControllers[{ presentedIn($0) }] ?? createViewController()
-    }
-    
-    func recursiveViewController() -> UIViewController? {
-        var _currentEntry: Entry? = self
-        while let currentEntry = _currentEntry where currentEntry.valid {
-            if let controller = currentEntry.createViewControllerIfNeeded() {
-                if currentEntry != self {
-                    configureViewController(controller, fromContainer:currentEntry)
-                }
-                return controller
-            } else {
-                _currentEntry = currentEntry.container
-            }
-        }
-        return nil
     }
     
     func presentedIn(controller: UIViewController) -> Bool {
         return false
     }
-    
-    func configureViewController(controller: UIViewController, fromContainer container: Entry) {}
 }
 
 extension Candy {
     
-    override func createViewController() -> UIViewController? {
+    override func createViewController() -> UIViewController {
         return specify(HistoryViewController(), { $0.candy = self })
     }
     
@@ -94,17 +77,19 @@ extension Candy {
 
 extension Message {
     
-    override func createViewController() -> UIViewController? {
-        let controller = wrap?.createViewController() as? WrapViewController
-        controller?.segment = .Chat
-        return controller
+    override func createViewController() -> UIViewController {
+        if let wrap = wrap {
+            let controller = wrap.createViewController() as! WrapViewController
+            controller.segment = .Chat
+            return controller
+        } else {
+            return super.createViewController()
+        }
     }
     
-    override func createViewControllerIfNeeded() -> UIViewController? {
+    override func createViewControllerIfNeeded() -> UIViewController {
         let controller = super.createViewControllerIfNeeded()
-        if let controller = controller as? WrapViewController {
-            controller.segment = .Chat
-        }
+        (controller as? WrapViewController)?.segment = .Chat
         return controller
     }
     
@@ -118,7 +103,7 @@ extension Message {
 
 extension Wrap {
     
-    override func createViewController() -> UIViewController? {
+    override func createViewController() -> UIViewController {
         return WrapViewController(wrap: self)
     }
     
@@ -129,37 +114,22 @@ extension Wrap {
 
 extension Comment {
     
-    override func configureViewController(controller: UIViewController, fromContainer container: Entry) {
-        if container == candy, let controller = controller as? HistoryViewController {
+    override func createViewController() -> UIViewController {
+        if let candy = candy {
+            let controller = candy.createViewController() as! HistoryViewController
+            performWhenLoaded(controller, block: { $0.showCommentView(false) })
+            return controller
+        } else {
+            return super.createViewController()
+        }
+    }
+    
+    override func createViewControllerIfNeeded() -> UIViewController {
+        let controller = super.createViewController()
+        if let controller = controller as? HistoryViewController {
             performWhenLoaded(controller, block: { $0.showCommentView(false) })
         }
-    }
-}
-
-struct HierarchicalEntryPresenter: EntryPresenter {
-    
-    static func presentEntry(entry: Entry, animated: Bool) {
-        let navigationController = UINavigationController.main
-        var viewControllers = self.viewControllersForEntry(entry)
-        if let controller = navigationController.viewControllers.first {
-            viewControllers.insert(controller, atIndex: 0)
-        }
-        navigationController.setViewControllers(viewControllers, animated:animated)
-    }
-    
-    static func viewControllersForEntry(entry: Entry) -> [UIViewController] {
-        var viewControllers = [UIViewController]()
-        var _currentEntry: Entry? = entry
-        while let currentEntry = _currentEntry where currentEntry.valid {
-            if let controller = currentEntry.createViewControllerIfNeeded() {
-                viewControllers.append(controller)
-                if currentEntry != entry {
-                    entry.configureViewController(controller, fromContainer:currentEntry)
-                }
-            }
-            _currentEntry = currentEntry.container;
-        }
-        return viewControllers.reverse()
+        return controller
     }
 }
 
@@ -167,14 +137,13 @@ struct ChronologicalEntryPresenter: EntryPresenter {
     
     static func presentEntry(entry: Entry, animated: Bool) {
         let navigationController = UINavigationController.main
-        if let controller = entry.recursiveViewController() {
-            if navigationController.viewControllers.contains(controller) {
-                if navigationController.topViewController != controller {
-                    navigationController.popToViewController(controller, animated:animated)
-                }
-            } else {
-                navigationController.pushViewController(controller, animated:animated)
+        let controller = entry.createViewControllerIfNeeded()
+        if navigationController.viewControllers.contains(controller) {
+            if navigationController.topViewController != controller {
+                navigationController.popToViewController(controller, animated:animated)
             }
+        } else {
+            navigationController.pushViewController(controller, animated:animated)
         }
     }
 }
@@ -183,17 +152,8 @@ struct NotificationEntryPresenter: EntryPresenter {
     
     static func presentEntry(entry: Entry, animated: Bool) {
         let navigationController = UINavigationController.main
-        var controllers = [UIViewController]()
-        
-        if let controller = navigationController.viewControllers.first {
-            controllers.append(controller)
-        }
-        
-        if let controller = entry.recursiveViewController() {
-            controllers.append(controller)
-        }
-        
+        var controllers = Array(navigationController.viewControllers.prefix(1))
+        controllers.append(entry.createViewControllerIfNeeded())
         navigationController.setViewControllers(controllers, animated:animated)
     }
-    
 }

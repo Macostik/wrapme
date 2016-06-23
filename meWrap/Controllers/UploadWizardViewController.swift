@@ -188,10 +188,10 @@ class UploadWizardEndViewController: BaseViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var contentView: UIView!
     
-    private lazy var slideTransition: SlideTransition = SlideTransition(view: self.contentView)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let slideTransition = SlideTransition()
+        contentView.addGestureRecognizer(slideTransition)
         slideTransition.didFinish = { [weak self] _ in
             self?.close()
         }

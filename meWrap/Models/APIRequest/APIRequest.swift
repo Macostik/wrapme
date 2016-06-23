@@ -145,7 +145,7 @@ class APIRequest<ResponseType> {
                         Logger.debugLog("RESPONSE - \(self.path): \(_response.data)", color: .Green)
                         let parsedObject = self.parser?(_response)
                         if let object = parsedObject {
-                            Logger.log("API response \(self.method.rawValue) \(self.path) persed: \(object)")
+                            Logger.log("API response \(self.method.rawValue) \(self.path) parsed: \(object)")
                         }
                         self.handleSuccess(parsedObject)
                     } else {

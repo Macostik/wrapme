@@ -541,7 +541,6 @@ class MediaViewController: WrapBaseViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         liveButton.alpha = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo).denied ? 0.5 : 1
-        VideoPlayer.resumeAll.notify()
     }
     
     func dismissingView(candy: Candy) -> UIView? {
@@ -568,11 +567,6 @@ class MediaViewController: WrapBaseViewController {
         }
         applyLayout(isMediaLayout, reload: false)
         dataSource.items = history
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        VideoPlayer.pauseAll.notify()
     }
     
     @IBAction func changeLayout(sender: UIButton) {

@@ -221,6 +221,7 @@
 		C55BE8C91C031D54006B04FC /* AuthorizedExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BE8C81C031D54006B04FC /* AuthorizedExecutor.swift */; };
 		C55E533D1C4FB4DB006ACF8F /* CandyCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55E533C1C4FB4DB006ACF8F /* CandyCameraViewController.swift */; };
 		C55E53431C4FCD3B006ACF8F /* CaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55E53421C4FCD3B006ACF8F /* CaptureViewController.swift */; };
+		C55E7B4A1D1BE2F400B50C5D /* CandyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55E7B491D1BE2F400B50C5D /* CandyPresenter.swift */; };
 		C56449A21CE37F41006444A6 /* CaptureCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56449A11CE37F41006444A6 /* CaptureCommentViewController.swift */; };
 		C564C8161C4A47EE001C6460 /* CaptureAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C564C8151C4A47EE001C6460 /* CaptureAvatarViewController.swift */; };
 		C565ED6D1B9F2567002352C8 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B787D9C1A27876F004AE459 /* NotificationCenter.framework */; };
@@ -247,7 +248,6 @@
 		C5861A6C1BFA3C9400C64663 /* LiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5861A6B1BFA3C9400C64663 /* LiveViewController.swift */; };
 		C58DFDD61CB6C3E7001DF2E5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5BEC4171B8F1E9800499EEA /* LaunchScreen.xib */; };
 		C59CEBD31BFB20B500C3E686 /* WrapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59CEBD21BFB20B500C3E686 /* WrapView.swift */; };
-		C5A406FE1C200A71007D1D0E /* CandyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A406FD1C200A71007D1D0E /* CandyPresenter.swift */; };
 		C5A407001C202198007D1D0E /* StoryboardTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A406FF1C202198007D1D0E /* StoryboardTransition.swift */; };
 		C5A604241C7F64A200B41A99 /* CandyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A604231C7F64A200B41A99 /* CandyViewController.swift */; };
 		C5A877CB1B985E8B006C5226 /* StreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A877C91B985E8B006C5226 /* StreamLayout.swift */; };
@@ -646,6 +646,7 @@
 		C55BE8C81C031D54006B04FC /* AuthorizedExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizedExecutor.swift; sourceTree = "<group>"; };
 		C55E533C1C4FB4DB006ACF8F /* CandyCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyCameraViewController.swift; sourceTree = "<group>"; };
 		C55E53421C4FCD3B006ACF8F /* CaptureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureViewController.swift; sourceTree = "<group>"; };
+		C55E7B491D1BE2F400B50C5D /* CandyPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyPresenter.swift; sourceTree = "<group>"; };
 		C562D1071BDF65F60033EDC8 /* WatchExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchExtensionDelegate.swift; sourceTree = "<group>"; };
 		C56449A11CE37F41006444A6 /* CaptureCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureCommentViewController.swift; sourceTree = "<group>"; };
 		C564C8151C4A47EE001C6460 /* CaptureAvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureAvatarViewController.swift; sourceTree = "<group>"; };
@@ -675,7 +676,6 @@
 		C5A278C71B9598DF00D5C969 /* meWrapToday-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "meWrapToday-Info.plist"; sourceTree = "<group>"; };
 		C5A278C91B9598DF00D5C969 /* meWrapWatchApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "meWrapWatchApp-Info.plist"; sourceTree = "<group>"; };
 		C5A278CB1B9598DF00D5C969 /* meWrapWatchExt-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "meWrapWatchExt-Info.plist"; sourceTree = "<group>"; };
-		C5A406FD1C200A71007D1D0E /* CandyPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyPresenter.swift; sourceTree = "<group>"; };
 		C5A406FF1C202198007D1D0E /* StoryboardTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardTransition.swift; sourceTree = "<group>"; };
 		C5A604231C7F64A200B41A99 /* CandyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyViewController.swift; sourceTree = "<group>"; };
 		C5A877C91B985E8B006C5226 /* StreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamLayout.swift; sourceTree = "<group>"; };
@@ -957,6 +957,7 @@
 				C54E28181C771B1C000B7682 /* BaseViewController.swift */,
 				C5F814251C455B4000B478C2 /* LiveBroadcastViewController */,
 				5B1D045A1BFCE16C00263102 /* SlideTransition.swift */,
+				C55E7B491D1BE2F400B50C5D /* CandyPresenter.swift */,
 				C5053E811BC7F7280040613A /* ReportViewController.swift */,
 				C5E6F0271BFF558000FA3D4F /* MediaDataSource.swift */,
 				C553B18F1BF9F75600E50219 /* EntryPresenter.swift */,
@@ -1043,7 +1044,6 @@
 				C55766A31C0C913D00E94E09 /* ImageView.swift */,
 				C55766A41C0C913D00E94E09 /* EntryStatusIndicator.swift */,
 				C53BC48D1C05FE620009B0B9 /* SegmentedControl.swift */,
-				C5A406FD1C200A71007D1D0E /* CandyPresenter.swift */,
 				C532F4E81C2D5F02004585E0 /* ProgressBar.swift */,
 				C5BD85411C2E999800EE5558 /* UploadingView.swift */,
 				C5F7C5E71C78CA31004C2E68 /* PlaceholderView.swift */,
@@ -2172,6 +2172,7 @@
 				C5F44FEF1C5CB9780049215D /* EditAssetViewController.swift in Sources */,
 				C5F4E70D1C07489E00D2FC16 /* EditSession.swift in Sources */,
 				C54365771CEB19F1005E9F26 /* DownloadingView.swift in Sources */,
+				C55E7B4A1D1BE2F400B50C5D /* CandyPresenter.swift in Sources */,
 				C566BD9E1C4E6B50000E80BA /* UIBezierPath+Ext.swift in Sources */,
 				C5E6DD8F1C0DC84A004992E4 /* Entry.swift in Sources */,
 				C5F44FF41C5CBC680049215D /* WrapPickerViewController.swift in Sources */,
@@ -2181,7 +2182,6 @@
 				C5F4E70F1C07687A00D2FC16 /* UIColor+Ext.swift in Sources */,
 				C557B6DB1C22C0B00067631E /* SoundPlayer.swift in Sources */,
 				C54220CC1CB2A8830082F519 /* DebugViewController.swift in Sources */,
-				C5A406FE1C200A71007D1D0E /* CandyPresenter.swift in Sources */,
 				C55766A61C0C913D00E94E09 /* EntryStatusIndicator.swift in Sources */,
 				C5053E201BC7CF0F0040613A /* AssetMetrics.swift in Sources */,
 				C5A877CB1B985E8B006C5226 /* StreamLayout.swift in Sources */,

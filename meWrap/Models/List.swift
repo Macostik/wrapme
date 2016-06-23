@@ -107,6 +107,7 @@ class PaginatedList<T: Equatable>: List<T>, PaginatedListProtocol {
     }
     
     let didStartLoading = BlockNotifier<PaginatedList<T>>()
+    let didLoadEntries = BlockNotifier<[T]>()
     let didFinishLoading = BlockNotifier<PaginatedList<T>>()
     
     var completed: Bool = false {
@@ -175,6 +176,7 @@ class PaginatedList<T: Equatable>: List<T>, PaginatedListProtocol {
     }
     
     internal func handleResponse(entries: [T], type: PaginatedRequestType) {
+        didLoadEntries.notify(entries)
         if entries.isEmpty {
             if type == .Older {
                 completed = true

@@ -8,20 +8,24 @@
 
 import UIKit
 
-class History: PaginatedList<HistoryItem>, EntryNotifying {
+final class History: PaginatedList<HistoryItem>, EntryNotifying {
     
     weak var wrap: Wrap?
     
-    private var historyCandies: PaginatedList<Candy>
+    let historyCandies: PaginatedList<Candy>
     
-    required init(wrap: Wrap) {
-        historyCandies = specify(PaginatedList(), {
+    static func paginatedList(wrap: Wrap) -> PaginatedList<Candy> {
+        return specify(PaginatedList(), {
             $0.request = API.candies(wrap)
             $0.sorter = { $0.createdAt > $1.createdAt }
             $0.entries = wrap.historyCandies
             $0.newerThen = { $0.first?.createdAt }
             $0.olderThen = { $0.last?.createdAt }
         })
+    }
+    
+    required init(wrap: Wrap) {
+        historyCandies = History.paginatedList(wrap)
         super.init()
         Candy.notifier().insertReceiver(self)
         self.wrap = wrap
@@ -31,6 +35,9 @@ class History: PaginatedList<HistoryItem>, EntryNotifying {
         }
         historyCandies.didStartLoading.subscribe(self) { [unowned self] (value) in
             self.didStartLoading.notify(self)
+        }
+        historyCandies.didLoadEntries.subscribe(self) { [unowned self] candies in
+            self.addCandies(candies)
         }
         historyCandies.didFinishLoading.subscribe(self) { [unowned self] (value) in
             self.didFinishLoading.notify(self)
@@ -44,10 +51,7 @@ class History: PaginatedList<HistoryItem>, EntryNotifying {
     
     override func send(type: PaginatedRequestType, success: ([HistoryItem] -> ())?, failure: FailureBlock?) {
         historyCandies.send(type, success: { [weak self] candies in
-            if let history = self {
-                history.addCandies(candies)
-                success?(history.entries)
-            }
+            success?(self?.entries ?? [])
             }, failure: failure)
     }
     

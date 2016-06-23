@@ -411,6 +411,7 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        streamView.exclusiveTouch = true
         streamView.layer.addObserver(self, forKeyPath: "bounds", options: .New, context: nil)
         streamView.panGestureRecognizer.addTarget(self, action: #selector(self.panned(_:)))
         

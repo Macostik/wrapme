@@ -97,14 +97,12 @@ class UploadWizardViewController: BaseViewController {
     }
     
     private func presentAddFriends(wrap: Wrap, isBroadcasting: Bool) {
-        Storyboard.AddFriends.instantiate { (controller) -> Void in
-            controller.wrap = wrap
-            controller.isBroadcasting = isBroadcasting
-            controller.isWrapCreation = true
-            navigationController?.pushViewController(controller, animated: false)
-            controller.completionHandler = { [weak self] _ in
-                self?.finish(isBroadcasting)
-            }
+        let controller = AddContributorsViewController(wrap: wrap)
+        controller.isBroadcasting = isBroadcasting
+        controller.isWrapCreation = true
+        navigationController?.pushViewController(controller, animated: false)
+        controller.completionHandler = { [weak self] _ in
+            self?.finish(isBroadcasting)
         }
     }
     

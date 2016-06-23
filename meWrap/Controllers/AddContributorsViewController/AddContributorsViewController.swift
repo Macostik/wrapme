@@ -8,43 +8,158 @@
 
 import Foundation
 
-class AddContributorsViewController: BaseViewController, AddressBookRecordCellDelegate, UITextFieldDelegate {
+class AddContributorsViewController: WrapBaseViewController, AddressBookRecordCellDelegate, UITextFieldDelegate {
     
-    var wrap: Wrap!
     var isBroadcasting: Bool = false
     var isWrapCreation: Bool = false
     var completionHandler: BooleanBlock?
     
-    @IBOutlet weak var streamView: StreamView!
-    @IBOutlet weak var searchField: UITextField!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
-    @IBOutlet weak var bottomPrioritizer: LayoutPrioritizer!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var nextButton: UIButton!
+    private let streamView = StreamView()
+    private let searchField = TextField()
+    private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
+    private let nextButton = Button(preset: .Large, weight: .Regular, textColor: UIColor.whiteColor())
     
-    lazy var openedRows = [StreamPosition]()
-    lazy var addressBook: ArrangedAddressBook = ArrangedAddressBook(wrap: self.wrap)
+    private lazy var openedRows = [StreamPosition]()
+    private lazy var addressBook: ArrangedAddressBook = ArrangedAddressBook(wrap: self.wrap)
     
-    var singleMetrics: StreamMetrics<SingleAddressBookRecordCell>!
-    var multipleMetrics: StreamMetrics<MultipleAddressBookRecordCell>!
-    var sectionHeaderMetrics: StreamMetrics<AddressBookGroupView>!
+    private var singleMetrics: StreamMetrics<SingleAddressBookRecordCell>!
+    private var multipleMetrics: StreamMetrics<MultipleAddressBookRecordCell>!
+    private var sectionHeaderMetrics: StreamMetrics<AddressBookGroupView>!
+    
+    private let buttonsView = UIView()
     
     private var contentSizeObserver: NotificationObserver?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func loadView() {
+        super.loadView()
+        view.backgroundColor = UIColor.whiteColor()
+        let navigationBar = UIView()
+        navigationBar.backgroundColor = Color.orange
+        self.navigationBar = view.add(navigationBar) { (make) in
+            make.leading.top.trailing.equalTo(view)
+            make.height.equalTo(64)
+        }
+        let back = navigationBar.add(backButton(UIColor.whiteColor())) { (make) in
+            make.leading.equalTo(navigationBar).inset(12)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        back.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        back.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        nextButton.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        nextButton.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        let title = Label(preset: .Large, weight: .Regular, textColor: UIColor.whiteColor())
+        title.text = "add_friends"
+        navigationBar.add(nextButton) { (make) in
+            make.trailing.equalTo(navigationBar).inset(12)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        navigationBar.add(title) { (make) in
+            make.centerX.equalTo(navigationBar)
+            make.centerY.equalTo(navigationBar).offset(10)
+            make.leading.greaterThanOrEqualTo(back.snp_trailing).offset(12)
+            make.trailing.lessThanOrEqualTo(nextButton.snp_leading).offset(-12)
+        }
+        self.navigationBar = navigationBar
         
-        streamView.dataSource = self
+        let searchView = UIView()
+        view.add(searchView) { (make) in
+            make.leading.trailing.equalTo(view)
+            make.top.equalTo(navigationBar.snp_bottom)
+            make.height.equalTo(44)
+        }
+        
+        let searchIcon = Label(icon: "I", size: 17, textColor: Color.orange)
+        searchIcon.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        searchIcon.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        searchView.add(searchIcon) { (make) in
+            make.trailing.equalTo(searchView).offset(-12)
+            make.centerY.equalTo(searchView)
+        }
+        
+        searchField.font = Font.Small + .Light
+        searchField.makePresetable(.Small)
+        searchField.disableSeparator = true
+        searchField.delegate = self
+        searchField.placeholder = "search_contacts".ls
+        searchField.addTarget(self, action: #selector(self.searchTextChanged(_:)), forControlEvents: .EditingChanged)
+        searchView.add(searchField) { (make) in
+            make.leading.equalTo(searchView).offset(12)
+            make.top.bottom.equalTo(searchView)
+            make.trailing.equalTo(searchIcon.snp_leading).offset(-12)
+        }
+        
+        searchView.add(SeparatorView(color: Color.grayLightest, contentMode: .Bottom)) { (make) in
+            make.leading.bottom.trailing.equalTo(searchView)
+            make.height.equalTo(1)
+        }
+        
+        view.add(streamView) { (make) in
+            make.leading.trailing.equalTo(view)
+            make.top.equalTo(searchView.snp_bottom)
+        }
+        
+        view.add(spinner) {
+            $0.center.equalTo(streamView)
+        }
         
         if isWrapCreation {
-            titleLabel.text = "share_with_friends".ls
+            title.text = "share_with_friends".ls
             nextButton.hidden = self.isBroadcasting
             if self.isBroadcasting {
                 nextButton.setTitle("next".ls, forState: .Normal)
             } else {
                 nextButton.setTitle("skip".ls, forState: .Normal)
             }
+        } else {
+            title.text = "add_friends".ls
         }
+        
+        buttonsView.hidden = true
+        buttonsView.backgroundColor = UIColor.whiteColor()
+        let cancelButton = Button(preset: .Large, weight: .Regular, textColor: UIColor.whiteColor())
+        cancelButton.normalColor = Color.orange
+        cancelButton.backgroundColor = cancelButton.normalColor
+        cancelButton.highlightedColor = Color.orangeDark
+        cancelButton.setTitle("cancel".ls, forState: .Normal)
+        cancelButton.addTarget(self, touchUpInside: #selector(self.cancel(_:)))
+        let doneButton = Button(preset: .Large, weight: .Regular, textColor: UIColor.whiteColor())
+        doneButton.normalColor = Color.orange
+        doneButton.backgroundColor = cancelButton.normalColor
+        doneButton.highlightedColor = Color.orangeDark
+        doneButton.setTitle("done".ls, forState: .Normal)
+        doneButton.addTarget(self, touchUpInside: #selector(self.done(_:)))
+        view.add(buttonsView) { (make) in
+            make.bottom.equalTo(streamView)
+            make.leading.trailing.equalTo(view)
+            make.height.equalTo(44)
+            let bottom = make.bottom.equalTo(view).constraint
+            Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
+                keyboard.performAnimation({ () in
+                    bottom.updateOffset(-keyboard.height)
+                    self.view.layoutIfNeeded()
+                })
+            }) { [unowned self] (keyboard) in
+                keyboard.performAnimation({ () in
+                    bottom.updateOffset(0)
+                    self.view.layoutIfNeeded()
+                })
+            }
+        }
+        buttonsView.add(cancelButton) { (make) in
+            make.leading.top.bottom.equalTo(buttonsView)
+        }
+        buttonsView.add(doneButton) { (make) in
+            make.trailing.top.bottom.equalTo(buttonsView)
+            make.width.equalTo(cancelButton)
+            make.leading.equalTo(cancelButton.snp_trailing).offset(1)
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        streamView.dataSource = self
+        
         singleMetrics = specify(StreamMetrics<SingleAddressBookRecordCell>(), {
             $0.modifyItem = { [weak self] item in
                 guard let record = item.entry as? ArrangedAddressBookRecord else { return }
@@ -133,6 +248,9 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     //MARK: Actions
     
     @IBAction func next(sender: AnyObject) {
+        if searchField.isFirstResponder() {
+            searchField.resignFirstResponder()
+        }
         sendInvitation { [weak self] (invited, message) in
             self?.completionHandler?(invited)
         }
@@ -159,11 +277,11 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     
     private func sendInvitation(completionHandler: (invited: Bool, message: String?) -> ()) {
         
-        guard let wrap = wrap where !addressBook.selectionIsEmpty() else {
+        guard !addressBook.selectionIsEmpty() else {
             completionHandler(invited: false, message: nil)
             return
         }
-        
+        let wrap = self.wrap
         let performRequestBlock = { [weak self] (message: String?) in
             let status = wrap.status
             if status != .InProgress {
@@ -188,6 +306,9 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     }
     
     @IBAction func done(sender: Button) {
+        if searchField.isFirstResponder() {
+            searchField.resignFirstResponder()
+        }
         sendInvitation { [weak self] (invited, message) in
             self?.navigationController?.popViewControllerAnimated(false)
             if invited {
@@ -205,10 +326,14 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     }
     
     @IBAction func cancel(sender: AnyObject) {
+        if searchField.isFirstResponder() {
+            searchField.resignFirstResponder()
+        }
         addressBook.clearSelection()
         streamView.reload()
         streamView.setNeedsUpdateConstraints()
-        bottomPrioritizer.defaultState = true
+        buttonsView.hidden = true
+        streamView.contentInset.bottom = 0
     }
     
     //MARK: AddressBookRecordCellDelegate
@@ -219,19 +344,26 @@ class AddContributorsViewController: BaseViewController, AddressBookRecordCellDe
     }
     
     func recordCell(cell: AddressBookRecordCell, didSelectPhoneNumber phoneNumber: AddressBookPhoneNumber) {
+        
+        if searchField.isFirstResponder() {
+            searchField.resignFirstResponder()
+        }
+        
         guard let record = cell.entry else { return }
         addressBook.selectPhoneNumber(record, phoneNumber: phoneNumber)
         let isEmpty = addressBook.selectionIsEmpty()
         if isWrapCreation {
+            nextButton.addTarget(self, touchUpInside: #selector(self.next(_:)))
             if isBroadcasting {
                 nextButton.hidden = isEmpty
                 nextButton.setTitle("next".ls, forState: .Normal)
             } else {
                 nextButton.setTitle(isEmpty ? "skip".ls : "finish".ls, forState: .Normal)
             }
-            bottomPrioritizer.defaultState = true
+            buttonsView.hidden = true
         } else {
-            bottomPrioritizer.defaultState = isEmpty
+            buttonsView.hidden = isEmpty
+            streamView.contentInset.bottom = isEmpty ? 0 : 44
         }
         cell.resetup()
     }

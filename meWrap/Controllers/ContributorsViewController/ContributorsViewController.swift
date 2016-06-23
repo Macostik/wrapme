@@ -186,8 +186,7 @@ final class ContributorsViewController: BaseViewController {
     }
     
     @objc private func addFriend(sender: AnyObject) {
-        let controller = Storyboard.AddFriends.instantiate()
-        controller.wrap = wrap
+        let controller = AddContributorsViewController(wrap: wrap)
         navigationController?.pushViewController(controller, animated: false)
     }
 }

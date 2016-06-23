@@ -282,15 +282,13 @@ class CaptureCandyViewController: CaptureViewController, UploadSummaryViewContro
             asset.saveToAssetsIfNeeded()
         }
         if let wrap = self.wrap where createdWraps.contains(wrap) {
-            Storyboard.AddFriends.instantiate {
-                $0.wrap = wrap
-                $0.isWrapCreation = true
-                $0.completionHandler = { [weak self] friendsInvited in
-                    self?.friendsInvited = friendsInvited
-                    self?.finish(assets)
-                }
-                pushViewController($0, animated: false)
+            let controller = AddContributorsViewController(wrap: wrap)
+            controller.isWrapCreation = true
+            controller.completionHandler = { [weak self] friendsInvited in
+                self?.friendsInvited = friendsInvited
+                self?.finish(assets)
             }
+            pushViewController(controller, animated: false)
         } else {
             finish(assets)
         }

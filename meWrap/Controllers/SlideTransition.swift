@@ -83,8 +83,6 @@ final class ShrinkTransition: SlideTransition {
         }
     }
     
-    required init() {}
-    
     override func panned(gesture: UIPanGestureRecognizer) {
         
         if gesture.state == .Began {
@@ -94,11 +92,43 @@ final class ShrinkTransition: SlideTransition {
         if let dismissingView = dismissingView, let image = controller?.viewController?.imageView.image {
             shrink(gesture, image: image, dismissingView: dismissingView)
         } else {
-            slide(gesture)
+            guard let contentView = controller?.viewController?.view ?? gesture.view else { return }
+            guard let superview = contentView.superview else { return }
+            let translation = gesture.translationInView(superview)
+            let percentCompleted = abs(translation.y/superview.height)
+            switch gesture.state {
+            case .Began:
+                didStart?()
+            case .Changed:
+                if let previousView = UINavigationController.main.viewControllers.suffix(2).first?.view {
+                    UINavigationController.main.view.insertSubview(previousView, atIndex: 0)
+                }
+                controller?.setBarsHidden(true, animated: true)
+                contentView.transform = CGAffineTransformMakeTranslation(0, translation.y)
+                controller?.view?.backgroundColor = UIColor(white: 0, alpha: 1 - percentCompleted)
+            case .Ended, .Cancelled:
+                if  (percentCompleted > 0.25 || abs(gesture.velocityInView(superview).y) > 1000) {
+                    let endPoint = superview.height
+                    UIView.animateWithDuration(0.25, animations: { () -> Void in
+                        self.controller?.view?.backgroundColor = UIColor(white: 0, alpha: 0)
+                        contentView.transform = CGAffineTransformMakeTranslation(0, translation.y <= 0 ? -endPoint : endPoint)
+                        }, completion: { (finished) -> Void in
+                            UINavigationController.main.viewControllers.suffix(2).first?.view.removeFromSuperview()
+                            UINavigationController.main.popViewControllerAnimated(false)
+                    })
+                } else {
+                    UIView.animateWithDuration(0.25, animations: { () -> Void in
+                        self.controller?.view?.backgroundColor = UIColor(white: 0, alpha: 1)
+                        contentView.transform = CGAffineTransformIdentity
+                        }, completion: { _ in
+                            UINavigationController.main.viewControllers.suffix(2).first?.view.removeFromSuperview()
+                            self.controller?.setBarsHidden(false, animated: true)
+                    })
+                }
+            default:break
+            }
         }
     }
-    
-    private weak var snapshotView: UIView?
     
     func shrink(gesture: UIPanGestureRecognizer, image: UIImage, dismissingView: UIView) {
         guard let contentView = controller?.viewController?.view ?? gesture.view else { return }
@@ -117,19 +147,18 @@ final class ShrinkTransition: SlideTransition {
             self.imageView = imageView
             superview.addSubview(imageView)
             contentView.hidden = true
-            snapshotView = controller?.view
             if let previousView = UINavigationController.main.viewControllers.suffix(2).first?.view {
                 UINavigationController.main.view.insertSubview(previousView, atIndex: 0)
             }
             controller?.setBarsHidden(true, animated: true)
         case .Changed:
             imageView?.transform = CGAffineTransformMakeTranslation(translation.x, translation.y)
-            snapshotView?.backgroundColor = UIColor(white: 0, alpha: 1 - percentCompleted)
+            controller?.view?.backgroundColor = UIColor(white: 0, alpha: 1 - percentCompleted)
         case .Ended, .Cancelled:
             if (percentCompleted > 0.25 || abs(gesture.velocityInView(superview).y) > 1000) {
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
-                    self.snapshotView?.backgroundColor = UIColor(white: 0, alpha: 0)
-                    self.imageView?.frame = dismissingView.convertRect(dismissingView.bounds, toCoordinateSpace:self.snapshotView ?? superview)
+                    self.controller?.view?.backgroundColor = UIColor(white: 0, alpha: 0)
+                    self.imageView?.frame = dismissingView.convertRect(dismissingView.bounds, toCoordinateSpace:self.controller?.view ?? superview)
                     }, completion: { (finished) -> Void in
                         dismissingView.alpha = 1
                         self.imageView?.removeFromSuperview()
@@ -140,7 +169,7 @@ final class ShrinkTransition: SlideTransition {
             } else {
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
                     self.imageView?.transform = CGAffineTransformIdentity
-                    self.snapshotView?.backgroundColor = UIColor(white: 0, alpha: 1)
+                    self.controller?.view?.backgroundColor = UIColor(white: 0, alpha: 1)
                     }, completion: { _ in
                         dismissingView.alpha = 1
                         contentView.hidden = false

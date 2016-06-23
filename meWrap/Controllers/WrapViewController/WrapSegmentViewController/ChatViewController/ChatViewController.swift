@@ -55,17 +55,14 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
     
     func applicationDidBecomeActive() {
         badge?.value = chat.unreadMessages.count
-        streamView.unlock()
-        chat.resetMessages()
+        streamView.reload()
         scrollToLastUnreadMessage()
-        NSNotificationCenter.defaultCenter().removeObserver(self, name:UIApplicationDidBecomeActiveNotification, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.applicationWillResignActive), name:UIApplicationWillResignActiveNotification, object:nil)
     }
     
     func applicationWillResignActive() {
-        streamView.lock()
-        NSNotificationCenter.defaultCenter().removeObserver(self, name:UIApplicationWillResignActiveNotification, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.applicationDidBecomeActive), name:UIApplicationDidBecomeActiveNotification, object:nil)
+        if markAsReadIfNeeded() {
+            streamView.reload()
+        }
     }
     
     override func loadView() {
@@ -112,6 +109,9 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
             view.textLabel.text = String(format:"no_chat_message".ls, self?.wrap.name ?? "")
             return view
         }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.applicationWillResignActive), name:UIApplicationWillResignActiveNotification, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.applicationDidBecomeActive), name:UIApplicationDidBecomeActiveNotification, object:nil)
     }
     
     override func viewDidLoad() {
@@ -127,7 +127,7 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
         messageWithNameMetrics.modifyItem = { [weak self] item in
             guard let message = item.entry as? Message else { return }
             item.size = self?.chat.heightOfMessageCell(message) ?? 0.0
-            item.insets = CGRectMake(0, message.chatMetadata.containsDate ? 0 : message.chatMetadata.isGroup ? Chat.MessageGroupSpacing : Chat.MessageSpacing, 0, 0)
+            item.insets.origin.y = message.chatMetadata.containsDate ? 0 : message.chatMetadata.isGroup ? Chat.MessageGroupSpacing : Chat.MessageSpacing
         }
         messageMetrics.modifyItem = messageWithNameMetrics.modifyItem
         myMessageMetrics.modifyItem = messageWithNameMetrics.modifyItem
@@ -153,27 +153,16 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
         streamView.unlock()
         chat.sort()
         scrollToLastUnreadMessage()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.applicationWillResignActive), name:UIApplicationWillResignActiveNotification, object:nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         streamView.lock()
         chat.markAsRead()
-        NSNotificationCenter.defaultCenter().removeObserver(self, name:UIApplicationWillResignActiveNotification, object:nil)
     }
     
     func scrollToLastUnreadMessage() {
-        if let message = chat.unreadMessages.first, let index = chat.entries.indexOf(message) {
-            streamView.scrollToItemPassingTest({
-                $0.metrics is StreamMetrics<MessageCell> && $0.position.index == index
-                }, animated:false)
-            let unreadMessagesItem = streamView.itemPassingTest({ $0.metrics === unreadMessagesMetrics })
-            if let item = unreadMessagesItem where item.frame.origin.y < (streamView.layer.bounds.origin.y + streamView.contentInset.top) {
-                let offsetY = smoothstep(streamView.minimumContentOffset.y, streamView.maximumContentOffset.y, (item.frame.origin.y - streamView.contentInset.top))
-                streamView.contentOffset.y = offsetY
-            }
-        }
+        streamView.scrollToItemPassingTest({ $0.metrics === unreadMessagesMetrics }, animated:false)
     }
     
     var typing = false {

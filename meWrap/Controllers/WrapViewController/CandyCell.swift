@@ -162,7 +162,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
             let playerView = VideoPlayer.createPlayerView()
             playerView.frame = imageView.bounds
             playerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-            imageView.insertSubview(playerView, atIndex: 0)
+            imageView.addSubview(playerView)
             playerView.url = candy.asset?.videoURL()
             self.videoPlayer = playerView
             self.performSelector(#selector(self.startPlayingVideo), withObject: nil, afterDelay: 0.0)

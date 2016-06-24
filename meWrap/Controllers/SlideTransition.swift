@@ -76,7 +76,7 @@ final class ShrinkTransition: SlideTransition {
     private weak var controller: HistoryViewController?
     
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if (controller?.viewController as? PhotoCandyViewController)?.scrollView.zoomScale != 1 {
+        if let controller = controller?.viewController as? PhotoCandyViewController where controller.scrollView.zoomScale != 1 {
             return false
         } else {
             return super.gestureRecognizerShouldBegin(gestureRecognizer)

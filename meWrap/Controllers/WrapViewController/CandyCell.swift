@@ -11,6 +11,13 @@ import SnapKit
 
 class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
     
+    private static let videoPlayers = InMemoryCache<Candy, VideoPlayer>(value: { candy in
+        let player = VideoPlayer.createPlayerView()
+        player.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        player.url = candy.asset?.smallVideoURL()
+        return player
+    })
+    
     let imageView = ImageView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.white.photoStyle(56))
     let commentLabel = Label(preset: .Smaller, textColor: UIColor.whiteColor())
     let gradientView = GradientView(startColor: UIColor.blackColor().colorWithAlphaComponent(0.8))
@@ -159,13 +166,13 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         uploadingView = candy.uploadingView
         
         if candy.mediaType == .Video {
-            let playerView = VideoPlayer.createPlayerView()
+            let playerView = CandyCell.videoPlayers[candy]
             playerView.frame = imageView.bounds
-            playerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
             imageView.addSubview(playerView)
-            playerView.url = candy.asset?.videoURL()
             self.videoPlayer = playerView
-            self.performSelector(#selector(self.startPlayingVideo), withObject: nil, afterDelay: 0.0)
+            Dispatch.mainQueue.async({ [weak playerView] _ in
+                playerView?.playing = true
+            })
         }
         
         if let comment = candy.latestComment  {
@@ -195,9 +202,5 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
             commentLabel.text = nil
             gradientView.hidden = true
         }
-    }
-    
-    func startPlayingVideo() {
-        videoPlayer?.playing = true
     }
 }

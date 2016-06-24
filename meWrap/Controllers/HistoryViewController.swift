@@ -136,7 +136,7 @@ final class CommentView: UIView {
         playerView.snp_makeConstraints { (make) in
             make.edges.equalTo(imageView)
         }
-        playerView.url = comment.asset?.videoURL()
+        playerView.url = comment.asset?.smallVideoURL()
         self.videoPlayer = playerView
         playerView.playing = true
         playerView.volumeButton.backgroundColor = UIColor.blackColor()

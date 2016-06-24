@@ -10,32 +10,35 @@ import Foundation
 import AVFoundation
 import AVKit
 
-final class VideoPlayerCache {
+final class InMemoryCache<Key: Hashable, Value> {
     
-    private var assets = [NSURL: AVAsset]()
+    private var values = [Key: Value]()
     
-    init() {
+    private let value: Key -> Value
+    
+    init(value: Key -> Value) {
+        self.value = value
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.memoryWarning), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
     }
     
-    subscript(url: NSURL) -> AVAsset {
-        if let item = assets[url] {
-            return item
+    subscript(key: Key) -> Value {
+        if let value = values[key] {
+            return value
         } else {
-            let asset = AVURLAsset(URL: url)
-            assets[url] = asset
-            return asset
+            let value = self.value(key)
+            values[key] = value
+            return value
         }
     }
     
     @objc private func memoryWarning() {
-        assets.removeAll()
+        values.removeAll()
     }
 }
 
 final class VideoPlayer: UIView {
     
-    private static let cache = VideoPlayerCache()
+    private static let cache = InMemoryCache<NSURL, AVAsset>(value: { AVURLAsset(URL: $0) })
     
     lazy var volumeButton: Button = specify(Button.expandableCandyAction("l")) {
         $0.setTitle("m", forState: .Selected)
@@ -72,7 +75,7 @@ final class VideoPlayer: UIView {
         
         VideoPlayer.resumeAll.subscribe(self) { [unowned self] (value) in
             self.paused = false
-            if self.playing {
+            if self.playing && self.window != nil {
                 self.player.play()
             }
         }

@@ -9,7 +9,7 @@
 import UIKit
 
 func ==(lhs: Asset, rhs: Asset) -> Bool {
-    return lhs.type == rhs.type && lhs.original == rhs.original && lhs.large == rhs.large && lhs.medium == rhs.medium && lhs.small == rhs.small
+    return lhs.type == rhs.type && lhs.original == rhs.original && lhs.large == rhs.large && lhs.medium == rhs.medium && lhs.small == rhs.small && lhs.lowDef == rhs.lowDef
 }
 
 func !=(lhs: Asset, rhs: Asset) -> Bool {
@@ -43,10 +43,11 @@ class Asset: NSObject, NSCopying {
     var large: String?
     var medium: String?
     var small: String?
+    var lowDef: String?
     var type: MediaType = .Photo
     
     override var description: String {
-        return "type: \(type.rawValue)\noriginal: \(original)\nlarge: \(large)\nmedium: \(medium)\nsmall: \(small)"
+        return "type: \(type.rawValue)\noriginal: \(original)\nlarge: \(large)\nmedium: \(medium)\nsmall: \(lowDef)\nsmall: \(lowDef)"
     }
     
     convenience init(json: NSData) {
@@ -57,6 +58,7 @@ class Asset: NSObject, NSCopying {
             large = data["large"] as? String
             medium = data["medium"] as? String
             small = data["small"] as? String
+            lowDef = data["lowDef"] as? String
         }
     }
     
@@ -65,7 +67,8 @@ class Asset: NSObject, NSCopying {
                           "original": original ?? "",
                           "large": large ?? "",
                           "medium": medium ?? "",
-                          "small": small ?? ""]
+                          "small": small ?? "",
+                          "lowDef": lowDef ?? ""]
         return try? NSJSONSerialization.dataWithJSONObject(dictionary, options: [])
     }
     
@@ -76,6 +79,7 @@ class Asset: NSObject, NSCopying {
         asset.large = large
         asset.medium = medium
         asset.small = small
+        asset.lowDef = lowDef
         return asset
     }
     
@@ -98,6 +102,16 @@ class Asset: NSObject, NSCopying {
             } else {
                 return original.URL
             }
+        }
+    }
+    
+    func smallVideoURL() -> NSURL? {
+        if let original = original where original.isExistingFilePath {
+            return original.fileURL
+        } else if let lowDef = lowDef {
+            return lowDef.URL
+        } else {
+            return videoURL()
         }
     }
 }

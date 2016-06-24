@@ -90,6 +90,9 @@ extension Asset {
         asset.large = urls[metrics.large]?.prepend(uri) ?? self.large
         asset.medium = urls[metrics.medium]?.prepend(uri) ?? self.medium
         asset.small = urls[metrics.small]?.prepend(uri) ?? self.small
+        if let lowDef = urls["low_def"] {
+            asset.lowDef = lowDef.prepend(uri) ?? self.lowDef
+        }
         return asset
     }
     

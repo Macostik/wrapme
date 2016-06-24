@@ -174,7 +174,7 @@ class MediaCommentCell: CommentCell {
             playerView.snp_makeConstraints { (make) in
                 make.edges.equalTo(imageView)
             }
-            playerView.url = comment.asset?.videoURL()
+            playerView.url = comment.asset?.smallVideoURL()
             self.playerView = playerView
         }
         

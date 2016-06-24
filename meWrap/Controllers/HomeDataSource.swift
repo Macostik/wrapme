@@ -10,6 +10,10 @@ import UIKit
 
 class HomeDataSource: PaginatedStreamDataSource<PaginatedList<Wrap>> {
     
+    required init(streamView: StreamView) {
+        super.init(streamView: streamView)
+    }
+    
     override func didSetItems() {
         super.didSetItems()
         if let items = items where items.count > 0 {

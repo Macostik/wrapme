@@ -189,8 +189,8 @@ final class CommentsDataSource: StreamDataSource<[Comment]> {
     
     var mediaCommentMetrics: StreamMetrics<MediaCommentCell>?
     
-    override init() {
-        super.init()
+    required init(streamView: StreamView) {
+        super.init(streamView: streamView)
         addMetrics(specify(StreamMetrics<CommentCell>(), {
             $0.selectable = false
             $0.modifyItem = { [weak self] item in
@@ -225,7 +225,7 @@ final class CommentsDataSource: StreamDataSource<[Comment]> {
     }
     
     func playVideoCommentsIfNeeded() {
-        streamView?.visibleItems().all({
+        streamView.visibleItems().all({
             if $0.metrics === mediaCommentMetrics {
                 ($0.view as? MediaCommentCell)?.playerView?.playing = true
             }

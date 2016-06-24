@@ -8,9 +8,9 @@
 
 import Foundation
 
-class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDataSource, UIScrollViewDelegate {
+class StreamDataSource<T: BaseOrderedContainer where T.ElementType: AnyObject>: NSObject, StreamViewDataSource, UIScrollViewDelegate {
     
-    @IBOutlet weak var streamView: StreamView?
+    var streamView: StreamView
     
     lazy var sectionHeaderMetrics = [StreamMetricsProtocol]()
     
@@ -19,8 +19,8 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDataSource,
     lazy var sectionFooterMetrics = [StreamMetricsProtocol]()
     
     deinit {
-        if (streamView?.delegate as? StreamDataSource) == self {
-            streamView?.delegate = nil
+        if (streamView.delegate as? StreamDataSource) == self {
+            streamView.delegate = nil
         }
     }
     
@@ -35,7 +35,7 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDataSource,
     }
     
     func reload() {
-        if let streamView = streamView, let delegate = streamView.delegate as? StreamDataSource where delegate == self {
+        if streamView.dataSource as? StreamDataSource == self {
             streamView.reload()
         }
     }
@@ -55,8 +55,9 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDataSource,
         return metrics
     }
     
-    convenience init(streamView: StreamView) {
-        self.init()
+    required init(streamView: StreamView) {
+        self.streamView = streamView
+        super.init()
         self.streamView = streamView
         streamView.delegate = self
         streamView.dataSource = self
@@ -70,7 +71,7 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDataSource,
     var didLayoutItemBlock: (StreamItem -> Void)?
     
     private func entryForItem(item: StreamItem) -> AnyObject? {
-        return items?[safe: item.position.index] as? AnyObject
+        return items?[safe: item.position.index]
     }
     
     func numberOfItemsIn(section: Int) -> Int {

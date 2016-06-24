@@ -13,6 +13,10 @@ private let ItemHeight: CGFloat = 55
 
 class WrapPickerDataSource: StreamDataSource<[Wrap]> {
     
+    required init(streamView: StreamView) {
+        super.init(streamView: streamView)
+    }
+    
     var didEndScrollingAnimationBlock: (Void -> Void)?
     
     func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

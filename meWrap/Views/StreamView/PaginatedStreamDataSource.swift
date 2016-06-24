@@ -8,14 +8,18 @@
 
 import Foundation
 
-class PaginatedStreamDataSource<T: PaginatedListProtocol>: StreamDataSource<T> {
+class PaginatedStreamDataSource<T: PaginatedListProtocol where T.ElementType: AnyObject>: StreamDataSource<T> {
+    
+    required init(streamView: StreamView) {
+        super.init(streamView: streamView)
+    }
     
     var appendableBlock: (PaginatedStreamDataSource -> Bool)?
     
     weak var spinner: UIActivityIndicatorView? {
         didSet {
             oldValue?.removeFromSuperview()
-            if let spinner = spinner, let streamView = streamView {
+            if let spinner = spinner {
                 streamView.superview?.add(spinner, { (make) in
                     make.center.equalTo(streamView)
                 })
@@ -41,7 +45,6 @@ class PaginatedStreamDataSource<T: PaginatedListProtocol>: StreamDataSource<T> {
     }
     
     func setLoading(loading: Bool) {
-        guard let streamView = streamView else { return }
         let loading = loading && Network.network.reachable
         if loading != streamView.hidden {
             streamView.hidden = loading
@@ -73,11 +76,9 @@ class PaginatedStreamDataSource<T: PaginatedListProtocol>: StreamDataSource<T> {
     }
     
     func setRefreshableWithStyle(style: RefresherStyle) {
-        if let streamView = streamView {
-            let refresher = Refresher(scrollView: streamView)
-            refresher.style = style
-            refresher.addTarget(self, action: #selector(self.refresh(_:)), forControlEvents: .ValueChanged)
-        }
+        let refresher = Refresher(scrollView: streamView)
+        refresher.style = style
+        refresher.addTarget(self, action: #selector(self.refresh(_:)), forControlEvents: .ValueChanged)
     }
     
     func refresh(success: ([T.PaginatedEntryType] -> ())?, failure: FailureBlock?) {
@@ -97,7 +98,6 @@ class PaginatedStreamDataSource<T: PaginatedListProtocol>: StreamDataSource<T> {
     }
     
     func appendItemsIfNeededWithTargetContentOffset(targetContentOffset: CGPoint) {
-        guard let streamView = streamView else { return }
         
         var reachedRequiredOffset = false
         if streamView.layout.horizontal {
@@ -113,9 +113,7 @@ class PaginatedStreamDataSource<T: PaginatedListProtocol>: StreamDataSource<T> {
                 Network.network.subscribe(self, block: { [unowned self] reachable in
                     if reachable {
                         Network.network.unsubscribe(self)
-                        if let streamView = self.streamView {
-                            self.appendItemsIfNeededWithTargetContentOffset(streamView.contentOffset)
-                        }
+                        self.appendItemsIfNeededWithTargetContentOffset(self.streamView.contentOffset)
                     }
                 })
             }
@@ -125,7 +123,7 @@ class PaginatedStreamDataSource<T: PaginatedListProtocol>: StreamDataSource<T> {
     override func didLayout() {
         super.didLayout()
         Dispatch.mainQueue.async { () -> Void in
-            self.appendItemsIfNeededWithTargetContentOffset(self.streamView!.contentOffset)
+            self.appendItemsIfNeededWithTargetContentOffset(self.streamView.contentOffset)
         }
     }
     

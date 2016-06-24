@@ -58,6 +58,11 @@ final class HistoryItemHeader: EntryStreamReusableView<HistoryItem> {
 final class HistoryItemCell: EntryStreamReusableView<HistoryItem> {
     
     class HistoryItemDataSource: StreamDataSource<[Candy]> {
+        
+        required init(streamView: StreamView) {
+            super.init(streamView: streamView)
+        }
+        
         func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
             let x = targetContentOffset.memory.x
             let maxX = scrollView.maximumContentOffset.x
@@ -65,7 +70,7 @@ final class HistoryItemCell: EntryStreamReusableView<HistoryItem> {
                 return
             }
             let point = CGPoint(x: x, y: scrollView.frame.midY)
-            if var item = streamView?.itemPassingTest({ $0.frame.contains(point) }) {
+            if var item = streamView.itemPassingTest({ $0.frame.contains(point) }) {
                 if (x - item.frame.origin.x) > item.frame.size.width/2 {
                     if let next = item.next {
                         item = next
@@ -442,7 +447,7 @@ class MediaViewController: WrapBaseViewController {
     }
     
     func createMediaDataSource() -> PaginatedStreamDataSource<History> {
-        let dataSource = MediaDataSource()
+        let dataSource = MediaDataSource(streamView: streamView)
         dataSource.wrap = wrap
         dataSource.liveBroadcastMetrics.selection = { [weak self] view -> Void in
             if let broadcast = view.entry {
@@ -483,7 +488,7 @@ class MediaViewController: WrapBaseViewController {
     }
     
     func createMosaicDataSource() -> PaginatedStreamDataSource<History> {
-        let dataSource = MosaicMediaDataSource()
+        let dataSource = MosaicMediaDataSource(streamView: streamView)
         dataSource.liveBroadcastMetrics.selection = { [weak self] view -> Void in
             if let broadcast = view.entry {
                 self?.presentLiveBroadcast(broadcast)

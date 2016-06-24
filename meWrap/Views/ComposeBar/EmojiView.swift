@@ -72,7 +72,7 @@ class EmojiView: UIView, SegmentedControlDelegate {
     
     weak var composeBar: ComposeBar!
     
-    var dataSource: StreamDataSource<[String]>!
+    var dataSource: StreamDataSource<[NSString]>!
     
     private var emojis: [String]? {
         willSet {

@@ -10,6 +10,10 @@ import Foundation
 
 final class MediaDataSource: PaginatedStreamDataSource<History> {
     
+    required init(streamView: StreamView) {
+        super.init(streamView: streamView)
+    }
+    
     weak var wrap: Wrap?
     
     var liveBroadcastMetrics = specify(StreamMetrics<LiveBroadcastMediaView>()) {
@@ -50,6 +54,10 @@ final class MediaDataSource: PaginatedStreamDataSource<History> {
 }
 
 final class MosaicMediaDataSource: PaginatedStreamDataSource<History> {
+    
+    required init(streamView: StreamView) {
+        super.init(streamView: streamView)
+    }
     
     weak var wrap: Wrap?
     

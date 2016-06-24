@@ -90,7 +90,7 @@ class CountriesViewController: BaseViewController {
         
         Dispatch.defaultQueue.fetch({ return Country.allCountries }) { [weak self] (object) -> Void in
             self?.dataSource.items = object
-            self?.dataSource.streamView?.scrollToItem(self?.dataSource.streamView?.selectedItem, animated: false)
+            self?.dataSource.streamView.scrollToItem(self?.dataSource.streamView.selectedItem, animated: false)
         }
     }
     

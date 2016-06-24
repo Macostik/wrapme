@@ -92,9 +92,7 @@ extension UIFont {
     static func icons(size: CGFloat) -> UIFont! {
         return UIFont(name: "icons", size: size)
     }
-}
-
-extension UIFont {
+    
     static func fontXSmall() -> UIFont { return fontWithPreset(.XSmall, weight: .Regular) }
     static func fontSmaller() -> UIFont { return fontWithPreset(.Smaller, weight: .Regular) }
     static func fontSmall() -> UIFont { return fontWithPreset(.Small, weight: .Regular) }
@@ -102,9 +100,7 @@ extension UIFont {
     static func fontLarge() -> UIFont { return fontWithPreset(.Large, weight: .Regular) }
     static func fontLarger() -> UIFont { return fontWithPreset(.Larger, weight: .Regular) }
     static func fontXLarge() -> UIFont { return fontWithPreset(.XLarge, weight: .Regular) }
-}
-
-extension UIFont {
+    
     static func lightFontXSmall() -> UIFont { return fontWithPreset(.XSmall) }
     static func lightFontSmaller() -> UIFont { return fontWithPreset(.Smaller) }
     static func lightFontSmall() -> UIFont { return fontWithPreset(.Small) }

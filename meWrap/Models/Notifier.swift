@@ -52,26 +52,9 @@ class Notifier: NSObject {
     }
 }
 
-private var _uid: Int = 0
-
-private func generetaeUid() -> Int {
-    let uid = _uid
-    _uid = _uid + 1
-    return uid
-}
-
-private func ==<T>(lhs: BlockNotifierReceiver<T>, rhs: BlockNotifierReceiver<T>) -> Bool {
-    return lhs.hashValue == rhs.hashValue
-}
-
-private struct BlockNotifierReceiver<T>: Hashable {
-    private var hashValue: Int = generetaeUid()
+private struct BlockNotifierReceiver<T> {
     weak var owner: AnyObject?
     var block: T -> ()
-    init(owner: AnyObject, block: T -> ()) {
-        self.owner = owner
-        self.block = block
-    }
 }
 
 class BlockNotifier<T> {

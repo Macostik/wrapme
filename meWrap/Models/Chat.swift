@@ -32,8 +32,6 @@ class Chat: PaginatedList<Message> {
     static let MessageSpacing: CGFloat = 2.0
     static let NameVerticalInset: CGFloat = 6.0
     
-    private var contentSizeObserver: NotificationObserver?
-    
     required init(wrap: Wrap) {
         self.wrap = wrap
         super.init()
@@ -42,16 +40,14 @@ class Chat: PaginatedList<Message> {
         request = API.messages(wrap)
         sorter = { $0.createdAt < $1.createdAt }
         entries = wrap.messages.sort(sorter)
-        contentSizeObserver = NotificationObserver.contentSizeCategoryObserver({ [weak self]   (_) in
-            if let chat = self {
-                for message in wrap.messages {
-                    message.chatMetadata.height = nil
-                }
-                chat.messageFont = UIFont.fontNormal()
-                chat.nameFont = UIFont.lightFontSmaller()
-                chat.didChangeNotifier.notify(chat)
+        FontPresetter.presetter.subscribe(self) { [unowned self] (value) in
+            for message in wrap.messages {
+                message.chatMetadata.height = nil
             }
-            })
+            self.messageFont = UIFont.fontNormal()
+            self.nameFont = UIFont.lightFontSmaller()
+            self.didChangeNotifier.notify(self)
+        }
     }
     
     func resetMessages() {

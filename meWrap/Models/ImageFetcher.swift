@@ -10,12 +10,18 @@ import Foundation
 import Alamofire
 
 protocol ImageFetching: class {
-    func fetcherTargetUrl(fetcher: ImageFetcher) -> String?
-    func fetcher(fetcher: ImageFetcher, didFinishWithImage image: UIImage, cached: Bool)
-    func fetcher(fetcher: ImageFetcher, didFailWithError error: NSError)
+    var url: String? { get }
+    func didFinishWithImage(image: UIImage, cached: Bool)
+    func didFailWithError(error: NSError?)
 }
 
-final class ImageFetcher: Notifier {
+final class ImageFetcher {
+    
+    private struct ReceiverWrapper {
+        weak var receiver: ImageFetching?
+    }
+    
+    private var receivers = [ReceiverWrapper]()
     
     private var urls = Set<String>()
     
@@ -23,37 +29,36 @@ final class ImageFetcher: Notifier {
     
     private func notify(url: String, @noescape block: ImageFetching -> Void) {
         urls.remove(url)
-        for wrapper in receivers {
-            if let receiver = wrapper.receiver as? ImageFetching {
-                if let targetURL = receiver.fetcherTargetUrl(self) where targetURL == url {
-                    block(receiver)
-                    receivers.remove(wrapper)
-                }
+        receivers = receivers.filter({ (wrapper) -> Bool in
+            if let receiver = wrapper.receiver where receiver.url == url {
+                block(receiver)
+                return false
+            } else {
+                return true
             }
-        }
+        })
     }
     
-    func enqueue(url: String?, receiver: NSObject?) -> Void {
+    func enqueue(url: String?, receiver: ImageFetching?) -> Void {
         
         guard let url = url where !url.isEmpty else { return }
         
-        addReceiver(receiver)
+        receivers.append(ReceiverWrapper(receiver: receiver))
         
         guard !urls.contains(url) else { return }
         
         urls.insert(url)
         
-        imageAtURL(url) { (image, cached) -> Void in
+        imageAtURL(url) { (image, cached, error) -> Void in
             if let image = image {
-                self.notify(url, block: { $0.fetcher(self, didFinishWithImage: image, cached: cached) })
+                self.notify(url, block: { $0.didFinishWithImage(image, cached: cached) })
             } else {
-                let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
-                self.notify(url, block: { $0.fetcher(self, didFailWithError: error) })
+                self.notify(url, block: { $0.didFailWithError(error) })
             }
         }
     }
     
-    private func imageAtURL(url: String, result: (UIImage?, Bool) -> Void) {
+    private func imageAtURL(url: String, result: (UIImage?, Bool, NSError?) -> Void) {
         if url.isExistingFilePath {
             imageWithContentsOfFile(url, result: result)
         } else {
@@ -61,31 +66,31 @@ final class ImageFetcher: Notifier {
         }
     }
     
-    private func imageWithContentsOfFile(path: String, result: (UIImage?, Bool) -> Void) {
+    private func imageWithContentsOfFile(path: String, result: (UIImage?, Bool, NSError?) -> Void) {
         let uid = (path as NSString).lastPathComponent
         if let image = InMemoryImageCache.instance[uid] {
-            result(image, true)
+            result(image, true, nil)
         } else if ImageCache.defaultCache.contains(uid) {
-            Dispatch.defaultQueue.fetch({ ImageCache.defaultCache[uid] }, completion: { result($0, false) })
+            Dispatch.defaultQueue.fetch({ ImageCache.defaultCache[uid] }, completion: { result($0, false, nil) })
         } else if ImageCache.uploadingCache.contains(uid) {
-            Dispatch.defaultQueue.fetch({ ImageCache.uploadingCache[uid] }, completion: { result($0, false) })
+            Dispatch.defaultQueue.fetch({ ImageCache.uploadingCache[uid] }, completion: { result($0, false, nil) })
         } else if let image = InMemoryImageCache.instance[path] {
-            result(image, true)
+            result(image, true, nil)
         } else {
             Dispatch.defaultQueue.fetch({
                 guard let data = NSData(contentsOfFile: path), let image = UIImage(data: data) else { return nil }
                 InMemoryImageCache.instance[path] = image
                 return image
-                }, completion: { result($0, false) })
+                }, completion: { result($0, false, nil) })
         }
     }
     
-    private func imageWithContentsOfURL(url: String, result: (UIImage?, Bool) -> Void) {
+    private func imageWithContentsOfURL(url: String, result: (UIImage?, Bool, NSError?) -> Void) {
         let uid = ImageCache.uidFromURL(url)
         if let image = InMemoryImageCache.instance[uid] {
-            result(image, true)
+            result(image, true, nil)
         } else if ImageCache.defaultCache.contains(uid) {
-            Dispatch.defaultQueue.fetch({ ImageCache.defaultCache[uid] }, completion: { result($0, false) })
+            Dispatch.defaultQueue.fetch({ ImageCache.defaultCache[uid] }, completion: { result($0, false, nil) })
         } else {
             Alamofire.request(.GET, url).responseData(completionHandler: { response in
                 if let data = response.data, let image = UIImage(data: data) {
@@ -93,30 +98,30 @@ final class ImageFetcher: Notifier {
                         ImageCache.defaultCache.setImageData(data, uid: uid)
                         InMemoryImageCache.instance[uid] = image
                         Dispatch.mainQueue.async({
-                            result(image, false)
+                            result(image, false, response.result.error)
                         })
                     })
                 } else {
-                    result(nil, false)
+                    result(nil, false, nil)
                 }
             })
         }
     }
 }
 
-class BlockImageFetching: NSObject {
+final class BlockImageFetching: ImageFetching {
     
-    private static var fetchings = Set<BlockImageFetching>()
-    private var url: String?
+    private static var fetchings = [BlockImageFetching]()
+    internal var url: String?
     private var success: (UIImage -> Void)?
     private var failure: (NSError? -> Void)?
     
-    class func enqueue(url: String?, success: (UIImage -> Void)?, failure: (NSError? -> Void)?) {
+    static func enqueue(url: String?, success: (UIImage -> Void)?, failure: (NSError? -> Void)?) {
         let fetching = BlockImageFetching(url: url)
         fetching.enqueue(success, failure: failure)
     }
     
-    class func enqueue(url: String?) -> UIImage? {
+    static func enqueue(url: String?) -> UIImage? {
         guard url != nil else { return nil }
         return Dispatch.sleep({ (awake) in
             Dispatch.mainQueue.async {
@@ -126,32 +131,31 @@ class BlockImageFetching: NSObject {
     }
     
     init(url: String?) {
-        super.init()
         self.url = url
     }
     
     func enqueue(success: (UIImage -> Void)?, failure: (NSError? -> Void)?) {
-        BlockImageFetching.fetchings.insert(self)
+        BlockImageFetching.fetchings.append(self)
         self.success = success
         self.failure = failure
         ImageFetcher.defaultFetcher.enqueue(url, receiver: self)
     }
-}
-
-extension BlockImageFetching: ImageFetching {
-    func fetcherTargetUrl(fetcher: ImageFetcher) -> String? { return url }
     
-    func fetcher(fetcher: ImageFetcher, didFinishWithImage image: UIImage, cached: Bool) {
+    func didFinishWithImage(image: UIImage, cached: Bool) {
         success?(image)
         success = nil
         failure = nil
-        BlockImageFetching.fetchings.remove(self)
+        if let index = BlockImageFetching.fetchings.indexOf({ $0 === self }) {
+            BlockImageFetching.fetchings.removeAtIndex(index)
+        }
     }
     
-    func fetcher(fetcher: ImageFetcher, didFailWithError error: NSError) {
+    func didFailWithError(error: NSError?) {
         failure?(error)
         success = nil
         failure = nil
-        BlockImageFetching.fetchings.remove(self)
+        if let index = BlockImageFetching.fetchings.indexOf({ $0 === self }) {
+            BlockImageFetching.fetchings.removeAtIndex(index)
+        }
     }
 }

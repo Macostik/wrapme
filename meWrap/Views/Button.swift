@@ -71,7 +71,6 @@ class Button : UIButton, FontPresetable {
         get { return titleLabel?.font }
         set { titleLabel?.font = newValue }
     }
-    var contentSizeCategoryObserver: NotificationObserver?
     
     @IBInspectable var preset: String? {
         willSet {

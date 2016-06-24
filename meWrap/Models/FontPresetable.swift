@@ -8,20 +8,30 @@
 
 import UIKit
 
+final class FontPresetter: BlockNotifier<Void> {
+    
+    static let presetter: FontPresetter = {
+        let presetter = FontPresetter()
+        NSNotificationCenter.defaultCenter().addObserver(presetter, selector: #selector(presetter.contentSizeCategoryDidChange), name: UIContentSizeCategoryDidChangeNotification, object: nil)
+        return presetter
+    }()
+    
+    @objc private func contentSizeCategoryDidChange() {
+        notify()
+    }
+}
+
 protocol FontPresetable: class {
     var presetableFont: UIFont? { get set }
-    var contentSizeCategoryObserver: NotificationObserver? { get set }
 }
 
 extension FontPresetable {
     
     func makePresetable(preset: Font) {
         presetableFont = presetableFont?.fontWithPreset(preset)
-        contentSizeCategoryObserver = NotificationObserver.contentSizeCategoryObserver({ [weak self] (_) in
-            if let presetable = self {
-                presetable.presetableFont = presetable.presetableFont?.fontWithPreset(preset)
-            }
-        })
+        FontPresetter.presetter.subscribe(self) { [unowned self] (value) in
+            self.presetableFont = self.presetableFont?.fontWithPreset(preset)
+        }
     }
     
     func makePresetable(presetString: String?) {

@@ -55,16 +55,14 @@ class StreamDataSource<T: BaseOrderedContainer>: NSObject, StreamViewDataSource,
         return metrics
     }
     
-    private var contentSizeCategoryObserver: NotificationObserver?
-    
     convenience init(streamView: StreamView) {
         self.init()
         self.streamView = streamView
         streamView.delegate = self
         streamView.dataSource = self
-        contentSizeCategoryObserver = NotificationObserver.contentSizeCategoryObserver({ [weak self] (_) in
-            self?.reload()
-        })
+        FontPresetter.presetter.subscribe(self) { [unowned self] (value) in
+            self.reload()
+        }
     }
     
     var numberOfItems: Int?

@@ -365,17 +365,15 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
         alert.show()
     }
     
-    private var contentSizeObserver: NotificationObserver?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         editSession = ProfileEditSession(user: User.currentUser!)
         setupEditableUserInterface()
         updateEmailConfirmationView()
         User.notifier().addReceiver(self)
-        contentSizeObserver = NotificationObserver.contentSizeCategoryObserver({ [weak self] (_) in
-            self?.verificationEmailTextView.attributedText = ChangeProfileViewController.verificationSuggestion()
-        })
+        FontPresetter.presetter.subscribe(self) { [unowned self] (value) in
+            self.verificationEmailTextView.attributedText = ChangeProfileViewController.verificationSuggestion()
+        }
         dataSource.items = sortDevices(User.currentUser?.devices ?? [])
         API.devices().send({ [weak self] (devices) in
             self?.dataSource.items = sortDevices(devices)

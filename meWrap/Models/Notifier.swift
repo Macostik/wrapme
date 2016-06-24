@@ -93,20 +93,3 @@ class BlockNotifier<T> {
         }
     }
 }
-
-final class NotificationObserver {
-    
-    let observer: AnyObject
-    
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(observer)
-    }
-    
-    init(name: String, object: AnyObject? = nil, block: NSNotification -> ()) {
-        observer = NSNotificationCenter.defaultCenter().addObserverForName(name, object: object, queue: NSOperationQueue.mainQueue(), usingBlock: block)
-    }
-    
-    static func contentSizeCategoryObserver(block: NSNotification -> ()) -> NotificationObserver {
-        return NotificationObserver(name: UIContentSizeCategoryDidChangeNotification, block: block)
-    }
-}

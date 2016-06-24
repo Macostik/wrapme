@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 
-class ImageView: UIImageView {
+class ImageView: UIImageView, ImageFetching {
     
     struct Placeholder {
         let text: String
@@ -79,20 +79,15 @@ class ImageView: UIImageView {
         self.failure = failure
         self.url = url
     }
-}
-
-extension ImageView: ImageFetching {
-    func fetcherTargetUrl(fetcher: ImageFetcher) -> String? {
-        return url
-    }
-    func fetcher(fetcher: ImageFetcher, didFailWithError error: NSError) {
+    
+    func didFailWithError(error: NSError?) {
         spinner?.stopAnimating()
         placeholder.hidden = false
         failure?(error)
         failure = nil
         success = nil
     }
-    func fetcher(fetcher: ImageFetcher, didFinishWithImage image: UIImage, cached: Bool) {
+    func didFinishWithImage(image: UIImage, cached: Bool) {
         spinner?.stopAnimating()
         placeholder.hidden = true
         self.image = image

@@ -28,8 +28,6 @@ class AddContributorsViewController: WrapBaseViewController, AddressBookRecordCe
     
     private let buttonsView = UIView()
     
-    private var contentSizeObserver: NotificationObserver?
-    
     override func loadView() {
         super.loadView()
         view.backgroundColor = UIColor.whiteColor()
@@ -228,9 +226,9 @@ class AddContributorsViewController: WrapBaseViewController, AddressBookRecordCe
         if cached {
             AddressBook.sharedAddressBook.updateCachedRecords()
         }
-        contentSizeObserver = NotificationObserver.contentSizeCategoryObserver({ [weak self]   (_) in
-            self?.streamView.reload()
-        })
+        FontPresetter.presetter.subscribe(self) { [unowned self] (value) in
+            self.streamView.reload()
+        }
     }
     
     private func handleCachedRecords(cachedRecords: [AddressBookRecord]) {

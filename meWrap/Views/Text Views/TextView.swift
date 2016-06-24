@@ -16,7 +16,6 @@ class TextView: UITextView, FontPresetable {
         get { return font }
         set { font = newValue }
     }
-    var contentSizeCategoryObserver: NotificationObserver?
     
     @IBInspectable var preset: String? {
         willSet {

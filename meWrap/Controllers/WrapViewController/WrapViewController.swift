@@ -319,9 +319,10 @@ final class WrapViewController: WrapBaseViewController {
         wrapNotifyReceiver = EntryNotifyReceiver<Wrap>().setup({ [weak self] (receiver) -> Void in
             receiver.entry = { return self?.wrap }
             receiver.didUpdate = { entry, event in
+                guard self?.view.window != nil else { return }
                 if event == .NumberOfUnreadMessagesChanged {
                     if self?.segment != .Chat {
-                        self?.chatSegmentButton.badge.value = self?.wrap.numberOfUnreadMessages ?? 0
+                        self?.updateMessageCouter()
                     }
                 } else if event == .InboxChanged {
                     self?.updateInboxCounter()
@@ -413,11 +414,11 @@ final class WrapViewController: WrapBaseViewController {
     }
     
     private func updateMessageCouter() {
-        chatSegmentButton.badge.value = wrap.numberOfUnreadMessages ?? 0
+        chatSegmentButton.badge.value = wrap.numberOfUnreadMessages
     }
     
     private func updateInboxCounter() {
-        inboxSegmentButton.badge.value = wrap.numberOfUnreadInboxItems ?? 0
+        inboxSegmentButton.badge.value = wrap.numberOfUnreadInboxItems
     }
     
     private var viewController: WrapBaseViewController? {

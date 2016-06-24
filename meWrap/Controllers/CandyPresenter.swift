@@ -24,6 +24,7 @@ final class CandyPresenter: UIView {
             controller.dismissingView = dismissingView
             controller.view.hidden = true
             controller.setBarsHidden(true, animated: false)
+            controller.view.layoutIfNeeded()
             CandyPresenter.present(candy, fromView: cell, completionHandler: { (_) -> Void in
                 controller.view.hidden = false
                 controller.setBarsHidden(false, animated: true)

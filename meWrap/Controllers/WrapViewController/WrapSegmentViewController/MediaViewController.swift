@@ -439,7 +439,6 @@ class MediaViewController: WrapBaseViewController {
         if wrap.candies.count > 0 {
             dataSource.items?.newer(nil, failure: nil)
         }
-        Wrap.notifier().addReceiver(self)
     }
     
     func createMediaDataSource() -> PaginatedStreamDataSource<History> {
@@ -567,6 +566,12 @@ class MediaViewController: WrapBaseViewController {
         }
         applyLayout(isMediaLayout, reload: false)
         dataSource.items = history
+        Wrap.notifier().addReceiver(self)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        Wrap.notifier().removeReceiver(self)
     }
     
     @IBAction func changeLayout(sender: UIButton) {

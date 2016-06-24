@@ -34,6 +34,7 @@ PODS:
   - PubNub/Core (4.3.3):
     - CocoaLumberjack (= 2.3.0)
   - Quick (0.9.2)
+  - Siren (0.9.2)
   - SnapKit (0.15.0)
 
 DEPENDENCIES:
@@ -47,6 +48,7 @@ DEPENDENCIES:
   - Nimble
   - PubNub (~> 4.0)
   - Quick
+  - Siren
   - SnapKit (~> 0.15.0)
 
 SPEC CHECKSUMS:
@@ -65,8 +67,9 @@ SPEC CHECKSUMS:
   Nimble: 97a0a4cae5124c117115634b2d055d8c97d0af19
   PubNub: 51acd937c947d931a75d2caef654fd12f7573e09
   Quick: 18d057bc66451eedd5d1c8dc99ba2a5db6e60226
+  Siren: acee4d2839e3cc232d8c4a4a4e2e99208403f6e0
   SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
 
-PODFILE CHECKSUM: 08d7085ec8f389b4ac0460cd2750c6ac8517b2d7
+PODFILE CHECKSUM: 9e6358e6c929c7441f4179b9fa9151c5560d81df
 
 COCOAPODS: 1.0.1

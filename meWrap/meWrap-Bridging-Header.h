@@ -7,4 +7,3 @@
 #import <AdobeCreativeSDKImage/AdobeCreativeSDKImage.h>
 #import "MMWormhole.h"
 #import <NewRelicAgent/NewRelic.h>
-#import "iVersion.h"

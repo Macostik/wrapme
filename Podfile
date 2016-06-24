@@ -12,6 +12,7 @@ target 'meWrap' do
     pod 'NewRelicAgent'
     pod 'CryptoSwift'
     pod 'SnapKit', '~> 0.15.0'
+    pod 'Siren'
 end
 
 target 'meWrapTests' do

@@ -232,7 +232,6 @@
 		C571C27A1CCE46420084D4CA /* AdobeCreativeSDKImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C571C2781CCE46420084D4CA /* AdobeCreativeSDKImage.framework */; };
 		C571C27C1CCE46BC0084D4CA /* AdobeCreativeSDKCoreResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C571C27B1CCE46BC0084D4CA /* AdobeCreativeSDKCoreResources.bundle */; };
 		C571C27E1CCE46D10084D4CA /* AdobeCreativeSDKImageResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C571C27D1CCE46D10084D4CA /* AdobeCreativeSDKImageResources.bundle */; };
-		C577C2661A4C427100ECC7E5 /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C577C2621A4C427100ECC7E5 /* iVersion.m */; };
 		C57CB2A91BAAE50D0050FBF7 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB2A31BAAE4ED0050FBF7 /* libc++.tbd */; };
 		C57CB2AA1BAAE5140050FBF7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB2A51BAAE4F60050FBF7 /* libz.tbd */; };
 		C57CB2AB1BAAE51E0050FBF7 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB2A71BAAE5040050FBF7 /* libsqlite3.0.tbd */; };
@@ -656,8 +655,6 @@
 		C571C2781CCE46420084D4CA /* AdobeCreativeSDKImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKImage.framework; sourceTree = "<group>"; };
 		C571C27B1CCE46BC0084D4CA /* AdobeCreativeSDKCoreResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdobeCreativeSDKCoreResources.bundle; path = AdobeCreativeSDKCore.framework/Versions/A/Resources/AdobeCreativeSDKCoreResources.bundle; sourceTree = "<group>"; };
 		C571C27D1CCE46D10084D4CA /* AdobeCreativeSDKImageResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdobeCreativeSDKImageResources.bundle; path = AdobeCreativeSDKImage.framework/Versions/A/Resources/AdobeCreativeSDKImageResources.bundle; sourceTree = "<group>"; };
-		C577C2611A4C427100ECC7E5 /* iVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iVersion.h; sourceTree = "<group>"; };
-		C577C2621A4C427100ECC7E5 /* iVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iVersion.m; sourceTree = "<group>"; };
 		C57CB2A31BAAE4ED0050FBF7 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		C57CB2A51BAAE4F60050FBF7 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C57CB2A71BAAE5040050FBF7 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -1023,7 +1020,6 @@
 				C502B32C1C47F33100F66EAE /* AddressBook */,
 				C502B31B1C47F30400F66EAE /* APIRequest */,
 				C502B30A1C47F2EC00F66EAE /* NotificationCenter */,
-				C577C2601A4C426300ECC7E5 /* iVersion */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1373,15 +1369,6 @@
 			);
 			name = AdobeCreativeSDK;
 			path = Frameworks/AdobeCreativeSDK;
-			sourceTree = "<group>";
-		};
-		C577C2601A4C426300ECC7E5 /* iVersion */ = {
-			isa = PBXGroup;
-			children = (
-				C577C2611A4C427100ECC7E5 /* iVersion.h */,
-				C577C2621A4C427100ECC7E5 /* iVersion.m */,
-			);
-			path = iVersion;
 			sourceTree = "<group>";
 		};
 		C57F7AF21C1ECD6600FFB465 /* emoji */ = {
@@ -2072,7 +2059,6 @@
 				C5F5F0BE1C687B1B002F74C9 /* UserActivity.swift in Sources */,
 				C5D1B6971C981E8700C2C5A7 /* SlimLogger.swift in Sources */,
 				C502B3191C47F2EC00F66EAE /* UserNotification.swift in Sources */,
-				C577C2661A4C427100ECC7E5 /* iVersion.m in Sources */,
 				C559A9971CFB3ED500BF185B /* ConfirmView.swift in Sources */,
 				C5E7AB7A1BCD47D4007E314B /* UIView+Ext.swift in Sources */,
 				C502B3281C47F30400F66EAE /* Entry+APIResponse.swift in Sources */,

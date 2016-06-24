@@ -8,7 +8,7 @@
 
 import Foundation
 import WatchConnectivity
-import PubNub
+import Siren
 
 extension UIApplication {
     
@@ -76,6 +76,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     private func initializeCrashlyticsAndLogging() {
         #if !DEBUG
             NewRelicAgent.enableCrashReporting(true)
+            NewRelicAgent.enableFeatures(.NRFeatureFlag_SwiftInteractionTracing)
             NewRelicAgent.startWithApplicationToken(Environment.current.newRelicToken)
             if let trackerId = Environment.current.GAITrackingId {
                 GAI.sharedInstance().trackerWithTrackingId(trackerId)
@@ -97,12 +98,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func initializeVersionTool() {
-        let version = iVersion.sharedInstance()
-        version.appStoreID = UInt(Constants.appStoreID)
-        version.updateAvailableTitle = "new_version_is_available".ls
-        version.downloadButtonLabel = "update".ls
-        version.remindButtonLabel = "not_now".ls
-        version.updatePriority = .High
+        let siren = Siren.sharedInstance
+        siren.alertType = .Force
+        siren.checkVersion(.Immediately)
     }
     
     private func createWindow() {
@@ -249,6 +247,11 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             Dispatch.mainQueue.async { Uploader.wrapUploader.start() }
         }
         NotificationCenter.defaultCenter.applicationDidBecomeActive()
+        Siren.sharedInstance.checkVersion(.Daily)
+    }
+    
+    func applicationWillEnterForeground(application: UIApplication) {
+        Siren.sharedInstance.checkVersion(.Immediately)
     }
     
     func applicationWillResignActive(application: UIApplication) {

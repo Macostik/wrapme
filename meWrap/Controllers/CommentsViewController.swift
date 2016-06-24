@@ -411,7 +411,6 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        streamView.exclusiveTouch = true
         streamView.layer.addObserver(self, forKeyPath: "bounds", options: .New, context: nil)
         streamView.panGestureRecognizer.addTarget(self, action: #selector(self.panned(_:)))
         
@@ -545,6 +544,9 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     }
     
     func panned(sender: UIPanGestureRecognizer) {
+        
+        bottomView.userInteractionEnabled = sender.state == .Ended || sender.state == .Cancelled
+        
         if sender.state == .Ended && scrollingOffset != 0 && !disableDismissingByScroll {
             let velocity = sender.velocityInView(sender.view)
             if abs(scrollingOffset) > streamView.height/4 || abs(velocity.y) > 1200 {

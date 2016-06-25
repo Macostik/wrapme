@@ -125,7 +125,7 @@ extension Comment {
     }
     
     override func createViewControllerIfNeeded() -> UIViewController {
-        let controller = super.createViewController()
+        let controller = super.createViewControllerIfNeeded()
         if let controller = controller as? HistoryViewController {
             performWhenLoaded(controller, block: { $0.showCommentView(false) })
         }

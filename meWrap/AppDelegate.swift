@@ -76,7 +76,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     private func initializeCrashlyticsAndLogging() {
         #if !DEBUG
             NewRelicAgent.enableCrashReporting(true)
-            NewRelicAgent.enableFeatures(.NRFeatureFlag_SwiftInteractionTracing)
             NewRelicAgent.startWithApplicationToken(Environment.current.newRelicToken)
             if let trackerId = Environment.current.GAITrackingId {
                 GAI.sharedInstance().trackerWithTrackingId(trackerId)

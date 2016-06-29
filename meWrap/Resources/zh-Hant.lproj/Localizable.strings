@@ -350,7 +350,5 @@
 "media_comment_hint" = "按此添加影片或相片回應";
 "invitation_pending" = "邀請待發送";
 "offline_invitation_message" = "當網絡連線恢復後，你的好友即將收到圍拍邀請通知。";
-"photo_comment_by" = "相片回應者";
-"video_comment_by" = "影片回應者";
 "see_my_photo_comment"  = "看看我的相片回應。";
 "see_my_video_comment"  = "看看我的影片回應。";

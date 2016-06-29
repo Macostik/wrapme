@@ -21,7 +21,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
     let imageView = ImageView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.white.photoStyle(56))
     let commentLabel = Label(preset: .Smaller, textColor: UIColor.whiteColor())
     let gradientView = GradientView(startColor: UIColor.blackColor().colorWithAlphaComponent(0.8))
-    private let mediaCommentIndicator = UIImageView()
+    private let mediaCommentIndicator = UserAvatarView()
     private let spinner = specify(UIActivityIndicatorView(activityIndicatorStyle: .White)) {
         $0.color = Color.grayLightest
         $0.hidesWhenStopped = true
@@ -57,9 +57,13 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
             make.centerY.equalTo(gradientView)
             textCommentConstraint = make.leading.equalTo(gradientView).offset(4).constraint
         }
+		mediaCommentIndicator.cornerRadius = 9
+		mediaCommentIndicator.clipsToBounds = true
+		mediaCommentIndicator.setBorder(color: Color.orange)
         gradientView.add(mediaCommentIndicator) { make in
             make.centerY.equalTo(gradientView)
             make.leading.equalTo(gradientView).offset(3)
+			make.size.equalTo(18)
         }
         
         imageView.add(spinner) {
@@ -155,10 +159,6 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         videoPlayer?.removeFromSuperview()
     }
     
-    static let photoAnimationImage: UIImage? = UIImage.animatedImageNamed("animation_photo_comment_", duration: 3)
-    
-    static let videoAnimationImage: UIImage? = UIImage.animatedImageNamed("animation_video_comment_", duration: 3)
-    
     override func setup(candy: Candy) {
         userInteractionEnabled = true
         exclusiveTouch = true
@@ -188,14 +188,10 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
                 commentLabel.textAlignment = .Left
                 mediaCommentIndicator.hidden = false
                 textCommentConstraint.updateOffset(24)
+				mediaCommentIndicator.user = comment.contributor
                 gradientView.hidden = false
-                if commentType == .Photo {
-                    mediaCommentIndicator.image = CandyCell.photoAnimationImage
-                } else {
-                    mediaCommentIndicator.image = CandyCell.videoAnimationImage
-                }
                 mediaCommentIndicator.startAnimating()
-                commentLabel.text = comment.displayText("\(comment.isVideo ? "video_comment_by".ls : "photo_comment_by".ls) \(comment.contributor?.name ?? "")")
+                commentLabel.text = comment.displayText(comment.isVideo ? "see_my_video_comment".ls : "see_my_photo_comment".ls)
             }
         } else {
             mediaCommentIndicator.image = nil

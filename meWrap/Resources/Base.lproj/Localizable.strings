@@ -350,7 +350,5 @@
 "media_comment_hint" = "Tap here to post video or photo comment";
 "invitation_pending" = "Invitation pending";
 "offline_invitation_message" = "Your friends will receive your wrap invite when internet connection is available.";
-"photo_comment_by" = "Photo comment by";
-"video_comment_by" = "Video comment by";
 "see_my_photo_comment"  = "See my photo comment";
 "see_my_video_comment"  = "See my video comment";

@@ -21,6 +21,7 @@ class CommentCell: EntryStreamReusableView<Comment>, FlowerMenuConstructor {
     private let text = SmartLabel(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
+        exclusiveTouch = true
         FlowerMenu.sharedMenu.registerView(self)
         text.numberOfLines = 0
         avatar.placeholder.font = UIFont.icons(24)
@@ -116,6 +117,7 @@ class MediaCommentCell: CommentCell {
             make.leading.bottom.trailing.equalTo(imageView)
         }
         
+        imageView.exclusiveTouch = true
         imageView.userInteractionEnabled = true
         imageView.addGestureRecognizer(CommentLongPressGesture.gesture({ [weak self] () -> Comment? in
             return self?.entry
@@ -170,6 +172,7 @@ class MediaCommentCell: CommentCell {
         
         if comment.commentType() == .Video {
             let playerView = VideoPlayer.createPlayerView()
+            playerView.userInteractionEnabled = false
             imageView.insertSubview(playerView, atIndex: 0)
             playerView.snp_makeConstraints { (make) in
                 make.edges.equalTo(imageView)
@@ -339,6 +342,8 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         streamView.tapped { [weak self] (_) in
             self?.handleTap()
         }
+        
+        streamView.exclusiveTouch = true
     }
     
     override func requestPresentingPermission(completion: BooleanBlock) {
@@ -544,8 +549,6 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     }
     
     func panned(sender: UIPanGestureRecognizer) {
-        
-        bottomView.userInteractionEnabled = sender.state == .Ended || sender.state == .Cancelled
         
         if sender.state == .Ended && scrollingOffset != 0 && !disableDismissingByScroll {
             let velocity = sender.velocityInView(sender.view)

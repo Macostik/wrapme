@@ -70,7 +70,7 @@ final class ComposeBar: UIControl, UITextViewDelegate {
             make.trailing.equalTo(self).inset(-48)
         }
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.becomeFirstResponder)))
-        textView.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.becomeFirstResponder)))
+        contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.becomeFirstResponder)))
     }
     
     var animatesDoneButton = true

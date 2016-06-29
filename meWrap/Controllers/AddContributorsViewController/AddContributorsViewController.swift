@@ -101,6 +101,7 @@ class AddContributorsViewController: WrapBaseViewController, AddressBookRecordCe
         }
         
         if isWrapCreation {
+            nextButton.addTarget(self, touchUpInside: #selector(self.next(_:)))
             title.text = "share_with_friends".ls
             nextButton.hidden = self.isBroadcasting
             if self.isBroadcasting {
@@ -351,7 +352,6 @@ class AddContributorsViewController: WrapBaseViewController, AddressBookRecordCe
         addressBook.selectPhoneNumber(record, phoneNumber: phoneNumber)
         let isEmpty = addressBook.selectionIsEmpty()
         if isWrapCreation {
-            nextButton.addTarget(self, touchUpInside: #selector(self.next(_:)))
             if isBroadcasting {
                 nextButton.hidden = isEmpty
                 nextButton.setTitle("next".ls, forState: .Normal)

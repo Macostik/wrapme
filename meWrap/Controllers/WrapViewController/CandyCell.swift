@@ -9,6 +9,8 @@
 import Foundation
 import SnapKit
 
+private let CandyCellCommentAvatarSize: CGFloat = 24
+
 class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
     
     private static let videoPlayers = InMemoryCache<Candy, VideoPlayer>(value: { candy in
@@ -21,7 +23,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
     let imageView = ImageView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.white.photoStyle(56))
     let commentLabel = Label(preset: .Smaller, textColor: UIColor.whiteColor())
     let gradientView = GradientView(startColor: UIColor.blackColor().colorWithAlphaComponent(0.8))
-    private let mediaCommentIndicator = UserAvatarView()
+    private let mediaCommentIndicator = UserAvatarView(cornerRadius: CandyCellCommentAvatarSize/2, backgroundColor: Color.orange, placeholderSize: CandyCellCommentAvatarSize/2)
     private let spinner = specify(UIActivityIndicatorView(activityIndicatorStyle: .White)) {
         $0.color = Color.grayLightest
         $0.hidesWhenStopped = true
@@ -57,13 +59,11 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
             make.centerY.equalTo(gradientView)
             textCommentConstraint = make.leading.equalTo(gradientView).offset(4).constraint
         }
-		mediaCommentIndicator.cornerRadius = 9
-		mediaCommentIndicator.clipsToBounds = true
 		mediaCommentIndicator.setBorder(color: Color.orange)
         gradientView.add(mediaCommentIndicator) { make in
             make.centerY.equalTo(gradientView)
             make.leading.equalTo(gradientView).offset(3)
-			make.size.equalTo(18)
+			make.size.equalTo(CandyCellCommentAvatarSize)
         }
         
         imageView.add(spinner) {
@@ -187,7 +187,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
             } else  {
                 commentLabel.textAlignment = .Left
                 mediaCommentIndicator.hidden = false
-                textCommentConstraint.updateOffset(24)
+                textCommentConstraint.updateOffset(CandyCellCommentAvatarSize + 6)
 				mediaCommentIndicator.user = comment.contributor
                 gradientView.hidden = false
                 mediaCommentIndicator.startAnimating()

@@ -922,7 +922,7 @@ final class HistoryViewController: SwipeViewController<CandyViewController>, Ent
     @IBAction func share(sender: Button) {
         
         DownloadingView.downloadCandy(candy, message: "downloading_media_for_sharing".ls, success: { [weak self] (url) in
-            let activityVC = UIActivityViewController(activityItems: [url, "sharing_text".ls], applicationActivities: nil)
+            let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
             activityVC.popoverPresentationController?.sourceView = sender
             self?.presentViewController(activityVC, animated: true, completion: nil)
             })

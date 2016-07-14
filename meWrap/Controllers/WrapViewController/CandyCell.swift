@@ -100,7 +100,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         
         menu.addShareAction({
             DownloadingView.downloadCandy(candy, message: "downloading_media_for_sharing".ls, success: { [weak self] (url) in
-                let activityVC = UIActivityViewController(activityItems: [url, "sharing_text".ls], applicationActivities: nil)
+                let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
                 activityVC.popoverPresentationController?.sourceView = self
                 UINavigationController.main.presentViewController(activityVC, animated: true, completion: nil)
                 })

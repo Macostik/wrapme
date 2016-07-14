@@ -111,6 +111,7 @@ class CameraViewController: BaseViewController {
     }
     
     deinit {
+        VideoPlayer.resumeAll.notify()
         VolumeChangeObserver.sharedObserver.unregister()
         DeviceManager.defaultManager.endUsingAccelerometer()
     }
@@ -119,6 +120,8 @@ class CameraViewController: BaseViewController {
     
     override func loadView() {
         super.loadView()
+        
+        VideoPlayer.pauseAll.notify()
         
         view.backgroundColor = UIColor.blackColor()
         

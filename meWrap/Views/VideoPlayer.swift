@@ -71,12 +71,13 @@ final class VideoPlayer: UIView {
         VideoPlayer.pauseAll.subscribe(self) { [unowned self] (value) in
             self.paused = true
             self.player.pause()
+            self._item = nil
         }
         
         VideoPlayer.resumeAll.subscribe(self) { [unowned self] (value) in
             self.paused = false
             if self.playing && self.window != nil {
-                self.player.play()
+                self.play()
             }
         }
         
@@ -85,6 +86,20 @@ final class VideoPlayer: UIView {
                 self.muted = true
             }
         }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.applicationWillResignActive), name:UIApplicationWillResignActiveNotification, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.applicationDidBecomeActive), name:UIApplicationDidBecomeActiveNotification, object:nil)
+    }
+    
+    func applicationDidBecomeActive() {
+        if playing {
+            play()
+        }
+    }
+    
+    func applicationWillResignActive() {
+        player.pause()
+        _item = nil
     }
     
     override class func layerClass() -> AnyClass  {
@@ -93,16 +108,14 @@ final class VideoPlayer: UIView {
     
     deinit {
         _item?.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     var playing: Bool = false {
         didSet {
             guard playing != oldValue else { return }
             if playing {
-                if !paused {
-                    play()
-                }
+                play()
             } else {
                 player.pause()
             }
@@ -110,6 +123,7 @@ final class VideoPlayer: UIView {
     }
     
     private func play() {
+        guard !paused else { return }
         if let item = item where CMTimeCompare(item.currentTime(), item.duration) == 0 {
             item.seekToTime(kCMTimeZero)
         }
@@ -160,7 +174,7 @@ final class VideoPlayer: UIView {
     }
     
     func playerItemDidPlayToEndTime(notification: NSNotification) {
-        if _item == notification.object as? AVPlayerItem && !paused {
+        if _item == notification.object as? AVPlayerItem {
             play()
         }
     }
@@ -186,8 +200,9 @@ final class VideoPlayer: UIView {
         super.didMoveToWindow()
         if window == nil {
             player.pause()
-        } else if playing && !paused {
-            player.play()
+            _item = nil
+        } else if playing {
+            play()
         }
     }
 }

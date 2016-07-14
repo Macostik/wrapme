@@ -110,19 +110,13 @@ class StreamDataSource<T: BaseOrderedContainer where T.ElementType: AnyObject>: 
     
     var didEndDecelerating: (() -> ())?
     
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        VideoPlayer.pauseAll.notify()
-    }
-    
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
             didEndDecelerating?()
-            VideoPlayer.resumeAll.notify()
         }
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         didEndDecelerating?()
-        VideoPlayer.resumeAll.notify()
     }
 }

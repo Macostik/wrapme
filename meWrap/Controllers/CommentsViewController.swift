@@ -484,6 +484,12 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
                     })
                 }
         }
+        
+        if candy.comments.count == 0 {
+            Dispatch.mainQueue.async { () in
+                self.composeBar.becomeFirstResponder()
+            }
+        }
     }
     
     private weak var mediaCommentHint: UIView?
@@ -740,7 +746,9 @@ extension CommentsViewController: ComposeBarDelegate {
     }
     
     func composeBarDidBeginEditing(composeBar: ComposeBar) {
-        showMediaCommentHintIfNeeded()
+        if cameraButton.hidden == false {
+            showMediaCommentHintIfNeeded()
+        }
     }
     
     func composeBarDidEndEditing(composeBar: ComposeBar) {

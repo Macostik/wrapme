@@ -27,7 +27,7 @@ extension UILabel: Highlightable, Selectable {
 
 class Button : UIButton, FontPresetable {
     
-    convenience init(icon: String, size: CGFloat, textColor: UIColor = UIColor.whiteColor()) {
+    convenience init(icon: String, size: CGFloat, textColor: UIColor = .whiteColor()) {
         self.init()
         titleLabel?.font = UIFont.icons(size)
         setTitle(icon, forState: .Normal)

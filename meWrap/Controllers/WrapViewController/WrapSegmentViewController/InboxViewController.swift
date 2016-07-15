@@ -88,9 +88,10 @@ class InboxCell: EntryStreamReusableView<InboxItem> {
     
     internal func addVideoPlayer(asset: Asset?) {
         let playerView = VideoPlayer.createPlayerView()
-        playerView.frame = imageView.bounds
-        playerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        imageView.insertSubview(playerView, atIndex: 0)
+        containerView.insertSubview(playerView, aboveSubview: imageView)
+        playerView.snp_makeConstraints { (make) in
+            make.edges.equalTo(imageView)
+        }
         playerView.url = asset?.videoURL()
         self.videoPlayer = playerView
         self.performSelector(#selector(self.startPlayingVideo), withObject: nil, afterDelay: 0.0)

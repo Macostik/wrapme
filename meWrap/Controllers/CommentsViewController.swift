@@ -172,13 +172,19 @@ class MediaCommentCell: CommentCell {
         
         if comment.commentType() == .Video {
             let playerView = VideoPlayer.createPlayerView()
-            playerView.userInteractionEnabled = false
             imageView.insertSubview(playerView, atIndex: 0)
             playerView.snp_makeConstraints { (make) in
                 make.edges.equalTo(imageView)
             }
             playerView.url = comment.asset?.smallVideoURL()
             self.playerView = playerView
+            playerView.add(playerView.replayButton) { (make) in
+                make.trailing.equalTo(imageView).offset(-5)
+                make.top.equalTo(imageView).offset(3)
+            }
+            playerView.addGestureRecognizer(CommentLongPressGesture.gesture({ [weak self] () -> Comment? in
+                return self?.entry
+                }))
         }
         
         uploadingView = comment.uploadingView

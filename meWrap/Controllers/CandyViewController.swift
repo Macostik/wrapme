@@ -183,7 +183,11 @@ final class VideoCandyViewController: CandyViewController {
         playerView.frame = view.bounds
         view.insertSubview(imageView, belowSubview: spinner)
         playerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        imageView.addSubview(playerView)
+        view.insertSubview(playerView, belowSubview: spinner)
+        playerView.replayButton.titleLabel?.font = .icons(32)
+        playerView.add(playerView.replayButton) { (make) in
+            make.center.equalTo(playerView)
+        }
     }
     
     func toggleVolume() {

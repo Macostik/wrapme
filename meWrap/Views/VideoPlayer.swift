@@ -36,6 +36,8 @@ final class InMemoryCache<Key: Hashable, Value> {
     }
 }
 
+private let maximumNumberOfReplays = 1
+
 protocol VideoPlayerOwner: class {
     func videoPlayerDidChangeOwner()
 }
@@ -50,10 +52,16 @@ final class VideoPlayer: UIView {
     
     private static let cache = InMemoryCache<NSURL, AVAsset>(value: { AVURLAsset(URL: $0) })
     
-    lazy var volumeButton: Button = specify(Button.expandableCandyAction("l")) {
+    lazy var volumeButton: Button = specify(.expandableCandyAction("l")) {
         $0.setTitle("m", forState: .Selected)
         $0.addTarget(self, touchUpInside: #selector(self.volume(_:)))
         $0.backgroundColor = UIColor(white: 0, alpha: 0.8)
+    }
+    
+    lazy var replayButton: Button = specify(Button(icon: "5", size: 20)) {
+        $0.setTitleColor(Color.grayLight, forState: .Highlighted)
+        $0.addTarget(self, touchUpInside: #selector(self.replay(_:)))
+        $0.hidden = true
     }
     
     lazy var spinner: UIActivityIndicatorView = specify(UIActivityIndicatorView(activityIndicatorStyle: .White)) {
@@ -121,9 +129,12 @@ final class VideoPlayer: UIView {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    private var numberOfReplays = 0
+    
     var playing: Bool = false {
         didSet {
             guard playing != oldValue else { return }
+            numberOfReplays = 0
             if playing {
                 play()
             } else {
@@ -135,6 +146,8 @@ final class VideoPlayer: UIView {
     private func play() {
         guard !paused else { return }
         guard let item = item else { return }
+        replayButton.hidden = true
+        volumeButton.hidden = false
         if CMTimeCompare(item.currentTime(), item.duration) == 0 {
             item.seekToTime(kCMTimeZero)
         }
@@ -189,7 +202,25 @@ final class VideoPlayer: UIView {
     
     func playerItemDidPlayToEndTime(notification: NSNotification) {
         if _item == notification.object as? AVPlayerItem {
-            play()
+            numberOfReplays = numberOfReplays + 1
+            if numberOfReplays == maximumNumberOfReplays {
+                numberOfReplays = 0
+                replayButton.hidden = false
+                volumeButton.hidden = true
+                if replayButton.superview == nil {
+                    if volumeButton.superview == self {
+                        add(replayButton, { (make) in
+                            make.center.equalTo(volumeButton)
+                        })
+                    } else {
+                        add(replayButton, { (make) in
+                            make.center.equalTo(self)
+                        })
+                    }
+                }
+            } else {
+                play()
+            }
         }
     }
     
@@ -208,6 +239,10 @@ final class VideoPlayer: UIView {
     
     @objc private func volume(sender: UIButton) {
         muted = !muted
+    }
+    
+    @objc private func replay(sender: UIButton) {
+        play()
     }
     
     override func didMoveToWindow() {

@@ -69,7 +69,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
         playVideoButton.setTitleColor(Color.grayLight, forState: .Highlighted)
         add(playVideoButton) { (make) in
             make.trailing.equalTo(self).offset(-5)
-            make.top.equalTo(self).offset(5)
+            make.top.equalTo(self).offset(3)
         }
     }
     
@@ -166,11 +166,14 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
         let player = VideoPlayer.createPlayerView()
         player.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         player.url = entry?.asset?.smallVideoURL()
-        player.frame = imageView.bounds
-        imageView.addSubview(player)
+        player.frame = bounds
+        insertSubview(player, belowSubview: gradientView)
         player.playing = true
         videoPlayer = player
         playVideoButton.hidden = true
+        player.add(player.replayButton) { (make) in
+            make.center.equalTo(playVideoButton)
+        }
     }
     
     func videoPlayerDidChangeOwner() {
@@ -189,6 +192,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
         playVideoButton.hidden = candy.mediaType != .Video
         if playVideoButton.hidden == false && (CandyCell.videoCandy == nil || CandyCell.videoCandy == candy) {
             CandyCell.videoCandy = candy
+            playVideoButton.hidden = true
             Dispatch.mainQueue.async({ [weak self] () in
                 self?.playVideo()
             })

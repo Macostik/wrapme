@@ -21,9 +21,8 @@ class EditAssetViewController: UIViewController {
         imageView.contentMode = .ScaleAspectFit
         view.add(imageView) { $0.edges.equalTo(view) }
         if asset?.type == .Video {
-            
-            imageView.add(videoPlayer, { (make) in
-                make.edges.equalTo(imageView)
+            view.add(videoPlayer, { (make) in
+                make.edges.equalTo(view)
             })
             videoPlayer.url = asset?.original?.fileURL
         }

@@ -218,6 +218,9 @@ final class VideoPlayer: UIView {
                         })
                     }
                 }
+                if width > 200 {
+                    replayButton.titleLabel?.font = .icons(32)
+                }
             } else {
                 play()
             }

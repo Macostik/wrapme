@@ -219,6 +219,7 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
                 make.size.equalTo(44)
             }
             self.volumeButton = viewController.videoPlayer.volumeButton
+            
         }
         assets.all({ $0.selected = $0 == asset })
         dataSource.reload()

@@ -36,7 +36,17 @@ final class InMemoryCache<Key: Hashable, Value> {
     }
 }
 
+protocol VideoPlayerOwner: class {
+    func videoPlayerDidChangeOwner()
+}
+
 final class VideoPlayer: UIView {
+    
+    weak static var owner: VideoPlayerOwner? {
+        didSet {
+            oldValue?.videoPlayerDidChangeOwner()
+        }
+    }
     
     private static let cache = InMemoryCache<NSURL, AVAsset>(value: { AVURLAsset(URL: $0) })
     
@@ -124,10 +134,14 @@ final class VideoPlayer: UIView {
     
     private func play() {
         guard !paused else { return }
-        if let item = item where CMTimeCompare(item.currentTime(), item.duration) == 0 {
+        guard let item = item else { return }
+        if CMTimeCompare(item.currentTime(), item.duration) == 0 {
             item.seekToTime(kCMTimeZero)
         }
         player.play()
+        if !item.playbackLikelyToKeepUp {
+            spinner.startAnimating()
+        }
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {

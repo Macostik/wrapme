@@ -280,6 +280,7 @@ final class WrapViewController: WrapBaseViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        CandyCell.videoCandy = nil
         if wrap.valid == true {
             updateWrapData()
             updateSegmentIfNeeded()

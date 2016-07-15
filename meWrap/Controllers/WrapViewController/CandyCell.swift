@@ -11,14 +11,7 @@ import SnapKit
 
 private let CandyCellCommentAvatarSize: CGFloat = 24
 
-class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
-    
-    private static let videoPlayers = InMemoryCache<Candy, VideoPlayer>(value: { candy in
-        let player = VideoPlayer.createPlayerView()
-        player.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        player.url = candy.asset?.smallVideoURL()
-        return player
-    })
+class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPlayerOwner {
     
     let imageView = ImageView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.white.photoStyle(56))
     let commentLabel = Label(preset: .Smaller, textColor: UIColor.whiteColor())
@@ -30,6 +23,8 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
     }
     
     private var textCommentConstraint: Constraint!
+    
+    private var playVideoButton = Button(icon: ",", size: 24, textColor: .whiteColor())
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         
@@ -70,6 +65,12 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
             $0.center.equalTo(imageView)
         }
         imageView.spinner = spinner
+        playVideoButton.addTarget(self, touchUpInside: #selector(self.playVideo))
+        playVideoButton.setTitleColor(Color.grayLight, forState: .Highlighted)
+        add(playVideoButton) { (make) in
+            make.trailing.equalTo(self).offset(-5)
+            make.top.equalTo(self).offset(5)
+        }
     }
     
     func constructFlowerMenu(menu: FlowerMenu) {
@@ -152,12 +153,32 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         commentLabel.superview?.hidden = true
     }
     
-    private weak var videoPlayer: VideoPlayer?
-    
     override func willEnqueue() {
         super.willEnqueue()
         videoPlayer?.removeFromSuperview()
     }
+    
+    private var videoPlayer: VideoPlayer?
+    
+    func playVideo() {
+        CandyCell.videoCandy = entry
+        VideoPlayer.owner = self
+        let player = VideoPlayer.createPlayerView()
+        player.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        player.url = entry?.asset?.smallVideoURL()
+        player.frame = imageView.bounds
+        imageView.addSubview(player)
+        player.playing = true
+        videoPlayer = player
+        playVideoButton.hidden = true
+    }
+    
+    func videoPlayerDidChangeOwner() {
+        playVideoButton.hidden = false
+        videoPlayer?.removeFromSuperview()
+    }
+    
+    weak static var videoCandy: Candy?
     
     override func setup(candy: Candy) {
         userInteractionEnabled = true
@@ -165,13 +186,11 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor {
         imageView.url = candy.asset?.small
         uploadingView = candy.uploadingView
         
-        if candy.mediaType == .Video {
-            let playerView = CandyCell.videoPlayers[candy]
-            playerView.frame = imageView.bounds
-            imageView.addSubview(playerView)
-            self.videoPlayer = playerView
-            Dispatch.mainQueue.async({ [weak playerView] _ in
-                playerView?.playing = true
+        playVideoButton.hidden = candy.mediaType != .Video
+        if playVideoButton.hidden == false && (CandyCell.videoCandy == nil || CandyCell.videoCandy == candy) {
+            CandyCell.videoCandy = candy
+            Dispatch.mainQueue.async({ [weak self] () in
+                self?.playVideo()
             })
         }
         

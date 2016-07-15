@@ -198,7 +198,7 @@ final class HomeViewController: BaseViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
+        CandyCell.videoCandy = nil
         dataSource.reload()
         updateEmailConfirmationView(false)
         AuthorizedExecutor.authorized = true

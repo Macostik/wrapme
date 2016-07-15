@@ -36,7 +36,7 @@ final class InMemoryCache<Key: Hashable, Value> {
     }
 }
 
-private let maximumNumberOfReplays = 1
+private let maximumNumberOfReplays = 4
 
 protocol VideoPlayerOwner: class {
     func videoPlayerDidChangeOwner()

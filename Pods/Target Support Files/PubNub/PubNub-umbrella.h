@@ -32,6 +32,7 @@
 #import "PNSubscriberResults.h"
 #import "PNSubscribeStatus.h"
 #import "PNTimeResult.h"
+#import "NSURLSessionConfiguration+PNConfiguration.h"
 #import "PNLog.h"
 #import "PNErrorCodes.h"
 #import "PNStructures.h"

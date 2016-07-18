@@ -58,10 +58,13 @@ final class VideoPlayer: UIView {
         $0.backgroundColor = UIColor(white: 0, alpha: 0.8)
     }
     
-    lazy var replayButton: Button = specify(Button(icon: "5", size: 20)) {
+    lazy var replayButton: Button = specify(Button(icon: ",", size: 24)) {
         $0.setTitleColor(Color.grayLight, forState: .Highlighted)
         $0.addTarget(self, touchUpInside: #selector(self.replay(_:)))
         $0.hidden = true
+        $0.setTitleShadowColor(UIColor.blackColor(), forState: .Normal)
+        $0.titleLabel?.layer.shadowOffset = 0 ^ 0
+        $0.titleLabel?.layer.shadowOpacity = 0.75
     }
     
     lazy var spinner: UIActivityIndicatorView = specify(UIActivityIndicatorView(activityIndicatorStyle: .White)) {
@@ -207,19 +210,8 @@ final class VideoPlayer: UIView {
                 numberOfReplays = 0
                 replayButton.hidden = false
                 volumeButton.hidden = true
-                if replayButton.superview == nil {
-                    if volumeButton.superview == self {
-                        add(replayButton, { (make) in
-                            make.center.equalTo(volumeButton)
-                        })
-                    } else {
-                        add(replayButton, { (make) in
-                            make.center.equalTo(self)
-                        })
-                    }
-                }
                 if width > 200 {
-                    replayButton.titleLabel?.font = .icons(32)
+                    replayButton.titleLabel?.font = .icons(36)
                 }
             } else {
                 play()

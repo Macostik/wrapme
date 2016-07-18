@@ -200,6 +200,7 @@ final class HistoryItemViewController: BaseViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        CandyCell.videoCandy = nil
         streamView.unlock()
         streamView.reload()
     }

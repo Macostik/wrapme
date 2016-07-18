@@ -272,3 +272,9 @@ final class AnimatedButton: Button {
     }
 }
 
+class TransparentButton: Button {
+    override func intrinsicContentSize() -> CGSize {
+        return CGSize.zero
+    }
+}
+

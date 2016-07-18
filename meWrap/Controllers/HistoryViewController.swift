@@ -10,12 +10,6 @@ import Foundation
 import Photos
 import SnapKit
 
-class TransparentButton: Button {
-    override func intrinsicContentSize() -> CGSize {
-        return CGSize.zero
-    }
-}
-
 final class CommentView: UIView {
     
     private let avatar = UserAvatarView(cornerRadius: 24)
@@ -138,13 +132,8 @@ final class CommentView: UIView {
         }
         playerView.url = comment.asset?.smallVideoURL()
         self.videoPlayer = playerView
-        playerView.playing = true
-        playerView.volumeButton.backgroundColor = UIColor.blackColor()
-        playerView.volumeButton.cornerRadius = 12
-        playerView.volumeButton.titleLabel?.font = UIFont.icons(12)
-        playerView.add(playerView.volumeButton) { (make) in
-            make.trailing.top.equalTo(playerView).inset(4)
-            make.size.equalTo(24)
+        if comment.candy?.isVideo == false {
+            playerView.playing = true
         }
     }
     

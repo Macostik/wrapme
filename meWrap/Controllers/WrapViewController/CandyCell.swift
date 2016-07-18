@@ -13,6 +13,13 @@ private let CandyCellCommentAvatarSize: CGFloat = 24
 
 class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPlayerOwner {
     
+    private static let videoPlayers = InMemoryCache<Candy, VideoPlayer>(value: { candy in
+        let player = VideoPlayer.createPlayerView()
+        player.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        player.url = candy.asset?.smallVideoURL()
+        return player
+    })
+    
     let imageView = ImageView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.white.photoStyle(56))
     let commentLabel = Label(preset: .Smaller, textColor: UIColor.whiteColor())
     let gradientView = GradientView(startColor: UIColor.blackColor().colorWithAlphaComponent(0.8))
@@ -65,8 +72,12 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
             $0.center.equalTo(imageView)
         }
         imageView.spinner = spinner
-        playVideoButton.addTarget(self, touchUpInside: #selector(self.playVideo))
+        
+        playVideoButton.addTarget(self, touchUpInside: #selector(self.playVideoAction))
         playVideoButton.setTitleColor(Color.grayLight, forState: .Highlighted)
+        playVideoButton.setTitleShadowColor(UIColor.blackColor(), forState: .Normal)
+        playVideoButton.titleLabel?.layer.shadowOffset = 0 ^ 0
+        playVideoButton.titleLabel?.layer.shadowOpacity = 0.75
         add(playVideoButton) { (make) in
             make.trailing.equalTo(self).offset(-5)
             make.top.equalTo(self).offset(3)
@@ -127,8 +138,8 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
         }
     }
     
-    override func didDequeue() {
-        super.didDequeue()
+    override func willEnqueue() {
+        super.willEnqueue()
         imageView.image = nil
     }
     
@@ -153,22 +164,22 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
         commentLabel.superview?.hidden = true
     }
     
-    override func willEnqueue() {
-        super.willEnqueue()
-        videoPlayer?.removeFromSuperview()
-    }
-    
     private var videoPlayer: VideoPlayer?
     
-    func playVideo() {
+    func playVideoAction() {
         CandyCell.videoCandy = entry
+        playVideo()
+    }
+    
+    func playVideo() {
+        guard let candy = entry where CandyCell.videoCandy == candy else { return }
+        let player = CandyCell.videoPlayers[candy]
+        guard player != videoPlayer else { return }
         VideoPlayer.owner = self
-        let player = VideoPlayer.createPlayerView()
-        player.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        player.url = entry?.asset?.smallVideoURL()
         player.frame = bounds
         insertSubview(player, belowSubview: gradientView)
         player.playing = true
+        videoPlayer?.removeFromSuperview()
         videoPlayer = player
         playVideoButton.hidden = true
         player.add(player.replayButton) { (make) in
@@ -179,6 +190,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
     func videoPlayerDidChangeOwner() {
         playVideoButton.hidden = false
         videoPlayer?.removeFromSuperview()
+        videoPlayer = nil
     }
     
     weak static var videoCandy: Candy?
@@ -196,6 +208,9 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
             Dispatch.mainQueue.async({ [weak self] () in
                 self?.playVideo()
             })
+        } else {
+            videoPlayer?.removeFromSuperview()
+            videoPlayer = nil
         }
         
         if let comment = candy.latestComment  {

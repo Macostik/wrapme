@@ -25,6 +25,9 @@ class EditAssetViewController: UIViewController {
                 make.edges.equalTo(view)
             })
             videoPlayer.url = asset?.original?.fileURL
+            videoPlayer.add(videoPlayer.replayButton) { (make) in
+                make.center.equalTo(videoPlayer)
+            }
         }
     }
     

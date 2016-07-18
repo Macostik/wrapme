@@ -186,6 +186,9 @@ final class UploadMediaCommentViewController: UIViewController, ComposeBarDelega
                 make.centerY.equalTo(uploadButton)
                 make.size.equalTo(44)
             }
+            videoPlayer.add(videoPlayer.replayButton) { (make) in
+                make.center.equalTo(videoPlayer)
+            }
         } else {
             let imageView = ImageView(backgroundColor: UIColor.clearColor())
             view.insertSubview(imageView, atIndex: 0)

@@ -162,33 +162,21 @@ class MediaCommentCell: CommentCell {
     
     weak var playerView: VideoPlayer?
     
-    override func willEnqueue() {
-        super.willEnqueue()
-        playerView?.removeFromSuperview()
-    }
-    
     override func setup(comment: Comment) {
         super.setup(comment)
         
-        if comment.commentType() == .Video {
-            let playerView = VideoPlayer.createPlayerView()
-            imageView.insertSubview(playerView, atIndex: 0)
-            playerView.snp_makeConstraints { (make) in
-                make.edges.equalTo(imageView)
-            }
-            playerView.url = comment.asset?.smallVideoURL()
-            self.playerView = playerView
-            playerView.add(playerView.replayButton) { (make) in
-                make.trailing.equalTo(imageView).offset(-5)
-                make.top.equalTo(imageView).offset(3)
-            }
-            playerView.addGestureRecognizer(CommentLongPressGesture.gesture({ [weak self] () -> Comment? in
-                return self?.entry
-                }))
-        }
-        
         uploadingView = comment.uploadingView
         imageView.url = comment.asset?.small
+    }
+    
+    func playVideo(playerView: VideoPlayer) {
+        guard self.playerView != playerView else { return }
+        imageView.insertSubview(playerView, atIndex: 0)
+        playerView.snp_makeConstraints { (make) in
+            make.edges.equalTo(imageView)
+        }
+        self.playerView = playerView
+        playerView.playing = true
     }
 }
 
@@ -226,29 +214,6 @@ final class CommentsDataSource: StreamDataSource<[Comment]> {
         let timeFont = Font.Smaller + .Regular
         let textHeight = comment.text?.heightWithFont(font, width:Constants.screenWidth - (comment.hasMedia ? 212 : 106)) ?? 0
         return max(textHeight, font.lineHeight) + nameFont.lineHeight + timeFont.lineHeight + CommentVerticalSpacing
-    }
-    
-    override func reload() {
-        super.reload()
-        playVideoCommentsIfNeeded()
-    }
-    
-    func playVideoCommentsIfNeeded() {
-        streamView.visibleItems().all({
-            if $0.metrics === mediaCommentMetrics {
-                ($0.view as? MediaCommentCell)?.playerView?.playing = true
-            }
-        })
-    }
-    
-    override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        playVideoCommentsIfNeeded()
-    }
-    
-    override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
-            playVideoCommentsIfNeeded()
-        }
     }
 }
 
@@ -350,6 +315,23 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         }
         
         streamView.exclusiveTouch = true
+        
+        dataSource.mediaCommentMetrics?.finalizeAppearing = { [weak self] item, cell in
+            if let comment = cell.entry, let videoPlayer = self?.videoPlayer?[comment] {
+                cell.playVideo(videoPlayer)
+            } else if cell.playerView?.superview == cell {
+                cell.playerView?.removeFromSuperview()
+            }
+        }
+    }
+    
+    private var videoPlayer: [Comment: VideoPlayer]?
+    
+    private func createVideoPlayer(comment: Comment) -> VideoPlayer {
+        let playerView = VideoPlayer.createPlayerView()
+        playerView.userInteractionEnabled = false
+        playerView.url = comment.asset?.smallVideoURL()
+        return playerView
     }
     
     override func requestPresentingPermission(completion: BooleanBlock) {
@@ -430,7 +412,12 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         candy.comments.all({ $0.markAsUnread(false) })
         
         streamView.placeholderViewBlock = PlaceholderView.commentsPlaceholder()
-        dataSource.items = candy.sortedComments()
+        let comments = candy.sortedComments()
+        for comment in comments.reverse() where comment.isVideo {
+            videoPlayer = [comment: createVideoPlayer(comment)]
+            break
+        }
+        dataSource.items = comments
         
         if candy.uploaded {
             candy.fetch({ [weak self] _ in

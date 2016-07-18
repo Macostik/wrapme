@@ -95,6 +95,9 @@ class InboxCell: EntryStreamReusableView<InboxItem> {
         playerView.url = asset?.videoURL()
         self.videoPlayer = playerView
         self.performSelector(#selector(self.startPlayingVideo), withObject: nil, afterDelay: 0.0)
+        playerView.add(playerView.replayButton) { (make) in
+            make.center.equalTo(playerView)
+        }
     }
 
     override func setup(update: InboxItem) {

@@ -107,20 +107,6 @@ final class VideoPlayer: UIView {
                 self.muted = true
             }
         }
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.applicationWillResignActive), name:UIApplicationWillResignActiveNotification, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.applicationDidBecomeActive), name:UIApplicationDidBecomeActiveNotification, object:nil)
-    }
-    
-    func applicationDidBecomeActive() {
-        if playing {
-            play()
-        }
-    }
-    
-    func applicationWillResignActive() {
-        player.pause()
-        _item = nil
     }
     
     override class func layerClass() -> AnyClass  {
@@ -164,6 +150,9 @@ final class VideoPlayer: UIView {
         guard let item = item else { return }
         if item.playbackLikelyToKeepUp {
             spinner.stopAnimating()
+            if playing {
+                play()
+            }
         } else {
             spinner.startAnimating()
         }
@@ -238,15 +227,5 @@ final class VideoPlayer: UIView {
     
     @objc private func replay(sender: UIButton) {
         play()
-    }
-    
-    override func didMoveToWindow() {
-        super.didMoveToWindow()
-        if window == nil {
-            player.pause()
-            _item = nil
-        } else if playing {
-            play()
-        }
     }
 }

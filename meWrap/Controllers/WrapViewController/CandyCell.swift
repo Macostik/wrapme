@@ -13,10 +13,10 @@ private let CandyCellCommentAvatarSize: CGFloat = 24
 
 class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPlayerOwner {
     
-    private static let videoPlayers = InMemoryCache<Candy, VideoPlayer>(value: { candy in
+    private static let videoPlayers = InMemoryCache<NSURL, VideoPlayer>(value: { url in
         let player = VideoPlayer.createPlayerView()
         player.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        player.url = candy.asset?.smallVideoURL()
+        player.url = url
         return player
     })
     
@@ -172,8 +172,8 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
     }
     
     func playVideo() {
-        guard let candy = entry where CandyCell.videoCandy == candy else { return }
-        let player = CandyCell.videoPlayers[candy]
+        guard let candy = entry, let url = candy.asset?.smallVideoURL() where CandyCell.videoCandy == candy else { return }
+        let player = CandyCell.videoPlayers[url]
         guard player != videoPlayer else { return }
         VideoPlayer.owner = self
         player.frame = bounds

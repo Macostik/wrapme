@@ -317,7 +317,10 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
         streamView.exclusiveTouch = true
         
         dataSource.mediaCommentMetrics?.finalizeAppearing = { [weak self] item, cell in
-            if let comment = cell.entry, let videoPlayer = self?.videoPlayer?[comment] {
+            if let comment = cell.entry, let videoPlayer = self?.videoPlayer(for: comment) {
+                if cell.playerView != nil && cell.playerView != videoPlayer {
+                    cell.playerView?.removeFromSuperview()
+                }
                 cell.playVideo(videoPlayer)
             } else if cell.playerView?.superview == cell {
                 cell.playerView?.removeFromSuperview()
@@ -326,6 +329,20 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
     }
     
     private var videoPlayer: [Comment: VideoPlayer]?
+    
+    private func videoPlayer(for comment: Comment) -> VideoPlayer? {
+        if let videoPlayer = videoPlayer?[comment] {
+            if videoPlayer.url == comment.asset?.smallVideoURL() {
+                return videoPlayer
+            } else {
+                let videoPlayer = createVideoPlayer(comment)
+                self.videoPlayer?[comment] = videoPlayer
+                return videoPlayer
+            }
+        } else {
+            return nil
+        }
+    }
     
     private func createVideoPlayer(comment: Comment) -> VideoPlayer {
         let playerView = VideoPlayer.createPlayerView()

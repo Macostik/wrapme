@@ -197,6 +197,7 @@ final class VideoPlayer: UIView {
             numberOfReplays = numberOfReplays + 1
             if numberOfReplays == maximumNumberOfReplays {
                 numberOfReplays = 0
+                playing = false
                 replayButton.hidden = false
                 volumeButton.hidden = true
                 if width > 200 {

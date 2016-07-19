@@ -106,12 +106,20 @@ class Asset: NSObject, NSCopying {
     }
     
     func smallVideoURL() -> NSURL? {
-        if let original = original where original.isExistingFilePath {
+        guard let original = original else { return nil }
+        if original.isExistingFilePath {
             return original.fileURL
-        } else if let lowDef = lowDef {
-            return lowDef.URL
         } else {
-            return videoURL()
+            let path = ImageCache.defaultCache.getPath(ImageCache.uidFromURL(original, ext: "mp4"))
+            if path.isExistingFilePath {
+                return path.fileURL
+            } else {
+                if let lowDef = lowDef {
+                    return lowDef.URL
+                } else {
+                    return original.URL
+                }
+            }
         }
     }
 }

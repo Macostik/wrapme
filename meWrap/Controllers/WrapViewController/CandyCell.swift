@@ -171,20 +171,24 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
     
     func playVideoAction() {
         CandyCell.videoCandy = entry
-        playVideo()
+        playVideo(true)
     }
     
-    func playVideo() {
+    func playVideo(playing: Bool) {
         guard let candy = entry, let url = candy.asset?.smallVideoURL() where CandyCell.videoCandy == candy else { return }
         let player = CandyCell.videoPlayers[url]
-        guard player != videoPlayer else { return }
         VideoPlayer.owner = self
         player.frame = bounds
         insertSubview(player, belowSubview: gradientView)
-        player.playing = true
+        if playing {
+            player.playing = true
+            playVideoButton.hidden = true
+        } else {
+            playVideoButton.hidden = player.playing
+        }
         videoPlayer?.removeFromSuperview()
         videoPlayer = player
-        playVideoButton.hidden = true
+        
         player.add(player.replayButton) { (make) in
             make.center.equalTo(playVideoButton)
         }
@@ -192,6 +196,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
     
     func videoPlayerDidChangeOwner() {
         playVideoButton.hidden = false
+        videoPlayer?.playing = false
         videoPlayer?.removeFromSuperview()
         videoPlayer = nil
     }
@@ -206,17 +211,18 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
         
         playVideoButton.hidden = candy.mediaType != .Video
         if playVideoButton.hidden == false && (CandyCell.videoCandy == nil || CandyCell.videoCandy == candy) {
+            let reusing = CandyCell.videoCandy == candy
             CandyCell.videoCandy = candy
             playVideoButton.hidden = true
             Dispatch.mainQueue.async({ [weak self] () in
-                self?.playVideo()
-            })
+                self?.playVideo(!reusing)
+                })
         } else {
             videoPlayer?.removeFromSuperview()
             videoPlayer = nil
         }
         
-        if let comment = candy.latestComment  {
+        if let comment = candy.latestComment {
             let commentType = comment.commentType()
             if commentType == .Text {
                 commentLabel.textAlignment = .Center
@@ -231,7 +237,6 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
                 textCommentConstraint.updateOffset(CandyCellCommentAvatarSize + 6)
 				mediaCommentIndicator.user = comment.contributor
                 gradientView.hidden = false
-                mediaCommentIndicator.startAnimating()
                 commentLabel.text = comment.displayText(comment.isVideo ? "see_my_video_comment".ls : "see_my_photo_comment".ls)
             }
         } else {

@@ -28,8 +28,9 @@ final class Streamer: NSObject, WZStatusCallback {
         }
     }
     
-    func start(completion: () -> ()) {
-        streamingStarted = completion
+    func start(success: () -> (), failure: FailureBlock) {
+        streamingStarted = success
+        self.failure = failure
         goCoder?.startStreaming(self)
     }
     
@@ -39,21 +40,24 @@ final class Streamer: NSObject, WZStatusCallback {
     
     func onWZError(status: WZStatus!) {
         Dispatch.mainQueue.async({ () in
-            status.error?.show()
+            self.failure?(status.error)
+            self.failure = nil
+            self.streamingStarted = nil
         })
     }
     
-    func onWZEvent(status: WZStatus!) {
-        
-    }
+    func onWZEvent(status: WZStatus!) {}
     
     private var streamingStarted: (() -> ())?
+    
+    private var failure: FailureBlock?
     
     func onWZStatus(status: WZStatus!) {
         if status.state == .Running {
             Dispatch.mainQueue.async({ () in
                 self.streamingStarted?()
                 self.streamingStarted = nil
+                self.failure = nil
             })
         }
     }
@@ -240,6 +244,10 @@ final class LiveBroadcasterViewController: LiveViewController {
     }
     
     func applicationDidBecomeActive(notification: NSNotification) {
+        resetBroadcast()
+    }
+    
+    private func resetBroadcast() {
         joinsCountView.hidden = true
         startButton.hidden = false
         composeBar.hidden = false
@@ -254,7 +262,7 @@ final class LiveBroadcasterViewController: LiveViewController {
         }
     }
     
-    func startStreaming(completionHandler: () -> ()) {
+    func startStreaming(completionHandler: () -> (), failure: FailureBlock) {
         titleLabel.text = composeBar.text
         titleLabel.superview?.hidden = false
         broadcast.title = composeBar.text
@@ -264,7 +272,7 @@ final class LiveBroadcasterViewController: LiveViewController {
                 let liveEvent = LiveBroadcast.Event(kind: .Info)
                 liveEvent.text = String(format: "your_broadcast_is_live".ls)
                 self?.insertEvent(liveEvent)
-            })
+            }, failure: failure)
             UIApplication.sharedApplication().idleTimerDisabled = true
         }
         chatSubscription.subscribe()
@@ -289,7 +297,7 @@ final class LiveBroadcasterViewController: LiveViewController {
             return
         }
         
-        startStreaming { [weak self] _ in
+        startStreaming({ [weak self] _ in
             
             guard self?.startButton.hidden == true else { return }
             
@@ -347,7 +355,11 @@ final class LiveBroadcasterViewController: LiveViewController {
                 liveEvent.text = String(format: "formatted_broadcast_notification".ls, wrap.name ?? "")
                 _self.insertEvent(liveEvent)
             }
-        }
+            }, failure: { [weak self] error in
+                error?.show()
+                self?.stopBroadcast()
+                self?.resetBroadcast()
+        })
         joinsCountView.hidden = false
         sender.hidden = true
         composeBar.hidden = true

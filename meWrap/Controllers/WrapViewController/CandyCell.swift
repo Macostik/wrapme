@@ -239,7 +239,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
             } else  {
                 commentLabel.textAlignment = .Left
                 mediaCommentIndicator.hidden = false
-                textCommentConstraint.updateOffset(CandyCellCommentAvatarSize + 6)
+                textCommentConstraint.updateOffset(CandyCellCommentAvatarSize + 10)
 				mediaCommentIndicator.user = comment.contributor
                 gradientView.hidden = false
                 commentLabel.text = comment.displayText(comment.isVideo ? "see_my_video_comment".ls : "see_my_photo_comment".ls)

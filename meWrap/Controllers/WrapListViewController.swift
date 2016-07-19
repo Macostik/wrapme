@@ -232,7 +232,7 @@ class WrapListViewController: BaseViewController {
             if queue.isExecuting {
                 let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
                 navigationBar!.add(spinner, { (make) in
-                    make.trailing.equalTo(navigationBar!).inset(-12)
+                    make.trailing.equalTo(navigationBar!).offset(-12)
                     make.centerY.equalTo(navigationBar!).offset(10)
                 })
                 spinner.startAnimating()

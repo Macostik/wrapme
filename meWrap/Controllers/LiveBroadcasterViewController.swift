@@ -291,7 +291,11 @@ final class LiveBroadcasterViewController: LiveViewController {
         
         startStreaming { [weak self] _ in
             
+            guard self?.startButton.hidden == true else { return }
+            
             Dispatch.mainQueue.after(6) {
+                
+                guard self?.startButton.hidden == true else { return }
                 
                 guard let _self = self else { return }
                 guard let wrap = _self.wrap else { return }

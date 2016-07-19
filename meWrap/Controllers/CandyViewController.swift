@@ -183,10 +183,24 @@ final class VideoCandyViewController: CandyViewController {
         playerView.frame = view.bounds
         view.insertSubview(imageView, belowSubview: spinner)
         playerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        view.insertSubview(playerView, belowSubview: spinner)
+        imageView.userInteractionEnabled = true
+        let playerContainer = UIView(frame: view.bounds)
+        playerContainer.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        imageView.addSubview(playerContainer)
+        playerContainer.addSubview(playerView)
         playerView.replayButton.titleLabel?.font = .icons(32)
-        playerView.add(playerView.replayButton) { (make) in
-            make.center.equalTo(playerView)
+        view.add(playerView.replayButton) { (make) in
+            make.center.equalTo(view)
+        }
+        view.add(playerView.spinner) { (make) in
+            make.center.equalTo(view)
+        }
+    }
+    
+    override func setOrientation(orientation: UIDeviceOrientation, animated: Bool) {
+        super.setOrientation(orientation, animated: animated)
+        animate(animated) {
+            playerView.replayButton.transform = orientation.interfaceTransform()
         }
     }
     

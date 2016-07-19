@@ -97,7 +97,7 @@ final class VideoPlayer: UIView {
         
         VideoPlayer.resumeAll.subscribe(self) { [unowned self] (value) in
             self.paused = false
-            if self.playing && self.window != nil {
+            if self.playing {
                 self.play()
             }
         }

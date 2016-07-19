@@ -162,6 +162,9 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
         uploadingView = nil
         imageView.url = nil
         commentLabel.superview?.hidden = true
+        playVideoButton.hidden = true
+        videoPlayer?.removeFromSuperview()
+        videoPlayer = nil
     }
     
     private var videoPlayer: VideoPlayer?

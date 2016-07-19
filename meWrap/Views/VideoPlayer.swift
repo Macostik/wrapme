@@ -46,7 +46,9 @@ final class VideoPlayer: UIView {
     
     weak static var owner: VideoPlayerOwner? {
         didSet {
-            oldValue?.videoPlayerDidChangeOwner()
+            if owner !== oldValue {
+                oldValue?.videoPlayerDidChangeOwner()
+            }
         }
     }
     

@@ -179,26 +179,31 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
         let player = CandyCell.videoPlayers[url]
         VideoPlayer.owner = self
         player.frame = bounds
-        insertSubview(player, belowSubview: gradientView)
+        if videoPlayer != player {
+            videoPlayer?.removeFromSuperview()
+        }
+        if player.superview != self {
+            insertSubview(player, belowSubview: gradientView)
+        }
         if playing {
             player.playing = true
             playVideoButton.hidden = true
         } else {
             playVideoButton.hidden = player.playing
         }
-        videoPlayer?.removeFromSuperview()
         videoPlayer = player
-        
         player.add(player.replayButton) { (make) in
             make.center.equalTo(playVideoButton)
         }
     }
     
     func videoPlayerDidChangeOwner() {
-        playVideoButton.hidden = false
-        videoPlayer?.playing = false
-        videoPlayer?.removeFromSuperview()
-        videoPlayer = nil
+        if videoPlayer?.superview == self {
+            playVideoButton.hidden = false
+            videoPlayer?.playing = false
+            videoPlayer?.removeFromSuperview()
+            videoPlayer = nil
+        }
     }
     
     weak static var videoCandy: Candy?

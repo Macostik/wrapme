@@ -580,6 +580,7 @@ class MediaViewController: WrapBaseViewController {
     }
     
     @IBAction func changeLayout(sender: UIButton) {
+        CandyCell.videoCandy = nil
         isMediaLayout = !isMediaLayout
     }
     

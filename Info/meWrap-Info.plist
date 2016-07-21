@@ -34,7 +34,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>630</string>
+	<string>2</string>
 	<key>Environment</key>
 	<string>${ENV}</string>
 	<key>LSGetAppDiedEvents</key>

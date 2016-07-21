@@ -2463,6 +2463,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2496,6 +2497,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Info/meWrapShareExt-Info.plist";
@@ -2524,6 +2526,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Info/meWrapShareExt-Info.plist";
@@ -2823,7 +2826,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
-					"~/AdobeCreativeSDK",
 					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2886,7 +2888,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
-					"~/AdobeCreativeSDK",
 					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -3054,7 +3055,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
-					"~/AdobeCreativeSDK",
 					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;

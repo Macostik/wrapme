@@ -17,7 +17,7 @@ protocol ContributorCellDelegate: class {
     func contributorCell(cell: ContributorCell, showMenu contributor: User) -> Bool
 }
 
-final class ContributorCell: EntryStreamReusableView<AnyObject>, FlowerMenuConstructor {
+final class ContributorCell: EntryStreamReusableView<AnyObject> {
     
     weak var delegate: ContributorCellDelegate?
     private let nameLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.grayDark)
@@ -68,7 +68,6 @@ final class ContributorCell: EntryStreamReusableView<AnyObject>, FlowerMenuConst
             make.height.equalTo(1)
         }
         
-        FlowerMenu.sharedMenu.registerView(self)
         addMetrics(removeMetrics)
         addMetrics(resendMetrics)
         addMetrics(spinnerMetics)
@@ -120,14 +119,6 @@ final class ContributorCell: EntryStreamReusableView<AnyObject>, FlowerMenuConst
     }
     
     weak var wrap: Wrap?
-    
-    func constructFlowerMenu(menu: FlowerMenu) {
-        if let user = entry as? User where user.current == false {
-            menu.addCallAction({
-                CallCenter.center.call(user)
-            })
-        }
-    }
     
     override func setup(entry: AnyObject) {
         if let user = entry as? User {

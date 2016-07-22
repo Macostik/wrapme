@@ -370,3 +370,6 @@
 "offline" = "offline";
 "open" = "Open";
 "f_wrap_found" = "%@ found!";
+"call" = "Call";
+"incoming_call" = "INCOMING CALL...";
+"waiting_for_response" = "WAITING FOR RESPONSE";

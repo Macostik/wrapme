@@ -546,7 +546,9 @@ extension WrapViewController {
     }
     
     @IBAction func audioCall(sender: UIButton) {
-        
+        if let user = wrap.contributors.filter({ !$0.current }).first {
+            CallCenter.center.call(user)
+        }
     }
     
     @IBAction func videoCall(sender: UIButton) {

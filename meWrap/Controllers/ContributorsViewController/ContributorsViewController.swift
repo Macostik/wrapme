@@ -55,42 +55,47 @@ final class ContributorsViewController: BaseViewController {
         
         let navigationBar = UIView()
         
-        view.addSubview(addFriendView)
-        view.addSubview(navigationBar)
-        
-        addFriendView.snp_makeConstraints { (make) in
-            make.centerX.equalTo(view)
-            make.top.equalTo(navigationBar.snp_bottom)
-            make.height.equalTo(44)
+        view.add(navigationBar) { (make) in
+            make.leading.top.trailing.equalTo(view)
+            make.height.equalTo(64)
         }
         
-        let addFriendIcon = Label(icon: "2", size: 19, textColor: Color.grayDark)
-        let addFriendLabel = Label(preset: .Small, weight: .Regular, textColor: Color.grayDark)
-        addFriendLabel.text = "add_friend...".ls
-        addFriendIcon.highlightedTextColor = Color.grayLighter
-        addFriendLabel.highlightedTextColor = Color.grayLighter
-        addFriendView.highlightings = [addFriendIcon, addFriendLabel]
-        addFriendView.addTarget(self, touchUpInside: #selector(self.addFriend(_:)))
-        
-        addFriendView.add(addFriendIcon) { (make) in
-            make.leading.top.bottom.equalTo(addFriendView)
-        }
-        
-        addFriendView.add(addFriendLabel) { (make) in
-            make.centerY.trailing.equalTo(addFriendView)
-            make.leading.equalTo(addFriendIcon.snp_trailing).offset(3)
+        if !wrap.p2p {
+            view.addSubview(addFriendView)
+            addFriendView.snp_makeConstraints { (make) in
+                make.centerX.equalTo(view)
+                make.top.equalTo(navigationBar.snp_bottom)
+                make.height.equalTo(44)
+            }
+            
+            let addFriendIcon = Label(icon: "2", size: 19, textColor: Color.grayDark)
+            let addFriendLabel = Label(preset: .Small, weight: .Regular, textColor: Color.grayDark)
+            addFriendLabel.text = "add_friend...".ls
+            addFriendIcon.highlightedTextColor = Color.grayLighter
+            addFriendLabel.highlightedTextColor = Color.grayLighter
+            addFriendView.highlightings = [addFriendIcon, addFriendLabel]
+            addFriendView.addTarget(self, touchUpInside: #selector(self.addFriend(_:)))
+            
+            addFriendView.add(addFriendIcon) { (make) in
+                make.leading.top.bottom.equalTo(addFriendView)
+            }
+            
+            addFriendView.add(addFriendLabel) { (make) in
+                make.centerY.trailing.equalTo(addFriendView)
+                make.leading.equalTo(addFriendIcon.snp_trailing).offset(3)
+            }
         }
         
         view.add(streamView) { (make) in
-            make.top.equalTo(addFriendView.snp_bottom)
+            if wrap.p2p {
+                make.top.equalTo(navigationBar.snp_bottom)
+            } else {
+                make.top.equalTo(addFriendView.snp_bottom)
+            }
             make.leading.bottom.trailing.equalTo(view)
         }
         
         navigationBar.backgroundColor = Color.orange
-        navigationBar.snp_makeConstraints { (make) in
-            make.leading.top.trailing.equalTo(view)
-            make.height.equalTo(64)
-        }
         navigationBar.add(backButton(UIColor.whiteColor())) { (make) in
             make.leading.equalTo(navigationBar).inset(12)
             make.centerY.equalTo(navigationBar).offset(10)
@@ -149,7 +154,7 @@ final class ContributorsViewController: BaseViewController {
     private var addFriendViewHidden = false
     
     private func setAddFriendViewHidden(hidden: Bool, animated: Bool) {
-        guard hidden != addFriendViewHidden else { return }
+        guard !wrap.p2p && hidden != addFriendViewHidden else { return }
         addFriendViewHidden = hidden
         addFriendView.snp_remakeConstraints { (make) in
             make.centerX.equalTo(view)

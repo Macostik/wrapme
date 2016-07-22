@@ -260,6 +260,21 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             resetBadge()
         }
     }
+    
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        if notification.sin_isSinchNotification() {
+            // This will trigger -[SINClientDelegate didReceiveIncomingCall:] if the notification
+            // represents a call (i.e. contrast to that it may represent an instant-message)
+            if let result = CallCenter.center.sinch?.relayLocalNotification(notification) {
+                if result.isCall() && result.callResult().isTimedOut {
+                    // The notification is related to an incoming call,
+                    // but was too old and the call has expired.
+                    // The call should be treated as a missed call and appropriate
+                    // action should be taken to communicate that to the user.
+                }
+            }
+        }
+    }
 }
 
 extension AppDelegate: WCSessionDelegate {

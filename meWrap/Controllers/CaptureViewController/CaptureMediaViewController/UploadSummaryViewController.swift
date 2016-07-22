@@ -202,7 +202,7 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
         super.viewDidAppear(animated)
         dataSource.items = assets
         uploadButton.active = true
-        uploadButton.setTitle((UploadWizardViewController.isActive ? "next" : "send").ls, forState: .Normal)
+        uploadButton.setTitle("send".ls, forState: .Normal)
     }
     
     private func updateAssetData(asset: MutableAsset) {

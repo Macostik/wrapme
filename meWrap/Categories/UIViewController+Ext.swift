@@ -58,9 +58,15 @@ extension UIViewController {
     }
     
     func backButton(color: UIColor) -> Button {
+        return backButton(color, action: #selector(self.back(_:)))
+    }
+    
+    func backButton(color: UIColor, action: Selector) -> Button {
         let backButton = Button(icon: "w", size: 24, textColor: color)
+        backButton.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        backButton.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
         backButton.setTitleColor(color.darkerColor(), forState: .Highlighted)
-        backButton.addTarget(self, action: #selector(self.back(_:)), forControlEvents: .TouchUpInside)
+        backButton.addTarget(self, action: action, forControlEvents: .TouchUpInside)
         return backButton
     }
 }

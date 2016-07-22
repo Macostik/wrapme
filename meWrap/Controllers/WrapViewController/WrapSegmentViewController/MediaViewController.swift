@@ -312,7 +312,7 @@ class MediaViewController: WrapBaseViewController {
     lazy var mosaicDataSource: PaginatedStreamDataSource<History> = self.createMosaicDataSource()
     private let streamView = StreamView()
     let addPhotoButton = AnimatedButton(type: .Custom)
-    private let liveButton = AnimatedButton(preset: .Smaller, weight: .Bold, textColor: UIColor.whiteColor())
+    private lazy var liveButton: AnimatedButton = AnimatedButton(preset: .Smaller, weight: .Bold, textColor: UIColor.whiteColor())
     private let layoutButton = LayoutSwitcher()
     
     private let layoutSwitcherView = UIView()
@@ -361,17 +361,19 @@ class MediaViewController: WrapBaseViewController {
             make.height.equalTo(addPhotoButton)
         }
         
-        liveButton.cornerRadius = 24
-        liveButton.circleView.backgroundColor = Color.dangerRed.colorWithAlphaComponent(0.88)
-        liveButton.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.7)
-        liveButton.setTitle("LIVE", forState: .Normal)
-        liveButton.clipsToBounds = true
-        liveButton.addTarget(self, touchUpInside: #selector(self.liveBroadcast(_:)))
-        liveButton.exclusiveTouch = true
-        view.add(liveButton) { (make) in
-            make.size.equalTo(48)
-            make.centerX.equalTo(liveButtonView)
-            make.centerY.equalTo(addPhotoButton)
+        if !wrap.p2p {
+            liveButton.cornerRadius = 24
+            liveButton.circleView.backgroundColor = Color.dangerRed.colorWithAlphaComponent(0.88)
+            liveButton.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.7)
+            liveButton.setTitle("LIVE", forState: .Normal)
+            liveButton.clipsToBounds = true
+            liveButton.addTarget(self, touchUpInside: #selector(self.liveBroadcast(_:)))
+            liveButton.exclusiveTouch = true
+            view.add(liveButton) { (make) in
+                make.size.equalTo(48)
+                make.centerX.equalTo(liveButtonView)
+                make.centerY.equalTo(addPhotoButton)
+            }
         }
         
         layoutButton.addTarget(self, touchUpInside: #selector(self.changeLayout(_:)))

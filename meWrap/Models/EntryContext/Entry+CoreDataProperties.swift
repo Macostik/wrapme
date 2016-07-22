@@ -75,6 +75,7 @@ extension Wrap {
     @NSManaged var candiesPaginationDate: NSDate?
     @NSManaged var invitees: Set<Invitee>
     @NSManaged var invitationMessage: String?
+    @NSManaged var p2p: Bool
     
 }
 

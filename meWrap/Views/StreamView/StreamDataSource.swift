@@ -12,11 +12,11 @@ class StreamDataSource<T: BaseOrderedContainer where T.ElementType: AnyObject>: 
     
     var streamView: StreamView
     
-    lazy var sectionHeaderMetrics = [StreamMetricsProtocol]()
+    var sectionHeaderMetrics = [StreamMetricsProtocol]()
     
-    lazy var metrics = [StreamMetricsProtocol]()
+    var metrics = [StreamMetricsProtocol]()
     
-    lazy var sectionFooterMetrics = [StreamMetricsProtocol]()
+    var sectionFooterMetrics = [StreamMetricsProtocol]()
     
     deinit {
         if (streamView.delegate as? StreamDataSource) == self {

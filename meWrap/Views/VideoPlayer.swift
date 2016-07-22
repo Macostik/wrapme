@@ -139,7 +139,7 @@ final class VideoPlayer: UIView {
         guard let item = item else { return }
         replayButton.hidden = true
         volumeButton.hidden = false
-        if CMTimeCompare(item.currentTime(), item.duration) == 0 {
+        if CMTimeCompare(item.currentTime(), item.duration) >= 0 {
             item.seekToTime(kCMTimeZero)
         }
         player.play()

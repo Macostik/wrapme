@@ -19,7 +19,7 @@ class AddressBookRecordCell: EntryStreamReusableView<ArrangedAddressBookRecord> 
     
     weak var delegate: AddressBookRecordCellDelegate?
     
-    internal let nameLabel = Label(preset: .Normal, textColor: Color.grayDark)
+    internal let nameLabel = Label(preset: .Normal, weight: .Semibold, textColor: AddContributorsViewController.darkStyle ? .whiteColor() : Color.grayDark)
     
     internal func selectPhoneNumber(phoneNumber: AddressBookPhoneNumber?) {
         if let phoneNumber = phoneNumber {
@@ -37,7 +37,8 @@ class AddressBookRecordCell: EntryStreamReusableView<ArrangedAddressBookRecord> 
 
 final class SingleAddressBookRecordCell: AddressBookRecordCell {
     
-    private let infoLabel = Label(preset: .Small, textColor: Color.grayLight)
+    private let infoLabel = Label(preset: .Smaller, weight: .Regular, textColor: AddContributorsViewController.darkStyle ? .whiteColor() : Color.grayLight)
+    private let phoneNumbersLabel = Label(preset: .Smaller, weight: .Regular, textColor: AddContributorsViewController.darkStyle ? Color.grayLighter : Color.grayLight)
     private let selectButton = specify(Button(type: .Custom)) {
         $0.titleLabel?.font = UIFont.icons(26)
         $0.setTitle("G", forState: .Normal)
@@ -57,10 +58,14 @@ final class SingleAddressBookRecordCell: AddressBookRecordCell {
     private let avatarView = specify(StatusUserAvatarView(cornerRadius: 24)) {
         $0.startReceivingStatusUpdates()
         $0.placeholder.font = UIFont.icons(24)
+        $0.setBorder()
     }
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
-        infoLabel.numberOfLines = 0
+        if AddContributorsViewController.darkStyle {
+            backgroundColor = Color.grayDarker
+        }
+        phoneNumbersLabel.numberOfLines = 0
         selectButton.addTarget(self, action: #selector(SingleAddressBookRecordCell._select(_:)), forControlEvents: .TouchUpInside)
         infoLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
         nameLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
@@ -81,6 +86,12 @@ final class SingleAddressBookRecordCell: AddressBookRecordCell {
         }
         infoLabel.snp_makeConstraints { (make) -> Void in
             make.top.equalTo(nameLabel.snp_bottom)
+            make.leading.equalTo(avatarView.snp_trailing).offset(12)
+            make.trailing.lessThanOrEqualTo(statusButton.snp_leading)
+            make.trailing.lessThanOrEqualTo(selectButton.snp_leading)
+        }
+        add(phoneNumbersLabel) { (make) -> Void in
+            make.top.equalTo(infoLabel.snp_bottom)
             make.leading.equalTo(avatarView.snp_trailing).offset(12)
             make.trailing.lessThanOrEqualTo(statusButton.snp_leading)
             make.trailing.lessThanOrEqualTo(selectButton.snp_leading)
@@ -108,6 +119,7 @@ final class SingleAddressBookRecordCell: AddressBookRecordCell {
             avatarView.url = record.avatar?.small
         }
         infoLabel.text = record.infoString
+        phoneNumbersLabel.text = record.phones
         let selected = delegate?.recordCell(self, phoneNumberIsSelected: phoneNumber) ?? false
         selectButton.hidden = record.added
         selectButton.selected = selected
@@ -127,16 +139,16 @@ final class MultipleAddressBookRecordCell: AddressBookRecordCell {
     private let streamView = StreamView()
     private var dataSource: StreamDataSource<[AddressBookPhoneNumber]>!
     private let avatarView = ImageView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.gray)
-    private let openView = specify(UIButton(type: .Custom)) {
-        $0.titleLabel?.font = UIFont.icons(18.0)
-        $0.setTitle("y", forState: .Normal)
+    private let openView = specify(Button(icon: "y", size: 18, textColor: Color.grayLighter)) {
         $0.setTitle("z", forState: .Selected)
-        $0.setTitleColor(Color.grayLighter, forState: .Normal)
         $0.contentHorizontalAlignment = .Right
         $0.titleEdgeInsets.right = 13
     }
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
+        if AddContributorsViewController.darkStyle {
+            backgroundColor = Color.grayDarker
+        }
         nameLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
         dataSource = StreamDataSource(streamView: streamView)
         dataSource.addMetrics(StreamMetrics<AddressBookPhoneNumberCell>().change({ [weak self] metrics in
@@ -154,34 +166,31 @@ final class MultipleAddressBookRecordCell: AddressBookRecordCell {
             }))
         openView.addTarget(self, action: #selector(self.open(_:)), forControlEvents: .TouchUpInside)
         avatarView.cornerRadius = 24
-        let infoLabel = Label(preset: .Small, textColor: Color.grayLight)
-        infoLabel.text = "invite_me_to_meWrap".ls
-        addSubview(streamView)
-        addSubview(openView)
-        addSubview(avatarView)
-        addSubview(nameLabel)
-        addSubview(infoLabel)
-        streamView.snp_makeConstraints { (make) -> Void in
-            make.leading.trailing.bottom.equalTo(self)
-            make.top.equalTo(avatarView.snp_bottom)
-        }
-        openView.snp_makeConstraints { (make) -> Void in
-            make.leading.trailing.top.equalTo(self)
-            make.bottom.equalTo(avatarView)
-        }
-        avatarView.snp_makeConstraints { (make) -> Void in
+        avatarView.setBorder()
+        add(avatarView) { (make) -> Void in
             make.leading.top.equalTo(self).inset(12)
             make.size.equalTo(48)
         }
-        nameLabel.snp_makeConstraints { (make) -> Void in
+        add(openView) { (make) -> Void in
+            make.leading.trailing.top.equalTo(self)
+            make.bottom.equalTo(avatarView)
+        }
+        add(nameLabel) { (make) -> Void in
             make.top.equalTo(avatarView)
             make.leading.equalTo(avatarView.snp_trailing).offset(12)
             make.trailing.lessThanOrEqualTo(self).inset(44)
         }
-        infoLabel.snp_makeConstraints { (make) -> Void in
+        let infoLabel = Label(preset: .Smaller, weight: .Regular, textColor: AddContributorsViewController.darkStyle ? .whiteColor() : Color.grayLight)
+        infoLabel.text = "invite_me_to_meWrap".ls
+        add(infoLabel) { (make) -> Void in
             make.top.equalTo(nameLabel.snp_bottom)
             make.leading.equalTo(avatarView.snp_trailing).offset(12)
             make.trailing.lessThanOrEqualTo(self).inset(44)
+        }
+        streamView.scrollEnabled = false
+        add(streamView) { (make) -> Void in
+            make.leading.trailing.bottom.equalTo(self)
+            make.top.equalTo(avatarView.snp_bottom)
         }
     }
     
@@ -203,5 +212,55 @@ final class MultipleAddressBookRecordCell: AddressBookRecordCell {
     @IBAction func open(sender: AnyObject) {
         opened = !opened
         delegate?.recordCellDidToggle(self)
+    }
+}
+
+final class AddressBookPhoneNumberCell: EntryStreamReusableView<AddressBookPhoneNumber> {
+    
+    private let selectionView = UIButton(type: .Custom)
+    private let typeLabel = Label(preset: .Small, textColor: AddContributorsViewController.darkStyle ? .whiteColor() : Color.grayLight)
+    private let phoneLabel = Label(preset: .Small, textColor: AddContributorsViewController.darkStyle ? .whiteColor() : Color.grayLight)
+    
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
+        typeLabel.textAlignment = .Right
+        addSubview(typeLabel)
+        phoneLabel.textAlignment = .Left
+        addSubview(phoneLabel)
+        selectionView.userInteractionEnabled = false
+        selectionView.titleLabel?.font = UIFont.icons(26)
+        selectionView.setTitle("G", forState: .Normal)
+        selectionView.setTitle("H", forState: .Selected)
+        selectionView.setTitleColor(Color.grayLight, forState: .Normal)
+        selectionView.setTitleColor(Color.orange, forState: .Selected)
+        selectionView.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        selectionView.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        addSubview(selectionView)
+        
+        typeLabel.snp_makeConstraints { (make) -> Void in
+            make.width.equalTo(100)
+            make.leading.centerY.equalTo(self)
+        }
+        
+        phoneLabel.snp_makeConstraints { (make) -> Void in
+            make.leading.equalTo(typeLabel.snp_trailing).offset(10)
+            make.centerY.equalTo(self)
+            make.trailing.lessThanOrEqualTo(selectionView.snp_leading).offset(-10)
+        }
+        
+        selectionView.snp_makeConstraints { (make) -> Void in
+            make.trailing.equalTo(self).inset(8)
+            make.centerY.equalTo(self)
+        }
+    }
+    
+    var checked: Bool = false {
+        didSet {
+            selectionView.selected = checked
+        }
+    }
+    
+    override func setup(phoneNumber: AddressBookPhoneNumber) {
+        typeLabel.text = "\(phoneNumber.label ?? ""):"
+        phoneLabel.text = phoneNumber.phone
     }
 }

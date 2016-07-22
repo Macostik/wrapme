@@ -89,4 +89,9 @@ final class Keyboard {
         self.willShow.subscribe(owner) { _ in willShow(keyboard: Keyboard.keyboard) }
         self.willHide.subscribe(owner) { _ in willHide(keyboard: Keyboard.keyboard) }
     }
+    
+    func handle(owner: AnyObject, block: (keyboard: Keyboard, willShow: Bool) -> ()) {
+        self.willShow.subscribe(owner) { _ in block(keyboard: Keyboard.keyboard, willShow: true) }
+        self.willHide.subscribe(owner) { _ in block(keyboard: Keyboard.keyboard, willShow: false) }
+    }
 }

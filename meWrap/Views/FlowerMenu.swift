@@ -215,4 +215,8 @@ extension FlowerMenu {
     func addShareAction(block: Void -> Void) {
         addAction("h", color: UIColor.blackColor().colorWithAlphaComponent(0.8), block:block)
     }
+    
+    func addCallAction(block: Void -> Void) {
+        addAction("D", color: Color.green, block:block)
+    }
 }

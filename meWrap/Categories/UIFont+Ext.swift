@@ -15,12 +15,13 @@ func +(preset: Font, weight: Font.Weight) -> UIFont {
 enum Font: String {
     
     enum Weight {
-        case Light, Regular, Bold
+        case Light, Regular, Bold, Semibold
         func value() -> CGFloat {
             switch self {
             case Light: return UIFontWeightLight
             case Regular: return UIFontWeightRegular
             case Bold: return UIFontWeightBold
+            case Semibold: return UIFontWeightSemibold
             }
         }
     }

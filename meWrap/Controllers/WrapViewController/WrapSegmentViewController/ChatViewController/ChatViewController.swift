@@ -178,7 +178,7 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
     }
     
     func insertMessage(message: Message) {
-        if streamView.locks > 0 {
+        if streamView.locked {
             chat.add(message)
             return
         }

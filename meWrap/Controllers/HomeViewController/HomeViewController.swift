@@ -180,8 +180,7 @@ final class HomeViewController: BaseViewController {
                 }
             }
         }
-        
-        
+        CallCenter.center.enable()
         if let navigationBar = navigationBar {
             navigationBar.add(activityStatusView, { (make) in
                 make.leading.equalTo(navigationBar).inset(12)
@@ -298,12 +297,11 @@ final class HomeViewController: BaseViewController {
 extension HomeViewController {
     
     @IBAction func showUploadWizard(sender: AnyObject?) {
-        navigationController?.pushViewController(Storyboard.UploadWizard.instantiate(), animated:false)
+        navigationController?.pushViewController(BeginWrapCreationViewController(), animated:false)
     }
     
     @IBAction func createWrap(sender: AnyObject?) {
-        let controller = Storyboard.UploadWizard.instantiate()
-        controller.isNewWrap = true
+        let controller = BeginWrapCreationViewController()
         navigationController?.pushViewController(controller, animated:false)
     }
     

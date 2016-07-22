@@ -69,6 +69,7 @@
         <attribute name="isCommentNotifiable" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="isRestrictedInvite" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="p2p" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <relationship name="candies" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Candy" inverseName="wrap" inverseEntity="Candy" syncable="YES"/>
         <relationship name="contributors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="wraps" inverseEntity="User" syncable="YES"/>
         <relationship name="invitees" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Invitee" inverseName="wrap" inverseEntity="Invitee" syncable="YES"/>
@@ -85,6 +86,6 @@
         <element name="Message" positionX="18" positionY="72" width="128" height="75"/>
         <element name="Uploading" positionX="0" positionY="0" width="128" height="75"/>
         <element name="User" positionX="0" positionY="0" width="128" height="195"/>
-        <element name="Wrap" positionX="0" positionY="0" width="128" height="210"/>
+        <element name="Wrap" positionX="0" positionY="0" width="128" height="225"/>
     </elements>
 </model>

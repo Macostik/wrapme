@@ -66,8 +66,7 @@ class SignupFlowViewController: BaseViewController {
             let storyboard = UIStoryboard.main
             if User.currentUser!.firstTimeUse {
                 let home = storyboard.instantiateInitialViewController()
-                let viewController = Storyboard.UploadWizard.instantiate()
-                UINavigationController.main.viewControllers = [home!, viewController]
+                UINavigationController.main.viewControllers = [home!]
             } else {
                 storyboard.present(false)
             }

@@ -171,6 +171,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
     
     func playVideoAction() {
         CandyCell.videoCandy = entry
+        CandyCell.videoPlayedManually = true
         playVideo(true)
     }
     
@@ -206,7 +207,36 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
         }
     }
     
-    weak static var videoCandy: Candy?
+    weak static var videoCandy: Candy? {
+        didSet {
+            if videoCandy == nil {
+                videoPlayedManually = false
+            }
+        }
+    }
+    
+    private static var videoPlayedManually = false
+    
+    private func enqueueVideoPlay(candy: Candy) {
+        let reusing = CandyCell.videoCandy == candy
+        CandyCell.videoCandy = candy
+        playVideoButton.hidden = true
+        Dispatch.mainQueue.async({ [weak self] () in
+            self?.playVideo(!reusing)
+            })
+    }
+    
+    private func shouldAutoplayVideo(candy: Candy) -> Bool {
+        if playVideoButton.hidden == false {
+            if CandyCell.videoCandy == nil || CandyCell.videoCandy == candy {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
     
     override func setup(candy: Candy) {
         userInteractionEnabled = true
@@ -215,13 +245,8 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
         uploadingView = candy.uploadingView
         
         playVideoButton.hidden = candy.mediaType != .Video
-        if playVideoButton.hidden == false && (CandyCell.videoCandy == nil || CandyCell.videoCandy == candy) {
-            let reusing = CandyCell.videoCandy == candy
-            CandyCell.videoCandy = candy
-            playVideoButton.hidden = true
-            Dispatch.mainQueue.async({ [weak self] () in
-                self?.playVideo(!reusing)
-                })
+        if shouldAutoplayVideo(candy) {
+            enqueueVideoPlay(candy)
         } else {
             videoPlayer?.removeFromSuperview()
             videoPlayer = nil

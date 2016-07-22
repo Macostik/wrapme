@@ -8,28 +8,39 @@
 
 import Foundation
 
-class AddContributorsViewController: WrapBaseViewController, AddressBookRecordCellDelegate, UITextFieldDelegate {
+class AddContributorsViewController: BaseViewController, AddressBookRecordCellDelegate, UITextFieldDelegate, StreamViewDataSource {
     
-    var isBroadcasting: Bool = false
+    static var darkStyle = false
+    
+    let wrap: Wrap?
+    required init(wrap: Wrap?) {
+        self.wrap = wrap
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     var isWrapCreation: Bool = false
     var completionHandler: BooleanBlock?
     
-    private let streamView = StreamView()
-    private let searchField = TextField()
-    private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
-    private let nextButton = Button(preset: .Large, weight: .Regular, textColor: UIColor.whiteColor())
+    internal let streamView = StreamView()
+    internal let searchField = TextField()
+    internal let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
+    internal let nextButton = Button(preset: .Large, weight: .Regular, textColor: UIColor.whiteColor())
     
     private lazy var openedRows = [StreamPosition]()
-    private lazy var addressBook: ArrangedAddressBook = ArrangedAddressBook(wrap: self.wrap)
+    internal lazy var addressBook: ArrangedAddressBook = ArrangedAddressBook(wrap: self.wrap)
     
     private var singleMetrics: StreamMetrics<SingleAddressBookRecordCell>!
     private var multipleMetrics: StreamMetrics<MultipleAddressBookRecordCell>!
-    private var sectionHeaderMetrics: StreamMetrics<AddressBookGroupView>!
     
     private let buttonsView = UIView()
     
     override func loadView() {
         super.loadView()
+        AddContributorsViewController.darkStyle = false
         view.backgroundColor = UIColor.whiteColor()
         let navigationBar = UIView()
         navigationBar.backgroundColor = Color.orange
@@ -46,7 +57,6 @@ class AddContributorsViewController: WrapBaseViewController, AddressBookRecordCe
         nextButton.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
         nextButton.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
         let title = Label(preset: .Large, weight: .Regular, textColor: UIColor.whiteColor())
-        title.text = "add_friends"
         navigationBar.add(nextButton) { (make) in
             make.trailing.equalTo(navigationBar).inset(12)
             make.centerY.equalTo(navigationBar).offset(10)
@@ -96,21 +106,14 @@ class AddContributorsViewController: WrapBaseViewController, AddressBookRecordCe
             make.top.equalTo(searchView.snp_bottom)
         }
         
-        view.add(spinner) {
-            $0.center.equalTo(streamView)
-        }
-        
         if isWrapCreation {
             nextButton.addTarget(self, touchUpInside: #selector(self.next(_:)))
             title.text = "share_with_friends".ls
-            nextButton.hidden = self.isBroadcasting
-            if self.isBroadcasting {
-                nextButton.setTitle("next".ls, forState: .Normal)
-            } else {
-                nextButton.setTitle("skip".ls, forState: .Normal)
-            }
+            nextButton.hidden = false
+            nextButton.setTitle("skip".ls, forState: .Normal)
         } else {
             title.text = "add_friends".ls
+            nextButton.hidden = true
         }
         
         buttonsView.hidden = true
@@ -152,24 +155,26 @@ class AddContributorsViewController: WrapBaseViewController, AddressBookRecordCe
             make.width.equalTo(cancelButton)
             make.leading.equalTo(cancelButton.snp_trailing).offset(1)
         }
+        
+        streamView.placeholderViewBlock = PlaceholderView.searchPlaceholder()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.add(spinner) {
+            $0.center.equalTo(streamView)
+        }
+        
         streamView.dataSource = self
         
         singleMetrics = specify(StreamMetrics<SingleAddressBookRecordCell>(), {
-            $0.modifyItem = { [weak self] item in
+            $0.modifyItem = { item in
                 guard let record = item.entry as? ArrangedAddressBookRecord else { return }
-                let user = record.user
-                var leftIdent: CGFloat = 114.0
-                if let user = user where self?.wrap.contributors.contains(user) ?? false {
-                    leftIdent = 160.0
-                }
-                let nameHeight = record.name.heightWithFont(UIFont.fontNormal(), width: (self?.streamView.width ?? 0.0) - leftIdent) ?? 0.0
-                let inviteHeight = record.infoString?.heightWithFont(UIFont.lightFontSmall(), width: (self?.streamView.width ?? 0.0) - leftIdent) ?? 0
-                item.size = max(nameHeight + inviteHeight + 24.0, 72.0)
+                let nameHeight = UIFont.fontNormal().lineHeight
+                let inviteHeight = UIFont.fontSmaller().lineHeight
+                let phonesHeight = CGFloat(record.numberOfPhones) * UIFont.fontSmaller().lineHeight
+                item.size = max(nameHeight + inviteHeight + phonesHeight + 24.0, 72.0)
             }
             $0.prepareAppearing = { [weak self] (item, view) in
                 view.wrap = self?.wrap
@@ -182,10 +187,7 @@ class AddContributorsViewController: WrapBaseViewController, AddressBookRecordCe
             metrics.selectable = false
             metrics.modifyItem = { (item) in
                 guard let record = item.entry as? ArrangedAddressBookRecord else { return }
-                let nameHeight = record.name.heightWithFont(UIFont.fontNormal(), width: (self?.streamView.width ?? 0.0) - 142.0) ?? 0.0
-                let inviteHeight = "invite_me_to_meWrap".ls.heightWithFont(UIFont.lightFontSmall(), width: (self?.streamView.width ?? 0.0) - 142.0) ?? 0.0
-                let heightCell = max(nameHeight + inviteHeight + 16.0, 72.0)
-                item.size = self?.openedPosition(item.position) != nil ? heightCell + CGFloat(record.phoneNumbers.count * 50) : heightCell
+                item.size = self?.openedPosition(item.position) != nil ? 60 + CGFloat(record.phoneNumbers.count * 50) : 72
             }
             metrics.finalizeAppearing = { (item, view) in
                 view.delegate = self
@@ -193,23 +195,6 @@ class AddContributorsViewController: WrapBaseViewController, AddressBookRecordCe
                 view.opened = record?.phoneNumbers.count > 1 && self?.openedPosition(item.position) != nil
             }
             })
-        
-        sectionHeaderMetrics = StreamMetrics<AddressBookGroupView>().change({ [weak self] metrics in
-            metrics.size = 32.0
-            metrics.modifyItem = { [weak self] (item) in
-                if let group = self?.addressBook.groups[safe: item.position.section] {
-                    item.hidden = group.filteredRecords.isEmpty
-                } else {
-                    item.hidden = true
-                }
-            }
-            metrics.finalizeAppearing = { [weak self] (item, view) in
-                view.entry = self?.addressBook.groups[safe: item.position.section]
-            }
-            })
-        
-        let placeholderMetrics = PlaceholderView.searchPlaceholder()
-        streamView.placeholderViewBlock = placeholderMetrics
         
         spinner.startAnimating()
         let cached = AddressBook.sharedAddressBook.cachedRecords({ [weak self] (array) in
@@ -236,11 +221,6 @@ class AddContributorsViewController: WrapBaseViewController, AddressBookRecordCe
         let oldAddressBook = self.addressBook
         self.addressBook = ArrangedAddressBook(wrap: wrap, records: cachedRecords)
         addressBook.selectedPhoneNumbers = oldAddressBook.selectedPhoneNumbers
-        self.filterContacts()
-    }
-    
-    func filterContacts() {
-        addressBook.filter(searchField.text)
         streamView.reload()
     }
     
@@ -255,17 +235,17 @@ class AddContributorsViewController: WrapBaseViewController, AddressBookRecordCe
         }
     }
     
-    private func getInvitees() -> Set<Invitee> {
+    func getInvitees(wrap: Wrap?) -> Set<Invitee> {
         
         var invitees = Set<Invitee>()
         
         for (record, phoneNumbers) in addressBook.selectedPhoneNumbers {
             let invitee: Invitee = insertEntry()
             invitee.wrap = wrap
+            invitee.name = record.name
             if let user = record.user {
                 invitee.user = user
             } else {
-                invitee.name = record.name
                 invitee.phone = phoneNumbers.reduce("", combine: { $0.isEmpty ? $1.phone : $0 + "\n" + $1.phone }) as String
             }
             invitees.insert(invitee)
@@ -276,15 +256,15 @@ class AddContributorsViewController: WrapBaseViewController, AddressBookRecordCe
     
     private func sendInvitation(completionHandler: (invited: Bool, message: String?) -> ()) {
         
-        guard !addressBook.selectionIsEmpty() else {
+        guard let wrap = self.wrap where !addressBook.selectionIsEmpty() else {
             completionHandler(invited: false, message: nil)
             return
         }
-        let wrap = self.wrap
+        
         let performRequestBlock = { [weak self] (message: String?) in
             let status = wrap.status
             if status != .InProgress {
-                self?.getInvitees()
+                self?.getInvitees(self?.wrap)
                 wrap.invitationMessage = message
                 wrap.notifyOnUpdate(.ContributorsChanged)
                 if status == .Finished {
@@ -352,12 +332,8 @@ class AddContributorsViewController: WrapBaseViewController, AddressBookRecordCe
         addressBook.selectPhoneNumber(record, phoneNumber: phoneNumber)
         let isEmpty = addressBook.selectionIsEmpty()
         if isWrapCreation {
-            if isBroadcasting {
-                nextButton.hidden = isEmpty
-                nextButton.setTitle("next".ls, forState: .Normal)
-            } else {
-                nextButton.setTitle(isEmpty ? "skip".ls : "finish".ls, forState: .Normal)
-            }
+            nextButton.addTarget(self, touchUpInside: #selector(self.next(_:)))
+            nextButton.setTitle(isEmpty ? "skip".ls : "finish".ls, forState: .Normal)
             buttonsView.hidden = true
         } else {
             buttonsView.hidden = isEmpty
@@ -384,40 +360,32 @@ class AddContributorsViewController: WrapBaseViewController, AddressBookRecordCe
     //MARK: UITextFieldDelegate
     
     func searchTextChanged(sender: UITextField) {
-        filterContacts()
+        streamView.reload()
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        filterContacts()
+        streamView.reload()
         textField.resignFirstResponder()
         return true
     }
-}
-
-extension AddContributorsViewController: StreamViewDataSource {
     
-    func numberOfSections() -> Int {
-        return addressBook.groups.count
-    }
+    // MARK: - StreamViewDataSource
+    
     func numberOfItemsIn(section: Int) -> Int {
-        let group = addressBook.groups[safe: section]
-        return group?.filteredRecords.count ?? 0
-    }
-    
-    func headerMetricsIn(section: Int) -> [StreamMetricsProtocol] {
-        return [sectionHeaderMetrics]
+        return addressBook.records.count
     }
     
     func entryBlockForItem(item: StreamItem) -> (StreamItem -> AnyObject?)? {
         return { [weak self] (item) in
-            let group = self?.addressBook.groups[safe: item.position.section]
-            return group?.filteredRecords[safe: item.position.index]
+            return self?.addressBook.records[safe: item.position.index]
         }
     }
     
     func metricsAt(position: StreamPosition) -> [StreamMetricsProtocol] {
-        let group = addressBook.groups[safe: position.section]
-        let record = group?.filteredRecords[safe: position.index]
-        return [record?.phoneNumbers.count > 1 ? multipleMetrics : singleMetrics]
+        guard let record = addressBook.records[safe: position.index] else { return [] }
+        if let text = searchField.text where !text.isEmpty && record.name.rangeOfString(text, options: .CaseInsensitiveSearch, range: nil, locale: nil) == nil {
+            return []
+        }
+        return [record.phoneNumbers.count > 1 ? multipleMetrics : singleMetrics]
     }
 }

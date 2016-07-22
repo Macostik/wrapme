@@ -52,23 +52,27 @@ class AddressBook: BlockNotifier<[AddressBookRecord]> {
             success(records)
             return true
         } else {
-            runQueue.run { finish in
-                
-                let _failure: (([AddressBookRecord], NSError?) -> ()) = { records, error in
-                    failure(records, error)
-                    finish()
-                }
-                
-                self.addressBook({ ab in
-                    self.records(ab, success: { records in
-                        success(records)
-                        finish()
-                        }, failure: _failure)
-                    }, failure: { error in
-                        _failure([], error)
-                })
-            }
+            records(success, failure: failure)
             return false
+        }
+    }
+    
+    func records(success: [AddressBookRecord] -> (), failure: ([AddressBookRecord], NSError?) -> ()) {
+        runQueue.run { finish in
+            
+            let _failure: (([AddressBookRecord], NSError?) -> ()) = { records, error in
+                failure(records, error)
+                finish()
+            }
+            
+            self.addressBook({ ab in
+                self.records(ab, success: { records in
+                    success(records)
+                    finish()
+                    }, failure: _failure)
+                }, failure: { error in
+                    _failure([], error)
+            })
         }
     }
     

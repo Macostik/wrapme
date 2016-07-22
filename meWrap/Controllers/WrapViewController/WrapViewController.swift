@@ -101,8 +101,15 @@ final class WrapViewController: WrapBaseViewController {
     
     private let segmentedControl = SegmentedControl()
     private let containerView = UIView()
-    private let settingsButton = Button(icon: "0", size: 26, textColor: UIColor.whiteColor())
-    private let friendsStreamView = StreamView()
+    private let settingsButton = Button(type: .Custom)
+    private lazy var videoCallButton: Button = Button(icon: "+", size: 26, textColor: UIColor.whiteColor())
+    private lazy var audioCallButton: Button = Button(icon: "D", size: 26, textColor: UIColor.whiteColor())
+    private lazy var friendsStreamView: StreamView = StreamView()
+    private let friendsView = UIView()
+    
+    private lazy var friendAvatar: StatusUserAvatarView = StatusUserAvatarView(cornerRadius: 16)
+    private lazy var friendName: Label = Label(preset: .Normal, weight: .Regular, textColor: .blackColor())
+    private lazy var friendStatus: Label = Label(preset: .Smaller, weight: .Regular, textColor: Color.grayLighter)
     
     private var wrapNotifyReceiver: EntryNotifyReceiver<Wrap>?
     
@@ -110,7 +117,7 @@ final class WrapViewController: WrapBaseViewController {
     
     private lazy var friendsDataSource: StreamDataSource<[AnyObject]> = StreamDataSource(streamView: self.friendsStreamView)
     
-    private let moreFriendsLabel = Label(icon: "/", size: 24, textColor:Color.grayLighter)
+    private lazy var moreFriendsLabel = Label(icon: "/", size: 24, textColor:Color.grayLighter)
     
     lazy var inboxViewController: InboxViewController = self.addController(InboxViewController(wrap: self.wrap))
     lazy var mediaViewController: MediaViewController = self.addController(MediaViewController(wrap: self.wrap))
@@ -124,7 +131,7 @@ final class WrapViewController: WrapBaseViewController {
         navigationBar.backgroundColor = Color.orange
         segmentedControl.backgroundColor = UIColor.whiteColor()
         view.addSubview(containerView)
-        view.addSubview(friendsStreamView)
+        view.addSubview(friendsView)
         view.addSubview(segmentedControl)
         view.add(navigationBar) { (make) in
             make.leading.top.trailing.equalTo(view)
@@ -134,39 +141,93 @@ final class WrapViewController: WrapBaseViewController {
             make.leading.equalTo(navigationBar).offset(12)
             make.centerY.equalTo(navigationBar).offset(10)
         }
+        
+        let settingsTip = Label(preset: .XSmall, weight: .Light, textColor: UIColor(white: 1, alpha: 0.54))
+        settingsTip.highlightedTextColor = Color.grayLighter
+        settingsTip.text = "tap_for_settings".ls
+        navigationBar.add(settingsTip) { (make) in
+            make.centerX.equalTo(navigationBar)
+            make.bottom.equalTo(navigationBar).offset(-3)
+        }
+        nameLabel.highlightedTextColor = Color.grayLighter
+        
+        settingsButton.exclusiveTouch = true
         settingsButton.addTarget(self, touchUpInside: #selector(self.settings(_:)))
+        settingsButton.highlightings = [settingsTip, nameLabel]
         navigationBar.add(settingsButton) { (make) in
-            make.trailing.equalTo(navigationBar).offset(-12)
-            make.centerY.equalTo(navigationBar).offset(10)
+            make.center.height.equalTo(navigationBar)
+            make.width.equalTo(settingsTip)
+        }
+        
+        if wrap.p2p {
+            audioCallButton.exclusiveTouch = true
+            audioCallButton.addTarget(self, touchUpInside: #selector(self.audioCall(_:)))
+            navigationBar.add(audioCallButton) { (make) in
+                make.trailing.equalTo(navigationBar).offset(-12)
+                make.centerY.equalTo(navigationBar).offset(10)
+            }
+            videoCallButton.exclusiveTouch = true
+            videoCallButton.addTarget(self, touchUpInside: #selector(self.videoCall(_:)))
+            navigationBar.add(videoCallButton) { (make) in
+                make.trailing.equalTo(audioCallButton.snp_leading).offset(-12)
+                make.centerY.equalTo(navigationBar).offset(10)
+            }
         }
         navigationBar.add(nameLabel) { (make) in
             make.centerX.equalTo(navigationBar)
-            make.centerY.equalTo(navigationBar).offset(10)
+            make.bottom.equalTo(settingsTip.snp_top)
             make.leading.greaterThanOrEqualTo(_backButton.snp_trailing).offset(12)
-            make.trailing.lessThanOrEqualTo(settingsButton.snp_leading).offset(-12)
+            if wrap.p2p {
+                make.trailing.lessThanOrEqualTo(videoCallButton.snp_leading).offset(-12)
+            } else {
+                make.trailing.lessThanOrEqualTo(navigationBar).offset(-12)
+            }
         }
+        
         self.navigationBar = navigationBar
         containerView.snp_makeConstraints { (make) in
             make.leading.bottom.trailing.equalTo(view)
             make.top.equalTo(navigationBar.snp_bottom)
         }
-        friendsStreamView.scrollEnabled = false
-        friendsStreamView.userInteractionEnabled = false
-        friendsStreamView.add(moreFriendsLabel) { (make) in
-            make.width.equalTo(54)
-            make.centerY.trailing.equalTo(friendsStreamView)
-        }
+        
         let friendsButton = Button(type: .Custom)
         friendsButton.backgroundColor = UIColor.whiteColor()
         friendsButton.normalColor = UIColor.whiteColor()
         friendsButton.exclusiveTouch = true
         friendsButton.highlightedColor = Color.grayLightest
         friendsButton.addTarget(self, touchUpInside: #selector(self.showFriends(_:)))
-        view.insertSubview(friendsButton, belowSubview: friendsStreamView)
-        friendsButton.snp_makeConstraints { (make) in
-            make.size.equalTo(friendsStreamView)
-            make.center.equalTo(friendsStreamView)
+        friendsView.add(friendsButton) { (make) in
+            make.edges.equalTo(friendsView)
         }
+        
+        if wrap.p2p {
+            friendsView.add(friendAvatar, { (make) in
+                make.size.equalTo(32)
+                make.leading.equalTo(friendsView).offset(12)
+                make.centerY.equalTo(friendsView)
+            })
+            friendsView.add(friendName, { (make) in
+                make.leading.equalTo(friendAvatar.snp_trailing).offset(12)
+                make.trailing.lessThanOrEqualTo(friendsView).offset(-12)
+                make.bottom.equalTo(friendAvatar.snp_centerY)
+            })
+            friendsView.add(friendStatus, { (make) in
+                make.leading.equalTo(friendAvatar.snp_trailing).offset(12)
+                make.trailing.lessThanOrEqualTo(friendsView).offset(-12)
+                make.top.equalTo(friendAvatar.snp_centerY)
+            })
+        } else {
+            friendsStreamView.scrollEnabled = false
+            friendsStreamView.userInteractionEnabled = false
+            friendsView.add(friendsStreamView, { (make) in
+                make.edges.equalTo(friendsView)
+            })
+            friendsStreamView.add(moreFriendsLabel) { (make) in
+                make.width.equalTo(54)
+                make.centerY.trailing.equalTo(friendsStreamView)
+            }
+        }
+        
         defaultTopViewLayout()
         segmentedControl.add(SeparatorView(color: Color.grayLighter, contentMode: .Top)) { (make) in
             make.height.equalTo(1)
@@ -198,10 +259,10 @@ final class WrapViewController: WrapBaseViewController {
     private func defaultTopViewLayout() {
         self.segmentedControl.snp_remakeConstraints { (make) in
             make.leading.trailing.equalTo(self.view)
-            make.top.equalTo(self.friendsStreamView.snp_bottom)
+            make.top.equalTo(self.friendsView.snp_bottom)
             make.height.equalTo(50)
         }
-        self.friendsStreamView.snp_remakeConstraints(closure: { (make) in
+        self.friendsView.snp_remakeConstraints(closure: { (make) in
             make.leading.trailing.equalTo(self.view)
             make.top.equalTo(navigationBar!.snp_bottom)
             make.height.equalTo(50)
@@ -211,28 +272,24 @@ final class WrapViewController: WrapBaseViewController {
     private func handleKeyboardIfNeeded() {
         let screenBounds = UIScreen.mainScreen().bounds
         if screenBounds.width == 320 && screenBounds.height == 480 {
-            Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
+            Keyboard.keyboard.handle(self, block: { [unowned self] (keyboard, willShow) in
                 keyboard.performAnimation({ () in
-                    self.setTopViewsHidden(true)
+                    self.setTopViewsHidden(willShow)
                 })
-            }) { [unowned self] (keyboard) in
-                keyboard.performAnimation({ () in
-                    self.setTopViewsHidden(false)
-                })
-            }
+            })
         }
     }
     
     func setTopViewsHidden(hidden: Bool) {
         if hidden {
-            self.friendsStreamView.snp_remakeConstraints(closure: { (make) in
+            self.friendsView.snp_remakeConstraints(closure: { (make) in
                 make.leading.trailing.equalTo(self.view)
                 make.height.equalTo(50)
                 
             })
             self.segmentedControl.snp_remakeConstraints { (make) in
                 make.leading.trailing.equalTo(self.view)
-                make.top.equalTo(self.friendsStreamView.snp_bottom)
+                make.top.equalTo(self.friendsView.snp_bottom)
                 make.height.equalTo(50)
                 make.bottom.equalTo(self.navigationBar!)
             }
@@ -244,37 +301,42 @@ final class WrapViewController: WrapBaseViewController {
     
     override func viewDidLoad() {
         chatViewController.badge = chatSegmentButton.badge
-        mediaViewController.addPhotoButton.addTarget(self, touchUpInside: #selector(self.addPhoto(_:)))
+        mediaViewController.addPhotoButton.addTarget(self, touchUpInside: #selector(self.addPhoto))
         super.viewDidLoad()
         
         addNotifyReceivers()
         
-        friendsStreamView.layout = HorizontalStreamLayout()
-        let friendMetrics = StreamMetrics<FriendView>(size: friendsStreamView.height)
-        friendMetrics.modifyItem = { item in
-            item.hidden = !(item.entry is User)
+        if !wrap.p2p {
+            friendsStreamView.layout = HorizontalStreamLayout()
+            let friendMetrics = StreamMetrics<FriendView>(size: friendsStreamView.height)
+            friendMetrics.modifyItem = { item in
+                item.hidden = !(item.entry is User)
+            }
+            friendMetrics.prepareAppearing = { [weak self] item, view in
+                view.wrap = self?.wrap
+            }
+            friendsDataSource.addMetrics(friendMetrics)
+            let inviteeMetrics = StreamMetrics<InviteeView>(size: friendsStreamView.height)
+            inviteeMetrics.modifyItem = { item in
+                item.hidden = !(item.entry is Invitee)
+            }
+            friendsDataSource.addMetrics(inviteeMetrics)
         }
-        friendMetrics.prepareAppearing = { [weak self] item, view in
-            view.wrap = self?.wrap
-        }
-        friendsDataSource.addMetrics(friendMetrics)
-        let inviteeMetrics = StreamMetrics<InviteeView>(size: friendsStreamView.height)
-        inviteeMetrics.modifyItem = { item in
-            item.hidden = !(item.entry is Invitee)
-        }
-        friendsDataSource.addMetrics(inviteeMetrics)
+        
         guard case let wrap = wrap where wrap.valid else { return }
         
         segmentedControl.deselect()
-        
-        settingsButton.exclusiveTouch = true
         
         API.contributors(wrap).send({ [weak self] _ in
             self?.updateFriendsBar(wrap)
             }, failure: nil)
         
         Network.network.subscribe(self) { [unowned self] (value) in
-            self.friendsDataSource.reload()
+            if self.wrap.p2p {
+                self.updateFriendsBar(self.wrap)
+            } else {
+                self.friendsDataSource.reload()
+            }
         }
     }
     
@@ -355,11 +417,21 @@ final class WrapViewController: WrapBaseViewController {
     }
     
     private func updateWrapData() {
-        nameLabel.text = wrap.name
+        nameLabel.text = wrap.displayName
         updateFriendsBar(wrap)
     }
     
     private func updateFriendsBar(wrap: Wrap) {
+        
+        guard !wrap.p2p else {
+            if let friend = wrap.contributors.filter({ !$0.current }).first {
+                friendStatus.text = friend.isOnline ? "online".ls : "offline".ls
+                friendName.text = friend.name
+                friendAvatar.user = friend
+            }
+            return
+        }
+        
         let maxFriendsCount = Int((Constants.screenWidth - moreFriendsLabel.width) / friendsStreamView.height)
         let invitees: [AnyObject] = Array(wrap.invitees)
         let contributors: [AnyObject] = wrap.contributors.sort {
@@ -461,7 +533,7 @@ extension WrapViewController {
         navigationController?.popToRootViewControllerAnimated(false)
     }
     
-    @IBAction func addPhoto(sender: UIButton) {
+    func addPhoto() {
         let captureViewController = CaptureViewController.captureMediaViewController(wrap)
         captureViewController.captureDelegate = self
         presentViewController(captureViewController, animated: false, completion: nil)
@@ -471,6 +543,14 @@ extension WrapViewController {
         let controller = UIStoryboard.main["wrapSettings"] as! WrapSettingsViewController
         controller.wrap = wrap
         navigationController?.pushViewController(controller, animated: false)
+    }
+    
+    @IBAction func audioCall(sender: UIButton) {
+        
+    }
+    
+    @IBAction func videoCall(sender: UIButton) {
+        
     }
 }
 

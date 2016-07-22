@@ -57,27 +57,42 @@ final class ArrangedAddressBookRecord: Hashable {
         hashValue = user?.hashValue ?? phoneNumbers.first?.hashValue ?? 0
     }
     lazy var infoString: String? = {
-        guard let phoneNumber = self.phoneNumbers.last else { return nil }
         if let user = self.user where user.valid {
+            guard let phoneNumber = self.phoneNumbers.last else { return nil }
             if phoneNumber.activated {
-                return "\("signup_status".ls)\n\(user.phones)"
+                return "signup_status".ls
             } else {
-                let invitedAt = String(format: "invite_status_swipe_to".ls, user.invitedAt.stringWithDateStyle(.ShortStyle))
-                return "\("sign_up_pending".ls)\n\(invitedAt)\n\(user.phones)"
+                return "sign_up_pending".ls
             }
         } else {
             return "invite_me_to_meWrap".ls
+        }
+    }()
+    lazy var phones: String = {
+        if let user = self.user where user.valid {
+            return user.phones
+        } else {
+            return self.phoneNumbers.reduce("", combine: {
+                return $0.isEmpty ? ($0 + $1.phone) : ($0 + "\n" + $1.phone)
+            })
+        }
+    }()
+    lazy var numberOfPhones: Int = {
+        if let user = self.user where user.valid {
+            return user.devices.filter({ $0.phone != nil }).count
+        } else {
+            return self.phoneNumbers.count
         }
     }()
 }
 
 final class ArrangedAddressBook {
     
-    let wrap: Wrap
-    var groups: [ArrangedAddressBookGroup]
+    let wrap: Wrap?
+    var records = [ArrangedAddressBookRecord]()
     var selectedPhoneNumbers = [ArrangedAddressBookRecord: [AddressBookPhoneNumber]]()
     
-    convenience init(wrap: Wrap, records: [AddressBookRecord]) {
+    convenience init(wrap: Wrap?, records: [AddressBookRecord]) {
         self.init(wrap: wrap)
         var invitees: [Invitee] = FetchRequest<Invitee>().execute()
         for invitee in invitees.reverse() {
@@ -92,9 +107,8 @@ final class ArrangedAddressBook {
         sort()
     }
     
-    init(wrap: Wrap) {
+    init(wrap: Wrap?) {
         self.wrap = wrap
-        groups = [ArrangedAddressBookGroup(title: "friends_on_meWrap".ls), ArrangedAddressBookGroup(title: "invite_to_meWrap".ls)]
     }
     
     private func checkIfAdded(record: ArrangedAddressBookRecord, wrap: Wrap) -> Bool {
@@ -114,33 +128,33 @@ final class ArrangedAddressBook {
         return false
     }
     
-    func addRecord(record: AddressBookRecord, wrap: Wrap, invitees: [Invitee]) {
+    func addRecord(record: AddressBookRecord, wrap: Wrap?, invitees: [Invitee]) {
         var phoneNumbers = [AddressBookPhoneNumber]()
         for phoneNumber in record.phoneNumbers {
             if invitees.contains({ $0.phones.contains(phoneNumber.phone) }) {
                 let newRecord = ArrangedAddressBookRecord(name: record.name, avatar: record.avatar, user: nil, phoneNumbers: [phoneNumber])
-                newRecord.added = checkIfAdded(newRecord, wrap: wrap)
-                groups[0].add(newRecord)
+                if let wrap = wrap {
+                    newRecord.added = checkIfAdded(newRecord, wrap: wrap)
+                }
+                records.append(newRecord)
             } else if let user = phoneNumber.user {
                 let newRecord = ArrangedAddressBookRecord(name: user.name ?? record.name, avatar: user.avatar, user: user, phoneNumbers: [phoneNumber])
-                newRecord.added = checkIfAdded(newRecord, wrap: wrap)
-                groups[0].add(newRecord)
+                if let wrap = wrap {
+                    newRecord.added = checkIfAdded(newRecord, wrap: wrap)
+                }
+                records.append(newRecord)
             } else {
                 phoneNumbers.append(phoneNumber)
             }
         }
         if phoneNumbers.count != 0 {
             let newRecord = ArrangedAddressBookRecord(name: record.name, avatar: record.avatar, user: nil, phoneNumbers: phoneNumbers)
-            groups[1].add(newRecord)
+            records.append(newRecord)
         }
     }
     
     func sort() {
-        for group in groups { group.sort() }
-    }
-    
-    func filter(text: String?) {
-        groups.all({ $0.filter(text) })
+        records.sortInPlace { $0.name < $1.name }
     }
     
     func clearSelection() {
@@ -160,7 +174,11 @@ final class ArrangedAddressBook {
             } else {
                 phoneNumbers.append(phoneNumber)
             }
-            selectedPhoneNumbers[record] = phoneNumbers
+            if phoneNumbers.isEmpty {
+                selectedPhoneNumbers[record] = nil
+            } else {
+                selectedPhoneNumbers[record] = phoneNumbers
+            }
         } else {
             selectedPhoneNumbers[record] = [phoneNumber]
         }

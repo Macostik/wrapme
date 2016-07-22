@@ -228,6 +228,23 @@ extension Button {
         button.cornerRadius = 22
         return button
     }
+    
+    func makeWizardButton(with title: String) -> (tick: Label, label: Label) {
+        let tick = Label(icon: "E", size: 17, textColor: Color.orange)
+        tick.highlightedTextColor = Color.orangeDark
+        add(tick) { (make) in
+            make.leading.top.bottom.equalTo(self)
+        }
+        let nextLabel = Label(preset: .Large, weight: .Light, textColor: Color.orange)
+        nextLabel.text = title
+        nextLabel.highlightedTextColor = Color.orangeDark
+        add(nextLabel) { (make) in
+            make.trailing.centerY.equalTo(self)
+            make.leading.equalTo(tick.snp_trailing).offset(2)
+        }
+        highlightings = [tick, nextLabel]
+        return (tick, nextLabel)
+    }
 }
 
 final class AnimatedButton: Button {

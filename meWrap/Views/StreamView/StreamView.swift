@@ -15,7 +15,7 @@ enum ScrollDirection {
 
 var StreamViewCommonLocksChanged: String = "StreamViewCommonLocksChanged"
 
-protocol StreamViewDataSource {
+protocol StreamViewDataSource: class {
     func numberOfSections() -> Int
     func numberOfItemsIn(section: Int) -> Int
     func metricsAt(position: StreamPosition) -> [StreamMetricsProtocol]
@@ -39,17 +39,17 @@ extension StreamViewDataSource {
 
 final class StreamView: UIScrollView {
     
-    lazy var layout: StreamLayout = StreamLayout()
+    var layout: StreamLayout = StreamLayout()
     
     private var reloadAfterUnlock = false
     
-    var locks: Int = 0
+    var locked = false
     
-    static var locks: Int = 0
+    static var locked = false
     
     private var items = [StreamItem]()
     
-    var dataSource: StreamViewDataSource?
+    weak var dataSource: StreamViewDataSource?
     
     private weak var placeholderView: PlaceholderView?
     
@@ -129,38 +129,38 @@ final class StreamView: UIScrollView {
         items.removeAll()
     }
     
-    class func lock() {
-        locks += 1
+    static func lock() {
+        locked = true
     }
     
-    class func unlock() {
-        if (locks > 0) {
-            locks -= 1
+    static func unlock() {
+        if locked {
+            locked = false
             NSNotificationCenter.defaultCenter().postNotificationName(StreamViewCommonLocksChanged, object: nil)
         }
     }
     
     func locksChanged() {
-        if (locks == 0 && StreamView.locks == 0 && reloadAfterUnlock) {
+        if !locked && !StreamView.locked && reloadAfterUnlock {
             reloadAfterUnlock = false
             reload()
         }
     }
     
     func lock() {
-        locks += 1
+        locked = true
     }
     
     func unlock() {
-        if (locks > 0) {
-            locks -= 1
+        if locked {
+            locked = false
             locksChanged()
         }
     }
     
     func reload() {
         
-        if locks > 0 || StreamView.locks > 0 {
+        if locked || StreamView.locked {
             reloadAfterUnlock = true
             return
         }
@@ -192,7 +192,7 @@ final class StreamView: UIScrollView {
     
     private func changeContentSize(newContentSize: CGSize) {
         let oldContentSize = contentSize
-        if !CGSizeEqualToSize(newContentSize, oldContentSize) {
+        if newContentSize != oldContentSize {
             contentSize = newContentSize
             dataSource?.didChangeContentSize(oldContentSize)
         }

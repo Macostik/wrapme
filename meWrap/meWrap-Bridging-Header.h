@@ -7,3 +7,5 @@
 #import <AdobeCreativeSDKImage/AdobeCreativeSDKImage.h>
 #import "MMWormhole.h"
 #import <NewRelicAgent/NewRelic.h>
+#import <Sinch/Sinch.h>
+#import <Sinch/SINUIView+Fullscreen.h>

@@ -32,7 +32,7 @@ extension APIRequest {
         for invitee in unregisteredContributors {
             inviteByPhone.append(["name":invitee.name ?? "","phone_numbers" : invitee.phones])
         }
-        self["invitees"] = inviteByPhone.map({ String(data: try! NSJSONSerialization.dataWithJSONObject($0, options: []), encoding: NSUTF8StringEncoding) ?? "" })
+        self["invitees"] = inviteByPhone
     }
 }
 
@@ -346,6 +346,7 @@ extension API {
             request["name"] = wrap.name
             request["upload_uid"] = wrap.locuid
             request["contributed_at_in_epoch"] = NSNumber(double: wrap.updatedAt.timestamp)
+            request["p2p"] = wrap.p2p
             request.configureForInvitation(wrap)
             }, parser: { response in
                 if wrap.valid {

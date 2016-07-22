@@ -191,6 +191,14 @@ final class Wrap: Contribution {
         User.prefetchDescriptors(&descriptors, inDictionary: dictionary?["creator"] as? [String:AnyObject])
         Candy.prefetchDescriptors(&descriptors, inArray: dictionary?["candies"] as? [[String:AnyObject]])
     }
+    
+    var displayName: String? {
+        if p2p, let friendName = contributors.filter({ !$0.current }).first?.name  {
+            return "@\(friendName)"
+        } else {
+            return name
+        }
+    }
 }
 
 protocol Contributor: AnyObject {

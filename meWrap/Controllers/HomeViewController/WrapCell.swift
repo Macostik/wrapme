@@ -159,7 +159,7 @@ class WrapCell: EntryStreamReusableView<Wrap> {
     }
     
     override func setup(wrap: Wrap) {
-        nameLabel.text = wrap.name
+        nameLabel.text = wrap.displayName
         coverView.url = wrap.asset?.small
         badgeLabel.value = wrap.numberOfUnreadInboxItems
         dateLabel.text = wrap.updatedAt.timeAgoStringAtAMPM()

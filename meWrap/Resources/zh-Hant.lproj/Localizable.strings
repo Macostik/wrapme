@@ -368,3 +368,5 @@
 "tap_for_settings" = "Tap for settings";
 "online" = "online";
 "offline" = "offline";
+"open" = "Open";
+"f_wrap_found" = "%@ found!";

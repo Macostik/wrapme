@@ -102,6 +102,8 @@ final class AddFriendsViewController: AddContributorsViewController, SelectedAdd
     
     let backgroundImageView = UIImageView()
     
+    var completionBlock: (Wrap? -> ())?
+    
     internal let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
     
     internal lazy var backButton: Button = self.backButton(UIColor.whiteColor(), action: #selector(self.backAction(_:)))
@@ -238,7 +240,11 @@ final class AddFriendsViewController: AddContributorsViewController, SelectedAdd
     private func updateNextButton(addressBookIsEmpty: Bool) {
         let textIsEmpty = searchField.text?.isEmpty == true
         nextButton.hidden = showAllContacts ? false : (addressBookIsEmpty && textIsEmpty)
-        doneLabel?.text = (showAllContacts || !textIsEmpty) ? "done".ls : "create".ls
+        if p2p && existingWrap != nil {
+            doneLabel?.text = (showAllContacts || !textIsEmpty) ? "done".ls : "open".ls
+        } else {
+            doneLabel?.text = (showAllContacts || !textIsEmpty) ? "done".ls : "create".ls
+        }
     }
     
     func showContacts() {
@@ -274,7 +280,7 @@ final class AddFriendsViewController: AddContributorsViewController, SelectedAdd
         }
     }
     
-    private var p2pWrapFound = false
+    private weak var existingWrap: Wrap?
     
     private var disableAdding = false {
         didSet {
@@ -298,7 +304,7 @@ final class AddFriendsViewController: AddContributorsViewController, SelectedAdd
             }
             titleLabel.text = nil
             let name = "@\(addressBook.selectedPhoneNumbers.keys.first?.name ?? "")"
-            let title = String(format: "f_create".ls, name)
+            let title = String(format: (existingWrap != nil ? "f_wrap_found".ls : "f_create".ls), name)
             let titleText = NSMutableAttributedString(string: title, attributes: [NSFontAttributeName: UIFont.fontNormal(), NSForegroundColorAttributeName: UIColor.whiteColor()])
             titleText.addAttributes([NSFontAttributeName: UIFont.fontNormal(), NSForegroundColorAttributeName: Color.orange], range: (title as NSString).rangeOfString(name))
             titleLabel.attributedText = titleText
@@ -325,18 +331,19 @@ final class AddFriendsViewController: AddContributorsViewController, SelectedAdd
         }
         let isEmpty = addressBook.selectionIsEmpty()
         if !isEmpty && p2p {
-            searchField.text = ""
-            if showAllContacts {
-                showAllContacts = false
-            }
             let record = cell.entry
-            p2pWrapFound = User.currentUser?.wraps.contains({ wrap in
+            existingWrap = User.currentUser?.wraps.filter({ wrap in
+                guard wrap.p2p else { return false }
                 if let user = record?.user {
                     return wrap.contributors.contains(user) || wrap.invitees.contains({ $0.user == user })
                 } else {
                     return wrap.invitees.contains({ $0.phones.contains(phoneNumber.phone) })
                 }
-            }) ?? false
+            }).first
+            searchField.text = ""
+            if showAllContacts {
+                showAllContacts = false
+            }
             disableAdding = true
         } else {
             disableAdding = false
@@ -370,7 +377,7 @@ final class AddFriendsViewController: AddContributorsViewController, SelectedAdd
             updateNextButton(addressBook.selectionIsEmpty())
             streamView.reload()
         } else {
-            completionHandler?(true)
+            completionBlock?(existingWrap)
         }
     }
     

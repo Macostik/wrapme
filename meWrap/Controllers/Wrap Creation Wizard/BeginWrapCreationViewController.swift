@@ -114,24 +114,31 @@ final class BeginWrapCreationViewController: BaseViewController {
         let controller = AddFriendsViewController(wrap: nil)
         controller.backgroundImageView.image = backgroundImage
         controller.p2p = name == nil
-        controller.completionHandler = { [unowned controller, weak self] _ in
-            let wrap = insertWrap()
-            let invitees = controller.getInvitees(wrap)
-            wrap.name = name ?? invitees.first?.name
-            wrap.p2p = controller.p2p
-            let completeController = NewWrapCreatedViewController()
-            completeController.backgroundImageView.image = backgroundImage
-            completeController.wrap = wrap
-            completeController.p2p = controller.p2p
-            self?.navigationController?.pushViewController(completeController, animated: false)
+        controller.completionBlock = { [unowned controller, weak self] existingWrap in
             
-            Uploader.wrapUploader.upload(Uploading.uploading(wrap), success: nil, failure: { error in
-                if let error = error where !error.isNetworkError {
-                    error.show()
-                    wrap.remove()
-                    self?.navigationController?.popViewControllerAnimated(false)
-                }
-            })
+            if let wrap = existingWrap {
+                let nc = UINavigationController.main
+                let controller = wrap.createViewController() as! WrapViewController
+                nc.viewControllers = nc.viewControllers.prefix(1) + [controller]
+            } else {
+                let wrap = insertWrap()
+                let invitees = controller.getInvitees(wrap)
+                wrap.name = name ?? invitees.first?.name
+                wrap.p2p = controller.p2p
+                let completeController = NewWrapCreatedViewController()
+                completeController.backgroundImageView.image = backgroundImage
+                completeController.wrap = wrap
+                completeController.p2p = controller.p2p
+                self?.navigationController?.pushViewController(completeController, animated: false)
+                
+                Uploader.wrapUploader.upload(Uploading.uploading(wrap), success: nil, failure: { error in
+                    if let error = error where !error.isNetworkError {
+                        error.show()
+                        wrap.remove()
+                        self?.navigationController?.popViewControllerAnimated(false)
+                    }
+                })
+            }
         }
         navigationController?.pushViewController(controller, animated: false)
     }

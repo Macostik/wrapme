@@ -113,15 +113,9 @@ class CallView: UIView, SINCallDelegate {
                 make.size.equalTo(44)
             }
             
-            acceptButton.addAnimation(CABasicAnimation(keyPath: "transform")) {
-                $0.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-                $0.toValue = NSValue(CATransform3D: CATransform3DMakeTranslation(0, -32, 0))
-                $0.duration = 0.6
-                $0.autoreverses = true
-                $0.removedOnCompletion = false
-                $0.repeatCount = FLT_MAX
-            }
+            startAcceptButtonAnimation()
             startCallAnimation()
+            acceptButton.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.acceptButtonPanning(_:))))
         } else {
             microphoneButton.active = false
             speakerButton.active = false
@@ -152,6 +146,17 @@ class CallView: UIView, SINCallDelegate {
     }
     
     private var animationViews: [UIView]?
+    
+    private func startAcceptButtonAnimation() {
+        acceptButton.addAnimation(CABasicAnimation(keyPath: "transform")) {
+            $0.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+            $0.toValue = NSValue(CATransform3D: CATransform3DMakeTranslation(0, -32, 0))
+            $0.duration = 0.6
+            $0.autoreverses = true
+            $0.removedOnCompletion = false
+            $0.repeatCount = FLT_MAX
+        }
+    }
     
     private func startCallAnimation() {
         let arrow1 = Label(icon: "z", size: 14, textColor: Color.grayLighter)
@@ -241,7 +246,38 @@ class CallView: UIView, SINCallDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func acceptButtonPanning(sender: UIPanGestureRecognizer) {
+        if sender.state == .Began {
+            acceptButton.transform.ty = (acceptButton.layer.presentationLayer() as? CALayer)?.affineTransform().ty ?? 0
+            acceptButton.layer.removeAllAnimations()
+            animate(animations: { 
+                acceptButton.transform.ty = acceptButton.transform.ty + (sender.locationInView(self).y - acceptButton.center.y)
+            })
+        } else if sender.state == .Changed {
+            acceptButton.transform.ty = 0
+            acceptButton.transform.ty = sender.locationInView(self).y - acceptButton.center.y
+        } else {
+            if acceptButton.transform.ty <= -acceptButton.height {
+                accept(acceptButton)
+            } else {
+                animate(animations: {
+                    acceptButton.transform.ty = 0
+                })
+                startAcceptButtonAnimation()
+            }
+        }
+    }
+    
+    lazy var spinner: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .White)
+    
     func accept(sender: UIButton) {
+        acceptButton.hidden = true
+        spinner.color = Color.orange
+        add(spinner) { (make) in
+            make.center.equalTo(acceptButton)
+        }
+        spinner.startAnimating()
+        declineButton.userInteractionEnabled = false
         sender.layer.removeAllAnimations()
         audioController.stopPlayingSoundFile()
         call.answer()
@@ -288,9 +324,12 @@ class CallView: UIView, SINCallDelegate {
     }
     
     func callDidEstablish(call: SINCall!) {
+        declineButton.userInteractionEnabled = true
         audioController.stopPlayingSoundFile()
         speakerButton.hidden = false
         microphoneButton.hidden = false
+        acceptButton.loading = false
+        spinner.removeFromSuperview()
         acceptButton.removeFromSuperview()
         declineButton.cornerRadius = 37
         declineButton.snp_remakeConstraints { make in

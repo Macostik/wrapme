@@ -288,10 +288,8 @@
 "all_set" = "完成！";
 "enjoy_and_happy" = "如果你有邀请好友加入你的围拍，他们将收到你的邀请通知。";
 "first_wrap" = "%@的首个围拍";
-"introduction_step_1_part_1" = "锁定组群共享相集…";
-"introduction_step_1_part_2" = "";
-"introduction_step_2_part_1" = "录影片段或";
-"introduction_step_2_part_2" = "直播珍贵的一刻。";
+"introduction_step_1" = "Sort your memories into albums and share them with people you care about.";
+"introduction_step_2" = "Broadcast your memories live and let your loved participate with photos, videos, comments and doodles.";
 "skip" = "略过";
 "share_with_friends" = "选择分享对象";
 "share_wrap_message" = "现在只有你可以观看或上载相片到\"%@\"。你稍后随时都能在设定中分享围拍给好友。";

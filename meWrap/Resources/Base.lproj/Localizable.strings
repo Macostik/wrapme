@@ -290,10 +290,8 @@
 "all_set" = "Done!";
 "enjoy_and_happy" = "If you invite your friends to wrap. They are receiving the notifications from meWrap now. Enjoy and happy wrapping!";
 "first_wrap" = "%@'s first wrap";
-"introduction_step_1_part_1" = "A collection of albums";
-"introduction_step_1_part_2" = "that only people you selected...";
-"introduction_step_2_part_1" = "...can participate in";
-"introduction_step_2_part_2" = "sharing photos, videos and even live broadcast!";
+"introduction_step_1" = "Sort your memories into albums and share them with people you care about.";
+"introduction_step_2" = "Broadcast your memories live and let your loved participate with photos, videos, comments and doodles.";
 "skip" = "Skip";
 "share_with_friends" = "Share With Friends";
 "share_wrap_message" = "You can share \"%@\" with friends anytime later.";

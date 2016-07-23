@@ -109,6 +109,25 @@ final class VideoPlayer: UIView {
                 self.muted = true
             }
         }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.audioSessionInterruption(_:)), name: AVAudioSessionInterruptionNotification, object: nil)
+    }
+    
+    func audioSessionInterruption(notification: NSNotification) {
+        guard let info = notification.userInfo else {
+            return
+        }
+        let intValue: Int = info[AVAudioSessionInterruptionTypeKey] as? Int ?? 0
+        if let type = AVAudioSessionInterruptionType(rawValue: UInt(intValue)) {
+            switch type {
+            case .Began:
+                break
+            case .Ended:
+                if playing {
+                    play()
+                }
+            }
+        }
     }
     
     override class func layerClass() -> AnyClass  {

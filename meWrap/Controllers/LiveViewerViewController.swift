@@ -30,8 +30,8 @@ class LiveViewerViewController: LiveViewController {
     }
     
     private func unsubscribeObserving() {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         if let item = playerItem {
-            NSNotificationCenter.defaultCenter().removeObserver(self)
             item.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
             playerItem = nil
         }
@@ -139,6 +139,22 @@ class LiveViewerViewController: LiveViewController {
                 self?.wrap?.removeBroadcast(broadcast)
                 self?.showEndBroadcast()
             })
+        }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.audioSessionInterruption(_:)), name: AVAudioSessionInterruptionNotification, object: nil)
+    }
+    
+    func audioSessionInterruption(notification: NSNotification) {
+        guard let info = notification.userInfo else {
+            return
+        }
+        let intValue: Int = info[AVAudioSessionInterruptionTypeKey] as? Int ?? 0
+        if let type = AVAudioSessionInterruptionType(rawValue: UInt(intValue)) {
+            switch type {
+            case .Began:
+                break
+            case .Ended:
+                playerLayer.player?.play()
+            }
         }
     }
     

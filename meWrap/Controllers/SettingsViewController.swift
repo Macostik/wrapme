@@ -55,6 +55,7 @@ class SettingsViewController: BaseViewController, EntryNotifying {
             RunQueue.fetchQueue.cancelAll()
             API.cancelAll()
             NotificationCenter.defaultCenter.clear()
+            CallCenter.center.disable()
             NSUserDefaults.standardUserDefaults().clear()
             UIStoryboard.signUp.present(true)
         }).show()

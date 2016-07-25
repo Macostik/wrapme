@@ -19,12 +19,12 @@ final class CallCenter: NSObject, SINCallDelegate, SINManagedPushDelegate {
         if let sinch = _sinch where sinch.userId == user.uid {
             return sinch
         } else {
-            let sinch = Sinch.clientWithApplicationKey("8d26f7e3-1949-4470-9d5d-48318c3b238d",
-                                                       applicationSecret: "G5ezmahHM0+FMwaAjTfXiw==",
-                                                       environmentHost: "clientapi.sinch.com",
-                                                       userId: user.uid)
-            _sinch = sinch
-            return sinch
+            disable()
+            _sinch = Sinch.clientWithApplicationKey("8d26f7e3-1949-4470-9d5d-48318c3b238d",
+                                                    applicationSecret: "G5ezmahHM0+FMwaAjTfXiw==",
+                                                    environmentHost: "clientapi.sinch.com",
+                                                    userId: user.uid)
+            return _sinch
         }
     }
     
@@ -51,7 +51,7 @@ final class CallCenter: NSObject, SINCallDelegate, SINManagedPushDelegate {
     var push: SINManagedPush?
     
     func enable() {
-        guard let sinch = sinch else { return }
+        guard let sinch = sinch where !sinch.isStarted() else { return }
         sinch.delegate = self
         sinch.callClient().delegate = self
         sinch.setSupportCalling(true)
@@ -68,7 +68,15 @@ final class CallCenter: NSObject, SINCallDelegate, SINManagedPushDelegate {
         sinch.start()
         sinch.startListeningOnActiveConnection()
     }
-        
+    
+    func disable() {
+        if let sinch = _sinch {
+            sinch.stopListeningOnActiveConnection()
+            sinch.stop()
+            _sinch = nil
+        }
+    }
+    
     func managedPush(managedPush: SINManagedPush!, didReceiveIncomingPushWithPayload payload: [NSObject : AnyObject]!, forType pushType: String!) {
         sinch?.relayRemotePushNotification(payload)
     }
@@ -99,7 +107,7 @@ extension CallCenter: SINCallClientDelegate {
         guard let user = User.entry(call.remoteUserId) else { return }
         user.fetchIfNeeded({ _ in
             CallView(user: user, call: call, audioController: audioController, videoController: videoController).present()
-            }) { _ in
+        }) { _ in
         }
     }
     

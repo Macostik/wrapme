@@ -98,6 +98,7 @@ class CallView: UIView, SINCallDelegate {
         
         if call.direction == .Incoming {
             audioController.startPlayingSoundFile(NSBundle.mainBundle().pathForResource("incoming", ofType: "wav"), loop: true)
+            audioController.enableSpeaker()
             infoLabel.text = "incoming_call".ls
             speakerButton.hidden = true
             microphoneButton.hidden = true
@@ -279,6 +280,9 @@ class CallView: UIView, SINCallDelegate {
         spinner.startAnimating()
         declineButton.userInteractionEnabled = false
         sender.layer.removeAllAnimations()
+        if call.direction == .Incoming {
+            audioController.disableSpeaker()
+        }
         audioController.stopPlayingSoundFile()
         call.answer()
         sender.userInteractionEnabled = false
@@ -286,6 +290,9 @@ class CallView: UIView, SINCallDelegate {
     }
     
     func decline(sender: UIButton) {
+        if call.direction == .Incoming {
+            audioController.disableSpeaker()
+        }
         audioController.stopPlayingSoundFile()
         call.hangup()
         removeFromSuperview()

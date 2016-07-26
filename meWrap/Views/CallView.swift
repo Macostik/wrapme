@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import CoreTelephony
 
 class CallView: UIView, SINCallDelegate {
     
@@ -357,7 +358,9 @@ class CallView: UIView, SINCallDelegate {
         infoLabel.text = String(format:"%02i:%02i", time / 60, time % 60)
         Dispatch.mainQueue.after(1) { [weak self] () in
             if let view = self {
-                view.time = view.time + 1
+                if CallCenter.nativeCenter.currentCalls?.count ?? 0 == 0 {
+                    view.time = view.time + 1
+                }
                 view.updateTimer()
             }
         }

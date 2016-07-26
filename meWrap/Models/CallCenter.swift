@@ -8,10 +8,13 @@
 
 import Foundation
 import PushKit
+import CoreTelephony
 
 final class CallCenter: NSObject, SINCallDelegate, SINManagedPushDelegate {
     
     static let center = CallCenter()
+    
+    static let nativeCenter = CTCallCenter()
     
     private var _sinch: SINClient?
     var sinch: SINClient? {
@@ -112,9 +115,18 @@ extension CallCenter: SINCallClientDelegate {
     }
     
     func client(client: SINCallClient!, localNotificationForIncomingCall call: SINCall!) -> SINLocalNotification! {
+        
+        let name = User.entry(call.remoteUserId)?.name ?? call.remoteUserId ?? ""
+        
+        guard CallCenter.nativeCenter.currentCalls?.count ?? 0 == 0 else {
+            let notification = UILocalNotification()
+            notification.alertBody = String(format: "%@ is calling you in meWrap. Launch the app to answer.", name)
+            UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+            return nil
+        }
+        
         let notification = UILocalNotification()
         notification.alertAction = "Answer"
-        let name = User.entry(call.remoteUserId)?.name ?? call.remoteUserId ?? ""
         notification.alertBody = String(format: "Incoming call from %@", name)
         notification.userInfo = [
             "callId": call.callId ?? "",

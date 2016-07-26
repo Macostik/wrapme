@@ -267,7 +267,7 @@ class CallView: UIView, SINCallDelegate {
         if sender.state == .Began {
             acceptButton.transform.ty = (acceptButton.layer.presentationLayer() as? CALayer)?.affineTransform().ty ?? 0
             acceptButton.layer.removeAllAnimations()
-            animate(animations: { 
+            animate(animations: {
                 acceptButton.transform.ty = acceptButton.transform.ty + (sender.locationInView(self).y - acceptButton.center.y)
             })
         } else if sender.state == .Changed {
@@ -338,7 +338,11 @@ class CallView: UIView, SINCallDelegate {
     }
     
     func close(sender: UIButton) {
-        close()
+        UIView.animateWithDuration(0.5, animations: {
+            self.alpha = 0
+            }, completion: { (_) in
+                self.close()
+        })
     }
     
     func present() {
@@ -390,13 +394,26 @@ class CallView: UIView, SINCallDelegate {
         removeFromSuperview()
     }
     
-    func callDidEnd(call: SINCall!) {
-        audioController.stopPlayingSoundFile()
+    private func callEndReason(call: SINCall) -> String? {
         if call.direction == .Incoming {
-            close()
+            return nil
         } else {
+            switch call.details.endCause {
+            case .None, .Timeout, .NoAnswer, .Error:
+                return "no_answer".ls
+            case .Denied:
+                return "friend_is_busy".ls
+            case .HungUp, .Canceled, .OtherDeviceAnswered:
+                return nil
+            }
+        }
+    }
+    
+    func callDidEnd(call: SINCall!) {
+        
+        if let reason = callEndReason(call) {
+            infoLabel.text = reason
             infoLabel.textColor = Color.grayLighter
-            infoLabel.text = "no_answer".ls
             microphoneButton.hidden = true
             speakerButton.hidden = true
             declineButton.hidden = true
@@ -409,6 +426,12 @@ class CallView: UIView, SINCallDelegate {
                 $0.bottom.equalTo(self).offset(-20)
                 $0.centerX.equalTo(self).multipliedBy(0.5)
                 $0.size.equalTo(74)
+            })
+        } else {
+            UIView.animateWithDuration(0.5, animations: { 
+                self.alpha = 0
+                }, completion: { (_) in
+                    self.close()
             })
         }
     }

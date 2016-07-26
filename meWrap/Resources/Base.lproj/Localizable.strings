@@ -371,7 +371,8 @@
 "call" = "Call";
 "incoming_call" = "INCOMING CALL...";
 "waiting_for_response" = "WAITING FOR RESPONSE";
-"no_answer" = "No answer and/or call ended";
+"no_answer" = "No answer. Call again?";
+"friend_is_busy" = "Your friend is busy. Call again?";
 "answer" = "Answer";
 "f_incoming_call_from" = "Incoming call from %@";
 "f_is_calling_you" = "%@ is calling you in meWrap. Launch the app to answer.";

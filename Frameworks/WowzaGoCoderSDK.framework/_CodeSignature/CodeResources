@@ -18,7 +18,7 @@
 		</data>
 		<key>Headers/WZAudioSink.h</key>
 		<data>
-		EcDGEeyS6tXpEi2yQCtlEh5WPdA=
+		TnxtJFAkd+u0kHXfSK9W6GwVQ0o=
 		</data>
 		<key>Headers/WZBroadcast.h</key>
 		<data>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Headers/WZMediaConfig.h</key>
 		<data>
-		L4LIctxzQPbxOrRzQQ0galLOYOE=
+		YinO8oMlfxZ1KJrkFa2V6Tja3Lo=
 		</data>
 		<key>Headers/WZMediaSink.h</key>
 		<data>
@@ -82,7 +82,7 @@
 		</data>
 		<key>Headers/WZVideoSink.h</key>
 		<data>
-		8srEx/IW5aI0zJrSJG6KG6V2dp4=
+		hMxJpsWcr+/85XN/HbY6oEFGiTE=
 		</data>
 		<key>Headers/WowzaConfig.h</key>
 		<data>
@@ -98,7 +98,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		snkHO3tSn/TKoDjURVBjVIrAjE8=
+		GnbnqrGL+KKyzSwRwgqFWPhPZNs=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -148,11 +148,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			EcDGEeyS6tXpEi2yQCtlEh5WPdA=
+			TnxtJFAkd+u0kHXfSK9W6GwVQ0o=
 			</data>
 			<key>hash2</key>
 			<data>
-			AhBVXSKRWCDIYBSFeu2JCVFqhNkOK3EkQGxhEownlQI=
+			sporFfZ2BdCm7kb4JCNtf3n2iJXAcIWFMCMpVs8gh8E=
 			</data>
 		</dict>
 		<key>Headers/WZBroadcast.h</key>
@@ -236,11 +236,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			L4LIctxzQPbxOrRzQQ0galLOYOE=
+			YinO8oMlfxZ1KJrkFa2V6Tja3Lo=
 			</data>
 			<key>hash2</key>
 			<data>
-			uBBd3oUrvRdtkalgEt48MJpGmm2K0kLC6RIH2HnAk78=
+			YNzmaPMI6jlGtUF2m1vXxhL+GOq5RzWc/0keqOXNg3E=
 			</data>
 		</dict>
 		<key>Headers/WZMediaSink.h</key>
@@ -324,11 +324,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			8srEx/IW5aI0zJrSJG6KG6V2dp4=
+			hMxJpsWcr+/85XN/HbY6oEFGiTE=
 			</data>
 			<key>hash2</key>
 			<data>
-			Ki29K2whevcSkUtilEYU4N+y8poMRC+vHjjC7+b82Ag=
+			OYF5kYkgvnLm5MZZDYgdlRqo7uaQxIYEhhRwUfPb7lo=
 			</data>
 		</dict>
 		<key>Headers/WowzaConfig.h</key>

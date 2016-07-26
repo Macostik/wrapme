@@ -12,10 +12,10 @@ import CoreTelephony
 
 class CallView: UIView, SINCallDelegate {
     
-    let call: SINCall
+    var call: SINCall
     let user: User
-    let audioController: SINAudioController
-    let videoController: SINVideoController
+    var audioController: SINAudioController
+    var videoController: SINVideoController
     let avatarView = UserAvatarView(cornerRadius: 100, backgroundColor: Color.orange, placeholderSize: 50)
     let nameLabel = Label(preset: .XLarge, weight: .Regular, textColor: Color.orange)
     let infoLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.grayLighter)
@@ -38,6 +38,19 @@ class CallView: UIView, SINCallDelegate {
     let microphoneButton = specify(Button.expandableCandyAction("U")) {
         $0.setTitle("T", forState: .Selected)
         $0.setTitleColor(Color.grayLight, forState: .Highlighted)
+    }
+    
+    let redialButton = specify(PressButton(icon: "D", size: 24)) {
+        $0.clipsToBounds = true
+        $0.backgroundColor = Color.green
+        $0.cornerRadius = 37
+        
+    }
+    let closeButton = specify(PressButton(icon: "D", size: 24)) {
+        $0.clipsToBounds = true
+        $0.backgroundColor = Color.dangerRed
+        $0.cornerRadius = 37
+        $0.transform = CGAffineTransformMakeRotation(2.37)
     }
     
     private func setupSubviews() {
@@ -145,6 +158,8 @@ class CallView: UIView, SINCallDelegate {
         declineButton.addTarget(self, action: #selector(self.decline(_:)), forControlEvents: .TouchUpInside)
         speakerButton.addTarget(self, action: #selector(self.speaker(_:)), forControlEvents: .TouchUpInside)
         microphoneButton.addTarget(self, action: #selector(self.microphone(_:)), forControlEvents: .TouchUpInside)
+        redialButton.addTarget(self, action: #selector(self.redial(_:)), forControlEvents: .TouchUpInside)
+        closeButton.addTarget(self, action: #selector(self.close(_:)), forControlEvents: .TouchUpInside)
     }
     
     private var animationViews: [UIView]?
@@ -317,14 +332,19 @@ class CallView: UIView, SINCallDelegate {
         }
     }
     
+    func redial(sender: UIButton) {
+        close()
+        CallCenter.center.call(user)
+    }
+    
+    func close(sender: UIButton) {
+        close()
+    }
+    
     func present() {
         let view = UIWindow.mainWindow
         view.add(self) { $0.edges.equalTo(view) }
         setupSubviews()
-        alpha = 0.0
-        UIView.animateWithDuration(0.5) {
-            self.alpha = 1.0
-        }
     }
     
     func callDidProgress(call: SINCall!) {
@@ -357,7 +377,7 @@ class CallView: UIView, SINCallDelegate {
     private func updateTimer() {
         infoLabel.text = String(format:"%02i:%02i", time / 60, time % 60)
         Dispatch.mainQueue.after(1) { [weak self] () in
-            if let view = self {
+            if let view = self where view.call.state != .Ended {
                 if CallCenter.nativeCenter.currentCalls?.count ?? 0 == 0 {
                     view.time = view.time + 1
                 }
@@ -366,10 +386,31 @@ class CallView: UIView, SINCallDelegate {
         }
     }
     
+    private func close() {
+        removeFromSuperview()
+    }
+    
     func callDidEnd(call: SINCall!) {
         audioController.stopPlayingSoundFile()
-        videoController.remoteView().removeFromSuperview()
-        self.removeFromSuperview()
+        if call.direction == .Incoming {
+            close()
+        } else {
+            infoLabel.textColor = Color.grayLighter
+            infoLabel.text = "no_answer".ls
+            microphoneButton.hidden = true
+            speakerButton.hidden = true
+            declineButton.hidden = true
+            self.add(redialButton, {
+                $0.bottom.equalTo(self).offset(-20)
+                $0.centerX.equalTo(self).multipliedBy(1.5)
+                $0.size.equalTo(74)
+            })
+            self.add(closeButton, {
+                $0.bottom.equalTo(self).offset(-20)
+                $0.centerX.equalTo(self).multipliedBy(0.5)
+                $0.size.equalTo(74)
+            })
+        }
     }
     
     func callDidAddVideoTrack(call: SINCall!) {}

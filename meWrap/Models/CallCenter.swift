@@ -87,17 +87,11 @@ final class CallCenter: NSObject, SINCallDelegate, SINManagedPushDelegate {
 
 extension CallCenter: SINClientDelegate {
     
-    func clientDidStart(client: SINClient!) {
-        print (">>Sinch is started<<")
-    }
+    func clientDidStart(client: SINClient!) {}
     
-    func clientDidFail(client: SINClient!, error: NSError!) {
-        print (">>self - \(error)<<")
-    }
+    func clientDidFail(client: SINClient!, error: NSError!) {}
     
-    func client(client: SINClient!, logMessage message: String!, area: String!, severity: SINLogSeverity, timestamp: NSDate!) {
-        print (">>self - \(message)<<")
-    }
+    func client(client: SINClient!, logMessage message: String!, area: String!, severity: SINLogSeverity, timestamp: NSDate!) {}
 }
 
 extension CallCenter: SINCallClientDelegate {
@@ -120,14 +114,14 @@ extension CallCenter: SINCallClientDelegate {
         
         guard CallCenter.nativeCenter.currentCalls?.count ?? 0 == 0 else {
             let notification = UILocalNotification()
-            notification.alertBody = String(format: "%@ is calling you in meWrap. Launch the app to answer.", name)
+            notification.alertBody = String(format: "f_is_calling_you".ls, name)
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
             return nil
         }
         
         let notification = UILocalNotification()
-        notification.alertAction = "Answer"
-        notification.alertBody = String(format: "Incoming call from %@", name)
+        notification.alertAction = "answer".ls
+        notification.alertBody = String(format: "f_incoming_call_from".ls, name)
         notification.userInfo = [
             "callId": call.callId ?? "",
             "isSinchNotification": true,

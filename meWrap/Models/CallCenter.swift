@@ -112,26 +112,28 @@ extension CallCenter: SINCallClientDelegate {
     }
     
     func client(client: SINCallClient!, localNotificationForIncomingCall call: SINCall!) -> SINLocalNotification! {
-        let notification = SINLocalNotification()
+        let notification = UILocalNotification()
         notification.alertAction = "Answer"
         let name = User.entry(call.remoteUserId)?.name ?? call.remoteUserId ?? ""
         notification.alertBody = String(format: "Incoming call from %@", name)
-        
-        for i in 1...2 {
-            let additionalNotification = UILocalNotification()
-            additionalNotification.alertBody = notification.alertBody
-            additionalNotification.alertAction = "Answer"
-            additionalNotification.userInfo = [
-                "callId": call.callId ?? "",
-                "isSinchNotification": true,
-                "isVideoOfferedKey": true,
-                "notificationTypeKey": "incoming",
-                "remoteUserId": call.remoteUserId ?? ""
-            ]
-            additionalNotification.fireDate = NSDate(timeIntervalSinceNow: 2 * NSTimeInterval(i))
-            UIApplication.sharedApplication().scheduleLocalNotification(additionalNotification)
+        notification.userInfo = [
+            "callId": call.callId ?? "",
+            "isSinchNotification": true,
+            "isVideoOfferedKey": true,
+            "notificationTypeKey": "incoming",
+            "remoteUserId": call.remoteUserId ?? ""
+        ]
+        UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+        let task = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
+        Dispatch.mainQueue.after(3) { () in
+            UIApplication.sharedApplication().cancelLocalNotification(notification)
+            UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+            Dispatch.mainQueue.after(3) { () in
+                UIApplication.sharedApplication().cancelLocalNotification(notification)
+                UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+                UIApplication.sharedApplication().endBackgroundTask(task)
+            }
         }
-        
-        return notification
+        return nil
     }
 }

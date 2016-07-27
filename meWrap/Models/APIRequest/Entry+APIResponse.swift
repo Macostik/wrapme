@@ -150,8 +150,8 @@ extension Wrap {
         name <!= dictionary[Keys.Name]
         restricted <!= dictionary["is_restricted_invite"] as? Bool
         p2p <!= dictionary["p2p"] as? Bool
-        if let array = dictionary[Keys.Contributors] as? [[String:AnyObject]] {
-            contributors <!= Set(mappedEntries(array)) as? Set<User>
+        if let array = dictionary[Keys.Contributors] as? [[String:AnyObject]], let users: [User] = mappedEntries(array) {
+            contributors <!= Set(users)
         }
         
         contributor <!= mappedEntry(dictionary.get(Keys.Creator))

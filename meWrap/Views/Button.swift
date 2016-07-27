@@ -40,6 +40,7 @@ class Button : UIButton, FontPresetable {
         titleLabel?.font = UIFont.fontWithPreset(preset, weight: weight)
         self.preset = preset.rawValue
         setTitleColor(textColor, forState: .Normal)
+        setTitleColor(textColor.darkerColor(), forState: .Highlighted)
         makePresetable(preset)
     }
     

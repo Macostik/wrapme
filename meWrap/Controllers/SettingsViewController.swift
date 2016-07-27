@@ -41,6 +41,10 @@ class SettingsViewController: BaseViewController, EntryNotifying {
         addContainedViewController(DebugViewController(), animated: false)
     }
     
+    @IBAction func account(sender: AnyObject) {
+        navigationController?.pushViewController(ChangeProfileViewController(), animated: false)
+    }
+    
     @IBAction func about(sender: UIButton) {
         let bundle = NSBundle.mainBundle()
         let appName = bundle.displayName ?? ""

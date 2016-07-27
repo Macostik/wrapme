@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="L91-fZ-J9O">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="icons.ttf">
-            <string>icons</string>
-            <string>icons</string>
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
@@ -91,7 +89,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="push:" destination="5n6-Z7-rk2" eventType="touchUpInside" id="9wZ-zg-u8S"/>
+                                    <action selector="account:" destination="zBt-TT-rM7" eventType="touchUpInside" id="kCD-UR-D2v"/>
                                 </connections>
                             </button>
                             <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="MDJ-Nd-sbY" customClass="SeparatorView" customModule="meWrap" customModuleProvider="target">
@@ -230,241 +228,9 @@
                         <outlet property="navigationBar" destination="qU7-Ez-lna" id="6fp-ZP-V0i"/>
                     </connections>
                 </viewController>
-                <customObject id="5n6-Z7-rk2" userLabel="Profile Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="ChangeProfileViewController"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="sourceViewController" destination="zBt-TT-rM7" id="EJt-X6-2cc"/>
-                    </connections>
-                </customObject>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JUy-Pu-NyQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1730" y="-532"/>
-        </scene>
-        <!--ChangeProfile View Controller-->
-        <scene sceneID="zxY-Lu-ZtN">
-            <objects>
-                <viewController storyboardIdentifier="ChangeProfileViewController" automaticallyAdjustsScrollViewInsets="NO" id="7FG-gC-kPg" userLabel="ChangeProfile View Controller" customClass="ChangeProfileViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="AL9-yK-5IY"/>
-                        <viewControllerLayoutGuide type="bottom" id="JSr-ZC-7FZ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Yja-9u-DOv">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="jjK-sb-Bg6"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="j3e-xO-oCt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3054.375" y="-531.33802816901402"/>
-        </scene>
-        <!--Home View Controller-->
-        <scene sceneID="MbJ-3V-1SB">
-            <objects>
-                <viewController storyboardIdentifier="home" automaticallyAdjustsScrollViewInsets="NO" id="L91-fZ-J9O" userLabel="Home View Controller" customClass="HomeViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="XNa-AC-NhU"/>
-                        <viewControllerLayoutGuide type="bottom" id="FgI-7k-v3i"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="L5N-Xm-IFu">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGg-7M-ebG" customClass="StreamView" customModule="meWrap">
-                                <rect key="frame" x="0.0" y="158" width="600" height="442"/>
-                                <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="92"/>
-                            </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lBJ-p7-MjG" userLabel="Email Confirmation View">
-                                <rect key="frame" x="0.0" y="64" width="600" height="94"/>
-                                <subviews>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="help_secure_account" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="K8u-Wl-Wu5" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="10" width="580" height="18"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" white="0.1010000035" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="verification email text" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="ZDN-HJ-7Th" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="28" width="580" height="14"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="11"/>
-                                        <color key="textColor" white="0.1010000035" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xsmall"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <button opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Duc-Ql-lgM" customClass="PressButton" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="52" width="82" height="32"/>
-                                        <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="32" id="kU0-aK-Tlz"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
-                                        <state key="normal" title="change_email">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="4"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
-                                            <userDefinedRuntimeAttribute type="size" keyPath="insets">
-                                                <size key="value" width="10" height="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="push:" destination="DBa-Dn-FbP" eventType="touchUpInside" id="RnG-Oy-qyk"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kfw-WI-L3V" customClass="PressButton" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="548" y="52" width="42" height="32"/>
-                                        <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="32" id="3wC-WZ-omX"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
-                                        <state key="normal" title="resend">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="4"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
-                                            <userDefinedRuntimeAttribute type="size" keyPath="insets">
-                                                <size key="value" width="10" height="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="resendConfirmation:" destination="L91-fZ-J9O" eventType="touchUpInside" id="3rR-ku-ol4"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="Kfw-WI-L3V" secondAttribute="trailing" constant="10" id="1dz-YP-f8q"/>
-                                    <constraint firstAttribute="trailing" secondItem="K8u-Wl-Wu5" secondAttribute="trailing" constant="10" id="3Yk-D5-zub"/>
-                                    <constraint firstAttribute="bottom" secondItem="Duc-Ql-lgM" secondAttribute="bottom" constant="10" id="8Na-6u-ycC"/>
-                                    <constraint firstItem="K8u-Wl-Wu5" firstAttribute="top" secondItem="lBJ-p7-MjG" secondAttribute="top" constant="10" id="BWO-Yv-A87"/>
-                                    <constraint firstAttribute="trailing" secondItem="ZDN-HJ-7Th" secondAttribute="trailing" constant="10" id="CaR-FN-jea"/>
-                                    <constraint firstItem="Kfw-WI-L3V" firstAttribute="top" secondItem="ZDN-HJ-7Th" secondAttribute="bottom" constant="10" id="Hzc-WI-Qfl"/>
-                                    <constraint firstItem="ZDN-HJ-7Th" firstAttribute="leading" secondItem="lBJ-p7-MjG" secondAttribute="leading" constant="10" id="JAK-nq-adx"/>
-                                    <constraint firstItem="Duc-Ql-lgM" firstAttribute="leading" secondItem="lBJ-p7-MjG" secondAttribute="leading" constant="10" id="Yjc-w3-HQK"/>
-                                    <constraint firstItem="K8u-Wl-Wu5" firstAttribute="leading" secondItem="lBJ-p7-MjG" secondAttribute="leading" constant="10" id="i7I-QL-eAT"/>
-                                    <constraint firstAttribute="bottom" secondItem="Kfw-WI-L3V" secondAttribute="bottom" constant="10" id="lmi-rm-pLh"/>
-                                    <constraint firstItem="Duc-Ql-lgM" firstAttribute="top" secondItem="ZDN-HJ-7Th" secondAttribute="bottom" constant="10" id="mtS-Cj-FxV"/>
-                                    <constraint firstItem="ZDN-HJ-7Th" firstAttribute="top" secondItem="K8u-Wl-Wu5" secondAttribute="bottom" id="oSy-4b-itj"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Rl-cW-5hv">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qsz-UP-cFd" customClass="Button" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="265" y="1" width="70" height="83"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="70"/>
-                                        <state key="normal" title="M">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="push:" destination="7ui-hh-L3e" eventType="touchUpInside" id="nIV-VD-SwZ"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KxF-7g-Abs">
-                                        <rect key="frame" x="553" y="20" width="44" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="44" id="Gxm-zF-qHA"/>
-                                            <constraint firstAttribute="height" constant="44" id="U0s-JZ-hYs"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="33"/>
-                                        <state key="normal" title="P">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="createWrap:" destination="L91-fZ-J9O" eventType="touchUpInside" id="PaX-MT-Mn0"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="l9Z-NE-jmw"/>
-                                    <constraint firstAttribute="trailing" secondItem="KxF-7g-Abs" secondAttribute="trailing" constant="3" id="o48-no-2If"/>
-                                    <constraint firstItem="qsz-UP-cFd" firstAttribute="centerX" secondItem="9Rl-cW-5hv" secondAttribute="centerX" id="r3S-s2-vyj"/>
-                                    <constraint firstAttribute="bottom" secondItem="KxF-7g-Abs" secondAttribute="bottom" id="reM-PV-7hH"/>
-                                    <constraint firstItem="qsz-UP-cFd" firstAttribute="centerY" secondItem="9Rl-cW-5hv" secondAttribute="centerY" constant="10" id="wR5-u2-p0p"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="lBJ-p7-MjG" firstAttribute="top" secondItem="9Rl-cW-5hv" secondAttribute="bottom" priority="750" id="8Aa-Cz-phe"/>
-                            <constraint firstItem="lBJ-p7-MjG" firstAttribute="bottom" secondItem="9Rl-cW-5hv" secondAttribute="bottom" priority="250" id="F0c-eT-pdM"/>
-                            <constraint firstItem="uGg-7M-ebG" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="HTc-G6-dUL"/>
-                            <constraint firstAttribute="trailing" secondItem="uGg-7M-ebG" secondAttribute="trailing" id="Oyl-yA-asQ"/>
-                            <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="uGg-7M-ebG" secondAttribute="bottom" id="PPm-TK-65j"/>
-                            <constraint firstAttribute="trailing" secondItem="9Rl-cW-5hv" secondAttribute="trailing" id="a0D-I9-wse"/>
-                            <constraint firstItem="9Rl-cW-5hv" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="iFH-7m-26c"/>
-                            <constraint firstAttribute="trailing" secondItem="lBJ-p7-MjG" secondAttribute="trailing" id="kAR-Ij-AJb"/>
-                            <constraint firstItem="uGg-7M-ebG" firstAttribute="top" secondItem="lBJ-p7-MjG" secondAttribute="bottom" id="mBw-a0-I5X"/>
-                            <constraint firstItem="lBJ-p7-MjG" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="uKa-Dl-P0k"/>
-                            <constraint firstItem="9Rl-cW-5hv" firstAttribute="top" secondItem="XNa-AC-NhU" secondAttribute="bottom" constant="-20" id="yr0-5l-IHU"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="kPg-o5-wH3"/>
-                    <keyCommands/>
-                    <connections>
-                        <outlet property="createWrapButton" destination="KxF-7g-Abs" id="DiP-hq-Kq1"/>
-                        <outlet property="emailConfirmationLayoutPrioritizer" destination="LSq-pS-yid" id="Bin-aV-yY8"/>
-                        <outlet property="emailConfirmationView" destination="lBJ-p7-MjG" id="voU-oV-5wv"/>
-                        <outlet property="navigationBar" destination="9Rl-cW-5hv" id="9kd-xs-4J2"/>
-                        <outlet property="streamView" destination="uGg-7M-ebG" id="DWY-UV-XhD"/>
-                        <outlet property="verificationEmailLabel" destination="ZDN-HJ-7Th" id="HaN-Oo-VCI"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yfT-C3-6mj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="7ui-hh-L3e" userLabel="Settings Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="settings"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="sourceViewController" destination="L91-fZ-J9O" id="b22-eC-dlg"/>
-                    </connections>
-                </customObject>
-                <customObject id="DBa-Dn-FbP" userLabel="Profile Transition" customClass="StoryboardTransition" customModule="meWrap" customModuleProvider="target">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="ChangeProfileViewController"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="sourceViewController" destination="L91-fZ-J9O" id="2aI-EZ-H5r"/>
-                    </connections>
-                </customObject>
-                <customObject id="LSq-pS-yid" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
-                    <connections>
-                        <outletCollection property="parentViews" destination="L5N-Xm-IFu" collectionClass="NSMutableArray" id="gul-rp-0Az"/>
-                        <outletCollection property="alternativeConstraints" destination="F0c-eT-pdM" collectionClass="NSMutableArray" id="XeV-a0-XFJ"/>
-                        <outletCollection property="defaultConstraints" destination="8Aa-Cz-phe" collectionClass="NSMutableArray" id="3VD-58-8Z4"/>
-                    </connections>
-                </customObject>
-            </objects>
-            <point key="canvasLocation" x="1730" y="124"/>
         </scene>
     </scenes>
 </document>

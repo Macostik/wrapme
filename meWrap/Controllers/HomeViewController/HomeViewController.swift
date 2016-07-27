@@ -10,19 +10,52 @@ import UIKit
 
 final class HomeViewController: BaseViewController {
     
-    @IBOutlet var buttonAnimationPrioritizer: LayoutPrioritizer!
-    
     private lazy var dataSource: HomeDataSource = HomeDataSource(streamView: self.streamView)
-    @IBOutlet var emailConfirmationLayoutPrioritizer: LayoutPrioritizer!
     
-    @IBOutlet weak var streamView: StreamView!
-    @IBOutlet weak var emailConfirmationView: UIView!
-    @IBOutlet weak var createWrapButton: UIButton!
-    @IBOutlet weak var verificationEmailLabel: Label!
+    private let streamView = StreamView()
+    private lazy var emailConfirmationView: UIView = {
+        let view = UIView()
+        let label = Label(preset: .Small, weight: .Regular, textColor: Color.grayDarker)
+        label.text = "help_secure_account".ls
+        label.numberOfLines = 0
+        view.add(label) { make in
+            make.leading.top.equalTo(view).offset(12)
+            make.trailing.equalTo(view).offset(-12)
+        }
+        self.verificationEmailLabel.numberOfLines = 0
+        view.add(self.verificationEmailLabel) { make in
+            make.top.equalTo(label.snp_bottom)
+            make.leading.equalTo(view).offset(12)
+            make.trailing.equalTo(view).offset(-12)
+        }
+        func createButton(title: String, action: Selector) -> Button {
+            let button = PressButton(preset: .Smaller, weight: .Light, textColor: .whiteColor())
+            button.insets = 10 ^ 6
+            button.cornerRadius = 4
+            button.clipsToBounds = true
+            button.addTarget(self, touchUpInside: action)
+            button.setTitle(title, forState: .Normal)
+            button.backgroundColor = Color.orange
+            return button
+        }
+        view.add(createButton("change_email".ls, action: #selector(self.changeEmail(_:))), { (make) in
+            make.leading.equalTo(view).offset(12)
+            make.top.equalTo(self.verificationEmailLabel.snp_bottom).offset(12)
+            make.bottom.equalTo(view).offset(-12)
+        })
+        view.add(createButton("resend".ls, action: #selector(self.resendConfirmation(_:))), { (make) in
+            make.trailing.equalTo(view).offset(-12)
+            make.top.equalTo(self.verificationEmailLabel.snp_bottom).offset(12)
+            make.bottom.equalTo(view).offset(-12)
+        })
+        return view
+    }()
+    private lazy var verificationEmailLabel: Label = Label(preset: .XSmall, weight: .Light, textColor: Color.grayDarker)
     private let photoButton = AnimatedButton(type: .Custom)
-    weak var candiesView: RecentCandiesView?
+    private weak var candiesView: RecentCandiesView?
+    private let createWrapButton = Button(icon: "P", size: 33, textColor: UIColor.whiteColor())
     
-    let activityStatusView = ActivityStatusView()
+    private let activityStatusView = ActivityStatusView()
     
     private var userNotifyReceiver: EntryNotifyReceiver<User>!
     private var wrapNotifyReceiver: EntryNotifyReceiver<Wrap>!
@@ -35,6 +68,42 @@ final class HomeViewController: BaseViewController {
     
     override func loadView() {
         super.loadView()
+        
+        view.backgroundColor = .whiteColor()
+        
+        let navigationBar = UIView()
+        
+        view.add(navigationBar) { (make) in
+            make.leading.top.trailing.equalTo(view)
+            make.height.equalTo(64)
+        }
+        
+        navigationBar.backgroundColor = Color.orange
+        let title = Button(icon: "M", size: 70, textColor: UIColor.whiteColor())
+        title.addTarget(self, touchUpInside: #selector(self.settings(_:)))
+        navigationBar.add(title) { (make) in
+            make.centerX.equalTo(navigationBar)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        
+        createWrapButton.addTarget(self, touchUpInside: #selector(self.createWrap(_:)))
+        navigationBar.add(createWrapButton) { (make) in
+            make.centerY.equalTo(navigationBar).offset(10)
+            make.trailing.equalTo(navigationBar).offset(-12)
+        }
+        
+        navigationBar.add(activityStatusView, { (make) in
+            make.leading.equalTo(navigationBar).inset(12)
+            make.centerY.equalTo(navigationBar).inset(10)
+        })
+        
+        self.navigationBar = navigationBar
+        
+        view.add(streamView) { (make) in
+            make.top.equalTo(navigationBar.snp_bottom)
+            make.leading.bottom.trailing.equalTo(view)
+        }
+        
         photoButton.cornerRadius = 41
         photoButton.circleView.backgroundColor = Color.orange.colorWithAlphaComponent(0.88)
         photoButton.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.7)
@@ -122,7 +191,7 @@ final class HomeViewController: BaseViewController {
         streamView.placeholderViewBlock = PlaceholderView.homePlaceholder({ [weak self] button -> Void in
             if let controller = self {
                 controller.photoButton.hidden = true
-                button.addTarget(controller, touchUpInside: #selector(self?.showUploadWizard(_:)))
+                button.addTarget(controller, touchUpInside: #selector(self?.createWrap(_:)))
             }
             })
         
@@ -181,12 +250,6 @@ final class HomeViewController: BaseViewController {
             }
         }
         CallCenter.center.enable()
-        if let navigationBar = navigationBar {
-            navigationBar.add(activityStatusView, { (make) in
-                make.leading.equalTo(navigationBar).inset(12)
-                make.centerY.equalTo(navigationBar).inset(10)
-            })
-        }
     }
     
     func refreshUserActivities() {
@@ -199,7 +262,7 @@ final class HomeViewController: BaseViewController {
         super.viewWillAppear(animated)
         CandyCell.videoCandy = nil
         dataSource.reload()
-        updateEmailConfirmationView(false)
+        updateEmailConfirmationView()
         AuthorizedExecutor.authorized = true
         streamView.unlock()
         activityStatusView.status = .None
@@ -211,26 +274,35 @@ final class HomeViewController: BaseViewController {
         streamView.lock()
     }
     
-    private func updateEmailConfirmationView(animated: Bool) {
+    private func updateEmailConfirmationView() {
         let hidden = (NSUserDefaults.standardUserDefaults().confirmationDate?.isToday() ?? false) || (Authorization.current.unconfirmed_email?.isEmpty ?? true)
-        if !hidden {
-            verificationEmailLabel.attributedText = ChangeProfileViewController.verificationSuggestion()
-            deadlineEmailConfirmationView()
+        emailConfirmationViewHidden = hidden
+    }
+    
+    private var emailConfirmationViewHidden = true {
+        didSet {
+            guard emailConfirmationViewHidden != oldValue else { return }
+            if emailConfirmationViewHidden {
+                emailConfirmationView.removeFromSuperview()
+                streamView.snp_remakeConstraints(closure: { (make) in
+                    make.top.equalTo(navigationBar!.snp_bottom)
+                    make.leading.bottom.trailing.equalTo(view)
+                })
+            } else {
+                verificationEmailLabel.attributedText = ChangeProfileViewController.verificationSuggestion()
+                view.add(emailConfirmationView, { (make) in
+                    make.top.equalTo(navigationBar!.snp_bottom)
+                    make.leading.trailing.equalTo(view)
+                })
+                streamView.snp_remakeConstraints(closure: { (make) in
+                    make.top.equalTo(emailConfirmationView.snp_bottom)
+                    make.leading.bottom.trailing.equalTo(view)
+                })
+                Dispatch.mainQueue.after(15, block: { [weak self] () in
+                    self?.emailConfirmationViewHidden = true
+                })
+            }
         }
-        setEmailConfirmationViewHidden(hidden, animated:animated)
-    }
-    
-    private func setEmailConfirmationViewHidden(hidden: Bool, animated: Bool) {
-        emailConfirmationLayoutPrioritizer.setDefaultState(!hidden, animated:animated)
-    }
-    
-    private func deadlineEmailConfirmationView() {
-        NSUserDefaults.standardUserDefaults().confirmationDate = NSDate.now()
-        performSelector(#selector(HomeViewController.hideConfirmationEmailView), withObject:nil, afterDelay:15.0)
-    }
-    
-    func hideConfirmationEmailView() {
-        setEmailConfirmationViewHidden(true, animated:true)
     }
     
     private func addNotifyReceivers() {
@@ -264,7 +336,7 @@ final class HomeViewController: BaseViewController {
         userNotifyReceiver = EntryNotifyReceiver<User>().setup { [weak self] receiver in
             receiver.didUpdate = { entry, event in
                 if self?.isTopViewController == true {
-                    self?.updateEmailConfirmationView(true)
+                    self?.updateEmailConfirmationView()
                 }
             }
         }
@@ -296,23 +368,27 @@ final class HomeViewController: BaseViewController {
 
 extension HomeViewController {
     
-    @IBAction func showUploadWizard(sender: AnyObject?) {
-        navigationController?.pushViewController(BeginWrapCreationViewController(), animated:false)
-    }
-    
-    @IBAction func createWrap(sender: AnyObject?) {
+    func createWrap(sender: AnyObject?) {
         let controller = BeginWrapCreationViewController()
         navigationController?.pushViewController(controller, animated:false)
     }
     
-    @IBAction func addPhoto(sender: AnyObject?) {
+    func addPhoto(sender: AnyObject?) {
         openCameraForWrap(topWrap(), animated:false)
     }
     
-    @IBAction func resendConfirmation(sender: AnyObject?) {
+    func resendConfirmation(sender: AnyObject?) {
         API.resendConfirmation(nil).send({ _ in
             Toast.show("confirmation_resend".ls)
             }, failure: { $0?.show() })
+    }
+    
+    func changeEmail(sender: AnyObject?) {
+        navigationController?.pushViewController(ChangeProfileViewController(), animated: false)
+    }
+    
+    func settings(sender: AnyObject?) {
+        navigationController?.pushViewController(UIStoryboard.main["settings"]!, animated: false)
     }
 }
 

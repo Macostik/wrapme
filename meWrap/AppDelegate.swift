@@ -121,7 +121,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     func presentInitialViewController() {
         let successBlock: User -> Void = { user in
             if user.name != nil {
-                UIStoryboard.main.present(true)
+                UINavigationController.main.viewControllers = [HomeViewController()]
             } else {
                 Logger.log("INITIAL SIGN IN - sign up is not completed, redirecting to profile step")
                 let signupFlowViewController = Storyboard.SignupFlow.instantiate()

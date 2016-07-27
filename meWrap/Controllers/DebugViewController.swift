@@ -155,7 +155,7 @@ class DebugViewController: BaseViewController {
         ImageCache.defaultCache.clear()
         ImageCache.uploadingCache.clear()
         InMemoryImageCache.instance.removeAllObjects()
-        UIStoryboard.main.present(true)
+        UINavigationController.main.viewControllers = [HomeViewController()]
     }
     
     func addDemoImageWithCount(count: Int) {

@@ -129,7 +129,7 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
     
     override func loadView() {
         super.loadView()
-        
+        view.backgroundColor = .whiteColor()
         let navigationBar = UIView()
         navigationBar.backgroundColor = Color.orange
         self.navigationBar = view.add(navigationBar) { (make) in

@@ -40,7 +40,7 @@ class SignupFlowViewController: BaseViewController {
     private func completeSignup() {
         let profileStep = stepViewController("editProfile") as! EditProfileViewController
         profileStep[.Success] = {
-            UIStoryboard.main.present(true)
+            UINavigationController.main.viewControllers = [HomeViewController()]
             return nil
         }
         flowNavigationController.viewControllers = [profileStep]
@@ -63,13 +63,7 @@ class SignupFlowViewController: BaseViewController {
         // final completion block
         
         let completeSignUp = { () -> SignupStepViewController? in
-            let storyboard = UIStoryboard.main
-            if User.currentUser!.firstTimeUse {
-                let home = storyboard.instantiateInitialViewController()
-                UINavigationController.main.viewControllers = [home!]
-            } else {
-                storyboard.present(false)
-            }
+            UINavigationController.main.viewControllers = [HomeViewController()]
             return nil
         }
         

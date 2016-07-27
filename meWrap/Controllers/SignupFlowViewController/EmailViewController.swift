@@ -48,7 +48,7 @@ final class EmailViewController: SignupStepViewController {
         TestUserPicker.showInView(UIWindow.mainWindow) { (authorization) -> Void in
             ConfirmAuthorizationView().showInView(UIWindow.mainWindow, authorization: authorization, success: { _ in
                 authorization.signIn().send({ _ in
-                    UIStoryboard.main.present(false)
+                    UINavigationController.main.viewControllers = [HomeViewController()]
                     }, failure: { $0?.show() })
                 }, cancel: nil)
         }

@@ -155,7 +155,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="introduction_step_1" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqb-F8-3xd" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="40" y="497" width="161.5" height="23"/>
+                                        <rect key="frame" x="40" y="497" width="162" height="23"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -265,7 +265,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LhK-4L-gT6">
-                                        <rect key="frame" x="40" y="60" width="520" height="329.5"/>
+                                        <rect key="frame" x="40" y="60" width="520" height="330"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wedding1" translatesAutoresizingMaskIntoConstraints="NO" id="1Kx-jJ-KqC" userLabel="Avatar">
                                                 <rect key="frame" x="10" y="10" width="50" height="50"/>
@@ -330,16 +330,16 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pst-e2-C87">
-                                                <rect key="frame" x="0.0" y="70" width="520" height="259.5"/>
+                                                <rect key="frame" x="0.0" y="70" width="520" height="260"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wedding1" translatesAutoresizingMaskIntoConstraints="NO" id="aPd-Kk-7fw" userLabel="Image View 1">
-                                                        <rect key="frame" x="10" y="0.0" width="249.5" height="249.5"/>
+                                                        <rect key="frame" x="10" y="0.0" width="250" height="250"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="aPd-Kk-7fw" secondAttribute="height" multiplier="1:1" id="Fwg-3e-Dq6"/>
                                                         </constraints>
                                                     </imageView>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wedding2" translatesAutoresizingMaskIntoConstraints="NO" id="ske-F5-ghx" userLabel="Image View 2">
-                                                        <rect key="frame" x="260.5" y="0.0" width="249.5" height="249.5"/>
+                                                        <rect key="frame" x="261" y="0.0" width="249" height="250"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="ske-F5-ghx" secondAttribute="height" multiplier="1:1" id="ora-4D-eDN"/>
                                                         </constraints>
@@ -383,7 +383,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="introduction_step_2" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CIt-uA-hYF" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                                        <rect key="frame" x="40" y="413.5" width="166.5" height="23"/>
+                                        <rect key="frame" x="40" y="414" width="167" height="23"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>

@@ -8,30 +8,8 @@
 
 import UIKit
 
-struct StoryboardObject<T: UIViewController> {
-    let identifier: String
-    var storyboard: UIStoryboard
-    init(_ identifier: String, _ storyboard: UIStoryboard = UIStoryboard.main) {
-        self.identifier = identifier
-        self.storyboard = storyboard
-    }
-    func instantiate() -> T {
-        return storyboard.instantiateViewControllerWithIdentifier(identifier) as! T
-    }
-    func instantiate(@noescape block: T -> Void) -> T {
-        let controller = instantiate()
-        block(controller)
-        return controller
-    }
-}
-
-struct Storyboard {
-    static let SignupFlow = StoryboardObject<SignupFlowViewController>("signupFlow", UIStoryboard.signUp)
-}
-
 extension UIStoryboard {
     
-    @nonobjc static let main = UIStoryboard(name: "Main", bundle: nil)
     @nonobjc static let signUp = UIStoryboard(name: "SignUp", bundle: nil)
     @nonobjc static let introduction = UIStoryboard(name: "Introduction", bundle: nil)
     
@@ -61,5 +39,9 @@ extension UINavigationController {
         
     public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return topViewController?.supportedInterfaceOrientations() ?? super.supportedInterfaceOrientations()
+    }
+    
+    func push(controller: UIViewController, animated: Bool = false) {
+        pushViewController(controller, animated: animated)
     }
 }

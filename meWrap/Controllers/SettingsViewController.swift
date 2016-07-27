@@ -12,19 +12,115 @@ class SettingsViewController: BaseViewController, EntryNotifying {
     
     private let avatarView = ImageView(backgroundColor: UIColor.whiteColor(), placeholder: ImageView.Placeholder.gray.userStyle(16))
     
-    @IBOutlet weak var accountButton: Button!
+    private let accountButton = Button(preset: .Large, weight: .Regular, textColor: Color.grayDark)
+    private let aboutButton = Button(preset: .Large, weight: .Regular, textColor: Color.grayDark)
+    private let signOutButton = Button(preset: .Large, weight: .Regular, textColor: Color.grayDark)
     
     override func loadView() {
         super.loadView()
         
+        view.backgroundColor = .whiteColor()
+        
+        let navigationBar = UIView()
+        
+        view.add(navigationBar) { (make) in
+            make.leading.top.trailing.equalTo(view)
+            make.height.equalTo(64)
+        }
+        
+        navigationBar.backgroundColor = Color.orange
+        navigationBar.add(backButton(UIColor.whiteColor())) { (make) in
+            make.leading.equalTo(navigationBar).inset(12)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        let title = Label(preset: .Large, weight: .Regular, textColor: UIColor.whiteColor())
+        title.text = "settings".ls
+        navigationBar.add(title) { (make) in
+            make.centerX.equalTo(navigationBar)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        
+        self.navigationBar = navigationBar
+        
+        view.add(accountButton) { (make) in
+            make.top.equalTo(navigationBar.snp_bottom)
+            make.leading.trailing.equalTo(view)
+            make.height.equalTo(44)
+        }
+        
         avatarView.cornerRadius = 16
         avatarView.setBorder(color: Color.grayLighter)
-        view.insertSubview(avatarView, aboveSubview: accountButton)
-        avatarView.snp_makeConstraints { (make) in
+        view.add(avatarView) { (make) in
             make.size.equalTo(32)
             make.leading.equalTo(accountButton).inset(12)
             make.centerY.equalTo(accountButton)
         }
+        
+        var separator = SeparatorView(color: Color.grayLightest, contentMode: .Top)
+        view.add(separator) { (make) in
+            make.top.equalTo(accountButton.snp_bottom)
+            make.leading.trailing.equalTo(view)
+            make.height.equalTo(1)
+        }
+        
+        view.add(aboutButton) { (make) in
+            make.top.equalTo(separator.snp_bottom)
+            make.leading.trailing.equalTo(view)
+            make.height.equalTo(44)
+        }
+        
+        let aboutIcon = Label(icon: "a", size: 32, textColor: Color.orange)
+        view.add(aboutIcon) { (make) in
+            make.size.equalTo(32)
+            make.leading.equalTo(aboutButton).offset(12)
+            make.centerY.equalTo(aboutButton)
+        }
+        
+        separator = SeparatorView(color: Color.grayLightest, contentMode: .Top)
+        view.add(separator) { (make) in
+            make.top.equalTo(aboutButton.snp_bottom)
+            make.leading.trailing.equalTo(view)
+            make.height.equalTo(1)
+        }
+        
+        view.add(signOutButton) { (make) in
+            make.top.equalTo(separator.snp_bottom)
+            make.leading.trailing.equalTo(view)
+            make.height.equalTo(44)
+        }
+        
+        let signOutIcon = Label(icon: "(", size: 32, textColor: Color.orange)
+        view.add(signOutIcon) { (make) in
+            make.size.equalTo(32)
+            make.leading.equalTo(signOutButton).offset(12)
+            make.centerY.equalTo(signOutButton)
+        }
+        
+        separator = SeparatorView(color: Color.grayLightest, contentMode: .Top)
+        view.add(separator) { (make) in
+            make.top.equalTo(signOutButton.snp_bottom)
+            make.leading.trailing.equalTo(view)
+            make.height.equalTo(1)
+        }
+        
+        accountButton.addTarget(self, touchUpInside: #selector(self.account(_:)))
+        accountButton.setTitle("account".ls, forState: .Normal)
+        accountButton.contentHorizontalAlignment = .Left
+        accountButton.titleEdgeInsets.left = 56
+        accountButton.highlightedColor = Color.grayLightest
+        
+        aboutButton.addTarget(self, touchUpInside: #selector(self.about(_:)))
+        aboutButton.setTitle("about_app".ls, forState: .Normal)
+        aboutButton.contentHorizontalAlignment = .Left
+        aboutButton.titleEdgeInsets.left = 56
+        aboutButton.highlightedColor = Color.grayLightest
+        
+        signOutButton.addTarget(self, touchUpInside: #selector(self.signOut(_:)))
+        signOutButton.setTitle("sign_out".ls, forState: .Normal)
+        signOutButton.contentHorizontalAlignment = .Left
+        signOutButton.titleEdgeInsets.left = 56
+        signOutButton.highlightedColor = Color.grayLightest
+        
         User.notifier().addReceiver(self)
         
         let debugButton = QAButton(type: .System)

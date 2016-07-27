@@ -384,11 +384,11 @@ extension HomeViewController {
     }
     
     func changeEmail(sender: AnyObject?) {
-        navigationController?.pushViewController(ChangeProfileViewController(), animated: false)
+        navigationController?.push(ChangeProfileViewController())
     }
     
     func settings(sender: AnyObject?) {
-        navigationController?.pushViewController(UIStoryboard.main["settings"]!, animated: false)
+        navigationController?.push(SettingsViewController())
     }
 }
 

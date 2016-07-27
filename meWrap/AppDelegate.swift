@@ -124,7 +124,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                 UINavigationController.main.viewControllers = [HomeViewController()]
             } else {
                 Logger.log("INITIAL SIGN IN - sign up is not completed, redirecting to profile step")
-                let signupFlowViewController = Storyboard.SignupFlow.instantiate()
+                let signupFlowViewController = UIStoryboard.signUp["signupFlow"] as! SignupFlowViewController
                 signupFlowViewController.registrationNotCompleted = true
                 UINavigationController.main.viewControllers = [signupFlowViewController]
             }

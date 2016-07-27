@@ -128,7 +128,6 @@
 		C522795E1BECCA6B00B1C49C /* Dictionary+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C522795D1BECCA6B00B1C49C /* Dictionary+Ext.swift */; };
 		C52279621BECCA8600B1C49C /* NSDate+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52279611BECCA8600B1C49C /* NSDate+Ext.swift */; };
 		C52279661BECCE8A00B1C49C /* NSDate+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52279651BECCE8A00B1C49C /* NSDate+Formatting.swift */; };
-		C523D8CA1BD76BC0006FE7AB /* LayoutPrioritizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C523D8C91BD76BC0006FE7AB /* LayoutPrioritizer.swift */; };
 		C523D8CE1BD775AC006FE7AB /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C523D8CD1BD775AC006FE7AB /* Country.swift */; };
 		C52462771C63CA020097AF45 /* SignupFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52462761C63CA020097AF45 /* SignupFlowViewController.swift */; };
 		C52500581C1F1F8200CF8F9D /* HistoryItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52500571C1F1F8200CF8F9D /* HistoryItemViewController.swift */; };
@@ -270,7 +269,6 @@
 		C5B4E5681BF60E0300A4B223 /* PHPhotoLibrary+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B4E5671BF60E0300A4B223 /* PHPhotoLibrary+Ext.swift */; };
 		C5B51FE21BFB504D005A1CF6 /* UIAlertController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B51FE11BFB504D005A1CF6 /* UIAlertController+Ext.swift */; };
 		C5B8F7201B82172D00A5E541 /* DrawingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B8F71E1B82172D00A5E541 /* DrawingViewController.xib */; };
-		C5B91A361BB3F812000E08E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A341BB3F812000E08E7 /* Main.storyboard */; };
 		C5B91A3B1BB40423000E08E7 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A391BB40423000E08E7 /* SignUp.storyboard */; };
 		C5B91A421BB4101A000E08E7 /* Introduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5B91A401BB4101A000E08E7 /* Introduction.storyboard */; };
 		C5BD85421C2E999800EE5558 /* UploadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BD85411C2E999800EE5558 /* UploadingView.swift */; };
@@ -597,7 +595,6 @@
 		C522795D1BECCA6B00B1C49C /* Dictionary+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Ext.swift"; sourceTree = "<group>"; };
 		C52279611BECCA8600B1C49C /* NSDate+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Ext.swift"; sourceTree = "<group>"; };
 		C52279651BECCE8A00B1C49C /* NSDate+Formatting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Formatting.swift"; sourceTree = "<group>"; };
-		C523D8C91BD76BC0006FE7AB /* LayoutPrioritizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LayoutPrioritizer.swift; path = meWrap/Models/LayoutPrioritizer.swift; sourceTree = SOURCE_ROOT; };
 		C523D8CD1BD775AC006FE7AB /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		C52462761C63CA020097AF45 /* SignupFlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupFlowViewController.swift; sourceTree = "<group>"; };
 		C52500571C1F1F8200CF8F9D /* HistoryItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItemViewController.swift; sourceTree = "<group>"; };
@@ -715,7 +712,6 @@
 		C5B4E5671BF60E0300A4B223 /* PHPhotoLibrary+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PHPhotoLibrary+Ext.swift"; sourceTree = "<group>"; };
 		C5B51FE11BFB504D005A1CF6 /* UIAlertController+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Ext.swift"; sourceTree = "<group>"; };
 		C5B8F71E1B82172D00A5E541 /* DrawingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawingViewController.xib; sourceTree = "<group>"; };
-		C5B91A341BB3F812000E08E7 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C5B91A381BB3FE9F000E08E7 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C5B91A391BB40423000E08E7 /* SignUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
 		C5B91A401BB4101A000E08E7 /* Introduction.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Introduction.storyboard; sourceTree = "<group>"; };
@@ -985,7 +981,6 @@
 			isa = PBXGroup;
 			children = (
 				C5FBAD271C7FA12300D64969 /* AppDelegate.swift */,
-				C5B91A341BB3F812000E08E7 /* Main.storyboard */,
 				C5B91A391BB40423000E08E7 /* SignUp.storyboard */,
 				C5B91A401BB4101A000E08E7 /* Introduction.storyboard */,
 				C5BEC4171B8F1E9800499EEA /* LaunchScreen.xib */,
@@ -1042,7 +1037,6 @@
 				C5E6DD731C0DC84A004992E4 /* Asset.swift */,
 				C5E6DD851C0DC84A004992E4 /* Notifier.swift */,
 				C5053E1F1BC7CF0F0040613A /* AssetMetrics.swift */,
-				C523D8C91BD76BC0006FE7AB /* LayoutPrioritizer.swift */,
 				C50B7E321CFA1A9000612487 /* FontPresetable.swift */,
 				C523D8CD1BD775AC006FE7AB /* Country.swift */,
 				C54C42621BDE8AEC003E644D /* Authorization.swift */,
@@ -1840,7 +1834,6 @@
 				5B436CA91C9FFCAD00635931 /* objects_iOS_8.plist in Resources */,
 				C5B8F7201B82172D00A5E541 /* DrawingViewController.xib in Resources */,
 				5B3AAFF01CE4A7BB00C3739A /* ringback.wav in Resources */,
-				C5B91A361BB3F812000E08E7 /* Main.storyboard in Resources */,
 				C54AF72219B8C491006F7EDB /* Images.xcassets in Resources */,
 				C5B91A3B1BB40423000E08E7 /* SignUp.storyboard in Resources */,
 				5B496DDB1CC4F354007104EA /* FullScreenEmojiView.xib in Resources */,
@@ -2245,7 +2238,6 @@
 				C5F11E591C64A21C001C2486 /* SignupStepViewController.swift in Sources */,
 				C564C8161C4A47EE001C6460 /* CaptureAvatarViewController.swift in Sources */,
 				C502B3291C47F30400F66EAE /* Entry+Base.swift in Sources */,
-				C523D8CA1BD76BC0006FE7AB /* LayoutPrioritizer.swift in Sources */,
 				C55E533D1C4FB4DB006ACF8F /* CandyCameraViewController.swift in Sources */,
 				C5347E261C75EB510080074C /* HomeViewController.swift in Sources */,
 				C53012871BF4C0AD00098F9C /* (null) in Sources */,

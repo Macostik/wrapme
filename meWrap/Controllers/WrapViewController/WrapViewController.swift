@@ -540,8 +540,7 @@ extension WrapViewController {
     }
     
     @IBAction func settings(sender: UIButton) {
-        let controller = UIStoryboard.main["wrapSettings"] as! WrapSettingsViewController
-        controller.wrap = wrap
+        let controller = WrapSettingsViewController(wrap: wrap)
         navigationController?.pushViewController(controller, animated: false)
     }
     

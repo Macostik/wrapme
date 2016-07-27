@@ -148,7 +148,7 @@ extension Wrap {
         super.map(dictionary, container: container)
         
         name <!= dictionary[Keys.Name]
-        isRestrictedInvite <!= dictionary["is_restricted_invite"] as? Bool
+        restricted <!= dictionary["is_restricted_invite"] as? Bool
         p2p <!= dictionary["p2p"] as? Bool
         if let array = dictionary[Keys.Contributors] as? [[String:AnyObject]] {
             contributors <!= Set(mappedEntries(array)) as? Set<User>

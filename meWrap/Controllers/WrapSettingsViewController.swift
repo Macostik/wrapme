@@ -10,98 +10,208 @@ import Foundation
 
 class WrapEditSession: CompoundEditSession {
     
-    var name: EditSession<String>
-    var isRestrictedInvite: EditSession<Bool>
+    let name: EditSession<String>
+    let restricted: EditSession<Bool>
+    let muted: EditSession<Bool>
     
     required init(wrap: Wrap) {
         name = EditSession<String>(originalValue: wrap.name ?? "", setter: { wrap.name = $0 })
-        isRestrictedInvite = EditSession<Bool>(originalValue: wrap.isRestrictedInvite, setter: { wrap.isRestrictedInvite = $0 })
+        restricted = EditSession<Bool>(originalValue: wrap.restricted, setter: { wrap.restricted = $0 })
+        muted = EditSession<Bool>(originalValue: wrap.muted, setter: { wrap.muted = $0 })
         super.init()
-        addSession(isRestrictedInvite)
+        addSession(restricted)
         addSession(name)
+        addSession(muted)
     }
 }
 
-class WrapNotifyEditSession: CompoundEditSession {
+final class WrapSettingsViewController: BaseViewController, EntryNotifying, EditSessionDelegate, UITextFieldDelegate {
     
-    var notifyCandy: EditSession<Bool>
-    var notifyComment: EditSession<Bool>
-    var notifyChat: EditSession<Bool>
+    private let nameField = TextField()
+    private let editButton = Button(icon: "<", size: 20, textColor: Color.grayLighter)
+    private let actionButton = Button(preset: .Small, weight: .Regular, textColor: Color.orange)
+    private let muteSwitch = UISwitch()
+    private let restrictSwitch = UISwitch()
+    private let restrictLabel = Label(preset: .Small, weight: .Light, textColor: Color.grayLighter)
+    
+    private let saveButton = Button(icon: "E", size: 28, textColor: .whiteColor())
+    
+    private let editSession: WrapEditSession
+    
+    let wrap: Wrap
+    
+    private let isAdmin: Bool
     
     required init(wrap: Wrap) {
-        notifyCandy = EditSession<Bool>(originalValue: wrap.isCandyNotifiable, setter: { wrap.isCandyNotifiable = $0 })
-        notifyComment = EditSession<Bool>(originalValue: wrap.isCommentNotifiable, setter: { wrap.isCommentNotifiable = $0 })
-        notifyChat = EditSession<Bool>(originalValue: wrap.isChatNotifiable, setter: { wrap.isChatNotifiable = $0 })
-        super.init()
-        addSession(notifyCandy)
-        addSession(notifyComment)
-        addSession(notifyChat)
+        self.wrap = wrap
+        editSession = WrapEditSession(wrap: wrap)
+        isAdmin = wrap.contributor?.current ?? false
+        super.init(nibName: nil, bundle: nil)
+        editSession.delegate = self
     }
     
-    func updateWithWrap(wrap: Wrap) {
-        notifyCandy.originalValue = wrap.isCandyNotifiable
-        notifyComment.originalValue = wrap.isCommentNotifiable
-        notifyChat.originalValue = wrap.isChatNotifiable
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-}
-
-final class WrapSettingsViewController: BaseViewController, EntryNotifying, EditSessionDelegate {
-    
-    @IBOutlet weak var wrapNameTextField: UITextField!
-    @IBOutlet weak var editButton: UIButton!
-    @IBOutlet weak var actionButton: UIButton!
-    @IBOutlet weak var candyNotifyTrigger: UISwitch!
-    @IBOutlet weak var chatNotifyTrigger: UISwitch!
-    @IBOutlet weak var commentNotifyTrigger: UISwitch!
-    @IBOutlet weak var restrictedInviteTrigger: UISwitch!
-    @IBOutlet weak var adminLabel: UILabel!
-    @IBOutlet weak var chatPrioritizer: LayoutPrioritizer!
-    
-    @IBOutlet weak var saveButton: UIButton!
-    
-    weak var wrap: Wrap?
-    
-    private var editSession: WrapEditSession?
-    
-    private var notifyEditSession: WrapNotifyEditSession?
     
     private var userInitiatedDestructiveAction = false
     
-    private var isAdmin = false
+    override func loadView() {
+        super.loadView()
+        
+        view.backgroundColor = .whiteColor()
+        
+        let navigationBar = UIView()
+        
+        view.add(navigationBar) { (make) in
+            make.leading.top.trailing.equalTo(view)
+            make.height.equalTo(64)
+        }
+        
+        navigationBar.backgroundColor = Color.orange
+        navigationBar.add(backButton(UIColor.whiteColor())) { (make) in
+            make.leading.equalTo(navigationBar).inset(12)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        let title = Label(preset: .Large, weight: .Regular, textColor: UIColor.whiteColor())
+        title.text = "settings".ls
+        navigationBar.add(title) { (make) in
+            make.centerX.equalTo(navigationBar)
+            make.centerY.equalTo(navigationBar).offset(10)
+        }
+        
+        navigationBar.add(saveButton) { (make) in
+            make.centerY.equalTo(navigationBar).offset(10)
+            make.trailing.equalTo(navigationBar).offset(-12)
+        }
+        
+        self.navigationBar = navigationBar
+        
+        if !wrap.p2p {
+            let nameLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.orange)
+            nameLabel.text = "title".ls
+            view.add(nameLabel) { (make) in
+                make.top.equalTo(navigationBar.snp_bottom).offset(12)
+                make.leading.equalTo(view).offset(12)
+            }
+            
+            nameField.disableSeparator = true
+            nameField.font = Font.Normal + .Regular
+            nameField.makePresetable(.Normal)
+            nameField.textColor = Color.grayDark
+            nameField.placeholder = "wrap_name_cannot_be_blank".ls
+            nameField.delegate = self
+            nameField.returnKeyType = .Done
+            view.add(nameField) { (make) in
+                make.top.equalTo(nameLabel.snp_bottom)
+                make.leading.equalTo(view).offset(12)
+                make.trailing.equalTo(view).offset(-12)
+                make.height.equalTo(44)
+            }
+            
+            editButton.setTitleColor(Color.grayDarker, forState: .Highlighted)
+            editButton.setTitle("!", forState: .Selected)
+            editButton.frame.size = 44 ^ 44
+            nameField.rightView = editButton
+            nameField.rightViewMode = .Always
+            
+            let friendsLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.orange)
+            friendsLabel.text = "friends".ls
+            view.add(friendsLabel) { (make) in
+                make.top.equalTo(nameField.snp_bottom).offset(12)
+                make.leading.equalTo(view).offset(12)
+            }
+            
+            if isAdmin {
+                restrictLabel.text = "allow_friends_to_add_people".ls
+            } else {
+                restrictLabel.text = wrap.restricted ? "only_admin_can_add_people".ls : "friends_allowed_to_app_people".ls
+            }
+            restrictLabel.numberOfLines = 0
+            view.add(restrictLabel) { (make) in
+                make.top.equalTo(friendsLabel.snp_bottom).offset(12)
+                make.leading.equalTo(view).offset(12)
+                if !isAdmin {
+                    make.trailing.equalTo(view).offset(-12)
+                }
+            }
+            
+            if isAdmin {
+                view.add(restrictSwitch) { (make) in
+                    make.centerY.equalTo(restrictLabel)
+                    make.trailing.equalTo(view).offset(-12)
+                    make.leading.equalTo(restrictLabel.snp_trailing).offset(12)
+                }
+            }
+        }
+        
+        let notificationsLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.orange)
+        notificationsLabel.text = "notifications".ls
+        view.add(notificationsLabel) { (make) in
+            if wrap.p2p {
+                make.top.equalTo(navigationBar.snp_bottom).offset(12)
+            } else {
+                make.top.equalTo(restrictLabel.snp_bottom).offset(12)
+            }
+            make.leading.equalTo(view).offset(12)
+        }
+        
+        let muteLabel = Label(preset: .Small, weight: .Regular, textColor: Color.grayDark)
+        muteLabel.text = "mute".ls
+        muteLabel.numberOfLines = 0
+        view.add(muteLabel) { (make) in
+            make.top.equalTo(notificationsLabel.snp_bottom).offset(12)
+            make.leading.equalTo(view).offset(12)
+        }
+        
+        view.add(muteSwitch) { (make) in
+            make.centerY.equalTo(muteLabel)
+            make.trailing.equalTo(view).offset(-12)
+            make.leading.equalTo(muteLabel.snp_trailing).offset(12)
+        }
+        
+        if !wrap.p2p {
+            actionButton.setBorder(color: Color.orange, width: 1)
+            actionButton.cornerRadius = 5
+            actionButton.clipsToBounds = true
+            actionButton.normalColor = .whiteColor()
+            actionButton.highlightedColor = Color.orange
+            actionButton.setTitleColor(.whiteColor(), forState: .Highlighted)
+            actionButton.setTitle(isAdmin ? "DELETE_WRAP".ls : "EXIT_WRAP".ls, forState: .Normal)
+            view.add(actionButton) { (make) in
+                make.top.equalTo(muteSwitch.snp_bottom).offset(20)
+                make.leading.equalTo(view).offset(12)
+                make.trailing.equalTo(view).offset(-12)
+                make.height.equalTo(30)
+            }
+            actionButton.addTarget(self, touchUpInside: #selector(self.handleAction(_:)))
+        }
+        
+        nameField.addTarget(self, action: #selector(self.textFieldEditChange(_:)), forControlEvents: .EditingChanged)
+        editButton.addTarget(self, touchUpInside: #selector(self.edit(_:)))
+        saveButton.addTarget(self, touchUpInside: #selector(self.save(_:)))
+        restrictSwitch.onTintColor = Color.orange
+        muteSwitch.onTintColor = Color.orange
+        restrictSwitch.addTarget(self, action: #selector(self.switched(_:)), forControlEvents: .ValueChanged)
+        muteSwitch.addTarget(self, action: #selector(self.switched(_:)), forControlEvents: .ValueChanged)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         saveButton.hidden = true
-        guard let wrap = wrap else { return }
-        let title = wrap.deletable ? "DELETE_WRAP".ls : "LEAVE_WRAP".ls
-        actionButton.setTitle(title, forState: .Normal)
-        wrapNameTextField.text = wrap.name
-        editSession = WrapEditSession(wrap: wrap)
-        editSession?.delegate = self
-        notifyEditSession = WrapNotifyEditSession(wrap: wrap)
-        notifyEditSession?.delegate = self
-        isAdmin = wrap.contributor?.current ?? false
-        restrictedInviteTrigger.hidden = !isAdmin
-        if isAdmin {
-            adminLabel.text = "allow_friends_to_add_people".ls
-        } else {
-            adminLabel.text = wrap.isRestrictedInvite ? "only_admin_can_add_people".ls : "friends_allowed_to_app_people".ls
-        }
-        candyNotifyTrigger.on = wrap.isCandyNotifiable
-        chatNotifyTrigger.on = wrap.isChatNotifiable
-        commentNotifyTrigger.on = wrap.isCommentNotifiable
-        restrictedInviteTrigger.on = !wrap.isRestrictedInvite
+        let wrap = self.wrap
+        nameField.text = wrap.name
+        muteSwitch.on = wrap.muted
+        restrictSwitch.on = !wrap.restricted
         API.preferences(wrap).send({ [weak self] _ in
-            self?.candyNotifyTrigger.on = wrap.isCandyNotifiable
-            self?.commentNotifyTrigger.on = wrap.isCommentNotifiable
-            self?.chatNotifyTrigger.on = wrap.isChatNotifiable
-            self?.notifyEditSession?.updateWithWrap(wrap)
+            self?.muteSwitch.on = wrap.muted
+            self?.editSession.muted.originalValue = wrap.muted
             })
         Wrap.notifier().addReceiver(self)
     }
     
-    @IBAction func handleAction(sender: Button) {
-        guard let wrap = wrap else { return }
+    func handleAction(sender: Button) {
+        let wrap = self.wrap
         UIAlertController.confirmWrapDeleting(wrap, success: {[weak self] _ in
             self?.userInitiatedDestructiveAction = true
             sender.loading = false
@@ -120,33 +230,31 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
             }, failure: { _ in })
     }
     
-    @IBAction func changeSwichValue(sender: AnyObject) {
-        notifyEditSession?.notifyCandy.changedValue = candyNotifyTrigger.on
-        notifyEditSession?.notifyChat.changedValue = chatNotifyTrigger.on
-        notifyEditSession?.notifyComment.changedValue = commentNotifyTrigger.on
+    func switched(sender: AnyObject) {
+        editSession.muted.changedValue = muteSwitch.on
         if isAdmin {
-            editSession?.isRestrictedInvite.changedValue = !restrictedInviteTrigger.on
+            editSession.restricted.changedValue = !restrictSwitch.on
         }
     }
     
-    @IBAction func editButtonClick(sender: UIButton) {
+    func edit(sender: UIButton) {
         if sender.selected {
-            editSession?.name.reset()
-            wrapNameTextField.resignFirstResponder()
-            wrapNameTextField.text = editSession?.name.originalValue
+            editSession.name.reset()
+            nameField.resignFirstResponder()
+            nameField.text = editSession.name.originalValue
         } else {
-            wrapNameTextField.becomeFirstResponder()
+            nameField.becomeFirstResponder()
         }
     }
     
     //MARK: UITextFieldHandler
     
-    @IBAction func textFieldEditChange(textfield: UITextField) {
+    func textFieldEditChange(textfield: UITextField) {
         if let text = textfield.text where text.characters.count > Constants.wrapNameLimit {
             textfield.text = text.substringToIndex(text.startIndex.advancedBy(Constants.wrapNameLimit))
         }
-        editSession?.name.changedValue = textfield.text?.trim ?? ""
-        editButton.selected = editSession?.hasChanges ?? false
+        editSession.name.changedValue = textfield.text?.trim ?? ""
+        editButton.selected = editSession.hasChanges ?? false
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -154,26 +262,25 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
         return true
     }
     
-    @IBAction func save(sender: AnyObject) {
-        if let wrap = wrap {
-            if let name = wrapNameTextField.text?.trim where !name.isEmpty {
-                if let editSession = editSession where editSession.hasChanges == true {
-                    editSession.apply()
-                    wrap.update({ _ in }, failure: { error in
-                        error?.show()
-                        editSession.reset()
-                    })
-                }
-                if let editSession = notifyEditSession where editSession.hasChanges == true {
-                    editSession.apply()
-                    API.changePreferences(wrap).send({ _ in }, failure: { error in
-                        error?.show()
-                        editSession.reset()
-                    })
-                }
-            } else {
-                Toast.show("wrap_name_cannot_be_blank".ls)
+    func save(sender: AnyObject) {
+        if let name = nameField.text?.trim where !name.isEmpty {
+            if case let editSession = editSession where editSession.hasChanges == true {
+                editSession.apply()
+                let wrap = self.wrap
+                wrap.update({ _ in
+                    if editSession.muted.hasChanges {
+                        API.changePreferences(wrap).send({ _ in }, failure: { error in
+                            error?.show()
+                            editSession.muted.reset()
+                        })
+                    }
+                    }, failure: { error in
+                    error?.show()
+                    editSession.reset()
+                })
             }
+        } else {
+            Toast.show("wrap_name_cannot_be_blank".ls)
         }
         navigationController?.popViewControllerAnimated(false)
     }
@@ -181,7 +288,7 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
     //MARK: EntryNotifying
     
     func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
-        if let wrap = entry as? Wrap where viewAppeared && !userInitiatedDestructiveAction {
+        if viewAppeared && !userInitiatedDestructiveAction {
             navigationController?.popToRootViewControllerAnimated(false)
             if !wrap.deletable {
                 Toast.showMessageForUnavailableWrap(wrap)
@@ -190,8 +297,8 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
     }
     
     func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
-        if let wrap = entry as? Wrap where !isAdmin {
-            adminLabel.text = wrap.isRestrictedInvite ? "only_admin_can_add_people".ls : "friends_allowed_to_app_people".ls
+        if !isAdmin {
+            restrictLabel.text = wrap.restricted ? "only_admin_can_add_people".ls : "friends_allowed_to_app_people".ls
         }
     }
     
@@ -200,6 +307,6 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
     }
     
     func editSession(session: EditSessionProtocol, hasChanges: Bool) {
-        saveButton.hidden = editSession?.hasChanges == false && notifyEditSession?.hasChanges == false
+        saveButton.hidden = editSession.hasChanges == false
     }
 }

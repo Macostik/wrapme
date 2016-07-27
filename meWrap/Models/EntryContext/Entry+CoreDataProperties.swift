@@ -64,10 +64,8 @@ extension Contribution {
 
 extension Wrap {
     
-    @NSManaged var isCandyNotifiable: Bool
-    @NSManaged var isCommentNotifiable: Bool
-    @NSManaged var isChatNotifiable: Bool
-    @NSManaged var isRestrictedInvite: Bool
+    @NSManaged var muted: Bool
+    @NSManaged var restricted: Bool
     @NSManaged var name: String?
     @NSManaged var candies: Set<Candy>
     @NSManaged var contributors: Set<User>

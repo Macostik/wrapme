@@ -172,7 +172,7 @@
 "uppercase_follow" = "FOLLOW";
 "public_wrap_label" = "Public - followers can see all content";
 "follow_and_join_this_wrap" = "FOLLOW & JOIN THIS WRAP?";
-"LEAVE_WRAP" = "LEAVE WRAP";
+"EXIT_WRAP" = "EXIT WRAP";
 "next" = "Next";
 "sending_passcode_message" = "We're sending you a passcode to your e-mail...";
 "select_your_country" = "Select your country";
@@ -376,3 +376,4 @@
 "answer" = "Answer";
 "f_incoming_call_from" = "Incoming call from %@";
 "f_is_calling_you" = "%@ is calling you in meWrap. Launch the app to answer.";
+"mute" = "Mute";

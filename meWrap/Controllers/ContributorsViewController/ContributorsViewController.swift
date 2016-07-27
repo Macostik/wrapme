@@ -147,7 +147,7 @@ final class ContributorsViewController: BaseViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         if let contributor = wrap.contributor where !contributor.current {
-            setAddFriendViewHidden(wrap.isRestrictedInvite, animated: false)
+            setAddFriendViewHidden(wrap.restricted, animated: false)
         }
     }
     
@@ -279,7 +279,7 @@ extension ContributorsViewController: EntryNotifying {
             updateContributors()
         }
         if let contributor = wrap.contributor where !contributor.current {
-            setAddFriendViewHidden(wrap.isRestrictedInvite, animated: viewAppeared)
+            setAddFriendViewHidden(wrap.restricted, animated: viewAppeared)
         }
     }
 }

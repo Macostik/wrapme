@@ -171,7 +171,7 @@
 "uppercase_follow" = "追随";
 "public_wrap_label" = "公开围拍- 追随者可浏览所有内容。";
 "follow_and_join_this_wrap" = "确定要追随这个围拍吗？";
-"LEAVE_WRAP" = "退出围拍";
+"EXIT_WRAP" = "退出围拍";
 "next" = "下一步";
 "sending_passcode_message" = "现正传送连结密码到你的电邮。";
 "select_your_country" = "选择国家";
@@ -376,3 +376,4 @@
 "answer" = "Answer";
 "f_incoming_call_from" = "Incoming call from %@";
 "f_is_calling_you" = "%@ is calling you in meWrap. Launch the app to answer.";
+"mute" = "Mute";

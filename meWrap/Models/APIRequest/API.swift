@@ -258,9 +258,7 @@ extension API {
     static func preferences(wrap: Wrap) -> APIRequest<Wrap> {
         return APIRequest<Wrap>(.GET, "wraps/\(wrap.uid)/preferences", parser: { response in
             if let preference = response.dictionary("wrap_preference") {
-                wrap.isCandyNotifiable = preference["notify_when_image_candy_addition"] as? Bool ?? false
-                wrap.isChatNotifiable = preference["notify_when_chat_addition"] as? Bool ?? false
-                wrap.isCommentNotifiable = preference["notify_when_comment_addition"] as? Bool ?? false
+                wrap.muted = preference["muted"] as? Bool ?? false
                 wrap.notifyOnUpdate(.PreferencesChanged)
             }
             return wrap
@@ -269,9 +267,7 @@ extension API {
     
     static func changePreferences(wrap: Wrap) -> APIRequest<Wrap> {
         return APIRequest<Wrap>(.PUT, "wraps/\(wrap.uid)/preferences", modifier: {
-            $0["notify_when_image_candy_addition"] = wrap.isCandyNotifiable
-            $0["notify_when_chat_addition"] = wrap.isChatNotifiable
-            $0["notify_when_comment_addition"] = wrap.isCommentNotifiable
+            $0["muted"] = wrap.muted
             }, parser: { _ in
                 return wrap.validEntry()
         }).contributionUnavailable(wrap)
@@ -385,7 +381,7 @@ extension API {
     static func updateWrap(wrap: Wrap) -> APIRequest<Wrap> {
         return APIRequest<Wrap>(.PUT, "wraps/\(wrap.uid)", modifier: { (request) -> Void in
             request["name"] = wrap.name
-            request["is_restricted_invite"] = wrap.isRestrictedInvite
+            request["is_restricted_invite"] = wrap.restricted
             }, parser: { response in
                 if wrap.valid {
                     if let dictionary = response.dictionary("wrap") {

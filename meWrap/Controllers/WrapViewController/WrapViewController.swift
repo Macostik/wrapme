@@ -331,8 +331,15 @@ final class WrapViewController: WrapBaseViewController {
             self?.updateFriendsBar(wrap)
             }, failure: nil)
         
+        if self.wrap.p2p {
+            audioCallButton.active = Network.network.reachable
+            videoCallButton.active = Network.network.reachable
+        }
+        
         Network.network.subscribe(self) { [unowned self] (value) in
             if self.wrap.p2p {
+                self.audioCallButton.active = value
+                self.videoCallButton.active = value
                 self.updateFriendsBar(self.wrap)
             } else {
                 self.friendsDataSource.reload()

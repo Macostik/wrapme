@@ -411,6 +411,7 @@ class CallView: UIView, SINCallDelegate {
     
     func callDidEnd(call: SINCall!) {
         
+        audioController.stopPlayingSoundFile()
         if let reason = callEndReason(call) {
             infoLabel.text = reason
             infoLabel.textColor = Color.grayLighter

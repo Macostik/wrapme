@@ -230,7 +230,7 @@ final class StreamView: UIScrollView {
             let placeholderView = placeholder()
             add(placeholderView, { (make) in
                 make.centerX.equalTo(self)
-                make.centerY.equalTo(self).offset(layout.offset/2)
+                make.centerY.equalTo(self).offset(layout.offset/2 - contentInset.top/2)
                 make.size.lessThanOrEqualTo(self).offset(-24)
             })
             self.placeholderView = placeholderView

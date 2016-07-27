@@ -345,7 +345,11 @@ class CallView: UIView, SINCallDelegate {
         })
     }
     
+    private static weak var previousCallView: CallView?
+    
     func present() {
+        CallView.previousCallView?.removeFromSuperview()
+        CallView.previousCallView = self
         let view = UIWindow.mainWindow
         view.add(self) { $0.edges.equalTo(view) }
         setupSubviews()

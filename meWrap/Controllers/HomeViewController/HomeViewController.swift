@@ -51,7 +51,7 @@ final class HomeViewController: BaseViewController {
         return view
     }()
     private lazy var verificationEmailLabel: Label = Label(preset: .XSmall, weight: .Light, textColor: Color.grayDarker)
-    private let photoButton = AnimatedButton(type: .Custom)
+    private let photoButton = AnimatedButton(circleInset: 5)
     private weak var candiesView: RecentCandiesView?
     private let createWrapButton = Button(icon: "P", size: 33, textColor: UIColor.whiteColor())
     

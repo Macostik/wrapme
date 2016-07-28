@@ -311,7 +311,7 @@ class MediaViewController: WrapBaseViewController {
     lazy var mediaDataSource: PaginatedStreamDataSource<History> = self.createMediaDataSource()
     lazy var mosaicDataSource: PaginatedStreamDataSource<History> = self.createMosaicDataSource()
     private let streamView = StreamView()
-    let addPhotoButton = AnimatedButton(type: .Custom)
+    let addPhotoButton = AnimatedButton(circleInset: 5)
     private lazy var liveButton: AnimatedButton = AnimatedButton(preset: .Smaller, weight: .Bold, textColor: UIColor.whiteColor())
     private let layoutButton = LayoutSwitcher()
     

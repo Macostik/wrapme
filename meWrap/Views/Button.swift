@@ -250,42 +250,43 @@ extension Button {
 
 final class AnimatedButton: Button {
     
-    let circleView = UIView()
+    lazy var circleView: UIView = specify(UIView()) {
+        self.adjustsImageWhenHighlighted = false
+        $0.userInteractionEnabled = false
+        self.addSubview($0)
+    }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        adjustsImageWhenHighlighted = false
-        circleView.userInteractionEnabled = false
-        insertSubview(circleView, atIndex: 0)
-        circleView.snp_makeConstraints { (make) in
-            make.center.equalTo(self)
-            make.size.equalTo(self).multipliedBy(0.86)
-        }
+    var circleInset: CGFloat = 3
+    
+    convenience init(circleInset: CGFloat) {
+        self.init(frame: CGRect.zero)
+        self.circleInset = circleInset
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         sendSubviewToBack(circleView)
-        circleView.cornerRadius = cornerRadius * 0.86
+        if CGAffineTransformEqualToTransform(circleView.transform, CGAffineTransformIdentity) {
+            circleView.frame = bounds.insetBy(dx: circleInset, dy: circleInset)
+            circleView.cornerRadius = circleView.height/2
+        }
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private var animating = false
     
     override var highlighted: Bool {
         didSet {
+            animating = true
             animate(duration: 0.12) {
                 if highlighted {
-                    let scale = cornerRadius/circleView.cornerRadius
-                    circleView.transform = CGAffineTransformMakeScale(scale, scale)
+                    circleView.transform = CGAffineTransformMakeScale(width/circleView.width, height/circleView.height)
                     circleView.backgroundColor = circleView.backgroundColor?.colorWithAlphaComponent(1)
                 } else {
                     circleView.transform = CGAffineTransformIdentity
                     circleView.backgroundColor = circleView.backgroundColor?.colorWithAlphaComponent(0.88)
                 }
-                layoutIfNeeded()
             }
+            animating = false
         }
     }
 }

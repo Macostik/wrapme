@@ -160,17 +160,12 @@ final class ChangeProfileViewController: BaseViewController, EditSessionDelegate
         bottomView.snp_makeConstraints { (make) in
             make.leading.trailing.equalTo(view)
             let constraint = make.bottom.equalTo(view).constraint
-            Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
+            Keyboard.keyboard.handle(self, block: { [unowned self] (keyboard, willShow) in
                 keyboard.performAnimation({ () in
-                    constraint.updateOffset(-keyboard.height)
+                    constraint.updateOffset(willShow ? -keyboard.height : 0)
                     self.view.layoutIfNeeded()
                 })
-            }) { [unowned self] (keyboard) in
-                keyboard.performAnimation({ () in
-                    constraint.updateOffset(0)
-                    self.view.layoutIfNeeded()
                 })
-            }
         }
         
         func setupButton(button: Button, font: Font = .Large, weight: Font.Weight = .Bold, title: String, action: Selector) {

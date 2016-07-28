@@ -112,6 +112,7 @@ class TextOverlayView: UIView {
             addTextEditableView()
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.textFocus(_:)))
             addGestureRecognizer(tapGesture)
+            
             Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
                 
                 guard let superview = self.superview else { return }

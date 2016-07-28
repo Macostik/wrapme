@@ -76,19 +76,12 @@ class UploadSummaryViewController: SwipeViewController<EditAssetViewController>,
             make.leading.trailing.equalTo(view)
             let constraint = make.bottom.equalTo(view).constraint
             make.height.equalTo(110)
-            Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
-                
-                keyboard.performAnimation({ () in
-                    constraint.updateOffset(-(keyboard.height - self.streamView.height))
+            Keyboard.keyboard.handle(self, block: { [unowned self] (keyboard, willShow) in
+                keyboard.performAnimation { () in
+                    constraint.updateOffset(willShow ? -(keyboard.height - self.streamView.height) : 0)
                     self.view.layoutIfNeeded()
+                }
                 })
-                
-                }, willHide: { [unowned self] (keyboard) in
-                    keyboard.performAnimation({ () in
-                        constraint.updateOffset(0)
-                        self.view.layoutIfNeeded()
-                    })
-            })
         }
         
         view.add(blurredImageView) { (make) in

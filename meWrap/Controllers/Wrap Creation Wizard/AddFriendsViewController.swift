@@ -176,17 +176,12 @@ final class AddFriendsViewController: AddContributorsViewController, SelectedAdd
             make.leading.trailing.equalTo(view)
             make.top.equalTo(topView.snp_bottom)
             let bottom = make.bottom.equalTo(view).constraint
-            Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
+            Keyboard.keyboard.handle(self, block: { [unowned self] (keyboard, willShow) in
                 keyboard.performAnimation({ () in
-                    bottom.updateOffset(-keyboard.height)
+                    bottom.updateOffset(willShow ? -keyboard.height : 0)
                     self.view.layoutIfNeeded()
                 })
-            }) { [unowned self] (keyboard) in
-                keyboard.performAnimation({ () in
-                    bottom.updateOffset(0)
-                    self.view.layoutIfNeeded()
                 })
-            }
         }
         
         let backgroundView = UIView()

@@ -190,25 +190,25 @@ final class ConfirmInvitationView: ConfirmView, UITextViewDelegate {
     
     func showInView(view: UIView, content: String, success: String -> Void, cancel: Block?) {
         
-        Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
+        Keyboard.keyboard.handle(self, block: { [unowned self] (keyboard, willShow) in
             keyboard.performAnimation { () in
-                self.contentView.snp_remakeConstraints(closure: { (make) in
-                    make.centerX.equalTo(self)
-                    make.centerY.equalTo(self).inset(-keyboard.height/2)
-                    make.width.lessThanOrEqualTo(self).offset(-24)
-                    make.height.lessThanOrEqualTo(self).offset(-(24 + keyboard.height))
-                })
-                self.contentView.layoutIfNeeded()
-            }
-            }, willHide: { [unowned self] (keyboard) in
-                keyboard.performAnimation { () in
+                if willShow {
+                    self.contentView.snp_remakeConstraints(closure: { (make) in
+                        make.centerX.equalTo(self)
+                        make.centerY.equalTo(self).inset(-keyboard.height/2)
+                        make.width.lessThanOrEqualTo(self).offset(-24)
+                        make.height.lessThanOrEqualTo(self).offset(-(24 + keyboard.height))
+                    })
+                    self.contentView.layoutIfNeeded()
+                } else {
                     self.contentView.snp_remakeConstraints(closure: { (make) in
                         make.center.equalTo(self)
                         make.size.lessThanOrEqualTo(self).offset(-24)
                     })
                     self.contentView.layoutIfNeeded()
                 }
-        })
+            }
+            })
         contentTextView.text = content
         contentTextView.delegate = self
         self.showInView(view, success: { [weak self] _ in

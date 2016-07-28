@@ -82,21 +82,14 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
             make.leading.trailing.equalTo(view)
             make.top.equalTo(streamView.snp_bottom)
             let constraint = make.bottom.equalTo(view).constraint
-            Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
+            Keyboard.keyboard.handle(self, block: { [unowned self] (keyboard, willShow) in
                 self.streamView.keepContentOffset {
                     keyboard.performAnimation({ () in
-                        constraint.updateOffset(-keyboard.height)
+                        constraint.updateOffset(willShow ? -keyboard.height : 0)
                         self.view.layoutIfNeeded()
                     })
                 }
-            }) { [unowned self] (keyboard) in
-                self.streamView.keepContentOffset {
-                    keyboard.performAnimation({ () in
-                        constraint.updateOffset(0)
-                        self.view.layoutIfNeeded()
-                    })
-                }
-            }
+                })
         }
         let separator = SeparatorView(color: Color.grayLighter, contentMode: .Top)
         composeBar.add(separator) { (make) in

@@ -93,25 +93,14 @@ class WrapListViewController: BaseViewController {
             make.top.equalTo(searchView.snp_bottom)
         }
         
-        Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
-            
-            keyboard.performAnimation({ () in
+        Keyboard.keyboard.handle(self, block: { [unowned self] (keyboard, willShow) in
+            keyboard.performAnimation { () in
                 self.streamView.snp_updateConstraints(closure: { (make) in
-                    make.bottom.equalTo(self.view).offset(-keyboard.height)
+                    make.bottom.equalTo(self.view).offset(willShow ? -keyboard.height : 0)
                 })
                 self.streamView.layoutIfNeeded()
+            }
             })
-            
-            
-            }) { [unowned self] (keyboard) in
-                
-                keyboard.performAnimation({ () in
-                    self.streamView.snp_updateConstraints(closure: { (make) in
-                        make.bottom.equalTo(self.view).offset(0)
-                    })
-                    self.streamView.layoutIfNeeded()
-                })
-        }
     }
     
     override func viewDidLoad() {

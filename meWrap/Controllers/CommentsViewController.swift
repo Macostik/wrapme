@@ -466,34 +466,32 @@ final class CommentsViewController: BaseViewController, CaptureCommentViewContro
                 })
         }
         
-        Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
+        Keyboard.keyboard.handle(self, block: { [unowned self] (keyboard, willShow) in
             self.streamView.keepContentOffset {
                 keyboard.performAnimation({ () in
-                    if self.camera == nil {
-                        self.contentView.snp_remakeConstraints(closure: { (make) in
-                            make.leading.top.trailing.equalTo(self.view)
-                            make.bottom.equalTo(self.view).inset(keyboard.height)
-                        })
+                    if willShow {
+                        if self.camera == nil {
+                            self.contentView.snp_remakeConstraints(closure: { (make) in
+                                make.leading.top.trailing.equalTo(self.view)
+                                make.bottom.equalTo(self.view).inset(keyboard.height)
+                            })
+                        } else {
+                            self.contentView.snp_remakeConstraints(closure: { (make) in
+                                make.size.equalTo(self.view)
+                                make.centerX.equalTo(self.view)
+                                make.bottom.equalTo(self.view).offset(-self.topView.height)
+                            })
+                        }
+                        self.contentView.layoutIfNeeded()
                     } else {
-                        self.contentView.snp_remakeConstraints(closure: { (make) in
-                            make.size.equalTo(self.view)
-                            make.centerX.equalTo(self.view)
-                            make.bottom.equalTo(self.view).offset(-self.topView.height)
-                        })
-                    }
-                    self.contentView.layoutIfNeeded()
-                })
-            }
-            }) { [unowned self] (keyboard) in
-                self.streamView.keepContentOffset {
-                    keyboard.performAnimation({ () in
                         self.contentView.snp_remakeConstraints(closure: { (make) in
                             make.edges.equalTo(self.view)
                         })
                         self.contentView.layoutIfNeeded()
-                    })
-                }
-        }
+                    }
+                })
+            }
+            })
         
         if candy.comments.count == 0 {
             Dispatch.mainQueue.async { () in

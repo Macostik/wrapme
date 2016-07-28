@@ -102,23 +102,19 @@ final class LiveBroadcasterViewController: LiveViewController {
             make.bottom.equalTo(startButton.snp_top).inset(-12)
         }
         
-        Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
+        Keyboard.keyboard.handle(self, block: { [unowned self] (keyboard, willShow) in
             keyboard.performAnimation { () in
                 self.composeBar.snp_remakeConstraints { (make) in
                     make.leading.trailing.equalTo(self.view)
-                    make.bottom.equalTo(self.view).inset(keyboard.height)
+                    if willShow {
+                        make.bottom.equalTo(self.view).inset(keyboard.height)
+                    } else {
+                        make.bottom.equalTo(self.startButton.snp_top).inset(-12)
+                    }
                 }
                 self.view.layoutIfNeeded()
             }
-        }) { [unowned self] (keyboard) in
-            keyboard.performAnimation { () in
-                self.composeBar.snp_remakeConstraints { (make) in
-                    make.leading.trailing.equalTo(self.view)
-                    make.bottom.equalTo(self.startButton.snp_top).inset(-12)
-                }
-                self.view.layoutIfNeeded()
-            }
-        }
+            })
         
         toggleCameraButton.backgroundColor = Color.grayDarker.colorWithAlphaComponent(0.7)
         toggleCameraButton.normalColor = Color.grayDarker.colorWithAlphaComponent(0.7)

@@ -71,17 +71,9 @@ class BaseViewController: GAITrackedViewController {
         keyboardAdjustments = adjustments
         screenName = NSStringFromClass(self.dynamicType)
         if !keyboardAdjustments.isEmpty {
-            
-            Keyboard.keyboard.handle(self, willShow: { [unowned self] (keyboard) in
-                
+            Keyboard.keyboard.handle(self, block: { [unowned self] (keyboard, willShow) in
                 guard self.isViewLoaded() && !self.keyboardAdjustments.isEmpty else { return }
-                self.adjust(keyboard)
-                
-                }, willHide: { [unowned self] (keyboard) in
-                    
-                    guard self.isViewLoaded() && !self.keyboardAdjustments.isEmpty else { return }
-                    self.adjust(keyboard, willHide: true)
-                    
+                self.adjust(keyboard, willHide: !willShow)
                 })
         }
         if !whenLoadedBlocks.isEmpty {

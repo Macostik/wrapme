@@ -53,28 +53,44 @@ final class CallCenter: NSObject, SINCallDelegate, SINManagedPushDelegate {
     
     var push: SINManagedPush?
     
+    private func enqueueRestart() {
+        Network.network.subscribe(self, block: { [unowned self] (value) in
+            if value {
+                self.enable()
+                Network.network.unsubscribe(self)
+            }
+            })
+    }
+    
     func enable() {
+        
+        if !Network.network.reachable {
+            enqueueRestart()
+            return
+        }
+        
+        #if DEBUG
+            let push = Sinch.managedPushWithAPSEnvironment(.Development)
+        #else
+            let push = Sinch.managedPushWithAPSEnvironment(.Production)
+        #endif
+        
+        push.delegate = self
+        push.setDesiredPushTypeAutomatically()
+        self.push = push
+        
         guard let sinch = sinch where !sinch.isStarted() else { return }
         sinch.delegate = self
         sinch.callClient().delegate = self
         sinch.setSupportCalling(true)
-        sinch.setSupportActiveConnectionInBackground(true)
-        
-        let push = Sinch.managedPushWithAPSEnvironment(.Production)
-        push.delegate = self
-        push.setDesiredPushTypeAutomatically()
-        push.registerUserNotificationSettings()
-        self.push = push
         
         sinch.enableManagedPushNotifications()
         
         sinch.start()
-        sinch.startListeningOnActiveConnection()
     }
     
     func disable() {
         if let sinch = _sinch {
-            sinch.stopListeningOnActiveConnection()
             sinch.stop()
             _sinch = nil
         }
@@ -89,7 +105,11 @@ extension CallCenter: SINClientDelegate {
     
     func clientDidStart(client: SINClient!) {}
     
-    func clientDidFail(client: SINClient!, error: NSError!) {}
+    func clientDidFail(client: SINClient!, error: NSError!) {
+        if let error = error where error.isNetworkError {
+            enqueueRestart()
+        }
+    }
     
     func client(client: SINClient!, logMessage message: String!, area: String!, severity: SINLogSeverity, timestamp: NSDate!) {}
 }
@@ -133,10 +153,16 @@ extension CallCenter: SINCallClientDelegate {
         let task = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
         Dispatch.mainQueue.after(3) { () in
             UIApplication.sharedApplication().cancelLocalNotification(notification)
-            UIApplication.sharedApplication().presentLocalNotificationNow(notification)
-            Dispatch.mainQueue.after(3) { () in
-                UIApplication.sharedApplication().cancelLocalNotification(notification)
+            if call.state != .Ended {
                 UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+                Dispatch.mainQueue.after(3) { () in
+                    UIApplication.sharedApplication().cancelLocalNotification(notification)
+                    if call.state != .Ended {
+                        UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+                    }
+                    UIApplication.sharedApplication().endBackgroundTask(task)
+                }
+            } else {
                 UIApplication.sharedApplication().endBackgroundTask(task)
             }
         }

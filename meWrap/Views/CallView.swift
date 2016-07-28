@@ -262,6 +262,14 @@ class CallView: UIView, SINCallDelegate {
         self.videoController = videoController
         super.init(frame: CGRect.zero)
         call.delegate = self
+        Network.network.subscribe(self) { [unowned self] (value) in
+            if !value {
+                self.updateTimerBlock = nil
+                self.audioController.stopPlayingSoundFile()
+                self.endCall()
+                self.infoLabel.text = "call_connection_broken".ls
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -299,7 +307,6 @@ class CallView: UIView, SINCallDelegate {
             make.center.equalTo(acceptButton)
         }
         spinner.startAnimating()
-        declineButton.userInteractionEnabled = false
         sender.layer.removeAllAnimations()
         if call.direction == .Incoming {
             audioController.disableSpeaker()
@@ -366,7 +373,6 @@ class CallView: UIView, SINCallDelegate {
     }
     
     func callDidEstablish(call: SINCall!) {
-        declineButton.userInteractionEnabled = true
         audioController.stopPlayingSoundFile()
         speakerButton.hidden = false
         microphoneButton.hidden = false
@@ -383,20 +389,25 @@ class CallView: UIView, SINCallDelegate {
         speakerButton.active = true
         microphoneButton.selected = true
         infoLabel.textColor = .whiteColor()
-        updateTimer()
-    }
-    
-    private var time = 0
-    
-    private func updateTimer() {
-        infoLabel.text = String(format:"%02i:%02i", time / 60, time % 60)
-        Dispatch.mainQueue.after(1) { [weak self] () in
+        updateTimerBlock = { [weak self] _ in
             if let view = self where view.call.state != .Ended {
                 if CallCenter.nativeCenter.currentCalls?.count ?? 0 == 0 {
                     view.time = view.time + 1
                 }
                 view.updateTimer()
             }
+        }
+        updateTimer()
+    }
+    
+    private var time = 0
+    
+    private var updateTimerBlock: (() -> ())?
+    
+    private func updateTimer() {
+        infoLabel.text = String(format:"%02i:%02i", time / 60, time % 60)
+        Dispatch.mainQueue.after(1) { [weak self] () in
+            self?.updateTimerBlock?()
         }
     }
     
@@ -420,7 +431,7 @@ class CallView: UIView, SINCallDelegate {
     }
     
     func callDidEnd(call: SINCall!) {
-        
+        updateTimerBlock = nil
         audioController.stopPlayingSoundFile()
         if let reason = callEndReason(call) {
             infoLabel.text = reason
@@ -439,12 +450,25 @@ class CallView: UIView, SINCallDelegate {
                 $0.size.equalTo(74)
             })
         } else {
-            UIView.animateWithDuration(0.5, animations: {
-                self.alpha = 0
-                }, completion: { (_) in
-                    self.close()
-            })
+            endCall()
         }
+    }
+    
+    private func endCall() {
+        infoLabel.text = "call_ended".ls
+        infoLabel.textColor = Color.grayLighter
+        userInteractionEnabled = false
+        microphoneButton.hidden = true
+        speakerButton.hidden = true
+        acceptButton.hidden = true
+        declineButton.hidden = true
+        redialButton.hidden = true
+        closeButton.hidden = true
+        UIView.animateWithDuration(0.5, delay: 2, options:[], animations: {
+            self.alpha = 0
+            }, completion: { (_) in
+                self.close()
+        })
     }
     
     func callDidAddVideoTrack(call: SINCall!) {}

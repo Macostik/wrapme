@@ -57,6 +57,9 @@ class CallView: UIView, SINCallDelegate {
         nameLabel.textAlignment = .Center
         infoLabel.textAlignment = .Center
         
+        AudioSession.category = AVAudioSessionCategoryPlayAndRecord
+        AudioSession.mode = AVAudioSessionModeVoiceChat
+        
         let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
         add(blurView) { $0.edges.equalTo(self) }
         
@@ -348,6 +351,7 @@ class CallView: UIView, SINCallDelegate {
     private static weak var previousCallView: CallView?
     
     func present() {
+        UIWindow.mainWindow.endEditing(true)
         CallView.previousCallView?.removeFromSuperview()
         CallView.previousCallView = self
         let view = UIWindow.mainWindow

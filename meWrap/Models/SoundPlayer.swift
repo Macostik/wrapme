@@ -25,6 +25,7 @@ struct AudioSession {
         didSet {
             if let mode = mode where mode != oldValue {
                 _ = try? AVAudioSession.sharedInstance().setMode(mode)
+                _ = try? AVAudioSession.sharedInstance().setActive(true)
             }
         }
     }

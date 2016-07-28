@@ -170,7 +170,7 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
             make.leading.equalTo(muteLabel.snp_trailing).offset(12)
         }
         
-        if !wrap.p2p {
+        if !wrap.p2p || isAdmin {
             actionButton.setBorder(color: Color.orange, width: 1)
             actionButton.cornerRadius = 5
             actionButton.clipsToBounds = true
@@ -204,8 +204,8 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
         muteSwitch.on = wrap.muted
         restrictSwitch.on = !wrap.restricted
         API.preferences(wrap).send({ [weak self] _ in
-            self?.muteSwitch.on = wrap.muted
             self?.editSession.muted.originalValue = wrap.muted
+            self?.muteSwitch.on = wrap.muted
             })
         Wrap.notifier().addReceiver(self)
     }

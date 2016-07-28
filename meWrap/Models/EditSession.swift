@@ -30,7 +30,7 @@ class EditSession<T: Equatable>: EditSessionProtocol {
     
     var originalValue: T {
         didSet {
-            hasChanges = originalValue != changedValue
+            changedValue = originalValue
         }
     }
     

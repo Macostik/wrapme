@@ -114,8 +114,10 @@ class CallView: UIView, SINCallDelegate {
         nameLabel.text = user.name
         
         if call.direction == .Incoming {
-            audioController.startPlayingSoundFile(NSBundle.mainBundle().pathForResource("incoming", ofType: "wav"), loop: true)
-            audioController.enableSpeaker()
+            #if !DEBUG
+                audioController.startPlayingSoundFile(NSBundle.mainBundle().pathForResource("incoming", ofType: "wav"), loop: true)
+                audioController.enableSpeaker()
+            #endif
             infoLabel.text = "incoming_call".ls
             speakerButton.hidden = true
             microphoneButton.hidden = true
@@ -437,7 +439,7 @@ class CallView: UIView, SINCallDelegate {
                 $0.size.equalTo(74)
             })
         } else {
-            UIView.animateWithDuration(0.5, animations: { 
+            UIView.animateWithDuration(0.5, animations: {
                 self.alpha = 0
                 }, completion: { (_) in
                     self.close()

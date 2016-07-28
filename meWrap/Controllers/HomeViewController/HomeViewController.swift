@@ -299,6 +299,7 @@ final class HomeViewController: BaseViewController {
                     make.leading.bottom.trailing.equalTo(view)
                 })
                 Dispatch.mainQueue.after(15, block: { [weak self] () in
+                    NSUserDefaults.standardUserDefaults().confirmationDate = NSDate.now()
                     self?.emailConfirmationViewHidden = true
                 })
             }

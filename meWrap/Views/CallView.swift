@@ -455,6 +455,7 @@ class CallView: UIView, SINCallDelegate {
     }
     
     private func endCall() {
+        animationViews?.all({ $0.removeFromSuperview() })
         infoLabel.text = "call_ended".ls
         infoLabel.textColor = Color.grayLighter
         userInteractionEnabled = false

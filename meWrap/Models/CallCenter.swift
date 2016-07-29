@@ -123,6 +123,7 @@ extension CallCenter: SINCallClientDelegate {
         guard let videoController = sinch.videoController() else { return }
         guard let user = User.entry(call.remoteUserId) else { return }
         user.fetchIfNeeded({ _ in
+            user.p2pWrap?.callDate = NSDate()
             CallView(user: user, call: call, audioController: audioController, videoController: videoController).present()
         }) { _ in
         }
@@ -130,7 +131,9 @@ extension CallCenter: SINCallClientDelegate {
     
     func client(client: SINCallClient!, localNotificationForIncomingCall call: SINCall!) -> SINLocalNotification! {
         
-        let name = User.entry(call.remoteUserId)?.name ?? call.remoteUserId ?? ""
+        guard let user = User.entry(call.remoteUserId) else { return nil }
+        user.p2pWrap?.updateCallDate(NSDate())
+        let name = user.name ?? ""
         
         guard CallCenter.nativeCenter.currentCalls?.count ?? 0 == 0 else {
             let notification = UILocalNotification()

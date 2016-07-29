@@ -90,6 +90,10 @@ final class User: Entry, Contributor {
             return "signup_status".ls + "\n\(securePhones)"
         }
     }
+    
+    var p2pWrap: Wrap? {
+        return User.currentUser?.wraps[{ $0.p2p && $0.contributors.contains(self) }]
+    }
 }
 
 @objc(Device)

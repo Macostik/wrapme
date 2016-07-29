@@ -100,6 +100,7 @@ final class WrapViewController: WrapBaseViewController {
     private let chatSegmentButton = WrapSegmentButton(icon: ";", text: "chat".ls)
     
     private let segmentedControl = SegmentedControl()
+    private let topView = UIView()
     private let containerView = UIView()
     private let settingsButton = Button(type: .Custom)
     private lazy var videoCallButton: Button = Button(icon: "+", size: 26, textColor: UIColor.whiteColor())
@@ -127,12 +128,12 @@ final class WrapViewController: WrapBaseViewController {
         super.loadView()
         automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = UIColor.whiteColor()
+        
+        view.addSubview(containerView)
+        view.addSubview(topView)
+        
         let navigationBar = UIView()
         navigationBar.backgroundColor = Color.orange
-        segmentedControl.backgroundColor = UIColor.whiteColor()
-        view.addSubview(containerView)
-        view.addSubview(friendsView)
-        view.addSubview(segmentedControl)
         view.add(navigationBar) { (make) in
             make.leading.top.trailing.equalTo(view)
             make.height.equalTo(64)
@@ -185,9 +186,21 @@ final class WrapViewController: WrapBaseViewController {
         }
         
         self.navigationBar = navigationBar
+        
+        segmentedControl.backgroundColor = UIColor.whiteColor()
+        
         containerView.snp_makeConstraints { (make) in
             make.leading.bottom.trailing.equalTo(view)
             make.top.equalTo(navigationBar.snp_bottom)
+        }
+        
+        topView.add(friendsView) { (make) in
+            make.leading.trailing.top.equalTo(topView)
+        }
+        topView.add(segmentedControl) { (make) in
+            make.leading.trailing.bottom.equalTo(topView)
+            make.top.equalTo(friendsView.snp_bottom)
+            make.height.equalTo(50)
         }
         
         let friendsButton = Button(type: .Custom)
@@ -204,7 +217,8 @@ final class WrapViewController: WrapBaseViewController {
             friendsView.add(friendAvatar, { (make) in
                 make.size.equalTo(32)
                 make.leading.equalTo(friendsView).offset(12)
-                make.centerY.equalTo(friendsView)
+                make.top.equalTo(friendsView).offset(9)
+                make.bottom.equalTo(friendsView).offset(-9)
             })
             friendsView.add(friendName, { (make) in
                 make.leading.equalTo(friendAvatar.snp_trailing).offset(12)
@@ -221,6 +235,7 @@ final class WrapViewController: WrapBaseViewController {
             friendsStreamView.userInteractionEnabled = false
             friendsView.add(friendsStreamView, { (make) in
                 make.edges.equalTo(friendsView)
+                make.height.equalTo(50)
             })
             friendsStreamView.add(moreFriendsLabel) { (make) in
                 make.width.equalTo(54)
@@ -254,18 +269,78 @@ final class WrapViewController: WrapBaseViewController {
         segmentedControl.addTarget(self, action: #selector(self.segmentChanged(_:)), forControlEvents: .ValueChanged)
         
         handleKeyboardIfNeeded()
+        
+        topContentInset = 100
+    }
+    
+    private var topContentInset: CGFloat = 0 {
+        didSet {
+            guard topContentInset != oldValue else { return }
+            inboxViewController.streamView.contentInset.top = topContentInset
+            mediaViewController.streamView.contentInset.top = topContentInset
+            chatViewController.streamView.contentInset.top = topContentInset
+        }
+    }
+    
+    private lazy var missedCallLabel: Label = Label(preset: .Smaller, weight: .Regular, textColor: .whiteColor())
+    private lazy var missedCallView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Color.dangerRed
+        let dismissButton = Button(preset: .Small, weight: .Regular, textColor: UIColor(white: 1, alpha: 0.54))
+        dismissButton.addTarget(self, touchUpInside: #selector(self.dismissMissedCallView(_:)))
+        dismissButton.setTitle("dismiss".ls, forState: .Normal)
+        view.add(dismissButton, { (make) in
+            make.centerY.equalTo(view)
+            make.trailing.equalTo(view).offset(-12)
+        })
+        view.add(self.missedCallLabel, { (make) in
+            make.centerY.equalTo(view)
+            make.leading.equalTo(view).offset(12)
+            make.trailing.lessThanOrEqualTo(dismissButton.snp_leading).offset(-12)
+        })
+        let triangle = TriangleView()
+        triangle.backgroundColor = view.backgroundColor
+        triangle.contentMode = .Bottom
+        view.add(triangle, { (make) in
+            make.centerX.equalTo(view.snp_leading).offset(28)
+            make.top.equalTo(view.snp_bottom)
+            make.size.equalTo(CGSize(width: 16, height: 6))
+        })
+        return view
+    }()
+    
+    func dismissMissedCallView(sender: Button) {
+        wrap.callDate = nil
+        hasMissedCall = false
+    }
+    
+    private var hasMissedCall = false {
+        didSet {
+            guard hasMissedCall != oldValue else { return }
+            if hasMissedCall {
+                missedCallView.backgroundColor = Color.dangerRed
+                missedCallLabel.text = String(format: "f_missed_call".ls, wrap.callDate?.timeAgoStringAtAMPM().lowercaseString ?? "")
+                friendAvatar.snp_updateConstraints(closure: { (make) in
+                    make.top.equalTo(friendsView).offset(59)
+                })
+                friendsView.add(missedCallView, { (make) in
+                    make.leading.top.trailing.equalTo(friendsView)
+                    make.height.equalTo(50)
+                })
+            } else {
+                missedCallView.removeFromSuperview()
+                friendAvatar.snp_updateConstraints(closure: { (make) in
+                    make.top.equalTo(friendsView).offset(9)
+                })
+            }
+            topContentInset = hasMissedCall ? 150 : 100
+        }
     }
     
     private func defaultTopViewLayout() {
-        self.segmentedControl.snp_remakeConstraints { (make) in
-            make.leading.trailing.equalTo(self.view)
-            make.top.equalTo(self.friendsView.snp_bottom)
-            make.height.equalTo(50)
-        }
-        self.friendsView.snp_remakeConstraints(closure: { (make) in
-            make.leading.trailing.equalTo(self.view)
+        topView.snp_remakeConstraints(closure: { (make) in
+            make.leading.trailing.equalTo(view)
             make.top.equalTo(navigationBar!.snp_bottom)
-            make.height.equalTo(50)
         })
     }
     
@@ -282,16 +357,9 @@ final class WrapViewController: WrapBaseViewController {
     
     func setTopViewsHidden(hidden: Bool) {
         if hidden {
-            self.friendsView.snp_remakeConstraints(closure: { (make) in
-                make.leading.trailing.equalTo(self.view)
-                make.height.equalTo(50)
-                
-            })
-            self.segmentedControl.snp_remakeConstraints { (make) in
-                make.leading.trailing.equalTo(self.view)
-                make.top.equalTo(self.friendsView.snp_bottom)
-                make.height.equalTo(50)
-                make.bottom.equalTo(self.navigationBar!)
+            topView.snp_remakeConstraints { (make) in
+                make.leading.trailing.equalTo(view)
+                make.bottom.equalTo(navigationBar!)
             }
         } else {
             self.defaultTopViewLayout()
@@ -431,6 +499,7 @@ final class WrapViewController: WrapBaseViewController {
     private func updateFriendsBar(wrap: Wrap) {
         
         guard !wrap.p2p else {
+            hasMissedCall = wrap.callDate != nil && !CallView.isVisible
             if let friend = wrap.contributors.filter({ !$0.current }).first {
                 friendStatus.text = friend.isOnline ? "online".ls : "offline".ls
                 friendName.text = friend.name
@@ -552,6 +621,8 @@ extension WrapViewController {
     }
     
     @IBAction func audioCall(sender: UIButton) {
+        wrap.callDate = nil
+        hasMissedCall = false
         if let user = wrap.contributors.filter({ !$0.current }).first {
             CallCenter.center.call(user)
         }

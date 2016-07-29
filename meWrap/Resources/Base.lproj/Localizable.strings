@@ -379,3 +379,5 @@
 "mute" = "Mute";
 "call_ended" = "Call ended";
 "call_connection_broken" = "Connection lost. Call ended.";
+"f_missed_call" = "Missed call %@";
+"dismiss" = "Dismiss";

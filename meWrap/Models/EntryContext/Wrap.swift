@@ -199,6 +199,11 @@ final class Wrap: Contribution {
             return name
         }
     }
+    
+    func updateCallDate(date: NSDate?) {
+        callDate = date
+        notifyOnUpdate(.Default)
+    }
 }
 
 protocol Contributor: AnyObject {

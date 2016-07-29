@@ -13,7 +13,7 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
     
     weak var badge: BadgeLabel?
     
-    private let streamView = StreamView()
+    let streamView = StreamView()
     let composeBar = ComposeBar()
     
     let chat: Chat
@@ -70,7 +70,6 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
         
         view.backgroundColor = UIColor.whiteColor()
         composeBar.backgroundColor = UIColor.whiteColor()
-        streamView.contentInset = UIEdgeInsetsMake(100, 0, 0, 0)
         streamView.alwaysBounceVertical = true
         streamView.delegate = self
         streamView.dataSource = self

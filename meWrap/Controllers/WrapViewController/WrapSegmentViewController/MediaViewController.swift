@@ -310,7 +310,7 @@ class MediaViewController: WrapBaseViewController {
     lazy var dataSource: PaginatedStreamDataSource<History> = self.mediaDataSource
     lazy var mediaDataSource: PaginatedStreamDataSource<History> = self.createMediaDataSource()
     lazy var mosaicDataSource: PaginatedStreamDataSource<History> = self.createMosaicDataSource()
-    private let streamView = StreamView()
+    let streamView = StreamView()
     let addPhotoButton = AnimatedButton(circleInset: 5)
     private lazy var liveButton: AnimatedButton = AnimatedButton(preset: .Smaller, weight: .Bold, textColor: UIColor.whiteColor())
     private let layoutButton = LayoutSwitcher()
@@ -332,7 +332,7 @@ class MediaViewController: WrapBaseViewController {
     override func loadView() {
         super.loadView()
                 
-        streamView.contentInset = UIEdgeInsetsMake(100, 0, 92, 0)
+        streamView.contentInset.bottom = 92
         streamView.scrollIndicatorInsets = streamView.contentInset
         
         streamView.delaysContentTouches = false

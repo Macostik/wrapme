@@ -184,7 +184,7 @@ final class InboxViewController: WrapBaseViewController {
 
     lazy var dataSource: StreamDataSource<[InboxItem]> = StreamDataSource(streamView: self.streamView)
     
-    private let streamView = StreamView()
+    let streamView = StreamView()
     private let clearButton = AnimatedButton(preset: .Normal, weight: .Regular, textColor: Color.orange)
     
     var updates: [InboxItem] = [] {
@@ -207,8 +207,7 @@ final class InboxViewController: WrapBaseViewController {
         clearButton.setTitleColor(Color.orangeDark, forState: .Highlighted)
         clearButton.addTarget(self, touchUpInside: #selector(self.clearAll(_:)))
         view.add(streamView) { (make) in
-            make.top.equalTo(view).offset(100)
-            make.leading.bottom.trailing.equalTo(view)
+            make.edges.equalTo(view)
         }
         view.add(clearButton) { (make) in
             make.bottom.equalTo(view).offset(-20)

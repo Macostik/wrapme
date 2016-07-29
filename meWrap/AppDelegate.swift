@@ -275,7 +275,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             if let result = CallCenter.center.sinch?.relayLocalNotification(notification) {
                 if result.callResult()?.isTimedOut == true {
                     guard let user = User.entry(result.callResult().remoteUserId) else { return }
-                    guard let wrap = User.currentUser?.wraps[{ $0.p2p && $0.contributors.contains(user) }] else { return }
+                    guard let wrap = user.p2pWrap else { return }
                     UINavigationController.main.push(WrapViewController(wrap: wrap))
                 }
             }

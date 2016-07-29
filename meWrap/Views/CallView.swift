@@ -301,6 +301,7 @@ class CallView: UIView, SINCallDelegate {
     lazy var spinner: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .White)
     
     func accept(sender: UIButton) {
+        user.p2pWrap?.updateCallDate(nil)
         acceptButton.hidden = true
         spinner.color = Color.orange
         add(spinner) { (make) in
@@ -318,6 +319,7 @@ class CallView: UIView, SINCallDelegate {
     }
     
     func decline(sender: UIButton) {
+        user.p2pWrap?.updateCallDate(nil)
         if call.direction == .Incoming {
             audioController.disableSpeaker()
         }
@@ -358,6 +360,10 @@ class CallView: UIView, SINCallDelegate {
     }
     
     private static weak var previousCallView: CallView?
+    
+    static var isVisible: Bool {
+        return previousCallView?.superview != nil
+    }
     
     func present() {
         UIWindow.mainWindow.endEditing(true)
@@ -413,6 +419,7 @@ class CallView: UIView, SINCallDelegate {
     
     private func close() {
         removeFromSuperview()
+        user.p2pWrap?.notifyOnUpdate(.Default)
     }
     
     private func callEndReason(call: SINCall) -> String? {

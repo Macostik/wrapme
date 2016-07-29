@@ -99,6 +99,8 @@ final class HomeViewController: BaseViewController {
         
         self.navigationBar = navigationBar
         
+        streamView.delaysContentTouches = false
+        streamView.alwaysBounceVertical = true
         view.add(streamView) { (make) in
             make.top.equalTo(navigationBar.snp_bottom)
             make.leading.bottom.trailing.equalTo(view)

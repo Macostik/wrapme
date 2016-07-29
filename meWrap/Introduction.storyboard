@@ -35,37 +35,6 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6nK-xm-V0q">
-                                                <rect key="frame" x="70" y="16" width="450" height="39"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ski trip" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJ1-cu-Svf" userLabel="TitleLabel" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="54" height="21"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="today at 11:09 am" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WpC-3H-goD" userLabel="TimeLabel" customClass="Label" customModule="meWrap" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="21" width="121" height="18"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstItem="WpC-3H-goD" firstAttribute="leading" secondItem="6nK-xm-V0q" secondAttribute="leading" id="4Vy-jt-iuC"/>
-                                                    <constraint firstItem="AJ1-cu-Svf" firstAttribute="bottom" secondItem="WpC-3H-goD" secondAttribute="top" id="ULn-Hf-pvO"/>
-                                                    <constraint firstItem="AJ1-cu-Svf" firstAttribute="top" secondItem="6nK-xm-V0q" secondAttribute="top" id="WbK-f1-Zqk"/>
-                                                    <constraint firstAttribute="bottom" secondItem="WpC-3H-goD" secondAttribute="bottom" id="X3l-pZ-4hb"/>
-                                                    <constraint firstItem="AJ1-cu-Svf" firstAttribute="leading" secondItem="6nK-xm-V0q" secondAttribute="leading" id="aFY-do-CpO"/>
-                                                </constraints>
-                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zMJ-Mo-vCm">
                                                 <rect key="frame" x="0.0" y="70" width="520" height="343"/>
                                                 <subviews>
@@ -127,6 +96,37 @@
                                                     <constraint firstItem="RZA-0G-XQw" firstAttribute="width" secondItem="WbP-2l-EZt" secondAttribute="width" id="lub-If-pgB"/>
                                                     <constraint firstAttribute="trailing" secondItem="ia0-nD-QNe" secondAttribute="trailing" constant="10" id="mej-No-j6R"/>
                                                     <constraint firstItem="Hhw-uH-EIW" firstAttribute="leading" secondItem="zMJ-Mo-vCm" secondAttribute="leading" constant="10" id="p5d-wR-VtO"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6nK-xm-V0q">
+                                                <rect key="frame" x="70" y="15" width="450" height="39"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ski trip" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJ1-cu-Svf" userLabel="TitleLabel" customClass="Label" customModule="meWrap" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="54" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="today at 11:09 am" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WpC-3H-goD" userLabel="TimeLabel" customClass="Label" customModule="meWrap" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="21" width="121" height="18"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="WpC-3H-goD" firstAttribute="leading" secondItem="6nK-xm-V0q" secondAttribute="leading" id="4Vy-jt-iuC"/>
+                                                    <constraint firstItem="AJ1-cu-Svf" firstAttribute="bottom" secondItem="WpC-3H-goD" secondAttribute="top" id="ULn-Hf-pvO"/>
+                                                    <constraint firstItem="AJ1-cu-Svf" firstAttribute="top" secondItem="6nK-xm-V0q" secondAttribute="top" id="WbK-f1-Zqk"/>
+                                                    <constraint firstAttribute="bottom" secondItem="WpC-3H-goD" secondAttribute="bottom" id="X3l-pZ-4hb"/>
+                                                    <constraint firstItem="AJ1-cu-Svf" firstAttribute="leading" secondItem="6nK-xm-V0q" secondAttribute="leading" id="aFY-do-CpO"/>
                                                 </constraints>
                                             </view>
                                         </subviews>

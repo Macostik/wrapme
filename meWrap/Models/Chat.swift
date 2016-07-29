@@ -17,20 +17,20 @@ class Chat: PaginatedList<Message> {
     
     var messageFont = UIFont.fontNormal()
     
-    var nameFont = UIFont.lightFontSmaller()
+    var nameFont = UIFont.lightFontSmall()
     
-    static let MaxWidth: CGFloat = Constants.screenWidth - LeadingBubbleIndentWithAvatar - 2*MessageHorizontalInset - BubbleIndent
-    static let MinWidth: CGFloat = Constants.screenWidth - 2*BubbleIndent - 2*MessageHorizontalInset
+    static let MaxWidth: CGFloat = Constants.screenWidth - 2*LeadingBubbleIndentWithAvatar - 2*MessageHorizontalInset
+    static let MinWidth: CGFloat = Constants.screenWidth - LeadingBubbleIndentWithAvatar - 2*MessageHorizontalInset - BubbleIndent
     
-    static let MessageVerticalInset: CGFloat = 6.0
-    static let MessageHorizontalInset: CGFloat = 6.0
+    static let MessageVerticalInset: CGFloat = 12.0
+    static let MessageHorizontalInset: CGFloat = 16.0
     static let MessageWithNameMinimumCellHeight: CGFloat = 40.0
     static let MessageWithoutNameMinimumCellHeight: CGFloat = 24.0
     static let LeadingBubbleIndentWithAvatar: CGFloat = 64.0
     static let BubbleIndent: CGFloat = 16.0
-    static let MessageGroupSpacing: CGFloat = 6.0
+    static let MessageGroupSpacing: CGFloat = 8.0
     static let MessageSpacing: CGFloat = 2.0
-    static let NameVerticalInset: CGFloat = 6.0
+    static let NameVerticalInset: CGFloat = 12 + 8
     
     required init(wrap: Wrap) {
         self.wrap = wrap
@@ -45,7 +45,7 @@ class Chat: PaginatedList<Message> {
                 message.chatMetadata.height = nil
             }
             self.messageFont = UIFont.fontNormal()
-            self.nameFont = UIFont.lightFontSmaller()
+            self.nameFont = UIFont.lightFontSmall()
             self.didChangeNotifier.notify(self)
         }
     }
@@ -85,7 +85,7 @@ class Chat: PaginatedList<Message> {
             
             if containsDate {
                 containsName = !(message.contributor?.current ?? true)
-                message.chatMetadata.isGroup = true
+                isGroup = true
             } else {
                 if previousMessage?.contributor != message.contributor {
                     containsName = !(message.contributor?.current ?? true)
@@ -93,7 +93,11 @@ class Chat: PaginatedList<Message> {
                 }
             }
             
+            previousMessage?.chatMetadata.isGroupEnd = isGroup
             message.chatMetadata.isGroup = isGroup
+            if index == messages.count - 1 {
+                message.chatMetadata.isGroupEnd = true
+            }
             if message.chatMetadata.containsName != containsName {
                 message.chatMetadata.height = nil
                 message.chatMetadata.containsName = containsName
@@ -107,13 +111,10 @@ class Chat: PaginatedList<Message> {
             return cachedHeight
         } else {
             guard let text = message.text else { return 0 }
-            let containsName = message.chatMetadata.containsName
             let calculateWight = (message.contributor?.current ?? false) ? Chat.MinWidth : Chat.MaxWidth
-            var commentHeight = text.heightWithFont(messageFont, width: calculateWight) ?? 0
-            let topInset = containsName ? nameFont.lineHeight + Chat.NameVerticalInset : 0
-            let bottomInset = nameFont.lineHeight + Chat.MessageVerticalInset + Chat.MessageSpacing
-            commentHeight += topInset + bottomInset
-            commentHeight = max(containsName ? Chat.MessageWithNameMinimumCellHeight : Chat.MessageWithoutNameMinimumCellHeight, commentHeight)
+            let containsName = message.chatMetadata.containsName
+            let topInset = containsName ? nameFont.lineHeight + Chat.NameVerticalInset : Chat.MessageVerticalInset
+            let commentHeight = text.heightWithFont(messageFont, width: calculateWight) + topInset + Chat.MessageVerticalInset
             message.chatMetadata.height = commentHeight
             return commentHeight
         }

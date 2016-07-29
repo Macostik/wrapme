@@ -12,11 +12,11 @@ import SnapKit
 
 final class MessageDateView: EntryStreamReusableView<Message> {
     
-    private let dateLabel = specify(Label(preset: .Normal, weight: .Regular)) { $0.textAlignment = .Center }
+    private let dateLabel = Label(preset: .Smaller, weight: .Regular, textColor: UIColor(white: 0, alpha: 0.87))
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
-        addSubview(dateLabel)
-        dateLabel.snp_makeConstraints(closure: { $0.center.equalTo(self) })
+        add(dateLabel) { $0.center.equalTo(self) }
+        backgroundColor = Color.grayLightest
     }
     
     override func setup(message: Message) {
@@ -24,32 +24,63 @@ final class MessageDateView: EntryStreamReusableView<Message> {
     }
 }
 
+final class MessageBubbleView: UIView {
+    
+    var isGroup = false
+    var isGroupEnd = false
+    var containsName = false
+    
+    var isRightSide = false
+    
+    var fillColor: UIColor?
+    var strokeColor: UIColor?
+    
+    private func corners() -> UIRectCorner {
+        if isGroup {
+            if isGroupEnd {
+                if containsName {
+                    return [.TopRight, .BottomLeft, .BottomRight]
+                } else {
+                    return .AllCorners
+                }
+            } else {
+                if containsName {
+                    return [.TopRight, .BottomRight]
+                } else {
+                    return [.TopLeft, .TopRight, .BottomLeft]
+                }
+            }
+        } else if isGroupEnd {
+            return isRightSide ? [.BottomLeft, .BottomRight, .TopLeft] : [.BottomLeft, .BottomRight, .TopRight]
+        } else {
+            return isRightSide ? [.BottomLeft, .TopLeft] : [.BottomRight, .TopRight]
+        }
+    }
+    
+    override func drawRect(rect: CGRect) {
+        let lineWidth: CGFloat = 1/UIScreen.mainScreen().scale
+        let path = UIBezierPath(roundedRect: bounds.insetBy(dx: lineWidth/2, dy: lineWidth/2), byRoundingCorners: corners(), cornerRadii: 14 ^ 14)
+        if let fillColor = fillColor {
+            fillColor.setFill()
+            path.fill()
+        }
+        if let strokeColor = strokeColor {
+            path.lineWidth = lineWidth
+            strokeColor.setStroke()
+            path.stroke()
+        }
+    }
+}
+
 class BaseMessageCell: EntryStreamReusableView<Message>, FlowerMenuConstructor {
     
-    private static let leftTail = UIImage.draw(CGSize(width: 8, height: 10), drawing: { size in
-        let path = UIBezierPath()
-        path.move(size.width ^ 0).quadCurve(0 ^ 0, controlPoint: size.width/2 ^ size.height/2)
-        path.quadCurve(size.width ^ size.height, controlPoint: 0 ^ size.height).line(size.width ^ 0)
-        Color.grayLightest.setFill()
-        path.fill()
-    })
-    
-    private static let rightTail = UIImage.draw(CGSize(width: 8, height: 10), drawing: { size in
-        let path = UIBezierPath()
-        path.move(0 ^ 0).quadCurve(size.width ^ 0, controlPoint: size.width/2 ^ size.height/2)
-        path.quadCurve(0 ^ size.height, controlPoint: size.width ^ size.height).line(0 ^ 0)
-        Color.orange.setFill()
-        path.fill()
-    })
-    
-    internal let timeLabel = Label(preset: .Smaller, textColor: Color.grayLighter)
+    internal let timeLabel = Label(preset: .Smaller, weight: .Regular, textColor: Color.grayLighter)
     internal let textView = specify(SmartLabel(preset: .Normal, weight: .Regular, textColor: UIColor.blackColor())) {
         $0.numberOfLines = 0
     }
-    internal let bubbleView = specify(UIView(), {
-        $0.cornerRadius = 6
+    internal let bubbleView = specify(MessageBubbleView(), {
         $0.clipsToBounds = true
-        $0.backgroundColor = Color.grayLightest
+        $0.backgroundColor = UIColor.clearColor()
     })
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
@@ -70,6 +101,14 @@ class BaseMessageCell: EntryStreamReusableView<Message>, FlowerMenuConstructor {
         timeLabel.text = message.createdAt.stringWithTimeStyle(.ShortStyle)
         textView.text = message.text
         FlowerMenu.sharedMenu.hide()
+        bubbleView.isGroup = message.chatMetadata.isGroup
+        bubbleView.isGroupEnd = message.chatMetadata.isGroupEnd
+        bubbleView.containsName = message.chatMetadata.containsName
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        bubbleView.setNeedsDisplay()
     }
 }
 
@@ -77,70 +116,64 @@ final class MessageCell: BaseMessageCell {
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         super.layoutWithMetrics(metrics)
-        addSubview(bubbleView)
-        bubbleView.addSubview(textView)
-        bubbleView.addSubview(timeLabel)
-        bubbleView.snp_makeConstraints { (make) -> Void in
-            make.leading.equalTo(self).inset(64)
-            make.trailing.lessThanOrEqualTo(self).inset(16)
-            make.top.bottom.equalTo(self)
+        bubbleView.strokeColor = UIColor(hex: 0xc3c3c3)
+        bubbleView.fillColor = UIColor.whiteColor()
+        add(bubbleView) { (make) -> Void in
+            make.leading.equalTo(self).offset(64)
+            make.trailing.lessThanOrEqualTo(self).offset(-64)
+            make.top.equalTo(self)
+            make.width.greaterThanOrEqualTo(50)
         }
-        textView.snp_makeConstraints { (make) -> Void in
-            make.leading.trailing.equalTo(bubbleView).inset(6)
-            make.top.equalTo(bubbleView).inset(2)
+        bubbleView.add(textView) { (make) -> Void in
+            make.top.equalTo(bubbleView).offset(12)
+            make.leading.equalTo(bubbleView).offset(16)
+            make.trailing.equalTo(bubbleView).offset(-16)
+            make.bottom.equalTo(bubbleView).offset(-12)
         }
-        timeLabel.snp_makeConstraints { (make) -> Void in
-            make.trailing.equalTo(bubbleView).inset(6)
-            make.leading.greaterThanOrEqualTo(bubbleView).inset(6)
-            make.top.equalTo(textView.snp_bottom)
-            make.bottom.equalTo(bubbleView).inset(4)
+        add(timeLabel) { (make) -> Void in
+            make.leading.equalTo(bubbleView.snp_trailing).offset(12)
+            make.centerY.equalTo(bubbleView)
         }
     }
 }
 
 final class MessageWithNameCell: BaseMessageCell {
     
-    private let tailView = UIImageView(image: BaseMessageCell.leftTail)
     private let avatarView = UserAvatarView(cornerRadius: 20)
-    private let nameLabel = Label(preset: .Smaller, textColor: Color.grayLighter)
+    private let nameLabel = Label(preset: .Small, weight: .Regular, textColor: Color.grayLighter)
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         super.layoutWithMetrics(metrics)
-        addSubview(avatarView)
-        addSubview(bubbleView)
-        bubbleView.addSubview(nameLabel)
-        bubbleView.addSubview(textView)
-        bubbleView.addSubview(timeLabel)
-        addSubview(tailView)
-        avatarView.snp_makeConstraints { (make) -> Void in
-            make.leading.equalTo(self).inset(16)
+        bubbleView.strokeColor = UIColor(hex: 0xc3c3c3)
+        bubbleView.fillColor = UIColor.whiteColor()
+        add(avatarView) { (make) -> Void in
+            make.leading.equalTo(self).offset(16)
             make.top.equalTo(self)
             make.size.equalTo(40)
         }
-        bubbleView.snp_makeConstraints { (make) -> Void in
-            make.leading.equalTo(avatarView.snp_trailing).offset(8)
-            make.trailing.lessThanOrEqualTo(self).inset(16)
-            make.top.bottom.equalTo(self)
+        
+        add(bubbleView) { (make) -> Void in
+            make.leading.equalTo(self).offset(64)
+            make.trailing.lessThanOrEqualTo(self).offset(-64)
+            make.top.equalTo(self)
+            make.width.greaterThanOrEqualTo(50)
         }
-        nameLabel.snp_makeConstraints { (make) -> Void in
-            make.leading.equalTo(bubbleView).inset(6)
-            make.trailing.lessThanOrEqualTo(bubbleView).inset(6)
-            make.top.equalTo(bubbleView).inset(4)
+        
+        bubbleView.add(nameLabel) { (make) -> Void in
+            make.leading.equalTo(bubbleView).offset(16)
+            make.trailing.lessThanOrEqualTo(bubbleView).offset(-16)
+            make.top.equalTo(bubbleView).offset(12)
         }
-        textView.snp_makeConstraints { (make) -> Void in
-            make.leading.trailing.equalTo(bubbleView).inset(6)
-            make.top.equalTo(nameLabel.snp_bottom).inset(2)
+        
+        bubbleView.add(textView) { (make) -> Void in
+            make.top.equalTo(nameLabel.snp_bottom).offset(8)
+            make.leading.equalTo(bubbleView).offset(16)
+            make.trailing.equalTo(bubbleView).offset(-16)
+            make.bottom.equalTo(bubbleView).offset(-12)
         }
-        timeLabel.snp_makeConstraints { (make) -> Void in
-            make.trailing.equalTo(bubbleView).inset(6)
-            make.leading.greaterThanOrEqualTo(bubbleView).inset(6)
-            make.top.equalTo(textView.snp_bottom)
-            make.bottom.equalTo(bubbleView).inset(4)
-        }
-        tailView.snp_makeConstraints { (make) -> Void in
-            make.size.equalTo(CGSize(width: 8, height: 10))
-            make.trailing.equalTo(bubbleView.snp_leading)
-            make.bottom.equalTo(avatarView.snp_bottom)
+        add(timeLabel) { (make) -> Void in
+            make.leading.equalTo(bubbleView.snp_trailing).offset(12)
+            make.centerY.equalTo(bubbleView)
         }
     }
     
@@ -153,49 +186,37 @@ final class MessageWithNameCell: BaseMessageCell {
 
 final class MyMessageCell: BaseMessageCell {
     
-    private let tailView = UIImageView(image: BaseMessageCell.rightTail)
-    private let indicator = EntryStatusIndicator(color: Color.orangeLightest)
+    private let indicator = EntryStatusIndicator(color: Color.orange)
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         super.layoutWithMetrics(metrics)
-        bubbleView.backgroundColor = Color.orange
+        bubbleView.fillColor = Color.orange
+        bubbleView.isRightSide = true
         textView.textColor = UIColor.whiteColor()
-        timeLabel.textColor = Color.orangeLightest
-        addSubview(bubbleView)
-        bubbleView.addSubview(textView)
-        bubbleView.addSubview(timeLabel)
-        bubbleView.addSubview(indicator)
-        addSubview(tailView)
-        bubbleView.snp_makeConstraints { (make) -> Void in
-            make.trailing.equalTo(self).inset(16)
-            make.leading.greaterThanOrEqualTo(self).inset(16)
-            make.top.bottom.equalTo(self)
+        add(bubbleView) { (make) -> Void in
+            make.trailing.equalTo(self).offset(-16)
+            make.leading.greaterThanOrEqualTo(self).offset(64)
+            make.top.equalTo(self)
+            make.width.greaterThanOrEqualTo(50)
         }
-        textView.snp_makeConstraints { (make) -> Void in
-            make.leading.trailing.equalTo(bubbleView).inset(6)
-            make.top.equalTo(bubbleView).inset(2)
+        bubbleView.add(textView) { (make) -> Void in
+            make.top.equalTo(bubbleView).offset(12)
+            make.leading.equalTo(bubbleView).offset(16)
+            make.trailing.equalTo(bubbleView).offset(-16)
+            make.bottom.equalTo(bubbleView).offset(-12)
         }
-        timeLabel.snp_makeConstraints { (make) -> Void in
-            make.trailing.equalTo(bubbleView).inset(22)
-            make.leading.greaterThanOrEqualTo(bubbleView).inset(6)
-            make.top.equalTo(textView.snp_bottom)
-            make.bottom.equalTo(bubbleView).inset(4)
+        add(timeLabel) { (make) -> Void in
+            make.trailing.equalTo(bubbleView.snp_leading).offset(-12)
+            make.centerY.equalTo(bubbleView)
         }
-        indicator.snp_makeConstraints { (make) -> Void in
-            make.trailing.equalTo(bubbleView).inset(4)
-            make.leading.equalTo(timeLabel.snp_trailing)
-            make.centerY.height.equalTo(timeLabel)
-        }
-        tailView.snp_makeConstraints { (make) -> Void in
-            make.size.equalTo(CGSize(width: 8, height: 10))
-            make.leading.equalTo(bubbleView.snp_trailing)
-            make.bottom.equalTo(bubbleView.snp_bottom).inset(5)
+        add(indicator) { (make) -> Void in
+            make.trailing.equalTo(timeLabel.snp_leading).offset(-2)
+            make.centerY.equalTo(timeLabel)
         }
     }
     
     override func setupMessage(message: Message) {
         super.setupMessage(message)
         indicator.updateStatusIndicator(message)
-        tailView.hidden = !message.chatMetadata.isGroup
     }
 }

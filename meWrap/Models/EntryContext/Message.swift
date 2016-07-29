@@ -39,5 +39,6 @@ struct ChatMetadata {
     var containsName = false
     var containsDate = false
     var isGroup = false
+    var isGroupEnd = false
     var height: CGFloat?
 }

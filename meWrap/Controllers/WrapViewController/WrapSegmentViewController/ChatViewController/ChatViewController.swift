@@ -68,7 +68,7 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
     override func loadView() {
         super.loadView()
         
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = Color.grayLightest
         composeBar.backgroundColor = UIColor.whiteColor()
         streamView.alwaysBounceVertical = true
         streamView.delegate = self
@@ -119,7 +119,8 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
         messageWithNameMetrics.modifyItem = { [weak self] item in
             guard let message = item.entry as? Message else { return }
             item.size = self?.chat.heightOfMessageCell(message) ?? 0.0
-            item.insets.origin.y = message.chatMetadata.containsDate ? 0 : message.chatMetadata.isGroup ? Chat.MessageGroupSpacing : Chat.MessageSpacing
+//            item.insets.origin.y = message.chatMetadata.containsDate ? 0 : message.chatMetadata.isGroup ? Chat.MessageGroupSpacing : 0
+            item.insets.size.height = message.chatMetadata.isGroupEnd ? Chat.MessageGroupSpacing : Chat.MessageSpacing
         }
         messageMetrics.modifyItem = messageWithNameMetrics.modifyItem
         myMessageMetrics.modifyItem = messageWithNameMetrics.modifyItem

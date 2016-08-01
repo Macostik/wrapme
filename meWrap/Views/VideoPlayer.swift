@@ -189,8 +189,6 @@ final class VideoPlayer: UIView {
     
     var item: AVPlayerItem? {
         if _item == nil, let url = url {
-            AudioSession.mode = AVAudioSessionModeMoviePlayback
-            AudioSession.category = AVAudioSessionCategoryAmbient
             _item = AVPlayerItem(asset: VideoPlayer.cache[url])
         }
         return _item
@@ -232,6 +230,10 @@ final class VideoPlayer: UIView {
     
     var muted: Bool {
         set {
+            if !newValue {
+                AudioSession.mode = AVAudioSessionModeMoviePlayback
+                AudioSession.category = AVAudioSessionCategoryAmbient
+            }
             player.muted = newValue
             volumeButton.selected = !newValue
             if newValue == false {

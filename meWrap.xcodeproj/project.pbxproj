@@ -217,6 +217,7 @@
 		C553DB401C6DF7BA001B13C7 /* WrapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C553DB291C6DF7BA001B13C7 /* WrapViewController.swift */; };
 		C553DB411C6DF7BA001B13C7 /* CandyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C553DB2A1C6DF7BA001B13C7 /* CandyCell.swift */; };
 		C553DB421C6DF7BA001B13C7 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C553DB2C1C6DF7BA001B13C7 /* MediaViewController.swift */; };
+		C5550A481D4F5878006DA8B9 /* hangup.wav in Resources */ = {isa = PBXBuildFile; fileRef = C5550A471D4F5878006DA8B9 /* hangup.wav */; };
 		C555126A1CC647390079B8FE /* Animations.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C55512691CC647390079B8FE /* Animations.xcassets */; };
 		C5564CF71C7B50EB0075703A /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5564CF61C7B50EB0075703A /* Toast.swift */; };
 		C55766A51C0C913D00E94E09 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55766A31C0C913D00E94E09 /* ImageView.swift */; };
@@ -651,6 +652,7 @@
 		C553DB291C6DF7BA001B13C7 /* WrapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapViewController.swift; sourceTree = "<group>"; };
 		C553DB2A1C6DF7BA001B13C7 /* CandyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyCell.swift; sourceTree = "<group>"; };
 		C553DB2C1C6DF7BA001B13C7 /* MediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
+		C5550A471D4F5878006DA8B9 /* hangup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = hangup.wav; path = Sounds/hangup.wav; sourceTree = "<group>"; };
 		C55512691CC647390079B8FE /* Animations.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Animations.xcassets; sourceTree = "<group>"; };
 		C5564CF61C7B50EB0075703A /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		C55766A31C0C913D00E94E09 /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
@@ -1186,6 +1188,7 @@
 			children = (
 				5B3AAFED1CE4A7BB00C3739A /* incoming.wav */,
 				5B3AAFEE1CE4A7BB00C3739A /* ringback.wav */,
+				C5550A471D4F5878006DA8B9 /* hangup.wav */,
 				5BA6CAF11A10E51B004AD41C /* s04.wav */,
 				5B383A741CA3E2590097B547 /* note.wav */,
 			);
@@ -1838,6 +1841,7 @@
 				C5B91A3B1BB40423000E08E7 /* SignUp.storyboard in Resources */,
 				5B496DDB1CC4F354007104EA /* FullScreenEmojiView.xib in Resources */,
 				C54AF72619B8C491006F7EDB /* activity_iOS_9.plist in Resources */,
+				C5550A481D4F5878006DA8B9 /* hangup.wav in Resources */,
 				C54AF72719B8C491006F7EDB /* nature_iOS_9.plist in Resources */,
 				5B436CA51C9FFCAD00635931 /* activity_iOS_8.plist in Resources */,
 				C5BEC3941B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */,

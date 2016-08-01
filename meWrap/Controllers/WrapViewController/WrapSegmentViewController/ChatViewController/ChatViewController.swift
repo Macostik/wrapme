@@ -33,15 +33,35 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
     private var dateMetrics = StreamMetrics<MessageDateView>(size: 33).change({ $0.selectable = false })
     
     private var unreadMessagesMetrics = StreamMetrics<StreamReusableView>(layoutBlock: { view in
-        let label = Label(preset: .Normal, weight: .Regular , textColor: Color.orange)
+        let label = Label(preset: .Small, weight: .Regular, textColor: Color.grayLightest)
         label.text = "unread_messages".ls
-        label.textAlignment = .Center
-        label.backgroundColor = Color.orangeLightest
-        view.addSubview(label)
-        label.snp_makeConstraints(closure: { (make) -> Void in
-            make.leading.trailing.equalTo(view)
-            make.top.bottom.equalTo(view).inset(6)
+        view.add(label) { (make) -> Void in
+            make.center.equalTo(view)
+        }
+        let border = UIView()
+        border.backgroundColor = Color.dangerRed
+        border.cornerRadius = 16
+        view.insertSubview(border, belowSubview: label)
+        border.snp_makeConstraints(closure: { (make) in
+            make.leading.equalTo(label).offset(-16)
+            make.trailing.equalTo(label).offset(16)
+            make.centerY.equalTo(label)
+            make.height.equalTo(32)
         })
+        let leftLine = UIView()
+        leftLine.backgroundColor = Color.dangerRed
+        view.add(leftLine) { (make) in
+            make.centerY.leading.equalTo(view)
+            make.trailing.equalTo(border.snp_leading)
+            make.height.equalTo(1)
+        }
+        let rightLine = UIView()
+        rightLine.backgroundColor = Color.dangerRed
+        view.add(rightLine) { (make) in
+            make.centerY.trailing.equalTo(view)
+            make.leading.equalTo(border.snp_trailing)
+            make.height.equalTo(1)
+        }
     }, size: 46).change({ $0.selectable = false })
     
     private var dragged = false

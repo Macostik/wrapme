@@ -319,6 +319,7 @@ class CallView: UIView, SINCallDelegate {
     }
     
     func decline(sender: UIButton) {
+        audioController.stopPlayingSoundFile()
         audioController.startPlayingSoundFile(NSBundle.mainBundle().pathForResource("hangup", ofType: "wav"), loop: false)
         user.p2pWrap?.updateCallDate(nil)
         if call.direction == .Incoming {
@@ -439,6 +440,7 @@ class CallView: UIView, SINCallDelegate {
     
     func callDidEnd(call: SINCall!) {
         updateTimerBlock = nil
+        audioController.stopPlayingSoundFile()
         audioController.startPlayingSoundFile(NSBundle.mainBundle().pathForResource("hangup", ofType: "wav"), loop: false)
         if let reason = callEndReason(call) {
             infoLabel.text = reason

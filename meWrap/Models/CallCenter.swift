@@ -154,11 +154,11 @@ extension CallCenter: SINCallClientDelegate {
         ]
         UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         let task = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
-        Dispatch.mainQueue.after(3) { () in
+        Dispatch.mainQueue.after(5) { () in
             UIApplication.sharedApplication().cancelLocalNotification(notification)
             if call.state != .Ended {
                 UIApplication.sharedApplication().presentLocalNotificationNow(notification)
-                Dispatch.mainQueue.after(3) { () in
+                Dispatch.mainQueue.after(5) { () in
                     UIApplication.sharedApplication().cancelLocalNotification(notification)
                     if call.state != .Ended {
                         UIApplication.sharedApplication().presentLocalNotificationNow(notification)

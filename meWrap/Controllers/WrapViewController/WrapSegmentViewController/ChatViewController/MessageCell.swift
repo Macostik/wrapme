@@ -24,6 +24,45 @@ final class MessageDateView: EntryStreamReusableView<Message> {
     }
 }
 
+extension UIBezierPath {
+    
+    func addRoundedRect(rect: CGRect, corners: [CGFloat]) {
+        guard corners.count == 4 else { return }
+        let topLeft = corners[0]
+        let topRight = corners[1]
+        let bottomRight = corners[2]
+        let bottomLeft = corners[3]
+        let maxX = rect.maxX
+        let maxY = rect.maxY
+        let x = rect.origin.x
+        let pi = CGFloat(M_PI)
+        if topLeft == 0 {
+            move(0 ^ 0)
+        } else {
+            addArcWithCenter((x + topLeft) ^ (rect.origin.y + topLeft), radius: topLeft, startAngle: pi, endAngle: pi * 1.5, clockwise: true)
+        }
+        if topRight == 0 {
+            line(maxX ^ 0)
+        } else {
+            line((maxX - topRight) ^ 0)
+            addArcWithCenter((maxX - topRight) ^ topRight, radius: topRight, startAngle: pi * 1.5, endAngle: 0, clockwise: true)
+        }
+        if bottomRight == 0 {
+            line(maxX ^ maxY)
+        } else {
+            line(maxX ^ (maxY - bottomRight))
+            addArcWithCenter((maxX - bottomRight) ^ (maxY - bottomRight), radius: bottomRight, startAngle: 0, endAngle: pi * 0.5, clockwise: true)
+        }
+        if bottomLeft == 0 {
+            line(0 ^ maxY)
+        } else {
+            line((x + bottomLeft) ^ maxY)
+            addArcWithCenter((x + bottomLeft) ^ (maxY - bottomLeft), radius: bottomLeft, startAngle: pi * 0.5, endAngle: pi, clockwise: true)
+        }
+        closePath()
+    }
+}
+
 final class MessageBubbleView: UIView {
     
     var isGroup = false
@@ -35,31 +74,34 @@ final class MessageBubbleView: UIView {
     var fillColor: UIColor?
     var strokeColor: UIColor?
     
-    private func corners() -> UIRectCorner {
+    private func corners() -> [CGFloat] {
         if isGroup {
             if isGroupEnd {
                 if containsName {
-                    return [.TopRight, .BottomLeft, .BottomRight]
+                    return [0, 14, 14, 14]
                 } else {
-                    return .AllCorners
+                    return [14, 14, 14, 14]
                 }
             } else {
                 if containsName {
-                    return [.TopRight, .BottomRight]
+                    return [0, 14, 14, 3]
                 } else {
-                    return [.TopLeft, .TopRight, .BottomLeft]
+                    return [14, 14, 3, 14]
                 }
             }
         } else if isGroupEnd {
-            return isRightSide ? [.BottomLeft, .BottomRight, .TopLeft] : [.BottomLeft, .BottomRight, .TopRight]
+            return isRightSide ? [14, 3, 14, 14] : [3, 14, 14, 14]
         } else {
-            return isRightSide ? [.BottomLeft, .TopLeft] : [.BottomRight, .TopRight]
+            return isRightSide ? [14, 3, 3, 14] : [3, 14, 14, 3]
         }
     }
     
     override func drawRect(rect: CGRect) {
+        
         let lineWidth: CGFloat = 1/UIScreen.mainScreen().scale
-        let path = UIBezierPath(roundedRect: bounds.insetBy(dx: lineWidth/2, dy: lineWidth/2), byRoundingCorners: corners(), cornerRadii: 14 ^ 14)
+        let path = UIBezierPath()
+        path.addRoundedRect(bounds.insetBy(dx: lineWidth/2, dy: lineWidth/2), corners: corners())
+        
         if let fillColor = fillColor {
             fillColor.setFill()
             path.fill()
@@ -194,7 +236,7 @@ final class MyMessageCell: BaseMessageCell {
         bubbleView.isRightSide = true
         textView.textColor = UIColor.whiteColor()
         add(bubbleView) { (make) -> Void in
-            make.trailing.equalTo(self).offset(-16)
+            make.trailing.equalTo(self).offset(-24)
             make.leading.greaterThanOrEqualTo(self).offset(64)
             make.top.equalTo(self)
             make.width.greaterThanOrEqualTo(50)
@@ -210,8 +252,8 @@ final class MyMessageCell: BaseMessageCell {
             make.centerY.equalTo(bubbleView)
         }
         add(indicator) { (make) -> Void in
-            make.trailing.equalTo(timeLabel.snp_leading).offset(-2)
-            make.centerY.equalTo(timeLabel)
+            make.leading.equalTo(bubbleView.snp_trailing).offset(4)
+            make.centerY.equalTo(bubbleView)
         }
     }
     

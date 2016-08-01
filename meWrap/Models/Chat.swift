@@ -27,7 +27,7 @@ class Chat: PaginatedList<Message> {
     static let MessageWithNameMinimumCellHeight: CGFloat = 40.0
     static let MessageWithoutNameMinimumCellHeight: CGFloat = 24.0
     static let LeadingBubbleIndentWithAvatar: CGFloat = 64.0
-    static let BubbleIndent: CGFloat = 16.0
+    static let BubbleIndent: CGFloat = 24.0
     static let MessageGroupSpacing: CGFloat = 8.0
     static let MessageSpacing: CGFloat = 2.0
     static let NameVerticalInset: CGFloat = 12 + 8

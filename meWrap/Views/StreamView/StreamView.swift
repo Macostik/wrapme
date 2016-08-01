@@ -51,7 +51,17 @@ final class StreamView: UIScrollView {
     
     weak var dataSource: StreamViewDataSource?
     
-    private weak var placeholderView: PlaceholderView?
+    private weak var placeholderView: PlaceholderView? {
+        willSet {
+            newValue?.hidden = hidden
+        }
+    }
+    
+    override var hidden: Bool {
+        didSet {
+            placeholderView?.hidden = hidden
+        }
+    }
     
     var placeholderViewBlock: (() -> PlaceholderView)?
     

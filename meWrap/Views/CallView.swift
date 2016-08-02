@@ -12,6 +12,7 @@ import CoreTelephony
 
 class CallView: UIView, SINCallDelegate {
     
+    var isVideo: Bool
     var call: SINCall
     let user: User
     var audioController: SINAudioController
@@ -19,7 +20,7 @@ class CallView: UIView, SINCallDelegate {
     let avatarView = UserAvatarView(cornerRadius: 100, backgroundColor: Color.orange, placeholderSize: 50)
     let nameLabel = Label(preset: .XLarge, weight: .Regular, textColor: Color.orange)
     let infoLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.grayLighter)
-    let acceptButton = specify(PressButton(icon: "D", size: 24)) {
+    lazy var acceptButton: PressButton = specify(PressButton(icon: self.isVideo ? "+" : "D", size: 24)) {
         $0.clipsToBounds = true
         $0.backgroundColor = Color.green
         $0.cornerRadius = 37
@@ -53,6 +54,28 @@ class CallView: UIView, SINCallDelegate {
         $0.transform = CGAffineTransformMakeRotation(2.37)
     }
     
+    let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
+    
+    required init(user: User, call: SINCall, isVideo: Bool, audioController: SINAudioController, videoController: SINVideoController) {
+        self.call = call
+        self.user = user
+        self.isVideo = isVideo
+        self.audioController = audioController
+        self.videoController = videoController
+        super.init(frame: CGRect.zero)
+        call.delegate = self
+        Network.network.subscribe(self) { [unowned self] (value) in
+            if !value {
+                self.endCall(nil)
+                self.infoLabel.text = "call_connection_broken".ls
+            }
+        }
+    }
+    
+    weak var remoteVideoView: UIView?
+    
+    weak var localVideoView: UIView?
+    
     private func setupSubviews() {
         nameLabel.textAlignment = .Center
         infoLabel.textAlignment = .Center
@@ -60,7 +83,6 @@ class CallView: UIView, SINCallDelegate {
         AudioSession.category = AVAudioSessionCategoryPlayAndRecord
         AudioSession.mode = AVAudioSessionModeVoiceChat
         
-        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
         add(blurView) { $0.edges.equalTo(self) }
         
         let logoView = UIView()
@@ -133,9 +155,12 @@ class CallView: UIView, SINCallDelegate {
                 make.size.equalTo(44)
             }
             
-            startAcceptButtonAnimation()
-            startCallAnimation()
-            acceptButton.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.acceptButtonPanning(_:))))
+            if !isVideo {
+                startAcceptButtonAnimation()
+                startCallAnimation()
+                acceptButton.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.acceptButtonPanning(_:))))
+            }
+            
         } else {
             microphoneButton.active = false
             speakerButton.active = false
@@ -145,6 +170,30 @@ class CallView: UIView, SINCallDelegate {
                 $0.centerX.equalTo(self)
                 $0.size.equalTo(74)
             })
+        }
+        
+        if isVideo {
+            if let localVideoView = videoController.localView() {
+                let localVideoContainer = UIView()
+                localVideoContainer.backgroundColor = UIColor.blackColor()
+                localVideoView.contentMode = .ScaleAspectFill
+                add(localVideoContainer, { (make) in
+                    make.top.equalTo(self).offset(25)
+                    make.leading.equalTo(self).offset(5)
+                    make.width.equalTo(self).multipliedBy(0.25)
+                    make.height.equalTo(localVideoContainer.snp_width).dividedBy(0.75)
+                })
+                localVideoContainer.add(localVideoView, { (make) in
+                    make.edges.equalTo(localVideoContainer)
+                })
+                let toggleCameraButton = PressButton(icon: "}", size: 20)
+                toggleCameraButton.addTarget(self, touchUpInside: #selector(self.toggleCamera(_:)))
+                localVideoContainer.add(toggleCameraButton, { (make) in
+                    make.centerX.equalTo(localVideoContainer)
+                    make.bottom.equalTo(localVideoContainer).offset(-5)
+                })
+                self.localVideoView = localVideoContainer
+            }
         }
         
         add(speakerButton) { (make) in
@@ -255,23 +304,6 @@ class CallView: UIView, SINCallDelegate {
         }
     }
     
-    required init(user: User, call: SINCall, audioController: SINAudioController, videoController: SINVideoController) {
-        self.call = call
-        self.user = user
-        self.audioController = audioController
-        self.videoController = videoController
-        super.init(frame: CGRect.zero)
-        call.delegate = self
-        Network.network.subscribe(self) { [unowned self] (value) in
-            if !value {
-                self.updateTimerBlock = nil
-                self.audioController.stopPlayingSoundFile()
-                self.endCall()
-                self.infoLabel.text = "call_connection_broken".ls
-            }
-        }
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -349,7 +381,7 @@ class CallView: UIView, SINCallDelegate {
     
     func redial(sender: UIButton) {
         close()
-        CallCenter.center.call(user)
+        CallCenter.center.call(user, isVideo: isVideo)
     }
     
     func close(sender: UIButton) {
@@ -358,6 +390,10 @@ class CallView: UIView, SINCallDelegate {
             }, completion: { (_) in
                 self.close()
         })
+    }
+    
+    func toggleCamera(sender: UIButton) {
+        videoController.captureDevicePosition = SINToggleCaptureDevicePosition(videoController.captureDevicePosition)
     }
     
     private static weak var previousCallView: CallView?
@@ -379,6 +415,8 @@ class CallView: UIView, SINCallDelegate {
         audioController.startPlayingSoundFile(NSBundle.mainBundle().pathForResource("ringback", ofType: "wav"), loop: true)
     }
     
+    private weak var videoView: UIView?
+    
     func callDidEstablish(call: SINCall!) {
         audioController.stopPlayingSoundFile()
         speakerButton.hidden = false
@@ -387,11 +425,6 @@ class CallView: UIView, SINCallDelegate {
         spinner.removeFromSuperview()
         acceptButton.removeFromSuperview()
         declineButton.cornerRadius = 37
-        declineButton.snp_remakeConstraints { make in
-            make.bottom.equalTo(self).offset(-20)
-            make.centerX.equalTo(self)
-            make.size.equalTo(74)
-        }
         microphoneButton.active = true
         speakerButton.active = true
         microphoneButton.selected = true
@@ -405,6 +438,126 @@ class CallView: UIView, SINCallDelegate {
             }
         }
         updateTimer()
+        
+        if isVideo {
+            
+            let videoView = UIView()
+            
+            videoView.backgroundColor = UIColor.blackColor()
+            
+            self.videoView = videoView
+            
+            add(videoView, { (make) in
+                make.edges.equalTo(self)
+            })
+            
+            let topBlurView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
+            
+            videoView.add(topBlurView, { (make) in
+                make.leading.top.trailing.equalTo(videoView)
+            })
+            
+            nameLabel.removeFromSuperview()
+            topBlurView.add(nameLabel, {
+                $0.top.equalTo(topBlurView).offset(25)
+                $0.centerX.equalTo(topBlurView)
+                $0.leading.lessThanOrEqualTo(topBlurView).offset(12)
+                $0.trailing.lessThanOrEqualTo(topBlurView).offset(-12)
+            })
+            infoLabel.removeFromSuperview()
+            topBlurView.add(infoLabel, {
+                $0.top.equalTo(nameLabel.snp_bottom).offset(2)
+                $0.centerX.equalTo(topBlurView)
+                $0.leading.lessThanOrEqualTo(topBlurView).offset(12)
+                $0.trailing.lessThanOrEqualTo(topBlurView).offset(-12)
+                $0.bottom.equalTo(topBlurView).offset(-5)
+            })
+            
+            let bottomBlurView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
+            
+            videoView.add(bottomBlurView, { (make) in
+                make.leading.bottom.trailing.equalTo(videoView)
+            })
+            
+            bottomBlurView.addSubview(declineButton)
+            declineButton.snp_remakeConstraints(closure: { (make) in
+                make.top.equalTo(bottomBlurView).offset(5)
+                make.bottom.equalTo(bottomBlurView).offset(-5)
+                make.centerX.equalTo(bottomBlurView)
+                make.size.equalTo(74)
+            })
+            
+            bottomBlurView.addSubview(speakerButton)
+            speakerButton.snp_remakeConstraints { (make) in
+                make.centerY.equalTo(declineButton)
+                make.centerX.equalTo(bottomBlurView).multipliedBy(0.5).offset(-19)
+                make.size.equalTo(44)
+            }
+            
+            bottomBlurView.addSubview(microphoneButton)
+            microphoneButton.snp_remakeConstraints { (make) in
+                make.centerY.equalTo(declineButton)
+                make.centerX.equalTo(bottomBlurView).multipliedBy(1.5).offset(19)
+                make.size.equalTo(44)
+            }
+            
+            if let localVideoView = localVideoView {
+                videoView.addSubview(localVideoView)
+                localVideoView.snp_remakeConstraints { (make) in
+                    make.leading.equalTo(videoView).offset(5)
+                    make.top.equalTo(topBlurView.snp_bottom).offset(5)
+                    make.width.equalTo(topBlurView).multipliedBy(0.25)
+                    make.height.equalTo(localVideoView.snp_width).dividedBy(0.75)
+                }
+            }
+            
+            Dispatch.mainQueue.after(3, block: { () in
+                animate(animations: {
+                    topBlurView.alpha = 0
+                    topBlurView.snp_remakeConstraints(closure: { (make) in
+                        make.leading.trailing.equalTo(videoView)
+                        make.bottom.equalTo(videoView.snp_top).offset(20)
+                    })
+                    bottomBlurView.snp_remakeConstraints(closure: { (make) in
+                        make.leading.trailing.equalTo(videoView)
+                        make.top.equalTo(videoView.snp_bottom)
+                    })
+                    videoView.layoutIfNeeded()
+                })
+            })
+            
+            videoView.tapped({ (_) in
+                animate(animations: { 
+                    if topBlurView.frame.origin.y == 0 {
+                        topBlurView.alpha = 0
+                        topBlurView.snp_remakeConstraints(closure: { (make) in
+                            make.leading.trailing.equalTo(videoView)
+                            make.bottom.equalTo(videoView.snp_top).offset(20)
+                        })
+                        bottomBlurView.snp_remakeConstraints(closure: { (make) in
+                            make.leading.trailing.equalTo(videoView)
+                            make.top.equalTo(videoView.snp_bottom)
+                        })
+                    } else {
+                        topBlurView.alpha = 1
+                        topBlurView.snp_remakeConstraints(closure: { (make) in
+                            make.leading.top.trailing.equalTo(videoView)
+                        })
+                        bottomBlurView.snp_remakeConstraints(closure: { (make) in
+                            make.leading.bottom.trailing.equalTo(videoView)
+                        })
+                    }
+                    videoView.layoutIfNeeded()
+                })
+            })
+            
+        } else {
+            declineButton.snp_remakeConstraints { make in
+                make.bottom.equalTo(self).offset(-20)
+                make.centerX.equalTo(self)
+                make.size.equalTo(74)
+            }
+        }
     }
     
     private var time = 0
@@ -439,10 +592,31 @@ class CallView: UIView, SINCallDelegate {
     }
     
     func callDidEnd(call: SINCall!) {
+        endCall(callEndReason(call))
+    }
+    
+    private func endCall(reason: String?) {
+        if isVideo && videoView != nil {
+            videoView?.removeFromSuperview()
+            addSubview(nameLabel)
+            nameLabel.snp_remakeConstraints {
+                $0.top.equalTo(avatarView.snp_bottom).offset(20)
+                $0.centerX.equalTo(self)
+                $0.leading.lessThanOrEqualTo(self).offset(12)
+                $0.trailing.lessThanOrEqualTo(self).offset(-12)
+            }
+            addSubview(infoLabel)
+            infoLabel.snp_remakeConstraints {
+                $0.top.equalTo(nameLabel.snp_bottom).offset(20)
+                $0.centerX.equalTo(self)
+                $0.leading.lessThanOrEqualTo(self).offset(12)
+                $0.trailing.lessThanOrEqualTo(self).offset(-12)
+            }
+        }
         updateTimerBlock = nil
         audioController.stopPlayingSoundFile()
         audioController.startPlayingSoundFile(NSBundle.mainBundle().pathForResource("hangup", ofType: "wav"), loop: false)
-        if let reason = callEndReason(call) {
+        if let reason = reason {
             infoLabel.text = reason
             infoLabel.textColor = Color.grayLighter
             microphoneButton.hidden = true
@@ -459,27 +633,31 @@ class CallView: UIView, SINCallDelegate {
                 $0.size.equalTo(74)
             })
         } else {
-            endCall()
+            animationViews?.all({ $0.removeFromSuperview() })
+            infoLabel.text = "call_ended".ls
+            infoLabel.textColor = Color.grayLighter
+            userInteractionEnabled = false
+            microphoneButton.hidden = true
+            speakerButton.hidden = true
+            acceptButton.hidden = true
+            declineButton.hidden = true
+            redialButton.hidden = true
+            closeButton.hidden = true
+            UIView.animateWithDuration(0.5, delay: 2, options:[], animations: {
+                self.alpha = 0
+                }, completion: { (_) in
+                    self.close()
+            })
         }
     }
     
-    private func endCall() {
-        animationViews?.all({ $0.removeFromSuperview() })
-        infoLabel.text = "call_ended".ls
-        infoLabel.textColor = Color.grayLighter
-        userInteractionEnabled = false
-        microphoneButton.hidden = true
-        speakerButton.hidden = true
-        acceptButton.hidden = true
-        declineButton.hidden = true
-        redialButton.hidden = true
-        closeButton.hidden = true
-        UIView.animateWithDuration(0.5, delay: 2, options:[], animations: {
-            self.alpha = 0
-            }, completion: { (_) in
-                self.close()
-        })
+    func callDidAddVideoTrack(call: SINCall!) {
+        if let remoteVideoView = videoController.remoteView(), let videoView = videoView {
+            remoteVideoView.contentMode = .ScaleAspectFill
+            videoView.insertSubview(remoteVideoView, atIndex: 0)
+            remoteVideoView.snp_makeConstraints(closure: { (make) in
+                make.edges.equalTo(videoView)
+            })
+        }
     }
-    
-    func callDidAddVideoTrack(call: SINCall!) {}
 }

@@ -620,16 +620,20 @@ extension WrapViewController {
         navigationController?.pushViewController(controller, animated: false)
     }
     
-    @IBAction func audioCall(sender: UIButton) {
+    private func call(isVideo: Bool) {
         wrap.callDate = nil
         hasMissedCall = false
         if let user = wrap.contributors.filter({ !$0.current }).first {
-            CallCenter.center.call(user)
+            CallCenter.center.call(user, isVideo: isVideo)
         }
     }
     
+    @IBAction func audioCall(sender: UIButton) {
+        call(false)
+    }
+    
     @IBAction func videoCall(sender: UIButton) {
-        
+        call(true)
     }
 }
 

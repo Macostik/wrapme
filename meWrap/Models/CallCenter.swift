@@ -43,12 +43,12 @@ final class CallCenter: NSObject, SINCallDelegate, SINManagedPushDelegate {
         return sinch?.videoController()
     }
     
-    func call(user: User) {
+    func call(user: User, isVideo: Bool) {
         guard let sinch = sinch else { return }
-        guard let call = sinch.callClient().callUserVideoWithId(user.uid) else { return }
+        guard let call = isVideo ? sinch.callClient().callUserVideoWithId(user.uid) : sinch.callClient().callUserWithId(user.uid) else { return }
         guard let audioController = sinch.audioController() else { return }
         guard let videoController = sinch.videoController() else { return }
-        CallView(user: user, call: call, audioController: audioController, videoController: videoController).present()
+        CallView(user: user, call: call, isVideo: isVideo, audioController: audioController, videoController: videoController).present()
     }
     
     var push: SINManagedPush?
@@ -124,7 +124,7 @@ extension CallCenter: SINCallClientDelegate {
         guard let user = User.entry(call.remoteUserId) else { return }
         user.fetchIfNeeded({ _ in
             user.p2pWrap?.callDate = NSDate()
-            CallView(user: user, call: call, audioController: audioController, videoController: videoController).present()
+            CallView(user: user, call: call, isVideo: call.details.videoOffered, audioController: audioController, videoController: videoController).present()
         }) { _ in
         }
     }

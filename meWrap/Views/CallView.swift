@@ -128,6 +128,8 @@ class CallView: UIView, SINCallDelegate {
                 audioController.startPlayingSoundFile(NSBundle.mainBundle().pathForResource("incoming", ofType: "wav"), loop: true)
                 audioController.enableSpeaker()
             #endif
+            audioController.startPlayingSoundFile(NSBundle.mainBundle().pathForResource("incoming", ofType: "wav"), loop: true)
+            audioController.enableSpeaker()
             infoLabel.text = "incoming_call".ls
             speakerButton.hidden = true
             microphoneButton.hidden = true
@@ -150,6 +152,7 @@ class CallView: UIView, SINCallDelegate {
             }
             
         } else {
+            audioController.disableSpeaker()
             microphoneButton.active = false
             speakerButton.active = false
             infoLabel.text = "waiting_for_response".ls
@@ -573,6 +576,9 @@ class CallView: UIView, SINCallDelegate {
     }
     
     private func endCall(reason: String?) {
+        if call.direction == .Incoming {
+            audioController.disableSpeaker()
+        }
         if isVideo {
             videoController.captureDevicePosition = .Front
             if videoView != nil {

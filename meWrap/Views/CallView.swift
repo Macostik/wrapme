@@ -62,7 +62,7 @@ class CallView: UIView, SINCallDelegate {
         self.isVideo = isVideo
         self.audioController = audioController
         self.videoController = videoController
-        super.init(frame: CGRect.zero)
+        super.init(frame: UIScreen.mainScreen().bounds)
         call.delegate = self
         Network.network.subscribe(self) { [unowned self] (value) in
             if !value {
@@ -163,18 +163,17 @@ class CallView: UIView, SINCallDelegate {
         if isVideo {
             if let localVideoView = videoController.localView() {
                 videoController.captureDevicePosition = .Front
-                let localVideoContainer = UIView()
+                let localVideoContainer = UIView(frame: (0 ^ 0) ^ (Constants.screenWidth * 0.25 ^ Constants.screenWidth * 0.333))
                 localVideoContainer.backgroundColor = UIColor.blackColor()
-                localVideoView.contentMode = .ScaleAspectFill
+                
                 add(localVideoContainer, { (make) in
                     make.top.equalTo(self).offset(25)
                     make.leading.equalTo(self).offset(5)
                     make.width.equalTo(self).multipliedBy(0.25)
                     make.height.equalTo(localVideoContainer.snp_width).dividedBy(0.75)
                 })
-                localVideoContainer.add(localVideoView, { (make) in
-                    make.edges.equalTo(localVideoContainer)
-                })
+                localVideoContainer.addSubview(localVideoView)
+                localVideoView.contentMode = .ScaleAspectFill
                 let toggleCameraButton = PressButton(icon: "}", size: 20)
                 toggleCameraButton.addTarget(self, touchUpInside: #selector(self.toggleCamera(_:)))
                 localVideoContainer.add(toggleCameraButton, { (make) in
@@ -403,9 +402,17 @@ class CallView: UIView, SINCallDelegate {
         
         if isVideo {
             
-            let videoView = UIView()
+            let videoView = UIView(frame: UIScreen.mainScreen().bounds)
             
             videoView.backgroundColor = UIColor.blackColor()
+            
+            let remoteVideoView = UIView(frame: UIScreen.mainScreen().bounds)
+            
+            videoView.add(remoteVideoView, { (make) in
+                make.edges.equalTo(videoView)
+            })
+            
+            self.remoteVideoView = remoteVideoView
             
             self.videoView = videoView
             
@@ -612,12 +619,9 @@ class CallView: UIView, SINCallDelegate {
     }
     
     func callDidAddVideoTrack(call: SINCall!) {
-        if let remoteVideoView = videoController.remoteView(), let videoView = videoView {
+        if let remoteVideoView = videoController.remoteView() {
+            self.remoteVideoView?.addSubview(remoteVideoView)
             remoteVideoView.contentMode = .ScaleAspectFill
-            videoView.insertSubview(remoteVideoView, atIndex: 0)
-            remoteVideoView.snp_makeConstraints(closure: { (make) in
-                make.edges.equalTo(videoView)
-            })
         }
     }
 }

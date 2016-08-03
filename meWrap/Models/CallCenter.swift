@@ -123,7 +123,11 @@ extension CallCenter: SINCallClientDelegate {
         guard let videoController = sinch.videoController() else { return }
         guard let user = User.entry(call.remoteUserId) else { return }
         user.fetchIfNeeded({ _ in
-            user.p2pWrap?.callDate = NSDate()
+            if let wrap = user.p2pWrap {
+                wrap.missedCallDate = NSDate()
+                wrap.numberOfMissedCalls = wrap.numberOfMissedCalls + 1
+            }
+            
             CallView(user: user, call: call, isVideo: call.details.videoOffered, audioController: audioController, videoController: videoController).present()
         }) { _ in
         }

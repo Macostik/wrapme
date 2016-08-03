@@ -62,11 +62,12 @@
         <userInfo/>
     </entity>
     <entity name="Wrap" representedClassName="Wrap" parentEntity="Contribution">
-        <attribute name="callDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="candiesPaginationDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="invitationMessage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="missedCallDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="muted" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numberOfMissedCalls" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="p2p" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="restricted" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <relationship name="candies" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Candy" inverseName="wrap" inverseEntity="Candy" syncable="YES"/>
@@ -85,6 +86,6 @@
         <element name="Message" positionX="18" positionY="72" width="128" height="75"/>
         <element name="Uploading" positionX="0" positionY="0" width="128" height="75"/>
         <element name="User" positionX="0" positionY="0" width="128" height="195"/>
-        <element name="Wrap" positionX="0" positionY="0" width="128" height="210"/>
+        <element name="Wrap" positionX="0" positionY="0" width="128" height="225"/>
     </elements>
 </model>

@@ -283,6 +283,8 @@ final class WrapViewController: WrapBaseViewController {
     }
     
     private lazy var missedCallLabel: Label = Label(preset: .Smaller, weight: .Regular, textColor: .whiteColor())
+    private lazy var missedCallTimeLabel: Label = Label(preset: .XSmall, weight: .Regular, textColor: UIColor(white: 1, alpha: 0.54))
+    private lazy var missedCallNumberLabel: Label = Label(preset: .Small, weight: .Regular, textColor: .whiteColor())
     private lazy var missedCallView: UIView = {
         let view = UIView()
         view.backgroundColor = Color.dangerRed
@@ -293,9 +295,18 @@ final class WrapViewController: WrapBaseViewController {
             make.centerY.equalTo(view)
             make.trailing.equalTo(view).offset(-12)
         })
-        view.add(self.missedCallLabel, { (make) in
+        view.add(self.missedCallNumberLabel, { (make) in
             make.centerY.equalTo(view)
             make.leading.equalTo(view).offset(12)
+        })
+        view.add(self.missedCallLabel, { (make) in
+            make.bottom.equalTo(self.missedCallNumberLabel.snp_centerY)
+            make.leading.equalTo(self.missedCallNumberLabel.snp_trailing)
+            make.trailing.lessThanOrEqualTo(dismissButton.snp_leading).offset(-12)
+        })
+        view.add(self.missedCallTimeLabel, { (make) in
+            make.top.equalTo(self.missedCallNumberLabel.snp_centerY)
+            make.leading.equalTo(self.missedCallNumberLabel.snp_trailing)
             make.trailing.lessThanOrEqualTo(dismissButton.snp_leading).offset(-12)
         })
         let triangle = TriangleView()
@@ -310,16 +321,21 @@ final class WrapViewController: WrapBaseViewController {
     }()
     
     func dismissMissedCallView(sender: Button) {
-        wrap.callDate = nil
+        wrap.missedCallDate = nil
+        wrap.numberOfMissedCalls = 0
         hasMissedCall = false
     }
     
     private var hasMissedCall = false {
         didSet {
-            guard hasMissedCall != oldValue else { return }
+            guard hasMissedCall != oldValue else {
+                if hasMissedCall {
+                    updateMissedCallView()
+                }
+                return
+            }
             if hasMissedCall {
-                missedCallView.backgroundColor = Color.dangerRed
-                missedCallLabel.text = String(format: "f_missed_call".ls, wrap.callDate?.timeAgoStringAtAMPM().lowercaseString ?? "")
+                updateMissedCallView()
                 friendAvatar.snp_updateConstraints(closure: { (make) in
                     make.top.equalTo(friendsView).offset(59)
                 })
@@ -335,6 +351,13 @@ final class WrapViewController: WrapBaseViewController {
             }
             topContentInset = hasMissedCall ? 150 : 100
         }
+    }
+    
+    private func updateMissedCallView() {
+        let numberOfMissedCalls = max(1, wrap.numberOfMissedCalls)
+        missedCallNumberLabel.text = numberOfMissedCalls == 1 ? "" : "(\(numberOfMissedCalls))   "
+        missedCallLabel.text = numberOfMissedCalls == 1 ? "missed_call".ls : "missed_calls".ls
+        missedCallTimeLabel.text = wrap.missedCallDate?.timeAgoStringAtAMPM()
     }
     
     private func defaultTopViewLayout() {
@@ -499,7 +522,7 @@ final class WrapViewController: WrapBaseViewController {
     private func updateFriendsBar(wrap: Wrap) {
         
         guard !wrap.p2p else {
-            hasMissedCall = wrap.callDate != nil && !CallView.isVisible
+            hasMissedCall = wrap.missedCallDate != nil && !CallView.isVisible
             if let friend = wrap.contributors.filter({ !$0.current }).first {
                 friendStatus.text = friend.isOnline ? "online".ls : "offline".ls
                 friendName.text = friend.name
@@ -621,7 +644,8 @@ extension WrapViewController {
     }
     
     private func call(isVideo: Bool) {
-        wrap.callDate = nil
+        wrap.missedCallDate = nil
+        wrap.numberOfMissedCalls = 0
         hasMissedCall = false
         if let user = wrap.contributors.filter({ !$0.current }).first {
             CallCenter.center.call(user, isVideo: isVideo)

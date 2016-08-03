@@ -71,7 +71,8 @@ extension Wrap {
     @NSManaged var contributors: Set<User>
     @NSManaged var messages: Set<Message>
     @NSManaged var candiesPaginationDate: NSDate?
-    @NSManaged var callDate: NSDate?
+    @NSManaged var missedCallDate: NSDate?
+    @NSManaged var numberOfMissedCalls: Int16
     @NSManaged var invitees: Set<Invitee>
     @NSManaged var invitationMessage: String?
     @NSManaged var p2p: Bool

@@ -473,44 +473,35 @@ class CallView: UIView, SINCallDelegate {
                 }
             }
             
-            Dispatch.mainQueue.after(3, block: { () in
+            func setBlurViewsHidden(hidden: Bool) {
                 animate(animations: {
-                    topBlurView.alpha = 0
+                    topBlurView.alpha = hidden ? 0 : 1
                     topBlurView.snp_remakeConstraints(closure: { (make) in
-                        make.leading.trailing.equalTo(videoView)
-                        make.bottom.equalTo(videoView.snp_top).offset(20)
+                        if hidden {
+                            make.leading.trailing.equalTo(videoView)
+                            make.bottom.equalTo(videoView.snp_top).offset(20)
+                        } else {
+                            make.leading.top.trailing.equalTo(videoView)
+                        }
                     })
                     bottomBlurView.snp_remakeConstraints(closure: { (make) in
-                        make.leading.trailing.equalTo(videoView)
-                        make.top.equalTo(videoView.snp_bottom)
+                        if hidden {
+                            make.leading.trailing.equalTo(videoView)
+                            make.top.equalTo(videoView.snp_bottom)
+                        } else {
+                            make.leading.bottom.trailing.equalTo(videoView)
+                        }
                     })
                     videoView.layoutIfNeeded()
                 })
+            }
+            
+            Dispatch.mainQueue.after(3, block: { () in
+                setBlurViewsHidden(true)
             })
             
             videoView.tapped({ (_) in
-                animate(animations: { 
-                    if topBlurView.frame.origin.y == 0 {
-                        topBlurView.alpha = 0
-                        topBlurView.snp_remakeConstraints(closure: { (make) in
-                            make.leading.trailing.equalTo(videoView)
-                            make.bottom.equalTo(videoView.snp_top).offset(20)
-                        })
-                        bottomBlurView.snp_remakeConstraints(closure: { (make) in
-                            make.leading.trailing.equalTo(videoView)
-                            make.top.equalTo(videoView.snp_bottom)
-                        })
-                    } else {
-                        topBlurView.alpha = 1
-                        topBlurView.snp_remakeConstraints(closure: { (make) in
-                            make.leading.top.trailing.equalTo(videoView)
-                        })
-                        bottomBlurView.snp_remakeConstraints(closure: { (make) in
-                            make.leading.bottom.trailing.equalTo(videoView)
-                        })
-                    }
-                    videoView.layoutIfNeeded()
-                })
+                setBlurViewsHidden(topBlurView.frame.origin.y == 0)
             })
             
         } else {

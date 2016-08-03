@@ -201,7 +201,12 @@ final class Wrap: Contribution {
     }
     
     func updateCallDate(date: NSDate?) {
-        callDate = date
+        missedCallDate = date
+        if date != nil {
+            numberOfMissedCalls = numberOfMissedCalls + 1
+        } else {
+            numberOfMissedCalls = 0
+        }
         notifyOnUpdate(.Default)
     }
 }

@@ -174,6 +174,7 @@ class CallView: UIView, SINCallDelegate {
         
         if isVideo {
             if let localVideoView = videoController.localView() {
+                videoController.captureDevicePosition = .Front
                 let localVideoContainer = UIView()
                 localVideoContainer.backgroundColor = UIColor.blackColor()
                 localVideoView.contentMode = .ScaleAspectFill
@@ -351,6 +352,9 @@ class CallView: UIView, SINCallDelegate {
     }
     
     func decline(sender: UIButton) {
+        if isVideo {
+            videoController.captureDevicePosition = .Front
+        }
         audioController.stopPlayingSoundFile()
         audioController.startPlayingSoundFile(NSBundle.mainBundle().pathForResource("hangup", ofType: "wav"), loop: false)
         user.p2pWrap?.updateCallDate(nil)
@@ -596,21 +600,24 @@ class CallView: UIView, SINCallDelegate {
     }
     
     private func endCall(reason: String?) {
-        if isVideo && videoView != nil {
-            videoView?.removeFromSuperview()
-            addSubview(nameLabel)
-            nameLabel.snp_remakeConstraints {
-                $0.top.equalTo(avatarView.snp_bottom).offset(20)
-                $0.centerX.equalTo(self)
-                $0.leading.lessThanOrEqualTo(self).offset(12)
-                $0.trailing.lessThanOrEqualTo(self).offset(-12)
-            }
-            addSubview(infoLabel)
-            infoLabel.snp_remakeConstraints {
-                $0.top.equalTo(nameLabel.snp_bottom).offset(20)
-                $0.centerX.equalTo(self)
-                $0.leading.lessThanOrEqualTo(self).offset(12)
-                $0.trailing.lessThanOrEqualTo(self).offset(-12)
+        if isVideo {
+            videoController.captureDevicePosition = .Front
+            if videoView != nil {
+                videoView?.removeFromSuperview()
+                addSubview(nameLabel)
+                nameLabel.snp_remakeConstraints {
+                    $0.top.equalTo(avatarView.snp_bottom).offset(20)
+                    $0.centerX.equalTo(self)
+                    $0.leading.lessThanOrEqualTo(self).offset(12)
+                    $0.trailing.lessThanOrEqualTo(self).offset(-12)
+                }
+                addSubview(infoLabel)
+                infoLabel.snp_remakeConstraints {
+                    $0.top.equalTo(nameLabel.snp_bottom).offset(20)
+                    $0.centerX.equalTo(self)
+                    $0.leading.lessThanOrEqualTo(self).offset(12)
+                    $0.trailing.lessThanOrEqualTo(self).offset(-12)
+                }
             }
         }
         updateTimerBlock = nil

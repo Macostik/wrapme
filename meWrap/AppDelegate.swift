@@ -271,6 +271,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        guard !application.isActive else { return }
         if notification.sin_isSinchNotification() {
             if let result = CallCenter.center.sinch?.relayLocalNotification(notification) {
                 if result.callResult()?.isTimedOut == true {

@@ -12,49 +12,49 @@ import CoreTelephony
 
 class CallView: UIView, SINCallDelegate {
     
-    var isVideo: Bool
-    var call: SINCall
-    let user: User
-    var audioController: SINAudioController
-    var videoController: SINVideoController
-    let avatarView = UserAvatarView(cornerRadius: 100, backgroundColor: Color.orange, placeholderSize: 50)
-    let nameLabel = Label(preset: .XLarge, weight: .Regular, textColor: Color.orange)
-    let infoLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.grayLighter)
-    lazy var acceptButton: PressButton = specify(PressButton(icon: self.isVideo ? "+" : "D", size: 24)) {
+    private let isVideo: Bool
+    private let call: SINCall
+    private let user: User
+    private let audioController: SINAudioController
+    private let videoController: SINVideoController
+    private let avatarView = UserAvatarView(cornerRadius: 100, backgroundColor: Color.orange, placeholderSize: 50)
+    private let nameLabel = Label(preset: .XLarge, weight: .Regular, textColor: Color.orange)
+    private let infoLabel = Label(preset: .Normal, weight: .Regular, textColor: Color.grayLighter)
+    private lazy var acceptButton: PressButton = specify(PressButton(icon: self.isVideo ? "+" : "D", size: 24)) {
         $0.clipsToBounds = true
         $0.backgroundColor = Color.green
         $0.cornerRadius = 37
         
     }
-    let declineButton = specify(PressButton(icon: "D", size: 24)) {
+    private let declineButton = specify(PressButton(icon: "D", size: 24)) {
         $0.clipsToBounds = true
         $0.backgroundColor = Color.dangerRed
         $0.cornerRadius = 37
         $0.transform = CGAffineTransformMakeRotation(2.37)
     }
-    let speakerButton = specify(Button.expandableCandyAction("l")) {
+    private let speakerButton = specify(Button.expandableCandyAction("l")) {
         $0.setTitle("m", forState: .Selected)
         $0.setTitleColor(Color.grayLight, forState: .Highlighted)
     }
-    let microphoneButton = specify(Button.expandableCandyAction("U")) {
+    private let microphoneButton = specify(Button.expandableCandyAction("U")) {
         $0.setTitle("T", forState: .Selected)
         $0.setTitleColor(Color.grayLight, forState: .Highlighted)
     }
     
-    let redialButton = specify(PressButton(icon: "D", size: 24)) {
+    private let redialButton = specify(PressButton(icon: "D", size: 24)) {
         $0.clipsToBounds = true
         $0.backgroundColor = Color.green
         $0.cornerRadius = 37
         
     }
-    let closeButton = specify(PressButton(icon: "D", size: 24)) {
+    private let closeButton = specify(PressButton(icon: "D", size: 24)) {
         $0.clipsToBounds = true
         $0.backgroundColor = Color.dangerRed
         $0.cornerRadius = 37
         $0.transform = CGAffineTransformMakeRotation(2.37)
     }
     
-    let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
+    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
     
     required init(user: User, call: SINCall, isVideo: Bool, audioController: SINAudioController, videoController: SINVideoController) {
         self.call = call
@@ -72,9 +72,9 @@ class CallView: UIView, SINCallDelegate {
         }
     }
     
-    weak var remoteVideoView: UIView?
+    private weak var remoteVideoView: UIView?
     
-    weak var localVideoView: UIView?
+    private weak var localVideoView: UIView?
     
     private func setupSubviews() {
         nameLabel.textAlignment = .Center
@@ -118,19 +118,7 @@ class CallView: UIView, SINCallDelegate {
             make.size.equalTo(208)
         }
         
-        self.add(nameLabel, {
-            $0.top.equalTo(avatarView.snp_bottom).offset(20)
-            $0.centerX.equalTo(self)
-            $0.leading.lessThanOrEqualTo(self).offset(12)
-            $0.trailing.lessThanOrEqualTo(self).offset(-12)
-        })
-        
-        self.add(infoLabel, {
-            $0.top.equalTo(nameLabel.snp_bottom).offset(20)
-            $0.centerX.equalTo(self)
-            $0.leading.lessThanOrEqualTo(self).offset(12)
-            $0.trailing.lessThanOrEqualTo(self).offset(-12)
-        })
+        layoutNameAndInfoLabels()
         
         avatarView.user = user
         nameLabel.text = user.name
@@ -231,13 +219,35 @@ class CallView: UIView, SINCallDelegate {
     }
     
     private func startCallAnimation() {
-        let arrow1 = Label(icon: "z", size: 14, textColor: Color.grayLighter)
-        let arrow2 = Label(icon: "z", size: 14, textColor: Color.grayLighter)
-        let arrow3 = Label(icon: "z", size: 14, textColor: Color.grayLighter)
+
+        func addAnimationArrow(beginTime beginTime: CFTimeInterval) -> Label {
+            let arrow = Label(icon: "z", size: 14, textColor: Color.grayLighter)
+            insertSubview(arrow, belowSubview: acceptButton)
+            arrow.layer.opacity = 0
+            arrow.addAnimation(CAAnimationGroup()) {
+                $0.removedOnCompletion = false
+                $0.repeatCount = FLT_MAX
+                $0.duration = 0.6
+                $0.animations = [specify(CABasicAnimation(keyPath: "opacity"), {
+                    $0.beginTime = beginTime
+                    $0.fromValue = 0
+                    $0.toValue = 1
+                    $0.duration = 0.1
+                }), specify(CABasicAnimation(keyPath: "opacity"), {
+                    $0.beginTime = beginTime + 0.1
+                    $0.fromValue = 1
+                    $0.toValue = 0
+                    $0.duration = 0.6 - $0.beginTime
+                })]
+            }
+            return arrow
+        }
+        
+        let arrow1 = addAnimationArrow(beginTime: 0)
+        let arrow2 = addAnimationArrow(beginTime: 0.1)
+        let arrow3 = addAnimationArrow(beginTime: 0.2)
+        
         animationViews = [arrow1, arrow2, arrow3]
-        insertSubview(arrow1, belowSubview: acceptButton)
-        insertSubview(arrow2, belowSubview: acceptButton)
-        insertSubview(arrow3, belowSubview: acceptButton)
         
         arrow1.snp_makeConstraints { (make) in
             make.centerX.equalTo(self)
@@ -250,58 +260,6 @@ class CallView: UIView, SINCallDelegate {
         arrow3.snp_makeConstraints { (make) in
             make.centerX.equalTo(self)
             make.bottom.equalTo(arrow2.snp_top).offset(-2)
-        }
-        arrow1.layer.opacity = 0
-        arrow2.layer.opacity = 0
-        arrow3.layer.opacity = 0
-        arrow1.addAnimation(CAAnimationGroup()) {
-            $0.removedOnCompletion = false
-            $0.repeatCount = FLT_MAX
-            $0.duration = 0.6
-            $0.animations = [specify(CABasicAnimation(keyPath: "opacity"), {
-                $0.fromValue = 0
-                $0.toValue = 1
-                $0.duration = 0.1
-            }), specify(CABasicAnimation(keyPath: "opacity"), {
-                $0.beginTime = 0.1
-                $0.fromValue = 1
-                $0.toValue = 0
-                $0.duration = 0.5
-            })]
-        }
-        
-        arrow2.addAnimation(CAAnimationGroup()) {
-            $0.removedOnCompletion = false
-            $0.repeatCount = FLT_MAX
-            $0.duration = 0.6
-            $0.animations = [specify(CABasicAnimation(keyPath: "opacity"), {
-                $0.beginTime = 0.1
-                $0.fromValue = 0
-                $0.toValue = 1
-                $0.duration = 0.1
-            }), specify(CABasicAnimation(keyPath: "opacity"), {
-                $0.beginTime = 0.2
-                $0.fromValue = 1
-                $0.toValue = 0
-                $0.duration = 0.4
-            })]
-        }
-        
-        arrow3.addAnimation(CAAnimationGroup()) {
-            $0.removedOnCompletion = false
-            $0.repeatCount = FLT_MAX
-            $0.duration = 0.6
-            $0.animations = [specify(CABasicAnimation(keyPath: "opacity"), {
-                $0.beginTime = 0.2
-                $0.fromValue = 0
-                $0.toValue = 1
-                $0.duration = 0.1
-            }), specify(CABasicAnimation(keyPath: "opacity"), {
-                $0.beginTime = 0.3
-                $0.fromValue = 1
-                $0.toValue = 0
-                $0.duration = 0.3
-            })]
         }
     }
     
@@ -331,7 +289,7 @@ class CallView: UIView, SINCallDelegate {
         }
     }
     
-    lazy var spinner: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .White)
+    private lazy var spinner: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .White)
     
     func accept(sender: UIButton) {
         user.p2pWrap?.updateCallDate(nil)
@@ -599,25 +557,29 @@ class CallView: UIView, SINCallDelegate {
         endCall(callEndReason(call))
     }
     
+    private func layoutNameAndInfoLabels() {
+        addSubview(nameLabel)
+        nameLabel.snp_remakeConstraints {
+            $0.top.equalTo(avatarView.snp_bottom).offset(20)
+            $0.centerX.equalTo(self)
+            $0.leading.lessThanOrEqualTo(self).offset(12)
+            $0.trailing.lessThanOrEqualTo(self).offset(-12)
+        }
+        addSubview(infoLabel)
+        infoLabel.snp_remakeConstraints {
+            $0.top.equalTo(nameLabel.snp_bottom).offset(20)
+            $0.centerX.equalTo(self)
+            $0.leading.lessThanOrEqualTo(self).offset(12)
+            $0.trailing.lessThanOrEqualTo(self).offset(-12)
+        }
+    }
+    
     private func endCall(reason: String?) {
         if isVideo {
             videoController.captureDevicePosition = .Front
             if videoView != nil {
                 videoView?.removeFromSuperview()
-                addSubview(nameLabel)
-                nameLabel.snp_remakeConstraints {
-                    $0.top.equalTo(avatarView.snp_bottom).offset(20)
-                    $0.centerX.equalTo(self)
-                    $0.leading.lessThanOrEqualTo(self).offset(12)
-                    $0.trailing.lessThanOrEqualTo(self).offset(-12)
-                }
-                addSubview(infoLabel)
-                infoLabel.snp_remakeConstraints {
-                    $0.top.equalTo(nameLabel.snp_bottom).offset(20)
-                    $0.centerX.equalTo(self)
-                    $0.leading.lessThanOrEqualTo(self).offset(12)
-                    $0.trailing.lessThanOrEqualTo(self).offset(-12)
-                }
+                layoutNameAndInfoLabels()
             }
         }
         updateTimerBlock = nil

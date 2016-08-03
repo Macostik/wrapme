@@ -135,16 +135,19 @@ extension CallCenter: SINCallClientDelegate {
         user.p2pWrap?.updateCallDate(NSDate())
         let name = user.name ?? ""
         
+        let app = UIApplication.sharedApplication()
+        
         guard CallCenter.nativeCenter.currentCalls?.count ?? 0 == 0 else {
             let notification = UILocalNotification()
             notification.alertBody = String(format: "f_is_calling_you".ls, name)
-            UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+            app.presentLocalNotificationNow(notification)
             return nil
         }
         
         let notification = UILocalNotification()
         notification.alertAction = "answer".ls
         notification.alertBody = String(format: "f_incoming_call_from".ls, name)
+        notification.soundName = "incoming.wav"
         notification.userInfo = [
             "callId": call.callId ?? "",
             "isSinchNotification": true,
@@ -152,21 +155,22 @@ extension CallCenter: SINCallClientDelegate {
             "notificationTypeKey": "incoming",
             "remoteUserId": call.remoteUserId ?? ""
         ]
-        UIApplication.sharedApplication().presentLocalNotificationNow(notification)
-        let task = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
+        
+        app.presentLocalNotificationNow(notification)
+        let task = app.beginBackgroundTaskWithExpirationHandler(nil)
         Dispatch.mainQueue.after(5) { () in
-            UIApplication.sharedApplication().cancelLocalNotification(notification)
+            app.cancelLocalNotification(notification)
             if call.state != .Ended {
-                UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+                app.presentLocalNotificationNow(notification)
                 Dispatch.mainQueue.after(5) { () in
-                    UIApplication.sharedApplication().cancelLocalNotification(notification)
+                    app.cancelLocalNotification(notification)
                     if call.state != .Ended {
-                        UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+                        app.presentLocalNotificationNow(notification)
                     }
-                    UIApplication.sharedApplication().endBackgroundTask(task)
+                    app.endBackgroundTask(task)
                 }
             } else {
-                UIApplication.sharedApplication().endBackgroundTask(task)
+                app.endBackgroundTask(task)
             }
         }
         return nil

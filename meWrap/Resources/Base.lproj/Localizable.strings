@@ -374,8 +374,8 @@
 "no_answer" = "No answer. Call again?";
 "friend_is_busy" = "Your friend is busy. Call again?";
 "answer" = "Answer";
-"f_incoming_call_from" = "Incoming call from %@";
-"f_is_calling_you" = "%@ is calling you in meWrap. Launch the app to answer.";
+"f_incoming_call_from" = "☎️ Incoming call from %@";
+"f_is_calling_you" = "☎️ %@ is calling you in meWrap. Launch the app to answer.";
 "mute" = "Mute";
 "call_ended" = "Call ended";
 "call_connection_broken" = "Connection lost. Call ended.";

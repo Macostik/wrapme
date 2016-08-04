@@ -1,8 +1,8 @@
 # Siren
 
-### Notify users when a new version of your app is available, and prompt them with the App Store link.
+### Notify users when a new version of your app is available and prompt them to upgrade.
 
-![Travis-CI](https://travis-ci.org/ArtSabintsev/Siren.svg?branch=master) ![Cocoapods](https://img.shields.io/cocoapods/v/Siren.svg) [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+![Travis-CI](https://travis-ci.org/ArtSabintsev/Siren.svg?branch=master) ![Cocoapods](https://img.shields.io/cocoapods/v/Siren.svg) ![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat) ![SwiftPM Compatible](https://img.shields.io/badge/SwiftPM-Compatible-brightgreen.svg)
 ---
 
 ## About
@@ -50,7 +50,7 @@ If a new version is available, an alert can be presented to the user informing t
 pod 'Siren'
 ```
 
-For Swift 3 Support
+For Swift 3 support:
 
 ```swift
 pod 'Siren', :git => 'https://github.com/ArtSabintsev/Siren.git', :branch => 'swift3'
@@ -61,18 +61,16 @@ pod 'Siren', :git => 'https://github.com/ArtSabintsev/Siren.git', :branch => 'sw
 github "ArtSabintsev/Siren"
 ```
 
-For Swift 3 support
+For Swift 3 support:
 
 ``` swift
 github "ArtSabintsev/Siren" "swift3"
 ```
 
-### Swift Package manager
+### Swift Package Manager
 ```swift
 .Package(url: "https://github.com/ArtSabintsev/Siren.git", majorVersion: 0)
 ```
-
-Add `import Siren` to any `.Swift` file that references Siren via a Carthage installation.
 
 ### Manual
 
@@ -84,8 +82,7 @@ Add `import Siren` to any `.Swift` file that references Siren via a Carthage ins
 Here's some commented sample code. Adapt this to meet your app's needs. For a full list of optional settings/preferences, please refer to https://github.com/ArtSabintsev/Siren/blob/master/Sample%20App/Sample%20App/AppDelegate.swift in the Sample Project.
 
 ```Swift
-func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
-{
+func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 	/* Siren code should go below window?.makeKeyAndVisible() */
 
 	// Siren is a singleton
@@ -103,8 +100,7 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
     return true
 }
 
-func applicationDidBecomeActive(application: UIApplication)
-{
+func applicationDidBecomeActive(application: UIApplication) {
 	/*
 	    Perform daily (.Daily) or weekly (.Weekly) checks for new version of your app.
 	    Useful if user returns to your app from the background after extended period of time.
@@ -113,8 +109,7 @@ func applicationDidBecomeActive(application: UIApplication)
     Siren.sharedInstance.checkVersion(.Daily)
 }
 
-func applicationWillEnterForeground(application: UIApplication)
-{
+func applicationWillEnterForeground(application: UIApplication) {
    /*
 	    Useful if user returns to your app from the background after being sent to the
 	    App Store, but doesn't update their app before coming back to your app.
@@ -133,19 +128,17 @@ And you're all set!
 Some developers may want to display a less obtrusive custom interface, like a banner or small icon. To accomplish this, you can disable alert presentation by doing the following:
 
 ```swift
-func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
-{
+func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 	...
 	siren.delegate = self
 	siren.alertType = .None
 	...
 }
 
-extension AppDelegate: SirenDelegate
-{
+extension AppDelegate: SirenDelegate {
 	// Returns a localized message to this delegate method upon performing a successful version check
     func sirenDidDetectNewVersionWithoutAlert(message: String) {
-        println("\(message)")
+        print("\(message)")
     }
 }
 ```
@@ -178,7 +171,7 @@ public protocol SirenDelegate: class {
 ```
 
 ## Localization
-Harpy is localized for Arabic, Armenian, Basque, Chinese (Simplified), Chinese (Traditional), Danish, Dutch, English, Estonian, French, German, Hebrew, Hungarian, Italian, Japanese, Korean, Latvian, Lithuanian, Malay, Polish, Portuguese (Brazil), Portuguese (Portugal), Russian, Slovenian, Swedish, Spanish, Thai, and Turkish.
+Harpy is localized for Arabic, Armenian, Basque, Chinese (Simplified), Chinese (Traditional), Danish, Dutch, English, Estonian, French, German, Hebrew, Hungarian, Italian, Japanese, Korean, Latvian, Lithuanian, Malay, Polish, Portuguese (Brazil), Portuguese (Portugal), Russian, Slovenian, Swedish, Spanish, Thai, Turkish, Vietnamese.
 
 You may want the update dialog to *always* appear in a certain language, ignoring iOS's language setting (e.g. apps released in a specific country).
 

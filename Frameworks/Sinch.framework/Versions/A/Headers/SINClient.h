@@ -44,7 +44,6 @@ SIN_EXPORT SIN_EXTERN NSString *const SINClientWillTerminateNotification;
  * 	// Specify the client capabilities. At least one of the messaging or calling capabilities should be enabled.
  * 	[sinchClient setSupportCalling:YES];
  * 	[sinchClient setSupportMessaging:YES];
- * 	[sinchClient setSupportActiveConnectionInBackground:YES]; // (optional)
  * 	[sinchClient setSupportPushNotifications:YES]; // (optional)
  *
  * 	// Set your delegate object
@@ -144,7 +143,7 @@ SIN_EXPORT SIN_EXTERN NSString *const SINClientWillTerminateNotification;
 - (void)enableManagedPushNotifications;
 
 /**
- * Specify whether to keep the active connection open if the application
+ * [DEPRECATED] Specify whether to keep the active connection open if the application
  * leaves foreground.
  *
  * If specified to be supported, the active connection which is used for
@@ -172,7 +171,7 @@ SIN_EXPORT SIN_EXTERN NSString *const SINClientWillTerminateNotification;
  *                                             client is started.
  *
  */
-- (void)setSupportActiveConnectionInBackground:(BOOL)supported;
+- (void)setSupportActiveConnectionInBackground:(BOOL)supported NS_DEPRECATED_IOS(4_0, 9_0, "Please use PushKit and SINManagedPush");
 
 /**
  * Start client to enable the calling functionality.
@@ -228,10 +227,9 @@ SIN_EXPORT SIN_EXTERN NSString *const SINClientWillTerminateNotification;
  * This will establish an active keep-alive connection as a signaling channel
  * for receiving incoming calls.
  *
- * The active connection can be specified to be kept open even if the
- * application leaves foreground, see
- * -[SINClient setSupportActiveConnectionInBackground:]).
- *
+ * Note that the active connection will only be kept open while the application
+ * is running in foreground. To support receiving calls while the application is
+ * in the background (or not running), please use push notifications.
  */
 - (void)startListeningOnActiveConnection;
 

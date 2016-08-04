@@ -277,9 +277,9 @@ SIN_EXPORT SIN_EXTERN NSString *const SINCallKey;                   // SINCallKe
  * is supposed to be used in conjunction with
  * -[SINClient relayLocalNotification:].
  *
- * This method is declared as optional, but it is still required to implement
- * if support for using an active connection in background is enabled, see
- * -[SINClient setSupportActiveConnectionInBackground:].
+ * This method is declared as optional, but it is required to be implemented
+ * if support for receiving calls via VoIP Push Notifications (using PushKit and
+ * optionally SINManagedPush) is desired.
  *
  * Hanging up an incoming call while being in the background is a valid operation.
  * This can be useful to dismiss an incoming call while the user is busy, e.g.

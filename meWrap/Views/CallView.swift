@@ -589,6 +589,9 @@ class CallView: UIView, SINCallDelegate {
         }
         updateTimerBlock = nil
         stopPlayingSound()
+        _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategorySoloAmbient, withOptions: [])
+        _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeDefault)
+        _ = try? AVAudioSession.sharedInstance().setActive(true)
         startPlayingSound("hangup", loop: false)
         if let reason = reason {
             infoLabel.text = reason

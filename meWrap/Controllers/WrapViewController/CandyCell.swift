@@ -13,7 +13,7 @@ private let CandyCellCommentAvatarSize: CGFloat = 24
 
 class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPlayerOwner {
     
-    private static let videoPlayers = InMemoryCache<NSURL, VideoPlayer>(value: { url in
+    static let videoPlayers = InMemoryCache<NSURL, VideoPlayer>(value: { url in
         let player = VideoPlayer.createPlayerView()
         player.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         player.url = url
@@ -187,7 +187,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
             insertSubview(player, belowSubview: gradientView)
         }
         if playing {
-            player.playing = true
+            player.startPlaying()
             playVideoButton.hidden = true
         } else {
             playVideoButton.hidden = player.playing

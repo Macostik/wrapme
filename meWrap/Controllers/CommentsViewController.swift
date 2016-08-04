@@ -170,13 +170,14 @@ class MediaCommentCell: CommentCell {
     }
     
     func playVideo(playerView: VideoPlayer) {
+        CandyCell.videoPlayers.clear()
         guard self.playerView != playerView else { return }
         imageView.insertSubview(playerView, atIndex: 0)
         playerView.snp_makeConstraints { (make) in
             make.edges.equalTo(imageView)
         }
         self.playerView = playerView
-        playerView.playing = true
+        playerView.startPlaying()
     }
 }
 

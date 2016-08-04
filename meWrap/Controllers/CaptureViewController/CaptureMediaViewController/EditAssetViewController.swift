@@ -33,7 +33,8 @@ class EditAssetViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        videoPlayer.playing = true
+        CandyCell.videoPlayers.clear()
+        videoPlayer.startPlaying()
     }
     
     override func viewWillDisappear(animated: Bool) {

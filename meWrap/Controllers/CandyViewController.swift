@@ -211,7 +211,8 @@ final class VideoCandyViewController: CandyViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        playerView.playing = true
+        CandyCell.videoPlayers.clear()
+        playerView.startPlaying()
     }
     
     override func viewWillDisappear(animated: Bool) {

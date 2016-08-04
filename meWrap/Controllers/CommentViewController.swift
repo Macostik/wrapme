@@ -158,10 +158,11 @@ final class CommentViewController: UIViewController {
             avatar.user = comment.contributor
             imageView.url = comment.asset?.medium
             if comment.commentType() == .Video {
+                CandyCell.videoPlayers.clear()
                 let playerView = VideoPlayer.createPlayerView(false)
                 imageView.add(playerView) { $0.edges.equalTo(imageView) }
                 playerView.url = comment.asset?.videoURL()
-                playerView.playing = true
+                playerView.startPlaying()
             }
             deleteButton.hidden = !comment.deletable || !comment.uploaded
         }

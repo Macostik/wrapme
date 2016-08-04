@@ -32,6 +32,10 @@ final class InMemoryCache<Key: Hashable, Value> {
     }
     
     @objc private func memoryWarning() {
+        clear()
+    }
+    
+    func clear() {
         values.removeAll()
     }
 }
@@ -150,6 +154,12 @@ final class VideoPlayer: UIView {
             } else {
                 player.pause()
             }
+        }
+    }
+    
+    func startPlaying() {
+        Dispatch.mainQueue.async { [weak self] () in
+            self?.playing = true
         }
     }
     

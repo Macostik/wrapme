@@ -125,6 +125,7 @@ final class CommentView: UIView {
     }
     
     private func addVideoPlayer(comment: Comment) {
+        CandyCell.videoPlayers.clear()
         let playerView = VideoPlayer.createPlayerView()
         imageView.insertSubview(playerView, atIndex: 0)
         playerView.snp_makeConstraints { (make) in
@@ -132,9 +133,7 @@ final class CommentView: UIView {
         }
         playerView.url = comment.asset?.smallVideoURL()
         self.videoPlayer = playerView
-        if comment.candy?.isVideo == false {
-            playerView.playing = true
-        }
+        playerView.startPlaying()
     }
     
     var comment: Comment? {
@@ -153,13 +152,12 @@ final class CommentView: UIView {
                     avatar.user = comment.contributor
                     date.text = comment.createdAt.timeAgoString()
                     indicator.updateStatusIndicator(comment)
-                    videoPlayer?.removeFromSuperview()
                     let commentType = comment.commentType()
                     layoutFor(commentType)
                     if commentType != .Text {
                         text.text = comment.displayText((comment.isVideo ? "see_my_video_comment".ls : "see_my_photo_comment".ls))
                         imageView.url = comment.asset?.small
-                        if commentType == .Video {
+                        if commentType == .Video && comment.candy?.isVideo == false {
                             addVideoPlayer(comment)
                         }
                         uploadingView = comment.uploadingView
@@ -583,7 +581,7 @@ final class HistoryViewController: SwipeViewController<CandyViewController>, Ent
                 if controller.comment?.commentType() == .Video {
                     videoViewConroller.playerView.playing = false
                     CommentViewController.willDisappear.subscribe(self) { controller in
-                        videoViewConroller.playerView.playing = true
+                        videoViewConroller.playerView.startPlaying()
                         CommentViewController.willDisappear.unsubscribe(self)
                     }
                 }

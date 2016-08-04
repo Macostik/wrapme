@@ -171,13 +171,14 @@ final class UploadMediaCommentViewController: UIViewController, ComposeBarDelega
         uploadButton.userInteractionEnabled = true
         spinner.stopAnimating()
         if asset.type == .Video {
+            CandyCell.videoPlayers.clear()
             let videoPlayer = VideoPlayer()
             view.insertSubview(videoPlayer, atIndex: 0)
             videoPlayer.snp_makeConstraints { (make) in
                 make.edges.equalTo(view)
             }
             videoPlayer.url = asset.original?.fileURL
-            videoPlayer.playing = true
+            videoPlayer.startPlaying()
             videoPlayer.muted = false
             self.videoPlayer = videoPlayer
             (videoPlayer.layer as? AVPlayerLayer)?.videoGravity = AVLayerVideoGravityResizeAspectFill

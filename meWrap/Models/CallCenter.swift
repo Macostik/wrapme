@@ -87,6 +87,7 @@ final class CallCenter: NSObject, SINCallDelegate, SINManagedPushDelegate {
         sinch.enableManagedPushNotifications()
         
         sinch.start()
+        AudioSession.category = AVAudioSessionCategoryAmbient
     }
     
     func disable() {

@@ -31,6 +31,7 @@ class CallView: UIView, SINCallDelegate {
         $0.backgroundColor = Color.dangerRed
         $0.cornerRadius = 37
         $0.transform = CGAffineTransformMakeRotation(2.37)
+        $0.disabledColor = Color.grayLighter
     }
     private let speakerButton = specify(Button.expandableCandyAction("l")) {
         $0.setTitle("m", forState: .Selected)
@@ -76,12 +77,30 @@ class CallView: UIView, SINCallDelegate {
     
     private weak var localVideoView: UIView?
     
+    private var audioPlayer: AVAudioPlayer? {
+        didSet {
+            oldValue?.stop()
+        }
+    }
+    
+    func startPlayingSound(name: String, loop: Bool) {
+        guard let path = NSBundle.mainBundle().pathForResource(name, ofType: "wav") else {
+            stopPlayingSound()
+            return
+        }
+        let audioPlayer = try? AVAudioPlayer(contentsOfURL: NSURL.fileURLWithPath(path))
+        audioPlayer?.numberOfLoops = loop ? -1 : 0
+        self.audioPlayer = audioPlayer
+        audioPlayer?.play()
+    }
+    
+    func stopPlayingSound() {
+        audioPlayer = nil
+    }
+    
     private func setupSubviews() {
         nameLabel.textAlignment = .Center
         infoLabel.textAlignment = .Center
-        
-        AudioSession.category = AVAudioSessionCategoryPlayAndRecord
-        AudioSession.mode = AVAudioSessionModeVoiceChat
         
         add(blurView) { $0.edges.equalTo(self) }
         
@@ -122,12 +141,12 @@ class CallView: UIView, SINCallDelegate {
         
         avatarView.user = user
         nameLabel.text = user.name
-        
+        _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategorySoloAmbient, withOptions: [])
+        _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeDefault)
+        _ = try? AVAudioSession.sharedInstance().setActive(true)
         if call.direction == .Incoming {
-            #if !DEBUG
-                audioController.startPlayingSoundFile(NSBundle.mainBundle().pathForResource("incoming", ofType: "wav"), loop: true)
-            #endif
-            audioController.enableSpeaker()
+            _ = try? AVAudioSession.sharedInstance().overrideOutputAudioPort(.Speaker)
+            startPlayingSound("incoming", loop: true)
             infoLabel.text = "incoming_call".ls
             speakerButton.hidden = true
             microphoneButton.hidden = true
@@ -150,11 +169,7 @@ class CallView: UIView, SINCallDelegate {
             }
             
         } else {
-            if isVideo {
-                audioController.enableSpeaker()
-            } else {
-                audioController.disableSpeaker()
-            }
+            _ = try? AVAudioSession.sharedInstance().overrideOutputAudioPort(isVideo ? .Speaker : .None)
             microphoneButton.active = false
             speakerButton.active = false
             infoLabel.text = "waiting_for_response".ls
@@ -307,35 +322,23 @@ class CallView: UIView, SINCallDelegate {
         spinner.startAnimating()
         sender.layer.removeAllAnimations()
         if call.direction == .Incoming && !isVideo {
-            audioController.disableSpeaker()
+            _ = try? AVAudioSession.sharedInstance().overrideOutputAudioPort(.None)
         }
-        audioController.stopPlayingSoundFile()
+        stopPlayingSound()
         call.answer()
         sender.userInteractionEnabled = false
         animationViews?.all({ $0.removeFromSuperview() })
     }
     
     func decline(sender: UIButton) {
-        if isVideo {
-            videoController.captureDevicePosition = .Front
-        }
-        audioController.stopPlayingSoundFile()
-        audioController.startPlayingSoundFile(NSBundle.mainBundle().pathForResource("hangup", ofType: "wav"), loop: false)
+        sender.enabled = false
         user.p2pWrap?.updateCallDate(nil)
-        if call.direction == .Incoming || isVideo {
-            audioController.disableSpeaker()
-        }
         call.hangup()
-        removeFromSuperview()
     }
     
     func speaker(sender: UIButton) {
         sender.selected = !sender.selected
-        if sender.selected {
-            audioController.enableSpeaker()
-        } else {
-            audioController.disableSpeaker()
-        }
+        _ = try? AVAudioSession.sharedInstance().overrideOutputAudioPort(sender.selected ? .Speaker : .None)
     }
     
     func microphone(sender: UIButton) {
@@ -380,13 +383,16 @@ class CallView: UIView, SINCallDelegate {
     }
     
     func callDidProgress(call: SINCall!) {
-        audioController.startPlayingSoundFile(NSBundle.mainBundle().pathForResource("ringback", ofType: "wav"), loop: true)
+        startPlayingSound("ringback", loop: true)
     }
     
     private weak var videoView: UIView?
     
     func callDidEstablish(call: SINCall!) {
-        audioController.stopPlayingSoundFile()
+        _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: [])
+        _ = try? AVAudioSession.sharedInstance().setMode(isVideo ? AVAudioSessionModeVideoChat : AVAudioSessionModeVoiceChat)
+        _ = try? AVAudioSession.sharedInstance().setActive(true)
+        stopPlayingSound()
         speakerButton.hidden = false
         microphoneButton.hidden = false
         acceptButton.loading = false
@@ -534,6 +540,7 @@ class CallView: UIView, SINCallDelegate {
     private func close() {
         removeFromSuperview()
         user.p2pWrap?.notifyOnUpdate(.Default)
+        _ = try? AVAudioSession.sharedInstance().overrideOutputAudioPort(.Speaker)
     }
     
     private func callEndReason(call: SINCall) -> String? {
@@ -573,9 +580,6 @@ class CallView: UIView, SINCallDelegate {
     }
     
     private func endCall(reason: String?) {
-        if call.direction == .Incoming || isVideo {
-            audioController.disableSpeaker()
-        }
         if isVideo {
             videoController.captureDevicePosition = .Front
             if videoView != nil {
@@ -584,8 +588,8 @@ class CallView: UIView, SINCallDelegate {
             }
         }
         updateTimerBlock = nil
-        audioController.stopPlayingSoundFile()
-        audioController.startPlayingSoundFile(NSBundle.mainBundle().pathForResource("hangup", ofType: "wav"), loop: false)
+        stopPlayingSound()
+        startPlayingSound("hangup", loop: false)
         if let reason = reason {
             infoLabel.text = reason
             infoLabel.textColor = Color.grayLighter
@@ -613,7 +617,7 @@ class CallView: UIView, SINCallDelegate {
             declineButton.hidden = true
             redialButton.hidden = true
             closeButton.hidden = true
-            UIView.animateWithDuration(0.5, delay: 2, options:[], animations: {
+            UIView.animateWithDuration(0.5, delay: 1.5, options:[], animations: {
                 self.alpha = 0
                 }, completion: { (_) in
                     self.close()

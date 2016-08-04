@@ -126,9 +126,7 @@ class CallView: UIView, SINCallDelegate {
         if call.direction == .Incoming {
             #if !DEBUG
                 audioController.startPlayingSoundFile(NSBundle.mainBundle().pathForResource("incoming", ofType: "wav"), loop: true)
-                audioController.enableSpeaker()
             #endif
-            audioController.startPlayingSoundFile(NSBundle.mainBundle().pathForResource("incoming", ofType: "wav"), loop: true)
             audioController.enableSpeaker()
             infoLabel.text = "incoming_call".ls
             speakerButton.hidden = true
@@ -152,7 +150,11 @@ class CallView: UIView, SINCallDelegate {
             }
             
         } else {
-            audioController.disableSpeaker()
+            if isVideo {
+                audioController.enableSpeaker()
+            } else {
+                audioController.disableSpeaker()
+            }
             microphoneButton.active = false
             speakerButton.active = false
             infoLabel.text = "waiting_for_response".ls
@@ -187,10 +189,12 @@ class CallView: UIView, SINCallDelegate {
             }
         }
         
-        add(speakerButton) { (make) in
-            make.centerY.equalTo(declineButton)
-            make.centerX.equalTo(self).multipliedBy(0.5).offset(-19)
-            make.size.equalTo(44)
+        if !isVideo {
+            add(speakerButton) { (make) in
+                make.centerY.equalTo(declineButton)
+                make.centerX.equalTo(self).multipliedBy(0.5).offset(-19)
+                make.size.equalTo(44)
+            }
         }
         
         add(microphoneButton) { (make) in
@@ -302,7 +306,7 @@ class CallView: UIView, SINCallDelegate {
         }
         spinner.startAnimating()
         sender.layer.removeAllAnimations()
-        if call.direction == .Incoming {
+        if call.direction == .Incoming && !isVideo {
             audioController.disableSpeaker()
         }
         audioController.stopPlayingSoundFile()
@@ -318,7 +322,7 @@ class CallView: UIView, SINCallDelegate {
         audioController.stopPlayingSoundFile()
         audioController.startPlayingSoundFile(NSBundle.mainBundle().pathForResource("hangup", ofType: "wav"), loop: false)
         user.p2pWrap?.updateCallDate(nil)
-        if call.direction == .Incoming {
+        if call.direction == .Incoming || isVideo {
             audioController.disableSpeaker()
         }
         call.hangup()
@@ -459,13 +463,6 @@ class CallView: UIView, SINCallDelegate {
                 make.size.equalTo(74)
             })
             
-            bottomBlurView.addSubview(speakerButton)
-            speakerButton.snp_remakeConstraints { (make) in
-                make.centerY.equalTo(declineButton)
-                make.centerX.equalTo(bottomBlurView).multipliedBy(0.5).offset(-19)
-                make.size.equalTo(44)
-            }
-            
             bottomBlurView.addSubview(microphoneButton)
             microphoneButton.snp_remakeConstraints { (make) in
                 make.centerY.equalTo(declineButton)
@@ -576,7 +573,7 @@ class CallView: UIView, SINCallDelegate {
     }
     
     private func endCall(reason: String?) {
-        if call.direction == .Incoming {
+        if call.direction == .Incoming || isVideo {
             audioController.disableSpeaker()
         }
         if isVideo {

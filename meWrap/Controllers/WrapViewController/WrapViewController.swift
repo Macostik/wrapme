@@ -279,6 +279,9 @@ final class WrapViewController: WrapBaseViewController {
             inboxViewController.streamView.contentInset.top = topContentInset
             mediaViewController.streamView.contentInset.top = topContentInset
             chatViewController.streamView.contentInset.top = topContentInset
+            inboxViewController.streamView.scrollIndicatorInsets.top = topContentInset
+            mediaViewController.streamView.scrollIndicatorInsets.top = topContentInset
+            chatViewController.streamView.scrollIndicatorInsets.top = topContentInset
         }
     }
     

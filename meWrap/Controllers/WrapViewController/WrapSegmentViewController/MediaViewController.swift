@@ -333,7 +333,7 @@ class MediaViewController: WrapBaseViewController {
         super.loadView()
                 
         streamView.contentInset.bottom = 92
-        streamView.scrollIndicatorInsets = streamView.contentInset
+        streamView.scrollIndicatorInsets.bottom = streamView.contentInset.bottom
         
         streamView.delaysContentTouches = false
         streamView.alwaysBounceVertical = true

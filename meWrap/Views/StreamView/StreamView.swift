@@ -37,7 +37,23 @@ extension StreamViewDataSource {
     func footerMetricsIn(section: Int) -> [StreamMetricsProtocol] { return [] }
 }
 
+
+class StreamViewLayer: CALayer {
+    
+    var didChangeBounds: (() -> ())?
+    
+    override var bounds: CGRect {
+        didSet {
+            didChangeBounds?()
+        }
+    }
+}
+
 final class StreamView: UIScrollView {
+    
+    override class func layerClass() -> AnyClass {
+        return StreamViewLayer.self
+    }
     
     var layout: StreamLayout = StreamLayout()
     
@@ -75,21 +91,14 @@ final class StreamView: UIScrollView {
     
     deinit {
         delegate = nil
-        unsubscribeFromOffsetChange()
         NSNotificationCenter.defaultCenter().removeObserver(self, name:StreamViewCommonLocksChanged, object:nil)
     }
     
     private func setup() {
-        subscribeOnOffsetChange()
+        (layer as! StreamViewLayer).didChangeBounds = { [unowned self] _ in
+            self.didChangeBounds()
+        }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(StreamView.locksChanged), name: StreamViewCommonLocksChanged, object: nil)
-    }
-    
-    private func unsubscribeFromOffsetChange() {
-        layer.removeObserver(self, forKeyPath:"bounds")
-    }
-    
-    private func subscribeOnOffsetChange() {
-        layer.addObserver(self, forKeyPath: "bounds", options: .New, context: nil)
     }
     
     var didScrollUp: (() -> ())?
@@ -109,7 +118,7 @@ final class StreamView: UIScrollView {
         }
     }
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    func didChangeBounds() {
         if trackScrollDirection && tracking && (contentSize.height > height || direction == .Up) {
             direction = panGestureRecognizer.translationInView(self).y > 0 ? .Down : .Up
         }

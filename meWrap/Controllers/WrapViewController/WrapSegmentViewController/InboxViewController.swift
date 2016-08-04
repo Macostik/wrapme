@@ -217,6 +217,7 @@ final class InboxViewController: WrapBaseViewController {
         }
         streamView.alwaysBounceVertical = true
         streamView.contentInset.bottom = 88
+        streamView.scrollIndicatorInsets.bottom = streamView.contentInset.bottom
         streamView.placeholderViewBlock = PlaceholderView.inboxPlaceholder()
         dataSource.addMetrics(StreamMetrics<InboxImageCell>(size: InboxImageCell.DefaultHeight)).setupWithStyle(.Image)
         dataSource.addMetrics(StreamMetrics<InboxTextCell>(size: InboxTextCell.DefaultHeight)).setupWithStyle(.Text)

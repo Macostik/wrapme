@@ -9,6 +9,52 @@
 import UIKit
 import AudioToolbox
 
+final class UnreadMessagesBackgroundView: UIView {
+    
+    override func drawRect(rect: CGRect) {
+        
+        let ctx = UIGraphicsGetCurrentContext()
+        
+        Color.dangerRed.set()
+        
+        CGContextSaveGState(ctx)
+        
+        CGContextSetShadowWithColor(ctx, 0 ^ 0, rect.size.height, Color.grayLighter.colorWithAlphaComponent(0.333).CGColor)
+        
+        var path = UIBezierPath(rect: (0 ^ (rect.size.height - 0.5)) ^ rect.size)
+        path.fill()
+        
+        CGContextRestoreGState(ctx)
+        
+        let roundedRect: CGRect = ((rect.size.width/2 - 100) ^ 0) ^ (200 ^ rect.size.height)
+        path = UIBezierPath(roundedRect: roundedRect, byRoundingCorners: [.TopLeft, .TopRight], cornerRadii: 7 ^ 7)
+        path.fill()
+    }
+}
+
+final class UnreadMessagesView: StreamReusableView {
+    
+    override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
+        backgroundColor = UIColor.clearColor()
+        
+        let background = UnreadMessagesBackgroundView()
+        addSubview(background)
+        background.backgroundColor = UIColor.clearColor()
+        
+        let label = Label(preset: .Smaller, weight: .Regular, textColor: UIColor.whiteColor())
+        label.text = "unread_messages".ls
+        add(label) { (make) in
+            make.center.equalTo(self)
+        }
+        
+        background.snp_makeConstraints { (make) in
+            make.leading.trailing.equalTo(self)
+            make.top.equalTo(label).offset(-4)
+            make.bottom.equalTo(label).offset(4)
+        }
+    }
+}
+
 final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, StreamViewDataSource, EntryNotifying, ComposeBarDelegate {
     
     weak var badge: BadgeLabel?
@@ -32,37 +78,9 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
     private var myMessageMetrics = StreamMetrics<MyMessageCell>().change({ $0.selectable = false })
     private var dateMetrics = StreamMetrics<MessageDateView>(size: 33).change({ $0.selectable = false })
     
-    private var unreadMessagesMetrics = StreamMetrics<StreamReusableView>(layoutBlock: { view in
-        let label = Label(preset: .Small, weight: .Regular, textColor: Color.grayLightest)
-        label.text = "unread_messages".ls
-        view.add(label) { (make) -> Void in
-            make.center.equalTo(view)
-        }
-        let border = UIView()
-        border.backgroundColor = Color.dangerRed
-        border.cornerRadius = 16
-        view.insertSubview(border, belowSubview: label)
-        border.snp_makeConstraints(closure: { (make) in
-            make.leading.equalTo(label).offset(-16)
-            make.trailing.equalTo(label).offset(16)
-            make.centerY.equalTo(label)
-            make.height.equalTo(32)
-        })
-        let leftLine = UIView()
-        leftLine.backgroundColor = Color.dangerRed
-        view.add(leftLine) { (make) in
-            make.centerY.leading.equalTo(view)
-            make.trailing.equalTo(border.snp_leading)
-            make.height.equalTo(1)
-        }
-        let rightLine = UIView()
-        rightLine.backgroundColor = Color.dangerRed
-        view.add(rightLine) { (make) in
-            make.centerY.trailing.equalTo(view)
-            make.leading.equalTo(border.snp_trailing)
-            make.height.equalTo(1)
-        }
-    }, size: 46).change({ $0.selectable = false })
+    private var unreadMessagesMetrics = StreamMetrics<UnreadMessagesView>(size: 46).change({
+        $0.selectable = false
+    })
     
     private var dragged = false
     
@@ -139,7 +157,6 @@ final class ChatViewController: WrapBaseViewController, UIScrollViewDelegate, St
         messageWithNameMetrics.modifyItem = { [weak self] item in
             guard let message = item.entry as? Message else { return }
             item.size = self?.chat.heightOfMessageCell(message) ?? 0.0
-//            item.insets.origin.y = message.chatMetadata.containsDate ? 0 : message.chatMetadata.isGroup ? Chat.MessageGroupSpacing : 0
             item.insets.size.height = message.chatMetadata.isGroupEnd ? Chat.MessageGroupSpacing : Chat.MessageSpacing
         }
         messageMetrics.modifyItem = messageWithNameMetrics.modifyItem

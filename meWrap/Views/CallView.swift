@@ -390,7 +390,7 @@ class CallView: UIView, SINCallDelegate {
     
     func callDidEstablish(call: SINCall!) {
         _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: [])
-        _ = try? AVAudioSession.sharedInstance().setMode(isVideo ? AVAudioSessionModeVideoChat : AVAudioSessionModeVoiceChat)
+        _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeVoiceChat)
         _ = try? AVAudioSession.sharedInstance().setActive(true)
         stopPlayingSound()
         speakerButton.hidden = false

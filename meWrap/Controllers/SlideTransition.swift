@@ -107,7 +107,9 @@ final class ShrinkTransition: SlideTransition {
                 if let previousView = UINavigationController.main.viewControllers.suffix(2).first?.view {
                     UINavigationController.main.view.insertSubview(previousView, atIndex: 0)
                 }
-                controller?.setBarsHidden(true, animated: true)
+                controller?.setBarsHidden(true, animated: true, additionalAnimation: {
+                    self.controller?.commentButton.alpha = 0
+                })
                 contentView.transform = CGAffineTransformMakeTranslation(0, translation.y)
                 controller?.view?.backgroundColor = UIColor(white: 0, alpha: 1 - percentCompleted)
             case .Ended, .Cancelled:
@@ -126,7 +128,9 @@ final class ShrinkTransition: SlideTransition {
                         contentView.transform = CGAffineTransformIdentity
                         }, completion: { _ in
                             UINavigationController.main.viewControllers.suffix(2).first?.view.removeFromSuperview()
-                            self.controller?.setBarsHidden(false, animated: true)
+                            self.controller?.setBarsHidden(false, animated: true, additionalAnimation: {
+                                self.controller?.commentButton.alpha = 1
+                            })
                     })
                 }
             default:break
@@ -154,7 +158,9 @@ final class ShrinkTransition: SlideTransition {
             if let previousView = UINavigationController.main.viewControllers.suffix(2).first?.view {
                 UINavigationController.main.view.insertSubview(previousView, atIndex: 0)
             }
-            controller?.setBarsHidden(true, animated: true)
+            controller?.setBarsHidden(true, animated: true, additionalAnimation: {
+                self.controller?.commentButton.alpha = 0
+            })
         case .Changed:
             imageView?.transform = CGAffineTransformMakeTranslation(translation.x, translation.y)
             controller?.view?.backgroundColor = UIColor(white: 0, alpha: 1 - percentCompleted)
@@ -179,7 +185,9 @@ final class ShrinkTransition: SlideTransition {
                         contentView.hidden = false
                         self.imageView?.removeFromSuperview()
                         UINavigationController.main.viewControllers.suffix(2).first?.view.removeFromSuperview()
-                        self.controller?.setBarsHidden(false, animated: true)
+                        self.controller?.setBarsHidden(false, animated: true, additionalAnimation: {
+                            self.controller?.commentButton.alpha = 1
+                        })
                         UIView.animateWithDuration(0.5, animations: { cell?.gradientView.alpha = 1.0 })
                 })
             }

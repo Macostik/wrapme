@@ -643,26 +643,14 @@ final class HistoryViewController: SwipeViewController<CandyViewController>, Ent
         }
     }
     
-    func setBarsHidden(hidden: Bool, animated: Bool) {
+    func setBarsHidden(hidden: Bool, animated: Bool, additionalAnimation: (() -> ())? = nil) {
         animate(animated, duration: 0.3) {
-            for contraint in visibleBarsContrains {
-                if hidden {
-                    contraint.updatePriorityLow()
-                } else {
-                    contraint.updatePriorityHigh()
-                }
-            }
-            for contraint in invisibleBarsContrains {
-                if hidden {
-                    contraint.updatePriorityHigh()
-                } else {
-                    contraint.updatePriorityLow()
-                }
-            }
+            visibleBarsContrains.all { $0.updatePriority(hidden ? 250 : 750) }
+            invisibleBarsContrains.all { $0.updatePriority(hidden ? 750 : 250) }
             if animated {
                 view.layoutIfNeeded()
             }
-
+            additionalAnimation?()
         }
     }
     

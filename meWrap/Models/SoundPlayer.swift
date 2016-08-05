@@ -12,21 +12,19 @@ import AVFoundation
 
 struct AudioSession {
     
-    static var category: String? {
-        didSet {
-            if let category = category where category != oldValue {
-                _ = try? AVAudioSession.sharedInstance().setCategory(category)
-                _ = try? AVAudioSession.sharedInstance().setActive(true)
-            }
+    static var category: String {
+        get { return AVAudioSession.sharedInstance().category }
+        set {
+            _ = try? AVAudioSession.sharedInstance().setCategory(newValue)
+            _ = try? AVAudioSession.sharedInstance().setActive(true)
         }
     }
     
-    static var mode: String? {
-        didSet {
-            if let mode = mode where mode != oldValue {
-                _ = try? AVAudioSession.sharedInstance().setMode(mode)
-                _ = try? AVAudioSession.sharedInstance().setActive(true)
-            }
+    static var mode: String {
+        get { return AVAudioSession.sharedInstance().mode }
+        set {
+            _ = try? AVAudioSession.sharedInstance().setMode(newValue)
+            _ = try? AVAudioSession.sharedInstance().setActive(true)
         }
     }
 }

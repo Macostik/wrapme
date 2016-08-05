@@ -392,6 +392,9 @@ class CallView: UIView, SINCallDelegate {
         _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: [])
         _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeVoiceChat)
         _ = try? AVAudioSession.sharedInstance().setActive(true)
+        if isVideo {
+            _ = try? AVAudioSession.sharedInstance().overrideOutputAudioPort(.Speaker)
+        }
         stopPlayingSound()
         speakerButton.hidden = false
         microphoneButton.hidden = false

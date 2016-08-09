@@ -33,6 +33,8 @@ class Button : UIButton, FontPresetable {
         setTitle(icon, forState: .Normal)
         setTitleColor(textColor, forState: .Normal)
         setTitleColor(textColor.darkerColor(), forState: .Highlighted)
+        setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
     }
     
     convenience init(preset: Font, weight: Font.Weight = .Light, textColor: UIColor = Color.grayDarker) {

@@ -390,7 +390,6 @@ class CallView: UIView, SINCallDelegate {
     
     func callDidEstablish(call: SINCall!) {
         _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: [])
-        _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeVoiceChat)
         _ = try? AVAudioSession.sharedInstance().setActive(true)
         if isVideo {
             _ = try? AVAudioSession.sharedInstance().overrideOutputAudioPort(.Speaker)

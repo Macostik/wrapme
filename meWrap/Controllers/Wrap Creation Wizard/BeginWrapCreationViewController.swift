@@ -40,7 +40,7 @@ final class BeginWrapCreationViewController: BaseViewController {
             make.leading.equalTo(view).offset(12)
             make.trailing.equalTo(view).offset(-12)
         }
-        let p2pBackground = UIImageView(image: UIImage(named: "create_wrap_step_first"))
+        let p2pBackground = UIImageView(image: UIImage(named: "p2p_background"))
         p2pBackground.contentMode = .ScaleAspectFill
         p2pView.add(p2pBackground) { (make) in
             make.leading.top.trailing.equalTo(p2pView)
@@ -69,7 +69,7 @@ final class BeginWrapCreationViewController: BaseViewController {
             make.leading.equalTo(view).offset(12)
             make.trailing.bottom.equalTo(view).offset(-12)
         }
-        let groupBackground = UIImageView(image: UIImage(named: "create_wrap_step_last"))
+        let groupBackground = UIImageView(image: UIImage(named: "group_background"))
         groupBackground.contentMode = .ScaleAspectFill
         groupView.add(groupBackground) { (make) in
             make.leading.bottom.trailing.equalTo(groupView)
@@ -107,7 +107,7 @@ final class BeginWrapCreationViewController: BaseViewController {
     }
     
     @objc private func createP2PWrap(sender: AnyObject) {
-        addFriends(nil, backgroundImage: UIImage(named: "create_wrap_step_first"))
+        addFriends(nil, backgroundImage: UIImage(named: "p2p_background"))
     }
     
     private func addFriends(name: String?, backgroundImage: UIImage?) {
@@ -145,7 +145,7 @@ final class BeginWrapCreationViewController: BaseViewController {
     
     @objc private func createGroupWrap(sender: AnyObject) {
         let controller = WrapNameViewController()
-        controller.backgroundImageView.image = UIImage(named: "create_wrap_step_last")
+        controller.backgroundImageView.image = UIImage(named: "group_background")
         controller.completionHandler = { [weak self] name in
             self?.addFriends(name, backgroundImage: controller.backgroundImageView.image)
         }

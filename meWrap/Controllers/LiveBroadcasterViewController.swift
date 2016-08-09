@@ -177,9 +177,9 @@ final class LiveBroadcasterViewController: LiveViewController {
                 //
                 config.videoWidth = 640
                 config.videoHeight = 480
-                config.videoFrameRate = 20
-                config.videoKeyFrameInterval = 20
-                config.videoBitrate = 280000
+                config.videoFrameRate = 30
+                config.videoKeyFrameInterval = 30
+                config.videoBitrate = 480000
                 config.videoBitrateLowBandwidthScalingFactor = 0.1
                 config.videoPreviewRotates = true
                 

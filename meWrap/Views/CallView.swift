@@ -55,6 +55,10 @@ class CallView: UIView, SINCallDelegate {
         $0.transform = CGAffineTransformMakeRotation(2.37)
     }
     
+    let logoView = UIView()
+    
+    let circleView = UIView()
+    
     private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
     
     required init(user: User, call: SINCall, isVideo: Bool, audioController: SINAudioController, videoController: SINVideoController) {
@@ -104,7 +108,6 @@ class CallView: UIView, SINCallDelegate {
         
         add(blurView) { $0.edges.equalTo(self) }
         
-        let logoView = UIView()
         add(logoView) { (make) in
             make.centerX.equalTo(self)
             make.top.equalTo(self).offset(32)
@@ -128,7 +131,7 @@ class CallView: UIView, SINCallDelegate {
             make.top.equalTo(logoView.snp_bottom).offset(50)
             make.size.equalTo(200)
         }
-        let circleView = UIView()
+        
         circleView.cornerRadius = 104
         circleView.setBorder(color: Color.orange, width: 2)
         insertSubview(circleView, belowSubview: avatarView)
@@ -386,11 +389,11 @@ class CallView: UIView, SINCallDelegate {
         startPlayingSound("ringback", loop: true)
     }
     
-    private weak var videoView: UIView?
+    private weak var topVideoView: UIView?
+    private weak var bottomVideoView: UIView?
     
     func callDidEstablish(call: SINCall!) {
         _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: [])
-        _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeVoiceChat)
         _ = try? AVAudioSession.sharedInstance().setActive(true)
         if isVideo {
             _ = try? AVAudioSession.sharedInstance().overrideOutputAudioPort(.Speaker)
@@ -418,106 +421,74 @@ class CallView: UIView, SINCallDelegate {
         
         if isVideo {
             
-            let videoView = UIView(frame: UIScreen.mainScreen().bounds)
+            blurView.hidden = true
+            avatarView.hidden = true
+            logoView.hidden = true
+            circleView.hidden = true
             
-            videoView.backgroundColor = UIColor.blackColor()
+            backgroundColor = UIColor.blackColor()
             
-            let remoteVideoView = UIView(frame: UIScreen.mainScreen().bounds)
+            let topVideoView = UIView()
             
-            videoView.add(remoteVideoView, { (make) in
-                make.edges.equalTo(videoView)
-            })
+            self.topVideoView = topVideoView
             
-            self.remoteVideoView = remoteVideoView
+            topVideoView.backgroundColor = UIColor(white: 0, alpha: 0.75)
             
-            self.videoView = videoView
-            
-            add(videoView, { (make) in
-                make.edges.equalTo(self)
-            })
-            
-            let topBlurView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
-            
-            videoView.add(topBlurView, { (make) in
-                make.leading.top.trailing.equalTo(videoView)
+            add(topVideoView, { (make) in
+                make.leading.top.trailing.equalTo(self)
             })
             
             nameLabel.removeFromSuperview()
-            topBlurView.add(nameLabel, {
-                $0.top.equalTo(topBlurView).offset(25)
-                $0.centerX.equalTo(topBlurView)
-                $0.leading.lessThanOrEqualTo(topBlurView).offset(12)
-                $0.trailing.lessThanOrEqualTo(topBlurView).offset(-12)
+            topVideoView.add(nameLabel, {
+                $0.top.equalTo(topVideoView).offset(25)
+                $0.centerX.equalTo(topVideoView)
+                $0.leading.lessThanOrEqualTo(topVideoView).offset(12)
+                $0.trailing.lessThanOrEqualTo(topVideoView).offset(-12)
             })
             infoLabel.removeFromSuperview()
-            topBlurView.add(infoLabel, {
+            topVideoView.add(infoLabel, {
                 $0.top.equalTo(nameLabel.snp_bottom).offset(2)
-                $0.centerX.equalTo(topBlurView)
-                $0.leading.lessThanOrEqualTo(topBlurView).offset(12)
-                $0.trailing.lessThanOrEqualTo(topBlurView).offset(-12)
-                $0.bottom.equalTo(topBlurView).offset(-5)
+                $0.centerX.equalTo(topVideoView)
+                $0.leading.lessThanOrEqualTo(topVideoView).offset(12)
+                $0.trailing.lessThanOrEqualTo(topVideoView).offset(-12)
+                $0.bottom.equalTo(topVideoView).offset(-5)
             })
             
-            let bottomBlurView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
+            let bottomVideoView = UIView()
+            self.bottomVideoView = bottomVideoView
+            bottomVideoView.backgroundColor = UIColor(white: 0, alpha: 0.75)
             
-            videoView.add(bottomBlurView, { (make) in
-                make.leading.bottom.trailing.equalTo(videoView)
+            add(bottomVideoView, { (make) in
+                make.leading.bottom.trailing.equalTo(self)
             })
             
-            bottomBlurView.addSubview(declineButton)
+            bottomVideoView.addSubview(declineButton)
             declineButton.snp_remakeConstraints(closure: { (make) in
-                make.top.equalTo(bottomBlurView).offset(5)
-                make.bottom.equalTo(bottomBlurView).offset(-5)
-                make.centerX.equalTo(bottomBlurView)
+                make.top.equalTo(bottomVideoView).offset(5)
+                make.bottom.equalTo(bottomVideoView).offset(-5)
+                make.centerX.equalTo(bottomVideoView)
                 make.size.equalTo(74)
             })
             
-            bottomBlurView.addSubview(microphoneButton)
+            bottomVideoView.addSubview(microphoneButton)
             microphoneButton.snp_remakeConstraints { (make) in
                 make.centerY.equalTo(declineButton)
-                make.centerX.equalTo(bottomBlurView).multipliedBy(1.5).offset(19)
+                make.centerX.equalTo(bottomVideoView).multipliedBy(1.5).offset(19)
                 make.size.equalTo(44)
             }
             
             if let localVideoView = localVideoView {
-                videoView.addSubview(localVideoView)
+                addSubview(localVideoView)
                 localVideoView.snp_remakeConstraints { (make) in
-                    make.leading.equalTo(videoView).offset(5)
-                    make.top.equalTo(topBlurView.snp_bottom).offset(5)
-                    make.width.equalTo(topBlurView).multipliedBy(0.25)
+                    make.leading.equalTo(self).offset(5)
+                    make.top.equalTo(topVideoView.snp_bottom).offset(5)
+                    make.width.equalTo(topVideoView).multipliedBy(0.25)
                     make.height.equalTo(localVideoView.snp_width).dividedBy(0.75)
                 }
             }
             
-            func setBlurViewsHidden(hidden: Bool) {
-                animate(animations: {
-                    topBlurView.alpha = hidden ? 0 : 1
-                    topBlurView.snp_remakeConstraints(closure: { (make) in
-                        if hidden {
-                            make.leading.trailing.equalTo(videoView)
-                            make.bottom.equalTo(videoView.snp_top).offset(20)
-                        } else {
-                            make.leading.top.trailing.equalTo(videoView)
-                        }
-                    })
-                    bottomBlurView.snp_remakeConstraints(closure: { (make) in
-                        if hidden {
-                            make.leading.trailing.equalTo(videoView)
-                            make.top.equalTo(videoView.snp_bottom)
-                        } else {
-                            make.leading.bottom.trailing.equalTo(videoView)
-                        }
-                    })
-                    videoView.layoutIfNeeded()
-                })
-            }
-            
-            Dispatch.mainQueue.after(3, block: { () in
-                setBlurViewsHidden(true)
-            })
-            
-            videoView.tapped({ (_) in
-                setBlurViewsHidden(topBlurView.frame.origin.y == 0)
+            Dispatch.mainQueue.after(3, block: { [weak self] () in
+                self?.setBlurViewsHidden(true)
             })
             
         } else {
@@ -527,6 +498,31 @@ class CallView: UIView, SINCallDelegate {
                 make.size.equalTo(74)
             }
         }
+    }
+    
+    private func setBlurViewsHidden(hidden: Bool) {
+        guard let topVideoView = topVideoView else { return }
+        guard let bottomVideoView = bottomVideoView else { return }
+        animate(animations: {
+            topVideoView.alpha = hidden ? 0 : 1
+            topVideoView.snp_remakeConstraints(closure: { (make) in
+                if hidden {
+                    make.leading.trailing.equalTo(self)
+                    make.bottom.equalTo(self.snp_top).offset(20)
+                } else {
+                    make.leading.top.trailing.equalTo(self)
+                }
+            })
+            bottomVideoView.snp_remakeConstraints(closure: { (make) in
+                if hidden {
+                    make.leading.trailing.equalTo(self)
+                    make.top.equalTo(self.snp_bottom)
+                } else {
+                    make.leading.bottom.trailing.equalTo(self)
+                }
+            })
+            self.layoutIfNeeded()
+        })
     }
     
     private var time = 0
@@ -585,10 +581,18 @@ class CallView: UIView, SINCallDelegate {
     private func endCall(reason: String?) {
         if isVideo {
             videoController.captureDevicePosition = .Front
-            if videoView != nil {
-                videoView?.removeFromSuperview()
+            if topVideoView != nil {
+                backgroundColor = UIColor.clearColor()
+                topVideoView?.removeFromSuperview()
+                bottomVideoView?.removeFromSuperview()
+                remoteVideoView?.removeFromSuperview()
                 layoutNameAndInfoLabels()
+                blurView.hidden = false
+                avatarView.hidden = false
+                logoView.hidden = false
+                circleView.hidden = false
             }
+            localVideoView?.removeFromSuperview()
         }
         updateTimerBlock = nil
         stopPlayingSound()
@@ -633,8 +637,12 @@ class CallView: UIView, SINCallDelegate {
     
     func callDidAddVideoTrack(call: SINCall!) {
         if let remoteVideoView = videoController.remoteView() {
-            self.remoteVideoView?.addSubview(remoteVideoView)
+            insertSubview(remoteVideoView, atIndex: 0)
+            self.remoteVideoView = remoteVideoView
             remoteVideoView.contentMode = .ScaleAspectFill
+            remoteVideoView.tapped({ [weak self] (_) in
+                self?.setBlurViewsHidden(self?.topVideoView?.frame.origin.y == 0)
+                })
         }
     }
 }

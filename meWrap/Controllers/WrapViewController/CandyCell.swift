@@ -190,7 +190,7 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
             player.startPlaying()
             playVideoButton.hidden = true
         } else {
-            playVideoButton.hidden = player.playing
+            playVideoButton.hidden = player.playing || !player.replayButton.hidden
         }
         videoPlayer = player
         player.add(player.replayButton) { (make) in

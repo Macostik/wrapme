@@ -384,14 +384,11 @@ class MediaViewController: WrapBaseViewController {
             make.centerY.equalTo(addPhotoButton)
         }
         
-        defaultButtonsLayout()
+        setScrollSensitiveInterfaceHidden(false, animated: false)
         
         streamView.trackScrollDirection = true
-        streamView.didScrollUp = { [weak self] _ in
-            self?.didScrollUp()
-        }
-        streamView.didScrollDown = { [weak self] _ in
-            self?.didScrollDown()
+        streamView.scrollDirectionChanged = { [weak self] isUp -> () in
+            self?.setScrollSensitiveInterfaceHidden(isUp, animated: true)
         }
         
         let didEndDecelerating: () -> () = { [weak self] _ in
@@ -401,31 +398,22 @@ class MediaViewController: WrapBaseViewController {
         mosaicDataSource.didEndDecelerating = didEndDecelerating
     }
     
-    private func didScrollUp() {
+    
+    private func setScrollSensitiveInterfaceHidden(hidden: Bool, animated: Bool) {
         addPhotoButton.snp_remakeConstraints { (make) in
             make.size.equalTo(82)
-            make.top.equalTo(view.snp_bottom).offset(4)
+            if hidden {
+                make.top.equalTo(view.snp_bottom).offset(4)
+            } else {
+                make.bottom.equalTo(view).offset(-4)
+            }
             make.centerX.equalTo(view)
         }
-        animate {
-            (parentViewController as? WrapViewController)?.setTopViewsHidden(true)
-            view.layoutIfNeeded()
-        }
-    }
-    
-    private func defaultButtonsLayout() {
-        addPhotoButton.snp_remakeConstraints { (make) in
-            make.size.equalTo(82)
-            make.bottom.equalTo(view).offset(-4)
-            make.centerX.equalTo(view)
-        }
-    }
-    
-    private func didScrollDown() {
-        defaultButtonsLayout()
-        animate {
-            (parentViewController as? WrapViewController)?.setTopViewsHidden(false)
-            view.layoutIfNeeded()
+        if animated {
+            animate() {
+                (parentViewController as? WrapViewController)?.setTopViewsHidden(hidden)
+                view.layoutIfNeeded()
+            }
         }
     }
     

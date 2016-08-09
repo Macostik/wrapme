@@ -92,8 +92,8 @@ final class CallCenter: NSObject, SINCallDelegate, SINManagedPushDelegate {
     
     func disable() {
         if let sinch = _sinch {
-            sinch.stop()
-            _sinch = nil
+            sinch.unregisterPushNotificationDeviceToken()
+            sinch.terminateGracefully()
         }
     }
     
@@ -122,7 +122,7 @@ extension CallCenter: SINCallClientDelegate {
         guard let call = call else { return }
         guard let audioController = sinch.audioController() else { return }
         guard let videoController = sinch.videoController() else { return }
-        guard let user = User.entry(call.remoteUserId) else { return }
+        guard let user = User.entry(call.remoteUserId) where !user.current else { return }
         user.fetchIfNeeded({ _ in
             if let wrap = user.p2pWrap {
                 wrap.missedCallDate = NSDate()

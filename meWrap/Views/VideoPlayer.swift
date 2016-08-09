@@ -229,7 +229,7 @@ final class VideoPlayer: UIView {
                 playing = false
                 replayButton.hidden = false
                 volumeButton.hidden = true
-                if width > 200 {
+                if width >= Constants.screenWidth {
                     replayButton.titleLabel?.font = .icons(36)
                 }
             } else {

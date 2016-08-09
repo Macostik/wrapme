@@ -209,12 +209,9 @@ final class InboxViewController: WrapBaseViewController {
         view.add(streamView) { (make) in
             make.edges.equalTo(view)
         }
-        view.add(clearButton) { (make) in
-            make.bottom.equalTo(view).offset(-20)
-            make.centerX.equalTo(view)
-            make.height.equalTo(44)
-            make.width.equalTo(180)
-        }
+        clearButton.insets = 44 ^ 22
+        view.addSubview(clearButton)
+        setScrollSensitiveInterfaceHidden(false, animated: false)
         streamView.alwaysBounceVertical = true
         streamView.contentInset.bottom = 88
         streamView.scrollIndicatorInsets.bottom = streamView.contentInset.bottom
@@ -223,43 +220,28 @@ final class InboxViewController: WrapBaseViewController {
         dataSource.addMetrics(StreamMetrics<InboxTextCell>(size: InboxTextCell.DefaultHeight)).setupWithStyle(.Text)
         
         streamView.trackScrollDirection = true
-        streamView.didScrollUp = { [weak self] _ in
-            self?.didScrollUp()
+        streamView.scrollDirectionChanged = { [weak self] isUp -> () in
+            self?.setScrollSensitiveInterfaceHidden(isUp, animated: true)
         }
-        streamView.didScrollDown = { [weak self] _ in
-            self?.didScrollDown()
-        }
-        
         dataSource.didEndDecelerating = { [weak self] _ in
             self?.streamView.direction = .Down
         }
     }
     
-    private func didScrollUp() {
+    private func setScrollSensitiveInterfaceHidden(hidden: Bool, animated: Bool) {
         clearButton.snp_remakeConstraints { (make) in
-            make.top.equalTo(view.snp_bottom).offset(20)
+            if hidden {
+                make.top.equalTo(view.snp_bottom).offset(20)
+            } else {
+                make.bottom.equalTo(view).offset(-20)
+            }
             make.centerX.equalTo(view)
             make.height.equalTo(44)
-            make.width.equalTo(180)
         }
-        animate {
-            view.layoutIfNeeded()
-        }
-    }
-    
-    private func defaultButtonsLayout() {
-        clearButton.snp_remakeConstraints { (make) in
-            make.bottom.equalTo(view).offset(-20)
-            make.centerX.equalTo(view)
-            make.height.equalTo(44)
-            make.width.equalTo(180)
-        }
-    }
-    
-    private func didScrollDown() {
-        defaultButtonsLayout()
-        animate {
-            view.layoutIfNeeded()
+        if animated {
+            animate() {
+                view.layoutIfNeeded()
+            }
         }
     }
     

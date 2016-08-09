@@ -50,8 +50,7 @@ class NewWrapCreatedViewController: BaseViewController {
             make.bottom.equalTo(view).offset(-44)
             make.centerX.equalTo(view)
             make.height.equalTo(160)
-            make.width.lessThanOrEqualTo(350)
-            make.width.equalTo(view).inset(12).priorityLow()
+            make.width.equalTo(296)
         }
         
         let actionTopView = UIView()

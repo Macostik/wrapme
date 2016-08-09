@@ -321,6 +321,7 @@ final class AddFriendsViewController: AddContributorsViewController, SelectedAdd
     }
     
     override func recordCell(cell: AddressBookRecordCell, didSelectPhoneNumber phoneNumber: AddressBookPhoneNumber) {
+        let singleSearchResult = !(searchField.text?.isEmpty ?? true) && streamView.visibleItems().count == 1
         if !p2p || addressBook.selectionIsEmpty() {
             super.recordCell(cell, didSelectPhoneNumber: phoneNumber)
         }
@@ -342,6 +343,12 @@ final class AddFriendsViewController: AddContributorsViewController, SelectedAdd
             disableAdding = true
         } else {
             disableAdding = false
+            if singleSearchResult {
+                searchField.text = ""
+                if showAllContacts {
+                    showAllContacts = false
+                }
+            }
         }
         updateNextButton(isEmpty)
     }

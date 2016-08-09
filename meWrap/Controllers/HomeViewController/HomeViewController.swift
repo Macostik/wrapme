@@ -113,44 +113,32 @@ final class HomeViewController: BaseViewController {
         photoButton.exclusiveTouch = true
         photoButton.addTarget(self, touchUpInside: #selector(self.addPhoto(_:)))
         view.addSubview(photoButton)
-        defaultPhotoButtonLayout()
+        setScrollSensitiveInterfaceHidden(false, animated: false)
         streamView.contentInset = UIEdgeInsetsMake(0, 0, 92, 0)
         streamView.scrollIndicatorInsets = streamView.contentInset
         streamView.trackScrollDirection = true
-        streamView.didScrollUp = { [weak self] _ in
-            self?.didScrollUp()
-        }
-        streamView.didScrollDown = { [weak self] _ in
-            self?.didScrollDown()
+        streamView.scrollDirectionChanged = { [weak self] isUp -> () in
+            self?.setScrollSensitiveInterfaceHidden(isUp, animated: true)
         }
         dataSource.didEndDecelerating = { [weak self] _ in
             self?.streamView.direction = .Down
         }
     }
     
-    private func didScrollUp() {
+    private func setScrollSensitiveInterfaceHidden(hidden: Bool, animated: Bool) {
         photoButton.snp_remakeConstraints { (make) in
             make.size.equalTo(82)
-            make.top.equalTo(view.snp_bottom).offset(4)
+            if hidden {
+                make.top.equalTo(view.snp_bottom).offset(4)
+            } else {
+                make.bottom.equalTo(view).offset(-4)
+            }
             make.centerX.equalTo(view)
         }
-        animate {
-            view.layoutIfNeeded()
-        }
-    }
-    
-    private func defaultPhotoButtonLayout() {
-        photoButton.snp_remakeConstraints { (make) in
-            make.size.equalTo(82)
-            make.bottom.equalTo(view).offset(-4)
-            make.centerX.equalTo(view)
-        }
-    }
-    
-    private func didScrollDown() {
-        defaultPhotoButtonLayout()
-        animate {
-            view.layoutIfNeeded()
+        if animated {
+            animate() {
+                view.layoutIfNeeded()
+            }
         }
     }
     

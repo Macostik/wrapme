@@ -137,6 +137,8 @@ final class WrapSettingsViewController: BaseViewController, EntryNotifying, Edit
             }
             
             if isAdmin {
+                restrictSwitch.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+                restrictSwitch.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
                 view.add(restrictSwitch) { (make) in
                     make.centerY.equalTo(restrictLabel)
                     make.trailing.equalTo(view).offset(-12)

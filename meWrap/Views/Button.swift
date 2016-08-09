@@ -233,10 +233,14 @@ extension Button {
     func makeWizardButton(with title: String) -> (tick: Label, label: Label) {
         let tick = Label(icon: "E", size: 17, textColor: Color.orange)
         tick.highlightedTextColor = Color.orangeDark
+        tick.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        tick.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
         add(tick) { (make) in
             make.leading.top.bottom.equalTo(self)
         }
         let nextLabel = Label(preset: .Large, weight: .Light, textColor: Color.orange)
+        nextLabel.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        nextLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
         nextLabel.text = title
         nextLabel.highlightedTextColor = Color.orangeDark
         add(nextLabel) { (make) in

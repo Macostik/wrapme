@@ -525,7 +525,7 @@ final class WrapViewController: WrapBaseViewController {
     private func updateFriendsBar(wrap: Wrap) {
         
         guard !wrap.p2p else {
-            hasMissedCall = wrap.missedCallDate != nil && !CallView.isVisible
+            hasMissedCall = wrap.missedCallDate != nil && !CallViewController.isVisible
             if let friend = wrap.contributors.filter({ !$0.current }).first {
                 friendStatus.text = friend.isOnline ? "online".ls : "offline".ls
                 friendName.text = friend.name

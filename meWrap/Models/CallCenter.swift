@@ -48,7 +48,7 @@ final class CallCenter: NSObject, SINCallDelegate, SINManagedPushDelegate {
         guard let call = isVideo ? sinch.callClient().callUserVideoWithId(user.uid) : sinch.callClient().callUserWithId(user.uid) else { return }
         guard let audioController = sinch.audioController() else { return }
         guard let videoController = sinch.videoController() else { return }
-        CallView(user: user, call: call, isVideo: isVideo, audioController: audioController, videoController: videoController).present()
+        CallViewController(user: user, call: call, isVideo: isVideo, audioController: audioController, videoController: videoController).present()
     }
     
     var push: SINManagedPush?
@@ -129,7 +129,7 @@ extension CallCenter: SINCallClientDelegate {
                 wrap.numberOfMissedCalls = wrap.numberOfMissedCalls + 1
             }
             
-            CallView(user: user, call: call, isVideo: call.details.videoOffered, audioController: audioController, videoController: videoController).present()
+            CallViewController(user: user, call: call, isVideo: call.details.videoOffered, audioController: audioController, videoController: videoController).present()
         }) { _ in
         }
     }

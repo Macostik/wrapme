@@ -172,11 +172,9 @@ class CallViewController: UIViewController, SINCallDelegate {
                 make.size.equalTo(44)
             }
             
-            if !isVideo {
-                startAcceptButtonAnimation()
-                startCallAnimation()
-                acceptButton.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.acceptButtonPanning(_:))))
-            }
+            startAcceptButtonAnimation()
+            startCallAnimation()
+            acceptButton.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.acceptButtonPanning(_:))))
             acceptButton.addTarget(self, action: #selector(self.accept(_:)), forControlEvents: .TouchUpInside)
             
         } else {

@@ -91,11 +91,27 @@ final class PhoneViewController: SignupStepViewController {
         }
     }
     
+    private func validatePhoneNumber(phone: String) -> Bool {
+        let util = NBPhoneNumberUtil()
+        let phone = phoneNumberTextField.text?.clearPhoneNumber()
+        do {
+            let number = try util.parse(phone, defaultRegion: country.code)
+            return util.isValidNumber(number)
+        } catch {
+            Toast.show(String(format: "f_not_valid_phone_number".ls, phoneNumberTextField.text ?? ""))
+            return false
+        }
+    }
+    
     @IBAction func next(sender: Button) {
+        
+        guard let phone = phoneNumberTextField.text?.clearPhoneNumber() where validatePhoneNumber(phone) else {
+            return
+        }
         view.endEditing(true)
         let authorization = Authorization.current
         authorization.countryCode = country.callingCode
-        authorization.phone = phoneNumberTextField.text?.clearPhoneNumber()
+        authorization.phone = phone
         authorization.formattedPhone = phoneNumberTextField.text
         confirmAuthorization(authorization) { [weak self] _ in
             sender.loading = true

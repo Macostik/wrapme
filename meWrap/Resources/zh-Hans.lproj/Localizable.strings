@@ -382,3 +382,4 @@
 "missed_call" = "Missed call";
 "missed_calls" = "Missed calls";
 "dismiss" = "Dismiss";
+"f_not_valid_phone_number" = "%@ is not valid phone number";

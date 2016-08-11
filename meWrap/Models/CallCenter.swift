@@ -112,7 +112,9 @@ extension CallCenter: SINClientDelegate {
         }
     }
     
-    func client(client: SINClient!, logMessage message: String!, area: String!, severity: SINLogSeverity, timestamp: NSDate!) {}
+    func client(client: SINClient!, logMessage message: String!, area: String!, severity: SINLogSeverity, timestamp: NSDate!) {
+        print("SINClient - \(area): \(message)")
+    }
 }
 
 extension CallCenter: SINCallClientDelegate {

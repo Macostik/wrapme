@@ -12,39 +12,76 @@ final class BeginWrapCreationViewController: BaseViewController {
     
     let p2pButton = Button(type: .Custom)
     let groupButton = Button(type: .Custom)
-    let closeButton = Button(icon: "!", size: 15, textColor: Color.orange)
+    let closeButton = Button(icon: "V", size: 20, textColor: .whiteColor())
+    
+    func mask(isTop: Bool) -> CAShapeLayer {
+        let layer = CAShapeLayer()
+        let radius: CGFloat = 6
+        let maxX = ScreenSize.width - 40
+        let maxY = ScreenSize.height/2 - 80
+        let pi = CGFloat(M_PI)
+        let path = UIBezierPath()
+        path.addArcWithCenter((radius) ^ (radius), radius: radius, startAngle: pi, endAngle: pi * 1.5, clockwise: true)
+        if isTop {
+            path.line((maxX - radius) ^ 0)
+        } else {
+            path.line((maxX/2 - 16) ^ 0)
+            path.addArcWithCenter(maxX/2 ^ -6, radius: 16, startAngle: pi, endAngle: 0, clockwise: false)
+            path.line((maxX - radius) ^ 0)
+        }
+        path.addArcWithCenter((maxX - radius) ^ radius, radius: radius, startAngle: pi * 1.5, endAngle: 0, clockwise: true)
+        path.line(maxX ^ (maxY - radius))
+        path.addArcWithCenter((maxX - radius) ^ (maxY - radius), radius: radius, startAngle: 0, endAngle: pi * 0.5, clockwise: true)
+        if isTop {
+            path.line((maxX/2 + 16) ^ maxY)
+            path.addArcWithCenter(maxX/2 ^ (maxY + 6), radius: 16, startAngle: 0, endAngle: pi, clockwise: false)
+            path.line((radius) ^ maxY)
+        } else {
+            path.line((radius) ^ maxY)
+        }
+        path.addArcWithCenter((radius) ^ (maxY - radius), radius: radius, startAngle: pi * 0.5, endAngle: pi, clockwise: true)
+        path.closePath()
+        layer.path = path.CGPath
+        return layer
+    }
     
     override func loadView() {
         super.loadView()
-        view.backgroundColor = Color.grayDarker
+        
+        let p2pBackgroundImage = UIImage(named: "p2p_background")
+        let backgroundImageView = UIImageView(image: p2pBackgroundImage)
+        backgroundImageView.contentMode = .ScaleAspectFill
+        
+        view.add(backgroundImageView) { $0.edges.equalTo(view) }
+        view.add(UIVisualEffectView(effect: UIBlurEffect(style: .Dark))) { $0.edges.equalTo(view) }
         
         view.add(closeButton) { (make) in
             make.top.equalTo(view).offset(32)
-            make.trailing.equalTo(view).offset(-12)
+            make.trailing.equalTo(view).offset(-20)
         }
         
         let title = Label(preset: .Large, weight: .Regular, textColor: UIColor.whiteColor())
         title.text = "create_new_wrap".ls
         view.add(title) { (make) in
             make.centerY.equalTo(closeButton)
-            make.leading.equalTo(view).offset(12)
+            make.leading.equalTo(view).offset(20)
             make.trailing.lessThanOrEqualTo(closeButton.snp_leading).offset(-12)
         }
         
         let p2pView = UIView()
-        p2pView.cornerRadius = 6
-        p2pView.clipsToBounds = true
+        p2pView.layer.mask = mask(true)
         p2pView.backgroundColor = Color.orange
         view.add(p2pView) { (make) in
-            make.top.equalTo(closeButton.snp_bottom).offset(12)
-            make.leading.equalTo(view).offset(12)
-            make.trailing.equalTo(view).offset(-12)
+            make.height.equalTo(view).multipliedBy(0.5).offset(-80)
+            make.leading.equalTo(view).offset(20)
+            make.trailing.equalTo(view).offset(-20)
+            make.bottom.equalTo(view.snp_centerY).offset(4)
         }
-        let p2pBackground = UIImageView(image: UIImage(named: "p2p_background"))
+        let p2pBackground = UIImageView(image: p2pBackgroundImage)
         p2pBackground.contentMode = .ScaleAspectFill
+        p2pBackground.clipsToBounds = true
         p2pView.add(p2pBackground) { (make) in
             make.leading.top.trailing.equalTo(p2pView)
-            make.bottom.equalTo(p2pView).offset(-50)
         }
         p2pButton.highlightedColor = Color.grayDarker.colorWithAlphaComponent(0.75)
         p2pView.add(p2pButton) { (make) in
@@ -54,26 +91,26 @@ final class BeginWrapCreationViewController: BaseViewController {
         p2pLabel.highlightedTextColor = Color.grayLighter
         p2pLabel.text = "p2p_wrap".ls
         p2pView.add(p2pLabel) { (make) in
-            make.centerX.equalTo(p2pView)
-            make.centerY.equalTo(p2pView.snp_bottom).offset(-25)
+            make.top.equalTo(p2pBackground.snp_bottom)
+            make.centerX.bottom.equalTo(p2pView)
+            make.height.equalTo(50)
         }
         p2pButton.highlightings = [p2pLabel]
         
         let groupView = UIView()
-        groupView.cornerRadius = 6
-        groupView.clipsToBounds = true
+        groupView.layer.mask = mask(false)
         groupView.backgroundColor = Color.orange
         view.add(groupView) { (make) in
-            make.height.equalTo(p2pView)
-            make.top.equalTo(p2pView.snp_bottom).offset(12)
-            make.leading.equalTo(view).offset(12)
-            make.trailing.bottom.equalTo(view).offset(-12)
+            make.height.equalTo(view).multipliedBy(0.5).offset(-80)
+            make.top.equalTo(view.snp_centerY).offset(16)
+            make.leading.equalTo(view).offset(20)
+            make.trailing.equalTo(view).offset(-20)
         }
         let groupBackground = UIImageView(image: UIImage(named: "group_background"))
+        groupBackground.clipsToBounds = true
         groupBackground.contentMode = .ScaleAspectFill
         groupView.add(groupBackground) { (make) in
             make.leading.bottom.trailing.equalTo(groupView)
-            make.top.equalTo(groupView).offset(50)
         }
         groupButton.highlightedColor = Color.grayDarker.colorWithAlphaComponent(0.75)
         groupView.add(groupButton) { (make) in
@@ -84,21 +121,17 @@ final class BeginWrapCreationViewController: BaseViewController {
         groupLabel.highlightedTextColor = Color.grayLighter
         groupLabel.text = "group_wrap".ls
         groupView.add(groupLabel) { (make) in
-            make.centerX.equalTo(groupView)
-            make.centerY.equalTo(groupView.snp_top).offset(25)
+            make.bottom.equalTo(groupBackground.snp_top)
+            make.centerX.top.equalTo(groupView)
+            make.height.equalTo(50)
         }
         groupButton.highlightings = [groupLabel]
         
         let orLabel = Label(preset: .Smaller, weight: .Bold, textColor: Color.orange)
         orLabel.text = "or".ls
-        orLabel.cornerRadius = 16
-        orLabel.clipsToBounds = true
-        orLabel.textAlignment = .Center
-        orLabel.backgroundColor = view.backgroundColor
         view.add(orLabel) { (make) in
             make.centerX.equalTo(view)
-            make.centerY.equalTo(p2pView.snp_bottom).offset(6)
-            make.size.equalTo(32)
+            make.centerY.equalTo(view).offset(10)
         }
         
         groupButton.addTarget(self, touchUpInside: #selector(self.createGroupWrap(_:)))

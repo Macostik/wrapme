@@ -8,6 +8,8 @@
 
 import UIKit
 
+let ScreenSize = UIScreen.mainScreen().bounds.size
+
 extension UIDevice {
     
     func hardwareModel() -> String {

@@ -21,7 +21,7 @@ class SelectedAddressBookRecordCell: EntryStreamReusableView<ArrangedAddressBook
     
     private let infoLabel = Label(preset: .Smaller, weight: .Regular, textColor: AddContributorsViewController.darkStyle ? .whiteColor() : Color.grayLight)
     private let phoneNumbersLabel = Label(preset: .Smaller, weight: .Regular, textColor: AddContributorsViewController.darkStyle ? Color.grayLighter : Color.grayLight)
-    private let removeButton = specify(Button(icon: "!", size: 18)) {
+    private let removeButton = specify(Button(icon: "V", size: 20)) {
         $0.setTitleColor(Color.grayLighter, forState: .Highlighted)
     }
     private let avatarView = specify(StatusUserAvatarView(cornerRadius: 24)) {

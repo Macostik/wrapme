@@ -14,10 +14,10 @@ final class BeginWrapCreationViewController: BaseViewController {
     let groupButton = Button(type: .Custom)
     let closeButton = Button(icon: "V", size: 20, textColor: .whiteColor())
     
-    func mask(isTop: Bool) -> CAShapeLayer {
+    private func mask(isTop: Bool) -> CAShapeLayer {
         let layer = CAShapeLayer()
         let radius: CGFloat = 6
-        let maxX = ScreenSize.width - 40
+        let maxX = ScreenSize.width - 32
         let maxY = ScreenSize.height/2 - 80
         let pi = CGFloat(M_PI)
         let path = UIBezierPath()
@@ -26,7 +26,7 @@ final class BeginWrapCreationViewController: BaseViewController {
             path.line((maxX - radius) ^ 0)
         } else {
             path.line((maxX/2 - 16) ^ 0)
-            path.addArcWithCenter(maxX/2 ^ -6, radius: 16, startAngle: pi, endAngle: 0, clockwise: false)
+            path.addArcWithCenter(maxX/2 ^ -4, radius: 16, startAngle: pi, endAngle: 0, clockwise: false)
             path.line((maxX - radius) ^ 0)
         }
         path.addArcWithCenter((maxX - radius) ^ radius, radius: radius, startAngle: pi * 1.5, endAngle: 0, clockwise: true)
@@ -34,7 +34,7 @@ final class BeginWrapCreationViewController: BaseViewController {
         path.addArcWithCenter((maxX - radius) ^ (maxY - radius), radius: radius, startAngle: 0, endAngle: pi * 0.5, clockwise: true)
         if isTop {
             path.line((maxX/2 + 16) ^ maxY)
-            path.addArcWithCenter(maxX/2 ^ (maxY + 6), radius: 16, startAngle: 0, endAngle: pi, clockwise: false)
+            path.addArcWithCenter(maxX/2 ^ (maxY + 4), radius: 16, startAngle: 0, endAngle: pi, clockwise: false)
             path.line((radius) ^ maxY)
         } else {
             path.line((radius) ^ maxY)
@@ -57,14 +57,14 @@ final class BeginWrapCreationViewController: BaseViewController {
         
         view.add(closeButton) { (make) in
             make.top.equalTo(view).offset(32)
-            make.trailing.equalTo(view).offset(-20)
+            make.trailing.equalTo(view).offset(-16)
         }
         
         let title = Label(preset: .Large, weight: .Regular, textColor: UIColor.whiteColor())
         title.text = "create_new_wrap".ls
         view.add(title) { (make) in
             make.centerY.equalTo(closeButton)
-            make.leading.equalTo(view).offset(20)
+            make.leading.equalTo(view).offset(16)
             make.trailing.lessThanOrEqualTo(closeButton.snp_leading).offset(-12)
         }
         
@@ -73,9 +73,9 @@ final class BeginWrapCreationViewController: BaseViewController {
         p2pView.backgroundColor = Color.orange
         view.add(p2pView) { (make) in
             make.height.equalTo(view).multipliedBy(0.5).offset(-80)
-            make.leading.equalTo(view).offset(20)
-            make.trailing.equalTo(view).offset(-20)
-            make.bottom.equalTo(view.snp_centerY).offset(4)
+            make.leading.equalTo(view).offset(16)
+            make.trailing.equalTo(view).offset(-16)
+            make.bottom.equalTo(view.snp_centerY).offset(6)
         }
         let p2pBackground = UIImageView(image: p2pBackgroundImage)
         p2pBackground.contentMode = .ScaleAspectFill
@@ -102,9 +102,9 @@ final class BeginWrapCreationViewController: BaseViewController {
         groupView.backgroundColor = Color.orange
         view.add(groupView) { (make) in
             make.height.equalTo(view).multipliedBy(0.5).offset(-80)
-            make.top.equalTo(view.snp_centerY).offset(16)
-            make.leading.equalTo(view).offset(20)
-            make.trailing.equalTo(view).offset(-20)
+            make.top.equalTo(view.snp_centerY).offset(14)
+            make.leading.equalTo(view).offset(16)
+            make.trailing.equalTo(view).offset(-16)
         }
         let groupBackground = UIImageView(image: UIImage(named: "group_background"))
         groupBackground.clipsToBounds = true

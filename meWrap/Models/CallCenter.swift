@@ -81,7 +81,7 @@ final class CallCenter: NSObject, SINCallDelegate, SINManagedPushDelegate {
         
         guard let sinch = sinch where !sinch.isStarted() else { return }
         sinch.delegate = self
-        sinch.callClient().delegate = self
+        sinch.callClient()?.delegate = self
         sinch.setSupportCalling(true)
         
         sinch.enableManagedPushNotifications()

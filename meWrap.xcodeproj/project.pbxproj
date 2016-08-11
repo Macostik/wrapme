@@ -18,7 +18,6 @@
 		5B2960671C6103BE008D121A /* meWrapShareExt-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B2960661C6103BE008D121A /* meWrapShareExt-Info.plist */; };
 		5B2BB79A1C620CB1005045FF /* NSUserDefaults+SharedGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C694D41BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift */; };
 		5B2C97CB1C46610E00FAED6A /* VolumeChangeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C97CA1C46610E00FAED6A /* VolumeChangeObserver.swift */; };
-		5B2D76311CDCADCF009FC32C /* CallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D76301CDCADCF009FC32C /* CallView.swift */; };
 		5B2FB96C1C5B71C8001C4385 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96B1C5B71C8001C4385 /* TextField.swift */; };
 		5B2FB96E1C5B8513001C4385 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96D1C5B8513001C4385 /* TextView.swift */; };
 		5B2FB9701C5BA958001C4385 /* ComposeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FB96F1C5BA958001C4385 /* ComposeBar.swift */; };
@@ -236,6 +235,7 @@
 		C55E7B4A1D1BE2F400B50C5D /* CandyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55E7B491D1BE2F400B50C5D /* CandyPresenter.swift */; };
 		C56449A21CE37F41006444A6 /* CaptureCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56449A11CE37F41006444A6 /* CaptureCommentViewController.swift */; };
 		C564C8161C4A47EE001C6460 /* CaptureAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C564C8151C4A47EE001C6460 /* CaptureAvatarViewController.swift */; };
+		C5653F7F1D5C836400C1DFBA /* CallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D76301CDCADCF009FC32C /* CallView.swift */; };
 		C565ED6D1B9F2567002352C8 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B787D9C1A27876F004AE459 /* NotificationCenter.framework */; };
 		C566BD9E1C4E6B50000E80BA /* UIBezierPath+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566BD9D1C4E6B50000E80BA /* UIBezierPath+Ext.swift */; };
 		C56A6B971D1018A9001EA72F /* MosaicLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56A6B961D1018A9001EA72F /* MosaicLayout.swift */; };
@@ -676,6 +676,7 @@
 		C562D1071BDF65F60033EDC8 /* WatchExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchExtensionDelegate.swift; sourceTree = "<group>"; };
 		C56449A11CE37F41006444A6 /* CaptureCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureCommentViewController.swift; sourceTree = "<group>"; };
 		C564C8151C4A47EE001C6460 /* CaptureAvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureAvatarViewController.swift; sourceTree = "<group>"; };
+		C5653F7D1D5C806800C1DFBA /* PrototypeCallView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrototypeCallView.swift; sourceTree = "<group>"; };
 		C566BD9D1C4E6B50000E80BA /* UIBezierPath+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Ext.swift"; sourceTree = "<group>"; };
 		C56A6B961D1018A9001EA72F /* MosaicLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MosaicLayout.swift; sourceTree = "<group>"; };
 		C571C2771CCE46420084D4CA /* AdobeCreativeSDKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKCore.framework; sourceTree = "<group>"; };
@@ -1077,6 +1078,7 @@
 			isa = PBXGroup;
 			children = (
 				5B2D76301CDCADCF009FC32C /* CallView.swift */,
+				C5653F7D1D5C806800C1DFBA /* PrototypeCallView.swift */,
 				C51C4BCE1CC4E99300326331 /* ExpandableView.swift */,
 				5B37C75D1C5A06E30068E693 /* Button.swift */,
 				5BD529481BDA796000527077 /* SmartLabel.swift */,
@@ -2123,6 +2125,7 @@
 				C5E6F0231BFF38C200FA3D4F /* SwipeAction.swift in Sources */,
 				C502B3141C47F2EC00F66EAE /* CommentNotification.swift in Sources */,
 				C5AA71D61BE3D39D00EA106A /* MutableAsset.swift in Sources */,
+				C5653F7F1D5C836400C1DFBA /* CallView.swift in Sources */,
 				C5F5F0BE1C687B1B002F74C9 /* UserActivity.swift in Sources */,
 				C5D1B6971C981E8700C2C5A7 /* SlimLogger.swift in Sources */,
 				C502B3191C47F2EC00F66EAE /* UserNotification.swift in Sources */,
@@ -2132,7 +2135,6 @@
 				C532F4EF1C2DA4D8004585E0 /* Uploader.swift in Sources */,
 				C51D68D21CE9F7BD00714CE4 /* CommentViewController.swift in Sources */,
 				C5E7AB781BCD3A79007E314B /* UIScrollView+Ext.swift in Sources */,
-				5B2D76311CDCADCF009FC32C /* CallView.swift in Sources */,
 				C54CEF9D1BCFB09100128CBE /* UIViewController+Ext.swift in Sources */,
 				C53012911BF4E3EA00098F9C /* EmojiView.swift in Sources */,
 				C53644681C6213920002232C /* SwipeViewController.swift in Sources */,

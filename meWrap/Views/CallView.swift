@@ -388,8 +388,6 @@ class CallViewController: UIViewController, SINCallDelegate {
                 make.centerX.equalTo(view).multipliedBy(0.5).offset(-19)
                 make.size.equalTo(44)
             }
-            
-            
         }
         
         let microphoneButton = specify(Button.expandableCandyAction("U")) {

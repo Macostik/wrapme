@@ -8,9 +8,11 @@
 
 import Foundation
 
-class NewWrapCreatedViewController: BaseViewController {
+class NewWrapCreatedViewController: BaseViewController, EntryNotifying {
         
     internal let backgroundImageView = UIImageView()
+    
+    private let avatar = UserAvatarView(cornerRadius: 30, backgroundColor: UIColor.clearColor(), placeholderSize: 24)
     
     var wrap: Wrap?
     
@@ -71,13 +73,17 @@ class NewWrapCreatedViewController: BaseViewController {
             mask.path = path.CGPath
             actionsView.layer.mask = mask
             
-            let avatar = UserAvatarView(cornerRadius: 30, backgroundColor: UIColor.clearColor(), placeholderSize: 24)
             contentView.add(avatar, { (make) in
                 make.centerX.equalTo(contentView)
                 make.top.equalTo(actionsView).offset(-16)
                 make.size.equalTo(60)
             })
-            avatar.user = wrap?.contributors.filter({ !$0.current }).first
+            if let invitee = wrap?.invitees.first {
+                avatar.user = invitee.user
+            } else {
+                avatar.user = wrap?.contributors.filter({ !$0.current }).first
+            }
+            Wrap.notifier().addReceiver(self)
             
             titleLabel.numberOfLines = 2
             titleLabel.textAlignment = .Center
@@ -229,6 +235,10 @@ class NewWrapCreatedViewController: BaseViewController {
                 make.size.equalTo(60)
             }
         }
+    }
+    
+    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
+        avatar.user = wrap?.contributors.filter({ !$0.current }).first
     }
     
     func addPhoto() {

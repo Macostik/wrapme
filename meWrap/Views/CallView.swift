@@ -64,6 +64,10 @@ class CallViewController: UIViewController, SINCallDelegate {
         return .LightContent
     }
     
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
     private weak var remoteVideoView: UIView?
     
     private weak var localVideoView: UIView?
@@ -369,11 +373,10 @@ class CallViewController: UIViewController, SINCallDelegate {
     private weak var bottomVideoView: UIView?
     
     func callDidEstablish(call: SINCall!) {
-        _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: [])
+        _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: isVideo ? .DefaultToSpeaker : [])
         _ = try? AVAudioSession.sharedInstance().setActive(true)
         if isVideo {
             _ = try? AVAudioSession.sharedInstance().overrideOutputAudioPort(.Speaker)
-            
         } else {
             let speakerButton = specify(Button.expandableCandyAction("l")) {
                 $0.setTitle("m", forState: .Selected)

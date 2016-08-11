@@ -141,6 +141,8 @@ class CallViewController: UIViewController, SINCallDelegate {
     override func loadView() {
         super.loadView()
         
+        audioController.unmute()
+        
         view.backgroundColor = UIColor.blackColor()
         
         createTopView()
@@ -151,7 +153,7 @@ class CallViewController: UIViewController, SINCallDelegate {
         layoutNameAndInfoLabels()
         
         nameLabel.text = user.name
-        _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategorySoloAmbient, withOptions: [])
+        _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: [])
         _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeDefault)
         _ = try? AVAudioSession.sharedInstance().setActive(true)
         if call.direction == .Incoming {

@@ -235,7 +235,7 @@
 		C55E7B4A1D1BE2F400B50C5D /* CandyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55E7B491D1BE2F400B50C5D /* CandyPresenter.swift */; };
 		C56449A21CE37F41006444A6 /* CaptureCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56449A11CE37F41006444A6 /* CaptureCommentViewController.swift */; };
 		C564C8161C4A47EE001C6460 /* CaptureAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C564C8151C4A47EE001C6460 /* CaptureAvatarViewController.swift */; };
-		C5653F801D5C8A1F00C1DFBA /* PrototypeCallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5653F7D1D5C806800C1DFBA /* PrototypeCallView.swift */; };
+		C5653F811D5CB5EC00C1DFBA /* CallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D76301CDCADCF009FC32C /* CallView.swift */; };
 		C565ED6D1B9F2567002352C8 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B787D9C1A27876F004AE459 /* NotificationCenter.framework */; };
 		C566BD9E1C4E6B50000E80BA /* UIBezierPath+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566BD9D1C4E6B50000E80BA /* UIBezierPath+Ext.swift */; };
 		C56A6B971D1018A9001EA72F /* MosaicLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56A6B961D1018A9001EA72F /* MosaicLayout.swift */; };
@@ -2125,6 +2125,7 @@
 				C5E6F0231BFF38C200FA3D4F /* SwipeAction.swift in Sources */,
 				C502B3141C47F2EC00F66EAE /* CommentNotification.swift in Sources */,
 				C5AA71D61BE3D39D00EA106A /* MutableAsset.swift in Sources */,
+				C5653F811D5CB5EC00C1DFBA /* CallView.swift in Sources */,
 				C5F5F0BE1C687B1B002F74C9 /* UserActivity.swift in Sources */,
 				C5D1B6971C981E8700C2C5A7 /* SlimLogger.swift in Sources */,
 				C502B3191C47F2EC00F66EAE /* UserNotification.swift in Sources */,
@@ -2133,7 +2134,6 @@
 				C502B3281C47F30400F66EAE /* Entry+APIResponse.swift in Sources */,
 				C532F4EF1C2DA4D8004585E0 /* Uploader.swift in Sources */,
 				C51D68D21CE9F7BD00714CE4 /* CommentViewController.swift in Sources */,
-				C5653F801D5C8A1F00C1DFBA /* PrototypeCallView.swift in Sources */,
 				C5E7AB781BCD3A79007E314B /* UIScrollView+Ext.swift in Sources */,
 				C54CEF9D1BCFB09100128CBE /* UIViewController+Ext.swift in Sources */,
 				C53012911BF4E3EA00098F9C /* EmojiView.swift in Sources */,

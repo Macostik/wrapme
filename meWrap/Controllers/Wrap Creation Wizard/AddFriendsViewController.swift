@@ -316,7 +316,7 @@ final class AddFriendsViewController: AddContributorsViewController, SelectedAdd
                 make.height.equalTo(115)
             }
             titleLabel.attributedText = nil
-            titleLabel.text = p2p ? "add_friend_to_wrap".ls : "add_friends_to_wrap".ls
+            titleLabel.text = p2p ? "select_friend".ls : "add_friends_to_wrap".ls
         }
     }
     

@@ -357,7 +357,7 @@
 "create" = "Create";
 "type_friends_name" = "Type friend's name...";
 "f_create" = "Create %@ ?";
-"add_friend_to_wrap" = "Add Friend To Wrap";
+"select_friend" = "Select a Friend";
 "add_friends_to_wrap" = "Add Friends To Wrap";
 "name_your_wrap" = "Name Your Wrap";
 "type_wrap_name" = "Type wrap name...";

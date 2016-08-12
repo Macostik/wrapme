@@ -39,21 +39,6 @@ class CandyViewController: BaseViewController, EntryNotifying {
         candy?.fetch(nil, failure:nil)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setOrientation(DeviceManager.defaultManager.orientation, animated: false)
-        DeviceManager.defaultManager.subscribe(self) { [unowned self] orientation in
-            self.setOrientation(orientation, animated: true)
-        }
-    }
-    
-    internal func setOrientation(orientation: UIDeviceOrientation, animated: Bool) {
-        animate(animated) {
-            imageView.transform = orientation.interfaceTransform()
-        }
-        imageView.frame = view.bounds
-    }
-    
     internal func setup(candy: Candy) {
         
         self.spinner.startAnimating()
@@ -103,9 +88,6 @@ final class PhotoCandyViewController: CandyViewController, UIScrollViewDelegate 
         scrollView.delegate = nil
     }
     
-    let contentView = UIView()
-    let rotationView = UIView()
-    
     override func loadView() {
         super.loadView()
         scrollView.delegate = self
@@ -115,11 +97,7 @@ final class PhotoCandyViewController: CandyViewController, UIScrollViewDelegate 
         scrollView.bounces = false
         scrollView.bouncesZoom = false
         scrollView.backgroundColor = UIColor.blackColor()
-        contentView.frame = view.bounds
-        rotationView.frame = view.bounds
-        view.insertSubview(contentView, belowSubview: spinner)
-        contentView.addSubview(rotationView)
-        rotationView.addSubview(scrollView)
+        view.insertSubview(scrollView, belowSubview: spinner)
         scrollView.addSubview(imageView)
         scrollView.minimumZoomScale = 1
         scrollView.zoomScale = 1
@@ -132,28 +110,24 @@ final class PhotoCandyViewController: CandyViewController, UIScrollViewDelegate 
         scrollView.panGestureRecognizer.enabled = false
     }
     
-    internal override func setOrientation(orientation: UIDeviceOrientation, animated: Bool) {
-        let transform = orientation.interfaceTransform()
-        if !CGAffineTransformEqualToTransform(transform, contentView.transform) {
-            animate(animated) {
-                contentView.transform = transform
-            }
-            
-            contentView.frame = view.bounds
-            rotationView.frame = contentView.bounds
-            imageLoaded(imageView.image)
-        }
-    }
-    
     override func viewWillAppear(animated: Bool) {
         scrollView.zoomScale = scrollView.minimumZoomScale
         super.viewWillAppear(animated)
     }
     
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        coordinator.animateAlongsideTransition({ (_) in
+            self.imageLoaded(self.imageView.image)
+            }) { (_) in
+                
+        }
+    }
+    
     override func imageLoaded(image: UIImage?) {
         guard let image = image else { return }
-        let rect = rotationView.size.fit(image.size).rectCenteredInSize(rotationView.size)
-        if rect.size != scrollView.frame.size {
+        let rect = view.size.fit(image.size).rectCenteredInSize(view.size)
+        if rect != scrollView.frame {
             scrollView.zoomScale = 1
             scrollView.frame = rect
             imageView.frame = scrollView.bounds
@@ -167,7 +141,7 @@ final class PhotoCandyViewController: CandyViewController, UIScrollViewDelegate 
     }
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-        return candy?.mediaType == .Video || imageView.image == nil ? nil : imageView
+        return imageView.image == nil ? nil : imageView
     }
 }
 
@@ -184,23 +158,13 @@ final class VideoCandyViewController: CandyViewController {
         view.insertSubview(imageView, belowSubview: spinner)
         playerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         imageView.userInteractionEnabled = true
-        let playerContainer = UIView(frame: view.bounds)
-        playerContainer.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        imageView.addSubview(playerContainer)
-        playerContainer.addSubview(playerView)
+        imageView.addSubview(playerView)
         playerView.replayButton.titleLabel?.font = .icons(32)
         view.add(playerView.replayButton) { (make) in
             make.center.equalTo(view)
         }
         view.add(playerView.spinner) { (make) in
             make.center.equalTo(view)
-        }
-    }
-    
-    override func setOrientation(orientation: UIDeviceOrientation, animated: Bool) {
-        super.setOrientation(orientation, animated: animated)
-        animate(animated) {
-            playerView.replayButton.transform = orientation.interfaceTransform()
         }
     }
     

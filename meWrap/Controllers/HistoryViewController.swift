@@ -412,10 +412,9 @@ final class HistoryViewController: SwipeViewController<CandyViewController>, Ent
     
     var swipeDownGesture: SwipeGesture!
     var swipeUpGesture: SwipeGesture!
+    var tapGesture: TapGesture!
     
     let contentView = UIView()
-    
-    private let rotatingView = UIView()
     
     override func loadView() {
         self.view = UIView(frame: preferredViewFrame)
@@ -424,11 +423,8 @@ final class HistoryViewController: SwipeViewController<CandyViewController>, Ent
         let view = self.view.add(contentView) {
             $0.edges.equalTo(self.view)
         }
-        rotatingView.frame = preferredViewFrame
-        view.addSubview(rotatingView)
         scrollView.frame = preferredViewFrame
-        scrollView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        rotatingView.addSubview(scrollView)
+        view.add(scrollView) { $0.edges.equalTo(view) }
         
         view.add(commentView) {
             $0.leading.trailing.equalTo(view)
@@ -499,7 +495,7 @@ final class HistoryViewController: SwipeViewController<CandyViewController>, Ent
         swipeUpGesture.shouldBegin = { [weak self] _ in
             return self?.topView.expanded == true
         }
-        scrollView.tapped { [weak self] _ in
+        tapGesture = scrollView.tapped { [weak self] _ in
             self?.handleTapOnScrollView()
         }
         
@@ -531,12 +527,11 @@ final class HistoryViewController: SwipeViewController<CandyViewController>, Ent
     }
     
     private func setActionsExpanded(expanded: Bool, animated: Bool = true) {
-        if expandableToolbar.expanded != expanded {
-            animate(animated) {
-                expandableToolbar.expanded = expanded
-                expandButton.selected = expanded
-                topView.layoutIfNeeded()
-            }
+        guard expandableToolbar.expanded != expanded else { return }
+        animate(animated) {
+            expandableToolbar.expanded = expanded
+            expandButton.selected = expanded
+            topView.layoutIfNeeded()
         }
     }
     
@@ -549,12 +544,11 @@ final class HistoryViewController: SwipeViewController<CandyViewController>, Ent
     }
     
     private func setTopViewExpanded(expanded: Bool, animated: Bool = true) {
-        if topView.expanded != expanded {
-            animate(animated) {
-                accessoryLabel.layer.transform = CATransform3DMakeRotation(expanded ? CGFloat(M_PI) : 0, 1, 0, 0)
-                topView.expanded = expanded
-                topView.layoutIfNeeded()
-            }
+        guard topView.expanded != expanded else { return }
+        animate(animated) {
+            accessoryLabel.layer.transform = CATransform3DMakeRotation(expanded ? CGFloat(M_PI) : 0, 1, 0, 0)
+            topView.expanded = expanded
+            topView.layoutIfNeeded()
         }
     }
     
@@ -563,6 +557,8 @@ final class HistoryViewController: SwipeViewController<CandyViewController>, Ent
     }
     
     private var userNotifyReceiver: EntryNotifyReceiver<User>?
+    
+    private var shrinkTransition: ShrinkTransition!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -588,7 +584,7 @@ final class HistoryViewController: SwipeViewController<CandyViewController>, Ent
             }
         }
         
-        createShrinkTransition()
+        shrinkTransition = createShrinkTransition()
         
         wrap = candy?.wrap
         
@@ -613,13 +609,6 @@ final class HistoryViewController: SwipeViewController<CandyViewController>, Ent
         if let candy = candy {
             setCandy(candy, direction: .Forward, animated: false)
         }
-        
-        backButton.transform = DeviceManager.defaultManager.orientation.interfaceTransform()
-        DeviceManager.defaultManager.subscribe(self) { [unowned self] value in
-            animate {
-                self.backButton.transform = value.interfaceTransform()
-            }
-        }
     }
     
     private func updateUserStatus(wrap: Wrap) {
@@ -627,6 +616,38 @@ final class HistoryViewController: SwipeViewController<CandyViewController>, Ent
         userStatusView.hidden = activeContributors.isEmpty
         userStatusView.wrap = wrap
         userStatusView.user = activeContributors.sort({ $0.activeAt > $1.activeAt }).first
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        if CommentsViewController.current != nil || CommentViewController.current != nil {
+            return [.Portrait, .PortraitUpsideDown]
+        } else {
+            return .All
+        }
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        if CommentsViewController.current != nil || CommentViewController.current != nil {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        coordinator.animateAlongsideTransition({ (context) in
+            let isLandscape = DeviceManager.defaultManager.orientation.isLandscape
+            self.setBarsHidden(isLandscape, animated: false)
+            self.view.layoutIfNeeded()
+            self.commentButton.alpha = isLandscape ? 0 : 1
+            self.swipeUpGesture.enabled = !isLandscape
+            self.swipeDownGesture.enabled = !isLandscape
+            self.tapGesture.enabled = !isLandscape
+            self.shrinkTransition.enabled = !isLandscape
+            }) { (context) in
+                
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -768,10 +789,6 @@ final class HistoryViewController: SwipeViewController<CandyViewController>, Ent
     
     override func didChangeOffsetForViewController(viewController: CandyViewController, offset: CGFloat) {
         viewController.view.alpha = offset
-    }
-    
-    override func shouldAutorotate() -> Bool {
-        return false
     }
     
     override func prefersStatusBarHidden() -> Bool {

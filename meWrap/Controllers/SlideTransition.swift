@@ -205,11 +205,12 @@ extension HistoryViewController {
         }
     }
     
-    func createShrinkTransition() {
+    func createShrinkTransition() -> ShrinkTransition {
         let transition = ShrinkTransition()
         transition.controller = self
         transition.requireGestureRecognizerToFail(swipeUpGesture)
         transition.requireGestureRecognizerToFail(swipeDownGesture)
         contentView.addGestureRecognizer(transition)
+        return transition
     }
 }

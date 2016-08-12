@@ -68,9 +68,9 @@ class CallViewController: UIViewController, SINCallDelegate {
         return false
     }
     
-    private weak var remoteVideoView: UIView?
+    let remoteView = UIView()
     
-    private weak var localVideoView: UIView?
+    let localView = UIView()
     
     private var audioPlayer: AVAudioPlayer? {
         didSet {
@@ -142,8 +142,18 @@ class CallViewController: UIViewController, SINCallDelegate {
         super.loadView()
         
         audioController.unmute()
+        view.frame = UIScreen.mainScreen().bounds
         
         view.backgroundColor = UIColor.blackColor()
+        
+        if isVideo {
+            view.add(remoteView) { (make) in
+                make.trailing.equalTo(view).offset(-30)
+                make.leading.equalTo(view).offset(30)
+                make.centerY.equalTo(view)
+                make.height.equalTo(remoteView.snp_width)
+            }
+        }
         
         createTopView()
         
@@ -151,6 +161,13 @@ class CallViewController: UIViewController, SINCallDelegate {
         infoLabel.textAlignment = .Center
         
         layoutNameAndInfoLabels()
+        
+        localView.backgroundColor = UIColor.blackColor()
+        view.add(localView, { (make) in
+            make.top.equalTo(view).offset(25)
+            make.leading.equalTo(view).offset(5)
+            make.size.equalTo(100)
+        })
         
         nameLabel.text = user.name
         _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: [])
@@ -187,27 +204,19 @@ class CallViewController: UIViewController, SINCallDelegate {
             })
         }
         
+        view.layoutIfNeeded()
+        
         if isVideo {
             if let localVideoView = videoController.localView() {
                 videoController.captureDevicePosition = .Front
-                let localVideoContainer = UIView()
-                localVideoContainer.backgroundColor = UIColor.blackColor()
-                view.add(localVideoContainer, { (make) in
-                    make.top.equalTo(view).offset(25)
-                    make.leading.equalTo(view).offset(5)
-                    make.width.equalTo(view).multipliedBy(0.25)
-                    make.height.equalTo(localVideoContainer.snp_width).dividedBy(0.75)
-                })
-                localVideoContainer.layoutIfNeeded()
-                localVideoContainer.addSubview(localVideoView)
+                localView.addSubview(localVideoView)
                 localVideoView.contentMode = .ScaleAspectFill
                 let toggleCameraButton = PressButton(icon: "}", size: 20)
                 toggleCameraButton.addTarget(self, touchUpInside: #selector(self.toggleCamera(_:)))
-                localVideoContainer.add(toggleCameraButton, { (make) in
-                    make.centerX.equalTo(localVideoContainer)
-                    make.bottom.equalTo(localVideoContainer).offset(-5)
+                localView.add(toggleCameraButton, { (make) in
+                    make.centerX.equalTo(localView)
+                    make.bottom.equalTo(localView).offset(-5)
                 })
-                self.localVideoView = localVideoContainer
             }
         }
         
@@ -474,14 +483,10 @@ class CallViewController: UIViewController, SINCallDelegate {
                 make.size.equalTo(44)
             }
             
-            if let localVideoView = localVideoView {
-                view.addSubview(localVideoView)
-                localVideoView.snp_remakeConstraints { (make) in
-                    make.leading.equalTo(view).offset(5)
-                    make.top.equalTo(topVideoView.snp_bottom).offset(5)
-                    make.width.equalTo(topVideoView).multipliedBy(0.25)
-                    make.height.equalTo(localVideoView.snp_width).dividedBy(0.75)
-                }
+            localView.snp_remakeConstraints { (make) in
+                make.leading.equalTo(view).offset(5)
+                make.top.equalTo(topVideoView.snp_bottom).offset(5)
+                make.size.equalTo(100)
             }
             
             Dispatch.mainQueue.after(3, block: { [weak self] () in
@@ -582,11 +587,11 @@ class CallViewController: UIViewController, SINCallDelegate {
             if topVideoView != nil {
                 topVideoView?.removeFromSuperview()
                 bottomVideoView?.removeFromSuperview()
-                remoteVideoView?.removeFromSuperview()
+                remoteView.removeFromSuperview()
                 createTopView()
                 layoutNameAndInfoLabels()
             }
-            localVideoView?.removeFromSuperview()
+            localView.removeFromSuperview()
         }
         updateTimerBlock = nil
         stopPlayingSound()
@@ -641,11 +646,8 @@ class CallViewController: UIViewController, SINCallDelegate {
     
     func callDidAddVideoTrack(call: SINCall!) {
         if let remoteVideoView = videoController.remoteView() {
-            view.layoutIfNeeded()
-            view.addSubview(remoteVideoView)
-            self.remoteVideoView = remoteVideoView
+            remoteView.addSubview(remoteVideoView)
             remoteVideoView.contentMode = .ScaleAspectFill
-            view.sendSubviewToBack(remoteVideoView)
             remoteVideoView.tapped({ [weak self] (_) in
                 self?.setVideoViewsHidden(self?.topVideoView?.frame.origin.y == 0)
                 })

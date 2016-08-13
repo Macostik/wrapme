@@ -37,3 +37,13 @@ extension UIBezierPath {
         return self
     }
 }
+
+extension CAShapeLayer {
+    
+    static func mask(path: UIBezierPath = UIBezierPath(), @noescape block: UIBezierPath -> () = { _ in }) -> CAShapeLayer {
+        let mask = CAShapeLayer()
+        block(path)
+        mask.path = path.CGPath
+        return mask
+    }
+}

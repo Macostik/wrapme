@@ -155,6 +155,14 @@ class NewWrapCreatedViewController: BaseViewController, EntryNotifying {
             users = wrap.contributors.map({ $0 })
         }
         
+        users = users.filter({
+            if let user = $0 {
+                return !user.current
+            } else {
+                return true
+            }
+        }).sort({ $0?.name < $1?.name })
+        
         let limit = Constants.screenWidth == 320 ? 4 : 5
         let size: CGFloat = p2p ? 62 : 58
         var previousAvatar: UserAvatarView?

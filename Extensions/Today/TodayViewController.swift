@@ -26,11 +26,19 @@ class TodayRecentUpdateCell : UITableViewCell {
             if update.type == "comment" {
                 if let comment = update.comment {
                     timeLabel.text = comment.createdAt?.timeAgoStringAtAMPM()
-                    descriptionLabel.text = String(format: "%@ commented \"%@\"", comment.contributor?.name ?? "", comment.text ?? "")
+                    if comment.type == 0 {
+                        descriptionLabel.text = String(format: "%@ commented \"%@\"", comment.contributor?.name ?? "", comment.text ?? "")
+                    } else {
+                        descriptionLabel.text = String(format: comment.type == 1 ? "just_sent_you_photo_comment".ls : "just_sent_you_video_comment".ls, comment.contributor?.name ?? "")
+                    }
                 }
             } else {
                 timeLabel.text = candy.createdAt?.timeAgoStringAtAMPM()
-                descriptionLabel.text = String(format: "%@ posted a new photo", candy.contributor?.name ?? "")
+                if candy.type == .Video {
+                    descriptionLabel.text = String(format: "posted_new_video".ls, candy.contributor?.name ?? "")
+                } else {
+                    descriptionLabel.text = String(format: "posted_new_photo".ls, candy.contributor?.name ?? "")
+                }
             }
             
             if let url = candy.asset where !url.isEmpty {

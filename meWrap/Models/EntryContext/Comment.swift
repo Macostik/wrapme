@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-enum CommentType {
+enum CommentType: Int {
     case Text, Photo, Video
 }
 

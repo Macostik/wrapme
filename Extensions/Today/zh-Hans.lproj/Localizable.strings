@@ -15,3 +15,5 @@
 "formatted_calendar_units_ago_at_time" = "%.f%@前%@";
 "formatted_calendar_units_ago" = "%.f%@%@前";
 "at" = "";
+"just_sent_you_photo_comment" = "%@ just sent you a photo comment.";
+"just_sent_you_video_comment" = "%@ just sent you a video comment.";

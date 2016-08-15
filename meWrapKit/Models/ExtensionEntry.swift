@@ -114,13 +114,16 @@ class ExtensionCandy: ExtensionContribution {
 
 class ExtensionComment: ExtensionContribution {
     var text: String?
+    var type: Int = 0
     override func fromDictionary(dictionary: [String : AnyObject]) {
         super.fromDictionary(dictionary)
         text = dictionary["text"] as? String
+        type = dictionary["type"] as? Int ?? 0
     }
     override func toDictionary() -> [String : AnyObject] {
         var dictionary = super.toDictionary()
         dictionary["text"] = text ?? ""
+        dictionary["type"] = type
         return dictionary
     }
 }

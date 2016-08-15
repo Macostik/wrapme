@@ -175,6 +175,7 @@ extension Comment {
         comment.updatedAt = updatedAt
         comment.createdAt = createdAt
         comment.text = text
+        comment.type = self.commentType().rawValue
         return comment
     }
     

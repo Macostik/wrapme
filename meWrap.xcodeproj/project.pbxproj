@@ -710,8 +710,6 @@
 		C5A9CC7C1B9432920084D0F5 /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
 		C5AA71AE1BE3946700EA106A /* EntryNotifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryNotifier.swift; sourceTree = "<group>"; };
 		C5AA71D51BE3D39D00EA106A /* MutableAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MutableAsset.swift; sourceTree = "<group>"; };
-		C5B19DA81BC3C0AC00EB5353 /* exportAdhoc.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = exportAdhoc.plist; sourceTree = "<group>"; };
-		C5B19DA91BC3C0AC00EB5353 /* exportAppStore.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = exportAppStore.plist; sourceTree = "<group>"; };
 		C5B4E5671BF60E0300A4B223 /* PHPhotoLibrary+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PHPhotoLibrary+Ext.swift"; sourceTree = "<group>"; };
 		C5B51FE11BFB504D005A1CF6 /* UIAlertController+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Ext.swift"; sourceTree = "<group>"; };
 		C5B8F71E1B82172D00A5E541 /* DrawingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawingViewController.xib; sourceTree = "<group>"; };
@@ -913,8 +911,6 @@
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
-				C5B19DA81BC3C0AC00EB5353 /* exportAdhoc.plist */,
-				C5B19DA91BC3C0AC00EB5353 /* exportAppStore.plist */,
 				C5A278C41B9598DF00D5C969 /* Info */,
 				C5259D651ACC2333003D3317 /* Entitlements */,
 				C50645AA1ABD815100CB4BE3 /* Extensions */,

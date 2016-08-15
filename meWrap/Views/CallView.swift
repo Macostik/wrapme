@@ -148,7 +148,9 @@ class CallViewController: UIViewController, SINCallDelegate {
         
         if isVideo {
             view.add(remoteView) { (make) in
-                make.edges.equalTo(view)
+                make.center.equalTo(view)
+                make.width.equalTo(view).offset(-40)
+                make.height.equalTo(remoteView.snp_width).dividedBy(0.75)
             }
         }
         

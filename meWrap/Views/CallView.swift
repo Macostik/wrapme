@@ -148,10 +148,7 @@ class CallViewController: UIViewController, SINCallDelegate {
         
         if isVideo {
             view.add(remoteView) { (make) in
-                make.trailing.equalTo(view).offset(-30)
-                make.leading.equalTo(view).offset(30)
-                make.centerY.equalTo(view)
-                make.height.equalTo(remoteView.snp_width)
+                make.edges.equalTo(view)
             }
         }
         
@@ -162,19 +159,23 @@ class CallViewController: UIViewController, SINCallDelegate {
         
         layoutNameAndInfoLabels()
         
-        localView.backgroundColor = UIColor.blackColor()
-        view.add(localView, { (make) in
-            make.top.equalTo(view).offset(25)
-            make.leading.equalTo(view).offset(5)
-            make.size.equalTo(100)
-        })
+        if isVideo {
+            localView.backgroundColor = UIColor.blackColor()
+            localView.setBorder()
+            localView.clipsToBounds = true
+            view.add(localView, { (make) in
+                make.top.equalTo(view).offset(25)
+                make.leading.equalTo(view).offset(5)
+                make.size.equalTo(CGSize(width: 100, height: 100 / 0.75))
+            })
+        }
         
         nameLabel.text = user.name
-        _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: [])
-        _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeDefault)
-        _ = try? AVAudioSession.sharedInstance().setActive(true)
+        
         if call.direction == .Incoming {
-            _ = try? AVAudioSession.sharedInstance().overrideOutputAudioPort(.Speaker)
+            _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategorySoloAmbient, withOptions: isVideo ? .DefaultToSpeaker : [])
+            _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeDefault)
+            _ = try? AVAudioSession.sharedInstance().setActive(true)
             startPlayingSound("incoming", loop: true)
             infoLabel.text = "incoming_call".ls
             view.add(acceptButton, {
@@ -195,7 +196,9 @@ class CallViewController: UIViewController, SINCallDelegate {
             acceptButton.addTarget(self, action: #selector(self.accept(_:)), forControlEvents: .TouchUpInside)
             
         } else {
-            _ = try? AVAudioSession.sharedInstance().overrideOutputAudioPort(isVideo ? .Speaker : .None)
+            _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: isVideo ? .DefaultToSpeaker : [])
+            _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeDefault)
+            _ = try? AVAudioSession.sharedInstance().setActive(true)
             infoLabel.text = "waiting_for_response".ls
             view.add(declineButton, {
                 $0.bottom.equalTo(view).offset(-20)
@@ -383,7 +386,6 @@ class CallViewController: UIViewController, SINCallDelegate {
     
     func callDidEstablish(call: SINCall!) {
         _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: isVideo ? .DefaultToSpeaker : [])
-        _ = try? AVAudioSession.sharedInstance().setActive(true)
         if isVideo {
             _ = try? AVAudioSession.sharedInstance().overrideOutputAudioPort(.Speaker)
         } else {
@@ -486,7 +488,7 @@ class CallViewController: UIViewController, SINCallDelegate {
             localView.snp_remakeConstraints { (make) in
                 make.leading.equalTo(view).offset(5)
                 make.top.equalTo(topVideoView.snp_bottom).offset(5)
-                make.size.equalTo(100)
+                make.size.equalTo(CGSize(width: 100, height: 100 / 0.75))
             }
             
             Dispatch.mainQueue.after(3, block: { [weak self] () in
@@ -597,7 +599,7 @@ class CallViewController: UIViewController, SINCallDelegate {
         stopPlayingSound()
         _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategorySoloAmbient, withOptions: [])
         _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeDefault)
-        _ = try? AVAudioSession.sharedInstance().setActive(true)
+        _ = try? AVAudioSession.sharedInstance().setActive(false)
         startPlayingSound("hangup", loop: false)
         microphoneButton?.removeFromSuperview()
         speakerButton?.removeFromSuperview()
@@ -646,6 +648,7 @@ class CallViewController: UIViewController, SINCallDelegate {
     
     func callDidAddVideoTrack(call: SINCall!) {
         if let remoteVideoView = videoController.remoteView() {
+            remoteView.clipsToBounds = true
             remoteView.addSubview(remoteVideoView)
             remoteVideoView.contentMode = .ScaleAspectFill
             remoteVideoView.tapped({ [weak self] (_) in

@@ -4,3 +4,5 @@ xcuserdata
 *.xcbkptlist
 
 upload_dsym_results
+Frameworks/AdobeCreativeSDKCore.framework
+Frameworks/AdobeCreativeSDKImage.framework

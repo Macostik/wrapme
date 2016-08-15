@@ -227,6 +227,10 @@
 		C558710E1C48F63500F09E58 /* NotificationSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = C558710D1C48F63500F09E58 /* NotificationSubscription.swift */; };
 		C559A9971CFB3ED500BF185B /* ConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C559A9961CFB3ED500BF185B /* ConfirmView.swift */; };
 		C55A451A1BAC18580055AEC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C55A451C1BAC18580055AEC2 /* Localizable.strings */; };
+		C55A82171D62199E00AFE181 /* AdobeCreativeSDKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C55A82151D62199E00AFE181 /* AdobeCreativeSDKCore.framework */; };
+		C55A82181D62199E00AFE181 /* AdobeCreativeSDKImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C55A82161D62199E00AFE181 /* AdobeCreativeSDKImage.framework */; };
+		C55A821A1D6219B400AFE181 /* AdobeCreativeSDKImageResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C55A82191D6219B400AFE181 /* AdobeCreativeSDKImageResources.bundle */; };
+		C55A821C1D6219BD00AFE181 /* AdobeCreativeSDKCoreResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C55A821B1D6219BD00AFE181 /* AdobeCreativeSDKCoreResources.bundle */; };
 		C55BE8C31C03062C006B04FC /* NSObject+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BE8C21C03062C006B04FC /* NSObject+Ext.swift */; };
 		C55BE8C71C031BA6006B04FC /* ExtensionRequest+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BE8C61C031BA6006B04FC /* ExtensionRequest+Ext.swift */; };
 		C55BE8C91C031D54006B04FC /* AuthorizedExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BE8C81C031D54006B04FC /* AuthorizedExecutor.swift */; };
@@ -240,10 +244,6 @@
 		C566BD9E1C4E6B50000E80BA /* UIBezierPath+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566BD9D1C4E6B50000E80BA /* UIBezierPath+Ext.swift */; };
 		C56A6B971D1018A9001EA72F /* MosaicLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56A6B961D1018A9001EA72F /* MosaicLayout.swift */; };
 		C56D4E4F1C0B54D300B20566 /* meWrapWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C54604D71C08C6DF00FB2303 /* meWrapWatchApp.app */; };
-		C571C2791CCE46420084D4CA /* AdobeCreativeSDKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C571C2771CCE46420084D4CA /* AdobeCreativeSDKCore.framework */; };
-		C571C27A1CCE46420084D4CA /* AdobeCreativeSDKImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C571C2781CCE46420084D4CA /* AdobeCreativeSDKImage.framework */; };
-		C571C27C1CCE46BC0084D4CA /* AdobeCreativeSDKCoreResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C571C27B1CCE46BC0084D4CA /* AdobeCreativeSDKCoreResources.bundle */; };
-		C571C27E1CCE46D10084D4CA /* AdobeCreativeSDKImageResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C571C27D1CCE46D10084D4CA /* AdobeCreativeSDKImageResources.bundle */; };
 		C57CB2A91BAAE50D0050FBF7 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB2A31BAAE4ED0050FBF7 /* libc++.tbd */; };
 		C57CB2AA1BAAE5140050FBF7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB2A51BAAE4F60050FBF7 /* libz.tbd */; };
 		C57CB2AB1BAAE51E0050FBF7 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB2A71BAAE5040050FBF7 /* libsqlite3.0.tbd */; };
@@ -667,6 +667,10 @@
 		C55A451E1BAC185A0055AEC2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C55A45241BAC189C0055AEC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C55A45271BAC189E0055AEC2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		C55A82151D62199E00AFE181 /* AdobeCreativeSDKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdobeCreativeSDKCore.framework; path = Frameworks/AdobeCreativeSDKCore.framework; sourceTree = "<group>"; };
+		C55A82161D62199E00AFE181 /* AdobeCreativeSDKImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdobeCreativeSDKImage.framework; path = Frameworks/AdobeCreativeSDKImage.framework; sourceTree = "<group>"; };
+		C55A82191D6219B400AFE181 /* AdobeCreativeSDKImageResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdobeCreativeSDKImageResources.bundle; path = Frameworks/AdobeCreativeSDKImage.framework/Versions/A/Resources/AdobeCreativeSDKImageResources.bundle; sourceTree = "<group>"; };
+		C55A821B1D6219BD00AFE181 /* AdobeCreativeSDKCoreResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdobeCreativeSDKCoreResources.bundle; path = Frameworks/AdobeCreativeSDKCore.framework/Versions/A/Resources/AdobeCreativeSDKCoreResources.bundle; sourceTree = "<group>"; };
 		C55BE8C21C03062C006B04FC /* NSObject+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Ext.swift"; sourceTree = "<group>"; };
 		C55BE8C61C031BA6006B04FC /* ExtensionRequest+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ExtensionRequest+Ext.swift"; path = "meWrap/Categories/ExtensionRequest+Ext.swift"; sourceTree = SOURCE_ROOT; };
 		C55BE8C81C031D54006B04FC /* AuthorizedExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizedExecutor.swift; sourceTree = "<group>"; };
@@ -679,10 +683,6 @@
 		C5653F7D1D5C806800C1DFBA /* PrototypeCallView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrototypeCallView.swift; sourceTree = "<group>"; };
 		C566BD9D1C4E6B50000E80BA /* UIBezierPath+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Ext.swift"; sourceTree = "<group>"; };
 		C56A6B961D1018A9001EA72F /* MosaicLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MosaicLayout.swift; sourceTree = "<group>"; };
-		C571C2771CCE46420084D4CA /* AdobeCreativeSDKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKCore.framework; sourceTree = "<group>"; };
-		C571C2781CCE46420084D4CA /* AdobeCreativeSDKImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKImage.framework; sourceTree = "<group>"; };
-		C571C27B1CCE46BC0084D4CA /* AdobeCreativeSDKCoreResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdobeCreativeSDKCoreResources.bundle; path = AdobeCreativeSDKCore.framework/Versions/A/Resources/AdobeCreativeSDKCoreResources.bundle; sourceTree = "<group>"; };
-		C571C27D1CCE46D10084D4CA /* AdobeCreativeSDKImageResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdobeCreativeSDKImageResources.bundle; path = AdobeCreativeSDKImage.framework/Versions/A/Resources/AdobeCreativeSDKImageResources.bundle; sourceTree = "<group>"; };
 		C57CB2A31BAAE4ED0050FBF7 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		C57CB2A51BAAE4F60050FBF7 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C57CB2A71BAAE5040050FBF7 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -843,11 +843,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C55A82171D62199E00AFE181 /* AdobeCreativeSDKCore.framework in Frameworks */,
 				C5FA75A21D14244200F85A45 /* PushKit.framework in Frameworks */,
 				5BFB76DF1CDCE7C6004FE3BD /* QuartzCore.framework in Frameworks */,
 				C5218E7D1AE5594E007E55D0 /* OpenGLES.framework in Frameworks */,
 				5BFB76DD1CDCE7AB004FE3BD /* GLKit.framework in Frameworks */,
 				5BFB76DB1CDCE799004FE3BD /* CoreVideo.framework in Frameworks */,
+				C55A82181D62199E00AFE181 /* AdobeCreativeSDKImage.framework in Frameworks */,
 				5BFB76D91CDCE78A004FE3BD /* CoreMedia.framework in Frameworks */,
 				5BFB76D71CDCE77C004FE3BD /* VideoToolbox.framework in Frameworks */,
 				5BFB76D51CDCE775004FE3BD /* AudioToolbox.framework in Frameworks */,
@@ -858,7 +860,6 @@
 				C57CB2AB1BAAE51E0050FBF7 /* libsqlite3.0.tbd in Frameworks */,
 				C57CB2AA1BAAE5140050FBF7 /* libz.tbd in Frameworks */,
 				C57CB2A91BAAE50D0050FBF7 /* libc++.tbd in Frameworks */,
-				C571C27A1CCE46420084D4CA /* AdobeCreativeSDKImage.framework in Frameworks */,
 				C5218E7E1AE55965007E55D0 /* Accelerate.framework in Frameworks */,
 				C5F843361CF46972002BD697 /* WowzaGoCoderSDK.framework in Frameworks */,
 				C5218E7A1AE55936007E55D0 /* CoreData.framework in Frameworks */,
@@ -869,7 +870,6 @@
 				C54AF71519B8C491006F7EDB /* CoreGraphics.framework in Frameworks */,
 				C54AF71619B8C491006F7EDB /* UIKit.framework in Frameworks */,
 				C54AF71819B8C491006F7EDB /* Foundation.framework in Frameworks */,
-				C571C2791CCE46420084D4CA /* AdobeCreativeSDKCore.framework in Frameworks */,
 				1596907956D8008E464779B9 /* Pods_meWrap.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -954,10 +954,13 @@
 				5BFB76D21CDCE75E004FE3BD /* AVFoundation.framework */,
 				5BFB76D01CDCE749004FE3BD /* Security.framework */,
 				5BFB76CE1CDCE546004FE3BD /* Sinch.framework */,
-				C571C2761CCE46420084D4CA /* AdobeCreativeSDK */,
 				5B639B651CA55AB400C0B3D5 /* Contacts.framework */,
 				5B47920C1C1B2BDF0090FDD2 /* MMWormhole.h */,
 				5B4792091C1B2B110090FDD2 /* libmmwormhole.a */,
+				C55A821B1D6219BD00AFE181 /* AdobeCreativeSDKCoreResources.bundle */,
+				C55A82191D6219B400AFE181 /* AdobeCreativeSDKImageResources.bundle */,
+				C55A82151D62199E00AFE181 /* AdobeCreativeSDKCore.framework */,
+				C55A82161D62199E00AFE181 /* AdobeCreativeSDKImage.framework */,
 				C5F843351CF46972002BD697 /* WowzaGoCoderSDK.framework */,
 				C5D1B6921C981E8700C2C5A7 /* SlimLogger */,
 				C57CB2A71BAAE5040050FBF7 /* libsqlite3.0.tbd */,
@@ -1413,18 +1416,6 @@
 			path = meWrapKit;
 			sourceTree = "<group>";
 		};
-		C571C2761CCE46420084D4CA /* AdobeCreativeSDK */ = {
-			isa = PBXGroup;
-			children = (
-				C571C27D1CCE46D10084D4CA /* AdobeCreativeSDKImageResources.bundle */,
-				C571C27B1CCE46BC0084D4CA /* AdobeCreativeSDKCoreResources.bundle */,
-				C571C2771CCE46420084D4CA /* AdobeCreativeSDKCore.framework */,
-				C571C2781CCE46420084D4CA /* AdobeCreativeSDKImage.framework */,
-			);
-			name = AdobeCreativeSDK;
-			path = Frameworks/AdobeCreativeSDK;
-			sourceTree = "<group>";
-		};
 		C57F7AF21C1ECD6600FFB465 /* emoji */ = {
 			isa = PBXGroup;
 			children = (
@@ -1832,7 +1823,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C571C27C1CCE46BC0084D4CA /* AdobeCreativeSDKCoreResources.bundle in Resources */,
 				C5B91A421BB4101A000E08E7 /* Introduction.storyboard in Resources */,
 				C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */,
 				C53012921BF4E3EA00098F9C /* EmojiView.xib in Resources */,
@@ -1857,6 +1847,7 @@
 				5B3AAFEF1CE4A7BB00C3739A /* incoming.wav in Resources */,
 				5B44EB031C9BF2B100BD6481 /* flags_iOS_9.plist in Resources */,
 				C57F7AF01C1ECD5F00FFB465 /* violations.plist in Resources */,
+				C55A821C1D6219BD00AFE181 /* AdobeCreativeSDKCoreResources.bundle in Resources */,
 				C51B4BEA1C3AA3B8009F1566 /* terms_and_conditions.rtf in Resources */,
 				5B436CA71C9FFCAD00635931 /* foodAndDrinks_iOS_8.plist in Resources */,
 				5B436C9D1C9FFC5100635931 /* peopleAndSmiles_iOS_8.plist in Resources */,
@@ -1873,10 +1864,10 @@
 				5BA6AA451A66779E00493582 /* Localizable.strings in Resources */,
 				C5BEC3A91B8F16E800499EEA /* logo_and_caption_white@2x.png in Resources */,
 				5B436CAB1C9FFCAD00635931 /* travelAndPlaces_iOS_8.plist in Resources */,
-				C571C27E1CCE46D10084D4CA /* AdobeCreativeSDKImageResources.bundle in Resources */,
 				5B436CA61C9FFCAD00635931 /* flags_iOS_8.plist in Resources */,
 				5B2960671C6103BE008D121A /* meWrapShareExt-Info.plist in Resources */,
 				C57F7AF11C1ECD5F00FFB465 /* country-codes.json in Resources */,
+				C55A821A1D6219B400AFE181 /* AdobeCreativeSDKImageResources.bundle in Resources */,
 				5BF85BB01B8C774C000215C9 /* icons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2902,7 +2893,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					USE_CSDK_COMPONENTS,
 					"PROJECT_DIR=\\@\\\"$SOURCE_ROOT\\\"",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
@@ -2962,10 +2952,7 @@
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					USE_CSDK_COMPONENTS,
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Info/meWrap-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
@@ -3129,10 +3116,7 @@
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					USE_CSDK_COMPONENTS,
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Info/meWrap-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;

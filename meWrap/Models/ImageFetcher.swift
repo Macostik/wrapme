@@ -39,17 +39,17 @@ final class ImageFetcher {
         })
     }
     
-    func enqueue(url: String?, receiver: ImageFetching?) -> Void {
+    func enqueue(url: String?, receiver: ImageFetching?) -> Bool {
         
-        guard let url = url where !url.isEmpty else { return }
+        guard let url = url where !url.isEmpty else { return true }
         
         receivers.append(ReceiverWrapper(receiver: receiver))
         
-        guard !urls.contains(url) else { return }
+        guard !urls.contains(url) else { return true }
         
         urls.insert(url)
         
-        imageAtURL(url) { (image, cached, error) -> Void in
+        return imageAtURL(url) { (image, cached, error) -> Void in
             if let image = image {
                 self.notify(url, block: { $0.didFinishWithImage(image, cached: cached) })
             } else {
@@ -58,11 +58,12 @@ final class ImageFetcher {
         }
     }
     
-    private func imageAtURL(url: String, result: (UIImage?, Bool, NSError?) -> Void) {
+    private func imageAtURL(url: String, result: (UIImage?, Bool, NSError?) -> Void) -> Bool {
         if url.isExistingFilePath {
             imageWithContentsOfFile(url, result: result)
+            return true
         } else {
-            imageWithContentsOfURL(url, result: result)
+            return imageWithContentsOfURL(url, result: result)
         }
     }
     
@@ -85,12 +86,14 @@ final class ImageFetcher {
         }
     }
     
-    private func imageWithContentsOfURL(url: String, result: (UIImage?, Bool, NSError?) -> Void) {
+    private func imageWithContentsOfURL(url: String, result: (UIImage?, Bool, NSError?) -> Void) -> Bool {
         let uid = ImageCache.uidFromURL(url)
         if let image = InMemoryImageCache.instance[uid] {
             result(image, true, nil)
+            return true
         } else if ImageCache.defaultCache.contains(uid) {
             Dispatch.defaultQueue.fetch({ ImageCache.defaultCache[uid] }, completion: { result($0, false, nil) })
+            return true
         } else {
             Alamofire.request(.GET, url).responseData(completionHandler: { response in
                 if let data = response.data, let image = UIImage(data: data) {
@@ -105,6 +108,7 @@ final class ImageFetcher {
                     result(nil, false, response.result.error)
                 }
             })
+            return false
         }
     }
 }

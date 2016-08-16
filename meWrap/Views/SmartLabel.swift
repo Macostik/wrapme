@@ -38,23 +38,9 @@ final class SmartLabel: Label, UIGestureRecognizerDelegate,  MFMailComposeViewCo
     
     private static let linkDetector = try! NSDataDetector(types: NSTextCheckingType.Link.rawValue)
     
-    private static var cachedLinks: [String:[NSTextCheckingResult]] = {
-        let cachedLinks = [String:[NSTextCheckingResult]]()
-        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidReceiveMemoryWarningNotification, object: nil, queue: nil, usingBlock: { (_) -> Void in
-            SmartLabel.cachedLinks.removeAll()
-        })
-        return cachedLinks
-    }()
-    
-    private func cachedLinks(text: String) -> [NSTextCheckingResult] {
-        if let links = SmartLabel.cachedLinks[text] {
-            return links
-        } else {
-            let links = SmartLabel.linkDetector.matchesInString(text, options: [], range: NSMakeRange(0, text.characters.count))
-            SmartLabel.cachedLinks[text] = links
-            return links
-        }
-    }
+    private static let cachedLinks = InMemoryCache<String, [NSTextCheckingResult]>(value: {
+        SmartLabel.linkDetector.matchesInString($0, options: [], range: NSMakeRange(0, $0.characters.count))
+    })
     
     override var text: String? {
         get {
@@ -62,7 +48,7 @@ final class SmartLabel: Label, UIGestureRecognizerDelegate,  MFMailComposeViewCo
         }
         set {
             if let text = newValue {
-                links = cachedLinks(text)
+                links = SmartLabel.cachedLinks[text]
                 if !links.isEmpty {
                     let attributedText = NSMutableAttributedString(string: text, attributes: [NSForegroundColorAttributeName : _textColor!, NSFontAttributeName : font])
                     bufferAttributedString = attributedText

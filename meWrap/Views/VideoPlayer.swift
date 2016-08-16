@@ -16,9 +16,11 @@ final class InMemoryCache<Key: Hashable, Value> {
     
     private let value: Key -> Value
     
-    init(value: Key -> Value) {
+    init(value: Key -> Value, clearOnMemoryWarning: Bool = true) {
         self.value = value
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.memoryWarning), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
+        if clearOnMemoryWarning {
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.memoryWarning), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
+        }
     }
     
     subscript(key: Key) -> Value {

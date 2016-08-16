@@ -59,7 +59,7 @@ final class Uploader: EntryNotifying {
         self.subuploaders = subuploaders
         self.limit = limit
         self.runQueue.limit = limit
-        EntryNotifier.notifierForName(entityName).addReceiver(self)
+        EntryNotifier.notifiers[entityName].addReceiver(self)
     }
     
     func finish() {

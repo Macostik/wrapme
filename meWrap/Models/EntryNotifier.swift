@@ -62,17 +62,9 @@ final class EntryNotifier {
         }
     }
     
-    private static var notifiers = [String : EntryNotifier]()
-    
-    static func notifierForName(name: String) -> EntryNotifier {
-        if let notifier = EntryNotifier.notifiers[name] {
-            return notifier
-        } else {
-            let notifier = EntryNotifier()
-            EntryNotifier.notifiers[name] = notifier
-            return notifier
-        }
-    }
+    static let notifiers = InMemoryCache<String, EntryNotifier>(value: { _ in
+        EntryNotifier()
+        }, clearOnMemoryWarning: false)
     
     func notifyOnEntry(entry: Entry, @noescape block: EntryNotifying -> Void) {
         notify { (receiver) -> Void in
@@ -168,7 +160,7 @@ final class EntryNotifyReceiver<T: Entry>: EntryNotifying {
 extension Entry {
     
     class func notifier() -> EntryNotifier {
-        return EntryNotifier.notifierForName(entityName())
+        return EntryNotifier.notifiers[entityName()]
     }
     
     func notifyOnAddition() {

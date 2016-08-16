@@ -24,10 +24,6 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
     let commentLabel = Label(preset: .Smaller, textColor: UIColor.whiteColor())
     let gradientView = GradientView(startColor: UIColor.blackColor().colorWithAlphaComponent(0.8))
     private let mediaCommentIndicator = UserAvatarView(cornerRadius: CandyCellCommentAvatarSize/2, backgroundColor: Color.orange, placeholderSize: CandyCellCommentAvatarSize/2)
-    private let spinner = specify(UIActivityIndicatorView(activityIndicatorStyle: .White)) {
-        $0.color = Color.grayLightest
-        $0.hidesWhenStopped = true
-    }
     
     private var textCommentConstraint: Constraint!
     
@@ -68,6 +64,9 @@ class CandyCell: EntryStreamReusableView<Candy>, FlowerMenuConstructor, VideoPla
 			make.size.equalTo(CandyCellCommentAvatarSize)
         }
         
+        let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
+        spinner.color = Color.grayLightest
+        spinner.hidesWhenStopped = true
         imageView.add(spinner) {
             $0.center.equalTo(imageView)
         }

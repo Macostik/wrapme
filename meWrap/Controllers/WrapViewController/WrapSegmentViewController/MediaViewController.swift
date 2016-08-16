@@ -85,7 +85,7 @@ final class HistoryItemCell: EntryStreamReusableView<HistoryItem> {
     
     private var dataSource: HistoryItemDataSource!
     
-    private var candyMetrics: StreamMetrics<CandyCell>!
+    private let candyMetrics = StreamMetrics<CandyCell>()
     
     override func layoutWithMetrics(metrics: StreamMetricsProtocol) {
         
@@ -93,7 +93,7 @@ final class HistoryItemCell: EntryStreamReusableView<HistoryItem> {
         layout.spacing = 1
         streamView.layout = layout
         dataSource = HistoryItemDataSource(streamView: streamView)
-        candyMetrics = dataSource.addMetrics(StreamMetrics<CandyCell>())
+        dataSource.addMetrics(candyMetrics)
         candyMetrics.prepareAppearing = { [weak self] item, _ in
             item.view?.transform = self?.streamView.transform ?? CGAffineTransformIdentity
         }

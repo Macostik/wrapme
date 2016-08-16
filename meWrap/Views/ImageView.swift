@@ -61,8 +61,10 @@ class ImageView: UIImageView, ImageFetching {
             image = nil
             if let url = url where !url.isEmpty {
                 placeholder.hidden = true
-                spinner?.startAnimating()
-                ImageFetcher.defaultFetcher.enqueue(url, receiver: self)
+                let cachedOrEmpty = ImageFetcher.defaultFetcher.enqueue(url, receiver: self)
+                if !cachedOrEmpty {
+                    spinner?.startAnimating()
+                }
             } else {
                 spinner?.stopAnimating()
                 placeholder.hidden = false

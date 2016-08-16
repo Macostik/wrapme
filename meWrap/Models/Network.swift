@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-final class Network: BlockNotifier<Bool> {
+final class Network: Notifier<Bool> {
 
     static let network = Network()
     

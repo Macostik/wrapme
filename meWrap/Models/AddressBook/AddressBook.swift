@@ -18,7 +18,7 @@ func addressBookChanged(addessBook: ABAddressBookRef!, info: CFDictionary!, cont
     AddressBook.sharedAddressBook.updateCachedRecords()
 }
 
-class AddressBook: BlockNotifier<[AddressBookRecord]> {
+class AddressBook: Notifier<[AddressBookRecord]> {
     
     private var ABAddressBook: ABAddressBookRef?
     

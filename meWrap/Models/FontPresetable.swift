@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class FontPresetter: BlockNotifier<Void> {
+final class FontPresetter: Notifier<Void> {
     
     static let presetter: FontPresetter = {
         let presetter = FontPresetter()

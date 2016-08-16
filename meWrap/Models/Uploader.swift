@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-final class Uploader {
+final class Uploader: EntryNotifying {
     
     static let wrapUploader = Uploader(entityName: Wrap.entityName(), subuploaders: [candyUploader, messageUploader], limit: 3)
     
@@ -34,9 +34,9 @@ final class Uploader {
     private var runQueue = RunQueue()
     private lazy var uploadings: [Uploading] = self.prepareUploadings()
     
-    let didStart = BlockNotifier<Uploader>()
-    let didChange = BlockNotifier<Uploader>()
-    let didStop = BlockNotifier<Uploader>()
+    let didStart = Notifier<Uploader>()
+    let didChange = Notifier<Uploader>()
+    let didStop = Notifier<Uploader>()
     
     var isUploading: Bool = false {
         didSet {
@@ -174,15 +174,14 @@ final class Uploader {
             }
         }
     }
-}
-
-extension Uploader: EntryNotifying {
     
-    @objc func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
+    // MARK: - EntryNotifying
+    
+    func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
         return entry.valid
     }
     
-    @objc func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
+    func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
         
         guard let contribution = (entry as? Contribution) else { return }
         

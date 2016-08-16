@@ -19,7 +19,7 @@ class List<T: Equatable> {
     
     var entries = [T]()
     
-    let didChangeNotifier = BlockNotifier<List<T>>()
+    let didChangeNotifier = Notifier<List<T>>()
     
     internal func _add(entry: T) -> Bool {
         if !entries.contains(entry) {
@@ -93,9 +93,9 @@ protocol PaginatedListProtocol: BaseOrderedContainer {
     func newer(success: ([PaginatedEntryType] -> ())?, failure: FailureBlock?)
     func older(success: ([PaginatedEntryType] -> ())?, failure: FailureBlock?)
     var completed: Bool { get set }
-    var didChangeNotifier: BlockNotifier<List<PaginatedEntryType>> { get }
-    var didStartLoading: BlockNotifier<PaginatedList<PaginatedEntryType>> { get }
-    var didFinishLoading: BlockNotifier<PaginatedList<PaginatedEntryType>> { get }
+    var didChangeNotifier: Notifier<List<PaginatedEntryType>> { get }
+    var didStartLoading: Notifier<PaginatedList<PaginatedEntryType>> { get }
+    var didFinishLoading: Notifier<PaginatedList<PaginatedEntryType>> { get }
 }
 
 class PaginatedList<T: Equatable>: List<T>, PaginatedListProtocol {
@@ -106,9 +106,9 @@ class PaginatedList<T: Equatable>: List<T>, PaginatedListProtocol {
         self.entries = entries.sort(sorter)
     }
     
-    let didStartLoading = BlockNotifier<PaginatedList<T>>()
-    let didLoadEntries = BlockNotifier<[T]>()
-    let didFinishLoading = BlockNotifier<PaginatedList<T>>()
+    let didStartLoading = Notifier<PaginatedList<T>>()
+    let didLoadEntries = Notifier<[T]>()
+    let didFinishLoading = Notifier<PaginatedList<T>>()
     
     var completed: Bool = false {
         didSet {

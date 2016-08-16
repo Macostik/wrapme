@@ -51,9 +51,9 @@ final class CommentViewController: UIViewController {
     
     static weak var current: CommentViewController?
     
-    static let willAppear = BlockNotifier<CommentViewController>()
+    static let willAppear = Notifier<CommentViewController>()
     
-    static let willDisappear = BlockNotifier<CommentViewController>()
+    static let willDisappear = Notifier<CommentViewController>()
     
     private let name = Label(preset: .Small, weight: .Bold, textColor: UIColor.whiteColor())
     private let date = Label(preset: .Smaller, weight: .Regular, textColor: Color.grayLighter)

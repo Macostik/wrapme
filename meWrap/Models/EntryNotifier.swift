@@ -8,59 +8,86 @@
 
 import UIKit
 
-@objc enum EntryUpdateEvent: Int {
+enum EntryUpdateEvent: Int {
     case Default, ContentAdded, ContentChanged, ContentDeleted, ContributorsChanged, PreferencesChanged, LiveBroadcastsChanged, NumberOfUnreadMessagesChanged, InboxChanged, UserStatus
 }
 
-@objc protocol EntryNotifying {
-    optional func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool
-    
-    optional func notifier(notifier: EntryNotifier, shouldNotifyOnContainer container: Entry) -> Bool
-    
-    optional func notifier(notifier: EntryNotifier, didAddEntry entry: Entry)
-    
-    optional func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent)
-    
-    optional func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry)
-    
-    optional func notifier(notifier: EntryNotifier, willDeleteContainer container: Entry)
+protocol EntryNotifying: class {
+    func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool
+    func notifier(notifier: EntryNotifier, shouldNotifyOnContainer container: Entry) -> Bool
+    func notifier(notifier: EntryNotifier, didAddEntry entry: Entry)
+    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent)
+    func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry)
+    func notifier(notifier: EntryNotifier, willDeleteContainer container: Entry)
 }
 
-class EntryNotifier: Notifier {
+extension EntryNotifying {
+    func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool { return true }
+    func notifier(notifier: EntryNotifier, shouldNotifyOnContainer container: Entry) -> Bool { return true }
+    func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {}
+    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {}
+    func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {}
+    func notifier(notifier: EntryNotifier, willDeleteContainer container: Entry) {}
+}
+
+struct EntryNotifyingWrapper {
+    weak var receiver: EntryNotifying?
+}
+
+final class EntryNotifier {
     
-    let name: String
+    internal var receivers = [EntryNotifyingWrapper]()
     
-    required init(name: String) {
-        self.name = name
-        super.init()
+    func addReceiver(receiver: EntryNotifying) {
+        self.receivers = self.receivers.filter { $0.receiver != nil }
+        receivers.append(EntryNotifyingWrapper(receiver: receiver))
+    }
+    
+    func insertReceiver(receiver: EntryNotifying) {
+        self.receivers = self.receivers.filter { $0.receiver != nil }
+        receivers.insert(EntryNotifyingWrapper(receiver: receiver), atIndex: 0)
+    }
+    
+    func removeReceiver(receiver: EntryNotifying) {
+        if let index = receivers.indexOf({ $0.receiver === receiver }) {
+            receivers.removeAtIndex(index)
+        }
+    }
+    
+    func notify(@noescape enumerator: (receiver: EntryNotifying) -> Void) {
+        for wrapper in receivers {
+            if let receiver = wrapper.receiver {
+                enumerator(receiver: receiver)
+            }
+        }
     }
     
     private static var notifiers = [String : EntryNotifier]()
     
-    class func notifierForName(name: String) -> EntryNotifier {
+    static func notifierForName(name: String) -> EntryNotifier {
         if let notifier = EntryNotifier.notifiers[name] {
             return notifier
         } else {
-            let notifier = EntryNotifier(name: name)
+            let notifier = EntryNotifier()
             EntryNotifier.notifiers[name] = notifier
             return notifier
         }
     }
     
-    func notifyOnEntry(entry: Entry, @noescape block: AnyObject -> Void) {
+    func notifyOnEntry(entry: Entry, @noescape block: EntryNotifying -> Void) {
         notify { (receiver) -> Void in
-            if receiver.notifier?(self, shouldNotifyOnEntry: entry) ?? true {
+            if receiver.notifier(self, shouldNotifyOnEntry: entry) {
                 block(receiver)
             }
         }
     }
     
     func notifyOnAddition(entry: Entry) {
-        notifyOnEntry(entry) { $0.notifier?(self, didAddEntry: entry) }
+        notifyOnEntry(entry) { $0.notifier(self, didAddEntry: entry) }
     }
     
     func notifyOnUpdate(entry: Entry, event: EntryUpdateEvent) {
-        notifyOnEntry(entry) { $0.notifier?(self, didUpdateEntry: entry, event: event) }
+        notifyOnEntry(entry) { $0.notifier(self, didUpdateEntry: entry, event: event) }
     }
     
     func notifyOnDeleting(entry: Entry) {
@@ -69,19 +96,19 @@ class EntryNotifier: Notifier {
                 type.notifier().notifyOnDeletingContainer(entry)
             }
         }
-        notifyOnEntry(entry) { $0.notifier?(self, willDeleteEntry: entry) }
+        notifyOnEntry(entry) { $0.notifier(self, willDeleteEntry: entry) }
     }
     
     func notifyOnDeletingContainer(container: Entry) {
         notify { (receiver) -> Void in
-            if receiver.notifier?(self, shouldNotifyOnContainer: container) ?? true {
-                receiver.notifier?(self, willDeleteContainer: container)
+            if receiver.notifier(self, shouldNotifyOnContainer: container) {
+                receiver.notifier(self, willDeleteContainer: container)
             }
         }
     }
 }
 
-final class EntryNotifyReceiver<T: Entry>: NSObject, EntryNotifying {
+final class EntryNotifyReceiver<T: Entry>: EntryNotifying {
     var entry: (Void -> T?)?
     var container: (Void -> Entry?)?
     var shouldNotify: (T -> Bool)?
@@ -90,8 +117,7 @@ final class EntryNotifyReceiver<T: Entry>: NSObject, EntryNotifying {
     var willDelete: (T -> Void)?
     var willDeleteContainer: (Entry -> Void)?
     
-    override init() {
-        super.init()
+    init() {
         T.notifier().addReceiver(self)
     }
     
@@ -102,7 +128,7 @@ final class EntryNotifyReceiver<T: Entry>: NSObject, EntryNotifying {
     
     // MARK: - EntryNotifying
     
-    @objc func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
+    func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
         if let shouldNotify = shouldNotify {
             return shouldNotify(entry as! T)
         } else if let _container = self.container?() where _container != entry.container {
@@ -114,19 +140,19 @@ final class EntryNotifyReceiver<T: Entry>: NSObject, EntryNotifying {
         }
     }
     
-    @objc func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {
+    func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {
         didAdd?(entry as! T)
     }
     
-    @objc func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
+    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
         didUpdate?(entry as! T, event)
     }
     
-    @objc func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
+    func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
         willDelete?(entry as! T)
     }
     
-    @objc func notifier(notifier: EntryNotifier, shouldNotifyOnContainer container: Entry) -> Bool {
+    func notifier(notifier: EntryNotifier, shouldNotifyOnContainer container: Entry) -> Bool {
         if let _container = self.container?() where _container != container {
             return false
         } else {
@@ -134,7 +160,7 @@ final class EntryNotifyReceiver<T: Entry>: NSObject, EntryNotifying {
         }
     }
     
-    @objc func notifier(notifier: EntryNotifier, willDeleteContainer container: Entry) {
+    func notifier(notifier: EntryNotifier, willDeleteContainer container: Entry) {
         willDeleteContainer?(container)
     }
 }

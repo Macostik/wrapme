@@ -12,8 +12,8 @@ final class Keyboard {
     
     static let keyboard = Keyboard()
     
-    let willShow = BlockNotifier<Void>()
-    let willHide = BlockNotifier<Void>()
+    let willShow = Notifier<Void>()
+    let willHide = Notifier<Void>()
     
     var height: CGFloat = 0
     var animationDuration: NSTimeInterval = 0

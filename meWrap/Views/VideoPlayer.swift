@@ -79,11 +79,11 @@ final class VideoPlayer: UIView {
     
     private var paused = false
     
-    static let didBecomeUnmuted = BlockNotifier<VideoPlayer>()
+    static let didBecomeUnmuted = Notifier<VideoPlayer>()
     
-    static let pauseAll = BlockNotifier<Void>()
+    static let pauseAll = Notifier<Void>()
     
-    static let resumeAll = BlockNotifier<Void>()
+    static let resumeAll = Notifier<Void>()
     
     static func createPlayerView(muted: Bool = true) -> VideoPlayer {
         let playerView = VideoPlayer()

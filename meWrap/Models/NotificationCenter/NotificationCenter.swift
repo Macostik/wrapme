@@ -155,7 +155,7 @@ final class NotificationCenter: NSObject, EntryNotifying, PNObjectEventListener 
         return n
     }
     
-    let historyNotifier = BlockNotifier<NotificationCenter>()
+    let historyNotifier = Notifier<NotificationCenter>()
     
     var queryingHistory = false {
         didSet {

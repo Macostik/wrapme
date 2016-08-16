@@ -9,7 +9,7 @@
 import UIKit
 import CoreMotion
 
-class DeviceManager: BlockNotifier<UIDeviceOrientation> {
+class DeviceManager: Notifier<UIDeviceOrientation> {
     
     static let defaultManager = DeviceManager()
     

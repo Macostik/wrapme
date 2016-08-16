@@ -148,12 +148,7 @@ final class History: PaginatedList<HistoryItem>, EntryNotifying {
         }
     }
     
-    func itemWithCandy(candy: Candy?) -> HistoryItem? {
-        guard let candy = candy else { return nil }
-        return entries[{ $0.entries.contains(candy) }]
-    }
-    
-    @objc func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {
+    func notifier(notifier: EntryNotifier, didAddEntry entry: Entry) {
         guard let candy = entry as? Candy else { return }
         addCandy(candy)
         if let contributor = candy.contributor where contributor.current {
@@ -161,12 +156,12 @@ final class History: PaginatedList<HistoryItem>, EntryNotifying {
         }
     }
     
-    @objc func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
+    func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
         guard let candy = entry as? Candy else { return }
         removeCandy(candy)
     }
     
-    @objc func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
+    func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
         return wrap == entry.container
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WrapView: UIView {
+class WrapView: UIView, EntryNotifying {
     
     private let cover = ImageView(backgroundColor: UIColor.clearColor(), placeholder: ImageView.Placeholder.gray.photoStyle(16))
     

@@ -12,9 +12,7 @@ class CandyViewController: BaseViewController, EntryNotifying {
     
     weak var candy: Candy?
     
-    weak var historyViewController: HistoryViewController?
-    
-    internal let imageView = ImageView()
+    internal let imageView = ImageView(backgroundColor: UIColor.clearColor(), placeholder: ImageView.Placeholder(text: "t", size: 96, backgroundColor: UIColor.clearColor(), textColor: Color.grayLighter))
     internal let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
     internal lazy var errorLabel: Label = specify(Label(preset: .Small, weight: .Regular, textColor: UIColor.whiteColor())) { label in
         label.numberOfLines = 0
@@ -97,7 +95,9 @@ final class PhotoCandyViewController: CandyViewController, UIScrollViewDelegate 
         scrollView.bounces = false
         scrollView.bouncesZoom = false
         scrollView.backgroundColor = UIColor.blackColor()
+        scrollView.frame = view.bounds
         view.insertSubview(scrollView, belowSubview: spinner)
+        imageView.frame = scrollView.bounds
         scrollView.addSubview(imageView)
         scrollView.minimumZoomScale = 1
         scrollView.zoomScale = 1
@@ -154,6 +154,7 @@ final class VideoCandyViewController: CandyViewController {
         imageView.frame = view.bounds
         imageView.contentMode = .ScaleAspectFit
         imageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        imageView.backgroundColor = UIColor.blackColor()
         playerView.frame = view.bounds
         view.insertSubview(imageView, belowSubview: spinner)
         playerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
@@ -166,11 +167,6 @@ final class VideoCandyViewController: CandyViewController {
         view.add(playerView.spinner) { (make) in
             make.center.equalTo(view)
         }
-    }
-    
-    func toggleVolume() {
-        playerView.muted = !playerView.muted
-        historyViewController?.volumeButton.selected = !playerView.muted
     }
     
     override func viewDidAppear(animated: Bool) {

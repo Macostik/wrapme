@@ -98,11 +98,11 @@ final class ImageFetcher {
                         ImageCache.defaultCache.setImageData(data, uid: uid)
                         InMemoryImageCache.instance[uid] = image
                         Dispatch.mainQueue.async({
-                            result(image, false, response.result.error)
+                            result(image, false, nil)
                         })
                     })
                 } else {
-                    result(nil, false, nil)
+                    result(nil, false, response.result.error)
                 }
             })
         }

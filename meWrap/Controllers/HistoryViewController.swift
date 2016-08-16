@@ -709,7 +709,6 @@ final class HistoryViewController: SwipeViewController<CandyViewController>, Ent
         } else {
             let controller = candy.mediaType == .Video ? VideoCandyViewController() : PhotoCandyViewController()
             controller.candy = candy
-            controller.historyViewController = self
             cachedCandyViewControllers[candy] = controller
             return controller
         }

@@ -74,7 +74,7 @@ Copyright 2015 Google Inc.
 
 ## GoogleAnalytics
 
-Copyright 2015 Google Inc.
+Copyright 2016 Google
 
 ## GoogleNetworkingUtilities
 

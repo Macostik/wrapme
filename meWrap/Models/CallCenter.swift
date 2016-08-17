@@ -120,17 +120,26 @@ extension CallCenter: SINClientDelegate {
 extension CallCenter: SINCallClientDelegate {
     
     func client(client: SINCallClient!, didReceiveIncomingCall call: SINCall!) {
+        
         guard let sinch = sinch else { return }
         guard let call = call else { return }
         guard let audioController = sinch.audioController() else { return }
         guard let videoController = sinch.videoController() else { return }
         guard let user = User.entry(call.remoteUserId) where !user.current else { return }
-        user.fetchIfNeeded({ _ in
-            if let wrap = user.p2pWrap {
-                wrap.missedCallDate = NSDate()
-                wrap.numberOfMissedCalls = wrap.numberOfMissedCalls + 1
+        
+        if let wrap = user.p2pWrap {
+            wrap.missedCallDate = NSDate()
+            wrap.numberOfMissedCalls = wrap.numberOfMissedCalls + 1
+        }
+        
+        if let callView = UINavigationController.main.topViewController as? CallViewController {
+            if callView.call.state == .Established {
+                call.hangup()
+                return
             }
-            
+        }
+        
+        user.fetchIfNeeded({ _ in
             CallViewController(user: user, call: call, isVideo: call.details.videoOffered, audioController: audioController, videoController: videoController).present()
         }) { _ in
         }

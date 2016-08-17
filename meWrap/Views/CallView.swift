@@ -21,7 +21,7 @@ import CoreTelephony
 class CallViewController: UIViewController, SINCallDelegate {
     
     private let isVideo: Bool
-    private let call: SINCall
+    let call: SINCall
     private let user: User
     private let audioController: SINAudioController
     private let videoController: SINVideoController
